@@ -17,10 +17,10 @@
 define("DEFAULT_EMAIL","your@email.com");
 define("ATK14_ADMIN_EMAIL",DEFAULT_EMAIL); // the address for sending error reports and so on...
 
-define("ATK14_APPLICATION_NAME","ATK14 Catalog");
+define("ATK14_APPLICATION_NAME","ATK14 Eshop");
 define("ATK14_APPLICATION_DESCRIPTION","Yet another application running on ATK14 Framework");
 
-define("ATK14_HTTP_HOST",PRODUCTION ? "catalog.atk14.net" : "atk14catalog.localhost");
+define("ATK14_HTTP_HOST",PRODUCTION ? "eshop.atk14.net" : "atk14eshop.localhost");
 
 date_default_timezone_set('Europe/Prague');
 
