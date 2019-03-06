@@ -27,6 +27,9 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 	function getCard(){ return Cache::Get("Card",$this->getCardId()); }
 
+	function getVatRate(){ return Cache::Get("VatRate",$this->getVatRateId()); }
+	function getVatPercent(){ return $this->getVatRate()->getVatPercent(); }
+
 	function getCatalogId(){
 		$catalog_id = $this->g("catalog_id");
 		if($this->isDeleted()){
@@ -156,5 +159,11 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 	function getDevices() {
 		return $this->getDevicesLister()->getRecords();
+	}
+
+	function toHumanReadableString(){
+		$out = $this->getCatalogId();
+		$out .= ", ".$this->getName();
+		return $out;
 	}
 }

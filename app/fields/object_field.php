@@ -1,5 +1,6 @@
 <?php
 class ObjectField extends CharField{
+
 	function __construct($options = array()){
 		$options += array(
 			"class_name" => null,

@@ -1,7 +1,9 @@
 <?php
 defined("DEFAULT_PRICELIST_ID") || define("DEFAULT_PRICELIST_ID",1);
 
-class Pricelist extends ApplicationModel implements Rankable {
+class Pricelist extends ApplicationModel implements Translatable, Rankable {
+
+	static function GetTranslatableFields(){ return array("name"); }
 
 	function setRank($rank){
 		return $this->_setRank($rank);
@@ -55,5 +57,9 @@ class Pricelist extends ApplicationModel implements Rankable {
 
 	function getCurrency(){
 		return Currency::GetDefaultCurrency();
+	}
+
+	function isDeletable(){
+		return $this->getId()!=DEFAULT_PRICELIST_ID;
 	}
 }
