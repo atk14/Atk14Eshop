@@ -3,7 +3,7 @@ CREATE TABLE warehouses (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_warehouses'),
 	code VARCHAR(255),
 	--
-	applies_to_eshop BOOLEAN NOT NULL DEFAULT 't',
+	applicable_to_eshop BOOLEAN NOT NULL DEFAULT 't',
 	store_id INT,
 	--
 	rank INT NOT NULL DEFAULT 999,
@@ -20,7 +20,7 @@ CREATE TABLE warehouses (
 	CONSTRAINT fk_warehouses_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO warehouses (id,code,applies_to_eshop) VALUES(1,'default','t');
+INSERT INTO warehouses (id,code,applicable_to_eshop) VALUES(1,'default','t');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','cs','sklad e-shopu');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','en','warehouse of eshop');
 
