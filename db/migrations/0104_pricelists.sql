@@ -5,6 +5,8 @@ CREATE TABLE pricelists (
 	--
 	name VARCHAR(255) NOT NULL,
 	--
+	rank INT NOT NULL DEFAULT 999,
+	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
 	--
