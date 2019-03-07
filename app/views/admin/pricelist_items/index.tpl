@@ -4,7 +4,7 @@
 
 {if $finder->isEmpty()}
 
-	<p>{t}Nebyl nalezen ani jeden záznam.{/t}</p>
+	<p>{t}No record has been found.{/t}</p>
 
 {else}
 
@@ -13,10 +13,10 @@
 	<thead>
 		<tr>
 			<th></th>
-			{sortable key="catalog_id"}<th>{t}Kód produktu{/t}</th>{/sortable}
-			{sortable key="name"}<th>{t}Název produktu{/t}</th>{/sortable}
-			{sortable key="minimum_quantity"}<th>{t}Minimální množství{/t}</th>{/sortable}
-			{sortable key="price"}<th>{t}Cena{/t} [{$pricelist->getCurrency()}]</th>{/sortable}
+			{sortable key="catalog_id"}<th>{t}Catalog ID{/t}</th>{/sortable}
+			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
+			{sortable key="minimum_quantity"}<th>{t}Minimum quantity{/t}</th>{/sortable}
+			{sortable key="price"}<th>{t}Price{/t} [{$pricelist->getCurrency()}]</th>{/sortable}
 			<th></th>
 		</tr>
 	</thead>

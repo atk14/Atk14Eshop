@@ -59,16 +59,22 @@ class PricelistItemsController extends AdminController {
 	}
 
 	function _before_filter(){
+		$pricelist = null;
+
 		if(in_array($this->action,["index","create_new"])){
-			$this->_find("pricelist","pricelist_id");
+			$pricelist = $this->_find("pricelist","pricelist_id");
 		}
 
 		if($this->action=="edit"){
 			$item = $this->_find("pricelist_item");
 			if($item){
-				$this->pricelist = $this->tpl_data["pricelist"] = $item->getPricelist();
+				$pricelist = $this->pricelist = $this->tpl_data["pricelist"] = $item->getPricelist();
 				$this->tpl_data["product"] = $item->getProduct();
 			}
+		}
+
+		if($pricelist){
+			$this->breadcrumbs[] = [$pricelist->getName(),$this->_link_to(["action" => "pricelist_items/index", "pricelist_id" => $pricelist])];
 		}
 	}
 }
