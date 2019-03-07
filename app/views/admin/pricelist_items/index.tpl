@@ -13,7 +13,7 @@
 	<thead>
 		<tr>
 			<th></th>
-			{sortable key="catalog_id"}<th>{t}Catalog ID{/t}</th>{/sortable}
+			{sortable key="catalog_id"}<th>{t}Catalog number{/t}</th>{/sortable}
 			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
 			{sortable key="minimum_quantity"}<th>{t}Minimum quantity{/t}</th>{/sortable}
 			{sortable key="price"}<th>{t}Price{/t} [{$pricelist->getCurrency()}]</th>{/sortable}

@@ -21,12 +21,12 @@ CREATE TABLE warehouses (
 );
 
 INSERT INTO warehouses (id,code,applicable_to_eshop) VALUES(1,'default','t');
-INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','cs','sklad e-shopu');
-INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','en','warehouse of eshop');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','cs','e-shop');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('warehouses','1','name','en','eshop');
 
-CREATE SEQUENCE seq_warehouse_products;
-CREATE TABLE warehouse_products (
-	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_warehouse_products'),
+CREATE SEQUENCE seq_warehouse_items;
+CREATE TABLE warehouse_items (
+	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_warehouse_items'),
 	--
 	warehouse_id INT NOT NULL,
 	product_id INT NOT NULL,

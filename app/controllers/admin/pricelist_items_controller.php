@@ -4,7 +4,7 @@ class PricelistItemsController extends AdminController {
 	function index(){
 		$pricelist = $this->pricelist;
 
-		$this->page_title = sprintf(_("Ceny v ceníku %s"),$pricelist->getName());
+		$this->page_title = sprintf(_("Prices in pricelist %s"),$pricelist->getName());
 
 		$conditions = $bind_ar = [];
 
