@@ -165,6 +165,191 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $this->getDevicesLister()->getRecords();
 	}
 
+	function getCalculatedMinimumQuantityToOrder(){
+		return $this->roundQuantityToOrder($this->getMinimumQuantityToOrder());
+	}
+
+	/**
+	 * Po jakych krocich se da tato latka objednat...
+	 */
+	function getOrderQuantityStep(){
+		$step = $this->getUnit()->getQuantityStep();
+		$min = ceil($this->getMinimumQuantityToOrder() / $step) * $step;
+		return max($step, $min);
+	}
+
+	/**
+	 *
+	 * Nikdy nevrati null!
+	 * Vrati nejake vysoke cislo, pokud neni pocet omezen
+	 */
+	function getCalculatedMaximumQuantityToOrder(){
+		$max = $this->getMaximumQuantityToOrder();
+
+		if(is_null($max)){
+			$max = 999999;
+		}
+
+		$max = $this->roundQuantityToOrder($max, 'floor');
+
+		$min = $this->getCalculatedMinimumQuantityToOrder();
+		if($min && $min>$max){
+			$max = 0;
+		}
+
+		return $max;
+	}
+
+	function getCalculatedStandardQuantityToOrder(){
+		$INITIAL_FABRIC_LENGTH = 50;
+		$out = $this->roundQuantityToOrder($this->getMinimumQuantityToOrder());
+		if($this->getUnit()->getUnit()=="cm" && $out<$INITIAL_FABRIC_LENGTH){
+			$out = $this->roundQuantityToOrder($INITIAL_FABRIC_LENGTH, 'floor');
+			//$out = $INITIAL_FABRIC_LENGTH;
+		}
+		$max = $this->getCalculatedMaximumQuantityToOrder();
+		if($max) {
+			$out = min($max, $out);
+		}
+		$out = max( $this->getCalculatedMinimumQuantityToOrder(), $out);
+		return $out;
+	}
+
+	function roundQuantityToOrder($quantity, $fce = 'ceil') {
+		$step = $this->getOrderQuantityStep();
+		return $fce($quantity / $step) * $step;
+	}
+
+	function getMinimumQuantityToOrder(){
+		if($this->g("minimum_quantity_to_order")){
+			return $this->g("minimum_quantity_to_order");
+		}
+		$unit = $this->getUnit();
+		return $unit->getMinimumQuantityToOrder();
+	}
+
+	/**
+	 *
+	 * Implementacni poznamky:
+	 *
+	 * * null -> lze objednavat bez limitu
+	 * * tato funkce nikdy nevrati zaporne cislo
+	 * * vracena hodnota NERESPEKTUJE nejmensiho delitele, k tomu je funkce getCalculatedMaximumQuantityToOrder()
+	 *
+	 */
+	function getMaximumQuantityToOrder(){
+		if(!$this->getConsiderStockcount()){
+			// Skladova zasoba se v tomto pripade pri stanoveni max. mnozstvi neuvazuje
+			return null;
+		}
+		$stockcount = $this->getStockcount();
+		$hidden_stock_reserva = $this->getHiddenStockReserve();
+		$blocation = $this->getStockcountBlocation();
+
+		$out = $stockcount - $hidden_stock_reserva - $blocation;
+
+		return $out>0 ? $out : 0;
+	}
+
+	/**
+	 * Vrati skrytou skladovou zasobu pro tento produkt
+	 *
+	 * @return int
+	 */
+	function getHiddenStockReserve(&$lowest_offered_quantity = null){
+		static $CACHE = [];
+
+		$key = (string)$this->getId();
+
+		if(!array_key_exists($key,$CACHE)){
+			$ids_to_read = $this->_getIdsToPrereadData(array_keys($CACHE));
+
+			foreach($ids_to_read as $id){
+				$CACHE["$id"] = ["reserve" => 0, "lowest_offered_quantity" => 0];
+			}
+
+			$query = "
+				SELECT product_id, reserve, lowest_offered_quantity FROM (
+				SELECT
+					product_id,
+					reserve,
+					lowest_offered_quantity,
+					-1 AS distance
+				FROM
+					hidden_stock_reserves
+				WHERE
+					product_id IN :products
+				--
+				UNION
+				SELECT
+					products.id,
+					hidden_stock_reserves.reserve,
+					hidden_stock_reserves.lowest_offered_quantity,
+					v_card_categories.distance AS distance
+				FROM
+					products,
+					mv_card_categories AS v_card_categories,
+					hidden_stock_reserves
+				WHERE
+					products.id IN :products AND
+					v_card_categories.card_id=products.card_id AND
+					hidden_stock_reserves.category_id=v_card_categories.category_id AND
+					hidden_stock_reserves.unit_id=products.unit_id
+				)q ORDER BY distance DESC
+			";
+			$bind_ar = [
+				":products" => $ids_to_read,
+			];
+			$rows = $this->dbmole->selectRows($query,$bind_ar);
+
+			foreach($rows as $row){
+				// zaznam s mensim distance prepise pripadny predchozi zaznam
+				$CACHE[$row["product_id"]] = [
+					"reserve" => (int)$row["reserve"],
+					"lowest_offered_quantity" => (int)$row["lowest_offered_quantity"],
+				];
+			}
+		}
+
+		$lowest_offered_quantity = $CACHE[$key]["lowest_offered_quantity"];
+		return $CACHE[$key]["reserve"];
+	}
+
+	function getStockcountBlocation(){
+		static $CACHE = [];
+
+		$key = (string)$this->getId();
+
+		if(!array_key_exists($key,$CACHE)){
+			$ids_to_read = $this->_getIdsToPrereadData(array_keys($CACHE));
+
+			foreach($ids_to_read as $id){
+				$CACHE["$id"] = 0;
+			}
+
+			$query = "
+				SELECT
+					product_id,
+					SUM(stockcount) AS stockcount
+				FROM
+					v_stockcount_blocations
+				WHERE
+					product_id IN :products
+				GROUP BY product_id
+			";
+			$bind_ar = [
+				":products" => $ids_to_read,
+			];
+			$rows = $this->dbmole->selectRows($query,$bind_ar);
+
+			foreach($rows as $row){
+				$CACHE[$row["product_id"]] = (int)$row["stockcount"];
+			}
+		}
+
+		return $CACHE[$key];
+	}
+
 	function toHumanReadableString(){
 		$out = $this->getCatalogId();
 		$out .= ", ".$this->getName();
