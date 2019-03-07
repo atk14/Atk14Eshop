@@ -3,7 +3,7 @@
 			<div>
 				{$warehouse->getName()}
 			</div>
-			<div class="">
+			<div>
 				{dropdown_menu}
 					{a action="warehouse_items/index" warehouse_id=$warehouse}{!"list"|icon} {t}Warehouse status{/t}{/a}
 					{a action="edit" id=$warehouse}{!"pencil-alt"|icon} {t}Edit{/t}{/a}

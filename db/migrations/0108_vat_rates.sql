@@ -4,6 +4,7 @@ CREATE TABLE vat_rates (
 	code VARCHAR(255),
 	--
 	vat_percent NUMERIC(5,2) NOT NULL,
+	rank INT NOT NULL DEFAULT 999,
 	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
@@ -15,4 +16,8 @@ CREATE TABLE vat_rates (
 	CONSTRAINT fk_vatrates_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_vatrates_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
+
 INSERT INTO vat_rates (id,code,vat_percent) VALUES(1,'default',21.0);
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','1','name','cs','základní sazba DPH');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','1','name','en','standard VAT rate');
+
