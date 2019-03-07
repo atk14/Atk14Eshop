@@ -10,6 +10,8 @@
 
 </header>
 
+{render partial="add_to_basket"}
+
 {render partial="categories"}
 
 {render partial="shared/photo_gallery" object=$card}

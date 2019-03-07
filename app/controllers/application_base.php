@@ -11,6 +11,17 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $breadcrumbs;
 
+	/**
+	 * @var PriceFinder
+	 */
+	var $price_finder;
+
+	/**
+	 * @var Basket
+	 */
+	var $basket;
+
+
 	function error404(){
 		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
@@ -111,11 +122,19 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
 		}
 
+		$this->permanentSession = new Atk14Session( new SessionStorer([
+			'cookie_expiration' => 84600*356,
+			'session_name' => 'permanent'
+		]));
+
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
+
+		$basket = $this->_get_basket();
+		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
@@ -132,6 +151,62 @@ class ApplicationBaseController extends Atk14Controller{
 			$bar->addPanel(new TemplatesPanel());
 			$bar->addPanel(new MailPanel($this->mailer));
 		}
+	}
+
+	/**
+	 *
+	 *	$basket = $this->_get_basket();
+	 *	//
+	 *	$basket = $this->_get_basket(true);
+	 *	$basket = $this->_get_basket(["create_if_not_exists" => true]);
+	 */
+	function _get_basket($options = []){
+		if(is_bool($options)){
+			$options = [
+				"create_if_not_exists" => $options
+			];
+		}
+
+		$options += [
+			"create_if_not_exists" => false,
+			"user" => $this->logged_user,
+		];
+
+		$session = $this->permanentSession;
+		$user = $options["user"];
+		$session_key = "basket_id";
+
+		if($options["create_if_not_exists"] && $this->basket && $this->basket->isDummy() && $session && $session->cookiesEnabled()){
+			$this->basket = null;
+		}
+
+		if($this->basket && $this->basket->getUserId()===($user ? $user->getId() : null)){
+			return $this->basket;
+		}
+
+		$basket = null;
+		if($user){
+			$basket = Basket::FindFirst("user_id",$user);
+		}elseif($session && ($id = $session->g($session_key))){
+			$basket = Basket::FindFirst("id",$id,"user_id",null);
+		}
+
+		if(!$basket && $options["create_if_not_exists"] && $session && $session->cookiesEnabled()){
+			$basket = Basket::CreateNewRecord([
+				"user_id" => $user,
+			]);
+			if(!$user){
+				$session->s($session_key,$basket->getId());
+			}
+			return $basket;
+		}
+
+		if(!$basket){
+			$basket = Basket::GetDummyBasket();
+		}
+
+		$this->basket = $basket;
+		return $basket;
 	}
 
 	function _login_user($user,$options = array()){

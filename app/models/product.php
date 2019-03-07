@@ -34,7 +34,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		$catalog_id = $this->g("catalog_id");
 		if($this->isDeleted()){
 			// deleted-444-123/456789 -> 123/456789
-			$catalog_id = preg_replace('/^deleted-\d+-/','',$catalog_id);
+			$catalog_id = preg_replace('/^deleted-\d+-/','',$catalog_id);:
 		}
 		return $catalog_id;
 	}
@@ -119,6 +119,10 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 	function isClubItem() {
 		return $this->getIsClubItem()==true;
+	}
+
+	function getStockcount(){
+		return $this->dbmole->selectInt("SELECT SUM(warehouse_items.stockcount) FROM warehouses,warehouse_items WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id=:product",[":product" => $this]);
 	}
 
 	/**

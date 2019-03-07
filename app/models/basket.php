@@ -8,14 +8,11 @@ class Basket extends BasketOrOrder {
 	static function CreateNewRecord($values,$options = []){
 		$values += [
 			"user_id" => null,
-			"region_id" => Region::GetDefaultRegion(),
 			"currency_id" => null,
 		];
 
-		$region = is_object($values["region_id"]) ? $values["region_id"] : Cache::Get("Region",$values["region_id"]);
-
 		if(is_null($values["currency_id"])){
-			$values["currency_id"] = $region->getDefaultCurrency();
+			$values["currency_id"] = Currency::GetDefaultCurrency();
 		}
 
 		if(!is_null($values["user_id"])){
@@ -30,7 +27,7 @@ class Basket extends BasketOrOrder {
 			}
 
 			// Dorucovaci adresa
-			if($da = DeliveryAddress::GetMostRecentRecord($user,$region)){
+			if($da = DeliveryAddress::GetMostRecentRecord($user)){
 				foreach(self::GetAddressFields(["phone" => true, "note" => true]) as $k => $req){
 					$values["delivery_$k"] = $da->g("$k");
 				}
@@ -44,14 +41,12 @@ class Basket extends BasketOrOrder {
 		return parent::CreateNewRecord($values,$options);
 	}
 
-	static function GetDummyBasket($region = null){
-		if(!$region){ $region = Region::GetDefaultRegion(); }
+	static function GetDummyBasket(){
 		$basket = Cache::Get("Basket",self::ID_DUMMY);
 
 		$out = clone($basket);
 		$out->setValuesVirtually([
-			"region_id" => $region->getId(),
-			"currency_id" => $region->getDefaultCurrency()->getId()
+			"currency_id" => Currency::GetDefaultCurrency()->getId(),
 		]);
 
 		return $out;
