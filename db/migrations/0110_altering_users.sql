@@ -6,5 +6,5 @@ ALTER TABLE users ADD CONSTRAINT fk_users_base_pricelists FOREIGN KEY (base_pric
 
 ALTER SEQUENCE seq_users RESTART WITH 101;
 
--- not registered user
-INSERT INTO users (login,password,name,pricelist_id,base_pricelist_id) VALUES('not_registered',null,'not registered user',1,2);
+-- anonymous, not registered user
+INSERT INTO users (login,password,name,pricelist_id,base_pricelist_id) VALUES('anonymous',null,'anonymous user',1,2);
