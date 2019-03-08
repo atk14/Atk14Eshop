@@ -5,9 +5,11 @@ class SuggestionsController extends ApiController{
 	 * ### Suggestion of Product Cards
 	 */
 	function cards(){
+		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=cards.id AND key='name' AND lang='$this->lang')";
+		$_catalog_id = "(SELECT catalog_id FROM products WHERE card_id=cards.id)";
 		$this->_suggest(array(
-			"fields" => array("id","name"),
-			"order_by" => "id",
+			"fields" => array("id",$_name,$_catalog_id),
+			"order_by" => "id::VARCHAR=:q DESC, UPPER(COALESCE($_name,'_____')) LIKE UPPER(:q)||'%' DESC, UPPER($_catalog_id) LIKE UPPER(:q)||'%' DESC, $_name, id",
 
 			"conditions" => array(
 				"deleted='f'",
@@ -23,6 +25,21 @@ class SuggestionsController extends ApiController{
 		$this->_suggest(array(
 			"fields" => array("key"),
 			"order_by" => "key LIKE :q||'%' DESC, LOWER(key) LIKE LOWER(key)||'%' DESC, LOWER(key), key",
+		));
+	}
+
+	/**
+	 * ### Suggestion of Products
+	 */
+	function products(){
+		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=products.card_id AND key='name' AND lang='$this->lang')";
+		$this->_suggest(array(
+			"fields" => array("catalog_id",$_name),
+			"order_by" => "UPPER(COALESCE($_name,'_____')) LIKE UPPER(:q)||'%' DESC, UPPER(catalog_id) LIKE UPPER(:q)||'%' DESC, $_name, catalog_id",
+			"conditions" => array(
+				"deleted='f'",
+				//"visible='t'", // toto nechceme omezovat
+			)
 		));
 	}
 
