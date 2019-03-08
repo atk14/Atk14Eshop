@@ -69,6 +69,10 @@ class AdminController extends ApplicationBaseController{
 
 	function _add_category_to_breadcrumbs($category){
 		if(!$category){ return; }
+
+		$root = $category->getRootCategory();
+		$this->breadcrumbs[] = array(_("Category tree"),$this->_link_to(array("action" => "category_trees/detail", "id" => $root)));
+
 		// breadcrumbs
 		$ancestors = array();
 		$c = $category;
@@ -80,7 +84,7 @@ class AdminController extends ApplicationBaseController{
 		$ancestors[] = $category;
 		foreach($ancestors as $a){
 			$name = $a->getName();
-			if($a->isFilter()){ $name = _("filtr").": $name"; }
+			if($a->isFilter()){ $name = _("filter").": $name"; }
 			if($a->isAlias()){ $name = _("alias").": $name"; }
 
 			$this->breadcrumbs[] = array(
