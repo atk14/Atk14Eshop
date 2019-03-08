@@ -7,6 +7,8 @@
  */
 class User extends ApplicationModel{
 
+	const ID_NOT_REGISTERED = 2; // see db/migrations/0110_altering_users.sql
+
 	/**
 	 * Returns user when a correct combination of login and password is given.
 	 * 
