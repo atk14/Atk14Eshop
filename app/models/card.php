@@ -151,7 +151,13 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 	}
 
 	function getOrderableProducts($price_finder = null){
-		
+		$products = [];
+		foreach($this->getProducts() as $product){
+			if($product->canBeOrdered($price_finder)){
+				$products[] = $product;
+			}
+		}
+		return $products;
 	}
 
 

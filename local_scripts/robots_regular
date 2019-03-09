@@ -7,6 +7,4 @@
 cd $(dirname $0)
 cd ..
 
-# ./scripts/robot_runner do_something
-# ./scripts/robot_runner do_something_another
-# etc.
+./scripts/robot_runner refresh_mv_card_categories_robot.php

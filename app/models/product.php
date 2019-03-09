@@ -338,6 +338,14 @@ class Product extends ApplicationModel implements Translatable,Rankable{
    *  $product->canBeOrdered(["amount" => 10]); // muze byt objednan v mnozstvi 10 ks?
 	 */
 	function canBeOrdered($options = []) {
+		if(is_a($options,"PriceFinder")){
+			$options = ["price_finder" => $options]; 
+		}
+
+		if(is_null($options)){
+			$options = [];
+		}
+
 		$options += [
 			"amount" => null,
 			"price_finder" => null,
@@ -385,6 +393,17 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	function toHumanReadableString(){
 		$out = $this->getCatalogId();
 		$out .= ", ".$this->getName();
+		return $out;
+	}
+
+	protected function _getIdsToPrereadData($already_read_ids = []){
+		$out = [$this->getId()];
+		foreach(Cache::CachedIds(get_class($this)) as $id){
+			if($id == $this->getId()){ continue; }
+			if(in_array($id,$already_read_ids)){ continue; }
+			$out[] = $id;
+			if(sizeof($out)>=TABLERECORD_MAX_NUMBER_OF_RECORDS_READ_AT_ONCE){ return $out; }
+		}
 		return $out;
 	}
 }

@@ -7,7 +7,9 @@ class CardsController extends ApplicationController{
 		}
 
 		$this->page_title = $card->getName();
+
 		$this->tpl_data["products"] = $product = $card->getProducts();
+		$this->tpl_data["orderable_products"] = $card->getOrderableProducts();
 
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false));
 

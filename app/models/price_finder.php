@@ -43,6 +43,8 @@ class PriceFinder {
 	}
 
 	/**
+	 * 
+	 *
 	 *	$price = $price_finder->getPrice
 	 */
 	function getPrice($product,$amount = null,$options = []){
@@ -60,6 +62,25 @@ class PriceFinder {
 			return null;
 		}
 		return $price;
+	}
+
+	/**
+	 * Searches for the lowest price of a product on this card
+	 *
+	 *	$price = $price_finder->getStartingPrice($card);
+	 */
+	function getStartingPrice($card){
+		$lowest_unit_price = null;
+		$starting_price = null;
+		foreach($card->getProducts() as $product){
+			$price = $this->getPrice($product);
+			if(!$price){ continue; }
+			if(is_null($lowest_unit_price) || $lowest_unit_price<$price->getUnitPrice()){
+				$starting_price = $price;
+				$lowest_unit_price = $price->getUnitPrice();
+			}
+		}
+		return $lowest_unit_price;
 	}
 
 	function getCurrency(){ return $this->currency; }
