@@ -150,6 +150,11 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 		}
 	}
 
+	function getOrderableProducts($price_finder = null){
+		
+	}
+
+
 	function toHumanReadableString(){
 		return $this->getName();
 	}

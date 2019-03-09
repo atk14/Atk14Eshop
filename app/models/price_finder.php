@@ -7,7 +7,7 @@ class PriceFinder {
 	protected $pricelist;
 	protected $dbmole;
 
-	static $PriceFinders=[];
+	static $PriceFinders = [];
 
 	protected function __construct($user,$currency = null,$current_date = null){
 		$this->user = $user;
@@ -25,6 +25,9 @@ class PriceFinder {
 	}
 
 	static function GetInstance($user = null,$currency = null,$current_date = null){
+		if(!$user){
+			$user = User::GetAnonymousUser();
+		}
 		if(!$currency){
 			$currency = Currency::GetDefaultCurrency();
 		}
@@ -70,7 +73,6 @@ class PriceFinder {
 	}
 
 	function getPriceDataFor($ids, $options) {
-
 		$rows = $this->dbmole->selectRows("SELECT product_id,price,minimum_quantity FROM pricelist_items WHERE pricelist_id=:pricelist AND product_id IN :product ORDER BY product_id, minimum_quantity DESC, price ASC",[
 			":product" => $ids,
 			":pricelist" => $this->pricelist

@@ -270,6 +270,11 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $CACHE[$key]["reserve"];
 	}
 
+	function getStockcount(){
+		$out = $this->dbmole->selectInt("SELECT SUM(warehouse_items.stockcount) FROM warehouses,warehouse_items WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id=:product",[":product" => $this]);
+		return (int)$out;
+	}
+
 	function getStockcountBlocation(){
 		static $CACHE = [];
 
@@ -303,6 +308,78 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		}
 
 		return $CACHE[$key];
+	}
+
+	/**
+	 * Uvazuje se u tohoto produktu skladova zasoba?
+	 */
+	function considerStockcount(){
+		return $this->g("consider_stockcount");
+	}
+
+	/**
+	 * Uvazuji se u tohoto produktu pripadne mnozstevni slevy?
+	 *
+	 * Je lhostejno zda produkt mnozstevni slevy v ceniku ma nebo nema.
+	 */
+	function quantityDiscountsEnabled(){
+		if(!$this->considerStockcount()){
+			return true;
+		}
+
+		$unit = $this->getUnit();
+		return $this->getStockcount()>=$unit->getMinimumStockcountForQuantityDiscounts();
+	}
+
+	/**
+	 * Can be this product ordered?
+   *
+	 * 	$produkt->canBeOrdered();
+   *  $product->canBeOrdered(["amount" => 10]); // muze byt objednan v mnozstvi 10 ks?
+	 */
+	function canBeOrdered($options = []) {
+		$options += [
+			"amount" => null,
+			"price_finder" => null,
+		];
+
+		$amount = $options["amount"];
+		$price_finder = $options["price_finder"];
+
+		$card = $this->getCard();
+
+		if(
+			!$this->isVisible() || $this->isDeleted() ||
+			!$card->isVisible() || $card->isDeleted()
+		){
+			return false;
+		}
+
+		$max = $this->getCalculatedMaximumQuantityToOrder();
+		$min = $this->getCalculatedMinimumQuantityToOrder();
+
+		if(isset($amount)){
+			if($amount<$min){ return false; }
+			if(isset($max) && $amount>$max){ return false; }
+		}
+
+		if($price_finder && !$price_finder->getPrice($this)){
+			return false;
+		}
+
+		if(is_null($max)){
+			return true;
+		}
+
+		if($max<=0){
+			return false;
+		}
+
+		if($max && $max < $min) {
+			return false;
+		}
+
+		return true;
 	}
 
 	function toHumanReadableString(){

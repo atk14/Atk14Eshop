@@ -1,0 +1,4 @@
+min_tea:
+  pricelist_id: 1
+  product_id: "<?=$products["mint_tea"]->getId()?>"
+  price: 20.00
