@@ -75,12 +75,12 @@ class PriceFinder {
 		foreach($card->getProducts() as $product){
 			$price = $this->getPrice($product);
 			if(!$price){ continue; }
-			if(is_null($lowest_unit_price) || $lowest_unit_price<$price->getUnitPrice()){
+			if(is_null($lowest_unit_price) || $lowest_unit_price>$price->getUnitPrice()){
 				$starting_price = $price;
 				$lowest_unit_price = $price->getUnitPrice();
 			}
 		}
-		return $lowest_unit_price;
+		return $starting_price;
 	}
 
 	function getCurrency(){ return $this->currency; }

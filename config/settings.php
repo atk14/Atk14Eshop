@@ -32,6 +32,8 @@ define("CATALOG_ID_AUTO_UPPERIZE",true);
 define("USING_BOOTSTRAP4",true);
 define("USING_FONTAWESOME",true);
 
+define("INTERNAL_PRICE_DECIMALS",6);
+
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info

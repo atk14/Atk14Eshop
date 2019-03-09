@@ -10,7 +10,7 @@
 
 </header>
 
-{render partial="add_to_basket"}
+{render partial="products_to_basket"}
 
 {render partial="categories"}
 

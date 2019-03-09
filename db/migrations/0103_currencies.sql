@@ -4,8 +4,8 @@ CREATE TABLE currencies (
 	code CHAR(3) NOT NULL,
 	decimals INT DEFAULT 2 NOT NULL,
 	decimals_summary INT NOT NULL,
-	lowest_price NUMERIC(12,4) DEFAULT 0.01 NOT NULL,
-	lowest_order_price NUMERIC(12,4) DEFAULT 0.01 NOT NULL,
+	lowest_price NUMERIC(20,6) DEFAULT 0.01 NOT NULL,
+	lowest_order_price NUMERIC(20,6) DEFAULT 0.01 NOT NULL,
 	--
 	CONSTRAINT unq_currencies_code UNIQUE (code)
 );

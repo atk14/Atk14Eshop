@@ -95,14 +95,14 @@ CREATE TABLE orders (
 	note TEXT,
 	--
 	delivery_method_id INTEGER NOT NULL,
-	delivery_fee NUMERIC(12,4) NOT NULL,
-	delivery_fee_incl_vat NUMERIC(12,4) NOT NULL,
+	delivery_fee NUMERIC(20,6) NOT NULL,
+	delivery_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--
 	payment_method_id INTEGER NOT NULL,
-	payment_fee NUMERIC(12,4) NOT NULL,
-	payment_fee_incl_vat NUMERIC(12,4) NOT NULL,
+	payment_fee NUMERIC(20,6) NOT NULL,
+	payment_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--
-	price_to_pay NUMERIC(12,4) NOT NULL,
+	price_to_pay NUMERIC(20,6) NOT NULL,
 	--
 	-- akt. stav objednavky
 	order_status_id INT NOT NULL,
@@ -141,8 +141,8 @@ CREATE TABLE order_items (
 	--
 	product_id INT NOT NULL,
 	amount INT NOT NULL,
-	unit_price NUMERIC(12,4) NOT NULL,
-	vat_percent NUMERIC(12,4) NOT NULL,
+	unit_price NUMERIC(20,6) NOT NULL,
+	vat_percent NUMERIC(5,2) NOT NULL,
 	rank INT NOT NULL DEFAULT 999,
 	--
 	created_at TIMESTAMP DEFAULT now() NOT NULL,
