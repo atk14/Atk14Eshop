@@ -6,7 +6,7 @@ class SuggestionsController extends ApiController{
 	 */
 	function cards(){
 		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=cards.id AND key='name' AND lang='$this->lang')";
-		$_catalog_id = "(SELECT catalog_id FROM products WHERE card_id=cards.id)";
+		$_catalog_id = "(SELECT STRING_AGG(catalog_id,' ') FROM products WHERE card_id=cards.id AND NOT deleted)";
 		$this->_suggest(array(
 			"fields" => array("id",$_name,$_catalog_id),
 			"order_by" => "id::VARCHAR=:q DESC, UPPER(COALESCE($_name,'_____')) LIKE UPPER(:q)||'%' DESC, UPPER($_catalog_id) LIKE UPPER(:q)||'%' DESC, $_name, id",
