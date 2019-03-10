@@ -13,6 +13,7 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 			<ul class="navbar-nav">
+				<li class="nav-item"><a href="{link_to namespace="" action="baskets/edit"}" class="nav-link">{t}Basket{/t}{if !$basket->isEmpty()} <span class="badge badge-primary">{$basket->getItems()|sizeof}</span>{/if}</a></li>
 				{if $logged_user}
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 					<li class="nav-item dropdown">
@@ -34,7 +35,7 @@
 				<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{t}Sign in{/t}</a></li>
 				<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
 			{/if}
-				{render partial="shared/langswitch_navbar"}
+			{render partial="shared/langswitch_navbar"}
 			</ul>
 		</div>
 	</div>

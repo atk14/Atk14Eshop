@@ -93,6 +93,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 		$this->tpl_data["current_language"] = $current_language;
 		$this->tpl_data["supported_languages"] = $languages;
+		$this->tpl_data["basket"] = $basket = $this->_get_basket();
 
 		// It's better to write
 		//	{$val|default:$mdash}
