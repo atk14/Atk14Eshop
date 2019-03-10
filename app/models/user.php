@@ -18,6 +18,7 @@ class User extends ApplicationModel{
 		$bad_password = false;
 	  $user = User::FindByLogin($login);
 		if(!$user){ return; }
+		if(!$user->isActive()){ return; }
 	  if($user->isPasswordCorrect($password)){
 			return $user;
 		}
@@ -69,6 +70,8 @@ class User extends ApplicationModel{
 	function isAdmin(){ return $this->getIsAdmin(); }
 
 	function toString(){ return $this->getLogin(); }
+
+	function isActive(){ return $this->g("active"); }
 
 	function isDeletable(){ return $this->getId()!=1; }
 }
