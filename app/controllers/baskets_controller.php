@@ -80,7 +80,7 @@ class BasketsController extends ApplicationController {
 		if(!$basket->isEmpty()){
 			return $this->_redirect_to("edit");
 		}
-		$this->page_title = $this->breadcrumbs[] = _("Nákupní košík");
+		$this->page_title = $this->breadcrumbs[] = _("Shopping basket");
 	}
 
 	function add_product(){
@@ -122,7 +122,7 @@ class BasketsController extends ApplicationController {
 	}
 
 	function product_added(){
-		$this->breadcrumbs[] = [_("Nákupní košík"),"index"];
+		$this->breadcrumbs[] = [_("Shopping basket"),"index"];
 		$this->page_title = $this->breadcrumbs[] = _("Produkt byl přidán do košíku");
 	}
 

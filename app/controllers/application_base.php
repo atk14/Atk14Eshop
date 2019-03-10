@@ -437,6 +437,12 @@ class ApplicationBaseController extends Atk14Controller{
 		return $this->_redirect_to($return_uri);
 	}
 
+	function _prepare_basket_edit_form($basket,$form){
+		$form->set_action($this->_link_to(["namespace" => "", "action" => "baskets/edit"]));
+		$form->set_up_for_basket($basket);
+		return $form;
+	}
+
 	/**
 	 * Prepares a object for the current action
 	 *
