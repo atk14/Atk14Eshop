@@ -2,6 +2,7 @@
 class CreatingCatalogCategoryMigration extends ApplicationMigration {
 
 	function up(){
+		if(TEST){ return; }
 		$catalog = Category::CreateNewRecord([
 			"code" => "catalog",
 			"name_en" => "Catalog",
