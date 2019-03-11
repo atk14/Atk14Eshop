@@ -33,7 +33,6 @@ class BasketOrOrder extends ApplicationModel {
 		if($options["phone"]){
 			$fields += [
 				"{$prefix}phone" => false,
-				"{$prefix}phone_mobile" => false,
 			];
 		}
 

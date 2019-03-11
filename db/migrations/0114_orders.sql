@@ -76,7 +76,6 @@ CREATE TABLE orders (
 	address_country CHAR(2),
 	address_note TEXT,
 	phone VARCHAR(255),
-	phone_mobile VARCHAR(255),
 	--
 	-- dorucovaci adresa
 	delivery_firstname VARCHAR(255),
@@ -89,7 +88,6 @@ CREATE TABLE orders (
 	delivery_address_country CHAR(2),
 	delivery_address_note TEXT,
 	delivery_phone VARCHAR(255),
-	delivery_phone_mobile VARCHAR(255),
 	--
 	-- poznamka k objednavce
 	note TEXT,
