@@ -19,6 +19,7 @@ class BasketOrOrder extends ApplicationModel {
 			"{$prefix}address_street" => true,
 			"{$prefix}address_street2" => false,
 			"{$prefix}address_city" => true,
+			"{$prefix}address_state" => false,
 			"{$prefix}address_zip" => true,
 			"{$prefix}address_country" => true,
 		];
@@ -111,6 +112,10 @@ class BasketOrOrder extends ApplicationModel {
 
 	function getDeliveryAddressCity(){
 		return $this->_getDelivery("address_city");
+	}
+
+	function getDeliveryAddressState(){
+		return $this->_getDelivery("address_state");
 	}
 
 	function getDeliveryAddressZip(){

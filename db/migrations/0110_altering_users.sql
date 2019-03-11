@@ -18,6 +18,7 @@ ALTER TABLE users ADD vat_id VARCHAR(255);
 ALTER TABLE users ADD address_street VARCHAR(255);
 ALTER TABLE users ADD address_street2 VARCHAR(255);
 ALTER TABLE users ADD address_city VARCHAR(255);
+ALTER TABLE users ADD address_state VARCHAR(255);
 ALTER TABLE users ADD address_zip VARCHAR(255);
 ALTER TABLE users ADD address_country CHAR(2);
 ALTER TABLE users ADD phone VARCHAR(255);

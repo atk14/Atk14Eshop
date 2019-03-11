@@ -10,6 +10,7 @@ CREATE TABLE delivery_addresses (
 	address_street VARCHAR(255),
 	address_street2 VARCHAR(255),
 	address_city VARCHAR(255),
+	address_state VARCHAR(255),
 	address_zip VARCHAR(255),
 	address_country CHAR(2),
 	address_note TEXT,
