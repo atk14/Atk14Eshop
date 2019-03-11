@@ -3,6 +3,7 @@ CREATE TABLE baskets (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_baskets'),
 	--
 	user_id INT, -- pro ononymniho uzivatele tu bude null
+	region_id INT NOT NULL,
 	currency_id INT NOT NULL,
 	--
 	firstname VARCHAR(255),
@@ -46,11 +47,13 @@ CREATE TABLE baskets (
 	updated_at TIMESTAMP,
 	--
 	CONSTRAINT fk_baskets_users FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE,
+	CONSTRAINT fk_baskets_regions FOREIGN KEY (region_id) REFERENCES regions,
 	CONSTRAINT fk_baskets_currencies FOREIGN KEY (currency_id) REFERENCES currencies,
 	CONSTRAINT fk_baskets_deliverytypes FOREIGN KEY (delivery_method_id) REFERENCES delivery_methods,
-	CONSTRAINT fk_baskets_paymenttypes FOREIGN KEY (payment_method_id) REFERENCES payment_methods
+	CONSTRAINT fk_baskets_paymenttypes FOREIGN KEY (payment_method_id) REFERENCES payment_methods,
+	CONSTRAINT unq_baskets_userid_regionid UNIQUE (user_id,region_id)
 );
-INSERT INTO baskets (id,currency_id) VALUES(1,1); -- dummy basket
+INSERT INTO baskets (id,region_id,currency_id) VALUES(1,1,1); -- dummy basket
 
 CREATE SEQUENCE seq_basket_items;
 CREATE TABLE basket_items (

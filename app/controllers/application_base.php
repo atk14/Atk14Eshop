@@ -2,6 +2,11 @@
 class ApplicationBaseController extends Atk14Controller{
 
 	/**
+	 * @var Region
+	 */
+	var $current_region;
+
+	/**
 	 * @var User
 	 */
 	var $logged_user;
@@ -94,6 +99,8 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->tpl_data["current_language"] = $current_language;
 		$this->tpl_data["supported_languages"] = $languages;
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
+		$this->tpl_data["current_region"] = $basket->getRegion();
+		$this->tpl_data["current_currency"] = $basket->getCurrency();	
 
 		// It's better to write
 		//	{$val|default:$mdash}
@@ -103,6 +110,9 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_before_filter(){
+		// Nastavime do maileru akt. region
+		$this->mailer->current_region = $this->current_region;
+
 		$this->response->setContentType("text/html");
 		$this->response->setContentCharset(DEFAULT_CHARSET);
 		$this->response->setHeader("Cache-Control","private, max-age=0, must-revalidate");
@@ -154,6 +164,17 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
+	function _get_current_region(){
+		if($region = Region::GetRegionByDomain($this->request->getHttpHost())){
+			return $region;
+		}
+		$region_id = $this->session->g("region_id");
+		if(isset($region_id) && ($region = Cache::Get("Region",$region_id))){
+			return $region;
+		}
+		return Region::GetDefaultRegion();
+	}
+
 	/**
 	 *
 	 *	$basket = $this->_get_basket();
@@ -171,11 +192,13 @@ class ApplicationBaseController extends Atk14Controller{
 		$options += [
 			"create_if_not_exists" => false,
 			"user" => $this->logged_user,
+			"region" => $this->_get_current_region(),
 		];
 
 		$session = $this->permanentSession;
 		$user = $options["user"];
-		$session_key = "basket_id";
+		$region = $options["region"];
+		$session_key = "basket_id/region=".$region->getId(); // "basket_id/region=1"
 
 		if($options["create_if_not_exists"] && $this->basket && $this->basket->isDummy() && $session && $session->cookiesEnabled()){
 			$this->basket = null;
@@ -187,7 +210,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$basket = null;
 		if($user){
-			$basket = Basket::FindFirst("user_id",$user);
+			$basket = Basket::FindFirst("user_id",$user,"region_id",$region);
 		}elseif($session && ($id = $session->g($session_key))){
 			$basket = Basket::FindFirst("id",$id,"user_id",null);
 		}
@@ -195,6 +218,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!$basket && $options["create_if_not_exists"] && $session && $session->cookiesEnabled()){
 			$basket = Basket::CreateNewRecord([
 				"user_id" => $user,
+				"region_id" => $region
 			]);
 			if(!$user){
 				$session->s($session_key,$basket->getId());
@@ -203,7 +227,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket){
-			$basket = Basket::GetDummyBasket();
+			$basket = Basket::GetDummyBasket($region);
 		}
 
 		$this->basket = $basket;
@@ -214,6 +238,15 @@ class ApplicationBaseController extends Atk14Controller{
 		$options += array(
 			"fake_login" => false,
 		);
+
+		if(!$options["fake_login"]){
+			$current_basket = $this->_get_basket();
+			if($current_basket && !$current_basket->isEmpty()){
+				$new_basket = $this->_get_basket(["user" => $user, "create_if_not_exists" => true]);
+				$new_basket->mergeBasket($current_basket);
+			}
+			$current_basket && !$current_basket->isDummy() && $current_basket->destroy();
+		}
 
 		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";
 		$this->session->s($key,$user->getId());

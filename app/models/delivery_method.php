@@ -1,6 +1,8 @@
 <?php
 class DeliveryMethod extends ApplicationModel implements Rankable, Translatable {
 
+	use TraitRegions;
+
 	/**
 	 * - label - zobrazi se v nazvu option ve formulari
 	 * - title - zahlavi v napovede
