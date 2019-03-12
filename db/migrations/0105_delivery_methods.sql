@@ -8,7 +8,7 @@ CREATE TABLE delivery_methods (
 	price NUMERIC(20,6) NOT NULL DEFAULT 0.0,
 	price_incl_vat NUMERIC(20,6) NOT NULL DEFAULT 0.0,
 	active BOOLEAN NOT NULL DEFAULT TRUE,
-	personal_pickup BOOLEAN NOT NULL DEFAULT false,
+	personal_pickup BOOLEAN NOT NULL DEFAULT FALSE,
 	store_id INT, -- personal_pickup on this store
 	--
 	rank INT NOT NULL DEFAULT 999,
