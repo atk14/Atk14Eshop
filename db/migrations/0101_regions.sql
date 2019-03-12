@@ -5,7 +5,7 @@ CREATE TABLE regions (
 	--
 	name VARCHAR(255),
 	email VARCHAR(255),
-	domains JSON,
+	domains JSON, -- ['example.com','www.example.com']
 	languages JSON, -- ['cs','sk']
 	currencies JSON, -- ['CZK','EUR']
 	delivery_countries JSON, -- ['CZ','SK']
@@ -22,4 +22,4 @@ CREATE TABLE regions (
 	CONSTRAINT fk_regison_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO regions (code,name,domains,languages,currencies,delivery_countries) VALUES ('CR','Czech Republic','[]','["cs","en"]','["CZK"]','["CZ"]');
+INSERT INTO regions (code,name,domains,languages,currencies,delivery_countries) VALUES ('CZ','Czech Republic','[]','["cs","en"]','["CZK"]','["CZ"]');
