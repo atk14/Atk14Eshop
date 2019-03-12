@@ -1,12 +1,12 @@
 CREATE SEQUENCE seq_campaigns;
 CREATE TABLE campaigns (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_campaigns'),
+	regions JSON,
 	active BOOLEAN NOT NULL DEFAULT TRUE,
 	--
 	-- podminky kampane
-	region_id INT NOT NULL,
 	user_registration_required BOOLEAN NOT NULL DEFAULT FALSE,
-	minimal_items_price_incl_vat NUMERIC(12,4) NOT NULL, -- cena bez shipping poplatku
+	minimal_items_price_incl_vat NUMERIC(20,6) NOT NULL, -- cena bez shipping poplatku
 	delivery_method_id INT, -- vztahuje se pouze na dopravu
 	--
 	-- co zakaznik ziskava
@@ -38,10 +38,23 @@ CREATE TABLE order_campaigns (
 	order_id INTEGER NOT NULL,
 	campaign_id INTEGER NOT NULL,
 	-- ke kampanim u objednavky si musime poznacit i slevu v dane mene
-	discount_amount NUMERIC(12,4) NOT NULL,
+	discount_amount NUMERIC(20,6) NOT NULL,
+	created_administratively BOOLEAN NOT NULL DEFAULT FALSE,
+	internal_note TEXT,
+	--
 	rank INTEGER DEFAULT 999 NOT NULL,
+	--
+	created_by_user_id INT,
+	updated_by_user_id INT,
+	--
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP,
+	--
 	CONSTRAINT unq_ordercampaigns UNIQUE (order_id,campaign_id),
-	CONSTRAINT fk_order_campaigns_orders FOREIGN KEY (order_id) REFERENCES orders ON DELETE CASCADE,
-	CONSTRAINT fk_order_campaigns_campaigns FOREIGN KEY (campaign_id) REFERENCES campaigns
+	CONSTRAINT fk_ordercampaigns_orders FOREIGN KEY (order_id) REFERENCES orders ON DELETE CASCADE,
+	CONSTRAINT fk_ordercampaigns_campaigns FOREIGN KEY (campaign_id) REFERENCES campaigns,
+		--
+	CONSTRAINT fk_ordercampaigns_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
+	CONSTRAINT fk_ordercampaigns_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 CREATE INDEX in_ordercampaigns_campaignid ON order_campaigns(campaign_id);
