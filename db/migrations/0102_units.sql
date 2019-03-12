@@ -21,8 +21,17 @@ CREATE TABLE units (
 	CONSTRAINT fk_units_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_units_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
-INSERT INTO units (id,unit,minimum_quantity_to_order,quantity_step,display_unit,display_unit_multiplier,minimum_stockcount_for_quantity_discounts) VALUES(1,'pcs',1,1,'pcs',1,0);
-INSERT INTO units (id,unit,minimum_quantity_to_order,quantity_step,display_unit,display_unit_multiplier,minimum_stockcount_for_quantity_discounts) VALUES(2,'cm',1,1,'m',100,2000);
 
+-- pieces
+INSERT INTO units (id,unit,minimum_quantity_to_order,quantity_step,display_unit,display_unit_multiplier,minimum_stockcount_for_quantity_discounts) VALUES(1,'pcs',1,1,'pcs',1,0);
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('units','1','unit_localized','cs','ks');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('units','1','unit_localized','en','pcs');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('units','1','display_unit_localized','cs','ks');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('units','1','display_unit_localized','en','pcs');
+
+-- centimeters
+INSERT INTO units (id,unit,minimum_quantity_to_order,quantity_step,display_unit,display_unit_multiplier,minimum_stockcount_for_quantity_discounts) VALUES(2,'cm',1,1,'m',100,2000);
+
+-- grams
+INSERT INTO units (id,unit,minimum_quantity_to_order,quantity_step,display_unit,display_unit_multiplier,minimum_stockcount_for_quantity_discounts) VALUES(3,'g',1,1,'kg',1000,5000);
+

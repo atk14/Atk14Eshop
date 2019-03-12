@@ -1,11 +1,17 @@
 <?php
 class Unit extends ApplicationModel implements Translatable {
 
-	static function GetTranslatableFields(){ return ["unit_localized"]; }
+	static function GetTranslatableFields(){ return ["unit_localized", "display_unit_localized"]; }
 
 	function getUnitLocalized(){
 		$out = parent::getUnitLocalized(); // "ks"
 		if(!$out){ $out = $this->getUnit(); } // "pcs"
+		return $out;
+	}
+
+	function getDisplayUnitLocalized(){
+		$out = parent::getDisplayUnitLocalized(); // "m"
+		if(!$out){ $out = $this->getDisplayUnit(); } // "m"
 		return $out;
 	}
 
