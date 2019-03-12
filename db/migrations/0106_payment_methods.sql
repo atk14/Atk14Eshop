@@ -6,6 +6,7 @@ CREATE TABLE payment_methods (
 	regions JSON,
 	payment_gateway_id INT, --
 	image_url VARCHAR(255), -- icon
+	logo VARCHAR(255),
 	price NUMERIC(20,6) NOT NULL DEFAULT 0.0,
 	price_incl_vat NUMERIC(20,6) NOT NULL DEFAULT 0.0,
 	active BOOLEAN NOT NULL DEFAULT TRUE,

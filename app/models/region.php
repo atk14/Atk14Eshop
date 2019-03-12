@@ -1,5 +1,5 @@
 <?php
-defined("DEFAULT_REGION") || define("DEFAULT_REGION","CR");
+defined("DEFAULT_REGION") || define("DEFAULT_REGION","CZ");
 
 class Region extends ApplicationModel implements Translatable, Rankable {
 
