@@ -33,9 +33,9 @@
 	</table>
 </div>
 <div class="form__footer">
-	{a action="categories/index" _class="btn btn-lg btn-primary btn--back btn--arrow-l"}{t}Zpět ke zboží{/t}{/a}
-	<button type="submit" class="btn btn-default btn-lg nojs-only">{t}Přepočítat obsah košíku{/t}</button>
-	<button type="submit" name="continue" class="btn btn--cta btn-lg">{t}Pokračovat na výběr dodání a platby{/t}</button>
+	{a action="categories/index" _class="btn btn-lg btn-primary btn--back btn--arrow-l"}{t}Back to catalog{/t}{/a}
+	<button type="submit" class="btn btn-default btn-lg nojs-only">{t}Recalculate basket content{/t}</button>
+	<button type="submit" name="continue" class="btn btn--cta btn-lg">{t}Select shipping and payment{/t}</button>
 </div>
 
 {/form}

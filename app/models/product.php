@@ -409,8 +409,16 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 	function toHumanReadableString(){
 		$out = $this->getCatalogId();
-		$out .= ", ".$this->getName();
+		$out .= ", ".$this->toString();
 		return $out;
+	}
+
+	function toString(){
+		$out = $this->getName();
+		if($this->getLabel()){
+			$out .= ", ".$this->getLabel();
+		}
+		return (string)$out;
 	}
 
 	protected function _getIdsToPrereadData($already_read_ids = []){

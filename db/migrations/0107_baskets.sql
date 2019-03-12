@@ -34,6 +34,8 @@ CREATE TABLE baskets (
 	delivery_phone VARCHAR(255),
 	--
 	delivery_method_id INT,
+	delivery_method_data JSON,
+	--
 	payment_method_id INT,
 	--
 	note TEXT,

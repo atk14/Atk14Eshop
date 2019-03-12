@@ -564,11 +564,6 @@ class Basket extends BasketOrOrder {
 			}
 		}
 
-		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
-		if ($delivery_method && !is_null($delivery_method->getDeliveryServiceId()) && is_null($this->getDeliveryMethodData())) {
-			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
-		}
-
 		if($messages){
 			return false;
 		}
@@ -862,40 +857,5 @@ class Basket extends BasketOrOrder {
 
 	function getDeliveryMethodData() {
 		return json_decode($this->g("delivery_method_data"),true);
-	}
-
-	/**
-	 * Vrati nastavenou pobocku dorucovaci sluzby
-	 *
-	 * @return DeliveryServiceBranch
-	 */
-	function getDeliveryServiceBranch() {
-		$method_data = $this->getDeliveryMethodData();
-		if (is_null($this->getDeliveryMethod())) {
-			return null;
-		}
-		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
-	}
-
-	function getDeliveryServiceBranchAddress() {
-		return $this->getDeliveryPointAddress();
-	}
-	function getDeliveryPointAddress() {
-		$delivery_address = null;
-		$data = $this->getDeliveryMethodData();
-		if (isset($data["delivery_address"])) {
-			$delivery_address = $data["delivery_address"];
-			foreach(["street","city","zip","country"] as $k) {
-				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
-				unset($delivery_address[$k]);
-			}
-			$delivery_address["delivery_company"] = $delivery_address["company"];
-			unset($delivery_address["company"]);
-		}
-		return $delivery_address;
-	}
-
-	function deliveryToDeliveryPointSelected() {
-		return !is_null($this->getDeliveryServiceBranch());
 	}
 }

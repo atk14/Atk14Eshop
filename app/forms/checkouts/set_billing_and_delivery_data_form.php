@@ -1,0 +1,67 @@
+<?php
+class SetBillingAndDeliveryDataForm extends CheckoutsForm {
+
+	function set_up(){
+
+		$delivery_point_selected = $this->controller->basket->deliveryToDeliveryPointSelected();
+
+		// dorucovaci adresa
+		$this->_add_firstname_lastname(["prefix" => "delivery_", "required" => true]);
+		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false, "disabled" => $delivery_point_selected]);
+		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => true, "disabled" => $delivery_point_selected]);
+		$this->_add_phone(["prefix" => "delivery_"]);
+
+		// fakturacni adresa
+		$this->_add_firstname_lastname(["required" => false]);
+		$this->_add_email();
+		$this->_add_company_fields(["enable_vat_id_validation" => true]);
+		$this->_add_address_fields(["required" => false, "add_note" => false]);
+
+		$this->add_field("fill_in_invoice_address",new BooleanField([
+			"label" => _("Chci zadat fakturační údaje"),
+			//"help_text" => _("nepovinné"),
+			"required" => false,
+		]));
+
+		$this->set_button_text(_("Pokračovat"));
+	}
+
+	function clean(){
+		list($err,$d) = parent::clean();
+
+		$keys = array_keys($d);
+
+		if(!$this->has_errors()){
+			$fields_filled = 0;
+			$empty_required_fields = 0;
+
+			$address_fields = Basket::GetAddressFields(["company_data" => true, "address_street2" => false]);
+
+			foreach($address_fields as $key => $required){
+				if("$d[$key]"===""){
+					if($required){
+						$empty_required_fields++;
+					}
+					continue;
+				}
+				$fields_filled++;
+			}
+
+			// Pokud je z adresy zadana pouze zeme, tak se ji tady v tichosti zbavime
+			if($fields_filled==1 && $d["address_country"]){
+				$fields_filled = 0;
+				unset($d["address_country"]);
+			}
+
+			if($fields_filled>0 && $empty_required_fields>0){
+				$this->set_error(_("Vyplňte všechny důležité údaje fakturační adresy"));
+			}
+		}
+
+		unset($d["fill_in_invoice_address"]);
+
+		$this->_clean_vat_id_and_country();
+
+		return [$err,$d];
+	}
+}
