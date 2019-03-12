@@ -1,5 +1,5 @@
 <?php
-class Gender extends ApplicationModel implements Translatable, Rankeable {
+class Gender extends ApplicationModel implements Translatable, Rankable {
 
 	private static $Instances;
 

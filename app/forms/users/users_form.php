@@ -2,24 +2,19 @@
 class UsersForm extends ApplicationForm{
 
 	function _add_basic_account_fields(){
-		$this->add_field("firstname", new CharField(array(
-			"label" => _("Firstname"),
-			"max_length" => 255,
-			"hint" => "John"
+		$this->add_field("gender_id", new GenderField(array(
+			"label" => _("Oslovení"),
 		)));
 
-		$this->add_field("lastname", new CharField(array(
-			"label" => _("Lastname"),
-			"max_length" => 255,
-			"hint" => "Doe"
-		)));
+		$this->_add_firstname_lastname();
+		$this->_add_email();
 
-		$this->add_field("email", new EmailField(array(
-			"label" => _("Email address"),
-			"max_length" => 255,
-			"hint" => "john.doe@email.com",
-			"help_text" => _("We will not disclose this address"),
-		)));
+		$this->_add_company_fields(["enable_vat_id_validation" => false]);
+		$this->_add_address_fields([
+			"add_note" => false,
+		]);
+
+		$this->_add_phone();
 	}
 
 	function _add_password_fields(){
@@ -36,6 +31,13 @@ class UsersForm extends ApplicationForm{
 
 	function clean(){
 		list($err,$d) = parent::clean();
+		$keys = array_keys($d);
+
+		if(in_array("company",$keys)){
+			if(isset($d["company_number"]) && $d["company_number"] && !strlen($d["company_number"])){
+				$this->set_error("company_number",_("IČ zadávejte pouze v případě, že je vyplněn název společnosti"));
+			}
+		}
 
 		if(
 			isset($d["password"]) &&
@@ -44,8 +46,9 @@ class UsersForm extends ApplicationForm{
 		){
 			$this->set_error("password_repeat",_("Password doesn't match"));
 		}
-
 		unset($d["password_repeat"]);
+
+		$this->_clean_vat_id_and_country();
 
 		return array($err,$d);
 	}

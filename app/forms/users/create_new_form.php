@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__ . "/users_form.php");
+
 class CreateNewForm extends UsersForm{
 	function set_up(){
 		$this->add_field("login", new LoginField(array(
