@@ -271,7 +271,7 @@ class Basket extends BasketOrOrder {
 		$conditions = [
 			"active",
 			"free_shipping",
-			"region_id=:region_id",
+			"(regions->>:region_code)::BOOLEAN",
 			"valid_from IS NULL OR valid_from<=:now",
 			"valid_to IS NULL OR valid_to>=:now",
 		];
@@ -280,7 +280,7 @@ class Basket extends BasketOrOrder {
 		}
 
 		$bind_ar = [
-			":region_id" => $region,
+			":region_code" => $region->getCode(),
 			":now" => now(),
 		];
 
@@ -369,8 +369,8 @@ class Basket extends BasketOrOrder {
 
 		// Zakladni podminky
 		$conditions = $bind_ar = [];
-		$conditions[] = "region_id=:region_id";
-		$bind_ar[":region_id"] = $region; 
+		$conditions[] = "(regions->>:region_code)::BOOLEAN";
+		$bind_ar[":region_code"] = $region->getCode(); 
 		$conditions[] = "active";
 		$conditions[] = "valid_from IS NULL OR valid_from<:now";
 		$conditions[] = "valid_to IS NULL OR valid_to>:now";
