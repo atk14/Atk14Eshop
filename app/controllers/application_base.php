@@ -110,6 +110,8 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_before_filter(){
+		$this->current_region = $this->_get_current_region();
+
 		// Nastavime do maileru akt. region
 		$this->mailer->current_region = $this->current_region;
 
