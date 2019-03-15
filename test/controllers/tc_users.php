@@ -5,6 +5,7 @@
  */
 class TcUsers extends TcBase{
 
+	// proper parameters for registering a new user
 	var $params = array(
 		"login" => "john.doe.tester",
 		"gender_id" => 1,
@@ -34,7 +35,7 @@ class TcUsers extends TcBase{
 
 		// passwords don't match to each other
 		$params = $this->params;
-		$params["password_repeat"] = "no_more_fereas";
+		$params["password_repeat"] = "no_more_feras";
 		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(true,$controller->form->has_errors());
 		$this->assertEquals(200,$this->client->getStatusCode());
@@ -67,7 +68,6 @@ class TcUsers extends TcBase{
 	function test_user_gives_a_proper_hash_as_password(){
 		// we are posting data to the page
 		$params = $this->params;
-		$params["login"] = "john.doe.joker";
 		$params["password"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta'; // hash for secret
 		$params["password_repeat"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta';
 		$controller = $this->client->post("users/create_new",$params);
@@ -75,7 +75,7 @@ class TcUsers extends TcBase{
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
 
-		$john = User::FindByLogin("john.doe.joker");
+		$john = User::FindByLogin("john.doe.tester");
 		$this->assertNotEquals('$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta',$john->getPassword());
 		$this->assertTrue(MyBlowfish::IsHash($john->getPassword()));
 
