@@ -5,6 +5,21 @@
  */
 class TcUsers extends TcBase{
 
+	var $params = array(
+		"login" => "john.doe.tester",
+		"gender_id" => 1,
+		"firstname" => "John",
+		"lastname" => "Doe",
+		"email" => "john@doe.com",
+		"password" => "no_more_fears",
+		"password_repeat" => "no_more_fears",
+		"address_street" => "Street",
+		"address_city" => "City",
+		"address_zip" => "123 56",
+		"address_country" => "CZ",
+		"phone" => "+420.605123456",
+	);
+
 	function test_create_new(){
 		// we are visiting the front page
 		$controller = $this->client->get("main/index");
@@ -18,26 +33,15 @@ class TcUsers extends TcBase{
 		$this->assertEquals(null,$controller->logged_user);
 
 		// passwords don't match to each other
-		$controller = $this->client->post("users/create_new",array(
-			"login" => "john.doe.tester",
-			"firstname" => "John",
-			"lastname" => "Doe",
-			"email" => "john@doe.com",
-			"password" => "no_more_fears",
-			"password_repeat" => "no_more_feras",
-		));
+		$params = $this->params;
+		$params["password_repeat"] = "no_more_fereas";
+		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(true,$controller->form->has_errors());
 		$this->assertEquals(200,$this->client->getStatusCode());
 
 		// we are posting data to the page
-		$controller = $this->client->post("users/create_new",array(
-			"login" => "john.doe.tester",
-			"firstname" => "John",
-			"lastname" => "Doe",
-			"email" => "john@doe.com",
-			"password" => "no_more_fears",
-			"password_repeat" => "no_more_fears",
-		));
+		$params = $this->params;
+		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(false,$controller->form->has_errors());
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
@@ -62,14 +66,11 @@ class TcUsers extends TcBase{
 
 	function test_user_gives_a_proper_hash_as_password(){
 		// we are posting data to the page
-		$controller = $this->client->post("users/create_new",array(
-			"login" => "john.doe.joker",
-			"firstname" => "John",
-			"lastname" => "Doe",
-			"email" => "john@doe.com",
-			"password" => '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta', // hash for secret
-			"password_repeat" => '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta',
-		));
+		$params = $this->params;
+		$params["login"] = "john.doe.joker";
+		$params["password"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta'; // hash for secret
+		$params["password_repeat"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta';
+		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(false,$controller->form->has_errors());
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
