@@ -109,6 +109,8 @@ CREATE TABLE orders (
 	without_vat BOOLEAN NOT NULL DEFAULT FALSE,
 	price_to_pay NUMERIC(20,6) NOT NULL,
 	--
+	gdpr BOOLEAN,
+	--
 	-- akt. stav objednavky
 	order_status_id INT NOT NULL,
 	order_status_set_at TIMESTAMP DEFAULT NOW() NOT NULL,
@@ -121,8 +123,11 @@ CREATE TABLE orders (
 	--
 	exported BOOLEAN NOT NULL DEFAULT false,
 	exported_at TIMESTAMP,
+	--
 	created_from_addr VARCHAR(255),
 	created_from_hostname VARCHAR(255),
+	created_from_user_agent VARCHAR(1000),
+	--
 	created_by_user_id INT, -- toto muze byt administrator!
 	updated_by_user_id INT,
 	--
