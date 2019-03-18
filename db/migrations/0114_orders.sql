@@ -161,7 +161,9 @@ CREATE TABLE order_items (
 	product_id INT NOT NULL,
 	amount INT NOT NULL,
 	unit_price NUMERIC(20,6) NOT NULL,
+	unit_price_before_discount NUMERIC(20,6),
 	vat_percent NUMERIC(5,2) NOT NULL,
+	campaign_discount_applied BOOLEAN NOT NULL DEFAULT FALSE,
 	rank INT NOT NULL DEFAULT 999,
 	--
 	created_at TIMESTAMP DEFAULT now() NOT NULL,

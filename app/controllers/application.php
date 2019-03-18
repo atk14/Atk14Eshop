@@ -29,6 +29,22 @@ class ApplicationController extends ApplicationBaseController{
 		$this->breadcrumbs[] = [$title,"users/detail"];
 	}
 
+	function _add_order_to_breadcrumbs($order){
+		if($this->logged_user){
+			// neprihlaseny uzivatel nema pristup na index
+			$this->breadcrumbs[] = [_("Objednávky"),"orders/index"];
+		}
+		$link = null;
+		if(is_null($order->g("user_id"))){
+			$link = $this->_link_to(["action" => "orders/detail", "token" => $order->getToken()]);
+		}else{
+			if($order->belongsToUser($this->logged_user)){
+				$link = $this->_link_to(["action" => "orders/detail", "id" => $order->getId()]);
+			}
+		}
+		$this->breadcrumbs[] = [sprintf(_("Objednávka %s"),$order->getOrderNo()),$link];
+	}
+
 	// Navigace u vytvareni objednavky
 	function _prepare_checkout_navigation(){
 		$navi = new Menu14();
@@ -50,5 +66,34 @@ class ApplicationController extends ApplicationBaseController{
 
 		$this->tpl_data["checkout_navigation"] = $navi;
 		return $navi;
+	}
+
+	/**
+	 * Vyhleda objednavku podle parametru id nebo token
+	 */
+	function _find_order($options = []){
+		$options += [
+			"soft_verification" => false,
+			"parameter_prefix" => "", // "order_"
+		];
+
+		$soft_verification = $options["soft_verification"];
+		$prefix = $options["parameter_prefix"];
+
+		if($this->logged_user && ($order = Order::FindById($this->params->getInt("{$prefix}id"))) && $order->belongsToUser($this->logged_user)){
+			return $order;
+		}
+
+		if(!$order = Order::GetInstanceByToken($this->params->getString("{$prefix}token"))){
+			return;
+		}
+
+		if($soft_verification){
+			return $order;
+		}
+
+		if(is_null($order->g("user_id")) || $order->belongsToUser($this->logged_user)){
+			return $order;
+		}
 	}
 }
