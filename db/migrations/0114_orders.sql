@@ -102,7 +102,6 @@ CREATE TABLE orders (
 	delivery_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--
 	payment_method_id INTEGER NOT NULL,
-	payment_method_data JSON,
 	payment_fee NUMERIC(20,6) NOT NULL,
 	payment_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--

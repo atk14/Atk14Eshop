@@ -635,7 +635,6 @@ class Basket extends BasketOrOrder {
 		$values["delivery_fee"] = $this->getDeliveryFee();
 		$values["delivery_fee_incl_vat"] = $this->getDeliveryFee($incl_vat);
 
-		$values["payment_method_data"] = $this->g("payment_method_data");
 		$values["payment_fee"] = $this->getPaymentFee();
 		$values["payment_fee_incl_vat"] = $this->getPaymentFee($incl_vat);
 

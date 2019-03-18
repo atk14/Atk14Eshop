@@ -38,7 +38,6 @@ CREATE TABLE baskets (
 	delivery_method_data JSON,
 	--
 	payment_method_id INT,
-	payment_method_data JSON,
 	--
 	note TEXT,
 	subscribe_to_newsletter BOOLEAN NOT NULL DEFAULT FALSE,
