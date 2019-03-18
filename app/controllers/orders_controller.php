@@ -2,7 +2,7 @@
 class OrdersController extends ApplicationController {
 
 	function index() {
-		$this->page_title = _("Archiv objednávek");
+		$this->page_title = $this->breadcrumbs[] = _("Archiv objednávek");
 		$this->tpl_data["orders"] = Order::FindAllByUserId($this->logged_user, array("order_by" => "created_at DESC"));
 	}
 
