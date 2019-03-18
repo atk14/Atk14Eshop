@@ -564,6 +564,11 @@ class Basket extends BasketOrOrder {
 			}
 		}
 
+		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
+		if ($delivery_method && !is_null($delivery_method->getDeliveryServiceId()) && is_null($this->getDeliveryMethodData())) {
+			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
+		}
+
 		if($messages){
 			return false;
 		}
@@ -857,5 +862,13 @@ class Basket extends BasketOrOrder {
 
 	function getDeliveryMethodData() {
 		return json_decode($this->g("delivery_method_data"),true);
+	}
+
+	/**
+	 * Bylo vybrano doruceni do dorucovaciho mista?
+	 *
+	 */
+	function deliveryToDeliveryPointSelected() {
+		return false; //TODO
 	}
 }

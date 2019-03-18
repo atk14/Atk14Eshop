@@ -127,17 +127,10 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 	function getDeliveryPhone(){
-		if($this->g("delivery_phone") || $this->g("delivery_phone_mobile")){
+		if($this->g("delivery_phone")){
 			return $this->g("delivery_phone");
 		}
 		return $this->g("phone");
-	}
-
-	function getDeliveryPhoneMobile(){
-		if($this->g("delivery_phone") || $this->g("delivery_phone_mobile")){
-			return $this->g("delivery_phone_mobile");
-		}
-		return $this->g("phone_mobile");
 	}
 
 	function _getDelivery($key){

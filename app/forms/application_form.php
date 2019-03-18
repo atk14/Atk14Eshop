@@ -159,9 +159,15 @@ class ApplicationForm extends Atk14Form{
 		}
 
 		$this->add_field("{$prefix}address_city", new CharField([
-			"label" => _("Město / Obec"),
+			"label" => _("City"),
 			"max_length" => 255,
 			"required" => $required,
+			"disabled" => $disabled,
+		]));
+		$this->add_field("{$prefix}address_state", new CharField([
+			"label" => _("State / Province / Region"),
+			"max_length" => 255,
+			"required" => false,
 			"disabled" => $disabled,
 		]));
 		$this->add_field("{$prefix}address_zip", new ZipField([

@@ -27,6 +27,11 @@ class UsersController extends ApplicationController{
 			$this->_login_user($user);
 
 			$this->flash->success(sprintf(_("You have been successfully registered and now you are logged in as <em>%s</em>"),h("$user")));
+
+			if($uri = $this->params->getString("return_uri")){
+				return $this->_redirect_to($uri);
+			}
+
 			$this->_redirect_to("main/index");
 		}
 	}
@@ -76,7 +81,7 @@ class UsersController extends ApplicationController{
 			}
 
 			if(preg_match('/^(edit|detail)/',$this->action)){
-				$this->breadcrumbs[] = array(_("User profile"),$this->_link_to("detail"));
+				$this->_add_user_detail_breadcrumb();
 			}
 		}
 	}

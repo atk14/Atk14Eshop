@@ -12,6 +12,7 @@ CREATE TABLE baskets (
 	company VARCHAR(255),
 	company_number VARCHAR(255), -- ico
 	vat_id VARCHAR(255), -- dic
+	vat_id_valid_for_cross_border_transactions_within_eu BOOLEAN,
 	address_street VARCHAR(255),
 	address_street2 VARCHAR(255),
 	address_city VARCHAR(255),

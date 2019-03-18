@@ -16,6 +16,19 @@ class ApplicationController extends ApplicationBaseController{
 		}
 	}
 
+	function _add_user_detail_breadcrumb(){
+		if(!$this->logged_user){ return; }
+
+		$title = _("My account");
+		
+		if("$this->controller/$this->action"=="users/detail"){
+			$this->breadcrumbs[] = $title;
+			return;
+		}
+
+		$this->breadcrumbs[] = [$title,"users/detail"];
+	}
+
 	// Navigace u vytvareni objednavky
 	function _prepare_checkout_navigation(){
 		$navi = new Menu14();
