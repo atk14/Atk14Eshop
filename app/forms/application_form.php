@@ -119,7 +119,7 @@ class ApplicationForm extends Atk14Form{
 		$this->add_field("email", new EmailField(array(
 			"label" => _("Email address"),
 			"max_length" => 255,
-			"hint" => "john.doe@email.com",
+			"initial" => "@"
 		)));
 	}
 
