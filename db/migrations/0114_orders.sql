@@ -111,6 +111,8 @@ CREATE TABLE orders (
 	--
 	gdpr BOOLEAN,
 	--
+	responsible_user_id INTEGER,
+	--
 	-- akt. stav objednavky
 	order_status_id INT NOT NULL,
 	order_status_set_at TIMESTAMP DEFAULT NOW() NOT NULL,
@@ -143,6 +145,7 @@ CREATE TABLE orders (
 	CONSTRAINT fk_orders_currencies FOREIGN KEY (currency_id) REFERENCES currencies(id),
 	CONSTRAINT fk_orders_delivery_methods FOREIGN KEY (delivery_method_id) REFERENCES delivery_methods(id),
 	CONSTRAINT fk_orders_payment_methods FOREIGN KEY (payment_method_id) REFERENCES payment_methods(id),
+	CONSTRAINT fk_orders_responsible_users FOREIGN KEY (responsible_user_id) REFERENCES users(id),
 	CONSTRAINT fk_orders_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users(id),
 	CONSTRAINT fk_orders_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users(id)
 );
