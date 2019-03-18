@@ -1,0 +1,661 @@
+<?php
+!defined("ORDER_NO_OFFSET") && define("ORDER_NO_OFFSET","0");
+
+class Order extends BasketOrOrder {
+
+	static function CreateNewRecord($values,$options = []){
+		global $ATK14_GLOBAL;
+
+		$values += [
+			"id" => Order::GetNextId(),
+			"language" => $ATK14_GLOBAL->getLang(),
+		];
+
+		$values += [
+			"order_no" => ORDER_NO_OFFSET + $values["id"],
+			"reference" => "?", // TODO: Co to je reference? Proc je not null?
+#			"order_status_id" => OrderStatus::DetermineInitialStatus($values["payment_method_id"]),
+			"order_status_id" => OrderStatus::FindByCode("new"),
+			"order_status_set_at" => now(),
+		];
+
+		$out = Parent::CreateNewRecord($values,$options);
+		$out->createOrderHistoryItem($out);
+		return $out;
+	}
+
+	function getOrderItems() {
+		return OrderItem::FindAll("order_id", $this);
+	}
+
+	function getItems() {
+		return $this->getOrderItems();
+	}
+
+	function getTotalPrice($incl_vat = false,$options = array()){
+		$options += array(
+			"consider_shipping_fee" => true, // poplatek za dopravu a platbu
+		);
+
+		$price = 0.0;
+		$price += $this->getItemsPrice($incl_vat);
+
+		if($options["consider_shipping_fee"]){
+			$price += $this->getPaymentFee($incl_vat);
+			$price += $this->getDeliveryFee($incl_vat);
+		}
+
+		return $price;
+	}
+
+	function getTotalPriceInclVat($options = array()){
+		return $this->getTotalPrice(true,$options);
+	}
+
+	function getPaymentFee($incl_vat = false){
+		return $incl_vat ? $this->g("payment_fee_incl_vat") : $this->g("payment_fee");
+	}
+
+	function getPaymentTransaction(){
+		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "id DESC"]);
+	}
+
+	function getDeliveryFee($incl_vat = false){
+		return $incl_vat ? $this->g("delivery_fee_incl_vat") : $this->g("delivery_fee");
+	}
+
+	function getPhones() {
+		$_phones = array();
+		foreach([
+			"phone",
+			"phone_mobile",
+			"delivery_phone",
+			"delivery_phone_mobile"
+		] as $k){
+			$ph = $this->g($k);
+			if(!empty($ph) && !in_array($ph,$_phones)){
+				$_phones[] = $ph;
+			}
+		}
+		return $_phones;
+	}
+
+	/**
+	 * @param User|integer $user
+	 */
+	function belongsToUser($user) {
+		$user = User::FindById($user);
+		return !is_null($user) && ($user->getId()==$this->getUserId());
+	}
+
+	private function _getAddressFields() {
+		return array(
+			"firstname",
+			"lastname",
+			"company",
+			"address_street",
+			"address_street2",
+			"address_city",
+			"address_zip",
+			"address_country",
+			"address_note",
+			"phone",
+			"phone_mobile",
+		);
+	}
+
+	function getDeliveryAddress() {
+		foreach($this->_getAddressFields() as $k) {
+			$address[$k] = $this->g("delivery_$k");
+		}
+		return $address;
+	}
+
+	function getInvoiceAddress() {
+		foreach($this->_getAddressFields() as $k) {
+			$address[$k] = $this->g($k);
+		}
+		return $address;
+	}
+
+	function getTaxNumber() {
+		return $this->g("vat_id");
+	}
+
+	function hasCompanyDataSet() {
+		return !!(
+			trim($this->getCompany()).
+			trim($this->getCompanyNumber()).
+			trim($this->getTaxNumber())
+		);
+	}
+
+	function hasDeliveryAddressSet() {
+		return strlen(trim(implode($this->getDeliveryAddress())))>0;
+	}
+
+	function getInvoiceCompany() {
+		return $this->getCompany();
+	}
+
+	function getInvoiceName() {
+		return trim(sprintf("%s %s", $this->g("firstname"), $this->g("lastname")));
+	}
+
+	function getInvoiceStreet() {
+		return $this->getAddressStreet();
+	}
+
+	function getInvoiceStreet2() {
+		return $this->getAddressStreet2();
+	}
+
+	function getInvoiceCity() {
+		return $this->getAddressCity();
+	}
+
+	function getInvoiceZip() {
+		return $this->getAddressZip();
+	}
+
+	function getInvoiceCountry() {
+		return $this->getAddressCountry();
+	}
+
+	function getDeliveryName() {
+		return trim(sprintf("%s %s", $this->g("delivery_firstname"), $this->g("delivery_lastname")));
+	}
+
+	function getOrderHistory($options=array()) {
+		$options += array(
+			"limit" => null,
+			"order_by" => "order_status_set_at DESC, id DESC",
+		);
+		return OrderHistory::FindAll("order_id", $this, $options);
+	}
+
+	function getCurrentOrderStatus() {
+		return OrderStatus::FindById($this->getOrderStatusId());
+	}
+
+	function getCurrentStatus() {
+		return $this->getCurrentOrderStatus();
+	}
+
+	function getPreviousStatus() {
+		return $this->getPreviousOrderStatus();
+	}
+
+	function getPreviousOrderStatus() {
+		$history = $this->getOrderHistory(array("limit" => 1, "offset" => 1));
+		return array_pop($history);
+	}
+
+	function getNextStatusCodes() {
+		$current_status = $this->getCurrentOrderStatus();
+		if (isset($current_status->next_status[$current_status->getCode()])) {
+			return $current_status->next_status[$current_status->getCode()];
+		}
+		return null;
+	}
+
+	function getNextOrderStatuses() {
+		return $this->getCurrentOrderStatus()->getNextStatuses();
+	}
+
+	/**
+	 * @TODO: responsible person mozna bude nejaka jina osoba.
+	 */
+	function getResponsibleUser() {
+		return User::FindFirstById($this->g("responsible_user_id"));
+	}
+
+	function getOrderStatus(){
+		return Cache::Get("OrderStatus",$this->getOrderStatusId());
+	}
+
+	/**
+	 * Nastaveni noveho stavu objednavky.
+	 *
+	 * ```
+	 * $this->setNewOrderStatus(array(
+	 * 	"order_status_id" => 13,
+	 * 	"order_status_set_by_user_id" => 1
+	 * );
+	 * ```
+	 *
+	 * ```
+	 * $this->setNewOrderStatus("payment_accepted");
+	 * ```
+	 *
+	 * ```
+	 * $this->setNewOrderStatus(13);
+	 * ```
+	 *
+	 * @param mixed $new_status_values
+	 * @returns OrderStaus current order status
+	 *
+	 * POZOR, změny stavu se dozvídáme asynchronně a tedy nesetříděně dle času. Proto je někdy třeba
+	 * "opravit budoucí historii". Typicky, když někdo nastavil responsible_user_id
+	 * objednávce, které ještě z winshopu neprotekla změna stavu. Když pak
+	 * proteče změna stavu, je třeba opravit stav i u události "změna responsible_user_id".
+	 * Ale pozor, nesmí se "opravovat stavy" u následujících událostí změna stavu (např. platební
+	 * brána nemění stav přes winshop, ale přímo, a tedy může změnit stav a winshop pak pošle stav
+	 * neaktuální, který se pouze zařadí do historie)
+	 *
+	 * Tedy fce provádí:
+	 * 1) Pokud jde o novejsi stav nez nejnovejsi, zmeni stav objednavky
+	 * 2) Zapise zaznam do order_history_item
+	 * 3) Zmeni vsechny nasledující stavy v order_history, které neměnily
+	 *     stav (tedy zmeny responsible_user_id)
+	 */
+	function setNewOrderStatus($new_status_values=array(),$options = []) {
+		$options += [
+			"mailer" => null,
+		];
+
+		if (is_string($new_status_values)) {
+			$new_status_values = array(
+				"order_status_id" => OrderStatus::FindFirst("code", $new_status_values),
+			);
+		} elseif (is_integer($new_status_values)) {
+			$new_status_values = array(
+				"order_status_id" => $new_status_values,
+			);
+		} elseif (is_object($new_status_values)) {
+			$new_status_values = array(
+				"order_status_id" => $new_status_values,
+			);
+		}
+
+		$not_now = key_exists("order_status_set_at", $new_status_values);
+		$new_status_values += [
+			"order_status_set_at" => now(),
+			"order_status_set_by_user_id" => ApplicationModel::_GetLoggedUserId(),
+			"order_status_note" => null,
+		];
+
+		# aby nedoslo k prepsani jine hodnoty v objednavce, ktera se netyka statusu
+		$new_status_values = array_intersect_key($new_status_values, array_flip(array("order_status_id", "order_status_set_at", "order_status_set_by_user_id", "order_status_note")));
+
+		$orig_status = $this->getOrderStatus();
+
+		# cas nastaveni stavu aktualniho (v orders.order_status_set_at)
+		$current_status_time = strtotime($this->getOrderStatusSetAt());
+		# cas importovaneho stavu (pujde do order_history.order_status_set_at
+		$new_status_time = strtotime($new_status_values["order_status_set_at"]);
+
+		# novy stav chceme nastavit jen kdyz je cas v 'order_status_set_at' novejsi nez je u aktualniho stavu
+		if ($new_status_time>=$current_status_time) {
+			$this->s($new_status_values, array("set_update_time" => false));
+		}
+		$new_status_values['note'] = $new_status_values['order_status_note'];
+		$new_status_values['change_responsible_user'] = false;
+		$new_status_values['change_status'] = true;
+
+		unset($new_status_values['order_status_note']);
+
+		$history_item = $this->createOrderHistoryItem(
+				$new_status_values
+		);
+
+		/** Pokud byly založené v historii záznamy se špatným stavem
+			(např. nastavením responsible_user_id) opravíme je */
+		$prevState = $history_item->getPrevious();
+		if($prevState) {
+			$i=$history_item->getNext();
+			while($i && !$i->getChangeStatus() &&
+				//tato kontrola není nutná, pokud je správně nastavený changeStatus,
+				//ale pro jistotu
+				$i->getOrderStatusId() == $prevState->getOrderStatusId()
+			) {
+				$i->s('order_status_id', $history_item->getOrderStatusId());
+			}
+		}
+
+		$order_status = $this->getOrderStatus();
+		if($order_status && $order_status->notificationEnabled() && $order_status->getId()!=$orig_status->getId()){
+			$mailer = $options["mailer"] ? $options["mailer"] : Atk14MailerProxy::GetInstance();
+			$lang = $this->getLanguage();
+			$prev_lang = Atk14Locale::Initialize($lang);
+			$mailer->notify_order_status_update($this);
+			Atk14Locale::Initialize($prev_lang);
+		}
+		return $order_status;
+	}
+
+	/**
+	 * Vytvori zaznam v order_history. Hodnoty, ktere nedostane, si vytahne
+	 * z te same tabulky (z "nejnovejsiho starsiho zaznamu")
+	 */
+	function createOrderHistoryItem( $values = null) {
+		if( $values === null ) {
+			$values = $this;
+		}
+		if( $values instanceof Order ) {
+			$values = [
+				"order_id" => $values,
+				"order_status_set_at" => $values->getOrderStatusSetAt(),
+				"order_status_set_by_user_id" => $values->getOrderStatusSetByUserId(),
+				"note" => $values->getOrderStatusNote(),
+				"order_status_id" => $values->getOrderStatusId(),
+				"responsible_user_id" => $values->getResponsibleUserId(),
+				"change_responsible_user" => true,
+				"change_status" => true,
+			];
+		} else {
+			$values += [
+				"order_id" => $this,
+				"order_status_set_at" => now(),
+				"order_status_set_by_user_id" => ApplicationModel::_GetLoggedUserId(),
+				"note" => '',
+			];
+			$ovalues = $this->dbmole->selectRow('SELECT
+							order_status_id, responsible_user_id
+							FROM order_history WHERE order_id = :id AND order_status_set_at <= :at
+							ORDER BY order_status_set_at DESC LIMIT 1
+							', [
+								':id' => $values['order_id'],
+								':at' => $values['order_status_set_at'],
+			]);
+			if ($ovalues) {
+				$values+=$ovalues;
+			}
+		}
+		$order_history = OrderHistory::CreateNewRecord($values);
+		return $order_history;
+	}
+
+	/**
+	 * Nastavi responsibleUserId a zaradi patricny zaznam do tabulky order_history
+	 */
+	function setResponsibleUser( $user, $options = [] ) {
+		$options += [
+			'order_status_set_at' => now() //!!!PRO TESTY - nastaveni responsible
+																		 //person v minulosti (mezi statusy) NENI
+																     //implementovano
+		];
+		$this->s('responsible_user_id', $user);
+		$this->createOrderHistoryItem([
+			'responsible_user_id' => $user,
+			'change_status' => false,
+			'change_responsible_user' => true,
+			'order_status_set_at' => $options['order_status_set_at'],
+		]);
+	}
+
+	function getOrderStatusSetByUser(){
+		return Cache::Get("User",$this->getOrderStatusSetByUserId());
+	}
+
+	function getVouchers() {
+		return OrderVoucher::FindAll("order_id",$this);
+	}
+
+	function getCampaigns() {
+		return OrderCampaign::FindAll("order_id",$this);
+	}
+
+	function getUpdatedByUser(){
+		return Cache::Get("User",$this->getUpdatedByUserId());
+	}
+
+	function recalculatePriceToPay(){
+		Cache::Clear();
+
+		$items = $this->getItems();
+		$currency = $this->getCurrency();
+		$incl_vat = !$this->g("without_vat");
+		$delta_product = Product::FindByCode("price_rounding");
+
+		$current_delta_item = null;
+		$is_delta_item_last = false;
+		foreach($items as $item){
+			$is_delta_item_last = false;
+			if($item->getProduct()->getCode()=="price_rounding"){
+				$current_delta_item = $item;
+				$is_delta_item_last = true;
+			}
+		}
+
+		$price = $this->getItemsPriceInclVat();
+		$price += $this->getDeliveryFeeInclVat();
+		$price += $this->getPaymentFeeInclVat();
+		$price -= $this->getVouchersDiscountAmount();
+		$price -= $this->getCampaignsDiscountAmount();
+		if($current_delta_item){
+			$price -= $current_delta_item->getPriceInclVat();
+		}
+
+		if($price<0.0){
+			$price = 0.0;
+		}
+
+		$price_without_rounding = $price;
+		$price = round($price,$currency->getDecimalsSummary());
+
+		$delta = $price - $price_without_rounding;
+		$delta = $currency->roundPrice($delta);
+		if(abs($delta)<$currency->getLowestPrice()){
+			$delta = 0.0;
+		}
+
+		if($delta==0.0){
+			if($current_delta_item){
+				$current_delta_item->destroy();
+				Cache::Clear();
+			}
+		}else{
+			$amount = $delta > 0.0 ? 1 : -1;
+			$delta_vat_percent = $incl_vat ? $delta_product->getVatPercent() : 0.0;
+			$delta_price = abs($delta);
+			$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
+			$delta_price_with_no_vat = round($delta_price_with_no_vat,4);
+			$delta_values = [
+				"order_id" => $this->getId(),
+				"product_id" => $delta_product,
+				"amount" => $delta > 0.0 ? 1 : -1,
+				"unit_price" => $delta_price_with_no_vat,
+				"vat_percent" => $delta_vat_percent,
+			];
+
+			if(!$current_delta_item){
+				$current_delta_item = OrderItem::CreateNewRecord($delta_values);
+			}else{
+				if(
+					$current_delta_item->g("amount")!=$delta_values["amount"] ||
+					$current_delta_item->g("unit_price")!=$delta_values["unit_price"] ||
+					$current_delta_item->g("vat_percent")!=$delta_values["vat_percent"]
+				){
+					$current_delta_item->s($delta_values);
+					Cache::Clear();
+				}
+				if(!$is_delta_item_last){
+					$current_delta_item->setRank(sizeof($items)-1);
+					Cache::Clear();
+				}
+			}
+		}
+
+		if($price!=$this->getPriceToPay()){
+			$this->s("price_to_pay",$price);
+			return true;
+		}
+
+		return false;
+	}
+
+	function getDeliveryMethodData() {
+		return json_decode($this->g("delivery_method_data"),true);
+	}
+
+	function getTrackingUrl() {
+		if (($tracking_number = $this->getTrackingNumber()) && ($dm = $this->getDeliveryMethod()) && ($url=$dm->getTrackingUrl())) {
+			return str_replace("@", $tracking_number, $url);
+		}
+		return null;
+	}
+
+	/**
+	 * Vrati seznam moznych stavu, do kterych lze objednavku prepnout
+	 *
+	 * Zahrnuto je par podminek:
+	 * - zpusob doruceni musi byt osobni odber
+	 * - lze prepnout pouze do stavu:
+	 * 	- ready - 'Pripraveno k vyzvednuti'
+	 * 	- ready_reminder - 'Upominka - Pripraveno k vyzvednuti'
+	 * 	- delivered - 'Doruceno'
+	 *
+	 * @todo mozna jeste kontrolovat vychozi stav
+	 */
+	function getAllowedNextOrderStatuses() {
+		if (!$this->getDeliveryMethod()->personalPickup()) {
+			return null;
+		}
+		if (!($next_status_codes = $this->getNextStatusCodes())) {
+			return null;
+		}
+		$next_status_codes = array_intersect(["ready","ready_reminder","delivered"], $next_status_codes);
+
+		if (!$next_status_codes) {
+			return null;
+		}
+		return OrderStatus::FindAll([
+			"conditions" => ["code IN :codes"],
+			"bind_ar" => [":codes" => $next_status_codes],
+		]);
+	}
+
+	function getAllNotes() {
+		$notesAr = [
+			trim($this->getNote()),
+			($dan = trim($this->getDeliveryAddressNote())) ? sprintf(_("Poznámka k doručovací adrese: %s"), $dan) : null,
+			($an = trim($this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
+		];
+		return array_filter($notesAr);
+	}
+
+
+	/**
+	 * Pruchod vsemi zaznamy csv
+	 */
+	static function ImportTrackingInfoCsvFile(CsvImport $import, $options=[]) {
+		$options += [
+			"service" => null,
+		];
+		$column_names = [
+			"default" => [
+				"order_no" => "var_symbol",
+				"tracking_no" => "cislo_zasilky",
+			],
+			"geis" => [
+				"order_no" => "referenční číslo",
+				"tracking_no" => "číslo zásilky",
+			],
+		];
+		$service = $options["service"];
+		$column_order_no = $column_names["default"]["order_no"];
+		$column_tracking_no = $column_names["default"]["tracking_no"];
+
+		if (array_key_exists($service, $column_names)) {
+			$column_order_no = $column_names[$service]["order_no"];
+			$column_tracking_no = $column_names[$service]["tracking_no"];
+		}
+		$imported = $not_imported_messages = [];
+		foreach($import->associative() as $idx => $row) {
+			$order_no = $row[$column_order_no];
+			$tracking_no = $row[$column_tracking_no];
+
+			$error_found = false;
+			if (!$order_no) {
+				$not_imported_ar[] = [
+					"tracking_number" => $tracking_no,
+					"order_no" => $order_no,
+					"message" => _("Chybí číslo objednávky"),
+					"line_no" => $idx+1,
+				];
+				$error_found = true;
+			}
+			$order = Order::FindFirst("order_no", $order_no);
+			if (!$order) {
+				$not_imported_messages[] = [
+					"tracking_number" => $tracking_no,
+					"order_no" => $order_no,
+					"message" => _("Objednávka nebyla nalezena v systému"),
+					"line_no" => $idx+1,
+				];
+				$error_found = true;
+			}
+			if ($error_found) {
+				continue;
+			}
+			$_res = $order->_set_tracking_info($tracking_no, ["line_no" => $idx, "service" => $service], $imported, $not_imported_messages);
+			if ($_res === false) {
+				$not_imported_messages[sizeof($not_imported_messages)-1]["line_no"] = ($idx+1);
+			}
+		}
+		return [$imported, $not_imported_messages];
+	}
+
+	protected function _set_tracking_info($tracking_no, $params=array(), &$imported_ar, &$not_imported_ar) {
+		$service_tracking_number_regexp = [
+			"cp" => "^[A-Z]{2}[0-9]{9,}[A-Z]?$",
+			"ppl" => "^[0-9]{11,}$",
+			"geis" => "^[0-9]{10,}$",
+		];
+		$params += [
+			"line_no" => null,
+			"service" => null,
+		];
+		$line_no = $params["line_no"];
+
+		$line_no++;
+		$error_found = false;
+		if (!$tracking_no) {
+			$not_imported_ar[] = [
+				"tracking_number" => $tracking_no,
+				"order_no" => null,
+				"message" => _("Chybí číslo zásilky"),
+				"line_no" => $line_no,
+			];
+			$error_found = true;
+		}
+		$re = $service_tracking_number_regexp[$params["service"]];
+		if (!preg_match("/$re/", $tracking_no)) {
+			$not_imported_ar[] = [
+				"tracking_number" => $tracking_no,
+				"order_no" => null,
+				"message" => sprintf(_("Hodnota %s nevypadá jako číslo zásilky"), $tracking_no),
+				"line_no" => $line_no,
+			];
+			$error_found = true;
+		}
+
+		# nemame ani cislo objednavky ani sledovaci cislo
+		# nema smysl pokracovat
+		if ($error_found) {
+			return false;
+		}
+
+		if ($this->getTrackingNumber()) {
+			$not_imported_ar[] = [
+				"tracking_number" => $tracking_no,
+				"order_no" => $this->getOrderNo(),
+				"message" => _("Zásilka již byla importovaná"),
+				"line_no" => $line_no,
+			];
+			$error_found = true;
+			return false;
+		}
+
+		$this->s("tracking_number", $tracking_no);
+
+		# znovu nactu objednavku,
+		# jinak zmena stavu vynuti odeslani emailu a mailer nebude mit cerstve hodnoty v objednavce (konkretne tracking_number)
+		$order = Order::FindFirst("order_no", $this->getOrderNo(), ["use_cache" => false]);
+		$order->setNewOrderStatus("shipped");
+		$imported_ar[] = $order;
+
+		return !$error_found;
+	}
+}

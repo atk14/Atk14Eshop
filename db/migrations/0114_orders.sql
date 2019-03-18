@@ -59,6 +59,7 @@ CREATE TABLE orders (
 	order_no VARCHAR(255) NOT NULL,
 	reference VARCHAR(255),
 	user_id INTEGER, -- nakup bez registrace -> null
+	region_id INT NOT NULL,
 	currency_id INT DEFAULT 1 NOT NULL,
 	language CHAR(2) NOT NULL DEFAULT 'cs',
 	--
@@ -96,13 +97,16 @@ CREATE TABLE orders (
 	note TEXT,
 	--
 	delivery_method_id INTEGER NOT NULL,
+	delivery_method_data JSON,
 	delivery_fee NUMERIC(20,6) NOT NULL,
 	delivery_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--
 	payment_method_id INTEGER NOT NULL,
+	payment_method_data JSON,
 	payment_fee NUMERIC(20,6) NOT NULL,
 	payment_fee_incl_vat NUMERIC(20,6) NOT NULL,
 	--
+	without_vat BOOLEAN NOT NULL DEFAULT FALSE,
 	price_to_pay NUMERIC(20,6) NOT NULL,
 	--
 	-- akt. stav objednavky
@@ -111,9 +115,14 @@ CREATE TABLE orders (
 	order_status_set_by_user_id INT,
 	order_status_note TEXT,
 	--
+	-- notifikace vytvoreni objednavky muze byt pozdrzeno (napr. z duvodu cekani na udaje z plat. brany)
+	creation_notified BOOLEAN,
+	creation_notified_at TIMESTAMP,
+	--
 	exported BOOLEAN NOT NULL DEFAULT false,
 	exported_at TIMESTAMP,
 	created_from_addr VARCHAR(255),
+	created_from_hostname VARCHAR(255),
 	created_by_user_id INT, -- toto muze byt administrator!
 	updated_by_user_id INT,
 	--
@@ -123,6 +132,7 @@ CREATE TABLE orders (
 	CONSTRAINT unq_orders_orderno UNIQUE (order_no),
 	CONSTRAINT chk_orders_pricetopay CHECK (price_to_pay >= 0.0),
 	CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users(id),
+	CONSTRAINT fk_orders_regions FOREIGN KEY (region_id) REFERENCES regions,
 	CONSTRAINT fk_orders_orderstatuses FOREIGN KEY (order_status_id) REFERENCES order_statuses,
 	CONSTRAINT fk_orders_status_users FOREIGN KEY (order_status_set_by_user_id) REFERENCES users,
 	CONSTRAINT fk_orders_currencies FOREIGN KEY (currency_id) REFERENCES currencies(id),
