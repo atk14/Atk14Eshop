@@ -1,5 +1,7 @@
 <?php
 class Campaign extends ApplicationModel implements Translatable {
+
+	use TraitRegions;
 	
 	static function GetTranslatableFields(){ return array("name"); }	
 

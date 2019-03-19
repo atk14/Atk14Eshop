@@ -1,6 +1,8 @@
 <?php
 class Voucher extends ApplicationModel {
 
+	use TraitRegions;
+
 	function __construct(){
 		// Toto tady mame pro tridu BasketVoucher
 		parent::__construct("vouchers",[
