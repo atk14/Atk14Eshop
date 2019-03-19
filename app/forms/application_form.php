@@ -89,7 +89,6 @@ class ApplicationForm extends Atk14Form{
 		$this->add_field($name,new SearchField($options));
 	}
 
-
 	/**
 	 * $this->_add_address_fields();
 	 */
