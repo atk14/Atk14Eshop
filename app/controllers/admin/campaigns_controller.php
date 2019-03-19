@@ -13,7 +13,7 @@ class CampaignsController extends AdminController {
 				"id::VARCHAR",
 				"discount_percent::VARCHAR",
 				"(SELECT body FROM translations WHERE record_id=campaigns.id AND table_name='campaigns' AND key='name' AND lang=:lang)",
-				"(SELECT code FROM regions WHERE regions.id=campaigns.region_id)"
+				"regions::VARCHAR",
 			];
 			$fields = "UPPER(COALESCE(".join(",'')||' '||COALESCE(",$ar).",''))";
 			if($conds = FullTextSearchQueryLike::GetQuery($fields,Translate::Upper($d["search"]),$bind_ar)){
