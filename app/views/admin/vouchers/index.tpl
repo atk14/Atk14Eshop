@@ -13,6 +13,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
+			<th>{t}Regions{/t}</th>
 			{sortable key="voucher_code"}<th>{t}Kód{/t}</th>{/sortable}
 			{sortable key="discount"}<th>{t}Hodnota{/t}</th>{/sortable}
 			{sortable key="active"}<th>{t}Je aktivní?{/t}</th>{/sortable}
