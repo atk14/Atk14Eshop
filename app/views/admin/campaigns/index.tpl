@@ -13,7 +13,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>{t}Oblast{/t}</th>
+			<th>{t}Oblasti{/t}</th>
 			{sortable key=name}<th>{t}Název{/t}</th>{/sortable}
 			<th>{t}Obsah{/t}</th>
 			<th>{t}Podmínky{/t}</th>

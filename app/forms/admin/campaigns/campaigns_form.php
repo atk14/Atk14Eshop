@@ -9,7 +9,9 @@ class CampaignsForm extends AdminForm {
 		)));
 
 		$this->add_field("regions", new RegionsField([
-			"label" => _("Oblasti")
+			"label" => _("Oblasti"),
+			"json_encode" => true,
+			"initial" => "__all__",
 		]));
 
 		$this->add_translatable_field("name", new CharField([
