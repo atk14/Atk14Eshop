@@ -41,6 +41,8 @@ class InsertLinkListsMigration extends ApplicationMigration {
 		$ll_footer_1 = LinkList::CreateNewRecord([
 			"name" => "Footer #1",
 			"code" => "footer_1",
+			"label_en" => "Links",
+			"label_cs" => "Odkazy"
 		]);
 		$items_footer_1 = [
 			[
@@ -75,7 +77,8 @@ class InsertLinkListsMigration extends ApplicationMigration {
 		$ll_footer_2 = LinkList::CreateNewRecord([
 			"name" => "Footer #2",
 			"code" => "footer_2",
-			"label_cs" => "",
+			"label_en" => "Information",
+			"label_cs" => "Informace",
 		]);
 		$items_footer_2 = [
 			[
