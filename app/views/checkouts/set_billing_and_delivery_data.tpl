@@ -23,8 +23,8 @@
 				</ul>
 				{/strip}
 				<div class="card__actions">
-					<button class="js--predefined-address card__action" data-json="{$da->toJson()}"><i class="icon ion-gear-a"></i><span class="sr-only">{t}Použít{/t}</span></button>
-					{a_destroy action="delivery_addresses/destroy" id=$da->getId() _title="{t}Smazat adresu{/t}" _confirm="{t}Opravdu chcete smazat tuto adresu?{/t}" _class="card__action"}<i class="icon ion-close"></i><span class="sr-only">{t}Smazat{/t}</span>{/a_destroy}
+					<button class="js--predefined-address card__action" data-json="{$da->toJson()}">{!"cogs"|icon}<span class="sr-only">{t}Použít{/t}</span></button>
+					{a_destroy action="delivery_addresses/destroy" id=$da->getId() _title="{t}Smazat adresu{/t}" _confirm="{t}Opravdu chcete smazat tuto adresu?{/t}" _class="card__action"}{!"remove"|icon}<span class="sr-only">{t}Smazat{/t}</span>{/a_destroy}
 				</div>
 			</div>
 		</li>

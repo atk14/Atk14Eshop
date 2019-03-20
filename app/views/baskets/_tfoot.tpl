@@ -42,7 +42,7 @@
 					{if $basket->freeShipping()}
 						<h4>{t}Doprava{/t}</h4>
 						<strong class="text-success text-uppercase text--large">
-							<i class="icon ion-checkmark icon-lg"></i> {t}Zdarma{/t}
+							{!"check"|icon} {t}Zdarma{/t}
 						</strong>
 					{/if}
 				</td>
