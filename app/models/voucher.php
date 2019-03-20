@@ -63,7 +63,7 @@ class Voucher extends ApplicationModel {
 
 		$region = $basket->getRegion();
 		$rc = $region->getCode();
-		$regions = json_decode($this->getRegions(),true);
+		$regions = json_decode($this->g("regions"),true);
 		if(!isset($regions[$rc]) || !$regions[$rc]){
 			$error_msg = sprintf(_("Voucher %s nelze použít"),$this->getVoucherCode());
 			return false;
