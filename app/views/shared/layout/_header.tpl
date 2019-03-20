@@ -40,3 +40,5 @@
 		</div>
 	</div>
 </nav>
+
+{render partial="shared/layout/header/main_menu"}

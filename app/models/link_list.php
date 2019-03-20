@@ -1,10 +1,6 @@
 <?php
 /**
- * Model pro seznam odkazu.
- *
- * LinkList by se vyhledal podle slugu, ktery je jedinecny.
- * V sablone se pak vyrenderuje vcetne link_list_items.
- *
+ * Model pro seznam odkazu
  */
 class LinkList extends ApplicationModel implements Translatable, Rankable {
 
@@ -18,8 +14,8 @@ class LinkList extends ApplicationModel implements Translatable, Rankable {
 
 	/**
 	 *	$items = $list->getLinkListItems();
-	 *	$items = $list->getLinkListItems($CR); // toto vrati polozky pouze pro dany region
-	 *	$items = $list->getLinkListItems("CR"); // toto vrati polozky pouze pro dany region
+	 *	$items = $list->getLinkListItems($CZ); // toto vrati polozky pouze pro dany region
+	 *	$items = $list->getLinkListItems("CZ"); // toto vrati polozky pouze pro dany region
 	 */
 	function getLinkListItems($region = null) {
 		if(is_object($region)) {
