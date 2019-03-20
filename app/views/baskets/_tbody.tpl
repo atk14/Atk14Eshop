@@ -17,7 +17,7 @@
 					<td class="js--price table-products__price">{render partial="baskets/price"}</td>
 					<td class="table-products__item-actions">
 						{capture assign="url"}{link_to namespace="api" controller="basket_items" action="destroy" product=$item->getProductId() format='json' _connector='&'}{/capture}
-						{a namespace="" action="basket_items/destroy" _data-url="$url" id=$item _method=post _confirm="{t}Opravdu chcete odstranit tento produkt z nákupního košíku?{/t}" _title="{t}odstranit z košíku{/t}" _class="js--basket-destroy"}<i class="icon ion-close"></i>{/a}
+						{a namespace="" action="basket_items/destroy" _data-url="$url" id=$item _method=post _confirm="{t}Opravdu chcete odstranit tento produkt z nákupního košíku?{/t}" _title="{t}odstranit z košíku{/t}" _class="js--basket-destroy"}{!"remove"|icon}{/a}
 					</td>
 				</tr>
 			{/foreach}
