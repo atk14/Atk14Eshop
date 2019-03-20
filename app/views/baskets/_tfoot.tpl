@@ -21,7 +21,7 @@
 					<td colspan="2" class="table-products__id">{t}slevový kód č.{/t}&nbsp;<strong>{$voucher}</strong></td>
 					<td class="table-products__price text-success">{!(-$voucher->getDiscountAmount())|display_price:$currency}</td>
 					<td class="table-products__item-actions">
-						{a namespace="" action="basket_vouchers/destroy" id=$voucher _method=post _confirm="{t}Opravdu chcete odstranit tento slevový kupón z nákupního košíku?{/t}" _title="{t}odstranit z košíku{/t}"}<i class="icon ion-close"></i>{/a}
+						{a namespace="" action="basket_vouchers/destroy" id=$voucher _method=post _confirm="{t}Opravdu chcete odstranit tento slevový kupón z nákupního košíku?{/t}" _title="{t}odstranit z košíku{/t}"}{!"remove"|icon}{/a}
 					</td>
 				</tr>
 			{/foreach}
