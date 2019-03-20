@@ -111,6 +111,9 @@ class InsertLinkListsMigration extends ApplicationMigration {
 	function _import_items($link_list,$items){
 		foreach($items as $item){
 			$item["link_list_id"] = $link_list;
+			$item += [
+				"regions" => '{"CZ": true}',
+			];
 			LinkListItem::CreateNewRecord($item);
 		}
 	}

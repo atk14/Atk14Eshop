@@ -6,10 +6,14 @@
  * V sablone se pak vyrenderuje vcetne link_list_items.
  *
  */
-class LinkList extends ApplicationModel implements Translatable {
+class LinkList extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetTranslatableFields() {
 		return array("label");
+	}
+
+	function setRank($rank){
+		$this->_setRank($rank);
 	}
 
 	/**

@@ -7,6 +7,8 @@ CREATE TABLE link_lists(
 	name VARCHAR(255) NOT NULL,
 	url VARCHAR(255),
 	--
+	rank INTEGER NOT NULL DEFAULT 999,
+	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
 	--
@@ -24,12 +26,13 @@ CREATE TABLE link_list_items(
 	id INTEGER PRIMARY KEY DEFAULT nextval('seq_link_list_items'),
 	--
 	link_list_id INTEGER NOT NULL,
-	rank INTEGER NOT NULL DEFAULT 999,
-	regions JSON DEFAULT '{"CR": true}',
+	regions JSON,
 	--
 	url VARCHAR(255) NOT NULL,
 	url_params JSON, -- parametry pro sestaveni URL pomoci Atk14Url::BuildLink(), je-li to vubec mozne
 	image_url VARCHAR(255),
+	--
+	rank INTEGER NOT NULL DEFAULT 999,
 	--
 	created_by_user_id INT,
 	updated_by_user_id INT,

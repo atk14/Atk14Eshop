@@ -6,6 +6,11 @@ class LinkListItemsForm extends AdminForm {
 			"label" => _("Zobrazený text"),
 		)));
 
+		$this->add_field("regions", new RegionsField(array(
+			"label" => _("Regions"),
+			"initial" => "__all__",
+		)));
+
 		$this->add_field("url", new CharField(array(
 			"label" => _("URL / cesta"),
 			"required" => false,

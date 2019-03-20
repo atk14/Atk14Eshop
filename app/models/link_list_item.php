@@ -2,6 +2,7 @@
 class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 	use TraitUrlParams;
+	use TraitRegions;
 
 	static function GetTranslatableFields() {
 		return array("label");
