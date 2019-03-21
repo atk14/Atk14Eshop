@@ -17,6 +17,11 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	/**
+	 * @var LazyLoader
+	 */
+	var $lazy_loader;
+
+	/**
 	 * @var PriceFinder
 	 */
 	var $price_finder;
@@ -56,6 +61,8 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _initialize(){
+		$this->lazy_loader || ($this->lazy_loader = new LazyLoader());
+
 		$this->_prepend_before_filter("application_before_filter");
 
 		if(!$this->rendering_component){
@@ -107,6 +114,8 @@ class ApplicationBaseController extends Atk14Controller{
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+
+		$this->tpl_data["lazy_loader"] = $this->lazy_loader;
 	}
 
 	function _application_before_filter(){
@@ -163,6 +172,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$bar->addPanel(new DbMolePanel($this->dbmole));
 			$bar->addPanel(new TemplatesPanel());
 			$bar->addPanel(new MailPanel($this->mailer));
+			$bar->addPanel(new LazyLoaderPanel($this->lazy_loader));
 		}
 	}
 
