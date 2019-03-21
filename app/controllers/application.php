@@ -45,6 +45,51 @@ class ApplicationController extends ApplicationBaseController{
 		$this->breadcrumbs[] = [sprintf(_("Objednávka %s"),$order->getOrderNo()),$link];
 	}
 
+	function _application_before_filter() {
+
+		// Veci do lazy_loaderu pridame pred volani parent::_application_before_filter(), protoze
+		// tam muze dojit k _execute_action() a tak uz to potrebujeme mit k dipozici
+
+		$region = $this->_get_current_region();
+
+		$this->lazy_loader["main_menu"] = function() use($region){
+			$menu = new Menu14();
+			$ll = LinkList::FindByCode("main");
+			if($ll){
+				foreach($ll->getItems($region) as $link){
+					$menu[] = [$link->getLabel(),$link->getUrl()];
+				}
+			}
+			return $menu;
+		};
+
+		$this->lazy_loader["footer_1_menu"] = function() use($region){
+			$menu = new Menu14();
+			$ll = LinkList::FindByCode("footer_1");
+			if($ll){
+				$submenu = $menu->add($ll->getLabel());
+				foreach($ll->getItems($region) as $link){
+					$submenu[] = [$link->getLabel(),$link->getUrl()];
+				}
+			}
+			return $menu;
+		};
+
+		$this->lazy_loader["footer_2_menu"] = function() use($region){
+			$menu = new Menu14();
+			$ll = LinkList::FindByCode("footer_2");
+			if($ll){
+				$submenu = $menu->add($ll->getLabel());
+				foreach($ll->getItems($region) as $link){
+					$submenu[] = [$link->getLabel(),$link->getUrl()];
+				}
+			}
+			return $menu;
+		};
+
+		parent::_application_before_filter();
+	}
+
 	// Navigace u vytvareni objednavky
 	function _prepare_checkout_navigation(){
 		$navi = new Menu14();

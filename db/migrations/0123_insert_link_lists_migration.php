@@ -97,7 +97,7 @@ class InsertLinkListsMigration extends ApplicationMigration {
 				"url" => $this->_link_to("articles/index"),
 			],
 			[
-				"label_cs" => "Contact data",
+				"label_en" => "Contact data",
 				"label_cs" => "Kontakty",
 				"url" => $this->_link_to_page("contact"),
 			],

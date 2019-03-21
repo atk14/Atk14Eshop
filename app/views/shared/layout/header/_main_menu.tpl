@@ -3,14 +3,11 @@
 <nav class="navbar navbar-light navbar-expand nav-main">
 	<ul class="navbar-nav">
 
-		{assign main_menu LinkList::FindByCode("main")}
-		{if $main_menu}
-			{foreach $main_menu->getItems($current_region) as $item}
+		{foreach $lazy_loader.main_menu->getItems() as $item}
 			<li class="nav-item">
-				<a class="nav-link" href="{$item->getUrl()}">{$item->getLabel()}</a>
+				<a class="nav-link" href="{$item->getUrl()}">{$item->getTitle()}</a>
 			</li>
-			{/foreach}
-		{/if}
+		{/foreach}
 
 	</ul>
 </nav>
