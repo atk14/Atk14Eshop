@@ -14,6 +14,10 @@ class SummaryForm extends CheckoutsForm {
 			"label" => _("Souhlasím s obchodními podmínkami"),
 			"required" => false // nezatrhnuti je osetreno v clean()
 		]));
+		$this->add_field("sign_up_for_newsletter", new BooleanField([
+			"label" => _("Sign up for newsletter"),
+			"required" => false,
+		]));
 
 		$this->set_button_text(_("Dokončit objednávku"));
 	}

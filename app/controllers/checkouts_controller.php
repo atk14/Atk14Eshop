@@ -130,6 +130,12 @@ class CheckoutsController extends ApplicationController {
 			//$this->mailer->notify_order_creation($order);
 			$this->basket->destroy();
 
+			if($d["sign_up_for_newsletter"]){
+				NewsletterSubscriber::SignUp($order->getEmail(),array(
+					"name" => trim($order->getFirstname()." ",$order->getLastname()),
+				));
+			}
+
 			// Yarri: toto je asi trackovani objednavek v Google Analytics
 			$this->session->s("track_order", true);
 
