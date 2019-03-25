@@ -124,18 +124,11 @@ class CheckoutsController extends ApplicationController {
 			// V tomto kroku lze jeste zadat poznamku k objednavce
 			$this->basket->s("note",$d["note"]);
 
-			$order = $this->basket->createOrder([
-				"gdpr" => $d["gdpr"],
-			]);
+			$order = $this->basket->createOrder();
 			// Vytvoreni objednavky uz neni notifikovano tady.
 			// Je na to spec. robot. V emailu se totiz posila PDF s prehledem obj. zbozi a jeho vytvoreni muze trvat dlouho.
 			//$this->mailer->notify_order_creation($order);
 			$this->basket->destroy();
-
-			if($order->g("gdpr")){
-				HeurekaNotifier::SendOrderNotification($order, array("logger" => $this->logger));
-				$this->_sign_up_for_newsletter($order->getUser() ? $order->getUser() : $order->getEmail());
-			}
 
 			// Yarri: toto je asi trackovani objednavek v Google Analytics
 			$this->session->s("track_order", true);

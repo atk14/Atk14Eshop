@@ -597,13 +597,10 @@ class Basket extends BasketOrOrder {
 	function createOrder($options = []){
 		$options += [
 			"without_vat" => false,
-			"gdpr" => null,
 		];
 
 		$without_vat = !!$options["without_vat"];
 		$incl_vat = !$without_vat;
-
-		$gdpr = $options["gdpr"];
 
 		$values = $this->toArray();
 
@@ -641,8 +638,6 @@ class Basket extends BasketOrOrder {
 		$values["price_to_pay"] = $price_to_pay = $this->getPriceToPay($incl_vat,$price_to_pay_without_rounding);
 
 		$values["creation_notified"] = false; // zpozdeni emailove notifikace
-
-		$values["gdpr"] = $gdpr;
 
 		$order = Order::CreateNewRecord($values);
 		$order->setNewOrderStatus(OrderStatus::DetermineInitialStatus($values["payment_method_id"])->getCode());

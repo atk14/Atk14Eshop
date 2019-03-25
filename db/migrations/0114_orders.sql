@@ -108,8 +108,6 @@ CREATE TABLE orders (
 	without_vat BOOLEAN NOT NULL DEFAULT FALSE,
 	price_to_pay NUMERIC(20,6) NOT NULL,
 	--
-	gdpr BOOLEAN,
-	--
 	responsible_user_id INTEGER,
 	--
 	-- akt. stav objednavky

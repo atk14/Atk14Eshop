@@ -14,10 +14,6 @@ class SummaryForm extends CheckoutsForm {
 			"label" => _("Souhlasím s obchodními podmínkami"),
 			"required" => false // nezatrhnuti je osetreno v clean()
 		]));
-		$this->add_field("gdpr", new ConfirmationField([
-			"label" => _("Souhlasím se zasíláním informací o novinkách, akcích a dotazníku spokojenosti zákazníků"),
-			"required" => false,
-		]));
 
 		$this->set_button_text(_("Dokončit objednávku"));
 	}
