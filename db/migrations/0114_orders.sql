@@ -169,7 +169,7 @@ CREATE TABLE order_items (
 	updated_at TIMESTAMP,
 	--
 	CONSTRAINT unq_orderitems UNIQUE (order_id, product_id),
-	CONSTRAINT chk_orders_amount CHECK (amount > 0),
+	CONSTRAINT chk_orders_amount CHECK (amount > 0 OR amount = -1), -- produkt zaokrouhleni se muze dat do objednavky -1x
 	CONSTRAINT fk_orderitems_orders FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
 	CONSTRAINT fk_orderitems_products FOREIGN KEY (product_id) REFERENCES products(id)
 	--
