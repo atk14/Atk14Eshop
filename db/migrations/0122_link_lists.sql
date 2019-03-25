@@ -40,7 +40,7 @@ CREATE TABLE link_list_items(
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP,
 	--
-	CONSTRAINT fk_linklistitems__link_list_id FOREIGN KEY (link_list_id) REFERENCES link_lists ON DELETE CASCADE,
-	CONSTRAINT fk_linklistitems__cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
-	CONSTRAINT fk_linklistitems__upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
+	CONSTRAINT fk_linklistitems_linklists FOREIGN KEY (link_list_id) REFERENCES link_lists ON DELETE CASCADE,
+	CONSTRAINT fk_linklistitems_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
+	CONSTRAINT fk_linklistitems_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );

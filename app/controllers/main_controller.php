@@ -16,6 +16,8 @@ class MainController extends ApplicationController{
 			$this->page_title = $page->getTitle();
 			$this->page_description = strip_tags(smarty_modifier_markdown($page->getTeaser()));
 		}
+
+		$this->tpl_data["slider"] = Slider::FindByCode("homepage");
 	}
 
 	function contact(){

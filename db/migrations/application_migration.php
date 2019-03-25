@@ -17,4 +17,18 @@ class ApplicationMigration extends Atk14Migration{
 		return str_replace("\n",$connector,$lipsum);
 	}
 
+	function _link_to($params){
+		return Atk14Url::BuildLink($params);
+	}
+
+	function _link_to_page($code){
+		Atk14Require::Helper("modifier.link_to_page");
+		return smarty_modifier_link_to_page($code);
+	}
+
+	function _link_to_category($code){
+		Atk14Require::Helper("modifier.link_to_category");
+		return smarty_modifier_link_to_category($code);
+	}
+
 }

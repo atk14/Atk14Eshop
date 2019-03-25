@@ -2,7 +2,7 @@
 trait TraitUrlParams {
 
 	static function CreateNewRecord($values,$options = []){
-		if(!array_key_exists("url_params",$values)){
+		if(!array_key_exists("url_params",$values) && array_key_exists("url",$values)){
 			$values["url_params"] = self::_GetUrlParamsJson($values["url"]);
 			
 		}
