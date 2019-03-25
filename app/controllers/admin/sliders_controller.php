@@ -2,22 +2,27 @@
 class SlidersController extends AdminController {
 
 	function index(){
-		$this->page_title = _("Seznam sliderů");
-		$sliders = $this->tpl_data["sliders"] = Slider::FindAll();
+		$this->page_title = _("List of image sliders");
 
-		if(sizeof($sliders)==1){
-			$this->_redirect_to([
-				"action" => "edit",
-				"id" => $sliders[0],
-			]);
-		}
-		
+		$this->tpl_data["sliders"] = Slider::FindAll();
+	}
+
+	function create_new(){
+		$this->_create_new();
 	}
 
 	function edit(){
 		$this->_edit([
 			"page_title" => $this->slider->getName(),
 		]);
+	}
+
+	function set_rank(){
+		$this->_set_rank();
+	}
+
+	function destroy(){
+		$this->_destroy();
 	}
 
 	function _before_filter(){

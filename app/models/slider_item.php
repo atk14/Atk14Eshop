@@ -9,5 +9,9 @@ class SliderItem extends ApplicationModel implements Translatable, Rankable {
 		$this->_setRank($rank,["slider_id" => $this->getSliderId()]);
 	}
 
+	function getSlider(){
+		return Cache::Get("Slider",$this->getSliderId());
+	}
+
 	function toString(){ return $this->getImageUrl(); }
 }
