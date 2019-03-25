@@ -16,5 +16,11 @@ Aliquam quis sem neque. In mollis augue id turpis porttitor, vel auctor libero l
 
 Aliquam quis sem neque. In mollis augue id turpis porttitor, vel auctor libero lobortis. Duis viverra blandit justo, id commodo nisi cursus et. Suspendisse potenti. Curabitur consequat orci vulputate ligula lacinia, vel vulputate purus commodo. Vestibulum rhoncus, sapien in bibendum ornare, elit nisi suscipit lacus, eget vulputate eros nibh vitae felis. Mauris sit amet condimentum dolor. Nunc venenatis, lacus vitae ultrices fermentum, libero ipsum rhoncus nisi, in lobortis enim massa nec lectus. Integer eu neque suscipit, consequat mauris nec, consectetur dui.',
 		]);
+
+		Page::CreateNewRecord([
+			"code" => "terms_and_conditions",
+			"title_en" => "Terms and Conditions",
+			"title_cs" => "Obchodní podmínky",
+		]);
 	}
 }

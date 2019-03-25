@@ -17,7 +17,7 @@
 			{render partial="shared/form_field" field="gdpr"}
 
 			{render partial="shared/form_field" field="confirmation"}
-			{t url='obchodni-podminky'|link_to_page escape=no}Kliknutím na tlačítko Dokončit objednávku souhlasíte<br>a&nbsp;potvrzujete, že&nbsp;jste se seznámil s&nbsp;<a href="%1" target="_blank">obchodními&nbsp;podmínkami.</a>{/t}
+			{t url='terms_and_conditions'|link_to_page escape=no}Kliknutím na tlačítko Dokončit objednávku souhlasíte<br>a&nbsp;potvrzujete, že&nbsp;jste se seznámil s&nbsp;<a href="%1" target="_blank">obchodními&nbsp;podmínkami.</a>{/t}
 		</div>
 		{render partial="shared/form_button" class="btn btn-lg btn--cta"}
 	</div>
