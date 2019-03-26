@@ -7,7 +7,7 @@
 {if $images}
 	{if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if}
 	<section class="image-gallery">
-		{if $photo_gallery_title}<h4>{$photo_gallery_title}</h4>{/if}
+		{if $photo_gallery_title}<h3>{$photo_gallery_title}</h3>{/if}
 		<ul class="list-inline">
 			{foreach $images as $image}
 				<li class="list-inline-item mb-3">
