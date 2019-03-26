@@ -22,6 +22,8 @@
 						</a>
 						<div class="dropdown-menu">
 							<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
+							<a href="{link_to action="orders/index"}" class="dropdown-item">{t}My orders{/t}</a>
+							<a href="{link_to action="delivery_addresses/index"}" class="dropdown-item">{t}Delivery addresses{/t}</a>
 							<div class="dropdown-divider"></div>
 							{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
 						</div>
