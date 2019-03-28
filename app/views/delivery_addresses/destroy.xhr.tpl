@@ -1,0 +1,1 @@
+$link.closest("li").fadeOut();
