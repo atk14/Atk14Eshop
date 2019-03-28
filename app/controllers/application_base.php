@@ -482,6 +482,12 @@ class ApplicationBaseController extends Atk14Controller{
 		return $this->_redirect_to($return_uri);
 	}
 
+	function _add_something_to_breadcrumbs($title,$link){
+		$title = strip_tags($title);
+		if(is_array($link)){ $link = $this->_link_to($link); }
+		$this->breadcrumbs[] = array($title,$link);
+	}
+
 	function _prepare_basket_edit_form($basket,$form){
 		$form->set_action($this->_link_to(["namespace" => "", "action" => "baskets/edit"]));
 		$form->set_up_for_basket($basket);
