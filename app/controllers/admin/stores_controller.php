@@ -25,4 +25,10 @@ class StoresController extends AdminController {
 	function set_rank(){
 		$this->_set_rank();
 	}
+
+	function _before_filter(){
+		if(in_array($this->action,["edit"])){
+			$this->_find("store"); // ... because we need to disable the code field in EditForm
+		}
+	}
 }

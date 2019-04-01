@@ -14,7 +14,9 @@
 
 					{capture assign="confirm"}{t 1=$store->getName()|h escape=no}You are about to permanently delete store %1
 		Are you sure about that?{/t}{/capture}
-					{a_destroy id=$store _confirm=$confirm}{!"trash-alt"|icon} {t}Delete{/t}{/a_destroy}
+					{if $store->isDeletable()}
+						{a_destroy id=$store _confirm=$confirm}{!"trash-alt"|icon} {t}Delete{/t}{/a_destroy}
+					{/if}
 				{/dropdown_menu}
 			</div>
 	</div>	

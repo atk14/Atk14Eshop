@@ -122,7 +122,7 @@ class AdminForm extends ApplicationForm{
 			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
 		);
 
-		$this->add_field("code", new CharField($options));
+		return $this->add_field("code", new CharField($options));
 	}
 
 	function add_visible_field($options = array()){

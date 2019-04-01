@@ -93,7 +93,10 @@ class StoresForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_code_field();
+		$field = $this->add_code_field();
+		if(isset($this->controller->store) && $this->controller->store->getCode()=="eshop"){
+			$field->disabled = true;
+		}
 
 		$this->add_visible_field();
 	}
