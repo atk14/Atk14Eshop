@@ -9,6 +9,8 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug {
 
 	function getSlugPattern($lang){ return $this->g("name_$lang"); }
 
+	function isVisible(){ return $this->getVisible(); }
+
 	function getGpsCoordinates(){
 		if(is_null($this->g("location_lat")) || is_null($this->g("location_lng"))){
 			return;

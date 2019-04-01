@@ -27,10 +27,23 @@ class StoresForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_translatable_field("address", new TextField(array(
-			"label" => _("Address"),
+		foreach([
+			"address_street" => _("Street"),
+			"address_street2" => _("Street"),
+			"address_city" => _("City"),
+			"address_zip" => _("ZIP")
+		] as $k => $label){
+			$this->add_field($k,new CharField([
+				"label" => $label,
+				"required" => false,
+				"max_length" => 255,
+			]));
+		}
+		$this->add_field("address_country", new CountryField([
+			"label" => _("Stát"),
 			"required" => false,
-		)));
+			"initial" => "CZ",
+		]));
 
 		$this->add_field("location_lat", new FloatField([
 			"label" => _("Latitude"),
@@ -44,6 +57,32 @@ class StoresForm extends AdminForm {
 			"required" => false,
 		]));
 
+		$this->add_translatable_field("address", new TextField(array(
+			"label" => _("Address"),
+			"required" => false,
+		)));
+
+		foreach([
+			"mon" => _("Monday"),
+			"tue" => _("Tuesday"),
+			"wed" => _("Wednesday"),
+			"thu" => _("Thursday"),
+			"fri" => _("Friday"),
+			"sat" => _("Saturday"),
+			"sun" => _("Sunday")
+		] as $k => $day){
+			$this->add_field("opening_hours_{$k}1",new HourField([
+				"label" => sprintf(_("Otevřeno v %s od"),$day),
+				"initial" => "9:00",
+				"required" => false,
+			]));
+			$this->add_field("opening_hours_{$k}2",new HourField([
+				"label" => sprintf(_("Otevřeno v %s do"),$day),
+				"initial" => "21:00",
+				"required" => false,
+			]));
+		}
+
 		$this->add_translatable_field("opening_hours", new TextField(array(
 			"label" => _("Opening hours"),
 			"required" => false,
@@ -55,6 +94,8 @@ class StoresForm extends AdminForm {
 		)));
 
 		$this->add_code_field();
+
+		$this->add_visible_field();
 	}
 
 	function clean(){

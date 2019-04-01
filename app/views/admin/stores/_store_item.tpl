@@ -4,6 +4,9 @@
 				{render partial="shared/list_thumbnail" image=$store->getImageUrl()}
 
 				{$store->getName()}
+				{if !$store->isVisible()}
+					<em>({!"eye-slash"|icon} {t}invisible{/t})</em>
+				{/if}
 			</div>
 			<div class="">
 				{dropdown_menu}

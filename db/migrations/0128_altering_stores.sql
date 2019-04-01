@@ -1,0 +1,37 @@
+ALTER TABLE stores ADD address_street VARCHAR(255);
+ALTER TABLE stores ADD address_street2 VARCHAR(255);
+ALTER TABLE stores ADD address_city VARCHAR(255);
+ALTER TABLE stores ADD address_state VARCHAR(255);
+ALTER TABLE stores ADD address_zip VARCHAR(255);
+ALTER TABLE stores ADD address_country CHAR(2);
+
+ALTER TABLE stores ADD opening_hours_mon1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_mon2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_mon3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_mon4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_tue1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_tue2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_tue3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_tue4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_wed1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_wed2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_wed3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_wed4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_thu1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_thu2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_thu3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_thu4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_fri1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_fri2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_fri3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_fri4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sat1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sat2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sat3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sat4 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sun1 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sun2 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sun3 NUMERIC(4,2);
+ALTER TABLE stores ADD opening_hours_sun4 NUMERIC(4,2);
+
+ALTER TABLE stores ADD visible BOOLEAN NOT NULL DEFAULT TRUE;
