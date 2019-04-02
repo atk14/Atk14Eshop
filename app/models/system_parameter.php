@@ -31,6 +31,10 @@ class SystemParameter extends ApplicationModel implements Translatable {
 		return $content;
 	}
 
+	function isMandatory(){
+		return $this->g("mandatory");
+	}
+
 	function toString(){
 		return (string)$this->getContent();
 	}

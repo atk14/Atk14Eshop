@@ -15,6 +15,7 @@ CREATE TABLE system_parameters (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_system_parameters'),
 	code VARCHAR(255) NOT NULL,
 	system_parameter_type_id INT NOT NULL,
+	mandatory BOOLEAN NOT NULL DEFAULT FALSE,
 	content TEXT,
 	--
 	created_by_user_id INT,

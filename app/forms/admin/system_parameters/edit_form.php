@@ -13,7 +13,7 @@ class EditForm extends SystemParametersForm {
 
 			$this->add_field("content", new TextField([
 				"label" => _("Textual value"),
-				"required" => false,
+				"required" => $system_parameter->isMandatory(),
 				"trim_value" => true,
 				"null_empty_output" => true,
 			]));
