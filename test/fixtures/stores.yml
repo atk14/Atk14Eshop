@@ -1,0 +1,5 @@
+test:
+  address_street: Street
+  address_city: City
+  address_zip: 111 00
+  address_country: CZ
