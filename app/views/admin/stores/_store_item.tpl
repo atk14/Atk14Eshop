@@ -5,7 +5,7 @@
 
 				{$store->getName()}
 				{if !$store->isVisible()}
-					<em>({!"eye-slash"|icon} {t}invisible{/t})</em>
+					<em>({!"eye-slash"|icon} {t}invisible in the public list on web{/t})</em>
 				{/if}
 			</div>
 			<div class="">

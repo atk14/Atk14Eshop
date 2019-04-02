@@ -98,7 +98,9 @@ class StoresForm extends AdminForm {
 			$field->disabled = true;
 		}
 
-		$this->add_visible_field();
+		$this->add_visible_field(array(
+			"label" => _("Is visible in the public list on web?")
+		));
 	}
 
 	function clean(){
