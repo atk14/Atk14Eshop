@@ -47,6 +47,24 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		$this->_setRank($rank);
 	}
 
+	function getApplicationName(){
+		$out = parent::getApplicationName();
+		if($out){ return $out; }
+		return ATK14_APPLICATION_NAME;
+	}
+
+	function getApplicationLongName(){
+		$out = parent::getApplicationLongName();
+		if($out){ return $out; }
+		return ATK14_APPLICATION_NAME;
+	}
+
+	function getEmail(){
+		$out = $this->g("email");
+		if($out){ return $out; }
+		return DEFAULT_EMAIL;
+	}
+
 	function getDomains(){
 		return (array)json_decode($this->g("domains"),true);
 	}

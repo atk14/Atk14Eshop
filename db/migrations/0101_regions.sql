@@ -1,6 +1,6 @@
-CREATE SEQUENCE seq_regisons;
+CREATE SEQUENCE seq_regions;
 CREATE TABLE regions (
-	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_regisons'),
+	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_regions'),
 	code VARCHAR(255) NOT NULL,
 	--
 	name VARCHAR(255),
