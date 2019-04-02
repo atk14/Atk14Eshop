@@ -29,7 +29,7 @@ class StoresForm extends AdminForm {
 
 		foreach([
 			"address_street" => _("Street"),
-			"address_street2" => _("Street"),
+			"address_street2" => _("Street (2nd line)"),
 			"address_city" => _("City"),
 			"address_zip" => _("ZIP")
 		] as $k => $label){
