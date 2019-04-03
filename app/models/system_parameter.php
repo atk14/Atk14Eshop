@@ -35,6 +35,10 @@ class SystemParameter extends ApplicationModel implements Translatable {
 		return $this->g("mandatory");
 	}
 
+	function isReadOnly(){
+		return $this->g("read_only");
+	}
+
 	function toString(){
 		return (string)$this->getContent();
 	}

@@ -8,15 +8,19 @@ class SystemParametersController extends AdminController {
 	}
 
 	function edit(){
-		$this->page_title = sprintf(_("Editace parametru %s"),$this->system_parameter->getCode());
+		$this->page_title = sprintf(_("Editing parameter %s"),$this->system_parameter->getCode());
 
 		$this->form->prepare_for($this->system_parameter);
 		$this->form->set_initial($this->system_parameter);
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->system_parameter->s($d);
-			$this->flash->success(_("Hodnota parametru byla aktualizována"));
+			if($d==$this->form->get_initial() || $this->system_parameter->isReadOnly()){
+				$this->flash->notice(_("Nothing has been changed"));
+			}else{
+				$this->system_parameter->s($d);
+				$this->flash->success(_("Parameter value has been updated"));
+			}
 			$this->_redirect_back();
 		}
 	}
