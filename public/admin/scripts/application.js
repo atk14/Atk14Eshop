@@ -12,8 +12,10 @@
 			init: function() {
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
-				ADMIN.utils.handleCategoriesSuggestions();
+				ADMIN.utils.handleTagsSuggestions();
+				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleGalleryImagesUpload();
+				ADMIN.utils.handleCategoriesSuggestions();
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
@@ -30,6 +32,20 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				UTILS.leaving_unsaved_page_checker.init();
+			}
+		},
+
+		cards: {
+			edit: function() {
+				ADMIN.utils.handleCardToCategories();
+			}
+		},
+
+		utils: {
+
+			initializeMarkdonEditors: function() {
 
 				// Markdown Editor requires Ace
 				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
@@ -51,93 +67,71 @@
 						}
 					} );
 				} );
-
-				UTILS.leaving_unsaved_page_checker.init();
-			}
-		},
-
-		articles: {
-			create_new: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
 			},
-			edit: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
-			}
-		},
 
-		cards: {
-			create_new: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
-			},
-			edit: function() {
-				ADMIN.utils.handleCardToCategories();
-				ADMIN.utils.tagsSuggest( "#id_tags" );
-			}
-		},
-
-		utils: {
 			handleGalleryImagesUpload: function() {
-				var $link = $( "#imageToGallery" );
+				
+				$( ".js--image_to_gallery_link" ).each( function() {
 
-				if ( $link.length !== 1 ) {
-					return;
-				}
+					var $link = $( this );
+					var $wrap = $link.closest(".js--image_gallery_wrap");
 
-				$link.hide();
+					$link.hide();
 
-				var url = $link.attr( "href" ),
-					$progress = $( ".progress-bar" ),
-					$msg = $( ".img-message" ),
-					$list = $( ".list-group-images" ),
-					$input = $( "<input>", {
-						"id": "fileupload",
-						"type": "file",
-						"name": "files[]",
-						"data-url": url,
-						"multiple": "multiple"
+					var url = $link.attr( "href" ),
+						$progress = $wrap.find( ".progress-bar" ),
+						$msg = $wrap.find( ".img-message" ),
+						$list = $wrap.find( ".list-group-images" ),
+						$input = $( "<input>", {
+							"type": "file",
+							"name": "files[]",
+							"data-url": url,
+							"multiple": "multiple"
+						} );
+
+					$input.insertBefore( $link );
+
+					$input.fileupload( {
+						dataType: "json",
+						multipart: false,
+						start: function() {
+							$progress.show();
+						},
+						progressall: function( e, data ) {
+							var progress = parseInt( data.loaded / data.total * 100, 10 );
+
+							$progress.css(
+								"width",
+								progress + "%"
+							);
+						},
+						done: function( e, data ) {
+
+							// This is the same grip like in handleSortables
+							var glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
+								" title='sorting'></span>";
+
+							$( data.result.image_gallery_item )
+								.addClass( "not-processed" )
+								.prepend( glyph )
+								.appendTo( $list );
+
+							$list.sortable( "refresh" );
+
+							$msg.remove();
+						},
+						stop: function() {
+							$list.find( ".not-processed" )
+								.prepend( "<span class='glyphicon glyphicon-align-justify'></span>" )
+								.removeClass( "not-processed" );
+
+							$progress.hide().css(
+								"width",
+								"0"
+							);
+						}
 					} );
 
-				$input.insertBefore( $link );
-
-				$input.fileupload( {
-					dataType: "json",
-					multipart: false,
-					start: function() {
-						$progress.show();
-					},
-					progressall: function( e, data ) {
-						var progress = parseInt( data.loaded / data.total * 100, 10 );
-
-						$progress.css(
-							"width",
-							progress + "%"
-						);
-					},
-					done: function( e, data ) {
-
-						// This is the same grip like in handleSortables
-						var glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
-							" title='sorting'></span>";
-
-						$( data.result.image_gallery_item )
-							.addClass( "not-processed" )
-							.prepend( glyph )
-							.appendTo( $list );
-
-						$list.sortable( "refresh" );
-
-						$msg.remove();
-					},
-					stop: function() {
-						$list.find( ".not-processed" )
-							.prepend( "<span class='glyphicon glyphicon-align-justify'></span>" )
-							.removeClass( "not-processed" );
-
-						$progress.hide().css(
-							"width",
-							"0"
-						);
-					}
 				} );
 			},
 
@@ -175,6 +169,7 @@
 				$form.on( "ajax:success", function( jqEv, json ) {
 					ADMIN.utils.clearErrorMessages( $form );
 					$categies.html( json.snippet );
+					ADMIN.utils.handleSortables( $categies.find( ".list-sortable" ) );
 
 					if ( !json.hasErrors ) {
 						$input.val( "" );
@@ -186,9 +181,18 @@
 				} );
 			},
 
-			handleSortables: function() {
+			// ADMIN.utils.handleFormErrors();
+			// ADMIN.utils.handleFormErrors( ".list-sortable" );
+			// ADMIN.utils.handleFormErrors( $element.find( "ul" ) );
+			handleSortables: function( sortable ) {
 
 				// Sortable lists.
+				if ( sortable === undefined ) {
+					$sortable = $( ".list-sortable" );
+				} else {
+					$sortable = $( sortable );
+				}
+
 				var $sortable = $( ".list-sortable" ),
 					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
 						" title='sorting'></span>",
@@ -225,56 +229,21 @@
 				}
 			},
 
-			tagsSuggest: function( selector ) {
-				var $input = $( selector ),
-					lang = $( "html" ).attr( "lang" ),
-					url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
-					cache = {},
-					term, terms;
+			// Suggests anything according by an url
+			handleSuggestions: function() {
+				$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
+					$( this ).autocomplete( {
+						source: function( request, response ) {
+							var $el = this.element,
+								url = $el.data( "suggesting_url" ),
+								term;
+							term = request.term;
 
-				function split( val ) {
-					return val.split( /,\s*/ );
-				}
-				function extractLast( t ) {
-					return split( t ).pop();
-				}
-
-				if ( !$input.length ) {
-					return;
-				}
-
-				$input.autocomplete( {
-					minLength: 1,
-					source: function( request, response ) {
-						term = extractLast( request.term );
-
-						if ( term in cache ) {
-							response( cache[ term ] );
-						} else {
-							$.getJSON( url + term, function( data ) {
-								cache[ term ] = data;
+							$.getJSON( url, { q: term }, function( data ) {
 								response( data );
 							} );
 						}
-					},
-					search: function() {
-						term = extractLast( this.value );
-
-						if ( term.length < 1 ) {
-							return false;
-						}
-					},
-					focus: function() {
-						return false;
-					},
-					select: function( event, ui ) {
-						terms = split( this.value );
-						terms.pop();
-						terms.push( ui.item.value );
-						terms.push( "" );
-						this.value = terms.join( " , " );
-						return false;
-					}
+					} );
 				} );
 			},
 
@@ -319,20 +288,59 @@
 				} );
 			},
 
-			handleSuggestions: function() {
+			// Suggests tags
+			handleTagsSuggestions: function() {
+				$( document ).on( "keyup.autocomplete", "[data-tags_suggesting='yes']", function() {
+					var $input = $( this ),
+						lang = $( "html" ).attr( "lang" ),
+						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
+						cache = {},
+						term, terms;
 
-				// Naseptavani cehokoli
-				$( "[data-suggesting='yes']" ).autocomplete( {
-					source: function( request, response ) {
-						var $el = this.element,
-							url = $el.data( "suggesting_url" ),
-							term;
-						term = request.term;
-
-						$.getJSON( url, { q: term }, function( data ) {
-							response( data );
-						} );
+					function split( val ) {
+						return val.split( /,\s*/ );
 					}
+					function extractLast( t ) {
+						return split( t ).pop();
+					}
+
+					if ( !$input.length ) {
+						return;
+					}
+
+					$input.autocomplete( {
+						minLength: 1,
+						source: function( request, response ) {
+							term = extractLast( request.term );
+
+							if ( term in cache ) {
+								response( cache[ term ] );
+							} else {
+								$.getJSON( url + term, function( data ) {
+									cache[ term ] = data;
+									response( data );
+								} );
+							}
+						},
+						search: function() {
+							term = extractLast( this.value );
+
+							if ( term.length < 1 ) {
+								return false;
+							}
+						},
+						focus: function() {
+							return false;
+						},
+						select: function( event, ui ) {
+							terms = split( this.value );
+							terms.pop();
+							terms.push( ui.item.value );
+							terms.push( "" );
+							this.value = terms.join( " , " );
+							return false;
+						}
+					} );
 				} );
 			},
 

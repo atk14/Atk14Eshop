@@ -1,6 +1,9 @@
 <?php
-class FulfillingCollectionsMigration extends ApplicationMigration{
+class SampleCollectionsMigration extends ApplicationMigration{
+
 	function up(){
+		if(TEST){ return; }
+
 		$c = Collection::CreateNewRecord(array(
 			"name_en" => "Shaun the Sheep",
 			"name_cs" => "Ovečka Shaun",

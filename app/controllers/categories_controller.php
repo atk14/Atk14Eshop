@@ -2,6 +2,14 @@
 class CategoriesController extends ApplicationController{
 
 	function index(){
+		$catalog = Category::GetInstanceByCode("catalog");
+		if($catalog){
+			$this->_redirect_to(array(
+				"action" => "detail",
+				"path" => $catalog->getPath(),
+			));
+			return;
+		}
 		$this->page_title = _("List of Categories");
 		$this->breadcrumbs[] = _("Categories");
 

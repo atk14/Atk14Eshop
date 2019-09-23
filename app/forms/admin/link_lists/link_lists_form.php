@@ -1,15 +1,20 @@
 <?php
 class LinkListsForm extends AdminForm {
+
 	function set_up() {
-		$this->add_field("name", new CharField(array(
-			"label" => _("Orientační název"),
-			"help_text" => _("Může obsahovat více informací, například, na které stránce se seznam nachází. Např. 'Patička stránky'.<br>Nezobrazuje se v aplikaci"),
+		$this->add_field("system_name", new CharField(array(
+			"label" => _("System title"),
+			"help_text" => _("Useful in administration. This title is not shown in the application."),
+			"max_length" => 255,
 		)));
 
-		$this->add_translatable_field("label", new CharField(array(
-			"label" => _("Zobrazený text"),
-			"help_text" => _("O nákupu"),
+		$this->add_translatable_field("title", new CharField(array(
+			"label" => _("Displayed title"),
+			"hint" => _("About us"),
+			"max_length" => 255,
 			"required" => false,
 		)));
+
+		$this->add_code_field();
 	}
 }

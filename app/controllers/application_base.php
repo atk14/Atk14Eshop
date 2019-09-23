@@ -41,7 +41,7 @@ class ApplicationBaseController extends Atk14Controller{
 			return;
 		}
 
-		$this->page_title = _("Page not found");
+		$this->page_title = $this->breadcrumbs[] = _("Page not found");
 		$this->response->setStatusCode(404);
 		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
 		if($this->request->xhr()){
@@ -51,7 +51,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function error403(){
-		$this->page_title = _("Forbidden");
+		$this->page_title = $this->breadcrumbs[] = _("Forbidden");
 		$this->response->setStatusCode(403);
 		$this->template_name = "application/error403";
 		if($this->request->xhr()){
@@ -138,10 +138,17 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
-		if(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)){
+		if(
+			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
+			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
+		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
 			$proto = $this->request->ssl() ? "https" : "http";
 			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
+		}
+
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+			return $this->_redirect_to_ssl();
 		}
 
 		$this->permanentSession = new Atk14Session( new SessionStorer([

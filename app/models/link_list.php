@@ -1,15 +1,13 @@
 <?php
 /**
- * Model pro seznam odkazu
+ * Model class for a List of links
  */
-class LinkList extends ApplicationModel implements Translatable, Rankable {
+class LinkList extends ApplicationModel implements Translatable {
+
+	use TraitGetInstanceByCode;
 
 	static function GetTranslatableFields() {
-		return array("label");
-	}
-
-	function setRank($rank){
-		$this->_setRank($rank);
+		return array("title");
 	}
 
 	/**
@@ -40,5 +38,9 @@ class LinkList extends ApplicationModel implements Translatable, Rankable {
 	 */
 	function getItems($region = null) {
 		return $this->getLinkListItems($region);
+	}
+
+	function isEmpty($region = null){
+		return sizeof($this->getLinkListItems($region))==0;
 	}
 }

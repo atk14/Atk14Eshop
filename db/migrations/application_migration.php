@@ -30,5 +30,4 @@ class ApplicationMigration extends Atk14Migration{
 		Atk14Require::Helper("modifier.link_to_category");
 		return smarty_modifier_link_to_category($code);
 	}
-
 }

@@ -5,16 +5,20 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 	use TraitRegions;
 
 	static function GetTranslatableFields() {
-		return array("label");
-	}
-
-	function getLinkList() {
-		return Cache::Get("LinkList", $this->getLinkListId());
+		return array("title");
 	}
 
 	function setRank($new_rank) {
 		return $this->_setRank($new_rank, array(
 			"link_list_id" => $this->getLinkList(),
 		));
+	}
+
+	function getLinkList() {
+		return Cache::Get("LinkList", $this->getLinkListId());
+	}
+
+	function getLinkList() {
+		return Cache::Get("LinkList", $this->getLinkListId());
 	}
 }

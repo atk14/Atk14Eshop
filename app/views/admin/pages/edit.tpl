@@ -1,6 +1,10 @@
 <h1>{$page_title}</h1>
 
-{render partial="shared/form"}
+{render partial="edit_form"}
+
+<hr>
+
+{render partial="shared/iobjects" object=$page}
 
 <hr>
 

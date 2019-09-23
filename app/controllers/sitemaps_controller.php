@@ -10,7 +10,13 @@ class SitemapsController extends ApplicationController{
 	function detail(){
 		$this->page_title = _("Sitemap");
 
-		$this->tpl_data["pages"] = Page::FindAll("parent_page_id IS NULL");
+		$this->tpl_data["pages"] = Page::FindAll(array(
+			"conditions" => array(
+				"parent_page_id IS NULL",
+				"visible",
+				"indexable"
+			),
+		));
 
 		$this->tpl_data["categories"] = Category::FindAll(array(
 			"conditions" => array(
@@ -29,7 +35,6 @@ class SitemapsController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"limit" => 20,
 		));
-
 
 		if($this->params->getString("format")=="xml"){
 			$this->render_template = false;
