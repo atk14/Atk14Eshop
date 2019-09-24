@@ -1,4 +1,4 @@
-{if $link_list && !$link_list->isEmpty()}
+{if $link_list && !$link_list->isEmpty($current_region)}
 	<div class="col-12 col-sm-6 col-md-3">
 
 	{if $link_list->getTitle()}
@@ -6,7 +6,7 @@
 	{/if}
 
 	<ul class="list-unstyled">
-		{foreach $link_list->getItems() as $item}
+		{foreach $link_list->getItems($current_region) as $item}
 			<li>
 				<a href="{$item->getUrl()}">{$item->getTitle()}</a>
 			</li>
