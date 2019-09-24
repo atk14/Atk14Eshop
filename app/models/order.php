@@ -8,20 +8,38 @@ class Order extends BasketOrOrder {
 
 		$values += [
 			"id" => Order::GetNextId(),
-			"language" => $ATK14_GLOBAL->getLang(),
-		];
-
-		$values += [
-			"order_no" => ORDER_NO_OFFSET + $values["id"],
-			"reference" => "?", // TODO: Co to je reference? Proc je not null?
-#			"order_status_id" => OrderStatus::DetermineInitialStatus($values["payment_method_id"]),
+			"region_id" => Region::GetDefaultRegion()->getId(),
+			//
+			"order_no" => null,
+			//
 			"order_status_id" => OrderStatus::FindByCode("new"),
 			"order_status_set_at" => now(),
+			"order_status_set_by_user_id" => null,
+		];
+
+		$region = Cache::Get("Region",$values["region_id"]);
+
+		if(is_null($values["order_no"])){
+			$values["order_no"] = self::_CalcOrderNo($values["id"]);
+		}
+
+		$values += [
+			"language" => $region->getDefaultLanguage(),
 		];
 
 		$out = Parent::CreateNewRecord($values,$options);
 		$out->createOrderHistoryItem($out);
 		return $out;
+	}
+
+	static function _CalcOrderNo($id){
+		$order_no = ORDER_NO_OFFSET + $id * 10;
+		$checksum = $order_no;
+		while($checksum>=10){
+			$checksum = $checksum % 10 + floor($checksum / 10.0);
+		}
+		$order_no += $checksum;
+		return $order_no;
 	}
 
 	function getOrderItems() {
@@ -65,19 +83,11 @@ class Order extends BasketOrOrder {
 	}
 
 	function getPhones() {
-		$_phones = array();
-		foreach([
-			"phone",
-			"phone_mobile",
-			"delivery_phone",
-			"delivery_phone_mobile"
-		] as $k){
-			$ph = $this->g($k);
-			if(!empty($ph) && !in_array($ph,$_phones)){
-				$_phones[] = $ph;
-			}
-		}
-		return $_phones;
+		$out = [$this->getPhone(),$this->getDeliveryPhone()];
+		$out = array_filter($out);
+		$out = array_unique($out);
+		$out = array_values($out);
+		return $out;
 	}
 
 	/**
@@ -96,11 +106,11 @@ class Order extends BasketOrOrder {
 			"address_street",
 			"address_street2",
 			"address_city",
+			"address_state",
 			"address_zip",
 			"address_country",
 			"address_note",
 			"phone",
-			"phone_mobile",
 		);
 	}
 
@@ -169,7 +179,7 @@ class Order extends BasketOrOrder {
 	function getOrderHistory($options=array()) {
 		$options += array(
 			"limit" => null,
-			"order_by" => "order_status_set_at DESC, id DESC",
+			"order_by" => "order_status_set_at ASC, id ASC",
 		);
 		return OrderHistory::FindAll("order_id", $this, $options);
 	}
@@ -187,31 +197,20 @@ class Order extends BasketOrOrder {
 	}
 
 	function getPreviousOrderStatus() {
-		$history = $this->getOrderHistory(array("limit" => 1, "offset" => 1));
+		$history = $this->getOrderHistory(array("limit" => 1, "offset" => 1, "order_by" => "order_status_set_at DESC, id DESC"));
 		return array_pop($history);
 	}
 
-	function getNextStatusCodes() {
-		$current_status = $this->getCurrentOrderStatus();
-		if (isset($current_status->next_status[$current_status->getCode()])) {
-			return $current_status->next_status[$current_status->getCode()];
-		}
-		return null;
-	}
-
-	function getNextOrderStatuses() {
-		return $this->getCurrentOrderStatus()->getNextStatuses();
-	}
-
-	/**
-	 * @TODO: responsible person mozna bude nejaka jina osoba.
-	 */
 	function getResponsibleUser() {
-		return User::FindFirstById($this->g("responsible_user_id"));
+		return Cache::Get("User",$this->g("responsible_user_id"));
 	}
 
 	function getOrderStatus(){
 		return Cache::Get("OrderStatus",$this->getOrderStatusId());
+	}
+
+	function getAllowedNextOrderStatuses(){
+		return $this->getOrderStatus()->getAllowedNextOrderStatuses();
 	}
 
 	/**
@@ -256,16 +255,21 @@ class Order extends BasketOrOrder {
 
 		if (is_string($new_status_values)) {
 			$new_status_values = array(
-				"order_status_id" => OrderStatus::FindFirst("code", $new_status_values),
+				"order_status_id" => OrderStatus::GetInstanceByCode($new_status_values),
 			);
 		} elseif (is_integer($new_status_values)) {
 			$new_status_values = array(
-				"order_status_id" => $new_status_values,
+				"order_status_id" => Cache::Get("OrderStatus",$new_status_values),
 			);
 		} elseif (is_object($new_status_values)) {
 			$new_status_values = array(
 				"order_status_id" => $new_status_values,
 			);
+		}
+
+		$new_status = $new_status_values["order_status_id"];
+		if(!is_object($new_status)){
+			$new_status = Cache::Get("OrderStatus",$new_status);
 		}
 
 		$not_now = key_exists("order_status_set_at", $new_status_values);
@@ -321,7 +325,24 @@ class Order extends BasketOrOrder {
 			$mailer->notify_order_status_update($this);
 			Atk14Locale::Initialize($prev_lang);
 		}
+
+		$warehouse = Warehouse::GetDefaultInstance4Eshop();
+		if($warehouse && $orig_status->getId()!=$new_status->getId()){
+			if(!$orig_status->reduceStockount() && $new_status->reduceStockount()){
+				$this->_updateWarehouseItems($warehouse,-1);
+			}
+			if($orig_status->reduceStockount() && !$new_status->reduceStockount()){
+				$this->_updateWarehouseItems($warehouse,1);
+			}
+		}
+
 		return $order_status;
+	}
+
+	function _updateWarehouseItems($warehouse,$multiplier = 1){
+		foreach($this->getItems() as $item){
+			$warehouse->addProduct($item->getProduct(),$multiplier * $item->getAmount());
+		}
 	}
 
 	/**
@@ -490,40 +511,10 @@ class Order extends BasketOrOrder {
 	}
 
 	function getTrackingUrl() {
-		if (($tracking_number = $this->getTrackingNumber()) && ($dm = $this->getDeliveryMethod()) && ($url=$dm->getTrackingUrl())) {
-			return str_replace("@", $tracking_number, $url);
+		if (($tracking_number = $this->getTrackingNumber()) && ($dm = $this->getDeliveryMethod()) && ($url = $dm->getTrackingUrl())) {
+			return str_replace("@", urlencode($tracking_number), $url);
 		}
 		return null;
-	}
-
-	/**
-	 * Vrati seznam moznych stavu, do kterych lze objednavku prepnout
-	 *
-	 * Zahrnuto je par podminek:
-	 * - zpusob doruceni musi byt osobni odber
-	 * - lze prepnout pouze do stavu:
-	 * 	- ready - 'Pripraveno k vyzvednuti'
-	 * 	- ready_reminder - 'Upominka - Pripraveno k vyzvednuti'
-	 * 	- delivered - 'Doruceno'
-	 *
-	 * @todo mozna jeste kontrolovat vychozi stav
-	 */
-	function getAllowedNextOrderStatuses() {
-		if (!$this->getDeliveryMethod()->personalPickup()) {
-			return null;
-		}
-		if (!($next_status_codes = $this->getNextStatusCodes())) {
-			return null;
-		}
-		$next_status_codes = array_intersect(["ready","ready_reminder","delivered"], $next_status_codes);
-
-		if (!$next_status_codes) {
-			return null;
-		}
-		return OrderStatus::FindAll([
-			"conditions" => ["code IN :codes"],
-			"bind_ar" => [":codes" => $next_status_codes],
-		]);
 	}
 
 	function getAllNotes() {

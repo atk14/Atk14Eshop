@@ -18,30 +18,59 @@ class Basket extends BasketOrOrder {
 			$values["currency_id"] = $region->getDefaultCurrency();
 		}
 
-		if(!is_null($values["user_id"])){
-			$user = User::FindById($values["user_id"]);
-			$values["email"] = $user->g("email");
+		return parent::CreateNewRecord($values,$options);
+	}
+	
+	/**
+	 *
+	 *	$basket = Basket::CreateNewRecord4UserAndRegion();
+	 */
+	static function CreateNewRecord4UserAndRegion($user,$region){
+		$basket = self::CreateNewRecord([
+			"user_id" => $user,
+			"region_id" => $region
+		]);
 
-			// !! Fakturacni adresa nastavime, kdyz ma uzivatel vyplnene IC nebo DIC
-			if($user->g("vat_id") || $user->g("company_number")){
-				foreach(self::GetAddressFields(["company_data" => true, "phone" => false]) as $k => $req){
-					$values["$k"] = $user->g("$k");
+		$update_ar = [];
+		$delivery_countries_allowed = $basket->getDeliveryCountriesAllowed();
+		$user = $basket->getUser();
+
+		if($user){
+			$update_ar["email"] = $user->g("email");
+
+			// Dorucovaci adresa
+			if($da = DeliveryAddress::GetMostRecentRecord($user,$delivery_countries_allowed)){
+				// pouzita jest posledni dorucovaci adresa
+				foreach(self::GetAddressFields(["phone" => true, "note" => true]) as $k => $req){
+					$update_ar["delivery_$k"] = $da->g("$k");
+				}
+			}elseif(in_array($user->getAddressCountry(),$delivery_countries_allowed)){
+				// pouzita jest fakturacni adresa
+				foreach(self::GetAddressFields(["phone" => true, "note" => false]) as $k => $req){
+					$update_ar["delivery_$k"] = $user->g("$k");
 				}
 			}
 
-			// Dorucovaci adresa
-			if($da = DeliveryAddress::GetMostRecentRecord($user,$region)){
-				foreach(self::GetAddressFields(["phone" => true, "note" => true]) as $k => $req){
-					$values["delivery_$k"] = $da->g("$k");
+			// !! Fakturacni adresu nastavime, kdyz ma uzivatel vyplnene IC nebo DIC nebo je v dorucovaci adrese neco jineho nez ve fakturacni adrese
+			$addresses_differ = false;
+			foreach(self::GetAddressFields(["company_data" => false, "phone" => false, "note" => false]) as $k => $req){
+				if(!array_key_exists("delivery_$k",$update_ar) || (string)$update_ar["delivery_$k"]!==(string)$user->g("$k")){
+					$addresses_differ = true;
+					break;
 				}
-			}else{
-				foreach(self::GetAddressFields(["phone" => true, "note" => false]) as $k => $req){
-					$values["delivery_$k"] = $user->g("$k");
+			}
+			if($user->g("vat_id") || $user->g("company_number") || $addresses_differ){
+				foreach(self::GetAddressFields(["company_data" => true, "phone" => false]) as $k => $req){
+					$update_ar["$k"] = $user->g("$k");
 				}
 			}
 		}
 
-		return parent::CreateNewRecord($values,$options);
+		if($update_ar){
+			$basket->s($update_ar);
+		}
+
+		return $basket;
 	}
 
 	static function GetDummyBasket($region = null){
@@ -191,6 +220,23 @@ class Basket extends BasketOrOrder {
 			return $delivery->getPriceInclVat($country) / $this->getCurrency()->getRate();
 		}
 	}
+
+	/**
+	 * Vrati seznam vsech moznych zemi, do kterych bude mozne dorucit objednavku vytvorenou z tohoto kosiku
+	 *
+	 *	$basket->getDeliveryCountriesAllowed(); // e.g. ["CZ","SK"]
+	 */
+	function getDeliveryCountriesAllowed(){
+		$region = $this->getRegion();
+		$delivery_method = $this->getDeliveryMethod();
+
+		if($delivery_method){
+			return $delivery_method->getDeliveryCountriesAllowed($region);
+		}
+
+		return $region->getDeliveryCountries();
+	}
+
 
 	function getPaymentMethod(){
 		return Cache::Get("PaymentMethod",$this->getPaymentMethodId());
@@ -569,6 +615,13 @@ class Basket extends BasketOrOrder {
 			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
 		}
 
+		if($delivery_method && $this->getDeliveryAddressCountry() && !in_array($this->getDeliveryAddressCountry(),$this->getDeliveryCountriesAllowed())){
+			$messages[] = new BasketErrorMessage(_("Objednávku nelze doručit na danou doručovací adresu"),[
+				"correction_text" => _("upravte doručovací adresu"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_billing_and_delivery_data"]),
+			]);
+		}
+
 		if($messages){
 			return false;
 		}
@@ -597,6 +650,8 @@ class Basket extends BasketOrOrder {
 	function createOrder($options = []){
 		$options += [
 			"without_vat" => false,
+			"send_notification" => true,
+			"mailer" => null,
 		];
 
 		$without_vat = !!$options["without_vat"];
@@ -637,10 +692,13 @@ class Basket extends BasketOrOrder {
 
 		$values["price_to_pay"] = $price_to_pay = $this->getPriceToPay($incl_vat,$price_to_pay_without_rounding);
 
-		$values["creation_notified"] = false; // zpozdeni emailove notifikace
+		if(!$options["send_notification"]){
+			// Notification delayed
+			$values["creation_notified"] = false;
+		}
 
 		$order = Order::CreateNewRecord($values);
-		$order->setNewOrderStatus(OrderStatus::DetermineInitialStatus($values["payment_method_id"])->getCode());
+		//$order->setNewOrderStatus(OrderStatus::DetermineInitialStatus($values["payment_method_id"])->getCode());
 
 		foreach($this->getItems() as $item){
 			$p_price = $item->getProductPrice();
@@ -648,8 +706,8 @@ class Basket extends BasketOrOrder {
 				"order_id" => $order,
 				"product_id" => $item->getProductId(),
 				"amount" => $item->getAmount(),
-				"unit_price" => $p_price->getRawUnitPrice(),
-				"unit_price_before_discount" => $p_price->getRawUnitPriceBeforeDiscount(),
+				"unit_price_incl_vat" => $p_price->getRawUnitPriceInclVat(),
+				"unit_price_before_discount_incl_vat" => $p_price->getRawUnitPriceBeforeDiscountInclVat(),
 				"vat_percent" => $incl_vat ? $item->getVatPercent() : 0.0,
 				# zda byla poskytnuta sleva v kampani nebo pri pouziti poukazu (vouchers)
 				# napr. u zlevneneho zbozi se neposkytuje
@@ -680,13 +738,13 @@ class Basket extends BasketOrOrder {
 			$delta_product = Product::FindByCode("price_rounding");
 			$delta_vat_percent = $incl_vat ? $delta_product->getVatPercent() : 0.0;
 			$delta_price = abs($delta);
-			$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
+			//$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
 
 			OrderItem::CreateNewRecord([
 				"order_id" => $order,
 				"product_id" => $delta_product,
 				"amount" => $amount,
-				"unit_price" => $delta_price_with_no_vat,
+				"unit_price_incl_vat" => $delta_price,
 				"vat_percent" => $delta_vat_percent,
 			]);
 		}
@@ -717,11 +775,30 @@ class Basket extends BasketOrOrder {
 			]);
 		}
 
+		// Order creation notification
+		if($options["send_notification"]){
+			$mailer = $options["mailer"] ? $options["mailer"] : Atk14Mailer::GetInstance();
+			$mailer->notify_order_creation($order);
+		}
+
+		// Next automatic status
+		$next_status = OrderStatus::DetermineNextAutomaticStatus($order);
+		if($next_status){
+			$order->setNewOrderStatus([
+				"order_status_id" => $next_status->getId(),
+				"order_status_set_at" => now(),
+				"order_status_set_by_user_id" => null,
+			]);
+		}
+		
 
 		# v ApplicationModel se automaticky vyplni prihlaseny uzivatel,
 		# kdyz dojde ke zmene stavu diky predchozimu kodu.
 		# pri nove vytvorene objednavce to ale nechceme.
-		$order->s("updated_by_user_id", null);
+		$order->s([
+			"updated_at" => null,
+			"updated_by_user_id" => null
+		]);
 		return $order;
 	}
 

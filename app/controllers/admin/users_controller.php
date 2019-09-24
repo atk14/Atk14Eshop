@@ -1,5 +1,6 @@
 <?php
 class UsersController extends AdminController{
+
 	function index(){
 		$this->page_title = _("Users list");
 
@@ -40,10 +41,25 @@ class UsersController extends AdminController{
 		}
 	}
 
+	function detail() {
+		$this->page_title = sprintf(_("Detail uživatele %s"), h($this->user));
+
+		$this->tpl_data["orders"] = Order::FindAll("user_id",$this->user,["order_by" => "created_at DESC"]);
+		$this->tpl_data["delivery_addresses"] = DeliveryAddress::FindAll("user_id",$this->user);
+	}
+
 	function edit(){
 		$this->page_title = sprintf(_("Editing user %s"),h($this->user));
 
 		$this->form->set_initial($this->user);
+		if($this->user->isAnonymous()){
+			$this->form->disable_fields([
+				"email",
+				"is_admin",
+				"active",
+			]);
+		}
+
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
@@ -102,7 +118,7 @@ class UsersController extends AdminController{
 	}
 
 	function _before_filter(){
-		if(in_array($this->action,array("edit","edit_password","destroy","login_as_user"))){
+		if(in_array($this->action,array("edit","detail","edit_password","destroy","login_as_user"))){
 			$this->_find("user");
 		}
 	}

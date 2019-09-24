@@ -1,5 +1,5 @@
 <?php
-class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
+class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \Textmit\Indexable {
 
 	use TraitGetInstanceByCode;
 
@@ -15,7 +15,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		$path = (string)$path;
 
 		if(!$path){ return null; }
-		
+
 		$parent_page_id = null;
 		foreach(explode('/',$path) as $slug){
 			if(!$_sp = Page::GetInstanceBySlug($slug,$lang,$parent_page_id)){
@@ -92,13 +92,26 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return $this->getVisible();
 	}
 
-	function isIndexable(){
-		return $this->getIndexable();
-	}
-
 	function setRank($new_rank){
 		return $this->_setRank($new_rank,array(
 			"parent_page_id" => $this->g("parent_page_id"),
 		));
+	}
+
+	function isIndexable(){
+		return $this->getIndexable();
+	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addHtml($this->getTitle($lang),"a");
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
+
+		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
+
+		return $fd;
 	}
 }

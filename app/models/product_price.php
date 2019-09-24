@@ -1,6 +1,8 @@
 <?php
 class ProductPrice {
 
+	use TraitPriceManipulation;
+
 	protected $data;
 	protected $amount;
 	protected $currency;
@@ -51,17 +53,13 @@ class ProductPrice {
 
 	// Jednotkova cena bez zaokrouhleni
 	function getRawUnitPrice($incl_vat = false){
-    $price = $this->getRawUnitPriceBeforeDiscount();
+    $price = $this->getRawUnitPriceBeforeDiscount($incl_vat);
 
     if(!is_null($price)){
       if($this->data["discount_percent"]){
         $price = $price - $this->data["discount_percent"] * ($price / 100.0);
-				$price = round($price,INTERNAL_PRICE_DECIMALS);
       }
-
-			$price = $this->_addVat($price,$incl_vat);
-			$price = round($price,INTERNAL_PRICE_DECIMALS);
-
+			$price = $this->_roundInternal($price);
       return $price;
     }
 	}
@@ -78,7 +76,8 @@ class ProductPrice {
 	}
 
 	function getUnitPriceInclVat(){
-		return $this->getUnitPrice(true);
+		$price = $this->getRawUnitPrice(true);
+    return $price;
 	}
 
 	// Celkova cena
@@ -96,10 +95,9 @@ class ProductPrice {
 	// Cena pred slevou bez zaokrouhleni
 	function getRawUnitPriceBeforeDiscount($incl_vat = false){
 		if($price_item = $this->_getPriceItem()){
-      $price = (float)$price_item["price"];
+      $price = $incl_vat ? $price_item["price_incl_vat"] : $price_item["price"];
 			$price = $price / $this->_getCurrencyRate();
-
-			$price = $this->_addVat($price,$incl_vat);
+			$price = $this->_roundInternal($price);
 
 			return $price;
 		}
@@ -206,11 +204,6 @@ class ProductPrice {
 
 	function getPricesData() {
 		return $this->data + [ 'currency_rate' => $this->_getCurrencyRate() ];
-	}
-
-	function _addVat($price,$add_vat = true){
-		if(is_null($price) || !$add_vat){ return $price; }
-		return $price * (1.0 + $this->getVatPercent() / 100.0);
 	}
 
 	function _roundItemPrice($price){

@@ -4,7 +4,7 @@ class DeliveryAddressesController extends ApplicationController {
 	function index(){
 		$this->page_title = _("Seznam doručovacích adres");
 
-		$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUserAndRegion($this->logged_user,$this->current_region);
+		$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUser($this->logged_user,$this->current_region);
 	}
 
 	function create_new(){

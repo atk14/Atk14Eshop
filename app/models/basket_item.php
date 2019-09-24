@@ -9,14 +9,14 @@ class BasketItem extends BasketOrOrderItem {
 		));
 	}
 
-	protected function _getRawUnitPrice(){
+	protected function _getRawUnitPriceInclVat(){
 		$p_price = $this->getProductPrice();
-		return round($p_price->getRawUnitPrice(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
+		return $p_price->getRawUnitPriceInclVat();
 	}
 
-	protected function _getRawUnitPriceBeforeDiscount(){
+	protected function _getRawUnitPriceBeforeDiscountInclVat(){
 		$p_price = $this->getProductPrice();
-		return round($p_price->getRawUnitPriceBeforeDiscount(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
+		return $p_price->getRawUnitPriceBeforeDiscountInclVat();
 	}
 
 	function getVatPercent(){

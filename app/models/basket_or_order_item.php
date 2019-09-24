@@ -9,16 +9,16 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 		throw new Exception("$class::setRank() has to be redefined");
 	}
 
-	// Nezaokrouhlena jedn. cena bez DPH
-	protected function _getRawUnitPrice(){
+	// Nezaokrouhlena jedn. cena s DPH
+	protected function _getRawUnitPriceInclVat(){
 		$class = get_class($this);
-		throw new Exception("$class::_getRawUnitPrice() has to be redefined");
+		throw new Exception("$class::_getRawUnitPriceInclVat() has to be redefined");
 	}
 
-	// Nezaokrouhlena jedn. cena pred slevou bez DPH
-	protected function _getRawUnitPriceBeforeDiscount(){
+	// Nezaokrouhlena jedn. cena pred slevou s DPH
+	protected function _getRawUnitPriceBeforeDiscountInclVat(){
 		$class = get_class($this);
-		throw new Exception("$class::_getRawUnitPriceBeforeDiscount() has to be redefined");
+		throw new Exception("$class::_getRawUnitPriceBeforeDiscountInclVat() has to be redefined");
 	}
 
 	// Procenta DPH
@@ -37,27 +37,28 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	}
 
 	function getRawUnitPrice($incl_vat = false){
-		$price = $this->_getRawUnitPrice();
-		$price = $this->_addVat($price,$incl_vat);
+		$price = $this->_getRawUnitPriceInclVat();
+		$price = $this->_removeVat($price,$incl_vat);
 		return $price;
 	}
 
 	function getRawUnitPriceInclVat(){
-		return $this->getRawUnitPrice(true);
+		return $this->_getRawUnitPriceInclVat();
 	}
 
 	function getUnitPrice($incl_vat = false){
-		$price = $this->getRawUnitPrice($incl_vat);
+		$price = $this->getRawUnitPriceInclVat();
+		$price = $this->_removeVat($price,$incl_vat);
 		$price = $this->_roundUnitPrice($price);
 		return $price;
 	}
 
 	function getRawUnitPriceBeforeDiscount($incl_vat = false){
-		$price = $this->_getRawUnitPriceBeforeDiscount();
+		$price = $this->_getRawUnitPriceBeforeDiscountInclVat();
 		if(is_null($price)){
-			$price = $this->_getRawUnitPrice();
+			$price = $this->_getRawUnitPriceInclVat();
 		}
-		$price = $this->_addVat($price,$incl_vat);
+		$price = $this->_removeVat($price,$incl_vat);
 		return $price;
 	}
 
@@ -157,9 +158,9 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 		return $this->getOrder()->getCurrency();
 	}
 
-	protected function _addVat($price,$add_vat = true){
-		if(is_null($price) || !$add_vat){ return $price; }
-		return $price * (1.0 + $this->getVatPercent() / 100.0);
+	protected function _removeVat($price,$keep_vat = true){
+		if(is_null($price) || $keep_vat){ return $price; }
+		return $price - (($price / 100.0) * $this->getVatPercent());
 	}
 
 	protected function _roundItemPrice($price,$round_for_real = true){

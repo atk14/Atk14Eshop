@@ -33,7 +33,7 @@ class BasketsController extends ApplicationController {
 					$voucher = Voucher::FindByVoucherCode(Translate::Upper($d["voucher"]));
 					if(!$voucher){
 						$this->session->s("voucher_initial",$d["voucher"]);
-						$this->flash->warning(_("Takový slevový kupón neexistuje"));
+						$this->flash->error(_("Takový slevový kupón neexistuje"));
 					}elseif(!$voucher->isApplicable($basket,$err_msg)){
 						$this->session->s("voucher_initial",$d["voucher"]);
 						$this->flash->warning($err_msg);
@@ -69,8 +69,7 @@ class BasketsController extends ApplicationController {
 			return;
 		}
 
-		$this->page_title = $this->breadcrumbs[] = _("Nákupní košík");
-
+		$this->page_title = $this->breadcrumbs[] = _("Shopping basket");
 
 		$this->_prepare_checkout_navigation();
 	}
@@ -109,20 +108,19 @@ class BasketsController extends ApplicationController {
 
 		$basket->addProduct($product,$amount);
 
-		if($this->request->xhr()){
-			// Pro XHR request je tady normalne pripravena sablona
-			$this->response->setContentType("text/json");
+		if(!$this->request->xhr()){
+			$this->_redirect_to([
+				"action" => "baskets/product_added",
+				"product_id" => $product,
+			]);
 			return;
 		}
 
-		$this->_redirect_to([
-			"action" => "baskets/product_added",
-			"product_id" => $product,
-		]);
+		// pro XHR je tady sablona...
 	}
 
 	function product_added(){
-		$this->breadcrumbs[] = [_("Shopping basket"),"index"];
+		$this->breadcrumbs[] = [_("Shopping basket"),"baskets/edit"];
 		$this->page_title = $this->breadcrumbs[] = _("Produkt byl přidán do košíku");
 	}
 

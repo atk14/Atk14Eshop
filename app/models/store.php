@@ -1,5 +1,5 @@
 <?php
-class Store extends ApplicationModel Implements Rankable, Translatable, iSlug {
+class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \Textmit\Indexable {
 
 	static function GetTranslatableFields(){ return array("name","teaser","description","address","opening_hours"); }
 
@@ -10,6 +10,32 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug {
 	function getSlugPattern($lang){ return $this->g("name_$lang"); }
 
 	function isVisible(){ return $this->getVisible(); }
+	
+	function isOpen($time = null){
+		if(is_null($time)){ $time = time(); }
+    if(!is_numeric($time)){ $time = strtotime($time); }
+
+
+		$day = strtolower(date("D",$time)); // "mon" .. "sun"
+		$hour = (int)date("G",$time); // 0 .. 23
+		$minute = (int)date("i",$time); // 0 .. 59
+
+		$float_time = $hour + $minute/60.0;
+
+		$out = false;
+
+		if(!is_null($this->g("opening_hours_{$day}1"))){
+			$out = $float_time>=$this->g("opening_hours_{$day}1") && $float_time<=$this->g("opening_hours_{$day}2");
+		}
+
+		if($out){ return $out; }
+
+		if(!is_null($this->g("opening_hours_{$day}3"))){
+			$out = $float_time>=$this->g("opening_hours_{$day}3") && $float_time<=$this->g("opening_hours_{$day}4");
+		}
+
+		return $out;
+	}
 
 	function isDeletable(){
 		return $this->getCode()!="eshop";
@@ -67,5 +93,24 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug {
 		$lat = $this->g("location_lat")."N"; // TODO: zaporne je S
 		$lng = $this->g("location_lng")."E"; // TODO: zaporne je W
 		return "$lat, $lng";
+	}
+
+	function isIndexable(){
+		return $this->isVisible();
+	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addText($this->getName($lang),"a");
+		$fd->addText($this->getTeaser($lang),"b");
+
+		$fd->addText($this->getAddress($lang));
+
+		$fd->addHtml(smarty_modifier_markdown($this->getDescription($lang)));
+
+		return $fd;
 	}
 }

@@ -25,6 +25,7 @@ class AdminController extends ApplicationBaseController{
 
 		foreach(array(
 			array(_("Welcome screen"),			"main"),
+			array(_("Orders"),							"orders,order_order_statuses"),
 			array(_("Articles"),						"articles"),
 			array(_("Pages"),								"pages"),
 			array(_("Link lists"),					"link_lists,link_list_items"),
@@ -47,6 +48,8 @@ class AdminController extends ApplicationBaseController{
 			array(_("Password recoveries"),	"password_recoveries"),
 			array(_("Newsletter subscribers"), "newsletter_subscribers"),
 			array(_("404 Redirections"),			"error_redirections"),
+			array(_("Order statuses"),				"order_statuses"),
+			array(_("Selling regions"),				"regions"),
 			array(_("System preferences"),		"system_parameters"),
 		) as $item){
 			$_label = $item[0];
