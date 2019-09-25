@@ -1,4 +1,12 @@
-<h1>{$page_title}</h1>
+<h1>
+	{$page_title}
+	{dropdown_menu}
+		{a namespace="" action="cards/detail" id=$card}{!"eye"|icon} {t}Show on web{/t}{/a}
+		{if !$card->hasVariants()}
+			{render partial="product_menu_links" product=$card->getFirstProduct()}
+		{/if}	
+	{/dropdown_menu}
+</h1>
 
 {render partial="shared/form"}
 

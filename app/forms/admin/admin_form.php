@@ -113,6 +113,19 @@ class AdminForm extends ApplicationForm{
 		$this->add_translatable_field("description",new CharField($options));
 	}
 
+	function add_validity_fields(){
+		$this->add_field("valid_from", new DateTimeField([
+			"label" => _("Validity date from"),
+			"hint" => Atk14Locale::FormatDateTime(now()),
+			"required" => false,
+		]));
+
+		$this->add_field("valid_to", new DateTimeField([
+			"label" => _("Validity date to"),
+			"required" => false,
+		]));
+	}
+
 	function add_code_field($options = array()){
 		$options += array(
 			"label" => _("Code"),
@@ -131,6 +144,18 @@ class AdminForm extends ApplicationForm{
 		];
 
 		$this->add_field("visible", new BooleanField($options));
+	}
+
+	function add_vat_rate_id_field($options = array()){
+		$vat_payer = SystemParameter::ContentOn("merchant.vat_payer");
+		$options += array(
+			"label" => _("Vat rate"),
+			"initial" => VatRate::GetDefaultVatRate(),
+			"required" => $vat_payer,
+			"disabled" => !$vat_payer,
+		);
+
+		$this->add_field("vat_rate_id", new VatRateField($options));
 	}
 
 	function has_storno_button(){

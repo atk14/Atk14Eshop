@@ -32,6 +32,7 @@ class CategoriesForm extends AdminForm{
 		$this->add_field("image_url", new PupiqImageField(array(
 			"label" => _("Image"),
 			"required" => false,
+			"help_text" => sprintf(_("Recommended image size is %dx%d"),1920,1080),
 		)));
 
 		$this->add_field("visible", new BooleanField(array(

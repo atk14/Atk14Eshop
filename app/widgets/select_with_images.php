@@ -81,7 +81,8 @@ class RadioInputWithImage {
 		$final_attrs = forms_array_merge($this->attrs, array(
 			'type' => $this->input_type,
 			'name' => $this->name,
-			'value' => $this->key
+			'value' => $this->key,
+			'class' => "form-check-input",
 		));
 		if ($this->is_checked()) {
 			$final_attrs['checked'] = 'checked';
@@ -102,7 +103,7 @@ class RadioInputWithImage {
 				$image = $image->getUrl();
 			}
 			$p = new Pupiq($image,$api_key);
-			return sprintf("<img src='%s' alt='%s'>",$p->getUrl($this->options["image_geometry"]),$title);
+			return sprintf("<span class='v-image'><img src='%s' alt='%s'></span>",$p->getUrl($this->options["image_geometry"]),$title);
 		} else {
 			return '';
 		}
@@ -147,7 +148,8 @@ class RadioInputWithImage {
 		$attr = [
 			// TODO: code review needed: tohle upravil Mattez
 			"for" => $this->attrs['id'].'_'.$this->index,
+			"class" => "form-check-label",
 		];
-		return '<div class="radio">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . $this->caption() . $this->hint() . $this->price(). '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $this->price(). '</label></div>'.$this->branchAddress();
 	}
 }

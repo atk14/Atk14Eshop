@@ -74,7 +74,11 @@ class ObjectChoiceField extends ChoiceField {
 
 	function get_objects(){
 		$class = $this->class_name;
-		return $class::FindAll(["order_by" => $this->order_by]);
+		return $class::FindAll([
+			"conditions" => $this->conditions,
+			"bind_ar" => $this->bind_ar,
+			"order_by" => $this->order_by
+		]);
 	}
 
 	function clean($value){

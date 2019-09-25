@@ -6,6 +6,7 @@ class SummaryForm extends CheckoutsForm {
 		$this->add_field("note", new TextField([
 			'label' => _('Poznámka k objednávce'),
 			'required' => false,
+			'max_length' => 1000,
 			'widget' => new Textarea([
 				'attrs' => ['rows' => 2 ],
 			])

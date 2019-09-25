@@ -39,6 +39,8 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 
 definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 
+definedef("TEXTMIT_API_KEY","123.aaa.bbb.ccc...");
+
 definedef("CATALOG_ID_REGEXP",'/^[0-9A-Z_.\/-]{1,}$/i'); // see app/fields/catalog_id_field.php
 definedef("CATALOG_ID_AUTO_UPPERIZE",true);
 

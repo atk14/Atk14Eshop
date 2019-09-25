@@ -6,7 +6,7 @@ class WarehouseItemsForm extends AdminForm {
 			"label" => _("Product"),
 		]));
 
-		$this->add_field("stockcount", new IntegerField([
+		$this->add_field("stockcount", new StockcountField([
 			"label" => _("Stockcount"),
 		]));
 	}

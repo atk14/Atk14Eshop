@@ -2,10 +2,6 @@
 class GenderField extends choiceField {
 
 	function __construct($options = []){
-		$options += [
-			"initial" => 2, // pani
-		];
-		
 		$choices = [];
 		foreach(Gender::GetInstances() as $g){
 			$choices[$g->getId()] = $g->getName();

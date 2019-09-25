@@ -7,6 +7,7 @@
 		<div>
 			{dropdown_menu}
 				{a action=edit id=$brand}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
+				{a namespace="" action="brands/detail" id=$brand}{!"eye"|icon} {t}Visit public link{/t}{/a}
 
 				{if $brand->isDeletable()}
 					{capture assign="confirm"}{t 1=$brand->getName()|h escape=no}You are about to permanently delete brand %1

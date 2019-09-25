@@ -13,7 +13,7 @@ class OrderQuantityInput extends NumberInput {
 			"max" => null,
 			"xxx" => null,
 			//"style" => "width: 6em;"
-			"class" => "number text form-control order-quantity-input",
+			"class" => "form-control form-control-number order-quantity-input js-order-quantity-input",
 		];
 
 		foreach($options["attrs"] as $k => $v){
@@ -26,10 +26,10 @@ class OrderQuantityInput extends NumberInput {
 	}
 
 	function render($name, $value, $options=array()) {
-		$out .= "<div class='js-spinner js-stepper'>";
-		$out .= "<button tabindex='-1' type='button' data-spinner-button='down' title='"._("Sniž objednané množství")."'>-</button>";
+		$out .= "<div class='quantity-widget js-spinner js-stepper'>";
+		$out .= "<button tabindex='-1' type='button' data-spinner-button='down' class='btn btn-secondary' title='"._("Sniž objednané množství")."'>-</button>";
 		$out .= parent::render($name,$value,$options);
-		$out .= "<button tabindex='-1' type='button' data-spinner-button='up' title='"._("Zvyš objednané množství")."'>+</button>";
+		$out .= "<button tabindex='-1' type='button' data-spinner-button='up' class='btn btn-secondary' title='"._("Zvyš objednané množství")."'>+</button>";
 		$out .= "&nbsp;".$this->unit;
 		$out .= "</div>";
 		return $out;

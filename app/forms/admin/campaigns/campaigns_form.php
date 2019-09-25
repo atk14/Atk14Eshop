@@ -44,16 +44,7 @@ class CampaignsForm extends AdminForm {
 			"required" => false,
 		]));
 
-		$this->add_field("valid_from", new DateTimeField([
-			"label" => _("Platnost kampaně od"),
-			"hint" => Atk14Locale::FormatDateTime(now()),
-			"required" => false,
-		]));
-
-		$this->add_field("valid_to", new DateTimeField([
-			"label" => _("Platnost kampaně do"),
-			"required" => false,
-		]));
+		$this->add_validity_fields();
 	}
 
 	function clean(){

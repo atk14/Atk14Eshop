@@ -56,18 +56,7 @@ class VouchersForm extends AdminForm {
 			"help_text" => _("Neaktivní slevový kupón nebude možné použít"),
 		)));
 
-		$this->add_field("valid_from", new DateTimeField([
-			"label" => _("Platnost od"),
-			"hint" => Atk14Locale::FormatDateTime(now()),
-			"required" => false,
-			"help_text" => _("Zadejte datum, hodiny a minuty"),
-		]));
-
-		$this->add_field("valid_to", new DateTimeField([
-			"label" => _("Platnost do"),
-			"required" => false,
-		]));
-
+		$this->add_validity_fields();
 	}
 
 	function clean(){

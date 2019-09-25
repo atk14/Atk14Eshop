@@ -8,6 +8,7 @@
 
 				{dropdown_menu}
 					{a action="products/edit" id=$product}{icon glyph="edit"} {t}Edit{/t}{/a}
+					{render partial="product_menu_links" product=$product}
 					{capture assign="confirm"}{t 1=$product->getName()|h escape=no}Chystáte se smazat produkt %1. Jste si jistý/á?{/t}{/capture}
 					{a_destroy action="products/destroy" id=$product _confirm=$confirm}{icon glyph="remove"} {t}Delete{/t}{/a_destroy}
 				{/dropdown_menu}
