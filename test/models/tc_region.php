@@ -2,6 +2,12 @@
 class TcRegion extends TcBase {
 
 	function test(){
+		foreach(["app.contact.email","app.name","app.name.short"] as $code){
+			if($sp = SystemParameter::GetInstanceByCode($code)){
+				$sp->destroy();
+			}
+		}
+
 		$region = Region::CreateNewRecord([
 			"code" => "TEST",
 		]);
@@ -9,6 +15,18 @@ class TcRegion extends TcBase {
 		$this->assertEquals(ATK14_APPLICATION_NAME,$region->getApplicationName());
 		$this->assertEquals(ATK14_APPLICATION_NAME,$region->getApplicationLongName());
 		$this->assertEquals(DEFAULT_EMAIL,$region->getEmail());
+
+		foreach(["app.contact.email" => "john@test.com","app.name" => "TEST LONG NAME","app.name.short" => "TEST NAME"] as $code => $content){
+			SystemParameter::CreateNewRecord([
+				"code" => $code,
+				"system_parameter_type_id" => SystemParameterType::FindByCode("string"),
+				"content" => $content,
+			]);
+		}
+		//
+		$this->assertEquals("TEST NAME",$region->getApplicationName());
+		$this->assertEquals("TEST LONG NAME",$region->getApplicationLongName());
+		$this->assertEquals("john@test.com",$region->getEmail());
 
 		$region->s([
 			"application_name_en" => "Test_name",

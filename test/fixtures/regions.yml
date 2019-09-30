@@ -1,0 +1,8 @@
+czechoslovakia:
+  code: CZECHOSLOVAKIA
+  name_cs: Československo
+  name_en: Czechoslovakia
+  currencies: '["CZK"]'
+  delivery_countries: '["CZ","SK"]'
+  languages: '["cs","en"]'
+  domains: '[]'

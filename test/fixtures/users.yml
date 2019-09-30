@@ -15,3 +15,16 @@ rocky:
   firstname: "Rocky"
   lastname: "Balboa"
   password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret
+
+kveta:
+  login: "kveta@seznam.cz"
+  email: "Kveta@SEZNAM.CZ"
+  firstname: "Kveta"
+  lastname: "Latkova"
+  password: "kopretinka"
+  address_street: "Ambrozova 9"
+  address_street2: "u kina Aero"
+  address_city: "Praha"
+  address_zip: "130 00"
+  address_country: "CZ"
+  phone: "+420753951486"

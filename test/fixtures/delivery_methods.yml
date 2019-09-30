@@ -1,0 +1,10 @@
+dpd:
+  code: "dpd_test"
+  price: 100
+  price_incl_vat: 121
+
+personal:
+  code: "personal_test"
+  price: 0
+  price_incl_vat: 0
+  personal_pickup: true
