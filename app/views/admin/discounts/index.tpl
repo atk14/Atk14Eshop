@@ -11,6 +11,8 @@
 				<th></th>
 				{sortable key="discount_percent"}<th>{t}Sleva [%]{/t}</th>{/sortable}
 				<th>{t}Nositel{/t}</th>
+				<th>{t}Valid from{/t}</th>
+				<th>{t}Valid to{/t}</th>
 				{sortable key="created_at"}<th>{t}Datum vytvoření{/t}</th>{/sortable}
 				<th></th>
 			</tr>

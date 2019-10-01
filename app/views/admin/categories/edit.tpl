@@ -64,8 +64,9 @@ Do you really want this?{/t}{/capture}
 
 {render partial="shared/form"}
 
+<hr>
+
 {if $category->isAlias()}
-	<hr>
 
 	{assign var=ptc value=$category->getPointingToCategory()}
 	{capture assign=url}{link_to action=edit id=$ptc}{/capture}
@@ -75,8 +76,6 @@ Do you really want this?{/t}{/capture}
 
 	{if !$category->isSubcategoryOfFilter()}
 		{* Pokud je rodic filtr, nelze uz pridavat dalsi podkategorie *}
-		<hr>
-
 		<h3 id="subcategories">
 			{if $category->allowSubcategories()}
 				{button_create_new parent_category_id=$category return_to_anchor="subcategories"}{t}Add a new subcategory{/t}{/button_create_new}

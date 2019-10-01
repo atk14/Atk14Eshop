@@ -3,5 +3,5 @@
 {render partial="shared/form"}
 
 <p>
-	Fotogalerii lze přidat hned po vytvoření varianty produktu.
+	{t}Fotogalerii lze přidat hned po vytvoření varianty produktu.{/t}
 </p>

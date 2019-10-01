@@ -7,6 +7,7 @@
 		<div>
 			{dropdown_menu}
 				{a action=edit id=$collection}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
+				{a namespace="" action="collections/detail" id=$collection}{!"eye"|icon} {t}Visit public link{/t}{/a}
 
 				{if $collection->isDeletable()}
 					{capture assign="confirm"}{t 1=$collection->getName()|h escape=no}You are about to permanently delete collection %1
