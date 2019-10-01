@@ -4,11 +4,14 @@ CREATE TABLE system_parameter_types (
 	--
 	CONSTRAINT unq_systemparametertypes_code UNIQUE (code)
 );
-INSERT INTO system_parameter_types VALUES (1,'text');
-INSERT INTO system_parameter_types VALUES (2,'integer');
-INSERT INTO system_parameter_types VALUES (3,'float');
-INSERT INTO system_parameter_types VALUES (4,'boolean');
-INSERT INTO system_parameter_types VALUES (5,'localized_text');
+INSERT INTO system_parameter_types VALUES (1,'string');
+INSERT INTO system_parameter_types VALUES (2,'localized_string');
+INSERT INTO system_parameter_types VALUES (3,'text');
+INSERT INTO system_parameter_types VALUES (4,'localized_text');
+INSERT INTO system_parameter_types VALUES (5,'integer');
+INSERT INTO system_parameter_types VALUES (6,'float');
+INSERT INTO system_parameter_types VALUES (7,'boolean');
+INSERT INTO system_parameter_types VALUES (8,'url');
 
 CREATE SEQUENCE seq_system_parameters;
 CREATE TABLE system_parameters (
