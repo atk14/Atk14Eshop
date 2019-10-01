@@ -1,7 +1,7 @@
 CREATE SEQUENCE seq_vat_rates START WITH 11;
 CREATE TABLE vat_rates (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_vat_rates'),
-	code VARCHAR(255),
+	code VARCHAR(255) NOT NULL,
 	--
 	vat_percent NUMERIC(5,2) NOT NULL,
 	rank INT NOT NULL DEFAULT 999,

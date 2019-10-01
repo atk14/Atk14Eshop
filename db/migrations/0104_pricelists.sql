@@ -1,6 +1,8 @@
 CREATE SEQUENCE seq_pricelists START WITH 11;
 CREATE TABLE pricelists (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_pricelists'),
+	--
+	contains_prices_without_vat BOOLEAN DEFAULT FALSE NOT NULL,
 	code VARCHAR(255),
 	--
 	rank INT NOT NULL DEFAULT 999,
@@ -33,13 +35,14 @@ CREATE TABLE pricelist_items (
 	minimum_quantity INT NOT NULL DEFAULT 0,
 	price NUMERIC(20,6) NOT NULL,
 	--
+	valid_from TIMESTAMP,
+	valid_to TIMESTAMP,
+	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
 	--
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP,
-	--
-	CONSTRAINT unq_pricelistitems UNIQUE(pricelist_id,product_id,minimum_quantity),
 	--
 	CONSTRAINT fk_pricelistitems_pricelists FOREIGN KEY (pricelist_id) REFERENCES pricelists ON DELETE CASCADE,
 	CONSTRAINT fk_pricelistitems_products FOREIGN KEY (product_id) REFERENCES products ON DELETE CASCADE,
@@ -47,4 +50,5 @@ CREATE TABLE pricelist_items (
 	CONSTRAINT fk_pricelistitems_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_pricelistitems_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
+CREATE INDEX in_pricelistitems_pricelistid_productid ON pricelist_items(pricelist_id,product_id);
 
