@@ -15,6 +15,8 @@ class DiscountsForm extends AdminForm {
 			"label" => _("Kategorie"),
 			"required" => false,
 		]));
+
+		$this->add_validity_fields();
 	}
 
 	function clean(){
