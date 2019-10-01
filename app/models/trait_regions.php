@@ -11,7 +11,7 @@ trait TraitRegions {
 		$out = [];
 		foreach(Region::GetInstances() as $r){
 			$c = $r->getCode();
-			if($json[$c]){ $out[] = $r; }
+			if(isset($json[$c]) && $json[$c]){ $out[] = $r; }
 		}
 
 		return $out;
