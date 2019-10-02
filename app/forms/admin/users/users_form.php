@@ -17,6 +17,19 @@ class UsersForm extends AdminForm{
 			"max_length" => 255,
 		)));
 
+		$anonymous = User::GetAnonymousUser();
+
+		$this->add_field("pricelist_id", new PricelistField(array(
+			"label" => _("Ceník"),
+			"initial" => $anonymous->g("pricelist_id"),
+		)));
+
+		$this->add_field("base_pricelist_id", new PricelistField(array(
+			"label" => _("Ceník s cenami před slevou"),
+			"required" => false,
+			"initial" => $anonymous->g("base_pricelist_id"),
+		)));
+
 		$this->add_field("active",new BooleanField(array(
 			"label" => _("Is active?"),
 			"required" => false,

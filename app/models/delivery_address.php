@@ -1,30 +1,30 @@
 <?php
 class DeliveryAddress extends ApplicationModel {
 
-	static function GetMostRecentRecord($user,$region = null){
-		if(!$user){ return; }
-		$delivery_countries = $region ? $region->getDeliveryCountries() : [];
-
-		$conditions = $bind_ar = [];
-
-		$conditions[] = "user_id=:user";
-		$bind_ar[":user"] = $user;
-
-		if($delivery_countries){
-			$conditions[] = "address_country IN :delivery_countries";
-			$bind_ar[":delivery_countries"] = $delivery_countries;
+	/**
+	 *
+	 *	$da = DeliveryAddress::GetMostRecentRecord($user);
+	 *	$da = DeliveryAddress::GetMostRecentRecord($user,["CZ","SK"]);
+	 * 	$da = DeliveryAddress::GetMostRecentRecord($user,$region);
+	 */
+	static function GetMostRecentRecord($user,$delivery_countries = null){
+		$instances = self::GetInstancesByUser($user,$delivery_countries);
+		if($instances){
+			return $instances[0];
 		}
-
-		return self::FindFirst([
-			"conditions" => $conditions,
-			"bind_ar" => $bind_ar,
-			"order_by" => "COALESCE(last_used_at,created_at) DESC",
-		]);
 	}
-
-	static function GetInstancesByUserAndRegion($user,$region){
+	
+	/**
+	 *
+	 *	$da = DeliveryAddress::GetInstancesByUser($user);
+	 *	$da = DeliveryAddress::GetInstancesByUser($user,["CZ","SK"]);
+	 *	$da = DeliveryAddress::GetInstancesByUser($user,$region);
+	 */
+	static function GetInstancesByUser($user,$delivery_countries = null){
 		if(!$user){ return []; }
-		$delivery_countries = $region->getDeliveryCountries();
+		if(is_object($delivery_countries) && is_a($delivery_countries,"Region")){
+			$delivery_countries = $delivery_countries->getDeliveryCountries();
+		}
 
 		$conditions = $bind_ar = [];
 

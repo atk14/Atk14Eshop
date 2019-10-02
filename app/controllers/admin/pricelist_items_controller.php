@@ -18,6 +18,7 @@ class PricelistItemsController extends AdminController {
 		$_catalog_id = "(SELECT catalog_id FROM products WHERE products.id=pricelist_items.product_id)";
 		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=(SELECT card_id FROM products WHERE products.id=pricelist_items.product_id) AND key='name' AND lang='$this->lang')";
 		$_std_sorting = "$_catalog_id, minimum_quantity, price";
+		$_price = "price / 100.0 * (100.0 - COALESCE((SELECT vat_percent FROM vat_rates WHERE id=(SELECT vat_rate_id FROM products WHERE id=pricelist_items.product_id)),0.0))";
 
 		if($d["search"] && ($conds = FullTextSearchQueryLike::GetQuery("UPPER($_catalog_id||' '||COALESCE($_name,''))",Translate::Upper($d["search"]),$bind_ar))){
 			$this->sorting->add("UPPER($_catalog_id)=UPPER(:search) DESC, UPPER($_catalog_id) LIKE UPPER(:search)||'%' DESC, $_catalog_id, $_std_sorting");
@@ -26,10 +27,12 @@ class PricelistItemsController extends AdminController {
 		}
 
 		$this->sorting->add("catalog_id","$_catalog_id ASC, $_std_sorting","$_catalog_id DESC, $_std_sorting");
-		$this->sorting->add("price","price, $_catalog_id, $_std_sorting","price DESC, $_catalog_id DESC, $_std_sorting");
+		$this->sorting->add("price_incl_vat","price, $_catalog_id, $_std_sorting","price DESC, $_catalog_id DESC, $_std_sorting");
+		$this->sorting->add("price","$_price, $_catalog_id, $_std_sorting","$_price DESC, $_catalog_id DESC, $_std_sorting");
 		$this->sorting->add("minimum_quantity","minimum_quantity, $_catalog_id, $_std_sorting","minimum_quantity DESC, $_catalog_id DESC, $_std_sorting");
 		$this->sorting->add("name","$_name, $_catalog_id, $_std_sorting","$_name DESC, $_catalog_id DESC, $_std_sorting");
 
+		$this->tpl_data["currency"] = Currency::GetDefaultCurrency();
 		$this->tpl_data["finder"] = PricelistItem::Finder([
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,

@@ -1,23 +1,7 @@
 <?php
 class OrderStatus extends ApplicationModel implements Translatable {
 
-	var $next_status = array(
-		"new" => array("waiting_for_processing", "waiting_for_bank_transfer", "waiting_for_online_payment"),
-		"waiting_for_processing" => array("processing","cancelled"),
-		"waiting_for_bank_transfer" => array("waiting_for_processing", "cancelled"),
-		"waiting_for_online_payment" => array("payment_accepted", "payment_failed"),
-		"payment_accepted" => array("waiting_for_processing"),
-		"payment_failed" => array("payment_accepted","waiting_for_processing","waiting_for_bank_transfer","cancelled"),
-		"processing" => array("waiting_for_transport", "shipped", "cancelled"),
-		"on_the_way" => array("ready"),
-		"waiting_for_transport" => array("on_the_way","ready"),
-		"processed" => array("ready","ready_reminder","cancelled"),
-		"ready" => array("delivered","cancelled","ready_reminder"),
-		"ready_reminder" => array("delivered","cancelled","ready_reminder"),
-		"shipped" => array("delivered"),
-#		"delivered",
-#		"cancelled",
-	);
+	use TraitGetInstanceByCode; // $status = OrderStatus::GetInstanceByCode("new");
 
 	static function GetTranslatableFields() {
 		return array("name");
@@ -27,52 +11,105 @@ class OrderStatus extends ApplicationModel implements Translatable {
 		return (string)$this->getName();
 	}
 
+	static function DetermineNextAutomaticStatus($order) {
+		$payment_method = $order->getPaymentMethod();
 
-	static $payment_gateway_to_status_code_map = array(
-		1 => "waiting_for_online_payment",
-		2 => "waiting_for_online_payment",
-#		2 => "waiting_for_bank_transfer",
-	);
-
-	static function DetermineInitialStatus($payment_method_id) {
-		$payment_method = PaymentMethod::FindById($payment_method_id);
-
-		if ($payment_method->isOnlineMethod()) {
-			$status_code = self::$payment_gateway_to_status_code_map[$payment_method->getPaymentGatewayId()];
-		} elseif (in_array($payment_method->getCode(), array("cs_banktransfer","ASI-SK-PL-BU","eu_banktransfer"))) {
+		$status_code = null;
+		if($payment_method->isBankTransfer()){
 			$status_code = "waiting_for_bank_transfer";
-		} else {
-			$status_code = "waiting_for_processing";
+		}elseif($payment_method->isOnlineMethod()){
+			$status_code = "waiting_for_online_payment";
 		}
 
-		return self::FindByCode($status_code);
+		if($status_code){
+			$sc = self::FindByCode($status_code);
+			myAssert($sc);
+			return $sc;
+		}
 	}
 
-	function getNextStatusCodes() {
-		if (isset($this->next_status[$this->getCode()])) {
-			return $this->next_status[$this->getCode()];
-		}
-		return null;
-	}
+	function getAllowedNextOrderStatuses(){
+		$tr_table = [];
 
-	function getNextStatuses() {
-		if (isset($this->next_status[$this->getCode()])) {
-			$status_finder = self::Finder(array(
-				"conditions" => array(
-					"code in :next_status_codes",
-				),
-				"bind_ar" => array(":next_status_codes" => $this->next_status[$this->getCode()]),
-				"limit" => null,
-			));
-			return $status_finder->getRecords();
+		$tr_table["new"] = [
+			"processing",
+			"cancelled"
+		];
+
+		$tr_table["waiting_for_bank_transfer"] = [
+			"payment_accepted",
+			"payment_failed",
+			"cancelled",
+		];
+
+		$tr_table["payment_accepted"] = [
+			"processing",
+			"cancelled",
+		];
+
+		$tr_table["payment_failed"] = [
+			"waiting_for_bank_transfer",
+			"waiting_for_online_payment",
+			"processing",
+			"cancelled",
+		];
+
+		$tr_table["processing"] = [
+			"shipped",
+			"ready_for_pickup",
+			"cancelled"
+		];
+
+		$tr_table["shipped"] = [
+			"delivered",
+			"cancelled",
+			"returned"
+		];
+
+		$tr_table["ready_for_pickup"] = [
+			"delivered",
+			"returned",
+		];
+
+		$tr_table["delivered"] = [
+			"returned",
+		];
+
+		$tr_table["returned"] = [
+			"cancelled",
+		];
+
+		$code = $this->getCode();
+		if(!isset($tr_table[$code])){ return []; }
+
+		$out = [];
+		foreach($tr_table[$code] as $c){
+			$out[] = OrderStatus::GetInstanceByCode($c);
 		}
-		return array();
+
+		return $out;
 	}
 
 	/**
 	 * Oznamuje se tato zmena stavu uzivateli?
 	 */
 	function notificationEnabled(){
-		return in_array($this->getCode(), array("processing", "waiting_for_bank_transfer", "payment_accepted", "payment_failed", "ready", "ready_reminder", "cancelled", "processed", "shipped"));
+		return $this->g("notification_enabled");
+	}
+
+	function isBlockingStockcount(){
+		return $this->g("blocking_stockcount");
+	}
+
+	function reduceStockount(){
+		return $this->g("reduce_stockount");
+	}
+
+	function finishedSuccessfully(){
+		return in_array($this->getCode(),["shipped","delivered"]);
+	}
+
+	function finishedUnsuccessfully(){
+		return in_array($this->getCode(),["cancelled","returned"]);
 	}
 }

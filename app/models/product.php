@@ -19,12 +19,12 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $product;
 	}
 
-	function getLabel($lang = null){
-		$label = parent::getLabel($lang);
-		if(strlen($label)){
-			return $label;
-		}
-		return _("Variant");
+	static function CreateNewRecord($values,$options = []){
+		$values += [
+			"vat_rate_id" => VatRate::GetDefaultVatRate(),
+		];
+
+		return parent::CreateNewRecord($values,$options);
 	}
 
 	function getName($lang = null){
@@ -36,10 +36,24 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $card->getName($lang);
 	}
 
-	function getCard(){ return Cache::Get("Card",$this->getCardId()); }
+	function getFullName(){
+		$full_name = $this->getName();
+		if($label = $this->getLabel()){
+			$full_name .= ", ".$label;
+		}
+		return $full_name;
+	}
+
+	function getCard(){ return Cache::Get("Card",$this->g("card_id")); }
+
+	function getUnit(){ return Cache::Get("Unit",$this->g("unit_id")); }
 
 	function getVatRate(){ return Cache::Get("VatRate",$this->getVatRateId()); }
-	function getVatPercent(){ return $this->getVatRate()->getVatPercent(); }
+	function getVatPercent(){
+		if($vr = $this->getVatRate()){
+			return $vr->getVatPercent();
+		}
+	}
 
 	function getCatalogId(){
 		$catalog_id = $this->g("catalog_id");
@@ -54,9 +68,24 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return ProductImage::GetImages($this);
 	}
 
-	function getImage(){
+	/**
+	 *
+	 * $image = $product->getImage(false);
+	 */
+	function getImage($options = []){
+		if(is_bool($options)){
+			$options = ["consider_card_image" => $options];
+		}
+		$options += [
+			"consider_card_image" => true,
+		];
+
 		if($images = $this->getImages()){
 			return $images[0];
+		}
+
+		if(!$options["consider_card_image"]){
+			return;
 		}
 
 		$card = $this->getCard();
@@ -82,6 +111,14 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 		if($this->isDeleted()){
 			return null;
+		}
+
+		foreach(PricelistItem::FindAll("product_id",$this) as $item){
+			$item->destroy();
+		}
+
+		foreach(WarehouseItem::FindAll("product_id",$this) as $item){
+			$item->destroy();
 		}
 
 		$this->s(array(
@@ -408,11 +445,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	}
 
 	function toString(){
-		$out = $this->getName();
-		if($this->getLabel()){
-			$out .= ", ".$this->getLabel();
-		}
-		return (string)$out;
+		return $this->getFullName();
 	}
 
 	protected function _getIdsToPrereadData($already_read_ids = []){

@@ -1,8 +1,8 @@
 <?php
-class Article extends ApplicationModel implements Translatable, iSlug {
+class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\Indexable {
 
 	use TraitTags;
-	
+
 	static function GetTranslatableFields() { return array("title", "teaser", "body");}
 
 	function getSlugPattern($lang){ return $this->g("title_$lang"); }
@@ -43,5 +43,23 @@ class Article extends ApplicationModel implements Translatable, iSlug {
 			"bind_ar" => $bind_ar,
 			"order_by" => $newer ? "published_at" : "published_at DESC",
 		));
+	}
+
+	function isIndexable(){
+		return $this->isPublished();
+	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addText($this->getTitle($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
+
+		$fd->setDate($this->getPublishedAt());
+
+		return $fd;
 	}
 }

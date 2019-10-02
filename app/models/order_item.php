@@ -7,12 +7,12 @@ class OrderItem extends BasketOrOrderItem {
 		]);
 	}
 
-	protected function _getRawUnitPrice(){
-		return $this->g("unit_price");
+	protected function _getRawUnitPriceInclVat(){
+		return $this->g("unit_price_incl_vat");
 	}
 
-	protected function _getRawUnitPriceBeforeDiscount(){
-		return $this->g("unit_price_before_discount");
+	protected function _getRawUnitPriceBeforeDiscountInclVat(){
+		return $this->g("unit_price_before_discount_incl_vat");
 	}
 
 	function getVatPercent(){

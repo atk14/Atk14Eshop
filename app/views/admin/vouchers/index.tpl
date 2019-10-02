@@ -18,8 +18,8 @@
 			{sortable key="discount"}<th>{t}Hodnota{/t}</th>{/sortable}
 			{sortable key="active"}<th>{t}Je aktivní?{/t}</th>{/sortable}
 			{sortable key="used"}<th>{t}Byl použit?{/t}</th>{/sortable}
-			<th>{t}Platnost od{/t}</th>
-			<th>{t}Platnost do{/t}</th>
+			<th>{t}Valid from{/t}</th>
+			<th>{t}Valid to{/t}</th>
 			{sortable key="created_at"}<th>{t}Datum vytvoření{/t}</th>{/sortable}
 			<th>{t}Kupón vytvořil/a{/t}</th>
 			<th></th>

@@ -1,0 +1,15 @@
+credit_card:
+  code: "cc",
+  price: 0
+  price_incl_vat: 0
+  payment_gateway_id: 1
+
+bank_transfer:
+  code: "bt"
+  price: 0
+  price_incl_vat: 0
+
+cash_on_delivery:
+  code: "cod",
+  price: 75.238
+  price_incl_vat: 79.0

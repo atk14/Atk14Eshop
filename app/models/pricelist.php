@@ -59,7 +59,12 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 		return Currency::GetDefaultCurrency();
 	}
 
+	function containsPricesWithoutVat(){
+		return $this->g("contains_prices_without_vat");
+	}
+
 	function isDeletable(){
 		return $this->getId()!=DEFAULT_PRICELIST_ID;
 	}
+
 }

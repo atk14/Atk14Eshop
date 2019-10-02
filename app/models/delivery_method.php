@@ -79,6 +79,29 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
 	}
 
+	/**
+	 * Vrati vsechny zeme, kam je mozne dorucit zasilku s touto dopravou
+	 *
+	 * @return string[]
+	 */
+	function getDeliveryCountriesAllowed($curent_region = null){
+		$countries = [];
+		foreach($this->getRegions() as $region){
+			foreach($region->getDeliveryCountries() as $dc){
+				$countries[] = $dc;
+			}
+		}
+		$countries = array_unique($countries);
+		$countries = array_values($countries);
+		
+		if($curent_region){
+			$countries = array_intersect($countries,$curent_region->getDeliveryCountries());
+			$countries = array_values($countries);
+		}
+
+		return $countries;
+	}
+
 	function isDeletable(){
 		return 0===$this->dbmole->selectInt("
 			SELECT COUNT(*) FROM (

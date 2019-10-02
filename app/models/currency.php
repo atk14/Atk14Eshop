@@ -3,6 +3,8 @@ defined("DEFAULT_CURRENCY") || define("DEFAULT_CURRENCY","CZK");
 
 class Currency extends ApplicationModel{
 
+	use TraitGetInstanceByCode; // $currency = Currency::GetInstanceByCode("EUR");
+
 	static function GetInstanceById($id, $options=[]) {
 		$options += ['use_cache' => true];
 		if($options['use_cache']) {
@@ -10,23 +12,6 @@ class Currency extends ApplicationModel{
 			self::GetInstanceByCode(null);
 		}
 		return parent::GetInstanceById($id, $options);
-	}
-
-	/**
-	 *	$currency = Currency::GetInstanceByCode("EUR");
-	 */
-	static function GetInstanceByCode($code){
-		static $instances;
-
-		if(!$instances){
-			$instances = [];
-			foreach(Currency::FindAll(["use_cache" => true]) as $c){
-				$instances[$c->getCode()] = $c;
-			}
-		}
-
-		$code = (string)$code;
-		return isset($instances[$code]) ? $instances[$code] : null;
 	}
 
 	/**

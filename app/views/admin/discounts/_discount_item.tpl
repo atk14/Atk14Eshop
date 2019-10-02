@@ -21,6 +21,8 @@
 			{a action="cards/edit" id=$product->getCardId()}{$product->getName()}{/a}
 		{/if}
 	</td>
+	<td>{$discount->getValidFrom()|format_datetime|default:$mdash}</td>
+	<td>{$discount->getValidTo()|format_datetime|default:$mdash}</td>
 	<td>{$discount->getCreatedAt()|format_datetime}</td>
 	<td>
 		{dropdown_menu pull_right=1}

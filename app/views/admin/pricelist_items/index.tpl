@@ -17,6 +17,9 @@
 			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
 			{sortable key="minimum_quantity"}<th>{t}Minimum quantity{/t}</th>{/sortable}
 			{sortable key="price"}<th>{t}Price{/t} [{$pricelist->getCurrency()}]</th>{/sortable}
+			{sortable key="price_incl_vat"}<th>{t}Price incl. VAT{/t} [{$pricelist->getCurrency()}]</th>{/sortable}
+			<th>{t}Valid from{/t}</th>
+			<th>{t}Valid to{/t}</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -30,13 +33,16 @@
 				<td>{$product->getCatalogId()}</td>
 				<td>{$product->getName()}</td>
 				<td>{$pricelist_item->getMinimumQuantity()} {$product->getUnit()}</td>
-				<td>{$pricelist_item->getPrice()}</td>
+				<td>{$pricelist_item->getPrice()|display_price:"$currency,format=plain"}</td>
+				<td>{$pricelist_item->getPriceInclVat()|display_price:"$currency,format=plain"}</td>
+				<td>{$pricelist_item->getValidFrom()|format_datetime|default:$mdash}</td>
+				<td>{$pricelist_item->getValidTo()|format_datetime|default:$mdash}</td>
 				<td>
 					{dropdown_menu}
-						{a action="edit" id=$pricelist_item}{t}Upravit cenu{/t}{/a}
-						{a namespace="" action="cards/detail" id=$product->getCardId()}{t}Zobrazit produkt v e-shopu{/t}{/a}
-						{a action="cards/edit" id=$product->getCardId()}{t}Editovat produkt{/t}{/a}
-						{a_destroy id=$pricelist_item}{t}Smazat cenu{/t}{/a_destroy}
+						{a action="edit" id=$pricelist_item}{!"edit"|icon} {t}Upravit cenu{/t}{/a}
+						{a namespace="" action="cards/detail" id=$product->getCardId()}{!"eye"|icon} {t}Zobrazit produkt v e-shopu{/t}{/a}
+						{a action="cards/edit" id=$product->getCardId()}{!"edit"|icon} {t}Editovat produkt{/t}{/a}
+						{a_destroy id=$pricelist_item}{!"remove"|icon} {t}Smazat cenu{/t}{/a_destroy}
 					{/dropdown_menu}
 				</td>
 			</tr>

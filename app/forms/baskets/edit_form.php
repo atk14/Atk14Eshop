@@ -8,6 +8,7 @@ class EditForm extends BasketsForm {
 			"max_length" => 50,
 			"required" => false,
 			"null_empty_output" => true,
+			"hint" => _("Slevový kód"),
 		]));
 	}
 

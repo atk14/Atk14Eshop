@@ -7,14 +7,15 @@ CREATE TABLE discounts (
 	--
 	discount_percent NUMERIC(5,2) NOT NULL CHECK(discount_percent>=0.0 AND discount_percent<=100.0),
 	--
+	valid_from TIMESTAMP,
+	valid_to TIMESTAMP,
+	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
 	--
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP,
 	--
-	CONSTRAINT unq_discounts_productid UNIQUE(product_id),
-	CONSTRAINT unq_discounts_categoryid UNIQUE(category_id),
 	CONSTRAINT chk_discounts CHECK((category_id IS NULL AND product_id IS NOT NULL) OR (category_id IS NOT NULL AND product_id IS NULL)),
 	--
 	CONSTRAINT fk_discounts_categories FOREIGN KEY (category_id) REFERENCES categories ON DELETE CASCADE,
@@ -23,3 +24,5 @@ CREATE TABLE discounts (
 	CONSTRAINT fk_discounts_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_discounts_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
+CREATE INDEX in_discounts_productid ON discounts (product_id);
+CREATE INDEX in_discounts_categoryid ON discounts (category_id);

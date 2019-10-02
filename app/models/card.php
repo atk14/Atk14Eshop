@@ -1,5 +1,5 @@
 <?php
-class Card extends ApplicationModel implements Translatable, iSlug {
+class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Indexable {
 
 	use TraitTags;
 
@@ -75,6 +75,9 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 	}
 
 	function getImages($options = array()){
+		if(is_bool($options)){
+			$options = ["consider_product_images" => $options];
+		}
 		$options += array(
 			"consider_product_images" => true,
 		);
@@ -119,8 +122,25 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 	}
 
 	// Prvni obrazek
-	function getImage(){
-		if($ar = $this->getImages(array("limit" => 1))){
+	function getImage($options = []){
+		if(is_bool($options)){
+			$options = ["consider_product_images" => $options];
+		}
+		$options += [
+			"consider_product_images" => true,
+		];
+	
+		// Obrazek z prvni obrazkove varianty ma prednost pred obrazkem u teto karty
+		if($options["consider_product_images"] && $this->hasVariants()){
+			foreach($this->getProducts() as $p){
+				if($i = $p->getImage(false)){
+					return $i;
+				}
+			}
+		}
+
+		$options["limit"] = 1;
+		if($ar = $this->getImages($options)){
 			return $ar[0];
 		}
 	}
@@ -365,6 +385,22 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 
 	function isDeleted(){ return $this->getDeleted(); }
 	function isVisible(){ return $this->getVisible(); }
+
+	function isViewableInEshop(){
+		if($this->isDeleted()){ return false; }
+
+		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
+
+		if($product){
+			if(!$product->isVisible() && strlen($product->getCode())){
+				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
+				return false;
+			}
+			if($product->isDeleted()){ return false; }
+		}
+
+		return true;
+	}
 
 	function getBrand(){
 		return Cache::Get("Brand",$this->getBrandId());
@@ -637,6 +673,34 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 			"limit" => $options["limit"],
 			"order_by" => null,
 		));
+	}
+
+	function isIndexable(){
+		return $this->isVisible() && !$this->isDeleted();
+	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addText($this->getName($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
+
+		if($brand = $this->getBrand()){
+			$fd->addText($brand->getName());
+		}
+
+		foreach(CardSection::FindAll("card_id",$this) as $cs){
+			$fd->merge($cs->getFulltextData($lang),[
+				"a" => "b",
+				"b" => "c",
+				"c" => "d",
+			]);
+		}
+
+		return $fd;
 	}
 }
 

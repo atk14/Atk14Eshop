@@ -1,9 +1,9 @@
 <?php
-defined("DEFAULT_REGION") || define("DEFAULT_REGION","CZ");
+defined("DEFAULT_REGION") || define("DEFAULT_REGION","DEFAULT");
 
 class Region extends ApplicationModel implements Translatable, Rankable {
 
-	static function GetTranslatableFields(){ return array("application_name", "application_long_name"); }
+	static function GetTranslatableFields(){ return array("name", "application_name", "application_long_name"); }
 
 	static function GetInstances(){
 		static $regions;
@@ -48,21 +48,24 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getApplicationName(){
-		$out = parent::getApplicationName();
-		if($out){ return $out; }
-		return ATK14_APPLICATION_NAME;
+		($out = parent::getApplicationName()) ||
+		($out = SystemParameter::ContentOn("app.name.short")) ||
+		($out = ATK14_APPLICATION_NAME);
+		return $out;
 	}
 
 	function getApplicationLongName(){
-		$out = parent::getApplicationLongName();
-		if($out){ return $out; }
-		return ATK14_APPLICATION_NAME;
+		($out = parent::getApplicationLongName()) ||
+		($out = SystemParameter::ContentOn("app.name")) ||
+		($out = ATK14_APPLICATION_NAME);
+		return $out;
 	}
 
 	function getEmail(){
-		$out = $this->g("email");
-		if($out){ return $out; }
-		return DEFAULT_EMAIL;
+		($out = $this->g("email")) ||
+		($out = SystemParameter::ContentOn("app.contact.email")) ||
+		($out = DEFAULT_EMAIL);
+		return $out;
 	}
 
 	function getDomains(){
@@ -70,15 +73,26 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getDefaultDomain(){
+		global $HTTP_REQUEST;
 		if($domains = $this->getDomains()){
 			return $domains[0];
 		}
+		if($HTTP_REQUEST->getHttpHost()){
+			return $HTTP_REQUEST->getHttpHost();
+		}
+		return ATK14_HTTP_HOST;
 	}
 
 	function getDefaultUrl(){
-		if($domain = $this->getDefaultDomain()){
-			return "http://$domain/";
-		}
+		global $AKT14_GLOBAL, $HTTP_REQUEST;
+		return Atk14Url::BuildLink([
+			"namespace" => "",
+			"controller" => "main",
+			"action" => "index",
+		],[
+			"with_hostname" => $this->getDefaultDomain(),
+			"ssl" => $HTTP_REQUEST->ssl(),
+		]);
 	}
 
 	/**
@@ -172,6 +186,16 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	 */
 	function getDeliveryCountries(){
 		return (array)json_decode($this->g("delivery_countries"),true);
+	}
+
+	function isDefaultRegion(){
+		return $this->getCode()==DEFAULT_REGION;
+	}
+	
+	function isDeletable(){
+		return
+			!$this->isDefaultRegion() &&
+			0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM baskets WHERE region_id=:region LIMIT 1 UNION SELECT id FROM orders WHERE region_id=:region)",[":region" => $this]);
 	}
 
 	function toString(){

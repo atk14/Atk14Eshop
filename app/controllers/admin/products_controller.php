@@ -6,19 +6,34 @@ class ProductsController extends AdminController {
 		$this->_save_return_uri();
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
+			
+			$price = $d["price"];
+			$stockcount = $d["stockcount"];
+			$image_url = $d["image_url"];
+			unset($d["price"]);
+			unset($d["stockcount"]);
+			unset($d["image_url"]);
+
 			$product = $this->card->createProduct($d);
 			if(!$this->card->hasVariants()){
 				$this->card->s("has_variants",true);
 			}
+
+			if(!is_null($image_url)){
+				Image::AddImage($product,"$image_url");
+			}
+			if(!is_null($price)){
+				$pricelist = Pricelist::GetDefaultPricelist();
+				$pricelist->setPrice($product,$price);
+			}
+			if(!is_null($stockcount)){
+				$warehouse = Warehouse::GetDefaultInstance4Eshop();
+				$warehouse->addProduct($product,$stockcount);
+			}
+
 			$this->flash->success(_("Variant has been created"));
 
 			$this->_redirect_back();
-			/*
-			$this->_redirect_to(array(
-				"action" => "edit",
-				"id" => $product,
-				"_return_uri_" => $this->_get_return_uri(),
-			)); // */
 		}
 	}
 

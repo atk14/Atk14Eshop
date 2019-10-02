@@ -27,10 +27,6 @@ class CheckoutsController extends ApplicationController {
 		$login_form = $this->_get_form("logins/create_new");
 		$login_form->set_action($this->_link_to(["action" => "logins/create_new", "return_uri" => $this->request->getUri()]));
 		$this->tpl_data["login_form"] = $login_form;
-
-		$registration_form = $this->_get_form("users/create_new");
-		$registration_form->set_action($this->_link_to(["action" => "users/create_new", "return_uri" => $this->request->getUri()]));
-		$this->tpl_data["registration_form"] = $registration_form;
 	}
 
 	function set_billing_and_delivery_data(){
@@ -42,8 +38,10 @@ class CheckoutsController extends ApplicationController {
 
 		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = $this->basket->deliveryToDeliveryPointSelected();
 
+		$delivery_countries_allowed = $this->basket->getDeliveryCountriesAllowed();
+
 		if($this->logged_user && !$delivery_point_selected){
-			$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUserAndRegion($this->logged_user,$this->current_region);
+			$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUser($this->logged_user,$delivery_countries_allowed);
 		}
 
 		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || $delivery_point_selected;
@@ -124,7 +122,10 @@ class CheckoutsController extends ApplicationController {
 			// V tomto kroku lze jeste zadat poznamku k objednavce
 			$this->basket->s("note",$d["note"]);
 
-			$order = $this->basket->createOrder();
+			$order = $this->basket->createOrder([
+				"send_notification" => true,
+				"mailer" => $this->mailer,
+			]);
 			// Vytvoreni objednavky uz neni notifikovano tady.
 			// Je na to spec. robot. V emailu se totiz posila PDF s prehledem obj. zbozi a jeho vytvoreni muze trvat dlouho.
 			//$this->mailer->notify_order_creation($order);

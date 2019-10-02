@@ -1,9 +1,8 @@
-CREATE SEQUENCE seq_regions;
+CREATE SEQUENCE seq_regions START WITH 11;
 CREATE TABLE regions (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_regions'),
 	code VARCHAR(255) NOT NULL,
 	--
-	name VARCHAR(255),
 	email VARCHAR(255),
 	domains JSON, -- ['example.com','www.example.com']
 	languages JSON, -- ['cs','sk']
@@ -22,4 +21,7 @@ CREATE TABLE regions (
 	CONSTRAINT fk_regison_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO regions (code,name,domains,languages,currencies,delivery_countries) VALUES ('CZ','Czech Republic','[]','["cs","en"]','["CZK"]','["CZ"]');
+INSERT INTO regions (id,code,domains,languages,currencies,delivery_countries) VALUES (1,'DEFAULT','[]','["cs","en"]','["CZK"]','["CZ"]');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','cs','Výchozí prodejní oblast');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','en','Default sales region');
+

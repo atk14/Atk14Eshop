@@ -10,46 +10,28 @@ class MainController extends ApplicationController{
 	function index(){
 		$this->page_title = _("Welcome!");
 
-		$page = $this->tpl_data["page"] = Page::GetInstanceByCode("homepage");
+		$page = $this->tpl_data["page"] = Page::FindByCode("homepage");
 		if($page){
-			$this->page_title = $page->getPageTitle();
-			$this->page_description = $page->getPageDescription();
+			Atk14Require::Helper("modifier.markdown");
+			$this->page_title = $page->getTitle();
+			$this->page_description = strip_tags(smarty_modifier_markdown($page->getTeaser()));
 		}
 
 		$this->tpl_data["slider"] = Slider::FindByCode("homepage");
-	}
 
-	function contact(){
-		$this->page_title = $this->breadcrumbs[] = _("Contact");
+		$recommended_category = Category::FindByCode("recommended_products_homepage");
+		$this->tpl_data["recommended_products"] = $recommended_category ? $recommended_category->getCards() : [];
 
-		if($this->logged_user){
-			$this->form->set_initial(array(
-				"name" => $this->logged_user->getName(),
-				"email" => $this->logged_user->getEmail(),
-			));
-		}
-
-		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($d["sign_up_for_newsletter"] && $d["email"]){
-				NewsletterSubscriber::SignUp($d["email"],array(
-					"name" => $d["name"],
-				));
-			}
-
-			$this->mailer->contact_message($d,$this->request->getRemoteAddr(),$this->logged_user);
-			$this->session->s("contact_message_sent",1);
-			$this->_redirect_to("contact_message_sent");
-		}
-	}
-
-	function contact_message_sent(){
-		$this->page_title = $this->breadcrumbs[] = _("Contact");
-
-		if(!$this->session->g("contact_message_sent")){
-			return $this->_redirect_to("contact");
-		}
-
-		$this->session->clear("contact_message_sent");
+		$this->tpl_data["recent_articles"] = Article::FindAll([
+			"conditions" => [
+				"published_at<:now",
+			],
+			"bind_ar" => [
+				":now" => now(),
+			],
+			"order_by" => "published_at DESC",
+			"limit" => 4,
+		]);
 	}
 
 	function robots_txt(){

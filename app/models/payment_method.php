@@ -1,6 +1,7 @@
 <?php
 class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 
+	use TraitGetInstanceByCode;
 	use TraitRegions;
 
 	/**
@@ -9,19 +10,6 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	 * - description - dalsi informace o obchode (oteviraci doba, moznosti platby apod.)
 	 */
 	static function GetTranslatableFields(){ return array("label","title","description"); }
-
-	static function FindByCode($code, $options = array()){
-		list($code,$subcode) = preg_split("/\//", "$code/");
-		static $Cache=array();
-		$options += array(
-			"force_read" => TEST,
-			"use_cache" => true,
-		);
-		if(!key_exists($code, $Cache) || $options["force_read"]) {
-			$Cache[$code] = parent::FindByCode($code, $options);
-		}
-		return $Cache[$code];
-	}
 
 	function isActive() {
 		return $this->getActive();
@@ -48,11 +36,24 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 		return DeliveryMethod::GetInstanceById($delivery_ids);
 	}
 
+	function getPaymentGateway(){
+		return Cache::Get("PaymentGateway",$this->getPaymentGatewayId());
+	}
+
+	function isBankTransfer(){
+		return $this->g("bank_transfer");
+	}
+
+	function isCashOnDelivery(){
+		return $this->g("cash_on_delivery");
+	}
+
 	/**
 	 * Je toto online metoda?
 	 */
 	function isOnlineMethod(){
-		return !is_null($this->getPaymentGatewayId());
+		// Even the bank transfer can be processed through a payment gateway
+		return !is_null($this->getPaymentGatewayId()) && !$this->isBankTransfer();
 	}
 
 	function isDeletable(){

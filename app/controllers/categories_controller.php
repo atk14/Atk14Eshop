@@ -86,6 +86,6 @@ class CategoriesController extends ApplicationController{
 		$this->tpl_data["child_categories"] = $child_categories;
 
 		// TODO: compose relevant conditions
-		$this->tpl_data["cards_finder"] = Card::GetFinderForCategory($category,array(),array("offset" => $this->params->getInt("offset")));
+		$this->tpl_data["cards_finder"] = Card::GetFinderForCategory($category,array(),array("limit"=>12, "offset" => $this->params->getInt("offset")));
 	}
 }

@@ -1,6 +1,8 @@
 <?php
 class PriceFinder {
 
+	use TraitPriceManipulation;
+
 	protected $user;
 	protected $currency;
 	protected $current_date;
@@ -94,13 +96,36 @@ class PriceFinder {
 	}
 
 	function getPriceDataFor($ids, $options) {
-		$rows = $this->dbmole->selectRows("SELECT product_id,price,minimum_quantity FROM pricelist_items WHERE pricelist_id=:pricelist AND product_id IN :product ORDER BY product_id, minimum_quantity DESC, price ASC",[
-			":product" => $ids,
-			":pricelist" => $this->pricelist
-		]);
+		$rows = $this->dbmole->selectRows("
+				SELECT
+					product_id,
+					MIN(price) AS price,
+					minimum_quantity
+				FROM pricelist_items
+				WHERE
+					pricelist_id=:pricelist AND
+					product_id IN :product AND
+					(valid_from IS NULL OR valid_from<=:now) AND
+					(valid_to IS NULL OR valid_to>=:now)
+				GROUP BY product_id,minimum_quantity
+				ORDER BY product_id, minimum_quantity DESC
+			",[
+				":product" => $ids,
+				":pricelist" => $this->pricelist,
+				":now" => now(),
+			]
+		);
 		$products = Cache::Get('Product', array_combine($ids, $ids));
 		$prices = [];
 		foreach($rows as $row) {
+			$product = Cache::Get("Product",$row["product_id"]);
+			$row["price"] = (float)$row["price"];
+			if($this->pricelist->containsPricesWithoutVat()){
+				$row["price_incl_vat"] = $this->_addVat($row["price"],$product->getVatPercent());
+			}else{
+				$row["price_incl_vat"] = $row["price"];
+				$row["price"] = $this->_removeVat($row["price"],$product->getVatPercent());
+			}
 			$p_id = $row["product_id"];
 			if(!isset($prices[$p_id])){ $prices[$p_id] = []; }
 			$prices[$p_id][] = $row;

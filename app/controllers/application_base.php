@@ -156,6 +156,10 @@ class ApplicationBaseController extends Atk14Controller{
 			'session_name' => 'permanent'
 		]));
 
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+			return $this->_redirect_to_ssl();
+		}
+
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 
@@ -235,10 +239,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket && $options["create_if_not_exists"] && $session && $session->cookiesEnabled()){
-			$basket = Basket::CreateNewRecord([
-				"user_id" => $user,
-				"region_id" => $region
-			]);
+			$basket = Basket::CreateNewRecord4UserAndRegion($user,$region);
 			if(!$user){
 				$session->s($session_key,$basket->getId());
 			}

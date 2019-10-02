@@ -15,10 +15,23 @@ class PaymentMethodsForm extends AdminForm {
 			"json_encode" => true,
 		)));
 
+		$this->add_field("bank_transfer", new BooleanField(array(
+			"label" => _("Jedná se o bankovní převod?"),
+			"required" => false,
+		)));
+
+		$this->add_field("cash_on_delivery", new BooleanField(array(
+			"label" => _("Jedná se o dobírku?"),
+			"required" => false,
+		)));
+
 		$this->add_field("payment_gateway_id", new PaymentGatewayField(array(
 			"label" => _("Platební brána"),
+			"initial" => null,
 			"required" => false,
+			"disabled" => true,
 			"empty_choice_text" => _("nenapojeno na žádnou bránu"),
+			"help_text" => _("Platební bránu zatím nelze nastavit")
 		)));
 
 		$this->add_translatable_field("label", new CharField(array(
@@ -57,5 +70,22 @@ class PaymentMethodsForm extends AdminForm {
 			"initial" => false,
 			"required" => false
 		)));
+	}
+
+	function clean(){
+		list($err,$d) = parent::clean();
+
+		$keys = array_keys($d);
+
+		if(sizeof(array_intersect($keys,array("payment_gateway_id","bank_transfer","cash_on_delivery")))){
+			if(!$d["bank_transfer"] && !$d["cash_on_delivery"] && is_null($d["payment_gateway_id"])){
+				$this->set_error(_("Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte platební bránu"));
+			}
+			if($d["bank_transfer"]+$d["cash_on_delivery"]+!is_null($d["payment_gateway_id"])>=2){
+				$this->set_error(_("Zatrhněte, zda se jedná buďto o bankovní převod nebo o dobírku, nebo vyberte platební bránu. Hodnoty nelze kombinovat."));
+			}
+		}
+
+		return array($err,$d);
 	}
 }

@@ -55,8 +55,6 @@ class CardsController extends AdminController{
 		$this->_save_return_uri();
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			$tags = $d["tags"];
-			unset($d["tags"]);
 
 			$section_data = array();
 			foreach($GLOBALS["ATK14_GLOBAL"]->getSupportedLangs() as $l){
@@ -67,15 +65,42 @@ class CardsController extends AdminController{
 				unset($d[$k]);
 			}
 
+			$tags = $d["tags"];
 			$catalog_id = $d["catalog_id"];
+			$vat_rate_id = $d["vat_rate_id"];
+			$price = $d["price"];
+			$stockcount = $d["stockcount"];
+			$image_url = $d["image_url"];
+			$category = $d["category"];
+			unset($d["tags"]);
 			unset($d["catalog_id"]);
+			unset($d["vat_rate_id"]);
+			unset($d["price"]);
+			unset($d["stockcount"]);
+			unset($d["image_url"]);
+			unset($d["category"]);
 
 			$card = Card::CreateNewRecord($d);
 			$card->setTags($tags);
+			if(!is_null($image_url)){
+				Image::AddImage($card,"$image_url");
+			}
+			if(!is_null($category)){
+				$category->addCard($card);
+			}
 			if(strlen($catalog_id)){
-				$card->createProduct(array(
+				$product = $card->createProduct(array(
 					"catalog_id" => $catalog_id,
+					"vat_rate_id" => $vat_rate_id,
 				));
+				if(!is_null($price)){
+					$pricelist = Pricelist::GetDefaultPricelist();
+					$pricelist->setPrice($product,$price);
+				}
+				if(!is_null($stockcount)){
+					$warehouse = Warehouse::GetDefaultInstance4Eshop();
+					$warehouse->addProduct($product,$stockcount);
+				}
 			}
 
 			if($section_data){
@@ -101,6 +126,7 @@ class CardsController extends AdminController{
 			if($first_product){
 				$this->form->set_initial(array(
 					"catalog_id" => $first_product->getCatalogId(),
+					"vat_rate_id" => $first_product->getVatRateId(),
 				));
 				$this->form->fields["catalog_id"]->required = true;
 			}else{
@@ -127,16 +153,23 @@ class CardsController extends AdminController{
 			unset($d["tags"]);
 
 			$catalog_id = $d["catalog_id"];
+			$vat_rate_id = $d["vat_rate_id"];
+			$vat_rate_id = is_object($vat_rate_id) ? $vat_rate_id->getId() : $vat_rate_id;
 			unset($d["catalog_id"]);
+			unset($d["vat_rate_id"]);
 
 			if(!$this->card->hasVariants() && strlen($catalog_id)){
 				if(!$first_product){
 					$first_product = $this->card->createProduct([
 						"catalog_id" => $catalog_id,
+						"vat_rate_id" => $vat_rate_id,
 					]);
 				}
-				if($first_product->getCatalogId()!==$catalog_id){
-					$first_product->s("catalog_id",$catalog_id);
+				if($first_product->getCatalogId()!==$catalog_id || $first_product->getVatRateId()!==$vat_rate_id){
+					$first_product->s([
+						"catalog_id" => $catalog_id,
+						"vat_rate_id" => $vat_rate_id,
+					]);
 				}
 			}
 

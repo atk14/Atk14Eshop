@@ -14,7 +14,11 @@
         "atk14/confirmation-field": "^1.0",
         "atk14/sluggish-router": "^1.1",
         "atk14/country-field": "^1.0",
+        "dragonbe/vies": "1.*",
         "yarri/lazy-loader": "^1.2",
-        "html2text/html2text": "^4.0"
+        "html2text/html2text": "^4.0",
+        "atk14/textmit-client": "dev-master",
+        "atk14/decimal-field": "^1.0",
+        "atk14/localized-decimal-field": "^1.0"
     }
 }

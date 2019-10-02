@@ -14,31 +14,75 @@ class EditForm extends SystemParametersForm {
 			"disabled" => $system_parameter->isReadOnly()
 		];
 
-		if($type=="text"){
+		switch($type){
 
-			$this->add_field("content", new TextField($params + [
-				"label" => _("Textual value"),
-				"trim_value" => true,
-				"null_empty_output" => true,
-			]));
+			case "text":
 
-		}elseif($type=="integer"){
+				$this->add_field("content", new TextField($params + [
+					"label" => _("Textual value"),
+					"trim_value" => true,
+					"null_empty_output" => true,
+				]));
+				break;
 
-			$this->add_field("content", new IntegerField($params + [
-				"label" => _("Integer value"),
-			]));
+			case "localized_text":
 
-		}elseif($type=="localized_text"){
+				$this->add_translatable_field("content_localized", new TextField($params + [
+					"label" => _("Textual value"),
+					"trim_value" => true,
+					"null_empty_output" => true,
+				]));
+				break;
 
-			$this->add_translatable_field("content_localized", new TextField($params + [
-				"label" => _("Textual value"),
-				"trim_value" => true,
-				"null_empty_output" => true,
-			]));
-			
-		}else{
+			case "string":
 
-			throw new Exception("Hey! Add field for $type");
+				$this->add_field("content", new CharField($params + [
+					"label" => _("String value"),
+					"trim_value" => true,
+					"null_empty_output" => true,
+				]));
+				break;
+
+			case "localized_string":
+
+				$this->add_translatable_field("content_localized", new CharField($params + [
+					"label" => _("String value"),
+					"trim_value" => true,
+					"null_empty_output" => true,
+				]));
+				break;
+
+			case "integer":
+
+				$this->add_field("content", new IntegerField($params + [
+					"label" => _("Integer value"),
+				]));
+				break;
+
+
+			case "boolean":
+
+				$this->add_field("content", new ChoiceField($params + [
+					"label" => _("Boolean value"),
+					"choices" => [
+						"" => "",
+						"TRUE" => _("Yes"),
+						"FALSE" => _("No"),
+					],
+					"null_empty_output" => true,
+				]));
+				break;
+
+			case "url":
+
+				$this->add_field("content", new UrlField($params + [
+					"label" => _("URL"),
+				]));
+				break;
+
+			default:
+
+				throw new Exception("Hey! Add field for $type");
 
 		}
 	}

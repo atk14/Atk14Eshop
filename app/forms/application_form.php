@@ -175,7 +175,9 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => $disabled,
 		]));
 
-		$all_allowed_countries = Region::GetDeliveryCountriesFromAllRegions();
+		//$all_allowed_countries = Region::GetDeliveryCountriesFromAllRegions();
+		// Fakturacni adresa by mela byt zadatelna pro kazdy stat na svete..
+		$all_allowed_countries = null;
 
 		$current_region_countries = $this->controller->current_region->getDeliveryCountries();
 		$initial = null;
@@ -196,6 +198,7 @@ class ApplicationForm extends Atk14Form{
 			"max_length" => 255,
 			"required" => false,
 			"disabled" => $disabled,
+			"help_text" => _("Např. číslo patra nebo dveří"),
 		)));
 	}
 

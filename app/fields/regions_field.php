@@ -8,8 +8,10 @@ class RegionsField extends MultipleChoiceField {
 	 */
 	function __construct($options=array())
 	{
+		$all_regions = Region::GetInstances();
+
 		$choices = [];
-		foreach(Region::GetInstances() as $r){
+		foreach($all_regions as $r){
 			$choices[$r->getCode()] = $r->getName();
 		}
 
@@ -18,14 +20,15 @@ class RegionsField extends MultipleChoiceField {
 			"widget" => new CheckboxSelectMultiple(),
 			"json_encode" => false,
 			"initial" => [], // "__all__"
+			"required" => true,
 		);
 
 		$this->json_encode = $options["json_encode"];
 		unset($options["json_encode"]);
 
-		if(!is_array($options["initial"]) && $options["initial"]=="__all__"){
+		if((!is_array($options["initial"]) && $options["initial"]=="__all__") || ($options["required"] && sizeof($all_regions)==1)){
 			$initial = [];
-			foreach(Region::GetInstances() as $r){
+			foreach($all_regions as $r){
 				$initial[$r->getCode()] = true;
 			}
 			$options["initial"] = $initial;

@@ -7,7 +7,7 @@
  */
 class User extends ApplicationModel{
 
-	const ID_ANONYMOUS = 2; // see db/migrations/0110_altering_users.sql
+	const ID_ANONYMOUS = 2; // see db/migrations/0117_altering_users.sql
 
 	/**
 	 * Returns user when a correct combination of login and password is given.
@@ -32,8 +32,19 @@ class User extends ApplicationModel{
 	 * )); // returns user with hashed password
 	 */
 	static function CreateNewRecord($values,$options = array()){
+		global $ATK14_GLOBAL;
+
 		if(isset($values["password"])){
 			$values["password"] = MyBlowfish::Filter($values["password"]);
+		}
+
+		$anonymous = self::GetAnonymousUser();
+		if($anonymous){
+			$values += [
+				"pricelist_id" => $anonymous->g("pricelist_id"),
+				"base_pricelist_id" => $anonymous->g("base_pricelist_id"),
+				"language" => $ATK14_GLOBAL->getLang(), // when the anonymous user exists, the field users.language also exists
+			];
 		}
 
 	  return parent::CreateNewRecord($values,$options);
@@ -69,9 +80,15 @@ class User extends ApplicationModel{
 
 	function isAdmin(){ return $this->getIsAdmin(); }
 
-	function toString(){ return $this->getLogin(); }
+	function isAnonymous(){ return $this->getId()==self::ID_ANONYMOUS; }
+
+	function toString(){
+		$name = $this->getName();
+		if(strlen($name)){ return $name; }
+		return $this->getLogin();
+	}
 
 	function isActive(){ return $this->g("active"); }
 
-	function isDeletable(){ return $this->getId()!=1; }
+	function isDeletable(){ return !in_array($this->getId(),[1,User::ID_ANONYMOUS]); }
 }

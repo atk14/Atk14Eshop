@@ -4,6 +4,31 @@ class SystemParametersController extends AdminController {
 	function index(){
 		$this->page_title = _("System preferences");
 
+		$tree = [];
+		foreach(SystemParameter::FindAll(["order_by" => "code ASC"]) as $sp){
+			$code = $sp->getCode();
+
+			$keys = [];
+			$ref = &$tree;
+			foreach(explode(".",$code) as $key){
+				$keys[] = $key;
+				if(!isset($ref[$key])){
+					$ref[$key] = [
+						"key" => $key,
+						"system_parameter" => null,
+						"children" => [],
+					];
+				}
+
+				if(join(".",$keys)==$code){
+					$ref[$key]["system_parameter"]  = $sp;
+				}
+
+				$ref = &$ref[$key]["children"];
+			}
+		}
+		$this->tpl_data["tree"] = $tree;
+
 		$this->tpl_data["system_parameters"] = SystemParameter::FindAll(["order_by" => "code ASC"]);
 	}
 

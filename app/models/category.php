@@ -1,5 +1,5 @@
 <?php
-class Category extends ApplicationModel implements Translatable, Rankable, iSlug {
+class Category extends ApplicationModel implements Translatable, Rankable, iSlug, \Textmit\Indexable {
 
 	use TraitGetInstanceByCode;
 
@@ -121,7 +121,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	}
 
 	function isVisible(){
-		$visible = $this->getVisible();
+		$visible = $this->g("visible");
 		if(!$visible){ return false; }
 		$parent = $this->getParentCategory();
 		if($parent){ return $parent->isVisible(); }
@@ -425,6 +425,29 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 	function toString(){
 		return (string)$this->getName();
+	}
+
+	function isIndexable(){
+		if(!$this->isVisible() || $this->isFilter()){
+			return false;
+		}
+		if($parent = $this->getParentCategory()){
+			return $parent->isIndexable();
+		}
+		return true;
+	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addText($this->getName($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)),"b");
+		$fd->addHtml(smarty_modifier_markdown($this->getDescription($lang)));
+
+		return $fd;
 	}
 }
 

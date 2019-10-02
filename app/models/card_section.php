@@ -32,4 +32,16 @@ class CardSection extends ApplicationModel implements Translatable, Rankable{
 	function getTypeCode(){
 		return $this->getCardSectionType()->getCode();
 	}
+
+	function getFulltextData($lang){
+		Atk14Require::Helper("modifier.markdown");
+
+		$fd = new \Textmit\FulltextData($this,$lang);
+
+		$fd->addText($this->getName($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
+
+		return $fd;
+	}
 }

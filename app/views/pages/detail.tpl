@@ -1,7 +1,6 @@
+{admin_menu for=$page}
 <article>
-	
-	<header>
-		{admin_menu for=$page}
+	<header class="content-header">
 		<h1>{$page->getTitle()}</h1>
 		<div class="teaser">
 		{!$page->getTeaser()|markdown}
@@ -16,6 +15,10 @@
 	</section>
 	
 </article>
+
+{if $page->getCode()=="contact"}
+	{render_component controller="contact_messages" action="create_new"}
+{/if}
 
 {if $child_pages}
 	<section class="child-pages">
