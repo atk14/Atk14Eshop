@@ -21,3 +21,10 @@ INSERT INTO vat_rates (id,code,vat_percent) VALUES(1,'default',21.0);
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','1','name','cs','základní sazba DPH');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','1','name','en','standard VAT rate');
 
+INSERT INTO vat_rates (id,code,vat_percent) VALUES(2,'reduced_15',15.0);
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','2','name','cs','snížená sazba DPH');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','2','name','en','reduced VAT rate');
+
+INSERT INTO vat_rates (id,code,vat_percent) VALUES(3,'reduced_10',10.0);
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','3','name','cs','snížená sazba DPH');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('vat_rates','3','name','en','reduced VAT rate');
