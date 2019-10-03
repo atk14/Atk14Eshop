@@ -12,6 +12,13 @@ class VatRatesForm extends AdminForm {
 			"max_value" => 100.0,
 		)));
 
-		$this->add_code_field();
+		$this->add_code_field([
+			"required" => true,
+			"hints" => [
+				"standard",
+				"reduced",
+				"reduced_2",
+			],
+		]);
 	}
 }

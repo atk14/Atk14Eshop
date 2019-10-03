@@ -130,7 +130,10 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"label" => _("Code"),
 			"required" => false,
-			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
+		);
+
+		$options += array(
+			"help_text" => $options["required"] ? _("An alternative key for system usage.") : _("An alternative key for system usage. Leave it unchanged if you are not sure."),
 		);
 
 		$this->add_field("code", new CodeField($options));
