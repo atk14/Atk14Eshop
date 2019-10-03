@@ -19,7 +19,7 @@
 Also all subcategories will be deleted. Deletion cannot be undone.
 
 Do you really want this?{/t}{/capture}
-			{a_destroy id=$category _confirm=$confirmation}{icon glyph="trash-alt"} {t}Delete{/t}{/a_destroy}
+			{a action="destroy" id=$category _confirm=$confirmation _method=post}{icon glyph="trash-alt"} {t}Delete{/t}{/a} {* Here, a non-XHR request required *}
 		{/if}
 	{/dropdown_menu}
 </h1>

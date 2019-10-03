@@ -94,8 +94,13 @@ class CategoriesController extends AdminController{
 
 		$this->category->destroy();
 		
+		if($this->request->xhr()){
+			$this->template_name = "application/destroy";
+			return;
+		}
+
 		$this->flash->success(_("The category was deleted"));
-		$this->_redirect_back();
+		$this->_redirect_to("category_trees/index");
 	}
 
 	function create_alias() {
