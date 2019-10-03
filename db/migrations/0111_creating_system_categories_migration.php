@@ -24,13 +24,26 @@ class CreatingSystemCategoriesMigration extends ApplicationMigration {
 			]);
 		}
 
-		// Recommended products on homepage
-		$recommended_cards = Category::CreateNewRecord([
-			"code" => "recommended_products_homepage",
+		$system = Category::CreateNewRecord([
+			"code" => "system",
 			"visible" => false,
-			"name_cs" => "Doporučujeme",
-			"name_en" => "Recommended",
-			"teaser_cs" => "Doporučené produkty na homepage"
+			"name_cs" => "Systém",
+			"name_en" => "System",
+			"teaser_cs" => "Kategorie pro systémové potřeby",
+			"teaser_en" => "Category for system needs",
 		]);
+
+		// Recommended products on homepage
+		$category_recommended_cards = Category::CreateNewRecord([
+			"parent_category_id" => $system,
+			"code" => "recommended_cards_homepage",
+			"visible" => true,
+			"name_cs" => "Doporučené produkty",
+			"name_en" => "Recommended products",
+			"teaser_cs" => "Z naší nabídky doporučujeme vaší pozornosti následující produkty.",
+			"teaser_en" => "From our offer we recommend the following products.",
+		]);
+
+		$category_recommended_cards->addCard(Card::FindFirst());
 	}
 }

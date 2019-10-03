@@ -2,7 +2,9 @@
 	{admin_menu for=$card}
 	<h1>{$page_title}</h1>
 
-	<p class="lead">{$card->getTeaser()}</p>
+	<div class="lead">
+		{!$card->getTeaser()|markdown}
+	</div>
 
 	{assign brand $card->getBrand()}
 	{if $brand}

@@ -19,8 +19,10 @@ class MainController extends ApplicationController{
 
 		$this->tpl_data["slider"] = Slider::FindByCode("homepage");
 
-		$recommended_category = Category::FindByCode("recommended_products_homepage");
-		$this->tpl_data["recommended_products"] = $recommended_category ? $recommended_category->getCards() : [];
+		$category_recommended_cards = Category::FindByCode("recommended_cards_homepage");
+		if($category_recommended_cards && $category_recommended_cards->g("visible") && ($category_recommended_cards->getCards())){
+			$this->tpl_data["category_recommended_cards"] = $category_recommended_cards;
+		}
 
 		$this->tpl_data["recent_articles"] = Article::FindAll([
 			"conditions" => [

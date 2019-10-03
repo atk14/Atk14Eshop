@@ -21,6 +21,20 @@
 
 </article>
 
+{if $category_recommended_cards}
+	<h3>{$category_recommended_cards->getName()}</h3>
+	{if $category_recommended_cards->getTeaser()}
+		<div class="lead">
+			{!$category_recommended_cards->getTeaser()|markdown}
+		</div>
+	{/if}
+	{if $category_recommended_cards->getDescription()}
+		{!$category_recommended_cards->getDescription()|markdown}
+	{/if}
+	
+	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
+{/if}
+
 {content for="out_of_container"}
 	{render partial="shared/slider" slider=$slider}
 {/content}
