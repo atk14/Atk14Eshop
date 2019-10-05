@@ -161,9 +161,6 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			]);
 		}
 
-		$sp = SystemParameter::FindByCode("app.contact.social.facebook");
-		$sp->s("content","https://www.facebook.com/ondrejuvobchudek/");
-
 		SystemParameter::CreateNewRecord([
 			"code" => "eshop.default_currency",
 			"system_parameter_type_id" => $type["string"],
