@@ -1,5 +1,6 @@
 <h1>{button_create_new}{t}Add a VAT rate{/t}{/button_create_new} {$page_title}</h1>
 
+<p>{t}The first VAT rate in the list below is considered to be the default VAT rate.{/t}</p>
 
 {if $vat_rates}
 
