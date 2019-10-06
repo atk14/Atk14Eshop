@@ -2,16 +2,12 @@
 class IndexForm extends ApplicationForm {
 
 	function set_up() {
-		$this->add_field("products_in_shop", new BooleanField([
-			"label" => _("Jen produkty, které se dají koupit"),
-			"required" => false,
-		]));
 		$this->add_field("holder", new ChoiceField([
-			"label" => _("Zobrazit pouze"),
+			"label" => _("Show only"),
 			"choices" => [
-				"" => "",
-				"product" => _("Produkty"),
-				"category" => _("Kategorie"),
+				"" => "-- "._("show only")." --",
+				"product" => _("products"),
+				"category" => _("categories"),
 			],
 			"required" => false,
 		]));

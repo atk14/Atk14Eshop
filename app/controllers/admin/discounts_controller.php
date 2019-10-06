@@ -8,15 +8,12 @@ class DiscountsController extends AdminController {
 		$conditions = $bind_ar = [];
 
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
-		if ($d["products_in_shop"]) {
-			$conditions[] = "product_id IN (SELECT products.id from products,prepared_cards WHERE products.card_id=prepared_cards.id)";
-		}
 		if ($d["holder"]) { // "product", "category"
 			$conditions[] = "$d[holder]_id IS NOT NULL";
 		}
 
 		$this->_index([
-			"page_title" => _("Seznam slev"),
+			"page_title" => _("List of discounts"),
 			"conditions" => $conditions,
 		]);
 	}

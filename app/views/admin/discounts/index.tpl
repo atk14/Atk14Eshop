@@ -1,12 +1,12 @@
 <h1>{button_create_new}{t}Vytvořit novou slevu{/t}{/button_create_new} {$page_title}</h1>
 
-{render partial="shared/form"}
+{render partial="shared/search_form"}
 
 {if !$finder->isEmpty()}
 
 	<table class="table">
 		<thead>
-			<tr>
+			<tr class="table-dark">
 				<th>#</th>
 				<th></th>
 				{sortable key="discount_percent"}<th>{t}Sleva [%]{/t}</th>{/sortable}
@@ -26,6 +26,6 @@
 
 {else}
 
-	<p>{t}Žádná sleva nebyla nalezena.{/t}</p>
+	<p>{t}The list is empty.{/t}</p>
 
 {/if}
