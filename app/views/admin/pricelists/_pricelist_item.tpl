@@ -1,8 +1,7 @@
 <li class="list-group-item" data-id="{$pricelist->getId()}">
 		<div class="d-flex justify-content-between align-items-center">
-			<div>
-				{$pricelist->getName()}
-			</div>
+			{$pricelist->getName()}
+			{if strlen($pricelist->getCode())}<small>{$pricelist->getCode()}</small>{/if}
 			<div>
 				{dropdown_menu}
 					{a action="pricelist_items/index" pricelist_id=$pricelist}{!"list"|icon} {t}Prices{/t}{/a}

@@ -46,6 +46,9 @@ definedef("CATALOG_ID_AUTO_UPPERIZE",true);
 
 definedef("INTERNAL_PRICE_DECIMALS",6);
 
+definedef("DEFAULT_PRICELIST","default");
+definedef("DEFAULT_BASE_PRICELIST","base");
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

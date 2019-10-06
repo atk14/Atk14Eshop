@@ -1,8 +1,7 @@
 <li class="list-group-item" data-id="{$vat_rate->getId()}">
 		<div class="d-flex justify-content-between align-items-center">
-			<div>
-				{$vat_rate->getName()} &mdash; {$vat_rate->getVatPercent()}%
-			</div>
+			{$vat_rate->getName()} &mdash; {$vat_rate->getVatPercent()}%
+			{if strlen($vat_rate->getCode())}<small>{$vat_rate->getCode()}</small>{/if}
 			<div>
 				{dropdown_menu}
 					{a action="edit" id=$vat_rate}{!"pencil-alt"|icon} {t}Edit{/t}{/a}

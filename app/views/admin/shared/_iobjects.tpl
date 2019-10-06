@@ -53,6 +53,6 @@
 	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-outline-primary"}{!"images"|icon} {t}Add photogallery{/t}{/a}
 	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"file"|icon} {t}Add attachment{/t}{/a}
 	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"video"|icon} {t}Add video{/t}{/a}
-	{a action="card_promotions/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Přidat upoutávku na produkt{/t}{/a}
+	{a action="card_promotions/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"ad"|icon} {t}Add product promotion{/t}{/a}
 </p>
 

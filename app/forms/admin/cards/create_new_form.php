@@ -5,8 +5,6 @@ class CreateNewForm extends CardsForm {
 		$this->_add_fields(array(
 			"add_catalog_id_field" => true,
 			"catalog_id_required" => true, // in eshop the catalog_id is required
-			"add_price_field" => true,
-			"add_stockount_field" => true,
 			"add_information_fields" => true,
 		));
 
@@ -19,6 +17,14 @@ class CreateNewForm extends CardsForm {
 			"required" => false,
 			"help_text" => sprintf(_("Cena bude uložena do ceníku <em>%s</em>"),h($pricelist->getName())),
 		]));
+
+		if($base_pricelist = Pricelist::GetInstanceByCode(DEFAULT_BASE_PRICELIST)){
+			$this->add_field("base_price", new PriceField([
+				"label" => sprintf(($base_pricelist->containsPricesWithoutVat() ? _("Cena před slevou bez DPH [%s]") : _("Koncová cena před slevou [%s]")),$currency),
+				"required" => false,
+				"help_text" => sprintf(_("Cena bude uložena do ceníku <em>%s</em>"),h($base_pricelist->getName())),
+			]));
+		}
 
 		$warehouse = Warehouse::GetDefaultInstance4Eshop();
 		$this->add_field("stockcount", new StockcountField([

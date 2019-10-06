@@ -1,6 +1,4 @@
 <?php
-defined("DEFAULT_CURRENCY") || define("DEFAULT_CURRENCY","CZK");
-
 class Currency extends ApplicationModel{
 
 	use TraitGetInstanceByCode; // $currency = Currency::GetInstanceByCode("EUR");
@@ -27,6 +25,7 @@ class Currency extends ApplicationModel{
 	}
 
 	static function GetDefaultCurrency(){
+		defined("DEFAULT_CURRENCY") || define("DEFAULT_CURRENCY","CZK");
 		return self::GetInstanceByCode(DEFAULT_CURRENCY);
 	}
 

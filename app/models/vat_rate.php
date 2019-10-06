@@ -1,6 +1,4 @@
 <?php
-defined("DEFAULT_VAT_RATE") || define("DEFAULT_VAT_RATE","standard"); // can be NULL
-
 class VatRate extends ApplicationModel implements Translatable, Rankable {
 
 	use TraitGetInstanceByCode;
@@ -8,6 +6,7 @@ class VatRate extends ApplicationModel implements Translatable, Rankable {
 	static function GetTranslatableFields(){ return array("name"); }
 
 	static function GetDefaultVatRate(){
+		defined("DEFAULT_VAT_RATE") || define("DEFAULT_VAT_RATE","standard"); // can be NULL
 		return self::GetInstanceByCode(DEFAULT_VAT_RATE);
 	}
 

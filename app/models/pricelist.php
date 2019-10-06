@@ -1,7 +1,7 @@
 <?php
-defined("DEFAULT_PRICELIST_ID") || define("DEFAULT_PRICELIST_ID",1);
-
 class Pricelist extends ApplicationModel implements Translatable, Rankable {
+
+	use TraitGetInstanceByCode;
 
 	static function GetTranslatableFields(){ return array("name"); }
 
@@ -10,7 +10,8 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetDefaultPricelist(){
-		return Cache::Get("Pricelist",DEFAULT_PRICELIST_ID);
+		defined("DEFAULT_PRICELIST") || define("DEFAULT_PRICELIST","default");
+		return self::GetInstanceByCode(DEFAULT_PRICELIST);
 	}
 
 	/**
@@ -64,7 +65,7 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function isDeletable(){
-		return $this->getId()!=DEFAULT_PRICELIST_ID;
+		return $this->getCode()!=DEFAULT_PRICELIST;
 	}
 
 }

@@ -69,6 +69,7 @@ class CardsController extends AdminController{
 			$catalog_id = $d["catalog_id"];
 			$vat_rate_id = $d["vat_rate_id"];
 			$price = $d["price"];
+			$base_price = isset($d["base_price"]) ? $d["base_price"] : null; // base_price may not be in the form
 			$stockcount = $d["stockcount"];
 			$image_url = $d["image_url"];
 			$category = $d["category"];
@@ -76,6 +77,7 @@ class CardsController extends AdminController{
 			unset($d["catalog_id"]);
 			unset($d["vat_rate_id"]);
 			unset($d["price"]);
+			unset($d["base_price"]);
 			unset($d["stockcount"]);
 			unset($d["image_url"]);
 			unset($d["category"]);
@@ -96,6 +98,10 @@ class CardsController extends AdminController{
 				if(!is_null($price)){
 					$pricelist = Pricelist::GetDefaultPricelist();
 					$pricelist->setPrice($product,$price);
+				}
+				if(!is_null($base_price)){
+					$pricelist = Pricelist::GetInstanceByCode(DEFAULT_BASE_PRICELIST);
+					$pricelist->setPrice($product,$base_price);
 				}
 				if(!is_null($stockcount)){
 					$warehouse = Warehouse::GetDefaultInstance4Eshop();

@@ -1,7 +1,7 @@
 <?php
-defined("DEFAULT_REGION") || define("DEFAULT_REGION","DEFAULT");
-
 class Region extends ApplicationModel implements Translatable, Rankable {
+
+	use TraitGetInstanceByCode;
 
 	static function GetTranslatableFields(){ return array("name", "application_name", "application_long_name"); }
 
@@ -14,14 +14,11 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetRegionByCode($code){
-		foreach(self::GetInstances() as $r){
-			if($r->getCode()==$code){
-				return $r;
-			}
-		}
+		return self::GetInstanceByCode($code);
 	}
 
 	static function GetDefaultRegion(){
+		defined("DEFAULT_REGION") || define("DEFAULT_REGION","DEFAULT");
 		return self::GetRegionByCode(DEFAULT_REGION);
 	}
 
@@ -189,7 +186,8 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function isDefaultRegion(){
-		return $this->getCode()==DEFAULT_REGION;
+		$def = self::GetDefaultRegion();
+		return $this->getId()==$def->getId();
 	}
 	
 	function isDeletable(){
