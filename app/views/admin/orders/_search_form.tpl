@@ -11,35 +11,37 @@
 {form _class="form-search"}
 	<div class="row">
 		<div class="col-md-3">
-	{!$form.search}
+			{!$form.search}
 		</div>
 		<div class="col-md-3">
-	{!$form.catalog_id}
+			{!$form.catalog_id}
 		</div>
 		<div class="col-md-3">
-	{!$form.date_from}
+			{!$form.date_from}
 		</div>
 		<div class="col-md-3">
-	{!$form.date_to}
+			{!$form.date_to}
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-md-3">
-	{!$form.delivery_method_id}
+			{!$form.delivery_method_id}
 		</div>
 		<div class="col-md-3">
-	{!$form.payment_method_id}
+			{!$form.payment_method_id}
 		</div>
 		<div class="col-md-3">
-	{!$form.payment_status_id}
+			{!$form.payment_status_id}
 		</div>
 		<div class="col-md-3">
-	{!$form.order_status_id}
+			{!$form.order_status_id}
 		</div>
 	</div>
-		<div class="row">
-			<div class="col-md-3 col-md-offset-9">
-				<button type="submit" class="btn">{$button_text}</button>
-			</div>
+
+	<div class="row">
+		<div class="col-md-3 col-md-offset-9">
+			<button type="submit" class="btn btn-secondary">{$button_text}</button>
 		</div>
+	</div>
 {/form}
