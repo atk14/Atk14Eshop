@@ -263,6 +263,15 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank_name",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "The name of the bank where the account is held",
+			"name_cs" => "Název banky, u které je účet veden",
+			"mandatory" => false,
+			"content" => "Best Savings Bank",
+		]);
+
+		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.iban",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "IBAN",
