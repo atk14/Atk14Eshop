@@ -23,6 +23,7 @@
 </article>
 
 {if $category_recommended_cards}
+	{admin_menu for=$category_recommended_cards}
 	<h3>{$category_recommended_cards->getName()}</h3>
 	{if $category_recommended_cards->getTeaser()}
 		<div class="lead">
