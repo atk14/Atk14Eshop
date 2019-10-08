@@ -10,7 +10,7 @@ class AddingEshopLinkMigration extends ApplicationMigration {
 			"title_en" => "E-shop",
 			"title_cs" => "Obchod",
 			"url" => $this->_link_to_category("catalog"),
-			"regions" => json_encode(["CZ" => true])
+			"regions" => json_encode(["DEFAULT" => true])
 		]);
 		$item->setRank(0);
 	}

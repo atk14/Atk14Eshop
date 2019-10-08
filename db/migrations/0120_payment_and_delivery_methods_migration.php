@@ -4,7 +4,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 	function up(){
 		$cpost = DeliveryMethod::CreateNewRecord([
 			"code" => "cpost",
-			"regions" => '{"CZ": true}',
+			"regions" => '{"DEFAULT": true}',
 			"label_en" => "Czech Post (payment in advance)",
 			"label_cs" => "Česká pošta (platba předem)",
 			"title_en" => "Czech Post (payment in advance)",
@@ -18,7 +18,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 
 		$cpost_cod = DeliveryMethod::CreateNewRecord([
 			"code" => "cpost_cod",
-			"regions" => '{"CZ": true}',
+			"regions" => '{"DEFAULT": true}',
 			"label_cs" => "Czech Post (cash on delivery)",
 			"label_cs" => "Česká pošta (dobírka)",
 			"title_cs" => "Czech Post (cash on delivery)",
@@ -32,7 +32,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 
 		$personal = DeliveryMethod::CreateNewRecord([
 			"code" => "personal",
-			"regions" => '{"CZ": true}',
+			"regions" => '{"DEFAULT": true}',
 			"label_en" => "Personal pickup at the store",
 			"label_cs" => "Osobní převzetí na prodejně",
 			"title_en" => "Personal pickup at the store",
@@ -45,7 +45,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 
 		$bank_transfer = PaymentMethod::CreateNewRecord([
 			"code" => "bank_transfer",
-			"regions" => '{"CZ": true}',
+			"regions" => '{"DEFAULT": true}',
 			"label_en" => "Bank transfer",
 			"label_cs" => "Bankovní převod",
 			"title_en" => "Bank transfer",
@@ -56,7 +56,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 
 		$cash_on_delivery = PaymentMethod::CreateNewRecord([
 			"code" => "cash_on_delivery",
-			"regions" => '{"CZ": true}',
+			"regions" => '{"DEFAULT": true}',
 			"label_en" => "Cash on delivery",
 			"label_cs" => "Zaplatit dobírkou, zaplatíte až při převzetí",
 			"title_en" => "Cash on delivery",
