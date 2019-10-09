@@ -116,7 +116,7 @@ class ApplicationForm extends Atk14Form{
 	}
 
 	function _add_email(){
-		$this->add_field("email", new EmailField(array(
+		return $this->add_field("email", new EmailField(array(
 			"label" => _("Email address"),
 			"max_length" => 255,
 			"initial" => "@"
@@ -260,7 +260,7 @@ class ApplicationForm extends Atk14Form{
 		$prefix = $options["prefix"];
 		unset($options["prefix"]);
 
-		$this->add_field("$prefix$name", new PhoneField($options));
+		return $this->add_field("$prefix$name", new PhoneField($options));
 	}
 
 	/**

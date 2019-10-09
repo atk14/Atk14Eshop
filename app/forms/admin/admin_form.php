@@ -161,7 +161,7 @@ class AdminForm extends ApplicationForm{
 			"disabled" => !$vat_payer,
 		);
 
-		$this->add_field("vat_rate_id", new VatRateField($options));
+		return $this->add_field("vat_rate_id", new VatRateField($options));
 	}
 
 	function has_storno_button(){
