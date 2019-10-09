@@ -44,6 +44,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),
+			array(_("Combination of transports and payments"), "shipping_combinations"),
 			array(_("VAT rates"),						"vat_rates"),
 			array(_("Password recoveries"),	"password_recoveries"),
 			array(_("Newsletter subscribers"), "newsletter_subscribers"),
