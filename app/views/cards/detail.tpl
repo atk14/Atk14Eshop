@@ -46,5 +46,3 @@
 {render partial="related_cards"}
 {render partial="consumables"}
 {render partial="accessories"}
-
-{a action="information_requests/create_new" card_id=$card _class="btn btn-primary"}{t}Are you interested in this product?{/t}{/a}
