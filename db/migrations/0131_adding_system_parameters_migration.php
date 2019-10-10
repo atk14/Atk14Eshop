@@ -263,12 +263,66 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
-			"code" => "merchant.billing_information.bank_account.bank_name",
+			"code" => "merchant.billing_information.bank_account.bank.name",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "The name of the bank where the account is held",
 			"name_cs" => "Název banky, u které je účet veden",
 			"mandatory" => false,
 			"content" => "Best Savings Bank",
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.street",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Street",
+			"name_cs" => "Ulice",
+			"mandatory" => false,
+			"content" => false
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.street2",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Street (2nd line)",
+			"name_cs" => "Ulice (2. řádek)",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.city",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "City",
+			"name_cs" => "Město",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.state",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "State / Province / Region",
+			"name_cs" => "Stát / provinice / kraj",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.zip",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "ZIP",
+			"name_cs" => "PSČ",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.country",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Country code",
+			"name_cs" => "Kód země",
+			"mandatory" => false,
+			"content" => null,
 		]);
 
 		SystemParameter::CreateNewRecord([
