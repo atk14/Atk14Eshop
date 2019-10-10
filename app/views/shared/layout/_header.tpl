@@ -20,7 +20,7 @@
 					{/foreach}
 				{/if}
 
-				<li class="nav-item"><a href="{link_to namespace="" action="baskets/edit"}" class="nav-link">{t}Basket{/t}{if !$basket->isEmpty()} <span class="badge badge-primary">{$basket->getItems()|sizeof}</span>{/if}</a></li>
+				{render partial="shared/layout/header/basket_info"}
 
 				{if $logged_user}
 					{* user is logged in *}
