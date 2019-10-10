@@ -274,17 +274,17 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.street",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "Street",
-			"name_cs" => "Ulice",
+			"name_en" => "Bank address: Street (Bank)",
+			"name_cs" => "Adresa banky: Ulice (banka)",
 			"mandatory" => false,
-			"content" => false
+			"content" => null
 		]);
 
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.street2",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "Street (2nd line)",
-			"name_cs" => "Ulice (2. řádek)",
+			"name_en" => "Bank address: Street (2nd line)",
+			"name_cs" => "Adresa banky: Ulice (2. řádek)",
 			"mandatory" => false,
 			"content" => null
 		]);
@@ -292,8 +292,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.city",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "City",
-			"name_cs" => "Město",
+			"name_en" => "Bank address: City (Bank)",
+			"name_cs" => "Adresa banky: Město",
 			"mandatory" => false,
 			"content" => null
 		]);
@@ -301,8 +301,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.state",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "State / Province / Region",
-			"name_cs" => "Stát / provinice / kraj",
+			"name_en" => "Bank address: State / Province / Region",
+			"name_cs" => "Adresa banky: Stát / provinice / kraj",
 			"mandatory" => false,
 			"content" => null
 		]);
@@ -310,8 +310,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.zip",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "ZIP",
-			"name_cs" => "PSČ",
+			"name_en" => "Bank address: ZIP",
+			"name_cs" => "Adresa banky: PSČ",
 			"mandatory" => false,
 			"content" => null
 		]);
@@ -319,8 +319,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "merchant.billing_information.bank_account.bank.address.country",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "Country code",
-			"name_cs" => "Kód země",
+			"name_en" => "Bank address: Country code",
+			"name_cs" => "Adresa banky: Kód země",
 			"mandatory" => false,
 			"content" => null,
 		]);
