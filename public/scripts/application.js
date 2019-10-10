@@ -2,7 +2,7 @@
 ( function( window, $, undefined ) {
 	"use strict";
 	var document = window.document,
-		//UTILS = window.UTILS, // Uncomment this if you need something from UTILS
+	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
 		common: {
@@ -31,6 +31,18 @@
 
 					$field.popover( popoverOptions );
 				} );
+			}
+		},
+
+		main: {
+
+			// Controller-wide code.
+			init: function() {
+			},
+
+			// Action-specific code
+			index: function() {
+				UTILS.initSwiper();	
 			}
 		},
 
@@ -89,7 +101,130 @@
 					}
 				} ).change();
 			}
+		},
+
+		cards: {
+
+			// Controller-wide code.
+			init: function() {
+				UTILS.initSwiper();
+			},
+
+			// Action-specific code
+			detail: function() {
+
+				// Tlacitka +/- mnozstvi pri pridani do kosiku
+				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
+				qtyButtons.on( "click", function( e ) {
+					e.preventDefault();
+					var qtyWidget = $( this ).closest( ".js-stepper" );
+					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
+					var oldValue = parseInt( qtyInput.val() );
+					var qtyMin = parseInt( qtyInput.attr( "min" ) );
+					var qtyMax = parseInt( qtyInput.attr( "max" ) );
+					var qtyStep = parseInt( qtyInput.attr( "step" ) );
+					var newValue;
+					if( $( this ).attr( "data-spinner-button" ) === "up" ){
+						newValue = Math.min( qtyMax, oldValue + qtyStep );
+					} else {
+						newValue = Math.max( qtyMin, oldValue - qtyStep );
+					}
+					qtyInput.val( newValue );
+					qtyInput.trigger( "change" );
+				} );
+
+				// Update celkove ceny pri zmene mnozstvi
+				var qtyInput = $( ".js-quantity-widget .js-quantity-input" );
+				qtyInput.on( "change", function() {
+					var qtyWidget = $( this ).closest( ".js-quantity-widget" );
+					var qty = parseInt( $( this ).val() );
+					var unitPrice = parseFloat( qtyWidget.data( "unitprice" ) );
+					var totalPrice = qty * unitPrice;
+					var totalPriceNice = totalPrice.toFixed(2).replace( ".", "," );
+					qtyWidget.find( ".js-quantity-total-price" ).html( totalPriceNice + "&nbsp;Kč" );
+					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
+					console.log( "qty", qty, "*", unitPrice, "=", totalPriceNice );
+				} );
+
+				// Kliknuti na preview obrazek v galerii vyvola ve skutecnosti kliknuti na prislusny thumbnail obrazek
+				$( ".product-gallery .js_gallery_trigger" ).on( "click", function( e ) {
+					e.preventDefault();
+
+					var previewLink = $( this ).find( "a" ).get( 0 );
+					
+					var imageId = $( previewLink ).data( "preview_for" );
+					$( ".product-gallery .gallery__item[data-id=" + imageId + "] a" ).trigger( "click" );
+				} );
+
+				// Prepnuti varianty produktu
+				$( "#variants-nav a[data-product_id]" ).on( "click", function() {
+					var $link = $( this ),
+						productId = $link.data( "product_id" ),
+						$galleryItem = $( ".product-gallery--with-variants .gallery__item[data-product_id=" + productId + "]" ).eq( 0 ),
+						$preview = $( ".product-gallery .js_gallery_trigger a" ),
+						$previewImage = $preview.find( "img" );
+					if ( !$galleryItem ) { return; }
+					$preview.data( "preview_for" , $galleryItem.data( "id" ) );
+					$previewImage.attr( "src", $galleryItem.data( "preview_image_url" ) );
+					$previewImage.attr( "width", $galleryItem.data( "preview_image_width" ) );
+					$previewImage.attr( "height", $galleryItem.data( "preview_image_height" ) );
+				} );
+
+			}
+		},
+
+		baskets: {
+
+			// Controller-wide code.
+			init: function() {
+			},
+
+			// Action-specific code
+			edit: function() {
+
+				// Tlacitka +/- editace mnozstvi
+				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
+				qtyButtons.on( "click", function( e ) {
+					e.preventDefault();
+					var qtyWidget = $( this ).closest( ".js-stepper" );
+					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
+					var oldValue = parseInt( qtyInput.val() );
+					var qtyMin = parseInt( qtyInput.attr( "min" ) );
+					var qtyMax = parseInt( qtyInput.attr( "max" ) );
+					var qtyStep = parseInt( qtyInput.attr( "step" ) );
+					var newValue;
+					if( $( this ).attr( "data-spinner-button" ) === "up" ){
+						newValue = Math.min( qtyMax, oldValue + qtyStep );
+					} else {
+						newValue = Math.max( qtyMin, oldValue - qtyStep );
+					}
+					qtyInput.val( newValue );
+					qtyInput.trigger( "change" );
+				} );
+
+				// Odstranit polozku
+				/*$( ".js--basket-destroy" ).click( function( e ) {
+					var $e = $( e.currentTarget );
+					$.ajax( {
+						"url": $e.data( "url" ),
+						"type": "POST",
+						"dataType": "json",
+						"success": function( data ) {
+										if ( data.emptyBasket ) {
+											return location.reload();
+										}
+										var $table = $e.closest( "table" );
+										// UTILS.update_basket( data, $table );
+										var $tr = $e.closest( "tr" );
+										$tr.fadeOut( $tr.remove );
+										}
+					} );
+					return false;
+				} );*/
+				
+			}
 		}
+
 	};
 
 	/*
