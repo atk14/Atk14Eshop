@@ -17,8 +17,8 @@
 	</div>
 
 	<div class="form__footer">
-		{a action="baskets/edit" _class="btn btn-lg btn-primary btn--back btn--arrow-l"}{t}Back to basket content{/t}{/a}
-		{render partial="shared/form_button" class="btn btn--cta btn-lg"}
+		{a action="baskets/edit" _class="btn btn-lg btn-secondary btn--back btn--arrow-l"}{t}Back to basket content{/t}{/a}
+		{render partial="shared/form_button" class="btn btn-primary btn-lg"}
 	</div>
 {/form}
 

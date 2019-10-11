@@ -11,6 +11,7 @@
 					<td class="js--unit_price table-products__unit-price">{render partial="baskets/unit_price" unit=$product->getUnit()}</td>
 					<td class="table-products__amount" data-url="{link_to namespace="api" controller="basket_items" action="add" product=$product->getId() format='json'}">
 						{*$item->getAmount()*}
+						<span class="cart-item-hint-xs">{t}Množství{/t}</span>
 						{capture assign=field_key}i{$item->getId()}{/capture}
 						{!$form|field:$field_key}
 					</td>

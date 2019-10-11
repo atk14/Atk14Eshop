@@ -20,8 +20,8 @@
 				<th class="sr-only">{t}Produkt{/t}</th>
 				<th>{t}Popis{/t}</th>
 				<th class="text-center">{t}Kód{/t}</th>
-				<th class="text-right text--nowrap">{t}Cena [cm/ks]{/t}</th>
-				<th class="text-center text--nowrap">{t}Mn. [cm/ks]{/t}</th>
+				<th class="text-right text--nowrap">{t}Jedn. cena{/t}</th>
+				<th class="text-center text--nowrap">{t}Množství{/t}</th>
 				<th class="text-right">{t}Celkem{/t}</th>
 				<th><span class="sr-only">Actions</span></th>
 			</tr>
@@ -33,9 +33,9 @@
 	</table>
 </div>
 <div class="form__footer">
-	{a action="categories/index" _class="btn btn-lg btn-primary btn--back btn--arrow-l"}{t}Back to catalog{/t}{/a}
-	<button type="submit" class="btn btn-default btn-lg nojs-only">{t}Recalculate basket content{/t}</button>
-	<button type="submit" name="continue" class="btn btn--cta btn-lg">{t}Select shipping and payment{/t}</button>
+	{a action="categories/index" _class="btn btn-lg btn-secondary btn--back btn--arrow-l"}{t}Back to catalog{/t}{/a}
+	<button type="submit" class="btn btn-secondary btn-lg nojs-only">{t}Recalculate basket content{/t}</button>
+	<button type="submit" name="continue" class="btn btn-primary btn-lg">{t}Select shipping and payment{/t}</button>
 </div>
 
 {/form}
