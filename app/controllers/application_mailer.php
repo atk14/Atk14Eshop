@@ -161,10 +161,6 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
-
-		if(in_array($order_status->getCode(),["processed"])){
-			$this->_add_list_of_ordered_products_attachment($order);
-		}
 	}
 
 	/**
