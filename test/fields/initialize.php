@@ -1,6 +1,5 @@
 <?php
 define("TEST",true);
-require(__DIR__."/../../atk14/load.php");
+define("ATK14_DEFAULT_LANG","en");
 
-$lang = "en";
-Atk14Locale::Initialize($lang);
+require(__DIR__."/../../atk14/load.php");
