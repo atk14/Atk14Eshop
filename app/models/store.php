@@ -1,6 +1,8 @@
 <?php
 class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \Textmit\Indexable {
 
+	use TraitGetInstanceByCode;
+
 	static function GetTranslatableFields(){ return array("name","teaser","description","address","opening_hours"); }
 
 	function setRank($rank){
