@@ -48,6 +48,16 @@
 					<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
 				{/if}
 
+				{if sizeof(Region::GetInstances())>1}
+					{foreach Region::GetInstances() as $region}
+						<li class="nav-item{if $region->getId()==$current_region->getId()} active{/if}">
+							{a namespace="" action="regions/set_region" id=$region _class="nav-link" _method="post" _rel="nofollow"}
+								{$region->getName()}
+							{/a}
+						</li>
+					{/foreach}
+				{/if}
+
 				{render partial="shared/langswitch_navbar"}
 			</ul>
 		</div>

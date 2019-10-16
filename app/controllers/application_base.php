@@ -119,6 +119,11 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_before_filter(){
+		$this->permanentSession = new Atk14Session( new SessionStorer([
+			'cookie_expiration' => 84600*356,
+			'session_name' => 'permanent'
+		]));
+
 		$this->current_region = $this->_get_current_region();
 
 		// Nastavime do maileru akt. region
@@ -150,11 +155,6 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
 			return $this->_redirect_to_ssl();
 		}
-
-		$this->permanentSession = new Atk14Session( new SessionStorer([
-			'cookie_expiration' => 84600*356,
-			'session_name' => 'permanent'
-		]));
 
 		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
 			return $this->_redirect_to_ssl();
@@ -191,7 +191,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if($region = Region::GetRegionByDomain($this->request->getHttpHost())){
 			return $region;
 		}
-		$region_id = $this->session->g("region_id");
+		$region_id = $this->permanentSession->g("region_id");
 		if(isset($region_id) && ($region = Cache::Get("Region",$region_id))){
 			return $region;
 		}
@@ -216,24 +216,29 @@ class ApplicationBaseController extends Atk14Controller{
 			"create_if_not_exists" => false,
 			"user" => $this->logged_user,
 			"region" => $this->_get_current_region(),
+			"same_basket_in_all_regions" => definedef("SAME_BASKET_IN_ALL_REGIONS",true),
 		];
 
 		$session = $this->permanentSession;
 		$user = $options["user"];
 		$region = $options["region"];
-		$session_key = "basket_id/region=".$region->getId(); // "basket_id/region=1"
+		$session_key = $options["same_basket_in_all_regions"] ? "basket_id" : "basket_id/region=".$region->getId(); // "basket_id" or "basket_id/region=1"
 
 		if($options["create_if_not_exists"] && $this->basket && $this->basket->isDummy() && $session && $session->cookiesEnabled()){
 			$this->basket = null;
 		}
 
 		if($this->basket && $this->basket->getUserId()===($user ? $user->getId() : null)){
+			$this->basket->setRegion($region);
 			return $this->basket;
 		}
 
 		$basket = null;
 		if($user){
 			$basket = Basket::FindFirst("user_id",$user,"region_id",$region);
+			if(!$basket && $options["same_basket_in_all_regions"]){
+				$basket = Basket::FindFirst("user_id",$user);
+			}
 		}elseif($session && ($id = $session->g($session_key))){
 			$basket = Basket::FindFirst("id",$id,"user_id",null);
 		}
@@ -243,13 +248,13 @@ class ApplicationBaseController extends Atk14Controller{
 			if(!$user){
 				$session->s($session_key,$basket->getId());
 			}
-			return $basket;
 		}
 
 		if(!$basket){
 			$basket = Basket::GetDummyBasket($region);
 		}
-
+	
+		$basket->setRegion($region);
 		$this->basket = $basket;
 		return $basket;
 	}

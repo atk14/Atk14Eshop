@@ -98,6 +98,45 @@ class Basket extends BasketOrOrder {
 		return Cache::Get("Region",$this->getRegionId());
 	}
 
+	/**
+	 * Nastavi do kosiku dany region
+	 *
+	 * Neudela nic, pokud ma kosik stejny region.
+	 *
+	 *	$something_updated = $basket->setRegion($region);
+	 */
+	function setRegion($region){
+		$allowed_currencies = $region->getCurrencies();
+		$allowed_currencies = array_map(function($c){ return $c->getCode(); },$allowed_currencies); // ["CZK","EUR"]
+		$allowed_countries = $region->getDeliveryCountries(); // ["CZ","SK"]
+
+		$update_ar = [];
+		if($this->getRegionId()!=$region->getId()){
+			$update_ar["region_id"] = $region->getId();
+			// meni se region - v tichosti zmenime i delivery_method_id a payment_method_id - nema asi cenu slozite overovat, zda tam pripadne mohou zustat
+			$update_ar["delivery_method_id"] = null;
+			$update_ar["delivery_method_data"] = null;
+			$update_ar["payment_method_id"] = null;
+		}
+		if($this->g("delivery_address_country") && !in_array($this->g("delivery_address_country"),$allowed_countries)){
+			$update_ar["delivery_address_country"] = null; 
+		}
+		if(!in_array($this->getCurrency()->getCode(),$allowed_currencies)){
+			$update_ar["currency_id"] = $region->getDefaultCurrency()->getId();
+		}
+
+		if($update_ar){
+			if($this->isDummy()){
+				$this->setValuesVirtually($update_ar);
+			}else{
+				$this->s($update_ar);
+			}
+			return true;
+		}
+
+		return false;
+	}
+
 	function getBasketItems(){
 		if(is_null($this->basket_items)){
 			$this->basket_items = new BasketItems($this);
