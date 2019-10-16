@@ -28,7 +28,7 @@
 			
 			<p class="search-result-price">
 				{if $starting_price}
-					<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price}</span>
+					<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}</span>
 					{*<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>*}
 				{/if}
 			</p>

@@ -41,7 +41,7 @@
 			{if $product->canBeOrdered($price_finder)}
 
 				<div class="add-to-cart-widget">
-					<div class="price">{t price=$price->getPriceInclVat()|display_price escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</div>
+					<div class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</div>
 					<form method="post" action="{link_to action="baskets/add_product"}" class="form_remote" data-remote="true">
 
 						{!$product|add_to_basket_field}
@@ -59,7 +59,7 @@
 			{else}
 				<div class="add-to-cart-meta">	
 				
-					<p class="price">{t price=$price->getPriceInclVat()|display_price escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
+					<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
 
 					<p><em>{t}This product is sold out{/t}</em></p>
 				
