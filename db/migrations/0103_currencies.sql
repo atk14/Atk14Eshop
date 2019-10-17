@@ -7,7 +7,15 @@ CREATE TABLE currencies (
 	lowest_price NUMERIC(20,6) DEFAULT 0.01 NOT NULL,
 	lowest_order_price NUMERIC(20,6) DEFAULT 0.01 NOT NULL,
 	--
-	CONSTRAINT unq_currencies_code UNIQUE (code)
+	created_by_user_id INT,
+	updated_by_user_id INT,
+	--
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP,
+	--
+	CONSTRAINT unq_currencies_code UNIQUE (code),
+	CONSTRAINT fk_currencies_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
+	CONSTRAINT fk_currencies_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
 INSERT INTO currencies VALUES (1,'CZK', 2, 0, 0.0100,1);
