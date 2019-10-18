@@ -9,7 +9,7 @@ class CardsController extends ApplicationController{
 		}
 
 		if(!$card->isVisible() || $card->isDeleted()){
-			$this->response->setStatusCode("404");
+			$this->response->setStatusCode("404"); // Zde se nastavi pouze response code 404, ale produkt se normalne zobrazi.
 		}
 
 		$this->page_title = $card->getName();

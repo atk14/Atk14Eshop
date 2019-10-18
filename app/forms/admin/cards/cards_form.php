@@ -51,5 +51,47 @@ class CardsForm extends AdminForm{
 			"create_missing_tags" => true,
 			"hint" => "akce , novinka"
 		)));
+		
+		$this->add_visible_field(array(
+			"label" => _("Is product visible?"),
+		));
+	}
+
+	function add_price_field_for_default_pricelist($values = []){
+		$pricelist = Pricelist::GetDefaultPricelist();
+		$currency = $pricelist->getCurrency();
+		$values += [
+			"label" => sprintf(($pricelist->containsPricesWithoutVat() ? _("Cena bez DPH [%s]") : _("Koncová cena [%s]")),$currency),
+			"required" => false,
+			"help_text" => sprintf(_("Cena bude uložena do ceníku <em>%s</em>"),h($pricelist->getName())),
+		];
+		$this->add_field("price", new PriceField($values));
+	}
+
+	/**
+	 *
+	 * Adds no field when the base base price list doesn't exist.
+	 */
+	function add_price_field_for_base_pricelist($values = []){
+		$base_pricelist = Pricelist::GetInstanceByCode(DEFAULT_BASE_PRICELIST);
+		if($base_pricelist){
+			$currency = $base_pricelist->getCurrency();
+			$values += [
+				"label" => sprintf(($base_pricelist->containsPricesWithoutVat() ? _("Cena před slevou bez DPH [%s]") : _("Koncová cena před slevou [%s]")),$currency),
+				"required" => false,
+				"help_text" => sprintf(_("Cena bude uložena do ceníku <em>%s</em>"),h($base_pricelist->getName())),
+			];
+			$this->add_field("base_price", new PriceField($values));
+		}
+	}
+
+	function add_stockcount_field_for_default_warehouse($values = []){
+		$warehouse = Warehouse::GetDefaultInstance4Eshop();
+		$values += [
+			"label" => _("Stockcount"),
+			"required" => false,
+			"help_text" => sprintf(_("Skladové množství bude nastaveno do skladu <em>%s</em>"),h($warehouse->getName())),
+		];
+		$this->add_field("stockcount", new StockcountField($values));
 	}
 }

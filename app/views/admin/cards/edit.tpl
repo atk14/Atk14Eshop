@@ -5,6 +5,7 @@
 		{if !$card->hasVariants()}
 			{render partial="product_menu_links" product=$card->getFirstProduct()}
 		{/if}	
+		{a action="card_cloning/create_new" card_id=$card}{!"clone"|icon:"regular"} {t}Copy this product{/t}{/a}
 	{/dropdown_menu}
 </h1>
 
