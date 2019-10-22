@@ -46,7 +46,15 @@
 	</div>
 	<div class="col-12 col-md-5 col-xl-6 order-1 order-md-2">
 		{render partial="shared/product_gallery" images=$card->getImages()}
+		<div class="flags">
+			{if $starting_price && $starting_price->discounted()}
+				<div class="product__flag product__flag--sale product__flag--lg">
+					<span class="product__flag__title">{t}Discount{/t}</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
+				</div>
+			{/if}
+		</div>
 	</div>
+
 </div>
 <div class="linked-products">
 	{render partial="related_cards"}
