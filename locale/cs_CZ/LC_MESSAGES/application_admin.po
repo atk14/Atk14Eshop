@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-20 17:58+0200\n"
-"PO-Revision-Date: 2019-10-20 20:46+0200\n"
+"POT-Creation-Date: 2019-10-22 14:20+0200\n"
+"PO-Revision-Date: 2019-10-22 14:32+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1332,6 +1332,26 @@ msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
 
+#: ../app/forms/admin/categories/categories_form.php:27
+#: ../app/forms/admin/collections/collections_form.php:13
+#: ../app/forms/admin/images/images_form.php:16
+#: ../app/forms/admin/products/products_form.php:20
+#: ../app/forms/admin/stores/stores_form.php:92
+msgid "Description"
+msgstr "Popis"
+
+msgid "Dimensions of the original"
+msgstr ""
+
+msgid "Uploaded by"
+msgstr ""
+
+msgid "Updated by"
+msgstr ""
+
+msgid "Download original"
+msgstr ""
+
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
 msgstr "Přidání nového příslušenství"
@@ -2517,14 +2537,6 @@ msgstr "Je to filtr?"
 #: ../app/forms/admin/categories/categories_form.php:16
 msgid "e.g. material or color"
 msgstr "např. materiál nebo barva"
-
-#: ../app/forms/admin/categories/categories_form.php:27
-#: ../app/forms/admin/collections/collections_form.php:13
-#: ../app/forms/admin/images/images_form.php:16
-#: ../app/forms/admin/products/products_form.php:20
-#: ../app/forms/admin/stores/stores_form.php:92
-msgid "Description"
-msgstr "Popis"
 
 #: ../app/forms/admin/categories/create_alias_form.php:6
 msgid "Umístit do kategorie"
