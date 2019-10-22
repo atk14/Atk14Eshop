@@ -7,6 +7,14 @@
 		<img src="{$public}images/camera.svg" width="400" height="300" title="{t}no image{/t}">
 	{/if}
 
+	<div class="flags">		
+		{if $starting_price && $starting_price->discounted()}
+			<div class="product__flag product__flag--sale product__flag--lg">
+				<span class="product__flag__title">{t}Discount{/t}</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
+			</div>
+		{/if}
+	</div>
+
 	{if $card->getTags()}
 		<div class="tags">
 			{foreach $card->getTags() as $tag}
