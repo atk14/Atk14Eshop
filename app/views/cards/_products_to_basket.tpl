@@ -27,45 +27,44 @@
 			{if $card->hasVariants()}
 				<div class="tab-pane fade{if $product@iteration == 1} show active{/if}" id="tab-variant-content-{$product->getId()}" role="tabpanel" aria-labelledby="{$product->getLabel()}">
 			{/if}
-			<div class="add-to-cart-meta add-to-cart-meta-top">
-				
-				<p>
-					{display_stockcount product=$product}
-				</p>
-				
-				<p class="catalog-number">
-					{t catalog_id=$product->getCatalogId()}Catalog number: %1{/t}
-				</p>
-				
-			</div>
-			{if $product->canBeOrdered($price_finder)}
+				<div class="cart-panel">
+					<div class="cart-panel__meta">
+						<p>
+							{display_stockcount product=$product}
+						</p>
+						<p class="catalog-number">
+							{t catalog_id=$product->getCatalogId()}Catalog number: %1{/t}
+						</p>
+					</div>
+					<div class="cart-panel__controls">
+					{if $product->canBeOrdered($price_finder)}
+						<div class="add-to-cart-widget">
+							<div class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">incl. VAT</span>{/t}</div>
+							<form method="post" action="{link_to action="baskets/add_product"}" class="form_remote" data-remote="true">
 
-				<div class="add-to-cart-widget">
-					<div class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</div>
-					<form method="post" action="{link_to action="baskets/add_product"}" class="form_remote" data-remote="true">
+								{!$product|add_to_basket_field}
 
-						{!$product|add_to_basket_field}
+								<button type="submit" class="btn btn-primary add-to-cart-submit">{t}Add to cart{/t}  {!"cart-plus"|icon}</button>
 
-						<button type="submit" class="btn btn-primary btn-lg add-to-cart-submit">{t}Add to cart{/t}  {!"cart-plus"|icon}</button>
+								<input type="hidden" name="product_id" value="{$product->getId()}">
+							</form>
+						</div>
 
-						<input type="hidden" name="product_id" value="{$product->getId()}">
-					</form>
+					{elseif !$price}
+						<div class="add-to-cart-meta">
+							<p><em>{t}This product is not in offer{/t}</em></p>
+						</div>
+					{else}
+						<div class="add-to-cart-meta">	
+
+							<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
+
+							<p><em>{t}This product is sold out{/t}</em></p>
+
+						</div>
+					{/if}
+					</div>
 				</div>
-
-			{elseif !$price}
-				<div class="add-to-cart-meta">
-					<p><em>{t}This product is not in offer{/t}</em></p>
-				</div>
-			{else}
-				<div class="add-to-cart-meta">	
-				
-					<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
-
-					<p><em>{t}This product is sold out{/t}</em></p>
-				
-				</div>
-			{/if}
-
 			{if $card->hasVariants()}
 				</div>
 			{/if}
