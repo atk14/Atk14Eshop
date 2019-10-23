@@ -16,17 +16,17 @@
 	</div>
 
 	{if $card->getTags()}
-		<div class="tags">
+		<div class="card__tags">
 			{foreach $card->getTags() as $tag}
 				{if !$tag@first} {/if}
-				<span class="badge badge-dark tag-item">{!"tag"|icon} {$tag->getTagLocalized()}</span>
+				<span class="badge badge-dark tag-item {if $tag=="news" || $tag=="action"}tag--{$tag}{/if}">{!"tag"|icon} {$tag->getTagLocalized()}</span>
 			{/foreach}
 		</div>
 	{/if}
 
 	<div class="card-body">
 		<h4 class="card-title">{$card->getName()}</h4>
-		<div class="card-text">{$card->getTeaser()}</div>
+		<div class="card-text">{!$card->getTeaser()|markdown}</div>
 	</div>
 
 	<div class="card-footer">

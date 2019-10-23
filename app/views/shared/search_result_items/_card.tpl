@@ -22,9 +22,9 @@
 				{a action="cards/detail" id=$card}{$card->getName()}{/a}<br>
 			</h4>
 			
-			<p class="search-result-description">
-				{$card->getTeaser()}
-			</p>
+			<div class="search-result-description">
+				{!$card->getTeaser()|markdown}
+			</div>
 			
 			<p class="search-result-price">
 				{if $starting_price}
