@@ -7,7 +7,7 @@
 		<img src="{$public}images/camera.svg" width="400" height="300" title="{t}no image{/t}">
 	{/if}
 
-	<div class="flags">		
+	<div class="card__flags">
 		{if $starting_price && $starting_price->discounted()}
 			<div class="product__flag product__flag--sale product__flag--lg">
 				<span class="product__flag__title">{t}Discount{/t}</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
@@ -19,7 +19,7 @@
 		<div class="card__tags">
 			{foreach $card->getTags() as $tag}
 				{if !$tag@first} {/if}
-				<span class="badge badge-dark tag-item {if $tag=="news" || $tag=="action"}tag--{$tag}{/if}">{!"tag"|icon} {$tag->getTagLocalized()}</span>
+				<span class="badge badge-dark tag-item{if $tag->getCode()} tag--{$tag->getCode()|slugify}{/if}">{!"tag"|icon} {$tag->getTagLocalized()}</span>
 			{/foreach}
 		</div>
 	{/if}
