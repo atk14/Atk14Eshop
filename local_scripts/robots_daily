@@ -7,4 +7,5 @@
 cd $(dirname $0)
 cd ..
 
+./scripts/robot_runner fulltext_indexer
 ./scripts/robot_runner reindex_database
