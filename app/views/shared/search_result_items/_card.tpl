@@ -8,6 +8,16 @@
 			{/a}
 		{else}
 		{/if}
+
+		{if $card->getTags()}
+			<div class="tags">
+				{foreach $card->getTags() as $tag}
+					{if !$tag@first} {/if}
+					<span class="badge badge-dark tag-item">{!"tag"|icon} {$tag->getTagLocalized()}</span>
+				{/foreach}
+			</div>
+		{/if}
+
 		<div class="flags">		
 			{if $starting_price && $starting_price->discounted()}
 				<div class="product__flag product__flag--sale product__flag--lg">
