@@ -42,8 +42,6 @@ class ContactMessagesController extends ApplicationController {
 	function _before_filter(){
 		if($page = Page::GetInstanceByCode("contact")){
 			$this->_add_page_to_breadcrumbs($page);
-		}else{
-			$this->breadcrumbs[] = _("Contact");
 		}
 	}
 
