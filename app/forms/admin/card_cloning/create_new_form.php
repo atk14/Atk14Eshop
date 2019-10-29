@@ -22,6 +22,8 @@ class CreateNewForm extends CardsForm {
 		$this->add_stockcount_field_for_default_warehouse();
 
 		foreach([
+			"copy_images" => _("Copy photo gallery?"),
+			"copy_attachments" => _("Copy attachments?"),
 			"copy_categories" => _("Copy categories?"),
 			"copy_textual_sections" => _("Copy textual sections?"),
 			"copy_technical_specifications" => _("Copy technical specifications?"),

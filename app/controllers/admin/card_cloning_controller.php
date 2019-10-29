@@ -54,8 +54,15 @@ class CardCloningController extends AdminController {
 			// Tagy
 			$new_card->setTags($card->getTags());
 
-			// Obrazky & Prilohy
-			$this->_copy_all_linked_objects($card,$new_card);
+			// Obrazky
+			if($d["copy_images"]){
+				$this->_copy_linked_objects("Image",$card,$new_card);
+			}
+
+			// Prilohy
+			if($d["copy_attachments"]){
+				$this->_copy_linked_objects("Attachment",$card,$new_card);
+			}
 
 			// Kategorie
 			if($d["copy_categories"]){
