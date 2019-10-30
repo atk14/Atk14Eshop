@@ -104,13 +104,21 @@ class ApplicationMailer extends Atk14Mailer {
 	}
 
 	function _initialize_for_region($region = null){
+		global $HTTP_REQUEST, $ATK14_GLOBAL;
+
 		$region = $region ? $region : $this->current_region;
 		$this->current_region = $region;
 		$this->tpl_data["region"] = $region;
 		$this->from = $region->getEmail();
 		$this->from_name = $region->getApplicationName();
 
-		$lang = (string)$region->getDefaultLanguage();
+		if($HTTP_REQUEST->getRemoteAddr()){
+			// on a proper HTTP request, the current language should be used (if supported)
+			$supported_langs = $region->getLanguages(array("as_objects" => false));
+			$lang = in_array($ATK14_GLOBAL->getLang(),$supported_langs) ? $ATK14_GLOBAL->getLang() : (string)$region->getDefaultLanguage();
+		}else{
+			$lang = (string)$region->getDefaultLanguage();
+		}
 		$this->prev_lang = Atk14Locale::Initialize($lang);
 	}
 
