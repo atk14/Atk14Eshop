@@ -147,6 +147,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function hasVariants(){ return $this->getHasVariants(); }
 
+	function canBeSwitchedToNonVariantMode(){
+		$products = $this->getProducts();
+		return sizeof($products)<=1;
+	}
+
 	function createProduct($product_values) {
 		$product_values["card_id"] = $this;
 		$product = Product::CreateNewRecord($product_values);
@@ -206,7 +211,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$ids[] = $item["id"];
 		}
 
-		return Product::GetInstanceById($ids,array("use_cache" => true));
+		return Cache::Get("Product",$ids);
 	}
 
 
