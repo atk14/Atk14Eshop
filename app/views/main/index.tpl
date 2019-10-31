@@ -40,3 +40,9 @@
 {content for="out_of_container"}
 	{render partial="shared/slider" slider=$slider}
 {/content}
+
+{if $page  && !$page->isIndexable()}
+	{content for=head}
+		<meta name="robots" content="noindex,noarchive">
+	{/content}
+{/if}

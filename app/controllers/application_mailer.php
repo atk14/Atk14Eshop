@@ -125,7 +125,7 @@ class ApplicationMailer extends Atk14Mailer {
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
-		$this->subject = sprintf(_("Welcome to %s"),$this->current_region->getApplicationName());
+		$this->subject = _("New registration");
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
 	}
 
