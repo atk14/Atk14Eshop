@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-22 14:20+0200\n"
-"PO-Revision-Date: 2019-10-22 14:45+0200\n"
+"POT-Creation-Date: 2019-10-31 12:46+0100\n"
+"PO-Revision-Date: 2019-10-31 11:33+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -204,7 +204,7 @@ msgid "Discount"
 msgstr "Sleva"
 
 msgid "catalog number: %1"
-msgstr "katalogové číslo: %1"
+msgstr "Číslo produktu: %1"
 
 msgid "This product is not in offer"
 msgstr "Tento produkt není v nabídce"
@@ -361,14 +361,14 @@ msgstr "E-mail"
 msgid "Signing up for newsletter"
 msgstr "Přihlásit se k newsletteru"
 
-msgid "Logged user:"
-msgstr "Přihlášený uživatel:"
-
-msgid "Request URL:"
-msgstr "Adresa URL požadavku:"
+msgid "URL"
+msgstr "URL"
 
 msgid "IP address"
 msgstr "IP adresa"
+
+msgid "Logged user:"
+msgstr "Přihlášený uživatel:"
 
 msgid "Vážený zákazníku,"
 msgstr "Vážený zákazníku,"
@@ -554,29 +554,14 @@ msgstr "Děkujeme a přejeme hezký den!"
 msgid "Phone"
 msgstr "Telefon"
 
+msgid "Product"
+msgstr "Produkt"
+
 msgid "Děkujeme za nákup v obchodě %1!"
 msgstr "Děkujeme za nákup v obchodě %1!"
 
 msgid "děkujeme za nákup v obchodě %1!"
 msgstr "děkujeme za nákup v obchodě %1!"
-
-msgid ""
-"If you have any question, contact us through the following form. We will "
-"reply to you as soon as we can. Below the form you'll find other contact "
-"information."
-msgstr ""
-"Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
-"Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
-"kontaktní údaje."
-
-msgid "%1 Team"
-msgstr "%1 Tým"
-
-msgid "Opening hours"
-msgstr "Otevírací hodiny"
-
-msgid "From dusk till dawn"
-msgstr "Od soumraku do úsvitu"
 
 msgid "Objednávka vytvořena: %1"
 msgstr "Objednávka vytvořena: %1"
@@ -702,7 +687,7 @@ msgid "Products administration"
 msgstr "Administrace produktů"
 
 msgid "Edit category"
-msgstr "Upravit kategorii"
+msgstr "Editovat kategorii"
 
 msgid "Add new category (sibling)"
 msgstr "Přidat novou kategorii (sourozence)"
@@ -721,6 +706,9 @@ msgstr "Vytvořit nový objekt"
 
 msgid "Objects administration"
 msgstr "Administrace objektů"
+
+msgid "Edit links"
+msgstr "Editovat odkazy"
 
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
@@ -902,6 +890,9 @@ msgstr "Nabízíme skvělé restful API"
 msgid "Recent articles"
 msgstr "Nejnovější články"
 
+msgid "Opening hours"
+msgstr "Otevírací hodiny"
+
 msgid "Pondělí"
 msgstr "Pondělí"
 
@@ -995,63 +986,62 @@ msgstr "Zakázáno"
 msgid "Home"
 msgstr "Domů"
 
-#: ../app/controllers/application_mailer.php:120
-#, php-format
-msgid "Welcome to %s"
-msgstr "Vítejte na %s"
+#: ../app/controllers/application_mailer.php:128
+msgid "New registration"
+msgstr "Nová registrace"
 
-#: ../app/controllers/application_mailer.php:129
+#: ../app/controllers/application_mailer.php:137
 msgid "Reset Your Password"
 msgstr "Obnova vašeho hesla"
 
-#: ../app/controllers/application_mailer.php:138
+#: ../app/controllers/application_mailer.php:146
 msgid "Your password was updated"
 msgstr "Vaše heslo bylo změněno"
 
-#: ../app/controllers/application_mailer.php:149
+#: ../app/controllers/application_mailer.php:157
 #, php-format
 msgid "Order %d"
 msgstr "Objednávka %d"
 
-#: ../app/controllers/application_mailer.php:163
-#: ../app/controllers/application.php:46
+#: ../app/controllers/application_mailer.php:171
+#: ../app/controllers/application.php:56
 #: ../app/controllers/orders_controller.php:18
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/application_mailer.php:175
+#: ../app/controllers/application_mailer.php:183
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_mailer.php:186
-#: ../app/controllers/application_mailer.php:195
+#: ../app/controllers/application_mailer.php:194
+#: ../app/controllers/application_mailer.php:203
 #: ../app/controllers/information_requests_controller.php:5
-#: ../app/controllers/information_requests_controller.php:39
+#: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
 msgstr "Žádost o informaci"
 
-#: ../app/controllers/application.php:23
+#: ../app/controllers/application.php:33
 msgid "My account"
 msgstr "Můj účet"
 
-#: ../app/controllers/application.php:36
+#: ../app/controllers/application.php:46
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:58
+#: ../app/controllers/application.php:68
 msgid "Basket"
 msgstr "Košík"
 
-#: ../app/controllers/application.php:59
+#: ../app/controllers/application.php:69
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:60
+#: ../app/controllers/application.php:70
 msgid "Delivery data"
 msgstr "Doručovací data"
 
-#: ../app/controllers/application.php:61
+#: ../app/controllers/application.php:71
 msgid "Summary"
 msgstr "Souhrn"
 
@@ -1169,11 +1159,7 @@ msgstr "Kontaktní zpráva"
 
 #: ../app/controllers/contact_messages_controller.php:33
 msgid "Contact message sent"
-msgstr "Kontaktní zpráva odeslána"
-
-#: ../app/controllers/contact_messages_controller.php:46
-msgid "Contact"
-msgstr "Kontakt"
+msgstr "Kontaktní zpráva byla odeslána"
 
 #: ../app/controllers/delivery_addresses_controller.php:5
 msgid "Seznam doručovacích adres"
@@ -1228,7 +1214,7 @@ msgstr "Byl jste úspěšně odhlášen"
 #: ../app/controllers/logins_controller.php:37
 #, php-format
 msgid "You've stayed logged in as <em>%s</em>"
-msgstr "Zůstal jste přihlášený jako <em>%s</em>"
+msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
 #: ../app/controllers/main_controller.php:11
 msgid "Welcome!"
@@ -1345,7 +1331,7 @@ msgstr ""
 
 #: ../app/fields/category_field.php:25
 msgid "A single slash will be considered as root."
-msgstr "Samostatné lomítko bude považováno za kořen."
+msgstr "Samotné lomítko bude považováno za kořen."
 
 #: ../app/fields/category_field.php:35
 msgid "There is no such category"
@@ -1435,7 +1421,7 @@ msgstr "stránka"
 
 #: ../app/fields/page_field.php:32
 msgid "There is no such page"
-msgstr "Taková stránka neexistuje"
+msgstr "Takový stránka neexistuje"
 
 #: ../app/fields/product_field.php:8
 msgid "There is no such product"
@@ -1447,11 +1433,11 @@ msgstr "Slug"
 
 #: ../app/fields/slug_field.php:10
 msgid "funny-green-mug"
-msgstr "vtipny-zeleny-hrnecek"
+msgstr "zertovny-zeleny-hrnek"
 
 #: ../app/fields/slug_field.php:20
 msgid "Write something like black-cat-white-cat"
-msgstr "Napište něco ve stylu cerna-kocka-bila-kocka"
+msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
@@ -1918,8 +1904,32 @@ msgstr "Sniž objednané množství"
 msgid "Zvyš objednané množství"
 msgstr "Zvyš objednané množství"
 
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+msgid "Request URL:"
+msgstr "Adresa URL požadavku:"
+
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+
+#~ msgid ""
+#~ "If you have any question, contact us through the following form. We will "
+#~ "reply to you as soon as we can. Below the form you'll find other contact "
+#~ "information."
+#~ msgstr ""
+#~ "Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
+#~ "Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
+#~ "kontaktní údaje."
+
+#~ msgid "%1 Team"
+#~ msgstr "%1 Tým"
+
+#~ msgid "From dusk till dawn"
+#~ msgstr "Od soumraku do úsvitu"
+
+#~ msgid "Welcome to %s"
+#~ msgstr "Vítejte na %s"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
 
 #~ msgid "Best regards"
 #~ msgstr "S pozdravem"
@@ -3638,9 +3648,6 @@ msgstr "Zvyš objednané množství"
 #~ msgid "Nadřazená kategorie"
 #~ msgstr "Nadřazená kategorie"
 
-#~ msgid "Product"
-#~ msgstr "Produkt"
-
 #~ msgid "Add product"
 #~ msgstr "Přidat produkt"
 
@@ -3709,3 +3716,6 @@ msgstr "Zvyš objednané množství"
 
 #~ msgid "Značka"
 #~ msgstr "Brand"
+
+#~ msgid "Variant"
+#~ msgstr "Varianta"

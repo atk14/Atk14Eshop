@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-22 14:20+0200\n"
-"PO-Revision-Date: 2019-10-22 14:32+0200\n"
+"POT-Creation-Date: 2019-10-31 12:46+0100\n"
+"PO-Revision-Date: 2019-10-31 12:47+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -63,7 +63,7 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Datum"
 
-#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/admin.php:34
 #: ../app/forms/admin/articles/articles_form.php:33
 #: ../app/forms/admin/cards/cards_form.php:49
 msgid "Tags"
@@ -73,7 +73,7 @@ msgid "Add attachment"
 msgstr "Přidat přílohu"
 
 msgid "Currently there are no attachments."
-msgstr "Momentálně tady nejsou žádné přílohy."
+msgstr "Momentálně tady přílohy nejsou."
 
 msgid ""
 "You are about to permanently delete brand %1\n"
@@ -277,6 +277,9 @@ msgstr "Upravit cenu v ceníku %1"
 msgid "Chystáte se smazat produkt %1. Jste si jistý/á?"
 msgstr "Chystáte se smazat produkt %1. Jste si jistý/á?"
 
+msgid "unnamed variant"
+msgstr "nepojmenovaná varianta"
+
 msgid "Produkt zatím nemá žádnou variantu."
 msgstr "Produkt zatím nemá žádnou variantu."
 
@@ -301,18 +304,27 @@ msgstr "Textové sekce"
 msgid "Currently there is no section"
 msgstr "Momentálně tady není žádná sekce"
 
-msgid "attachments"
-msgstr "přílohy"
-
-msgid "images"
-msgstr "obrázky"
-
 msgid ""
 "You are about to delete section %1\n"
 "Are you sure?"
 msgstr ""
 "Chystáte se smazat sekci %1\n"
 "Jste si jistý?"
+
+msgid "unnamed"
+msgstr "beze jména"
+
+msgid "content type"
+msgstr "typ obsahu"
+
+msgid "attachments"
+msgstr "přílohy"
+
+msgid "images"
+msgstr "obrázky"
+
+msgid "no textual content"
+msgstr "žádný textový obsah"
 
 msgid "Add a new variant"
 msgstr "Přidat novou variantu"
@@ -328,6 +340,12 @@ msgstr "Jste si jistý?"
 
 msgid "switch to the variant mode"
 msgstr "přepnout do variantního režimu"
+
+msgid "This product can be swithed to the non-variant mode"
+msgstr "Tento produkt lze přepnout do nevariatního režimu"
+
+msgid "switch to the non-variant mode"
+msgstr "přepnout do nevariantního režimu"
 
 msgid "Vytvořit a editovat alias"
 msgstr "Vytvořit a editovat alias"
@@ -374,18 +392,18 @@ msgstr ""
 msgid "Subcategories"
 msgstr "Podkategorie"
 
-#: ../app/controllers/admin/admin.php:100
+#: ../app/controllers/admin/admin.php:101
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:101
+#: ../app/controllers/admin/admin.php:102
 msgid "alias"
 msgstr "alias"
 
 msgid "This category has no subcategories."
 msgstr "Tato kategorie nemá žádné podkategorie."
 
-#: ../app/controllers/admin/admin.php:35
+#: ../app/controllers/admin/admin.php:36
 msgid "Products"
 msgstr "Produkty"
 
@@ -588,6 +606,9 @@ msgstr "Přidat odkaz do seznamu"
 
 msgid "There is no link in the list."
 msgstr "V seznamu není žádný odkaz."
+
+msgid "Edit links"
+msgstr "Editovat odkazy"
 
 msgid "Create new link list"
 msgstr "Vytvořit nový odkaz"
@@ -868,7 +889,7 @@ msgid ""
 "Are you sure?"
 msgstr ""
 "Chystáte se smazat stránku %1\n"
-"Jsi si jistý(á)?"
+"Opravdu?"
 
 msgid "Delete page"
 msgstr "Smazat stránku"
@@ -897,8 +918,25 @@ msgstr "Obnoveno z adresy"
 msgid "Nová možnost platby"
 msgstr "Nová možnost platby"
 
-msgid "velikost originálu:"
-msgstr "velikost originálu:"
+#: ../app/forms/admin/categories/categories_form.php:27
+#: ../app/forms/admin/collections/collections_form.php:13
+#: ../app/forms/admin/images/images_form.php:16
+#: ../app/forms/admin/products/products_form.php:20
+#: ../app/forms/admin/stores/stores_form.php:92
+msgid "Description"
+msgstr "Popis"
+
+msgid "Dimensions of the original"
+msgstr "Rozměry originálu"
+
+msgid "Uploaded by"
+msgstr "Nahráno uživatelem"
+
+msgid "Updated by"
+msgstr "Aktualizováno uživatelem"
+
+msgid "Download original"
+msgstr "Stáhněte si originál"
 
 msgid "Založit novou cenu"
 msgstr "Založit novou cenu"
@@ -977,7 +1015,7 @@ msgid ""
 "Are you sure about that?"
 msgstr ""
 "Chystáte se smazat přílohu %1\n"
-"Jste si tím jistý?"
+"Opravdu?"
 
 msgid "Attachments"
 msgstr "Přílohy"
@@ -1029,7 +1067,7 @@ msgid "Photo gallery"
 msgstr "Fotogalerie"
 
 msgid "Currently there are no images"
-msgstr "Momentálně tady není žádný obrázek"
+msgstr "Momentálně tady nejsou žádné obrázky"
 
 msgid "Add an image"
 msgstr "Přidat obrázek"
@@ -1076,7 +1114,7 @@ msgstr "Profil"
 msgid "Sign out"
 msgstr "Odhlásit se"
 
-#: ../app/controllers/admin/admin.php:8
+#: ../app/controllers/admin/admin.php:9
 #: ../app/controllers/admin/main_controller.php:4
 msgid "Administration"
 msgstr "Administrace"
@@ -1332,26 +1370,6 @@ msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
 
-#: ../app/forms/admin/categories/categories_form.php:27
-#: ../app/forms/admin/collections/collections_form.php:13
-#: ../app/forms/admin/images/images_form.php:16
-#: ../app/forms/admin/products/products_form.php:20
-#: ../app/forms/admin/stores/stores_form.php:92
-msgid "Description"
-msgstr "Popis"
-
-msgid "Dimensions of the original"
-msgstr ""
-
-msgid "Uploaded by"
-msgstr ""
-
-msgid "Updated by"
-msgstr ""
-
-msgid "Download original"
-msgstr ""
-
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
 msgstr "Přidání nového příslušenství"
@@ -1360,155 +1378,155 @@ msgstr "Přidání nového příslušenství"
 msgid "Accessory product has been added"
 msgstr "Příslušenství bylo přidáno"
 
-#: ../app/controllers/admin/admin.php:27
+#: ../app/controllers/admin/admin.php:28
 msgid "Welcome screen"
 msgstr "Vítací obrazovka"
 
-#: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/admin/admin.php:29
 msgid "Orders"
 msgstr "Objednávky"
 
-#: ../app/controllers/admin/admin.php:29
+#: ../app/controllers/admin/admin.php:30
 msgid "Articles"
 msgstr "Články"
 
-#: ../app/controllers/admin/admin.php:30
+#: ../app/controllers/admin/admin.php:31
 #: ../app/controllers/admin/pages_controller.php:5
 msgid "Pages"
 msgstr "Stránky"
 
-#: ../app/controllers/admin/admin.php:31
+#: ../app/controllers/admin/admin.php:32
 #: ../app/controllers/admin/link_lists_controller.php:5
 msgid "Link lists"
 msgstr "Seznamy odkazů"
 
-#: ../app/controllers/admin/admin.php:32
+#: ../app/controllers/admin/admin.php:33
 msgid "Image sliders"
 msgstr "Obrázkové posuvníky"
 
-#: ../app/controllers/admin/admin.php:34
+#: ../app/controllers/admin/admin.php:35
 msgid "Users"
 msgstr "Uživatelé"
 
-#: ../app/controllers/admin/admin.php:36
+#: ../app/controllers/admin/admin.php:37
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../app/controllers/admin/admin.php:37
+#: ../app/controllers/admin/admin.php:38
 msgid "Vouchers"
 msgstr "Poukazy"
 
-#: ../app/controllers/admin/admin.php:38
+#: ../app/controllers/admin/admin.php:39
 msgid "Campaigns"
 msgstr "Kampaně"
 
-#: ../app/controllers/admin/admin.php:39
+#: ../app/controllers/admin/admin.php:40
 msgid "Brands"
 msgstr "Značky"
 
-#: ../app/controllers/admin/admin.php:40
+#: ../app/controllers/admin/admin.php:41
 msgid "Collections"
 msgstr "Kolekce"
 
-#: ../app/controllers/admin/admin.php:41
+#: ../app/controllers/admin/admin.php:42
 msgid "Stores"
 msgstr "Prodejny"
 
-#: ../app/controllers/admin/admin.php:42
+#: ../app/controllers/admin/admin.php:43
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
 msgstr "Sklady"
 
-#: ../app/controllers/admin/admin.php:43
+#: ../app/controllers/admin/admin.php:44
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Pricelists"
 msgstr "Ceníky"
 
-#: ../app/controllers/admin/admin.php:44
+#: ../app/controllers/admin/admin.php:45
 msgid "Discounts"
 msgstr "Slevy"
 
-#: ../app/controllers/admin/admin.php:45
+#: ../app/controllers/admin/admin.php:46
 msgid "Delivery methods"
 msgstr "Způsoby doručení"
 
-#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/admin.php:47
 msgid "Payment methods"
 msgstr "Platební metody"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:48
 msgid "Combination of transports and payments"
 msgstr "Kombinace přeprav a plateb"
 
-#: ../app/controllers/admin/admin.php:48
+#: ../app/controllers/admin/admin.php:49
 msgid "Currencies"
 msgstr "Měny"
 
-#: ../app/controllers/admin/admin.php:49
+#: ../app/controllers/admin/admin.php:50
 msgid "VAT rates"
 msgstr "Sazby DPH"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:51
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:52
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:53
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "Přesměrování 404"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:54
 msgid "Order statuses"
 msgstr "Stavy objednávky"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:55
 msgid "Selling regions"
 msgstr "Prodejná oblasti"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:56
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:87
+#: ../app/controllers/admin/admin.php:88
 #: ../app/controllers/admin/category_trees_controller.php:23
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:137
+#: ../app/controllers/admin/admin.php:152
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:166
+#: ../app/controllers/admin/admin.php:187
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:180
+#: ../app/controllers/admin/admin.php:201
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:232
+#: ../app/controllers/admin/admin.php:253
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:258
+#: ../app/controllers/admin/admin.php:279
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:382
+#: ../app/controllers/admin/admin.php:403
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:389
+#: ../app/controllers/admin/admin.php:410
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -1602,7 +1620,7 @@ msgstr "Editace kampaně"
 msgid "Copying product \"%s\""
 msgstr "Kopírování produktu \"%s\""
 
-#: ../app/controllers/admin/card_cloning_controller.php:90
+#: ../app/controllers/admin/card_cloning_controller.php:97
 msgid "A new product was successfully created"
 msgstr "Nový produkt byl úspěšně vytvořen"
 
@@ -1637,17 +1655,21 @@ msgstr "Editace produktu %s"
 msgid "Variants mode has been activated"
 msgstr "Variantní režim byl aktivován"
 
-#: ../app/controllers/admin/cards_controller.php:245
+#: ../app/controllers/admin/cards_controller.php:240
+msgid "Variants mode has been deactivated"
+msgstr "Variantní režim byl deaktivován"
+
+#: ../app/controllers/admin/cards_controller.php:263
 #: ../app/controllers/admin/technical_specifications_controller.php:12
 #: ../app/controllers/admin/technical_specifications_controller.php:36
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:277
+#: ../app/controllers/admin/cards_controller.php:295
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:295
+#: ../app/controllers/admin/cards_controller.php:313
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -1897,9 +1919,9 @@ msgstr "Přidání odkazu do seznamu '%s'"
 msgid "Editing link '%s'"
 msgstr "Editace odkazu '%s'"
 
-#: ../app/controllers/admin/link_list_items_controller.php:46
-msgid "Link Lists"
-msgstr "Seznamy odkazů"
+#: ../app/controllers/admin/link_list_items_controller.php:48
+msgid "Links"
+msgstr "Odkazy"
 
 #: ../app/controllers/admin/link_lists_controller.php:13
 msgid "Creating new link list"
@@ -2252,8 +2274,8 @@ msgstr "Alternativní klíč pro systémové použití."
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
-"Alternativní klíč pro systémové použití. Ponechte beze změny, pokud si "
-"nejste jisti."
+"Alternativní klíč pro systémové použití. Pokud si nejste jisti, ponechte "
+"beze změny."
 
 #: ../app/forms/admin/admin_form.php:147
 #: ../app/forms/admin/categories/categories_form.php:39
@@ -2295,7 +2317,7 @@ msgstr "Obrázek používaný v přehledu článků"
 #: ../app/forms/admin/collections/collections_form.php:8
 #: ../app/forms/admin/pages/pages_form.php:16
 msgid "Teaser"
-msgstr "Krátký popis"
+msgstr "Teaser"
 
 #: ../app/forms/admin/articles/articles_form.php:22
 #: ../app/forms/admin/pages/pages_form.php:21
@@ -2396,18 +2418,26 @@ msgid "Should the new product be visible?"
 msgstr "Měl by být nový produkt viditelný?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:25
+msgid "Copy photo gallery?"
+msgstr "Kopírovat fotogalerii?"
+
+#: ../app/forms/admin/card_cloning/create_new_form.php:26
+msgid "Copy attachments?"
+msgstr "Kopírovat přílohy?"
+
+#: ../app/forms/admin/card_cloning/create_new_form.php:27
 msgid "Copy categories?"
 msgstr "Kopírovat kategorie?"
 
-#: ../app/forms/admin/card_cloning/create_new_form.php:26
+#: ../app/forms/admin/card_cloning/create_new_form.php:28
 msgid "Copy textual sections?"
 msgstr "Kopírovat textové sekce?"
 
-#: ../app/forms/admin/card_cloning/create_new_form.php:27
+#: ../app/forms/admin/card_cloning/create_new_form.php:29
 msgid "Copy technical specifications?"
 msgstr "Kopírovat technické specifikace?"
 
-#: ../app/forms/admin/card_cloning/create_new_form.php:36
+#: ../app/forms/admin/card_cloning/create_new_form.php:38
 msgid "Create new product"
 msgstr "Vytvořit nový produkt"
 
@@ -2904,7 +2934,7 @@ msgstr "Nastavit zodpovědnou osobu"
 #: ../app/forms/admin/pages/create_new_form.php:8
 #: ../app/forms/admin/pages/edit_form.php:13
 msgid "The same code is used on a different page"
-msgstr "Stejný kód je použit u jiné stránky"
+msgstr "Stejný kód je použit na jiné stránce"
 
 #: ../app/forms/admin/pages/pages_form.php:12
 msgid "Image used on list of pages, social networks, etc."
@@ -2933,7 +2963,7 @@ msgstr ""
 
 #: ../app/forms/admin/pages/pages_form.php:40
 msgid "Parent page"
-msgstr "Rodičovská stránka"
+msgstr "Rodičovské stránka"
 
 #: ../app/forms/admin/pages/pages_form.php:46
 msgid "Show in sitemap?"
@@ -3294,6 +3324,12 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+#~ msgid "velikost originálu:"
+#~ msgstr "velikost originálu:"
+
+#~ msgid "Link Lists"
+#~ msgstr "Seznamy odkazů"
+
 #~ msgid "Objekty vkládané do textu"
 #~ msgstr "Objekty vkládané do textu"
 
@@ -3325,7 +3361,7 @@ msgstr "Uplatňuje se v e-shopu?"
 #~ msgstr "Přidat video"
 
 #~ msgid "Edit page"
-#~ msgstr "Editace stránky"
+#~ msgstr "Editovat stránku"
 
 #~ msgid "Search articles"
 #~ msgstr "Vyhledat články"
@@ -3779,7 +3815,7 @@ msgstr "Uplatňuje se v e-shopu?"
 #~ msgstr "Byl jste úspěšně odhlášen"
 
 #~ msgid "You've stayed logged in as <em>%s</em>"
-#~ msgstr "Zůstal jste přihlášený jako <em>%s</em>"
+#~ msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
 #~ msgid "About %s"
 #~ msgstr "O %s"
