@@ -122,6 +122,16 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.site_verification.html_tag",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "HTML tag for Google site verification",
+			"description_en" => "One or more HTML meta tags for Google site verification",
+			"name_cs" => "HTML tag pro Google site verification",
+			"description_cs" => "Jeden nebo více HTML meta tagů pro Google site verification",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
 			"code" => "app.trackers.google.analytics.tracking_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Analytics Tracking ID",

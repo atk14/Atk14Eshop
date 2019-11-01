@@ -57,6 +57,8 @@
 			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
 		<![endif]-->
 
+		{!"app.trackers.google.site_verification.html_tag"|system_parameter}
+
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 	</head>
 
