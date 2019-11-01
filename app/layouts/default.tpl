@@ -27,6 +27,7 @@
 
 	<head>
 		{render partial="shared/system/trackers/google/tag_manager_head"}
+		{render partial="shared/system/trackers/google/analytics"}
 		<meta charset="utf-8">
 
 		<title>{trim}
