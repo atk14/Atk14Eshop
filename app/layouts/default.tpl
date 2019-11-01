@@ -26,8 +26,8 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
-		{render partial="shared/system/trackers/google/tag_manager_head"}
-		{render partial="shared/system/trackers/google/analytics"}
+		{render partial="shared/trackers/google/tag_manager_head"}
+		{render partial="shared/trackers/google/analytics"}
 		<meta charset="utf-8">
 
 		<title>{trim}
@@ -65,7 +65,7 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
-		{render partial="shared/system/trackers/google/tag_manager_body"}
+		{render partial="shared/trackers/google/tag_manager_body"}
 		{render partial="shared/layout/header"}
 		{placeholder for="out_of_container"}
 		<div class="container{if $section_navigation} has-nav-section{/if}">
