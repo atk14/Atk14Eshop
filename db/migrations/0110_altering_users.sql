@@ -7,7 +7,7 @@ ALTER TABLE users ADD CONSTRAINT fk_users_base_pricelists FOREIGN KEY (base_pric
 ALTER SEQUENCE seq_users RESTART WITH 101;
 
 -- anonymous, not registered user
-INSERT INTO users (login,password,firstname,lastname,pricelist_id,base_pricelist_id) VALUES('anonymous',null,'anonym','anonymous',1,2);
+INSERT INTO users (id,login,password,firstname,lastname,pricelist_id,base_pricelist_id) VALUES(2,'anonymous',null,'anonym','anonymous',1,2);
 
 ALTER TABLE users ADD gender_id INT;
 ALTER TABLE users ADD CONSTRAINT fk_users_genders FOREIGN KEY (gender_id) REFERENCES genders;
