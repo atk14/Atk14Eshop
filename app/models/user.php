@@ -7,6 +7,7 @@
  */
 class User extends ApplicationModel{
 
+	const ID_SUPERADMIN = 1;
 	const ID_ANONYMOUS = 2; // see db/migrations/0117_altering_users.sql
 
 	/**
@@ -80,6 +81,8 @@ class User extends ApplicationModel{
 
 	function isAdmin(){ return $this->getIsAdmin(); }
 
+	function isSuperAdmin(){ return $this->getId()==self::ID_SUPERADMIN; }
+
 	function isAnonymous(){ return $this->getId()==self::ID_ANONYMOUS; }
 
 	function toString(){
@@ -90,5 +93,5 @@ class User extends ApplicationModel{
 
 	function isActive(){ return $this->g("active"); }
 
-	function isDeletable(){ return !in_array($this->getId(),[1,User::ID_ANONYMOUS]); }
+	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN,self::ID_ANONYMOUS)); }
 }
