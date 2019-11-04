@@ -21,13 +21,13 @@ class UsersForm extends AdminForm{
 
 		$this->add_field("pricelist_id", new PricelistField(array(
 			"label" => _("Ceník"),
-			"initial" => $anonymous->g("pricelist_id"),
+			"initial" => $anonymous ? $anonymous->g("pricelist_id") : null,
 		)));
 
 		$this->add_field("base_pricelist_id", new PricelistField(array(
 			"label" => _("Ceník s cenami před slevou"),
 			"required" => false,
-			"initial" => $anonymous->g("base_pricelist_id"),
+			"initial" => $anonymous ? $anonymous->g("base_pricelist_id") : null,
 		)));
 
 		$this->add_field("active",new BooleanField(array(
