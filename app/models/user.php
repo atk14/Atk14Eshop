@@ -76,7 +76,9 @@ class User extends ApplicationModel{
 	}
 
 	function getName(){
-		return trim($this->getFirstname()." ".$this->getLastname());
+		$name = trim($this->getFirstname()." ".$this->getLastname());
+		if(strlen($name)){ return $name; }
+		return $this->getLogin();
 	}
 
 	function isAdmin(){ return $this->getIsAdmin(); }
@@ -85,11 +87,7 @@ class User extends ApplicationModel{
 
 	function isAnonymous(){ return $this->getId()==self::ID_ANONYMOUS; }
 
-	function toString(){
-		$name = $this->getName();
-		if(strlen($name)){ return $name; }
-		return $this->getLogin();
-	}
+	function toString(){ return (string)$this->getName(); }
 
 	function isActive(){ return $this->g("active"); }
 
