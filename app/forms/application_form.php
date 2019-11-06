@@ -6,6 +6,8 @@ class ApplicationForm extends Atk14Form{
 	 */
 	protected $button_text = null;
 
+	var $revalidate_zip_automatically = true;
+
 	/**
 	 * 
 	 */
@@ -275,5 +277,22 @@ class ApplicationForm extends Atk14Form{
 				$this->set_error(_("Země ve fakturační adrese a země v DIČ se musí shodovat"));
 			}
 		}
+	}
+
+	function clean(){
+		list($err,$d) = parent::clean();
+
+		if($this->revalidate_zip_automatically){
+			// Transparent re-validation of address_zip or delivery_address_zip in context of address_country, resp. delivery_address_country
+			foreach(["","delivery_"] as $prefix){
+				if(is_array($d) && isset($d["{$prefix}address_zip"]) && isset($d["{$prefix}address_country"])){
+					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$err)){
+						$this->set_error("{$prefix}address_zip",$err);
+					}
+				}
+			}
+		}
+
+		return [$err,$d];
 	}
 }

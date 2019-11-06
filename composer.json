@@ -17,8 +17,9 @@
         "dragonbe/vies": "1.*",
         "yarri/lazy-loader": "^1.2",
         "html2text/html2text": "^4.0",
-        "atk14/textmit-client": "dev-master",
+        "atk14/textmit-client": "^1.2.1",
         "atk14/decimal-field": "^1.0",
-        "atk14/localized-decimal-field": "^1.0"
+        "atk14/localized-decimal-field": "^1.0",
+        "atk14/zip-field": "^0.1.0"
     }
 }
