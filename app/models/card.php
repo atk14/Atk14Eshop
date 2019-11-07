@@ -697,8 +697,16 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$fd->addText($brand->getName());
 		}
 
-		foreach(CardSection::FindAll("card_id",$this) as $cs){
+		foreach($this->getCardSections() as $cs){
 			$fd->merge($cs->getFulltextData($lang),[
+				"a" => "b",
+				"b" => "c",
+				"c" => "d",
+			]);
+		}
+
+		foreach($this->getTechnicalSpecifications() as $ts){
+			$fd->merge($ts->getFulltextData($lang),[
 				"a" => "b",
 				"b" => "c",
 				"c" => "d",
