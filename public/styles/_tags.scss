@@ -4,3 +4,8 @@
 		color: color-yiq($value); // #fff or #111
 	}
 }
+
+.tag--bg-primary {
+	background-color: $primary;
+	color: color-yiq($primary);
+}
