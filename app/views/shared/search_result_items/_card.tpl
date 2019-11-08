@@ -11,10 +11,7 @@
 
 		{if $card->getTags()}
 			<div class="tags">
-				{foreach $card->getTags() as $tag}
-					{if !$tag@first} {/if}
-					<span class="badge badge-dark tag-item">{!"tag"|icon} {$tag->getTagLocalized()}</span>
-				{/foreach}
+				{render partial="shared/tags" tags=$card->getTags()}
 			</div>
 		{/if}
 
