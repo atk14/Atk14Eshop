@@ -122,6 +122,16 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.site_verification.html_tag",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "HTML tag for Google site verification",
+			"description_en" => "One or more HTML meta tags for Google site verification",
+			"name_cs" => "HTML tag pro Google site verification",
+			"description_cs" => "Jeden nebo více HTML meta tagů pro Google site verification",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
 			"code" => "app.trackers.google.analytics.tracking_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Analytics Tracking ID",
@@ -263,12 +273,66 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
-			"code" => "merchant.billing_information.bank_account.bank_name",
+			"code" => "merchant.billing_information.bank_account.bank.name",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "The name of the bank where the account is held",
 			"name_cs" => "Název banky, u které je účet veden",
 			"mandatory" => false,
 			"content" => "Best Savings Bank",
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.street",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: Street (Bank)",
+			"name_cs" => "Adresa banky: Ulice (banka)",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.street2",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: Street (2nd line)",
+			"name_cs" => "Adresa banky: Ulice (2. řádek)",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.city",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: City (Bank)",
+			"name_cs" => "Adresa banky: Město",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.state",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: State / Province / Region",
+			"name_cs" => "Adresa banky: Stát / provinice / kraj",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.zip",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: ZIP",
+			"name_cs" => "Adresa banky: PSČ",
+			"mandatory" => false,
+			"content" => null
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "merchant.billing_information.bank_account.bank.address.country",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Bank address: Country code",
+			"name_cs" => "Adresa banky: Kód země",
+			"mandatory" => false,
+			"content" => null,
 		]);
 
 		SystemParameter::CreateNewRecord([

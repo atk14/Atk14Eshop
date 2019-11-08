@@ -9,7 +9,7 @@ class CardsController extends ApplicationController{
 		}
 
 		if(!$card->isVisible() || $card->isDeleted()){
-			$this->response->setStatusCode("404");
+			$this->response->setStatusCode("404"); // Zde se nastavi pouze response code 404, ale produkt se normalne zobrazi.
 		}
 
 		$this->page_title = $card->getName();
@@ -18,13 +18,7 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false));
 		$this->tpl_data["starting_price"] = $this->price_finder->getStartingPrice($card);
 
-		$primary_category = $card->getPrimaryCategory();
-		if($primary_category){
-			foreach($primary_category->getPathOfCategories() as $c){
-				$this->breadcrumbs[] = array($c->getName(),$this->_link_to(array("action" => "categories/detail", "path" => $c->getPath())));
-			}
-		}
-		$this->breadcrumbs[] = $card->getName();
+		$this->_add_card_to_breadcrumbs($card);
 
 		// Urceni typu obrazkove galerie: normal nebo with_variants
 		// - with_variants: produkt ma varianty, ktere maji alespon 2 sve obrazky

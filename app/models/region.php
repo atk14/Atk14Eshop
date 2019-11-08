@@ -115,7 +115,11 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	 *
 	 * @return Lang[]
 	 */
-	function getLanguages(){
+	function getLanguages($options = array()){
+		$options += array(
+			"as_objects" => true,
+		);
+
 		$codes = (array)json_decode($this->g("languages"),true);
 
 		$langs = Lang::GetInstances();
@@ -129,6 +133,11 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 				}
 			}
 		}
+
+		if(!$options["as_objects"]){
+			$out = array_map(function($lang){ return $lang->getId(); },$out);
+		}
+
 		return $out;
 	}
 

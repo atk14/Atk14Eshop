@@ -15,6 +15,35 @@ class TagsForm extends AdminForm{
 			"help_text" => _("Enter proper value when the tag itself is not good in the given language"),
 		]));
 
+		$choices = array();
+		$choices[""] = _("no color");
+		// These color list was taken from public/styles/_bootstrap_variables.scss
+		foreach(array(
+			"blue" => _("blue"),
+			"indigo" => _("indigo"),
+			"purple" => _("purple"),
+			"pink" => _("pink"),
+			"red" => _("red"),
+			"orange" => _("orange"),
+			"yellow" => _("yellow"),
+			"green" => _("green"),
+			"teal" => _("teal"),
+			"cyan" => _("cyan"),
+			"white" => _("white"),
+			"gray" => _("gray"),
+			"gray-dark" => _("dark gray"),
+		) as $color => $label){
+			$choices["$color"] = "<span class=\"bg-$color border border-dark\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> $label";
+		}
+		$this->add_field("color", new ChoiceField([
+			"label" => _("Color"),
+			"choices" => $choices,
+			"required" => false,
+			"widget" => new RadioSelect([
+				"convert_html_special_chars" => false,
+			]),
+		]));
+
 		$this->add_code_field();
 	}
 }

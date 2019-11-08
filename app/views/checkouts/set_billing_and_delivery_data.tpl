@@ -55,7 +55,7 @@
 	{/if}
 
 	<div class="form__footer">
-		{a action="checkouts/set_payment_and_delivery_method" _class="btn btn-lg btn-primary btn--back btn--arrow-l"}{t}Zpět na dopravu a platbu{/t}{/a}
-		{render partial="shared/form_button" class="btn btn--cta btn-lg"}
+		{a action="checkouts/set_payment_and_delivery_method" _class="btn btn-lg btn-secondary btn--back btn--arrow-l"}{t}Zpět na dopravu a platbu{/t}{/a}
+		{render partial="shared/form_button" class="btn btn-primary btn-lg"}
 	</div>
 {/form}

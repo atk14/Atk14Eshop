@@ -11,31 +11,31 @@
 {form _class="form-search"}
 	<div class="row">
 		<div class="col-md-3">
-			{!$form.search}
+			{!$form|field:"search":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.catalog_id}
+			{!$form|field:"catalog_id":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.date_from}
+			{!$form|field:"date_from":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.date_to}
+			{!$form|field:"date_to":"label_to_placeholder"}
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-md-3">
-			{!$form.delivery_method_id}
+			{!$form|field:"delivery_method_id":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.payment_method_id}
+			{!$form|field:"payment_method_id":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.payment_status_id}
+			{!$form|field:"payment_status_id":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form.order_status_id}
+			{!$form|field:"order_status_id":"label_to_placeholder"}
 		</div>
 	</div>
 

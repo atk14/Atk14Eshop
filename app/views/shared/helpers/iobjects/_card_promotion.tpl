@@ -13,11 +13,11 @@
 		</h4>
 
 		<div class="iobject__description">
-			{$card->getTeaser()}
+			{!$card->getTeaser()|markdown}
 		</div>
 		{if $starting_price}
 			<span class="iobject__price">
-				{!$price_finder->getStartingPrice($card)|display_price}
+				{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}
 				<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>
 			</span>
 		{/if}

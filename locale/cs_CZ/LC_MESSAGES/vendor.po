@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 12:10+0100\n"
-"PO-Revision-Date: 2017-11-23 23:51+0100\n"
+"POT-Creation-Date: 2019-10-20 17:58+0200\n"
+"PO-Revision-Date: 2019-08-23 13:56+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -16,6 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+#: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:24
+msgid ""
+"Ensure this number has at most %max% digits (it has %digits% including "
+"allowed decimal places)."
+msgstr ""
+"Zajistěte, aby toto číslo mělo maximálně %max% číslic (teď má %digits% "
+"včetně povolených desetinných míst)."
+
+#: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:25
+msgid ""
+"Ensure this number has at most %max% digits in integer-part (it has %integers"
+"%)."
+msgstr ""
+"Zajistěte, aby toto číslo mělo maximálně %max% číslic před desetinnou čárkou "
+"(teď má %integers%)."
+
+#: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:26
+msgid ""
+"Ensure this number has at most %max% decimal places (it has %decimal_places"
+"%)."
+msgstr ""
+"Zajistěte, aby toto číslo mělo maximálně %max% desetinných míst (teď má "
+"%decimal_places%)."
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:44
 msgid "Headers"
@@ -39,25 +63,25 @@ msgstr "Zadejte platné telefonní číslo (+420.605123456)"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:7
 msgid "Enter phone number in format +420.605123456"
-msgstr "Telefonní číslo zadejte ve formátu +420.605123456"
+msgstr "Zadejte telefonní číslo ve formátu +420.605123456"
 
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:31
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:35
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
 msgid "remove"
 msgstr "odstranit"
 
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:32
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
 msgid "Download attachment"
 msgstr "Stáhnout přílohu"
 
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:36
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:46
 msgid "Display image"
 msgstr "Zobrazit obrázek"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:81
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:95
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
 #: ../vendor/atk14/url-field/src/url_field.php:12
 msgid "This doesn't look like an URL"
-msgstr "Toto nevypadá jako nějaké URL"
+msgstr "Toto nevypadá jako URL"

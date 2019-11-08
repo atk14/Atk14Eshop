@@ -5,20 +5,19 @@ class IndexForm extends OrdersForm{
 		$this->add_field("search",new SearchField(array(
 			"label" => _("Search"),
 			"required" => false,
-			"hint" => _("Hledat"),
 		)));
+
 		$this->add_field("date_from",new DateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"hint" => _("Datum od"),
 			"widget" => new DateInput(array(
 				"attrs" => array("class" => "text form-control calendar_field"),
 			)),
 		)));
+
 		$this->add_field("date_to",new DateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"hint" => _("Datum do"),
 			"widget" => new DateInput(array(
 				"attrs" => array("class" => "text form-control calendar_field"),
 			)),
@@ -52,11 +51,11 @@ class IndexForm extends OrdersForm{
 			"label" => _("Stav objednávky"),
 			"required" => false,
 		)));
-		$this->add_field("catalog_id", new CharField(array(
+
+		$f = $this->add_field("catalog_id", new CharField(array(
 			"label" => _("Objednaný produkt"),
 			"required" => false,
-			"hint" => 'katalog id'
 		)));
-
+		$f->widget->attrs["placeholder"] = _("Catalog number");
 	}
 }

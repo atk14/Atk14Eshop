@@ -7,5 +7,5 @@
 
 	{!$product->getDescription()|markdown}
 
-	{render partial="shared/photo_gallery" photo_gallery_title="" object=$product}
+	{render partial="shared/photo_gallery" photo_gallery_title="" object=$product compact=true}
 </li>

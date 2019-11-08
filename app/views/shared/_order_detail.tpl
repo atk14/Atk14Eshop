@@ -27,8 +27,8 @@
 			<th>{t}Produkt{/t}</th>
 			<th>{t}Popis{/t}</th>
 			<th class="text-center">{t}Kód{/t}</th>
-			<th class="text-right text--nowrap">{t}Cena [cm/ks]{/t}</th>
-			<th class="text-right text--nowrap">{t}Mn. [cm/ks]{/t}</th>
+			<th class="text-right text--nowrap">{t}Jedn. cena{/t}</th>
+			<th class="text-right text--nowrap">{t}Množství{/t}</th>
 			<th class="text-right">{t}Celkem{/t}</th>
 		</tr>
 	</thead>

@@ -2,6 +2,7 @@
 require_once(__DIR__."/../application_base.php");
 
 class AdminController extends ApplicationBaseController{
+
 	function _application_before_filter(){
 		parent::_application_before_filter();
 
@@ -32,7 +33,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Image sliders"),				"sliders,slider_items"),
 			array(_("Tags"),								"tags"),
 			array(_("Users"),								"users"),
-			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications"),
+			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),
@@ -44,6 +45,8 @@ class AdminController extends ApplicationBaseController{
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),
+			array(_("Combination of transports and payments"), "shipping_combinations"),
+			array(_("Currencies"),					"currencies"),
 			array(_("VAT rates"),						"vat_rates"),
 			array(_("Password recoveries"),	"password_recoveries"),
 			array(_("Newsletter subscribers"), "newsletter_subscribers"),
@@ -115,6 +118,19 @@ class AdminController extends ApplicationBaseController{
 	 *			"sorting_by" => "created_at,name,updated_at",
 	 *		));
 	 *	}
+	 *
+	 *	// or
+	 *
+	 *	function index(){
+	 *		$this->_index(array(
+	 *			"page_title" => _("List of Articles"),
+	 *			"class_name" => "Article",
+	 *			"sorting_by" => "created_at,updated_at",
+	 *			"conditions" => ["published<:now"],
+	 *			"bind_ar" => [":now" => date("Y-m-d H:i:s")],
+	 *			"limit" => 40
+	 *		));
+	 *	}
 	 * 
 	 */
 	function _index($options = array()){
@@ -125,6 +141,7 @@ class AdminController extends ApplicationBaseController{
 			"searching_in" => "", // "id,name,description"
 			"sorting_by" => "", // "id,name,created_at,updated_at"
 			"class_name" => "",
+			// "limit" => 20,
 		);
 
 		if(!$options["class_name"]){
@@ -147,10 +164,16 @@ class AdminController extends ApplicationBaseController{
 
 		$this->_initialize_prepared_sorting($options["sorting_by"]);
 
-		$this->finder = $this->_prepare_finder(array(
+		$_finder_options = array(
+			"class_name" => $options["class_name"],
 			"conditions" => $conditions,
-			"bind_ar" => $bind_ar
-		));
+			"bind_ar" => $bind_ar,
+		);
+
+		if (array_key_exists("limit", $options)) {
+			$_finder_options["limit"] = $options["limit"];
+		}
+		$this->finder = $this->_prepare_finder($_finder_options);
 		
 	}
 

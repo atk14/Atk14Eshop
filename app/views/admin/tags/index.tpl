@@ -12,6 +12,7 @@
 		<thead>
 			<tr class="table-dark">
 				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				<th class="item-color"></th>
 				{sortable key=tag}<th class="item-title">{t}Tag{/t}</th>{/sortable}
 				{sortable key=code}<th class="item-code">{t}Code{/t}</th>{/sortable}
 				{sortable key=created_at}<th class="item-created">{t}Created at{/t}</th>{/sortable}

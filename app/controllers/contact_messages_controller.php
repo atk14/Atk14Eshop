@@ -22,7 +22,7 @@ class ContactMessagesController extends ApplicationController {
 				));
 			}
 
-			$this->mailer->contact_message($d,$this->request->getRemoteAddr(),$this->logged_user);
+			$this->mailer->contact_message($d,$this->request,$this->logged_user);
 			$this->session->s("contact_message_sent",1);
 			$this->_redirect_to("sent");
 		}
@@ -42,8 +42,6 @@ class ContactMessagesController extends ApplicationController {
 	function _before_filter(){
 		if($page = Page::GetInstanceByCode("contact")){
 			$this->_add_page_to_breadcrumbs($page);
-		}else{
-			$this->breadcrumbs[] = _("Contact");
 		}
 	}
 

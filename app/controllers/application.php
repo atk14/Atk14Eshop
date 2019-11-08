@@ -17,6 +17,16 @@ class ApplicationController extends ApplicationBaseController{
 		}
 	}
 
+	function _add_card_to_breadcrumbs($card){
+		$primary_category = $card->getPrimaryCategory();
+		if($primary_category){
+			foreach($primary_category->getPathOfCategories() as $c){
+				$this->breadcrumbs[] = array($c->getName(),$this->_link_to(array("action" => "categories/detail", "path" => $c->getPath())));
+			}
+		}
+		$this->breadcrumbs[] = array($card->getName(),$this->_link_to(array("action" => "cards/detail", "id" => $card->getId())));
+	}
+
 	function _add_user_detail_breadcrumb(){
 		if(!$this->logged_user){ return; }
 

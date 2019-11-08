@@ -104,20 +104,28 @@ class ApplicationMailer extends Atk14Mailer {
 	}
 
 	function _initialize_for_region($region = null){
+		global $HTTP_REQUEST, $ATK14_GLOBAL;
+
 		$region = $region ? $region : $this->current_region;
 		$this->current_region = $region;
 		$this->tpl_data["region"] = $region;
 		$this->from = $region->getEmail();
 		$this->from_name = $region->getApplicationName();
 
-		$lang = (string)$region->getDefaultLanguage();
+		if($HTTP_REQUEST->getRemoteAddr()){
+			// on a proper HTTP request, the current language should be used (if supported)
+			$supported_langs = $region->getLanguages(array("as_objects" => false));
+			$lang = in_array($ATK14_GLOBAL->getLang(),$supported_langs) ? $ATK14_GLOBAL->getLang() : (string)$region->getDefaultLanguage();
+		}else{
+			$lang = (string)$region->getDefaultLanguage();
+		}
 		$this->prev_lang = Atk14Locale::Initialize($lang);
 	}
 
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
-		$this->subject = sprintf(_("Welcome to %s"),$this->current_region->getApplicationName());
+		$this->subject = _("New registration");
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
 	}
 
@@ -161,10 +169,6 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
-
-		if(in_array($order_status->getCode(),["processed"])){
-			$this->_add_list_of_ordered_products_attachment($order);
-		}
 	}
 
 	/**
@@ -174,22 +178,22 @@ class ApplicationMailer extends Atk14Mailer {
 	 *		"body" => "Hi, I just lost my password..."
 	 *	),$request->getRemoteAddr(),$logged_user);
 	 */
-	function contact_message($params,$remote_addr,$logged_user){
+	function contact_message($params,$request,$logged_user){
 		$this->to = DEFAULT_EMAIL;
 		$this->subject = _("Message sent from contact page");
 		$this->reply_to = $params["email"];
 		$this->reply_to_name = $params["name"];
 		$this->tpl_data += $params;
-		$this->tpl_data["remote_addr"] = $remote_addr;
+		$this->tpl_data["request"] = $request;
 		$this->tpl_data["logged_user"] = $logged_user;
 		$this->render_layout = false;
 	}
 
-	function send_information_request($params,$remote_addr,$logged_user){
+	function send_information_request($params,$request,$logged_user){
 		$this->to = DEFAULT_EMAIL;
 		$this->subject = _("Request for information");
 		$this->tpl_data += $params;
-		$this->tpl_data["remote_addr"] = $remote_addr;
+		$this->tpl_data["request"] = $request;
 		$this->tpl_data["logged_user"] = $logged_user;
 		$this->render_layout = false;
 	}

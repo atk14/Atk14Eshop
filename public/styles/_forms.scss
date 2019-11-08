@@ -135,3 +135,83 @@ form {
 		}
 	}
 }
+
+
+// quantity widget
+.quantity-widget {
+	display: flex;
+	align-items: center;
+	line-height: 1;
+	button.btn {
+		min-width: 36px;
+		font-size: 1.25rem;
+		line-height: 1;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		color: white;
+		border-radius: 0;
+		font-weight: 600;
+		&:focus {
+			outline: none;
+			box-shadow: none !important;
+		}
+	}
+	input.form-control-number {
+		border-radius: 0;
+		width: 5rem;
+		appearance: textfield; 
+	}
+	input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	label {
+		margin: 0 0 0 0.5rem;
+	}
+
+	.js-quantity-suffix {
+		display: none;
+		.js-quantity-total-price {
+			font-weight: 600;
+		}
+	}
+}
+
+
+form#form_checkouts_set_billing_and_delivery_data {
+	.form__body {
+		
+		@include media-breakpoint-up(md){
+			$hspace: 1rem;
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: 0-$hspace/2;
+			margin-right: 0-$hspace/2;
+			
+			.form-group {
+				margin-bottom: 0;
+			}
+			
+			& > * {
+				flex-basis: 50%;
+				padding-left: $hspace/2;
+				padding-right: $hspace/2;
+			}
+			
+			// Prvky na celou sirku
+			.form__legend, .form-group--id_delivery_company, .form-group--id_company, .form-group--id_fill_in_invoice_address {
+				flex-basis: 100%;
+			}
+		}
+		
+	}
+}
+
+
+.form__confirmation {
+	margin-top: $grid-gutter-width;
+	.form-group {
+		padding: 0;
+		margin-bottom: 1rem;
+	}
+}

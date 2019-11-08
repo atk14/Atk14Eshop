@@ -27,7 +27,7 @@ class Order extends BasketOrOrder {
 			"language" => $region->getDefaultLanguage(),
 		];
 
-		$out = Parent::CreateNewRecord($values,$options);
+		$out = parent::CreateNewRecord($values,$options);
 		$out->createOrderHistoryItem($out);
 		return $out;
 	}

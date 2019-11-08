@@ -49,6 +49,8 @@ definedef("INTERNAL_PRICE_DECIMALS",6);
 definedef("DEFAULT_PRICELIST","default");
 definedef("DEFAULT_BASE_PRICELIST","base");
 
+definedef("SAME_BASKET_IN_ALL_REGIONS",true);
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

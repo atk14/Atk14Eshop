@@ -1,4 +1,7 @@
 test:
+  code: "test"
+  name_en: "Testing store"
+  name_cs: "Testovací store"
   address_street: Street
   address_city: City
   address_zip: 111 00

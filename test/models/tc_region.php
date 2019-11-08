@@ -10,11 +10,21 @@ class TcRegion extends TcBase {
 
 		$region = Region::CreateNewRecord([
 			"code" => "TEST",
+			"languages" => '["cs","en"]',
 		]);
 		//
 		$this->assertEquals(ATK14_APPLICATION_NAME,$region->getApplicationName());
 		$this->assertEquals(ATK14_APPLICATION_NAME,$region->getApplicationLongName());
 		$this->assertEquals(DEFAULT_EMAIL,$region->getEmail());
+
+		// testing Region::getLanguages()
+		$langs = $region->getLanguages();
+		$this->assertEquals(2,sizeof($langs));
+		$this->assertEquals("cs",$langs[0]->getId());
+		$this->assertEquals("en",$langs[1]->getId());
+		//
+		$langs = $region->getLanguages(array("as_objects" => true));
+		$this->assertEquals(array("cs","en"),$langs);
 
 		foreach(["app.contact.email" => "john@test.com","app.name" => "TEST LONG NAME","app.name.short" => "TEST NAME"] as $code => $content){
 			SystemParameter::CreateNewRecord([

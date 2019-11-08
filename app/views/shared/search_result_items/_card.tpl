@@ -8,6 +8,13 @@
 			{/a}
 		{else}
 		{/if}
+
+		{if $card->getTags()}
+			<div class="tags">
+				{render partial="shared/tags" tags=$card->getTags()}
+			</div>
+		{/if}
+
 		<div class="flags">		
 			{if $starting_price && $starting_price->discounted()}
 				<div class="product__flag product__flag--sale product__flag--lg">
@@ -22,13 +29,13 @@
 				{a action="cards/detail" id=$card}{$card->getName()}{/a}<br>
 			</h4>
 			
-			<p class="search-result-description">
-				{$card->getTeaser()}
-			</p>
+			<div class="search-result-description">
+				{!$card->getTeaser()|markdown}
+			</div>
 			
 			<p class="search-result-price">
 				{if $starting_price}
-					<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price}</span>
+					<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}</span>
 					{*<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>*}
 				{/if}
 			</p>

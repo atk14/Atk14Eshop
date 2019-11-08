@@ -22,6 +22,7 @@ class CardsController extends AdminController{
 
 			$ft_cond[] = "cards.id IN (SELECT card_id FROM products WHERE ".FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",array(
 				"catalog_id",
+				"id::VARCHAR",
 				"COALESCE((SELECT body FROM translations WHERE record_id=products.id AND table_name='products' AND key='name' AND lang=:lang),'')",
 				"COALESCE((SELECT body FROM translations WHERE record_id=products.id AND table_name='products' AND key='label' AND lang=:lang),'')",
 				"COALESCE((SELECT body FROM translations WHERE record_id=products.id AND table_name='products' AND key='description' AND lang=:lang),'')",
@@ -32,7 +33,16 @@ class CardsController extends AdminController{
 				"COALESCE((SELECT body FROM translations WHERE record_id=card_sections.id AND table_name='card_sections' AND key='body' AND lang=:lang),'')",
 			)).")",$q_up,$bind_ar).")";
 
+			// a special sorting in searching
+			$name = "COALESCE((SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='name' AND lang=:lang),'')";
 			$conditions[] = '('.join(') OR (',$ft_cond).')';
+			$this->sorting->add("search","
+				cards.id::VARCHAR=:search DESC,
+				cards.id::VARCHAR LIKE :search||'%' DESC,
+				UPPER($name) LIKE UPPER(:search||'%') DESC,
+				created_at DESC
+			");
+			$bind_ar[":search"] = $q;
 		}
 
 		$this->sorting->add("created_at",array("reverse" => true));
@@ -216,6 +226,24 @@ class CardsController extends AdminController{
 		))."#variants");
 	}
 
+	function disable_variants(){
+		if(!$this->request->post() || !$this->card->hasVariants()){
+			return $this->_execute_action("error404");
+		}
+
+		if(!$this->card->canBeSwitchedToNonVariantMode()){
+			return $this->_execute_action("error404");
+		}
+
+		$this->card->s("has_variants",false);
+
+		$this->flash->success(_("Variants mode has been deactivated"));
+		$this->_redirect_to($this->_link_to(array(
+			"action" => "edit",
+			"id" => $this->card,
+		))."#variants");
+	}
+
 	function add_to_category(){
 		if(!$this->request->post()){ return $this->_execute_action("error404"); }
 
@@ -288,7 +316,7 @@ class CardsController extends AdminController{
 	}
 
 	function _before_filter() {
-		if (in_array($this->action, array("edit","destroy","enable_variants","add_to_category","add_technical_specification","remove_from_category","append_external_source","remove_external_source", "set_category_rank"))) {
+		if (in_array($this->action, array("edit","destroy","enable_variants","disable_variants","add_to_category","add_technical_specification","remove_from_category","append_external_source","remove_external_source", "set_category_rank"))) {
 			$this->_find("card");
 		}
 

@@ -1,0 +1,6 @@
+@each $color, $value in $colors {
+	.tag--bg-#{$color} {
+		background-color: $value;
+		color: color-yiq($value); // #fff or #111
+	}
+}
