@@ -12,6 +12,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 			"Page" => [],
 			"Article" => ["conditions" => ["published_at<=:now"], "bind_ar" => [":now" => $now]],
 			"Card" => ["conditions" => ["visible","NOT deleted"]],
+			/*
 			"Category" => [
 				"conditions" => [
 					"visible",
@@ -20,7 +21,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 					"parent_category_id IS NOT NULL",
 					"(SELECT COUNT(*) FROM categories p WHERE p.id=parent_category_id AND (p.is_filter OR NOT p.visible))=0"
 				]
-			],
+			], // */
 			"Store" => ["conditions" => "visible"],
 		];
 
@@ -28,6 +29,35 @@ class FulltextIndexerRobot extends ApplicationRobot {
 			foreach($class::FindAll($options) as $object){
 				$this->_indexObject($object);
 			}
+		}
+
+
+		// Categories need special care. There are following requirements:
+		//
+		// - Indexed category must contain at least one product (i.e. card)
+		// - Indexed category must be visible including all its parents
+		// - Indexed category must not be a flter
+		$ids = $this->dbmole->selectIntoArray("
+			SELECT category_id
+			FROM category_cards
+			WHERE
+				card_id IN (SELECT id FROM cards WHERE visible AND NOT deleted) AND
+				category_id IN (SELECT id FROM categories WHERE visible AND NOT is_filter)
+		");
+		$categories_to_index = [];
+		foreach(Cache::Get("Category",$ids) as $category){
+			if(!$category->isVisible()){ continue; }
+			$parent = $category->getParentCategory();
+			if($parent && $parent->isFilter()){ continue; } // Category is a filter option
+			$categories_to_index[] = $category->getId();
+			while($parent){
+				if(in_array($parent->getId(),$categories_to_index)){ break; }
+				$categories_to_index[] = $parent->getId();
+				$parent = $parent->getParentCategory();
+			}
+		}
+		foreach(Cache::Get("Category",$ids) as $category){
+			$this->_indexObject($category);
 		}
 
 		$deleted = $this->textmit->removeObsoleteDocuments(date("Y-m-d H:i:s",time() - 60 * 60 * 12)); // 12 hours
