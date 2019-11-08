@@ -49,6 +49,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 			if(!$category->isVisible()){ continue; }
 			$parent = $category->getParentCategory();
 			if($parent && $parent->isFilter()){ continue; } // Category is a filter option
+			if(in_array($category->getId(),$categories_to_index)){ continue; }
 			$categories_to_index[] = $category->getId();
 			while($parent){
 				if(in_array($parent->getId(),$categories_to_index)){ break; }
@@ -56,7 +57,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 				$parent = $parent->getParentCategory();
 			}
 		}
-		foreach(Cache::Get("Category",$ids) as $category){
+		foreach(Cache::Get("Category",$categories_to_index) as $category){
 			$this->_indexObject($category);
 		}
 
