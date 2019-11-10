@@ -12,12 +12,7 @@ class ShippingCombinationsController extends AdminController {
 
 		$this->form->set_initial("payment_method_id", $this->delivery_method->getPaymentMethodIds());
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			$payment_methods = PaymentMethod::FindAll(array(
-				"conditions" => array("id IN :payment_methods"),
-				"bind_ar" => array(":payment_methods" => $d["payment_method_id"]),
-			));
-			$this->delivery_method->setPaymentMethods($payment_methods);
-
+			$this->delivery_method->setPaymentMethods($d["payment_method_id"]);
 			return $this->_redirect_back();
 		}
 	}
@@ -28,12 +23,7 @@ class ShippingCombinationsController extends AdminController {
 
 		$this->form->set_initial("delivery_method_id", $this->delivery_method->getDeliveryMethodIds());
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			$delivery_methods = DeliveryMethod::FindAll(array(
-				"conditions" => array("id IN :delivery_methods"),
-				"bind_ar" => array(":delivery_methods" => $d["delivery_method_id"]),
-			));
-			$this->payment_method->setDeliveryMethods($delivery_methods);
-
+			$this->payment_method->setDeliveryMethods($d["delivery_method_id"]);
 			return $this->_redirect_back();
 		}
 	}
