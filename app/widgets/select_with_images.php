@@ -145,11 +145,12 @@ class RadioInputWithImage {
 	}
 
 	function render() {
+		$price = $this->price() ? " ".$this->price() : "";
 		$attr = [
 			// TODO: code review needed: tohle upravil Mattez
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $this->price(). '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $price . '</label></div>'.$this->branchAddress();
 	}
 }
