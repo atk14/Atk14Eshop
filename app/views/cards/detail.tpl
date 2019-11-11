@@ -6,12 +6,8 @@
 			{if $brand}
 				{capture assign="brand_text"}{t}Brand:{/t} {a action="brands/detail" id=$brand}{$brand->getName()}{/a}{/capture}
 			{/if}
+			{render partial="shared/tags" tags=$card->getTags()}
 			{render partial="shared/layout/content_header" title=$page_title teaser=$card->getTeaser()|markdown brand=$brand_text}
-
-			{*if $brand}
-				{t}Brand:{/t} {a action="brands/detail" id=$brand}{$brand->getName()}{/a}
-			{/if*}
-
 		</header>
 		{render partial="products_to_basket"}
 		
