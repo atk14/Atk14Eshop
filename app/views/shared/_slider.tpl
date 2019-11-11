@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-12 col-md-4 col-xl-3 slider-text">
                     <h3>{$item->getTitle()}</h3>
-                    <p>{$item->getDescription()}</p>
+                    <p>{!$item->getDescription()|h|nl2br}</p>
                     {if $item->getUrl()}
                       <a href="{$item->getUrl()}" class="">{t}more information{/t} <i class="fas fa-chevron-right"></i></a>
                     {/if}
