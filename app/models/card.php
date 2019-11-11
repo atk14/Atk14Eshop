@@ -713,6 +713,10 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			]);
 		}
 
+		foreach($this->getTags() as $t){
+			$fd->addText($t->getTagLocalized($lang),"b");
+		}
+
 		return $fd;
 	}
 }
