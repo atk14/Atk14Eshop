@@ -16,7 +16,7 @@ class TagsForm extends AdminForm{
 		]));
 
 		$choices = array();
-		$choices[""] = _("no color");
+		$choices[""] = _("default color");
 		// These color list was taken from public/styles/_bootstrap_variables.scss
 		foreach(array(
 			"blue" => _("blue"),
