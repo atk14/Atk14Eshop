@@ -40,7 +40,7 @@ class ProductsController extends AdminController {
 	function edit() {
 		$variant = $this->product;
 		$this->_save_return_uri();
-		$this->page_title = sprintf(_("Úprava varianty produktu '%s - %s' ('%s')"), $variant->getCard()->getName(), $variant->getName(), $variant->getCatalogId());
+		$this->page_title = sprintf(_("Úprava varianty produktu '%s' (%s)"), $variant->getFullName(), $variant->getCatalogId());
 		$this->form->set_initial($variant);
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$variant->s($d);
@@ -52,7 +52,7 @@ class ProductsController extends AdminController {
 		}
 	}
 
-	function destroy(){
+	function Fulldestroy(){
 		if(!$this->request->post()){
 			return $this->_execute_action("error404");
 		}
