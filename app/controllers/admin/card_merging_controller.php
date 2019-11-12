@@ -2,15 +2,20 @@
 class CardMergingController extends AdminController {
 
 	function create_new(){
-		$this->page_title = _("Spojování produktů");
+		$this->page_title = _("Slučování produktů");
 		$this->_walk(array(
 			"get_cards",
 			"get_labels",
+			"get_primary_card",
 			"merge",
 		));
 	}
 
 	function create_new__get_cards(){
+		if($this->request->get() && $this->params->defined("card_id")){
+			$this->form->set_initial("card_1",Card::GetInstanceById($this->params->getInt("card_id")));
+		}
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$cards = [];
 			for($i=1;$i<=$this->form->count_of_cards;$i++){
@@ -37,10 +42,18 @@ class CardMergingController extends AdminController {
 		}
 	}
 
+	function create_new__get_primary_card(){
+		$this->form->prepare_for_cards($this->returned_by["get_cards"]);
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			return $d["card_id"];
+		}
+	}
+
 	function create_new__merge(){
 		$cards = $this->returned_by["get_cards"];
 		$labels = $this->returned_by["get_labels"];
-		$primary_card = $cards[0];
+		$primary_card = $this->returned_by["get_primary_card"];
 
 		$primary_card->s("has_variants",true);
 		$rank = 1;

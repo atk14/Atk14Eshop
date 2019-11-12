@@ -19,6 +19,7 @@ Are you sure?{/t}{/capture}
 			{a action=edit id=$card}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{a namespace="" action="cards/detail" id=$card}{!"eye"|icon} {t}Show on web{/t}{/a}
 			{a action="card_cloning/create_new" card_id=$card}{!"clone"|icon:"regular"} {t}Copy this product{/t}{/a}
+			{a action="card_merging/create_new" card_id=$card}{!"plus-square"|icon:"regular"} {t}Merge this product with another{/t}{/a}
 			{a_destroy id=$card _confirm=$confirm}{!"trash-alt"|icon} {t}Delete product{/t}{/a_destroy}
 		{/dropdown_menu}
 	</td>
