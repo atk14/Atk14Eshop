@@ -52,7 +52,7 @@ class ProductsController extends AdminController {
 		}
 	}
 
-	function Fulldestroy(){
+	function destroy(){
 		if(!$this->request->post()){
 			return $this->_execute_action("error404");
 		}
