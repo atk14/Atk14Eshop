@@ -5,7 +5,7 @@ class GetLabelsForm extends AdminForm {
 		$this->set_button_text(_("Continue"));
 	}
 
-	function prepare_for_cards($cards,$fieldsets = []){
+	function prepare_for_cards($cards){
 		global $ATK14_GLOBAL;
 
 		$fieldsets = [];
