@@ -6,6 +6,7 @@
 			{render partial="product_menu_links" product=$card->getFirstProduct()}
 		{/if}	
 		{a action="card_cloning/create_new" card_id=$card}{!"clone"|icon:"regular"} {t}Copy this product{/t}{/a}
+		{a action="card_merging/create_new" card_id=$card}{!"plus-square"|icon:"regular"} {t}Merge this product with another{/t}{/a}
 	{/dropdown_menu}
 </h1>
 
