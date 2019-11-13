@@ -27,21 +27,36 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return parent::CreateNewRecord($values,$options);
 	}
 
-	function getName($lang = null){
+	function getName($lang = null,$with_label = true){
+		if(is_bool($lang)){
+			$with_label = $lang;
+			$lang = null;
+		}
+
 		$name = parent::getName($lang);
-		if(strlen($name)){
+
+		if(strlen($name)>0){
 			return $name;
 		}
+
 		$card = $this->getCard();
-		return $card->getName($lang);
+		$name = $card->getName($lang);
+
+		if($with_label){
+			if($label = $this->getLabel($lang)){
+				$name .= ", ".$label;
+			}
+		}
+
+		return $name;
 	}
 
-	function getFullName(){
-		$full_name = $this->getName();
-		if($label = $this->getLabel()){
-			$full_name .= ", ".$label;
-		}
-		return $full_name;
+	/**
+	 *
+	 * Alias for ```Product::getName($lang,true);```
+	 */
+	function getFullName($lang = null){
+		return $this->getName($lang,true);
 	}
 
 	function getCard(){ return Cache::Get("Card",$this->getCardId()); }
