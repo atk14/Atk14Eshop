@@ -27,7 +27,8 @@ class CardMergingController extends AdminController {
 	}
 
 	function create_new__get_labels(){
-		$this->form->prepare_for_cards($this->returned_by["get_cards"]);
+		$fieldsets = $this->form->prepare_for_cards($this->returned_by["get_cards"]);
+		$this->tpl_data["fieldsets"] = $fieldsets;
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$labels = [];
@@ -78,8 +79,8 @@ class CardMergingController extends AdminController {
 
 		$this->flash->success(_("Products were successfully merged"));
 		$this->_redirect_to([
-			"action" => "cards/edit",
-			"id" => $primary_card->getId(),
+			"action" => "cards/index",
+			"search" => $primary_card->getId(),
 		]);
 	}
 }
