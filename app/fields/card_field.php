@@ -8,4 +8,15 @@ class CardField extends ObjectField{
 			"not_found" => _("There is no such product card"),
 		));
 	}
+
+	function clean($value){
+
+		// Lze zadat i ciste catalog_id
+		$value = trim($value);
+		if($value && ($p = Product::GetInstanceByCatalogId($value))){
+			$value .= " [#".$p->getCardId()."]";
+		}
+
+		return parent::clean($value);
+	}
 }

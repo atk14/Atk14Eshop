@@ -44,7 +44,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $full_name;
 	}
 
-	function getCard(){ return Cache::Get("Card",$this->g("card_id")); }
+	function getCard(){ return Cache::Get("Card",$this->getCardId()); }
 
 	function getUnit(){ return Cache::Get("Unit",$this->g("unit_id")); }
 
