@@ -155,6 +155,11 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["shipping_days"] = SystemParameter::ContentOn("orders.notifications.shipping_days");
 		$this->tpl_data["special_note"] = SystemParameter::ContentOn("orders.notifications.special_note");
 		$this->subject = sprintf(_("Order %d"),$order->getOrderNo());
+
+		$order_status = OrderStatus::GetInstanceByCode("new");
+		if($order_status && $order_status->getBccEmail()){
+			$this->bcc = $order_status->getBccEmail();
+		}
 	}
 
 	function notify_order_status_update($order){
@@ -169,6 +174,10 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
+
+		if($order_status->getBccEmail()){
+			$this->bcc = $order_status->getBccEmail();
+		}
 	}
 
 	/**

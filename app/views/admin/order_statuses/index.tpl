@@ -14,6 +14,9 @@
 			{if $order_status->notificationEnabled()}
 				<em>({t}notifikuje se{/t})</em>
 			{/if}
+			{if $order_status->getBccEmail()}
+				<br><small>{t}bcc{/t}: {$order_status->getBccEmail()}</small>
+			{/if}
 		</li>
 		
 	{/foreach}
