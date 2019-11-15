@@ -693,6 +693,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
 
+		foreach($this->getProducts() as $product){
+			$fd->addText($product->getLabel(),"b");
+			$fd->addText($product->getCatalogId(),"d");
+		}
+
 		if($brand = $this->getBrand()){
 			$fd->addText($brand->getName());
 		}
