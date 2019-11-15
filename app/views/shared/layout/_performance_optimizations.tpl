@@ -12,12 +12,14 @@
 {preload_link_tag file="$public/dist/scripts/application.min.js" as="script"}
 
 {if PUPIQ_API_KEY}
-	{if PUPIQ_PROXY_HOSTNAME}
-		{assign ppq_img_hostname PUPIQ_PROXY_HOSTNAME}
+	{assign ppq_proxy "PUPIQ_PROXY_HOSTNAME"|dump_constant}
+	{if $ppq_proxy}
+		{assign ppq_img_hostname $ppq_proxy}
 	{elseif PUPIQ_IMG_HOSTNAME}
-		{assign ppq_img_hostname PUPIQ_IMG_HOSTNAME}
+		{assign ppq_img_hostname "PUPIQ_IMG_HOSTNAME"|dump_constant}
 	{/if}
-<link rel="preconnect" href="//{"PUPIQ_IMG_HOSTNAME"|dump_constant}">
+{dump var=$ppq_img_hostname}
+<link rel="preconnect" href="//{$ppq_img_hostname}">
 {/if}
 {assign analytics_tracking_id "app.trackers.google.analytics.tracking_id"|system_parameter}
 {assign container_id "app.trackers.google.tag_manager.container_id"|system_parameter}
