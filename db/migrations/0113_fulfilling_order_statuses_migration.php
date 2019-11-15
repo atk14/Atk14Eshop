@@ -6,7 +6,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"id" => 1,
 			"code" => "new",
 			"name_en" => "New order",
-			"name_cs" => "Nová objednavka",
+			"name_cs" => "Nová objednávka",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
 			"reduce_stockount" => false,
