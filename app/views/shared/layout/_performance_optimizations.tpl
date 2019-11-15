@@ -18,7 +18,6 @@
 	{elseif PUPIQ_IMG_HOSTNAME}
 		{assign ppq_img_hostname "PUPIQ_IMG_HOSTNAME"|dump_constant}
 	{/if}
-{dump var=$ppq_img_hostname}
 <link rel="preconnect" href="//{$ppq_img_hostname}">
 {/if}
 {assign analytics_tracking_id "app.trackers.google.analytics.tracking_id"|system_parameter}
