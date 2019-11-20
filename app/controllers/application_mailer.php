@@ -158,7 +158,8 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$order_status = OrderStatus::GetInstanceByCode("new");
 		if($order_status && $order_status->getBccEmail()){
-			$this->bcc = $order_status->getBccEmail();
+			$this->bcc .= $this->bcc ? ", " : "";
+			$this->bcc .= $order_status->getBccEmail();
 		}
 	}
 
@@ -176,7 +177,8 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
 
 		if($order_status->getBccEmail()){
-			$this->bcc = $order_status->getBccEmail();
+			$this->bcc .= $this->bcc ? ", " : "";
+			$this->bcc .= $order_status->getBccEmail();
 		}
 	}
 
