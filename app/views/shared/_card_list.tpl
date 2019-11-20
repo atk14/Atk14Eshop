@@ -8,11 +8,11 @@
 {/if}
 
 {if $cards}
-	<section class="card-list">
+	<section class="section--list-products">
 		{if $title}
 		<h4>{$title}</h4>
 		{/if}
-		<div class="card-deck card-deck--sized">
+		<div class="card-deck card-deck--sized-4">
 		{foreach $cards as $card}
 			{render partial="shared/card_item" card=$card}
 		{/foreach}

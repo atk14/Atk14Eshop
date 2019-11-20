@@ -1,35 +1,39 @@
 {render partial="shared/checkout_navigation"}
 
-<h1>{$page_title}</h1>
+{render partial="shared/layout/content_header" title=$page_title}
 
 {if $delivery_addresses}
 
-<ul class="list list--delivery_addresses">
+<ul class="card-deck card-deck--sized-4 cards--addresses">
 	{foreach $delivery_addresses as $da name=addresscounter}
 		{assign addresscounter $smarty.foreach.addresscounter.iteration}
-		<li class="list__item">
-			<div class="card card--default card--horizontal js--card-address {if $addresscounter == 1}card--active{/if}">
-				{strip}
-				<ul class="card__block list list--inline-psv">
-					<li>{$da->getFirstname()} {$da->getLastname()}</li>
-					{if $da->getCompany()}<li>{$da->getCompany()}</li>{/if}
-					<li>{$da->getAddressStreet()}</li>
-					{if $da->getAddressStreet2()}<li>{$da->getAddressStreet2()}</li>{/if}
-					<li>{$da->getAddressCity()}</li>
-					<li>{$da->getAddressZip()}</li>
-					<li>{$da->getAddressCountry()|to_country_name}</li>
-					{if $da->getAddressNote()}<li><em>{t}Poznámka:{/t} {$da->getAddressNote()}</em></li>{/if}
-					<li>{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}</li>
-				</ul>
-				{/strip}
-				<div class="card__actions">
-					<button class="js--predefined-address card__action" data-json="{$da->toJson()}">{!"cogs"|icon}<span class="sr-only">{t}Použít{/t}</span></button>
-					{a_destroy action="delivery_addresses/destroy" id=$da->getId() _title="{t}Smazat adresu{/t}" _confirm="{t}Opravdu chcete smazat tuto adresu?{/t}" _class="card__action"}{!"remove"|icon}<span class="sr-only">{t}Smazat{/t}</span>{/a_destroy}
-				</div>
+		<li class="card bg-light">
+			<div class="card-body js--card-address {if $addresscounter == 1}card--active{/if}">
+				{$da->getFirstname()} {$da->getLastname()}<br>
+				{if $da->getCompany()}
+					{$da->getCompany()}<br>
+				{/if}
+				{$da->getAddressStreet()}<br>
+				{if $da->getAddressStreet2()}
+					{$da->getAddressStreet2()}<br>
+				{/if}
+				{$da->getAddressCity()}<br>
+				{$da->getAddressZip()}<br>
+				{$da->getAddressCountry()|to_country_name}<br>
+				{if $da->getAddressNote()}
+					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
+				{/if}
+				{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}
+			</div>
+			<div class="card-footer card__actions justify-content-start">
+				<button class="js--predefined-address card__action btn btn-primary btn-sm" data-json="{$da->toJson()}">{!"check"|icon} <span>{t}Použít{/t}</span></button>
+				&nbsp;
+					{a_destroy action="delivery_addresses/destroy" id=$da->getId() _title="{t}Smazat adresu{/t}" _confirm="{t}Opravdu chcete smazat tuto adresu?{/t}" _class="card__action btn btn-secondary btn-sm"}{!"remove"|icon} <span>{t}Smazat{/t}</span>{/a_destroy}
 			</div>
 		</li>
 	{/foreach}
 </ul>
+
 {/if}
 
 {form _class="form" _novalidate="novalidate"}

@@ -1,44 +1,49 @@
+{*
+
+{render partial="shared/slider" slider=$slider}
+{render partial="shared/slider" slider=$slider loop=true autoplay=6000 slides_per_view=1}
+
+$loop=true|false  									default: true
+$autoplay=true|false|milliseconds		 default: 6000
+$slides_per_view=auto|number 				default: 1
+
+*}
+
 {if $slider}
+{assign uniqid uniqid()}
+<section class="section--slider">
+	
+	<div class="swiper-container" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}">
+		<div class="swiper-wrapper">
 
-<div id="hp-slider" class="carousel slide hp-slider" data-ride="carousel">
-    <style scoped="true">
-        {foreach $slider->getItems() as $item}
-        .carousel-item-{$item@iteration-1} .slider-image {
-            background-image: url({$item->getImageUrl()|img_url:"1400x506"});
-            color: white;
-        }
-        {/foreach}
-    </style>
-    <ol class="carousel-indicators">
-        {foreach $slider->getItems() as $item}
-            <li data-target="#hp-slider" data-slide-to="{$item@iteration-1}" class="{if $item@iteration==1}active{/if}"></li>
-        {/foreach}
-    </ol>
-    <div class="carousel-inner">
-        {foreach $slider->getItems() as $item}
-        <div class="carousel-item carousel-item-{$item@iteration-1}{if $item@iteration==1} active{/if}">
-            <div class="row">
-                <div class="col-12 col-md-8 col-xl-9 slider-image">
-                </div>
-                <div class="col-12 col-md-4 col-xl-3 slider-text">
-                    <h3>{$item->getTitle()}</h3>
-                    <p>{!$item->getDescription()|h|nl2br}</p>
-                    {if $item->getUrl()}
-                      <a href="{$item->getUrl()}" class="">{t}more information{/t} <i class="fas fa-chevron-right"></i></a>
-                    {/if}
-                </div>
-            </div>
-        </div>
-        {/foreach}
-    </div>
-    <a class="carousel-control-prev" href="#hp-slider" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fas fa-chevron-circle-left"></i></span>
-        <span class="sr-only">{t}Previous{/t}</span>
-    </a>
-    <a class="carousel-control-next" href="#hp-slider" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"><i class="fas fa-chevron-circle-right"></i></span>
-        <span class="sr-only">{t}Next{/t}</span>
-    </a>
-</div>
+			{foreach $slider->getItems() as $item}
+				<div class="swiper-slide slider-item-{$item@iteration-1}">
+					<div class="swiper-slide__image">
+						<img src="{$item->getImageUrl()|img_url:"900x600xcrop"}" class="img-fluid" alt="{$item->getTitle()}">
+					</div>
+					<div class="swiper-slide__text">
+						<div>
+							<h3 class="slide-title">{$item->getTitle()}</h3>
+							{if $item->getDescription()}
+								<p>{!$item->getDescription()|h|nl2br}</p>
+							{/if}
+						</div>
+						<div>
+							{if $item->getUrl()}
+								<a href="{$item->getUrl()}" class="btn btn-sm btn-outline-primary">{t}Více informací{/t} <i class="fas fa-chevron-right"></i></a>
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/foreach}
 
+		</div>
+
+		<!-- If we need navigation buttons -->
+		<div class="swiper-button-prev" id="swiper_button_prev_{$uniqid}"><span class="sr-only">{t}Previous{/t}</span></div>
+		<div class="swiper-button-next" id="swiper_button_next_{$uniqid}"><span class="sr-only">{t}Next{/t}</span></div>
+		<div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_{$uniqid}"></div>
+	</div>
+	{*<div class="swiper-pagination" id="swiper_pagination_{$uniqid}"></div>*}
+</section>
 {/if}

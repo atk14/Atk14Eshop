@@ -36,5 +36,5 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 {/if}
 <link rel="preconnect" href="https://fonts.gstatic.com/">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/public/dist/webfonts/fa-regular-400.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/public/dist/webfonts/fa-solid-900.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/public/dist/webfonts/fa-regular-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/public/dist/webfonts/fa-solid-900.woff2" crossorigin>

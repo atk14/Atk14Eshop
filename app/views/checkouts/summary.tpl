@@ -3,7 +3,7 @@
 
 {render partial="shared/checkout_navigation"}
 
-<h1>{$page_title}</h1>
+{render partial="shared/layout/content_header" title=$page_title}
 
 {form}
 	{render partial="shared/form_error" small_form=false}

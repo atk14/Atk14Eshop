@@ -26,7 +26,8 @@ var vendorScripts = [
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
-	"public/admin/scripts/application.js"
+	"public/admin/scripts/application.js",
+	"public/admin/scripts/tooltip.js"
 ];
 
 // CSS
