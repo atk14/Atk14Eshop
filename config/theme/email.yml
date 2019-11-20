@@ -1,0 +1,37 @@
+# All the values are accessible in mailer templates as variables, e.g. <a href=".." style="{$link_style}">
+
+# General settings
+body_width: "580px" # Container width
+bg_color: "#f2f4f2"
+container_bg_color: "#f2f4f2"
+font_stack: "Helvetica, Arial, sans-serif"
+text_color: "#212121"
+link_color: "#AF662F"
+link_style: "color: #AF662F; font-weight: bold; text-decoration: none;"
+visited_link_color: "#AF662F"
+
+# Header colors + logo
+header_bgcolor: "white"
+header_color: "#5F2929"
+logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/logo_email_header--dark.png"
+
+# Footer colors
+footer_bgcolor: "#ccc"
+footer_color: "#555"
+footer_link_color: "#555"
+
+# Boxed title colors 
+titlebox_bgcolor: "#5F2929"
+titlebox_color: "#fff"
+special_note_bgcolor: "#FFA334" # special note
+special_note_color: "#fff"
+
+# Table colors
+table_header_bgcolor: "#b9babe"
+table_header_color: "#212121"
+table_cell_bgcolor: "#EBECEE"
+table_cell_color: "#212121"
+table_accent_bgcolor: "#555" # total sum row
+table_accent_color: "#fff"
+
+# vim: set ts=2 et:
