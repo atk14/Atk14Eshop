@@ -45,6 +45,12 @@ class SitemapsController extends ApplicationController{
 			"limit" => 20,
 		));
 
+		$this->tpl_data["brands"] = Brand::FindAll(array(
+			"conditions" => array(
+				"visible",
+			),
+		));
+
 		if($this->params->getString("format")=="xml"){
 			$this->render_template = false;
 			$this->response->setContentType("text/xml");

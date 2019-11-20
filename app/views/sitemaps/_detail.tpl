@@ -15,6 +15,18 @@
 		{render partial="cards" products=$cards}
 	</li>
 
+	{if $brands}
+		<li>
+			<h4>{a action="brands/index" _with_hostname=1}{t}Brands{/t}{/a}</h4>
+			<ul class="list--tree">
+				{foreach $brands as $brand}
+					<li>{a action="brands/detail" id=$brand _with_hostname=1}{$brand->getName()}{/a}</li>
+				{/foreach}
+				</li>
+			</ul>
+		</li>
+	{/if}
+
 	{*
 	<li>
 		<h4>{a action="users/create_new" _with_hostname=1}{t}New user registration{/t}{/a}</h4>
