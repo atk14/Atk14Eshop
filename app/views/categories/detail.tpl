@@ -3,7 +3,7 @@
 	{assign teaser $category->getTeaser()|markdown}
 {/if}
 {capture assign=title}
-	{$page_title} <small>({$cards_finder->getRecordsCount()})</small>
+	{$category->getName()} <small>({$cards_finder->getRecordsCount()})</small>
 {/capture}
 {render partial="shared/layout/content_header" title=$title teaser=$teaser image=$category->getImageUrl()|img_url:"200x200" }
 
