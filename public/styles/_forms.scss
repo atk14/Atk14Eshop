@@ -40,6 +40,14 @@ form {
 			}
 		}
 	}
+	fieldset {
+		margin-bottom: $grid-gutter-width/2;
+		legend {
+			font-weight: 900;
+			color: black;
+			font-size: 1rem;
+		}
+	}
 }
 
 // Applies CSS grid to .form-group to create horizontal form.
@@ -158,7 +166,7 @@ form {
 	}
 	input.form-control-number {
 		border-radius: 0;
-		width: 5rem;
+		width: 7ch;
 		appearance: textfield; 
 	}
 	input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
@@ -177,6 +185,18 @@ form {
 	}
 }
 
+form#form_checkouts_set_payment_and_delivery_method {
+	.form-group {
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-bottom: $grid-gutter-width;
+		.control-label {
+			font-weight: 900;
+			//color: black;
+			//margin-bottom: 0.5rem;
+		}
+	}
+}
 
 form#form_checkouts_set_billing_and_delivery_data {
 	.form__body {
@@ -209,9 +229,23 @@ form#form_checkouts_set_billing_and_delivery_data {
 
 
 .form__confirmation {
-	margin-top: $grid-gutter-width;
+	padding: 0 8px;
 	.form-group {
 		padding: 0;
 		margin-bottom: 1rem;
+	}
+}
+
+.form__body {
+	margin-bottom: $grid-gutter-width;
+}
+
+.form--compact {
+	.form-group {
+		padding-top: 0;
+		padding-bottom: 0;
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }

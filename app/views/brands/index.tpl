@@ -2,7 +2,7 @@
 	<h1>{$page_title}</h1>
 </header>
 
-<div class="card-deck card-deck--sized">
+<div class="card-deck card-deck--sized-4">
 {foreach $brands as $brand}
 	
 	{a action="detail" id=$brand _class="card"}

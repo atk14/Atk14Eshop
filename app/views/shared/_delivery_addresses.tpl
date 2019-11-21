@@ -1,25 +1,27 @@
-<ul class="list list--delivery_addresses">
+<ul class="card-deck card-deck--sized-4 cards--addresses">
 	{foreach $delivery_addresses as $da}
-		<li class="list__item">
-			<div class="card card--default card--horizontal">
-				{strip}
-				<ul class="card__block list list--inline-psv list--location">
-					<li>{$da->getFirstname()} {$da->getLastname()}</li>
-					{if $da->getCompany()}<li>{$da->getCompany()}</li>{/if}
-					<li>{$da->getAddressStreet()}</li>
-					{if $da->getAddressStreet2()}<li>{$da->getAddressStreet2()}</li>{/if}
-					<li>{$da->getAddressCity()}</li>
-					<li>{$da->getAddressZip()}</li>
-					<li>{$da->getAddressCountry()|to_country_name}</li>
-					{if $da->getAddressNote()}<li><em>{t}Poznámka:{/t} {$da->getAddressNote()}</em></li>{/if}
-					<li>{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}</li>
-				</ul>
-				{/strip}
-				<div class="card__actions">
-					{capture assign="confirm"}{t escape=false}Doručovací adresa bude smazána. Pokračovat?{/t}{/capture}
-					{a _class="card__action" action="edit" id=$da}<i class="icon ion-gear-a"></i><span class="sr-only">{t}upravit{/t}</span>{/a}
-					{a_destroy _class="card__action" action="destroy" id=$da _confirm=$confirm}<i class="icon ion-close"></i><span class="sr-only">{t}smazat{/t}</span>{/a_destroy}
-				</div>
+		<li class="card bg-light">
+			<div class="card-body js--card-address {if $addresscounter == 1}card--active{/if}">
+				{$da->getFirstname()} {$da->getLastname()}<br>
+				{if $da->getCompany()}
+					{$da->getCompany()}<br>
+				{/if}
+				{$da->getAddressStreet()}<br>
+				{if $da->getAddressStreet2()}
+					{$da->getAddressStreet2()}<br>
+				{/if}
+				{$da->getAddressCity()}<br>
+				{$da->getAddressZip()}<br>
+				{$da->getAddressCountry()|to_country_name}<br>
+				{if $da->getAddressNote()}
+					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
+				{/if}
+				{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}
+			</div>
+			<div class="card-footer card__actions justify-content-start">
+				{capture assign="confirm"}{t escape=false}Doručovací adresa bude smazána. Pokračovat?{/t}{/capture}
+					{a _class="card__action btn btn-secondary btn-sm" action="edit" id=$da}{!"edit"|icon} <span>{t}upravit{/t}</span>{/a} &nbsp;
+					{a_destroy _class="card__action btn btn-secondary btn-sm" action="destroy" id=$da _confirm=$confirm}{!"remove"|icon} <span>{t}smazat{/t}</span>{/a_destroy}
 			</div>
 		</li>
 	{/foreach}

@@ -26,7 +26,7 @@
 					{assign imgAtts "x100"}
 				{/if}
 				<figure class="gallery__item">
-					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}">
 						<img {!$image|img_attrs:$imgAtts} alt="{$image->getName()}" class="">
 					</a>
 					<figcaption>

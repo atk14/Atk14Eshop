@@ -1,0 +1,14 @@
+.cards--login-options {
+	form {
+		@extend .form--compact;
+	}
+	.card {
+		.card-footer {
+			padding-bottom: $grid-gutter-width/2;
+		}
+	}
+}
+
+.cards--addresses {
+	margin-bottom: $grid-gutter-width;
+}

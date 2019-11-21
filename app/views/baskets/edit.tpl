@@ -1,6 +1,6 @@
 {render partial="shared/checkout_navigation"}
-
-<h1>{t}Košík{/t}</h1>
+{capture assign=page_title}{t}Košík{/t}{/capture}
+{render partial="shared/layout/content_header" title=$page_title}
 
 {assign currency $basket->getCurrency()}
 {assign basket_vouchers $basket->getBasketVouchers()}
@@ -17,13 +17,13 @@
 	<table class="table-products table-products--main">
 		<thead>
 			<tr>
-				<th class="sr-only">{t}Produkt{/t}</th>
-				<th>{t}Popis{/t}</th>
-				<th class="text-center">{t}Kód{/t}</th>
-				<th class="text-right text--nowrap">{t}Jedn. cena{/t}</th>
-				<th class="text-center text--nowrap">{t}Množství{/t}</th>
-				<th class="text-right">{t}Celkem{/t}</th>
-				<th><span class="sr-only">Actions</span></th>
+				<th class="table-products__image"><span class="sr-only">{t}Obrázek{/t}</span></th>
+				<th class="table-products__title">{t}Produkt{/t}<span class="d-block d-lg-none">{t}Kód{/t}</span></th>
+				<th class="table-products__id"><span class="d-none d-lg-inline">{t}Kód{/t}</span></th>
+				<th class="table-products__unit-price">{t}Jedn. cena{/t}</th>
+				<th class="table-products__amount">{t}Množství{/t}</th>
+				<th class="table-products__price">{t}Celkem{/t}</th>
+				<th class="table-products__actions"><span class="sr-only">Actions</span></th>
 			</tr>
 		</thead>
 

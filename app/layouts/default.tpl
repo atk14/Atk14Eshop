@@ -52,6 +52,7 @@
 		{/javascript_tag}
 
 		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/default-skin/default-skin.css" hide_when_file_not_found=true}
 		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -60,22 +61,26 @@
 			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
 		<![endif]-->
 
+		{render partial="shared/layout/favicons"}
+		
 		{!"app.trackers.google.site_verification.html_tag"|system_parameter}
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
+		{render partial="shared/social_meta"}
+
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
 		{render partial="shared/trackers/google/tag_manager_body"}
-		{render partial="shared/layout/header"}
-		{placeholder for="out_of_container"}
-		<div class="container{if $section_navigation} has-nav-section{/if}">
-			
-			{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
-				{render partial="shared/breadcrumbs"}
-			{/if}
+		<div class="body">
+			{render partial="shared/layout/header"}
+			{placeholder for="out_of_container"}
+			<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
 
-			<div class="body">
+				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
+					{render partial="shared/breadcrumbs"}
+				{/if}
+
 				{if $section_navigation}
 					<nav class="nav-section">
 						{render partial="shared/layout/section_navigation"}
@@ -92,6 +97,7 @@
 		</div>
 		
 		{render partial="shared/layout/devcssinfo"}
+		{render partial="shared/photoswipe_root_element"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}

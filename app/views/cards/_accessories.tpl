@@ -1,16 +1,12 @@
 {assign var=accessories value=$card->getAccessories()}
 
 {if $accessories}
-	<section class="accessories">
-		<h3>{t}Accessories{/t}</h3>
-		<ul>
+	<section class="linked-cards linked-cards--accessories">
+		<h3 class="h3">{t}Accessories{/t}</h3>
+		<div class="card-deck card-deck--sized-6">
 			{foreach $accessories as $c}
-				<li>
-					{a action="cards/detail" id=$c}
-						{$c->getName()}
-					{/a}
-				</li>
+				{render partial="linked_product_item"}
 			{/foreach}
-		</ul>
+		</div>
 	</section>
 {/if}

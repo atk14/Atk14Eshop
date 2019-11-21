@@ -1,12 +1,16 @@
 {assign root_page $page->getRootPage()}
 <li class="search-results-item">
 	<div class="search-results-item--image">
-		{*if $article->getImageUrl()}
+		{if $page->getImageUrl()}
 			{a action="pages/detail" id=$page}
 				<img {!$page->getImageUrl()|img_attrs:'575x575xcrop'} alt="{$page->getTitle()}" class="img-fluid">
 			{/a}
+		{elseif $root_page->getImageUrl()}
+			{a action="pages/detail" id=$page}
+				<img {!$root_page->getImageUrl()|img_attrs:'575x575xcrop'} alt="{$page->getTitle()}" class="img-fluid">
+			{/a}
 		{else}
-		{/if*}
+		{/if}
 	</div>
 	<div class="search-results-item--body">
 		<div>

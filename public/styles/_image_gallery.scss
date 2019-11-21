@@ -9,6 +9,7 @@ section.photo-gallery {
 			position: relative;
 			margin: 0;
 			border: 1px solid $gray-500;
+			cursor: pointer;
 			
 			// Little crop for extreme panoramatic images
 			max-width: 500px;
@@ -28,7 +29,7 @@ section.photo-gallery {
 			&:hover {
 				&:after {
 					display: flex;
-					display: none;
+					//display: none;
 					justify-content: center;
 					align-items: center;
 					position: absolute;
@@ -41,10 +42,10 @@ section.photo-gallery {
 					font-weight: bold;
 					content: "\f00e";
 					color: white;
-					font-size: 3rem;
+					font-size: 2rem;
 				}
 				img {
-					filter: brightness(0.8);
+					filter: brightness(0.75);
 					transition: filter 0.25s;
 				}
 			}
@@ -121,4 +122,41 @@ section.photo-gallery {
 			}
 		}
 	}
+	
+	
+	&--product {
+		margin: 0;
+		margin-bottom: $grid-gutter-width;
+		.gallery__images {
+			.gallery__item {
+				img {
+					height: 100px;
+				}
+				&:first-child {
+					border: none;
+					flex-basis: 100%;
+					max-width: 100%;
+					margin-bottom: $grid-gutter-width;
+					img {
+						width: 100%;
+						height: auto;
+					}
+				}
+				&:first-child:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		
+		@include media-breakpoint-down(md){
+			.gallery__images {
+				.gallery__item {
+					img {
+						height: 60px;
+					}
+				}
+			}
+		}
+	}
+	
 }
