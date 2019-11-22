@@ -4,11 +4,12 @@
 				{render partial="shared/list_thumbnail" image=$store->getImageUrl()}
 
 				{$store->getName()}
-				{if !$store->isVisible()}
-					<em>({!"eye-slash"|icon} {t}invisible in the public list on web{/t})</em>
-				{/if}
 			</div>
-			<div class="">
+
+			{if strlen($store->getCode())}<small>{$store->getCode()}</small>{/if}
+			{if !$store->isVisible()}<em>({!"eye-slash"|icon} {t}invisible in the public list on web{/t})</em>{/if}
+
+			<div>
 				{dropdown_menu}
 					{a action="edit" id=$store}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 					{if $store->isVisible()}

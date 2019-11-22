@@ -1,6 +1,5 @@
 {assign var=appname value=$current_region->getApplicationName()}
 {assign var=eshop value=Store::FindByCode("eshop")}
-{assign var=showroom value=Store::FindByCode("showroom")}
 <footer class="footer">
 	<div class="container-fluid">
 		<div class="row justify-content-between footer__main">
@@ -27,14 +26,8 @@
 				</address>
 			</div>
 			<div class="col-12 col-sm-6 col-md-3">
-				{if $showroom}
-					<h5>{$showroom->getName()}</h5>
-					<address>
-						{!$showroom->getAddress()|h|nl2br}<br>
-					</address>
-				{/if}
-				<h5>Facebook</h5>
-				<a href="{"app.contact.social.facebook"|system_parameter}" class="footer__socialicon">{!"facebook-square"|icon}</a>
+				{render partial="shared/layout/footer/stores"}
+				{render partial="shared/layout/footer/social"}
 			</div>
 		</div>
 	</div>
