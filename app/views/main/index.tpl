@@ -22,13 +22,16 @@
 			<div class="col-12 col-md-7 col-lg-6">
 				{!$page->getBody()|markdown}
 			</div>
-			<div class="col-12 col-md-5 col-lg-6">
-				<a href="#" class="banner banner--image-text--halfwidth">
-					<img src="/public/dist/images/banner-main-showroom.jpg" class="banner__image img-fluid" alt="{t}Navštivte náš showroom
-v Praze 4{/t}">
-					<div class="banner__text">{t escape=no}Navštivte náš showroom<br>v Praze 4{/t}</div>
-				</a>
-			</div>
+			{if $recent_articles}
+				{foreach $recent_articles as $article}
+					<div class="col-12 col-md-5 col-lg-6">
+						<a href="{link_to action="articles/detail" id=$article}" class="banner banner--image-text--halfwidth">
+							<img src="{$article->getImageUrl()|img_url:"400x300"}" class="banner__image img-fluid" alt="">
+							<div class="banner__text">{$article->getTitle()}</div>
+						</a>
+					</div>
+				{/foreach}
+			{/if}
 		</div>
 	{else}
 		{render partial="shared/layout/content_header" title=$page_title}
