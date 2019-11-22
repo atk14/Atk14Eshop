@@ -17,7 +17,7 @@
 						{!$eshop->getAddressCountry()|to_country_name}
 					</p>
 					<p>
-						{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter}</a><br>
+						{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>
 						{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>
 					</p>
 					<p>
