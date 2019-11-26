@@ -198,7 +198,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			"visible" => true, // false, true, null
 
 			"limit" => null,
-			"order" => "rank",
+			"order" => "rank, id",
 		);
 
 		$products_lists = Card::GetProductsList($this);
@@ -420,7 +420,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			return null;
 		}
 
-		foreach($this->getProducts() as $p){
+		foreach($this->getProducts(["deleted" => null, "visible" => null]) as $p){
 			$p->destroy();
 		}
 
