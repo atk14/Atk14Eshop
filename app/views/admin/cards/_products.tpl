@@ -13,9 +13,9 @@
 				<div class="float-left">
 				{render partial="shared/list_thumbnail" image=$product->getImage(false)}
 				</div>
-				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong><br>
-				{$product->getCatalogId()}
-
+				{$product->getCatalogId()}<br>
+				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong>
+				{if !$product->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 			</li>
 		{/foreach}
 	</ul>

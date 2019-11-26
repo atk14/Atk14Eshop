@@ -20,5 +20,8 @@ class ProductsForm extends AdminForm {
 			"label" => _("Description"),
 			"required" => false,
 		)));
+		$this->add_visible_field(array(
+			"label" => _("Is product variant visible?"),
+		));
 	}
 }
