@@ -15,10 +15,10 @@ form#form_searches_index {
 		border-bottom: 1px solid $border-color;
 		background-color: white;
 		&--image {
-			flex-basis: 220px;
+			flex-basis: 320px;
 			flex-shrink: 0;
-			min-width: 220px;
-			background-color: #cccccc;
+			min-width: 320px;
+			background-color: $gray-100;
 			position: relative;
 			.flags {
 				position: absolute;
@@ -104,6 +104,12 @@ form#form_searches_index {
 			
 		}
 		
+		@include media-breakpoint-down(sm){
+			&--image {
+				flex-basis: 250px;
+				min-width: 250px;
+			}
+		}
 		@include media-breakpoint-down(xs){
 			display: block;
 		}

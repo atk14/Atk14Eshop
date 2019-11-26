@@ -23,7 +23,11 @@
 // Other SCSS
 @import "layout";
 
+@import "content_header";
+
 @import "breadcrumb";
+
+@import "main_page";
 
 @import "articles";
 
@@ -60,6 +64,8 @@
 @import "checkout";
 
 @import "product-detail";
+
+@import "stores";
 
 @import "checkout-actions";
 

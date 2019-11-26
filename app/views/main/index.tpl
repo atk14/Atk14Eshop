@@ -12,7 +12,7 @@
 	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
 {/if}
 
-<article>
+<article class="main-article">
 
 	{if $page}
 	
@@ -22,22 +22,40 @@
 			<div class="col-12 col-md-7 col-lg-6">
 				{!$page->getBody()|markdown}
 			</div>
-			{if $recent_articles}
-				{foreach $recent_articles as $article}
-					<div class="col-12 col-md-5 col-lg-6">
-						<a href="{link_to action="articles/detail" id=$article}" class="banner banner--image-text--halfwidth">
-							<img src="{$article->getImageUrl()|img_url:"400x300"}" class="banner__image img-fluid" alt="">
-							<div class="banner__text">{$article->getTitle()}</div>
-						</a>
-					</div>
-				{/foreach}
-			{/if}
+				<div class="col-12 col-md-5 col-lg-6">
+					<a href="/prodejny/showroom-praha/" class="banner banner--image-text--halfwidth">
+						<img src="/public/dist/images/banner-main-showroom.jpg" class="banner__image img-fluid" alt="">
+						<div class="banner__text">{t escape=no}Navštivte náš showroom v&nbsp;Praze&nbsp;4{/t}</div>
+					</a>
+				</div>
 		</div>
 	{else}
 		{render partial="shared/layout/content_header" title=$page_title}
 	{/if}
 
 </article>
+
+{if $recent_articles}
+	<section class="section--recent-articles">
+		{capture assign=recent_articles_title}{t}Aktuality{/t}{/capture}
+		{render partial="shared/layout/content_header" title=$recent_articles_title}
+		<div class="card-deck card-deck--sized-4">
+			{foreach $recent_articles as $article}
+				{a controller=articles action=detail id=$article _class="card"}
+					{if $article->getImageUrl()}
+						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+					{else}
+						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top">
+					{/if}
+					<div class="card-body">
+						<h2 class="card-title">{$article->getTitle()}</h2>
+						<div class="card-text">{$article->getTeaser()}</div>
+					</div>
+				{/a}
+			{/foreach}
+		</div>
+	</section>
+{/if}
 	
 {if $page  && !$page->isIndexable()}
 	{content for=head}

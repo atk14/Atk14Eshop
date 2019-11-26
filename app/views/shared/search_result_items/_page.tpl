@@ -3,11 +3,11 @@
 	<div class="search-results-item--image">
 		{if $page->getImageUrl()}
 			{a action="pages/detail" id=$page}
-				<img {!$page->getImageUrl()|img_attrs:'575x575xcrop'} alt="{$page->getTitle()}" class="img-fluid">
+				<img {!$page->getImageUrl()|img_attrs:'600x450'} alt="{$page->getTitle()}" class="img-fluid">
 			{/a}
 		{elseif $root_page->getImageUrl()}
 			{a action="pages/detail" id=$page}
-				<img {!$root_page->getImageUrl()|img_attrs:'575x575xcrop'} alt="{$page->getTitle()}" class="img-fluid">
+				<img {!$root_page->getImageUrl()|img_attrs:'600x450'} alt="{$page->getTitle()}" class="img-fluid">
 			{/a}
 		{else}
 		{/if}

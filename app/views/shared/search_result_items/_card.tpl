@@ -4,7 +4,7 @@
 	<div class="search-results-item--image">
 		{if $card->getImage()}
 			{a action="cards/detail" id=$card}
-				{!$card->getImage()|pupiq_img:"575x575xcrop":"class='img-fluid'"}
+				{!$card->getImage()|pupiq_img:"600x450":"class='img-fluid'"}
 			{/a}
 		{else}
 		{/if}

@@ -245,6 +245,45 @@ a.card {
 	}
 }
 
+.card-deck--sized-2 {
+	.card {
+		@include media-breakpoint-down(sm){
+			border-right: none;
+			flex-basis: 100%;
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+		// 2 cols on MD up
+		@include media-breakpoint-up(md){
+			flex-shrink: 0;
+			flex-grow: 0;
+			flex-basis: calc(50% - #{$card-deck-margin} * 2);
+			min-width: calc(50% - #{$card-deck-margin} * 2);
+			
+			// borders handling
+			&:nth-child(2n+2) {
+				border-right: none;
+			}
+			&:last-child {
+				border-bottom: none;
+			}
+			// first in row, in last row
+			&:nth-child(2n+1) {
+				&:nth-last-child(1), &:nth-last-child(2) {
+					border-bottom: none;
+				}
+			}
+			// second in row, in last row
+			&:nth-child(2n+2) {
+				&:nth-last-child(1) {
+					border-bottom: none;
+				}
+			}
+		}
+	}
+}
+
 .card-deck--sized-6 {
 	.card {
 		flex-basis: 100%;

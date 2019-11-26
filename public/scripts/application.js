@@ -303,6 +303,26 @@
 
 			}
 
+		},
+
+		stores: {
+
+			// Controller-wide code.
+			init: function() {
+			},
+
+			// Action-specific code
+			index: function() {
+				UTILS.initMultiMap( "allstores_map" );
+			},
+
+			// Action-specific code
+			detail: function() {
+
+				// Mapa
+				UTILS.initSimpleMap( "store-map" );
+			}
+
 		}
 
 	};

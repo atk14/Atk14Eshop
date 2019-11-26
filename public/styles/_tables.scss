@@ -3,7 +3,9 @@
 table.table {
 	margin-bottom: 2rem;
 	// Border under table
-	border-bottom: 1px solid $table-border-color;
+	&:not(.table-borderless) {
+		border-bottom: 1px solid $table-border-color;
+	}
 	// last paragraph without margin bottom
 	p:last-child {
 		margin-bottom: 0;

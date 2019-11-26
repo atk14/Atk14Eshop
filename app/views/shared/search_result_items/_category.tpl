@@ -9,7 +9,7 @@
 {if $category->getImageUrl()}
 <div class="search-result-thumbnail">
 	{a action="categories/detail" path=$category->getPath()}
-		<img {!$category->getImageUrl()|img_attrs:'200x200xcrop'} alt="{$category->getName()}">
+		<img {!$category->getImageUrl()|img_attrs:'600x450'} alt="{$category->getName()}">
 	{/a}
 </div>
 {/if}*}

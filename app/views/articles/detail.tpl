@@ -9,7 +9,7 @@
 			</a>
 		{/foreach}
 	{/capture}
-	{render partial="shared/layout/content_header" title=$article->getTitle() teaser=$article->getTeaser() tags=$snippet_tags meta=$article_meta image=$article->getImageUrl()}
+	{render partial="shared/layout/content_header" title=$article->getTitle() teaser=$article->getTeaser() tags=$snippet_tags meta=$article_meta image=$article->getImageUrl() colorbg=true}
 	
 	
 	<section class="article__body">
