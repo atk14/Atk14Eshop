@@ -149,7 +149,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function canBeSwitchedToNonVariantMode(){
 		$products = $this->getProducts(array("visible" => null));
-		return sizeof($products)<=1 && $products[0]->isVisible();
+		return sizeof($products)==0 || (sizeof($products)==1 && $products[0]->isVisible());
 	}
 
 	function createProduct($product_values) {
