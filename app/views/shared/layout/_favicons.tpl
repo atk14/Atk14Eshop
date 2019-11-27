@@ -6,7 +6,7 @@
 {if $image_url}
 
 {* oldschool *}
-<link rel="shortcut icon" href="{$image_url|to_favicon_url}}">
+<link rel="shortcut icon" href="{$image_url|to_favicon_url}">
 {* generics *}
 <link rel="icon" href="{$image_url|img_url:"!32x32"}" sizes="32x32">
 <link rel="icon" href="{$image_url|img_url:"!57x57"}" sizes="57x57">
