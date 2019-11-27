@@ -12,6 +12,9 @@ INSERT INTO system_parameter_types VALUES (5,'integer');
 INSERT INTO system_parameter_types VALUES (6,'float');
 INSERT INTO system_parameter_types VALUES (7,'boolean');
 INSERT INTO system_parameter_types VALUES (8,'url');
+INSERT INTO system_parameter_types VALUES (9,'image_url');
+INSERT INTO system_parameter_types VALUES (10,'email');
+INSERT INTO system_parameter_types VALUES (11,'phone');
 
 CREATE SEQUENCE seq_system_parameters;
 CREATE TABLE system_parameters (
