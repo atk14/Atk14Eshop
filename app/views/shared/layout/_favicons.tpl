@@ -3,7 +3,7 @@
 	see https://www.emergeinteractive.com/insights/detail/the-essentials-of-favicons/ 
 *}
 {assign image_url "app.favicon"|system_parameter}
-{assign small_image_url "app.favicon"|system_parameter}
+{assign small_image_url "app.favicon.small"|system_parameter}
 {if $image_url}
 
 {* oldschool *}
