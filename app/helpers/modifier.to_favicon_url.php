@@ -1,9 +1,22 @@
 <?php
 /**
- * Converts the given image URL (Pupuiq) to ico format and returns the new URL.
+ * Converts the given image (specified by an URL on Pupiq) to ico format and returns the new URL.
+ *
+ * Usage:
+ *
+ *	{$favicon_url} {* e.g. https://i.pupiq.net/i/65/65/6b8/2d6b8/1200x1200/BmlcpL_196x196xc_1d59b10db4762046.png *}
+ *
+ *	<link rel="shortcut icon" href="{$favicon_url|to_favicon_url}">
+ *
+ * It's required that in public directory is a symlink to tmp/favicons/.
+ * Typically it can be ran the following command from the project directory:
+ *
+ *	ln -s ../tmp/favicons/ public/favicons
  *
  */
 function smarty_modifier_to_favicon_url($image_url){
+	global $ATK14_GLOBAL;
+
 	if(!$image_url){ return; }
 
 	$token = substr(md5($image_url),0,16);
@@ -16,10 +29,10 @@ function smarty_modifier_to_favicon_url($image_url){
 
 		$uf = new UrlFetcher($image_url);
 		if(!$uf->found()){
+			// it's not a critical error
 			trigger_error(sprintf("Downloading favicon from %s (%s)",$image_url,$uf->getErrorMessage()));
 			return;
 		}
-		//myAssert($uf->found(),);
 
 		$image_filename = Files::WriteToTemp($uf->getContent(),$err);
 
@@ -38,5 +51,5 @@ function smarty_modifier_to_favicon_url($image_url){
 		myAssert(!$err);
 	}
 
-	return "/public/favicons/$token/favicon.ico?".filemtime($ico_filename);
+	return $ATK14_GLOBAL->getPublicBaseHref()."favicons/$token/favicon.ico?".filemtime($ico_filename);
 }
