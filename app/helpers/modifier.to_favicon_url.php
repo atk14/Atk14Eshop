@@ -30,7 +30,7 @@ function smarty_modifier_to_favicon_url($image_url){
 			[48, 48],
 		];
 	
-		$ico_lib = new PHP_ICO($image_filename,$sizes);
+		$ico_lib = new PHP_ICO($image_filename,$sizes); // from package chrisjean/php-ico
 		$ico_lib->save_ico($ico_filename);
 		chmod($ico_filename,0666);
 
