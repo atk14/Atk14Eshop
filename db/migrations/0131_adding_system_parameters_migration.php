@@ -173,6 +173,16 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"content" => "https://i.pupiq.net/i/65/65/6b8/2d6b8/1200x1200/BmlcpL_800x800_4b4bad2fa33a95c0.png",
 		]);
 
+		SystemParameter::CreateNewRecord([
+			"code" => "app.favicon.small",
+			"system_parameter_type_id" => $type["image_url"],
+			"name_en" => "Small favicon",
+			"description_en" => "Image of the favicon for display in small dimensions. A square PNG image is recommended. Transparency is supported.",
+			"name_cs" => "Malá Favicona",
+			"description_cs" => "Obrázek favicony pro zobrazení v malých rozměrech. Doporučen je čtvercový obrázek ve formátu PNG. Průhlednost je podporována.",
+			"mandatory" => false,
+		]);
+
 		foreach([
 			"facebook" => "facebook",
 			"twitter" => "Twitter",

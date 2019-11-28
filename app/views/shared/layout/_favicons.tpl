@@ -3,12 +3,13 @@
 	see https://www.emergeinteractive.com/insights/detail/the-essentials-of-favicons/ 
 *}
 {assign image_url "app.favicon"|system_parameter}
+{assign small_image_url "app.favicon"|system_parameter}
 {if $image_url}
 
 {* oldschool *}
-<link rel="shortcut icon" href="{$image_url|to_favicon_url}">
+<link rel="shortcut icon" href="{$small_image_url|to_favicon_url}">
 {* generics *}
-<link rel="icon" href="{$image_url|img_url:"!32x32"}" sizes="32x32">
+<link rel="icon" href="{$small_image_url|img_url:"!32x32"}" sizes="32x32">
 <link rel="icon" href="{$image_url|img_url:"!57x57"}" sizes="57x57">
 <link rel="icon" href="{$image_url|img_url:"!76x76"}" sizes="76x76">
 <link rel="icon" href="{$image_url|img_url:"!96x96"}" sizes="96x96">
