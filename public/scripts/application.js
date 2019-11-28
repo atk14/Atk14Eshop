@@ -48,7 +48,6 @@
 
 			// Action-specific code
 			index: function() {
-				UTILS.initSwiper();	
 			}
 		},
 
@@ -113,7 +112,6 @@
 
 			// Controller-wide code.
 			init: function() {
-				UTILS.initSwiper();
 			},
 
 			// Action-specific code
