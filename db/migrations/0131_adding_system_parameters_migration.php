@@ -178,7 +178,7 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"system_parameter_type_id" => $type["image_url"],
 			"name_en" => "Small favicon",
 			"description_en" => "Image of the favicon for display in small dimensions. A square PNG image is recommended. Transparency is supported.",
-			"name_cs" => "Malá Favicona",
+			"name_cs" => "Malá favicon",
 			"description_cs" => "Obrázek favicony pro zobrazení v malých rozměrech. Doporučen je čtvercový obrázek ve formátu PNG. Průhlednost je podporována.",
 			"mandatory" => false,
 		]);
