@@ -24,6 +24,7 @@ var vendorScripts = [
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/photoswipe.js",
+	"public/scripts/utils/maps.js",
 	"public/scripts/application.js"
 ];
 
