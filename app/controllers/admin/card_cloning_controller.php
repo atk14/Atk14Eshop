@@ -99,6 +99,7 @@ class CardCloningController extends AdminController {
 			$this->_redirect_to([
 				"action" => "cards/edit",
 				"id" => $new_card,
+				"return_uri" => $this->_link_to("cards/index"),
 			]);
 		}
 	}
