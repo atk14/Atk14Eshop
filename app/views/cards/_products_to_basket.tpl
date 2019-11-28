@@ -23,6 +23,7 @@
 		{foreach $products as $product}
 
 			{assign price $price_finder->getPrice($product)}
+			{assign base_price $price_finder->getBasePrice($product)}
 
 			{if $card->hasVariants()}
 				<div class="tab-pane fade{if $product@iteration == 1} show active{/if}" id="tab-variant-content-{$product->getId()}" role="tabpanel" aria-labelledby="tab-variant-{$product->getId()}">
@@ -40,7 +41,12 @@
 					{if $product->canBeOrdered($price_finder)}
 						<div class="add-to-cart-widget">
 							<div class="prices">
-								<div class="price--main">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}</div>
+								<div class="price--main">
+									{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
+									{if $base_price}
+										<br><small>{t}Běžná cena:{/t} <del>{!$base_price->getPriceInclVat()|display_price:$price->getCurrency()}</del></small>
+									{/if}
+								</div>
 							</div>
 							<form method="post" action="{link_to action="baskets/add_product"}" class="form_remote" data-remote="true">
 

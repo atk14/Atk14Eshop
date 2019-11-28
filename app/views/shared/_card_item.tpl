@@ -1,4 +1,5 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
+{assign starting_base_price $price_finder->getStartingBasePrice($card)}
 
 {a action="cards/detail" id=$card _class="card"}{trim}
 	{if $card->getImage()}
@@ -28,7 +29,10 @@
 
 	<div class="card-footer">
 		{if $starting_price}
-			<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}</span>
+			<span class="card-price">
+				{if $starting_base_price}<small><del>{!$starting_base_price|display_price:$price_finder->getCurrency()}</del></small><br>{/if}
+				{!$starting_price|display_price:$price_finder->getCurrency()}
+			</span>
 			<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>
 		{/if}
 	</div>

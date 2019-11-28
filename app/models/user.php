@@ -92,4 +92,12 @@ class User extends ApplicationModel{
 	function isActive(){ return $this->g("active"); }
 
 	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN,self::ID_ANONYMOUS)); }
+
+	function getPricelist(){
+		return Cache::Get("Pricelist",$this->getPricelistId());
+	}
+
+	function getBasePricelist(){
+		return Cache::Get("Pricelist",$this->getBasePricelistId());
+	}
 }
