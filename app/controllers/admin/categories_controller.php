@@ -54,6 +54,7 @@ class CategoriesController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->parent_category->isFilter()){
+			$this->page_title .= " ("._("filter option").")";
 			unset($this->form->fields["is_filter"]);
 		}
 

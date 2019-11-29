@@ -3,7 +3,7 @@
 
 	{dropdown_menu clearfix=false}
 		{if $category->allowSubcategories()}
-			{a action="create_new" parent_category_id=$category}{icon glyph="plus-circle"} {t}Add a new subcategory{/t}{/a}
+			{a action="create_new" parent_category_id=$category}{icon glyph="plus-circle"} {t}Add a new subcategory{/t}{if $category->isFilter()} ({t}filter option{/t}){/if}{/a}
 		{/if}
 		{if $category->isVisible() && !$category->isFilter() && !$category->isSubcategoryOfFilter()}
 			{a namespace="" action="categories/detail" path=$category->getPath()}{icon glyph="eye-open"} {t}Show on web{/t}{/a}
@@ -49,7 +49,9 @@ Do you really want this?{/t}{/capture}
 
 		<tr>
 			<th>{t}Is a filter?{/t}</th>
-			<td>{$category->isFilter()|display_bool}</td>
+			<td>
+				{if $category->isSubcategoryOfFilter()}{t}It is a filter option{/t}{else}{$category->isFilter()|display_bool}{/if}
+			</td>
 		</tr>
 
 		<tr>
@@ -80,7 +82,7 @@ Do you really want this?{/t}{/capture}
 			{if $category->allowSubcategories()}
 				{button_create_new parent_category_id=$category return_to_anchor="subcategories"}{t}Add a new subcategory{/t}{/button_create_new}
 			{/if}
-			{t}Subcategories{/t}
+			{t}Subcategories{/t} {if $category->isFilter()}({t}filter options{/t}){/if}
 		</h3>
 		{assign var=children value=$category->getChildCategories()}
 		{if $children}
