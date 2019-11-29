@@ -161,10 +161,15 @@ class PriceFinder {
 					(valid_from IS NULL OR valid_from<=:now) AND
 					(valid_to IS NULL OR valid_to>=:now)
 				GROUP BY product_id,minimum_quantity,pricelist_id
-				ORDER BY product_id,minimum_quantity,MIN(price),pricelist_id DESC
+				ORDER BY
+					product_id,
+					minimum_quantity,
+					MIN(price),
+					pricelist_id=:pricelist_id DESC -- the main price list takes precedence
 			",[
 				":product" => $ids,
 				":pricelists" => $pricelists,
+				":pricelist_id" => $this->pricelist->getId(),
 				":now" => $this->current_date,
 			]
 		);

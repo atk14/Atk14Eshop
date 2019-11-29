@@ -42,9 +42,12 @@
 						<div class="add-to-cart-widget">
 							<div class="prices">
 								<div class="price--main">
+									{if $price->discounted()}
+										<small><del>{!$price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</del></small><br>
+									{/if}
 									{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
 									{if $base_price}
-										<br><small>{t}Běžná cena:{/t} <del>{!$base_price->getPriceInclVat()|display_price:$price->getCurrency()}</del></small>
+										<br><small>{t}Běžná cena:{/t} <del>{!$base_price->getPriceInclVat()|display_price:$price->getCurrency()}</del> Ušetříte: {!$base_price->getPriceInclVat()-$price->getPriceInclVat()|display_price:$price->getCurrency()}</small>
 									{/if}
 								</div>
 							</div>

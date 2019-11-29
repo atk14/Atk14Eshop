@@ -53,10 +53,10 @@ class ProductPrice {
 
 	// Jednotkova cena bez zaokrouhleni
 	function getRawUnitPrice($incl_vat = false){
-    $price = $this->getRawUnitPriceBeforeDiscount($incl_vat);
+    $price = $this->getRawUnitPriceBeforeDiscount($incl_vat,$is_base_price);
 
     if(!is_null($price)){
-      if($this->data["discount_percent"]){
+      if($this->data["discount_percent"] && !$is_base_price){ // discount does not apply to the base price
         $price = $price - $this->data["discount_percent"] * ($price / 100.0);
       }
 			$price = $this->_roundInternal($price);
@@ -93,11 +93,13 @@ class ProductPrice {
 	}
 
 	// Cena pred slevou bez zaokrouhleni
-	function getRawUnitPriceBeforeDiscount($incl_vat = false){
+	function getRawUnitPriceBeforeDiscount($incl_vat = false, &$is_base_price = null){
+		$is_base_price = null;
 		if($price_item = $this->_getPriceItem()){
       $price = $incl_vat ? $price_item["price_incl_vat"] : $price_item["price"];
 			$price = $price / $this->_getCurrencyRate();
 			$price = $this->_roundInternal($price);
+			$is_base_price = $price_item["is_base_price"];
 
 			return $price;
 		}
@@ -204,6 +206,10 @@ class ProductPrice {
 
 	function getPricesData() {
 		return $this->data + [ 'currency_rate' => $this->_getCurrencyRate() ];
+	}
+
+	function toArray(){
+		return $this->getPricesData();
 	}
 
 	function _roundItemPrice($price){
