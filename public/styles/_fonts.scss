@@ -48,16 +48,16 @@ font-family: 'Inter';
 
 @font-face {
 	font-family: 'Inter';
-	src: url('../subset-Inter-Regular.woff2') format('woff2'),
-			url('../subset-Inter-Regular.woff') format('woff');
+	src: url('../fonts/subset-Inter-Regular.woff2') format('woff2'),
+			url('../fonts/subset-Inter-Regular.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Inter';
-	src: url('../subset-Inter-Italic.woff2') format('woff2'),
-			url('../subset-Inter-Italic.woff') format('woff');
+	src: url('../fonts/subset-Inter-Italic.woff2') format('woff2'),
+			url('../fonts/subset-Inter-Italic.woff') format('woff');
 	font-weight: normal;
 	font-style: italic;
 }
