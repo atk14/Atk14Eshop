@@ -12,7 +12,7 @@
 {if !$images && $object}
 	{assign var=images value=Image::GetImages($object)}
 {/if}
-{assign geometry_detail "1800"}
+{assign geometry_detail "2000x1600"}
 
 {if $images}
 	{if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if}
