@@ -47,7 +47,7 @@
 									{/if}
 									{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
 									{if $base_price}
-										<span class="price--recommended">{t}Běžná cena:{/t} <span class="price">{!$base_price->getPriceInclVat()|display_price:$price->getCurrency()}</span> Ušetříte: {!$base_price->getPriceInclVat()-$price->getPriceInclVat()|display_price:$price->getCurrency()}</span>
+										<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPriceInclVat()|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!$base_price->getPriceInclVat()-$price->getPriceInclVat()|display_price:$price->getCurrency()}</span></span>
 									{/if}
 								</div>
 							</div>

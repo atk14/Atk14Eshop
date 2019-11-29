@@ -58,6 +58,11 @@
 						.price {
 							text-decoration: line-through;
 						}
+						.moneysaved {
+							.price {
+								text-decoration: none;
+							}
+						}
 					}
 				}
 				form {
