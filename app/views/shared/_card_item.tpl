@@ -30,7 +30,7 @@
 		{if $starting_price}
 			<span class="card-price">
 				{if $starting_price->discounted()}
-					<small><del>{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</del></small><br>
+					<span class="card-price--before-discount">{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
 				{/if}
 				{!$starting_price|display_price:$price_finder->getCurrency()}
 			</span>

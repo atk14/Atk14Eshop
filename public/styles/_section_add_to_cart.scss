@@ -40,14 +40,19 @@
 						}
 					}
 					.price--before-discount {
-						font-weight: 600;
-						text-decoration: line-through;
-						color: $gray-500;
+						display: block;
 						margin-bottom: 0.5rem;
+						font-size: 1.25rem;
+						.currency_main {
+							font-weight: 600;
+							text-decoration: line-through;
+							color: $gray-500;
+						}
 					}
 					.price--recommended {
+						display: block;
 						margin-top: 0.5rem;
-						//font-weight: 600;
+						font-weight: normal;
 						color: $gray-500;
 						font-size: 0.75rem;
 						.price {
