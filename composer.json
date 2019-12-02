@@ -21,6 +21,7 @@
         "atk14/decimal-field": "^1.0",
         "atk14/localized-decimal-field": "^1.0",
         "atk14/zip-field": "^0.1.0",
-        "chrisjean/php-ico": "^1.0"
+        "chrisjean/php-ico": "^1.0",
+        "atk14/slug-field": "^1.1"
     }
 }
