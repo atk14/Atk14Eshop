@@ -15,7 +15,7 @@ class GetLabelsForm extends AdminForm {
 
 		foreach($cards as $card){
 			$fields = [];
-			foreach($card->getProducts() as $p){
+			foreach($card->getProducts(["visible" => null]) as $p){
 				$id = $p->getId();
 
 				$_fields = $this->add_translatable_field("product_$id", new CharField([
