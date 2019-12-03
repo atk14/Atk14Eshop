@@ -1,6 +1,7 @@
 <tr>
 	<td class="item-id">{$card->getId()}</td>
 	<td class="item-thumbnail">{render partial="shared/list_thumbnail" image=$card->getImage()}</td>
+	<td>{render partial="shared/product_codes" products=$card->getProducts(["visible" => true])}</td>
 	<td class="item-title">
 		{$card->getName()}
 		{if !$card->isVisible()}
