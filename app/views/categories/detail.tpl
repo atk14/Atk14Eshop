@@ -47,7 +47,7 @@
 			{/foreach}
 			
 		</div>
-		{paginator finder=$cards_finder}
+		{paginator finder=$cards_finder items_total_label="{t}products in total{/t}"}
 	{/if}
 </section>
 
