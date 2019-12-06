@@ -206,10 +206,7 @@ class CardsController extends AdminController{
 	}
 
 	function destroy(){
-		if(!$this->request->post()){
-			return $this->_execute_action("error404");
-		}
-		$this->card->destroy();
+		$this->_destroy();
 	}
 
 	function enable_variants(){

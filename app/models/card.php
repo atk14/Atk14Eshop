@@ -388,6 +388,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		}
 	}
 
+	function isDeletable(){
+		$p = Product::GetInstanceByCode("price_rounding");
+		return $this->getId()!=$p->getCardId();
+	}
+
 	function isDeleted(){ return $this->getDeleted(); }
 	function isVisible(){ return $this->getVisible(); }
 

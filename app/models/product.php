@@ -1,5 +1,7 @@
 <?php
 class Product extends ApplicationModel implements Translatable,Rankable{
+
+	use TraitGetInstanceByCode;
 	
 	static function GetTranslatableFields(){
 		return array(
@@ -114,6 +116,10 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 			"card_id" => $this->getCardId(),
 			"deleted" => false,
 		));
+	}
+
+	function isDeletable() {
+		return in_array($this->getCode(),array("price_rounding"));
 	}
 
 	function isDeleted(){ return $this->getDeleted(); }
