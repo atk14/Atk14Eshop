@@ -40,7 +40,7 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 	}
 
 	function isDeletable(){
-		return $this->getCode()!="eshop";
+		return $this->getCode()!="eshop" && !DeliveryMethod::FindFirst("personal_pickup_on_store_id",$this->getId());
 	}
 
 	/**
