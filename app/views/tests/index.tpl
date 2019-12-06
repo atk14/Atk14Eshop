@@ -7,3 +7,8 @@
 	<li>{a action="notify_order_status_update"}E-mail oznamující změnu stavu objednávky{/a}</li>
 	<li>{a action="e500"}Stránka s chybou 500{/a}</li>
 </ul>
+
+{content for=head}
+	<meta name="robots" content="noindex,noarchive">
+{/content}
+
