@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 12:52+0100\n"
-"PO-Revision-Date: 2019-10-31 11:33+0100\n"
+"POT-Creation-Date: 2019-12-06 13:42+0100\n"
+"PO-Revision-Date: 2019-12-06 13:44+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -71,8 +71,8 @@ msgstr ""
 "Je nám velmi líto, ale stránka s touto adresou URI <em>%1</em> nebyla "
 "nalezena."
 
-msgid "Please, write us to %1 if you think this is our mistake."
-msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
+msgid "no image"
+msgstr "bez obrázku"
 
 msgid "Posted by <!-- she --> <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslala <em>%1</em> dne <time datetime=\"%2\">%3</time>"
@@ -83,12 +83,6 @@ msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 msgid ""
 "This is not a published article! It's not available to the public audience."
 msgstr "Toto není publikovaný článek! Není dostupný veřejnosti."
-
-msgid "newer article"
-msgstr "novější článek"
-
-msgid "older article"
-msgstr "starší článek"
 
 msgid "At the moment there are no news."
 msgstr "V této chvíli nejsou žádné novinky"
@@ -103,11 +97,12 @@ msgstr "Produkt byl přidán do košíku"
 msgid "Košík"
 msgstr "Košík"
 
+#: ../app/helpers/modifier.iobject_type.php:23
+msgid "Obrázek"
+msgstr "Obrázek"
+
 msgid "Produkt"
 msgstr "Produkt"
-
-msgid "Popis"
-msgstr "Popis"
 
 msgid "Kód"
 msgstr "Kód"
@@ -160,12 +155,6 @@ msgstr "slevový kód č."
 msgid "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
 msgstr "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
 
-msgid "Slevové kupóny / dárkové poukazy"
-msgstr "Slevové kupóny / dárkové poukazy"
-
-msgid "Použít kód"
-msgstr "Použít kód"
-
 msgid "Doprava"
 msgstr "Doprava"
 
@@ -184,6 +173,12 @@ msgstr "Cena zboží celkem"
 
 msgid "Cena celkem"
 msgstr "Cena celkem"
+
+msgid "Slevové kupóny / dárkové poukazy"
+msgstr "Slevové kupóny / dárkové poukazy"
+
+msgid "Použít kód"
+msgstr "Použít kód"
 
 msgid "Sleva"
 msgstr "Sleva"
@@ -215,6 +210,9 @@ msgstr "Katalogové číslo: %1"
 msgid "incl. VAT"
 msgstr "vč. DPH"
 
+msgid "Běžná cena:"
+msgstr "Běžná cena:"
+
 msgid "Add to cart"
 msgstr "Přidat do košíku"
 
@@ -224,14 +222,14 @@ msgstr "Tento produkt je vyprodán"
 msgid "Related products"
 msgstr "Související produkty"
 
-msgid "Subcategories"
-msgstr "Podkategorie"
-
 msgid "Products"
 msgstr "Produkty"
 
 msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
+
+msgid "products in total"
+msgstr "produktů celkem"
 
 msgid "Fakturační údaje"
 msgstr "Fakturační údaje"
@@ -313,7 +311,7 @@ msgstr ""
 "Odpovíme vám, jak nejdříve budeme moct."
 
 msgid "The message has been sent to us. We will reply as soon as we can."
-msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
+msgstr "Zpráva nám byla odeslána. Odpovíme vám, jak nejrychleji umíme."
 
 msgid "Nemáte uloženou žádnou doručovací adresu"
 msgstr "Nemáte uloženou žádnou doručovací adresu"
@@ -563,6 +561,15 @@ msgstr "Děkujeme za nákup v obchodě %1!"
 msgid "děkujeme za nákup v obchodě %1!"
 msgstr "děkujeme za nákup v obchodě %1!"
 
+msgid "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
+msgstr "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
+
+msgid "Aktuality"
+msgstr "Aktuality"
+
+msgid "Historie a detaily mých objednávek"
+msgstr "Historie a detaily mých objednávek"
+
 msgid "Objednávka vytvořena: %1"
 msgstr "Objednávka vytvořena: %1"
 
@@ -572,17 +579,14 @@ msgstr "Stav platby: %1"
 msgid "Děkujeme"
 msgstr "Děkujeme"
 
-msgid "...za Váš nákup, vraťte se brzy :)"
-msgstr "...za Váš nákup, vraťte se brzy :)"
+msgid "…za Váš nákup, vraťte se brzy :)"
+msgstr "…za Váš nákup, vraťte se brzy :)"
 
 msgid "Pochlubte se přátelům s Vaším nákupem."
 msgstr "Pochlubte se přátelům s Vaším nákupem."
 
 msgid "Sdílet"
 msgstr "Sdílet"
-
-msgid "Historie a detaily mých objednávek"
-msgstr "Historie a detaily mých objednávek"
 
 msgid "Číslo objednávky"
 msgstr "Číslo objednávky"
@@ -636,9 +640,6 @@ msgstr "Nic nebylo nalezeno."
 
 msgid "Attachments"
 msgstr "Přílohy"
-
-msgid "no image"
-msgstr "bez obrázku"
 
 msgid "Products in the collection"
 msgstr "Produkty v kolekci"
@@ -731,12 +732,25 @@ msgstr "zavřít"
 msgid "Change language"
 msgstr "Změnit jazyk"
 
-msgid ""
-"This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
-"now and ever after"
-msgstr ""
-"Tato aplikace běží na <a href=\"http://www.atk14.net/\">frameworku ATK14</a> "
-"až na věky"
+msgid "Social networks"
+msgstr "Sociální sítě"
+
+msgid "Upravit údaje prodejny"
+msgstr "Upravit údaje prodejny"
+
+msgid "Upravit údaje provozovny"
+msgstr "Upravit údaje provozovny"
+
+msgid "Kontakt"
+msgstr "Kontakt"
+
+#: ../app/forms/application_form.php:228
+msgid "IČ"
+msgstr "IČ"
+
+#: ../app/forms/application_form.php:233
+msgid "DIČ"
+msgstr "DIČ"
 
 msgid "Profile"
 msgstr "Profil"
@@ -786,6 +800,15 @@ msgstr "Číslo zásilky"
 msgid "Není zadáno"
 msgstr "Není zadáno"
 
+msgid "Doprava a platba"
+msgstr "Doprava a platba"
+
+msgid "Slevová kampaň"
+msgstr "Slevová kampaň"
+
+msgid "Slevové kupóny"
+msgstr "Slevové kupóny"
+
 msgid "Doručovací adresa:"
 msgstr "Doručovací adresa:"
 
@@ -798,17 +821,23 @@ msgstr "IČ:"
 msgid "DIČ:"
 msgstr "DIČ:"
 
-msgid "Doprava a platba"
-msgstr "Doprava a platba"
-
-msgid "Slevová kampaň"
-msgstr "Slevová kampaň"
-
-msgid "Slevové kupóny"
-msgstr "Slevové kupóny"
-
 msgid "Photo gallery"
 msgstr "Fotogalerie"
+
+msgid "Zavřít"
+msgstr "Zavřít"
+
+msgid "Zobrazování přes celou obrazovka"
+msgstr "Zobrazování přes celou obrazovka"
+
+msgid "Přiblížení"
+msgstr "Přiblížení"
+
+msgid "Předchozí (šipka doleva)"
+msgstr "Předchozí (šipka doleva)"
+
+msgid "Další (šipka doprava)"
+msgstr "Další (šipka doprava)"
 
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
@@ -852,8 +881,8 @@ msgstr "Ukázat na mapě"
 msgid "Prodejna"
 msgstr "Prodejna"
 
-msgid "more information"
-msgstr "více informací"
+msgid "Více informací"
+msgstr "Více informací"
 
 msgid "Previous"
 msgstr "Předchozí"
@@ -866,6 +895,10 @@ msgstr "Stránky"
 
 msgid "Product categories"
 msgstr "Produktové kategorie"
+
+#: ../app/controllers/brands_controller.php:14
+msgid "Brands"
+msgstr "Značky"
 
 #: ../app/controllers/users_controller.php:17
 msgid "New user registration"
@@ -923,6 +956,9 @@ msgstr "Velká mapa"
 msgid "Currently we have no store."
 msgstr "V současné době nemáme žádnou prodejnu."
 
+msgid "Otevřeno"
+msgstr "Otevřeno"
+
 msgid "zavřeno"
 msgstr "zavřeno"
 
@@ -974,74 +1010,74 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
-#: ../app/controllers/application_base.php:44
+#: ../app/controllers/application_base.php:49
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:54
+#: ../app/controllers/application_base.php:63
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:167
+#: ../app/controllers/application_base.php:176
 msgid "Home"
 msgstr "Domů"
 
-#: ../app/controllers/application_mailer.php:128
+#: ../app/controllers/application_mailer.php:98
 msgid "New registration"
 msgstr "Nová registrace"
 
-#: ../app/controllers/application_mailer.php:137
+#: ../app/controllers/application_mailer.php:107
 msgid "Reset Your Password"
 msgstr "Obnova vašeho hesla"
 
-#: ../app/controllers/application_mailer.php:146
+#: ../app/controllers/application_mailer.php:116
 msgid "Your password was updated"
 msgstr "Vaše heslo bylo změněno"
 
-#: ../app/controllers/application_mailer.php:157
+#: ../app/controllers/application_mailer.php:127
 #, php-format
 msgid "Order %d"
 msgstr "Objednávka %d"
 
-#: ../app/controllers/application_mailer.php:171
-#: ../app/controllers/application.php:56
+#: ../app/controllers/application_mailer.php:147
+#: ../app/controllers/application.php:78
 #: ../app/controllers/orders_controller.php:18
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/application_mailer.php:183
+#: ../app/controllers/application_mailer.php:164
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_mailer.php:194
-#: ../app/controllers/application_mailer.php:203
+#: ../app/controllers/application_mailer.php:175
+#: ../app/controllers/application_mailer.php:184
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
 msgstr "Žádost o informaci"
 
-#: ../app/controllers/application.php:33
+#: ../app/controllers/application.php:55
 msgid "My account"
 msgstr "Můj účet"
 
-#: ../app/controllers/application.php:46
+#: ../app/controllers/application.php:68
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:68
+#: ../app/controllers/application.php:90
 msgid "Basket"
 msgstr "Košík"
 
-#: ../app/controllers/application.php:69
+#: ../app/controllers/application.php:91
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:70
+#: ../app/controllers/application.php:92
 msgid "Delivery data"
 msgstr "Doručovací data"
 
-#: ../app/controllers/application.php:71
+#: ../app/controllers/application.php:93
 msgid "Summary"
 msgstr "Souhrn"
 
@@ -1099,16 +1135,12 @@ msgstr "Slevový kupón byl odebrán"
 msgid "List of Brands"
 msgstr "Seznam značek"
 
-#: ../app/controllers/brands_controller.php:14
-msgid "Brands"
-msgstr "Značky"
-
 #: ../app/controllers/categories_controller.php:13
 msgid "List of Categories"
 msgstr "Seznam kategorií"
 
 #: ../app/controllers/categories_controller.php:14
-#: ../app/controllers/categories_controller.php:45
+#: ../app/controllers/categories_controller.php:46
 msgid "Categories"
 msgstr "Kategorie"
 
@@ -1427,18 +1459,6 @@ msgstr "Takový stránka neexistuje"
 msgid "There is no such product"
 msgstr "Tento produkt neexistuje"
 
-#: ../app/fields/slug_field.php:8
-msgid "Slug"
-msgstr "Slug"
-
-#: ../app/fields/slug_field.php:10
-msgid "funny-green-mug"
-msgstr "zertovny-zeleny-hrnek"
-
-#: ../app/fields/slug_field.php:20
-msgid "Write something like black-cat-white-cat"
-msgstr "Napište něco jako cerna-kocka-bily-kocour"
-
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
@@ -1458,114 +1478,102 @@ msgstr "Štítek <em>%s</em> je uveden vícekrát"
 msgid "DIČ není zadáno správně"
 msgstr "DIČ není zadáno správně"
 
-#: ../app/fields/zip_field.php:10
-msgid "PSČ zadejte ve tvaru 123 45"
-msgstr "PSČ zadejte ve tvaru 123 45"
-
 #: ../app/forms/api/categories_suggestions/index_form.php:5
 #: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
 msgid "Search term"
 msgstr "Hledat výraz"
 
-#: ../app/forms/application_form.php:60
+#: ../app/forms/application_form.php:62
 msgid "Create"
 msgstr "Vytvořit"
 
-#: ../app/forms/application_form.php:62
+#: ../app/forms/application_form.php:64
 msgid "Show"
 msgstr "Ukázat"
 
-#: ../app/forms/application_form.php:64
+#: ../app/forms/application_form.php:66
 msgid "Search"
 msgstr "Hledat"
 
-#: ../app/forms/application_form.php:66
+#: ../app/forms/application_form.php:68
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: ../app/forms/application_form.php:68
+#: ../app/forms/application_form.php:70
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../app/forms/application_form.php:70
+#: ../app/forms/application_form.php:72
 msgid "Save"
 msgstr "Uložit"
 
-#: ../app/forms/application_form.php:86
+#: ../app/forms/application_form.php:88
 msgid "Search query"
 msgstr "Vyhledávací dotaz"
 
-#: ../app/forms/application_form.php:106
+#: ../app/forms/application_form.php:108
 msgid "Firstname"
 msgstr "Jméno"
 
-#: ../app/forms/application_form.php:112
+#: ../app/forms/application_form.php:114
 msgid "Lastname"
 msgstr "Příjmení"
 
-#: ../app/forms/application_form.php:120
+#: ../app/forms/application_form.php:122
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/application_form.php:144
+#: ../app/forms/application_form.php:146
 msgid "Ulice a č.p."
 msgstr "Ulice a č.p."
 
-#: ../app/forms/application_form.php:154
+#: ../app/forms/application_form.php:156
 msgid "Adresa (2. řádek)"
 msgstr "Adresa (2. řádek)"
 
-#: ../app/forms/application_form.php:162
+#: ../app/forms/application_form.php:164
 msgid "City"
 msgstr "Město"
 
-#: ../app/forms/application_form.php:168
+#: ../app/forms/application_form.php:170
 msgid "State / Province / Region"
 msgstr "Stát / Provincie / Kraj"
 
-#: ../app/forms/application_form.php:174
+#: ../app/forms/application_form.php:176
 msgid "PSČ"
 msgstr "PSČ"
 
-#: ../app/forms/application_form.php:189
+#: ../app/forms/application_form.php:191
 msgid "Země"
 msgstr "Země"
 
-#: ../app/forms/application_form.php:194
+#: ../app/forms/application_form.php:196
 msgid "země"
 msgstr "země"
 
-#: ../app/forms/application_form.php:198
+#: ../app/forms/application_form.php:200
 msgid "Poznámka"
 msgstr "Poznámka"
 
-#: ../app/forms/application_form.php:202
+#: ../app/forms/application_form.php:204
 msgid "Např. číslo patra nebo dveří"
 msgstr "Např. číslo patra nebo dveří"
 
-#: ../app/forms/application_form.php:220
+#: ../app/forms/application_form.php:222
 msgid "Společnost"
 msgstr "Společnost"
 
-#: ../app/forms/application_form.php:226
-msgid "IČ"
-msgstr "IČ"
-
-#: ../app/forms/application_form.php:231
-msgid "DIČ"
-msgstr "DIČ"
-
-#: ../app/forms/application_form.php:251
+#: ../app/forms/application_form.php:253
 msgid "Telefon"
 msgstr "Telefon"
 
-#: ../app/forms/application_form.php:252
+#: ../app/forms/application_form.php:254
 #, php-format
 msgid "Telefonní číslo zadejte ve formátu %s"
 msgstr "Telefonní číslo zadejte ve formátu %s"
 
-#: ../app/forms/application_form.php:275
+#: ../app/forms/application_form.php:277
 msgid "Země ve fakturační adrese a země v DIČ se musí shodovat"
 msgstr "Země ve fakturační adrese a země v DIČ se musí shodovat"
 
@@ -1636,7 +1644,11 @@ msgstr "Zatrhněte prosím souhlas s obchodními podmínkami."
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:27
+#: ../app/forms/contact_messages/create_new_form.php:28
+msgid "Spam protection"
+msgstr "Ochrana proti spamu"
+
+#: ../app/forms/contact_messages/create_new_form.php:33
 #: ../app/forms/information_requests/create_new_form.php:31
 msgid "Send message"
 msgstr "Poslat zprávu"
@@ -1737,10 +1749,6 @@ msgstr "Video"
 #: ../app/helpers/modifier.iobject_type.php:19
 msgid "Galerie"
 msgstr "Galerie"
-
-#: ../app/helpers/modifier.iobject_type.php:23
-msgid "Obrázek"
-msgstr "Obrázek"
 
 #: ../app/models/basket.php:551
 msgid "Košík je prázdný"
@@ -1904,11 +1912,51 @@ msgstr "Sniž objednané množství"
 msgid "Zvyš objednané množství"
 msgstr "Zvyš objednané množství"
 
-#~ msgid "Request URL:"
-#~ msgstr "Adresa URL požadavku:"
+msgid "Popis"
+msgstr "Popis"
 
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+msgid "...za Váš nákup, vraťte se brzy :)"
+msgstr "...za Váš nákup, vraťte se brzy :)"
+
+msgid "more information"
+msgstr "více informací"
+
+msgid "PSČ zadejte ve tvaru 123 45"
+msgstr "PSČ zadejte ve tvaru 123 45"
+
+msgid "Request URL:"
+msgstr "Adresa URL požadavku:"
+
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+
+#~ msgid "Please, write us to %1 if you think this is our mistake."
+#~ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
+
+#~ msgid "newer article"
+#~ msgstr "novější článek"
+
+#~ msgid "older article"
+#~ msgstr "starší článek"
+
+#~ msgid "Subcategories"
+#~ msgstr "Podkategorie"
+
+#~ msgid ""
+#~ "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, "
+#~ "for now and ever after"
+#~ msgstr ""
+#~ "Tato aplikace běží na <a href=\"http://www.atk14.net/\">frameworku ATK14</"
+#~ "a> až na věky"
+
+#~ msgid "Slug"
+#~ msgstr "Slug"
+
+#~ msgid "funny-green-mug"
+#~ msgstr "zertovny-zeleny-hrnek"
+
+#~ msgid "Write something like black-cat-white-cat"
+#~ msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #~ msgid ""
 #~ "If you have any question, contact us through the following form. We will "
