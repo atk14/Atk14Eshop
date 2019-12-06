@@ -67,7 +67,9 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
-
+		{cache key='layout_cookie_consent' lang=$lang expire=6000}
+		{render partial="shared/layout/cookie_consent"}
+		{/cache}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">

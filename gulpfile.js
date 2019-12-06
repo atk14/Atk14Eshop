@@ -8,7 +8,8 @@ require( "./gulpfile-admin" );
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/css/swiper.css",
-	"node_modules/photoswipe/dist/photoswipe.css"
+	"node_modules/photoswipe/dist/photoswipe.css",
+	"node_modules/cookieconsent/build/cookieconsent.min.css"
 ];
 
 var vendorScripts = [
@@ -18,7 +19,9 @@ var vendorScripts = [
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/swiper/js/swiper.js",
 	"node_modules/photoswipe/dist/photoswipe.js",
-	"node_modules/photoswipe/dist/photoswipe-ui-default.js"
+	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
+	"node_modules/cookieconsent/build/cookieconsent.min.js",
+	"node_modules/bootbox/src/bootbox.js"
 ];
 
 var applicationScripts = [
