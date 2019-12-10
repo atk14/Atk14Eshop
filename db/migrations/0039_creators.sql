@@ -13,6 +13,7 @@ CREATE TABLE creators (
 	updated_at TIMESTAMP,
 	--
 	CONSTRAINT unq_creators_name UNIQUE (name),
+	CONSTRAINT unq_creators_pageid UNIQUE (page_id),
 	CONSTRAINT fk_creators_page FOREIGN KEY (page_id) REFERENCES pages ON DELETE SET NULL,
 	CONSTRAINT fk_creators_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_creators_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
