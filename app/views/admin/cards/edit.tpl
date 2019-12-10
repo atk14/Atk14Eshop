@@ -30,6 +30,10 @@
 
 <hr>
 
+{render partial="creators"}
+
+<hr>
+
 {render partial="technical_specifications"}
 
 <hr>
