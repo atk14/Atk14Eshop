@@ -121,7 +121,7 @@ class PriceFinder {
 
 	function _getStartingPrice($card){
 		$lowest_unit_price = null;
-		$starting_price = null;
+		$starting_price = $starting_base_price = null;
 		foreach($card->getProducts() as $product){
 			$price = $this->getPrice($product);
 			if(!$price){ continue; }
