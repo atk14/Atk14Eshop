@@ -1,4 +1,5 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
+{assign creators CardCreator::GetMainCreatorsForCard($card)}
 
 {a action="cards/detail" id=$card _class="card"}{trim}
 	{if $card->getImage()}
@@ -23,6 +24,11 @@
 
 	<div class="card-body">
 		<h4 class="card-title">{$card->getName()}</h4>
+		{if $creators}
+			{foreach $creators as $creator}
+				<div class="card-author">{$creator}</div>
+			{/foreach}
+		{/if}
 		<div class="card-text">{!$card->getTeaser()|markdown}</div>
 	</div>
 

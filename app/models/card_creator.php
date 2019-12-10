@@ -23,6 +23,10 @@ class CardCreator extends ApplicationModel implements Rankable {
 		return Cache::Get("CreatorRole",$this->getCreatorRoleId());
 	}
 
+	function getRole(){
+		return $this->getCreatorRole();
+	}
+
 	function getName(){
 		return $this->getCreator()->getName();
 	}
