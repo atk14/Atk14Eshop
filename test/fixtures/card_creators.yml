@@ -1,0 +1,11 @@
+book_author:
+  card_id: "<?= $cards["book"]->getId() ?>"
+  creator_id: "<?= $creators["john_doe"]->getId() ?>"
+  creator_role_id: "<?= CreatorRole::GetInstanceByCode("author")->getId() ?>"
+  is_main_creator: true
+
+book_illustration:
+  card_id: "<?= $cards["book"]->getId() ?>"
+  creator_id: "<?= $creators["samantha_doe"]->getId() ?>"
+  creator_role_id: "<?= CreatorRole::GetInstanceByCode("illustration")->getId() ?>"
+  

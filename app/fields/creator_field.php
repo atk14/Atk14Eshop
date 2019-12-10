@@ -15,12 +15,7 @@ class CreatorField extends ObjectField {
 		$value = trim($value);
 
 		if(strlen($value) && !is_numeric($value) && !preg_match('/\[#\d+\]$/',$value)){ // "John Doe [#123]"
-			$creator = Creator::FindFirst([
-				"conditions" => [
-					"LOWER(name)=LOWER(:name)",
-				],
-				"bind_ar" => [":name" => $value],
-			]);
+			$creator = Creator::GetInstanceByName($value);
 			if(!$creator && $this->create_creator_if_not_found){
 				$creator = Creator::CreateNewRecord([
 					"name" => $value,

@@ -1,7 +1,19 @@
 <?php
 class Creator extends ApplicationModel implements Translatable {
 
-	static function GetTranslatableFields(){ return ["name_localized"]; } // good for e.g. "team of authors" == "kolektiv autoru"
+	static function GetTranslatableFields(){ return ["name_localized"]; } // good for e.g. "team of authors" in english, "kolektiv autoru" in czech
+
+	static function GetInstanceByName($name){
+		$name = trim($name);
+		return self::FindFirst([
+			"conditions" => [
+				"LOWER(name)=LOWER(:name)"
+			],
+			"bind_ar" => [
+				":name" => $name,
+			]
+		]);
+	}
 
 	function getName($lang = null){
 		global $ATK14_GLOBAL;
@@ -15,6 +27,10 @@ class Creator extends ApplicationModel implements Translatable {
 		}
 
 		return $this->g("name");
+	}
+
+	function getPage(){
+		return Cache::Get("Page",$this->getPageId());
 	}
 
 	function toHumanReadableString(){

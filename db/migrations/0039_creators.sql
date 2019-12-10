@@ -3,10 +3,6 @@ CREATE TABLE creators (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_creators'),
 	--
 	name VARCHAR(255) NOT NULL,
-	year_of_birth INT,
-	date_of_birth DATE,
-	year_of_death INT,
-	date_of_death DATE,
 	image_url VARCHAR(255),
 	page_id INT,
 	--
@@ -22,7 +18,7 @@ CREATE TABLE creators (
 	CONSTRAINT fk_creators_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-CREATE SEQUENCE seq_creator_roles START WITH 11;
+CREATE SEQUENCE seq_creator_roles START WITH 101;
 CREATE TABLE creator_roles (
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_creators'),
 	--
@@ -36,30 +32,31 @@ CREATE TABLE creator_roles (
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP,
 	--
+	CONSTRAINT unq_creatorroles_code UNIQUE (code),
 	CONSTRAINT fk_creatorroles_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_creatorroles_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
-INSERT INTO creator_roles (id) VALUES(1);
+INSERT INTO creator_roles (id,code) VALUES(1,'author');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',1,'en','name','Author');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',1,'cs','name','Autor');
 
-INSERT INTO creator_roles (id) VALUES(2);
+INSERT INTO creator_roles (id,code) VALUES(2,'illustration');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',2,'en','name','Illustration');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',2,'cs','name','Ilustrace');
 
-INSERT INTO creator_roles (id) VALUES(3);
+INSERT INTO creator_roles (id,code) VALUES(3,'composer');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',3,'en','name','Composer');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',3,'cs','name','Skladatel');
 
-INSERT INTO creator_roles (id) VALUES(4);
+INSERT INTO creator_roles (id,code) VALUES(4,'artist');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',4,'en','name','Artist');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',4,'cs','name','Interpret');
 
-INSERT INTO creator_roles (id) VALUES(5);
+INSERT INTO creator_roles (id,code) VALUES(5,'narrator');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',5,'en','name','Narrator');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',5,'cs','name','Vypravěč');
 
-INSERT INTO creator_roles (id) VALUES(6);
+INSERT INTO creator_roles (id,code) VALUES(6,'designer');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',6,'en','name','Designer');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('creator_roles',6,'cs','name','Designer');
 
