@@ -48,6 +48,16 @@ class Creator extends ApplicationModel implements Translatable {
 		return Cache::Get("Page",$this->getPageId());
 	}
 
+	function getImageUrl(){
+		if($url = $this->g("image_url")){
+			return $url;
+		}
+		
+		if($page = $this->getPage()){
+			return $page->getImageUrl();
+		}
+	}
+
 	function toHumanReadableString(){
 		return $this->g("name");
 	}

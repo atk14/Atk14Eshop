@@ -39,6 +39,10 @@ class CardCreator extends ApplicationModel implements Rankable {
 		return $this->getCreator()->getPage();
 	}
 
+	function getImageUrl(){
+		return $this->getCreator()->getImageUrl();
+	}
+
 	function isMainCreator(){ return $this->g("is_main_creator"); }
 
 	function toString(){

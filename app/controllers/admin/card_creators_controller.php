@@ -12,6 +12,8 @@ class CardCreatorsController extends AdminController {
 	}
 
 	function edit(){
+		$this->_add_card_to_breadcrumbs($this->card_creator->getCard());
+
 		$this->_edit();
 	}
 
@@ -26,6 +28,9 @@ class CardCreatorsController extends AdminController {
 	function _before_filter(){
 		if(in_array($this->action,array("create_new"))){
 			$this->_find("card","card_id");
+		}
+		if(in_array($this->action,array("edit"))){
+			$this->_find("card_creator");
 		}
 	}
 }
