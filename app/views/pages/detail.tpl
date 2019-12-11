@@ -21,6 +21,10 @@
 	{render_component controller="contact_messages" action="create_new"}
 {/if}
 
+{if $creator}
+	{render_component controller="creator_cards" action="index" creator_id=$creator->getId()}
+{/if}
+
 {if $child_pages}
 	<section class="section--child-pages">
 		<h4>{t}Subpages{/t}</h4>

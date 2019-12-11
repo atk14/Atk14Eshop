@@ -9,6 +9,7 @@ class PagesController extends ApplicationController {
 		$this->page_description = $this->page->getPageDescription();
 
 		$this->tpl_data["child_pages"] = $this->page->getVisibleChildPages();
+		$this->tpl_data["creator"] = Creator::FindFirst("page_id",$this->page);
 
 		$this->_add_page_to_breadcrumbs($this->page);
 	}
