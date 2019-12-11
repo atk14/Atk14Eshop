@@ -94,13 +94,6 @@
 				</td>
 			</tr>
 		{/if}
-		<tr class="table-products__item">
-				<td class="table-products__icon"></td>
-				<td class="table-products__title">{t}Číslo zásilky{/t}:</td>
-				<td colspan="4">
-					<a href="#">45545465FAKE</a>
-				</td>
-			</tr>
 		
 		<tr class="table-products__item">
 			<td class="table-products__icon">{!"wallet"|icon}</td>
@@ -113,7 +106,7 @@
 	<tfoot>
 		<tr class="table-products__tfootstart">
 			{strip}
-			<td colspan="3" class="table-products__note"><em>Fake note: zvonit aspon dvakrat! Pozor zly pes!</em>
+			<td colspan="3" class="table-products__note">
 				{if $order->getNote()}
 					<em>{!$order->getNote()|h|nl2br}</em>
 				{/if}

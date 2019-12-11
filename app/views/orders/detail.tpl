@@ -1,7 +1,7 @@
 {capture assign=page_title}{t}Historie a detaily mých objednávek{/t}{/capture}
 {assign payment_transaction $order->getPaymentTransaction()}
 {capture assign=order_status}
-	<ul class="list-bullets">
+	<ul class="list--simple">
 		<li>{t date=$order->getCreatedAt()|format_datetime}Objednávka vytvořena: %1{/t}</li>
 		{if $payment_transaction}
 			<li>{t status=$payment_transaction->getPaymentStatus()|default:"?"}Stav platby: %1{/t}</li>

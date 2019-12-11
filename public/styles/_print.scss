@@ -1,0 +1,15 @@
+@media print {
+	.navbar-main,
+	.pagination-container,
+	.pager--rich {
+		display: none !important;
+	}
+	.footer {
+		border-top: 1px solid $border-color;
+	}
+	article {
+		.article__body, .page__body {
+			max-width: 100%;
+		}
+	}
+}

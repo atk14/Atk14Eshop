@@ -75,6 +75,12 @@
 						}
 					}
 				}
+				&:first-child {
+					border-top: none;
+					li:first-child {
+						padding-top: 0;
+					}
+				}
 			}
 		}
 		

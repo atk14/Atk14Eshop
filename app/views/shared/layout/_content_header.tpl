@@ -17,11 +17,13 @@
 {/if}
 <header class="content-header">
 	{if $image}
-		<div class="content-header__image" style="background-color: {$image|img_color:"dark_vibrant"|default:"#333333"}">
-			<img src="{$image}" class="img-fluid" style="background-color: {$image|img_color:"light_vibrant"|default:"#333333"}">
+		{assign var="geometry_detail" "800x"}
+		{assign var="aspect_ratio"  $image|img_width:$geometry_detail/$image|img_height:$geometry_detail}
+		<div class="content-header__image{if $aspect_ratio<1} content-header__image--portrait{/if}" style="background-color: {$image|img_color:"dark_vibrant"|default:"#333333"}">
+			<img src="{$image|img_url:$geometry_detail}" class="img-fluid" style="background-color: {$image|img_color:"light_vibrant"|default:{$image|img_color:"light_muted"}|default:"#333333"}">
 		</div>
 	{/if}
-	<div class="content-header__text{if $colorbg} content-header__text--dark{/if}"{if $image && $colorbg}style="background-color: {$image|img_color:"dark_vibrant"|default:"#333333"}"{/if}>
+	<div class="content-header__text{if $colorbg} content-header__text--dark{/if}"{if $image && $colorbg}style="background-color: {$image|img_color:"dark_vibrant"|default:{$image|img_color:"dark_muted"}|default:"#333333"}"{/if}>
 		{if $tags}
 			<div class="tags">{render partial="shared/tags" tags=$tags}</div>
 		{/if}

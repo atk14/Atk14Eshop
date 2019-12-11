@@ -6,14 +6,14 @@ bg_color: "#f2f4f2"
 container_bg_color: "#f2f4f2"
 font_stack: "Helvetica, Arial, sans-serif"
 text_color: "#212121"
-link_color: "#AF662F"
-link_style: "color: #AF662F; font-weight: bold; text-decoration: none;"
-visited_link_color: "#AF662F"
+link_color: "#81971a"
+link_style: "color: #81971a; font-weight: bold; text-decoration: none;"
+visited_link_color: "#81971a"
 
 # Header colors + logo
 header_bgcolor: "white"
-header_color: "#5F2929"
-logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/logo_email_header--dark.png"
+header_color: "#81971a"
+logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/logo--email.png"
 
 # Footer colors
 footer_bgcolor: "#ccc"
@@ -21,7 +21,8 @@ footer_color: "#555"
 footer_link_color: "#555"
 
 # Boxed title colors 
-titlebox_bgcolor: "#5F2929"
+# titlebox_bgcolor: "#5F2929"
+titlebox_bgcolor: "#81971a"
 titlebox_color: "#fff"
 special_note_bgcolor: "#FFA334" # special note
 special_note_color: "#fff"
