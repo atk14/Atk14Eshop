@@ -5,7 +5,8 @@
 
 	title: page title
 	teaser: page teaser
-	meta: typically author name, publish date
+	meta: typically author of the post, publish date...
+	author
 	image: header image
 	colorbg: if true texts will have background color (auto-picked dark vibrant color from image)
 	brand: content displayed just above teaser
@@ -28,13 +29,16 @@
 			<div class="tags">{render partial="shared/tags" tags=$tags}</div>
 		{/if}
 		<{$tag} class="h1">{!$title}</{$tag}>
-		{if $teaser || $brand  || $meta }
+		{if $author|trim}
+		<div class="author">{!$author}</div>
+		{/if}
+		{if $teaser|trim || $brand|trim  || $meta|trim }
 		<div class="teaser">
-			{if $brand}
+			{if $brand|trim}
 				{!$brand}<br>
 			{/if}
 			{!$teaser}
-			{if $meta}
+			{if $meta|trim}
 				<p class="meta">{!$meta}</p>
 			{/if}
 		</div>
