@@ -15,8 +15,23 @@ class Creator extends ApplicationModel implements Translatable {
 		]);
 	}
 
-	function getName($lang = null){
+	/**
+	 *
+	 *	$creator->getName();
+	 *	$creator->getName("en");
+	 *	$creator->getName(false);
+	 */
+	function getName($return_name_localized = true,$lang = null){
 		global $ATK14_GLOBAL;
+
+		if(is_string($return_name_localized) && is_null($lang)){
+			$lang = $return_name_localized;
+			$return_name_localized = true;
+		}
+
+		if(!$return_name_localized){
+			return $this->g("name");
+		}
 
 		if(is_null($lang)){
 			$lang = $ATK14_GLOBAL->getLang();

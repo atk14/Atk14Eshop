@@ -3,3 +3,8 @@ john_doe:
 
 samantha_doe:
   name: "Samantha Doe"
+
+team_of_authors:
+  name: "team_of_authors"
+  name_localized_en: "team of authors"
+  name_localized_cs: "kolektiv autorů"

@@ -20,7 +20,7 @@
 				{if $card_creator->isMainCreator()}<strong title="{t}Main creator{/t}">{/if}
 
 				<small>{$card_creator->getCreatorRole()}</small><br>
-				{$card_creator->getCreator()}
+				{$card_creator->getCreator()->getName(false)}
 
 				{if $card_creator->isMainCreator()}</strong>{/if}
 			</li>
