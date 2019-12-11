@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 13:42+0100\n"
-"PO-Revision-Date: 2019-12-06 13:53+0100\n"
+"POT-Creation-Date: 2019-12-11 16:49+0100\n"
+"PO-Revision-Date: 2019-12-11 16:50+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -165,6 +165,20 @@ msgstr "Datum vytvoření"
 msgid "The product is not yet placed in a category with a filter."
 msgstr "Produkt zatím nebyl zařazen do kategorie s filtrem."
 
+msgid ""
+"Zadejte alepoň dva produkty, které chcete spojit na jednu produktovou kartu."
+msgstr ""
+"Zadejte alepoň dva produkty, které chcete spojit na jednu produktovou kartu."
+
+msgid "Doplňte k produktům krátké názvy pro rozlišení varianty."
+msgstr "Doplňte k produktům krátké názvy pro rozlišení varianty."
+
+msgid "Variants on product card <em>%1</em>"
+msgstr "Varianty na produktové kartě <em>%1</em>"
+
+msgid "Určete produkt, který zůstane po spojení zachován."
+msgstr "Určete produkt, který zůstane po spojení zachován."
+
 msgid "invisible"
 msgstr "neviditelné"
 
@@ -180,6 +194,9 @@ msgstr "Zobrazit na webu"
 
 msgid "Copy this product"
 msgstr "Kopírovat tento produkt"
+
+msgid "Merge this product with another"
+msgstr "Sloučit tento produkt s jiným"
 
 msgid "Delete product"
 msgstr "Smazat produkt"
@@ -210,6 +227,30 @@ msgstr "Produkt ještě není v žádné kategorii."
 
 msgid "Remove from the category"
 msgstr "Odstranit z kategorie"
+
+msgid "Creators"
+msgstr "Tvůrci"
+
+msgid "Edit creator"
+msgstr "Upravit tvůrce"
+
+msgid "Upravit vazbu tvůrce s produktem"
+msgstr "Upravit vazbu tvůrce s produktem"
+
+msgid "Visit the creator page"
+msgstr "Navštívit stránku tvůrce"
+
+msgid "main creator"
+msgstr "hlavní tvůrce"
+
+msgid "secondary creator"
+msgstr "vedlejší tvůrce"
+
+msgid "profile page"
+msgstr "profilová stránka"
+
+msgid "This product has no creator specified"
+msgstr "Tento produkt nemá specifikovaného tvůrce"
 
 msgid "Related products"
 msgstr "Související produkty"
@@ -247,10 +288,19 @@ msgstr "Přidat produkt"
 msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
 
+#: ../app/forms/admin/card_cloning/create_new_form.php:12
+#: ../app/forms/admin/cards/cards_form.php:18
+#: ../app/forms/admin/orders/index_form.php:59
+#: ../app/forms/admin/products/products_form.php:6
+msgid "Catalog number"
+msgstr "Katalogové číslo"
+
 #: ../app/forms/admin/card_cloning/create_new_form.php:8
 #: ../app/forms/admin/cards/cards_form.php:13
 #: ../app/forms/admin/categories/categories_form.php:12
 #: ../app/forms/admin/collections/collections_form.php:5
+#: ../app/forms/admin/creator_roles/creator_roles_form.php:6
+#: ../app/forms/admin/creators/creators_form.php:6
 #: ../app/forms/admin/pricelists/pricelists_form.php:6
 #: ../app/forms/admin/regions/regions_form.php:6
 #: ../app/forms/admin/stores/stores_form.php:6
@@ -271,8 +321,14 @@ msgstr "Změněno"
 msgid "Edit stockount in warehouse %1"
 msgstr "Upravit skladovou položku ve skladu %1"
 
+msgid "Create new entry in warehouse %1"
+msgstr "Vytvořit nový záznam ve skladu %1"
+
 msgid "Edit price in pricelist %1"
 msgstr "Upravit cenu v ceníku %1"
+
+msgid "Create new entry in pricelist %1"
+msgstr "Vytvořit nový záznam v ceníku %1"
 
 msgid "Chystáte se smazat produkt %1. Jste si jistý/á?"
 msgstr "Chystáte se smazat produkt %1. Jste si jistý/á?"
@@ -353,6 +409,10 @@ msgstr "Vytvořit a editovat alias"
 msgid "Add a new subcategory"
 msgstr "Přidat podkategorii"
 
+#: ../app/controllers/admin/categories_controller.php:57
+msgid "filter option"
+msgstr "možnost filtru"
+
 msgid "Move the category"
 msgstr "Přesunout kategorii"
 
@@ -379,6 +439,9 @@ msgstr "Ukazuje na kategorii"
 msgid "Is a filter?"
 msgstr "Je to filtr?"
 
+msgid "It is a filter option"
+msgstr "To je možnost filtru"
+
 msgid "Can products be inserted here?"
 msgstr "Mohou zde být vloženy produkty?"
 
@@ -391,6 +454,9 @@ msgstr ""
 
 msgid "Subcategories"
 msgstr "Podkategorie"
+
+msgid "filter options"
+msgstr "možnosti filtru"
 
 #: ../app/controllers/admin/admin.php:101
 msgid "filter"
@@ -477,6 +543,16 @@ msgstr "Produkty v kolekci"
 
 msgid "Add a collection"
 msgstr "Přidat kolekci"
+
+msgid ""
+"You are about to permanently delete creator role %1\n"
+"\tAre you sure about that?"
+msgstr ""
+"Chystáte se trvale smazat roli tvůrce %1\n"
+"\\ẗJste si jistý/á?"
+
+msgid "Add a new creator role"
+msgstr "Přidat novou roli tvůrce"
 
 msgid "default currency"
 msgstr "výchozí měna"
@@ -863,6 +939,9 @@ msgstr "Přiřadit zodpovědnou osobu"
 msgid "notifikuje se"
 msgstr "notifikuje se"
 
+msgid "bcc"
+msgstr "bcc"
+
 msgid "Slevové kupóny nebyly zadány"
 msgstr "Slevové kupóny nebyly zadány"
 
@@ -941,13 +1020,6 @@ msgstr "Stáhněte si originál"
 
 msgid "Založit novou cenu"
 msgstr "Založit novou cenu"
-
-#: ../app/forms/admin/card_cloning/create_new_form.php:12
-#: ../app/forms/admin/cards/cards_form.php:18
-#: ../app/forms/admin/orders/index_form.php:59
-#: ../app/forms/admin/products/products_form.php:6
-msgid "Catalog number"
-msgstr "Katalogové číslo"
 
 #: ../app/forms/admin/products/products_form.php:15
 msgid "Product name"
@@ -1141,6 +1213,9 @@ msgstr "Jednotka"
 msgid "Sazba DPH"
 msgstr "Sazba DPH"
 
+msgid "no payment methods selected"
+msgstr "nebyly vybrány žádné platební metody"
+
 msgid "Add new image"
 msgstr "Přidat nový obrázek"
 
@@ -1295,6 +1370,15 @@ msgstr "E-mailová adresa"
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
+msgid "inactive user"
+msgstr "neaktivní uživatel"
+
+msgid "administrator"
+msgstr "administrátor"
+
+msgid "regular user"
+msgstr "běžný uživatel"
+
 msgid "not active"
 msgstr "neaktivní"
 
@@ -1370,54 +1454,6 @@ msgid ""
 msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
-
-msgid ""
-"Zadejte alepoň dva produkty, které chcete spojit na jednu produktovou kartu."
-msgstr ""
-"Zadejte alepoň dva produkty, které chcete spojit na jednu produktovou kartu."
-
-msgid "Doplňte k produktům krátké názvy pro rozlišení varianty."
-msgstr "Doplňte k produktům krátké názvy pro rozlišení varianty."
-
-msgid "Variants on product card <em>%1</em>"
-msgstr "Varianty na produktové kartě <em>%1</em>"
-
-msgid "Určete produkt, který zůstane po spojení zachován."
-msgstr "Určete produkt, který zůstane po spojení zachován."
-
-msgid "Merge this product with another"
-msgstr "Sloučit tento produkt s jiným"
-
-msgid "Create new entry in warehouse %1"
-msgstr "Vytvořit nový záznam ve skladu %1"
-
-msgid "Create new entry in pricelist %1"
-msgstr "Vytvořit nový záznam v ceníku %1"
-
-#: ../app/controllers/admin/categories_controller.php:57
-msgid "filter option"
-msgstr "možnost filtru"
-
-msgid "It is a filter option"
-msgstr "To je možnost filtru"
-
-msgid "filter options"
-msgstr "možnosti filtru"
-
-msgid "bcc"
-msgstr "bcc"
-
-msgid "no payment methods selected"
-msgstr "nebyly vybrány žádné platební metody"
-
-msgid "inactive user"
-msgstr "neaktivní uživatel"
-
-msgid "administrator"
-msgstr "administrátor"
-
-msgid "regular user"
-msgstr "běžný uživatel"
 
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
@@ -1708,25 +1744,25 @@ msgstr "Produkt byl vytvořen. Nyní k němu můžete přidat další údaje."
 msgid "Editing product %s"
 msgstr "Editace produktu %s"
 
-#: ../app/controllers/admin/cards_controller.php:222
+#: ../app/controllers/admin/cards_controller.php:219
 msgid "Variants mode has been activated"
 msgstr "Variantní režim byl aktivován"
 
-#: ../app/controllers/admin/cards_controller.php:240
+#: ../app/controllers/admin/cards_controller.php:237
 msgid "Variants mode has been deactivated"
 msgstr "Variantní režim byl deaktivován"
 
-#: ../app/controllers/admin/cards_controller.php:263
+#: ../app/controllers/admin/cards_controller.php:260
 #: ../app/controllers/admin/technical_specifications_controller.php:12
 #: ../app/controllers/admin/technical_specifications_controller.php:36
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:295
+#: ../app/controllers/admin/cards_controller.php:292
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:313
+#: ../app/controllers/admin/cards_controller.php:310
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -1872,6 +1908,10 @@ msgstr "Přidat nový spotřební materiál"
 #: ../app/controllers/admin/consumables_controller.php:10
 msgid "Consumable product has been added"
 msgstr "Spotřební materiál byl přidán"
+
+#: ../app/controllers/admin/creator_roles_controller.php:5
+msgid "Creator roles"
+msgstr "Role tvůrce"
 
 #: ../app/controllers/admin/currencies_controller.php:5
 msgid "List of Currencies"
@@ -2355,6 +2395,7 @@ msgstr "Stejné katalogové číslo se používá pro jiný produkt"
 #: ../app/forms/admin/cards/create_new_form.php:20
 #: ../app/forms/admin/categories/categories_form.php:51
 #: ../app/forms/admin/collections/collections_form.php:17
+#: ../app/forms/admin/creators/creators_form.php:15
 #: ../app/forms/admin/images/images_form.php:6
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:21
 #: ../app/forms/admin/pages/pages_form.php:10
@@ -2498,6 +2539,18 @@ msgstr "Kopírovat technické specifikace?"
 #: ../app/forms/admin/card_cloning/create_new_form.php:38
 msgid "Create new product"
 msgstr "Vytvořit nový produkt"
+
+#: ../app/forms/admin/card_creators/card_creators_form.php:6
+msgid "Creator"
+msgstr "Tvůrce"
+
+#: ../app/forms/admin/card_creators/card_creators_form.php:10
+msgid "Role"
+msgstr "Role"
+
+#: ../app/forms/admin/card_creators/card_creators_form.php:13
+msgid "Is this the main creator?"
+msgstr "Je toto hlavní tvůrce?"
 
 #: ../app/forms/admin/card_merging/create_new/get_cards_form.php:9
 #, php-format
@@ -2710,6 +2763,36 @@ msgstr "Tento produkt už je součástí této kolekce"
 #, php-format
 msgid "Tento produkt už je součástí jiné kolekce [%s]"
 msgstr "Tento produkt už je součástí jiné kolekce [%s]"
+
+#: ../app/forms/admin/creators/creators_form.php:10
+msgid "Localized name"
+msgstr "Lokalizované jméno"
+
+#: ../app/forms/admin/creators/creators_form.php:19
+msgid "Profile page"
+msgstr "Profilová stránka"
+
+#: ../app/forms/admin/creators/creators_form.php:21
+msgid ""
+"Propojte tvůrce s jeho profilovou stránkou. Na této stránce pak budou "
+"automaticky zobrazeny jeho produkty."
+msgstr ""
+"Propojte tvůrce s jeho profilovou stránkou. Na této stránce pak budou "
+"automaticky zobrazeny jeho produkty."
+
+#: ../app/forms/admin/creators/creators_form.php:21
+#, php-format
+msgid "Zatím stránka neexistuje? &rarr; <a href=\"%s\">vytvořte ji</a>"
+msgstr "Zatím stránka neexistuje? &rarr; <a href=\"%s\">vytvořte ji</a>"
+
+#: ../app/forms/admin/creators/creators_form.php:31
+msgid "Another creator already has this name"
+msgstr "Toto jméno již má jiný tvůrce"
+
+#: ../app/forms/admin/creators/creators_form.php:38
+#, php-format
+msgid "This page is the profile page for another creator (%s)"
+msgstr "Tato stránka je profilová stránka jiného tvůrce (%s)"
 
 #: ../app/forms/admin/currencies/currencies_form.php:10
 msgid "Conversion rate"
@@ -3513,6 +3596,9 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Main creator"
+#~ msgstr "Hlavní tvůrce"
 
 #~ msgid "Úprava varianty produktu '%s - %s' ('%s')"
 #~ msgstr "Úprava varianty produktu '%s - %s' ('%s')"
