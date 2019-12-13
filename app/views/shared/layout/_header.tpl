@@ -96,15 +96,7 @@
 
 			
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
-				<ul class="navbar-nav">
-					{assign main_menu LinkList::GetInstanceByCode("main_menu")}
-					{if $main_menu}
-						{foreach $main_menu->getItems($current_region) as $item}
-							<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
-						{/foreach}
-					{/if}
-					{*render partial="shared/langswitch_navbar"*}
-				</ul>
+				{render partial="shared/layout/header/main_menu"}
 			</div>
 		</div>
 	</nav>

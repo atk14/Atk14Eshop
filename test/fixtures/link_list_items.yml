@@ -1,0 +1,15 @@
+main_menu__homepage:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $pages["homepage"]]) ?>"
+
+main_menu__testing_page:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $pages["testing_page"]]) ?>"
+
+main_menu__catalog:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "categories/detail", "path" => "catalog"]) ?>"
+
+main_menu__external:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  url: "https://www.atk14.net/"
