@@ -180,10 +180,18 @@ class BasketOrOrder extends ApplicationModel {
 
 
 	function getShippingFee(){
-		return $this->getDeliveryFee() + $this->getPaymentFee();
+		$delivery_fee = $this->getDeliveryFee();
+		if(is_null($delivery_fee)){
+			return null;
+		}
+		return $delivery_fee + $this->getPaymentFee();
 	}
 
 	function getShippingFeeInclVat(){
+		$delivery_fee = $this->getDeliveryFeeInclVat();
+		if(is_null($delivery_fee)){
+			return null;
+		}
 		return $this->getDeliveryFeeInclVat() + $this->getPaymentFeeInclVat();
 	}
 

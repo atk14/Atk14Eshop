@@ -16,7 +16,7 @@ class DeliveryMethodsForm extends AdminForm {
 		)));
 
 		$this->add_translatable_field("label", new CharField(array(
-			"label" => _("Text ve formuláři"),
+			"label" => _("Název dopravy"),
 		)));
 
 		$this->add_translatable_field("title", new CharField(array(
@@ -24,24 +24,24 @@ class DeliveryMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_translatable_field("description", new WysiwygField(array(
+		$this->add_translatable_field("description", new MarkdownField(array(
 			"label" => _("Text nápovědy"),
 			"required" => false,
 		)));
 
-		$this->add_translatable_field("email_description", new WysiwygField(array(
+		$this->add_translatable_field("email_description", new MarkdownField(array(
 			"label" => _("Text nápovědy do notifikačních e-mailů"),
 			"required" => false,
 		)));
 
-		$this->add_field("price", new FloatField(array(
+		$this->add_field("price", new PriceField(array(
 			"label" => sprintf(_("Výchozí cena [%s]"),$currency),
-			"min_value" => 0,
+			"required" => false,
 		)));
 
-		$this->add_field("price_incl_vat", new FloatField(array(
+		$this->add_field("price_incl_vat", new PriceField(array(
 			"label" => sprintf(_("Výchozí cena s DPH [%s]"),$currency),
-			"min_value" => 0,
+			"required" => false,
 		)));
 
 		$this->add_field("personal_pickup", new BooleanField(array(
@@ -88,6 +88,15 @@ class DeliveryMethodsForm extends AdminForm {
 		if(in_array("personal_pickup",$keys) && in_array("personal_pickup_on_store_id",$keys)){
 			if($d["personal_pickup_on_store_id"] && !$d["personal_pickup"]){
 				$this->set_error("personal_pickup",_("Pokud je vybrába prodejna pro osbní odběr, zatrhněte i osobní odběr"));
+			}
+		}
+
+		if(in_array("price",$keys) && in_array("price_incl_vat",$keys)){
+			if(isset($d["price"]) && !isset($d["price_incl_vat"])){
+				$this->set_error("price_incl_vat",_("Specify the price incl. VAT"));
+			}
+			if(!isset($d["price"]) && isset($d["price_incl_vat"])){
+				$this->set_error("price_incl_vat",_("Specify the price"));
 			}
 		}
 
