@@ -34,13 +34,8 @@
 
 	<div class="card-footer">
 		{if $starting_price}
-			<span class="card-price">
-				{if $starting_price->discounted()}
-					<span class="card-price--before-discount">{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
-				{/if}
-				{!$starting_price|display_price:$price_finder->getCurrency()}
-			</span>
-			<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>
+			{render partial="shared/card_price" starting_price=$starting_price}
+			<span class="card-footer-icon">{!"chevron-right"|icon}</span>
 		{/if}
 	</div>
 

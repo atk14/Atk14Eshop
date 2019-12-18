@@ -3,31 +3,24 @@
 <ul class="navbar-nav">
 	{if $main_menu}
 		{foreach $main_menu->getItems($current_region) as $item}
-			<li class="nav-item">
+			
 				{assign submenu $item->getSubmenu()}
 
 				{if $submenu}
-
-					<div class="btn-group btn-group-sm">
-						<a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a>
-						<button class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="caret"></span>
-							<span class="sr-only">{t}Show menu{/t}</span>
-						</button>
-						<div class="dropdown-menu dropdown-menu-right">
-							{foreach $submenu->getItems() as $subitem}
-								<a href="{$subitem->getUrl()}" class="dropdown-item">{$subitem->getTitle()}</a>
-							{/foreach}
-						</div>
-					</div>
-
+					<li class="nav-item dropdown">
+							<a href="{$item->getUrl()}" class="nav-link  dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$item->getTitle()}</a>
+							<div class="dropdown-menu">
+								{foreach $submenu->getItems() as $subitem}
+									<a href="{$subitem->getUrl()}" class="dropdown-item">{$subitem->getTitle()}</a>
+								{/foreach}
+							</div>
+					</li>
 				{else}
-
-					<a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a>
-
+					<li class="nav-item">
+						<a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a>
+					</li>
 				{/if}
 
-			</li>
 		{/foreach}
 	{/if}
 </ul>

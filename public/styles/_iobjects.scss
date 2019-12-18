@@ -75,6 +75,7 @@
 		.iobject__body {
 			display: flex;
 			flex-direction: column;
+			flex-grow: 10;
 			justify-content: space-between;
 			padding: $grid-gutter-width/2;
 			.iobject__title {
@@ -83,12 +84,14 @@
 			.iobject__description {
 				font-size: 0.875rem;
 			}
-			.iobject__price {
-				display: block;
+			.iobject__footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
 				margin-top: 1rem;
-				font-size: 1.25rem;
-				font-weight: 900;
-				color: $green;
+				.card-footer-icon {
+					font-size: 1.25rem;
+				}
 			}
 		}
 		@media(max-width: 700px){

@@ -60,27 +60,6 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
-		.card-price {
-			.currency_main {
-				color: $green;
-				font-size: 1.25rem;
-				font-weight: 900;
-			}
-			&--before-discount {
-				display: block;
-				.currency_main {
-					color: $body-color;
-					text-decoration: line-through;
-					font-weight: 600;
-					color: $gray-500;
-					font-size: 1rem;
-				}
-			}
-		}
-		.card-footer-icon {
-			color: $body-color;
-			display: none;
-		}
 	}
 	
 	.card__tags {

@@ -25,9 +25,11 @@
 			</div>
 		</div>
 		{if $starting_price}
-			<span class="iobject__price">
-				{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}
-				<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>
+			<span class="iobject__footer">
+				{if $starting_price}
+					{render partial="shared/card_price" starting_price=$starting_price}
+				{/if}
+				<span class="card-footer-icon">{!"chevron-right"|icon}</span>
 			</span>
 		{/if}
 	</div>

@@ -1,4 +1,5 @@
 {assign starting_price $price_finder->getStartingPrice($c)}
+{assign creators CardCreator::GetMainCreatorsForCard($c)}
 {a action="cards/detail" id=$c _class="card"}
 	{if $c->getImage()}
 		{!$c->getImage()|pupiq_img:"300x225xcrop":"class='card-img-top'"}
@@ -13,12 +14,19 @@
 		{/if}
 	</div>
 	<div class="card-body">
-	{$c->getName()}
+		<h4 class="card-title">{$c->getName()}</h4>
+		{if $creators}
+		<div class="card-author">
+			{foreach $creators as $creator}{trim}
+				{if $creator@iteration > 1}, {/if}{$creator}
+			{/trim}{/foreach}
+		</div>
+		{/if}
 	</div>
 	<div class="card-footer">
 		{if $starting_price}
-			<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}</span>
-			<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>
+			{render partial="shared/card_price" starting_price=$starting_price}
 		{/if}
+		<span class="card-footer-icon">{!"chevron-right"|icon}</span>
 	</div>
 {/a}

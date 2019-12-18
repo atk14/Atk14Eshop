@@ -1,0 +1,36 @@
+// Styling price for product cards, product promotion iobject, related product cards
+.card-price {
+	display: inline-block;
+	.currency_main {
+		color: $green;
+		font-size: 1.25rem;
+		font-weight: 900;
+		.price {
+			
+		}
+		.dph {
+			
+		}
+	}
+	// price before discount
+	&--before-discount {
+		display: block;
+		.currency_main {
+			color: $body-color;
+			text-decoration: line-through;
+			font-weight: 600;
+			color: $gray-500;
+			font-size: 1rem;
+			.price {
+
+			}
+		}
+	}
+}
+
+
+.card-footer-icon {
+	display: none;
+	color: $primary;
+	align-self: flex-end;
+}

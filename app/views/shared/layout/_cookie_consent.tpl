@@ -3,11 +3,12 @@ window.addEventListener( "load", function() {
 	window.cookieconsent.initialise( {
 		"palette": {
 			"popup": {
-				"background": "#fff",
+				"background": "#eee",
 				"text": "#838391"
 			},
 				"button": {
-				"background": "#5F2929"
+				"background": "#81971a",
+				"text": "#ffffff" 
 			}
 		},
 		"content": {

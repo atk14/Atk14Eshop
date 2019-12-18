@@ -37,6 +37,14 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				// Main menu dropdowns with clickable parent link
+				$( ".navbar-main li.nav-item.dropdown > a.nav-link" ).on( "click", function() {
+					// If submenu is already visible, lets go to parent link href
+					if( $( this ).parent().find( ".dropdown-menu" ).hasClass( "show" ) ) {
+						window.location.href = $( this ).attr( "href" );
+					}
+				} );
 			}
 		},
 
