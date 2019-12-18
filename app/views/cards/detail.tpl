@@ -5,15 +5,15 @@
 		{if $brand}
 			{capture assign="brand_text"}{t}Brand:{/t} {a action="brands/detail" id=$brand}{$brand->getName()}{/a}{/capture}
 		{/if}
-		{render partial="shared/layout/content_header" title=$page_title teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags()}
-
-		{if $main_creators}
-			{foreach $main_creators as $creator}
-				{if $creator->getPage()}<a href="{$creator->getPage()|link_to_page}">{/if}
-				{$creator}
-				{if $creator->getPage()}</a>{/if}
-			{/foreach}
-		{/if}
+		{capture assign="author"}
+			{if $main_creators}
+				{foreach $main_creators as $creator}{trim}
+					{if $creator@iteration > 1}, {/if}
+					{if $creator->getPage()}<a href="{$creator->getPage()|link_to_page}">{/if}{$creator}{if $creator->getPage()}</a>{/if}
+				{/trim}{/foreach}
+			{/if}
+		{/capture}
+		{render partial="shared/layout/content_header" title=$page_title teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author}
 
 		{render partial="products_to_basket"}
 		

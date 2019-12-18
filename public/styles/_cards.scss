@@ -48,6 +48,17 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 		flex-direction: column;
 	}
 	
+	.card-author {
+		display: inline-block;
+		width: auto;
+		padding: 0.25em 0.5em;
+		background-color: $body-bg;
+		margin-bottom: 1rem;
+		font-weight: 600;
+		font-size: 0.875rem;
+		color: black;
+	}
+	
 	.card-meta {
 		margin-top: 1rem;
 		font-size: 0.75rem;
@@ -97,6 +108,9 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 		}
 		&.card--compact {
 			grid-template-columns: 150px 1fr;
+			.card-author {
+				font-size: 0.75rem;
+			}
 		}
 		
 		@include media-breakpoint-only(md){
