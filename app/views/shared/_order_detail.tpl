@@ -82,7 +82,7 @@
 			<td class="table-products__icon">{!"truck"|icon}</td>
 			<td class="table-products__title">{t}Doprava:{/t}</td>
 			<td colspan="3" class="table-products__id">{$order->getDeliveryMethod()->getLabel()}{render partial="shared/order/delivery_method_data" show_branch_id=false}</td>
-			<td class="table-products__price">{!$order->getDeliveryFeeInclVat()|display_price:"$currency"|default:"?"}</td>
+			<td class="table-products__price">{!$order->getDeliveryFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
 		</tr>
 		{if $is_basket==false && $order->getDeliveryMethod()->getTrackingUrl()}
 			{assign tracking_url $order->getTrackingUrl()}
@@ -121,7 +121,7 @@
 						</tr>
 						<tr>
 							<th>{t}Doprava a platba{/t}</th>
-							<td class="text-right">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:"?"}</td>
+							<td class="text-right">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
 						</tr>
 						{if $order->getCampaignsDiscountAmount()}
 						<tr>
@@ -148,7 +148,7 @@
 
 {if is_null($order->getShippingFeeInclVat())}
 	<p class="text-right">
-		<small><sup>*</sup> {t}uvedená konečná cena neobsahuje poplatek za dopravu{/t}</small></td>
+		<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small></td>
 	</p>
 {/if}
 

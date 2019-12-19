@@ -46,6 +46,12 @@ class ApplicationMailer extends Atk14Mailer {
 	function _before_render(){
 		parent::_before_render();
 		$this->tpl_data["preheader_text"] = $this->preheader_text;
+
+		// It's better to write
+		//	{$val|default:$mdash}
+		// than
+		//	{!$val|h|default:"&mdash;"}
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function _after_render(){

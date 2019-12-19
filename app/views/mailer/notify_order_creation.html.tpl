@@ -82,14 +82,18 @@
 	{/foreach}
 	<tr style="text-align: right;">
 		<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;" colspan="4">{t}Doprava{/t}</td>
-		<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;">{!$order->getShippingFeeInclVat()|display_price:"$currency"}</td>
+		<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
 	</tr>
 	<tr style="text-align: right; font-weight: bold;">
 		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;" colspan="4">{t}Celkem k úhradě{/t}</td>
-		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;">{!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
+		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</td>
 	</tr>
 </tbody>
 </table>
+
+{if is_null($order->getShippingFeeInclVat())}
+	<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small><br><br>
+{/if}
 
 {render partial="partials/title_box" content="{t}Přeprava{/t}"}
 
