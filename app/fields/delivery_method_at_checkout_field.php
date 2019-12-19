@@ -51,6 +51,7 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 }
 
 class DeliveryMethodChoice {
+
 	function __construct($dm, $options) {
 		$this->options = $options;
 		$this->dm = $dm;
@@ -77,7 +78,13 @@ class DeliveryMethodChoice {
 
 		$basket = $this->options["basket"];
 
-		$price = $o->getPriceInclVat() / $rate;
+		$price = $o->getPriceInclVat();
+		if(is_null($price)){
+			return null;
+		}
+
+		$price = $price / $rate;
+
 		$lowest_price  = $o->getLowestPriceInclVat() / $rate;
 		$highest_price = $o->getHighestPriceInclVat() / $rate;
 		if($price == 0.0 || $basket->freeShipping($this->dm)){

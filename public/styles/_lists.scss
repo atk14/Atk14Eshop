@@ -96,37 +96,58 @@ ul.list--radios {
 		//cursor: pointer;
 		
 		.form-check {
-			//display: flex;
-			//align-items: center;
 			label {
 				display: flex;
-				justify-content: space-between;
-				//align-items: center;
-				flex-grow: 10;
+				margin-left: 5px;
 				.v-image {
-					display: inline-block;
-					width: 2.75rem;
-					vertical-align: text-top;
-					margin: 0-$itemPadding 0;
-					margin-right: $itemPadding;
+					display: block;
+					flex-basis: 50px;
+					max-width: 50px;
+					margin-right: $grid-gutter-width/4;
 					img {
-						max-width: 100%;
+						width: 50px;
 						height: auto;
 					}
 				}
-				.v-name {
-
-				}
-				.v-hint {
-					display: none;
+				.v-description {
+					flex-grow: 10;
+					.v-name {
+						font-weight: 600;
+					}
+					.v-hint {
+						font-size: 0.875rem;
+						margin-top: 0.5em;
+						table.table {
+							td, th {
+								padding: 0.25rem;
+							}
+						}
+						*:last-child {
+							margin-bottom: 0;
+						}
+					}
 				}
 				.v-price {
+					margin-left: $grid-gutter-width/4;
 					font-weight: 600;
 					&.for-free {
 						color: $success;
 					}
 				}
 			}
+			@include media-breakpoint-down(xs) {
+				label {
+					.v-image {
+						flex-basis: 30px;
+						max-width: 30px;
+						img {
+							width: 30px;
+						}
+					}
+				}
+			}
+			
+			@media(max-width:450px){}
 		}
 		&:last-child {
 			margin-bottom: 0;

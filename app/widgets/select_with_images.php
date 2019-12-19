@@ -114,9 +114,15 @@ class RadioInputWithImage {
 	}
 
 	function hint() {
+		Atk14Require::Helper("modifier.markdown");
 		$hint = $this->object->getHint();
+		$hint = smarty_modifier_markdown($hint);
 		if(!$hint) { return ''; };
-		return "<span class='v-hint'><span class='v-hint-title'>{$this->object->getHintTitle()}</span>$hint</span>";
+		$hint_title = $this->object->getHintTitle();
+		if($hint_title){
+			$hint_title = '<span class="v-hint-title">'.$hint_title.'</span>';
+		}
+		return '<div class="v-hint">'.$hint_title.$hint.'</div>';
 	}
 
 	function price() {
@@ -151,6 +157,6 @@ class RadioInputWithImage {
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $price . '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>'.$this->branchAddress();
 	}
 }
