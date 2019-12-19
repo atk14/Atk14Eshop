@@ -157,6 +157,6 @@ class RadioInputWithImage {
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $price . '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>'.$this->branchAddress();
 	}
 }
