@@ -34,14 +34,20 @@ class DeliveryMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
+		$help_text = _("Pokud nebude částka určena, znamená to, že cena za dopravu bude stanovena následnou dohodou.");
+		//
 		$this->add_field("price", new PriceField(array(
 			"label" => sprintf(_("Výchozí cena [%s]"),$currency),
 			"required" => false,
+			"initial" => 0,
+			"help_text" => $help_text,
 		)));
-
+		//
 		$this->add_field("price_incl_vat", new PriceField(array(
 			"label" => sprintf(_("Výchozí cena s DPH [%s]"),$currency),
 			"required" => false,
+			"initial" => 0,
+			"help_text" => $help_text,
 		)));
 
 		$this->add_field("personal_pickup", new BooleanField(array(
