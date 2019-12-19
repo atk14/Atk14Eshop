@@ -1,4 +1,3 @@
-{capture assign=page_title}{t}Historie a detaily mých objednávek{/t}{/capture}
 {assign payment_transaction $order->getPaymentTransaction()}
 {capture assign=order_status}
 	<ul class="list--simple">
