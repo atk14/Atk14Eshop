@@ -91,7 +91,7 @@
 
 
 
-	<nav class="navbar navbar-dark bg-success navbar-expand-{$nav_breakpoint} d-none d-{$nav_breakpoint}-flex navbar-main">
+	<nav class="navbar navbar-dark bg-success navbar-expand-{$nav_breakpoint} d-none d-{$nav_breakpoint}-flex navbar-main navbar--clickable-dropdown-parents">
 		<div class="container-fluid">
 
 			
