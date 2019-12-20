@@ -8,7 +8,7 @@ window.UTILS.shipping_rules.checkDependent = function( options ) {
 
 	var $determinants = $( "input[name='" + options.determinantName + "']" ),
 	$determined = $( "input[name='" + options.determinedName + "']" ),
-	$determinedRadio = $determined.closest( ".radio" );
+	$determinedRadio = $determined.closest( ".list__item" );
 
 	$determinants.each( function() {
 		var $input = $( this ),
@@ -22,14 +22,14 @@ window.UTILS.shipping_rules.checkDependent = function( options ) {
 			var enabled = 0;
 
 			$determined.prop( "disabled", true );
-			$determinedRadio.addClass( "radio--disabled" );
+			$determinedRadio.addClass( "list__item--disabled" );
 
 			$.each( rule, function( i, val ) {
 				var value = val.toString();
 
 				$determined
 					.filter( "[value='" + value + "']" ).prop( "disabled", false )
-					.closest( ".radio" ).removeClass( "radio--disabled" );
+					.closest( ".list__item" ).removeClass( "list__item--disabled" );
 			} );
 
 			enabled = $determined.filter( ":enabled" ).length;

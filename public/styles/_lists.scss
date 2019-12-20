@@ -94,6 +94,11 @@ ul.list--radios {
 		margin-bottom: $grid-gutter-width/4;
 		padding: $itemPadding;
 		//cursor: pointer;
+
+		&--disabled {
+			transition: opacity 0.2s linear;
+			opacity: 0.5;
+		}
 		
 		.form-check {
 			label {
