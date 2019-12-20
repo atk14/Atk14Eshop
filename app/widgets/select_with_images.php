@@ -43,7 +43,7 @@ class SelectWithImages extends RadioSelect
 			$ch = new RadioInputWithImage($name, $value, $attrs, $k, $v, $i);
 			$ch->options = $this->options;
 
-			$output[] = "<li class=\"list__item\" data-id='$k'>".$ch->render()."</li>";
+			$output[] = "<li class=\"list__item\" data-id=\"$k\">".$ch->render()."</li>";
 			$i++;
 		}
 		$data_api_url = "";
@@ -103,7 +103,7 @@ class RadioInputWithImage {
 				$image = $image->getUrl();
 			}
 			$p = new Pupiq($image,$api_key);
-			return sprintf("<span class='v-image'><img src='%s' alt='%s'></span>",$p->getUrl($this->options["image_geometry"]),$title);
+			return sprintf('<span class="v-image"><img src="%s" alt=""></span>',$p->getUrl($this->options["image_geometry"]));
 		} else {
 			return '';
 		}
@@ -128,8 +128,8 @@ class RadioInputWithImage {
 	function price() {
 		$price = $this->object->getPrice();
 		if($price === null) { return ''; };
-		if($price === 0) { return "<span class='v-price for-free'>"._('Zdarma') . '</span>'; };
-		return "<span class='v-price'>$price</span>";
+		if($price === 0) { return '<span class="v-price for-free">'._('Zdarma') . '</span>'; };
+		return "<span class=\"v-price\">$price</span>";
 	}
 
 	function branchAddress() {
