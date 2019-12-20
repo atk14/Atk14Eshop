@@ -39,10 +39,9 @@
 				} );
 
 				// Main menu dropdowns with clickable parent link
-				$( ".navbar-main.navbar--clickable-dropdown-parents li.nav-item.dropdown > a.nav-link" ).on( "click", function() {
-					// If submenu is already visible, lets go to parent link href
-					if( $( this ).parent().find( ".dropdown-menu" ).hasClass( "show" ) ) {
-						window.location.href = $( this ).attr( "href" );
+				$( ".js--prevent-dropdown-toggle" ).click( function( e ) {
+					if( $( this ).closest( ".nav-item" ).find( ".dropdown-menu" ).hasClass( "show" ) ) {
+						e.stopPropagation();
 					}
 				} );
 			}
