@@ -112,4 +112,12 @@ class OrderStatus extends ApplicationModel implements Translatable {
 	function finishedUnsuccessfully(){
 		return in_array($this->getCode(),["cancelled","returned"]);
 	}
+
+	function isFinishingUnsuccessfully(){
+		return in_array($this->getCode(),["payment_failed"]);
+	}
+
+	function isFinishingSuccessfully(){
+		return in_array($this->getCode(),["ready_for_pickup"]);
+	}
 }
