@@ -17,10 +17,10 @@
 			{foreach $orders as $o}
 			{assign currency $o->getCurrency()}
 			<tr>
-				<td><span class="table-hint-xs">{t}Číslo objednávky{/t}</span>{a action="orders/detail" id=$o}{$o->getOrderNo()}{/a}</td>
-				<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span>{!$o->getPriceToPay()|display_price:"$currency,summary"}</td>
-				<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span>{$o->getCreatedAt()|format_date}</td>
-				<td>{render partial="shared/order_status" order=$o}</td>
+				<td><span class="table-hint-xs">{t}Číslo objednávky{/t}</span> {a action="orders/detail" id=$o}{$o->getOrderNo()}{/a}</td>
+				<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span> {!$o->getPriceToPay()|display_price:"$currency,summary"}</td>
+				<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span> {$o->getCreatedAt()|format_date}</td>
+				<td><span class="table-hint-xs">{t}Stav{/t}</span> {render partial="shared/order_status" order=$o}</td>
 				{* <td class="text-sm-right"><span class="table-hint-xs">{t}Faktura{/t}</span>{a}{t}Faktura{/t} #######{/a}</td> *}
 			</tr>
 			{/foreach}
