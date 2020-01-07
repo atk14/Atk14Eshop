@@ -42,4 +42,19 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 	function toString(){
 		return (string)$this->getKey();
 	}
+
+	/***
+	 *  list($barvy, $uziti, $material) = TechnicalSpecificationKey::FindByCodes('color', 'width');
+	 *  Vrati asociativni pole, kde hodnota null znamena nenalezeno
+	 **/
+	static function FindByCodes($codes) {
+		$ids = self::GetDbMole()->selectIntoAssociativeArray("select code, id from technical_specification_keys where code in :codes", [':codes' => $codes]);
+		$cats = static::GetInstanceById($ids);
+		$cats = $cats + array_fill_keys($codes, null);
+		foreach($codes as &$c) {
+			$c = $cats[$c];
+		}
+		return $codes;
+	}
+
 }
