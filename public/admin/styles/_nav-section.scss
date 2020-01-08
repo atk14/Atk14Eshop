@@ -20,4 +20,39 @@ nav.nav-section {
 		}
 		
 	}
+	
+	// Filter
+	#nav-filter {
+		border-bottom: 1px solid $border-color;
+		display: flex;
+		flex-wrap: nowrap;
+		padding-left: 0.65rem;
+		padding-right: 0.25rem;
+		padding-bottom: $grid-gutter-width/4;
+		margin-top: 0 - $grid-gutter-width/4;
+		&__input {
+			min-width: 100px;
+			width: auto;
+			flex-shrink: 10;
+			flex-grow: 10;
+			margin-right: 0.25rem;
+		}
+		.btn {
+			padding-left: 0.25rem;
+			padding-right: 0.25rem;
+		}
+		&__submit {
+			color: rgba( $body-color, 0.5 );
+			&:hover {
+				color: $link-color;
+			}
+		}
+		&__clear {
+			color: red;
+			&:hover {
+				color: $danger;
+			}
+		}
+	}
+	
 }
