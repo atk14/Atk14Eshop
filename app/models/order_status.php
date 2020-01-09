@@ -28,66 +28,14 @@ class OrderStatus extends ApplicationModel implements Translatable {
 		}
 	}
 
+	function getAllowedNextOrderStatusesLister(){
+		return $this->getLister("AllowedNextOrderStatuses",[
+			"class_name" => "OrderStatus",
+		]);
+	}
+
 	function getAllowedNextOrderStatuses(){
-		$tr_table = [];
-
-		$tr_table["new"] = [
-			"processing",
-			"cancelled"
-		];
-
-		$tr_table["waiting_for_bank_transfer"] = [
-			"payment_accepted",
-			"payment_failed",
-			"cancelled",
-		];
-
-		$tr_table["payment_accepted"] = [
-			"processing",
-			"cancelled",
-		];
-
-		$tr_table["payment_failed"] = [
-			"waiting_for_bank_transfer",
-			"waiting_for_online_payment",
-			"processing",
-			"cancelled",
-		];
-
-		$tr_table["processing"] = [
-			"shipped",
-			"ready_for_pickup",
-			"cancelled"
-		];
-
-		$tr_table["shipped"] = [
-			"delivered",
-			"cancelled",
-			"returned"
-		];
-
-		$tr_table["ready_for_pickup"] = [
-			"delivered",
-			"returned",
-		];
-
-		$tr_table["delivered"] = [
-			"returned",
-		];
-
-		$tr_table["returned"] = [
-			"cancelled",
-		];
-
-		$code = $this->getCode();
-		if(!isset($tr_table[$code])){ return []; }
-
-		$out = [];
-		foreach($tr_table[$code] as $c){
-			$out[] = OrderStatus::GetInstanceByCode($c);
-		}
-
-		return $out;
+		return $this->getAllowedNextOrderStatusesLister()->getRecords();
 	}
 
 	/**
@@ -106,18 +54,18 @@ class OrderStatus extends ApplicationModel implements Translatable {
 	}
 
 	function finishedSuccessfully(){
-		return in_array($this->getCode(),["shipped","delivered"]);
+		return $this->g("finished_successfully");
 	}
 
 	function finishedUnsuccessfully(){
-		return in_array($this->getCode(),["cancelled","returned"]);
-	}
-
-	function isFinishingUnsuccessfully(){
-		return in_array($this->getCode(),["payment_failed"]);
+		return $this->g("finished_unsuccessfully");
 	}
 
 	function isFinishingSuccessfully(){
-		return in_array($this->getCode(),["ready_for_pickup"]);
+		return $this->g("finishing_successfully");
+	}
+
+	function isFinishingUnsuccessfully(){
+		return $this->g("finishing_unsuccessfully");
 	}
 }

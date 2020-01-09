@@ -55,6 +55,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => true,
 			"reduce_stockount" => false,
 			"rank"  => 50,
+			//
+			"finishing_unsuccessfully" => true,
 		]);
 
 		OrderStatus::CreateNewRecord([
@@ -77,6 +79,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => false,
 			"reduce_stockount" => true,
 			"rank"  => 70,
+			//
+			"finished_successfully" => true,
 		]);
 
 		OrderStatus::CreateNewRecord([
@@ -88,6 +92,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => true,
 			"reduce_stockount" => false,
 			"rank"  => 80,
+			//
+			"finishing_successfully" => true,
 		]);
 
 		OrderStatus::CreateNewRecord([
@@ -99,6 +105,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => false,
 			"reduce_stockount" => true,
 			"rank"  => 90,
+			//
+			"finished_successfully" => true,
 		]);
 
 		OrderStatus::CreateNewRecord([
@@ -110,6 +118,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => false,
 			"reduce_stockount" => false,
 			"rank"  => 100,
+			//
+			"finished_unsuccessfully" => true,
 		]);
 
 		OrderStatus::CreateNewRecord([
@@ -121,6 +131,57 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"blocking_stockcount" => false,
 			"reduce_stockount" => false,
 			"rank"  => 110,
+			//
+			"finished_unsuccessfully" => true,
 		]);
+
+		$next_order_statuses = [
+			"new" => [
+				"processing",
+				"cancelled"
+			],
+			"waiting_for_bank_transfer" => [
+				"payment_accepted",
+				"payment_failed",
+				"cancelled",
+			],
+			"payment_accepted" => [
+				"processing",
+				"cancelled",
+			],
+			"payment_failed" => [
+				"waiting_for_bank_transfer",
+				"waiting_for_online_payment",
+				"processing",
+				"cancelled",
+			],
+			"processing" => [
+				"shipped",
+				"ready_for_pickup",
+				"cancelled"
+			],
+			"shipped" => [
+				"delivered",
+				"cancelled",
+				"returned"
+			],
+			"ready_for_pickup" => [
+				"delivered",
+				"returned",
+			],
+			"delivered" => [
+				"returned",
+			],
+			"returned" => [
+				"cancelled",
+			]
+		];
+		foreach($next_order_statuses as $code => $next_codes){
+			$os = OrderStatus::GetInstanceByCode($code);
+			$finder = $os->getAllowedNextOrderStatusesLister();
+			foreach($next_codes as $next_code){
+				$finder->append(OrderStatus::GetInstanceByCode($next_code));
+			}
+		}
 	}
 }
