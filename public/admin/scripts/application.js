@@ -38,9 +38,9 @@
 
 				// Filter items in navigation bar
 				$( "#nav-filter__input" ).on( "keyup blur", function( e ) {
-					if( e.type == "keyup" ) {
+					if( e.type === "keyup" ) {
 						var code = e.charCode || e.keyCode;
-						if( code == 27 ){
+						if( code === 27 ){
 							$( "#nav-filter__input" ).val( "" );
 						}
 					}
