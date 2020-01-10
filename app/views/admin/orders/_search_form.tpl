@@ -35,7 +35,7 @@
 			{!$form|field:"payment_status_id":"label_to_placeholder"}
 		</div>
 		<div class="col-md-3">
-			{!$form|field:"order_status_id":"label_to_placeholder"}
+			{!$form|field:"order_status":"label_to_placeholder"}
 		</div>
 	</div>
 
