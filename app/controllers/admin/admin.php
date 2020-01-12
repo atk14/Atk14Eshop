@@ -54,6 +54,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Order statuses"),				"order_statuses"),
 			array(_("Selling regions"),				"regions"),
 			array(_("System preferences"),		"system_parameters"),
+			array(_("Wiki"),									"wiki_pages,wiki_attachments")
 		) as $item){
 			$_label = $item[0];
 			$_controllers = explode(',',$item[1]); // "products,cards" => array("products","cards");

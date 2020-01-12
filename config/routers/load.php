@@ -19,5 +19,7 @@ Atk14Url::AddRouter("StoresRouter");
 
 Atk14Url::AddRouter("AdminRouter");
 
+Atk14Url::AddRouter("admin","WikiPagesRouter");
+
 // Keep the DefaultRouter at the end of the list
 Atk14Url::AddRouter("DefaultRouter");

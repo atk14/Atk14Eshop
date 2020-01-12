@@ -1,0 +1,1 @@
+../../../vendor/atk14/wiki-pages/src/app/controllers/admin/wiki_attachments_controller.php
