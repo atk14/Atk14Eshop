@@ -1,6 +1,6 @@
 {
   "env": {
-		"browser": true,
+    "browser": true,
     "node": true
   },
   "globals": {},
@@ -22,7 +22,7 @@
       2,
       "double"
     ],
-    "no-undef": 2,
-    "no-unused-vars": 2
+    "no-undef": 1,
+    "no-unused-vars": 1
   }
 }

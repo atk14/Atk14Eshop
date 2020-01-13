@@ -20,12 +20,17 @@ var vendorScripts = [
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
-	"node_modules/bootstrap4-notify/bootstrap-notify.js"
+	"node_modules/bootstrap4-notify/bootstrap-notify.js",
+	"node_modules/moment/moment.js",
+	"node_modules/moment/locale/cs.js",
+	"node_modules/chart.js/dist/Chart.js",
+	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
+	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/admin/scripts/application.js",
 	"public/admin/scripts/tooltip.js"
 ];

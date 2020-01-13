@@ -61,6 +61,12 @@
 			}
 
 		},
+		
+		main: {
+			init: function() {
+				UTILS.initDashboardOrdersChart();
+			}
+		},
 
 		cards: {
 			edit: function() {
