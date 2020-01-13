@@ -150,3 +150,16 @@ form {
 		}
 	}
 }
+
+
+// filter form
+.form-filter {
+	.col, [class|="col"] {
+		margin-bottom: $grid-gutter-width/2;
+	}
+	input, select {
+		&.active-filter {
+			border-color: black;
+		}
+	}
+}

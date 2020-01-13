@@ -68,6 +68,42 @@
 			}
 		},
 
+		orders: {
+			index: function() {
+
+				// Reset filtering form and reload
+				$( ".form-filter button[type=\"reset\"]" ).on( "click", function( e ){
+					e.preventDefault();
+					var frm = $( this ).closest( ".form-filter" );
+					frm.get(0).reset();
+					frm.find( "input[type=\"text\"], input[type=\"search\"]" ).each( function( i, el ) {
+						$( el ).val( "" );
+					} );
+					frm.find( "select" ).each( function( i, el ) {
+						$( el ).find( "option:eq(0)" ).prop( "selected", true );
+					} );
+					frm.submit();
+				} );
+
+				// Decorate filtering form fields with not default
+				$( ".form-filter" ).find( "input[type=\"text\"], input[type=\"search\"], select" ).each( function( i, el ) {
+					var element = $(el);
+					switch( ( element.prop( "tagName" ).toLowerCase() ) ){
+						case "input":
+							if( element.val() ){
+								element.addClass( "active-filter" );
+							}
+							break;
+						case "select":
+							if( element.prop( "selectedIndex" ) !== 0 ) {
+								element.addClass( "active-filter" );
+							}
+							break;
+					} 
+				} );
+			}
+		},
+
 		utils: {
 
 			initializeMarkdonEditors: function() {
