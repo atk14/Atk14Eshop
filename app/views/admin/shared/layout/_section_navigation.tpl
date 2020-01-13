@@ -1,5 +1,5 @@
 <form class="form-inline" id="nav-filter" autocomplete="off">
-	<input class="form-control form-control-sm" id="nav-filter__input">
+	<input class="form-control form-control-sm" id="nav-filter__input" placeholder="{t}search in menu{/t}">
 	<button class="btn btn-sm btn-link d-none" id="nav-filter__clear" tabindex="-1">{!"times"|icon}</button>
 	<button class="btn btn-sm btn-link" id="nav-filter__submit" tabindex="-1">{!"search"|icon}</button>
 </form>
