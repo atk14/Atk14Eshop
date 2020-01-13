@@ -21,7 +21,8 @@ php:
   - 7.4snapshot
 
 before_install:
-  - sudo apt-get install php-imagick
+  - sudo apt-get install imagemagick
+  - printf "\n" | pecl install imagick
   - echo 'en_US.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
   - echo 'cs_CZ.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
   - sudo locale-gen
