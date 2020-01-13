@@ -1,1 +1,1 @@
-../../../vendor/atk14/wiki-pages/src/test/models/tc_wiki_attachment.php
+../../vendor/atk14/wiki-pages/src/test/models/tc_wiki_attachment.php
