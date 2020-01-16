@@ -27,6 +27,18 @@
 		</li>
 	{/if}
 
+	{if $stores}
+		<li>
+			<h4>{a action="stores/index" _with_hostname=1}{t}Stores{/t}{/a}</h4>
+			<ul class="list--tree">
+				{foreach $stores as $store}
+					<li>{a action="stores/detail" id=$store _with_hostname=1}{$store->getName()}{/a}</li>
+				{/foreach}
+				</li>
+			</ul>
+		</li>
+	{/if}
+
 	{*
 	<li>
 		<h4>{a action="users/create_new" _with_hostname=1}{t}New user registration{/t}{/a}</h4>

@@ -51,6 +51,12 @@ class SitemapsController extends ApplicationController{
 			),
 		));
 
+		$this->tpl_data["stores"] = Store::FindAll(array(
+			"conditions" => array(
+				"visible",
+			),
+		));
+
 		if($this->params->getString("format")=="xml"){
 			$this->render_template = false;
 			$this->response->setContentType("text/xml");
