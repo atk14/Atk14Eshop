@@ -130,12 +130,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			"consider_product_images" => true,
 		];
 	
-		// Obrazek z prvni obrazkove varianty ma prednost pred obrazkem u teto karty
+		// Obrazek z prvni varianty ma prednost pred obrazkem u teto karty
+		// TODO: neni jasne proc! :)
 		if($options["consider_product_images"] && $this->hasVariants()){
-			foreach($this->getProducts() as $p){
-				if($i = $p->getImage(false)){
-					return $i;
-				}
+			if(($product = $this->getFirstProduct()) && ($i = $product->getImage(false))){
+				return $i;
 			}
 		}
 
