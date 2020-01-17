@@ -53,7 +53,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 						sampleSize: 100,
 					},
 					afterBuildTicks: function( scale, ticks ) {
-						var majorUnit = scale._majorUnit;
+						/*var majorUnit = scale._majorUnit;
 						var firstTick = ticks[ 0 ];
 						var i, ilen, val, tick, currMajor, lastMajor;
 
@@ -81,7 +81,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 							lastMajor = currMajor;
 						}
 						
-						/*switch ( currentResolution ){
+						switch ( currentResolution ){
 							case "days":
 								var tickFormat = "l";
 								break;
@@ -96,8 +96,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 						for ( i = 1, ilen = ticks.length; i < ilen; i++ ) {
 							tick = ticks[ i ];
 							console.log(tick);
+							ticks[ i ].label="prd";
 							console.log(tick.value, tick.label);
-							tick.label="prd";
 						}*/
 						
 						

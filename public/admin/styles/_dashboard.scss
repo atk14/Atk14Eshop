@@ -1,18 +1,24 @@
-.dashboard-number-indicator {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	border: 1px solid $border-color;
-	border-radius: $border-radius;
-	padding: $grid-gutter-width/4;
-	&__key {
-		font-size: 0.875rem;
-		margin-bottom: 0.5rem;
+.dashboard-indiators {
+	& > [class*="col"] {
+		margin-bottom: $grid-gutter-width/2;
+		margin-top: $grid-gutter-width/2;
 	}
-	&__value {
-		font-size: 1.75rem;
-		line-height: 1;
-		color: $secondary;
+	.dashboard-number-indicator {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border: 1px solid $border-color;
+		border-radius: $border-radius;
+		padding: $grid-gutter-width/4;
+		&__key {
+			font-size: 0.875rem;
+			margin-bottom: 0.5rem;
+		}
+		&__value {
+			font-size: 1.75rem;
+			line-height: 1;
+			color: $secondary;
+		}
 	}
 }

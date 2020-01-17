@@ -1,6 +1,6 @@
 <h1>{t name="ATK14_APPLICATION_NAME"|dump_constant}Eshop %1: Administration{/t}</h1>
 
-<div class="row">
+<div class="row dashboard-indiators">
 	<div class="col-12 col-sm-4 col-md-3">
 		<div class="dashboard-number-indicator">
 			<div class="dashboard-number-indicator__key">
@@ -43,6 +43,7 @@
 	</div>
 	
 </div>
+
 
 <hr>
 
