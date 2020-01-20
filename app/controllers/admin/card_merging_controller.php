@@ -55,11 +55,18 @@ class CardMergingController extends AdminController {
 		$cards = $this->returned_by["get_cards"];
 		$labels = $this->returned_by["get_labels"];
 		$primary_card = $this->returned_by["get_primary_card"];
+		$first_primary_product = $primary_card->getFirstProduct();
+
+		if(!$primary_card->hasVariants() && $first_primary_product){
+			$this->_copy_images($primary_card,$first_primary_product);
+		}
 
 		$primary_card->s("has_variants",true);
 		$rank = 1;
 		foreach($cards as $card){
 			$products = Product::FindAll("card_id",$card);
+			$first_product = $products ? $products[0] : null;
+
 			foreach($products as $product){
 				$p_id = $product->getId();
 				if(isset($labels[$p_id])){
@@ -73,6 +80,7 @@ class CardMergingController extends AdminController {
 			}
 			if($card->getId()!=$primary_card->getId()){
 				myAssert(sizeof($card->getProducts(["deleted" => null, "visible" => null]))==0);
+				$this->_copy_images($card,$first_product);
 				$card->destroy(true);
 			}
 		}
@@ -82,5 +90,23 @@ class CardMergingController extends AdminController {
 			"action" => "cards/index",
 			"search" => $primary_card->getId(),
 		]);
+	}
+
+	/**
+	 * Copies images from the card to the product
+	 *
+	 *	$this->_copy_images($card,$product);
+	 */
+	function _copy_images($source,$destination){
+		$forbidden = ["id","created_by_user_id","updated_by_user_id","created_at","updated_at","rank"];
+		$forbidden = array_combine($forbidden,$forbidden);
+
+		foreach(Image::GetInstancesFor($source) as $object){
+			$values = $object->toArray();
+			$values = array_diff_key($values,$forbidden);
+			$values["record_id"] = $destination->getId();
+			$values["table_name"] = $destination->getTableName();
+			ProductImage::CreateNewRecord($values);
+		}
 	}
 }
