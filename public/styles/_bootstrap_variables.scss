@@ -70,6 +70,7 @@ $colors: map-merge(
   $colors
 );
 
+$brand:         $brand-green;
 $primary:       $blue;//$green !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
@@ -90,7 +91,8 @@ $theme-colors: map-merge(
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
-    "dark":       $dark
+    "dark":       $dark,
+		"brand":      $brand
   ),
   $theme-colors
 );

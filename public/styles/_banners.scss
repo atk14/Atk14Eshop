@@ -2,7 +2,7 @@
 	&--image-text--halfwidth {
 		display: flex;
 		align-items: center;
-		background-color: $green;
+		background-color: $brand;
 		color: white;
 		transition: background-color 0.5s;
 		.banner__text {
@@ -27,7 +27,7 @@
 		&:hover {
 			color: white;
 			text-decoration: none;
-			background-color: darken($green,5%);
+			background-color: darken($brand,5%);
 			transition: background-color 0.1s;
 		}
 	}
