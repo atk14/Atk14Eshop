@@ -191,7 +191,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"vimeo" => "Vimeo",
 			"pinterest" => "Pinterest",
 			"linkedin" => "LinkedIn",
-			"snapchat" => "Snapchat"
+			"snapchat" => "Snapchat",
+			"soundcloud" => "SoundCloud",
 		] as $key => $name){
 			SystemParameter::CreateNewRecord([
 				"code" => "app.contact.social.$key",
