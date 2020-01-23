@@ -23,9 +23,9 @@ $slides_per_view=auto|number 				default: 1
 					</div>
 					<div class="swiper-slide__text">
 						<div>
-							<h3 class="slide-title">{$item->getTitle()}</h3>
+							<h3 class="slide-title">{vlnka}{$item->getTitle()}{/vlnka}</h3>
 							{if $item->getDescription()}
-								<p>{!$item->getDescription()|h|nl2br}</p>
+								<p>{vlnka}{!$item->getDescription()|h|nl2br}{/vlnka}</p>
 							{/if}
 						</div>
 						<div>

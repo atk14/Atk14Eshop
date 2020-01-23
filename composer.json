@@ -23,6 +23,7 @@
         "atk14/zip-field": "^0.1.0",
         "chrisjean/php-ico": "^1.0",
         "atk14/slug-field": "^1.1",
-        "atk14/recaptcha-field": "^0.1.2"
+        "atk14/recaptcha-field": "^0.1.2",
+        "atk14/vlnka": "^1.1"
     }
 }

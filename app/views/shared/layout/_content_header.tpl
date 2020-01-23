@@ -28,7 +28,7 @@
 		{if $tags}
 			<div class="tags">{render partial="shared/tags" tags=$tags}</div>
 		{/if}
-		<{$tag} class="h1">{!$title}</{$tag}>
+		<{$tag} class="h1">{vlnka}{!$title}{/vlnka}</{$tag}>
 		{if $author|trim}
 		<div class="author">{!$author}</div>
 		{/if}
@@ -37,7 +37,7 @@
 			{if $brand|trim}
 				{!$brand}<br>
 			{/if}
-			{!$teaser}
+			{vlnka}{!$teaser}{/vlnka}
 			{if $meta|trim}
 				<p class="meta">{!$meta}</p>
 			{/if}
