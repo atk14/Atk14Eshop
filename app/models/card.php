@@ -726,6 +726,10 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$fd->addText($t->getTagLocalized($lang),"b");
 		}
 
+		foreach(CardCreator::GetCreatorsForCard($this) as $cc){
+			$fd->addText($cc->getCreator()->getName(true,$lang),"b");
+		}
+
 		return $fd;
 	}
 }
