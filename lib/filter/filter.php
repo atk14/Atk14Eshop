@@ -390,9 +390,13 @@ class Filter {
 
 	function getParams() {
 		if($this->params === null) {
-			$f = function($v) { return $v->getParams();};
-			$params = array_map($f, $this->sections);
-			$this->params = call_user_func_array('array_merge', $params);
+			if($this->sections) {
+				$f = function($v) { return $v->getParams();};
+				$params = array_map($f, $this->sections);
+				$this->params = call_user_func_array('array_merge', $params);
+			} else {
+				$this->params = [];
+			}
 		}
 		return $this->params;
 	}

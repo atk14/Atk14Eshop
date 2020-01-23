@@ -34,6 +34,14 @@
 			}
 		},
 
+		categories: {
+
+			// Action-specific code
+			detail: function() {
+				window.ATK14COMMON.filter_init( "#filter_form" );
+			}
+		},
+
 		main: {
 
 			// Controller-wide code.

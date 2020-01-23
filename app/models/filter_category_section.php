@@ -18,11 +18,13 @@ class FilterCategorySection extends FilterSection {
 			where("cards.id = {$name}__cc.card_id")->
 			where($condition)->
 			bind($bind_ar);
+
 		parent::__construct($filter, $name, [
 			'join' => $join,
 			'field' => 'id',
 			'order' => 'rank',
 			'form_label' => $category->getName(),
+			'label_method' => 'getName',
 			'label_class' => 'Category'
 		]);
 	}

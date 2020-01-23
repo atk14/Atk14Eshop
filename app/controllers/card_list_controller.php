@@ -100,6 +100,7 @@ abstract class CardListController extends ApplicationController {
 	function _setup_page_title($options) {
 		if($this->category) {
 			$this->page_title = $this->category->getPageTitle();
+			$this->tpl_data['h1'] = $this->page_title;
 			$this->page_description = $this->category->getPageDescription();
 		}
 	}
@@ -135,7 +136,7 @@ abstract class CardListController extends ApplicationController {
 		}
 
 		$this->form = $this->tpl_data['form'] = $this->_get_form("FilterForm");
-		$this->pager = $pager = new CardsAjaxPager($this, [
+		$this->tpl_data['pager'] = $this->pager = $pager = new CardsAjaxPager($this, [
 				'form' => $this->_get_form("CardListPagingForm")
 		]);
 		$this->tpl_data["paging_form"] = $pager->form;
@@ -168,6 +169,9 @@ abstract class CardListController extends ApplicationController {
 			if(!$this->form->fields){
 				// formular nema zadne policka - nebudeme ho zobrazovat
 				$this->form = null;
+			}
+			if($this->request->xhr()) {
+				$this->template_name = 'shared/filter/detail.xhr';
 			}
 		}
 		return true;

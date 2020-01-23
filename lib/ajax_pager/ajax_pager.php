@@ -51,7 +51,10 @@ class AjaxPager {
 			"form" => null,              //"ordering form" form that handle page_size and/or order
 			"order_name" => 'order',     //order param name
 			"page_size_name" => 'page_size', //size
-			"paging_per" => "section"    //next/previous page lead to whole section, not page
+			"paging_per" => "section",    //next/previous page lead to whole section, not page
+			"empty_template" => "shared/ajax_pager/empty_list",
+			"sorting" => null,
+			'order_label' => _("Seřadit dle")
 		];
 
 		//Texts of buttons of pager
@@ -63,9 +66,9 @@ class AjaxPager {
 			'next/ss' => _("Dalších %s produktů"),
 			'next_page/' => _("Další strana"),
 			'previous_page' => _("Předchozí strana"),
-			'remain//' => _("Zbývá 1 produkt z %t"),
-			'remain/s/' => _("Zbývají %s produkty z %t"),
-			'remain/ss/' => _("Zbývá %s produktů z %t"),
+			'remain//' => _("Zbývá 1 položka z %t"),
+			'remain/s/' => _("Zbývají %s položky z %t"),
+			'remain/ss/' => _("Zbývá %s položek z %t"),
 
 			'remain/0/' => "",
 			'remain/0/s' => "",
@@ -87,16 +90,39 @@ class AjaxPager {
 		$this->limit = (int ) $this->params[$options['limit_name']];
 		$this->total = $options['total'];
 
+		// HACK: Yarriho oprava
+		if(!$this->limit){ // $this->limit totiz tady byva i 0!
+			$this->limit = $options["page_size"];
+		}
 
-		$this->url = $options['url'];
-		$this->url = $this->removePagingParams($this->url);
+		$this->url = $this->removePagingParams($options['url']);
+		$this->form = $options['form'];
+		if($this->sorting = $options['sorting']) {
+			if(!$this->form) {
+				$this->form = new Atk14Form();
+			}
+			$keys = $this->form->get_field_keys();
+			if(!isset($keys[$options['order_name']])) {
+					$this->form->add_field($options['order_name'], new ChoiceField([
+							 "label" => $options['order_label'],
+							 "choices" => [],
+							 "initial" => $this->sorting->getIterator()->current(),
+							 "required" => false,
+				 ]));
+			}
+			$this->updateFormBySorting($options['form']);
+		}
+
 		$this->updateByForm($options['form']);
 
 		if( $this->options['page_size'] === null ) {
 			$this->options['page_size'] = 30;
+		} else {
+			$this->options['page_size'] = (int) $this->options['page_size'];
 		}
+
 		if( $this->options['section_size'] === null) {
-			$this->options['section_size'] = $this->options['page_size'] * $this->options['pages_per_section'];
+			$this->options['section_size'] = $this->pageSize() * $this->options['pages_per_section'];
 		}
 
 		$this->isXhrPaged = $this->params[$this->options['name']] && $this->controller->request->xhr();
@@ -108,14 +134,26 @@ class AjaxPager {
 		} else {
 				//this condition should take care of Back
 			if(!$this->offset && $this->isXhrPaged() && $this->options['paging_per'] == 'section') {
-					$this->limit = $this->options['section_size'];
+					$this->limit = $this->sectionSize();
 				} else {
-					$this->limit = (int) $this->options['page_size'];
+					$this->limit = $this->pageSize();
 				}
 				if(!$this->offset) {
 					$this->limit -= $this->options['first_page_shorter_by'];
 				};
 		}
+
+	}
+
+	function updateFormBySorting() {
+		$field = $this->form->fields[$this->options['order_name']];
+		$choices = $field->get_choices();
+		foreach($this->sorting as $s) {
+			if(!key_exists($s, $choices)) {
+				$choices[$s] = $this->sorting->getTitle($s);
+			}
+		}
+		$field->set_choices($choices);
 	}
 
 	function getFormId() {
@@ -123,9 +161,24 @@ class AjaxPager {
 		return $this->form->get_attr('id');
 	}
 
+	function jsUpdate() {
+		$out = [
+			'offset' => (int) $this->getOffset(),
+			'total' => (int) $this->getTotal(),
+			'sectionSize' => (int) $this->sectionSize(),
+			'pageSize' => $this->pageSize(),
+			'pagingPer'=> $this->pagingPer(),
+			'url' => $this->baseUrl(),
+		];
+		return json_encode($out);
+
+	}
+
 	function jsData() {
 		$out = [
 			'offset' => (int) $this->getOffset(),
+			'offsetName' => $this->options['offset_name'],
+			'limitName' => $this->options['limit_name'],
 			'total' => (int) $this->getTotal(),
 			'texts' => $this->options['texts'],
 			'url' => $this->baseUrl(),
@@ -164,8 +217,8 @@ class AjaxPager {
 
 	function firstPage() {
 		$shift = $this->options['paging_per'] == 'section'?
-							$this->options['section_size']:
-							$this->options['page_size'];
+							$this->sectionSize():
+							$this->pageSize();
 		return $this->offset?['limit' => $shift]:null;
 	}
 
@@ -174,13 +227,12 @@ class AjaxPager {
 	}
 
 	function previousPage() {
-		if($this->offset <= $this->options['section_size']) {
+		$ss = $this->sectionSize();
+		if($this->offset <= $ss) {
 			return null;
 		}
 		$limit = null;
-		$shift = $this->options['paging_per'] == 'section'?
-								$this->options['section_size']:
-								$this->options['page_size'];
+		$shift = $this->options['paging_per'] == 'section'?$ss:$this->pageSize();
 
 		$offset = $this->offset - $shift;
 		if($offset <= -$this->options['first_page_shorter_by']) {
@@ -199,11 +251,10 @@ class AjaxPager {
 			return null;
 		}
 		$offset = $this->offset + $this->limit;
-		if($this->limit + $this->options['page_size'] > $this->options['section_size']) {
+		$ss = $this->sectionSize();
+		if($this->limit + $this->pageSize() > $ss) {
 			//new page - set the limit according to 'paging_per' parameter
-			$limit = $this->options['paging_per'] == 'section'?
-								$this->options['section_size']:
-								null;
+			$limit = $this->options['paging_per'] == 'section'?$ss:null;
 		} else {
 			//fetch next items
 			$limit = null;
@@ -237,16 +288,20 @@ class AjaxPager {
 		return $this->options['item_template'];
 	}
 
+	function getEmptyTemplate() {
+		return $this->options['empty_template'];
+	}
+
+	function setItemTemplate($template) {
+		return $this->options['item_template'] = $template;
+	}
+
 	function getItemVariable() {
 		return $this->options['item_variable'];
 	}
 
 	function getName() {
 		return $this->options['name'];
-	}
-
-	function pageSize() {
-		return $this->options['page_size'];
 	}
 
 	function ammountLeft() {
@@ -265,6 +320,13 @@ class AjaxPager {
 		return $this->options['paging_per'];
 	}
 
+	/*** Maximum number of items fetched at once, items can be added by
+		"infinite scrolling" up to sectionSize() ***/
+	function pageSize() {
+		return $this->options['page_size'];
+	}
+
+	/*** Maximum number of items that can be readed on one page **/
 	function sectionSize() {
 		return $this->options['section_size'];
 	}
@@ -372,12 +434,15 @@ class AjaxPager {
 	 * If form was not submited, use values cached in session instead, or
 	 * form default values as last resort.
    */
-	function updateByForm($form) {
-		$this->form=$form;
-		if($form) {
-			$form->set_action($this->url);
+	function updateByForm() {
+		if($this->form) {
+			$this->form->set_action($this->url);
 
-			$data = $form->validate($this->params);
+			$data = $this->form->validate($this->params);
+			if(is_null($data)){
+				// Toto je Yarriho fix. Melo by se pocitat s tim, ze se z validace muze vratit null!
+				$data = [];
+			}
 			if($data) {
 				$data = array_filter($data);
 			}
@@ -385,31 +450,33 @@ class AjaxPager {
 			$sessionParam = 'pager:'.$this->options['name'];
 			if($data) {
 				$this->controller->session->s($sessionParam, $data);
-			} else {
-				$data = $this->controller->session->g($sessionParam);
-				if(!$data) {
-					$data = [];
-				} else {
-					$form->validate($data);
-				}
+			} elseif($_data = $this->controller->session->g($sessionParam)) {
+				$data = $this->form->validate($_data);
 			}
-			$data += $form->get_initial();
-			$this->options['page_size'] = (int) $data[$this->options['page_size_name']];
+			if(is_null($data)){
+				$data = []; // Yarri: je dulezite mit i tady jistotu, ze mame pole, jinak by radek '$data += $form->get_initial();' mohl zpusobit Fatal Error
+			}
+			$data += $this->form->get_initial();
+			if(isset($data[$this->options['page_size_name']])) {
+				$this->options['page_size'] = (int) $data[$this->options['page_size_name']];
 
-			if(!$this->options['section_size']) {
-				$field = $form->fields[$this->options['page_size_name']];
-				if($field) {
-					$this->options['section_size'] = max(array_keys($field->get_choices()));
+				if(!$this->options['section_size']) {
+					$field = $this->form->fields[$this->options['page_size_name']];
+					if($field) {
+						$this->options['section_size'] = max(array_keys($field->get_choices()));
+					}
 				}
 			}
 			$this->order = $data[$this->options['order_name']];
 		} else {
 			$this->isXhrOrdered = false;
 			$this->order = null;
+			$data = null;
 		}
-
-		$this->sorting = null;
+		$this->updateByFormHook($data);
 	}
+
+	function updateByFormHook($data) {}
 
 	function getOrder() {
 		return $this->order;
@@ -425,17 +492,30 @@ class AjaxPager {
 	}
 
 	function getSqlOrder() {
-		return $this->getSorting()->getOrder();
+		return $this->getSorting()->getOrder($this->getOrder());
 	}
 
+	/***
+	 * Současný request je XHR requestem pro stránkování
+	 * @return bool
+	 ***/
 	function isXhrPaged() {
 		return $this->isXhrPaged;
 	}
 
+	/***
+	 * Současný request je XHR requestem pro řazení
+	 * @return bool
+	 ***/
 	function isXhrOrdered() {
 		return $this->isXhrOrdered;
 	}
 
+	/***
+	 * Současný request je XHR requestem řešený pagerem, tedy stránkování
+	 * nebo řazení
+	 * @return bool
+	 ***/
 	function isXhr() {
 		return $this->isXhrPaged() or $this->isXhrOrdered();
 	}

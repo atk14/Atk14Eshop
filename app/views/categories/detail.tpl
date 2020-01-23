@@ -48,22 +48,16 @@
 	</section>
 {/if}
 
-{if $form->get_fields()}
-{render partial="shared/form" form=$form}
-{/if}
+{render partial='shared/filter/filter_form' form=$form}
 
-<section class="products">
+<section class="products" id='cards'>
 	<h4>{t}Products{/t}</h4>
-	{if $finder->isEmpty()}
-		<p>{t}No product has been found.{/t}</p>
-	{else}
+		{if $finder->isEmpty()}
+			<p>{t}No product has been found.{/t}</p>
+		{else}
 		<div class="card-deck card-deck--sized product-list" data-record_count="{$finder->getRecordsCount()}">
-
-			{foreach $finder->getRecords() as $card}
-				{render partial="shared/card_item" card=$card}
-			{/foreach}
+			{render partial='shared/ajax_pager/ajax_pager'}
 		</div>
-		{paginator finder=$cards_finder}
 	{/if}
 </section>
 
