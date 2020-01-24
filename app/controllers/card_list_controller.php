@@ -175,6 +175,8 @@ abstract class CardListController extends ApplicationController {
 			}
 			if($this->request->xhr()) {
 				$this->template_name = 'shared/filter/detail.xhr';
+				$params = $this->params->toArray();
+				$this->tpl_data['pageUrl'] = $this->_link_to($params);
 			}
 		}
 		return true;
