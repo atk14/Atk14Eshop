@@ -62,9 +62,9 @@ class FilterForm extends ApplicationForm {
 	 **/
 	function update_choices() {
 		//Update state of fields (e.g. disable options for which no valid item exists)
-		foreach($this->fields as $field) {
+		foreach($this->fields as $key => $field) {
 			if($field instanceof IFilterFormField) {
-				$field->update_by_filter($this->filter);
+				$field->update_by_filter($this, $key);
 			}
 		}
 	}

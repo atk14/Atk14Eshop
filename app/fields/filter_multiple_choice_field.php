@@ -5,19 +5,26 @@ class FilterMultipleChoiceField extends MultipleChoiceField implements IFilterFo
 
 	function __construct($options = []){
 		$options += [
-			"widget" => new FilterCheckboxSelectMultiple(),
+			"widget" => new FilterCheckboxSelectMultiple([
+				'filter_section' => $options['filter_section']
+			]),
 			"required" => false,
+			"multiple" => true
 		];
 		$this->section = $options['filter_section'];
 		if(!key_exists('choices', $options) || $options['choices'] === null) {
 				$options["choices"] = $this->section->getChoices();
 		}
 		parent::__construct($options);
+		$this->multiple = $options['multiple'];
 	}
 
 	function clean($values){
 		// Odfiltruji se pryc hodnoty, ktere ve filtru nejsou nebo jsou disablovane.
 		// Nam to totiz nevadi. Naopak. Kdyz se z filtru ztrati nejaka option, tak neprestanou fungovat zaindexovana URL.
+		if($values && !is_array($values)) {
+			$values = [ $values];
+		}
 		if($values) {
 			$values = array_flip(array_intersect_key(
 					array_flip($values), $this->choices
@@ -48,8 +55,13 @@ class FilterMultipleChoiceField extends MultipleChoiceField implements IFilterFo
 		$this->widget->set_disabled_choices($disabled_choices);
 	}
 
-	function update_by_filter() {
-			$this->set_choices($this->section->getChoices());
-			$this->set_disabled_choices($this->section->getDisabledChoices());
+	function update_by_filter($form, $key) {
+		$choices = $this->section->getChoices();
+		if(!$choices) {
+			unset($form->fields[$key]);
+			return;
+		}
+		$this->set_choices($this->section->getChoices());
+		$this->set_disabled_choices($this->section->getDisabledChoices());
 	}
 }
