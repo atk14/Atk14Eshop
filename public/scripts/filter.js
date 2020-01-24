@@ -39,8 +39,4 @@ window.ATK14COMMON.filter_init = function( selector, onlyFields ) {
 			if ( !onlyFields ) {
 				$form.on( "ajax:beforeSend", function() { form.filtering++; } );
 			}
-
-			$( ".js--active-filter" ).click( function() {
-				form.filtering++;
-			} );
 };

@@ -150,7 +150,9 @@ abstract class CardListController extends ApplicationController {
 				'category' => $this->category,
 				'materialize_fields' => array_merge($options['materialize_fields']),
 				#'currency' => $this->basket->getCurrency()
-			]);
+		]);
+		$this->tpl_data['page_params'] = array_filter($this->params->toArray(),function($k) { return substr($k,0,2) !== 'f_'; }, ARRAY_FILTER_USE_KEY);
+
 		if($options['category']) {
 				$this->_setup_child_categories($options);
 		}
