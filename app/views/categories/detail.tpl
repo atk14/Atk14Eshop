@@ -5,7 +5,12 @@
 {capture assign=title}
 	{$category->getName()} <small>({$cards_finder->getRecordsCount()})</small>
 {/capture}
-{render partial="shared/layout/content_header" title=$title teaser=$teaser image=$category->getImageUrl()|img_url:"200x200" }
+{assign image $category->getImageUrl()|img_url:"200x200"}
+{if !$teaser|trim|strlen}
+	{* no teaser? -> do not display the image *}
+	{assign image ""}
+{/if}
+{render partial="shared/layout/content_header" title=$title teaser=$teaser image=$image}
 
 
 <section class="border-top-0">
