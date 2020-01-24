@@ -70,7 +70,7 @@ class CardMergingController extends AdminController {
 			$this->_copy_images($primary_card,$first_primary_product);
 		}
 
-		$primary_card->s($this->returned_by["edit_primary_card_names"]);
+		$primary_card->s($this->returned_by["edit_primary_card_names"],["reconstruct_missing_slugs" => true]);
 
 		$primary_card->s("has_variants",true);
 		$rank = 1;
