@@ -1,6 +1,6 @@
 <?php
 abstract class CardListController extends ApplicationController {
-	var $page_limit = 30;
+	var $page_size = 30;
 
 	function _setup_category($options) {
 		$path = $this->params->getString("path");
@@ -138,7 +138,7 @@ abstract class CardListController extends ApplicationController {
 		$this->form = $this->tpl_data['form'] = $this->_get_form("FilterForm");
 		$this->tpl_data['pager'] = $this->pager = $pager = new CardsAjaxPager($this, [
 			'form' => $this->_get_form("CardListPagingForm"),
-			'page_size' => $this->page_limit
+			'page_size' => $this->page_size
 		]);
 		$this->tpl_data["paging_form"] = $pager->form;
 
