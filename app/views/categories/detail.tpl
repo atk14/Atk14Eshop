@@ -41,9 +41,7 @@
 	{if $finder->isEmpty()}
 		<p>{t}No product has been found.{/t}</p>
 	{else}
-	<div class="card-deck card-deck--sized product-list" data-record_count="{$finder->getRecordsCount()}">
 		{render partial='shared/ajax_pager/ajax_pager'}
-	</div>
 	{/if}
 </section>
 
