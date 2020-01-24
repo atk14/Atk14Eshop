@@ -12,42 +12,38 @@
 </section>
 
 {if $child_categories}
-	<section class="child-categories">
-		<h4>{t}Subcategories{/t}</h4>
-		<nav>
-			<div class="list-group list-group--categories">
-				{foreach $child_categories as $c}
-						{assign var=cc value=$c->getCategory()}
-						{a path=$cc->getPath() _class="list-group-item list-group-item-action"}
-						<div class="list-group-item-product">
-							<div class="list-group-item-thumbnail">
-							{if $cc->getImage()}
-								{!$cc->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
-							{/if}
-							</div>
-						<div class="child-category__text">
-							<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small> {!"angle-right"|icon}</h4>
-							{if $cc->getTeaser()}
-								<p class="child-category__text__teaser">{$cc->getTeaser()}</p>
-							{/if}
-						</div>
-					{/a}
-				{/foreach}
-			</div>
-		</nav>
+	<section class="section--child-categories">
+		<ul class="list-unstyled list--categories list--categories--columns">
+			{foreach $child_categories as $c}
+			{assign var=cc value=$c->getCategory()}
+			<li class="list-item">
+				{a path=$cc->getPath()}
+					{if $cc->getImage()}
+						{!$cc->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
+					{/if}
+				<div class="child-category__text">
+					<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small> {!"angle-right"|icon}</h4>
+					{if $cc->getTeaser()}
+						<p class="child-category__text__teaser">{$cc->getTeaser()}</p>
+					{/if}
+				</div>
+				{/a}
+			</li>
+			{/foreach}
+		</ul>
 	</section>
 {/if}
 
 {render partial='shared/filter/filter_form' form=$form}
 
-<section class="products" id='cards'>
-	<h4>{t}Products{/t}</h4>
-		{if $finder->isEmpty()}
-			<p>{t}No product has been found.{/t}</p>
-		{else}
-		<div class="card-deck card-deck--sized product-list" data-record_count="{$finder->getRecordsCount()}">
-			{render partial='shared/ajax_pager/ajax_pager'}
-		</div>
+<section class="section--list-products" id="cards">
+	{*<h4>{t}Products{/t}</h4>*}
+	{if $finder->isEmpty()}
+		<p>{t}No product has been found.{/t}</p>
+	{else}
+	<div class="card-deck card-deck--sized product-list" data-record_count="{$finder->getRecordsCount()}">
+		{render partial='shared/ajax_pager/ajax_pager'}
+	</div>
 	{/if}
 </section>
 
