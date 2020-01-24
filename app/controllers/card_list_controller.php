@@ -137,7 +137,8 @@ abstract class CardListController extends ApplicationController {
 
 		$this->form = $this->tpl_data['form'] = $this->_get_form("FilterForm");
 		$this->tpl_data['pager'] = $this->pager = $pager = new CardsAjaxPager($this, [
-				'form' => $this->_get_form("CardListPagingForm")
+			'form' => $this->_get_form("CardListPagingForm"),
+			'page_size' => $this->page_limit
 		]);
 		$this->tpl_data["paging_form"] = $pager->form;
 
