@@ -8,7 +8,7 @@ class GetPrimaryCardForm extends AdminForm {
 		]));
 
 
-		$this->set_button_text(_("Sloučit produkty"));
+		$this->set_button_text(_("Continue"));
 	}
 
 	function prepare_for_cards($cards){

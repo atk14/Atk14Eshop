@@ -7,6 +7,7 @@ class CardMergingController extends AdminController {
 			"get_cards",
 			"get_labels",
 			"get_primary_card",
+			"edit_primary_card_names",
 			"merge",
 		));
 	}
@@ -51,6 +52,14 @@ class CardMergingController extends AdminController {
 		}
 	}
 
+	function create_new__edit_primary_card_names(){
+		$this->form->set_initial($this->returned_by["get_primary_card"]);
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			return $d;
+		}
+	}
+
 	function create_new__merge(){
 		$cards = $this->returned_by["get_cards"];
 		$labels = $this->returned_by["get_labels"];
@@ -60,6 +69,8 @@ class CardMergingController extends AdminController {
 		if(!$primary_card->hasVariants() && $first_primary_product){
 			$this->_copy_images($primary_card,$first_primary_product);
 		}
+
+		$primary_card->s($this->returned_by["edit_primary_card_names"]);
 
 		$primary_card->s("has_variants",true);
 		$rank = 1;
