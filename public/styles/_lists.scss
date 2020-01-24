@@ -160,6 +160,41 @@ ul.list--radios {
 	}
 }
 
+ul.list--checkboxes {
+	list-style: none;
+	padding-left: 0;
+	columns: 6;
+	li.list__item {
+	}
+}
+
+ul.list--active-filters {
+	list-style: none;
+	padding-left: 0;
+	li.list__item {
+		display: inline-block;
+		margin: 0 0.5em 0.25em 0;
+		a {
+			display: inline-block;
+			background-color: $gray-100;
+			padding: 0 0.85em;
+			border-radius: 1em;
+			color: inherit;
+			strong {
+				color: $danger;
+			}
+			&:hover {
+				text-decoration: none;
+				background-color: $danger;
+				color: white;
+				strong {
+					color: white;
+				}
+			}
+		}
+	}
+}
+
 // prosty UL/OL list bez jakekoliv tridy uvnitr clanku nebo .list--simple
 .article__body ul:not([class]), .page__body ul:not([class]), ul.list--simple, ul.list--ul {
 	padding-left: 1.25em;

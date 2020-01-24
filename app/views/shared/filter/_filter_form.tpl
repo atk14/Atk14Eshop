@@ -11,7 +11,9 @@
 				{render partial="shared/filter/filter_fields"}
 			</div>
 			<div class="pfilter__footer">
-				{render partial="shared/form_button" class="btn btn-default nojs-only"}
+				<div class="nojs-only">
+					{render partial="shared/form_button" class="btn btn-default nojs-only"}
+				</div>
 				{* Active Filters = pills/badges s aktivnimi filtry *}
 				{render partial="shared/filter/active_filters" filter=$finder->filter}
 			</div>
