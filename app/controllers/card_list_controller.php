@@ -160,6 +160,12 @@ abstract class CardListController extends ApplicationController {
 		$this->finder = $this->tpl_data['finder'] = $finder = new FilterFinder($this->form->filter, [
 			'pager' => $pager
 		]);
+		$afp = $this->params->g('active_filter_page');
+		if(!$afp || !key_exists($afp, $this->form->get_tab_fields())) {
+			$fk = $this->form->get_tab_fields();
+			$afp = key($fk);
+		}
+		$this->tpl_data['active_filter_page'] = $afp;
 
 		$this->_setup_page_title($options);
 
