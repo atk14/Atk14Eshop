@@ -1,4 +1,4 @@
-{assign geometry_detail "1600"}
+{assign geometry_detail "2000x1600"}
 {assign geometry_thumbnail "x150"}
 {assign geometry_preview "x450"}
 

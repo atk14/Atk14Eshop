@@ -50,7 +50,8 @@
 		</div>	
 	</div>
 	<div class="col-12 col-md-5 col-xl-6 order-1 order-md-2 product__images">
-		{render partial="shared/product_gallery" images=$card->getImages()}
+		{*render partial="shared/product_gallery" images=$card->getImages()*}
+		{render partial="gallery" card=$card}
 		{*<div class="tags">{render partial="shared/tags" tags=$card->getTags()}</div>*}
 		<div class="flags">
 			{if $starting_price && $starting_price->discounted()}

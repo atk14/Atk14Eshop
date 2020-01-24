@@ -1,6 +1,6 @@
 {assign first_image 1}
 
-<section class="product-gallery product-gallery--normal">
+<section class="photo-gallery photo-gallery--product product-gallery product-gallery--normal">
 
 	<div class="gallery__images">
 
