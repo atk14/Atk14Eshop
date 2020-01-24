@@ -15,6 +15,7 @@
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleGalleryImagesUpload();
+				ADMIN.utils.handleCopyIobjectCode();
 				ADMIN.utils.handleCategoriesSuggestions();
 
 				// Form hints.
@@ -34,12 +35,78 @@
 				} );
 
 				UTILS.leaving_unsaved_page_checker.init();
+
+				// Filter items in navigation bar
+				$( "#nav-filter__input" ).on( "keyup blur", function( e ) {
+					if( e.type === "keyup" ) {
+						var code = e.charCode || e.keyCode;
+						if( code === 27 ){
+							$( "#nav-filter__input" ).val( "" );
+						}
+					}
+					ADMIN.utils.handleNavigationFilter( e );
+				} );
+
+				// Clear navigation bar items filter
+				$( "#nav-filter__clear" ).on( "click", function( e ) {
+					$( "#nav-filter__input" ).val( "" );
+					ADMIN.utils.handleNavigationFilter( e );
+				} );
+
+				// Filter items in navigation bar
+				$( "#nav-filter__submit" ).on( "click", function( e ) {
+					ADMIN.utils.handleNavigationFilter( e );
+				} );
+
+			}
+
+		},
+		
+		main: {
+			init: function() {
+				UTILS.initDashboardOrdersChart();
 			}
 		},
 
 		cards: {
 			edit: function() {
 				ADMIN.utils.handleCardToCategories();
+			}
+		},
+
+		orders: {
+			index: function() {
+
+				// Reset filtering form and reload
+				$( ".form-filter button[type=\"reset\"]" ).on( "click", function( e ){
+					e.preventDefault();
+					var frm = $( this ).closest( ".form-filter" );
+					frm.get(0).reset();
+					frm.find( "input[type=\"text\"], input[type=\"search\"]" ).each( function( i, el ) {
+						$( el ).val( "" );
+					} );
+					frm.find( "select" ).each( function( i, el ) {
+						$( el ).find( "option:eq(0)" ).prop( "selected", true );
+					} );
+					frm.submit();
+				} );
+
+				// Decorate filtering form fields with not default
+				$( ".form-filter" ).find( "input[type=\"text\"], input[type=\"search\"], select" ).each( function( i, el ) {
+					var element = $(el);
+					switch( ( element.prop( "tagName" ).toLowerCase() ) ){
+						case "input":
+							if( element.val() ){
+								element.addClass( "active-filter" );
+							}
+							break;
+						case "select":
+							if( element.prop( "selectedIndex" ) !== 0 ) {
+								element.addClass( "active-filter" );
+							}
+							break;
+					} 
+				} );
 			}
 		},
 
@@ -344,8 +411,46 @@
 				} );
 			},
 
+			// Copy iobject to clipboard
+			handleCopyIobjectCode: function() {
+				$( ".iobject-copy-code" ).popover();
+				$( ".iobject-copy-code" ).on( "click", function( e ) {
+					e.preventDefault();
+					var code = $( this ).closest( ".iobject-code-wrap" ).find( ".iobject-code" ).text();
+					var el = document.createElement( "textarea" );
+					el.value = code;
+					document.body.appendChild( el );
+					el.select();
+					document.execCommand( "copy" );
+					document.body.removeChild( el );
+					$( this ).trigger( "focus" );
+				} );
+			},
+
 			handleCategoriesSuggestions: function() {
 				ADMIN.utils.categoriesSuggest( "[data-suggesting_categories='yes']" );
+			},
+
+			// Filter items in main admin navigation
+			handleNavigationFilter: function( e ) {
+				e.preventDefault();
+				var searchString = $( "#nav-filter__input" ).val().toLowerCase();
+				var items = $( ".js-filterable-nav .nav-item" );
+				if ( searchString.length ) {
+					$( "#nav-filter__clear" ).removeClass( "d-none" );
+					items.each( function( i, el ) {
+						var item = $( el );
+						var itemText = item.find( ".nav-link" ).text();
+						if ( itemText.toLowerCase().indexOf( searchString ) > -1 ) {
+							item.removeClass( "d-none" );
+						} else {
+							item.addClass( "d-none" );
+						}
+					} );
+				} else {
+					$( "#nav-filter__clear" ).addClass( "d-none" );
+					items.removeClass( "d-none" );
+				}
 			}
 		}
 	};

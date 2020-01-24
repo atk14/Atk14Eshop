@@ -6,16 +6,16 @@
 				{dropdown_menu clearfix=false}
 					{a action="products/edit" id=$product}{icon glyph="edit"} {t}Edit{/t}{/a}
 					{render partial="product_menu_links" product=$product}
-					{capture assign="confirm"}{t 1=$product->getName()|h escape=no}Chystáte se smazat produkt %1. Jste si jistý/á?{/t}{/capture}
+					{capture assign="confirm"}{t 1=$product->getFullName()|h escape=no}Chystáte se smazat produkt %1. Jste si jistý/á?{/t}{/capture}
 					{a_destroy action="products/destroy" id=$product _confirm=$confirm}{icon glyph="remove"} {t}Delete{/t}{/a_destroy}
 				{/dropdown_menu}
 
 				<div class="float-left">
 				{render partial="shared/list_thumbnail" image=$product->getImage(false)}
 				</div>
-				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong><br>
-				{$product->getCatalogId()}
-
+				{$product->getCatalogId()}<br>
+				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong>
+				{if !$product->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 			</li>
 		{/foreach}
 	</ul>

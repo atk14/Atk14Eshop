@@ -1,0 +1,105 @@
+header.content-header, .content-header {
+	display: flex;
+	article + & {
+		margin-top: $grid-gutter-width;
+	}
+	.content-header__image {
+		margin-bottom: $grid-gutter-width;
+		order: 2;
+		flex-basis: 50%;
+		flex-shrink: 0;
+		flex-grow: 2;
+		&--portrait {
+			flex-basis: 33%;
+			flex-basis: 100% - percentage($max-content-width/($max-page-width - (2 * $grid-gutter-width)));
+			flex-grow: 0;
+		}
+	}
+	.content-header__text {
+		margin-bottom: $grid-gutter-width;
+		h1, .h1 {
+			//margin-bottom: $grid-gutter-width;
+			margin-bottom: 0;
+		}
+		
+		.author {
+			display: inline-block;
+			width: auto;
+			padding: 0.25em 0.5em;
+			background-color: $body-bg;
+			margin: 1rem 0;
+			font-weight: 600;
+			//font-size: 0.875rem;
+			color: black;
+			a {
+				color: inherit;
+				//text-decoration: none;
+			}
+		}
+
+		.teaser {
+			//margin-top: ( 0 - $grid-gutter-width * 0.75 );
+			font-size: 1.25rem;
+			margin-top: $grid-gutter-width * 0.25;
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.tags {
+			margin-bottom: 0.25em;
+			&:empty {
+				display: none;
+			}
+		}
+		
+		.teaser + .tags {
+			margin-top: 1rem;
+		}
+
+		.meta {
+			font-size: 0.75rem;
+			margin-top: $grid-gutter-width * 0.25;
+			//opacity: 0.75;
+		}
+	}
+	
+	.content-header__image + .content-header__text {
+		flex-basis: 50%;
+		flex-shrink: 0;
+		flex-grow: 2;
+		padding-right: $grid-gutter-width;
+		&--dark {
+			// when __text has dark background
+			padding: $grid-gutter-width;
+			h1, .h1, .teaser, .meta, p {
+				color: white;
+			}
+			display: flex;
+			flex-direction: column;
+			h1, .h1 {
+				flex-grow: 10;
+			}
+		}
+	}
+	
+	@include media-breakpoint-down(md){
+		.content-header__image {
+			flex-basis: 40%;
+			display: flex;
+			align-items: center;
+		}
+		.content-header__image + .content-header__text {
+			flex-basis: 60%;
+		}
+	}
+	@include media-breakpoint-down(sm){
+		.content-header__image {
+			margin-bottom: 0;
+		}
+		display: block;
+		.content-header__image + .content-header__text {
+			padding-top: $grid-gutter-width;
+		}
+	}
+}

@@ -1,6 +1,6 @@
-<h1>{$page_title}</h1>
+{render partial="shared/layout/content_header" title=$page_title}
 
-<table class="table table-auto">
+<table class="table">
 	<tbody>
 		<tr>
 			<th>{t}Username (login){/t}</th>
@@ -24,6 +24,6 @@
 </table>
 
 <p>
-	{a action="edit" _class="btn btn-outline-primary"}{t}Change your account data{/t}{/a}
-	{a action="edit_password" _class="btn btn-outline-primary"}{t}Change your password{/t}{/a}
+	{a action="edit" _class="btn btn-primary"}{t}Change your account data{/t}{/a}
+	{a action="edit_password" _class="btn btn-primary"}{t}Change your password{/t}{/a}
 </p>

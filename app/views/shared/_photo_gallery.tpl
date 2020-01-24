@@ -13,7 +13,7 @@
 {if !$images && $object}
 	{assign var=images value=Image::GetImages($object)}
 {/if}
-{assign geometry_detail "1600"}
+{assign geometry_detail "2000x1600"}
 
 {if $images}
 	{* {if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if} *}
@@ -21,7 +21,7 @@
 		<div class="gallery__images">
 			{foreach $images as $image}
 				<figure class="gallery__item">
-					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}">
 						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="">
 					</a>
 					<figcaption>

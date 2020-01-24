@@ -1,3 +1,16 @@
+.body {
+	background-color: white;
+	max-width: $max-page-width;
+	margin: auto;
+}
+.container-fluid {
+	max-width: $max-page-width;
+	margin: auto;
+	@include media-breakpoint-up( sm ){
+		padding: 0 $grid-gutter-width;
+	}
+}
+
 // Applies CSS Grid for layout w/sidebar
 
 .has-nav-section {
@@ -30,24 +43,6 @@ footer {
 	margin-top: $grid-gutter-width*2;
 }
 
-section {
-	margin-bottom: $grid-gutter-width * 2;
-	padding-top: 1rem;
-	border-top: 1px solid $gray-300;
-}
-
 header {
-	margin-bottom: $grid-gutter-width * 2;
-	padding-top: 1rem;
-}
-
-section.store-properties {
-	@include media-breakpoint-up(md){
-		.store-properties-column {
-			border-left: 1px solid $gray-300;
-			&:first-child {
-				border-left: none;
-			}
-		}
-	}
+	background-color: white;
 }

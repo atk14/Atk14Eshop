@@ -133,7 +133,7 @@ class CheckoutsController extends ApplicationController {
 
 			if($d["sign_up_for_newsletter"]){
 				NewsletterSubscriber::SignUp($order->getEmail(),array(
-					"name" => trim($order->getFirstname()." ",$order->getLastname()),
+					"name" => trim($order->getFirstname()." ".$order->getLastname()),
 				));
 			}
 

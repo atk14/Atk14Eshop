@@ -1,14 +1,15 @@
-<header>
-	<h1>{!$page_title}</h1>
-</header>
+{render partial="shared/layout/content_header" title=$page_title}
+
 {if $finder->isEmpty()}
 
 	<p>{t}At the moment there are no news.{/t}</p>
 
 {else}
-	<div class="article-items">
-		{render partial=article_item from=$finder->getRecords() item=article}
-	</div>
+	<section class="section--articles">
+		<div class="card-deck card-deck--sized-4">
+			{render partial=article_item from=$finder->getRecords() item=article}
+		</div>
+	</section>
 	{paginator}
 
 {/if}

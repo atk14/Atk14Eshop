@@ -5,9 +5,9 @@
 	{t 1=$products|@count}Product variants (%1){/t}
 </h3>
 {if !$card->hasVariants()}
-	{t}Variants are not considered for this product{/t} &rarr; {a action=enable_variants id=$card _method=post _confirm="{t}Are you sure?{/t}"}{t}switch to the variant mode{/t}{/a}
+	<p>{t}Variants are not considered for this product{/t} &rarr; {a action=enable_variants id=$card _method=post _confirm="{t}Are you sure?{/t}"}{t}switch to the variant mode{/t}{/a}</p>
 {else}
-	{render partial="products" products=$card->getProducts()}
+	{render partial="products" products=$card->getProducts(["visible" => null])}
 	{if $card->canBeSwitchedToNonVariantMode()}
 		{t}This product can be switched to the non-variant mode{/t} &rarr; {a action=disable_variants id=$card _method=post _confirm="{t}Are you sure?{/t}"}{t}switch to the non-variant mode{/t}{/a}
 	{/if}

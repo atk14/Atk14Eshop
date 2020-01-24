@@ -1,0 +1,46 @@
+footer {
+	padding: $grid-gutter-width 0 $grid-gutter-width/2 0;
+	background-color: $gray-700;
+	color: white;
+	* {
+		color: currentColor;
+	}
+	a {
+		&:hover {
+			color: lighten($brand,30%);
+		}
+	}
+	line-height: 1.25;
+	h2, h3, h4, h5 {
+		margin-bottom: 1em;
+		&:not(:first-child){
+			margin-top: 1.5em;
+		}
+	}
+	
+	.footer__socialicon {
+		display: inline-block;
+		margin: 0 0.5em 0.5em 0;
+		font-size: 2rem;
+	}
+	
+	address {
+		.fas, .far {
+			margin-right: 0.25em;
+		}
+	}
+	
+	.footer__main {
+		margin-bottom: $grid-gutter-width;
+	}
+	
+	.footer__smallprint {
+		border-top: 1px solid $border-color;
+		padding-top: $grid-gutter-width/2;
+		font-size: 0.75rem;
+		p {
+			margin: 0;
+		}
+	}
+	
+}

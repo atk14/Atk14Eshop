@@ -1,0 +1,38 @@
+/*
+Replaces standard Bootstrap styling for pagination
+Bootstrap`s own pagination scss should NOT be loaded.
+*/
+.pagination-container {
+	//text-align: center;
+	ul.pagination {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		font-weight: 600;
+		//justify-content: center;
+		margin-bottom: $grid-gutter-width;
+		li.page-item {
+			a {
+				padding: $grid-gutter-width/12 $grid-gutter-width/4;
+				display: inline-block;
+				color: inherit;
+				&:hover {
+					color: $link-color;
+					background-color: $gray-100;
+				}
+			}
+			&.active {
+				border-bottom: 2px solid $primary;
+			}
+		}
+	}
+	.pagination-info {
+		font-size: 0.875rem;
+		@extend  .text-muted;
+	}
+	
+	p:last-child {
+		font-size: 0.875rem;
+		margin-bottom: 0;
+	}
+}

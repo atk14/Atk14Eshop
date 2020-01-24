@@ -12,4 +12,10 @@ class OrderStatusesController extends AdminController {
 			"page_title" => _("Editace stavu objednávky"),
 		]);
 	}
+
+	function _before_filter(){
+		if(in_array($this->action,["edit"])){
+			$this->_find("order_status");
+		}
+	}
 }

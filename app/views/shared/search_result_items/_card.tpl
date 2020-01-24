@@ -4,7 +4,7 @@
 	<div class="search-results-item--image">
 		{if $card->getImage()}
 			{a action="cards/detail" id=$card}
-				{!$card->getImage()|pupiq_img:"575x575xcrop":"class='img-fluid'"}
+				{!$card->getImage()|pupiq_img:"600x450":"class='img-fluid'"}
 			{/a}
 		{else}
 		{/if}
@@ -35,8 +35,7 @@
 			
 			<p class="search-result-price">
 				{if $starting_price}
-					<span class="card-price">{!$price_finder->getStartingPrice($card)|display_price:$price_finder->getCurrency()}</span>
-					{*<span class="card-footer-icon">{!"arrow-alt-circle-right"|icon:"regular"}</span>*}
+					{render partial="shared/card_price" starting_price=$starting_price}
 				{/if}
 			</p>
 			

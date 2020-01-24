@@ -35,7 +35,7 @@ class PaymentMethodsForm extends AdminForm {
 		)));
 
 		$this->add_translatable_field("label", new CharField(array(
-			"label" => _("Text ve formuláři"),
+			"label" => _("Název platební metody"),
 		)));
 
 		$this->add_translatable_field("title", new CharField(array(
@@ -43,7 +43,7 @@ class PaymentMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_translatable_field("description", new WysiwygField(array(
+		$this->add_translatable_field("description", new MarkdownField(array(
 			"label" => _("Text nápovědy"),
 			"required" => false,
 		)));

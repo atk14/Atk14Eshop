@@ -48,6 +48,8 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
+		{render partial="shared/layout/favicons"}
+
 		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
 		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"}
 

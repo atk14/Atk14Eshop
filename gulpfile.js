@@ -6,20 +6,31 @@ var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
-	"node_modules/@fortawesome/fontawesome-free/css/all.css"
+	"node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"node_modules/swiper/css/swiper.css",
+	"node_modules/photoswipe/dist/photoswipe.css",
+	"node_modules/cookieconsent/build/cookieconsent.min.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
-	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
+	"node_modules/swiper/js/swiper.js",
+	"node_modules/photoswipe/dist/photoswipe.js",
+	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
+	"node_modules/cookieconsent/build/cookieconsent.min.js",
+	"node_modules/bootbox/src/bootbox.js"
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/pager.js",
 	"public/scripts/filter.js",
+	"public/scripts/utils/photoswipe.js",
+	"public/scripts/utils/basket_shipping_rules.js",
+	"public/scripts/utils/maps.js",
 	"public/scripts/application.js"
 ];
 
@@ -45,7 +56,7 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cssnano() )
+		.pipe( $.cssnano( { svgo: false } ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
@@ -90,8 +101,10 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/webfonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
-	gulp.src( "public/images/*" )
+	gulp.src( "public/images/**/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
+	gulp.src( "node_modules/photoswipe/dist/default-skin/*" )
+		.pipe( gulp.dest( "public/dist/styles/default-skin/" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )

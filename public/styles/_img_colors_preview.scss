@@ -1,0 +1,48 @@
+	.img_colors_preview {
+		display: flex;
+		flex-wrap: wrap;
+		.img_colors_preview__sample {
+			flex-basis: 40px;
+			height: 40px;
+			position: relative;
+			border: 1px solid #999;
+			border-right: none;
+			&:last-child {
+				border-right: 1px solid #999;
+			}
+			span {
+				position: absolute;
+				height: 14px;
+				width: auto;
+				line-height: 14px;
+				font-size: 11px;
+				top: -14px;
+				left: 0;
+				background-color: black;
+				color: white;
+				font-weight: bold;
+				padding: 0 2px;
+				display: none;
+				white-space: nowrap;
+			}
+			&:hover span {	
+				display: inline-block;
+			}
+			&.color_undefined {
+				border: 2px solid red;
+				&:before {
+					display: block;
+					content: "";
+					width: 23px;
+					height: 2px;
+					background-color: red;
+					position: absolute;
+					left: 0;
+					top: -1px;
+					transform: rotate(45deg);
+					transform-origin: left top;
+				}
+				
+			}
+		}
+	}

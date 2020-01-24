@@ -24,12 +24,12 @@
 	<caption class="sr-only">{t}Objednávané zboží{/t}</caption>
 	<thead>
 		<tr>
-			<th>{t}Produkt{/t}</th>
-			<th>{t}Popis{/t}</th>
-			<th class="text-center">{t}Kód{/t}</th>
-			<th class="text-right text--nowrap">{t}Jedn. cena{/t}</th>
-			<th class="text-right text--nowrap">{t}Množství{/t}</th>
-			<th class="text-right">{t}Celkem{/t}</th>
+			<th class="table-products__image"><span class="sr-only">{t}Obrázek{/t}</span></th>
+			<th class="table-products__title">{t}Produkt{/t}<span class="d-block d-lg-none">{t}Kód{/t}</span></th>
+			<th class="table-products__id">{t}Kód{/t}</th>
+			<th class="table-products__unit-price">{t}Jedn. cena{/t}</th>
+			<th class="table-products__amount">{t}Množství{/t}</th>
+			<th class="table-products__price">{t}Celkem{/t}</th>
 		</tr>
 	</thead>
 	<tbody class="table-products__list">
@@ -38,31 +38,30 @@
 			<tr class="table-products__item">
 				{if $product->getCode()=="price_rounding"}
 					{* toto je spec. produkt zaokrouhleni *}
-					<td class="table-products__img"></td>
+					<td class="table-products__image"></td>
 					<td class="table-products__title">{$product->getName()}</td>
 					<td class="table-products__id"></td>
 					<td class="table-products__unit-price"></td>
 					<td class="table-products__amount"></td>
 					<td class="table-products__price">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 				{else}
-					<td class="table-products__img">{a action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"60x60x#ffffff"}{/a}</td>
-					<td class="table-products__title">{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}</td>
-					<td class="table-products__id">{$product->getCatalogId()}</td>
-					<td class="table-products__unit-price">{!$item->getUnitPriceInclVat()|display_price:$currency}</td>
-					<td class="table-products__amount">{$item->getAmount()}</td>
-					<td class="table-products__price">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
+					<td class="table-products__image">{a action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
+					<td class="table-products__title">{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span></td>
+				<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
+					<td class="table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {!$item->getUnitPriceInclVat()|display_price:$currency}</td>
+					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()}</td>
+					<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 				{/if}
 			</tr>
 		{/foreach}
 	</tbody>
-	<tfoot>
+	
+	<tbody class="table-products__discounts">{trim}
 		{foreach $campaigns as $campaign}
 			{if $campaign->getDiscountAmount()}
 			<tr class="table-products__item table-products__item--sale">
-				<td class="table-products__img"></td>
-				<td class="table-products__title" colspan="2">{$campaign->getName()}</td>
-				<td class="text-right"></td>
-				<td class="table-products__amount"></td>
+				<td class="table-products__icon">{!"percentage"|icon}</td>
+				<td class="table-products__title" colspan="4">{$campaign->getName()}</td>
 				<td class="table-products__price">{!(-$campaign->getDiscountAmount())|display_price:"$currency"}</td>
 			</tr>
 			{/if}
@@ -70,94 +69,44 @@
 
 		{foreach $vouchers as $voucher}
 			<tr class="table-products__item table-products__item--sale">
-				<td class="table-products__img"></td>
+				<td class="table-products__icon">{!"percentage"|icon}</td>
 				<td class="table-products__title">{t}Slevový kupón{/t}</td>
-				<td class="table-products__id">{$voucher}</td>
-				<td class="text-right"></td>
-				<td class="table-products__amount"></td>
+				<td colspan="3" class="table-products__id">{$voucher}</td>
 				<td class="table-products__price">{!(-$voucher->getDiscountAmount())|display_price:"$currency"}</td>
 			</tr>
 		{/foreach}
+	{/trim}</tbody>
+	
+	<tbody class="table-products__delivery-payment">
 		<tr class="table-products__item">
-			<td>{t}Doprava:{/t}</td>
-			<td colspan="4">{$order->getDeliveryMethod()->getLabel()}{render partial="shared/order/delivery_method_data" show_branch_id=false}</td>
-			<td class="text-right">{!$order->getDeliveryFeeInclVat()|display_price:"$currency"}</td>
+			<td class="table-products__icon">{!"truck"|icon}</td>
+			<td class="table-products__title">{t}Doprava:{/t}</td>
+			<td colspan="3" class="table-products__id">{$order->getDeliveryMethod()->getLabel()}{render partial="shared/order/delivery_method_data" show_branch_id=false}</td>
+			<td class="table-products__price">{!$order->getDeliveryFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
 		</tr>
 		{if $is_basket==false && $order->getDeliveryMethod()->getTrackingUrl()}
 			{assign tracking_url $order->getTrackingUrl()}
 			<tr class="table-products__item">
-				<td>{t}Číslo zásilky{/t}:</td>
-				<td colspan="5">
+				<td class="table-products__icon"></td>
+				<td class="table-products__title">{t}Číslo zásilky{/t}:</td>
+				<td colspan="4">
 					{if $tracking_url}<a href="{$order->getTrackingUrl()}">{$order->getTrackingNumber()}</a>{else}{t}Není zadáno{/t}{/if}
 				</td>
 			</tr>
 		{/if}
+		
 		<tr class="table-products__item">
-			<td>{t}Platba:{/t}</td>
-			<td colspan="4">{$order->getPaymentMethod()->getLabel()}</td>
-			<td class="text-right">{!$order->getPaymentFeeInclVat()|display_price:"$currency"}</td>
+			<td class="table-products__icon">{!"wallet"|icon}</td>
+			<td class="table-products__title">{t}Platba:{/t}</td>
+			<td colspan="3">{$order->getPaymentMethod()->getLabel()}</td>
+			<td class="table-products__price">{!$order->getPaymentFeeInclVat()|display_price:"$currency"}</td>
 		</tr>
-		<tr class="table-products__item">
-			<td class="text--nowrap">{t}Doručovací adresa:{/t}</td>
-			<td colspan="5">
-				<ul class="list list--inline-psv list--location">
-					<li class="list__item">{$order->getDeliveryFirstname()} {$order->getDeliveryLastname()}</li>
-					{if $order->getDeliveryCompany()}
-						<li class="list__item">{$order->getDeliveryCompany()}</li>
-					{/if}
-					<li class="list__item">{$order->getDeliveryAddressStreet()}</li>
-					{if $order->getDeliveryAddressStreet2()}
-						<li class="list__item">{$order->getDeliveryAddressStreet2()}</li>
-					{/if}
-					<li class="list__item">{$order->getDeliveryAddressCity()}</li>
-					<li class="list__item">{$order->getDeliveryAddressZip()}</li>
-					<li class="list__item">{$order->getDeliveryAddressCountry()|to_country_name}</li>
-					<li class="list__item">
-						{if $order->getDeliveryPhone()}{$order->getDeliveryPhone()|default:$mdash}{/if}
-					</li>
-				</ul>
-			</td>
-		</tr>
-		<tr class="table-products__item">
-			<td>{t}Fakturační údaje:{/t}</td>
-			<td colspan="5">
-				<ul class="list list--inline-psv list--location">
-					<li class="list__item">
-						{if $order->getCompany()}
-							{$order->getCompany()}
-						{else}
-							{$order->getFirstname()} {$order->getLastname()}
-						{/if}
-					</li>
-					<li class="list__item">
-						{$order->getAddressStreet()}
-					</li>
-					{if $order->getAddressStreet2()}
-					<li class="list__item">
-						{$order->getAddressStreet2()}
-					</li>
-					{/if}
-					<li class="list__item">
-						{$order->getAddressCity()}
-					</li>
-					<li class="list__item">
-						{$order->getAddressZip()}
-					</li>
-					<li class="list__item">
-						{$order->getAddressCountry()|to_country_name}
-					</li>
-					{if $order->getCompanyNumber() || $order->getVatId()}
-					<li class="list__item">
-						{t}IČ:{/t} {$order->getCompanyNumber()}<br>
-						{t}DIČ:{/t} {$order->getVatId()}
-					</li>	
-					{/if}
-				</ul>
-			</td>
-		</tr>
+	</tbody>
+	
+	<tfoot>
 		<tr class="table-products__tfootstart">
 			{strip}
-			<td colspan="3">
+			<td colspan="3" class="table-products__note">
 				{if $order->getNote()}
 					<em>{!$order->getNote()|h|nl2br}</em>
 				{/if}
@@ -172,7 +121,7 @@
 						</tr>
 						<tr>
 							<th>{t}Doprava a platba{/t}</th>
-							<td class="text-right">{!$order->getShippingFeeInclVat()|display_price:"$currency"}</td>
+							<td class="text-right">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
 						</tr>
 						{if $order->getCampaignsDiscountAmount()}
 						<tr>
@@ -188,7 +137,7 @@
 						{/if}
 						<tr>
 							<th class="table-products__pricetopay">{t}Cena celkem{/t}</th>
-							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
+							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -196,3 +145,55 @@
 		</tr>
 	</tfoot>
 </table>
+
+{if is_null($order->getShippingFeeInclVat())}
+	<p class="text-right">
+		<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small></td>
+	</p>
+{/if}
+
+
+<div class="checkout-summary__addresses">
+	<div class="row">
+		<div class="col-12 col-md">
+			<h5 class="h5">{!"map-marker-alt"|icon} {t}Doručovací adresa:{/t}</h5>
+			<p>
+				{$order->getDeliveryFirstname()} {$order->getDeliveryLastname()}<br>
+				{if $order->getDeliveryCompany()}
+					{$order->getDeliveryCompany()}<br>
+				{/if}
+				{$order->getDeliveryAddressStreet()}<br>
+				{if $order->getDeliveryAddressStreet2()}
+							{$order->getDeliveryAddressStreet2()}<br>
+				{/if}
+				{$order->getDeliveryAddressCity()}<br>
+				{$order->getDeliveryAddressZip()}<br>
+				{$order->getDeliveryAddressCountry()|to_country_name}<br>
+				{if $order->getDeliveryPhone()}
+					{$order->getDeliveryPhone()|default:$mdash}
+				{/if}
+			</p>
+		</div>
+		<div class="col-12 col-md">
+			<h5 class="h5">{t}Fakturační údaje:{/t}</h5>
+			<p>
+				{if $order->getCompany()}
+					{$order->getCompany()}<br>
+				{else}
+					{$order->getFirstname()} {$order->getLastname()}<br>
+				{/if}
+				{$order->getAddressStreet()}<br>
+				{if $order->getAddressStreet2()}
+					{$order->getAddressStreet2()}<br>
+				{/if}
+				{$order->getAddressCity()}<br>
+				{$order->getAddressZip()}<br>
+				{$order->getAddressCountry()|to_country_name}<br>
+				{if $order->getCompanyNumber() || $order->getVatId()}
+					{t}IČ:{/t} {$order->getCompanyNumber()}<br>
+					{t}DIČ:{/t} {$order->getVatId()}
+				{/if}
+			</p>
+		</div>
+	</div>
+</div>

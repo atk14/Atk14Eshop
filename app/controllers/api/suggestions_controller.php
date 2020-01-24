@@ -43,6 +43,13 @@ class SuggestionsController extends ApiController{
 		));
 	}
 
+	function creators(){
+		$this->_suggest(array(
+			"fields" => array("name"),
+			"order_by" => "name LIKE :q||'%' DESC, LOWER(name) LIKE LOWER(name)||'%' DESC, LOWER(name), name",
+		));
+	}
+
 	function _suggest($options = array()){
 		global $ATK14_GLOBAL;
 

@@ -5,21 +5,31 @@
  */
 class TcProduct extends TcBase {
 
-	function test_naming(){
+	function test_getName(){
+		// Black tea has not its own name filled
+		$black_tea = $this->products["black_tea"];
+		$this->assertEquals("Tea, black",$black_tea->getName());
+		$this->assertEquals("Tea",$black_tea->getName(false));
+		$this->assertEquals("Čaj",$black_tea->getName("cs",false));
+		$this->assertEquals("Tea, black",$black_tea->getFullName());
+		$this->assertEquals("Čaj, černý",$black_tea->getFullName("cs"));
+
+		// Green tea has its own name filled
+		$green_tea = $this->products["green_tea"];
+		$this->assertEquals("Green tea",$green_tea->getName());
+		$this->assertEquals("Green tea",$green_tea->getName(false));
+		$this->assertEquals("Zelený čaj",$green_tea->getName("cs",false));
+		$this->assertEquals("Green tea",$green_tea->getFullName());
+		$this->assertEquals("Zelený čaj",$green_tea->getFullName("cs"));
+
+		// Peanuts do not have a label filled nor own name
+		// The name is read from the card
 		$peanuts = $this->products["peanuts"];
 		$this->assertEquals("Peanuts",$peanuts->getName());
-		$this->assertEquals("",$peanuts->getLabel());
+		$this->assertEquals("Peanuts",$peanuts->getName(false));
+		$this->assertEquals("Arašídy",$peanuts->getName("cs",false));
 		$this->assertEquals("Peanuts",$peanuts->getFullName());
-		$this->assertEquals("Peanuts","$peanuts");
-
-		$green_tea = $this->products["green_tea"];
-		$this->assertEquals("Tea",$green_tea->getName());
-		$this->assertEquals("green",$green_tea->getLabel());
-		$this->assertEquals("Tea, green",$green_tea->getFullName());
-		$this->assertEquals("Tea, green","$green_tea");
-
-		$black_tea = $this->products["black_tea"];
-		$this->assertEquals("Tea, black","$black_tea");
+		$this->assertEquals("Arašídy",$peanuts->getFullName("cs"));
 	}
 
 	function test_destroy(){

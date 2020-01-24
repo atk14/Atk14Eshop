@@ -92,3 +92,52 @@ ul.list--tree {
 		}
 	}
 }
+
+
+ul.list--categories {
+	&--columns {
+		@include media-breakpoint-up(sm) {
+			column-count: 2;
+		}
+		
+		@include media-breakpoint-up(md) {
+			column-count: 3;
+		}
+		
+		@include media-breakpoint-up(xl) {
+			column-count: 4;
+		}
+	}
+	.list-item {
+		margin-bottom: 0.5rem;
+		a {
+			display: flex;
+			align-items: center;
+			.child-category {
+				&__image {
+					margin-right: 0.5rem;
+					flex-grow: 0;
+				}
+				&__text {
+					&__title {
+						font-weight: 600;
+						font-size: inherit;
+						color: $link-color;
+						margin: 0;
+						small {
+							color: $body-color;
+						}
+						.fas {
+							color: currentColor;
+						}
+					}
+					&__teaser {
+						color: $body-color;
+						margin: 0;
+						font-size: 0.875rem;
+					}
+				}
+			}
+		}
+	}
+}

@@ -26,6 +26,8 @@ class ApplicationMailer extends Atk14Mailer {
 	 * A place for common configuration.
 	 */
 	function _before_filter(){
+		global $ATK14_GLOBAL;
+
 		if(!$this->current_region){
 			$this->current_region = Region::GetDefaultRegion();
 		}
@@ -35,40 +37,8 @@ class ApplicationMailer extends Atk14Mailer {
 		//$this->from = DEFAULT_EMAIL;
 		$this->bcc = SystemParameter::ContentOn("app.bcc");
 		$this->_initialize_for_region($this->current_region);
-		
-		// General settings
-		$this->tpl_data["body_width"] = "580px"; // Container width
-		$this->tpl_data["bg_color"] = "#f2f4f2";
-		$this->tpl_data["container_bg_color"] = "#f2f4f2";
-		$this->tpl_data["font_stack"] = "Helvetica, Arial, sans-serif";
-		$this->tpl_data["text_color"] = "#212121";
-		$this->tpl_data["link_color"] = "#AF662F";
-		$this->tpl_data["link_style"] = "color: #AF662F; font-weight: bold; text-decoration: none;";
-		$this->tpl_data["visited_link_color"] = "#AF662F";
-		
-		// Header colors + logo
-		$this->tpl_data["header_bgcolor"] = "white";
-		$this->tpl_data["header_color"] = "#5F2929";
-		$this->tpl_data["logo_src"] = $this->current_region->getDefaultUrl()."public/dist/images/logo_email_header--dark.png";
-		
-		// Footer colors
-		$this->tpl_data["footer_bgcolor"] = "#ccc";
-		$this->tpl_data["footer_color"] = "#555";
-		$this->tpl_data["footer_link_color"] = "#555";
-		
-		// Boxed title colors 
-		$this->tpl_data["titlebox_bgcolor"] = "#5F2929";
-		$this->tpl_data["titlebox_color"] = "#fff";
-		$this->tpl_data["special_note_bgcolor"] = "#FFA334"; // special note
-		$this->tpl_data["special_note_color"] = "#fff";
-		
-		// Table colors
-		$this->tpl_data["table_header_bgcolor"] = "#b9babe"; // th
-		$this->tpl_data["table_header_color"] = "#212121";
-		$this->tpl_data["table_cell_bgcolor"] = "#EBECEE";
-		$this->tpl_data["table_cell_color"] = "#212121";
-		$this->tpl_data["table_accent_bgcolor"] = "#555"; // total sum row
-		$this->tpl_data["table_accent_color"] = "#fff";
+
+		$this->tpl_data += (array)$ATK14_GLOBAL->getConfig("theme/email");
 		
 		$this->clear_attachments();
 	}
@@ -76,6 +46,12 @@ class ApplicationMailer extends Atk14Mailer {
 	function _before_render(){
 		parent::_before_render();
 		$this->tpl_data["preheader_text"] = $this->preheader_text;
+
+		// It's better to write
+		//	{$val|default:$mdash}
+		// than
+		//	{!$val|h|default:"&mdash;"}
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function _after_render(){
@@ -155,6 +131,12 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["shipping_days"] = SystemParameter::ContentOn("orders.notifications.shipping_days");
 		$this->tpl_data["special_note"] = SystemParameter::ContentOn("orders.notifications.special_note");
 		$this->subject = sprintf(_("Order %d"),$order->getOrderNo());
+
+		$order_status = OrderStatus::GetInstanceByCode("new");
+		if($order_status && $order_status->getBccEmail()){
+			$this->bcc .= $this->bcc ? ", " : "";
+			$this->bcc .= $order_status->getBccEmail();
+		}
 	}
 
 	function notify_order_status_update($order){
@@ -169,6 +151,11 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
+
+		if($order_status->getBccEmail()){
+			$this->bcc .= $this->bcc ? ", " : "";
+			$this->bcc .= $order_status->getBccEmail();
+		}
 	}
 
 	/**

@@ -16,7 +16,7 @@ class TagsForm extends AdminForm{
 		]));
 
 		$choices = array();
-		$choices[""] = _("no color");
+		$choices[""] = _("default color");
 		// These color list was taken from public/styles/_bootstrap_variables.scss
 		foreach(array(
 			"blue" => _("blue"),
@@ -33,7 +33,7 @@ class TagsForm extends AdminForm{
 			"gray" => _("gray"),
 			"gray-dark" => _("dark gray"),
 		) as $color => $label){
-			$choices["$color"] = "<span class=\"bg-$color border border-dark\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> $label";
+			$choices["$color"] = "<span class=\"color-sample bg-$color\"></span> $label";
 		}
 		$this->add_field("color", new ChoiceField([
 			"label" => _("Color"),

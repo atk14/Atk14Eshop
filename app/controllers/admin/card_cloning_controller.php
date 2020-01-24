@@ -94,11 +94,23 @@ class CardCloningController extends AdminController {
 				}
 			}
 
+			// Creators
+			if($d["copy_creators"]){
+				foreach(CardCreator::GetCreatorsForCard($card) as $cc){
+					$_values = $card->toArray();
+					$_values = $cc->toArray();
+					$_values = array_diff_key($_values,$forbidden);
+					$_values["card_id"] = $new_card->getId();
+					$new_cs = CardCreator::CreateNewRecord($_values);
+				}
+			}
+
 			$this->flash->success(_("A new product was successfully created"));
 
 			$this->_redirect_to([
 				"action" => "cards/edit",
 				"id" => $new_card,
+				"return_uri" => $this->_link_to("cards/index"),
 			]);
 		}
 	}

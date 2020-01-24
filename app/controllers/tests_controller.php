@@ -22,20 +22,19 @@ class TestsController extends ApplicationController {
 	}
 
 	function notify_order_creation(){
-		$order = Order::FindFirst(["order_by" => "id DESC"]);
+		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
 		$this->mailer->notify_order_creation($order);
 		$this->_dump_email();
 	}
 
 	function notify_order_status_update(){
-		$yarri = User::FindByLogin("yarri@listonos.cz");
-		$order = Order::FindFirst("user_id",$yarri->getId(),["order_by" => "created_at DESC"]);
+		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
 		$this->mailer->notify_order_status_update($order);
 		$this->_dump_email();
 	}
 
 	function notify_user_registration(){
-		$user = User::FindFirst(["order_by" => "id DESC"]);
+		$user = User::FindFirst(["order_by" => "created_at DESC"]);
 		$this->mailer->notify_user_registration($user);
 		$this->_dump_email();
 	}

@@ -1,10 +1,12 @@
-<article class="media">
-	<img {!$article->getImageUrl()|img_attrs:"64x64xcrop"} class="mr-3">
-	<div class="media-body">
-	<h2>{a action=detail id=$article}{$article->getTitle()}{/a}</h2>
-	<p>
-		{$article->getTeaser()}
-	</p>
-	<p>{render partial="author_and_date"}</p>
+{a action=detail id=$article _class="card"}
+	{if $article->getImageUrl()}
+		<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+	{else}
+		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top">
+	{/if}
+	<div class="card-body">
+		<h2 class="card-title">{$article->getTitle()}</h2>
+		<p class="card-meta">{render partial="author_and_date"}</p>
+		<div class="card-text">{$article->getTeaser()}</div>
 	</div>
-</article>
+{/a}

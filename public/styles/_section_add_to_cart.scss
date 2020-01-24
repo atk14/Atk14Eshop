@@ -1,0 +1,105 @@
+.section--add-to-cart {
+	margin-bottom: $grid-gutter-width;
+	border-top: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
+	padding: $grid-gutter-width/4 0;
+	.tab-content {
+		padding-top: $grid-gutter-width/4;
+	}
+	.cart-panel {
+		display: flex;
+		&__meta {
+			order: 2;
+			padding-left: $grid-gutter-width/4;
+			border-left: 1px solid $border-color;
+			p {
+				margin: 0;
+				&.catalog-number {
+					font-size: 0.875rem;
+				}
+			}
+		}
+		&__controls {
+			flex-basis: percentage(7/12);
+			order: 1;
+			padding-right: $grid-gutter-width/4;
+			.add-to-cart-widget {
+				.prices {
+					margin-bottom: $grid-gutter-width/2;
+					.price--main {
+						color: $brand;
+						font-size: 1.75rem;
+						font-weight: 600;
+						//margin-bottom: 1rem;
+						line-height: 1;
+						.dph {
+							font-size: 0.875rem;
+							color: $body-color;
+							font-weight: normal;
+							white-space: nowrap;
+						}
+					}
+					.price--before-discount {
+						display: block;
+						margin-bottom: 0.5rem;
+						font-size: 1.25rem;
+						.currency_main {
+							font-weight: 600;
+							text-decoration: line-through;
+							color: $gray-500;
+						}
+					}
+					.price--recommended {
+						display: block;
+						margin-top: 0.5rem;
+						font-weight: normal;
+						color: $gray-500;
+						font-size: 0.75rem;
+						.price {
+							text-decoration: line-through;
+						}
+						.moneysaved {
+							.price {
+								text-decoration: none;
+							}
+						}
+					}
+				}
+				form {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					> * {
+						margin-top: 0.5rem;
+					}
+					.quantity-widget {
+						margin-right: 1rem;
+					}
+					.add-to-cart-submit {
+						flex-grow: 2;
+					}
+				}
+			}
+		}
+		@include media-breakpoint-down(xs){
+			display: block;
+			&__meta {
+				border-left: none;
+				border-bottom: 1px solid $border-color;
+				padding-left: 0;
+				padding-bottom: $grid-gutter-width/4;
+			}
+			&__controls {
+				padding-top: $grid-gutter-width/4;
+				padding-right: 0;
+			}
+		}
+	}
+	.nav-tabs {
+		.nav-link {
+			&:active, &:focus {
+				outline: none;
+			}
+		}
+	}
+}

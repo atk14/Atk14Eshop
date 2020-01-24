@@ -1,4 +1,4 @@
-{assign geometry_detail "1600"}
+{assign geometry_detail "2000x1800"}
 <div class="iobject iobject--picture">
 	<figure>
 		<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-size="{$picture|img_width:$geometry_detail}x{$picture|img_height:$geometry_detail}">

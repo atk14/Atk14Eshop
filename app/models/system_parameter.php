@@ -96,7 +96,7 @@ class SystemParameter extends ApplicationModel implements Translatable {
 			return null;
 		}
 
-		if(in_array($type,["string","localized_string","text","localized_text","url"])){
+		if(in_array($type,["string","localized_string","text","localized_text","url","image_url","email","phone"])){
 			return $content;
 		}
 

@@ -11,5 +11,6 @@ class OrderLabel extends ApplicationModel implements Translatable, Rankable {
 				(SELECT id FROM orders WHERE order_color_id=:order_color LIMIT 1)
 			)q
 		",[":order_color" => $this]);
+	}
 	
 }

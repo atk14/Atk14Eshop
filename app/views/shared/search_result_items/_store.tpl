@@ -2,7 +2,7 @@
 	<div class="search-results-item--image">
 		{if $store->getImageUrl()}
 			{a action="stores/detail" id=$store}
-				{!$store->getImageUrl()|pupiq_img:"!575x575":"class='img-fluid'"}
+				{!$store->getImageUrl()|pupiq_img:"600x450":"class='img-fluid'"}
 			{/a}
 		{else}
 		{/if}

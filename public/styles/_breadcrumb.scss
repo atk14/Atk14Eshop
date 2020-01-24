@@ -1,0 +1,16 @@
+ol.breadcrumb {
+	font-size: 0.875rem;
+	padding-bottom: 0.125rem;
+	border-bottom-color: $border-color;
+	li.breadcrumb-item {
+		a {
+			color: inherit;
+			&:hover {
+				color: $link-color;
+			}
+			.fas {
+				margin-right: 0.5em;
+			}
+		}
+	}
+}

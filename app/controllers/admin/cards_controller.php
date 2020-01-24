@@ -1,5 +1,9 @@
 <?php
+require_once(__DIR__ . "/trait_slug_state_watcher.php");
+
 class CardsController extends AdminController{
+
+	use TraitSlugStateWatcher;
 
 	function index(){
 		$this->page_title = _("List of Products");
@@ -165,6 +169,8 @@ class CardsController extends AdminController{
 			$category_ids = $d["category_ids"];
 			unset($d["category_ids"]); */
 
+			$this->_save_slug_state($this->card);
+
 			$tags = $d["tags"];
 			unset($d["tags"]);
 
@@ -199,17 +205,14 @@ class CardsController extends AdminController{
 			}*/
 
 			$this->flash->success(_("Changes have been saved"));
-			$this->_redirect_back();
+			$this->_redirect_back_or_edit_slug();
 		}
 
 		$this->_prepare_categories();
 	}
 
 	function destroy(){
-		if(!$this->request->post()){
-			return $this->_execute_action("error404");
-		}
-		$this->card->destroy();
+		$this->_destroy();
 	}
 
 	function enable_variants(){

@@ -80,6 +80,27 @@ class EditForm extends SystemParametersForm {
 				]));
 				break;
 
+			case "image_url":
+
+				$this->add_field("content", new PupiqImageField($params + [
+					"label" => _("Image"),
+				]));
+				break;
+
+			case "email":
+
+				$this->add_field("content", new EmailField($params + [
+					"label" => _("Email"),
+				]));
+				break;
+
+			case "phone":
+
+				$this->add_field("content", new PhoneField($params + [
+					"label" => _("Phone number"),
+				]));
+				break;
+
 			default:
 
 				throw new Exception("Hey! Add field for $type");

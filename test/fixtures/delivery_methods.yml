@@ -8,3 +8,4 @@ personal:
   price: 0
   price_incl_vat: 0
   personal_pickup: true
+  personal_pickup_on_store_id: "<?= $stores["test"]->getId() ?>"

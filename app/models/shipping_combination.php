@@ -5,6 +5,7 @@ class ShippingCombination extends ApplicationModel {
 		$dbmole = self::GetDbMole();
 
 		$dbmole->doQuery("DELETE FROM shipping_combinations WHERE delivery_method_id=:delivery_method_id", array(":delivery_method_id" => $delivery_method));
+		if(!$payment_methods){ return; }
 		$dbmole->doQuery("INSERT INTO shipping_combinations (delivery_method_id, payment_method_id) SELECT :delivery_method_id,id FROM payment_methods WHERE id IN :payment_method_ids", array(
 			":delivery_method_id" => $delivery_method,
 			":payment_method_ids" => $payment_methods,
@@ -18,13 +19,14 @@ class ShippingCombination extends ApplicationModel {
 
 	static function GetPaymentMethodsForDeliveryMethod($delivery_method) {
 		$payment_ids = self::GetPaymentMethodIdsForDeliveryMethod($delivery_method);
-		return PaymentMethod::GetInstanceById($payment_ids);
+		return Cache::Get("PaymentMethod",$payment_ids);
 	}
 
 	static function SetDeliveryMethodsForPaymentMethod($payment_method, $delivery_methods) {
 		$dbmole = self::GetDbMole();
 
 		$dbmole->doQuery("DELETE FROM shipping_combinations WHERE payment_method_id=:payment_method_id", array(":payment_method_id" => $payment_method));
+		if(!$delivery_methods){ return; }
 		$dbmole->doQuery("INSERT INTO shipping_combinations (payment_method_id, delivery_method_id) SELECT :payment_method_id,id FROM delivery_methods WHERE id IN :delivery_method_ids", array(
 			":payment_method_id" => $payment_method,
 			":delivery_method_ids" => $delivery_methods,

@@ -1,0 +1,43 @@
+.dashboard-chart {
+	.chart-canvas-container {
+		//width: 100%;
+		//max-width: 100%;
+		position: relative;
+		//overflow-x: hidden;
+		//overflow: hidden;
+
+		.dashboard-chart__canvas {
+			width: 800px;
+			height: 200px;
+			//border: 1px solid rgba(gray,0.15);
+			@include media-breakpoint-up(lg){
+				//height: 50px;border: 1px solid rgba(red,0.5);
+			}
+		}
+	}
+	.chart-range {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: $grid-gutter-width/2;
+		align-items: center;
+	}
+	.chart-range__display {
+		font-size: 0.875rem;
+	}
+
+
+	.btn {
+		&:focus, &.active, &.focus {
+			box-shadow: none;
+		}
+		&[disabled] {
+			opacity: 0.325;
+		}
+	}
+	.btn-group {
+		.btn {
+			min-width: 12ch;
+		}
+	}
+}
+

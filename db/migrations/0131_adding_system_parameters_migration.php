@@ -98,14 +98,14 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		SystemParameter::CreateNewRecord([
 			"code" => "app.bcc",
 			"system_parameter_type_id" => $type["string"],
-			"name_en" => "Email address for sending copy of all messages in hidden copy",
-			"name_cs" => "E-mailová adresa pro zasílání kopii všech zpráv ve skryté kopii",
+			"name_en" => "Email address (or addresses) for sending copy of all messages in hidden copy",
+			"name_cs" => "E-mailová adresa (nebo adresy) pro zasílání kopii všech zpráv ve skryté kopii",
 			"mandatory" => false,
 		]);
 
 		SystemParameter::CreateNewRecord([
 			"code" => "app.contact.email",
-			"system_parameter_type_id" => $type["string"],
+			"system_parameter_type_id" => $type["email"],
 			"name_en" => "Default email address",
 			"name_cs" => "Výchozí e-mailová adresa",
 			"mandatory" => true,
@@ -114,7 +114,7 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 
 		SystemParameter::CreateNewRecord([
 			"code" => "app.contact.phone",
-			"system_parameter_type_id" => $type["string"],
+			"system_parameter_type_id" => $type["phone"],
 			"name_en" => "Phone number",
 			"name_cs" => "Telefonní číslo",
 			"mandatory" => false,
@@ -151,6 +151,38 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"mandatory" => false,
 		]);
 
+		SystemParameter::CreateNewRecord([
+			"code" => "app.social.default_image",
+			"system_parameter_type_id" => $type["image_url"],
+			"name_en" => "Default image for social media sharing",
+			"description_en" => "Large enough JPG image",
+			"name_cs" => "Výchozí obrázek pro sdílení na sociálních médiích",
+			"description_cs" => "Dostatečně velký obrázek ve formátu JPG",
+			"mandatory" => false,
+			"content" => "https://i.pupiq.net/i/65/65/6b9/2d6b9/626x417/4dOoGF_626x417_55489d650c7f8c91.jpg",
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.favicon",
+			"system_parameter_type_id" => $type["image_url"],
+			"name_en" => "Favicon",
+			"description_en" => "A square PNG image of at least 800x800 pixels is recommended. Transparency is supported.",
+			"name_cs" => "Favicon",
+			"description_cs" => "Doporučen je čtvercový obrázek ve formátu PNG o velikosti alespoň 800x800 bodů. Průhlednost je podporována.",
+			"mandatory" => false,
+			"content" => "https://i.pupiq.net/i/65/65/6b8/2d6b8/1200x1200/BmlcpL_800x800_4b4bad2fa33a95c0.png",
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.favicon.small",
+			"system_parameter_type_id" => $type["image_url"],
+			"name_en" => "Small favicon",
+			"description_en" => "Image of the favicon for display in small dimensions. A square PNG image is recommended. Transparency is supported.",
+			"name_cs" => "Malá favicon",
+			"description_cs" => "Obrázek favicony pro zobrazení v malých rozměrech. Doporučen je čtvercový obrázek ve formátu PNG. Průhlednost je podporována.",
+			"mandatory" => false,
+		]);
+
 		foreach([
 			"facebook" => "facebook",
 			"twitter" => "Twitter",
@@ -159,7 +191,8 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"vimeo" => "Vimeo",
 			"pinterest" => "Pinterest",
 			"linkedin" => "LinkedIn",
-			"snapchat" => "Snapchat"
+			"snapchat" => "Snapchat",
+			"soundcloud" => "SoundCloud",
 		] as $key => $name){
 			SystemParameter::CreateNewRecord([
 				"code" => "app.contact.social.$key",

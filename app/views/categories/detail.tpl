@@ -1,19 +1,11 @@
-<header>
-	<div class="jumbotron bg-transparent border border-secondary">
-		<div class="row">
-			<div class="col-12 col-md-6 d-md-flex flex-column justify-content-center">
-				{admin_menu for=$category}
-				<h1>{$page_title} <span class="badge badge-secondary">{$finder->getRecordsCount()}</span></h1>
-				{if $category->getTeaser()}
-					<div class="lead">{!$category->getTeaser()|markdown}</div>
-				{/if}
-			</div>
-			<div class="col-12 col-md-6 text-md-right">
-				{!$category->getImageUrl()|pupiq_img:"300x300":"class='img-fluid'"}
-			</div>
-		</div>
-	</div>
-</header>
+{admin_menu for=$category}
+{if $category->getTeaser()}
+	{assign teaser $category->getTeaser()|markdown}
+{/if}
+{capture assign=title}
+	{$category->getName()} <small>({$finder->getRecordsCount()})</small>
+{/capture}
+{render partial="shared/layout/content_header" title=$title teaser=$teaser image=$category->getImageUrl()|img_url:"200x200" }
 
 <section class="border-top-0">
 	{!$category->getDescription()|markdown}
@@ -30,17 +22,15 @@
 						<div class="list-group-item-product">
 							<div class="list-group-item-thumbnail">
 							{if $cc->getImage()}
-								{!$cc->getImage()|pupiq_img:"!36x36"}
+								{!$cc->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
 							{/if}
 							</div>
-							<div>
-								<h4 class="list-group-item-heading">{$cc->getName()} </h4>
-								{if $cc->getTeaser()}
-									<p class="list-group-item-text">{$cc->getTeaser()}</p>
-								{/if}
-							</div>
+						<div class="child-category__text">
+							<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small> {!"angle-right"|icon}</h4>
+							{if $cc->getTeaser()}
+								<p class="child-category__text__teaser">{$cc->getTeaser()}</p>
+							{/if}
 						</div>
-						<span class="badge badge-pill badge-secondary">{$c->getCardsCount()}</span>
 					{/a}
 				{/foreach}
 			</div>

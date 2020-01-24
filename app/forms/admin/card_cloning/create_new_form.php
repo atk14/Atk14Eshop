@@ -27,6 +27,7 @@ class CreateNewForm extends CardsForm {
 			"copy_categories" => _("Copy categories?"),
 			"copy_textual_sections" => _("Copy textual sections?"),
 			"copy_technical_specifications" => _("Copy technical specifications?"),
+			"copy_creators" => _("Copy creators?"),
 		] as $key => $label){
 			$this->add_field($key, new BooleanField([
 				"label" => $label,

@@ -32,7 +32,7 @@ class HourField extends FloatField{
 			return array($this->messages["invalid_hour_format"],null);
 		}
 
-		if($value<0.0 || $value>=24.0){
+		if($value<0.0 || $value>24.0){
 			return array($this->messages["invalid_hour_format"],null);
 		}
 	

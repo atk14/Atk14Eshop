@@ -1,14 +1,15 @@
 {admin_menu for=$page}
 <article>
-	<header class="content-header">
+	{*<header class="content-header">
 		<h1>{$page->getTitle()}</h1>
 		<div class="teaser">
 		{!$page->getTeaser()|markdown}
 		</div>
-	</header>
+	</header>*}
+	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
 	
-	<section class="page-body">
-		{if !$page->isVisible()}
+	<section class="page__body">
+		{if !$page->isVisible() && $page->getCode()!="error404"}
 			<p><em>{t}This is not a visible page! It's not available to the public audience.{/t}</em></p>
 		{/if}
 		{!$page->getBody()|markdown}
@@ -20,10 +21,14 @@
 	{render_component controller="contact_messages" action="create_new"}
 {/if}
 
+{if $creator}
+	{render_component controller="creator_cards" action="index" creator_id=$creator->getId()}
+{/if}
+
 {if $child_pages}
-	<section class="child-pages">
-		<h4>{t}Subpages{/t}</h4>
-		<ul class="list-unstyled">
+	<section class="section--child-pages">
+		{*<h4>{t}Subpages{/t}</h4>*}
+		{*<ul class="list-unstyled">
 		{foreach $child_pages as $child_page}
 			<li>
 				{a action=detail id=$child_page}
@@ -34,7 +39,22 @@
 				{/a}
 			</li>
 		{/foreach}
-		</ul>
+		</ul>*}
+		
+		<div class="card-deck card-deck--sized-6">
+			{foreach $child_pages as $child_page}
+				{a action=detail id=$child_page _class="card"}
+					{if $child_page->getImageUrl()}
+						<img {!$child_page->getImageUrl()|img_attrs:"300x225xcrop"} alt="" class="card-img-top">
+					{/if}
+					<div class="card-body">
+						<h5>{$child_page->getTitle()}</h5>
+						<p>{$child_page->getTeaser()}</p>
+					</div>
+				{/a}
+			{/foreach}
+		</div>
+		
 	</section>
 {/if}
 

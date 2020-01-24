@@ -130,12 +130,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			"consider_product_images" => true,
 		];
 	
-		// Obrazek z prvni obrazkove varianty ma prednost pred obrazkem u teto karty
+		// Obrazek z prvni varianty ma prednost pred obrazkem u teto karty
+		// TODO: neni jasne proc! :)
 		if($options["consider_product_images"] && $this->hasVariants()){
-			foreach($this->getProducts() as $p){
-				if($i = $p->getImage(false)){
-					return $i;
-				}
+			if(($product = $this->getFirstProduct()) && ($i = $product->getImage(false))){
+				return $i;
 			}
 		}
 
@@ -148,8 +147,8 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function hasVariants(){ return $this->getHasVariants(); }
 
 	function canBeSwitchedToNonVariantMode(){
-		$products = $this->getProducts();
-		return sizeof($products)<=1;
+		$products = $this->getProducts(array("visible" => null));
+		return sizeof($products)==0 || (sizeof($products)==1 && $products[0]->isVisible());
 	}
 
 	function createProduct($product_values) {
@@ -198,7 +197,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			"visible" => true, // false, true, null
 
 			"limit" => null,
-			"order" => "rank",
+			"order" => "rank, id",
 		);
 
 		$products_lists = Card::GetProductsList($this);
@@ -388,6 +387,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		}
 	}
 
+	function isDeletable(){
+		$p = Product::GetInstanceByCode("price_rounding");
+		return $this->getId()!=$p->getCardId();
+	}
+
 	function isDeleted(){ return $this->getDeleted(); }
 	function isVisible(){ return $this->getVisible(); }
 
@@ -420,7 +424,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			return null;
 		}
 
-		foreach($this->getProducts() as $p){
+		foreach($this->getProducts(["deleted" => null, "visible" => null]) as $p){
 			$p->destroy();
 		}
 
@@ -693,6 +697,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
 
+		foreach($this->getProducts() as $product){
+			$fd->addText($product->getLabel(),"b");
+			$fd->addText($product->getCatalogId(),"d");
+		}
+
 		if($brand = $this->getBrand()){
 			$fd->addText($brand->getName());
 		}
@@ -711,6 +720,14 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 				"b" => "c",
 				"c" => "d",
 			]);
+		}
+
+		foreach($this->getTags() as $t){
+			$fd->addText($t->getTagLocalized($lang),"b");
+		}
+
+		foreach(CardCreator::GetCreatorsForCard($this) as $cc){
+			$fd->addText($cc->getCreator()->getName(true,$lang),"b");
 		}
 
 		return $fd;

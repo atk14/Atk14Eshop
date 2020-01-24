@@ -1,0 +1,32 @@
+.checkout-actions, .form__footer {
+	$buttonGap: 1rem;
+	margin-left: 0-$buttonGap/2;
+	margin-right: 0-$buttonGap/2;
+	margin-bottom: 0-$buttonGap/2;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	
+	
+	.btn  {
+		margin-bottom: 0.5rem;
+		margin-left: $buttonGap/2;
+		margin-right: $buttonGap/2;
+	}
+	
+	.form-group {
+		margin: 0 !important;
+	}
+	
+	@include media-breakpoint-down(sm){
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		.btn-primary {
+			order: 1;
+		}
+		.btn-outline-secondary, .btn-secondary {
+			order: 2;
+		}
+	}
+}

@@ -33,7 +33,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Image sliders"),				"sliders,slider_items"),
 			array(_("Tags"),								"tags"),
 			array(_("Users"),								"users"),
-			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning"),
+			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),

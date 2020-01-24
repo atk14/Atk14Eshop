@@ -9,3 +9,14 @@
 @each $color, $value in $colors {
   @include text-emphasis-variant(".text-#{$color}", $value);
 }
+
+.color-sample {
+	position: relative;
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	border: 1px solid $gray-600;
+	border-radius: 0.5rem;
+	margin-right: 0.25em;
+	top: 0.2em;
+}

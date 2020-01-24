@@ -47,8 +47,8 @@ CREATE TABLE orders (
 	--
 	delivery_method_id INTEGER NOT NULL,
 	delivery_method_data JSON,
-	delivery_fee NUMERIC(20,6) NOT NULL,
-	delivery_fee_incl_vat NUMERIC(20,6) NOT NULL,
+	delivery_fee NUMERIC(20,6),
+	delivery_fee_incl_vat NUMERIC(20,6),
 	--
 	payment_method_id INTEGER NOT NULL,
 	payment_fee NUMERIC(20,6) NOT NULL,
@@ -88,6 +88,7 @@ CREATE TABLE orders (
 	CONSTRAINT unq_orders_orderno UNIQUE (order_no),
 	CONSTRAINT chk_orders_pricetopay CHECK (price_to_pay >= 0.0),
 	CONSTRAINT chk_orders_creationnotified CHECK (((creation_notified IS NULL OR creation_notified=FALSE) AND creation_notified_at IS NULL) OR (creation_notified=TRUE AND creation_notified_at IS NOT NULL)),
+	CONSTRAINT chk_orders_deliveryfees CHECK ((delivery_fee IS NOT NULL AND delivery_fee_incl_vat IS NOT NULL) OR (delivery_fee IS NULL AND delivery_fee_incl_vat IS NULL)),
 	CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users(id),
 	CONSTRAINT fk_orders_regions FOREIGN KEY (region_id) REFERENCES regions,
 	CONSTRAINT fk_orders_orderstatuses FOREIGN KEY (order_status_id) REFERENCES order_statuses,

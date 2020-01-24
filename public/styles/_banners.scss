@@ -1,0 +1,35 @@
+.banner {
+	&--image-text--halfwidth {
+		display: flex;
+		align-items: center;
+		background-color: $brand;
+		color: white;
+		transition: background-color 0.5s;
+		.banner__text {
+			flex-basis: 50%;
+			padding: $grid-gutter-width/2;
+			font-size: 1.35rem;
+			line-height: 1.1;
+			font-weight: 900;
+		}
+		.banner__image {
+			flex-basis: 50%;
+		}
+		@include media-breakpoint-only(md){
+			display: block;
+		}
+		@include media-breakpoint-down(sm){
+			margin-top: $grid-gutter-width;
+		}
+		@media(max-width:440px){
+			display: block;
+		}
+		&:hover {
+			color: white;
+			text-decoration: none;
+			background-color: darken($brand,5%);
+			transition: background-color 0.1s;
+		}
+	}
+	
+}

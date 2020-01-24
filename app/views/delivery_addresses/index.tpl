@@ -1,4 +1,4 @@
-<h1>{$page_title}</h1>
+{render partial="shared/layout/content_header" title=$page_title}
 
 {if !$delivery_addresses}
 	
@@ -6,7 +6,7 @@
 
 {else}
 
-	<p>{a action="create_new" _class="btn btn-default"}{t}Vytvořit novou adresu{/t}{/a}</p>
+	<p>{a action="create_new" _class="btn btn-primary"}{!"plus-circle"|icon} {t}Vytvořit novou adresu{/t}{/a}</p>
 
 	{render partial="shared/delivery_addresses" delivery_addresses=$delivery_addresses}
 

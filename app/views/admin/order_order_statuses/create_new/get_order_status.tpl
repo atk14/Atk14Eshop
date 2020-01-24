@@ -2,5 +2,4 @@
 
 <p><strong>{t}Stav objednávky{/t}</strong>: {$order->getCurrentOrderStatus()}</p>
 
-{render partial="shared/form"}
-
+{render partial="shared/form" button_class="btn btn-secondary"}

@@ -60,5 +60,10 @@ class TcCard extends TcBase {
 		$card->createProduct(array("catalog_id" => "126"));
 		$card->createProduct(array("catalog_id" => "127","deleted" => true));
 		$this->assertTrue($card->canBeSwitchedToNonVariantMode());
+
+		$products = $card->getProducts();
+		$this->assertEquals(1,sizeof($products));
+		$products[0]->s("visible",false);
+		$this->assertFalse($card->canBeSwitchedToNonVariantMode());
 	}
 }

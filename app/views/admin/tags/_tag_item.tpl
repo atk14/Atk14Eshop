@@ -1,7 +1,7 @@
 <tr>
 	<td class="item-id">{$tag->getId()}</td>
 	<td class="item-color">
-		{if $tag->getColor()}<span class="bg-{$tag->getColor()} border border-dark">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{/if}
+		{if $tag->getColor()}<span class="color-sample bg-{$tag->getColor()}"></span>{/if}
 	</td>
 	<td class="item-title">
 		{$tag}

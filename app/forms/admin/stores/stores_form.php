@@ -31,7 +31,6 @@ class StoresForm extends AdminForm {
 			"address_street" => _("Street"),
 			"address_street2" => _("Street (2nd line)"),
 			"address_city" => _("City"),
-			"address_zip" => _("ZIP")
 		] as $k => $label){
 			$this->add_field($k,new CharField([
 				"label" => $label,
@@ -39,6 +38,10 @@ class StoresForm extends AdminForm {
 				"max_length" => 255,
 			]));
 		}
+		$this->add_field("address_zip",new ZipField([
+			"label" => _("ZIP"),
+			"required" => false,
+		]));
 		$this->add_field("address_country", new CountryField([
 			"label" => _("Stát"),
 			"required" => false,

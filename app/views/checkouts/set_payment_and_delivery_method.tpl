@@ -1,16 +1,16 @@
 {render partial="shared/checkout_navigation"}
 
-<h1>{$page_title}</h1>
+{render partial="shared/layout/content_header" title=$page_title}
 
 {form _class="form" _novalidate="novalidate"}
 	{render partial="shared/form_error"}
 
 	<div class="form__body">
-		<div class="flex-row">
-			<div class="col">
+		<div class="row">
+			<div class="col-12 col-md-6">
 				{render partial="shared/form_field" fields="delivery_method_id"}
 			</div>
-			<div class="col">
+			<div class="col-12 col-md-6">
 				{render partial="shared/form_field" fields="payment_method_id"}
 			</div>
 		</div>

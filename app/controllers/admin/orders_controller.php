@@ -18,9 +18,13 @@ class OrdersController extends AdminController {
 			$bind_ar[":date_to"] = $d["date_to"];
 		}
 
-		if ($d["order_status_id"]) {
-			$conditions[] = "order_status_id=:order_status_id";
-			$bind_ar[":order_status_id"] = $d["order_status_id"];
+		if ($d["order_status"]) {
+			if($d["order_status"]=="in_progress"){
+				$conditions[] = "order_status_id IN (SELECT id FROM order_statuses WHERE NOT (finished_successfully	OR finished_unsuccessfully OR finishing_successfully OR finishing_unsuccessfully))";
+			}else{
+				$conditions[] = "order_status_id=:order_status_id";
+				$bind_ar[":order_status_id"] = $d["order_status"];
+			}
 		}
 
 		if ($d["delivery_method_id"]) {

@@ -1,5 +1,7 @@
 <?php
 class Product extends ApplicationModel implements Translatable,Rankable{
+
+	use TraitGetInstanceByCode;
 	
 	static function GetTranslatableFields(){
 		return array(
@@ -27,24 +29,39 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return parent::CreateNewRecord($values,$options);
 	}
 
-	function getName($lang = null){
+	function getName($lang = null,$with_label = true){
+		if(is_bool($lang)){
+			$with_label = $lang;
+			$lang = null;
+		}
+
 		$name = parent::getName($lang);
-		if(strlen($name)){
+
+		if(strlen($name)>0){
 			return $name;
 		}
+
 		$card = $this->getCard();
-		return $card->getName($lang);
-	}
+		$name = $card->getName($lang);
 
-	function getFullName(){
-		$full_name = $this->getName();
-		if($label = $this->getLabel()){
-			$full_name .= ", ".$label;
+		if($with_label){
+			if($label = $this->getLabel($lang)){
+				$name .= ", ".$label;
+			}
 		}
-		return $full_name;
+
+		return $name;
 	}
 
-	function getCard(){ return Cache::Get("Card",$this->g("card_id")); }
+	/**
+	 *
+	 * Alias for ```Product::getName($lang,true);```
+	 */
+	function getFullName($lang = null){
+		return $this->getName($lang,true);
+	}
+
+	function getCard(){ return Cache::Get("Card",$this->getCardId()); }
 
 	function getUnit(){ return Cache::Get("Unit",$this->g("unit_id")); }
 
@@ -99,6 +116,10 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 			"card_id" => $this->getCardId(),
 			"deleted" => false,
 		));
+	}
+
+	function isDeletable() {
+		return in_array($this->getCode(),array("price_rounding"));
 	}
 
 	function isDeleted(){ return $this->getDeleted(); }

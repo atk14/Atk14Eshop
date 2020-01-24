@@ -14,6 +14,7 @@ class EditPaymentMethodsForm extends AdminForm {
 			"label" => _("Vyberte dostupné způsoby platby"),
 			"choices" => $payment_method_choices,
 			"widget" => new CheckboxSelectMultiple(["escape_labels" => false]),
+			"required" => false,
 		)));
 	}
 }

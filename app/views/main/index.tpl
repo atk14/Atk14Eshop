@@ -1,35 +1,10 @@
-<article>
+{render partial="shared/slider" slider=$slider}
 
-	{if $page}
-
-		<header>
-			{admin_menu for=$page}
-			<h1>{$page->getTitle()}</h1>
-			<div class="teaser">
-			{!$page->getTeaser()|markdown}
-			</div>
-		</header>
-		
-		{!$page->getBody()|markdown}
-			
-	{else}
-
-		<header>
-			<h1>{$page_title}</h1>
-		</header>
-
-	{/if}
-
-</article>
 
 {if $category_recommended_cards}
 	{admin_menu for=$category_recommended_cards}
-	<h3>{$category_recommended_cards->getName()}</h3>
-	{if $category_recommended_cards->getTeaser()}
-		<div class="lead">
-			{!$category_recommended_cards->getTeaser()|markdown}
-		</div>
-	{/if}
+	{render partial="shared/layout/content_header" title=$category_recommended_cards->getName() teaser=$category_recommended_cards->getTeaser()|markdown tag="h2"}
+	
 	{if $category_recommended_cards->getDescription()}
 		{!$category_recommended_cards->getDescription()|markdown}
 	{/if}
@@ -37,10 +12,51 @@
 	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
 {/if}
 
-{content for="out_of_container"}
-	{render partial="shared/slider" slider=$slider}
-{/content}
+<article class="main-article">
 
+	{if $page}
+	
+		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown tag="h2"}
+		
+		<div class="row">
+			<div class="col-12 col-md-7 col-lg-6">
+				{!$page->getBody()|markdown}
+			</div>
+				<div class="col-12 col-md-5 col-lg-6">
+					<a href="/prodejny/showroom-praha/" class="banner banner--image-text--halfwidth">
+						<img src="/public/dist/images/banner-main-showroom.jpg" class="banner__image img-fluid" alt="">
+						<div class="banner__text">{t escape=no}Navštivte náš showroom v&nbsp;Praze&nbsp;4{/t}</div>
+					</a>
+				</div>
+		</div>
+	{else}
+		{render partial="shared/layout/content_header" title=$page_title}
+	{/if}
+
+</article>
+
+{if $recent_articles}
+	<section class="section--recent-articles">
+		{capture assign=recent_articles_title}{t}Aktuality{/t}{/capture}
+		{render partial="shared/layout/content_header" title=$recent_articles_title}
+		<div class="card-deck card-deck--sized-4">
+			{foreach $recent_articles as $article}
+				{a controller=articles action=detail id=$article _class="card"}
+					{if $article->getImageUrl()}
+						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+					{else}
+						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top">
+					{/if}
+					<div class="card-body">
+						<h2 class="card-title">{$article->getTitle()}</h2>
+						<div class="card-text">{$article->getTeaser()}</div>
+					</div>
+				{/a}
+			{/foreach}
+		</div>
+	</section>
+{/if}
+	
 {if $page  && !$page->isIndexable()}
 	{content for=head}
 		<meta name="robots" content="noindex,noarchive">

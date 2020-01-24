@@ -55,6 +55,9 @@ class DefaultRouter extends Atk14Router{
 		// .. and files
 		$this->addRoute("/file/<token>/<filename>","$this->default_lang/files/detail");
 
+		$this->addRoute("/search/","en/searches/index");
+		$this->addRoute("/vyhledavani/","cs/searches/index");
+
 		// Generic routes follow.
 		// Keep them on the end of the list.
 

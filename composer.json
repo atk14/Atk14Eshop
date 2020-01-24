@@ -3,10 +3,10 @@
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
         "atk14/templates-panel": "^1.0",
-        "atk14/pupiq-client": "^1.9",
+        "atk14/pupiq-client": "^1.10",
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.0",
-        "atk14/drink-markdown": "^0.2",
+        "atk14/drink-markdown": "^0.3",
         "essence/essence": ">=2.6.1",
         "atk14/menu14": "^1.1.1",
         "yarri/my-blowfish": "^1.4",
@@ -20,6 +20,10 @@
         "atk14/textmit-client": "^1.2.1",
         "atk14/decimal-field": "^1.0",
         "atk14/localized-decimal-field": "^1.0",
-        "atk14/zip-field": "^0.1.0"
+        "atk14/zip-field": "^0.1.0",
+        "chrisjean/php-ico": "^1.0",
+        "atk14/slug-field": "^1.1",
+        "atk14/recaptcha-field": "^0.1.2",
+        "atk14/vlnka": "^1.1"
     }
 }

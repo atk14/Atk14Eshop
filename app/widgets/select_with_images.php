@@ -43,7 +43,7 @@ class SelectWithImages extends RadioSelect
 			$ch = new RadioInputWithImage($name, $value, $attrs, $k, $v, $i);
 			$ch->options = $this->options;
 
-			$output[] = "<li class=\"list__item\" data-id='$k'>".$ch->render()."</li>";
+			$output[] = "<li class=\"list__item\" data-id=\"$k\">".$ch->render()."</li>";
 			$i++;
 		}
 		$data_api_url = "";
@@ -103,7 +103,7 @@ class RadioInputWithImage {
 				$image = $image->getUrl();
 			}
 			$p = new Pupiq($image,$api_key);
-			return sprintf("<span class='v-image'><img src='%s' alt='%s'></span>",$p->getUrl($this->options["image_geometry"]),$title);
+			return sprintf('<span class="v-image"><img src="%s" alt=""></span>',$p->getUrl($this->options["image_geometry"]));
 		} else {
 			return '';
 		}
@@ -114,16 +114,22 @@ class RadioInputWithImage {
 	}
 
 	function hint() {
+		Atk14Require::Helper("modifier.markdown");
 		$hint = $this->object->getHint();
+		$hint = smarty_modifier_markdown($hint);
 		if(!$hint) { return ''; };
-		return "<span class='v-hint'><span class='v-hint-title'>{$this->object->getHintTitle()}</span>$hint</span>";
+		$hint_title = $this->object->getHintTitle();
+		if($hint_title){
+			$hint_title = '<span class="v-hint-title">'.$hint_title.'</span>';
+		}
+		return '<div class="v-hint">'.$hint_title.$hint.'</div>';
 	}
 
 	function price() {
 		$price = $this->object->getPrice();
 		if($price === null) { return ''; };
-		if($price === 0) { return "<span class='v-price for-free'>"._('Zdarma') . '</span>'; };
-		return "<span class='v-price'>$price</span>";
+		if($price === 0) { return '<span class="v-price for-free">'._('Zdarma') . '</span>'; };
+		return "<span class=\"v-price\">$price</span>";
 	}
 
 	function branchAddress() {
@@ -145,11 +151,12 @@ class RadioInputWithImage {
 	}
 
 	function render() {
+		$price = $this->price() ? " ".$this->price() : "";
 		$attr = [
 			// TODO: code review needed: tohle upravil Mattez
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'><span>'.$this->image() . $this->caption() . '</span>' . $this->hint() . $this->price(). '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>'.$this->branchAddress();
 	}
 }

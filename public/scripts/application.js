@@ -9,6 +9,12 @@
 
 			// Application-wide code.
 			init: function() {
+				
+				// Init Swiper
+				UTILS.initSwiper();
+
+				// Init PhotoSwipe
+				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 
 				// Restores email addresses misted by the no_spam helper
 				$( ".atk14_no_spam" ).unobfuscate( {
@@ -31,6 +37,13 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				// Main menu dropdowns with clickable parent link
+				$( ".js--prevent-dropdown-toggle" ).click( function( e ) {
+					if( $( this ).closest( ".nav-item" ).find( ".dropdown-menu" ).hasClass( "show" ) ) {
+						e.stopPropagation();
+					}
+				} );
 			}
 		},
 
@@ -50,7 +63,6 @@
 
 			// Action-specific code
 			index: function() {
-				UTILS.initSwiper();	
 			}
 		},
 
@@ -115,7 +127,6 @@
 
 			// Controller-wide code.
 			init: function() {
-				UTILS.initSwiper();
 			},
 
 			// Action-specific code
@@ -231,6 +242,100 @@
 				} );*/
 				
 			}
+		},
+
+		checkouts: {
+
+			// Controller-wide code.
+			init: function() {
+			},
+
+			set_payment_and_delivery_method: function() {
+				UTILS.shipping_rules.checkDependent( {
+					determinantName: "delivery_method_id",
+					determinedName: "payment_method_id",
+					rules: $( "#form_checkouts_set_payment_and_delivery_method" ).data( "rules" )
+				} );
+
+				$( "#form_checkouts_set_payment_and_delivery_method :checked" )
+					.parents( "li" ).each( function() {
+					$( this ).last().addClass( "checked" );
+				} );
+
+				$( "#form_checkouts_set_payment_and_delivery_method :radio" ).change( function() {
+					if ( $( this ).is( ":checked" ) ) {
+						$( this ).closest( ".list--radios" )
+							.find( ".checked input[name='group_checkbox']" )
+							.attr( "checked", false );
+						$( this ).closest( ".list--radios" )
+							.find( ".checked" )
+							.removeClass( "checked" );
+						$( this ).parents( "li" ).last().addClass( "checked" );
+					}
+				} );
+			},
+
+			// Action-specific code
+			set_billing_and_delivery_data: function() {
+
+				// Checkbox na zadavani fakturacni adresy
+				if( $( "#id_fill_in_invoice_address" ).is( ":checked" ) === false ){
+					$( "#invoice-address-fields" ).css( "display", "none" );
+				}
+
+				$( "#id_fill_in_invoice_address" ).on( "change", function() {
+					if( $( "#id_fill_in_invoice_address" ).is( ":checked" ) === true ) {
+						$( "#invoice-address-fields" ).show( 150 );
+					} else {
+						$( "#invoice-address-fields" ).hide( 150 );
+					}
+				} );
+
+
+
+				// Vyber dorucovacich adres
+				$( ".js--predefined-address" ).click( function() {
+					var data = $( this ).data( "json" ),
+						$card = $( this ).closest( ".js--card-address" ),
+						$cards = $( ".js--card-address" );
+
+					$cards.removeClass( "card--active" );
+					$card.addClass( "card--active" );
+
+					$( "#form_checkouts_set_billing_and_delivery_data input" ).each( function() {
+							var name = this.name;
+							if ( name.substr( 0, 9 ) !== "delivery_" ) {
+								return;
+							}
+							name = name.substr( 9 );
+							if ( data[ name ] !== undefined ) {
+								this.value = data[ name ];
+							}
+					} );
+				} );
+
+			}
+
+		},
+
+		stores: {
+
+			// Controller-wide code.
+			init: function() {
+			},
+
+			// Action-specific code
+			index: function() {
+				UTILS.initMultiMap( "allstores_map" );
+			},
+
+			// Action-specific code
+			detail: function() {
+
+				// Mapa
+				UTILS.initSimpleMap( "store-map" );
+			}
+
 		}
 
 	};

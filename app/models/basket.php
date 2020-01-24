@@ -245,7 +245,9 @@ class Basket extends BasketOrOrder {
 		if($this->freeShipping()){ return 0.0; }
 		if($delivery = $this->getDeliveryMethod()){
 			$country = $this->_getDeliveryCountry();
-			return $delivery->getPrice($country) / $this->getCurrency()->getRate();
+			$fee = $delivery->getPrice($country);
+			if(is_null($fee)){ return null; }
+			return $fee / $this->getCurrency()->getRate();
 		}
 	}
 
@@ -256,7 +258,9 @@ class Basket extends BasketOrOrder {
 		if($this->freeShipping()){ return 0.0; }
 		if($delivery = $this->getDeliveryMethod()){
 			$country = $this->_getDeliveryCountry();
-			return $delivery->getPriceInclVat($country) / $this->getCurrency()->getRate();
+			$fee = $delivery->getPriceInclVat($country);
+			if(is_null($fee)){ return null; }
+			return $fee / $this->getCurrency()->getRate();
 		}
 	}
 

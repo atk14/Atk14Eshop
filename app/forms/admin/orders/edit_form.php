@@ -19,8 +19,8 @@ class EditForm extends OrdersForm {
 		$this->add_field("delivery_method_id",new DeliveryMethodField([
 			"label" => _("Způsob dopravy"),
 		]));
-		$this->_add_price_field("delivery_fee",_("Poplatek za dopravu"));
-		$this->_add_price_field("delivery_fee_incl_vat",_("Poplatek za dopravu včetně DPH"));
+		$this->_add_price_field("delivery_fee",["label" => _("Poplatek za dopravu"), "required" => false]);
+		$this->_add_price_field("delivery_fee_incl_vat",["label" => _("Poplatek za dopravu včetně DPH"), "required" => false]);
 
 		$this->add_field("payment_method_id",new PaymentMethodField([
 			"label" => _("Způsob platby"),
@@ -34,19 +34,6 @@ class EditForm extends OrdersForm {
 			"label" => sprintf(_("Celkem uhrazeno [%s]"),$currency),
 			"required" => false,
 		]));
-
-		/*
-		foreach([
-			"delivery_fee" => _("Poplatek za dopravu"),
-			"delivery_fee_incl_vat" => _("Poplatek za dopravu včetně DPH"),
-			"payment_fee" => _("Poplatek za platbu"),
-			"payment_fee_incl_vat" => _("Poplatek za platbu včetně DPH"),
-		] as $k => $label){
-			$this->add_field($k,new PriceField([
-				"label" => $label." [".$currency."]",
-			]));
-		}
-		*/
 
 		$this->add_field("note", new TextField([
 			'label' => 'Poznámka k objednávce',
@@ -62,10 +49,33 @@ class EditForm extends OrdersForm {
 		]));
 	}
 
-	function _add_price_field($k,$label){
+	function _add_price_field($k,$options = []){
+		if(is_string($options)){
+			$options = [
+				"label" => $options
+			];
+		}
+
 		$currency = $this->controller->order->getCurrency();
-		$this->add_field($k,new PriceField([
-			"label" => $label." [".$currency."]",
-		]));
+		$options["label"] = $options["label"]." [".$currency."]";
+
+		$this->add_field($k,new PriceField($options));
+	}
+
+	function clean(){
+		list($err,$d) = parent::clean();
+
+		$keys = is_array($d) ? array_keys($d) : array(); 
+
+		if(in_array("delivery_fee",$keys) && in_array("delivery_fee_incl_vat",$keys)){
+			if(isset($d["delivery_fee"]) && !isset($d["delivery_fee_incl_vat"])){
+				$this->set_error("delivery_fee_incl_vat",_("Specify the delivery fee incl. VAT"));
+			}
+			if(!isset($d["delivery_fee"]) && isset($d["delivery_fee_incl_vat"])){
+				$this->set_error("delivery_fee_incl_vat",_("Specify the delivery fee"));
+			}
+		}
+
+		return [$err,$d];
 	}
 }

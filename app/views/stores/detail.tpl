@@ -1,14 +1,7 @@
-<header class="content-header{if $store->getImageUrl() } content-header--image{/if}"{if $store->getImageUrl() }style="background-image:url({!$store->getImageUrl()|img_url:"1200x400xcrop"})"{/if}>
-	<div class="content-header__text">
-		{admin_menu for=$store}
-		<h1>{$store->getName()}</h1>
-		{if $store->getTeaser()}
-			<div class="lead">{!$store->getTeaser()|markdown}</div>
-		{/if}
-	</div>
-</header>
+{admin_menu for=$store}
+{render partial="shared/layout/content_header" title=$store->getName() teaser=$store->getTeaser()|markdown image=$store->getImageUrl() }
 
-<section class="store-properties">
+<section class="store-detail__properties">
 	<div class="row">
 		{*if $store->getOpeningHours()}
 			<p class="col-12 col-md store-properties-column">
@@ -58,15 +51,24 @@
 	</div>
 </section>
 
-<section class="store-description">
-	{!$store->getDescription()|markdown}
-</section>
+<div class="row">
+	<div class="store-detail__description col-12 col-md-6">
+		{!$store->getDescription()|markdown}
+	</div>
+	{if $store->getLocationLat() && $store->getLocationLng()}
+	<div class="store-detail__location col-12 col-md-6">
+		<div class="store-detail__map" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16"></div>
+		<p>
+			<a class="" href="{link_to_map service="seznam" lat=$store->getLocationLat() lng=$store->getLocationLng()}">{!"map"|icon:"regular"} {t}Velká mapa{/t}</a>
+		</p>
+	</div>
+	{/if}
+</div>
 
-<div class="store-detail__map" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16"></div>
 
-<p>
-<a class="" href="{link_to_map service="seznam" lat=$store->getLocationLat() lng=$store->getLocationLng()}">{!"map"|icon:"regular"} {t}Velká mapa{/t}</a>
-</p>
+
+
+
 
 {render partial="shared/photo_gallery" object=$store photo_gallery_title=""}
 

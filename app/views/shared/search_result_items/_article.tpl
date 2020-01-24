@@ -2,7 +2,7 @@
 	<div class="search-results-item--image">
 		{if $article->getImageUrl()}
 			{a action="articles/detail" id=$article}
-				<img {!$article->getImageUrl()|img_attrs:'575x575xcrop'} alt="{$article->getTitle()}" class="img-fluid">
+				<img {!$article->getImageUrl()|img_attrs:'600x450'} alt="{$article->getTitle()}" class="img-fluid">
 			{/a}
 		{else}
 		{/if}

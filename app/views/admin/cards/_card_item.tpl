@@ -1,6 +1,7 @@
 <tr>
 	<td class="item-id">{$card->getId()}</td>
 	<td class="item-thumbnail">{render partial="shared/list_thumbnail" image=$card->getImage()}</td>
+	<td>{render partial="shared/product_codes" products=$card->getProducts(["visible" => true])}</td>
 	<td class="item-title">
 		{$card->getName()}
 		{if !$card->isVisible()}
@@ -19,7 +20,10 @@ Are you sure?{/t}{/capture}
 			{a action=edit id=$card}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{a namespace="" action="cards/detail" id=$card}{!"eye"|icon} {t}Show on web{/t}{/a}
 			{a action="card_cloning/create_new" card_id=$card}{!"clone"|icon:"regular"} {t}Copy this product{/t}{/a}
-			{a_destroy id=$card _confirm=$confirm}{!"trash-alt"|icon} {t}Delete product{/t}{/a_destroy}
+			{a action="card_merging/create_new" card_id=$card}{!"plus-square"|icon:"regular"} {t}Merge this product with another{/t}{/a}
+			{if $card->isDeletable()}
+				{a_destroy id=$card _confirm=$confirm}{!"trash-alt"|icon} {t}Delete product{/t}{/a_destroy}
+			{/if}
 		{/dropdown_menu}
 	</td>
 </tr>

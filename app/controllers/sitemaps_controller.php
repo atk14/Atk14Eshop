@@ -26,6 +26,15 @@ class SitemapsController extends ApplicationController{
 				"pointing_to_category_id IS NULL" // is not alias
 			)
 		));
+
+		$this->tpl_data["cards"] = Card::FindAll(array(
+			"conditions" => array(
+				"visible",
+				"NOT deleted",
+			),
+			"order_by" => "created_at DESC",
+			"limit" => 1000,
+		));
 	
 		$this->tpl_data["articles"] = Article::FindAll(array(
 			"condition" => "published_at<:now",
@@ -34,6 +43,18 @@ class SitemapsController extends ApplicationController{
 			),
 			"order_by" => "published_at DESC",
 			"limit" => 20,
+		));
+
+		$this->tpl_data["brands"] = Brand::FindAll(array(
+			"conditions" => array(
+				"visible",
+			),
+		));
+
+		$this->tpl_data["stores"] = Store::FindAll(array(
+			"conditions" => array(
+				"visible",
+			),
 		));
 
 		if($this->params->getString("format")=="xml"){
