@@ -45,12 +45,8 @@ abstract class CardListController extends ApplicationController {
 			$_first = true;
 			$first_breadcrumb_title = $options["first_breadcrumb_title"];
 
-			if(!$this->parent_categories ||
-				  reset($this->parent_categories)->getCode()!="catalog"){
-				$this->breadcrumbs[] = [_("Categories"),"categories/index"];
-			}
-
 			foreach($this->parent_categories as $ppath => $pc){
+
 				if($_first){
 					$_first = false;
 					$_pc_name = $first_breadcrumb_title ? $first_breadcrumb_title : $pc->getName();
