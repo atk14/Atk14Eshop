@@ -171,6 +171,7 @@ ul.list--checkboxes {
 ul.list--active-filters {
 	list-style: none;
 	padding-left: 0;
+	margin-bottom: $grid-gutter-width/2;
 	li.list__item {
 		display: inline-block;
 		margin: 0 0.5em 0.25em 0;

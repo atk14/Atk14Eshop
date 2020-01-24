@@ -34,11 +34,13 @@
 		display: flex;
 		align-items: flex-start;
 		width: 100%;
+		
 		&__title {
 			flex-grow: 0;
 			flex-shrink: 10;
 			font-size: 1rem;
 			margin: 0.25em 0.5em 0 0;
+			margin-bottom: $grid-gutter-width/2;
 			//display: inline-block;
 		}
 		&__items {
@@ -48,7 +50,12 @@
 		&__count {
 			flex-grow: 0;
 			flex-shrink: 10;
+			margin-bottom: $grid-gutter-width/2;
 		}
 	}
 	
+}
+
+.section--child-categories + #filter_form {
+	margin-top: 0 - ($grid-gutter-width/2);
 }
