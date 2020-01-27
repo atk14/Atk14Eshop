@@ -112,7 +112,7 @@ ul.list--categories {
 		margin-bottom: 0.5rem;
 		a {
 			display: flex;
-			align-items: center;
+			align-items: flex-start;
 			.child-category {
 				&__image {
 					margin-right: 0.5rem;
