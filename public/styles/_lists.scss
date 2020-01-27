@@ -163,8 +163,20 @@ ul.list--radios {
 ul.list--checkboxes {
 	list-style: none;
 	padding-left: 0;
-	columns: 6;
+	columns: 5;
 	li.list__item {
+	}
+	@include media-breakpoint-down(lg){
+		columns: 4;
+	}
+	@include media-breakpoint-down(md){
+		columns: 3;
+	}
+	@include media-breakpoint-down(sm){
+		columns: 2;
+	}
+	@include media-breakpoint-down(xs){
+		columns: 1;
 	}
 }
 

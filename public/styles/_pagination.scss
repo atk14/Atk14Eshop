@@ -35,4 +35,26 @@ Bootstrap`s own pagination scss should NOT be loaded.
 		font-size: 0.875rem;
 		margin-bottom: 0;
 	}
+	
+	.pager-buttons {
+		.btn {
+			margin-right: $grid-gutter-width/5;
+			margin-bottom: $grid-gutter-width/5;
+			&.disabled {
+				display: none;
+			}
+			.fas {
+				margin-right: 0.25rem;
+				margin-left: 0.25rem;
+			}
+			.fas.fa-chevron-left:first-child + .fas.fa-chevron-left {
+				margin-left: -0.5rem;
+				margin-right: 0.25rem;
+			}
+		}
+		.pagination-info {
+			margin-top: $grid-gutter-width*0.8;
+		}
+	}
+	
 }

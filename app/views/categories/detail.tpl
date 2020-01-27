@@ -11,7 +11,7 @@
 	{!$category->getDescription()|markdown}
 </section>
 
-{if $child_categories}
+{if $child_categories && $child_categories|@count>0}
 	<section class="section--child-categories">
 		<ul class="list-unstyled list--categories list--categories--columns">
 			{foreach $child_categories as $c}

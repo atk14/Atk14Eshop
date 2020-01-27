@@ -11,10 +11,12 @@
 	<div class="card-deck card-deck--sized-4 product-list js--pager-list">
 		{render partial="shared/ajax_pager/ajax_pager_list"}
 	</div>
-
-	<div class="pager-buttons js--pager-buttons">
-		{render partial="shared/ajax_pager/ajax_pager_buttons"}
+	<div class="pagination-container">
+		<div class="pager-buttons js--pager-buttons">
+			{render partial="shared/ajax_pager/ajax_pager_buttons"}
+		</div>
 	</div>
 {if !$pager->isXhr()}
 </div>
 {/if}
+

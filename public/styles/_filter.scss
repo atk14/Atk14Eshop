@@ -2,6 +2,13 @@
 	margin-bottom: $grid-gutter-width;
 	border-bottom: 1px solid $border-color;
 	
+	padding-top: $grid-gutter-width/2;
+	border-top: 1px solid $border-color;
+	.section--child-categories + & {
+		border-top: none;
+		padding-top: 0;
+	}
+	
 	.pfilter__title {
 		font-size: 1rem;
 		margin-bottom: $grid-gutter-width/2;
@@ -10,6 +17,7 @@
 	ul.nav-tabs {
 		li.nav-item {
 			a.nav-link {
+				border: 0;
 				&:focus {
 					outline: none;
 				}
