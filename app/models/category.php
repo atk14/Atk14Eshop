@@ -3,7 +3,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 	use TraitGetInstanceByCode;
 
-	static function GetTranslatableFields() { return array("name","teaser","description", "page_title", "page_description"); }
+	static function GetTranslatableFields() { return array("name","long_name","teaser","description", "page_title", "page_description"); }
 
 	function setRank($new_rank){
 		$this->_setRank($new_rank,array("parent_category_id" => $this->getParentCategoryId()));
@@ -120,16 +120,26 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return $parent && $parent->isFilter();
 	}
 
-	function getPageTitle(){
-		$out = parent::getPageTitle();
-		if(strlen($out)){ return $out; }
-		return $this->getName();
+	function getName($lang = null){
+		return parent::getName($lang);
 	}
 
-	function getPageDescription(){
-		$out = parent::getPageDescription();
+	function getLongName($lang = null){
+		$out = parent::getLongName($lang);
 		if(strlen($out)){ return $out; }
-		$out = $this->getTeaser();
+		return parent::getName($lang);
+	}
+
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
+		if(strlen($out)){ return $out; }
+		return $this->getLongName($lang);
+	}
+
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
+		if(strlen($out)){ return $out; }
+		$out = $this->getTeaser($lang);
 		if(strlen($out)){ return strip_tags($out); }
 	}
 

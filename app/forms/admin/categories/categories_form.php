@@ -12,6 +12,12 @@ class CategoriesForm extends AdminForm{
 			"label" => _("Name"),
 		)));
 
+		$this->add_translatable_field("long_name", new CharField(array(
+			"label" => _("Long name"),
+			"required" => false,
+			"help_text" => _("Fill in if the name alone is not enough to describe the category.")
+		)));
+
 		$options["add_is_filter_field"] && $this->add_field("is_filter",new BooleanField(array(
 			"label" => _("Is this a filter?"),
 			"help_text" => _("e.g. material or color"),
@@ -36,7 +42,7 @@ class CategoriesForm extends AdminForm{
 				"label" => _("HTML title"),
 				"required" => false,
 				"max_length" => 255,
-				"help_text" => h(_("Content for <html><head><title>. If left empty, the name is used.")),
+				"help_text" => h(_("Content for <html><head><title>. If left empty, the long name, resp. the name is used.")),
 			)));
 
 			$this->add_translatable_field("page_description", new CharField(array(
