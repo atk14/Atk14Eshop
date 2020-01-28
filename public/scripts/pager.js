@@ -157,7 +157,7 @@
 		button.attr( "href", url );
 		button.toggleClass( "disabled", !url );
 		if ( text ) {
-			button.html( this.getText( text, amount ) + " <i class=\"fas fa-chevron-right\"></i>" );
+			button.html( this.getText( text, amount ) );
 			button.restoreText = null;
 		}
 	};
