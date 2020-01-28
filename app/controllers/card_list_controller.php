@@ -2,7 +2,7 @@
 abstract class CardListController extends ApplicationController {
 	var $page_size = 12;
 
-	function _setup_category($options) {
+	function _setup_category(&$options) {
 		$path = $this->params->getString("path");
 		if(!($category = Category::GetInstanceByPath($path)) || !$category->isVisible() || $category->isFilter() || (($p = $category->getParentCategory()) && $p->isFilter())){
 			return $this->_execute_action("error404");
@@ -38,6 +38,9 @@ abstract class CardListController extends ApplicationController {
 		$bind[':sort_category'] = $category;
 		$this->_setup_category_breadcrumbs($options);
 
+		$options += ['default_order' =>
+			'(SELECT row(NOT category_id = :sort_category, rank) FROM category_cards WHERE card_id = cards.id ORDER BY NOT category_id = :sort_category, rank LIMIT 1), cards.id DESC'
+		];
 		return [ $cond, $bind ];
 	}
 
@@ -106,7 +109,6 @@ abstract class CardListController extends ApplicationController {
 			'conditions' => '',
 			'bind' => [],
 			'category' => true,
-			'default_order' => 'cards.id DESC',
 			"first_breadcrumb_title" => "", // "" -> auto, "Novinky", "Slevy"
 			"materialize_fields" => []
 		];
@@ -117,6 +119,7 @@ abstract class CardListController extends ApplicationController {
 		} else {
 			$this->category = false;
 			$cond = $bind = [];
+			$options += ['default_order' => 'cards.id DESC'];
 		}
 
 		if($options['conditions']) {
