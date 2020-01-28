@@ -19,6 +19,8 @@ class TcUsers extends TcBase{
 		"address_zip" => "123 56",
 		"address_country" => "CZ",
 		"phone" => "+420.605123456",
+
+		"return_uri" => "/"
 	);
 
 	function test_create_new(){
@@ -44,7 +46,7 @@ class TcUsers extends TcBase{
 		$params = $this->params;
 		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(false,$controller->form->has_errors());
-		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
+		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting to $params["return_uri"]...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
 
 		// testing outgoing email
@@ -72,7 +74,7 @@ class TcUsers extends TcBase{
 		$params["password_repeat"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta';
 		$controller = $this->client->post("users/create_new",$params);
 		$this->assertEquals(false,$controller->form->has_errors());
-		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
+		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting to $params["return_uri"]...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
 
 		$john = User::FindByLogin("john.doe.tester");

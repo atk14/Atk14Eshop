@@ -1,5 +1,6 @@
 <?php
 class UsersController extends ApplicationController{
+
 	function detail(){
 		$this->page_title = _("User profile");
 	}
@@ -26,14 +27,17 @@ class UsersController extends ApplicationController{
 
 			$this->_login_user($user);
 
-			$this->flash->success(sprintf(_("You have been successfully registered and now you are logged in as <em>%s</em>"),h("$user")));
-
 			if($uri = $this->params->getString("return_uri")){
+				$this->flash->success(sprintf(_("You have been successfully registered and now you are logged in as <em>%s</em>"),h("$user")));
 				return $this->_redirect_to($uri);
 			}
 
-			$this->_redirect_to("main/index");
+			$this->_redirect_to("created");
 		}
+	}
+
+	function created(){
+		$this->page_title = _("Thank you for your registration!");
 	}
 
 	function edit(){
