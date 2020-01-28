@@ -3,7 +3,7 @@
 	{assign teaser $category->getTeaser()|markdown}
 {/if}
 {capture assign=title}
-	{$category->getLongName()} <small>({$cards_finder->getRecordsCount()})</small>
+	{$category->getLongName()} <small>({$finder->getRecordsCount()})</small>
 {/capture}
 {assign image $category->getImageUrl()|img_url:"200x200"}
 {if !$teaser|trim|strlen}
@@ -12,24 +12,24 @@
 {/if}
 {render partial="shared/layout/content_header" title=$title teaser=$teaser image=$image}
 
-
 <section class="border-top-0">
 	{!$category->getDescription()|markdown}
 </section>
 
-{if $child_categories}
+{if $child_categories && $child_categories|@count>0}
 	<section class="section--child-categories">
 		<ul class="list-unstyled list--categories list--categories--columns">
-			{foreach $child_categories as $cc}
+			{foreach $child_categories as $c}
+			{assign var=cc value=$c->getCategory()}
 			<li class="list-item">
-				{a path=$cc.path}
-					{if $cc.category->getImage()}
-						{!$cc.category->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
+				{a path=$cc->getPath()}
+					{if $cc->getImage()}
+						{!$cc->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
 					{/if}
 				<div class="child-category__text">
-					<h4 class="child-category__text__title">{$cc.name} <small>({$cc.cards_count})</small> {!"angle-right"|icon}</h4>
-					{if $cc.category->getTeaser()}
-						<p class="child-category__text__teaser">{$cc.category->getTeaser()}</p>
+					<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small> {!"angle-right"|icon}</h4>
+					{if $cc->getTeaser()}
+						<p class="child-category__text__teaser">{$cc->getTeaser()}</p>
 					{/if}
 				</div>
 				{/a}
@@ -39,20 +39,14 @@
 	</section>
 {/if}
 
+{render partial='shared/filter/filter_form' form=$form}
 
-<section class="section--list-products">
+<section class="section--list-products" id="cards">
 	{*<h4>{t}Products{/t}</h4>*}
-	{if $cards_finder->isEmpty()}
+	{if $finder->isEmpty()}
 		<p>{t}No product has been found.{/t}</p>
 	{else}
-		<div class="card-deck card-deck--sized-4 product-list" data-record_count="{$cards_finder->getRecordsCount()}">
-
-			{foreach $cards_finder->getRecords() as $card}
-				{render partial="shared/card_item" card=$card}
-			{/foreach}
-			
-		</div>
-		{paginator finder=$cards_finder items_total_label="{t}products in total{/t}"}
+		{render partial='shared/ajax_pager/ajax_pager'}
 	{/if}
 </section>
 

@@ -46,3 +46,9 @@ footer {
 header {
 	background-color: white;
 }
+
+html.js {
+	.nojs-only {
+		display: none;
+	}
+}

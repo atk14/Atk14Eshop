@@ -12,6 +12,12 @@ class ApplicationBaseController extends Atk14Controller{
 	var $logged_user;
 
 	/**
+	 * @var User
+	 * Rights, prices of this user will be applied.
+	 */
+	var $effective_user;
+
+	/**
 	 * @var Menu14
 	 */
 	var $breadcrumbs;
@@ -171,6 +177,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
