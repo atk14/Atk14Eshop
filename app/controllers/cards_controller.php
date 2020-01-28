@@ -15,7 +15,7 @@ class CardsController extends ApplicationController{
 		$this->page_title = $card->getName();
 
 		$this->tpl_data["products"] = $products = $card->getProducts();
-		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false));
+		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false, "deduplicate" => true));
 		$this->tpl_data["starting_price"] = $this->price_finder->getStartingPrice($card);
 		$this->tpl_data["creators"] = CardCreator::GetCreatorsForCard($card);
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
