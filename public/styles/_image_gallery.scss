@@ -1,3 +1,45 @@
+// Mixin for decoration of zoomable image. Used for .gallery__item and .gallery__image
+@mixin zoomableImage {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	img {
+		transition: filter 0.5s;
+	}
+	figcaption {
+		display: none;
+	}
+	a {
+		display: block;
+	}
+	&:hover {
+		&:after {
+			display: flex;
+			//display: none;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			//background-color: rgba( $primary, 0.25 );
+			font-family: "Font Awesome 5 Free";
+			font-weight: bold;
+			content: "\f00e";
+			color: white;
+			font-size: 2rem;
+		}
+		img {
+			filter: brightness(0.75);
+			transition: filter 0.25s;
+		}
+	}
+	&:focus {
+		outline: none;
+	}
+}
+
 section.photo-gallery {
 	margin: $grid-gutter-width 0;
 	.gallery__images {
@@ -5,11 +47,9 @@ section.photo-gallery {
 		justify-content: flex-start;
 		flex-wrap: wrap;
 		.gallery__item {
-			display: inline-block;
-			position: relative;
+			@include zoomableImage;
 			margin: 0;
 			border: 1px solid $gray-500;
-			cursor: pointer;
 			
 			// Little crop for extreme panoramatic images
 			max-width: 500px;
@@ -18,39 +58,6 @@ section.photo-gallery {
 			img {
 				height: 180px;
 				width: auto;
-				transition: filter 0.5s;
-			}
-			figcaption {
-				display: none;
-			}
-			a {
-				display: block;
-			}
-			&:hover {
-				&:after {
-					display: flex;
-					//display: none;
-					justify-content: center;
-					align-items: center;
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 100%;
-					height: 100%;
-					//background-color: rgba( $primary, 0.25 );
-					font-family: "Font Awesome 5 Free";
-					font-weight: bold;
-					content: "\f00e";
-					color: white;
-					font-size: 2rem;
-				}
-				img {
-					filter: brightness(0.75);
-					transition: filter 0.25s;
-				}
-			}
-			&:focus {
-				outline: none;
 			}
 		}
 	}
@@ -132,19 +139,6 @@ section.photo-gallery {
 				img {
 					height: 100px;
 				}
-				&:first-child {
-					border: none;
-					flex-basis: 100%;
-					max-width: 100%;
-					margin-bottom: $grid-gutter-width;
-					img {
-						width: 100%;
-						height: auto;
-					}
-				}
-				&:first-child:last-child {
-					margin-bottom: 0;
-				}
 			}
 		}
 		
@@ -156,7 +150,34 @@ section.photo-gallery {
 					}
 				}
 			}
+		}		
+	}
+	
+	&.product-gallery--no-variants {
+		.gallery__images {
+			.gallery__item {
+				&:first-child {
+					border: none;
+					flex-basis: 100%;
+					max-width: 100%;
+					margin-bottom: $grid-gutter-width/2;
+					img {
+						width: 100%;
+						height: auto;
+					}
+				}
+				&:first-child:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}	
+	}
+	&.product-gallery--with-variants {
+		.gallery__preview {
+			@include zoomableImage;
+			margin-bottom: $grid-gutter-width/2;
 		}
 	}
+	
 	
 }
