@@ -39,6 +39,19 @@ class ApplicationController extends ApplicationBaseController{
 		}
 	}
 
+	function _add_user_detail_breadcrumb(){
+		if(!$this->logged_user){ return; }
+
+		$title = _("User profile");
+		
+		if("$this->controller/$this->action"=="users/detail"){
+			$this->breadcrumbs[] = $title;
+			return;
+		}
+
+		$this->breadcrumbs[] = [$title,"users/detail"];
+	}
+
 	function _add_card_to_breadcrumbs($card){
 		$primary_category = $card->getPrimaryCategory();
 		if($primary_category){
@@ -47,19 +60,6 @@ class ApplicationController extends ApplicationBaseController{
 			}
 		}
 		$this->breadcrumbs[] = array($card->getName(),$this->_link_to(array("action" => "cards/detail", "id" => $card->getId())));
-	}
-
-	function _add_user_detail_breadcrumb(){
-		if(!$this->logged_user){ return; }
-
-		$title = _("My account");
-		
-		if("$this->controller/$this->action"=="users/detail"){
-			$this->breadcrumbs[] = $title;
-			return;
-		}
-
-		$this->breadcrumbs[] = [$title,"users/detail"];
 	}
 
 	function _add_order_to_breadcrumbs($order){
