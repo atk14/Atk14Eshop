@@ -37,6 +37,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 	}
 	
 	.pager-buttons {
+		text-align: center;
 		.btn {
 			margin-right: $grid-gutter-width/5;
 			margin-bottom: $grid-gutter-width/5;
@@ -53,7 +54,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 			}
 		}
 		.pagination-info {
-			margin-top: $grid-gutter-width*0.8;
+			margin-top: $grid-gutter-width/2;
 		}
 	}
 	
