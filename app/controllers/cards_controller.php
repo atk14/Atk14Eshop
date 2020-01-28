@@ -30,7 +30,7 @@ class CardsController extends ApplicationController{
 		if(sizeof($products)>1){
 			$images = array_map(function($product){ return $product->getImage(false); },$products);
 			$images = array_filter($images);
-			if(sizeof($images)>1){
+			if(sizeof($images)>0){
 				$gallery_variant = "with_variants";
 			}
 		}

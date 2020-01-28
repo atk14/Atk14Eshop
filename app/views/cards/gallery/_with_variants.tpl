@@ -1,11 +1,10 @@
 {assign first_image 1}
 
-<section class="product-gallery product-gallery--with-variants">
+<section class="photo-gallery photo-gallery--product product-gallery product-gallery--with-variants">
 
 	{placeholder for=gallery_preview}
 	
 	<div class="gallery__images">
-
 	{assign products $card->getProducts()}
 	{foreach $products as $product}
 		{assign image $product->getImage(false)}
