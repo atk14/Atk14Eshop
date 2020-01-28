@@ -6,7 +6,7 @@
 
 	<p>
 		{capture assign=url}{link_to action="main/index"}{/capture}
-		{t url=$url escape=no}Now you can <a href="%1">go to the homepage</a> and enjoy our website.{/t}
+		{t url=$url escape=no}Now you can <a href="%1">go to the homepage</a> and enjoy our eshop.{/t}
 	</p>
 
 {else}
@@ -15,7 +15,7 @@
 
 	<p>
 		{capture assign=url}{link_to action="logins/create_new"}{/capture}
-		{t url=$url escape=no}Now you can <a href="%1">sign in</a> and enjoy our website.{/t}
+		{t url=$url escape=no}Now you can <a href="%1">sign in</a> and enjoy our eshop.{/t}
 	</p>
 
 {/if}
