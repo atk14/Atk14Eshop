@@ -174,10 +174,12 @@
 			url = this.addToUrl( this.url, { offset: this.offset + this.count,
 			                                 limit: this.newPageSize() } );
 			remain = undefined;
+			this.$buttons.next.addClass("next-page").removeClass("next-items");
 		} else {
 			text = "next";
 			url = this.addToUrl( this.url, { offset: this.offset + this.count } );
 			remain = Math.min( remain, this.pageSize );
+			this.$buttons.next.addClass("next-items").removeClass("next-page");
 		}
 		this.updateButton( this.$buttons.next, url, text, remain );
 	};
