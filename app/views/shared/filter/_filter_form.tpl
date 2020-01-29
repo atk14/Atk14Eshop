@@ -2,7 +2,7 @@
 	{form_remote}
 		<div id="filter" class="pfilter">
 			<div class="pfilter__header">
-				<h3 class="pfilter__title">{t}Filtrace podle parametrů a značek{/t}</h3>
+				<h3 class="pfilter__title">{t}Filtrace produktů{/t}</h3>
 				<div class="pfilter__alt-filters js--filter_head">
 				{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}
 				</div>
