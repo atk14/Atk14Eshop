@@ -15,6 +15,7 @@
 <article class="main-article">
 
 	{if $page}
+		{admin_menu for=$page}
 	
 		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown tag="h2"}
 		
