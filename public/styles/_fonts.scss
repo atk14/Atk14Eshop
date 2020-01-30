@@ -1,3 +1,8 @@
+// Put @font-face definitions here
+// Then edit font stack definitions in _bootstrap_variables.scss, typically 
+// put font name into first place of $font-family-sans-serif variable
+// Sample @font-face definition below 
+/*
 @font-face {
 	font-family: 'Inter';
 	src: url('../fonts/subset-Inter-LightItalicBETA.woff2') format('woff2'),
@@ -61,4 +66,4 @@ font-family: 'Inter';
 	font-weight: normal;
 	font-style: italic;
 }
-
+*/
