@@ -1,5 +1,23 @@
 // Some additional styling form elements
 
+@mixin fieldset--non-horizontal {
+	margin-bottom: $grid-gutter-width/2;
+	legend {
+		margin-bottom: 0;
+	}
+	.form-group {
+		margin-bottom: 0;
+		padding-top: 0.65rem;
+		padding-bottom: 0.65rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		label {
+			margin-bottom: 0.25rem;
+		}
+	}
+}
+
 form {
 	.form-group {
 		> ul.list--radios, > ul.list--checkboxes {
@@ -47,7 +65,14 @@ form {
 			color: $headings-color;
 			font-size: 1rem;
 		}
+		@include media-breakpoint-down(sm){
+			@include fieldset--non-horizontal;
+		}
 	}
+}
+
+form:not(.form-horizontal), fieldset:not(.fieldset-horizontal) {
+	@include fieldset--non-horizontal;
 }
 
 // Applies CSS grid to .form-group to create horizontal form.

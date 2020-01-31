@@ -23,7 +23,7 @@
 	</tbody>
 </table>
 
-<p>
+<div class="form__footer form__footer--simple">
 	{a action="edit" _class="btn btn-primary"}{t}Change your account data{/t}{/a}
 	{a action="edit_password" _class="btn btn-primary"}{t}Change your password{/t}{/a}
-</p>
+</div>

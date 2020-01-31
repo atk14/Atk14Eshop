@@ -16,9 +16,10 @@
 	
 	.form-group {
 		margin: 0 !important;
+		padding: 0 !important;
 	}
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
@@ -28,5 +29,17 @@
 		.btn-outline-secondary, .btn-secondary {
 			order: 2;
 		}
+		& > * {
+			margin-bottom: $grid-gutter-width/4 !important;
+		}
+	}
+}
+
+.form__footer--simple {
+	margin: 0;
+	display: block;
+	.btn {
+		margin: 0;
+		margin-bottom: 0.5rem;
 	}
 }
