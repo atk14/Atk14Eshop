@@ -10,7 +10,7 @@
 
 	<p>{t}Copy the desired object's marker ([# ...]) into the text.{/t}</p>
 
-	<ul class="list-group list-sortable" data-sortable-url="{link_to action="iobject_links/set_rank"}">
+	<ul class="list-group list-sortable list-group--iobjects" data-sortable-url="{link_to action="iobject_links/set_rank"}">
 		{foreach $iobjects as $iobject}
 			{assign var=preview_image_url value=$iobject->getPreviewImageUrl()}
 			{capture assign=confirm}{t}Do you really want to delete this object?{/t}{/capture}
@@ -22,10 +22,11 @@
 				{/dropdown_menu}
 
 				{if $preview_image_url}
-					{!$preview_image_url|pupiq_img:40x40xcrop}
+					{!$preview_image_url|pupiq_img:40x40xcrop:"class='list-group-item__thumbnail'"}
 				{else}
-					<img src="{$public}images/camera.svg" width="40" height="40">
+					<img src="{$public}images/camera.svg" width="40" height="40" class="list-group-item__thumbnail">
 				{/if}
+				<span class="list-group-item__title">
 				{!$iobject|iobject_type}
 				{a controller=$iobject->getReferredTable() action=detail id=$iobject}
 					{if $iobject->getTitle()}
@@ -34,6 +35,7 @@
 						<em>{t}bez názvu{/t}</em>
 					{/if}
 				{/a}
+				</span>
 				<div class="iobject-code-wrap">
 					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code btn btn-sm btn-outline-default" role="button" data-toggle="popover" data-trigger="focus" data-content="{t}Copied!{/t}" data-placement="top" tabindex="0"><span title="{t}Copy the line{/t}">{!"copy"|icon:"regular"}</span></a>
 				</div>

@@ -3,9 +3,10 @@
 
 .list-group {
 	border-bottom: $list-group-border-width solid $list-group-border-color;
+	margin-bottom: $grid-gutter-width/2;
 	.list-group {
 		// Set margins to compensate unwanted padding
-		margin-bottom: 0-$list-group-item-padding-y;
+		margin-bottom: 0 - $list-group-item-padding-y;
 		margin-right: 0-$list-group-item-padding-x;
 		margin-top: $list-group-item-padding-y;
 		// Left border on nested list to improve structure readibility
@@ -17,16 +18,33 @@
 		&:hover {
 			background-color: rgba( black, 0.05);
 		}
-		.iobject-code-wrap {
-			display: block;
-			margin-top: 0.25rem;
-			font-size: 0.875rem;
-			color: $gray-600;
-			.iobject-copy-code {
-				display: inline-block;
-				margin-left: 0.5em;
+	}
+	
+	&--iobjects {
+		li.list-group-item {
+			.iobject-code-wrap {
+				display: block;
+				margin-top: 0.25rem;
+				font-size: 0.875rem;
+				color: $gray-600;
+				.iobject-copy-code {
+					display: inline-block;
+					margin-left: 0.5em;
+				}
+			}
+			.list-group-item__thumbnail {
+				margin-right: 0.5em;
+			}
+			.list-group-item__title {
+				.fas, .far {
+					margin-right: 0.5em;
+					color: $text-muted;
+				} 
 			}
 		}
+	}
+	& + .progress {
+		margin-bottom: $grid-gutter-width/2;
 	}
 }
 
