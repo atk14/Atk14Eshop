@@ -7,6 +7,7 @@ try {
 		"orders.order_no_offset" => "ORDER_NO_OFFSET",
 		"eshop.default_region" => "DEFAULT_REGION",
 		"eshop.default_currency" => "DEFAULT_CURRENCY",
+		"merchant.billing_information.vat_id" => "VIES_REQUESTOR_VAT_NUMBER",
 	] as $code => $constant){
 		isset($params[$code]) && definedef($constant, $params[$code]->getContent());
 	}
