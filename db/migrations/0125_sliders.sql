@@ -28,6 +28,7 @@ CREATE TABLE slider_items (
 	background_color VARCHAR(255),
 	url VARCHAR(255),
 	url_params JSON,
+	visible BOOLEAN NOT NULL DEFAULT TRUE,
 	--
 	rank INT DEFAULT 999 NOT NULL,
 	--

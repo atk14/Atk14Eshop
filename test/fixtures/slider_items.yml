@@ -1,0 +1,20 @@
+promo__first:
+  slider_id: "<?= $sliders["promo"]->getId() ?>"
+  image_url: "http://i.pupiq.net/i/65/65/2a2/292a2/1920x540/tckDHp_800x225_b1df7659b264d1cc.jpg"
+  title_en: "First"
+  title_cs: "První"
+  visible: true
+
+promo__second:
+  slider_id: "<?= $sliders["promo"]->getId() ?>"
+  image_url: "http://i.pupiq.net/i/65/65/2a4/292a4/1920x540/qkWiHB_800x225_936547d285be0d0c.jpg"
+  title_en: "Second"
+  title_cs: "Druhý"
+  visible: false
+
+promo__third:
+  slider_id: "<?= $sliders["promo"]->getId() ?>"
+  image_url: "http://i.pupiq.net/i/65/65/2a3/292a3/1920x540/l24vUy_800x225_5559ff585698c82f.jpg"
+  title_en: "Third"
+  title_cs: "Třetí"
+  visible: true
