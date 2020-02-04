@@ -1,19 +1,5 @@
-<header>
-	<div class="jumbotron bg-transparent border border-secondary">
-		<div class="row">
-			<div class="col-12 col-md-6 d-md-flex flex-column justify-content-center">
-				{admin_menu for=$brand}
-				<h1>{$page_title}</h1>
-				{if $brand->getTeaser()}
-					<div class="lead">{!$brand->getTeaser()|markdown}</div>
-				{/if}
-			</div>
-			<div class="col-12 col-md-6 text-md-right">
-				{!$brand->getLogoUrl()|pupiq_img:"300x300":"class='img-fluid'"}
-			</div>
-		</div>
-	</div>
-</header>
+{admin_menu for=$brand}
+{render partial="shared/layout/content_header" title=$page_title teaser=$brand->getTeaser()|markdown image=$brand->getLogoUrl()}
 
 <section class="border-top-0">
 	{!$brand->getDescription()|markdown}
