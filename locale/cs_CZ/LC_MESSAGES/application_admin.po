@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 13:12+0100\n"
-"PO-Revision-Date: 2020-01-30 13:19+0100\n"
+"POT-Creation-Date: 2020-02-04 18:05+0100\n"
+"PO-Revision-Date: 2020-02-04 18:10+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -65,7 +65,7 @@ msgstr "Datum"
 
 #: ../app/controllers/admin/admin.php:34
 #: ../app/forms/admin/articles/articles_form.php:33
-#: ../app/forms/admin/cards/cards_form.php:49
+#: ../app/forms/admin/cards/cards_form.php:59
 msgid "Tags"
 msgstr "Štítky"
 
@@ -292,7 +292,7 @@ msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
-#: ../app/forms/admin/cards/cards_form.php:18
+#: ../app/forms/admin/cards/cards_form.php:20
 #: ../app/forms/admin/orders/index_form.php:65
 #: ../app/forms/admin/products/products_form.php:6
 msgid "Catalog number"
@@ -300,7 +300,7 @@ msgstr "Katalogové číslo"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:8
 #: ../app/forms/admin/card_merging/create_new/edit_primary_card_names_form.php:6
-#: ../app/forms/admin/cards/cards_form.php:13
+#: ../app/forms/admin/cards/cards_form.php:15
 #: ../app/forms/admin/categories/categories_form.php:12
 #: ../app/forms/admin/collections/collections_form.php:5
 #: ../app/forms/admin/creator_roles/creator_roles_form.php:6
@@ -1029,7 +1029,7 @@ msgstr "Nová možnost platby"
 #: ../app/forms/admin/categories/categories_form.php:34
 #: ../app/forms/admin/collections/collections_form.php:13
 #: ../app/forms/admin/images/images_form.php:16
-#: ../app/forms/admin/products/products_form.php:20
+#: ../app/forms/admin/products/products_form.php:22
 #: ../app/forms/admin/stores/stores_form.php:95
 msgid "Description"
 msgstr "Popis"
@@ -1049,7 +1049,7 @@ msgstr "Stáhněte si originál"
 msgid "Založit novou cenu"
 msgstr "Založit novou cenu"
 
-#: ../app/forms/admin/products/products_form.php:15
+#: ../app/forms/admin/products/products_form.php:17
 msgid "Product name"
 msgstr "Název produktu"
 
@@ -1467,7 +1467,7 @@ msgstr "Byl použit?"
 msgid "Kupón vytvořil/a"
 msgstr "Kupón vytvořil/a"
 
-#: ../app/forms/admin/cards/cards_form.php:91
+#: ../app/forms/admin/cards/cards_form.php:101
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
 msgid "Stockcount"
@@ -1698,10 +1698,11 @@ msgid "Editing attachment #%s"
 msgstr "Editace přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/cards_controller.php:207
+#: ../app/controllers/admin/cards_controller.php:222
 #: ../app/controllers/admin/categories_controller.php:20
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:59
+#: ../app/controllers/admin/products_controller.php:52
 #: ../app/controllers/admin/slugs_controller.php:19
 msgid "Changes have been saved"
 msgstr "Změny byly uloženy"
@@ -1765,42 +1766,42 @@ msgstr "Slučování produktů"
 msgid "Products were successfully merged"
 msgstr "Produkty byly úspěšně sloučeny"
 
-#: ../app/controllers/admin/cards_controller.php:9
+#: ../app/controllers/admin/cards_controller.php:16
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-#: ../app/controllers/admin/cards_controller.php:67
+#: ../app/controllers/admin/cards_controller.php:74
 msgid "Adding a product"
 msgstr "Přidat produkt"
 
-#: ../app/controllers/admin/cards_controller.php:132
+#: ../app/controllers/admin/cards_controller.php:138
 msgid "The product has been created. Now you can add some extra data to it."
 msgstr "Produkt byl vytvořen. Nyní k němu můžete přidat další údaje."
 
-#: ../app/controllers/admin/cards_controller.php:138
+#: ../app/controllers/admin/cards_controller.php:144
 #, php-format
 msgid "Editing product %s"
 msgstr "Editace produktu %s"
 
-#: ../app/controllers/admin/cards_controller.php:225
+#: ../app/controllers/admin/cards_controller.php:240
 msgid "Variants mode has been activated"
 msgstr "Variantní režim byl aktivován"
 
-#: ../app/controllers/admin/cards_controller.php:243
+#: ../app/controllers/admin/cards_controller.php:258
 msgid "Variants mode has been deactivated"
 msgstr "Variantní režim byl deaktivován"
 
-#: ../app/controllers/admin/cards_controller.php:266
+#: ../app/controllers/admin/cards_controller.php:281
 #: ../app/controllers/admin/technical_specifications_controller.php:12
 #: ../app/controllers/admin/technical_specifications_controller.php:36
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:298
+#: ../app/controllers/admin/cards_controller.php:313
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:316
+#: ../app/controllers/admin/cards_controller.php:331
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -2178,14 +2179,15 @@ msgstr "Nová varianta produktu"
 msgid "Variant has been created"
 msgstr "Varianta byla vytvořena"
 
-#: ../app/controllers/admin/products_controller.php:43
+#: ../app/controllers/admin/products_controller.php:44
 #, php-format
-msgid "Úprava varianty produktu '%s' (%s)"
-msgstr "Úprava varianty produktu '%s' (%s)"
+msgid "Editing product variant %s (%s)"
+msgstr "Editace produktové varianty %s (%s)"
 
-#: ../app/controllers/admin/products_controller.php:47
-msgid "Varianta uložena"
-msgstr "Varianta uložena"
+#: ../app/controllers/admin/products_controller.php:44
+#, php-format
+msgid "Editing product %s (%s)"
+msgstr "Editace produktu %s (%s)"
 
 #: ../app/controllers/admin/regions_controller.php:5
 msgid "List of selling regions"
@@ -2430,16 +2432,31 @@ msgstr "Je viditelné?"
 msgid "Vat rate"
 msgstr "Sazba DPH"
 
-#: ../app/forms/admin/admin_form.php:193 ../app/forms/admin/admin_form.php:200
+#: ../app/forms/admin/admin_form.php:172
+msgid "Unit"
+msgstr "Jednotka"
+
+#: ../app/forms/admin/admin_form.php:179
+msgid "Stock count considered?"
+msgstr "Uvažuje se skladová zásoba?"
+
+#: ../app/forms/admin/admin_form.php:180
+msgid ""
+"In some cases stock count might not be considered, e.g. digital products"
+msgstr ""
+"V některých případech se nemusí skladová zásoba zohledňovat, např. u "
+"digitálních produktů"
+
+#: ../app/forms/admin/admin_form.php:209 ../app/forms/admin/admin_form.php:216
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "Stejný kód je již použit pro jiný záznam"
 
-#: ../app/forms/admin/admin_form.php:221 ../app/forms/admin/admin_form.php:226
+#: ../app/forms/admin/admin_form.php:237 ../app/forms/admin/admin_form.php:242
 msgid "The same catalog number is used for another product"
 msgstr "Stejné katalogové číslo se používá pro jiný produkt"
 
 #: ../app/forms/admin/articles/articles_form.php:11
-#: ../app/forms/admin/cards/create_new_form.php:20
+#: ../app/forms/admin/cards/create_new_form.php:24
 #: ../app/forms/admin/categories/categories_form.php:57
 #: ../app/forms/admin/collections/collections_form.php:17
 #: ../app/forms/admin/creators/creators_form.php:15
@@ -2458,7 +2475,7 @@ msgstr "Obrázek používaný v přehledu článků"
 
 #: ../app/forms/admin/articles/articles_form.php:17
 #: ../app/forms/admin/brands/brands_form.php:8
-#: ../app/forms/admin/cards/cards_form.php:28
+#: ../app/forms/admin/cards/cards_form.php:38
 #: ../app/forms/admin/categories/categories_form.php:28
 #: ../app/forms/admin/collections/collections_form.php:8
 #: ../app/forms/admin/pages/pages_form.php:16
@@ -2488,7 +2505,7 @@ msgid "User Manual"
 msgstr "Uživatelský manuál"
 
 #: ../app/forms/admin/brands/brands_form.php:10
-#: ../app/forms/admin/cards/cards_form.php:30
+#: ../app/forms/admin/cards/cards_form.php:40
 #: ../app/forms/admin/categories/categories_form.php:30
 #: ../app/forms/admin/stores/stores_form.php:10
 msgid "Brief description"
@@ -2670,71 +2687,71 @@ msgstr "Napište lomítko, pokud chcete prohledat strom kategorií od kořene."
 msgid "You can not insert products into this category"
 msgstr "Do této kategorie nelze umisťovat produkty"
 
-#: ../app/forms/admin/cards/cards_form.php:35
+#: ../app/forms/admin/cards/cards_form.php:45
 msgid "Information"
 msgstr "Informace"
 
-#: ../app/forms/admin/cards/cards_form.php:37
+#: ../app/forms/admin/cards/cards_form.php:47
 msgid "Detailed description"
 msgstr "Detailní popis"
 
-#: ../app/forms/admin/cards/cards_form.php:42
+#: ../app/forms/admin/cards/cards_form.php:52
 msgid "Brand"
 msgstr "Značka"
 
-#: ../app/forms/admin/cards/cards_form.php:46
+#: ../app/forms/admin/cards/cards_form.php:56
 msgid "Collection"
 msgstr "Kolekce"
 
-#: ../app/forms/admin/cards/cards_form.php:56
+#: ../app/forms/admin/cards/cards_form.php:66
 msgid "Is product visible?"
 msgstr "Je produkt viditelný?"
 
-#: ../app/forms/admin/cards/cards_form.php:64
+#: ../app/forms/admin/cards/cards_form.php:74
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
 #, php-format
 msgid "Cena bez DPH [%s]"
 msgstr "Cena bez DPH [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:64
+#: ../app/forms/admin/cards/cards_form.php:74
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
 #, php-format
 msgid "Koncová cena [%s]"
 msgstr "Koncová cena [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:66
-#: ../app/forms/admin/cards/cards_form.php:82
+#: ../app/forms/admin/cards/cards_form.php:76
+#: ../app/forms/admin/cards/cards_form.php:92
 #: ../app/forms/admin/products/create_new_form.php:14
 #, php-format
 msgid "Cena bude uložena do ceníku <em>%s</em>"
 msgstr "Cena bude uložena do ceníku <em>%s</em>"
 
-#: ../app/forms/admin/cards/cards_form.php:80
+#: ../app/forms/admin/cards/cards_form.php:90
 #, php-format
 msgid "Cena před slevou bez DPH [%s]"
 msgstr "Cena před slevou bez DPH [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:80
+#: ../app/forms/admin/cards/cards_form.php:90
 #, php-format
 msgid "Koncová cena před slevou [%s]"
 msgstr "Koncová cena před slevou [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:93
+#: ../app/forms/admin/cards/cards_form.php:103
 #: ../app/forms/admin/products/create_new_form.php:21
 #, php-format
 msgid "Skladové množství bude nastaveno do skladu <em>%s</em>"
 msgstr "Skladové množství bude nastaveno do skladu <em>%s</em>"
 
-#: ../app/forms/admin/cards/create_new_form.php:22
+#: ../app/forms/admin/cards/create_new_form.php:26
 #: ../app/forms/admin/categories/categories_form.php:59
 #: ../app/forms/admin/products/create_new_form.php:27
 #, php-format
 msgid "Recommended image size is %dx%d"
 msgstr "Doporučená velikost obrázku je %dx%d"
 
-#: ../app/forms/admin/cards/create_new_form.php:26
+#: ../app/forms/admin/cards/create_new_form.php:30
 msgid "Primary category"
 msgstr "Hlavní kategorie"
 
@@ -3105,8 +3122,8 @@ msgid "About us"
 msgstr "O nás"
 
 #: ../app/forms/admin/order_order_statuses/create_new/get_data_form.php:6
-msgid "Note"
-msgstr "Poznámka"
+msgid "Internal note"
+msgstr "Interní poznámka"
 
 #: ../app/forms/admin/order_order_statuses/create_new/get_data_form.php:10
 msgid "Změnit stav"
@@ -3350,15 +3367,15 @@ msgid ""
 msgstr ""
 "Vhodným zadáním několika cen pro jeden produkt lze docílit množstevních slev"
 
-#: ../app/forms/admin/products/products_form.php:10
+#: ../app/forms/admin/products/products_form.php:12
 msgid "Variant name"
 msgstr "Název varianty"
 
-#: ../app/forms/admin/products/products_form.php:17
+#: ../app/forms/admin/products/products_form.php:19
 msgid "Fill in only when product name differs from it's card name"
 msgstr "Vyplňte, pouze pokud se název produktu liší od názvu jeho karty"
 
-#: ../app/forms/admin/products/products_form.php:24
+#: ../app/forms/admin/products/products_form.php:26
 msgid "Is product variant visible?"
 msgstr "Je varianta produktu viditelná?"
 
@@ -3703,11 +3720,20 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
-msgid "Text ve formuláři"
-msgstr "Text ve formuláři"
+#~ msgid "Úprava varianty produktu '%s' (%s)"
+#~ msgstr "Úprava varianty produktu '%s' (%s)"
 
-msgid "Main creator"
-msgstr "Hlavní tvůrce"
+#~ msgid "Varianta uložena"
+#~ msgstr "Varianta uložena"
+
+#~ msgid "Note"
+#~ msgstr "Poznámka"
+
+#~ msgid "Text ve formuláři"
+#~ msgstr "Text ve formuláři"
+
+#~ msgid "Main creator"
+#~ msgstr "Hlavní tvůrce"
 
 #~ msgid "Welcome administrator!"
 #~ msgstr "Vítejte administrátore!"

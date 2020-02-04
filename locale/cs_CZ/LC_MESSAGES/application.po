@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 13:12+0100\n"
-"PO-Revision-Date: 2020-01-30 13:22+0100\n"
+"POT-Creation-Date: 2020-02-04 18:05+0100\n"
+"PO-Revision-Date: 2020-02-04 18:11+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1816,6 +1816,10 @@ msgstr "Video"
 msgid "Galerie"
 msgstr "Galerie"
 
+#: ../app/helpers/modifier.iobject_type.php:27
+msgid "Propagace produktu"
+msgstr "Propagace produktu"
+
 #: ../app/models/basket.php:555
 msgid "Košík je prázdný"
 msgstr "Košík je prázdný"
@@ -2060,35 +2064,35 @@ msgstr "od"
 msgid "to"
 msgstr "do"
 
-msgid "products in total"
-msgstr "produktů celkem"
+#~ msgid "products in total"
+#~ msgstr "produktů celkem"
 
-msgid "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
-msgstr "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
+#~ msgid "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
+#~ msgstr "Navštivte náš showroom v&nbsp;Praze&nbsp;4"
 
-msgid "Datum"
-msgstr "Datum"
+#~ msgid "Datum"
+#~ msgstr "Datum"
 
-msgid "My account"
-msgstr "Můj účet"
+#~ msgid "My account"
+#~ msgstr "Můj účet"
 
-msgid "Popis"
-msgstr "Popis"
+#~ msgid "Popis"
+#~ msgstr "Popis"
 
-msgid "...za Váš nákup, vraťte se brzy :)"
-msgstr "...za Váš nákup, vraťte se brzy :)"
+#~ msgid "...za Váš nákup, vraťte se brzy :)"
+#~ msgstr "...za Váš nákup, vraťte se brzy :)"
 
-msgid "more information"
-msgstr "více informací"
+#~ msgid "more information"
+#~ msgstr "více informací"
 
-msgid "PSČ zadejte ve tvaru 123 45"
-msgstr "PSČ zadejte ve tvaru 123 45"
+#~ msgid "PSČ zadejte ve tvaru 123 45"
+#~ msgstr "PSČ zadejte ve tvaru 123 45"
 
-msgid "Request URL:"
-msgstr "Adresa URL požadavku:"
+#~ msgid "Request URL:"
+#~ msgstr "Adresa URL požadavku:"
 
-msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+#~ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
 
 #~ msgid "Please, write us to %1 if you think this is our mistake."
 #~ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
