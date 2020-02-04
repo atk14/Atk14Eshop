@@ -71,6 +71,12 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
+		.btn {
+			margin-top: 0.5rem;
+		}
+		.btn:first-child:last-child {
+			margin-top: 0;
+		}
 	}
 	
 	.card__tags {
