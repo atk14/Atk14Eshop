@@ -4,6 +4,10 @@ class CreateNewForm extends CardsForm {
 	function set_up() {
 		$this->_add_fields(array(
 			"add_catalog_id_field" => true,
+			"add_vat_rate_id_field" => true,
+			"add_unit_id_field" => true,
+			"add_consider_stockcount_field" => true,
+
 			"catalog_id_required" => true, // in eshop the catalog_id is required
 			"add_information_fields" => true,
 		));

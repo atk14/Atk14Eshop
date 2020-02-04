@@ -38,13 +38,19 @@ class ProductsController extends AdminController {
 	}
 
 	function edit() {
-		$variant = $this->product;
+		$product = $this->product;
+		$card = $product->getCard();
+
+		$this->page_title = $card->hasVariants() ? sprintf(_('Editing product variant %s (%s)'),$product->getFullName(),$product->getCatalogId()) : sprintf(_('Editing product %s (%s)'),$product->getFullName(),$product->getCatalogId());
+
 		$this->_save_return_uri();
-		$this->page_title = sprintf(_("Úprava varianty produktu '%s' (%s)"), $variant->getFullName(), $variant->getCatalogId());
-		$this->form->set_initial($variant);
-		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			$variant->s($d);
-			$this->flash->success(_("Varianta uložena"));
+		$this->form->set_initial($product);
+
+		if ($this->request->post() && ($d = $this->form->validate($this->params))) {
+			if($this->form->changed()){
+				$product->s($d);
+				$this->flash->success(_("Changes have been saved"));
+			}
 			$this->_redirect_back(array(
 				"action" => "cards/edit",
 				"id" => $this->card,

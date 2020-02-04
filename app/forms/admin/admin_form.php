@@ -167,6 +167,22 @@ class AdminForm extends ApplicationForm{
 		return $this->add_field("vat_rate_id", new VatRateField($options));
 	}
 
+	function add_unit_id_field(){
+		$this->add_field("unit_id", new UnitField([
+			"label" => _("Unit"),
+			"initial" => 1, // pcs
+		]));
+	}
+
+	function add_consider_stockcount_field(){
+		$this->add_field("consider_stockcount", new BooleanField([
+			"label" => _("Stock count considered?"),
+			"help_text" => _("In some cases stock count might not be considered, e.g. digital products"),
+			"required" => false,
+			"initial" => true,
+		]));
+	}
+
 	function has_storno_button(){
 		if(isset($this->has_storno_button)){ return $this->has_storno_button; }
 		return false;
