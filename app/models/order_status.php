@@ -41,8 +41,17 @@ class OrderStatus extends ApplicationModel implements Translatable {
 	/**
 	 * Oznamuje se tato zmena stavu uzivateli?
 	 */
-	function notificationEnabled(){
-		return $this->g("notification_enabled");
+	function notificationEnabled($consider_custom_flag = true){
+		$notification_enabled = $this->g("notification_enabled");
+		if(!$notification_enabled){
+			return false;
+		}
+
+		if($consider_custom_flag){
+			$notification_enabled = $this->g("custom_notification_enabled");
+		}
+
+		return $notification_enabled;
 	}
 
 	function isBlockingStockcount(){
