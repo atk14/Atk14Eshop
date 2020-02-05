@@ -17,10 +17,6 @@
 
 <br/><br/>
 
-{t}V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů.{/t}
-
-<br/>
-
 {render partial="partials/title_box" content="{t}Detaily objednávky{/t}"}
 
 {t order_no=$order->getOrderNo() created_at=$order->getCreatedAt()|format_datetime escape=no}Objednávka: <strong>č. %1 vytvořená %2</strong>{/t}<br/>
