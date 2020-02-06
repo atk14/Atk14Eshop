@@ -68,7 +68,7 @@
 					{else}
 						<div class="add-to-cart-meta">	
 
-							<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">{t}incl. VAT{/t}</span>{/t}</p>
+							<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
 
 							<p><em>{t}This product is sold out{/t}</em></p>
 
