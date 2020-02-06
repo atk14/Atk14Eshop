@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-04 18:05+0100\n"
+"POT-Creation-Date: 2020-02-06 17:37+0100\n"
 "PO-Revision-Date: 2020-02-04 18:10+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -964,8 +964,11 @@ msgstr "Přiřadit zodpovědnou osobu"
 msgid "Zrušit filtry"
 msgstr "Zrušit filtry"
 
-msgid "notifikuje se"
-msgstr "notifikuje se"
+msgid "it is notified"
+msgstr ""
+
+msgid "notification disabled"
+msgstr ""
 
 msgid "bcc"
 msgstr "bcc"
@@ -3250,11 +3253,15 @@ msgstr "Uživatel"
 msgid "Nastavit zodpovědnou osobu"
 msgstr "Nastavit zodpovědnou osobu"
 
-#: ../app/forms/admin/order_statuses/order_statuses_form.php:10
+#: ../app/forms/admin/order_statuses/edit_form.php:11
+msgid "Enable notification"
+msgstr ""
+
+#: ../app/forms/admin/order_statuses/edit_form.php:16
 msgid "BCC e-mail"
 msgstr "BCC e-mail"
 
-#: ../app/forms/admin/order_statuses/order_statuses_form.php:13
+#: ../app/forms/admin/order_statuses/edit_form.php:19
 msgid "Notifications can be sent to this address or addresses as blind copies."
 msgstr "Notifikace lze zasílat na tuto adresu nebo adresy jako slepé kopie."
 
@@ -3719,6 +3726,9 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "notifikuje se"
+#~ msgstr "notifikuje se"
 
 #~ msgid "Úprava varianty produktu '%s' (%s)"
 #~ msgstr "Úprava varianty produktu '%s' (%s)"

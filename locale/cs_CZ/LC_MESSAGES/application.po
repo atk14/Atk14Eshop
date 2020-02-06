@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-04 18:05+0100\n"
+"POT-Creation-Date: 2020-02-06 17:47+0100\n"
 "PO-Revision-Date: 2020-02-04 18:11+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -216,6 +216,9 @@ msgstr "Běžná cena:"
 msgid "Add to cart"
 msgstr "Přidat do košíku"
 
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
+
 msgid "This product is sold out"
 msgstr "Tento produkt je vyprodán"
 
@@ -391,11 +394,6 @@ msgstr ""
 "Objednávka bude expedována do %1 pracovních dnů od připsání platby na náš "
 "bankovní účet."
 
-msgid ""
-"V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů."
-msgstr ""
-"V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů."
-
 msgid "Detaily objednávky"
 msgstr "Detaily objednávky"
 
@@ -531,6 +529,9 @@ msgstr "Majitel účtu:"
 
 msgid "Sledujte nás na&nbsp;Facebooku:"
 msgstr "Sledujte nás na&nbsp;Facebooku:"
+
+msgid "Obchodní podmínky"
+msgstr ""
 
 msgid ""
 "Hello,\n"
@@ -1077,7 +1078,7 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:183
+#: ../app/controllers/application_base.php:179
 msgid "Home"
 msgstr "Domů"
 
@@ -2064,6 +2065,11 @@ msgstr "od"
 msgid "to"
 msgstr "do"
 
+#~ msgid ""
+#~ "V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů."
+#~ msgstr ""
+#~ "V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů."
+
 #~ msgid "products in total"
 #~ msgstr "produktů celkem"
 
@@ -2090,9 +2096,6 @@ msgstr "do"
 
 #~ msgid "Request URL:"
 #~ msgstr "Adresa URL požadavku:"
-
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
 
 #~ msgid "Please, write us to %1 if you think this is our mistake."
 #~ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
