@@ -14,7 +14,11 @@
 		{/if}
 	</td>
 	<td>{render partial="shared/active_state" object=$voucher}</td>
-	<td>{$voucher->hasBeenUsed()|display_bool}</td>
+	<td>{$voucher->hasBeenUsed()|display_bool}
+			{if $voucher->hasBeenUsed()}
+				<span title="{t}Najít objednávky s tímto kupónem{/t}">{a action="orders/index" search=$voucher->getVoucherCode()}{!"external-link-alt"|icon} {/a}</span>
+			{/if}
+	</td>
 	<td>{!$voucher->getValidFrom()|format_datetime|default:"&mdash;"}</td>
 	<td>{!$voucher->getValidTo()|format_datetime|default:"&mdash;"}</td>
 	<td>{$voucher->getCreatedAt()|format_datetime}</td>
