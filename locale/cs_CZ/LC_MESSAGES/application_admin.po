@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-06 17:37+0100\n"
-"PO-Revision-Date: 2020-02-04 18:10+0100\n"
+"POT-Creation-Date: 2020-02-12 14:36+0100\n"
+"PO-Revision-Date: 2020-02-12 14:41+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -787,7 +787,7 @@ msgstr "Opravdu chcete smazat tuto kampaň?"
 msgid "Číslo objednávky"
 msgstr "Číslo objednávky"
 
-#: ../app/controllers/admin/orders_controller.php:139
+#: ../app/controllers/admin/orders_controller.php:140
 msgid "Zodpovědná osoba"
 msgstr "Zodpovědná osoba"
 
@@ -965,10 +965,10 @@ msgid "Zrušit filtry"
 msgstr "Zrušit filtry"
 
 msgid "it is notified"
-msgstr ""
+msgstr "je notifikováno"
 
 msgid "notification disabled"
-msgstr ""
+msgstr "notifikování zakázáno"
 
 msgid "bcc"
 msgstr "bcc"
@@ -1470,6 +1470,9 @@ msgstr "Byl použit?"
 msgid "Kupón vytvořil/a"
 msgstr "Kupón vytvořil/a"
 
+msgid "Najít objednávky s tímto kupónem"
+msgstr "Najít objednávky s tímto kupónem"
+
 #: ../app/forms/admin/cards/cards_form.php:101
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
@@ -1751,6 +1754,15 @@ msgstr "Kopírování produktu \"%s\""
 msgid "A new product was successfully created"
 msgstr "Nový produkt byl úspěšně vytvořen"
 
+#: ../app/controllers/admin/card_creators_controller.php:8
+#, php-format
+msgid "Adding creator to the product \"%s\""
+msgstr "Přidání tvůrce k produktu \"%s\""
+
+#: ../app/controllers/admin/card_creators_controller.php:20
+msgid "Editing link between creator and product"
+msgstr "Úpravy propojení mezi tvůrcem a produktem"
+
 #: ../app/controllers/admin/card_filters_controller.php:9
 #: ../app/controllers/admin/card_filters_controller.php:71
 #, php-format
@@ -1955,6 +1967,15 @@ msgstr "Spotřební materiál byl přidán"
 msgid "Creator roles"
 msgstr "Role tvůrce"
 
+#: ../app/controllers/admin/creator_roles_controller.php:12
+msgid "Create a new role for creators"
+msgstr "Vytvořit novou roli pro tvůrce"
+
+#: ../app/controllers/admin/creators_controller.php:6
+#, php-format
+msgid "Editing creator \"%s\""
+msgstr "Editace tvůrce \"%s\""
+
 #: ../app/controllers/admin/currencies_controller.php:5
 msgid "List of Currencies"
 msgstr "Seznam měn"
@@ -2092,29 +2113,29 @@ msgstr "Byl nastaven úspěšně nový stav objednávky"
 msgid "Seznam objednávek"
 msgstr "Seznam objednávek"
 
-#: ../app/controllers/admin/orders_controller.php:101
+#: ../app/controllers/admin/orders_controller.php:102
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/orders_controller.php:127
+#: ../app/controllers/admin/orders_controller.php:128
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/orders_controller.php:144
+#: ../app/controllers/admin/orders_controller.php:145
 msgid "Zodpovědná osoba nastavena"
 msgstr "Zodpovědná osoba nastavena"
 
-#: ../app/controllers/admin/orders_controller.php:153
+#: ../app/controllers/admin/orders_controller.php:154
 msgid "Import čísel pro sledování zásilek"
 msgstr "Import čísel pro sledování zásilek"
 
-#: ../app/controllers/admin/orders_controller.php:182
+#: ../app/controllers/admin/orders_controller.php:183
 msgid "Chybná data v souboru"
 msgstr "Chybná data v souboru"
 
-#: ../app/controllers/admin/orders_controller.php:189
+#: ../app/controllers/admin/orders_controller.php:190
 msgid "Zásilky byly naimportovány"
 msgstr "Zásilky byly naimportovány"
 
@@ -2619,7 +2640,12 @@ msgstr "Tvůrce"
 msgid "Role"
 msgstr "Role"
 
-#: ../app/forms/admin/card_creators/card_creators_form.php:13
+#: ../app/forms/admin/card_creators/card_creators_form.php:11
+#, php-format
+msgid "Missing a role? &rarr; <a href=\"%s\">create it</a>"
+msgstr "Chybí vám role? &rarr; <a href=\"%s\">vytvořte ji</a>"
+
+#: ../app/forms/admin/card_creators/card_creators_form.php:14
 msgid "Is this the main creator?"
 msgstr "Je toto hlavní tvůrce?"
 
@@ -3255,7 +3281,7 @@ msgstr "Nastavit zodpovědnou osobu"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:11
 msgid "Enable notification"
-msgstr ""
+msgstr "Povolit notifikaci"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:16
 msgid "BCC e-mail"
