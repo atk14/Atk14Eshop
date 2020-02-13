@@ -1,6 +1,6 @@
 <?php
 abstract class CardListController extends ApplicationController {
-	var $page_size = 2;
+	var $page_size = 12;
 
 	function _setup_category(&$options) {
 		$path = $this->params->getString("path");
