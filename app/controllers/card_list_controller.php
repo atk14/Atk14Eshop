@@ -1,6 +1,6 @@
 <?php
 abstract class CardListController extends ApplicationController {
-	var $page_size = 12;
+	var $page_size = 2;
 
 	function _setup_category(&$options) {
 		$path = $this->params->getString("path");
@@ -34,13 +34,13 @@ abstract class CardListController extends ApplicationController {
 		if(!$category || !$category->isVisible() || $category->isFilter() || (($p = $category->getParentCategory()) && $p->isFilter())){
 			return $this->_execute_action("error404");
 		}
-		list($cond, $bind) = $category->sqlConditionForCardsIdBranch('cards.id');
+		list($cond, $bind, $ctable) = $category->sqlConditionForCardsIdBranch('cards.id', ['categories_table' => true]);
 		$bind[':sort_category'] = $category;
-		$this->_setup_category_breadcrumbs($options);
-
 		$options += ['default_order' =>
-			'(SELECT row(NOT category_id = :sort_category, rank) FROM category_cards WHERE card_id = cards.id ORDER BY NOT category_id = :sort_category, rank LIMIT 1), cards.id DESC'
+			"(SELECT row(NOT category_id = :sort_category, rank) FROM category_cards WHERE card_id = cards.id AND category_id IN (SELECT * from $ctable) ORDER BY NOT category_id = :sort_category, rank LIMIT 1), cards.id DESC"
 		];
+
+		$this->_setup_category_breadcrumbs($options);
 		return [ $cond, $bind ];
 	}
 

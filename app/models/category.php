@@ -5,6 +5,8 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 	static function GetTranslatableFields() { return array("name","long_name","teaser","description", "page_title", "page_description"); }
 
+	var $sqlConditionForCardsIdBranchCreated=0;
+
 	function setRank($new_rank){
 		$this->_setRank($new_rank,array("parent_category_id" => $this->getParentCategoryId()));
 	}
@@ -495,26 +497,44 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	 * Ted to nevraci zadny bind, ale pro obecnost to radsi bind vracet necham.
 	 **/
 	function sqlConditionForCardsIdBranch($field, $options = []) {
+		$id = $this->getId();
 		$opts = $options + [
 			'force_reread' => false,
 			'is_filter' => false,
 			'dealias' => true,
 			'visible' => true,
 			'self' => true,
-			'name' => 'CategoryCardsBranchIds' . $this->getId()
+			'name' => 'CategoryCardsBranchIds' . $id,
+			'categories_table' => false #returns also table containing all subcategories
 		];
 		$name = $opts['name'];
-		if(empty($this->sqlConditionForCardsIdBranchCreated) || $options) {
+		unset($options['categories_table']);
+		$level = $opts['categories_table'];
+
+		if($this->sqlConditionForCardsIdBranchCreated < $level || $options) {
 			list($sql, $bind) = static::getSubtreeOfSql($this, $opts);
-			$this->dbmole->doQuery(
-				"CREATE TEMPORARY TABLE $name AS SELECT distinct card_id as id FROM category_cards WHERE category_id IN (
-				$sql);", $bind
-			);
+			if($level == 2) {
+				$category = $name. "Categories";
+				$query = "CREATE TEMPORARY TABLE $category AS ( $sql ); ";
+				$sql = "SELECT * FROM $category";
+			} else {
+				$query = "";
+			}
+			if($options || $this->sqlConditionForCardsIdBranchCreated == 0) {
+				$query.="CREATE TEMPORARY TABLE $name AS ( SELECT distinct card_id as id FROM category_cards WHERE category_id IN ($sql));";
+			}
+			$this->dbmole->doQuery($query, $bind);
 		}
 		if(!$options) {
-			$this->sqlConditionForCardsIdBranchCreated = true;
+			$this->sqlConditionForCardsIdBranchCreated = $level;
 		}
-		return array("$field IN (SELECT $name.id FROM $name)", []);
+
+		$sql = "$field IN (SELECT $name.id FROM $name)";
+		if($level == 2) {
+				 return array($sql, [], $category);
+		} else {
+				 return array($sql, []);
+		}
 	}
 
 	/**
