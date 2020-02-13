@@ -171,10 +171,6 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_redirect_to_ssl();
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
-			return $this->_redirect_to_ssl();
-		}
-
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();

@@ -2,7 +2,9 @@
 class CreatorsController extends AdminController {
 
 	function edit(){
-		$this->_edit();
+		$this->_edit(array(
+			"page_title" => sprintf(_('Editing creator "%s"'),$this->creator->getName())
+		));
 	}
 
 	function _before_filter(){

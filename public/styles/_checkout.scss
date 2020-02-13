@@ -5,6 +5,9 @@
 	.card {
 		.card-footer {
 			padding-bottom: $grid-gutter-width/2;
+			fieldset {
+				margin-bottom: 0;
+			}
 		}
 	}
 }

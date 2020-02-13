@@ -1,10 +1,20 @@
+{*
+ *
+ *	{render partial="shared/layout/header/main_menu"}
+ *	{render partial="shared/layout/header/main_menu" enable_dropdown_menus=false}
+ *}
+
 {assign main_menu LinkList::GetInstanceByCode("main_menu")}
+{if !isset($enable_dropdown_menus)}{assign enable_dropdown_menus true}{/if}
 
 <ul class="navbar-nav">
 	{if $main_menu}
 		{foreach $main_menu->getItems($current_region) as $item}
 			
-				{assign submenu $item->getSubmenu()}
+				{assign submenu ""}
+				{if $enable_dropdown_menus && $enable_dropdown_menus!="false"}
+					{assign submenu $item->getSubmenu()}
+				{/if}
 
 				{if $submenu}
 					<li class="nav-item dropdown">

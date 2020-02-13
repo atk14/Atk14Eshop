@@ -4,12 +4,12 @@
 	{foreach $delivery_methods as $delivery_method}
 		<li class="list-group-item" data-id="{$delivery_method->getId()}">
 		{dropdown_menu clearfix=0}
-			{a action=edit id=$delivery_method}<i class="glyphicon glyphicon-edit"></i> {t}Edit{/t}{/a}
+			{a action=edit id=$delivery_method}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{a action="shipping_combinations/edit_payment_methods" delivery_method_id=$delivery_method}{!"list"|icon} {t}Vybrat možné platební metody{/t}{/a}
 			{if $delivery_method->isActive()}
-				{a action=disable id=$delivery_method _method="post"}<i class="glyphicon glyphicon-ban-circle"></i> {t}Vypnout{/t}{/a}
+				{a action=disable id=$delivery_method _method="post"}{!"ban"|icon} {t}Vypnout{/t}{/a}
 			{else}
-				{a action=enable id=$delivery_method _method="post"}<i class="glyphicon glyphicon-ok-circle"></i> {t}Zapnout{/t}{/a}
+				{a action=enable id=$delivery_method _method="post"}{!"check-circle"|icon} {t}Zapnout{/t}{/a}
 			{/if}
 			{if $delivery_method->isDeletable()}
 				{a_destroy id=$delivery_method}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}

@@ -24,6 +24,8 @@ class SliderItemsForm extends AdminForm {
 			"help_text" => _("Interní odkaz zadávejte pouze ve formě URI (např. /napoveda/). Odkaz na externí web musí obsahovat celou cestu včetně domény (např. http://www.externi-web.cz/soubor.pdf)."),
 		)));
 
+		$this->add_visible_field();
+
 		/*
 		$this->add_field("text_color", new RgbaField([
 			"label" => _("Barva textu"),

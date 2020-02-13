@@ -11,8 +11,12 @@
 
 			<strong>{$order_status->getCode()}</strong><br>
 			{$order_status->getName()}
-			{if $order_status->notificationEnabled()}
-				<em>({t}notifikuje se{/t})</em>
+			{if $order_status->notificationEnabled(false)}
+				{if $order_status->notificationEnabled()}
+					<em>({t}it is notified{/t})</em>
+				{else}
+					<em>({t}notification disabled{/t})</em>
+				{/if}
 			{/if}
 			{if $order_status->getBccEmail()}
 				<br><small>{t}bcc{/t}: {$order_status->getBccEmail()}</small>

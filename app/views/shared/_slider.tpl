@@ -16,7 +16,7 @@ $slides_per_view=auto|number 				default: 1
 	<div class="swiper-container" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}">
 		<div class="swiper-wrapper">
 
-			{foreach $slider->getItems() as $item}
+			{foreach $slider->getVisibleItems() as $item}
 				<div class="swiper-slide slider-item-{$item@iteration-1}">
 					<div class="swiper-slide__image">
 						<img src="{$item->getImageUrl()|img_url:"900x600xcrop"}" class="img-fluid" alt="{$item->getTitle()}">

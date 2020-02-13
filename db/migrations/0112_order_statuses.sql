@@ -4,7 +4,8 @@ CREATE TABLE order_statuses (
 	--
 	code VARCHAR(255) NOT NULL,
 	--
-	notification_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+	notification_enabled BOOLEAN NOT NULL DEFAULT FALSE, -- toto nemeni uzivatel
+	custom_notification_enabled BOOLEAN NOT NULL DEFAULT TRUE, -- toto si meni uzivatel
 	bcc_email VARCHAR(1000),
 	--
 	blocking_stockcount BOOLEAN NOT NULL DEFAULT FALSE, -- blokuje objednavka v tomto stavu skladove mnozstvi? Viz view v_stockcount_blocations

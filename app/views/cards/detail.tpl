@@ -20,6 +20,9 @@
 		<div class="product-info">
 		{render partial="categories"}
 		{render partial="creators"}
+		{if !$card->hasCardSection("tech_spec")}
+			{render partial="technical_specifications"}
+		{/if}
 
 		{render partial="shared/attachments" object=$card}
 

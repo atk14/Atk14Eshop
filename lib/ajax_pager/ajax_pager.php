@@ -59,7 +59,7 @@ class AjaxPager {
 
 		//Texts of buttons of pager
 		$options['texts'] += [
-			'first_page' => _("Zpět na první stranu"),
+			'first_page' => _("První strana"),
 			'next/' =>  _("Další produkt"),
 			'next/0' =>  _("Další strana"),
 			'next/s' => _("Další %s produkty"),

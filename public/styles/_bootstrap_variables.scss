@@ -38,12 +38,12 @@ $grays: map-merge(
   $grays
 );
 
-$blue:    #50b1ce !default;
+$blue:    #30bced;//#50b1ce !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
 $red:     #dd403a !default;
-$orange:  #fd7e14 !default;
+$orange:  #fc5130;//#fd7e14 !default;
 $yellow:  #ffc107 !default;
 $green:   $brand-green !default;
 $teal:    #20c997 !default;
@@ -70,8 +70,8 @@ $colors: map-merge(
   $colors
 );
 
-$brand:         $brand-green;
-$primary:       $blue;//$green !default;
+$brand:         $blue;
+$primary:       $orange;//$green !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -284,7 +284,7 @@ $embed-responsive-aspect-ratios: join(
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case

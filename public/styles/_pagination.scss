@@ -41,16 +41,50 @@ Bootstrap`s own pagination scss should NOT be loaded.
 		.btn {
 			margin-right: $grid-gutter-width/5;
 			margin-bottom: $grid-gutter-width/5;
+			min-width: 220px;
 			&.disabled {
 				display: none;
 			}
-			.fas {
-				margin-right: 0.25rem;
-				margin-left: 0.25rem;
+			&:focus {
+				box-shadow: none;
 			}
-			.fas.fa-chevron-left:first-child + .fas.fa-chevron-left {
-				margin-left: -0.5rem;
-				margin-right: 0.25rem;
+			
+			&.js--previous, &.js--first {
+				&:before {
+					margin-right: 0.5em;
+					font-family: "Font Awesome 5 Free";
+					font-weight: 900;
+					content: "\f053";
+				}
+			}
+			
+			&.js--first {
+				&:before {
+					content: "\f053\f053";
+					letter-spacing: -0.25em;
+					margin-right: 0.7em;
+				}
+			}
+			
+			&.next-page {
+				&:after {
+					margin-left: 0.5em;
+					font-family: "Font Awesome 5 Free";
+					font-weight: 900;
+					content: "\f054";
+				}
+			}
+			
+			&.next-items {
+				&:before {
+					margin-right: 0.5em;
+					font-family: "Font Awesome 5 Free";
+					font-weight: 900;
+					content: "\f067";
+				}
+			}
+			&.next-page {
+				content: "\f054";
 			}
 		}
 		.pagination-info {

@@ -3,7 +3,7 @@ class GetDataForm extends OrderOrderStatusesForm {
 
 	function set_up(){
 		$this->add_field("order_status_note", new TextField(array(
-			"label" => _("Note"),
+			"label" => _("Internal note"),
 			"required" => false,
 		)));
 

@@ -82,7 +82,7 @@
 		</div>
 	</nav>
 	<div class="logospace">
-		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/logo.png" alt="{$appname}" width="240" height="240" class="img-fluid">{/a}
+		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/atk14-eshop.svg" alt="{$appname}" width="220" height="220" class="img-fluid">{/a}
 	</div>
 
 

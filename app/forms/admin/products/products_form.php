@@ -6,6 +6,8 @@ class ProductsForm extends AdminForm {
 			"label" => _("Catalog number"),
 		)));
 		$this->add_vat_rate_id_field();
+		$this->add_unit_id_field();
+		$this->add_consider_stockcount_field();
 		$this->add_translatable_field("label", new CharField(array(
 			"label" => _("Variant name"),
 			"hints" => array("XL","20ml","1kg","32GB"),

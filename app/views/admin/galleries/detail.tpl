@@ -23,8 +23,8 @@
 
 				<div class="pull-right">
 					{dropdown_menu}
-						{a action="gallery_items/edit" id=$item}<i class="glyphicon glyphicon-edit"></i> {t}Upravit{/t}{/a}
-						{a_destroy controller="gallery_items" id=$item}<i class="glyphicon glyphicon-remove"></i> {t}Smazat{/t}{/a_destroy}
+						{a action="gallery_items/edit" id=$item}{!"pencil-alt"|icon} {t}Upravit{/t}{/a}
+						{a_destroy controller="gallery_items" id=$item}{!"trash-alt"|icon} {t}Smazat{/t}{/a_destroy}
 					{/dropdown_menu}
 				</div>
 

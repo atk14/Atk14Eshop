@@ -32,6 +32,6 @@
   </div>
 </div>
 
-<p>{a action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _class="btn btn-default js--image_to_gallery_link"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add an image{/t}{/a}</p>
+<p>{a action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _class="btn btn-default js--image_to_gallery_link"}{!"plus-circle"|icon} {t}Add an image{/t}{/a}</p>
 
 </div>

@@ -5,6 +5,13 @@ class CardsController extends AdminController{
 
 	use TraitSlugStateWatcher;
 
+	static protected $PRODUCT_KEYS = [
+		"catalog_id",
+		"vat_rate_id",
+		"unit_id",
+		"consider_stockcount",
+	];
+
 	function index(){
 		$this->page_title = _("List of Products");
 
@@ -79,17 +86,19 @@ class CardsController extends AdminController{
 				unset($d[$k]);
 			}
 
+			$product_values = [];
+			foreach(self::$PRODUCT_KEYS as $pk){
+				$product_values[$pk] = $d[$pk];
+				unset($d[$pk]);
+			}
+
 			$tags = $d["tags"];
-			$catalog_id = $d["catalog_id"];
-			$vat_rate_id = $d["vat_rate_id"];
 			$price = $d["price"];
 			$base_price = isset($d["base_price"]) ? $d["base_price"] : null; // base_price may not be in the form
 			$stockcount = $d["stockcount"];
 			$image_url = $d["image_url"];
 			$category = $d["category"];
 			unset($d["tags"]);
-			unset($d["catalog_id"]);
-			unset($d["vat_rate_id"]);
 			unset($d["price"]);
 			unset($d["base_price"]);
 			unset($d["stockcount"]);
@@ -104,11 +113,8 @@ class CardsController extends AdminController{
 			if(!is_null($category)){
 				$category->addCard($card);
 			}
-			if(strlen($catalog_id)){
-				$product = $card->createProduct(array(
-					"catalog_id" => $catalog_id,
-					"vat_rate_id" => $vat_rate_id,
-				));
+			if(strlen($product_values["catalog_id"])){
+				$product = $card->createProduct($product_values);
 				if(!is_null($price)){
 					$pricelist = Pricelist::GetDefaultPricelist();
 					$pricelist->setPrice($product,$price);
@@ -139,15 +145,16 @@ class CardsController extends AdminController{
 
 		$first_product = $this->tpl_data["first_product"] = $this->card->getFirstProduct(array("visible" => null));
 
+		$product_keys = self::$PRODUCT_KEYS;
+
 		$this->form->set_initial($this->card);
 		$this->form->set_initial("tags",$this->card->getTags());
 		//$this->form->set_initial("category_ids", $this->card->getCategories());
 		if(!$this->card->hasVariants()){
 			if($first_product){
-				$this->form->set_initial(array(
-					"catalog_id" => $first_product->getCatalogId(),
-					"vat_rate_id" => $first_product->getVatRateId(),
-				));
+				foreach($product_keys as $pk){
+					$this->form->set_initial($pk,$first_product->g($pk));
+				}
 				$this->form->fields["catalog_id"]->required = true;
 			}else{
 				$this->form->fields["catalog_id"]->required = false;
@@ -169,29 +176,37 @@ class CardsController extends AdminController{
 			$category_ids = $d["category_ids"];
 			unset($d["category_ids"]); */
 
+			if(!$this->form->changed()){
+				$this->_redirect_back();
+				return;
+			}
+
 			$this->_save_slug_state($this->card);
 
 			$tags = $d["tags"];
 			unset($d["tags"]);
 
-			$catalog_id = $d["catalog_id"];
-			$vat_rate_id = $d["vat_rate_id"];
-			$vat_rate_id = is_object($vat_rate_id) ? $vat_rate_id->getId() : $vat_rate_id;
-			unset($d["catalog_id"]);
-			unset($d["vat_rate_id"]);
-
-			if(!$this->card->hasVariants() && strlen($catalog_id)){
-				if(!$first_product){
-					$first_product = $this->card->createProduct([
-						"catalog_id" => $catalog_id,
-						"vat_rate_id" => $vat_rate_id,
-					]);
+			$product_values = [];
+			foreach($product_keys as $pk){
+				if(!array_key_exists($pk,$d)){
+					myAssert(sizeof($product_values)==0);
+					break;
 				}
-				if($first_product->getCatalogId()!==$catalog_id || $first_product->getVatRateId()!==$vat_rate_id){
-					$first_product->s([
-						"catalog_id" => $catalog_id,
-						"vat_rate_id" => $vat_rate_id,
-					]);
+				$product_values[$pk] = is_object($d[$pk]) ? $d[$pk]->getId() : $d[$pk];
+				unset($d[$pk]);
+			}
+
+			if($product_values){
+				if(!$first_product){
+					$first_product = $this->card->createProduct($product_values);
+				}else{
+					$something_changed = false;
+					foreach($product_keys as $pk){
+						if($first_product->g($pk)!=$product_values[$pk]){ $something_changed = true; break; }
+					}
+					if($something_changed){
+						$first_product->s($product_values);
+					}
 				}
 			}
 

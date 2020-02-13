@@ -15,6 +15,7 @@
 <article class="main-article">
 
 	{if $page}
+		{admin_menu for=$page}
 	
 		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown tag="h2"}
 		
@@ -24,8 +25,8 @@
 			</div>
 				<div class="col-12 col-md-5 col-lg-6">
 					<a href="/prodejny/showroom-praha/" class="banner banner--image-text--halfwidth">
-						<img src="/public/dist/images/banner-main-showroom.jpg" class="banner__image img-fluid" alt="">
-						<div class="banner__text">{t escape=no}Navštivte náš showroom v&nbsp;Praze&nbsp;4{/t}</div>
+						<img src="/public/dist/images/hp-shop-banner.jpg" class="banner__image img-fluid" alt="">
+						<div class="banner__text">{t escape=no}Navštivte naši novou prodejnu{/t}</div>
 					</a>
 				</div>
 		</div>
@@ -49,7 +50,7 @@
 					{/if}
 					<div class="card-body">
 						<h2 class="card-title">{$article->getTitle()}</h2>
-						<div class="card-text">{$article->getTeaser()}</div>
+						<div class="card-text">{$article->getTeaser()|markdown|strip_tags}</div>
 					</div>
 				{/a}
 			{/foreach}

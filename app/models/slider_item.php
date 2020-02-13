@@ -13,5 +13,7 @@ class SliderItem extends ApplicationModel implements Translatable, Rankable {
 		return Cache::Get("Slider",$this->getSliderId());
 	}
 
+	function isVisible(){ return $this->g("visible"); }
+
 	function toString(){ return $this->getImageUrl(); }
 }

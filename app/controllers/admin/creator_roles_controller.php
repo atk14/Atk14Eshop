@@ -8,7 +8,9 @@ class CreatorRolesController extends AdminController {
 	}
 
 	function create_new(){
-		$this->_create_new();
+		$this->_create_new([
+			"page_title" => _("Create a new role for creators"),
+		]);
 	}
 
 	function edit(){

@@ -58,6 +58,21 @@
 					ADMIN.utils.handleNavigationFilter( e );
 				} );
 
+				// Back to top button display and handling
+				$( window ).on( "scroll", function(){
+					var backToTopBtn = $ ( "#js-scroll-to-top" );
+					if( $( window ).scrollTop() > 100 ) {
+						backToTopBtn.addClass( "active" );
+					} else {
+						backToTopBtn.removeClass( "active" );
+					}
+				} );
+				$( window ).trigger( "scroll" );
+
+				$ ( "#js-scroll-to-top" ).on( "click", function( e ){
+					e.preventDefault();
+					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
+				} );
 			}
 
 		},

@@ -157,7 +157,7 @@
 		button.attr( "href", url );
 		button.toggleClass( "disabled", !url );
 		if ( text ) {
-			button.html( this.getText( text, amount ) + " <i class=\"fas fa-chevron-right\"></i>" );
+			button.html( this.getText( text, amount ) );
 			button.restoreText = null;
 		}
 	};
@@ -249,12 +249,12 @@
 			}
 		}
 
-		this.updateButton( this.$buttons.first, this.offset ?
+		this.updateButton( this.$buttons.first, this.offset > this.sectionSize ?
 			this.addToUrl(this.url, { limit: this.sectionSize } ) :
 			null
 		);
 		var pSize = this.newPageSize();
-		this.updateButton( this.$buttons.previous, this.offset > this.sectionSize ?
+		this.updateButton( this.$buttons.previous, this.offset ?
 				this.addToUrl( this.url, { offset: this.offset - pSize, limit: pSize } ) : "" );
 		this.updateNextButton();
 		this.updateRemains();

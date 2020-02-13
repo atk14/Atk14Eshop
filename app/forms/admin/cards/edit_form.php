@@ -2,9 +2,12 @@
 class EditForm extends CardsForm {
 	
 	function set_up() {
+		$has_variants = $this->controller->card->hasVariants();
 		$this->_add_fields(array(
-			"add_catalog_id_field" => !$this->controller->card->hasVariants(), // nema varianty -> menime catalog_id primo na karte
-			"add_vat_rate_id_field" => !$this->controller->card->hasVariants(),
+			"add_catalog_id_field" => !$has_variants,
+			"add_vat_rate_id_field" => !$has_variants,
+			"add_unit_id_field" => !$has_variants,
+			"add_consider_stockcount_field" => !$has_variants,
 		));
 		$this->add_slug_field();
 	}

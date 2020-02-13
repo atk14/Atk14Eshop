@@ -10,6 +10,7 @@
 					<div>
 					{render partial="shared/list_thumbnail" image=$slider_item->getImageUrl()}
 					{$slider_item->getTitle()|default:$mdash}
+					{if !$slider_item->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 					</div>
 					<div>
 						{dropdown_menu}

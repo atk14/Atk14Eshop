@@ -1,0 +1,9 @@
+black_tea:
+  product_id: "<?= $products["black_tea"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 5
+
+green_tea:
+  product_id: "<?= $products["green_tea"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 123
