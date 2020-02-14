@@ -38,12 +38,34 @@
 					$field.popover( popoverOptions );
 				} );
 
-				// Main menu dropdowns with clickable parent link
-				$( ".js--prevent-dropdown-toggle" ).click( function( e ) {
-					if( $( this ).closest( ".nav-item" ).find( ".dropdown-menu" ).hasClass( "show" ) ) {
-						e.stopPropagation();
-					}
+				// Navbar dropdowns work on mouseover
+				var $dropdown = $( ".dropdown" );
+				var $dropdownToggle = $( ".dropdown-toggle" );
+				var $dropdownMenu = $( ".dropdown-menu" );
+				var showClass = "show";
+				var $navbar = $( ".navbar--hoverable-dropdowns" );
+
+				$navbar.find( $dropdownToggle ).on( "click touchstart", function( e ){
+					console.log( e.type );
+					location.href = $( this ).attr( "href" );
+					$dropdown.trigger( "mouseleave" )
+					e.stopImmediatePropagation();
 				} );
+				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
+						console.log( e.type );
+						var $this = $( this );
+						$this.addClass( showClass );
+						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
+						$this.find( $dropdownMenu ).addClass( showClass );
+						e.stopImmediatePropagation();
+				} );
+				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
+						console.log( e.type );
+						var $this = $(this);
+						$this.removeClass( showClass );
+						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
+						$this.find( $dropdownMenu ).removeClass( showClass );
+				} );	
 			}
 		},
 
