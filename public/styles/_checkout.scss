@@ -1,6 +1,7 @@
 .cards--login-options {
 	form {
 		@extend .form--compact;
+		margin-bottom: 0;
 	}
 	.card {
 		.card-footer {

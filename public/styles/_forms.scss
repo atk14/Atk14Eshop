@@ -268,9 +268,9 @@ form#form_checkouts_set_billing_and_delivery_data {
 .form--compact {
 	.form-group {
 		padding-top: 0;
-		padding-bottom: 0;
+		padding-bottom: $grid-gutter-width/4;
 		&:last-child {
-			margin-bottom: 0;
+			padding-bottom: 0;
 		}
 	}
 }
