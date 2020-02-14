@@ -49,7 +49,11 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 	 *
 	 * @return Menu14
 	 */
-	function getSubmenu(){
+	function getSubmenu($options = array()){
+		$options += array(
+			"reasonable_max_items_count" => null, // null will be returned when the count of submenu items exceeds this value
+		);
+
 		$target = $this->getTargetObject();
 		if(!$target){ return null; }
 
@@ -69,7 +73,11 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		}
 
 		if($menu->isEmpty()){
-			$menu = null;
+			return null;
+		}
+
+		if($options["reasonable_max_items_count"] && sizeof($menu->getItems())>$options["reasonable_max_items_count"]){
+			return null;
 		}
 
 		return $menu;

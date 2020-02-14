@@ -13,7 +13,7 @@
 			
 				{assign submenu ""}
 				{if $enable_dropdown_menus && $enable_dropdown_menus!="false"}
-					{assign submenu $item->getSubmenu()}
+					{assign submenu $item->getSubmenu(["reasonable_max_items_count" => 20])}
 				{/if}
 
 				{if $submenu}
