@@ -253,11 +253,12 @@ ol.breadcrumb {
 					top: 0.05em;
 					transition: transform 0.25s;
 				}
-				&[aria-expanded="true"] {
-					&:after {
-						transform: rotate(-180deg);
-					}
-				}
+				// The animation turned out to be a little disturbing
+				//&[aria-expanded="true"] {
+				//	&:after {
+				//		transform: rotate(-180deg); 
+				//	}
+				//}
 				&:focus, &:active, &:hover {
 					outline: none;
 					box-shadow: none;
