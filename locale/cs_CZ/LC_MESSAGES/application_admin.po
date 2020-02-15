@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 14:36+0100\n"
-"PO-Revision-Date: 2020-02-13 17:04+0100\n"
+"POT-Creation-Date: 2020-02-15 19:19+0100\n"
+"PO-Revision-Date: 2020-02-15 19:26+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -64,7 +64,7 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../app/controllers/admin/admin.php:34
-#: ../app/forms/admin/articles/articles_form.php:33
+#: ../app/forms/admin/articles/articles_form.php:34
 #: ../app/forms/admin/cards/cards_form.php:59
 msgid "Tags"
 msgstr "Štítky"
@@ -390,7 +390,7 @@ msgid "Add a new variant"
 msgstr "Přidat novou variantu"
 
 msgid "Product variants (%1)"
-msgstr "Varianty produktů (%1)"
+msgstr "Varianty produktu (%1)"
 
 msgid "Variants are not considered for this product"
 msgstr "Varianty nejsou pro tento produkt uvažovány"
@@ -413,15 +413,15 @@ msgstr "Vytvořit a editovat alias"
 msgid "Add a new subcategory"
 msgstr "Přidat podkategorii"
 
-#: ../app/controllers/admin/categories_controller.php:66
+#: ../app/controllers/admin/categories_controller.php:75
 msgid "filter option"
 msgstr "možnost filtru"
 
 msgid "Move the category"
 msgstr "Přesunout kategorii"
 
-msgid "Create an alias"
-msgstr "Vytvořit alias"
+msgid "Create a link to this category"
+msgstr "Vytvořit odkaz na tuto kategorii"
 
 msgid ""
 "You are about to delete the category %1!\n"
@@ -449,12 +449,8 @@ msgstr "To je možnost filtru"
 msgid "Can products be inserted here?"
 msgstr "Mohou zde být vloženy produkty?"
 
-msgid ""
-"This is a virtual category, which is actually pointing to <a href=\"%1\">/%2/"
-"</a>"
-msgstr ""
-"Jedná se o virtuální kategorii, která ve skutečnosti ukazuje na <a href="
-"\"%1\">/%2/</a>"
+msgid "This is a linking category that refers to <a href=\"%1\">/%2/</a>"
+msgstr "Toto je odkazující kategorie, která směřuje do <a href=\"%1\">/%2/</a>"
 
 msgid "Subcategories"
 msgstr "Podkategorie"
@@ -467,8 +463,8 @@ msgid "filter"
 msgstr "filtr"
 
 #: ../app/controllers/admin/admin.php:102
-msgid "alias"
-msgstr "alias"
+msgid "link"
+msgstr "odkaz"
 
 msgid "This category has no subcategories."
 msgstr "Tato kategorie nemá žádné podkategorie."
@@ -1705,7 +1701,7 @@ msgstr "Editace přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
 #: ../app/controllers/admin/cards_controller.php:222
-#: ../app/controllers/admin/categories_controller.php:20
+#: ../app/controllers/admin/categories_controller.php:29
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:59
 #: ../app/controllers/admin/products_controller.php:52
@@ -1837,53 +1833,69 @@ msgstr "Bylo by pěkné doplnit nějaké další informace"
 msgid "Editace textové sekce"
 msgstr "Editace textové sekce"
 
-#: ../app/controllers/admin/categories_controller.php:9
+#: ../app/controllers/admin/categories_controller.php:10
+#, php-format
+msgid "Editing linking category \"%s\""
+msgstr "Editace odkazující kategorie \"%s\""
+
+#: ../app/controllers/admin/categories_controller.php:12
+#, php-format
+msgid "Editing filter category \"%s\""
+msgstr "Editace filtrační kategorie \"%s\""
+
+#: ../app/controllers/admin/categories_controller.php:14
+#, php-format
+msgid "Editing filter option \"%s\""
+msgstr "Editace možnosti filtru \"%s\""
+
+#: ../app/controllers/admin/categories_controller.php:16
 #, php-format
 msgid "Editing category \"%s\""
 msgstr "Editace kategorie \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:35
+#: ../app/controllers/admin/categories_controller.php:44
 #, php-format
 msgid "Moving category %s"
 msgstr "Přesun kategorie %s"
 
-#: ../app/controllers/admin/categories_controller.php:40
+#: ../app/controllers/admin/categories_controller.php:49
 msgid "The category can not be moved under itself"
 msgstr "Kategorie nemůže být přesunuta pod sebe sama"
 
-#: ../app/controllers/admin/categories_controller.php:44
+#: ../app/controllers/admin/categories_controller.php:53
 msgid "The category was moved"
 msgstr "Kategorie byla přesunuta"
 
-#: ../app/controllers/admin/categories_controller.php:61
+#: ../app/controllers/admin/categories_controller.php:70
 msgid "New subcategory"
 msgstr "Nová podkategorie"
 
-#: ../app/controllers/admin/categories_controller.php:73
+#: ../app/controllers/admin/categories_controller.php:82
 msgid "Category cannot be created when the parent category is an alias"
 msgstr "Kategorie nelze vytvořit, pokud je nadřazená kategorie alias"
 
-#: ../app/controllers/admin/categories_controller.php:79
+#: ../app/controllers/admin/categories_controller.php:88
 msgid "On this place a new category cannot be created"
 msgstr "Na tomto místě nemůže být vytvořena nová kategorie"
 
-#: ../app/controllers/admin/categories_controller.php:85
+#: ../app/controllers/admin/categories_controller.php:94
 msgid "Filter cannot be created when the parent category is also a filter"
 msgstr "Filtr nelze vytvořit, pokud je nadřazená kategorie také filtr"
 
-#: ../app/controllers/admin/categories_controller.php:92
+#: ../app/controllers/admin/categories_controller.php:101
 msgid "Category has been created"
 msgstr "Kategorie byla vytvořena"
 
-#: ../app/controllers/admin/categories_controller.php:112
+#: ../app/controllers/admin/categories_controller.php:121
 msgid "The category was deleted"
 msgstr "Kategorie byla smazána"
 
-#: ../app/controllers/admin/categories_controller.php:121
-msgid "New alias"
-msgstr "Nový alias"
+#: ../app/controllers/admin/categories_controller.php:130
+#, php-format
+msgid "Creating new link to the category \"%s\""
+msgstr "Vytvoření odkazu na kategorii \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:129
+#: ../app/controllers/admin/categories_controller.php:138
 msgid "Alias was created"
 msgstr "Alias byl vytvořen"
 
@@ -2461,15 +2473,16 @@ msgid "Unit"
 msgstr "Jednotka"
 
 #: ../app/forms/admin/admin_form.php:179
-msgid "Stock count considered?"
-msgstr "Uvažuje se skladová zásoba?"
+msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
+msgstr "Lze produkt objednat bez ohledu na skladovou zásobu?"
 
 #: ../app/forms/admin/admin_form.php:180
 msgid ""
-"In some cases stock count might not be considered, e.g. digital products"
+"Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
+"zásoby (např. digitální soubor)"
 msgstr ""
-"V některých případech se nemusí skladová zásoba zohledňovat, např. u "
-"digitálních produktů"
+"Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
+"zásoby (např. digitální soubor)"
 
 #: ../app/forms/admin/admin_form.php:209 ../app/forms/admin/admin_form.php:216
 msgid "Stejný kód je již použit pro jiný záznam"
@@ -2506,16 +2519,17 @@ msgstr "Obrázek používaný v přehledu článků"
 msgid "Teaser"
 msgstr "Teaser"
 
-#: ../app/forms/admin/articles/articles_form.php:22
+#: ../app/forms/admin/articles/articles_form.php:18
+#: ../app/forms/admin/articles/articles_form.php:24
+msgid "Markdown format is expected"
+msgstr "Je očekáván formát Markdown"
+
+#: ../app/forms/admin/articles/articles_form.php:23
 #: ../app/forms/admin/pages/pages_form.php:21
 msgid "Body"
 msgstr "Tělo"
 
-#: ../app/forms/admin/articles/articles_form.php:23
-msgid "Markdown format is expected"
-msgstr "Je očekáván formát Markdown"
-
-#: ../app/forms/admin/articles/articles_form.php:28
+#: ../app/forms/admin/articles/articles_form.php:29
 msgid "Published At"
 msgstr "Publikováno dne"
 
@@ -3752,6 +3766,31 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Create an alias"
+#~ msgstr "Vytvořit alias"
+
+#~ msgid ""
+#~ "This is a virtual category, which is actually pointing to <a href=\"%1\">/"
+#~ "%2/</a>"
+#~ msgstr ""
+#~ "Jedná se o virtuální kategorii, která ve skutečnosti ukazuje na <a href="
+#~ "\"%1\">/%2/</a>"
+
+#~ msgid "alias"
+#~ msgstr "alias"
+
+#~ msgid "New alias"
+#~ msgstr "Nový alias"
+
+#~ msgid "Stock count considered?"
+#~ msgstr "Uvažuje se skladová zásoba?"
+
+#~ msgid ""
+#~ "In some cases stock count might not be considered, e.g. digital products"
+#~ msgstr ""
+#~ "V některých případech se nemusí skladová zásoba zohledňovat, např. u "
+#~ "digitálních produktů"
 
 #~ msgid "notifikuje se"
 #~ msgstr "notifikuje se"
