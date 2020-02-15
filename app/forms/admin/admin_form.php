@@ -175,9 +175,9 @@ class AdminForm extends ApplicationForm{
 	}
 
 	function add_consider_stockcount_field(){
-		$this->add_field("consider_stockcount", new BooleanField([
-			"label" => _("Stock count considered?"),
-			"help_text" => _("In some cases stock count might not be considered, e.g. digital products"),
+		$this->add_field("consider_stockcount", new ReverseBooleanField([
+			"label" => _("Lze produkt objednat bez ohledu na skladovou zásobu?"),
+			"help_text" => _("Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové zásoby (např. digitální soubor)"),
 			"required" => false,
 			"initial" => true,
 		]));
