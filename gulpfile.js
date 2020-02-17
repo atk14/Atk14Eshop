@@ -31,6 +31,7 @@ var applicationScripts = [
 	"public/scripts/utils/photoswipe.js",
 	"public/scripts/utils/basket_shipping_rules.js",
 	"public/scripts/utils/maps.js",
+	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/application.js"
 ];
 

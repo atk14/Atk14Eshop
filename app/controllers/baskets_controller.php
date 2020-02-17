@@ -23,7 +23,11 @@ class BasketsController extends ApplicationController {
 					$id = $item->getId();
 					$req_amount = $d["i$id"];
 					if($req_amount!=$item->getAmount()){
-						$item->s("amount",$req_amount);
+						if($req_amount>0){
+							$item->s("amount",$req_amount);
+						}else{
+							$item->destroy();
+						}
 					}
 				}
 
@@ -57,6 +61,12 @@ class BasketsController extends ApplicationController {
 				//}
 
 				$this->_redirect_to("checkouts/set_payment_and_delivery_method");
+				return;
+			}
+
+			if($this->request->xhr() && !$this->basket->isEmpty() && $this->form->is_valid()){
+				// there is a template for the basket re-drawing using JS
+				$this->_prepare_basket_edit_form($basket,$this->form);
 				return;
 			}
 
