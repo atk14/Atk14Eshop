@@ -5,8 +5,17 @@ class CardCreator extends ApplicationModel implements Rankable {
 		return self::FindAll("card_id",$card);
 	}
 
+	static $MainCreators;
 	static function GetMainCreatorsForCard($card){
-		return self::FindAll("card_id",$card,"is_main_creator",true);
+		if(!static::$MainCreators) {
+			static::$MainCreators = new CacheSomething(function($ids) {
+				return
+					Cache::Get('CardCreator', self::GetDbMole()->selectIntoAssociativeArray("
+					SELECT card_id, id FROM card_creators WHERE card_id IN :ids AND is_main_creator
+					", [':ids' => $ids]));
+			}, "Card");
+		}
+		return static::$MainCreators->get($card);
 	}
 
 	function setRank($new_rank){

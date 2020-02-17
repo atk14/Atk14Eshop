@@ -339,9 +339,14 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $CACHE[$key]["reserve"];
 	}
 
+	static $Stockcounts;
 	function getStockcount(){
-		$out = $this->dbmole->selectInt("SELECT SUM(warehouse_items.stockcount) FROM warehouses,warehouse_items WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id=:product",[":product" => $this]);
-		return (int)$out;
+		if(!self::$Stockcounts) {
+			self::$Stockcounts = new CacheSomething(function($ids) {
+				return Product::GetDbMole()->selectIntoAssociativeArray("SELECT warehouse_items.product_id, SUM(warehouse_items.stockcount) FROM warehouses,warehouse_items WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id IN :ids GROUP BY warehouse_items.product_id", [':ids' => $ids]);
+			}, 'Product');
+		};
+		return (int) self::$Stockcounts->get($this->getId());
 	}
 
 	function getStockcountBlocation(){

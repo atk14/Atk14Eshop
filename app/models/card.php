@@ -18,56 +18,31 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	/**
 	 * 
 	 */
+	static $ProductList;
 	static function GetProductsList($cards,$options = array()){
-		static $STORE = array();
-
-		$options += array(
-			"force_read" => false,
-		);
-
-		if($options["force_read"]){ $STORE = array(); } // reset cache
-
-		if(!$array_given = is_array($cards)){
-			$cards = array($cards);
-		}
-
-		$ids = array();
-		$ids_to_read = array();
-		foreach($cards as $c){
-			$id = is_object($c) ? $c->getId() : $c;
-			if(!isset($STORE[$id])){
-				$ids_to_read[] = $id;
-				$STORE[$id] = array();
-			}
-			$ids[] = $id;
-		}
-
-
-		if($ids_to_read){
-			$dbmole = Card::GetDbmole();
-			$rows = $dbmole->selectRows("SELECT
-						card_id,id,visible,deleted
-					FROM
-						products WHERE card_id IN :ids ORDER BY rank, id",array(":ids" => $ids_to_read));
-			foreach($rows as $row){
-				foreach($row as &$v){
-					if(in_array($v,array('t','f'))){ $v = $v=='t'; continue; } // boolean
-					if(is_numeric($v)){ $v = (int)$v; continue; } // integer
+		if(!self::$ProductList) {
+			self::$ProductList = new CacheSomething(function($ids) {
+				$dbmole = Card::GetDbmole();
+				$rows = $dbmole->selectRows("SELECT
+							card_id,id,visible,deleted
+						FROM
+							products WHERE card_id IN :ids ORDER BY rank, id",array(":ids" => $ids));
+				Cache::Prepare('Product', array_column($rows, 'id'));
+				$out = array_fill_keys($ids, []);
+				foreach($rows as $row){
+					foreach($row as &$v){
+						if(in_array($v,array('t','f'))){ $v = $v=='t'; continue; } // boolean
+						if(is_numeric($v)){ $v = (int)$v; continue; } // integer
+					}
+					$cid = $row["card_id"];
+					unset($row["card_id"]);
+					$out[$cid][] = $row;
 				}
-				$id = $row["card_id"];
-				unset($row["card_id"]);
-
-				$STORE[$id][] = $row;
-			}
+				return $out;
+			},
+			'Card');
 		}
-
-		$out = array();
-		foreach($ids as $id){
-			$out[$id] = $STORE[$id];
-		}
-
-		if(!$array_given){ $out = array_shift($out); }
-		return $out;
+		return self::$ProductList->get($cards, $options);
 	}
 
 	function getSlugPattern($lang){
