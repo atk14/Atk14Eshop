@@ -51,6 +51,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 		} else {
 			$this->data = array('real_id' => null);
 		}
+		$this->fetched = True;
 	}
 
 	function getCategory() {
