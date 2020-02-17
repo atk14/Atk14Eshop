@@ -1,16 +1,7 @@
 <?php
 class Currency extends ApplicationModel{
 
-	use TraitGetInstanceByCode; // $currency = Currency::GetInstanceByCode("EUR");
-
-	static function GetInstanceById($id, $options=[]) {
-		$options += ['use_cache' => true];
-		if($options['use_cache']) {
-			#HACK - prefetch all instances
-			self::GetInstanceByCode(null);
-		}
-		return parent::GetInstanceById($id, $options);
-	}
+	use TraitCodebook;
 
 	/**
 	 *	echo Currency::GetCurrentRate("EUR");

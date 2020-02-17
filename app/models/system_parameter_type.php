@@ -1,5 +1,5 @@
 <?php
 class SystemParameterType extends ApplicationModel {
 	
-	use TraitGetInstanceByCode;
+	use TraitCodebook;
 }
