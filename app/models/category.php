@@ -510,11 +510,11 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		$name = $opts['name'];
 		unset($options['categories_table']);
 		$level = $opts['categories_table'];
+		$category = $name. "Categories";
 
 		if($this->sqlConditionForCardsIdBranchCreated < $level || $options) {
 			list($sql, $bind) = static::getSubtreeOfSql($this, $opts);
 			if($level == 2) {
-				$category = $name. "Categories";
 				$query = "CREATE TEMPORARY TABLE $category AS ( $sql ); ";
 				$sql = "SELECT * FROM $category";
 			} else {
