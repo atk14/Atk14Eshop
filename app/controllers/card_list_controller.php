@@ -37,7 +37,8 @@ abstract class CardListController extends ApplicationController {
 		list($cond, $bind, $ctable) = $category->sqlConditionForCardsIdBranch('cards.id', ['categories_table' => true]);
 		$bind[':sort_category'] = $category;
 		$options += ['default_order' =>
-			"(SELECT row(NOT category_id = :sort_category, rank) FROM category_cards WHERE card_id = cards.id AND category_id IN (SELECT * from $ctable) ORDER BY NOT category_id = :sort_category, rank LIMIT 1), cards.id DESC"
+			"(SELECT rec FROM (SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) as rec, card_id FROM category_cards WHERE category_id IN (SELECT * from $ctable)) _q WHERE card_id = cards.id ORDER BY 1 LIMIT 1), cards.id DESC",
+			#"(SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) FROM category_cards WHERE card_id = cards.id AND category_id IN (SELECT * from $ctable) ORDER BY 1 LIMIT 1), cards.id DESC"
 		];
 
 		$this->_setup_category_breadcrumbs($options);
@@ -185,6 +186,17 @@ abstract class CardListController extends ApplicationController {
 			}
 		}
 		return true;
+		/*$this->finder->getRecords();
+		$ctable = ($this->category->sqlConditionForCardsIdBranch('cards.id', ['categories_table' => true])[2]);
+		var_dump($this->dbmole->selectRows("SELECT
+			(SELECT rec FROM (SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) as rec, card_id FROM category_cards WHERE category_id IN
+			(SELECT * from $ctable)) _q WHERE card_id = cards.id ORDER BY 1 LIMIT 1),
+			cards.id
+				FROM
+						cards
+				WHERE
+						id IN :ids
+						ORDER BY 1,2", [':ids' => $this->finder->getRecordIds()] + $bind));*/
 	}
 
 	function _before_filter(){
