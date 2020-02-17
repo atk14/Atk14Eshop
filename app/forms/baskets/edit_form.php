@@ -16,9 +16,12 @@ class EditForm extends BasketsForm {
 		foreach($basket->getItems() as $item){
 			$product = $item->getProduct();
 			$id = $item->getId();
-			$this->add_field("i$id",new OrderQuantityField($product,[
+			$field = $this->add_field("i$id",new OrderQuantityField($product,[
+				"min_value" => 0,
 				"initial" => $item->getAmount(),
 			]));
+			$field->widget->attrs["data-initial"] = $item->getAmount();
+			$field->widget->attrs["tabindex"] = "100";
 		}
 	}
 }

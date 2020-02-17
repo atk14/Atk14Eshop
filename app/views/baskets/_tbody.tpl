@@ -1,4 +1,4 @@
-		<tbody class="table-products__list js--basket-body">
+		<tbody class="table-products__list">
 
 			{* Produkty *}
 			{foreach $basket->getItems() as $item}

@@ -222,10 +222,11 @@
 
 			// Action-specific code
 			edit: function() {
+				var $basketForm = $( "#form_baskets_edit" );
+				var autoRefreshinterval = 2000; // 2 sec
 
 				// Tlacitka +/- editace mnozstvi
-				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
-				qtyButtons.on( "click", function( e ) {
+				$basketForm.on( "click", ".js-stepper button[data-spinner-button]", function( e ) {
 					e.preventDefault();
 					var qtyWidget = $( this ).closest( ".js-stepper" );
 					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
@@ -262,7 +263,21 @@
 					} );
 					return false;
 				} );*/
-				
+
+				// Automaticke prepocitavani kosiku
+				setTimeout( function() {
+					UTILS.edit_basket_form.auto_refresh( autoRefreshinterval );
+				}, autoRefreshinterval );
+
+				// Zachyceni stisku klavesy enter v inputu na polozce kosiku a prekresleni kosiku.
+				// Atribut data-ininitial maji pouze inputy na polozkach v kosiku.
+				$basketForm.on( "keydown", "input[type=number][data-initial]", function( event ) {
+					if ( event.which === 13 ) {
+						// console.log( "about to refresh from keydown" );
+						UTILS.edit_basket_form.refresh();
+						return false;
+					}
+				} );
 			}
 		},
 
