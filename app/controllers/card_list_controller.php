@@ -162,7 +162,8 @@ abstract class CardListController extends ApplicationController {
 				'update_choices' => !$pager->isXhr()
 		]);
 		$this->finder = $this->tpl_data['finder'] = $finder = new FilterFinder($this->form->filter, [
-			'pager' => $pager
+			'pager' => $pager,
+			'use_cache' => true
 		]);
 		$afp = $this->params->g('active_filter_page');
 		if(!$afp || !key_exists($afp, $this->form->get_tab_fields())) {
