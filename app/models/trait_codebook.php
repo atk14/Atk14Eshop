@@ -29,7 +29,7 @@ trait TraitCodebook {
 		}
 	}
 
-	static function FindByCode($od, $options=[]) {
+	static function FindByCode($id, $options=[]) {
 		static::_PrereadCache($options);
 		$f = function($id) {return isset(static::$ByCodes[$id])?static::$ByCodes[$id]:null;};
 		if(is_array($id)) {

@@ -15,7 +15,8 @@ class CardCreator extends ApplicationModel implements Rankable {
 					", [':ids' => $ids]));
 			}, "Card");
 		}
-		return static::$MainCreators->get($card);
+		$out = static::$MainCreators->get($card);
+		return $out ? [$out]: [];
 	}
 
 	function setRank($new_rank){
