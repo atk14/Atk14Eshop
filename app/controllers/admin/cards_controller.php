@@ -86,11 +86,7 @@ class CardsController extends AdminController{
 				unset($d[$k]);
 			}
 
-			$product_values = [];
-			foreach(self::$PRODUCT_KEYS as $pk){
-				$product_values[$pk] = $d[$pk];
-				unset($d[$pk]);
-			}
+			$product_values = $this->_extract_product_values($d);
 
 			$tags = $d["tags"];
 			$price = $d["price"];
@@ -186,22 +182,14 @@ class CardsController extends AdminController{
 			$tags = $d["tags"];
 			unset($d["tags"]);
 
-			$product_values = [];
-			foreach($product_keys as $pk){
-				if(!array_key_exists($pk,$d)){
-					myAssert(sizeof($product_values)==0);
-					break;
-				}
-				$product_values[$pk] = is_object($d[$pk]) ? $d[$pk]->getId() : $d[$pk];
-				unset($d[$pk]);
-			}
+			$product_values = $this->_extract_product_values($d);
 
 			if($product_values){
 				if(!$first_product){
 					$first_product = $this->card->createProduct($product_values);
 				}else{
 					$something_changed = false;
-					foreach($product_keys as $pk){
+					foreach(array_keys($product_values) as $pk){
 						if($first_product->g($pk)!=$product_values[$pk]){ $something_changed = true; break; }
 					}
 					if($something_changed){
@@ -335,7 +323,10 @@ class CardsController extends AdminController{
 
 	function _before_filter() {
 		if (in_array($this->action, array("edit","destroy","enable_variants","disable_variants","add_to_category","add_technical_specification","remove_from_category","append_external_source","remove_external_source", "set_category_rank"))) {
-			$this->_find("card");
+			$card = $this->_find("card");
+			if($card->isDeleted()){
+				return $this->_execute_action("error404");
+			}
 		}
 
 		if (in_array($this->action, array("remove_from_category", "set_category_rank"))) {
@@ -361,5 +352,18 @@ class CardsController extends AdminController{
 		$this->tpl_data["categories"] = $categories;
 		$this->tpl_data["filter_categories_count"] = $filter_categories_count;
 		$this->tpl_data["filters"] = $filters;
+	}
+
+	function _extract_product_values(&$d){
+		$product_values = [];
+		foreach(self::$PRODUCT_KEYS as $pk){
+			if(!array_key_exists($pk,$d)){
+				myAssert(sizeof($product_values)==0);
+				continue;
+			}
+			$product_values[$pk] = is_object($d[$pk]) ? $d[$pk]->getId() : $d[$pk];
+			unset($d[$pk]);
+		}
+		return $product_values;
 	}
 }
