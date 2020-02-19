@@ -18,9 +18,9 @@
 				</tr>
 			</thead>
 
-			{render partial="tbody"}
-			{render partial="tbody_discounts"}
-			{render partial="tfoot"}
+			{render partial="items"}
+			{render partial="discounts"}
+			{render partial="footer"}
 		</table>
 	</div>
 

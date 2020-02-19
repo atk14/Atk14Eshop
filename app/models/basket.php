@@ -25,11 +25,11 @@ class Basket extends BasketOrOrder {
 	 *
 	 *	$basket = Basket::CreateNewRecord4UserAndRegion();
 	 */
-	static function CreateNewRecord4UserAndRegion($user,$region){
+	static function CreateNewRecord4UserAndRegion($user,$region,$options = array()){
 		$basket = self::CreateNewRecord([
 			"user_id" => $user,
 			"region_id" => $region
-		]);
+		],$options);
 
 		$update_ar = [];
 		$delivery_countries_allowed = $basket->getDeliveryCountriesAllowed();

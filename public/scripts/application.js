@@ -223,7 +223,7 @@
 			// Action-specific code
 			edit: function() {
 				var $basketForm = $( "#form_baskets_edit" );
-				var autoRefreshinterval = 2000; // 2 sec
+				var autoRefreshinterval = 1000; // 1 sec
 
 				// Tlacitka +/- editace mnozstvi
 				$basketForm.on( "click", ".js-stepper button[data-spinner-button]", function( e ) {
