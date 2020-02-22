@@ -34,7 +34,7 @@ class UsersForm extends ApplicationForm{
 		$keys = array_keys($d);
 
 		if(in_array("company",$keys)){
-			if(isset($d["company_number"]) && $d["company_number"] && !strlen($d["company_number"])){
+			if(isset($d["company_number"]) && $d["company_number"] && !strlen($d["company"])){
 				$this->set_error("company_number",_("IČ zadávejte pouze v případě, že je vyplněn název společnosti"));
 			}
 		}
