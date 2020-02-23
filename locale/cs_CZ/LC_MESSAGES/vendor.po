@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 13:42+0100\n"
-"PO-Revision-Date: 2019-12-06 13:19+0100\n"
+"POT-Creation-Date: 2020-02-23 11:46+0100\n"
+"PO-Revision-Date: 2020-02-23 11:50+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -16,6 +16,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
+msgid "Please enter a valid company registration number"
+msgstr "Zadejte platné IČ"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
+msgid "Enter the company number as eight digits"
+msgstr "Zadejte IČ ve formátu 8 číslic"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:29
+msgid "Enter the company number as seven digits"
+msgstr "Zadejte IČ ve formátu 7 číslic"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:30
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:31
+msgid "Enter the company number as nine digits"
+msgstr "Zadejte IČ ve formátu 9 číslic"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
+msgid "Enter the company number as LV and eleven digits"
+msgstr "Zadejte IČ ve formátu LV a 11 číslic"
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:24
 msgid ""
