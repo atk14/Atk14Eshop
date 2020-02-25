@@ -274,6 +274,7 @@ ol.breadcrumb {
 				}
 			}
 			.dropdown-menu {
+				margin-top: 0;
 				background-color: rgba( desaturate( lighten( $brand, 3% ), 5% ),0.98 );
 				@supports(backdrop-filter: blur(5px)){
 					background-color: rgba($brand,0.9);
