@@ -1,7 +1,62 @@
-<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">
-<html><head>
-<title>500: Internal Server Error</title>
-</head><body>
-<h1>Internal Server Error</h1>
-<p>An internal server error occured.</p>
-</body></html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>500: Internal Server Error</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<style>
+			body {
+				font-family: "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 30px;
+				min-height: 80vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			h1 {
+				font-weight: 900;
+			}
+			.row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.img-fluid {
+				max-width: 100%;
+				height: auto;
+			}
+			.col-text {
+				flex-basis: 50%;
+			}
+			.col-image {
+				padding: 0 30px;
+				flex-basis: 50%;
+				text-align: center;
+			}
+			@media(max-width: 600px){
+				.row {
+					display: block;
+				}
+				.col-text {
+					margin-bottom: 30px;
+				}
+				.col-image {
+					padding: 0 60px;
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-text">
+				<h1>Internal Server Error</h1>
+				<p>An internal server error occured.</p>
+			</div>
+			<div class="col-image">
+				<img src="/public/dist/images/error_500.jpg" alt="Internal Server Error" class="img-fluid">
+			</div>
+		</div>
+	</body>
+</html>

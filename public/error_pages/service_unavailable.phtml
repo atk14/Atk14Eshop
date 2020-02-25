@@ -1,8 +1,63 @@
-<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">
-<html><head>
-<title>503: Service Unavailable</title>
-</head><body>
-<h1>Service Unavailable</h1>
-<p>This site is in maintenance. Please come back later</p>
-</body></html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>503: Service Unavailable</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<style>
+			body {
+				font-family: "Liberation Sans", Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+				margin: 0;
+				padding: 30px;
+				min-height: 80vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			h1 {
+				font-weight: 900;
+			}
+			.row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.img-fluid {
+				max-width: 100%;
+				height: auto;
+			}
+			.col-text {
+				flex-basis: 50%;
+			}
+			.col-image {
+				padding: 0 30px;
+				flex-basis: 50%;
+				text-align: center;
+			}
+			@media(max-width: 600px){
+				.row {
+					display: block;
+				}
+				.col-text {
+					margin-bottom: 30px;
+				}
+				.col-image {
+					padding: 0 60px;
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-text">
+				<h1>Service Unavailable</h1>
+				<p>This site is in maintenance. Please come back later</p>
+			</div>
+			<div class="col-image">
+				<img src="/public/dist/images/error_unavailable.jpg" alt="Service Unavailable" class="img-fluid">
+			</div>
+		</div>
+	</body>
+</html>
 
