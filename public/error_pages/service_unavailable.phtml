@@ -4,22 +4,42 @@
 		<meta charset="utf-8">
 		<title>503: Service Unavailable</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 		<style>
 			body {
 				font-family: "Liberation Sans", Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 				margin: 0;
-				padding: 30px;
-				min-height: 80vh;
+				min-height: 100vh;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 			}
 			h1 {
+				font-size: 2.25rem;
 				font-weight: 900;
+				margin: 30px 0;
+				line-height: 1.5;
 			}
+			h2 {
+				font-size: 1.5rem;
+				font-weight: 900;
+				margin: 30px 0;
+				line-height: 1.5;
+			}
+			p {
+				margin: 30px 0;
+				color: #666;
+				line-height: 1.5;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #ccc;
+			}
+			
 			.row {
 				display: flex;
-				align-items: center;
+				min-height: 100vh;
+				align-items: flex-start;
 				justify-content: space-between;
 			}
 			.img-fluid {
@@ -27,22 +47,35 @@
 				height: auto;
 			}
 			.col-text {
-				flex-basis: 50%;
+				flex-basis: 60%;
+				padding: 30px;
+				align-self: stretch;
 			}
+			
 			.col-image {
-				padding: 0 30px;
-				flex-basis: 50%;
+				flex-basis: 40%;
 				text-align: center;
+				align-self:stretch;
+				background-color: #242f35;
+			}
+			.fas, .far {
+				color: #666;
+				margin-left: 0.25em;
+			}
+			.fa-exclamation-triangle {
+				color: orange;
 			}
 			@media(max-width: 600px){
 				.row {
-					display: block;
+					display: flex;
+					flex-direction: column;
 				}
 				.col-text {
-					margin-bottom: 30px;
+					flex-basis: auto;
 				}
 				.col-image {
-					padding: 0 60px;
+					flex-basis: auto;
+					flex-grow: 10;
 				}
 			}
 		</style>
@@ -51,11 +84,14 @@
 	<body>
 		<div class="row">
 			<div class="col-text">
-				<h1>Service Unavailable</h1>
+				<h1><i class="fas fa-exclamation-triangle"></i> Service Unavailable</h1>
 				<p>This site is in maintenance. Please come back later</p>
+				<hr>
+				<h2><i class="far fa-clock"></i> Some other info</h2>
+				<p>Normcore tbh succulents, shaman ennui put a bird on it roof party mixtape la croix pinterest. Small batch occupy godard shabby chic roof party listicle. Succulents migas bespoke, prism echo park butcher cardigan man braid hell of. Tacos fingerstache organic, celiac biodiesel retro master cleanse tumblr jean shorts aesthetic vegan yuccie keffiyeh humblebrag gastropub.</p>
 			</div>
 			<div class="col-image">
-				<img src="/public/dist/images/error_unavailable.jpg" alt="Service Unavailable" class="img-fluid">
+				<img src="/public/dist/images/error_backsoon_narrow.jpg" alt="Service Unavailable" class="img-fluid">
 			</div>
 		</div>
 	</body>
