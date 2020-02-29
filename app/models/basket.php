@@ -353,6 +353,15 @@ class Basket extends BasketOrOrder {
 	 *	// null - kampan pro dopravu zdarma neexistuje
 	 */
 	function getAddMoreToGetFreeDelivery(){
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($this);
+		$filter = function($item){ return $item->getPrice()>0.0; };
+		$delivery_methods = array_filter($delivery_methods,$filter);
+		$payment_methods = array_filter($payment_methods,$filter);
+		if(sizeof($delivery_methods)==0 && sizeof($payment_methods)==0){
+			// There is no delivery method or payment method with some price
+			return 0.0;
+		}
+
 		$region = $this->getRegion();
 		$user = $this->getUser();
 		$current_price = $this->getItemsPriceInclVat();
