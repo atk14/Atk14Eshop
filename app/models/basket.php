@@ -309,6 +309,15 @@ class Basket extends BasketOrOrder {
 	}
 
 	/**
+	 * Je vyloucena platba dobirkou?
+	 *
+	 * It will be implemented in the future
+	 */
+	function cashOnDeliveryEnabled(){
+		return true;
+	}
+
+	/**
 	 * Je vyzadovana pouze online platba?
 	 */
 	function onlinePaymentMethodRequired(){
@@ -648,6 +657,27 @@ class Basket extends BasketOrOrder {
 			$messages[] = new BasketErrorMessage(sprintf(_("Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"),smarty_modifier_display_price($currency->getLowestOrderPrice(),["currency" => $currency, "format" => "plain", "summary" => true])),[
 				"correction_text" => sprintf(_("přejít do katalogu")),
 				"correction_url" => $this->_buildLink(["action" => "categories/index"])
+			]);
+		}
+
+		$delivery_method = $this->getDeliveryMethod();
+		$payment_method = $this->getPaymentMethod();
+
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($this);
+		$delivery_method_ids = array_map(function($o){ return $o->getId(); },$delivery_methods);
+		$payment_method_ids = array_map(function($o){ return $o->getId(); },$payment_methods);
+
+		if($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)){
+			$messages[] = new  BasketErrorMessage(sprintf(_("Doručovací metoda <em>%s</em> nemůže být vybrána"),h($delivery_method->getLabel())),[
+				"correction_text" => _("vyberte jinou metodu"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+			]);
+		}
+
+		if($payment_method && !in_array($payment_method->getId(),$payment_method_ids)){
+			$messages[] = new  BasketErrorMessage(sprintf(_("Platební metoda <em>%s</em> nemůže být vybrána"),h($payment_method->getLabel())),[
+				"correction_text" => _("vyberte jinou metodu"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
 			]);
 		}
 
