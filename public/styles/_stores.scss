@@ -56,6 +56,17 @@
 	height: 25vw;
 	min-height: 300px;
 	margin-bottom: $grid-gutter-width;
+	.cluster {
+		div {
+			border: none !important;
+			// recommended: bg color same as map marker image color
+			background-color: #e70000 !important;
+			color: white !important;
+			img {
+				display: none;
+			}
+		}
+	}
 }
 
 // Karta na mape

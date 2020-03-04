@@ -31,7 +31,12 @@ var storeLocatorData = [
 			{/javascript_tag}
 
 	
-	<div class="stores-index__map" id="allstores_map"></div>
+	{*
+		Map container: 
+		data-enable_clusters: set true to enable marker clusters
+		data-cluster_distance: set max distance for markers to make cluster
+	*}
+	<div class="stores-index__map" id="allstores_map" data-enable_clusters="true" data-cluster_distance="30"></div>
 
 	<div class="card-deck card-deck--sized-4 js-stores-cards">
 		{render partial="store_item" from=$stores item=store}
