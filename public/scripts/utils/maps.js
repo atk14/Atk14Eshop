@@ -130,7 +130,7 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 		}
 
 		var cardBody = "<div><p class=\"card-title\">" + storeData[ i ].title + "</p>";
-		cardBody += "<address>" + decodeURI( storeData[ i ].address ) + "</address></div>";
+		cardBody += "<address>" + decodeURIComponent( storeData[ i ].address ) + "</address></div>";
 		cardBody += "<a href=\"" + storeData[ i ].detailURL;
 		cardBody += "\" class=\"btn btn-sm btn-primary\">";
 		cardBody += "Prodejna <span class=\"fas fa-arrow-right\"></span></a>";
