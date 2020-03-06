@@ -9,9 +9,9 @@ class FulltextIndexerRobot extends ApplicationRobot {
 		$this->logger->flush();
 
 		$RECIPE_ITEMS = [
+			"Card" => ["conditions" => ["visible","NOT deleted"], "order_by" => "created_at DESC, id DESC"],
 			"Page" => [],
 			"Article" => ["conditions" => ["published_at<=:now"], "bind_ar" => [":now" => $now], "order_by" => "published_at DESC, id DESC"],
-			"Card" => ["conditions" => ["visible","NOT deleted"], "order_by" => "created_at DESC, id DESC"],
 			/*
 			"Category" => [
 				"conditions" => [
