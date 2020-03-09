@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-15 19:19+0100\n"
-"PO-Revision-Date: 2020-02-15 19:26+0100\n"
+"POT-Creation-Date: 2020-03-09 12:36+0100\n"
+"PO-Revision-Date: 2020-03-09 12:40+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -650,17 +650,17 @@ msgstr "URL"
 msgid "bez popisu"
 msgstr "bez popisu"
 
-msgid "Fotogalerie zatím neobsahuje žádný obrázek."
-msgstr "Fotogalerie zatím neobsahuje žádný obrázek."
+msgid "Photos"
+msgstr "Fotografie"
 
-msgid "editovat"
-msgstr "editovat"
-
-msgid "bez titulku"
-msgstr "bez titulku"
+msgid "Přidat obrázky do fotogalerie"
+msgstr "Přidat obrázky do fotogalerie"
 
 msgid "Přidat fotografii"
 msgstr "Přidat fotografii"
+
+msgid "bez titulku nebo popisu"
+msgstr "bez titulku nebo popisu"
 
 msgid "The image was uploaded at:"
 msgstr "Obrázek byl nahrán:"
@@ -1166,12 +1166,6 @@ msgstr "Loga"
 msgid "Photo gallery"
 msgstr "Fotogalerie"
 
-msgid "Currently there are no images"
-msgstr "Momentálně tady nejsou žádné obrázky"
-
-msgid "Add an image"
-msgstr "Přidat obrázek"
-
 msgid "Objects inserted into text"
 msgstr "Objekty vložené do textu"
 
@@ -1248,6 +1242,19 @@ msgstr "Jednotka"
 
 msgid "Sazba DPH"
 msgstr "Sazba DPH"
+
+msgid "Add images"
+msgstr "Přidat obrázky"
+
+msgid ""
+"Upload multiple files with the file dialog or by dragging and dropping "
+"images onto the dashed region"
+msgstr ""
+"Nahrajte více obrázků buďto pomocí souborový dialogu nebo přetažením obrázků "
+"do vyčárkované oblasti"
+
+msgid "Submit form"
+msgstr "Odeslat formulář"
 
 msgid "no payment methods selected"
 msgstr "nebyly vybrány žádné platební metody"
@@ -1641,16 +1648,16 @@ msgstr "Vytvořit objekt typu %s"
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:279
+#: ../app/controllers/admin/admin.php:281
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:403
+#: ../app/controllers/admin/admin.php:405
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:410
+#: ../app/controllers/admin/admin.php:412
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -1700,7 +1707,7 @@ msgid "Editing attachment #%s"
 msgstr "Editace přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/cards_controller.php:222
+#: ../app/controllers/admin/cards_controller.php:210
 #: ../app/controllers/admin/categories_controller.php:29
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:59
@@ -1785,34 +1792,34 @@ msgstr "Seznam produktů"
 msgid "Adding a product"
 msgstr "Přidat produkt"
 
-#: ../app/controllers/admin/cards_controller.php:138
+#: ../app/controllers/admin/cards_controller.php:134
 msgid "The product has been created. Now you can add some extra data to it."
 msgstr "Produkt byl vytvořen. Nyní k němu můžete přidat další údaje."
 
-#: ../app/controllers/admin/cards_controller.php:144
+#: ../app/controllers/admin/cards_controller.php:140
 #, php-format
 msgid "Editing product %s"
 msgstr "Editace produktu %s"
 
-#: ../app/controllers/admin/cards_controller.php:240
+#: ../app/controllers/admin/cards_controller.php:228
 msgid "Variants mode has been activated"
 msgstr "Variantní režim byl aktivován"
 
-#: ../app/controllers/admin/cards_controller.php:258
+#: ../app/controllers/admin/cards_controller.php:246
 msgid "Variants mode has been deactivated"
 msgstr "Variantní režim byl deaktivován"
 
-#: ../app/controllers/admin/cards_controller.php:281
+#: ../app/controllers/admin/cards_controller.php:269
 #: ../app/controllers/admin/technical_specifications_controller.php:12
 #: ../app/controllers/admin/technical_specifications_controller.php:36
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:313
+#: ../app/controllers/admin/cards_controller.php:301
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:331
+#: ../app/controllers/admin/cards_controller.php:319
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -3766,6 +3773,21 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Fotogalerie zatím neobsahuje žádný obrázek."
+#~ msgstr "Fotogalerie zatím neobsahuje žádný obrázek."
+
+#~ msgid "editovat"
+#~ msgstr "editovat"
+
+#~ msgid "bez titulku"
+#~ msgstr "bez titulku"
+
+#~ msgid "Currently there are no images"
+#~ msgstr "Momentálně tady nejsou žádné obrázky"
+
+#~ msgid "Add an image"
+#~ msgstr "Přidat obrázek"
 
 #~ msgid "Create an alias"
 #~ msgstr "Vytvořit alias"

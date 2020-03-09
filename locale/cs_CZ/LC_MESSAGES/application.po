@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 11:52+0100\n"
-"PO-Revision-Date: 2020-02-23 11:52+0100\n"
+"POT-Creation-Date: 2020-03-09 12:36+0100\n"
+"PO-Revision-Date: 2020-03-09 12:40+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1831,86 +1831,95 @@ msgstr "Galerie"
 msgid "Propagace produktu"
 msgstr "Propagace produktu"
 
-#: ../app/models/basket.php:555
+#: ../app/models/basket.php:573
 msgid "Košík je prázdný"
 msgstr "Košík je prázdný"
 
-#: ../app/models/basket.php:565
+#: ../app/models/basket.php:583
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 
-#: ../app/models/basket.php:567 ../app/models/basket.php:582
+#: ../app/models/basket.php:585 ../app/models/basket.php:600
 msgid "odebrat z košíku"
 msgstr "odebrat z košíku"
 
-#: ../app/models/basket.php:580
+#: ../app/models/basket.php:598
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Produkt <em>%s (%s)</em> není skladem"
 
-#: ../app/models/basket.php:590
+#: ../app/models/basket.php:608
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 
-#: ../app/models/basket.php:592 ../app/models/basket.php:602
-#: ../app/models/basket.php:613
+#: ../app/models/basket.php:610 ../app/models/basket.php:620
+#: ../app/models/basket.php:631
 #, php-format
 msgid "změnit množství na %s"
 msgstr "změnit množství na %s"
 
-#: ../app/models/basket.php:600
+#: ../app/models/basket.php:618
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 
-#: ../app/models/basket.php:611
+#: ../app/models/basket.php:629
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 
-#: ../app/models/basket.php:625
+#: ../app/models/basket.php:643
 #, php-format
 msgid "odstranit voucher"
 msgstr "odstranit voucher"
 
-#: ../app/models/basket.php:633
+#: ../app/models/basket.php:651
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:634 ../app/models/basket.php:640
+#: ../app/models/basket.php:652 ../app/models/basket.php:658
 #, php-format
 msgid "přejít do katalogu"
 msgstr "přejít do katalogu"
 
-#: ../app/models/basket.php:639
+#: ../app/models/basket.php:657
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:646
-msgid "Musí být vybrána online platební metoda"
-msgstr "Musí být vybrána online platební metoda"
-
-#: ../app/models/basket.php:652
+#: ../app/models/basket.php:671 ../app/models/basket.php:691
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Doručovací metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:658
+#: ../app/models/basket.php:672 ../app/models/basket.php:679
+msgid "vyberte jinou metodu"
+msgstr "vyberte jinou metodu"
+
+#: ../app/models/basket.php:678
+#, php-format
+msgid "Platební metoda <em>%s</em> nemůže být vybrána"
+msgstr "Platební metoda <em>%s</em> nemůže být vybrána"
+
+#: ../app/models/basket.php:685
+msgid "Musí být vybrána online platební metoda"
+msgstr "Musí být vybrána online platební metoda"
+
+#: ../app/models/basket.php:697
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 
-#: ../app/models/basket.php:662
+#: ../app/models/basket.php:701
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "Objednávku nelze doručit na danou doručovací adresu"
 
-#: ../app/models/basket.php:663
+#: ../app/models/basket.php:702
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
