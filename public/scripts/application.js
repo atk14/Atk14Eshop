@@ -46,13 +46,13 @@
 				var $navbar = $( ".navbar--hoverable-dropdowns" );
 
 				$navbar.find( $dropdownToggle ).on( "click touchstart", function( e ){
-					console.log( e.type );
+					//console.log( e.type );
 					location.href = $( this ).attr( "href" );
-					$dropdown.trigger( "mouseleave" )
+					//$dropdown.trigger( "mouseleave" )
 					e.stopImmediatePropagation();
 				} );
 				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
-						console.log( e.type );
+						//console.log( e.type );
 						var $this = $( this );
 						$this.addClass( showClass );
 						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
@@ -60,12 +60,12 @@
 						e.stopImmediatePropagation();
 				} );
 				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
-						console.log( e.type );
+						//console.log( e.type );
 						var $this = $(this);
 						$this.removeClass( showClass );
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass );
-				} );	
+				} );
 			}
 		},
 
