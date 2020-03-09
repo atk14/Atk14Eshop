@@ -12,7 +12,7 @@
 		{foreach $main_menu->getItems($current_region) as $item}
 			
 				{assign submenu ""}
-				{if $enable_dropdown_menus && $enable_dropdown_menus!="false"}
+				{if $enable_dropdown_menus && $enable_dropdown_menus!=="false"}
 					{assign submenu $item->getSubmenu(["reasonable_max_items_count" => 20])}
 				{/if}
 
