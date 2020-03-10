@@ -50,6 +50,7 @@
 					location.href = $( this ).attr( "href" );
 					//$dropdown.trigger( "mouseleave" )
 					e.stopImmediatePropagation();
+					return false;
 				} );
 				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
 						//console.log( e.type );
