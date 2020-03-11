@@ -57,7 +57,7 @@
 						var $this = $( this );
 						$this.addClass( showClass );
 						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
-						$this.find( $dropdownMenu ).addClass( showClass );
+						$this.find( $dropdownMenu ).addClass( showClass ).hide().fadeIn( 400 );
 						e.stopImmediatePropagation();
 				} );
 				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
@@ -65,7 +65,7 @@
 						var $this = $(this);
 						$this.removeClass( showClass );
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
-						$this.find( $dropdownMenu ).removeClass( showClass );
+						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
 			}
 		},
