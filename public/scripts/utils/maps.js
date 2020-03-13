@@ -62,6 +62,9 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	var positions = new Array();
 	var storeCardsContainer = $( ".js-stores-cards" );
 	var storeCards = $( ".js-stores-cards .js-store-item");
+	var mapContainer = $( "#" + mapElemId );
+	var enableClusters = mapContainer.data( "enable_clusters" );
+	var clusterDistance = mapContainer.data( "cluster_distance" );
 
 	// Init mapy
 	var stred = SMap.Coords.fromWGS84( 14.4234447, 50.0736203 );
@@ -80,6 +83,24 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	var markerLayer = new SMap.Layer.Marker();
 	mapa.addLayer( markerLayer );
 	markerLayer.enable();
+
+	if( enableClusters ) {
+
+		// We want clusters to have all the same size
+		// https://napoveda.seznam.cz/forum/threads/71496/1  http://jsfiddle.net/592sxtco/6/ 
+		var radius = function() { return 18; }
+
+		var MyCluster = function( id ) {
+			SMap.Marker.Cluster.call( this, id, { radius:radius } );
+			// this._dom.content.style.backgroundColor = "red";
+			// this._dom.circle.style.borderRadius = 0;
+		};
+		MyCluster.prototype = Object.create( SMap.Marker.Cluster.prototype );
+
+		// Auto clusterer
+		var clusterer = new SMap.Marker.Clusterer( mapa, clusterDistance, MyCluster );
+		markerLayer.setClusterer( clusterer );
+	}
 
 	// Urcit posun markeru, pokud je na stejnem miste, jako nejaky jiny
 	// (stejnost na 3 desetinna mista)
@@ -109,7 +130,7 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 		}
 
 		var cardBody = "<div><p class=\"card-title\">" + storeData[ i ].title + "</p>";
-		cardBody += "<address>" + decodeURI( storeData[ i ].address ) + "</address></div>";
+		cardBody += "<address>" + decodeURIComponent( storeData[ i ].address ) + "</address></div>";
 		cardBody += "<a href=\"" + storeData[ i ].detailURL;
 		cardBody += "\" class=\"btn btn-sm btn-primary\">";
 		cardBody += "Prodejna <span class=\"fas fa-arrow-right\"></span></a>";
@@ -150,24 +171,39 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	// Klik na marker
 	mapa.getSignals().addListener( this, "marker-click", function( e ) {
 		var marker = e.target;
-		var id = marker.getId();
-		var numId = parseInt( id.split( "_" )[ 1 ] );
 
-		// Checknout velikost viewportu a nastavit velikost karty
-		var screenWidth = $( window ).width();
+		try {
+	
+			var id = marker.getId();
+			var numId = parseInt( id.split( "_" )[ 1 ] );
 
-		// Neumime se dostat k jedne karte, tak musime u vsech
-		for ( var i = 0; i < cards.length; i++ ) {
-			if ( screenWidth < 400 ) {
-				cards[ i ].setSize( 300, 167 );
-			} else {
-				cards[ i ].setSize( 355, 143 );
+			// Checknout velikost viewportu a nastavit velikost karty
+			var screenWidth = $( window ).width();
+
+			// Neumime se dostat k jedne karte, tak musime u vsech
+			for ( var i = 0; i < cards.length; i++ ) {
+				if ( screenWidth < 400 ) {
+					cards[ i ].setSize( 300, 167 );
+				} else {
+					cards[ i ].setSize( 355, 143 );
+				}
 			}
-		}
 
-		// Obarvit aktivni kartu v seznamu pod mapou
-		storeCards.removeClass( "active" );
-		storeCardsContainer.find( ".js-store-item[data-storeid=" + numId + "]" ).addClass( "active" );
+			// Obarvit aktivni kartu v seznamu pod mapou
+			storeCards.removeClass( "active" );
+			storeCardsContainer.find( ".js-store-item[data-storeid=" + numId + "]" ).addClass( "active" );
+		}
+		catch ( err ) {
+	
+			// Check if we clicked on cluster
+			if( marker._clusterOptions ){
+
+				// Close open card in tha map and deactivate list item
+				var cardCloser = mapContainer.find( " .card .close" );
+				cardCloser.trigger( "click" );
+				storeCards.removeClass( "active" );
+			} 
+		}
 	} );
 
 	// Klik na kartu pod mapou - triggerujeme klik na prislusny marker na mape
@@ -184,7 +220,9 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 		if( marker ){
 			marker.click();
 			//scroll na mapu
-			$( "html, body" ).animate( { scrollTop: $( "#" + mapElemId ).offset().top }, 500 );
+			mapa.setCenterZoom( marker.getCoords(), 14 );
+			mapa.setCenter( marker.getCoords() );
+			$( "html, body" ).animate( { scrollTop: mapContainer.offset().top }, 500 );
 			
 		}
 	} );

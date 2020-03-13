@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-15 19:19+0100\n"
-"PO-Revision-Date: 2020-02-15 19:20+0100\n"
+"POT-Creation-Date: 2020-03-09 12:36+0100\n"
+"PO-Revision-Date: 2020-03-09 12:40+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -93,12 +93,21 @@ msgstr "V této chvíli nejsou žádné novinky"
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
 
-#: ../app/controllers/baskets_controller.php:124
+#: ../app/controllers/baskets_controller.php:128
 msgid "Produkt byl přidán do košíku"
 msgstr "Produkt byl přidán do košíku"
 
-msgid "Košík"
-msgstr "Košík"
+msgid "Slevový kupón"
+msgstr "Slevový kupón"
+
+msgid "slevový kód č."
+msgstr "slevový kód č."
+
+msgid "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
+msgstr "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
+
+msgid "odstranit z košíku"
+msgstr "odstranit z košíku"
 
 #: ../app/helpers/modifier.iobject_type.php:23
 msgid "Obrázek"
@@ -119,11 +128,14 @@ msgstr "Množství"
 msgid "Celkem"
 msgstr "Celkem"
 
-msgid "Back to catalog"
-msgstr "Zpět do katalogu"
+msgid "Košík"
+msgstr "Košík"
 
 msgid "Recalculate basket content"
 msgstr "Přepočítat obsah košíku"
+
+msgid "Back to catalog"
+msgstr "Zpět do katalogu"
 
 msgid "Select shipping and payment"
 msgstr "Vyberte způsob dopravy a platby"
@@ -133,30 +145,6 @@ msgstr "Nákupní košík je prázdný."
 
 msgid "Objednávka nemůže být dokončena"
 msgstr "Objednávka nemůže být dokončena"
-
-msgid "Do košíku jste úspěšně přidali produkt \"%1\"."
-msgstr "Do košíku jste úspěšně přidali produkt \"%1\"."
-
-msgid "Vybrat další produkt"
-msgstr "Vybrat další produkt"
-
-msgid "K pokladně"
-msgstr "K pokladně"
-
-msgid "Opravdu chcete odstranit tento produkt z nákupního košíku?"
-msgstr "Opravdu chcete odstranit tento produkt z nákupního košíku?"
-
-msgid "odstranit z košíku"
-msgstr "odstranit z košíku"
-
-msgid "Slevový kupón"
-msgstr "Slevový kupón"
-
-msgid "slevový kód č."
-msgstr "slevový kód č."
-
-msgid "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
-msgstr "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
 
 msgid "Doprava"
 msgstr "Doprava"
@@ -182,6 +170,18 @@ msgstr "Slevové kupóny / dárkové poukazy"
 
 msgid "Použít kód"
 msgstr "Použít kód"
+
+msgid "Opravdu chcete odstranit tento produkt z nákupního košíku?"
+msgstr "Opravdu chcete odstranit tento produkt z nákupního košíku?"
+
+msgid "Do košíku jste úspěšně přidali produkt \"%1\"."
+msgstr "Do košíku jste úspěšně přidali produkt \"%1\"."
+
+msgid "Vybrat další produkt"
+msgstr "Vybrat další produkt"
+
+msgid "K pokladně"
+msgstr "K pokladně"
 
 msgid "Sleva"
 msgstr "Sleva"
@@ -789,11 +789,11 @@ msgstr "Upravit údaje provozovny"
 msgid "Kontakt"
 msgstr "Kontakt"
 
-#: ../app/forms/application_form.php:228
+#: ../app/forms/application_form.php:230
 msgid "IČ"
 msgstr "IČ"
 
-#: ../app/forms/application_form.php:233
+#: ../app/forms/application_form.php:242
 msgid "DIČ"
 msgstr "DIČ"
 
@@ -1180,17 +1180,17 @@ msgstr "Články"
 msgid "Articles tagged with <em>%s</em>"
 msgstr "Články se štítkem <em>%s</em>"
 
-#: ../app/controllers/baskets_controller.php:36
+#: ../app/controllers/baskets_controller.php:34
 msgid "Takový slevový kupón neexistuje"
 msgstr "Takový slevový kupón neexistuje"
 
-#: ../app/controllers/baskets_controller.php:44
+#: ../app/controllers/baskets_controller.php:42
 msgid "Slevový kupón byl přidán"
 msgstr "Slevový kupón byl přidán"
 
-#: ../app/controllers/baskets_controller.php:72
-#: ../app/controllers/baskets_controller.php:82
-#: ../app/controllers/baskets_controller.php:123
+#: ../app/controllers/baskets_controller.php:76
+#: ../app/controllers/baskets_controller.php:86
+#: ../app/controllers/baskets_controller.php:127
 msgid "Shopping basket"
 msgstr "Nákupní košík"
 
@@ -1202,7 +1202,7 @@ msgstr "Slevový kupón byl odebrán"
 msgid "List of Brands"
 msgstr "Seznam značek"
 
-#: ../app/controllers/card_list_controller.php:64
+#: ../app/controllers/card_list_controller.php:65
 #, php-format
 msgid "Zpět do %s"
 msgstr "Zpět do %s"
@@ -1463,10 +1463,6 @@ msgstr "neaktivní"
 msgid "Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"
 msgstr "Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"
 
-#: ../app/fields/ico_field.php:6
-msgid "IČ by mělo mít 8 číslic"
-msgstr "IČ by mělo mít 8 číslic"
-
 #: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
@@ -1552,96 +1548,104 @@ msgstr "DIČ není zadáno správně"
 msgid "Search term"
 msgstr "Hledat výraz"
 
-#: ../app/forms/application_form.php:62
+#: ../app/forms/application_form.php:64
 msgid "Create"
 msgstr "Vytvořit"
 
-#: ../app/forms/application_form.php:64
+#: ../app/forms/application_form.php:66
 msgid "Show"
 msgstr "Ukázat"
 
-#: ../app/forms/application_form.php:66
+#: ../app/forms/application_form.php:68
 msgid "Search"
 msgstr "Hledat"
 
-#: ../app/forms/application_form.php:68
+#: ../app/forms/application_form.php:70
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: ../app/forms/application_form.php:70
+#: ../app/forms/application_form.php:72
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../app/forms/application_form.php:72
+#: ../app/forms/application_form.php:74
 msgid "Save"
 msgstr "Uložit"
 
-#: ../app/forms/application_form.php:88
+#: ../app/forms/application_form.php:90
 msgid "Search query"
 msgstr "Vyhledávací dotaz"
 
-#: ../app/forms/application_form.php:108
+#: ../app/forms/application_form.php:110
 msgid "Firstname"
 msgstr "Jméno"
 
-#: ../app/forms/application_form.php:114
+#: ../app/forms/application_form.php:116
 msgid "Lastname"
 msgstr "Příjmení"
 
-#: ../app/forms/application_form.php:122
+#: ../app/forms/application_form.php:124
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/application_form.php:146
+#: ../app/forms/application_form.php:148
 msgid "Ulice a č.p."
 msgstr "Ulice a č.p."
 
-#: ../app/forms/application_form.php:156
+#: ../app/forms/application_form.php:158
 msgid "Adresa (2. řádek)"
 msgstr "Adresa (2. řádek)"
 
-#: ../app/forms/application_form.php:164
+#: ../app/forms/application_form.php:166
 msgid "City"
 msgstr "Město"
 
-#: ../app/forms/application_form.php:170
+#: ../app/forms/application_form.php:172
 msgid "State / Province / Region"
 msgstr "Stát / Provincie / Kraj"
 
-#: ../app/forms/application_form.php:176
+#: ../app/forms/application_form.php:178
 msgid "PSČ"
 msgstr "PSČ"
 
-#: ../app/forms/application_form.php:191
+#: ../app/forms/application_form.php:193
 msgid "Země"
 msgstr "Země"
 
-#: ../app/forms/application_form.php:196
+#: ../app/forms/application_form.php:198
 msgid "země"
 msgstr "země"
 
-#: ../app/forms/application_form.php:200
+#: ../app/forms/application_form.php:202
 msgid "Poznámka"
 msgstr "Poznámka"
 
-#: ../app/forms/application_form.php:204
+#: ../app/forms/application_form.php:206
 msgid "Např. číslo patra nebo dveří"
 msgstr "Např. číslo patra nebo dveří"
 
-#: ../app/forms/application_form.php:222
+#: ../app/forms/application_form.php:224
 msgid "Společnost"
 msgstr "Společnost"
 
-#: ../app/forms/application_form.php:253
+#: ../app/forms/application_form.php:234
+msgid "Zadejte platné IČ"
+msgstr "Zadejte platné IČ"
+
+#: ../app/forms/application_form.php:237 ../app/forms/application_form.php:238
+msgid "IČ by mělo mít 8 číslic"
+msgstr "IČ by mělo mít 8 číslic"
+
+#: ../app/forms/application_form.php:262
 msgid "Telefon"
 msgstr "Telefon"
 
-#: ../app/forms/application_form.php:254
+#: ../app/forms/application_form.php:263
 #, php-format
 msgid "Telefonní číslo zadejte ve formátu %s"
 msgstr "Telefonní číslo zadejte ve formátu %s"
 
-#: ../app/forms/application_form.php:277
+#: ../app/forms/application_form.php:286
 msgid "Země ve fakturační adrese a země v DIČ se musí shodovat"
 msgstr "Země ve fakturační adrese a země v DIČ se musí shodovat"
 
@@ -1827,90 +1831,99 @@ msgstr "Galerie"
 msgid "Propagace produktu"
 msgstr "Propagace produktu"
 
-#: ../app/models/basket.php:555
+#: ../app/models/basket.php:573
 msgid "Košík je prázdný"
 msgstr "Košík je prázdný"
 
-#: ../app/models/basket.php:565
+#: ../app/models/basket.php:583
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 
-#: ../app/models/basket.php:567 ../app/models/basket.php:582
+#: ../app/models/basket.php:585 ../app/models/basket.php:600
 msgid "odebrat z košíku"
 msgstr "odebrat z košíku"
 
-#: ../app/models/basket.php:580
+#: ../app/models/basket.php:598
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Produkt <em>%s (%s)</em> není skladem"
 
-#: ../app/models/basket.php:590
+#: ../app/models/basket.php:608
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 
-#: ../app/models/basket.php:592 ../app/models/basket.php:602
-#: ../app/models/basket.php:613
+#: ../app/models/basket.php:610 ../app/models/basket.php:620
+#: ../app/models/basket.php:631
 #, php-format
 msgid "změnit množství na %s"
 msgstr "změnit množství na %s"
 
-#: ../app/models/basket.php:600
+#: ../app/models/basket.php:618
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 
-#: ../app/models/basket.php:611
+#: ../app/models/basket.php:629
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 
-#: ../app/models/basket.php:625
+#: ../app/models/basket.php:643
 #, php-format
 msgid "odstranit voucher"
 msgstr "odstranit voucher"
 
-#: ../app/models/basket.php:633
+#: ../app/models/basket.php:651
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:634 ../app/models/basket.php:640
+#: ../app/models/basket.php:652 ../app/models/basket.php:658
 #, php-format
 msgid "přejít do katalogu"
 msgstr "přejít do katalogu"
 
-#: ../app/models/basket.php:639
+#: ../app/models/basket.php:657
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:646
-msgid "Musí být vybrána online platební metoda"
-msgstr "Musí být vybrána online platební metoda"
-
-#: ../app/models/basket.php:652
+#: ../app/models/basket.php:671 ../app/models/basket.php:691
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Doručovací metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:658
+#: ../app/models/basket.php:672 ../app/models/basket.php:679
+msgid "vyberte jinou metodu"
+msgstr "vyberte jinou metodu"
+
+#: ../app/models/basket.php:678
+#, php-format
+msgid "Platební metoda <em>%s</em> nemůže být vybrána"
+msgstr "Platební metoda <em>%s</em> nemůže být vybrána"
+
+#: ../app/models/basket.php:685
+msgid "Musí být vybrána online platební metoda"
+msgstr "Musí být vybrána online platební metoda"
+
+#: ../app/models/basket.php:697
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 
-#: ../app/models/basket.php:662
+#: ../app/models/basket.php:701
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "Objednávku nelze doručit na danou doručovací adresu"
 
-#: ../app/models/basket.php:663
+#: ../app/models/basket.php:702
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
-#: ../app/models/currency.php:62
+#: ../app/models/currency.php:53
 msgid "Kč"
 msgstr "Kč"
 

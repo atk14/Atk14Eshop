@@ -247,16 +247,16 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$basket = null;
 		if($user){
-			$basket = Basket::FindFirst("user_id",$user,"region_id",$region);
+			$basket = Basket::FindFirst("user_id",$user,"region_id",$region,["use_cache" => true]);
 			if(!$basket && $options["same_basket_in_all_regions"]){
-				$basket = Basket::FindFirst("user_id",$user);
+				$basket = Basket::FindFirst("user_id",$user,["use_cache" => true]);
 			}
 		}elseif($session && ($id = $session->g($session_key))){
-			$basket = Basket::FindFirst("id",$id,"user_id",null);
+			$basket = Basket::FindFirst("id",$id,"user_id",null,["use_cache" => true]);
 		}
 
 		if(!$basket && $options["create_if_not_exists"] && $session && $session->cookiesEnabled()){
-			$basket = Basket::CreateNewRecord4UserAndRegion($user,$region);
+			$basket = Basket::CreateNewRecord4UserAndRegion($user,$region,["use_cache" => true]);
 			if(!$user){
 				$session->s($session_key,$basket->getId());
 			}

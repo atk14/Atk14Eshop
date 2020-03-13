@@ -13,7 +13,7 @@
 						</div>
 					{/if}
 				</td>
-				<td colspan="2" class="text-right table-products__price-summary">
+				<td colspan="2" class="text-right table-products__price-summary" id="js--basket_price_summarization">
 					<table>
 						<tbody>
 							<tr>

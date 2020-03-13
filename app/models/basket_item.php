@@ -33,4 +33,11 @@ class BasketItem extends BasketOrOrderItem {
 		$price = $price_finder->getPrice($this->getProduct(),$this->getAmount(),["return_null_when_price_does_not_exist" => false]);
 		return $price;
 	}
+
+	function setAmount($amount){
+		$amount = (int)$amount;
+		if($amount===$this->getAmount()){ return; }
+		$basket = $this->getBasket();
+		$basket->setProductAmount($this->getProduct(),$amount);
+	}
 }

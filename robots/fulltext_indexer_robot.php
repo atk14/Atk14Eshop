@@ -9,9 +9,9 @@ class FulltextIndexerRobot extends ApplicationRobot {
 		$this->logger->flush();
 
 		$RECIPE_ITEMS = [
+			"Card" => ["conditions" => ["visible","NOT deleted"], "order_by" => "created_at DESC, id DESC"],
 			"Page" => [],
-			"Article" => ["conditions" => ["published_at<=:now"], "bind_ar" => [":now" => $now]],
-			"Card" => ["conditions" => ["visible","NOT deleted"]],
+			"Article" => ["conditions" => ["published_at<=:now"], "bind_ar" => [":now" => $now], "order_by" => "published_at DESC, id DESC"],
 			/*
 			"Category" => [
 				"conditions" => [
@@ -22,7 +22,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 					"(SELECT COUNT(*) FROM categories p WHERE p.id=parent_category_id AND (p.is_filter OR NOT p.visible))=0"
 				]
 			], // */
-			"Store" => ["conditions" => "visible"],
+			"Store" => ["conditions" => "visible", "order_by" => "created_at DESC, id DESC"],
 		];
 
 		foreach($RECIPE_ITEMS as $class => $options){
@@ -38,11 +38,20 @@ class FulltextIndexerRobot extends ApplicationRobot {
 		// - Indexed category must be visible including all its parents
 		// - Indexed category must not be a flter
 		$ids = $this->dbmole->selectIntoArray("
-			SELECT category_id
-			FROM category_cards
+			SELECT
+				c.id
+			FROM
+				category_cards,
+				categories c
 			WHERE
-				card_id IN (SELECT id FROM cards WHERE visible AND NOT deleted) AND
-				category_id IN (SELECT id FROM categories WHERE visible AND NOT is_filter)
+				c.id=category_cards.category_id AND
+				c.visible AND
+				NOT c.is_filter AND
+				(
+					c.parent_category_id IS NULL OR
+					c.parent_category_id NOT IN (SELECT id FROM categories WHERE is_filter)
+				)
+			ORDER BY c.created_at DESC, id DESC
 		");
 		$categories_to_index = [];
 		foreach(Cache::Get("Category",$ids) as $category){

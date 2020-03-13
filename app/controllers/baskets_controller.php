@@ -22,13 +22,7 @@ class BasketsController extends ApplicationController {
 				foreach($basket->getItems() as $item){
 					$id = $item->getId();
 					$req_amount = $d["i$id"];
-					if($req_amount!=$item->getAmount()){
-						if($req_amount>0){
-							$item->s("amount",$req_amount);
-						}else{
-							$item->destroy();
-						}
-					}
+					$item->setAmount($req_amount);
 				}
 
 				if($d["voucher"]){

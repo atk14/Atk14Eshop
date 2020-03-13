@@ -64,3 +64,27 @@ window.UTILS.initSwiper = function() {
 		var swiper = new Swiper( container, initObject );
 	} );
 };
+
+// Filter items in stores list
+window.UTILS.handleStoresFilter = function( e ) {
+	var $ = window.jQuery;
+	e.preventDefault();
+	var searchString = $( "#stores-filter__input" ).val().toLowerCase();
+	var items = $( ".js-stores-cards > .js-store-item" );
+	if ( searchString.length ) {
+		$( "#stores-filter__clear" ).removeClass( "d-none" );
+		items.each( function( i, el ) {
+			var item = $( el );
+			// console.log( "txt", item.textContent );
+			var itemText = item.find( ".js-search-data" ).text();
+			if ( itemText.toLowerCase().indexOf( searchString ) > -1 ) {
+				item.removeClass( "d-none" );
+			} else {
+				item.addClass( "d-none" );
+			}
+		} );
+	} else {
+		$( "#stores-filter__clear" ).addClass( "d-none" );
+		items.removeClass( "d-none" );
+	}
+};

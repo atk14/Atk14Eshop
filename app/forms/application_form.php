@@ -8,6 +8,8 @@ class ApplicationForm extends Atk14Form{
 
 	var $revalidate_zip_automatically = true;
 
+	var $revalidate_company_number_automatically = true;
+
 	/**
 	 * 
 	 */
@@ -224,10 +226,17 @@ class ApplicationForm extends Atk14Form{
 			"required" => $required,
 			"disabled" => $disabled,
 		]));
-		$options["add_company_number"] && $this->add_field("{$prefix}company_number", new IcoField([
+		$options["add_company_number"] && $this->add_field("{$prefix}company_number", new CompanyNumberField([
 			"label" => _("IČ"),
 			"required" => $required,
 			"disabled" => $disabled,
+			"error_messages" => [
+				"invalid" => _("Zadejte platné IČ"),
+			],
+			"format_hints" => [
+				"CZ" => _("IČ by mělo mít 8 číslic"),
+				"SK" => _("IČ by mělo mít 8 číslic"),
+			],
 		]));
 		$options["add_vat_id"] && $this->add_field("{$prefix}vat_id", new VatNumberField([
 			"label" => _("DIČ"),
@@ -282,15 +291,27 @@ class ApplicationForm extends Atk14Form{
 	function clean(){
 		list($err,$d) = parent::clean();
 
-		if($this->revalidate_zip_automatically){
+		foreach(["","delivery_"] as $prefix){
+
 			// Transparent re-validation of address_zip or delivery_address_zip in context of address_country, resp. delivery_address_country
-			foreach(["","delivery_"] as $prefix){
+			if($this->revalidate_zip_automatically){
 				if(is_array($d) && isset($d["{$prefix}address_zip"]) && isset($d["{$prefix}address_country"])){
 					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$err)){
 						$this->set_error("{$prefix}address_zip",$err);
 					}
 				}
 			}
+			
+			// Transparent re-validation of company_number or delivery_company_number in context of address_country, resp. delivery_address_country
+			// (actually, delivery_address_country should never occur)
+			if($this->revalidate_company_number_automatically){
+				if(is_array($d) && isset($d["{$prefix}company_number"]) && isset($d["{$prefix}address_country"])){
+					if(!$this->fields["{$prefix}company_number"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}company_number"],$err)){
+						$this->set_error("{$prefix}company_number",$err);
+					}
+				}
+			}
+
 		}
 
 		return [$err,$d];

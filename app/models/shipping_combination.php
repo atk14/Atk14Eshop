@@ -84,4 +84,97 @@ class ShippingCombination extends ApplicationModel {
 ";
 		return $dbmole->selectBool($q, array(":delivery_method_id" => $delivery_method_id, ":payment_method_id" => $payment_method_id));
 	}
+
+	/**
+	 * Pro nakupni kosik vybere vsechny myslitelne zpusoby dopravy a platby
+	 *
+	 * Jejich vzajemne kombinace se samozrejme dale rozhoduje podle zaznamu v shipping_combinations.
+	 *
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket);
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket,["cash_on_delivery_enabled" => false]);
+	 */
+	static function GetAvailableMethods4Basket($basket,$options = []){
+		$options += [
+			"online_payment_methods_required" => $basket->onlinePaymentMethodRequired(),
+			"cash_on_delivery_enabled" => $basket->cashOnDeliveryEnabled(),
+		];
+
+		$region = $basket->getRegion();
+
+		$conditions = $bind_ar = [];
+		$conditions[] = "active";
+
+		if($region){
+			$conditions[] = "(regions->>:region)::BOOLEAN";
+			$bind_ar[":region"] = $region->getCode();
+		}
+
+		if($options["online_payment_methods_required"]){
+			$conditions[] = "id IN (SELECT delivery_method_id FROM shipping_combinations WHERE payment_method_id IN (SELECT id FROM payment_methods WHERE payment_gateway_id IS NOT NULL".($region ? " AND (regions->>:region)::BOOLEAN" : "")."))";
+		}
+
+		if(!$options["cash_on_delivery_enabled"]){
+			$conditions[] = "id IN (SELECT delivery_method_id FROM shipping_combinations WHERE payment_method_id IN (SELECT id FROM payment_methods WHERE NOT cash_on_delivery".($region ? " AND (regions->>:region)::BOOLEAN" : "")."))";
+		}
+
+		// Tady se mozna prida i tag "envelope_delivery"
+		$_tags = [];
+		foreach(["digital_product"] as $_code){
+			$_tag = Tag::GetInstanceByCode($_code);
+			if(!$_tag){ continue; }
+			if($basket->hasEveryProductTag($_tag)){
+				$_tags[] = $_tag;
+			}
+		}
+		if($_tags){
+			$conditions[] = "required_tag_id IN :required_tags";
+			$bind_ar[":required_tags"] = $_tags;
+		}
+
+		$delivery_methods = [];
+		foreach(DeliveryMethod::FindAll([
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
+		]) as $o){
+			if($tag_required = $o->getRequiredTag()){
+				if(!$basket->hasEveryProductTag($tag_required)){
+					continue;
+				}
+			}
+			$delivery_methods[] = $o;
+		}
+
+		if(!$delivery_methods){
+			return [];
+		}
+
+		//
+
+		$conditions = $bind_ar = [];
+
+		$conditions[] = "active";
+
+		$conditions[] = "(regions->>:region)::BOOLEAN";
+		$bind_ar[":region"] = $region->getCode();
+
+		if($options["online_payment_methods_required"]){
+			// za online platbu se povazuje i bankovni prevod;
+			// ASI-SK-PL-BU je kod u bankovniho prevodu na Slovensku
+			//$conditions[] = "payment_gateway_id IS NOT NULL OR code IN ('cs_banktransfer','eu_banktransfer','ASI-SK-PL-BU')";
+
+			// 2019-09-11 - toto prestava platit - za online platebni metodu povazujeme platbu pres platebni branu (je to v souladu s tim, co je vyse)
+			$conditions[] = "payment_gateway_id IS NOT NULL";
+		}
+
+		if(!$options["cash_on_delivery_enabled"]){
+			$conditions[] = "NOT cash_on_delivery";
+		}
+
+		$conditions[] = "id IN (SELECT payment_method_id FROM shipping_combinations WHERE delivery_method_id IN :delivery_methods)";
+		$bind_ar[":delivery_methods"] = $delivery_methods;
+
+		$payment_methods = PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]);
+
+		return [$delivery_methods,$payment_methods];
+	}
 }

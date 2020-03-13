@@ -1,42 +1,34 @@
 {assign var=gallery_items value=$gallery->getGalleryItems()}
 
+{dropdown_menu clearfix=false}
+	{a action="edit" id=$gallery}{!"edit"|icon} {t}Edit{/t}{/a}
+{/dropdown_menu}
+
 <h1>{$page_title}</h1>
 
 <p>
-{$gallery->getDescription()|default:"{t}bez popisu{/t}"}
+{!$gallery->getDescription()|h|default:"<em>{t}bez popisu{/t}</em>"}
 </p>
 
-{if !$gallery_items}
+<div class="drop-zone" data-dragdrop-hint="{t}Drag files here{/t}">
 
-	<p>{t}Fotogalerie zatím neobsahuje žádný obrázek.{/t}</p>
+<h3>{t}Photos{/t}</h3>
 
-{else}
+<div class="js--image_gallery_wrap">
 
-	<ul class="list-group list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
-	{foreach $gallery->getGalleryItems() as $item}
+{render partial="shared/xhr_upload_image_form" url="{link_to action="gallery_items/create_new" gallery_id=$gallery _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
 
-		<li class="list-group-item clearfix" data-id="{$item->getId()}">
+<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">{trim}
+	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
+{/trim}</ul>
 
-				<div class="pull-left" style="padding-right: 1em;">
-					{render partial="shared/list_thumbnail" image=$item->getImageUrl()}
-				</div>
+</div> {* class="js--image_gallery_wrap" *}
 
-				<div class="pull-right">
-					{dropdown_menu}
-						{a action="gallery_items/edit" id=$item}{!"pencil-alt"|icon} {t}Upravit{/t}{/a}
-						{a_destroy controller="gallery_items" id=$item}{!"trash-alt"|icon} {t}Smazat{/t}{/a_destroy}
-					{/dropdown_menu}
-				</div>
+</div> {* class="drop-zone" *}
 
-				<strong>{a action="gallery_items/edit" id=$item _title="{t}editovat{/t}"}{$item->getTitle()|default:"{t}bez titulku{/t}"}{/a}</strong><br>
-				{$item->getDescription()|default:"{t}bez popisu{/t}"}
-		</li>
-	{/foreach}
-	</ul>
-
-{/if}
-
+{*
 <h3>{t}Přidat fotografii{/t}</h3>
 
 {render partial="shared/form" form=$create_item_form}
+*}
 

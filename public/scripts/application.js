@@ -46,26 +46,27 @@
 				var $navbar = $( ".navbar--hoverable-dropdowns" );
 
 				$navbar.find( $dropdownToggle ).on( "click touchstart", function( e ){
-					console.log( e.type );
+					//console.log( e.type );
 					location.href = $( this ).attr( "href" );
-					$dropdown.trigger( "mouseleave" )
+					//$dropdown.trigger( "mouseleave" )
 					e.stopImmediatePropagation();
+					return false;
 				} );
 				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
-						console.log( e.type );
+						//console.log( e.type );
 						var $this = $( this );
 						$this.addClass( showClass );
 						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
-						$this.find( $dropdownMenu ).addClass( showClass );
+						$this.find( $dropdownMenu ).addClass( showClass ).hide().fadeIn( 400 );
 						e.stopImmediatePropagation();
 				} );
 				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
-						console.log( e.type );
+						//console.log( e.type );
 						var $this = $(this);
 						$this.removeClass( showClass );
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
-						$this.find( $dropdownMenu ).removeClass( showClass );
-				} );	
+						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
+				} );
 			}
 		},
 
@@ -223,7 +224,7 @@
 			// Action-specific code
 			edit: function() {
 				var $basketForm = $( "#form_baskets_edit" );
-				var autoRefreshinterval = 2000; // 2 sec
+				var autoRefreshinterval = 1000; // 1 sec
 
 				// Tlacitka +/- editace mnozstvi
 				$basketForm.on( "click", ".js-stepper button[data-spinner-button]", function( e ) {
@@ -364,6 +365,28 @@
 			// Action-specific code
 			index: function() {
 				UTILS.initMultiMap( "allstores_map" );
+				
+				// Filter items in stores list
+				$( "#stores-filter__input" ).on( "keyup blur", function( e ) {
+					if( e.type === "keyup" ) {
+						var code = e.charCode || e.keyCode;
+						if( code === 27 ){
+							$( "#stores-filter__input" ).val( "" );
+						}
+					}
+					UTILS.handleStoresFilter( e );
+				} );
+
+				// Clear navigation bar items filter
+				$( "#stores-filter__clear" ).on( "click", function( e ) {
+					$( "#stores-filter__input" ).val( "" );
+					UTILS.handleStoresFilter( e );
+				} );
+
+				// Filter items in navigation bar
+				$( "#stores-filter__submit" ).on( "click", function( e ) {
+					UTILS.handleStoresFilter( e );
+				} );
 			},
 
 			// Action-specific code

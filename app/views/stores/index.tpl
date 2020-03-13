@@ -31,7 +31,20 @@ var storeLocatorData = [
 			{/javascript_tag}
 
 	
-	<div class="stores-index__map" id="allstores_map"></div>
+	{*
+		Map container: 
+		data-enable_clusters: set true to enable marker clusters
+		data-cluster_distance: set max distance for markers to make cluster
+	*}
+	<div class="stores-index__map" id="allstores_map" data-enable_clusters="true" data-cluster_distance="30"></div>
+
+	{if $stores|count > 5}
+		<form class="form-inline stores-filter" id="stores-filter" autocomplete="off">
+			<input class="form-control" id="stores-filter__input" placeholder="{t}Search stores{/t}">
+			<button class="btn btn-link d-none" id="stores-filter__clear" tabindex="-1" type="reset">{!"times"|icon}</button>
+			<button class="btn btn-link" id="stores-filter__submit" tabindex="-1" type="submit">{!"search"|icon}</button>
+		</form>
+	{/if}
 
 	<div class="card-deck card-deck--sized-4 js-stores-cards">
 		{render partial="store_item" from=$stores item=store}

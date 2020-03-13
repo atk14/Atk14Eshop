@@ -45,7 +45,7 @@
 		padding-top: 45%;
 		min-height: 300px;
 		background-color: beige;
-		margin-bottom: $grid-gutter-width/2;
+		margin-bottom: $grid-gutter-width;
 	}
 	
 }
@@ -56,6 +56,34 @@
 	height: 25vw;
 	min-height: 300px;
 	margin-bottom: $grid-gutter-width;
+	.cluster {
+		div {
+			border: none !important;
+			// recommended: bg color same as map marker image color
+			background-color: #e70000 !important;
+			color: white !important;
+			img {
+				display: none;
+			}
+		}
+	}
+}
+
+.stores-filter {
+	margin-bottom: $grid-gutter-width/2;
+	margin-top: 0 - $grid-gutter-width/2;
+	input.form-control {
+		&:focus {
+			box-shadow: none;
+		}
+		@include media-breakpoint-only(xs){
+			width: calc(100% - 90px);
+		}
+	}
+	@include media-breakpoint-only(xs){
+		flex-wrap: nowrap;
+		justify-content: space-between;
+	}
 }
 
 // Karta na mape
@@ -70,6 +98,7 @@
 	background-color: white;
 	box-shadow: 2px 2px 20px 0px rgba(0,0,0,0.6) !important;
 	border: none !important;
+	margin-bottom: 16px;
 	.card-header {
 		display: block;
 		flex-basis: $cardHeight;
