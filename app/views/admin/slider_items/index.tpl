@@ -10,8 +10,8 @@
 					<div>
 					{render partial="shared/list_thumbnail" image=$slider_item->getImageUrl()}
 					{$slider_item->getTitle()|default:$mdash}
-					{if !$slider_item->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 					</div>
+					{if !$slider_item->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 					<div>
 						{dropdown_menu}
 							{a action="slider_items/edit" id=$slider_item}{icon glyph="edit"} {t}Upravit{/t}{/a}
