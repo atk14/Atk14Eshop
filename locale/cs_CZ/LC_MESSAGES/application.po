@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-09 12:36+0100\n"
-"PO-Revision-Date: 2020-03-09 12:40+0100\n"
+"POT-Creation-Date: 2020-03-16 10:16+0100\n"
+"PO-Revision-Date: 2020-03-16 10:17+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -736,6 +736,15 @@ msgstr "Správa objektů"
 msgid "Edit links"
 msgstr "Editovat odkazy"
 
+msgid "Edit page"
+msgstr "Editace stránky"
+
+msgid "Create a subpage"
+msgstr "Vytvořit podstránku"
+
+msgid "List of pages"
+msgstr "Seznam stránek"
+
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
 
@@ -1007,6 +1016,9 @@ msgstr "V současné době nemáme žádnou prodejnu."
 
 msgid "Otevřeno"
 msgstr "Otevřeno"
+
+msgid "Search stores"
+msgstr "Vyhledat prodejny"
 
 msgid "zavřeno"
 msgstr "zavřeno"
@@ -3744,9 +3756,6 @@ msgstr "do"
 
 #~ msgid "The page has been created successfully"
 #~ msgstr "Stránka byla úspěšně vytvořena"
-
-#~ msgid "Edit page"
-#~ msgstr "Editace stránky"
 
 #~ msgid "New product variant"
 #~ msgstr "Nová varianta produktu"

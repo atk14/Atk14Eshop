@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 11:46+0100\n"
-"PO-Revision-Date: 2020-02-23 11:50+0100\n"
+"POT-Creation-Date: 2020-03-16 10:16+0100\n"
+"PO-Revision-Date: 2020-03-16 10:18+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -79,13 +79,17 @@ msgstr "Prostý text"
 msgid "No mail has been sent"
 msgstr "Žádný e-mail nebyl odeslán"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:5
-msgid "Enter valid phone number (+420.605123456)"
-msgstr "Zadejte platné telefonní číslo (+420.605123456)"
-
 #: ../vendor/atk14/phone-field/src/phone_field.php:7
-msgid "Enter phone number in format +420.605123456"
-msgstr "Zadejte telefonní číslo ve formátu +420.605123456"
+msgid "Enter phone number in format %sample_phone_number%"
+msgstr "Zadejte telefonní číslo ve formátu %sample_phone_number%"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:18
+msgid "Enter valid phone number (%sample_phone_number%)"
+msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:19
+msgid "Enter phone number"
+msgstr "Zadejte telefonní číslo"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
@@ -150,3 +154,9 @@ msgstr "Zadejte prosím platné PSČ"
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:60
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Zadejte PSČ ve formátu NNN NN"
+
+#~ msgid "Enter valid phone number (+420.605123456)"
+#~ msgstr "Zadejte platné telefonní číslo (+420.605123456)"
+
+#~ msgid "Enter phone number in format +420.605123456"
+#~ msgstr "Zadejte telefonní číslo ve formátu +420.605123456"
