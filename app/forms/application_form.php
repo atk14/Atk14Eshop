@@ -247,12 +247,12 @@ class ApplicationForm extends Atk14Form{
 	}
 
 	function _add_phone($options = []){
-		$sample_phone = "+420.605123456";
-		$default_country_code = "420";
+		$sample_phone = "+420 605 123 456";
+		$default_country_code = "+420";
 
 		if(isset($this->controller) && isset($this->controller->current_region) && $this->controller->current_region->getCode()=="SK"){
-			$sample_phone = "+421.905123456";
-			$default_country_code = "421";
+			$sample_phone = "+421 905 123 456";
+			$default_country_code = "+421";
 		}
 
 		$options += [

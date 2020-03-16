@@ -170,7 +170,7 @@
 				{$order->getDeliveryAddressZip()}<br>
 				{$order->getDeliveryAddressCountry()|to_country_name}<br>
 				{if $order->getDeliveryPhone()}
-					{$order->getDeliveryPhone()|default:$mdash}
+					{$order->getDeliveryPhone()|display_phone|default:$mdash}
 				{/if}
 			</p>
 		</div>

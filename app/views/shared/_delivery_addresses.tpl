@@ -16,7 +16,7 @@
 				{if $da->getAddressNote()}
 					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
 				{/if}
-				{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}
+				{t}telefon:{/t} {$da->getPhone()|display_phone|default:$mdash}
 			</div>
 			<div class="card-footer card__actions justify-content-start">
 				{capture assign="confirm"}{t escape=false}Doručovací adresa bude smazána. Pokračovat?{/t}{/capture}

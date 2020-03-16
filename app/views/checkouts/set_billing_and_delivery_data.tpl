@@ -23,7 +23,7 @@
 				{if $da->getAddressNote()}
 					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
 				{/if}
-				{t}telefon:{/t} {!$da->getPhone()|h|default:"&mdash;"}
+				{t}telefon:{/t} {$da->getPhone()|display_phone|default:$mdash}
 			</div>
 			<div class="card-footer card__actions justify-content-start">
 				<button class="js--predefined-address card__action btn btn-primary btn-sm" data-json="{$da->toJson()}">{!"check"|icon} <span>{t}Použít{/t}</span></button>
