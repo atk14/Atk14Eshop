@@ -1,7 +1,7 @@
 <?php
 class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 
-	use TraitGetInstanceByCode;
+	use TraitCodebook;
 	use TraitRegions;
 
 	/**

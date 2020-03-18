@@ -396,6 +396,48 @@ class Order extends BasketOrOrder {
 		return $order_history;
 	}
 
+	function isPaid(){
+		if($order_status = $this->getOrderStatus()){
+			if(in_array($order_status->getCode(),OrderStatus::$Codes_Paid)){
+				return true;
+			}
+		}
+
+		$cnt = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM (
+				SELECT id FROM order_history WHERE order_id=:id AND order_status_id IN (SELECT id FROM order_statuses WHERE code IN :codes)
+				UNION
+				SELECT id FROM payment_transactions WHERE order_id=:id AND payment_status_id=(SELECT id FROM payment_statuses WHERE code=:payment_status_paid)
+			)q
+		",[
+			":id" => $this,
+			":codes" => OrderStatus::$Codes_Paid,
+			":payment_status_paid" => "paid",
+		]);
+		return $cnt>0;
+	}
+
+	/**
+	 * Muze dojit k plneni objednavky?
+	 *
+	 * Toto je uzitecny test pro objednavky digitalnich produktu.
+	 */
+	function canBeFulfilled(){
+		$cnt_cancelled = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM order_history WHERE order_id=:id AND order_status_id IN (SELECT id FROM order_statuses WHERE code IN :codes)
+		",[
+			":id" => $this,
+			":codes" => ["cancelled","returned_money"]
+		]);
+		$cnt_processing = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM order_history WHERE order_id=:id AND order_status_id IN (SELECT id FROM order_statuses WHERE code IN :codes)
+		",[
+			":id" => $this,
+			":codes" => ["processing"]
+		]);
+		return $cnt_cancelled===0 && ($this->isPaid() || $cnt_processing>0);
+	}
+
 	/**
 	 * Nastavi responsibleUserId a zaradi patricny zaznam do tabulky order_history
 	 */

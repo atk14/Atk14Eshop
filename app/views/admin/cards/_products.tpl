@@ -16,6 +16,11 @@
 				{$product->getCatalogId()}<br>
 				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong>
 				{if !$product->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
+
+				{if $product->getCard()->containsTag(Tag::GetInstanceByCode("digital_product"))}
+					{assign digital_contents DigitalContent::FindAll("product_id",$product,"deleted",false)}
+					<br>{t}soubory ke stažení:{/t} {a action="digital_contents/index" product_id=$product}{$digital_contents|count}{/a}
+				{/if}
 			</li>
 		{/foreach}
 	</ul>

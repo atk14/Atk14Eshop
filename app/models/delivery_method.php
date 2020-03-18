@@ -1,6 +1,7 @@
 <?php
 class DeliveryMethod extends ApplicationModel implements Rankable, Translatable {
 
+	use TraitCodebook;
 	use TraitRegions;
 
 	/**

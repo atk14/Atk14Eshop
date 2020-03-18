@@ -155,6 +155,25 @@ class AdminForm extends ApplicationForm{
 		return $this->add_field("visible", new BooleanField($options));
 	}
 
+	function add_active_field($options = array()){
+		$options += [
+			"label" => _("Is active?"),
+			"required" => false,
+			"initial" => true,
+		];
+
+		$this->add_field("active", new BooleanField($options));
+	}
+
+	function add_regions_field($options = []){
+		$options += [
+			"label" => _("Oblasti"),
+			"json_encode" => true,
+		];
+
+		$this->add_field("regions", new RegionsField($options));
+	}
+
 	function add_vat_rate_id_field($options = array()){
 		$vat_payer = SystemParameter::ContentOn("merchant.vat_payer");
 		$options += array(
