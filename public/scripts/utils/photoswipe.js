@@ -40,8 +40,14 @@ window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 								item.title = figureEl.find( "figcaption" ).html();
 								item.description = "description";
 						}
+						
+						if ( linkEl.data( "minithumb" ) ) {
 
-						if ( linkEl.find( "img" ).length > 0 ) {
+							// Thumbnail url for zooming - little with same aspect ratio as big image
+							// Used in cases where displayed thumb has different asp. ratio than big image
+							item.msrc = linkEl.data( "minithumb" );
+						}
+						else if ( linkEl.find( "img" ).length > 0 ) {
 
 								// <img> thumbnail element, retrieving thumbnail url
 								item.msrc = linkEl.find( "img" ).attr( "src" );
@@ -142,7 +148,10 @@ window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 										rect = thumbnail.getBoundingClientRect();
 
 								return { x:rect.left, y:rect.top + pageYScroll, w:rect.width };
-						}
+						},
+
+						showHideOpacity:true,
+						//showAnimationDuration:0
 
 				};
 
