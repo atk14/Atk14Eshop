@@ -33,7 +33,7 @@ class TagsForm extends AdminForm{
 			"gray" => _("gray"),
 			"gray-dark" => _("dark gray"),
 		) as $color => $label){
-			$choices["$color"] = "<span class=\"color-sample bg-$color\"></span> $label";
+			$choices["$color"] = "<span class=\"color-sample bg-$color frontend-bg-$color\"></span> $label";
 		}
 		$this->add_field("color", new ChoiceField([
 			"label" => _("Color"),

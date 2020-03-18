@@ -52,6 +52,18 @@ gulp.task( "styles-admin", function() {
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
+gulp.task( "styles-from-frontend", function() {
+	return gulp.src( ["public/admin/styles/shared/frontend-styles.scss"] )
+		.pipe( $.sourcemaps.init() )
+		.pipe( $.sass() )
+		.pipe( $.autoprefixer( { grid: true } ) )
+		.pipe( $.cssnano() )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
+		.pipe( gulp.dest( "public/admin/dist/styles" ) )
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
+} );
+
 gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
@@ -139,6 +151,7 @@ var buildTasks = [
 	"lint-admin",
 	"styles-admin",
 	"styles-vendor-admin",
+	"styles-from-frontend",
 	"scripts-admin",
 	"copy-admin"
 ];
