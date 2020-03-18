@@ -166,8 +166,7 @@
 				{if $order->getDeliveryAddressStreet2()}
 							{$order->getDeliveryAddressStreet2()}<br>
 				{/if}
-				{$order->getDeliveryAddressCity()}<br>
-				{$order->getDeliveryAddressZip()}<br>
+				{$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
 				{$order->getDeliveryAddressCountry()|to_country_name}<br>
 				{if $order->getDeliveryPhone()}
 					{$order->getDeliveryPhone()|display_phone|default:$mdash}
@@ -186,8 +185,7 @@
 				{if $order->getAddressStreet2()}
 					{$order->getAddressStreet2()}<br>
 				{/if}
-				{$order->getAddressCity()}<br>
-				{$order->getAddressZip()}<br>
+				{$order->getAddressZip()} {$order->getAddressCity()}<br>
 				{$order->getAddressCountry()|to_country_name}<br>
 				{if $order->getCompanyNumber() || $order->getVatId()}
 					{t}IČ:{/t} {$order->getCompanyNumber()}<br>

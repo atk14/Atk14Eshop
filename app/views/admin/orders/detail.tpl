@@ -77,6 +77,7 @@
 				{else}
 					<em>{t}nákup bez registrace{/t}</em><br>
 				{/if}
+				{t}Jméno:{/t} {$order->getFirstname()} {$order->getLastname()}<br>
 				{t}E-mail:{/t} {$order->getEmail()}<br>
 				{t}Telefon:{/t} {$order->getPhone()|default:$mdash}
 			</td>

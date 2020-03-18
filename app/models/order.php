@@ -82,6 +82,15 @@ class Order extends BasketOrOrder {
 		return $incl_vat ? $this->g("delivery_fee_incl_vat") : $this->g("delivery_fee");
 	}
 
+	function getPhone(){
+		if($phone = $this->g("phone")){
+			return $phone;
+		}
+		if($user = $this->getUser()){
+			return $user->getPhone();
+		}
+	}
+
 	function getPhones() {
 		$out = [$this->getPhone(),$this->getDeliveryPhone()];
 		$out = array_filter($out);
