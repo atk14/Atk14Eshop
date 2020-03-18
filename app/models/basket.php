@@ -779,6 +779,8 @@ class Basket extends BasketOrOrder {
 			$values["creation_notified"] = false;
 		}
 
+		$values["integrity_key"] = (string)$this->getId();
+
 		$order = Order::CreateNewRecord($values);
 		//$order->setNewOrderStatus(OrderStatus::DetermineInitialStatus($values["payment_method_id"])->getCode());
 

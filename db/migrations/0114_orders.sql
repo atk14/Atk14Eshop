@@ -12,6 +12,9 @@ CREATE TABLE orders (
 	--
 	order_label_id INTEGER,
 	--
+	-- control mechanism to avoid duplicate orders creation from the same basket
+	integrity_key VARCHAR(255),
+	--
 	-- fakturacni udaje
 	firstname VARCHAR(255),
 	lastname VARCHAR(255),
@@ -86,6 +89,7 @@ CREATE TABLE orders (
 	updated_at TIMESTAMP,
 	--
 	CONSTRAINT unq_orders_orderno UNIQUE (order_no),
+	CONSTRAINT unq_orders_integritykey UNIQUE(integrity_key),
 	CONSTRAINT chk_orders_pricetopay CHECK (price_to_pay >= 0.0),
 	CONSTRAINT chk_orders_creationnotified CHECK (((creation_notified IS NULL OR creation_notified=FALSE) AND creation_notified_at IS NULL) OR (creation_notified=TRUE AND creation_notified_at IS NOT NULL)),
 	CONSTRAINT chk_orders_deliveryfees CHECK ((delivery_fee IS NOT NULL AND delivery_fee_incl_vat IS NOT NULL) OR (delivery_fee IS NULL AND delivery_fee_incl_vat IS NULL)),

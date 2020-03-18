@@ -3,6 +3,8 @@
  *
  * @fixture regions
  * @fixture users
+ * @fixture delivery_methods
+ * @fixture payment_methods
  */
 class TcBasket extends TcBase {
 
@@ -52,5 +54,27 @@ class TcBasket extends TcBase {
 		$this->assertEquals("Biskupcova 19",$basket->g("delivery_address_street"));
 		$this->assertEquals("Ambrozova 9",$basket->g("address_street"));
 		$basket->destroy();
+	}
+
+	function test_createOrder_integrity_key(){
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+		$basket->s(array(
+			"delivery_method_id" => $this->delivery_methods["personal"],
+			"payment_method_id" => $this->payment_methods["cash_on_delivery"]
+		));
+
+		$order = $basket->createOrder();
+		$this->assertEquals((string)$basket->getId(),$order->getIntegrityKey());
+
+		// another try to create new order from the same basket must fail with an exception
+		$expcetion_thrown = false;
+		try {
+			@$order = $basket->createOrder();
+		}catch(Exception $e){
+			$expcetion_thrown = true;
+		}
+		$this->assertEquals(true,$expcetion_thrown);
 	}
 }
