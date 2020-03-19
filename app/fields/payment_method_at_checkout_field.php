@@ -6,31 +6,19 @@ class PaymentMethodAtCheckoutField extends ChoiceFieldWithImages {
 
 	function __construct($options = []){
 		$options += [
-			"online_payment_methods_required" => false,
+			"basket" => null,
 		];
 
-		$this->online_payment_methods_required = $options["online_payment_methods_required"];
-		unset($options["online_payment_methods_required"]);
+		$this->basket = $options["basket"];
 
 		parent::__construct($options);
 	}
 
 	function getChoices($options){
-		$conditions = $bind_ar = [];
-
-		$conditions[] = "active";
-
-		$conditions[] = "(regions->>:region)::BOOLEAN";
-		$bind_ar[":region"] = $options["region"]->getCode();
-
-		if($this->online_payment_methods_required){
-			// za online platbu se povazuje i bankovni prevod;
-			// ASI-SK-PL-BU je kod u bankovniho prevodu na Slovensku
-			$conditions[] = "payment_gateway_id IS NOT NULL OR code IN ('cs_banktransfer','eu_banktransfer','ASI-SK-PL-BU')";
-		}
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($this->basket);
 
 		$choices = [];
-		foreach(PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]) as $o){
+		foreach($payment_methods as $o){
 			$choices[$o->getId()] = new PaymentMethodChoice($o, $options);
 		}
 		return $choices;
@@ -38,6 +26,7 @@ class PaymentMethodAtCheckoutField extends ChoiceFieldWithImages {
 }
 
 class PaymentMethodChoice {
+
   function __construct($pm, $options) {
     $this->options = $options;
     $this->pm = $pm;
