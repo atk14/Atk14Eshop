@@ -1,10 +1,15 @@
 {*
  * {render partial="shared/order_status" order=$order}
  * {render partial="shared/order_status" order=$order lowerize=true}
+ *
+ * {render partial="shared/order_status" order_status=$order_status}
  *}
 
-{assign order_status $order->getOrderStatus()}
-{assign order_status_str $order->getOrderStatus()}
+{if $order}
+	{assign order_status $order->getOrderStatus()}
+{/if}
+
+{assign order_status_str $order_status->toString()}
 {if $lowerize}
 	{assign order_status_str $order_status_str|lower}
 {/if}

@@ -1,7 +1,7 @@
 <?php
 class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 
-	use TraitCodebook;
+	use TraitGetInstanceByCode; //TraitCodebook it cannot be used; tests (eg. in test/models/tc_order.php) are failing
 	use TraitRegions;
 
 	/**

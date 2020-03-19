@@ -13,3 +13,4 @@ cash_on_delivery:
   code: "cod",
   price: 75.238
   price_incl_vat: 79.0
+  cash_on_delivery: true

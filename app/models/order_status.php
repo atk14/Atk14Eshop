@@ -2,6 +2,7 @@
 class OrderStatus extends ApplicationModel implements Translatable {
 
 	static $Codes_Paid = ["payment_accepted"];
+	static $Codes_NotPaid = ["payment_failed","returned_money"];
 
 	use TraitGetInstanceByCode; // $status = OrderStatus::GetInstanceByCode("new");
 
