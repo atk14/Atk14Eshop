@@ -5,4 +5,6 @@
 
 {render partial="order_statuses/$order_status_code.html"}
 
+{render partial="digital_contents_notice.html"}
+
 {render partial="order_status_check_notice.html"}

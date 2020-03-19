@@ -26,6 +26,8 @@ class OrdersController extends ApplicationController {
 			":spec_key" => $spec_key,
 			":order" => $order,
 		]);
+
+		$this->tpl_data["has_digital_contents"] = !!DigitalContent::GetInstancesByOrder($order);
 	}
 
 	function finish(){

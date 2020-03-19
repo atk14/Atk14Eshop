@@ -150,6 +150,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["delivery_method"] = $delivery_method = $order->getDeliveryMethod();
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
+		$this->tpl_data["has_digital_contents"] = !!DigitalContent::GetInstancesByOrder($order);
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
 
 		if($order_status->getBccEmail()){
