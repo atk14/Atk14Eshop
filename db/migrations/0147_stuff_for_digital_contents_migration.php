@@ -2,14 +2,16 @@
 class StuffForDigitalContentsMigration extends ApplicationMigration {
 
 	function up(){
-		$tag = Tag::CreateNewRecord([
+		($tag = Tag::GetInstanceByCode("digital_product")) ||
+		($tag = Tag::CreateNewRecord([
 			"code" => "digital_product",
 			"tag" => "digital product",
 			"tag_localized_en" => "digital product",
 			"tag_localized_cs" => "digitální produkt", 
-		]);
+		]));
 
-		$digital_delivery = DeliveryMethod::CreateNewRecord([
+		($digital_delivery = DeliveryMethod::GetInstanceByCode("digital_delivery")) ||
+		($digital_delivery = DeliveryMethod::CreateNewRecord([
 			"code" => "digital_delivery",
 			"label_cs" => "Stažení digitálního produktu",
 			"label_en" => "Digital product download",
@@ -18,11 +20,12 @@ class StuffForDigitalContentsMigration extends ApplicationMigration {
 			"price_incl_vat" => 0,
 			"regions" => '{"DEFAULT": true}',
 			"required_tag_id" => $tag,
-		]);
+		]));
 
 		$bank_transfer = PaymentMethod::GetInstanceByCode("bank_transfer");
 		
 		if($bank_transfer){
+			ShippingCombination::FindFirst("delivery_method_id",$digital_delivery,"payment_method_id",$bank_transfer) ||
 			ShippingCombination::CreateNewRecord([
 				"delivery_method_id" => $digital_delivery,
 				"payment_method_id" => $bank_transfer,
