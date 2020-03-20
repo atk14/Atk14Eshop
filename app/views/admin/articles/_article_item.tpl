@@ -4,7 +4,7 @@
 	<td class="item-title">{$article->getTitle()}</td>
 	<td class="item-author">{$article->getAuthor()->getLogin()}</td>
 	<td class="item-published"><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>
-	<td class="item-tags">{to_sentence var=$article->getTags() words_connector=" , " last_word_connector=" , "}</td>
+	<td class="item-tags">{render partial="shared/tags" tags=$article->getTags()}</td>
 	<td class="item-actions text-right">
 		{capture assign=confirm}{t title=$article->getTitle()|h escape=false}Are you sure to delete article item
 %1?{/t}{/capture}

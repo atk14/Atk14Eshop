@@ -10,11 +10,14 @@ class ProductsController extends AdminController {
 			$price = $d["price"];
 			$stockcount = $d["stockcount"];
 			$image_url = $d["image_url"];
+			$tags = $d["tags"];
 			unset($d["price"]);
 			unset($d["stockcount"]);
 			unset($d["image_url"]);
+			unset($d["tags"]);
 
 			$product = $this->card->createProduct($d);
+			$product->setTags($tags);
 			if(!$this->card->hasVariants()){
 				$this->card->s("has_variants",true);
 			}
@@ -45,10 +48,14 @@ class ProductsController extends AdminController {
 
 		$this->_save_return_uri();
 		$this->form->set_initial($product);
+		$this->form->set_initial("tags",$product->getTags());
 
 		if ($this->request->post() && ($d = $this->form->validate($this->params))) {
+			$tags = $d["tags"];
+			unset($d["tags"]);
 			if($this->form->changed()){
 				$product->s($d);
+				$product->setTags($tags);
 				$this->flash->success(_("Changes have been saved"));
 			}
 			$this->_redirect_back(array(

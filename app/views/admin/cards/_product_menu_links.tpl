@@ -18,7 +18,7 @@
 	{/if}
 {/foreach}
 
-{if $card->containsTag(Tag::GetInstanceByCode("digital_product"))}
+{if $product->containsTag(Tag::GetInstanceByCode("digital_product"))}
 	{a action="digital_contents/index" product_id=$product}{!"cloud-download-alt"|icon} {t}Soubory ke stažení{/t}{/a}
 {/if}
 

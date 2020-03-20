@@ -5,6 +5,9 @@
  * @fixture users
  * @fixture delivery_methods
  * @fixture payment_methods
+ * @fixture cards
+ * @fixture products
+ * @fixture tags
  */
 class TcBasket extends TcBase {
 
@@ -76,5 +79,42 @@ class TcBasket extends TcBase {
 			$expcetion_thrown = true;
 		}
 		$this->assertEquals(true,$expcetion_thrown);
+	}
+
+	function test_hasEveryProductTag(){
+		$tag = $this->tags["fun"];
+
+		$tea_card = $this->cards["tea"];
+		$book_card = $this->cards["book"];
+
+		$black_tea = $this->products["black_tea"];
+		$green_tea = $this->products["green_tea"];
+		$book = $this->products["book"];
+
+		//
+
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+		$this->assertFalse($basket->hasEveryProductTag($tag));
+
+		$basket->addProduct($black_tea);
+		$this->assertFalse($basket->hasEveryProductTag($tag));
+
+		$black_tea->addTag($tag);
+		$this->assertTrue($basket->hasEveryProductTag($tag));
+
+		$basket->addProduct($book);
+		$this->assertFalse($basket->hasEveryProductTag($tag));
+
+		$book->addTag($tag);
+		$this->assertFalse($basket->hasEveryProductTag($tag)); // it's because the book is not variant product
+
+		$book_card->addTag($tag);
+		$this->assertTrue($basket->hasEveryProductTag($tag));
+
+		$basket->addProduct($green_tea);
+		$this->assertFalse($basket->hasEveryProductTag($tag));
+
+		$tea_card->addTag($tag);
+		$this->assertTrue($basket->hasEveryProductTag($tag));
 	}
 }
