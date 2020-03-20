@@ -12,7 +12,7 @@ class CardCloningController extends AdminController {
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$values = $card->toArray();
-			$forbidden = ["id","visible","deleted","created_by_user_id","updated_by_user_id","created_at","updated_at"];
+			$forbidden = ["id","visible","deleted","has_variants","created_by_user_id","updated_by_user_id","created_at","updated_at"];
 			foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
 				$forbidden[] = "slug_$l";
 				$values["name_$l"] = $d["name_$l"];
@@ -33,10 +33,11 @@ class CardCloningController extends AdminController {
 			$forbidden = ["id","created_by_user_id","updated_by_user_id","created_at","updated_at","rank"];
 			$forbidden = array_combine($forbidden,$forbidden);
 
-			$product = Product::CreateNewRecord([
-				"catalog_id" => $d["catalog_id"],
-				"card_id" => $new_card,
-			]);
+			$product_values = ["card_id" => $new_card];
+			foreach(["catalog_id","vat_rate_id","unit_id","consider_stockcount"] as $k){
+				$product_values[$k] = $d[$k];
+			}
+			$product = Product::CreateNewRecord($product_values);
 
 			if(!is_null($price)){
 				$pricelist = Pricelist::GetDefaultPricelist();
