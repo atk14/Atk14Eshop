@@ -12,6 +12,12 @@ class CreateNewForm extends CardsForm {
 			"label" => _("Catalog number"),
 		)));
 
+		$this->add_vat_rate_id_field();
+
+		$this->add_unit_id_field();
+
+		$this->add_consider_stockcount_field();
+
 		$this->add_visible_field([
 			"label" => _("Should the new product be visible?"),
 			"initial" => false,
@@ -41,9 +47,16 @@ class CreateNewForm extends CardsForm {
 
 	function tune_for_card($card){
 		global $ATK14_GLOBAL;
+		$product = $card->getFirstProduct();
 
 		foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
 			$this->set_initial("name_$l",$card->g("name_$l"));
+		}
+
+		if($product){
+			$this->set_initial("vat_rate_id",$product->getVatRateId());
+			$this->set_initial("unit_id",$product->getUnitId());
+			$this->set_initial("consider_stockcount",$product->considerStockcount());
 		}
 	}
 
