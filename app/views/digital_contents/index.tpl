@@ -7,7 +7,7 @@
 			{assign product $digital_contents_by_product.product}
 			<h4>{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}</h4>
 			
-			<ul class="list list--base-5 list--products">
+			<ul class="list list-unstyled list--base-5 list--products">
 				{foreach $digital_contents_by_product.items as $digital_content}
 					<li class="list__item">
 						<a href="{$digital_content->getDownloadUrl($order)}" class="pcard__link-wrapper">
