@@ -651,6 +651,10 @@ class Order extends BasketOrOrder {
 		return array_filter($notesAr);
 	}
 
+	function hasDigitalContents(){
+		return !!DigitalContent::GetInstancesByOrder($this);
+	}
+
 
 	/**
 	 * Pruchod vsemi zaznamy csv

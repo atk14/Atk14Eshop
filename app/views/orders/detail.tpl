@@ -6,7 +6,7 @@
 		{if $payment_transaction}
 			<li>{t status=$payment_transaction->getPaymentStatus()|default:"?"}Stav platby: %1{/t}</li>
 		{/if}
-		{if $order->canBeFulfilled() && $has_digital_contents}
+		{if $order->canBeFulfilled() && $order->hasDigitalContents()}
 			<li><a href="{link_to action="digital_contents/index" order_token=$order->getToken(DigitalContent::GetOrderTokenOptions())}" class="btn btn-primary mt-4">{!"download"|icon} {t}Stáhnout digitální produkty{/t}</a></li>
 		{/if}
 	</ul>
