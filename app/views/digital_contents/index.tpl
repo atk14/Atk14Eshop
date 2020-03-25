@@ -1,4 +1,5 @@
-<h1>{t}Digitální produkty{/t}</h1>
+{capture assign="page_title"}{t}Digitální produkty{/t}{/capture}
+{render partial="shared/layout/content_header" title=$page_title}
 
 
 <div class="digital-products">
