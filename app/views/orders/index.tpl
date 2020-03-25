@@ -22,7 +22,7 @@
 				<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span> {!$o->getPriceToPay()|display_price:"$currency,summary"}</td>
 				<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span> {$o->getCreatedAt()|format_date}</td>
 				<td><span class="table-hint-xs">{t}Stav{/t}</span> {render partial="shared/order_status" order=$o}</td>
-				<td>{if $o->canBeFulfilled() && $o->hasDigitalContents()}<a href="{link_to action="digital_contents/index" order_token=$o->getToken(DigitalContent::GetOrderTokenOptions())}">{t}Stáhnout digitální produkty{/t}</a>{/if}</td>
+				<td class="text-sm-right">{if $o->canBeFulfilled() && $o->hasDigitalContents()}<a href="{link_to action="digital_contents/index" order_token=$o->getToken(DigitalContent::GetOrderTokenOptions())}" class="btn btn-sm btn-primary">{!"cloud-download-alt"|icon} {t}Stáhnout digitální produkty{/t}</a>{/if}</td>
 				{* <td class="text-sm-right"><span class="table-hint-xs">{t}Faktura{/t}</span>{a}{t}Faktura{/t} #######{/a}</td> *}
 			</tr>
 			{/foreach}
