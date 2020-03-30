@@ -36,6 +36,9 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 		$bank_transfer = PaymentMethod::CreateNewRecord([
 			"code" => "bank_transfer",
 			"regions" => '{"DEFAULT": true}',
+			"payment_gateway_id" => null,
+			"bank_transfer" => true,
+			"cash_on_delivery" => false,
 			"label_en" => "Bank transfer",
 			"label_cs" => "Bankovní převod",
 			"price" => 0,
@@ -45,6 +48,9 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 		$cash_on_delivery = PaymentMethod::CreateNewRecord([
 			"code" => "cash_on_delivery",
 			"regions" => '{"DEFAULT": true}',
+			"payment_gateway_id" => null,
+			"bank_transfer" => false,
+			"cash_on_delivery" => true,
 			"label_en" => "Cash on delivery",
 			"label_cs" => "Zaplatit dobírkou, zaplatíte až při převzetí",
 			"price" => 0,
