@@ -8,7 +8,7 @@ class GetOrderStatusForm extends OrderOrderStatusesForm {
 	function prepare_for_order($order){
 		$choices = [];
 		foreach($order->getAllowedNextOrderStatuses() as $os){
-			$choices[$os->getCode()] = sprintf("[%s] %s",$os->getCode(),$os->getName());
+			$choices[$os->getCode()] = $os->getName();
 		}
 		$this->add_field("order_status", new ChoiceField(array(
 			"label" => _("New order status"),

@@ -2,10 +2,11 @@
 class GetDataForm extends OrderOrderStatusesForm {
 
 	function set_up(){
-		$this->add_field("order_status_note", new TextField(array(
+		$f = $this->add_field("order_status_note", new TextField(array(
 			"label" => _("Internal note"),
 			"required" => false,
 		)));
+		$f->widget->attrs["rows"] = 2;
 
 		$this->set_button_text(_("Změnit stav"));
 	}
@@ -17,6 +18,7 @@ class GetDataForm extends OrderOrderStatusesForm {
 			"initial" => $initial,
 			"required" => false,
 		]));
+		$this->_reorder_fields();
 	}
 
 	function add_tracking_number($order){
@@ -27,5 +29,13 @@ class GetDataForm extends OrderOrderStatusesForm {
 			"null_empty_output" => true,
 			"required" => false,
 		]));
+		$this->_reorder_fields();
+	}
+
+	// We just want to have the field order_status_note at the end of the field list
+	function _reorder_fields(){
+		$f = $this->fields["order_status_note"];
+		unset($this->fields["order_status_note"]);
+		$this->fields["order_status_note"] = $f;
 	}
 }
