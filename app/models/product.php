@@ -2,6 +2,7 @@
 class Product extends ApplicationModel implements Translatable,Rankable{
 
 	use TraitGetInstanceByCode;
+	use TraitTags;
 	
 	static function GetTranslatableFields(){
 		return array(
@@ -109,6 +110,15 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		if($images = $card->getImages(array("consider_product_images" => false))){
 			return $images[0];
 		}
+	}
+
+	function containsTag($tag){
+		$card = $this->getCard();
+		if($card->containsTag($tag)){ return true; }
+		if($card->hasVariants()){
+			return $this->getTagsLister()->contains($tag);
+		}
+		return false;
 	}
 
 	function setRank($new_rank){

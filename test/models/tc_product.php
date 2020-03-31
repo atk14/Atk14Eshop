@@ -1,7 +1,9 @@
 <?php
 /**
  *
+ * @fixture cards
  * @fixture products
+ * @fixture tags
  */
 class TcProduct extends TcBase {
 
@@ -74,5 +76,40 @@ class TcProduct extends TcBase {
 		$this->assertTrue(is_object($vat_rate));
 
 		$this->assertEquals($def_vr->getId(),$vat_rate->getId());
+	}
+
+	function test_containsTag(){
+		$tag = $this->tags["fun"];
+
+		$tea_card = $this->cards["tea"];
+		$book_card = $this->cards["book"];
+
+		$black_tea = $this->products["black_tea"];
+		$green_tea = $this->products["green_tea"];
+		$book = $this->products["book"];
+
+		//
+
+		$this->assertEquals(false,$black_tea->containsTag($tag));
+		$this->assertEquals(false,$green_tea->containsTag($tag));
+		$this->assertEquals(false,$book->containsTag($tag));
+
+		//
+
+		$black_tea->addTag($tag);
+		$book->addTag($tag);
+
+		$this->assertEquals(true,$black_tea->containsTag($tag));
+		$this->assertEquals(false,$green_tea->containsTag($tag));
+		$this->assertEquals(false,$book->containsTag($tag)); // it's because the book is not variant product
+
+		//
+
+		$tea_card->addTag($tag);
+		$book_card->addTag($tag);
+
+		$this->assertEquals(true,$black_tea->containsTag($tag));
+		$this->assertEquals(true,$green_tea->containsTag($tag));
+		$this->assertEquals(true,$book->containsTag($tag));
 	}
 }

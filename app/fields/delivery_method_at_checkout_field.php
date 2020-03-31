@@ -6,12 +6,8 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 
 	function __construct($options = []){
 		$options += [
-			"online_payment_methods_required" => false,
 			"basket" => null,
 		];
-
-		$this->online_payment_methods_required = $options["online_payment_methods_required"];
-		unset($options["online_payment_methods_required"]);
 
 		$this->basket = $options["basket"];
 
@@ -19,31 +15,10 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	}
 
 	function getChoices($options) {
-		$region = $options["region"];
-		if(is_numeric($region)){ $region = Region::FindById($region); }
-
-		$conditions = $bind_ar = [];
-		$conditions[] = "active";
-
-		if($region){
-			$conditions[] = "(regions->>:region)::BOOLEAN";
-			$bind_ar[":region"] = $region->getCode();
-		}
-
-		if($this->online_payment_methods_required){
-			$conditions[] = "id IN (SELECT delivery_method_id FROM shipping_combinations WHERE payment_method_id IN (SELECT id FROM payment_methods WHERE payment_gateway_id IS NOT NULL".($region ? " AND (regions->>:region)::BOOLEAN))" : "");
-		}
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($this->basket);
 
 		$choices = [];
-		foreach(DeliveryMethod::FindAll([
-			"conditions" => $conditions,
-			"bind_ar" => $bind_ar,
-		]) as $o){
-			if($tag_required = $o->getRequiredTag()){
-				if(!$this->basket->hasEveryProductTag($tag_required)){
-					continue;
-				}
-			}
+		foreach($delivery_methods as $o){
 			$choices[$o->getId()] = new DeliveryMethodChoice($o, $options);
 		}
 		return $choices;

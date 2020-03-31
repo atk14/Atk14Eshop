@@ -1,5 +1,6 @@
 <?php
 class OrderHistory extends ApplicationModel {
+
 	function __construct($table_name="order_history", $options=array()) {
 		return parent::__construct($table_name, $options);
 	}
@@ -17,6 +18,10 @@ class OrderHistory extends ApplicationModel {
    */
 	function getResponsiblePerson() {
 		return User::FindFirstById($this->g("responsible_user_id"));
+	}
+
+	function getOrderStatus(){
+		return Cache::Get("OrderStatus",$this->getOrderStatusId());
 	}
 
 	/*

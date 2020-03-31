@@ -1,7 +1,9 @@
 {if $products}
+	{assign digital_product Tag::GetInstanceByCode("digital_product")}
 
 	<ul class="list-group list-sortable" data-sortable-url="{link_to action="products/set_rank"}">
 		{foreach $products as $product}
+			{assign tags $product->getTags()}
 			<li class="list-group-item" data-id="{$product->getId()}">
 				{dropdown_menu clearfix=false}
 					{a action="products/edit" id=$product}{icon glyph="edit"} {t}Edit{/t}{/a}
@@ -16,6 +18,15 @@
 				{$product->getCatalogId()}<br>
 				<strong>{if $product->getLabel()}{$product->getLabel()}{else}<em>{t}unnamed variant{/t}</em>{/if}</strong>
 				{if !$product->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
+				{if $tags}
+					<br>
+					{render partial="shared/tags" tags=$tags}
+				{/if}
+
+				{if $product->containsTag($digital_product)}
+					{assign digital_contents DigitalContent::FindAll("product_id",$product,"deleted",false)}
+					<br>{t}soubory ke stažení:{/t} {a action="digital_contents/index" product_id=$product}{$digital_contents|count}{/a}
+				{/if}
 			</li>
 		{/foreach}
 	</ul>

@@ -25,5 +25,11 @@ class ProductsForm extends AdminForm {
 		$this->add_visible_field(array(
 			"label" => _("Is product variant visible?"),
 		));
+		$this->add_field("tags", new TagsField(array(
+			"label" => _("Tags"),
+			"required" => false,
+			"create_missing_tags" => false,
+			"help_text" => _("Obvykle postačí definovat štítky pouze na produktové kartě. Zde je však možnost doplnit k této produktové variantě štítky, které na kartě chybí a nemohou být přidány."),
+		)));
 	}
 }

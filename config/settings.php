@@ -59,6 +59,8 @@ definedef("DEFAULT_BASE_PRICELIST","base");
 
 definedef("SAME_BASKET_IN_ALL_REGIONS",true);
 
+definedef("DIGITAL_CONTENTS_DIRECTORY",__DIR__ . "/../data/digital_contents/");
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

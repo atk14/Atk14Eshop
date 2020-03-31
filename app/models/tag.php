@@ -33,6 +33,10 @@ class Tag extends ApplicationModel implements Translatable {
 
 	function toString(){ return $this->getTag(); }
 
+	function toHumanReadableString(){
+		return $this->toString();
+	}
+
 	function isDeletable(){
 		return
 			is_null($this->getCode()) &&

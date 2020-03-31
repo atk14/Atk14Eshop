@@ -956,10 +956,7 @@ class Basket extends BasketOrOrder {
 		if($this->isEmpty()){ return false; }
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
-			$card = $product->getCard();
-			if(!in_array($tag->getId(),$card->getTagsLister()->getRecordIds())){
-				return false;
-			}
+			if(!$product->containsTag($tag)){ return false; }
 		}
 		return true;
 	}

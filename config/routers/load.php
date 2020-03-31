@@ -17,6 +17,8 @@ Atk14Url::AddRouter("BrandsRouter");
 Atk14Url::AddRouter("CollectionsRouter");
 Atk14Url::AddRouter("StoresRouter");
 
+Atk14Url::AddRouter("DigitalContentsRouter");
+
 Atk14Url::AddRouter("AdminRouter");
 
 // Keep the DefaultRouter at the end of the list

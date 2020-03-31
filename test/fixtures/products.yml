@@ -21,3 +21,7 @@ green_tea:
 peanuts:
   catalog_id: PEANUTS
   card_id: "<?php echo $cards["peanuts"]->getId() ?>"
+
+book:
+  catalog_id: "BOOK"
+  card_id: "<?php echo $cards["book"]->getId(); ?>"

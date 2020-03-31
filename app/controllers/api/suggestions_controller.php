@@ -43,6 +43,13 @@ class SuggestionsController extends ApiController{
 		));
 	}
 
+	function tags(){
+		$this->_suggest(array(
+			"fields" => array("tag"),
+			"order_by" => "UPPER(tag) LIKE UPPER(:q)||'%' DESC, tag",
+		));
+	}
+
 	function creators(){
 		$this->_suggest(array(
 			"fields" => array("name"),

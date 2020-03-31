@@ -138,6 +138,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 		$next_order_statuses = [
 			"new" => [
 				"processing",
+				"payment_accepted",
 				"cancelled"
 			],
 			"waiting_for_bank_transfer" => [
@@ -147,6 +148,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			],
 			"payment_accepted" => [
 				"processing",
+				"shipped",
+				"ready_for_pickup",
 				"cancelled",
 			],
 			"payment_failed" => [
@@ -156,6 +159,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"cancelled",
 			],
 			"processing" => [
+				"payment_accepted",
 				"shipped",
 				"ready_for_pickup",
 				"cancelled"

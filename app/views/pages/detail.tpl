@@ -6,6 +6,11 @@
 		{!$page->getTeaser()|markdown}
 		</div>
 	</header>*}
+	{assign var="colorbg" false}
+	{if $creator && $page->getImageUrl()}
+		{assign var="image" $page->getImageUrl()}
+		{assign var="colorbg" true}
+	{/if}
 	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
 	
 	<section class="page__body">

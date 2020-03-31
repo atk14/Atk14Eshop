@@ -185,20 +185,42 @@ class Order extends BasketOrOrder {
 		return trim(sprintf("%s %s", $this->g("delivery_firstname"), $this->g("delivery_lastname")));
 	}
 
-	function getOrderHistory($options=array()) {
+	/**
+	 *
+	 *	$history_items = $order->getOrderItems();
+	 *	echo $history_items[0]->getCode(); // "new"
+	 *
+	 * 	$history_items = $order->getOrderItems(["reverse" => true]);
+	 *	echo $history_items[0]->getCode(); // "delivered"
+	 */
+	function getOrderHistory($options = array()) {
 		$options += array(
 			"limit" => null,
-			"order_by" => "order_status_set_at ASC, id ASC",
+			"reverse" => false,
+			"order_by" => null,
 		);
+
+		if(is_null($options["order_by"])){
+			$options["order_by"] = $options["reverse"] ? "order_status_set_at DESC, id DESC" : "order_status_set_at ASC, id ASC";
+		}
+		unset($options["reverse"]);
+
 		return OrderHistory::FindAll("order_id", $this, $options);
 	}
 
+	/**
+	 * Returns current order status
+	 */
+	function getOrderStatus(){
+		return Cache::Get("OrderStatus",$this->getOrderStatusId());
+	}
+
 	function getCurrentOrderStatus() {
-		return OrderStatus::FindById($this->getOrderStatusId());
+		return $this->getOrderStatus();
 	}
 
 	function getCurrentStatus() {
-		return $this->getCurrentOrderStatus();
+		return $this->getOrderStatus();
 	}
 
 	function getPreviousStatus() {
@@ -206,20 +228,61 @@ class Order extends BasketOrOrder {
 	}
 
 	function getPreviousOrderStatus() {
-		$history = $this->getOrderHistory(array("limit" => 1, "offset" => 1, "order_by" => "order_status_set_at DESC, id DESC"));
-		return array_pop($history);
+		$history = $this->getOrderHistory(array("limit" => 1, "offset" => 1, "reverse" => true));
+		if(!$history){ return; }
+		$history_item = array_pop($history);
+		return $history_item->getOrderStatus();
 	}
 
 	function getResponsibleUser() {
 		return Cache::Get("User",$this->g("responsible_user_id"));
 	}
 
-	function getOrderStatus(){
-		return Cache::Get("OrderStatus",$this->getOrderStatusId());
+	/**
+	 * Has the order given status or had it somewhere in the past
+	 *
+	 *	if($order->hasOrderStatus("payment_accepted")){ ... }
+	 *	// or
+	 *	if($order->hasOrderStatus(1){ ... }
+	 *	if($order->hasOrderStatus(OrderStatus::GetInstanceByCode("new")){ ... }
+	 */
+	function hasOrderStatus($order_status){
+		if(is_numeric($order_status)){
+			$order_status = Cache::Get("OrderStatus",$order_status);
+		}elseif(is_string($order_status)){
+			$order_status = OrderStatus::GetInstanceByCode($order_status);
+		}
+		myAssert(is_a($order_status,"OrderStatus"));
+
+		if($this->getOrderStatusId()==$order_status->getId()){
+			return true;
+		}
+		foreach($this->getOrderHistory() as $oh){
+			if($oh->getOrderStatusId()==$order_status->getId()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	function getAllowedNextOrderStatuses(){
-		return $this->getOrderStatus()->getAllowedNextOrderStatuses();
+		$current_status = $this->getOrderStatus();
+		$payment_method = $this->getPaymentMethod();
+
+		$out = [];
+		foreach($this->getOrderStatus()->getAllowedNextOrderStatuses() as $os){
+			$out[$os->getCode()] = $os;
+		}
+
+		if($payment_method->isCashOnDelivery()){
+			unset($out["payment_accepted"]);
+		}
+
+		if($current_status->getCode()=="payment_accepted" && $this->hasOrderStatus("processing")){
+			unset($out["processing"]);
+		}
+
+		return array_values($out);
 	}
 
 	/**
@@ -396,6 +459,59 @@ class Order extends BasketOrOrder {
 		return $order_history;
 	}
 
+	function isPaid(){
+		$current_status = $this->getOrderStatus();
+		$payment_method = $this->getPaymentMethod();
+
+		foreach($this->getOrderHistory(["reverse" => true]) as $oh){
+			$status = $oh->getOrderStatus();
+			if(in_array($status->getCode(),OrderStatus::$Codes_Paid)){
+				return true;
+			}
+			if(in_array($status->getCode(),OrderStatus::$Codes_NotPaid)){
+				return false;
+			}
+			if($payment_method->isCashOnDelivery() && ($status->getCode()=="delivered")){
+				return true;
+			}
+		}
+		if($order_status = $this->getOrderStatus()){
+			if(in_array($order_status->getCode(),OrderStatus::$Codes_Paid)){
+				return true;
+			}
+		}
+
+		$cnt = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM (
+				SELECT id FROM order_history WHERE order_id=:id AND order_status_id IN (SELECT id FROM order_statuses WHERE code IN :codes)
+				UNION
+				SELECT id FROM payment_transactions WHERE order_id=:id AND payment_status_id=(SELECT id FROM payment_statuses WHERE code=:payment_status_paid)
+			)q
+		",[
+			":id" => $this,
+			":codes" => OrderStatus::$Codes_Paid,
+			":payment_status_paid" => "paid",
+		]);
+		return $cnt>0;
+	}
+
+	/**
+	 * Muze dojit k plneni objednavky?
+	 *
+	 * Toto je uzitecny test pro objednavky digitalnich produktu.
+	 */
+	function canBeFulfilled(){
+		$current_status = $this->getCurrentStatus();
+		if($current_status->finishedSuccessfully() || $current_status->isFinishingSuccessfully()){
+			return true;
+		}
+		if($current_status->finishedUnsuccessfully() || $current_status->isFinishingUnsuccessfully()){
+			return false;
+		}
+
+		return $this->isPaid();
+	}
+
 	/**
 	 * Nastavi responsibleUserId a zaradi patricny zaznam do tabulky order_history
 	 */
@@ -533,6 +649,10 @@ class Order extends BasketOrOrder {
 			($an = trim($this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
 		];
 		return array_filter($notesAr);
+	}
+
+	function hasDigitalContents(){
+		return !!DigitalContent::GetInstancesByOrder($this);
 	}
 
 

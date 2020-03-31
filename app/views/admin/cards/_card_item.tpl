@@ -9,7 +9,7 @@
 		{/if}
 	</td>
 	<td class="item-hasvariants">{$card->hasVariants()|display_bool}</td>
-	<td class="item-tags">{to_sentence var=$card->getTags() words_connector=" , " last_word_connector=" , "}</td>
+	<td class="item-tags">{render partial="shared/tags" tags=$card->getTags()}</td>
 	<td class="item-created">{$card->getCreatedAt()|format_datetime}</td>
 	<td class="item-updated">{$card->getUpdatedAt()|format_datetime}</td>
 	<td class="item-actions">
