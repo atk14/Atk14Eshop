@@ -160,7 +160,7 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 
 	protected function _removeVat($price,$keep_vat = true){
 		if(is_null($price) || $keep_vat){ return $price; }
-		return $price - (($price / 100.0) * $this->getVatPercent());
+		return $price - (($price / (100.0 + $this->getVatPercent())) * $this->getVatPercent());
 	}
 
 	protected function _roundItemPrice($price,$round_for_real = true){

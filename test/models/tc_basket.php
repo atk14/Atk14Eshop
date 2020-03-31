@@ -7,6 +7,7 @@
  * @fixture payment_methods
  * @fixture cards
  * @fixture products
+ * @fixture pricelist_items
  * @fixture tags
  */
 class TcBasket extends TcBase {
@@ -79,6 +80,22 @@ class TcBasket extends TcBase {
 			$expcetion_thrown = true;
 		}
 		$this->assertEquals(true,$expcetion_thrown);
+	}
+
+	function test_price(){
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+
+		$basket->addProduct($this->products["mint_tea"],2);
+
+		$items = $basket->getItems();
+		$item = $items[0];
+
+		$this->assertEquals(20.0,$item->getUnitPrice());
+		$this->assertEquals(24.2,$item->getUnitPriceInclVat());
+		$this->assertEquals(40.0,$item->getPrice());
+		$this->assertEquals(48.4,$item->getPriceInclVat());
 	}
 
 	function test_hasEveryProductTag(){
