@@ -652,7 +652,7 @@ class Basket extends BasketOrOrder {
 				"correction_text" => sprintf(_("přejít do katalogu")),
 				"correction_url" => $this->_buildLink(["action" => "categories/index"])
 			]);
-		}elseif($this->getPriceToPay()<$currency->getLowestOrderPrice()){
+		}elseif($this->getPriceToPay()!==0.0 && $this->getPriceToPay()<$currency->getLowestOrderPrice()){
 			Atk14Require::Helper("modifier.display_price");
 			$messages[] = new BasketErrorMessage(sprintf(_("Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"),smarty_modifier_display_price($currency->getLowestOrderPrice(),["currency" => $currency, "format" => "plain", "summary" => true])),[
 				"correction_text" => sprintf(_("přejít do katalogu")),

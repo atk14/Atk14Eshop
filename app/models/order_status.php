@@ -24,6 +24,10 @@ class OrderStatus extends ApplicationModel implements Translatable {
 			$status_code = "waiting_for_online_payment";
 		}
 
+		if($order->getPriceToPay()===0.0){
+			$status_code = "payment_accepted";
+		}
+
 		if($status_code){
 			$sc = self::FindByCode($status_code);
 			myAssert($sc);
