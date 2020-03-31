@@ -6,8 +6,10 @@
 			<th></th>
 			<th> {t escape=false}Kód produktu&nbsp;/&nbsp;EAN{/t} </th>
 			<th> {t}Název produktu{/t} </th>
-			<th> {t}ks/cm{/t} </th>
+			<th> {t}Počet{/t} </th>
 			<th> {t}Jedn. cena{/t} </th>
+			<th> {t}Celk. cena{/t} </th>
+			<th> {t}%DPH{/t} </th>
 			<th> {t}Celkem s DPH{/t} </th>
 			{if $object|get_class=="Order"}
 				<th>{t}Sleva v kampani{/t}&nbsp;<span class="label label-default" title="{t}Ano = na položku byla poskytnuta sleva v kampani (např. 7% sleva za registraci). Ne = sleva v kampani poskytnuta nebyla, nejčastěji z důvodu poskytnutí slevy dle ceníku.{/t}">?</span></th>
@@ -24,7 +26,9 @@
 				<td>{$product->getCatalogId()}</td>
 				<td>{$product->getFullName()}</td>
 				<td>{$item->getAmount()} {$product->getUnit()}</td>
-				<td>{!$item->getUnitPriceInclVat()|display_price:"$currency"}</td>
+				<td>{!$item->getUnitPrice()|display_price:"$currency"}</td>
+				<td>{!$item->getPrice()|display_price:"$currency"}</td>
+				<td>{!$item->getVatPercent()}%</td>
 				<td>{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 				{if $object|get_class=="Order"}
 					<td>{if !is_null($item->getCampaignDiscountApplied())}{!$item->getCampaignDiscountApplied()|display_bool}{else}{t}Neurčeno{/t}{/if}</td>
