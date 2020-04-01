@@ -105,6 +105,22 @@ class PriceFinder {
 	}
 
 	/**
+	 * Returns all distinct prices from all products on this card
+	 *
+	 * return ProductPrice[]
+	 */
+	function getDistinctPrices($card){
+		$prices = [];
+		foreach($card->getProducts() as $product){
+			$price = $this->getPrice($product);
+			if(!$price){ continue; }
+			$key = (string)round($price->getUnitPrice(),4);
+			$prices[$key] = $price;
+		}
+		return array_values($prices);
+	}
+
+	/**
 	 * Searches for the lowest price of a product on this card
 	 *
 	 *	$price = $price_finder->getStartingPrice($card);

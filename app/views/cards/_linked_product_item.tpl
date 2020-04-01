@@ -25,7 +25,7 @@
 	</div>
 	<div class="card-footer">
 		{if $starting_price}
-			{render partial="shared/card_price" starting_price=$starting_price}
+			{render partial="shared/card_price" card=$c}
 		{/if}
 		<span class="card-footer-icon">{!"chevron-right"|icon}</span>
 	</div>

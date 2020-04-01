@@ -35,7 +35,7 @@
 			
 			<p class="search-result-price">
 				{if $starting_price}
-					{render partial="shared/card_price" starting_price=$starting_price}
+					{render partial="shared/card_price" card=$card}
 				{/if}
 			</p>
 			
