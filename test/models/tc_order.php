@@ -110,12 +110,12 @@ class TcOrder extends TcBase {
 		$order->setNewOrderStatus("payment_accepted");
 		$statuses = $order->getAllowedNextOrderStatuses();
 		$statuses = $this->_statuses_to_codes($statuses);
-		$this->assertEquals(["processing","shipped","ready_for_pickup","cancelled"],$statuses);
+		$this->assertEquals(["processing","shipped","ready_for_pickup","finished_successfully","cancelled"],$statuses);
 
 		$order->setNewOrderStatus("processing");
 		$statuses = $order->getAllowedNextOrderStatuses();
 		$statuses = $this->_statuses_to_codes($statuses);
-		$this->assertEquals(["payment_accepted","shipped","ready_for_pickup","cancelled"],$statuses);
+		$this->assertEquals(["payment_accepted","shipped","ready_for_pickup","finished_successfully","cancelled"],$statuses);
 	}
 
 	function _statuses_to_codes($statuses){

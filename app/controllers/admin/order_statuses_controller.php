@@ -4,7 +4,7 @@ class OrderStatusesController extends AdminController {
 	function index(){
 		$this->page_title = _("Seznam všech stavů objednávek");
 
-		$this->tpl_data["order_statuses"] = OrderStatus::FindAll(["order_by" => "id"]);
+		$this->tpl_data["order_statuses"] = OrderStatus::FindAll();
 	}
 
 	function edit(){

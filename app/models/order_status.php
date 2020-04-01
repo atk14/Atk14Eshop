@@ -1,5 +1,5 @@
 <?php
-class OrderStatus extends ApplicationModel implements Translatable {
+class OrderStatus extends ApplicationModel implements Translatable, Rankable {
 
 	static $Codes_Paid = ["payment_accepted"];
 	static $Codes_NotPaid = ["payment_failed","returned_money"];
@@ -8,6 +8,10 @@ class OrderStatus extends ApplicationModel implements Translatable {
 
 	static function GetTranslatableFields() {
 		return array("name");
+	}
+
+	function setRank($rank){
+		return $this->_setRank($rank);
 	}
 
 	function toString() {
