@@ -42,7 +42,7 @@
 						{if $order_history_items}
 							{foreach $order_history_items as $k => $history}
 								<li>
-									{$history->getOrderStatusSetAt()|format_datetime} <strong title="{t code=$history->getOrderStatus()->getCode()}kód: %1{/t}">{$history->getOrderStatus()}</strong>
+									{$history->getOrderStatusSetAt()|format_datetime} <strong title="{t code=$history->getOrderStatus()->getCode()}kód: %1{/t}">{render partial="shared/order_status" order_status=$history->getOrderStatus() order=null}</strong>
 									{assign created_by $history->getOrderStatusSetByUser()}
 									{if $created_by} ({$created_by->getName()}){else}({t}automatický stav{/t}){/if}
 									{assign responsible $history->getResponsiblePerson()}
