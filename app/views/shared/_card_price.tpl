@@ -5,7 +5,7 @@
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
 
 {if $starting_price}
-<span class="card-price">
+<div class="card-price">
 	{if $distinct_prices && sizeof($distinct_prices)==2}
 		{* there are two price on the card *}
 
@@ -28,5 +28,5 @@
 		{!$starting_price|display_price:$price_finder->getCurrency()}
 
 	{/if}
-</span>
+</div>
 {/if}
