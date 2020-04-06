@@ -1,7 +1,7 @@
 {*a action="detail" id=$store _class="card card--store js-store-item" _data-storeid=$store->getID()*}
 <div class="card card--store js-store-item" data-storeid="{$store->getID()}">
 	<div class="d-none js-search-data">
-		{$store->getName()} {!$store->getAddress()}
+		{$store->getName()} {!$store->getAddress()} {to_ascii}{$store->getName()} {!$store->getAddress()}{/to_ascii}
 	</div>
 	{a action="detail" id=$store}{!$store->getImageUrl()|pupiq_img:"!400x300":"class='card-img-top'"}{/a}
 	{if $store->isOpen()}

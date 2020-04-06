@@ -365,28 +365,15 @@
 			// Action-specific code
 			index: function() {
 				UTILS.initMultiMap( "allstores_map" );
-				
-				// Filter items in stores list
-				$( "#stores-filter__input" ).on( "keyup blur", function( e ) {
-					if( e.type === "keyup" ) {
-						var code = e.charCode || e.keyCode;
-						if( code === 27 ){
-							$( "#stores-filter__input" ).val( "" );
-						}
-					}
-					UTILS.handleStoresFilter( e );
+
+				var storeList = new UTILS.filterableList( {
+					searchInput: 	$( "#stores-filter__input" ),
+					clearButton: 	$( "#stores-filter__clear" ),
+					submitButton: $( "#stores-filter__submit" ),
+					listItems:		$( ".js-stores-cards > .js-store-item" ),
+					searchTextSelector: ".js-search-data",
 				} );
 
-				// Clear navigation bar items filter
-				$( "#stores-filter__clear" ).on( "click", function( e ) {
-					$( "#stores-filter__input" ).val( "" );
-					UTILS.handleStoresFilter( e );
-				} );
-
-				// Filter items in navigation bar
-				$( "#stores-filter__submit" ).on( "click", function( e ) {
-					UTILS.handleStoresFilter( e );
-				} );
 			},
 
 			// Action-specific code
