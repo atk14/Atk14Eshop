@@ -7,7 +7,7 @@
 	{foreach $section_navigation as $item}
 		<li class="nav-item">
 			<a class="nav-link{if $item->isActive()} active{/if}" href="{$item->getUrl()}">{$item->getTitle()}</a>
-			<span class="d-none js-search-data">{$item->getTitle()}</span>
+			<span class="d-none js-search-data">{$item->getTitle()} {$item->getTitle()|to_ascii}</span>
 		</li>
 	{/foreach}
 </ul>
