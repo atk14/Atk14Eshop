@@ -1,9 +1,12 @@
 <?php
 /**
  *
+ * @fixture products
  * @fixture cards
  * @fixture categories
  * @fixture category_cards
+ * @fixture pricelist_items
+ * @fixture warehouse_items
  */
 class TcCard extends TcBase {
 
@@ -71,5 +74,15 @@ class TcCard extends TcBase {
 		$this->assertEquals(1,sizeof($products));
 		$products[0]->s("visible",false);
 		$this->assertFalse($card->canBeSwitchedToNonVariantMode());
+	}
+
+	function test_canBeOrdered(){
+		$tea = $this->cards["tea"];
+		$this->assertEquals(true,$tea->canBeOrdered());
+
+		foreach($tea->getProducts() as $p){
+			$p->s("visible",false);
+		}
+		$this->assertEquals(false,$tea->canBeOrdered());
 	}
 }

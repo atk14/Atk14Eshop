@@ -4,6 +4,8 @@
  * @fixture cards
  * @fixture products
  * @fixture tags
+ * @fixture pricelist_items
+ * @fixture warehouse_items
  */
 class TcProduct extends TcBase {
 
@@ -111,5 +113,22 @@ class TcProduct extends TcBase {
 		$this->assertEquals(true,$black_tea->containsTag($tag));
 		$this->assertEquals(true,$green_tea->containsTag($tag));
 		$this->assertEquals(true,$book->containsTag($tag));
+	}
+
+	function test_canBeOrdered(){
+		// mint_tea has price and is on stock
+		$mint_tea = $this->products["mint_tea"];
+		$this->assertEquals(true,$mint_tea->canBeOrdered());
+		//
+		$mint_tea->s("visible",false);
+		$this->assertEquals(false,$mint_tea->canBeOrdered());
+		$mint_tea->s("visible",true);
+		$this->assertEquals(true,$mint_tea->canBeOrdered());
+		$mint_tea->s("deleted",true);
+		$this->assertEquals(false,$mint_tea->canBeOrdered());
+
+		//green_tea has no price
+		$green_tea = $this->products["green_tea"];
+		$this->assertEquals(false,$green_tea->canBeOrdered());
 	}
 }

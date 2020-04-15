@@ -161,6 +161,17 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $products;
 	}
 
+	/**
+	 * Is it possible to order at least one product on this card ordered?
+	 *
+	 *	$card->canBeOrdered(["region" => $SK]);
+	 */
+	function canBeOrdered($options = []){
+		foreach($this->getProducts() as $p){
+			if($p->canBeOrdered($options)){ return true; }
+		}
+		return false;
+	}
 
 	function toHumanReadableString(){
 		return $this->getName();

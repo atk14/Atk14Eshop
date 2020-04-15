@@ -435,6 +435,10 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 			"price_finder" => null,
 		];
 
+		if(is_null($options["price_finder"])){
+			$options["price_finder"] = PriceFinder::GetInstance();
+		}
+
 		$amount = $options["amount"];
 		$price_finder = $options["price_finder"];
 

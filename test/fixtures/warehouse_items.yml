@@ -7,3 +7,8 @@ green_tea:
   product_id: "<?= $products["green_tea"]->getId() ?>"
   warehouse_id: 1
   stockcount: 123
+
+mint_tea:
+  product_id: "<?= $products["mint_tea"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 22

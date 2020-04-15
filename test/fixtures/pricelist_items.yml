@@ -1,3 +1,8 @@
+black_tea:
+  pricelist_id: 1
+  product_id: "<?=$products["black_tea"]->getId()?>"
+  price: 22.99
+
 mint_tea:
   pricelist_id: 1
   product_id: "<?=$products["mint_tea"]->getId()?>"
