@@ -9,6 +9,7 @@ class User extends ApplicationModel{
 
 	const ID_SUPERADMIN = 1;
 	const ID_ANONYMOUS = 2; // see db/migrations/0117_altering_users.sql
+	const ID_ROBOT = 3;
 
 	/**
 	 * Returns user when a correct combination of login and password is given.
