@@ -21,17 +21,6 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 		];
 
 		$values_ar[] = [
-			"id" => 2,
-			"code" => "waiting_for_bank_transfer",
-			"name_en" => "Waiting for payment by bank transfer",
-			"name_cs" => "Čekání na úhradu bankovním převodem",
-			"notification_enabled" => true,
-			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
-			"rank"  => 20,
-		];
-
-		$values_ar[] = [
 			"id" => 3,
 			"code" => "waiting_for_online_payment",
 			"name_en" => "Waiting for payment gateway processing",
@@ -39,7 +28,29 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"notification_enabled" => false,
 			"blocking_stockcount" => true,
 			"reduce_stockount" => false,
+			"rank"  => 20,
+		];
+
+		$values_ar[] = [
+			"id" => 2,
+			"code" => "waiting_for_bank_transfer",
+			"name_en" => "Waiting for payment by bank transfer",
+			"name_cs" => "Čekání na úhradu bankovním převodem",
+			"notification_enabled" => true,
+			"blocking_stockcount" => true,
+			"reduce_stockount" => false,
 			"rank"  => 30,
+		];
+
+		$values_ar[] = [
+			"id" => 13,
+			"code" => "repeated_payment_request",
+			"name_en" => "Repeated payment request",
+			"name_cs" => "Opakovaná výzva k platbě",
+			"notification_enabled" => true,
+			"blocking_stockcount" => true,
+			"reduce_stockount" => false,
+			"rank"  => 35,
 		];
 
 		$values_ar[] = [
@@ -178,6 +189,12 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"cancelled"
 			],
 			"waiting_for_bank_transfer" => [
+				"payment_accepted",
+				"repeated_payment_request",
+				"payment_failed",
+				"cancelled",
+			],
+			"repeated_payment_request" => [
 				"payment_accepted",
 				"payment_failed",
 				"cancelled",
