@@ -241,6 +241,9 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"processing",
 				"cancelled",
 			],
+			"cancelled" => [
+				"processing"
+			],
 		];
 		foreach($next_order_statuses as $code => $next_codes){
 			$os = OrderStatus::GetInstanceByCode($code);
