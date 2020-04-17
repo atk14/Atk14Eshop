@@ -509,7 +509,7 @@ class Order extends BasketOrOrder {
 			return false;
 		}
 
-		return $this->isPaid();
+		return $this->getPriceToPay()===0.0 || $this->isPaid();
 	}
 
 	/**

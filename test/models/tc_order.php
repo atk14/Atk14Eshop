@@ -92,6 +92,12 @@ class TcOrder extends TcBase {
 		$order->setNewOrderStatus("processing");
 		$this->assertEquals(false,$order->canBeFulfilled());
 
+		$order->s("price_to_pay",0.0);
+		$this->assertEquals(true,$order->canBeFulfilled());
+
+		$order->s("price_to_pay",123.0);
+		$this->assertEquals(false,$order->canBeFulfilled());
+
 		$order->setNewOrderStatus("payment_accepted");
 		$this->assertEquals(true,$order->canBeFulfilled());
 
