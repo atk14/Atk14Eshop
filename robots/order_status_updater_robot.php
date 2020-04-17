@@ -9,12 +9,12 @@ class OrderStatusUpdaterRobot extends ApplicationRobot {
 		$repeated_payment_request = OrderStatus::GetInstanceByCode("repeated_payment_request");
 		$cancelled = OrderStatus::GetInstanceByCode("cancelled");
 
-		// repeated_payment_request -> after ~ 7 days -> cancelled
+		// repeated_payment_request -> after ~ 10 days -> cancelled
 		$orders = Order::FindAll([
 			"conditions" => [
 				"created_at>:created_at_min",
 				"order_status_id=:repeated_payment_request",
-				"DATE_TRUNC('day',order_status_set_at) + INTERVAL '8 days'<=:now"
+				"DATE_TRUNC('day',order_status_set_at) + INTERVAL '11 days'<=:now"
 			],
 			"bind_ar" => [
 				":created_at_min" => $created_at_min,
