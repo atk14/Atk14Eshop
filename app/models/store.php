@@ -59,7 +59,9 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 
 		$options += array(
 			"lang" => $lang,
+			"with_name" => false,
 			"with_country" => false,
+			"connector" => "\n",
 		);
 
 		$lang = $options["lang"];
@@ -78,13 +80,17 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 			$this->g("address_zip")." ".$this->g("address_city"),
 		];
 
+		if($options["with_name"]){
+			array_unshift($ary,$this->getName());
+		}
+
 		if($options["with_country"]){
 			$ary[] = smarty_modifier_to_country_name($this->g("address_country"));
 		}
 
 		$ary = array_map(function($item){ return trim($item); },$ary);
 		$ary = array_filter($ary);
-		return join("\n",$ary);
+		return join($options["connector"],$ary);
 	}
 
 	function getGpsCoordinates(){
