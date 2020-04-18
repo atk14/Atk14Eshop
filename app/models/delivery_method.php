@@ -48,7 +48,13 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	function getEmailDescription(){
 		$out = parent::getEmailDescription();
 		if(strlen($out)){ return $out; }
-		return $this->getDescription();
+		//
+		//$out = $this->getDescription();
+		//if(strlen($out)){ return $out; }
+		//
+		if($this->personalPickup() && ($store = $this->getPersonalPickupOnStore())){
+			return h($store->getAddress(["with_name" => true, "connector" => ", "]));
+		}
 	}
 
 	function toString() {
