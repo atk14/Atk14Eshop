@@ -53,7 +53,13 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		//if(strlen($out)){ return $out; }
 		//
 		if($this->personalPickup() && ($store = $this->getPersonalPickupOnStore())){
-			return h($store->getAddress(["with_name" => true, "connector" => ", "]));
+      $out = $store->getAddress(["with_name" => true, "connector" => ", "]);
+      if(strlen($out) && $store->getOpeningHours()){
+        $out .= ", ".sprintf(_("opening hours: %s"),$store->getOpeningHours());
+      }
+      $out = strip_tags($out);
+      $out = h($out);
+			return $out;
 		}
 	}
 

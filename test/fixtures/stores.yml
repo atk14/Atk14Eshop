@@ -6,3 +6,5 @@ test:
   address_city: City
   address_zip: 111 00
   address_country: CZ
+  opening_hours_en: "Monday: closed. Tuesday-Sunday: 10 AM - 6 PM."
+  opening_hours_cs: "Pondělí zavřeno, úterý až neděle: 10:00 - 18:00."

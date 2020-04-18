@@ -32,7 +32,7 @@ class DeliveryMethodsForm extends AdminForm {
 		$this->add_translatable_field("email_description", new CharField(array(
 			"label" => _("Text nápovědy do notifikačních e-mailů"),
 			"required" => false,
-			"help_text" => _("Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa provozovny."),
+			"help_text" => _("Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa provozovny a její otevírací doba."),
 		)));
 
 		$help_text = _("Pokud nebude částka určena, znamená to, že cena za dopravu bude stanovena následnou dohodou.");
