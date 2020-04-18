@@ -7,6 +7,7 @@
 {assign campaigns $order->getCampaigns()}
 {assign object_class $order|get_class}
 {assign is_basket $object_class=="Basket"}
+{assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
 
 
 {*
@@ -46,7 +47,13 @@
 					<td class="table-products__price">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 				{else}
 					<td class="table-products__image">{a action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
-					<td class="table-products__title">{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span></td>
+					<td class="table-products__title">
+						{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}
+						{if $product->getCard()->containsTag($tag_digital_product)}
+							<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
+						{/if}
+						<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span>
+					</td>
 				<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
 					<td class="table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {!$item->getUnitPriceInclVat()|display_price:$currency}</td>
 					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()}</td>

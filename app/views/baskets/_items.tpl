@@ -1,3 +1,5 @@
+{assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
+
 		<tbody class="table-products__list">
 
 			{* Produkty *}
@@ -6,7 +8,13 @@
 				{assign price $item->getProductPrice()}
 				<tr class="table-products__item">
 					<td class="table-products__image">{a namespace="" action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
-					<td class="table-products__title">{a namespace="" action="cards/detail" id=$product->getCardId()}{$product}{/a}<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span></td>
+					<td class="table-products__title">
+						{a namespace="" action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}
+						{if $product->getCard()->containsTag($tag_digital_product)}
+							<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
+						{/if}
+						<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span>
+					</td>
 					<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
 					<td class="js--unit_price table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {render partial="baskets/unit_price" unit=$product->getUnit()}</td>
 					<td class="table-products__amount" data-url="{link_to namespace="api" controller="basket_items" action="add" product=$product->getId() format='json'}">
