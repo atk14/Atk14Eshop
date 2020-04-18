@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 10:16+0100\n"
-"PO-Revision-Date: 2020-03-16 10:17+0100\n"
+"POT-Creation-Date: 2020-04-18 13:41+0200\n"
+"PO-Revision-Date: 2020-04-18 13:43+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -23,8 +23,8 @@ msgstr "Nahoru"
 msgid "Zpráva z obchodu %1"
 msgstr "Zpráva z obchodu %1"
 
-msgid "V případě dotazů nás můžete kontaktovat na emailu %1"
-msgstr "V případě dotazů nás můžete kontaktovat na emailu %1"
+msgid "V případě dotazů nás můžete kontaktovat na e-mailu %1"
+msgstr "V případě dotazů nás můžete kontaktovat na e-mailu %1"
 
 msgid "Krásný den přeje<br/>%1"
 msgstr "Krásný den přeje<br/>%1"
@@ -325,6 +325,16 @@ msgstr "vytvořte novou"
 msgid "Vytvořit novou adresu"
 msgstr "Vytvořit novou adresu"
 
+#: ../app/controllers/digital_contents_controller.php:22
+msgid "Digitální produkty"
+msgstr "Digitální produkty"
+
+msgid "soubor %1"
+msgstr "soubor %1"
+
+msgid "Stáhnout"
+msgstr "Stáhnout"
+
 msgid "Greetings"
 msgstr "Dobrý den"
 
@@ -370,6 +380,9 @@ msgstr "IP adresa"
 
 msgid "Logged user:"
 msgstr "Přihlášený uživatel:"
+
+msgid "Zakoupené digitální produkty stáhnete na adrese:"
+msgstr "Zakoupené digitální produkty stáhnete na adrese:"
 
 msgid "Vážený zákazníku,"
 msgstr "Vážený zákazníku,"
@@ -476,6 +489,9 @@ msgstr "Vaše objednávka č. %1 byla zrušena."
 msgid "Vaše objednávka s označením %1 byla úspěšně doručena."
 msgstr "Vaše objednávka s označením %1 byla úspěšně doručena."
 
+msgid "Vaše objednávka s označením %1 byla úspěšně dokončena."
+msgstr "Vaše objednávka s označením %1 byla úspěšně dokončena."
+
 msgid "Platba za objednávku s označením %1 byla úspěšně přijata."
 msgstr "Platba za objednávku s označením %1 byla úspěšně přijata."
 
@@ -490,6 +506,19 @@ msgstr "Vaše objednávka č. %1 je připravena k vyzvednutí na výdejním mís
 
 msgid "Vaše objednávka č. %1 je připravena k odeslání."
 msgstr "Vaše objednávka č. %1 je připravena k odeslání."
+
+msgid ""
+"Doposud jsme nedobdrželi platbu za Vaši objednávku č. %1. Zboží Vám bude "
+"dodáno, <strong>po obdržení Vaší platby</strong>."
+msgstr ""
+"Doposud jsme nedobdrželi platbu za Vaši objednávku č. %1. Zboží Vám bude "
+"dodáno, <strong>po obdržení Vaší platby</strong>."
+
+msgid "Pokud objednávku nezaplatíte do 10 dnů, bude automaticky stornována."
+msgstr "Pokud objednávku nezaplatíte do 10 dnů, bude automaticky stornována."
+
+msgid "Zde je rekapitulace údajů pro platbu bankovním převodem:"
+msgstr "Zde je rekapitulace údajů pro platbu bankovním převodem:"
 
 msgid "Vaše objednávka s označením %1 byla vrácena."
 msgstr "Vaše objednávka s označením %1 byla vrácena."
@@ -580,6 +609,9 @@ msgstr "Stav objednávky:"
 msgid "Stav platby: %1"
 msgstr "Stav platby: %1"
 
+msgid "Stáhnout digitální produkty"
+msgstr "Stáhnout digitální produkty"
+
 msgid "Děkujeme"
 msgstr "Děkujeme"
 
@@ -656,6 +688,9 @@ msgstr "Produkty v kolekci"
 
 msgid "List of Products"
 msgstr "Seznam produktů"
+
+msgid "cena od %1"
+msgstr "cena od %1"
 
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Doručovací adresa bude smazána. Pokračovat?"
@@ -1304,6 +1339,20 @@ msgstr "Doručovací adresa byla smazána"
 msgid "Doručovací adresy"
 msgstr "Doručovací adresy"
 
+#: ../app/controllers/digital_contents_controller.php:24
+#, php-format
+msgid "Digitální produkty v objednávce %s"
+msgstr "Digitální produkty v objednávce %s"
+
+#: ../app/controllers/digital_contents_controller.php:80
+#, php-format
+msgid ""
+"Pro stažení digitálních souborů z objednávky se prosím přihlaste jako "
+"uživatel <em>%s</em>"
+msgstr ""
+"Pro stažení digitálních souborů z objednávky se prosím přihlaste jako "
+"uživatel <em>%s</em>"
+
 #: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
@@ -1461,7 +1510,7 @@ msgstr "kolekce"
 msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
-#: ../app/fields/delivery_method_at_checkout_field.php:96
+#: ../app/fields/delivery_method_at_checkout_field.php:71
 #, php-format
 msgid "od %s do %s dle země doručení"
 msgstr "od %s do %s dle země doručení"
@@ -1939,34 +1988,39 @@ msgstr "upravte doručovací adresu"
 msgid "Kč"
 msgstr "Kč"
 
-#: ../app/models/order.php:523
+#: ../app/models/delivery_method.php:58
+#, php-format
+msgid "opening hours: %s"
+msgstr "otevírací doba: %s"
+
+#: ../app/models/order.php:648
 #, php-format
 msgid "Poznámka k doručovací adrese: %s"
 msgstr "Poznámka k doručovací adrese: %s"
 
-#: ../app/models/order.php:524
+#: ../app/models/order.php:649
 #, php-format
 msgid "Poznámka k fakturační adrese: %s"
 msgstr "Poznámka k fakturační adrese: %s"
 
-#: ../app/models/order.php:565
+#: ../app/models/order.php:694
 msgid "Chybí číslo objednávky"
 msgstr "Chybí číslo objednávky"
 
-#: ../app/models/order.php:575
+#: ../app/models/order.php:704
 msgid "Objednávka nebyla nalezena v systému"
 msgstr "Objednávka nebyla nalezena v systému"
 
-#: ../app/models/order.php:609
+#: ../app/models/order.php:738
 msgid "Chybí číslo zásilky"
 msgstr "Chybí číslo zásilky"
 
-#: ../app/models/order.php:619
+#: ../app/models/order.php:748
 #, php-format
 msgid "Hodnota %s nevypadá jako číslo zásilky"
 msgstr "Hodnota %s nevypadá jako číslo zásilky"
 
-#: ../app/models/order.php:635
+#: ../app/models/order.php:764
 msgid "Zásilka již byla importovaná"
 msgstr "Zásilka již byla importovaná"
 
@@ -2095,6 +2149,9 @@ msgstr "od"
 #: ../lib/filter/filter_range_section.php:235
 msgid "to"
 msgstr "do"
+
+#~ msgid "V případě dotazů nás můžete kontaktovat na emailu %1"
+#~ msgstr "V případě dotazů nás můžete kontaktovat na emailu %1"
 
 #~ msgid ""
 #~ "V příloze naleznete přehled objednaného zboží včetně ošetřovacích symbolů."
