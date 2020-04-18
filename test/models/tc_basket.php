@@ -134,4 +134,14 @@ class TcBasket extends TcBase {
 		$tea_card->addTag($tag);
 		$this->assertTrue($basket->hasEveryProductTag($tag));
 	}
+
+	function test_canOrderBeCreated(){
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+
+		$this->assertFalse($basket->canOrderBeCreated($messages));
+		$this->assertEquals(1,sizeof($messages));
+		$this->assertEquals("Shopping basket is empty",(string)$messages[0]);
+	}
 }

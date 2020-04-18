@@ -667,6 +667,22 @@ class Basket extends BasketOrOrder {
 		$delivery_method_ids = array_map(function($o){ return $o->getId(); },$delivery_methods);
 		$payment_method_ids = array_map(function($o){ return $o->getId(); },$payment_methods);
 
+
+		if(
+			($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)) ||
+			($payment_method && !in_array($payment_method->getId(),$payment_method_ids)) ||
+			($delivery_method && !$payment_method) ||
+			(!$delivery_method && $payment_method)
+		){
+			// Beware! Here, the basket state is changing.
+			$this->s([
+				"delivery_method_id" => null,
+				"delivery_method_data" => null,
+				"payment_method_id" => null,
+			]);
+			$delivery_method = $payment_method = null;
+		}
+
 		if($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)){
 			$messages[] = new  BasketErrorMessage(sprintf(_("Doručovací metoda <em>%s</em> nemůže být vybrána"),h($delivery_method->getLabel())),[
 				"correction_text" => _("vyberte jinou metodu"),
@@ -679,17 +695,6 @@ class Basket extends BasketOrOrder {
 				"correction_text" => _("vyberte jinou metodu"),
 				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
 			]);
-		}
-
-		if($this->onlinePaymentMethodRequired() && $this->getPaymentMethod() && !$this->getPaymentMethod()->isOnlineMethod()){
-			$messages[] = new BasketErrorMessage(_("Musí být vybrána online platební metoda"));
-		}
-
-		$delivery_method = $this->getDeliveryMethod();
-		if($delivery_method && ($required_tag = $delivery_method->getRequiredTag())){
-			if(!$this->hasEveryProductTag($required_tag)){
-				$messages[] = new  BasketErrorMessage(sprintf(_("Doručovací metoda <em>%s</em> nemůže být vybrána"),h($delivery_method->getLabel())));
-			}
 		}
 
 		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
@@ -705,6 +710,10 @@ class Basket extends BasketOrOrder {
 		}
 
 		if($messages){
+			return false;
+		}
+
+		if(!$delivery_method || !$payment_method){
 			return false;
 		}
 

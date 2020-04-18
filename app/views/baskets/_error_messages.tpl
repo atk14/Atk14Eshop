@@ -2,7 +2,7 @@
 {if $error_messages}
 
 	<div class="alert alert-danger" role="alert">
-		<h4>{t}Objednávka nemůže být dokončena{/t}</h4>
+		<h4 class="text-danger">{t}Objednávka nemůže být dokončena{/t}</h4>
 		<ul>
 		{foreach $error_messages as $error_message}
 			<li>
