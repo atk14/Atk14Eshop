@@ -1,4 +1,10 @@
 <?php
+/**
+ * Trait for small tables with unique field "code"
+ *
+ * All records are being loaded automatically into memory during first usage.
+ * Methods FindById(), FindByCode(), GetInstanceById() and GetInstanceByCode() return records from memory.
+ */
 trait TraitCodebook {
 
 	static $ByCodes = null;
