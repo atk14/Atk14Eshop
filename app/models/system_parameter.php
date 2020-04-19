@@ -58,7 +58,9 @@ class SystemParameter extends ApplicationModel implements Translatable {
 	}
 
 	function getSystemParameterType(){
-		return Cache::Get("SystemParameterType",$this->getSystemParameterTypeId());
+		// since SystemParameterType uses TraitCodebook, the first option is more efficient
+		return SystemParameterType::GetInstanceById($this->getSystemParameterTypeId());
+		//return Cache::Get("SystemParameterType",$this->getSystemParameterTypeId());
 	}
 
 	function getType(){
