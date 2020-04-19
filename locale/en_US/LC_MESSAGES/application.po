@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-18 21:13+0200\n"
-"PO-Revision-Date: 2020-04-18 21:33+0200\n"
+"PO-Revision-Date: 2020-04-19 15:23+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -1873,7 +1873,7 @@ msgstr "Shopping basket is empty"
 #: ../app/models/basket.php:583
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
-msgstr ""
+msgstr "Product <em>%s (%s)</em> has been removed from our price list"
 
 #: ../app/models/basket.php:585 ../app/models/basket.php:600
 msgid "odebrat z košíku"
@@ -1882,7 +1882,7 @@ msgstr ""
 #: ../app/models/basket.php:598
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
-msgstr ""
+msgstr "Product <em>%s (%s)</em> is out of stock"
 
 #: ../app/models/basket.php:608
 #, php-format

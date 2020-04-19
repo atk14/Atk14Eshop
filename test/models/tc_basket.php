@@ -5,9 +5,11 @@
  * @fixture users
  * @fixture delivery_methods
  * @fixture payment_methods
+ * @fixture shipping_combinations
  * @fixture cards
  * @fixture products
  * @fixture pricelist_items
+ * @fixture warehouse_items
  * @fixture tags
  */
 class TcBasket extends TcBase {
@@ -136,12 +138,56 @@ class TcBasket extends TcBase {
 	}
 
 	function test_canOrderBeCreated(){
+		Atk14Locale::Initialize(); // TODO: it is not clear why this is needed, certainly it should be handled on another place
+
 		$kveta = $this->users["kveta"];
 		$czechoslovakia = $this->regions["czechoslovakia"];
 		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["post"],
+			"payment_method_id" => $this->payment_methods["bank_transfer"],
+		]);
 
 		$this->assertFalse($basket->canOrderBeCreated($messages));
 		$this->assertEquals(1,sizeof($messages));
 		$this->assertEquals("Shopping basket is empty",(string)$messages[0]);
+
+		$basket->addProduct($this->products["black_tea"]);
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertTrue($stat);
+		$this->assertEquals(0,sizeof($messages));
+
+		$basket->addProduct($this->products["herbal_tea"]);
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertFalse($stat);
+		$this->assertEquals(1,sizeof($messages));
+		$this->assertEquals("Product <em>Herbal tea (HERBAL_TEA)</em> is out of stock",(string)$messages[0]);
+
+		$basket->setProductAmount($this->products["herbal_tea"],0);
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertTrue($stat);
+
+		$basket->addProduct($this->products["green_tea"]);
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertFalse($stat);
+		$this->assertEquals(1,sizeof($messages));
+		$this->assertEquals("Product <em>Green tea (TEA_GREEN)</em> has been removed from our price list",(string)$messages[0]);
+
+		$basket->setProductAmount($this->products["green_tea"],0);
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertTrue($stat);
+
+		// choosing unsupported shipping combination
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["post_cod"],
+			"payment_method_id" => $this->payment_methods["bank_transfer"],
+		]);
+		$this->assertNotNull($basket->getDeliveryMethod());
+		$this->assertNotNull($basket->getPaymentMethod());
+		$stat = $basket->canOrderBeCreated($messages);
+		$this->assertFalse($stat);
+		$this->assertEquals(0,sizeof($messages)); // there is no message
+		$this->assertNull($basket->getDeliveryMethod());
+		$this->assertNull($basket->getPaymentMethod());
 	}
 }

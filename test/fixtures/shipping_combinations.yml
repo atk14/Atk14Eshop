@@ -1,0 +1,19 @@
+dpd__credit_card:
+  delivery_method_id: "<?= $delivery_methods["dpd"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["credit_card"]->getId() ?>"
+
+dpd__bank_transfer:
+  delivery_method_id: "<?= $delivery_methods["dpd"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["bank_transfer"]->getId() ?>"
+
+personal__cash_on_delivery:
+  delivery_method_id: "<?= $delivery_methods["personal"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["cash_on_delivery"]->getId() ?>"
+
+post__bank_transfer:
+  delivery_method_id: "<?= $delivery_methods["post"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["bank_transfer"]->getId() ?>"
+
+post_cod__cash_on_delivery:
+  delivery_method_id: "<?= $delivery_methods["post_cod"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["cash_on_delivery"]->getId() ?>"

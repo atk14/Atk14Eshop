@@ -18,6 +18,14 @@ green_tea:
   label_en: "green"
   label_cs: "zelený"
 
+herbal_tea:
+  catalog_id: HERBAL_TEA
+  card_id: "<?php echo $cards["tea"]->getId() ?>"
+  name_en: "Herbal tea"
+  name_cs: "Bylinková čaj"
+  label_en: "herbal"
+  label_cs: "bylinkový"
+
 peanuts:
   catalog_id: PEANUTS
   card_id: "<?php echo $cards["peanuts"]->getId() ?>"

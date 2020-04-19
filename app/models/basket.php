@@ -672,7 +672,8 @@ class Basket extends BasketOrOrder {
 			($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)) ||
 			($payment_method && !in_array($payment_method->getId(),$payment_method_ids)) ||
 			($delivery_method && !$payment_method) ||
-			(!$delivery_method && $payment_method)
+			(!$delivery_method && $payment_method) ||
+			(!ShippingCombination::IsAllowed($delivery_method,$payment_method))
 		){
 			// Beware! Here, the basket state is changing.
 			$this->s([

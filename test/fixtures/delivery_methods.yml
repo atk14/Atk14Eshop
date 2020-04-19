@@ -1,11 +1,26 @@
 dpd:
   code: "dpd_test"
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode()]) ?>"
   price: 100
   price_incl_vat: 121
 
 personal:
   code: "personal_test"
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
   price: 0
   price_incl_vat: 0
   personal_pickup: true
   personal_pickup_on_store_id: "<?= $stores["test"]->getId() ?>"
+
+post:
+  code: "post_test"
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  price: 90
+  price_incl_vat: 190
+
+post_cod:
+  code: "post_cod_test"
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  price: 120
+  price_incl_vat: 120
+

@@ -7,3 +7,10 @@ mint_tea:
   pricelist_id: 1
   product_id: "<?=$products["mint_tea"]->getId()?>"
   price: 24.20
+
+# green tea is no in pricelist
+
+herbal_tea:
+  pricelist_id: 1
+  product_id: "<?=$products["herbal_tea"]->getId()?>"
+  price: 29.90

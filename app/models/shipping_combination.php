@@ -68,6 +68,10 @@ class ShippingCombination extends ApplicationModel {
 	}
 
 	static function IsAllowed($delivery_method_id, $payment_method_id) {
+    if(is_null($delivery_method_id) || is_null($payment_method_id)){
+      return null;
+    }
+
 		$dbmole = self::GetDbMole();
 		$q = "
 			SELECT
@@ -145,7 +149,7 @@ class ShippingCombination extends ApplicationModel {
 		}
 
 		if(!$delivery_methods){
-			return [];
+			return [[],[]];
 		}
 
 		//

@@ -12,3 +12,8 @@ mint_tea:
   product_id: "<?= $products["mint_tea"]->getId() ?>"
   warehouse_id: 1
   stockcount: 22
+
+herbal_tea:
+  product_id: "<?= $products["herbal_tea"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 0
