@@ -1,7 +1,7 @@
 <?php
 class DeliveryMethod extends ApplicationModel implements Rankable, Translatable {
 
-	use TraitGetInstanceByCode; //TraitCodebook it cannot be used; tests (eg. in test/models/tc_order.php) are failing
+	use TraitCodebook;
 	use TraitRegions;
 
 	/**
