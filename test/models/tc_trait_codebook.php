@@ -13,7 +13,7 @@ class TcTraitCodebook extends TcBase {
 
 		$cnt_3 = $this->dbmole->getQueriesExecuted();
 
-		$this->assertTrue($cnt_2 > $cnt_1);
+		$this->assertEquals($cnt_2,$cnt_1 + 2);
 		$this->assertEquals($cnt_2,$cnt_3);
 	}
 }
