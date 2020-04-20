@@ -13,31 +13,6 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return array("label","title","description","email_description");
 	}
 
-	/**
-	 * Najde delivery_type podle kodu.
-	 *
-	 * Lze zadat vcetne kodu pobocky, pokud muze mit nejaky dorucovaci zpusob vice moznosti.
-	 * Pobocek muze byt mnoho na to, aby se importovaly do ciselniku.
-	 * V ciselniku je ale jen jeden zaznam spolecne pro vsechny pobocky.
-
-	 * Napriklad Ceska Posta - balik na postu. Tato moznost ma jeden spolecny kod CP_np pro jakoukoliv vybranou postu.
-	 * Soucasti kodu muze byt psc posty, napr.: CP_np/13001
-	 * Takto se cely kod posila do service.
-	 *
-	 */
-	static function FindByCode($code, $options = array()){
-		list($code,$subcode) = preg_split("/\//", "$code/");
-		static $Cache=array();
-		$options += array(
-			"force_read" => TEST,
-			"use_cache" => true,
-		);
-		if(!key_exists($code, $Cache) || $options["force_read"]) {
-			$Cache[$code] = parent::FindByCode($code, $options);
-		}
-		return $Cache[$code];
-	}
-
 	function isActive() {
 		return $this->getActive();
 	}
