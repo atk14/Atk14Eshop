@@ -1,4 +1,5 @@
 {capture assign=return_uri}{$request->getUri()}#order_items{/capture}
+{assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
 
 <table class="table">
 	<thead>
@@ -24,7 +25,12 @@
 			<tr>
 				<td>{render partial="shared/list_thumbnail" image=$item->getProduct()->getImage()}</td>
 				<td>{$product->getCatalogId()}</td>
-				<td>{$product->getFullName()}</td>
+				<td>
+					{$product->getFullName()}
+					{if $product->getCard()->containsTag($tag_digital_product)}
+						<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
+					{/if}
+				</td>
 				<td>{$item->getAmount()} {$product->getUnit()}</td>
 				<td>{!$item->getUnitPrice()|display_price:"$currency"}</td>
 				<td>{!$item->getPrice()|display_price:"$currency"}</td>
