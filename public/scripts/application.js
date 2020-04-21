@@ -54,11 +54,20 @@
 				} );
 				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
 						//console.log( e.type );
+						e.stopImmediatePropagation();
 						var $this = $( this );
+						if ( !$this.is( ":hover" ) ) {
+							return;
+						}
 						$this.addClass( showClass );
 						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
-						$this.find( $dropdownMenu ).addClass( showClass ).hide().fadeIn( 400 );
-						e.stopImmediatePropagation();
+						$this.find( $dropdownMenu ).addClass( showClass ).hide().fadeIn( 200, function() {
+							if ( !$this.is( ":hover" ) ) {
+								$this.removeClass( showClass );
+								$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
+								$this.find( $dropdownMenu ).removeClass( showClass ).hide();
+							}
+						} );
 				} );
 				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
 						//console.log( e.type );
