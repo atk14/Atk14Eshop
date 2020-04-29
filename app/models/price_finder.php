@@ -164,8 +164,7 @@ class PriceFinder {
 		$pricelists = [$this->pricelist->getId()];
 		if($this->base_pricelist){ $pricelists[] = $this->base_pricelist->getId(); }
 		// TODO: The sorting must respect if one price list contains prices with VAT and the second one doesn't
-		$rows = $this->dbmole->selectRows("
-				SELECT
+		$rows = $this->dbmole->selectRows("SELECT
 					product_id,
 					MIN(price) AS price,
 					minimum_quantity,
@@ -209,13 +208,17 @@ class PriceFinder {
 			$prices[$p_id][] = $row;
 		}
 
-		$discount_percent = Discount::GetDiscountForProduct($ids);
+		$discounts = Discount::GetDiscountDataForProduct($ids);
+
 		$out = [];
 		foreach($ids as $id) {
+			$discount = $discounts[$id];
 			$out[$id] = [
 				"product_id" => $id,
 				"vat_percent" => $products[$id] ? $products[$id]->getVatPercent() : null,
-				"discount_percent" => $discount_percent[$id],
+				"discount_percent" => $discount?$discount['discount_percent']:null,
+				"discounted_from" => $discount?$discount['discounted_from']:null,
+				"discounted_to" => $discount?$discount['discounted_to']:null,
 				"prices" => isset($prices[$id]) ? $prices[$id] : []
 			];
 		}
