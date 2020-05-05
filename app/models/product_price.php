@@ -14,7 +14,8 @@ class ProductPrice {
 	 *		"product_id" => 123,
 	 *		"vat_percent"
 	 *		"prices" => [...],
-   *    "discount_percent" => 20.0,
+	 *		"discount_percent" => 20.0,
+	 *		"discounted_from" => date
 	 *	]
 	 * ],10,Currency::GetDefaultCurrency());
 	 */
@@ -23,6 +24,20 @@ class ProductPrice {
 		$this->amount = $amount;
 		$this->currency = $currency;
 		$this->current_date = $current_date;
+	}
+
+	function discountedFrom() {
+		if(!key_exists('discounted_from', $this->data)) {
+			return null;
+		}
+		return $this->data['discounted_from'];
+	}
+
+	function discountedTo() {
+		if(!key_exists('discounted_to', $this->data)) {
+			return null;
+		}
+		return $this->data['discounted_to'];
 	}
 
 	function priceExists(){
