@@ -373,7 +373,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	}
 
 	function destroy($destroy_for_real = null){
-		foreach($this->getChildCategories() as $ch){
+		foreach($this->getChildCategories(array("follow_symlinks" => false)) as $ch){
 			$ch->destroy($destroy_for_real);
 		}
 		return parent::destroy($destroy_for_real);
