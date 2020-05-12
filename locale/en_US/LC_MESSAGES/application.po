@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 21:13+0200\n"
-"PO-Revision-Date: 2020-04-19 15:23+0200\n"
+"POT-Creation-Date: 2020-05-12 17:10+0200\n"
+"PO-Revision-Date: 2020-05-12 17:07+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 msgid "Nahoru"
-msgstr ""
+msgstr "Top"
 
 msgid "Zpráva z obchodu %1"
 msgstr "Message from eshop %1"
@@ -755,13 +755,13 @@ msgid "Edit links"
 msgstr "Edit links"
 
 msgid "Edit page"
-msgstr ""
+msgstr "Edit page"
 
 msgid "Create a subpage"
-msgstr ""
+msgstr "Create a subpage"
 
 msgid "List of pages"
-msgstr ""
+msgstr "List of pages"
 
 msgid "Create a new record"
 msgstr "Create a new record"
@@ -968,11 +968,12 @@ msgstr "Product categories"
 msgid "Brands"
 msgstr "Brands"
 
+#: ../app/controllers/stores_controller.php:6
 #: ../app/controllers/stores_controller.php:14
 msgid "Stores"
 msgstr "Stores"
 
-#: ../app/controllers/users_controller.php:18
+#: ../app/controllers/users_controller.php:22
 msgid "New user registration"
 msgstr "New user registration"
 
@@ -1079,11 +1080,11 @@ msgstr "Are you admin?"
 msgid "Yes, you are"
 msgstr "Yes, you are"
 
-#: ../app/controllers/users_controller.php:44
+#: ../app/controllers/users_controller.php:48
 msgid "Change your account data"
 msgstr "Change your account data"
 
-#: ../app/controllers/users_controller.php:61
+#: ../app/controllers/users_controller.php:65
 msgid "Change your password"
 msgstr "Change your password"
 
@@ -1387,7 +1388,7 @@ msgstr ""
 "set."
 
 #: ../app/controllers/password_recoveries_controller.php:62
-#: ../app/controllers/users_controller.php:75
+#: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Your password has been updated successfully"
 
@@ -1408,11 +1409,11 @@ msgstr "Sitemap"
 msgid "List of stores"
 msgstr "List of stores"
 
-#: ../app/controllers/users_controller.php:10
+#: ../app/controllers/users_controller.php:14
 msgid "To register as a new user, sign out first"
 msgstr "To register as a new user, sign out first"
 
-#: ../app/controllers/users_controller.php:31
+#: ../app/controllers/users_controller.php:35
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
@@ -1421,19 +1422,19 @@ msgstr ""
 "You have been successfully registered and now you are logged in as <em>%s</"
 "em>"
 
-#: ../app/controllers/users_controller.php:40
+#: ../app/controllers/users_controller.php:44
 msgid "Thank you for your registration!"
 msgstr "Thank you for your registration!"
 
-#: ../app/controllers/users_controller.php:50
+#: ../app/controllers/users_controller.php:54
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
-#: ../app/controllers/users_controller.php:55
+#: ../app/controllers/users_controller.php:59
 msgid "Your account data has been updated"
 msgstr "Your account data has been updated"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:69
 msgid "This is not your current password"
 msgstr "This is not your current password"
 
@@ -1925,30 +1926,30 @@ msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 
-#: ../app/models/basket.php:687
+#: ../app/models/basket.php:688
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr ""
 
-#: ../app/models/basket.php:688 ../app/models/basket.php:695
+#: ../app/models/basket.php:689 ../app/models/basket.php:696
 msgid "vyberte jinou metodu"
 msgstr ""
 
-#: ../app/models/basket.php:694
+#: ../app/models/basket.php:695
 #, php-format
 msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr ""
 
-#: ../app/models/basket.php:702
+#: ../app/models/basket.php:703
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr ""
 
-#: ../app/models/basket.php:706
+#: ../app/models/basket.php:707
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr ""
 
-#: ../app/models/basket.php:707
+#: ../app/models/basket.php:708
 msgid "upravte doručovací adresu"
 msgstr ""
 
@@ -1956,7 +1957,7 @@ msgstr ""
 msgid "Kč"
 msgstr ""
 
-#: ../app/models/delivery_method.php:58
+#: ../app/models/delivery_method.php:33
 #, php-format
 msgid "opening hours: %s"
 msgstr ""

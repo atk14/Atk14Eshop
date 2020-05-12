@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 21:13+0200\n"
-"PO-Revision-Date: 2020-01-30 13:04+0100\n"
+"POT-Creation-Date: 2020-05-12 17:10+0200\n"
+"PO-Revision-Date: 2020-05-12 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -155,10 +155,10 @@ msgid "Je aktivní?"
 msgstr ""
 
 msgid "Valid from"
-msgstr ""
+msgstr "Valid from"
 
 msgid "Valid to"
-msgstr ""
+msgstr "Valid to"
 
 msgid "Datum vytvoření"
 msgstr ""
@@ -177,7 +177,7 @@ msgid "Doplňte k produktům krátké názvy pro rozlišení varianty."
 msgstr ""
 
 msgid "Variants on product card <em>%1</em>"
-msgstr ""
+msgstr "Variants on product card <em>%1</em>"
 
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr ""
@@ -196,10 +196,10 @@ msgid "Show on web"
 msgstr "Show on web"
 
 msgid "Copy this product"
-msgstr ""
+msgstr "Copy this product"
 
 msgid "Merge this product with another"
-msgstr ""
+msgstr "Merge this product with another"
 
 msgid "Delete product"
 msgstr "Delete product"
@@ -232,28 +232,28 @@ msgid "Remove from the category"
 msgstr "Remove from the category"
 
 msgid "Creators"
-msgstr ""
+msgstr "Creators"
 
 msgid "Edit creator"
-msgstr ""
+msgstr "Edit creator"
 
 msgid "Upravit vazbu tvůrce s produktem"
 msgstr ""
 
 msgid "Visit the creator page"
-msgstr ""
+msgstr "Visit the creator page"
 
 msgid "main creator"
-msgstr ""
+msgstr "main creator"
 
 msgid "secondary creator"
-msgstr ""
+msgstr "secondary creator"
 
 msgid "profile page"
-msgstr ""
+msgstr "profile page"
 
 msgid "This product has no creator specified"
-msgstr ""
+msgstr "This product has no creator specified"
 
 msgid "Related products"
 msgstr "Related products"
@@ -323,16 +323,16 @@ msgid "Updated at"
 msgstr "Updated at"
 
 msgid "Edit stockount in warehouse %1"
-msgstr ""
+msgstr "Edit stockount in warehouse %1"
 
 msgid "Create new entry in warehouse %1"
-msgstr ""
+msgstr "Create new entry in warehouse %1"
 
 msgid "Edit price in pricelist %1"
-msgstr ""
+msgstr "Edit price in pricelist %1"
 
 msgid "Create new entry in pricelist %1"
-msgstr ""
+msgstr "Create new entry in pricelist %1"
 
 #: ../app/controllers/admin/digital_contents_controller.php:61
 #, php-format
@@ -429,7 +429,7 @@ msgid "Move the category"
 msgstr "Move the category"
 
 msgid "Create a link to this category"
-msgstr ""
+msgstr "Create a link to this category"
 
 msgid ""
 "You are about to delete the category %1!\n"
@@ -458,7 +458,7 @@ msgid "Can products be inserted here?"
 msgstr "Can products be inserted here?"
 
 msgid "This is a linking category that refers to <a href=\"%1\">/%2/</a>"
-msgstr ""
+msgstr "This is a linking category that refers to <a href=\"%1\">/%2/</a>"
 
 msgid "Subcategories"
 msgstr "Subcategories"
@@ -472,7 +472,7 @@ msgstr "filter"
 
 #: ../app/controllers/admin/admin.php:102
 msgid "link"
-msgstr ""
+msgstr "link"
 
 msgid "This category has no subcategories."
 msgstr "This category has no subcategories."
@@ -556,15 +556,17 @@ msgid ""
 "You are about to permanently delete creator role %1\n"
 "\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete creator role %1\n"
+"\tAre you sure about that?"
 
 msgid "Add a new creator role"
-msgstr ""
+msgstr "Add a new creator role"
 
 msgid "default currency"
-msgstr ""
+msgstr "default currency"
 
 msgid "conversion rate"
-msgstr ""
+msgstr "conversion rate"
 
 msgid "Specifické hodnoty u podporovaných zemí"
 msgstr ""
@@ -666,19 +668,19 @@ msgid "bez popisu"
 msgstr "without description"
 
 msgid "Drag files here"
-msgstr ""
+msgstr "Drag files here"
 
 msgid "Photos"
-msgstr ""
+msgstr "Photos"
 
 msgid "Přidat obrázky do fotogalerie"
-msgstr ""
+msgstr "Add pictures to the photo gallery"
 
 msgid "Přidat fotografii"
 msgstr "Add a photo"
 
 msgid "bez titulku nebo popisu"
-msgstr ""
+msgstr "without title or description"
 
 msgid "The image was uploaded at:"
 msgstr "The image was uploaded at:"
@@ -735,7 +737,7 @@ msgid "Roky"
 msgstr ""
 
 msgid "Eshop %1: Administration"
-msgstr ""
+msgstr "Eshop %1: Administration"
 
 msgid "Dnešní objednávky:"
 msgstr ""
@@ -952,10 +954,10 @@ msgid "Číslo obj."
 msgstr ""
 
 msgid "E-mail"
-msgstr ""
+msgstr "Email"
 
 msgid "Telefon"
-msgstr ""
+msgstr "Phone"
 
 msgid "Celk. cena"
 msgstr ""
@@ -970,7 +972,7 @@ msgid "Zodp.&nbsp;osoba"
 msgstr ""
 
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 msgid "určit zodp.osobu"
 msgstr ""
@@ -982,23 +984,23 @@ msgid "Zrušit filtry"
 msgstr ""
 
 msgid "code"
-msgstr ""
+msgstr "code"
 
 msgid "it is notified"
-msgstr ""
+msgstr "it is notified"
 
 msgid "notification disabled"
-msgstr ""
+msgstr "notification disabled"
 
 msgid "bcc"
-msgstr ""
+msgstr "bcc"
 
 msgid "Slevové kupóny nebyly zadány"
 msgstr ""
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:8
 msgid "Kód"
-msgstr ""
+msgstr "Code"
 
 msgid "Opravdu chcete smazat tento slevový kupón?"
 msgstr ""
@@ -1077,13 +1079,13 @@ msgid "Product name"
 msgstr "Product name"
 
 msgid "Minimum quantity"
-msgstr ""
+msgstr "Minimum quantity"
 
 msgid "Price"
-msgstr ""
+msgstr "Price"
 
 msgid "Price incl. VAT"
-msgstr ""
+msgstr "Price incl. VAT"
 
 msgid "Upravit cenu"
 msgstr ""
@@ -1098,7 +1100,7 @@ msgid "Smazat cenu"
 msgstr ""
 
 msgid "Add a pricelist"
-msgstr ""
+msgstr "Add a pricelist"
 
 msgid ""
 "Obvykle je vhodné spravovat dva ceníky: jeden ceník pro ceny všech produktů "
@@ -1108,7 +1110,7 @@ msgid ""
 msgstr ""
 
 msgid "Prices"
-msgstr ""
+msgstr "Prices"
 
 msgid ""
 "You are about to permanently delete pricelist %1\n"
@@ -1119,12 +1121,14 @@ msgid "Fotogalerii lze přidat hned po vytvoření varianty produktu."
 msgstr ""
 
 msgid "Add a region"
-msgstr ""
+msgstr "Add a region"
 
 msgid ""
 "You are about to permanently delete VAT rate %1\n"
 "\t\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete VAT rate %1\n"
+"\t\tAre you sure about that?"
 
 msgid ""
 "You are about to delete the attachment %1\n"
@@ -1213,7 +1217,7 @@ msgid "Add video"
 msgstr "Add video"
 
 msgid "Add product promotion"
-msgstr ""
+msgstr "Add product promotion"
 
 msgid "Localhost"
 msgstr "Localhost"
@@ -1260,44 +1264,48 @@ msgid "Sazba DPH"
 msgstr ""
 
 msgid "Add images"
-msgstr ""
+msgstr "Add images"
 
 msgid ""
 "Upload multiple files with the file dialog or by dragging and dropping "
 "images onto the dashed region"
 msgstr ""
+"Upload multiple files with the file dialog or by dragging and dropping "
+"images onto the dashed region"
 
 msgid "Submit form"
-msgstr ""
+msgstr "Submit form"
 
 msgid "no payment methods selected"
-msgstr ""
+msgstr "no payment methods selected"
 
 msgid "Add new image"
-msgstr ""
+msgstr "Add new image"
 
 msgid "Zatím tady není žádný obrázek."
 msgstr ""
 
 msgid "Add new image slider"
-msgstr ""
+msgstr "Add new image slider"
 
 msgid "Currently there is no image slider."
-msgstr ""
+msgstr "Currently there is no image slider."
 
 msgid "Images"
-msgstr ""
+msgstr "Images"
 
 msgid ""
 "You are about to permanently delete image slider %1\n"
 "\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete image slider %1\n"
+"\tAre you sure about that?"
 
 msgid "Add a store"
 msgstr "Add a store"
 
 msgid "invisible in the public list on web"
-msgstr ""
+msgstr "invisible in the public list on web"
 
 msgid ""
 "You are about to permanently delete store %1\n"
@@ -1307,7 +1315,7 @@ msgstr ""
 "\t\tAre you sure about that?"
 
 msgid "Parameter name"
-msgstr ""
+msgstr "Parameter name"
 
 msgid "Add new tag"
 msgstr "Add new tag"
@@ -1386,6 +1394,8 @@ msgid ""
 "You are about to permanently delete user %1\n"
 "Are you sure about that?"
 msgstr ""
+"You are about to permanently delete user %1\n"
+"Are you sure about that?"
 
 msgid "Smazat uživatele"
 msgstr ""
@@ -1442,12 +1452,14 @@ msgid "Delete user"
 msgstr "Delete user"
 
 msgid "Add a VAT rate"
-msgstr ""
+msgstr "Add a VAT rate"
 
 msgid ""
 "The first VAT rate in the list below is considered to be the default VAT "
 "rate."
 msgstr ""
+"The first VAT rate in the list below is considered to be the default VAT "
+"rate."
 
 msgid "Změnit video"
 msgstr "Edit video"
@@ -1467,7 +1479,7 @@ msgid "Nebyl nalezen žádný voucher."
 msgstr ""
 
 msgid "Regions"
-msgstr ""
+msgstr "Regions"
 
 msgid "Hodnota"
 msgstr ""
@@ -1485,24 +1497,26 @@ msgstr ""
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
 msgid "Stockcount"
-msgstr ""
+msgstr "Stockcount"
 
 msgid "Show product in eshop"
-msgstr ""
+msgstr "Show product in eshop"
 
 msgid "Delete entry"
-msgstr ""
+msgstr "Delete entry"
 
 msgid "Add a warehouse"
-msgstr ""
+msgstr "Add a warehouse"
 
 msgid "Warehouse status"
-msgstr ""
+msgstr "Warehouse status"
 
 msgid ""
 "You are about to permanently delete warehouse %1\n"
 "\t\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete warehouse %1\n"
+"\t\tAre you sure about that?"
 
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
@@ -1518,7 +1532,7 @@ msgstr "Welcome screen"
 
 #: ../app/controllers/admin/admin.php:29
 msgid "Orders"
-msgstr ""
+msgstr "Orders"
 
 #: ../app/controllers/admin/admin.php:30
 msgid "Articles"
@@ -1536,7 +1550,7 @@ msgstr "Link lists"
 
 #: ../app/controllers/admin/admin.php:33
 msgid "Image sliders"
-msgstr ""
+msgstr "Image sliders"
 
 #: ../app/controllers/admin/admin.php:35
 msgid "Users"
@@ -1548,11 +1562,11 @@ msgstr "Categories"
 
 #: ../app/controllers/admin/admin.php:38
 msgid "Vouchers"
-msgstr ""
+msgstr "Vouchers"
 
 #: ../app/controllers/admin/admin.php:39
 msgid "Campaigns"
-msgstr ""
+msgstr "Campaigns"
 
 #: ../app/controllers/admin/admin.php:40
 msgid "Brands"
@@ -1569,36 +1583,36 @@ msgstr "Stores"
 #: ../app/controllers/admin/admin.php:43
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
-msgstr ""
+msgstr "Warehouses"
 
 #: ../app/controllers/admin/admin.php:44
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Pricelists"
-msgstr ""
+msgstr "Pricelists"
 
 #: ../app/controllers/admin/admin.php:45
 msgid "Discounts"
-msgstr ""
+msgstr "Discounts"
 
 #: ../app/controllers/admin/admin.php:46
 msgid "Delivery methods"
-msgstr ""
+msgstr "Delivery methods"
 
 #: ../app/controllers/admin/admin.php:47
 msgid "Payment methods"
-msgstr ""
+msgstr "Payment methods"
 
 #: ../app/controllers/admin/admin.php:48
 msgid "Combination of transports and payments"
-msgstr ""
+msgstr "Combination of transports and payments"
 
 #: ../app/controllers/admin/admin.php:49
 msgid "Currencies"
-msgstr ""
+msgstr "Currencies"
 
 #: ../app/controllers/admin/admin.php:50
 msgid "VAT rates"
-msgstr ""
+msgstr "VAT rates"
 
 #: ../app/controllers/admin/admin.php:51
 #: ../app/controllers/admin/password_recoveries_controller.php:5
@@ -1616,16 +1630,16 @@ msgstr "404 Redirections"
 
 #: ../app/controllers/admin/admin.php:54
 msgid "Order statuses"
-msgstr ""
+msgstr "Order statuses"
 
 #: ../app/controllers/admin/admin.php:55
 msgid "Selling regions"
-msgstr ""
+msgstr "Selling regions"
 
 #: ../app/controllers/admin/admin.php:56
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
-msgstr ""
+msgstr "System preferences"
 
 #: ../app/controllers/admin/admin.php:88
 #: ../app/controllers/admin/category_trees_controller.php:23
@@ -1754,20 +1768,20 @@ msgstr ""
 #: ../app/controllers/admin/card_cloning_controller.php:9
 #, php-format
 msgid "Copying product \"%s\""
-msgstr ""
+msgstr "Copying product \"%s\""
 
 #: ../app/controllers/admin/card_cloning_controller.php:109
 msgid "A new product was successfully created"
-msgstr ""
+msgstr "A new product was successfully created"
 
 #: ../app/controllers/admin/card_creators_controller.php:8
 #, php-format
 msgid "Adding creator to the product \"%s\""
-msgstr ""
+msgstr "Adding creator to the product \"%s\""
 
 #: ../app/controllers/admin/card_creators_controller.php:20
 msgid "Editing link between creator and product"
-msgstr ""
+msgstr "Editing link between creator and product"
 
 #: ../app/controllers/admin/card_filters_controller.php:9
 #: ../app/controllers/admin/card_filters_controller.php:71
@@ -1785,7 +1799,7 @@ msgstr ""
 
 #: ../app/controllers/admin/card_merging_controller.php:99
 msgid "Products were successfully merged"
-msgstr ""
+msgstr "Products were successfully merged"
 
 #: ../app/controllers/admin/cards_controller.php:16
 msgid "List of Products"
@@ -1846,17 +1860,17 @@ msgstr "Text section editing"
 #: ../app/controllers/admin/categories_controller.php:10
 #, php-format
 msgid "Editing linking category \"%s\""
-msgstr ""
+msgstr "Editing linking category \"%s\""
 
 #: ../app/controllers/admin/categories_controller.php:12
 #, php-format
 msgid "Editing filter category \"%s\""
-msgstr ""
+msgstr "Editing filter category \"%s\""
 
 #: ../app/controllers/admin/categories_controller.php:14
 #, php-format
 msgid "Editing filter option \"%s\""
-msgstr ""
+msgstr "Editing filter option \"%s\""
 
 #: ../app/controllers/admin/categories_controller.php:16
 #, php-format
@@ -1903,7 +1917,7 @@ msgstr "The category was deleted"
 #: ../app/controllers/admin/categories_controller.php:130
 #, php-format
 msgid "Creating new link to the category \"%s\""
-msgstr ""
+msgstr "Creating new link to the category \"%s\""
 
 #: ../app/controllers/admin/categories_controller.php:138
 msgid "Alias was created"
@@ -1987,20 +2001,20 @@ msgstr "Consumable product has been added"
 
 #: ../app/controllers/admin/creator_roles_controller.php:5
 msgid "Creator roles"
-msgstr ""
+msgstr "Creator roles"
 
 #: ../app/controllers/admin/creator_roles_controller.php:12
 msgid "Create a new role for creators"
-msgstr ""
+msgstr "Create a new role for creators"
 
 #: ../app/controllers/admin/creators_controller.php:6
 #, php-format
 msgid "Editing creator \"%s\""
-msgstr ""
+msgstr "Editing creator \"%s\""
 
 #: ../app/controllers/admin/currencies_controller.php:5
 msgid "List of Currencies"
-msgstr ""
+msgstr "List of Currencies"
 
 #: ../app/controllers/admin/delivery_method_country_specifications_controller.php:30
 #, php-format
@@ -2041,7 +2055,7 @@ msgstr ""
 
 #: ../app/controllers/admin/discounts_controller.php:16
 msgid "List of discounts"
-msgstr ""
+msgstr "List of discounts"
 
 #: ../app/controllers/admin/error_redirections_controller.php:31
 msgid "Create redirection"
@@ -2067,7 +2081,7 @@ msgstr "The redirection has been updated successfully"
 #: ../app/controllers/admin/files_controller.php:7
 #, php-format
 msgid "File %s"
-msgstr ""
+msgstr "File %s"
 
 #: ../app/controllers/admin/galleries_controller.php:10
 msgid "Nová fotogalerie"
@@ -2221,7 +2235,7 @@ msgstr ""
 #: ../app/controllers/admin/pricelist_items_controller.php:7
 #, php-format
 msgid "Prices in pricelist %s"
-msgstr ""
+msgstr "Prices in pricelist %s"
 
 #: ../app/controllers/admin/pricelist_items_controller.php:46
 msgid "Nová cena"
@@ -2242,20 +2256,20 @@ msgstr "Variant has been created"
 #: ../app/controllers/admin/products_controller.php:47
 #, php-format
 msgid "Editing product variant %s (%s)"
-msgstr ""
+msgstr "Editing product variant %s (%s)"
 
 #: ../app/controllers/admin/products_controller.php:47
 #, php-format
 msgid "Editing product %s (%s)"
-msgstr ""
+msgstr "Editing product %s (%s)"
 
 #: ../app/controllers/admin/regions_controller.php:5
 msgid "List of selling regions"
-msgstr ""
+msgstr "List of selling regions"
 
 #: ../app/controllers/admin/regions_controller.php:11
 msgid "Editing selling region"
-msgstr ""
+msgstr "Editing selling region"
 
 #: ../app/controllers/admin/related_cards_controller.php:17
 msgid "The same product cannot be added to the product itself"
@@ -2286,15 +2300,15 @@ msgstr ""
 #: ../app/controllers/admin/slider_items_controller.php:5
 #, php-format
 msgid "Images in slider %s"
-msgstr ""
+msgstr "Images in slider %s"
 
 #: ../app/controllers/admin/slider_items_controller.php:14
 msgid "Add new image into the slider"
-msgstr ""
+msgstr "Add new image into the slider"
 
 #: ../app/controllers/admin/sliders_controller.php:5
 msgid "List of image sliders"
-msgstr ""
+msgstr "List of image sliders"
 
 #: ../app/controllers/admin/slugs_controller.php:7
 #, php-format
@@ -2316,7 +2330,7 @@ msgstr "Edit store"
 #: ../app/controllers/admin/system_parameters_controller.php:36
 #, php-format
 msgid "Editing parameter %s"
-msgstr ""
+msgstr "Editing parameter %s"
 
 #: ../app/controllers/admin/system_parameters_controller.php:44
 #: ../app/controllers/admin/tags_controller.php:64
@@ -2421,7 +2435,7 @@ msgstr "Now you are logged as <em>%s</em>"
 
 #: ../app/controllers/admin/vat_rates_controller.php:5
 msgid "List of VAT rates"
-msgstr ""
+msgstr "List of VAT rates"
 
 #: ../app/controllers/admin/videos_controller.php:6
 msgid "Nové video"
@@ -2442,15 +2456,15 @@ msgstr ""
 #: ../app/controllers/admin/warehouse_items_controller.php:7
 #, php-format
 msgid "Products in warehouse %s"
-msgstr ""
+msgstr "Products in warehouse %s"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:42
 msgid "New warehouse entry"
-msgstr ""
+msgstr "New warehouse entry"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:52
 msgid "Edit warehouse entry"
-msgstr ""
+msgstr "Edit warehouse entry"
 
 #: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
@@ -2466,11 +2480,11 @@ msgstr "Description"
 
 #: ../app/forms/admin/admin_form.php:124
 msgid "Validity date from"
-msgstr ""
+msgstr "Validity date from"
 
 #: ../app/forms/admin/admin_form.php:130
 msgid "Validity date to"
-msgstr ""
+msgstr "Validity date to"
 
 #: ../app/forms/admin/admin_form.php:142
 msgid "An alternative key for system usage."
@@ -2494,11 +2508,11 @@ msgstr "Is active?"
 
 #: ../app/forms/admin/admin_form.php:180
 msgid "Vat rate"
-msgstr ""
+msgstr "Vat rate"
 
 #: ../app/forms/admin/admin_form.php:191
 msgid "Unit"
-msgstr ""
+msgstr "Unit"
 
 #: ../app/forms/admin/admin_form.php:198
 msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
@@ -2547,11 +2561,14 @@ msgstr "Teaser"
 
 #: ../app/forms/admin/articles/articles_form.php:18
 #: ../app/forms/admin/articles/articles_form.php:24
-msgid "Markdown format is expected"
-msgstr "Markdown format is expected"
+#: ../app/forms/admin/pages/pages_form.php:17
+#: ../app/forms/admin/pages/pages_form.php:23
+#, php-format
+msgid "<a href=\"%s\">Markdown</a> format is expected"
+msgstr "<a href=\"%s\">Markdown</a> format is expected"
 
 #: ../app/forms/admin/articles/articles_form.php:23
-#: ../app/forms/admin/pages/pages_form.php:21
+#: ../app/forms/admin/pages/pages_form.php:22
 msgid "Body"
 msgstr "Body"
 
@@ -2646,48 +2663,48 @@ msgstr ""
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:31
 msgid "Copy photo gallery?"
-msgstr ""
+msgstr "Copy photo gallery?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:32
 msgid "Copy attachments?"
-msgstr ""
+msgstr "Copy attachments?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:33
 msgid "Copy categories?"
-msgstr ""
+msgstr "Copy categories?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:34
 msgid "Copy textual sections?"
-msgstr ""
+msgstr "Copy textual sections?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:35
 msgid "Copy technical specifications?"
-msgstr ""
+msgstr "Copy technical specifications?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:36
 msgid "Copy creators?"
-msgstr ""
+msgstr "Copy creators?"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:45
 msgid "Create new product"
-msgstr ""
+msgstr "Create new product"
 
 #: ../app/forms/admin/card_creators/card_creators_form.php:6
 msgid "Creator"
-msgstr ""
+msgstr "Creator"
 
 #: ../app/forms/admin/card_creators/card_creators_form.php:10
 msgid "Role"
-msgstr ""
+msgstr "Role"
 
 #: ../app/forms/admin/card_creators/card_creators_form.php:11
 #, php-format
 msgid "Missing a role? &rarr; <a href=\"%s\">create it</a>"
-msgstr ""
+msgstr "Missing a role? &rarr; <a href=\"%s\">create it</a>"
 
 #: ../app/forms/admin/card_creators/card_creators_form.php:14
 msgid "Is this the main creator?"
-msgstr ""
+msgstr "Is this the main creator?"
 
 #: ../app/forms/admin/card_merging/create_new/edit_primary_card_names_form.php:11
 msgid "Sloučit produkty"
@@ -2696,14 +2713,14 @@ msgstr ""
 #: ../app/forms/admin/card_merging/create_new/get_cards_form.php:9
 #, php-format
 msgid "Product %d"
-msgstr ""
+msgstr "Product %d"
 
 #: ../app/forms/admin/card_merging/create_new/get_cards_form.php:14
 #: ../app/forms/admin/card_merging/create_new/get_labels_form.php:5
 #: ../app/forms/admin/card_merging/create_new/get_primary_card_form.php:11
 #: ../app/forms/admin/order_order_statuses/create_new/get_order_status_form.php:5
 msgid "Continue"
-msgstr ""
+msgstr "Continue"
 
 #: ../app/forms/admin/card_merging/create_new/get_cards_form.php:25
 msgid "Každý produkt lze zadat pouze jednou"
@@ -2823,7 +2840,7 @@ msgstr "Recommended image size is %dx%d"
 
 #: ../app/forms/admin/cards/create_new_form.php:30
 msgid "Primary category"
-msgstr ""
+msgstr "Primary category"
 
 #: ../app/forms/admin/card_sections/card_sections_form.php:6
 msgid "Typ obsahu"
@@ -2855,7 +2872,7 @@ msgid "e.g. material or color"
 msgstr "e.g. material or color"
 
 #: ../app/forms/admin/categories/categories_form.php:42
-#: ../app/forms/admin/pages/pages_form.php:26
+#: ../app/forms/admin/pages/pages_form.php:28
 msgid "HTML title"
 msgstr "HTML title"
 
@@ -2868,12 +2885,12 @@ msgstr ""
 "name is used."
 
 #: ../app/forms/admin/categories/categories_form.php:49
-#: ../app/forms/admin/pages/pages_form.php:33
+#: ../app/forms/admin/pages/pages_form.php:35
 msgid "HTML description"
 msgstr "HTML description"
 
 #: ../app/forms/admin/categories/categories_form.php:52
-#: ../app/forms/admin/pages/pages_form.php:36
+#: ../app/forms/admin/pages/pages_form.php:38
 msgid ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 msgstr ""
@@ -2916,7 +2933,7 @@ msgstr "This product is already part of another collection [%s]"
 
 #: ../app/forms/admin/creators/creators_form.php:10
 msgid "Localized name"
-msgstr ""
+msgstr "Localized name"
 
 #: ../app/forms/admin/creators/creators_form.php:19
 msgid "Profile page"
@@ -2935,41 +2952,41 @@ msgstr ""
 
 #: ../app/forms/admin/creators/creators_form.php:31
 msgid "Another creator already has this name"
-msgstr ""
+msgstr "Another creator already has this name"
 
 #: ../app/forms/admin/creators/creators_form.php:38
 #, php-format
 msgid "This page is the profile page for another creator (%s)"
-msgstr ""
+msgstr "This page is the profile page for another creator (%s)"
 
 #: ../app/forms/admin/currencies/currencies_form.php:10
 msgid "Conversion rate"
-msgstr ""
+msgstr "Conversion rate"
 
 #: ../app/forms/admin/currencies/currencies_form.php:12
 #, php-format
 msgid "Specify <em>X</em> for the equation <em>1 %s = X %s</em>"
-msgstr ""
+msgstr "Specify <em>X</em> for the equation <em>1 %s = X %s</em>"
 
 #: ../app/forms/admin/currencies/currencies_form.php:16
 msgid "Decimal places"
-msgstr ""
+msgstr "Decimal places"
 
 #: ../app/forms/admin/currencies/currencies_form.php:19
 msgid "Decimal places used, for instance, in a product detail"
-msgstr ""
+msgstr "Decimal places used, for instance, in a product detail"
 
 #: ../app/forms/admin/currencies/currencies_form.php:23
 msgid "Decimal places in the summary"
-msgstr ""
+msgstr "Decimal places in the summary"
 
 #: ../app/forms/admin/currencies/currencies_form.php:26
 msgid "Decimal places used in the total price of an order"
-msgstr ""
+msgstr "Decimal places used in the total price of an order"
 
 #: ../app/forms/admin/currencies/edit_form.php:10
 msgid "Conversion rate cannot be changed on the default currency"
-msgstr ""
+msgstr "Conversion rate cannot be changed on the default currency"
 
 #: ../app/forms/admin/delivery_method_country_specifications/create_new_form.php:6
 msgid "Aktualizovat"
@@ -3082,16 +3099,16 @@ msgstr ""
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:103
 msgid "Specify the price incl. VAT"
-msgstr ""
+msgstr "Specify the price incl. VAT"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:106
 msgid "Specify the price"
-msgstr ""
+msgstr "Specify the price"
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:6
 #: ../app/forms/admin/orders/import_tracking_numbers_form.php:15
 msgid "Soubor"
-msgstr ""
+msgstr "File"
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:7
 msgid "Např. pdf soubor."
@@ -3128,19 +3145,19 @@ msgstr ""
 
 #: ../app/forms/admin/discounts/index_form.php:6
 msgid "Show only"
-msgstr ""
+msgstr "Show only"
 
 #: ../app/forms/admin/discounts/index_form.php:8
 msgid "show only"
-msgstr ""
+msgstr "show only"
 
 #: ../app/forms/admin/discounts/index_form.php:9
 msgid "products"
-msgstr ""
+msgstr "products"
 
 #: ../app/forms/admin/discounts/index_form.php:10
 msgid "categories"
-msgstr ""
+msgstr "categories"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:12
 msgid "This doesn't look like an URL or URI"
@@ -3216,7 +3233,7 @@ msgstr "About us"
 
 #: ../app/forms/admin/order_order_statuses/create_new/get_data_form.php:6
 msgid "Internal note"
-msgstr ""
+msgstr "Internal note"
 
 #: ../app/forms/admin/order_order_statuses/create_new/get_data_form.php:11
 msgid "Změnit stav"
@@ -3234,7 +3251,7 @@ msgstr ""
 
 #: ../app/forms/admin/order_order_statuses/create_new/get_order_status_form.php:14
 msgid "New order status"
-msgstr ""
+msgstr "New order status"
 
 #: ../app/forms/admin/orders/edit_form.php:22
 msgid "Poplatek za dopravu"
@@ -3268,11 +3285,11 @@ msgstr ""
 
 #: ../app/forms/admin/orders/edit_form.php:72
 msgid "Specify the delivery fee incl. VAT"
-msgstr ""
+msgstr "Specify the delivery fee incl. VAT"
 
 #: ../app/forms/admin/orders/edit_form.php:75
 msgid "Specify the delivery fee"
-msgstr ""
+msgstr "Specify the delivery fee"
 
 #: ../app/forms/admin/orders/import_tracking_numbers_form.php:4
 msgid "Importovat"
@@ -3341,15 +3358,16 @@ msgstr ""
 
 #: ../app/forms/admin/order_statuses/edit_form.php:11
 msgid "Enable notification"
-msgstr ""
+msgstr "Enable notification"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:16
 msgid "BCC e-mail"
-msgstr ""
+msgstr "BCC email"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:19
 msgid "Notifications can be sent to this address or addresses as blind copies."
 msgstr ""
+"Notifications can be sent to this address or addresses as blind copies."
 
 #: ../app/forms/admin/pages/create_new_form.php:8
 #: ../app/forms/admin/pages/edit_form.php:13
@@ -3360,27 +3378,27 @@ msgstr "The same code is used on a different page"
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Image used on list of pages, social networks, etc."
 
-#: ../app/forms/admin/pages/pages_form.php:29
+#: ../app/forms/admin/pages/pages_form.php:31
 msgid "Content for <html><head><title>. If left empty, the title is used."
 msgstr "Content for <html><head><title>. If left empty, the title is used."
 
-#: ../app/forms/admin/pages/pages_form.php:40
+#: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
 msgstr "Parent page"
 
-#: ../app/forms/admin/pages/pages_form.php:45
+#: ../app/forms/admin/pages/pages_form.php:47
 msgid "Show in sitemap?"
 msgstr "Show in sitemap?"
 
-#: ../app/forms/admin/pages/pages_form.php:51
+#: ../app/forms/admin/pages/pages_form.php:53
 msgid "Visible?"
 msgstr "Visible?"
 
-#: ../app/forms/admin/pages/pages_form.php:67
+#: ../app/forms/admin/pages/pages_form.php:69
 msgid "The page cannot be placed under itself."
 msgstr "The page cannot be placed under itself."
 
-#: ../app/forms/admin/pages/pages_form.php:73
+#: ../app/forms/admin/pages/pages_form.php:75
 msgid "Nesting is too deep."
 msgstr "Nesting is too deep."
 
@@ -3463,7 +3481,7 @@ msgstr "Fill in only when product name differs from it's card name"
 
 #: ../app/forms/admin/products/products_form.php:26
 msgid "Is product variant visible?"
-msgstr ""
+msgstr "Is product variant visible?"
 
 #: ../app/forms/admin/products/products_form.php:32
 msgid ""
@@ -3505,19 +3523,19 @@ msgstr "Phone"
 
 #: ../app/forms/admin/stores/stores_form.php:31
 msgid "Street"
-msgstr ""
+msgstr "Street"
 
 #: ../app/forms/admin/stores/stores_form.php:32
 msgid "Street (2nd line)"
-msgstr ""
+msgstr "Street (2nd line)"
 
 #: ../app/forms/admin/stores/stores_form.php:33
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: ../app/forms/admin/stores/stores_form.php:42
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 #: ../app/forms/admin/stores/stores_form.php:46
 msgid "Stát"
@@ -3537,31 +3555,31 @@ msgstr "Address"
 
 #: ../app/forms/admin/stores/stores_form.php:69
 msgid "Monday"
-msgstr ""
+msgstr "Monday"
 
 #: ../app/forms/admin/stores/stores_form.php:70
 msgid "Tuesday"
-msgstr ""
+msgstr "Tuesday"
 
 #: ../app/forms/admin/stores/stores_form.php:71
 msgid "Wednesday"
-msgstr ""
+msgstr "Wednesday"
 
 #: ../app/forms/admin/stores/stores_form.php:72
 msgid "Thursday"
-msgstr ""
+msgstr "Thursday"
 
 #: ../app/forms/admin/stores/stores_form.php:73
 msgid "Friday"
-msgstr ""
+msgstr "Friday"
 
 #: ../app/forms/admin/stores/stores_form.php:74
 msgid "Saturday"
-msgstr ""
+msgstr "Saturday"
 
 #: ../app/forms/admin/stores/stores_form.php:75
 msgid "Sunday"
-msgstr ""
+msgstr "Sunday"
 
 #: ../app/forms/admin/stores/stores_form.php:78
 #, php-format
@@ -3579,7 +3597,7 @@ msgstr "Opening hours"
 
 #: ../app/forms/admin/stores/stores_form.php:105
 msgid "Is visible in the public list on web?"
-msgstr ""
+msgstr "Is visible in the public list on web?"
 
 #: ../app/forms/admin/stores/stores_form.php:114
 msgid "Either fill out Latitude and Longitude or leave them blank."
@@ -3588,32 +3606,32 @@ msgstr "Either fill out Latitude and Longitude or leave them blank."
 #: ../app/forms/admin/system_parameters/edit_form.php:22
 #: ../app/forms/admin/system_parameters/edit_form.php:31
 msgid "Textual value"
-msgstr ""
+msgstr "Textual value"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:40
 #: ../app/forms/admin/system_parameters/edit_form.php:49
 msgid "String value"
-msgstr ""
+msgstr "String value"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:58
 msgid "Integer value"
-msgstr ""
+msgstr "Integer value"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:66
 msgid "Boolean value"
-msgstr ""
+msgstr "Boolean value"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:69
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:70
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../app/forms/admin/system_parameters/edit_form.php:100
 msgid "Phone number"
-msgstr ""
+msgstr "Phone number"
 
 #: ../app/forms/admin/tags/tags_form.php:12
 msgid "Tag lokalized"
@@ -3627,63 +3645,63 @@ msgstr ""
 
 #: ../app/forms/admin/tags/tags_form.php:19
 msgid "default color"
-msgstr ""
+msgstr "default color"
 
 #: ../app/forms/admin/tags/tags_form.php:22
 msgid "blue"
-msgstr ""
+msgstr "blue"
 
 #: ../app/forms/admin/tags/tags_form.php:23
 msgid "indigo"
-msgstr ""
+msgstr "indigo"
 
 #: ../app/forms/admin/tags/tags_form.php:24
 msgid "purple"
-msgstr ""
+msgstr "purple"
 
 #: ../app/forms/admin/tags/tags_form.php:25
 msgid "pink"
-msgstr ""
+msgstr "pink"
 
 #: ../app/forms/admin/tags/tags_form.php:26
 msgid "red"
-msgstr ""
+msgstr "red"
 
 #: ../app/forms/admin/tags/tags_form.php:27
 msgid "orange"
-msgstr ""
+msgstr "orange"
 
 #: ../app/forms/admin/tags/tags_form.php:28
 msgid "yellow"
-msgstr ""
+msgstr "yellow"
 
 #: ../app/forms/admin/tags/tags_form.php:29
 msgid "green"
-msgstr ""
+msgstr "green"
 
 #: ../app/forms/admin/tags/tags_form.php:30
 msgid "teal"
-msgstr ""
+msgstr "teal"
 
 #: ../app/forms/admin/tags/tags_form.php:31
 msgid "cyan"
-msgstr ""
+msgstr "cyan"
 
 #: ../app/forms/admin/tags/tags_form.php:32
 msgid "white"
-msgstr ""
+msgstr "white"
 
 #: ../app/forms/admin/tags/tags_form.php:33
 msgid "gray"
-msgstr ""
+msgstr "gray"
 
 #: ../app/forms/admin/tags/tags_form.php:34
 msgid "dark gray"
-msgstr ""
+msgstr "dark gray"
 
 #: ../app/forms/admin/tags/tags_form.php:39
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:6
 #: ../app/forms/admin/technical_specifications/technical_specifications_form.php:5
@@ -3732,7 +3750,7 @@ msgstr "The same login is already used for another user"
 
 #: ../app/forms/admin/vat_rates/vat_rates_form.php:10
 msgid "VAT percent"
-msgstr ""
+msgstr "VAT percent"
 
 #: ../app/forms/admin/videos/create_new/get_url_form.php:6
 msgid "Pokračovat"
@@ -3802,7 +3820,10 @@ msgstr ""
 
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
-msgstr ""
+msgstr "Applicable to eshop?"
+
+#~ msgid "Markdown format is expected"
+#~ msgstr "Markdown format is expected"
 
 #~ msgid "Create an alias"
 #~ msgstr "Create an alias"

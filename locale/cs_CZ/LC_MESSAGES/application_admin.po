@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 13:41+0200\n"
-"PO-Revision-Date: 2020-03-16 10:19+0100\n"
+"POT-Creation-Date: 2020-05-12 17:10+0200\n"
+"PO-Revision-Date: 2020-05-12 17:11+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -340,7 +340,7 @@ msgstr "Vytvořit nový záznam v ceníku %1"
 #: ../app/controllers/admin/digital_contents_controller.php:61
 #, php-format
 msgid "Soubory ke stažení"
-msgstr ""
+msgstr "Soubory ke stažení"
 
 msgid "Chystáte se smazat produkt %1. Jste si jistý/á?"
 msgstr "Chystáte se smazat produkt %1. Jste si jistý/á?"
@@ -349,7 +349,7 @@ msgid "unnamed variant"
 msgstr "nepojmenovaná varianta"
 
 msgid "soubory ke stažení:"
-msgstr ""
+msgstr "soubory ke stažení:"
 
 msgid "Produkt zatím nemá žádnou variantu."
 msgstr "Produkt zatím nemá žádnou variantu."
@@ -608,13 +608,13 @@ msgid "prodejna není určena"
 msgstr "prodejna není určena"
 
 msgid "Digitální obsah (soubory) si zákazník stáhne po dokončení objednávky."
-msgstr ""
+msgstr "Digitální obsah (soubory) si zákazník stáhne po dokončení objednávky."
 
 msgid "Pro tento produkt neexistuje žádný digitální obsah."
-msgstr ""
+msgstr "Pro tento produkt neexistuje žádný digitální obsah."
 
 msgid "Stáhnout soubor"
-msgstr ""
+msgstr "Stáhnout soubor"
 
 msgid "Vyplňte produkt nebo kategorii."
 msgstr "Vyplňte produkt nebo kategorii."
@@ -829,7 +829,7 @@ msgid "nákup bez registrace"
 msgstr "nákup bez registrace"
 
 msgid "Jméno:"
-msgstr ""
+msgstr "Jméno:"
 
 msgid "E-mail:"
 msgstr "E-mail:"
@@ -987,7 +987,7 @@ msgid "Zrušit filtry"
 msgstr "Zrušit filtry"
 
 msgid "code"
-msgstr ""
+msgstr "kód"
 
 msgid "it is notified"
 msgstr "je notifikováno"
@@ -1162,13 +1162,13 @@ msgid "Název produktu"
 msgstr "Název produktu"
 
 msgid "Počet"
-msgstr ""
+msgstr "Počet"
 
 msgid "Jedn. cena"
 msgstr "Jedn. cena"
 
 msgid "%DPH"
-msgstr ""
+msgstr "%DPH"
 
 msgid "Celkem s DPH"
 msgstr "Celkem s DPH"
@@ -2057,16 +2057,16 @@ msgstr "Způsob dopravy '%s' vypnut"
 #: ../app/controllers/admin/digital_contents_controller.php:5
 #, php-format
 msgid "Soubory ke stažení u produktu %s"
-msgstr ""
+msgstr "Soubory ke stažení u produktu %s"
 
 #: ../app/controllers/admin/digital_contents_controller.php:13
 #, php-format
 msgid "Nový soubor ke stažení u produktu %s"
-msgstr ""
+msgstr "Nový soubor ke stažení u produktu %s"
 
 #: ../app/controllers/admin/digital_contents_controller.php:25
 msgid "Editace souboru ke stažení"
-msgstr ""
+msgstr "Editace souboru ke stažení"
 
 #: ../app/controllers/admin/discounts_controller.php:16
 msgid "List of discounts"
@@ -2579,11 +2579,14 @@ msgstr "Teaser"
 
 #: ../app/forms/admin/articles/articles_form.php:18
 #: ../app/forms/admin/articles/articles_form.php:24
-msgid "Markdown format is expected"
-msgstr "Je očekáván formát Markdown"
+#: ../app/forms/admin/pages/pages_form.php:17
+#: ../app/forms/admin/pages/pages_form.php:23
+#, php-format
+msgid "<a href=\"%s\">Markdown</a> format is expected"
+msgstr "Je očekáván formát <a href=\"%s\">Markdown</a>"
 
 #: ../app/forms/admin/articles/articles_form.php:23
-#: ../app/forms/admin/pages/pages_form.php:21
+#: ../app/forms/admin/pages/pages_form.php:22
 msgid "Body"
 msgstr "Tělo"
 
@@ -2886,7 +2889,7 @@ msgid "e.g. material or color"
 msgstr "např. materiál nebo barva"
 
 #: ../app/forms/admin/categories/categories_form.php:42
-#: ../app/forms/admin/pages/pages_form.php:26
+#: ../app/forms/admin/pages/pages_form.php:28
 msgid "HTML title"
 msgstr "HTML název"
 
@@ -2899,12 +2902,12 @@ msgstr ""
 "jméno, resp. jméno."
 
 #: ../app/forms/admin/categories/categories_form.php:49
-#: ../app/forms/admin/pages/pages_form.php:33
+#: ../app/forms/admin/pages/pages_form.php:35
 msgid "HTML description"
 msgstr "HTML popis"
 
 #: ../app/forms/admin/categories/categories_form.php:52
-#: ../app/forms/admin/pages/pages_form.php:36
+#: ../app/forms/admin/pages/pages_form.php:38
 msgid ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 msgstr ""
@@ -3056,6 +3059,8 @@ msgid ""
 "Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa "
 "provozovny a její otevírací doba."
 msgstr ""
+"Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa "
+"provozovny a její otevírací doba."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:38
 msgid ""
@@ -3134,23 +3139,23 @@ msgstr "Soubor"
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:7
 msgid "Např. pdf soubor."
-msgstr ""
+msgstr "Např. pdf soubor."
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:11
 msgid "Ve kterých oblastech bude soubor nabízen."
-msgstr ""
+msgstr "Ve kterých oblastech bude soubor nabízen."
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:15
 msgid "Ilustrační obrázek"
-msgstr ""
+msgstr "Ilustrační obrázek"
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:17
 msgid "Pokud nebude nahrán, použije se obrázek od produktu."
-msgstr ""
+msgstr "Pokud nebude nahrán, použije se obrázek od produktu."
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:26
 msgid "Je tento soubor dostupný zákazníkům?"
-msgstr ""
+msgstr "Je tento soubor dostupný zákazníkům?"
 
 #: ../app/forms/admin/discounts/discounts_form.php:10
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:6
@@ -3399,29 +3404,29 @@ msgstr "Stejný kód je použit na jiné stránce"
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Obrázek použitý v seznamu stránek, na sociálních sítí atd."
 
-#: ../app/forms/admin/pages/pages_form.php:29
+#: ../app/forms/admin/pages/pages_form.php:31
 msgid "Content for <html><head><title>. If left empty, the title is used."
 msgstr ""
 "Obsah pro <html><head><title>. Pokud bude ponecháno prázdné, bude použit "
 "název."
 
-#: ../app/forms/admin/pages/pages_form.php:40
+#: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
 msgstr "Rodičovské stránka"
 
-#: ../app/forms/admin/pages/pages_form.php:45
+#: ../app/forms/admin/pages/pages_form.php:47
 msgid "Show in sitemap?"
 msgstr "Zobrazovat v mapě stránek?"
 
-#: ../app/forms/admin/pages/pages_form.php:51
+#: ../app/forms/admin/pages/pages_form.php:53
 msgid "Visible?"
 msgstr "Viditelné?"
 
-#: ../app/forms/admin/pages/pages_form.php:67
+#: ../app/forms/admin/pages/pages_form.php:69
 msgid "The page cannot be placed under itself."
 msgstr "Stránku nelze umístit samu pod sebe."
 
-#: ../app/forms/admin/pages/pages_form.php:73
+#: ../app/forms/admin/pages/pages_form.php:75
 msgid "Nesting is too deep."
 msgstr "Vnoření je příliš hluboké."
 
@@ -3517,6 +3522,9 @@ msgid ""
 "možnost doplnit k této produktové variantě štítky, které na kartě chybí a "
 "nemohou být přidány."
 msgstr ""
+"Obvykle postačí definovat štítky pouze na produktové kartě. Zde je však "
+"možnost doplnit k této produktové variantě štítky, které na kartě chybí a "
+"nemohou být přidány."
 
 #: ../app/forms/admin/shipping_combinations/edit_delivery_methods_form.php:14
 msgid "Vyberte dostupné způsoby dopravy"
@@ -3854,6 +3862,9 @@ msgstr "Platnost od musí být starší datum než Platnost do"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Markdown format is expected"
+#~ msgstr "Je očekáván formát Markdown"
 
 #~ msgid "ks/cm"
 #~ msgstr "ks/cm"

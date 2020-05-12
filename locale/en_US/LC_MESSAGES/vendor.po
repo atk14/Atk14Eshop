@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-18 21:13+0200\n"
-"PO-Revision-Date: 2020-01-30 12:25+0100\n"
+"PO-Revision-Date: 2020-05-12 17:22+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,43 +19,49 @@ msgstr ""
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
-msgstr ""
+msgstr "Please enter a valid company registration number"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
 msgid "Enter the company number as eight digits"
-msgstr ""
+msgstr "Enter the company number as eight digits"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:29
 msgid "Enter the company number as seven digits"
-msgstr ""
+msgstr "Enter the company number as seven digits"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:30
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:31
 msgid "Enter the company number as nine digits"
-msgstr ""
+msgstr "Enter the company number as nine digits"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
 msgid "Enter the company number as LV and eleven digits"
-msgstr ""
+msgstr "Enter the company number as LV and eleven digits"
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:24
 msgid ""
 "Ensure this number has at most %max% digits (it has %digits% including "
 "allowed decimal places)."
 msgstr ""
+"Ensure this number has at most %max% digits (it has %digits% including "
+"allowed decimal places)."
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:25
 msgid ""
 "Ensure this number has at most %max% digits in integer-part (it has %integers"
 "%)."
 msgstr ""
+"Ensure this number has at most %max% digits in integer-part (it has %integers"
+"%)."
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:26
 msgid ""
 "Ensure this number has at most %max% decimal places (it has %decimal_places"
 "%)."
 msgstr ""
+"Ensure this number has at most %max% decimal places (it has %decimal_places"
+"%)."
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:44
 msgid "Headers"
@@ -75,15 +81,15 @@ msgstr "No mail has been sent"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:7
 msgid "Enter phone number in format %sample_phone_number%"
-msgstr ""
+msgstr "Enter phone number in format %sample_phone_number%"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:18
 msgid "Enter valid phone number (%sample_phone_number%)"
-msgstr ""
+msgstr "Enter valid phone number (%sample_phone_number%)"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:19
 msgid "Enter phone number"
-msgstr ""
+msgstr "Enter phone number"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
@@ -141,16 +147,22 @@ msgstr "This doesn't look like an URL"
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:47
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
 msgid "Please enter a valid zip code"
-msgstr ""
+msgstr "Please enter a valid zip code"
 
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:86
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:87
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:60
 msgid "Enter the ZIP code as NNN NN"
-msgstr ""
+msgstr "Enter the ZIP code as NNN NN"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Enter valid phone number (+420.605123456)"
 
 #~ msgid "Enter phone number in format +420.605123456"
 #~ msgstr "Enter phone number in format +420.605123456"
+
+#~ msgid "Hello World!"
+#~ msgstr "Hello World!"
+
+#~ msgid "Hello Another World!"
+#~ msgstr "Hello Another World!"
