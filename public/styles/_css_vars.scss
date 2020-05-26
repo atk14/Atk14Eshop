@@ -1,0 +1,13 @@
+/*
+	Add more css variables (aka css custom properties)
+	Currently used for generating styleguides.
+	Not working in IE.
+*/
+
+
+:root {
+	//grays
+	@each $color, $value in $grays {
+		--gray-#{$color}: #{$value};
+	}
+}

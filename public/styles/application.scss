@@ -20,6 +20,9 @@
 // Bootstrap
 @import "bootstrap";
 
+// Export some more CSS vars
+@import "css_vars";
+
 // Other SCSS
 @import "layout";
 
@@ -99,4 +102,5 @@
 @import "shared/colors";
 
 @import "print";
+
 //@import "img_colors_preview";
