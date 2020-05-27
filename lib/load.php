@@ -17,6 +17,9 @@ if(
 	php_sapi_name()!="cli" // we do not want Tracy in cli
 ){
 	Tracy\Debugger::enable(PRODUCTION, __DIR__ . '/../log/',ATK14_ADMIN_EMAIL);
+	if(file_exists(ATK14_DOCUMENT_ROOT . "/config/error_pages/error500.phtml")){
+		Tracy\Debugger::$errorTemplate = ATK14_DOCUMENT_ROOT . "/config/error_pages/error500.phtml";
+	}
 }
 
 require_once(__DIR__ . "/functions.php");
