@@ -801,12 +801,14 @@ Basic markup necessary to build zoomable Photoswipe gallery or single image:
 			</figcaption>
 		</a>
 	</figure>
+	<!-- Photoswipe happily ignores any other content than FIGURE tags in .gallery__images -->
+	<p>Any other content inside gallery__images is allowed</p>
 </div>
 [/example]
 		
-Gallery is wraped <code>.gallery__images</code> or <code>.iobject--picture</code> class. If other class is used, <code>initPhotoSwipeFromDOM</code> parameters in application.js must be adjusted.
+Gallery or image is wraped in element with<code>.gallery__images</code> or <code>.iobject--picture</code> class. If other class is used, <code>initPhotoSwipeFromDOM</code> parameters in application.js must be adjusted. Multiple gallery instances are allowed.
 		
-Each image is wraped in <code>figure</code> element which includes link, thumbnail image and optional figcaption. Link tag contains some additional attributes:
+Each image is wraped in <code>figure</code> element (<code>figure</code> may be nested within another elements) which includes link, thumbnail image and optional figcaption. Link tag contains some additional attributes:
 
 - <code>data-size</code> (required): [width]x[height] size of large image, for example <code>data-size="1800x1235"</code>
 - <code>data-minithumb</code> (optional): URL of very small (such as 32&nbsp;px) thumbnail used for zooming animation. It has the same aspect ratio as large image. Recommended in cases when normal thumbnail has different aspect ratio than large image.

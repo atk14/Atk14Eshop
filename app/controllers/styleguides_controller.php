@@ -23,11 +23,17 @@ class StyleguidesController extends MdBookBaseController {
 
 		$this->book->registerBlockShortcode("example", array(
 			"callback" => function($content,$params){
+				$code_id = "code_example_".uniqid();
 				return "
-					<div>
+					<div class=\"styleguide-example\">
+					<div class=\"styleguide-example__output\">
 					$content
 					</div>
-					<pre><code>".h($content)."</code></pre>
+					<button class=\"btn btn-sm btn-outline-secondary styleguide-example__show-code-btn js-styleguide-reveal-code\" type=\"button\" data-toggle=\"collapse\" data-target=\"#" . $code_id . "\" aria-expanded=\"false\"><i class=\"fas fa-code\"></i> Show code</button>
+					<div class=\"styleguide-example__code collapse\" id=\"" . $code_id . "\">
+					<pre><code>" . h($content) . "</code></pre>
+					</div>
+					</div>
 				";
 			},
 			"markdown_transformation_enabled" => false,
