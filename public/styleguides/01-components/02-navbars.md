@@ -3,7 +3,8 @@ Navbars
 
 Navbars are based on Bootstrap Navbar component.
 				
-### Top navbar. Note that in collapsed state it includes also links from main navbar.
+### Top navbar. 
+Note that in collapsed state it includes also links from main navbar.
 
 [example]
 
@@ -65,7 +66,9 @@ Navbars are based on Bootstrap Navbar component.
 
 [/example]
 		
-### Main navbar. Note that on small screen this navbar is hidden and its links are visible in top navbar.
+### Main navbar. 
+Note that on small screen this navbar is hidden and its links are visible in top navbar.  
+Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving different than default Bootstrap dropdowns - they open on mouse over and parent link is clickable. To revert dropdowns to standard Bootstrap behavior, simply remove <code>navbar--hoverable-dropdowns</code> class.
 
 [example]
 

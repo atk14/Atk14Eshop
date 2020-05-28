@@ -5,12 +5,14 @@
 	&__output {
 		margin-bottom: 12px;
 		padding: 12px;
+		padding-top: 24px;
 	}
 	&__code {
 		padding: 4px;
 		background-color: $gray-100;
 		pre {
 			margin-bottom: 0;
+			font-size: 0.9rem;
 		}
 	}
 	&__show-code-btn {
