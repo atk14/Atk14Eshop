@@ -1,0 +1,53 @@
+.styleguide-example {
+	margin: $grid-gutter-width 0;
+	border: 1px solid $border-color;
+	
+	&__output {
+		margin-bottom: 12px;
+		padding: 12px;
+	}
+	&__code {
+		padding: 4px;
+		background-color: $gray-100;
+		pre {
+			margin-bottom: 0;
+		}
+	}
+	&__show-code-btn {
+		margin: 12px;
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}
+
+
+.styleguide-color-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	margin: $grid-gutter-width 0;
+			
+	.color-swatch {
+		display: block;
+		flex-basis: 100px;
+		flex-grow: 0;
+		border: 1px solid $border-color;//#999999;
+		font-size: 12px;
+		margin-right: 8px;
+		margin-bottom: 8px;
+		&__patch {
+			height: 70px;
+			border-bottom: 1px solid $border-color;//#999999;
+		}
+		&__text {
+			padding: 3px 4px;
+			.color-swatch__name {
+				color: black;
+				font-weight: bold;
+			}
+			.color-swatch__value {
+				color: #666;
+			}
+		}
+	}
+}

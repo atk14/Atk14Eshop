@@ -395,6 +395,19 @@
 				UTILS.initSimpleMap( "store-map" );
 			}
 
+		},
+
+		styleguides: {
+
+			// Controller-wide code.
+			init: function() {
+				$( ".styleguide-color-swatches .color-swatch" ).each( function( i, el ) {
+					var swatch = $( el );
+					var color = swatch.find( ".color-swatch__patch" ).css( "background-color" );
+					swatch.find( ".color-swatch__value" ).text( "#" + UTILS.rgb2hex( color ).toUpperCase() );
+				} );
+
+			}
 		}
 
 	};
