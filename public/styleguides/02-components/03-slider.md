@@ -21,7 +21,7 @@ Slider
 						<p>Dolor sit amet, consectetur adipiscing elit. Quisque odio neque, convallis sed sollicitudin in, egestas non tortor.</p>
 					</div>
 					<div>
-						<a href="/o-nas/" class="btn btn-sm btn-outline-primary">Více informací <i class="fas fa-chevron-right"></i></a>
+						<a href="#" class="btn btn-sm btn-outline-primary">Více informací <i class="fas fa-chevron-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@ Slider
 						<p>Dolor sit amet, consectetur adipiscing elit. Quisque odio neque, convallis sed sollicitudin in, egestas non tortor.</p>
 					</div>
 					<div>
-						<a href="/obchod/" class="btn btn-sm btn-outline-primary">Více informací <i class="fas fa-chevron-right"></i></a>
+						<a href="#" class="btn btn-sm btn-outline-primary">Více informací <i class="fas fa-chevron-right"></i></a>
 					</div>
 				</div>
 			</div>

@@ -2,7 +2,7 @@ Tags, flags and sticker
 =======================
 
 ###Tags
-Tags use Bootsrap badge component wrapped in <code>.tags</code> container which ensures correct positioning and sizing in various contexts. Tags use standard Bootstrap badge component.
+Tags use Bootsrap badge component wrapped in <code>tags</code> class container which ensures correct positioning and sizing in various contexts. Tags use standard Bootstrap badge component.
 
 [example]
 <div class="tags">
@@ -19,7 +19,7 @@ Tags use Bootsrap badge component wrapped in <code>.tags</code> container which 
 [/example]
 
 ###Flags
-They are used to denote discounts etc. on cards. They are placed over card image or over product main image. <code>.card__flags</code> class ensures correct positioning. Smaller variation is available:
+They are used to denote discounts etc. on cards. They are placed over card image or over product main image. <code>card__flags</code> class ensures correct positioning. Smaller variation is available:
 
 [example]
 <div class="card__flags">

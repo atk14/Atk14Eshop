@@ -7,7 +7,7 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 ###Basic product card with optional tag and discount flag
 
 [example]
-<a class="card" href="/produkt/foto-film/" style="max-width:300px;">
+<a class="card" href="#" style="max-width:300px;">
 	<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
 	<div class="card__flags">
 		
@@ -37,7 +37,7 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 ###Basic article card
 
 [example]
-<a class="card" href="/clanky/curabitur-et-ex-fringilla/" style="max-width:300px;">
+<a class="card" href="#" style="max-width:300px;">
 	<img src="http://i.pupiq.net/i/6f/6f/ad9/2dad9/2000x1333/ed8BI4_400x300xc_c8450b0cd86003da.jpg" class="card-img-top" alt="Curabitur et ex fringilla" width="400" height="300">
 	<div class="card-body">
 		<h2 class="card-title">Curabitur et ex fringilla</h2>
@@ -51,7 +51,7 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 Created by adding <code>card--horizontal</code> class. If you use it with tags or flags, test it thoroughly before production use.
 
 [example]	
-<a class="card card--horizontal" href="/clanky/curabitur-et-ex-fringilla/" style="max-width:600px">
+<a class="card card--horizontal" href="#" style="max-width:600px">
 	<img src="http://i.pupiq.net/i/6f/6f/ad9/2dad9/2000x1333/ed8BI4_400x300xc_c8450b0cd86003da.jpg" class="card-img-top" alt="Curabitur et ex fringilla" width="400" height="300">
 	<div class="card-body">
 		<h2 class="card-title">Curabitur et ex fringilla</h2>
@@ -65,7 +65,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 
 [example]
 <div class="card" style="max-width:300px;">
-	<a href="/prodejny/elegantni-lekarna/"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
+	<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
 	<div class="card-body">
 		<h4 class="card-title">Elegantní lékárna</h4>
 		<address>Vinohradská 222<br>
@@ -74,7 +74,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 		<div class="card-text">Praha</div>
 	</div>
 	<div class="card-footer card-footer--buttons">
-		<a class="btn btn-sm btn-outline-primary" href="/prodejny/elegantni-lekarna/"><span class="card-footer__icon"><span class="fas fa-info-circle"></span></span> <span>Informace o&nbsp;prodejně</span></a> <a href="#allstores_map" class="btn btn-sm btn-outline-primary js-store-mapbtn" data-storeid="1"><span class="card-footer__icon"><span class="fas fa-map"></span></span> <span>Ukázat na&nbsp;mapě</span></a>
+		<a class="btn btn-sm btn-outline-primary" href="#"><span class="card-footer__icon"><span class="fas fa-info-circle"></span></span> <span>Informace o&nbsp;prodejně</span></a> <a href="#allstores_map" class="btn btn-sm btn-outline-primary js-store-mapbtn" data-storeid="1"><span class="card-footer__icon"><span class="fas fa-map"></span></span> <span>Ukázat na&nbsp;mapě</span></a>
 	</div>
 </div>
 [/example]
@@ -88,7 +88,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 		120 00 Praha 2
 		Česká republika
 	</div>
-	<a href="/prodejny/elegantni-lekarna/"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
+	<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
 	<div class="card__flags"><span class="badge badge-success">Právě otevřeno</span></div>
 	<div class="card-body">
 		<h4 class="card-title">Elegantní lékárna</h4>
@@ -98,7 +98,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 		<div class="card-text">Praha</div>
 	</div>
 	<div class="card-footer card-footer--buttons">
-		<a class="btn btn-sm btn-outline-primary" href="/prodejny/elegantni-lekarna/"><span class="card-footer__icon"><span class="fas fa-info-circle"></span></span> <span>Informace o&nbsp;prodejně</span></a> <a href="#allstores_map" class="btn btn-sm btn-outline-primary js-store-mapbtn" data-storeid="1"><span class="card-footer__icon"><span class="fas fa-map"></span></span> <span>Ukázat na&nbsp;mapě</span></a>
+		<a class="btn btn-sm btn-outline-primary" href="#"><span class="card-footer__icon"><span class="fas fa-info-circle"></span></span> <span>Informace o&nbsp;prodejně</span></a> <a href="#allstores_map" class="btn btn-sm btn-outline-primary js-store-mapbtn" data-storeid="1"><span class="card-footer__icon"><span class="fas fa-map"></span></span> <span>Ukázat na&nbsp;mapě</span></a>
 	</div>
 </div>
 [/example]
@@ -114,7 +114,7 @@ Available classes for 2, 3, 4 or 6 cards per row:
 
 [example]
 <div class="card-deck card-deck--sized-3">
-	<a class="card" href="/produkt/foto-film/">
+	<a class="card" href="#">
 		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
 		<div class="card__flags">
 		</div>
@@ -131,7 +131,7 @@ Available classes for 2, 3, 4 or 6 cards per row:
 			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
 		</div>
 	</a>
-	<a class="card" href="/produkt/foto-film/">
+	<a class="card" href="#">
 		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
 		<div class="card__flags">
 		</div>
@@ -148,7 +148,7 @@ Available classes for 2, 3, 4 or 6 cards per row:
 			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
 		</div>
 	</a>
-	<a class="card" href="/produkt/foto-film/">
+	<a class="card" href="#">
 		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
 		<div class="card__flags">
 		</div>

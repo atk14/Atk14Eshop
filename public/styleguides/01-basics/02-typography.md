@@ -16,3 +16,4 @@ Headings appearance may vary across various components and contexts.
 [/example]
 
 
+<hr>
