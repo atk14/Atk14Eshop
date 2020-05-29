@@ -1,0 +1,26 @@
+.md_book_body {
+	.md_book_content {
+		
+	}
+	.md_book_sidebar {
+		//background-color: $gray-100;
+		@include media-breakpoint-up(md) {
+			//border-left: 1px solid $border-color;
+		}		
+	}
+	.nav-pills {
+		.nav-link {
+			font-size: $font-size-sm;
+			padding: 0.25em 0.75em;
+			&:not(.active) {
+				color: $body-color;
+				&:hover {
+					color: $link-color;
+				}
+			}
+			&.active {
+				font-weight: 600;
+			}
+		}
+	}
+}
