@@ -197,22 +197,32 @@ Only items different from standard Bootstrap form controls are described here.
 Useful for building shipping methods or payment methods selectors.
 [example]
 <form>
-<div class="form-group form-group--id_delivery_method_id_0 form-group--required">
-	<label for="id_delivery_method_id_0" class="control-label">Vyberte způsob dopravy </label>
-	<ul class="list list--radios">
-		<li class="list__item checked" data-id="11">
-			<div class="form-check"><input id="id_delivery_method_id_0" type="radio" name="delivery_method_id" value="11" class="form-check-input" checked="checked" data-branch_needed=""><label for="id_delivery_method_id_0" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (platba předem)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
-		</li>
-		<li class="list__item" data-id="12">
-			<div class="form-check"><input id="id_delivery_method_id_1" type="radio" name="delivery_method_id" value="12" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_1" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (dobírka)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
-		</li>
-		<li class="list__item" data-id="13">
-			<div class="form-check"><input id="id_delivery_method_id_2" type="radio" name="delivery_method_id" value="13" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_2" class="form-check-label"><span class="v-description"><span class="v-name">Osobní převzetí na prodejně</span></span> <span class="v-price for-free">Zdarma</span></label></div>
-		</li>
-	</ul>
-</div>
+	<div class="form-group form-group--id_delivery_method_id_0 form-group--required">
+		<label for="id_delivery_method_id_0" class="control-label">Vyberte způsob dopravy </label>
+		<ul class="list list--radios">
+			<li class="list__item checked" data-id="11">
+				<div class="form-check"><input id="id_delivery_method_id_0" type="radio" name="delivery_method_id" value="11" class="form-check-input" checked="checked" data-branch_needed=""><label for="id_delivery_method_id_0" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (platba předem)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+			</li>
+			<li class="list__item" data-id="12">
+				<div class="form-check"><input id="id_delivery_method_id_1" type="radio" name="delivery_method_id" value="12" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_1" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (dobírka)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+			</li>
+			<li class="list__item" data-id="13">
+				<div class="form-check"><input id="id_delivery_method_id_2" type="radio" name="delivery_method_id" value="13" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_2" class="form-check-label"><span class="v-description"><span class="v-name">Osobní převzetí na prodejně</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+			</li>
+		</ul>
+	</div>
 </form>
 [/example]
 
+### Quantity widget
+Widget for setting quantity of items.
+
+[example]
+<div class="quantity-widget js-spinner js-stepper">
+	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button>
+	<input step="1" min="0" max="999999" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" data-initial="4" tabindex="100" type="number" name="i47" id="id_i47" value="4">
+	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
+</div>
+[/example]
 
 
