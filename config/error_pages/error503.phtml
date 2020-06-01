@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>503: Service Unavailable</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+		<style>
+			body {
+				font-family: "Liberation Sans", Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+				margin: 0;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			h1 {
+				font-size: 2.25rem;
+				font-weight: 900;
+				margin: 30px 0;
+				line-height: 1.5;
+			}
+			h2 {
+				font-size: 1.5rem;
+				font-weight: 900;
+				margin: 30px 0;
+				line-height: 1.5;
+			}
+			p {
+				margin: 30px 0;
+				color: #666;
+				line-height: 1.5;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #ccc;
+			}
+			
+			.row {
+				display: flex;
+				min-height: 100vh;
+				align-items: flex-start;
+				justify-content: space-between;
+			}
+			.img-fluid {
+				max-width: 100%;
+				height: auto;
+			}
+			.col-text {
+				flex-basis: 60%;
+				padding: 30px;
+				align-self: stretch;
+			}
+			
+			.col-image {
+				flex-basis: 40%;
+				text-align: center;
+				align-self:stretch;
+				background-color: #242f35;
+			}
+			.fas, .far {
+				color: #666;
+				margin-left: 0.25em;
+			}
+			.fa-exclamation-triangle {
+				color: orange;
+			}
+			@media(max-width: 600px){
+				.row {
+					display: flex;
+					flex-direction: column;
+				}
+				.col-text {
+					flex-basis: auto;
+				}
+				.col-image {
+					flex-basis: auto;
+					flex-grow: 10;
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-text">
+				<h1><i class="fas fa-exclamation-triangle"></i> Service Unavailable</h1>
+				<p>This site is in maintenance. Please come back later</p>
+				<hr>
+				<h2><i class="far fa-clock"></i> Tento e-shop je dočasně mimo provoz</h2>
+				<p>Probíhá plánovaná údržba systému. Vraťte se prosím později.</p>
+			</div>
+			<div class="col-image">
+				<img src="/public/dist/images/error_backsoon_narrow.jpg" alt="Service Unavailable" class="img-fluid">
+			</div>
+		</div>
+	</body>
+</html>
+

@@ -44,7 +44,17 @@ class TestsController extends ApplicationController {
 		$this->render_template = false;
 		ob_start();
 		$logged = true;
-		include(__DIR__ . "/../../shared/lib/tracy/error.500.phtml");
+		include(ATK14_DOCUMENT_ROOT . "/config/error_pages/error500.phtml");
+		$content = ob_get_contents();
+		ob_end_clean();
+		$this->response->write($content);
+	}
+
+	function e503(){
+		$this->render_template = false;
+		ob_start();
+		$logged = true;
+		include(ATK14_DOCUMENT_ROOT . "/config/error_pages/error503.phtml");
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->response->write($content);
