@@ -133,13 +133,19 @@ Horizontal forms differ from Bootstrap horizontal forms. To avoid using grid cla
 </form>
 [/example]
 
-### Inline search form
+### Inline search forms
 Note: search form in navbar has slightly different markup, see Navbar section of this styleguide.
 [example]
-<form action="#" method="get" id="form_searches_index" class="form-inline">
+<form action="#" method="get" id="" class="form-inline">
 	<label for="id_q" class="control-label mb-2 mb-sm-0 mr-sm-2">Hledat</label>
 	<input type="search" name="q" value="" class="search text form-control mb-2 mb-sm-0 mr-sm-2" id="id_q">
 	<button type="submit" class="btn btn-primary"> <i class="icon ion-ios-search-strong" title=""></i> Hledat</button>
+</form>
+
+<form class="form-inline" autocomplete="off">
+	<input class="form-control" id="stores-filter__input" placeholder="Vyhledat prodejny">
+	<button class="btn btn-link d-none" id="stores-filter__clear" tabindex="-1" type="reset"><span class="fas fa-times"></span></button>
+	<button class="btn btn-link" id="stores-filter__submit" tabindex="-1" type="submit"><span class="fas fa-search"></span></button>
 </form>
 [/example]
 
@@ -215,7 +221,7 @@ Useful for building shipping methods or payment methods selectors.
 [/example]
 
 ### Quantity widget
-Widget for setting quantity of items.
+Widget for setting quantity of items. You must provide JavaScript for handling button clicks.
 
 [example]
 <div class="quantity-widget js-spinner js-stepper">
@@ -224,5 +230,6 @@ Widget for setting quantity of items.
 	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
 </div>
 [/example]
+
 
 

@@ -103,6 +103,26 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </div>
 [/example]
 
+### Address cards
+[example]
+<ul class="card-deck card-deck--sized-4 cards--addresses">
+	<li class="card bg-light">
+		<div class="card-body js--card-address ">
+			James Bond<br>
+			MI5<br>
+			City<br>
+			London<br>
+			130 00<br>
+			Česko<br>
+			telefon: +420.123589654
+		</div>
+		<div class="card-footer card__actions justify-content-start">
+			<a class="card__action btn btn-secondary btn-sm" href="#"><span class="fas fa-edit"></span> <span>upravit</span></a> &nbsp;
+			<a data-remote="true" data-confirm="Doručovací adresa bude smazána. Pokračovat?" data-method="post" class="confirm card__action btn btn-secondary btn-sm remote_link post" data-destroying_object="{&quot;class&quot;:&quot;delivery_address&quot;,&quot;id&quot;:2}" href="#"><span class="fas fa-times"></span> <span>smazat</span></a> </div>
+	</li>
+</ul>
+[/example]
+
 ###Card deck 
 Based on Bootstrap card deck. To control number of cards per row, there are added modifier classes that control card sizing. Cards are responsive so on smallers display they are displayed with reasonable widths.
 
