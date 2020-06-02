@@ -67,7 +67,7 @@ window.UTILS.initSwiper = function() {
 
 window.UTILS.rgba2hex = function( orig ) {
 	var a, isPercent,
-	rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
+	rgb = orig.replace(/\s/g, "").match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
 	alpha = (rgb && rgb[4] || "").trim(),
 	hex = rgb ?
 	( rgb[ 1 ] | 1 << 8 ).toString( 16 ).slice( 1 ) +
@@ -88,7 +88,7 @@ window.UTILS.rgba2hex = function( orig ) {
 
 window.UTILS.rgb2hex = function( orig ) {
 	var isPercent,
-	rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
+	rgb = orig.replace(/\s/g, "").match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
 	hex = rgb ?
 	( rgb[ 1 ] | 1 << 8 ).toString( 16 ).slice( 1 ) +
 	( rgb[ 2 ] | 1 << 8 ).toString( 16 ).slice( 1 ) +

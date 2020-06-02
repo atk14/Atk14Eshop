@@ -29,6 +29,62 @@ Tables are based on Bootstrap tables. They have different responsive behavior - 
 </table>
 [/example]
 
+[example]
+<table class="table table-sm table-borderless">
+	<tbody>
+		<tr>
+			<th>Pondělí</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Úterý</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Středa</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Čtvrtek</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Pátek</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Sobota</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+		<tr>
+			<th>Neděle</th>
+			<td>
+				9:00 — 21:00
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+[/example]
+
 ###Basic table enhanced for better behavior on small screens
 On small screens table header is hidden using <code>thead-hidden-xs</code> and optional captions for small screens are added to individual cells using <code>span.table-hint-xs</code>. Try to resize browser window into narrow viewport to see the effect.
 

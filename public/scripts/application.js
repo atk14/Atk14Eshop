@@ -426,6 +426,14 @@
 					qtyInput.val( newValue );
 					qtyInput.trigger( "change" );
 				} );
+				
+				// Maps
+				if( $( "#allstores_map").length > 0 ) {
+					UTILS.initMultiMap( "allstores_map" );
+				}
+				if( $( ".store-map").length > 0 ) {
+					UTILS.initSimpleMap( "store-map" );
+				}
 
 			}
 		}
