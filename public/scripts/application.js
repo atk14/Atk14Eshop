@@ -431,7 +431,7 @@
 				if( $( "#allstores_map").length > 0 ) {
 					UTILS.initMultiMap( "allstores_map" );
 				}
-				if( $( ".store-map").length > 0 ) {
+				if( $( "#store-map").length > 0 ) {
 					UTILS.initSimpleMap( "store-map" );
 				}
 
