@@ -1,5 +1,9 @@
 Styleguides
 ===========
+### Markdown
+Guide to writing content using Markdown
+
+<a class="btn btn-primary" href="/markdown"><i class="fab fa-markdown"></i> Markdown guide</a>
 
 ### Bootstrap
 Markup and styles are mostly based on Bootstrap. 
