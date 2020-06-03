@@ -120,6 +120,8 @@ There is Gallery component inside.
 
 ## Video iObject
 
+By default, markup expects movie aspect ratio to be 16:9.
+
 [example]
 <div class="iobject iobject--video">
 	<div class="embed-responsive embed-responsive-16by9">
@@ -164,4 +166,65 @@ There is Gallery component inside.
 		<span class="iobject--file__meta">(ZIP, 18,0 kB)</span>
 	</a>
 </div>
+[/example]
+
+## Product Promotion iObject
+
+Creates link to product with image, basic description and price.
+
+[example]
+<a href="#" class="iobject iobject--card_promotion">
+	<div class="iobject__image">
+		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/ad2/2dad2/535x402/TNe2Uk_800x800xc_b54b0c65ed158351.jpg" alt="Mončičák hnědý" width="800" height="800">
+		<div class="iobject__flags">
+		</div>
+	</div>
+	<div class="iobject__body">
+		<div>
+			<h4 class="iobject__title">
+				Mončičák hnědý
+			</h4>
+			<div class="iobject__description">
+				<p>Plyšová hračka pro děti i dospělé.</p>
+			</div>
+		</div>
+		<span class="iobject__footer">
+			<div class="card-price">
+				<span class="currency_main"><span class="price">200,00</span>&nbsp;Kč</span>
+			</div>
+			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+		</span>
+	</div>
+</a>
+
+<p>Another example with discounted price</p>
+
+<a href="/produkt/brasna-na-fotak/" class="iobject iobject--card_promotion">
+	<div class="iobject__image">
+		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_800x800xc_b90061d2b99471d3.jpg" alt="Brašna na foťák" width="800" height="800">
+		<div class="iobject__flags">
+			<div class="product__flag product__flag--sale product__flag--sm">
+				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">15&nbsp;%</span>
+			</div>
+		</div>
+	</div>
+	<div class="iobject__body">
+		<div>
+			<h4 class="iobject__title">
+				Brašna na foťák
+			</h4>
+
+			<div class="iobject__description">
+				<p>Kvalitní kožená brašna.</p>
+			</div>
+		</div>
+		<span class="iobject__footer">
+			<div class="card-price">
+				<span class="card-price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
+				<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span>
+			</div>
+			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+		</span>
+	</div>
+</a>
 [/example]
