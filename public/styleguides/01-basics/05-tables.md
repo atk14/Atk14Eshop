@@ -3,7 +3,7 @@ Tables
 
 Tables are based on Bootstrap tables. They have different responsive behavior - on small screens, table cells are stacked vertically. Consult Bootstrap table docs for many styling options such as compact, dark, bordered, borderless, striped, hoverable etc. tables.
 
-###Basic table
+## Basic table
 
 [example]
 <table class="table">
@@ -85,7 +85,7 @@ Tables are based on Bootstrap tables. They have different responsive behavior - 
 </table>
 [/example]
 
-###Basic table enhanced for better behavior on small screens
+### Basic table enhanced for better behavior on small screens
 On small screens table header is hidden using <code>thead-hidden-xs</code> and optional captions for small screens are added to individual cells using <code>span.table-hint-xs</code>. Try to resize browser window into narrow viewport to see the effect.
 
 [example]

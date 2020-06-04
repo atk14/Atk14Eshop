@@ -33,7 +33,7 @@ Category list
 
 ## Variations with category teasers and/or category images.
 
-If catagory items contains teasers and/or images, add <code>list--categories--teasers</code> and/or <code>list--categories--images</code> modifier classes. In category view these classes are added automaticaly depending on whether the first list item has image and/or teaser. These classes affect mainly vertical alignment of items.
+If catagory items contains teasers and/or images, add <code>list--categories--teasers</code> and/or <code>list--categories--images</code> modifier classes. In category view these classes are added automaticaly depending on whether the first list item has image and/or teaser. These classes affect mainly vertical alignment and spacing of items.
 
 [example]
 <section class="section--child-categories">

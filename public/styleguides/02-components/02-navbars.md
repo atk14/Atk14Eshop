@@ -2,8 +2,9 @@ Navbars
 =======
 
 Navbars are based on Bootstrap Navbar component.
+There are two navbars in the site header. On narrow screens there is only one collapsed navbar containing items from both navbars to avoid multiple hamburger menus (try to resize this browser window to see it in action).
 				
-### Top navbar. 
+## Top navbar. 
 
 Top navbar with user
 Note that in collapsed state it includes also links from main navbar.
@@ -139,7 +140,7 @@ The same nevbar when user is logged in and with indicator of item number in cart
 
 [/example]
 		
-### Main navbar. 
+## Main navbar. 
 Note that on small screen this navbar is hidden and its links are visible in top navbar.  
 Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving different than default Bootstrap dropdowns - they open on mouse over and parent link is clickable. To revert dropdowns to standard Bootstrap behavior, simply remove <code>navbar--hoverable-dropdowns</code> class.
 

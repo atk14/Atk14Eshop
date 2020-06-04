@@ -15,7 +15,7 @@ Buttons are based on standard Bootstrap buttons. Use <code>a</code>, <code>butto
 	<button type="button" class="btn btn-link">Link</button>
 [/example]
 
-###Outline buttons 
+## Outline buttons 
 
 [example]
 <button type="button" class="btn btn-outline-primary">Primary</button>
@@ -28,7 +28,7 @@ Buttons are based on standard Bootstrap buttons. Use <code>a</code>, <code>butto
 <button type="button" class="btn btn-outline-dark">Dark</button>
 [/example]
 
-###Button sizing
+## Button sizing
 [example]
 <button type="button" class="btn btn-primary btn-sm">Small</button>
 <button type="button" class="btn btn-primary">Normal</button>

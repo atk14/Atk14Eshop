@@ -3,7 +3,7 @@ Displaying prices
 
 This should be used for displaying all prices on cards to achieve consistent look and markup and easy maintentance across entire site. Note that price itself is in span tag with <code>currency_main</code> class.
 
-###Simple single price
+## Simple single price
 
 [example]
 <div class="card-price">
@@ -11,7 +11,7 @@ This should be used for displaying all prices on cards to achieve consistent loo
 </div>
 [/example]		
 
-###Two prices (e.g. for products with two variants). 
+## Two prices (e.g. for products with two variants). 
 
 Prices are in <code>ul</code> list. If there are more than two prices, "From" price should be used.
 		
@@ -24,14 +24,14 @@ Prices are in <code>ul</code> list. If there are more than two prices, "From" pr
 </span>
 [/example]
 
-###If product has more than two price variants, use "From" price
+## If product has more than two price variants, use "From" price
 [example]
 <span class="card-price">
 	cena od <span class="currency_main"><span class="price">35,00</span>&nbsp;Kč</span>
 </span>
 [/example]
 
-### Single price with discounted and original price
+## Single price with discounted and original price
 
 [example]
 <span class="card-price">

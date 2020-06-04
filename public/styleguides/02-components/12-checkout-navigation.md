@@ -1,7 +1,7 @@
 Checkout Navigation
 ===================
 
-###Progress Timeline
+## Progress Timeline
 
 [example]
 <ol class="timeline">
@@ -20,7 +20,7 @@ Checkout Navigation
 </ol>
 [/example]
 
-###Checkout Footer Navigation
+## Checkout Footer Navigation
 
 Includes buttons visible only in browser without JavaScript
 

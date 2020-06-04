@@ -3,7 +3,7 @@ Content header
 
 Universal component to create header for any page. It may contain main title (usually H1), teaser, tags, product author name, article meta info, header image etc. To make it consistent and easy to maintain throughout entire site frontend, it should be generated with powerful <code>shared/layout/content_header</code> template which is able to generate all variants of content header. It may be also used for lower level headings as template is able to display main heading with tag other than <code>H1</code>.
 		
-###Very minimal example of content header
+## Very minimal example of content header
 [example]
 <header class="content-header">
 	<div class="content-header__text">
@@ -13,7 +13,7 @@ Universal component to create header for any page. It may contain main title (us
 [/example]
 		
 
-###Another example with image
+## Another example with image
 
 [example]	
 <header class="content-header">
@@ -30,7 +30,7 @@ Universal component to create header for any page. It may contain main title (us
 [/example]
 
 
-###Fully featured Content header
+## Fully featured Content header
 Fully featured Content header with tags and image as used for articles and with colored background. Background colors should be taken from image. Note that <code>content-header__text--dark</code> class also causes slightly different layout of text.
 
 [example]
@@ -53,7 +53,7 @@ Fully featured Content header with tags and image as used for articles and with 
 [/example]
 
 
-###Content header with product author link
+## Content header with product author link
 
 Content header on product page with author name/link, tags and teaser.
 

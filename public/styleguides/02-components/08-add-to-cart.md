@@ -1,7 +1,7 @@
 Add to cart widget
 ==================
 
-###Add to cart element for product without variants.
+## Add to cart element for product without variants.
 Optional discounted and usual prices shown.
 
 [example]
@@ -36,7 +36,7 @@ Optional discounted and usual prices shown.
 </section>
 [/example]
 
-### Add to cart element with tabs for product variants
+## Add to cart element with tabs for product variants
 Switching vraiants also swaps main image in product gallery.
 
 [example]

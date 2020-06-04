@@ -1,7 +1,7 @@
 Pagination
 ==========
 
-### Basic pagination
+## Basic pagination
 Based on Bootstrap Pagination component.
 
 [example]
@@ -18,7 +18,7 @@ Based on Bootstrap Pagination component.
 </div>
 [/example]
 
-### Ajax pagination
+## Ajax pagination
 Used on product list pages
 
 [example]
@@ -47,7 +47,7 @@ Used on product list pages
 </div>
 [/example]
 
-### Articles prev / next pagination
+## Articles prev / next pagination
 
 Previous / next article link with thumbnail images. Background color is automatically taken from images.
 

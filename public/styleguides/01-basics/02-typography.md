@@ -1,7 +1,7 @@
 Typography
 ==========
 
-####Headings
+## Headings
 
 There are also classes <code>.h1</code>&hellip;<code>.h6</code> to achieve the same appearance.
 Headings appearance may vary across various components and contexts.

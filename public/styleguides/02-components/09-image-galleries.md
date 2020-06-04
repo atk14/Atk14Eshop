@@ -5,7 +5,7 @@ Various types of image galleries. All galleries are designed to work with our im
 
 Max-width inline styles in examples are for illustration purposes only. In live use gallery width is constrained typically by their placement in layout.
 
-###Basic image gallery
+## Basic image gallery
 With optional gallery caption. It works with our PhotoSwipe implementation. Invisible <code>figcaption</code> is used by PhotoSwipe to display image caption. Images are displayed uncropped (aspect ratio is preserved) with the same heights (only really wide panoramic images are cropped by CSS).
 
 [example]
@@ -194,7 +194,7 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 </section>
 [/example]
 
-###Product gallery
+## Product gallery
 This gallery component is used as main imagery on product detail page. Note that first image is larger than others.
 
 [example]
@@ -236,7 +236,7 @@ This gallery component is used as main imagery on product detail page. Note that
 </section>		
 [/example]
 		
-###Product gallery for product with variants. 
+### Product gallery for product with variants
 Markup is slightly more complex, fist image is outide gallery__images and its src is swapped by JavaScript when switching between variants in Add to cart widget.
 
 [example]
@@ -304,12 +304,12 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 </section>
 [/example]
 
-###Squarebox galleries
+## Squarebox galleries
 These beautiful galleries are always displayed in same square layout with size adjusted to actual viewport or container width.
 
 Markup and layout depends on number of visible images and on orientation of the first image. Visible images are cropped and must have exact aspect ratios. Invisible images (5th image and beyond) have hidden thumbnails with size fitting in 32&nbsp;&times;&nbsp;32&nbsp;px - this is required for PhotoSwipe to work properly.
 
-####Squarebox gallery with 4 or more images, first image is landscape
+### Squarebox gallery with 4 or more images, first image is landscape
 
 [example]
 <section class="photo-gallery photo-gallery--square" style="max-width:600px;">
@@ -534,7 +534,7 @@ Markup and layout depends on number of visible images and on orientation of the 
 </section>
 [example]
 
-####Squarebox gallery with 4 or more images, first image is portrait
+### Squarebox gallery with 4 or more images, first image is portrait
 
 [example]
 <section class="photo-gallery photo-gallery--square" style="max-width:600px;">
@@ -629,7 +629,7 @@ Markup and layout depends on number of visible images and on orientation of the 
 </section>
 [/example]
 
-####Squarebox gallery with 3 images, first image horizontal
+### Squarebox gallery with 3 images, first image horizontal
 
 [example]
 <section class="photo-gallery photo-gallery--square" style="max-width:600px;">
@@ -672,7 +672,7 @@ Markup and layout depends on number of visible images and on orientation of the 
 </section>
 [/example]
 
-####Squarebox gallery with 3 images, first image vertical
+### Squarebox gallery with 3 images, first image vertical
 
 [example]
 <section class="photo-gallery photo-gallery--square" style="max-width:600px;">
@@ -715,7 +715,7 @@ Markup and layout depends on number of visible images and on orientation of the 
 </section>
 [/example]
 		
-####Squarebox gallery with 2 images, first image horizontal
+### Squarebox gallery with 2 images, first image horizontal
 
 Shown without optional gallery caption.
 
@@ -747,7 +747,7 @@ Shown without optional gallery caption.
 </section>
 [/example]
 
-####Squarebox gallery with 2 images, first image vertical	
+### Squarebox gallery with 2 images, first image vertical
 
 [example]
 <section class="photo-gallery photo-gallery--square" style="max-width:600px;">
@@ -781,7 +781,7 @@ Shown without optional gallery caption.
 </section>
 [/example]
 		
-###Note for developers about PhotoSwipe
+## Note for developers about PhotoSwipe
 
 Basic markup necessary to build zoomable Photoswipe gallery or single image:
 

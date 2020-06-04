@@ -1,7 +1,7 @@
 Basic lists
 ===========
 
-###Plain <code>ul</code>/<code>ol</code> lists
+## Plain <code>ul</code>/<code>ol</code> lists
 
 Enhanced look of standard HTML lists. When used in page or article content, no class is needed (so they can be easily writen with Markdown). In other contexts use class <code>list--simple</code> or <code>list--ul</code>.
 
@@ -38,7 +38,7 @@ Enhanced look of standard HTML lists. When used in page or article content, no c
 </div>
 [/example]
 
-### Unstyled list
+## Unstyled list
 
 [example]
 <ul class="list-unstyled">
@@ -48,7 +48,7 @@ Enhanced look of standard HTML lists. When used in page or article content, no c
 </ul>
 [/example]
 
-### Inline list
+## Inline list
 
 [example]
 <ul class="list-inline">

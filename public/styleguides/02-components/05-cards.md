@@ -4,7 +4,7 @@ Cards
 Cards are based on Bootstrap Card component. Make sure that card images have the same aspect ratio on all cards. Card element may be <code>div</code>, <code>a</code> or <code>li</code> element type.  
 Max-width inline styles in examples are for illustration purposes only. In live use cards are sized by <code>card-deck--sized-[n]</code> classes
 
-###Basic product card with optional tag and discount flag
+## Basic product card with optional tag and discount flag
 
 [example]
 <a class="card" href="#" style="max-width:300px;">
@@ -34,7 +34,7 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 </a>
 [/example]
 
-###Basic article card
+## Basic article card
 
 [example]
 <a class="card" href="#" style="max-width:300px;">
@@ -47,7 +47,7 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 </a>
 [/example]
 
-###Horizontal card 
+## Horizontal card 
 Created by adding <code>card--horizontal</code> class. If you use it with tags or flags, test it thoroughly before production use.
 
 [example]	
@@ -61,7 +61,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </a>
 [/example]
 		
-###Basic card with buttons
+## Basic card with buttons
 
 [example]
 <div class="card" style="max-width:300px;">
@@ -79,7 +79,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </div>
 [/example]
 		
-###Basic store card with additional markup required for JavaScript enhancements in store locator
+## Basic store card with additional markup required for JavaScript enhancements in store locator
 
 [example]
 <div class="card card--store js-store-item" data-storeid="1" style="max-width:300px;">
@@ -103,7 +103,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </div>
 [/example]
 
-### Address cards
+## Address cards
 [example]
 <ul class="card-deck card-deck--sized-4 cards--addresses">
 	<li class="card bg-light">
@@ -123,7 +123,7 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </ul>
 [/example]
 
-###Card deck 
+## Card deck 
 Based on Bootstrap card deck. To control number of cards per row, there are added modifier classes that control card sizing. Cards are responsive so on smallers display they are displayed with reasonable widths.
 
 Available classes for 2, 3, 4 or 6 cards per row:  
@@ -188,6 +188,6 @@ Available classes for 2, 3, 4 or 6 cards per row:
 </div>
 [/example]
 
-####Developers note:
+### Developers note:
 
 Default ATK14Eshop has cards with zero margins, however with SCSS mixins in our _cards.scss it is easy to create variations with various card spacing. With little effort it is possible to create card with various spacing within single project.

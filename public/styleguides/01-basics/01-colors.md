@@ -5,7 +5,7 @@ Color system uses Bootstrap color system with few enhancements. All color values
 
 In SCSS code, colors should be used as Bootstrap variables for visual consistency and easy maintenance and future development. When color bears some semantic meaning (like red for errors etc.), system colors like <code>$danger</code> should be used. 
 
-### Basic color palette
+## Basic color palette
 		
 Note: Color values differ from standard HTML named colors.
 
@@ -109,7 +109,7 @@ Also available as CSS variables such as <code>--blue</code>
 
 [/literal]
 
-### System color palette
+## System color palette
 
 Due to their semantic naming it is highly recommended to use this palette whenever possible. Bootstrap color palette was extended with <code>brand</code> color. Note that these colors are mostly selection of basic color palette above.
 		
@@ -185,7 +185,7 @@ Also available as CSS variables such as <code>--primary</code>
 
 [/literal]
 
-####Usage:
+### Usage:
 - *primary* for primary controls, links and emphasis, active states etc.
 - *secondary* for secondary controls like Cancel buttons etc.
 - *success, info, warning, danger* for components status, status alerts, errors etc.
@@ -196,7 +196,7 @@ Also available as CSS variables such as <code>--primary</code>
 
 These colors may also be used as Bootstrap color utility classes such as <code>.bg-primary</code>, <code>.text-primary</code>, <code>.bg-gradient-primary</code>, <code>.border border-primary</code>
 		
-### Grays
+## Grays
 
 Unlike Bootstrap, gray palette is also available as CSS variables such as <code>--gray-100</code>
 
@@ -270,7 +270,7 @@ Unlike Bootstrap, gray palette is also available as CSS variables such as <code>
 
 [/literal]
 
-### Some other important colors
+## Some other important colors
 
 Some other colors used across various elements across the site. Note that these colors are mostly selection of palettes above.
 
