@@ -58,6 +58,34 @@ class BasketVoucher extends ApplicationModel implements Rankable {
 		return $out;
 	}
 
+	function freeShipping(){
+		return $this->getVoucher()->freeShipping();
+	}
+
+	function getDescription(){
+		$description = $this->getVoucher()->getDescription();
+		if(strlen($description)){
+			return $description;
+		}
+		if($this->getDiscountAmount()){
+			return _("Slevový kupón");
+		}
+		if($this->freeShipping()){
+			return _("Doprava zdarma");
+		}
+		return _("Dárkový poukaz");
+	}
+
+	function getIconSymbol(){
+		if($this->getDiscountAmount()){
+			return "percent";
+		}
+		if($this->freeShipping()){
+			return "check";
+		}
+		return "gift";
+	}
+
 	function toString(){
 		return $this->getVoucherCode();
 	}

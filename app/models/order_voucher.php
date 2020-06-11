@@ -8,7 +8,7 @@ class OrderVoucher extends ApplicationModel implements Rankable {
 	}
 
 	function getVoucher(){
-		return Cache::Get("Voucher",$this->g("voucher_id"));
+		return Cache::Get("Voucher",$this->getVoucherId());
 	}
 
 	function getVoucherCode(){
@@ -21,6 +21,34 @@ class OrderVoucher extends ApplicationModel implements Rankable {
 
 	function getCreatedByUser(){
 		return Cache::Get("User",$this->getCreatedByUserId());
+	}
+
+	function freeShipping(){
+		return $this->getVoucher()->freeShipping();
+	}
+
+	function getDescription(){
+		$description = $this->getVoucher()->getDescription();
+		if(strlen($description)){
+			return $description;
+		}
+		if($this->getDiscountAmount()){
+			return _("Slevový kupón");
+		}
+		if($this->freeShipping()){
+			return _("Doprava zdarma");
+		}
+		return _("Dárkový poukaz");
+	}
+
+	function getIconSymbol(){
+		if($this->getDiscountAmount()){
+			return "percent";
+		}
+		if($this->freeShipping()){
+			return "check";
+		}
+		return "gift";
 	}
 
 	function toString(){

@@ -1,7 +1,9 @@
 <?php
-class Voucher extends ApplicationModel {
+class Voucher extends ApplicationModel implements Translatable {
 
 	use TraitRegions;
+
+	static function GetTranslatableFields(){ return array("description"); }
 
 	function __construct(){
 		// Toto tady mame pro tridu BasketVoucher
@@ -57,7 +59,7 @@ class Voucher extends ApplicationModel {
 		}
 
 		if(!$this->isRepeatable() && $this->hasBeenUsed()){
-			$error_msg = sprintf(_("Voucher %s už byl použit"),$this->getVoucherCode());
+			$error_msg = sprintf(_("Voucher %s již nelze použít"),$this->getVoucherCode());
 			return false;
 		}
 
