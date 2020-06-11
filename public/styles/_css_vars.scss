@@ -10,4 +10,10 @@
 	@each $color, $value in $grays {
 		--gray-#{$color}: #{$value};
 	}
+	//selected other colors and properties
+	--link-color: #{$link-color};
+	--link-hover-color: #{$link-hover-color};
+	--body-color: #{$body-color};
+	--body-bg: #{$body-bg};
+	--border-color: #{$border-color};
 }

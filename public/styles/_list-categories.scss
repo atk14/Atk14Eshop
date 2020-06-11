@@ -1,7 +1,7 @@
 // List for tree-view of categories etc.
 
 // Parent list with root item
-ul.list--categories {
+ul.list--categories, ul.list--tree-parent {
 	
 	@extend .list-unstyled;
 	
@@ -98,7 +98,7 @@ ul.list--categories {
 	@include media-breakpoint-up(sm) {
 		display: flex;
 		flex-wrap: wrap;
-		.list-item {
+		.list-item, .list__item {
 			flex-basis: 50%;
 			&:nth-last-child(1), &:nth-last-child(2) {
 				margin-bottom: 0;
@@ -107,14 +107,14 @@ ul.list--categories {
 	}
 
 	@include media-breakpoint-up(lg) {
-		.list-item {
+		.list-item, .list__item {
 			flex-basis: percentage(1/3);
 			&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
 				margin-bottom: 0;
 			} 
 		}
 	}
-	.list-item {
+	.list-item, .list__item {
 		margin-bottom: 0.5rem;
 		a {
 			display: flex;
@@ -150,13 +150,13 @@ ul.list--categories {
 	
 	// larger bottom space if (some) items have teasers
 	&--teasers {
-		.list-item {
+		.list-item, .list__item {
 			margin-bottom: 1rem;
 		}
 	}
 	// vertically centered text if (some) items have images but no teaser
 	&--images:not(.list--categories--teasers){
-		.list-item {
+		.list-item, .list__item {
 			a {
 				height: 100%;
 				.child-category {

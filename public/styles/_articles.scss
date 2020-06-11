@@ -4,7 +4,7 @@
 
 
 article {
-	.article__body, .page__body {
+	.article__body, .page__body, .styleguide-example__output {
 		max-width: $max-content-width;
 		h2 {
 			margin-bottom: $grid-gutter-width;
