@@ -6,7 +6,7 @@
  *
  * 	$voucher->getDiscountAmount();
  */
-class BasketVoucher extends ApplicationModel implements Rankable {
+class BasketVoucher extends BasketOrOrderVoucher {
 
 	function setRank($rank){
 		$this->_setRank($rank,[
@@ -16,18 +16,6 @@ class BasketVoucher extends ApplicationModel implements Rankable {
 
 	function getBasket(){
 		return Cache::Get("Basket",$this->getBasketId());
-	}
-
-	function getVoucher(){
-		return Cache::Get("Voucher",$this->getVoucherId());
-	}
-
-	function getVoucherCode(){
-		return $this->getVoucher()->getVoucherCode();
-	}
-
-	function getDiscountPercent(){
-		return $this->getVoucher()->getDiscountPercent();
 	}
 
 	function getDiscountAmount($incl_vat = true){
@@ -57,37 +45,4 @@ class BasketVoucher extends ApplicationModel implements Rankable {
 
 		return $out;
 	}
-
-	function freeShipping(){
-		return $this->getVoucher()->freeShipping();
-	}
-
-	function getDescription(){
-		$description = $this->getVoucher()->getDescription();
-		if(strlen($description)){
-			return $description;
-		}
-		if($this->getDiscountAmount()){
-			return _("Slevový kupón");
-		}
-		if($this->freeShipping()){
-			return _("Doprava zdarma");
-		}
-		return _("Dárkový poukaz");
-	}
-
-	function getIconSymbol(){
-		if($this->getDiscountAmount()){
-			return "percent";
-		}
-		if($this->freeShipping()){
-			return "check";
-		}
-		return "gift";
-	}
-
-	function toString(){
-		return $this->getVoucherCode();
-	}
-
 }
