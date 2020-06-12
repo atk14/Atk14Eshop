@@ -27,7 +27,7 @@
 
 		{placeholder}
 		<br/><br/>
-		
+
 		{capture assign="email"}<a href="mailto:{"app.contact.email"|system_parameter}" style="{$link_style}">{"app.contact.email"|system_parameter}</a>{/capture}
 		{t email=$email escape=no}V případě dotazů nás můžete kontaktovat na e-mailu %1{/t}
 		<br/>
