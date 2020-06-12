@@ -32,6 +32,7 @@
 		{t email=$email escape=no}V případě dotazů nás můžete kontaktovat na e-mailu %1{/t}
 		<br/>
 		<br/>
+		{placeholder for="extra_message"}
 		{t name="app.name.yours"|system_parameter escape=no}Krásný den přeje<br/>%1{/t}
 	
 <!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
