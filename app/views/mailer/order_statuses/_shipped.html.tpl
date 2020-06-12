@@ -4,5 +4,7 @@
 <br/><br/>
 {t 1=$order->getTrackingNumber()}Číslo zásilky: %1{/t}
 <br/><br/>
-{t url=$order->getTrackingUrl() escape=false}Svou zásilku můžete sledovat přes následující odkaz: <a href="%1">%1</a>{/t}
+{t}Svou zásilku můžete sledovat přes následující odkaz:{/t}
+<br/>
+<a href="{$order->getTrackingUrl()}" style="{$link_style}">{$order->getTrackingUrl()}</a>
 {/if}
