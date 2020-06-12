@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 17:10+0200\n"
-"PO-Revision-Date: 2020-05-12 17:07+0200\n"
+"POT-Creation-Date: 2020-06-12 11:16+0200\n"
+"PO-Revision-Date: 2020-06-12 12:16+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -96,11 +96,11 @@ msgstr ""
 msgid "Produkt byl přidán do košíku"
 msgstr ""
 
-msgid "Slevový kupón"
-msgstr ""
-
 msgid "slevový kód č."
-msgstr ""
+msgstr "discount code no."
+
+msgid "dárkový kód č."
+msgstr "gift code no."
 
 msgid "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
 msgstr ""
@@ -150,7 +150,7 @@ msgstr ""
 
 #: ../app/widgets/select_with_images.php:131
 msgid "Zdarma"
-msgstr ""
+msgstr "Free of charge"
 
 msgid "Cena za zboží<span class=\"text-muted\"> vč. DPH</span>"
 msgstr ""
@@ -851,10 +851,10 @@ msgid "ID pobočky: %1"
 msgstr ""
 
 msgid "Zákazník"
-msgstr ""
+msgstr "Customer"
 
 msgid "e-mail:"
-msgstr ""
+msgstr "email:"
 
 msgid "Objednávané zboží"
 msgstr ""
@@ -863,25 +863,30 @@ msgid "Doprava:"
 msgstr ""
 
 msgid "Číslo zásilky"
-msgstr ""
+msgstr "Tracking number"
 
 msgid "Není zadáno"
-msgstr ""
+msgstr "Not specified"
 
 msgid "Doprava a platba"
-msgstr ""
+msgstr "Shipping and payment"
 
 msgid "Slevová kampaň"
-msgstr ""
+msgstr "Discount campaign"
 
 msgid "Slevové kupóny"
-msgstr ""
+msgstr "Discount vouchers"
+
+#: ../app/models/basket_or_order_voucher.php:32
+#: ../app/models/basket_voucher.php:55
+msgid "Slevový kupón"
+msgstr "Discount voucher"
 
 msgid "Doručovací adresa:"
-msgstr ""
+msgstr "Delivery address:"
 
 msgid "Fakturační údaje:"
-msgstr ""
+msgstr "Billing information:"
 
 msgid "IČ:"
 msgstr ""
@@ -896,7 +901,7 @@ msgid "Photo gallery"
 msgstr "Photo gallery"
 
 msgid "Zavřít"
-msgstr ""
+msgstr "Close"
 
 msgid "Zobrazování přes celou obrazovka"
 msgstr ""
@@ -935,13 +940,13 @@ msgid "Zobrazit stránku"
 msgstr ""
 
 msgid "Stránka"
-msgstr ""
+msgstr "Page"
 
 msgid "Právě otevřeno"
 msgstr ""
 
 msgid "tel:"
-msgstr ""
+msgstr "phone:"
 
 msgid "Informace o prodejně"
 msgstr ""
@@ -1867,6 +1872,16 @@ msgstr "Gallery"
 msgid "Propagace produktu"
 msgstr ""
 
+#: ../app/models/basket_or_order_voucher.php:35
+#: ../app/models/basket_voucher.php:58
+msgid "Doprava zdarma"
+msgstr "Free shipping"
+
+#: ../app/models/basket_or_order_voucher.php:37
+#: ../app/models/basket_voucher.php:60
+msgid "Dárkový poukaz"
+msgstr "Gift voucher"
+
 #: ../app/models/basket.php:573
 msgid "Košík je prázdný"
 msgstr "Shopping basket is empty"
@@ -2005,26 +2020,26 @@ msgstr ""
 msgid "Zrušeno"
 msgstr ""
 
-#: ../app/models/voucher.php:41 ../app/models/voucher.php:68
+#: ../app/models/voucher.php:43 ../app/models/voucher.php:70
 #, php-format
 msgid "Voucher %s nelze použít"
 msgstr ""
 
-#: ../app/models/voucher.php:46
+#: ../app/models/voucher.php:48
 msgid "Voucher nemůže být použit v prázdném košíku"
 msgstr ""
 
-#: ../app/models/voucher.php:55
+#: ../app/models/voucher.php:57
 #, php-format
 msgid "Platnost voucheru %s vypršela"
 msgstr ""
 
-#: ../app/models/voucher.php:60
+#: ../app/models/voucher.php:62
 #, php-format
-msgid "Voucher %s už byl použit"
+msgid "Voucher %s již nelze použít"
 msgstr ""
 
-#: ../app/models/voucher.php:78
+#: ../app/models/voucher.php:80
 #, php-format
 msgid "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 msgstr ""
