@@ -1,0 +1,215 @@
+<?php
+use DeliveryService\BranchParser;
+
+class DeliveryService extends ApplicationModel {
+
+	/**
+	 * Vrati seznam pobocek pro dorucovaci sluzbu.
+	 */
+	function getDeliveryServiceBranches() {
+		return DeliveryServiceBranch::FindAll("delivery_service_id", $this, "active", true);
+	}
+
+	function getBranches() {
+		return $this->getDeliveryServiceBranches();
+	}
+
+	/**
+	 * Vyhledani pobocek.
+	 *
+	 * Pokud je v $q cislo, vyhledava se podle zip, radi se podle zip
+	 * V pripade textu podle nazvu pobocky, nazvu pobocky s adresou, atd.
+	 *
+	 * @param string $q
+	 */
+	function findBranches($q,$options=array()) {
+		$options += array(
+			"limit" => 150,
+			"countries" => [],
+		);
+		$out = array();
+		$q = trim($q);
+		if (!$q) {
+			return null;
+		}
+
+		$bind_ar = [
+			":this" => $this,
+		];
+		$conditions = [
+			"delivery_service_id=:this",
+			"active='t'",
+		];
+		if ($options["countries"]) {
+			$conditions[] = "country IN :countries";
+			$bind_ar[":countries"] = $options["countries"];
+		}
+
+		# pokud zadame jen cislice (pripadne s mezerou), hledame jen podle psc
+		if (is_numeric($q) || is_numeric($q_zip = preg_replace("/\s/","",$q))) {
+			isset($q_zip) && ($q = $q_zip);
+
+			$order = "zip";
+			$conditions[] = "zip like :q_zip";
+		} else {
+			# normalne hledame podle nazvu nebo adresy
+			# dopredu davame posty s nazvem, ktery hledanym vyrazem zacina, nebo posty s adresou, ktera hledanym vyrazem zacina
+			# nasleduji posty s hledanym vyrazem kdekoliv v nazvu nebo adrese
+			$unaccent_installed = $this->dbmole->selectInt("SELECT COUNT(*) FROM pg_extension WHERE extname=:extname",array(":extname" => "unaccent"));
+			if ($unaccent_installed) {
+				$order = array(
+					"lower(unaccent(name)) like lower(unaccent(:q_zip)) DESC",
+					"lower(unaccent(full_address)) like lower(unaccent(:q_zip)) DESC",
+					"name",
+					"full_address",
+					"lower(unaccent(full_address)) like lower(unaccent(:q_zip)) DESC",
+				);
+			} else {
+				$order = array(
+					"lower(name) like lower(:q_zip) DESC",
+					"lower(full_address) like lower(:q_zip) DESC",
+					"name",
+					"full_address",
+					"lower(full_address) like lower(:q_zip) DESC",
+				);
+			}
+			$order = join(",", $order);
+			if ($unaccent_installed) {
+				$conditions[] = "lower(unaccent(name)) like lower(unaccent(:q)) OR lower(unaccent(full_address)) like lower(unaccent(:q))";
+			} else {
+				$conditions[] = "lower(name) like lower(:q) OR lower(full_address) like lower(:q)";
+			}
+		}
+		$bind_ar[":q"] = "%$q%";
+		$bind_ar[":q_zip"] = "$q%";
+
+		return DeliveryServiceBranch::FindAll(array(
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
+			"order" => $order,
+			"limit" => $options["limit"],
+		));
+	}
+
+	static function ReadBranchesData($code, $options=[], &$error_message=null) {
+		if (is_null($delivery_service = static::FindFirst("code", $code))) {
+			return false;
+		}
+		$options += [
+			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
+		];
+		$data = @file_get_contents($options["branches_url"]);
+		if ($data===false) {
+			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
+			return false;
+		}
+		if ($data==="") {
+			$error_message = "empty file";
+			return false;
+		}
+		return $data;
+	}
+
+	/**
+	 * Aktualizace pobocek dorucovaci sluzby.
+	 *
+	 * Stahne si data z url (branches_download_url) a naimportuje do tabulky delivery_service_branches
+	 * Pobocky, ktere se znovu nevyskytuji v poskytnutem seznamu, se deaktivuji.
+	 *
+	 * ```
+	 * DeliveryService::UpdateBranches("zasilkovna");
+	 * ```
+	 *
+	 * @param string $code
+	 */
+	static function UpdateBranches($code, $options=array(), &$error_message=null) {
+		$data = static::ReadBranchesData($code, $options, $error_message);
+		if (!$data) {
+			return false;
+		}
+
+		$delivery_service = static::FindFirst("code", $code);
+		return $delivery_service->importData($data);
+	}
+
+	/**
+	 * Nacteni pobocek z XML souboru.
+	 *
+	 * Nepouzivame XMole, nebot je prilis narocny.
+	 * Data z XML nezvladne nacist.
+	 *
+	 */
+	function importData($data, $options=array()) {
+		$options += [
+			"logger" => new logger(),
+		];
+
+		$dbmole = self::GetDbmole();
+		$xml = new SimpleXMLElement($data);
+
+		// Prohledani namespacu a prirazeni prefixu tam, kde je prazdny.
+		// jinak nelze pouzit volani xpath()
+		foreach($xml->getDocNamespaces() as $strPrefix => $strNamespace) {
+			if(strlen($strPrefix)==0) {
+				$strPrefix="default"; //Assign an arbitrary namespace prefix.
+			}
+			$xml->registerXPathNamespace($strPrefix,$strNamespace);
+		}
+
+		$current_branch_ids = $this->dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
+
+		$class_name = new String4($this->getCode());
+		$class_name->replace("-", "_");
+		$parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
+
+		$_branch_element_name = sprintf("//default:%s", $parserClassName::GetXMLBranchName());
+
+		foreach($xml->xpath($_branch_element_name) as $branch_row) {
+			$_branchAr = $parserClassName::ParseBranch($branch_row);
+
+			$branch = DeliveryServiceBranch::FindFirst("external_branch_id", $_branchAr["external_branch_id"], "delivery_service_id", $this);
+			if ($branch) {
+				$_branchAr["active"] = true;
+				$_updates = $_conditions = $_bindAr = [];
+				# hodnoty budeme menit, jen kdyz budou rozdilne
+				# a potom i nastavime hodnotu updated_at
+				foreach($_branchAr as $k => $v) {
+					$_updates[] = "${k}=:${k}";
+					# pozor na policko s json daty
+					if ($k=="opening_hours") {
+						$_conditions[] = "${k}::jsonb!=:${k}::jsonb";
+					} else {
+						$_conditions[] = "${k}!=:${k}";
+					}
+					$_bindAr[":${k}"] = $v;
+				}
+				$_updates[] = "updated_at='".now()."'";
+				$_conditions = ["(".join(" OR ", $_conditions).")"];
+				$_conditions[] = "id=:id";
+				$_bindAr[":id"] = $branch;
+				$_conditions = join(" AND ", $_conditions);
+				$_updates = join( ", ", $_updates);
+
+				$q = "UPDATE delivery_service_branches SET ${_updates} WHERE ${_conditions}";
+				$dbmole->doQuery($q, $_bindAr);
+				$options["logger"] && $options["logger"]->info(sprintf("update branch %s", $_branchAr["external_branch_id"]));
+				unset($current_branch_ids[$branch->getId()]);
+			} else {
+				$_branchAr["delivery_service_id"] = $this;
+				DeliveryServiceBranch::CreateNewRecord($_branchAr);
+			}
+		}
+
+		# deactivate branches not in xml
+		foreach($current_branch_ids as $_branch_id => $_external_id) {
+			$options["logger"] && $options["logger"]->info("deactivate branch $_external_id [id: {$_branch_id}]");
+			$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f' WHERE id=:id", array(":id" => $_branch_id));
+		}
+
+		return true;
+	}
+
+	function toString() {
+		return $this->getName();
+	}
+}
