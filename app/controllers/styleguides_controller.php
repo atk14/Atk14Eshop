@@ -12,7 +12,7 @@ class StyleguidesController extends MdBookBaseController {
 		}
 
 		$this->book_dir = ATK14_DOCUMENT_ROOT . "/public/styleguides/";
-		$this->book = new MdBook($this->book_dir);
+		$this->book = new MdBook($this->book_dir,array("keep_html_tables_unmodified" => false, "table_class" => ""));
 
 		$this->book->registerBlockShortcode("literal", array(
 			"callback" => function($content,$params){
