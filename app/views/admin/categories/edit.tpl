@@ -68,6 +68,10 @@ Do you really want this?{/t}{/capture}
 
 <hr>
 
+{render partial="shared/iobjects" object=$category}
+
+<hr>
+
 {if $category->isAlias()}
 
 	{assign var=ptc value=$category->getPointingToCategory()}
