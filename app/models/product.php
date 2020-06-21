@@ -417,9 +417,11 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 	/**
 	 * Can be this product ordered?
-   *
-	 * 	$produkt->canBeOrdered();
-   *  $product->canBeOrdered(["amount" => 10]); // muze byt objednan v mnozstvi 10 ks?
+	 *
+	 *	$produkt->canBeOrdered();
+	 *	$product->canBeOrdered(["amount" => 10]); // Can be 10 pcs of this product ordered?
+	 *	$product->canBeOrdered(["amount" => 10, "price_finder" => $price_finder]);
+	 *	$produkt->canBeOrdered($price_finder);
 	 */
 	function canBeOrdered($options = []) {
 		if(is_a($options,"PriceFinder")){
