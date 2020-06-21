@@ -2,6 +2,7 @@
 class Category extends ApplicationModel implements Translatable, Rankable, iSlug, \Textmit\Indexable {
 
 	use TraitGetInstanceByCode;
+	use TraitTags;
 
 	static function GetTranslatableFields() { return array("name","long_name","teaser","description", "page_title", "page_description"); }
 
