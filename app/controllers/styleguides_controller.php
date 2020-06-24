@@ -23,6 +23,8 @@ class StyleguidesController extends MdBookBaseController {
 
 		$this->book->registerBlockShortcode("example", array(
 			"callback" => function($content,$params){
+				$content = str_replace("\t","  ",$content);
+				$content = trim($content);
 				$code_id = "code_example_".uniqid();
 				return "
 					<div class=\"styleguide-example\">
