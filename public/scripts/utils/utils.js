@@ -16,6 +16,8 @@ window.UTILS.initSwiper = function() {
 		var loop = $container.data( "loop" );
 		var autoplay = $container.data( "autoplay" );
 		var sliderId = $container.data( "slider_id" );
+		var breakpoint = $container.data( "breakpoint" );
+		var centeredSlides = $container.data( "centered_slides" );
 
 		if( typeof( autoplay ) === "number" ){
 			autoplay = {
@@ -44,7 +46,16 @@ window.UTILS.initSwiper = function() {
 
 		// More Swiper init params for some specific layouts
 		if ( slidesPerView === "auto" ) {
-			initObject.spaceBetween = 30;
+			initObject.spaceBetween = 10;
+
+			// One slide per view on small viewports, auto on screen width > breakpoint
+			if ( typeof( breakpoint ) === "number" ) {
+				initObject.slidesPerView = 1;
+				initObject.breakpoints = {};
+				initObject.breakpoints[breakpoint] = {
+					slidesPerView: "auto",
+				};
+			}
 		} else {
 			if( slidesPerView > 1 ){
 				initObject.breakpoints = {
@@ -58,6 +69,19 @@ window.UTILS.initSwiper = function() {
 					}
 				};
 			}
+		}
+		if ( centeredSlides ) {
+			initObject.centeredSlides = centeredSlides;
+
+			// Workaround for buggy behaviour when centeredSlides=true and slidesPerView=auto
+			initObject.on = {
+				imagesReady: function() {
+					this.slideToLoop( 0, 0 );
+					if( autoplay ) {
+						this.autoplay.start();
+					}
+				}
+			};
 		}
 
 		// eslint-disable-next-line

@@ -54,6 +54,9 @@ ol.breadcrumb {
 				padding: 0 $size/4;
 				font-size: 0.875rem;
 				font-weight: bold;
+				animation: cart-indicator-animation;
+				animation-duration: 0.5s;
+				animation-iteration-count: 1;
 			}
 			@include media-breakpoint-down(sm){
 			.dropdown-menu {
@@ -72,6 +75,15 @@ ol.breadcrumb {
 				}
 			}
 			}
+		}
+	}
+	
+	@keyframes cart-indicator-animation {
+		from {
+			transform: scale(2.5);
+		}
+		to {
+			transform: scale(1);
 		}
 	}
 	

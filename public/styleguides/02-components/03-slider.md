@@ -2,7 +2,8 @@ Slider
 ======
 
 [Swiper](https://swiperjs.com/) slider used for all sliders on the site. Note <code>id</code> and <code>data-slider_id</code> attributes - they contain code which must be unique for each instance of slider. This enables to have multiple instances of slider on page.
-		
+
+## Basic slider with image and text content
 
 [example]
 	
@@ -65,4 +66,78 @@ Slider
 	
 </section>
 
+[/example]
+
+## Image slider
+
+Layout is controlled by data-attributes. Only small subset of Swiper parameters is supported in data attributes. Images may be or not wrapped in links.
+
+### Slides per view: auto, centered slides: true
+
+[example]
+<section class="section--slider">
+
+	<div class="swiper-container swiper--images" data-slides_per_view="auto" data-loop="1" data-autoplay="6000" data-slider_id="5ef491cf8f7dd" id="swiper_5ef491cf8f7dd" data-breakpoint="600" data-centered_slides="1">
+		<div class="swiper-wrapper">
+
+			<div class="swiper-slide slider-item-0" style="width: auto">
+				<a href="#" title="Lorem ipsum">
+					<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+				</a>
+			</div>
+			<div class="swiper-slide slider-item-1" style="width: auto">
+				<a href="#" title="Lorem ipsum">
+					<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+				</a>
+			</div>
+			<div class="swiper-slide slider-item-2" style="width: auto">
+				<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+			</div>
+			<div class="swiper-slide slider-item-3" style="width: auto">
+				<img src="http://placekitten.com/500/300" class="img-fluid" alt="">
+			</div>
+
+		</div>
+
+		<!-- If we need navigation buttons -->
+		<div class="swiper-button-prev" id="swiper_button_prev_5ef491cf8f7dd"><span class="sr-only">Předchozí</span></div>
+		<div class="swiper-button-next" id="swiper_button_next_5ef491cf8f7dd"><span class="sr-only">Následující</span></div>
+		<div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_5ef491cf8f7dd"></div>
+	</div>
+</section>
+[/example]
+
+### Slides per view: 1
+
+[example]
+<section class="section--slider">
+
+	<div class="swiper-container swiper--images" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="bvbvccv" id="swiper_bvbvccv" data-breakpoint="600">
+		<div class="swiper-wrapper">
+
+			<div class="swiper-slide slider-item-0" style="width: auto">
+				<a href="#" title="Lorem ipsum">
+					<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+				</a>
+			</div>
+			<div class="swiper-slide slider-item-1" style="width: auto">
+				<a href="#" title="Lorem ipsum">
+					<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+				</a>
+			</div>
+			<div class="swiper-slide slider-item-2" style="width: auto">
+				<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+			</div>
+			<div class="swiper-slide slider-item-3" style="width: auto">
+				<img src="http://placekitten.com/1000/600" class="img-fluid" alt="">
+			</div>
+
+		</div>
+
+		<!-- If we need navigation buttons -->
+		<div class="swiper-button-prev" id="swiper_button_prev_bvbvccv"><span class="sr-only">Předchozí</span></div>
+		<div class="swiper-button-next" id="swiper_button_next_bvbvccv"><span class="sr-only">Následující</span></div>
+		<div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_bvbvccv"></div>
+	</div>
+</section>
 [/example]
