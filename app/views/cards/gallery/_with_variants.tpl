@@ -4,7 +4,7 @@
 
 	{placeholder for=gallery_preview}
 	
-	<div class="gallery__images">
+	<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 	{assign products $card->getProducts()}
 	{foreach $products as $product}
 		{assign image $product->getImage(false)}
