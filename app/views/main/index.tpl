@@ -17,7 +17,7 @@
 	{if $page}
 		{admin_menu for=$page}
 	
-		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown title_tag="h2"}
+		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
 		
 		<div class="row">
 			<div class="col-12 col-md-7 col-lg-6">
@@ -39,7 +39,7 @@
 {if $recent_articles}
 	<section class="section--recent-articles">
 		{capture assign=recent_articles_title}{t}Aktuality{/t}{/capture}
-		{render partial="shared/layout/content_header" title=$recent_articles_title}
+		{render partial="shared/layout/content_header" title=$recent_articles_title title_tag="h2"}
 		<div class="card-deck card-deck--sized-4">
 			{foreach $recent_articles as $article}
 				{a controller=articles action=detail id=$article _class="card"}
