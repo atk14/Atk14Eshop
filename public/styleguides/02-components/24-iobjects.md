@@ -125,7 +125,7 @@ By default, markup expects movie aspect ratio to be 16:9.
 [example]
 <div class="iobject iobject--video">
 	<div class="embed-responsive embed-responsive-16by9">
-		<iframe width="825" height="464" src="https://www.youtube.com/embed/dcsiIoQody4?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<iframe width="825" height="464" src="https://www.youtube.com/embed/dcsiIoQody4?feature=oembed" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 	<div class="iobject__caption">
 		<div class="iobject__title">Earth Views from the International Space Station</div>

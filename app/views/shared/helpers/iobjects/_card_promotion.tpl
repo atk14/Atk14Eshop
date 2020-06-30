@@ -25,12 +25,12 @@
 			</div>
 		</div>
 		{if $starting_price}
-			<span class="iobject__footer">
+			<div class="iobject__footer">
 				{if $starting_price}
 					{render partial="shared/card_price" card=$card}
 				{/if}
 				<span class="card-footer-icon">{!"chevron-right"|icon}</span>
-			</span>
+			</div>
 		{/if}
 	</div>
 </a>
