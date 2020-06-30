@@ -1,5 +1,6 @@
 {capture assign=return_uri}{$request->getUri()}#order_items{/capture}
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
+{assign currency $object->getCurrency()}
 
 <table class="table">
 	<thead>
