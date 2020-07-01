@@ -13,3 +13,8 @@ main_menu__catalog:
 main_menu__external:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
   url: "https://www.atk14.net/"
+
+main_menu__brands:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "brands/index"]) ?>"
+  
