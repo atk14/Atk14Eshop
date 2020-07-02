@@ -7,6 +7,7 @@
 	<li>{a action="notify_order_status_update"}E-mail oznamující změnu stavu objednávky{/a}</li>
 	<li>{a action="e500"}Stránka s chybou 500{/a}</li>
 	<li>{a action="e503"}Stránka s chybou 503{/a}</li>
+	<li>{a action="colors"}Manipulace s barvami{/a}</li>
 </ul>
 
 {content for=head}

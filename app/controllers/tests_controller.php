@@ -20,6 +20,10 @@ class TestsController extends ApplicationController {
 	function remote_bootbox_modal(){
 
 	}
+	
+	function colors(){
+		$this->page_title = "Color manipulation";
+	}
 
 	function notify_order_creation(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
