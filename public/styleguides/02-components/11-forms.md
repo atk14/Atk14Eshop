@@ -310,13 +310,25 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
 
 <div class="custom-control custom-checkbox custom-control--color bg-info text-light">
 	<input type="checkbox" id="customCheck7" class="custom-control-input">
-	<label class="custom-control-label" for="customCheck7">Or toggle</label>
+	<label class="custom-control-label" for="customCheck7">Indeterminate</label>
 </div>
 
 <script>
 	var checkbox = document.getElementById("customCheck7");
 	checkbox.indeterminate = true;
 </script>
+
+<p class="mt-4">Color checkbox and radio are easily sized by setting font-size:</p>
+
+<div class="custom-control custom-checkbox custom-control--color bg-info text-light d-inline-block" style="font-size: 0.875rem;">
+	<input type="checkbox" id="customCheck8" class="custom-control-input">
+	<label class="custom-control-label" for="customCheck8">Small</label>
+</div>
+
+<div class="custom-control custom-checkbox custom-control--color bg-success text-light d-inline-block" style="font-size: 1.25rem;">
+	<input type="checkbox" id="customCheck9" class="custom-control-input">
+	<label class="custom-control-label" for="customCheck9">Big</label>
+</div>
 
 [/example]
 
