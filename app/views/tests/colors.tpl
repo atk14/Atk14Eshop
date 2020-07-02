@@ -42,6 +42,8 @@
 {render partial="colors/conversion" color="hsl( 120, 60%, 70% )"}
 
 {render partial="colors/conversion" color="pink"}
+
+<h4 class="mt-2" style="flex-basis: 100%">Buggy 3 or 6chars named colors</h4>
 {render partial="colors/conversion" color="violet"}
 {render partial="colors/conversion" color="red"}
 
@@ -88,7 +90,7 @@
 {render partial="colors/text_contrast" color="turquoise"}
 {render partial="colors/text_contrast" color="thistle"}
 	
-<h4 class="px-2 mt-2" style="flex-basis: 100%">Colors with low alpha value or buggy 3-6chars named colors</h4>
+<h4 class="px-2 mt-2" style="flex-basis: 100%">Colors with low alpha value or buggy 3 or 6 chars named colors</h4>
 	
 {render partial="colors/text_contrast" color="violet"}
 {render partial="colors/text_contrast" color="red"}
