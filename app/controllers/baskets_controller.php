@@ -87,6 +87,24 @@ class BasketsController extends ApplicationController {
 	}
 
 	function add_product(){
+		$this->_add_product();
+	}
+
+	function set_product_amount(){
+		$this->_add_product(["rewrite_amount" => true]);
+	}
+
+	function product_added(){
+		$this->breadcrumbs[] = [_("Shopping basket"),"baskets/edit"];
+		$this->page_title = $this->breadcrumbs[] = _("Produkt byl přidán do košíku");
+	}
+
+	function _add_product($options = []){
+		$options += [
+			"rewrite_amount" => false,
+		];
+		$rewrite_amount = $options["rewrite_amount"];
+
 		$product = $this->product;
 		if(!$this->request->post()){
 			return $this->_execute_action("error404");
@@ -103,14 +121,16 @@ class BasketsController extends ApplicationController {
 
 		$basket = $this->_get_basket(true);
 		if(!$basket){
-			return;
+			return $this->_execute_action("error404");
 		}
 
 		if(!$product->canBeOrdered(["region" => $this->current_region, "amount" => $amount, "price_finder" => $this->price_finder])){
 			return $this->_execute_action("error404");
 		}
 
-		$basket->addProduct($product,$amount);
+		$original_amount = $basket->getProductAmount($product);
+		$basket->addProduct($product,$amount,["rewrite_amount" => $rewrite_amount]);
+		$current_amount = $basket->getProductAmount($product);
 
 		if(!$this->request->xhr()){
 			$this->_redirect_to([
@@ -120,16 +140,15 @@ class BasketsController extends ApplicationController {
 			return;
 		}
 
-		// pro XHR je tady sablona...
-	}
+		$this->tpl_data["amount"] = $amount;
+		$this->tpl_data["original_amount"] = $original_amount;
+		$this->tpl_data["current_amount"] = $current_amount;
 
-	function product_added(){
-		$this->breadcrumbs[] = [_("Shopping basket"),"baskets/edit"];
-		$this->page_title = $this->breadcrumbs[] = _("Produkt byl přidán do košíku");
+		// there are templates for XHR requests...
 	}
 
 	function _before_filter(){
-		if(in_array($this->action,["add_product","product_added"])){
+		if(in_array($this->action,["add_product","set_product_amount","product_added"])){
 			if(!($this->product = $this->tpl_data["product"] = $this->_just_find_product())){
 				return $this->_execute_action("error404");
 			}
