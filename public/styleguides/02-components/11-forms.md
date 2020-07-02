@@ -231,5 +231,92 @@ Widget for setting quantity of items. You must provide JavaScript for handling b
 </div>
 [/example]
 
+### Colored checkboxes and radios
 
+The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom-control--color</code> class and appropriate background and text color styles. This component is also available in admin.
+
+[example]
+<div class="custom-control custom-radio custom-control--color bg-primary text-light">
+  <input type="radio" id="customRadio1" name="customRadio1" class="custom-control-input" checked>
+  <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+</div>
+
+<div class="custom-control custom-radio custom-control--color text-dark">
+  <input type="radio" id="customRadio2" name="customRadio1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+</div>
+<div class="custom-control custom-radio custom-control--color bg-success text-light">
+  <input type="radio" id="customRadio3" name="customRadio1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadio3">Or toggle this other custom radio</label>
+</div>
+
+<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+  <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+  <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+</div>
+
+<div class="custom-control custom-checkbox custom-control--color text-light" style="background-color: palevioletred;">
+  <input type="checkbox" class="custom-control-input" id="customCheck2">
+  <label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
+</div>
+
+<p class="mt-4">Or display them inline using class like <code>d-inline-block</code>:</p>
+
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-primary text-light">
+  <input type="radio" id="customRadio4" name="customRadio2" class="custom-control-input" checked>
+  <label class="custom-control-label" for="customRadio4">Toggle</label>
+</div>
+
+<div class="custom-control custom-radio custom-control--color d-inline-block text-dark">
+  <input type="radio" id="customRadio5" name="customRadio2" class="custom-control-input">
+  <label class="custom-control-label" for="customRadio5">Or toggle</label>
+</div>
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-success text-light">
+  <input type="radio" id="customRadio6" name="customRadio2" class="custom-control-input">
+  <label class="custom-control-label" for="customRadio6">Or toggle</label>
+</div>
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-info text-light">
+  <input type="radio" id="customRadio7" name="customRadio2" class="custom-control-input">
+  <label class="custom-control-label" for="customRadio7">Or toggle</label>
+</div>
+
+<p class="mt-4">Or put them inside flexbox container:</p>
+
+<div style="display: flex; flex-wrap: wrap">
+	
+	<div class="custom-control custom-checkbox custom-control--color bg-primary text-light">
+		<input type="checkbox" id="customCheck3" class="custom-control-input" checked>
+		<label class="custom-control-label" for="customCheck3">Toggle</label>
+	</div>
+
+	<div class="custom-control custom-checkbox custom-control--color bg-warning text-dark">
+		<input type="checkbox" id="customCheck4" class="custom-control-input" checked>
+		<label class="custom-control-label" for="customCheck4">Or toggle</label>
+	</div>
+	
+	<div class="custom-control custom-checkbox custom-control--color bg-success text-light">
+		<input type="checkbox" id="customCheck5" class="custom-control-input">
+		<label class="custom-control-label" for="customCheck5">Or toggle</label>
+	</div>
+	
+	<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+		<input type="checkbox" id="customCheck6" class="custom-control-input">
+		<label class="custom-control-label" for="customCheck6">Or toggle</label>
+	</div>
+	
+</div>
+
+<p class="mt-4">Checkbox also supports indeterminate state:</p>
+
+<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+	<input type="checkbox" id="customCheck7" class="custom-control-input">
+	<label class="custom-control-label" for="customCheck7">Or toggle</label>
+</div>
+
+<script>
+	var checkbox = document.getElementById("customCheck7");
+	checkbox.indeterminate = true;
+</script>
+
+[/example]
 

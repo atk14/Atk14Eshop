@@ -1,0 +1,42 @@
+@mixin color_checkox_radio {
+	
+	border: 1px solid $border-color;
+	border-radius: 2em;
+	margin-bottom: 0.2em;
+	padding: 0.2em 1em;
+	padding-left: 2em;
+	margin-right: 0.2em;
+	margin-left: 0.2em;
+	//font-size: 2rem;
+	
+	label {
+		display: block;
+		
+		&:before, &:after {
+			top: .25em;
+			left: -1.5em;
+			display: block;
+			width: 1em;
+			height: 1em;
+			content: "";
+			border-radius: 50% !important;
+		}
+		
+		&:before {
+			background-color: rgba(white,0.8);
+		}
+		
+	}
+	
+	.custom-control-input:checked ~ .custom-control-label::before, .custom-control-input:indeterminate~.custom-control-label:before {
+		background-color: black;
+		border-color: rgba(white, 0.5);
+	}
+	
+}
+
+.custom-radio, .custom-checkbox {
+	&.custom-control--color {
+		@include color_checkox_radio;
+	}
+}
