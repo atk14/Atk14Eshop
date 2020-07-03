@@ -1,5 +1,5 @@
 {admin_menu for=$brand}
-{render partial="shared/layout/content_header" title=$page_title teaser=$brand->getTeaser()|markdown image=$brand->getLogoUrl()|img_url:"800x,format=png"}
+{render partial="shared/layout/content_header" title=$page_title teaser=$brand->getTeaser()|markdown brand="" image=$brand->getLogoUrl()|img_url:"800x,format=png"}
 
 <section class="border-top-0">
 	{!$brand->getDescription()|markdown}
