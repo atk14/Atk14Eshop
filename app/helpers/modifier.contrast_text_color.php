@@ -12,7 +12,7 @@
  * {"hsla(120,60%,70%,0.3)"|contrast_text_color} // any css color format accepted
  * {"hotpink"|contrast_text_color} // any css color format accepted
  */
-function smarty_modifier_contrast_text_color( $color, $dark = "#000000", $light = "#FFFFFF", $threshold = 160 ){
+function smarty_modifier_contrast_text_color( $color, $dark = "#111111", $light = "#FFFFFF", $threshold = 160 ){
 	if(!$color){
 		return $dark;
 	}
