@@ -1,7 +1,6 @@
 <?php
 /**
  * Finds suitable text color with sufficient contrast compared to $color
- * Known bug - named colors 6 or 3 chars long like "violet" or "red" are detected as white
  * 
  * $color: original color (typically background). Does not consider alpha values.
  * $dark, $light = colors (or CSS class names etc. when suitable) of dark and light text to be returned

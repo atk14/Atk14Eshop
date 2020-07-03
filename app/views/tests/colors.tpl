@@ -27,10 +27,9 @@
 	}
 </style>
 
-<h2>Konverze</h2>
+<h2>Color Formats Conversion and Color Manipulation</h2>
 
 <p>https://github.com/aristath/ariColor</p>
-<p>Bug: named colors with 3 or 6 chars length like "red" or "blue" are detected as white</p>
 <p>Uses modifier color_to_rgba and sets alpha to 0.8</p>
 
 {render partial="colors/conversion" color="#f40563"}
@@ -40,17 +39,13 @@
 {render partial="colors/conversion" color="rgba(44,87,128,0.25)"}
 {render partial="colors/conversion" color="hsla(120,60%,70%,0.3)"}
 {render partial="colors/conversion" color="hsl( 120, 60%, 70% )"}
-
 {render partial="colors/conversion" color="pink"}
-
-<h4 class="mt-2" style="flex-basis: 100%">Buggy 3 or 6chars named colors</h4>
 {render partial="colors/conversion" color="violet"}
 {render partial="colors/conversion" color="red"}
 
 <h2 class="mt-4">Text contrast colors</h2>
 
 <p>Uses modifier contrast_text_color</p>
-<p>Bug: named colors with 3 or 6 chars length like "red" or "blue" are detected as white</p>
 <p>Does not consider aplha</p>
 
 <div style="display: flex; flex-wrap: wrap; margin: 0 -10px;">
@@ -89,13 +84,9 @@
 {render partial="colors/text_contrast" color="snow"}
 {render partial="colors/text_contrast" color="turquoise"}
 {render partial="colors/text_contrast" color="thistle"}
-	
-<h4 class="px-2 mt-2" style="flex-basis: 100%">Colors with low alpha value or buggy 3 or 6 chars named colors</h4>
-	
 {render partial="colors/text_contrast" color="violet"}
 {render partial="colors/text_contrast" color="red"}
-{render partial="colors/text_contrast" color="rgba(44,87,128,0.15)"}
-{render partial="colors/text_contrast" color="hsla(120,60%,70%,0.2)"}
+{render partial="colors/text_contrast" color="tomato"}
 
 </div>
 

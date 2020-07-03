@@ -1,7 +1,6 @@
 <?php
 /**
  * Converts color in any css color format into rgba notation with the given alpha value
- * Known bug - named colors 6 or 3 chars long like "violet" or "red" are detected as white
  *
  *	{"#ff0000"|color_to_rgba:"0.5"} -> rgba(255,0,0,0.5)
  *	{"rgb(100, 150, 170)"|color_to_rgba} -> rgba(100,150,170,1.0)
