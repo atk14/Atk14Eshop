@@ -52,4 +52,19 @@
 			}
 		}
 	}
+	
+	.color-swatch--text {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-basis: 80px;
+		font-size: 12px;
+		font-weight: bold;
+		flex-grow: 0;
+		border: 1px solid $border-color;
+		margin: 0 8px 8px 0;
+		padding: 3px;
+		height: 30px;
+	}
+	
 }

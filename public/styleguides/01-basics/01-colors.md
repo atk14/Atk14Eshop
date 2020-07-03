@@ -316,3 +316,163 @@ Some other colors used across various elements across the site. Note that these 
 </div>
 
 [/literal]
+
+## Text and Background colors and contrast text classes
+
+All colors from System, Basic and Grays palettes have classes to easily create backgrounds (like <code>bg-primary</code>, <code>bg-green</code> or <code>bg-gray-200</code>) and corresponding text color classes with sufficient contrast (like <code>text-contrast-brand</code>, <code>text-contrast-indigo</code> or <code>text-contrast-gray-600</code>). 
+
+These utility classes are also available in admin (with colors as defined for admin). To use colors from frontend in admin, see section below.
+
+[example]
+<h4>Basic colors</h4>
+
+<div class="styleguide-color-swatches">
+	
+	<div class="color-swatch--text bg-blue text-contrast-blue">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-indigo text-contrast-indigo">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-purple text-contrast-purple">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-pink text-contrast-pink">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-red text-contrast-red">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-orange text-contrast-orange">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-yellow text-contrast-yellow">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-green text-contrast-green">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-teal text-contrast-teal">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-cyan text-contrast-cyan">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-white text-contrast-white">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-gray text-contrast-gray">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-gray-dark text-contrast-gray-dark">
+		Text		
+	</div>
+	
+</div>
+
+<h4>System colors</h4>
+
+<div class="styleguide-color-swatches">
+	
+	<div class="color-swatch--text bg-brand text-contrast-brand">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-primary text-contrast-primary">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-secondary text-contrast-secondary">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-success text-contrast-success">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-info text-contrast-info">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-warning text-contrast-warning">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-danger text-contrast-danger">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-light text-contrast-light">
+		Text		
+	</div>
+
+	<div class="color-swatch--text bg-dark text-contrast-dark">
+		Text		
+	</div>
+	
+</div>
+
+<h4>Grays</h4>
+
+<div class="styleguide-color-swatches">
+	
+	<div class="color-swatch--text bg-gray-100 text-contrast-gray-100">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-200 text-contrast-gray-200">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-300 text-contrast-gray-300">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-400 text-contrast-gray-400">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-500 text-contrast-gray-500">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-600 text-contrast-gray-600">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-700 text-contrast-gray-700">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-800 text-contrast-gray-800">
+		Text		
+	</div>
+	
+	<div class="color-swatch--text bg-gray-900 text-contrast-gray-900">
+		Text		
+	</div>
+
+</div>
+[/example]
+
+## Using colors from frontend on admin pages
+
+Frontend colors are available in admin area as utility classes similar to those above, prefixed with <code>frontend-</code>.
+
+Some examples:
+- <code>frontend-bg-primary</code>
+- <code>frontend-bg-indigo</code>
+- <code>frontend-text-contrast-gray-500</code>
+- <code>frontend-text-contrast-brand</code>
