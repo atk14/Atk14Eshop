@@ -1,6 +1,4 @@
 <?php
-require_once(ATK14_DOCUMENT_ROOT."/vendor/aristath/ari-color/aricolor.php");
-
 /**
  * Converts color in any css color format into rgba notation with the given alpha value
  * Known bug - named colors 6 or 3 chars long like "violet" or "red" are detected as white
@@ -18,5 +16,4 @@ function smarty_modifier_color_to_rgba($color,$alpha = "1.0"){
 	$color_object = ariColor::newColor( $color );
 	$new_color_object = $color_object->getNew( 'alpha', $alpha );
 	return $new_color_object->toCSS( 'rgba' );
-
 }

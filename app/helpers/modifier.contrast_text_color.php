@@ -1,6 +1,4 @@
 <?php
-require_once(ATK14_DOCUMENT_ROOT."/vendor/aristath/ari-color/aricolor.php");
-
 /**
  * Finds suitable text color with sufficient contrast compared to $color
  * Known bug - named colors 6 or 3 chars long like "violet" or "red" are detected as white
@@ -21,5 +19,4 @@ function smarty_modifier_contrast_text_color( $color, $dark = "#000000", $light 
 	}
 	$color_object = ariColor::newColor( $color );
 	return ( $threshold < $color_object->luminance ) ? $dark : $light;
-
 }
