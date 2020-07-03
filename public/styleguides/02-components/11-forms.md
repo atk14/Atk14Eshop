@@ -236,7 +236,7 @@ Widget for setting quantity of items. You must provide JavaScript for handling b
 The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom-control--color</code> class and appropriate background and text color styles. This component is also available in admin.
 
 [example]
-<div class="custom-control custom-radio custom-control--color bg-primary text-light">
+<div class="custom-control custom-radio custom-control--color bg-primary text-contrast-primary">
   <input type="radio" id="customRadio1" name="customRadio1" class="custom-control-input" checked>
   <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
 </div>
@@ -245,12 +245,12 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
   <input type="radio" id="customRadio2" name="customRadio1" class="custom-control-input">
   <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
 </div>
-<div class="custom-control custom-radio custom-control--color bg-success text-light">
+<div class="custom-control custom-radio custom-control--color bg-success text-contrast-success">
   <input type="radio" id="customRadio3" name="customRadio1" class="custom-control-input">
   <label class="custom-control-label" for="customRadio3">Or toggle this other custom radio</label>
 </div>
 
-<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+<div class="custom-control custom-checkbox custom-control--color bg-info text-contrast-info">
   <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
   <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
 </div>
@@ -262,7 +262,7 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
 
 <p class="mt-4">Or display them inline using class like <code>d-inline-block</code>:</p>
 
-<div class="custom-control custom-radio custom-control--color d-inline-block bg-primary text-light">
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-primary text-contrast-primary">
   <input type="radio" id="customRadio4" name="customRadio2" class="custom-control-input" checked>
   <label class="custom-control-label" for="customRadio4">Toggle</label>
 </div>
@@ -271,11 +271,11 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
   <input type="radio" id="customRadio5" name="customRadio2" class="custom-control-input">
   <label class="custom-control-label" for="customRadio5">Or toggle</label>
 </div>
-<div class="custom-control custom-radio custom-control--color d-inline-block bg-success text-light">
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-success text-contrast-success">
   <input type="radio" id="customRadio6" name="customRadio2" class="custom-control-input">
   <label class="custom-control-label" for="customRadio6">Or toggle</label>
 </div>
-<div class="custom-control custom-radio custom-control--color d-inline-block bg-info text-light">
+<div class="custom-control custom-radio custom-control--color d-inline-block bg-info text-contrast-info">
   <input type="radio" id="customRadio7" name="customRadio2" class="custom-control-input">
   <label class="custom-control-label" for="customRadio7">Or toggle</label>
 </div>
@@ -284,22 +284,22 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
 
 <div style="display: flex; flex-wrap: wrap">
 	
-	<div class="custom-control custom-checkbox custom-control--color bg-primary text-light">
+	<div class="custom-control custom-checkbox custom-control--color bg-primary text-contrast-primary">
 		<input type="checkbox" id="customCheck3" class="custom-control-input" checked>
 		<label class="custom-control-label" for="customCheck3">Toggle</label>
 	</div>
 
-	<div class="custom-control custom-checkbox custom-control--color bg-warning text-dark">
+	<div class="custom-control custom-checkbox custom-control--color bg-warning text-contrast-warning">
 		<input type="checkbox" id="customCheck4" class="custom-control-input" checked>
 		<label class="custom-control-label" for="customCheck4">Or toggle</label>
 	</div>
 	
-	<div class="custom-control custom-checkbox custom-control--color bg-success text-light">
+	<div class="custom-control custom-checkbox custom-control--color bg-success text-contrast-success">
 		<input type="checkbox" id="customCheck5" class="custom-control-input">
 		<label class="custom-control-label" for="customCheck5">Or toggle</label>
 	</div>
 	
-	<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+	<div class="custom-control custom-checkbox custom-control--color bg-info text-contrast-info">
 		<input type="checkbox" id="customCheck6" class="custom-control-input">
 		<label class="custom-control-label" for="customCheck6">Or toggle</label>
 	</div>
@@ -308,7 +308,7 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
 
 <p class="mt-4">Checkbox also supports indeterminate state:</p>
 
-<div class="custom-control custom-checkbox custom-control--color bg-info text-light">
+<div class="custom-control custom-checkbox custom-control--color bg-info text-contrast-info">
 	<input type="checkbox" id="customCheck7" class="custom-control-input">
 	<label class="custom-control-label" for="customCheck7">Indeterminate</label>
 </div>
@@ -320,12 +320,12 @@ The same syntax as Bootstrap custom checkboxes and radios, just add <code>custom
 
 <p class="mt-4">Color checkbox and radio are easily sized by setting font-size:</p>
 
-<div class="custom-control custom-checkbox custom-control--color bg-info text-light d-inline-block" style="font-size: 0.875rem;">
+<div class="custom-control custom-checkbox custom-control--color bg-info text-contrast-info d-inline-block" style="font-size: 0.875rem;">
 	<input type="checkbox" id="customCheck8" class="custom-control-input">
 	<label class="custom-control-label" for="customCheck8">Small</label>
 </div>
 
-<div class="custom-control custom-checkbox custom-control--color bg-success text-light d-inline-block" style="font-size: 1.25rem;">
+<div class="custom-control custom-checkbox custom-control--color bg-success text-contrast-success d-inline-block" style="font-size: 1.25rem;">
 	<input type="checkbox" id="customCheck9" class="custom-control-input">
 	<label class="custom-control-label" for="customCheck9">Big</label>
 </div>
