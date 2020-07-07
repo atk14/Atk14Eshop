@@ -12,7 +12,8 @@ class CardsController extends ApplicationController{
 			$this->response->setStatusCode("404"); // Zde se nastavi pouze response code 404, ale produkt se normalne zobrazi.
 		}
 
-		$this->page_title = $card->getName();
+		$this->page_title = $card->getPageTitle();
+		$this->page_description = $card->getPageDescription();
 
 		$this->tpl_data["products"] = $products = $card->getProducts();
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false, "deduplicate" => true));

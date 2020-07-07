@@ -3,7 +3,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	use TraitTags;
 
-	static function GetTranslatableFields(){ return array("name","teaser"); }
+	static function GetTranslatableFields(){ return array("name","teaser","page_title","page_description"); }
 
 	static function CreateNewRecord($values,$options = array()){
 		$collection_id = null;
@@ -47,6 +47,26 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function getSlugPattern($lang){
 		return $this->g("name_$lang");
+	}
+
+	function getProductType(){
+		return Cache::Get("ProductType",$this->g("product_type_id"));
+	}
+
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
+		if(strlen($out)){ return $out; }
+		$product_type = $this->getProductType();
+		return $product_type->generatePageTitleForProduct($this);
+	}
+
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
+		if(strlen($out)){ return $out; }
+
+		Atk14Require::Helper("modifier.markdown");
+		$out = smarty_modifier_markdown($this->getTeaser($lang));
+		if(strlen($out)){ return strip_tags($out); }
 	}
 
 	function getImages($options = array()){

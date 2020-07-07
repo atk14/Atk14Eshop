@@ -1,11 +1,13 @@
 coffee:
   name_en: Coffee
   name_cs: Káva
+  product_type_id: "<?= $product_types["drink"]->getId() ?>"
 
 tea:
   name_en: Tea
   name_cs: Čaj
   has_variants: true
+  product_type_id: "<?= $product_types["drink"]->getId() ?>"
 
 peanuts:
   name_en: Peanuts
@@ -14,4 +16,5 @@ peanuts:
 
 book:
   name_en: "The Book"
-  name_cs: "Kniha"
+  name_cs: "Ta kniha"
+  product_type_id: "<?= $product_types["book"]->getId() ?>"

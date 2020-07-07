@@ -13,7 +13,7 @@
 				{/trim}{/foreach}
 			{/if}
 		{/capture}
-		{render partial="shared/layout/content_header" title=$page_title teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author}
+		{render partial="shared/layout/content_header" title=$card->getName() teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author}
 
 		{render partial="products_to_basket"}
 		
