@@ -18,6 +18,7 @@ class CardsForm extends AdminForm{
 		$this->add_field("product_type_id", new ProductTypeField(array(
 			"label" => _("Typ produktu"),
 			"help_text" => sprintf(_('Schází tu nějaký typ produktu? &rarr; <a href="%s">vytvořte ho</a>'),Atk14Url::BuildLink(["action" => "product_types/create_new"])),
+			"initial" => ProductType::FindFirst(),
 		)));
 
 		if($options["add_catalog_id_field"]){

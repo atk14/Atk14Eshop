@@ -43,4 +43,8 @@ class ProductType extends ApplicationModel implements Translatable, iSlug, Ranka
 		if($this->getId()===1){ return false; }
 		return 0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM cards WHERE product_type_id=:product_type",array(":product_type" => $this));
 	}
+
+	function toString(){
+		return (string)$this->getName();
+	}
 }
