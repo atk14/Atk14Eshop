@@ -34,6 +34,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Tags"),								"tags"),
 			array(_("Users"),								"users"),
 			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators,creator_roles,creators,digital_contents"),
+			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),

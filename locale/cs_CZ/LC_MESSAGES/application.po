@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 17:10+0200\n"
-"PO-Revision-Date: 2020-04-18 13:43+0200\n"
+"POT-Creation-Date: 2020-07-07 10:51+0200\n"
+"PO-Revision-Date: 2020-07-07 10:58+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -93,15 +93,15 @@ msgstr "V této chvíli nejsou žádné novinky"
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
 
-#: ../app/controllers/baskets_controller.php:128
+#: ../app/controllers/baskets_controller.php:99
 msgid "Produkt byl přidán do košíku"
 msgstr "Produkt byl přidán do košíku"
 
-msgid "Slevový kupón"
-msgstr "Slevový kupón"
-
 msgid "slevový kód č."
 msgstr "slevový kód č."
+
+msgid "dárkový kód č."
+msgstr "dárkový kód č."
 
 msgid "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
 msgstr "Opravdu chcete odstranit tento slevový kupón z nákupního košíku?"
@@ -177,11 +177,20 @@ msgstr "Opravdu chcete odstranit tento produkt z nákupního košíku?"
 msgid "Do košíku jste úspěšně přidali produkt \"%1\"."
 msgstr "Do košíku jste úspěšně přidali produkt \"%1\"."
 
+msgid "Váš nákupní košík již tento produkt obsahuje. Množství bylo upraveno."
+msgstr "Váš nákupní košík již tento produkt obsahuje. Množství bylo upraveno."
+
+msgid "Upravit množství na %1 %2?"
+msgstr "Upravit množství na %1 %2?"
+
 msgid "Vybrat další produkt"
 msgstr "Vybrat další produkt"
 
 msgid "K pokladně"
 msgstr "K pokladně"
+
+msgid "Množství bylo upraveno na %1 %2"
+msgstr "Množství bylo upraveno na %1 %2"
 
 msgid "Sleva"
 msgstr "Sleva"
@@ -529,20 +538,17 @@ msgstr "Vaše objednávka č. %1 byla předána dopravci."
 msgid "Číslo zásilky: %1"
 msgstr "Číslo zásilky: %1"
 
-msgid ""
-"Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
-msgstr ""
-"Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
+msgid "Svou zásilku můžete sledovat přes následující odkaz:"
+msgstr "Svou zásilku můžete sledovat přes následující odkaz:"
 
-msgid ""
-"Vaše objednávka č. %1 byla úspěšně dokončena. Zboží Vám bude dodáno, "
-"<strong>po obdržení Vaší platby</strong>."
-msgstr ""
-"Vaše objednávka č. %1 byla úspěšně dokončena. Zboží Vám bude dodáno, "
-"<strong>po obdržení Vaší platby</strong>."
+msgid "Vaše objednávka č. %1 byla úspěšně dokončena."
+msgstr "Vaše objednávka č. %1 byla úspěšně dokončena."
 
 msgid "Vybrali jste si platbu bankovním převodem."
 msgstr "Vybrali jste si platbu bankovním převodem."
+
+msgid "Zboží Vám bude dodáno <strong>po obdržení Vaší platby</strong>."
+msgstr "Zboží Vám bude dodáno <strong>po obdržení Vaší platby</strong>."
 
 msgid "Zde jsou bankovní údaje pro platbu bankovním převodem:"
 msgstr "Zde jsou bankovní údaje pro platbu bankovním převodem:"
@@ -898,6 +904,10 @@ msgstr "Slevová kampaň"
 msgid "Slevové kupóny"
 msgstr "Slevové kupóny"
 
+#: ../app/models/basket_or_order_voucher.php:32
+msgid "Slevový kupón"
+msgstr "Slevový kupón"
+
 msgid "Doručovací adresa:"
 msgstr "Doručovací adresa:"
 
@@ -1238,7 +1248,7 @@ msgstr "Slevový kupón byl přidán"
 
 #: ../app/controllers/baskets_controller.php:76
 #: ../app/controllers/baskets_controller.php:86
-#: ../app/controllers/baskets_controller.php:127
+#: ../app/controllers/baskets_controller.php:98
 msgid "Shopping basket"
 msgstr "Nákupní košík"
 
@@ -1249,11 +1259,6 @@ msgstr "Slevový kupón byl odebrán"
 #: ../app/controllers/brands_controller.php:4
 msgid "List of Brands"
 msgstr "Seznam značek"
-
-#: ../app/controllers/card_list_controller.php:65
-#, php-format
-msgid "Zpět do %s"
-msgstr "Zpět do %s"
 
 #: ../app/controllers/categories_controller.php:14
 msgid "List of Categories"
@@ -1564,7 +1569,7 @@ msgstr ""
 msgid "Typ souboru na tomto URL není video"
 msgstr "Typ souboru na tomto URL není video"
 
-#: ../app/fields/order_quantity_field.php:56
+#: ../app/fields/order_quantity_field.php:64
 #, php-format
 msgid "Zadaný počet musí být dělitelný číslem %d"
 msgstr "Zadaný počet musí být dělitelný číslem %d"
@@ -1584,6 +1589,10 @@ msgstr "Takový stránka neexistuje"
 #: ../app/fields/product_field.php:8
 msgid "There is no such product"
 msgstr "Tento produkt neexistuje"
+
+#: ../app/fields/product_type_field.php:6
+msgid "typ produktu"
+msgstr "typ produktu"
 
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
@@ -1893,91 +1902,99 @@ msgstr "Galerie"
 msgid "Propagace produktu"
 msgstr "Propagace produktu"
 
-#: ../app/models/basket.php:573
+#: ../app/models/basket_or_order_voucher.php:35
+msgid "Doprava zdarma"
+msgstr "Doprava zdarma"
+
+#: ../app/models/basket_or_order_voucher.php:37
+msgid "Dárkový poukaz"
+msgstr "Dárkový poukaz"
+
+#: ../app/models/basket.php:583
 msgid "Košík je prázdný"
 msgstr "Košík je prázdný"
 
-#: ../app/models/basket.php:583
+#: ../app/models/basket.php:593
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 
-#: ../app/models/basket.php:585 ../app/models/basket.php:600
+#: ../app/models/basket.php:595 ../app/models/basket.php:610
 msgid "odebrat z košíku"
 msgstr "odebrat z košíku"
 
-#: ../app/models/basket.php:598
+#: ../app/models/basket.php:608
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Produkt <em>%s (%s)</em> není skladem"
 
-#: ../app/models/basket.php:608
+#: ../app/models/basket.php:618
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 
-#: ../app/models/basket.php:610 ../app/models/basket.php:620
-#: ../app/models/basket.php:631
+#: ../app/models/basket.php:620 ../app/models/basket.php:630
+#: ../app/models/basket.php:641
 #, php-format
 msgid "změnit množství na %s"
 msgstr "změnit množství na %s"
 
-#: ../app/models/basket.php:618
+#: ../app/models/basket.php:628
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 
-#: ../app/models/basket.php:629
+#: ../app/models/basket.php:639
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 
-#: ../app/models/basket.php:643
+#: ../app/models/basket.php:653
 #, php-format
 msgid "odstranit voucher"
 msgstr "odstranit voucher"
 
-#: ../app/models/basket.php:651
+#: ../app/models/basket.php:661
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:652 ../app/models/basket.php:658
+#: ../app/models/basket.php:662 ../app/models/basket.php:668
 #, php-format
 msgid "přejít do katalogu"
 msgstr "přejít do katalogu"
 
-#: ../app/models/basket.php:657
+#: ../app/models/basket.php:667
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:688
+#: ../app/models/basket.php:698
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Doručovací metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:689 ../app/models/basket.php:696
+#: ../app/models/basket.php:699 ../app/models/basket.php:706
 msgid "vyberte jinou metodu"
 msgstr "vyberte jinou metodu"
 
-#: ../app/models/basket.php:695
+#: ../app/models/basket.php:705
 #, php-format
 msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr "Platební metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:703
+#: ../app/models/basket.php:713
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 
-#: ../app/models/basket.php:707
+#: ../app/models/basket.php:717
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "Objednávku nelze doručit na danou doručovací adresu"
 
-#: ../app/models/basket.php:708
+#: ../app/models/basket.php:718
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
@@ -1990,34 +2007,34 @@ msgstr "Kč"
 msgid "opening hours: %s"
 msgstr "otevírací doba: %s"
 
-#: ../app/models/order.php:648
+#: ../app/models/order.php:652
 #, php-format
 msgid "Poznámka k doručovací adrese: %s"
 msgstr "Poznámka k doručovací adrese: %s"
 
-#: ../app/models/order.php:649
+#: ../app/models/order.php:653
 #, php-format
 msgid "Poznámka k fakturační adrese: %s"
 msgstr "Poznámka k fakturační adrese: %s"
 
-#: ../app/models/order.php:694
+#: ../app/models/order.php:698
 msgid "Chybí číslo objednávky"
 msgstr "Chybí číslo objednávky"
 
-#: ../app/models/order.php:704
+#: ../app/models/order.php:708
 msgid "Objednávka nebyla nalezena v systému"
 msgstr "Objednávka nebyla nalezena v systému"
 
-#: ../app/models/order.php:738
+#: ../app/models/order.php:742
 msgid "Chybí číslo zásilky"
 msgstr "Chybí číslo zásilky"
 
-#: ../app/models/order.php:748
+#: ../app/models/order.php:752
 #, php-format
 msgid "Hodnota %s nevypadá jako číslo zásilky"
 msgstr "Hodnota %s nevypadá jako číslo zásilky"
 
-#: ../app/models/order.php:764
+#: ../app/models/order.php:768
 msgid "Zásilka již byla importovaná"
 msgstr "Zásilka již byla importovaná"
 
@@ -2033,26 +2050,26 @@ msgstr "Zaplaceno"
 msgid "Zrušeno"
 msgstr "Zrušeno"
 
-#: ../app/models/voucher.php:41 ../app/models/voucher.php:68
+#: ../app/models/voucher.php:43 ../app/models/voucher.php:70
 #, php-format
 msgid "Voucher %s nelze použít"
 msgstr "Voucher %s nelze použít"
 
-#: ../app/models/voucher.php:46
+#: ../app/models/voucher.php:48
 msgid "Voucher nemůže být použit v prázdném košíku"
 msgstr "Voucher nemůže být použit v prázdném košíku"
 
-#: ../app/models/voucher.php:55
+#: ../app/models/voucher.php:57
 #, php-format
 msgid "Platnost voucheru %s vypršela"
 msgstr "Platnost voucheru %s vypršela"
 
-#: ../app/models/voucher.php:60
+#: ../app/models/voucher.php:62
 #, php-format
-msgid "Voucher %s už byl použit"
-msgstr "Voucher %s už byl použit"
+msgid "Voucher %s již nelze použít"
+msgstr "Voucher %s již nelze použít"
 
-#: ../app/models/voucher.php:78
+#: ../app/models/voucher.php:80
 #, php-format
 msgid "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 msgstr "Voucher %s lze použít až při minimálním obnosu %s za zboží"
@@ -2146,6 +2163,24 @@ msgstr "od"
 #: ../lib/filter/filter_range_section.php:235
 msgid "to"
 msgstr "do"
+
+#~ msgid ""
+#~ "Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
+#~ msgstr ""
+#~ "Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
+
+#~ msgid ""
+#~ "Vaše objednávka č. %1 byla úspěšně dokončena. Zboží Vám bude dodáno, "
+#~ "<strong>po obdržení Vaší platby</strong>."
+#~ msgstr ""
+#~ "Vaše objednávka č. %1 byla úspěšně dokončena. Zboží Vám bude dodáno, "
+#~ "<strong>po obdržení Vaší platby</strong>."
+
+#~ msgid "Zpět do %s"
+#~ msgstr "Zpět do %s"
+
+#~ msgid "Voucher %s už byl použit"
+#~ msgstr "Voucher %s už byl použit"
 
 #~ msgid "Musí být vybrána online platební metoda"
 #~ msgstr "Musí být vybrána online platební metoda"

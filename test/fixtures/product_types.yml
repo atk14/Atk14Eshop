@@ -1,0 +1,15 @@
+drink:
+  name_en: drink
+  name_cs: nápoj
+  page_title_pattern_en: "Drink %product_name%"
+  page_title_pattern_cs: "Nápoj %product_name%"
+  slug_en: drink
+  slug_cs: napoj
+
+book:
+  name_en: book
+  name_cs: kniha
+  page_title_pattern_en: "%product_name% - %main_creators%"
+  page_title_pattern_cs: "%product_name% - %main_creators%"
+  slug_en: book
+  slug_cs: kniha

@@ -15,6 +15,11 @@ class CardsForm extends AdminForm{
 			"label" => _("Name"),
 		)));
 
+		$this->add_field("product_type_id", new ProductTypeField(array(
+			"label" => _("Typ produktu"),
+			"help_text" => sprintf(_('Schází tu nějaký typ produktu? &rarr; <a href="%s">vytvořte ho</a>'),Atk14Url::BuildLink(["action" => "product_types/create_new"])),
+		)));
+
 		if($options["add_catalog_id_field"]){
 			$this->add_field("catalog_id", new CatalogIdField(array(
 				"label" => _("Catalog number"),
@@ -47,6 +52,20 @@ class CardsForm extends AdminForm{
 				"help_text" => _("Detailed description"),
 			)));
 		}
+
+		$this->add_translatable_field("page_title",new CharField(array(
+			"label" => _("HTML title"),
+			"required" => false,
+			"max_length" => 255,
+			"help_text" => h(_("Content for <html><head><title>. If left empty, it will be generated automatically.")),
+		)));
+
+		$this->add_translatable_field("page_description", new CharField(array(
+			"label" => _("HTML description"),
+			"required" => false,
+			"max_length" => 255,
+			"help_text" => h(_('Content for <meta name="description">. If left empty, the teaser is used.')),
+		)));
 
 		$this->add_field("brand_id", new BrandField(array(
 			"label" => _("Brand"),
