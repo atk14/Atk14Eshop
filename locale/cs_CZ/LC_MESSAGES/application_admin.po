@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 17:10+0200\n"
-"PO-Revision-Date: 2020-05-12 17:11+0200\n"
+"POT-Creation-Date: 2020-07-07 10:51+0200\n"
+"PO-Revision-Date: 2020-07-07 10:57+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -54,6 +54,7 @@ msgstr "Seznam je prázdný."
 #: ../app/forms/admin/images/images_form.php:10
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:6
 #: ../app/forms/admin/pages/pages_form.php:6
+#: ../app/forms/admin/product_types/product_types_form.php:6
 msgid "Title"
 msgstr "Název"
 
@@ -65,8 +66,9 @@ msgstr "Datum"
 
 #: ../app/controllers/admin/admin.php:34
 #: ../app/forms/admin/articles/articles_form.php:34
-#: ../app/forms/admin/cards/cards_form.php:59
-#: ../app/forms/admin/products/products_form.php:29
+#: ../app/forms/admin/cards/cards_form.php:78
+#: ../app/forms/admin/categories/categories_form.php:63
+#: ../app/forms/admin/products/products_form.php:26
 msgid "Tags"
 msgstr "Štítky"
 
@@ -295,7 +297,7 @@ msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
-#: ../app/forms/admin/cards/cards_form.php:20
+#: ../app/forms/admin/cards/cards_form.php:25
 #: ../app/forms/admin/orders/index_form.php:65
 #: ../app/forms/admin/products/products_form.php:6
 msgid "Catalog number"
@@ -424,7 +426,7 @@ msgstr "Vytvořit a editovat alias"
 msgid "Add a new subcategory"
 msgstr "Přidat podkategorii"
 
-#: ../app/controllers/admin/categories_controller.php:75
+#: ../app/controllers/admin/categories_controller.php:80
 msgid "filter option"
 msgstr "možnost filtru"
 
@@ -469,11 +471,11 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:101
+#: ../app/controllers/admin/admin.php:102
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:102
+#: ../app/controllers/admin/admin.php:103
 msgid "link"
 msgstr "odkaz"
 
@@ -1129,6 +1131,16 @@ msgstr ""
 msgid "Fotogalerii lze přidat hned po vytvoření varianty produktu."
 msgstr "Fotogalerii lze přidat hned po vytvoření varianty produktu."
 
+msgid "Add a new product type"
+msgstr "Přidat nový typ produktu"
+
+msgid ""
+"You are about to permanently delete product type %1\n"
+"Are you sure about that?"
+msgstr ""
+"Chystáte se trvale smazat typ produktu %1\n"
+"Jste si tím jistý(á)?"
+
 msgid "Add a region"
 msgstr "Přidat oblast"
 
@@ -1259,9 +1271,6 @@ msgstr "Registrovat"
 
 msgid "search in menu"
 msgstr "hledat v nabídce"
-
-msgid "Show larger image"
-msgstr "Zobrazit větší obrázek"
 
 msgid "no image"
 msgstr "bez obrázku"
@@ -1508,7 +1517,7 @@ msgstr "Kupón vytvořil/a"
 msgid "Najít objednávky s tímto kupónem"
 msgstr "Najít objednávky s tímto kupónem"
 
-#: ../app/forms/admin/cards/cards_form.php:101
+#: ../app/forms/admin/cards/cards_form.php:120
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
 msgid "Stockcount"
@@ -1572,124 +1581,128 @@ msgid "Users"
 msgstr "Uživatelé"
 
 #: ../app/controllers/admin/admin.php:37
+msgid "Product types"
+msgstr "Typy produktů"
+
+#: ../app/controllers/admin/admin.php:38
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../app/controllers/admin/admin.php:38
+#: ../app/controllers/admin/admin.php:39
 msgid "Vouchers"
 msgstr "Poukazy"
 
-#: ../app/controllers/admin/admin.php:39
+#: ../app/controllers/admin/admin.php:40
 msgid "Campaigns"
 msgstr "Kampaně"
 
-#: ../app/controllers/admin/admin.php:40
+#: ../app/controllers/admin/admin.php:41
 msgid "Brands"
 msgstr "Značky"
 
-#: ../app/controllers/admin/admin.php:41
+#: ../app/controllers/admin/admin.php:42
 msgid "Collections"
 msgstr "Kolekce"
 
-#: ../app/controllers/admin/admin.php:42
+#: ../app/controllers/admin/admin.php:43
 msgid "Stores"
 msgstr "Prodejny"
 
-#: ../app/controllers/admin/admin.php:43
+#: ../app/controllers/admin/admin.php:44
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
 msgstr "Sklady"
 
-#: ../app/controllers/admin/admin.php:44
+#: ../app/controllers/admin/admin.php:45
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Pricelists"
 msgstr "Ceníky"
 
-#: ../app/controllers/admin/admin.php:45
+#: ../app/controllers/admin/admin.php:46
 msgid "Discounts"
 msgstr "Slevy"
 
-#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/admin.php:47
 msgid "Delivery methods"
 msgstr "Způsoby doručení"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:48
 msgid "Payment methods"
 msgstr "Platební metody"
 
-#: ../app/controllers/admin/admin.php:48
+#: ../app/controllers/admin/admin.php:49
 msgid "Combination of transports and payments"
 msgstr "Kombinace přeprav a plateb"
 
-#: ../app/controllers/admin/admin.php:49
+#: ../app/controllers/admin/admin.php:50
 msgid "Currencies"
 msgstr "Měny"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:51
 msgid "VAT rates"
 msgstr "Sazby DPH"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:52
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:53
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:54
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "Přesměrování 404"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:55
 msgid "Order statuses"
 msgstr "Stavy objednávky"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
 msgstr "Prodejná oblasti"
 
-#: ../app/controllers/admin/admin.php:56
+#: ../app/controllers/admin/admin.php:57
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:88
+#: ../app/controllers/admin/admin.php:89
 #: ../app/controllers/admin/category_trees_controller.php:23
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:152
+#: ../app/controllers/admin/admin.php:153
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:187
+#: ../app/controllers/admin/admin.php:188
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:201
+#: ../app/controllers/admin/admin.php:202
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:253
+#: ../app/controllers/admin/admin.php:254
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:281
+#: ../app/controllers/admin/admin.php:282
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:405
+#: ../app/controllers/admin/admin.php:406
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:412
+#: ../app/controllers/admin/admin.php:413
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -1740,7 +1753,7 @@ msgstr "Editace přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
 #: ../app/controllers/admin/cards_controller.php:210
-#: ../app/controllers/admin/categories_controller.php:29
+#: ../app/controllers/admin/categories_controller.php:34
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:59
 #: ../app/controllers/admin/products_controller.php:59
@@ -1892,49 +1905,49 @@ msgstr "Editace možnosti filtru \"%s\""
 msgid "Editing category \"%s\""
 msgstr "Editace kategorie \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:44
+#: ../app/controllers/admin/categories_controller.php:49
 #, php-format
 msgid "Moving category %s"
 msgstr "Přesun kategorie %s"
 
-#: ../app/controllers/admin/categories_controller.php:49
+#: ../app/controllers/admin/categories_controller.php:54
 msgid "The category can not be moved under itself"
 msgstr "Kategorie nemůže být přesunuta pod sebe sama"
 
-#: ../app/controllers/admin/categories_controller.php:53
+#: ../app/controllers/admin/categories_controller.php:58
 msgid "The category was moved"
 msgstr "Kategorie byla přesunuta"
 
-#: ../app/controllers/admin/categories_controller.php:70
+#: ../app/controllers/admin/categories_controller.php:75
 msgid "New subcategory"
 msgstr "Nová podkategorie"
 
-#: ../app/controllers/admin/categories_controller.php:82
+#: ../app/controllers/admin/categories_controller.php:87
 msgid "Category cannot be created when the parent category is an alias"
 msgstr "Kategorie nelze vytvořit, pokud je nadřazená kategorie alias"
 
-#: ../app/controllers/admin/categories_controller.php:88
+#: ../app/controllers/admin/categories_controller.php:93
 msgid "On this place a new category cannot be created"
 msgstr "Na tomto místě nemůže být vytvořena nová kategorie"
 
-#: ../app/controllers/admin/categories_controller.php:94
+#: ../app/controllers/admin/categories_controller.php:99
 msgid "Filter cannot be created when the parent category is also a filter"
 msgstr "Filtr nelze vytvořit, pokud je nadřazená kategorie také filtr"
 
-#: ../app/controllers/admin/categories_controller.php:101
+#: ../app/controllers/admin/categories_controller.php:109
 msgid "Category has been created"
 msgstr "Kategorie byla vytvořena"
 
-#: ../app/controllers/admin/categories_controller.php:121
+#: ../app/controllers/admin/categories_controller.php:130
 msgid "The category was deleted"
 msgstr "Kategorie byla smazána"
 
-#: ../app/controllers/admin/categories_controller.php:130
+#: ../app/controllers/admin/categories_controller.php:139
 #, php-format
 msgid "Creating new link to the category \"%s\""
 msgstr "Vytvoření odkazu na kategorii \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:138
+#: ../app/controllers/admin/categories_controller.php:147
 msgid "Alias was created"
 msgstr "Alias byl vytvořen"
 
@@ -2278,6 +2291,18 @@ msgstr "Editace produktové varianty %s (%s)"
 msgid "Editing product %s (%s)"
 msgstr "Editace produktu %s (%s)"
 
+#: ../app/controllers/admin/product_types_controller.php:5
+msgid "Listing product types"
+msgstr "Seznam typů produktů"
+
+#: ../app/controllers/admin/product_types_controller.php:11
+msgid "New product type"
+msgstr "Nový typ produktu"
+
+#: ../app/controllers/admin/product_types_controller.php:17
+msgid "Editing of the product type"
+msgstr "Editace typu produktu"
+
 #: ../app/controllers/admin/regions_controller.php:5
 msgid "List of selling regions"
 msgstr "Seznam prodejních oblastí"
@@ -2513,7 +2538,6 @@ msgstr ""
 "beze změny."
 
 #: ../app/forms/admin/admin_form.php:150
-#: ../app/forms/admin/categories/categories_form.php:63
 msgid "Is visible?"
 msgstr "Je viditelné?"
 
@@ -2570,7 +2594,7 @@ msgstr "Obrázek používaný v přehledu článků"
 
 #: ../app/forms/admin/articles/articles_form.php:17
 #: ../app/forms/admin/brands/brands_form.php:8
-#: ../app/forms/admin/cards/cards_form.php:38
+#: ../app/forms/admin/cards/cards_form.php:43
 #: ../app/forms/admin/categories/categories_form.php:28
 #: ../app/forms/admin/collections/collections_form.php:8
 #: ../app/forms/admin/pages/pages_form.php:16
@@ -2604,7 +2628,7 @@ msgid "User Manual"
 msgstr "Uživatelský manuál"
 
 #: ../app/forms/admin/brands/brands_form.php:10
-#: ../app/forms/admin/cards/cards_form.php:40
+#: ../app/forms/admin/cards/cards_form.php:45
 #: ../app/forms/admin/categories/categories_form.php:30
 #: ../app/forms/admin/stores/stores_form.php:10
 msgid "Brief description"
@@ -2791,58 +2815,96 @@ msgstr "Napište lomítko, pokud chcete prohledat strom kategorií od kořene."
 msgid "You can not insert products into this category"
 msgstr "Do této kategorie nelze umisťovat produkty"
 
-#: ../app/forms/admin/cards/cards_form.php:45
+#: ../app/forms/admin/cards/cards_form.php:19
+msgid "Typ produktu"
+msgstr "Typ produktu"
+
+#: ../app/forms/admin/cards/cards_form.php:20
+#, php-format
+msgid "Schází tu nějaký typ produktu? &rarr; <a href=\"%s\">vytvořte ho</a>"
+msgstr "Schází tu nějaký typ produktu? &rarr; <a href=\"%s\">vytvořte ho</a>"
+
+#: ../app/forms/admin/cards/cards_form.php:50
 msgid "Information"
 msgstr "Informace"
 
-#: ../app/forms/admin/cards/cards_form.php:47
+#: ../app/forms/admin/cards/cards_form.php:52
 msgid "Detailed description"
 msgstr "Detailní popis"
 
-#: ../app/forms/admin/cards/cards_form.php:52
+#: ../app/forms/admin/cards/cards_form.php:57
+#: ../app/forms/admin/categories/categories_form.php:42
+#: ../app/forms/admin/pages/pages_form.php:28
+msgid "HTML title"
+msgstr "HTML název"
+
+#: ../app/forms/admin/cards/cards_form.php:60
+msgid ""
+"Content for <html><head><title>. If left empty, it will be generated "
+"automatically."
+msgstr ""
+"Obsah pro <meta name=\"description\">. Pokud bude ponecháno prázdné, bude "
+"vygenerováno automaticky."
+
+#: ../app/forms/admin/cards/cards_form.php:64
+#: ../app/forms/admin/categories/categories_form.php:49
+#: ../app/forms/admin/pages/pages_form.php:35
+msgid "HTML description"
+msgstr "HTML popis"
+
+#: ../app/forms/admin/cards/cards_form.php:67
+#: ../app/forms/admin/categories/categories_form.php:52
+#: ../app/forms/admin/pages/pages_form.php:38
+msgid ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
+msgstr ""
+"Obsah pro <meta name=\"description\">. Pokud bude ponecháno prázdné, použije "
+"se teaser."
+
+#: ../app/forms/admin/cards/cards_form.php:71
 msgid "Brand"
 msgstr "Značka"
 
-#: ../app/forms/admin/cards/cards_form.php:56
+#: ../app/forms/admin/cards/cards_form.php:75
 msgid "Collection"
 msgstr "Kolekce"
 
-#: ../app/forms/admin/cards/cards_form.php:66
+#: ../app/forms/admin/cards/cards_form.php:85
 msgid "Is product visible?"
 msgstr "Je produkt viditelný?"
 
-#: ../app/forms/admin/cards/cards_form.php:74
+#: ../app/forms/admin/cards/cards_form.php:93
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
 #, php-format
 msgid "Cena bez DPH [%s]"
 msgstr "Cena bez DPH [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:74
+#: ../app/forms/admin/cards/cards_form.php:93
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
 #, php-format
 msgid "Koncová cena [%s]"
 msgstr "Koncová cena [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:76
-#: ../app/forms/admin/cards/cards_form.php:92
+#: ../app/forms/admin/cards/cards_form.php:95
+#: ../app/forms/admin/cards/cards_form.php:111
 #: ../app/forms/admin/products/create_new_form.php:14
 #, php-format
 msgid "Cena bude uložena do ceníku <em>%s</em>"
 msgstr "Cena bude uložena do ceníku <em>%s</em>"
 
-#: ../app/forms/admin/cards/cards_form.php:90
+#: ../app/forms/admin/cards/cards_form.php:109
 #, php-format
 msgid "Cena před slevou bez DPH [%s]"
 msgstr "Cena před slevou bez DPH [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:90
+#: ../app/forms/admin/cards/cards_form.php:109
 #, php-format
 msgid "Koncová cena před slevou [%s]"
 msgstr "Koncová cena před slevou [%s]"
 
-#: ../app/forms/admin/cards/cards_form.php:103
+#: ../app/forms/admin/cards/cards_form.php:122
 #: ../app/forms/admin/products/create_new_form.php:21
 #, php-format
 msgid "Skladové množství bude nastaveno do skladu <em>%s</em>"
@@ -2888,11 +2950,6 @@ msgstr "Je to filtr?"
 msgid "e.g. material or color"
 msgstr "např. materiál nebo barva"
 
-#: ../app/forms/admin/categories/categories_form.php:42
-#: ../app/forms/admin/pages/pages_form.php:28
-msgid "HTML title"
-msgstr "HTML název"
-
 #: ../app/forms/admin/categories/categories_form.php:45
 msgid ""
 "Content for <html><head><title>. If left empty, the long name, resp. the "
@@ -2901,18 +2958,9 @@ msgstr ""
 "Obsah pro <html><head><title>. Pokud zůstane prázdné, použije se dlouhé "
 "jméno, resp. jméno."
 
-#: ../app/forms/admin/categories/categories_form.php:49
-#: ../app/forms/admin/pages/pages_form.php:35
-msgid "HTML description"
-msgstr "HTML popis"
-
-#: ../app/forms/admin/categories/categories_form.php:52
-#: ../app/forms/admin/pages/pages_form.php:38
-msgid ""
-"Content for <meta name=\"description\">. If left empty, the teaser is used."
-msgstr ""
-"Obsah pro <meta name=\"description\">. Pokud bude ponecháno prázdné, použije "
-"se teaser."
+#: ../app/forms/admin/categories/categories_form.php:70
+msgid "Is category visible?"
+msgstr "Je kategorie viditelná?"
 
 #: ../app/forms/admin/categories/create_alias_form.php:6
 msgid "Umístit do kategorie"
@@ -3032,7 +3080,7 @@ msgstr "Zadejte obě ceny nebo nechejte obě ceny prázdné"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:8
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:8
-#: ../app/forms/admin/vouchers/vouchers_form.php:53
+#: ../app/forms/admin/vouchers/vouchers_form.php:59
 msgid "Aktivní"
 msgstr "Aktivní"
 
@@ -3512,11 +3560,7 @@ msgstr "Název varianty"
 msgid "Fill in only when product name differs from it's card name"
 msgstr "Vyplňte, pouze pokud se název produktu liší od názvu jeho karty"
 
-#: ../app/forms/admin/products/products_form.php:26
-msgid "Is product variant visible?"
-msgstr "Je varianta produktu viditelná?"
-
-#: ../app/forms/admin/products/products_form.php:32
+#: ../app/forms/admin/products/products_form.php:29
 msgid ""
 "Obvykle postačí definovat štítky pouze na produktové kartě. Zde je však "
 "možnost doplnit k této produktové variantě štítky, které na kartě chybí a "
@@ -3525,6 +3569,30 @@ msgstr ""
 "Obvykle postačí definovat štítky pouze na produktové kartě. Zde je však "
 "možnost doplnit k této produktové variantě štítky, které na kartě chybí a "
 "nemohou být přidány."
+
+#: ../app/forms/admin/products/products_form.php:32
+msgid "Is product variant visible?"
+msgstr "Je varianta produktu viditelná?"
+
+#: ../app/forms/admin/product_types/product_types_form.php:8
+msgid "kniha, film, album, motorka..."
+msgstr "kniha, film, album, motorka..."
+
+#: ../app/forms/admin/product_types/product_types_form.php:13
+msgid "název produktu"
+msgstr "název produktu"
+
+#: ../app/forms/admin/product_types/product_types_form.php:14
+msgid "seznam hlavních tvůrců (např. autor knihy)"
+msgstr "seznam hlavních tvůrců (např. autor knihy)"
+
+#: ../app/forms/admin/product_types/product_types_form.php:21
+msgid "Vzor pro generování názvu stránky"
+msgstr "Vzor pro generování názvu stránky"
+
+#: ../app/forms/admin/product_types/product_types_form.php:23
+msgid "Lze použít následující zástupné značky:"
+msgstr "Lze použít následující zástupné značky:"
 
 #: ../app/forms/admin/shipping_combinations/edit_delivery_methods_form.php:14
 msgid "Vyberte dostupné způsoby dopravy"
@@ -3821,35 +3889,35 @@ msgid "Procentní sleva poukazu"
 msgstr "Procentní sleva poukazu"
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:33
+msgid "Volný popis"
+msgstr "Volný popis"
+
+#: ../app/forms/admin/vouchers/vouchers_form.php:35
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
+#: ../app/forms/admin/vouchers/vouchers_form.php:39
 msgid "Lze uplatňovat opakovaně"
 msgstr "Lze uplatňovat opakovaně"
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:39
+#: ../app/forms/admin/vouchers/vouchers_form.php:45
 #, php-format
 msgid "Minimální hodnota zboží v košíku s DPH [%s]"
 msgstr "Minimální hodnota zboží v košíku s DPH [%s]"
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:43
+#: ../app/forms/admin/vouchers/vouchers_form.php:49
 msgid ""
 "Kupón nebude možné použít, pokud bude v košíku zboží celkem za nižší částku"
 msgstr ""
 "Kupón nebude možné použít, pokud bude v košíku zboží celkem za nižší částku"
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:47
+#: ../app/forms/admin/vouchers/vouchers_form.php:53
 msgid "Oblasti platnosti kupónu"
 msgstr "Oblasti platnosti kupónu"
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:56
+#: ../app/forms/admin/vouchers/vouchers_form.php:62
 msgid "Neaktivní slevový kupón nebude možné použít"
 msgstr "Neaktivní slevový kupón nebude možné použít"
-
-#: ../app/forms/admin/vouchers/vouchers_form.php:71
-msgid ""
-"Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu "
-"nebo dopravu zdarma"
-msgstr ""
-"Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu "
-"nebo dopravu zdarma"
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:81
 msgid "Platnost od a Platnost do musí být rozdílne datumy"
@@ -3859,9 +3927,24 @@ msgstr "Platnost od a Platnost do musí být rozdílne datumy"
 msgid "Platnost od musí být starší datum než Platnost do"
 msgstr "Platnost od musí být starší datum než Platnost do"
 
+#: ../app/forms/admin/warehouse_items/create_new_form.php:8
+#: ../app/forms/admin/warehouse_items/edit_form.php:8
+msgid "Záznam o skladové zásobě tohoto produktu již existuje"
+msgstr "Záznam o skladové zásobě tohoto produktu již existuje"
+
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Show larger image"
+#~ msgstr "Zobrazit větší obrázek"
+
+#~ msgid ""
+#~ "Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu "
+#~ "nebo dopravu zdarma"
+#~ msgstr ""
+#~ "Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu "
+#~ "nebo dopravu zdarma"
 
 #~ msgid "Markdown format is expected"
 #~ msgstr "Je očekáván formát Markdown"
