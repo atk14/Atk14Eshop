@@ -169,6 +169,15 @@
 
 
 <h3>{t}Položky objednávky{/t}</h3>
+
+{if $has_digital_contents}
+	{if $digital_contents_url}
+		<p>{t}Odkaz pro stažení digitálních produktů:{/t}<br><a href="{$digital_contents_url}">{$digital_contents_url}</a></p>
+	{else}
+		<p><em>{t}Odkaz pro stažení digitálních produktů ještě není připraven.{/t}</em></p>
+	{/if}	
+{/if}
+
 {render partial="shared/basket_or_order_items" object=$order}
 
 {render partial="action_buttons"}
