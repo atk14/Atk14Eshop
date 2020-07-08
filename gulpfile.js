@@ -6,6 +6,7 @@ var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
+	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/css/swiper.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
@@ -14,6 +15,7 @@ var vendorStyles = [
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
@@ -33,6 +35,8 @@ var applicationScripts = [
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/scripts/utils/handle_suggestions.js",
+	"public/scripts/delivery_service_branch_select.js",
 	"public/scripts/application.js"
 ];
 

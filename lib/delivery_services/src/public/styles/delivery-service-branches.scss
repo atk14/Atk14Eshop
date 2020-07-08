@@ -1,0 +1,21 @@
+.delivery_service_branch {
+	display: none;
+//	background: white;
+	.branch_button {
+		margin-left: auto;
+	}
+	.branch_address {
+//		color: @gray-base;
+	}
+}
+
+// branch address with set branch link
+#form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
+	display: flex;
+}
+
+// fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
+.ui-widget.ui-widget-content {
+	z-index: $zindex-modal;
+}
+

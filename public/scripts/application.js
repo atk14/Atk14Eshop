@@ -395,6 +395,11 @@
 				UTILS.initSimpleMap( "store-map" );
 			}
 
+		},
+		delivery_service_branches: {
+			set_branch: function() {
+				UTILS.handleSuggestions();
+			}
 		}
 
 	};

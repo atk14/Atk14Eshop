@@ -1027,10 +1027,41 @@ class Basket extends BasketOrOrder {
 	}
 
 	/**
+	 * Vrati nastavenou pobocku dorucovaci sluzby
+	 *
+	 * @return DeliveryServiceBranch
+	 */
+	function getDeliveryServiceBranch() {
+		$method_data = $this->getDeliveryMethodData();
+		if (is_null($this->getDeliveryMethod())) {
+			return null;
+		}
+		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+	}
+
+	function getDeliveryServiceBranchAddress() {
+		return $this->getDeliveryPointAddress();
+	}
+	function getDeliveryPointAddress() {
+		$delivery_address = null;
+		$data = $this->getDeliveryMethodData();
+		if (isset($data["delivery_address"])) {
+			$delivery_address = $data["delivery_address"];
+			foreach(["street","city","zip","country"] as $k) {
+				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
+				unset($delivery_address[$k]);
+			}
+			$delivery_address["delivery_company"] = $delivery_address["company"];
+			unset($delivery_address["company"]);
+		}
+		return $delivery_address;
+	}
+
+	/**
 	 * Bylo vybrano doruceni do dorucovaciho mista?
 	 *
 	 */
 	function deliveryToDeliveryPointSelected() {
-		return false; //TODO
+		return !is_null($this->getDeliveryServiceBranch());
 	}
 }

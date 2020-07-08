@@ -3,7 +3,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 	function set_branch() {
 
 		$this->_save_return_uri();
-			$this->page_title = sprintf(_("%s - výběr pobočky"), $this->delivery_method->getDeliveryService()->getName());
+		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$dsb = $d["delivery_service_branch_id"];
