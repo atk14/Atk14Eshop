@@ -36,7 +36,14 @@ var storeLocatorData = [
 		data-enable_clusters: set true to enable marker clusters
 		data-cluster_distance: set max distance for markers to make cluster
 	*}
-	<div class="stores-index__map" id="allstores_map" data-enable_clusters="true" data-cluster_distance="30"></div>
+	<div class="stores-index__map" id="allstores_map" data-enable_clusters="true" data-cluster_distance="40">
+		<div class="preloader" id="stores-index__maploader">
+			<div class="spinner-border text-secondary" role="status">
+				<span class="sr-only">{t escape="no"}Loading map&hellip;{/t}</span>
+			</div>
+			<div>{t escape="no"}Loading map&hellip;{/t}</div>
+		</div>
+	</div>
 
 	{if $stores|count > 5}
 		<form class="form-inline stores-filter" id="stores-filter" autocomplete="off">
