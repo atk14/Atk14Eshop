@@ -1,3 +1,3 @@
-{foreach $tags as $tag}
-	<span class="badge badge-secondary">{!"tag"|icon} {$tag}</span>
-{/foreach}
+{if $tags}
+	{render partial="shared/tag_item" from=$tags}
+{/if}
