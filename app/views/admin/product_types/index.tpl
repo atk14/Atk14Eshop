@@ -4,9 +4,9 @@
 	{t}Typem produktu lze ovlivnit:{/t}
 </p>
 <ul>
-	<li>{t}podobu URL produktu (např. "/book/great-escapes/" oproti "/product/great-escapes/"){/t},</li>
-	<li>{t}výchozí vzor pro sestavování nadpisu stránky v <html><head><title>{/t},</li>
-	<li>{t}výsledek fulltextového vyhledávání{/t}.</li>
+	<li>{t}podobu URL produktu (např. "/kniha/dobrodruzstvi-toma-sawyera/" oproti "/produkt/dobrodruzstvi-toma-sawyera/"){/t},</li>
+	<li>{t}výchozí vzor pro sestavování nadpisu stránky v <html><head><title> (např. "Dobrodružství Toma Sawyera - Mark Twain - kniha" oproti "Dobrodružství Toma Sawyera"){/t},</li>
+	<li>{t}vzhled výsledků fulltextového vyhledávání{/t}.</li>
 </ul>
 
 
