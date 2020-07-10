@@ -1,4 +1,6 @@
 {assign root_page $page->getRootPage()}
+{assign creator Creator::FindFirst("page_id",$page)}
+
 <li class="search-results-item">
 	<div class="search-results-item--image">
 		{if $page->getImageUrl()}
@@ -23,10 +25,14 @@
 			<p class="search-result-description">{$page->getTeaser()|markdown|strip_tags:false}</p>
 		</div>
 		<div class="search-results-item--actions">
-			{a action="pages/detail" id=$page _class="btn btn-primary btn-sm"}{t}Zobrazit stránku{/t}{/a}
+			{a action="pages/detail" id=$page _class="btn btn-primary btn-sm"}{if $creator}{t}Zobrazit profil{/t}{else}{t}Zobrazit stránku{/t}{/if}{/a}
 		</div>
 	</div>
 	<div class="search-results-item--tag">
-		{t}Stránka{/t}
+		{if $creator}
+			{t}Profil{/t}
+		{else}
+			{t}Stránka{/t}
+		{/if}
 	</div>
 </li>

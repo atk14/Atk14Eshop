@@ -41,7 +41,7 @@
 			
 		</div>
 		<div class="search-results-item--actions">
-			{a action="cards/detail" id=$card _class="btn btn-primary btn-sm"}{t}Informace o produktu{/t} <i class="icon ion-ios-arrow-forward"></i>{/a}
+			{a action="cards/detail" id=$card _class="btn btn-primary btn-sm"}{t}Zobrazit detaily{/t} <i class="icon ion-ios-arrow-forward"></i>{/a}
 		</div>
 	</div>
 	<div class="search-results-item--tag">

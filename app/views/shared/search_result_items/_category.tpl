@@ -28,7 +28,7 @@
 	<div class="search-results-item--body">
 		<div>
 			<h4 class="search-result-title">
-				{a action="categories/detail" path=$category->getPath()}{$category->getName()}{/a}<br>
+				{a action="categories/detail" path=$category->getPath()}{$category->getLongName()}{/a}<br>
 			</h4>
 			<p class="search-result-description">{$category->getTeaser()}</p>
 		</div>
