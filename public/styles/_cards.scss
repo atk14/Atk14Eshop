@@ -1,6 +1,9 @@
 // card deck margin for smaller displays or denser layouts
 $card-deck-margin-sm: $card-deck-margin / 2;
 
+//card border style
+$card-border-style: 1px dashed $border-color;
+
 // utility for setting widths in card-decks
 // $card-width: in % (will be adjusted for margins etc. automatically). If zero, then card widths are not set at all.
 // $margin: card margin (typically global $card-deck-margin)
@@ -24,7 +27,7 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 .card {
 	
 	border: none;
-	border: 1px dashed $border-color;
+	border: $card-border-style;
 	@if $card-deck-margin==0 {
 		border-left: none;
 		border-top: none;
@@ -124,6 +127,39 @@ $card-deck-margin-sm: $card-deck-margin / 2;
 		}
 		@include media-breakpoint-only(xs){
 			grid-template-columns: 30% 1fr;
+		}
+		
+	}
+	
+	&--micro {
+		//outline: 1px solid red;
+		border-left: none;
+		border-bottom: none;
+		border-top: none;
+		flex-basis: 100px;
+		max-width: 100px;
+		min-width: 100px;
+		.card-body {
+			font-size: 0.75em;//$font-size-sm;
+			padding: $grid-gutter-width/8;
+			.card-title {
+				font-size: inherit;
+				font-weight: normal;
+				margin-bottom: 0;
+			}
+		}
+		@include media-breakpoint-down(xs){
+			border-right: $card-border-style !important;
+		}
+		
+		&.card--link-more {
+			border-right: none;
+			justify-content: center;
+			.card-body {
+				flex-grow: 0;
+				font-weight: bold;
+				color: $link-color;
+			}
 		}
 		
 	}
@@ -479,6 +515,17 @@ a.card {
 				}
 			}
 		}
+	}
+}
+
+.card-deck--micro {
+	border-left: $card-border-style;
+	margin-bottom: $grid-gutter-width/2;
+	@include media-breakpoint-down(xs){
+		margin-left: 0;
+		margin-right: 0;
+		display: flex;
+		flex-wrap: wrap;
 	}
 }
 

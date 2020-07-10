@@ -25,16 +25,28 @@
 			<p class="search-result-description">{$page->getTeaser()|markdown|strip_tags:false}</p>
 
 			{if $creator}
-				{assign max_cards 5}
+				{assign max_cards 6}
 				{foreach $creator->getRoles() as $role}
 					<h5>{$role}</h5>
+					<div class="card-deck card-deck--micro">
 					{foreach $creator->getCards($role,["limit" => $max_cards+1]) as $card}
+						
 						{if $card@index==$max_cards}
-							{a action="pages/detail" id=$page _title="{t}a další{/t}"}{!"plus"|icon}{/a}
+							{a action="pages/detail" id=$page _title="{t}a další{/t}" _class="card card--micro card--link-more"}
+								<div class="card-body">
+									{!"plus"|icon} {t}a další{/t} {!"chevron-right"|icon}
+								</div>
+							{/a}
 						{else}
-							{a action="cards/detail" id=$card}{!$card->getImage()|pupiq_img:"x64":"title={$card->getName()}"}{/a}
+							{a action="cards/detail" id=$card _class="card card--micro"}
+								{!$card->getImage()|pupiq_img:"100x100x#ffffff":"title={$card->getName()},class='card-img-top'"}
+								<div class="card-body">
+									<h5 class="card-title">{$card->getName()}</h5>
+								</div>
+							{/a}
 						{/if}
 					{/foreach}
+					</div>
 				{/foreach}
 			{/if}
 
