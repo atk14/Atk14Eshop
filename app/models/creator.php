@@ -58,6 +58,72 @@ class Creator extends ApplicationModel implements Translatable {
 		}
 	}
 
+	function getRoles(){
+		$ids = $this->dbmole->selectIntoArray("
+			SELECT DISTINCT id FROM (
+			SELECT
+				creator_roles.id
+			FROM
+				card_creators,
+				creator_roles,
+				cards
+			WHERE
+				card_creators.creator_id=:creator AND
+				creator_roles.id=card_creators.creator_role_id AND
+				cards.id=card_creators.card_id AND
+				cards.visible AND
+				NOT cards.deleted
+			ORDER BY
+				creator_roles.rank,
+				creator_roles.id,	
+				cards.created_at DESC
+			)q
+		",[":creator" => $this]);
+		return Cache::Get("CreatorRole",$ids);
+	}
+
+	/**
+	 *
+	 *	$cards = $creator->getCards(["limit" => 5]);
+	 *	$cards = $creator->getCards($role_author,["limit" => 5]);
+	 */
+	function getCards($role = null,$options = []){
+		if(is_array($role)){
+			$options = $role;
+			$role = null;
+		}
+		$options += [
+			"limit" => null,
+		];
+
+		$bind_ar = [":creator" => $this];
+		$sql_cond_role = "";
+		if($role){ 
+			$sql_cond_role = "creator_roles.id=:creator_role AND";
+			$bind_ar[":creator_role"] = $role;
+		}
+		$ids = $this->dbmole->selectIntoArray("
+			SELECT
+				cards.id
+			FROM
+				card_creators,
+				creator_roles,
+				cards
+			WHERE
+				card_creators.creator_id=:creator AND
+				creator_roles.id=card_creators.creator_role_id AND
+				$sql_cond_role
+				cards.id=card_creators.card_id AND
+				cards.visible AND
+				NOT cards.deleted
+			ORDER BY
+				creator_roles.rank,
+				creator_roles.id,	
+				cards.created_at DESC
+		",$bind_ar,$options);
+		return Cache::Get("Card",$ids);
+	}
+
 	function toHumanReadableString(){
 		return $this->g("name");
 	}
