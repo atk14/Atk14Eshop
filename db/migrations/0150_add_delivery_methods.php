@@ -6,6 +6,8 @@ class AddDeliveryMethods extends Atk14Migration {
 			"code" => "cp-balikovna",
 			"label_cs" => "Česká Pošta - Balíkovna",
 			"title_cs" => "Česká Pošta - Balíkovna",
+			"label_en" => "Česká Pošta - Balíkovna",
+			"title_en" => "Česká Pošta - Balíkovna",
 
 			"price" => 0,
 			"price_incl_vat" => 0,
@@ -19,6 +21,8 @@ class AddDeliveryMethods extends Atk14Migration {
 			"code" => "cp-balik-na-postu",
 			"label_cs" => "Česká Pošta - Balík na poštu",
 			"title_cs" => "Česká Pošta - Balík na poštu",
+			"label_en" => "Česká Pošta - Balík na poštu",
+			"title_en" => "Česká Pošta - Balík na poštu",
 
 			"price" => 49.0/122*100,
 			"price_incl_vat" => 49.0,
@@ -32,6 +36,8 @@ class AddDeliveryMethods extends Atk14Migration {
 			"code" => "zasilkovna",
 			"label_cs" => "Zásilkovna",
 			"title_cs" => "Zásilkovna",
+			"label_en" => "Zásilkovna",
+			"title_en" => "Zásilkovna",
 
 			"price" => 0,
 			"price_incl_vat" => 0,

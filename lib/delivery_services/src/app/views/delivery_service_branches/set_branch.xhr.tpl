@@ -9,4 +9,4 @@ $("#delivery_service_branch_select").modal("show");
 
 // jak to navesit automaticky ??
 UTILS.handleSuggestions();
-UTILS.deliveryServiceBranchSelector();
+//UTILS.deliveryServiceBranchSelector.init();

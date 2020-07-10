@@ -7,14 +7,11 @@ class DeliveryServiceBranchesController extends ApiController {
 	function index() {
 		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
 			$this->api_data = array();
-			if (is_null($delivery_method = DeliveryMethod::FindById($this->params->getInt("delivery_method_id")))) {
-				return $this->_report_fail(_("Bad request"),400);
-			}
-			if (is_null($service = $delivery_method->getDeliveryService())) {
+			if (is_null($delivery_service = DeliveryService::FindById($this->params->getInt("delivery_service_id")))) {
 				return $this->_report_fail(_("Bad request"),400);
 			}
 
-			foreach($service->findBranches($d["q"], array("countries" => $this->current_region->getDeliveryCountries())) as $_office) {
+			foreach($delivery_service->findBranches($d["q"], array("countries" => $this->current_region->getDeliveryCountries())) as $_office) {
 				$obj_dump = $_office->toArray();
 				# label pro naseptavadlo, ktery chceme vzdy ve stejnem formatu a udaje chceme mit v urcitem poradi
 				$ar = [

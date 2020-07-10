@@ -323,6 +323,7 @@
 						$( this ).parents( "li" ).last().addClass( "checked" );
 					}
 				} );
+				UTILS.deliveryServiceBranchSelector.init();
 			},
 
 			// Action-specific code

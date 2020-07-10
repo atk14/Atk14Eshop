@@ -3,23 +3,11 @@ class DeliveryServiceBranchField extends CharField {
 	function __construct($options = array()) {
 		$options += array(
 			# kvuli naseptavani
-			"delivery_method_id" => null,
+			"delivery_service_id" => null,
 		);
 		$options += array(
 			"label" => _("Zadejte název obce nebo PSČ"),
-			"widget" => new TextInput(array(
-				"attrs" => array(
-					"data-suggesting" => "yes",
-					"data-suggesting_url" => Atk14Url::BuildLink(array(
-						"namespace" => "api",
-						"controller" => "delivery_service_branches",
-						"action" => "index",
-						"delivery_method_id" => $options["delivery_method_id"],
-						"lang" => "cs",
-						"format" => "json",
-					))."&q=",
-				),
-			)),
+			"widget" => new DeliveryServiceBranchInput(["delivery_service_id" => $options["delivery_service_id"]]),
 		);
 
 		$this->options = $options;
