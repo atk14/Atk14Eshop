@@ -9,21 +9,21 @@
 	{assign var="ogTitle" $article->getTitle()}
 	{assign var="ogDescription" $article->getTeaser()}
 	{if $article->getImageUrl()}
-		{assign var="ogImage" $article->getImageUrl()|img_url:"1200x628xcrop"}
+		{assign var="ogImage" $article->getImageUrl()|img_url:"1200x628x#ffffff"}
 	{/if}
 {elseif $controller=="cards" && $action=="detail"}
 	{assign var="ogType" "article"}
 	{assign var="ogTitle" $card->getName()}
 	{assign var="ogDescription" $card->getTeaser()}
 	{if $card->getImage()}
-		{assign var="ogImage" $card->getImage()|img_url:"1200x628xcrop"}
+		{assign var="ogImage" $card->getImage()|img_url:"1200x628x#ffffff"}
 	{/if}
 {elseif $controller=="pages" && $action=="detail"}
 	{assign var="ogType" "article"}
 	{assign var="ogTitle" $page->getTitle()}
 	{assign var="ogDescription" $page->getTeaser()}
 	{if $page->getImageUrl()}
-		{assign var="ogImage" $page->getImageUrl()|img_url:"1200x628xcrop"}
+		{assign var="ogImage" $page->getImageUrl()|img_url:"1200x628x#ffffff"}
 	{/if}
 {/if}
 	<meta property="og:url"           content="{$request->getUrl(["with_hostname" => true])}">
