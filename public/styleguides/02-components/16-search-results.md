@@ -106,6 +106,76 @@ Markup of list items differs by type of object (product contains price, store co
 		</div>
 		<div class="search-results-item--tag">Článek</div>
 	</li>
+	
+	<li class="search-results-item">
+		<div class="search-results-item--image">
+			<a href="#">
+				<img src="https://placekitten.com/600/600" alt="" class="img-fluid" width="600" height="600">
+			</a>
+		</div>
+		<div class="search-results-item--body">
+			<div>
+				<h4 class="search-result-title">
+					<a href="#">Autoři</a> /
+					<a href="#">Charlie Root</a>
+				</h4>
+				<p class="search-result-description">Polaroid kogi lyft distillery selvage. Skateboard hella crucifix, live-edge edison bulb neutra taxidermy drinking vinegar photo booth vinyl tilde.</p>
+
+				<h5>Autor</h5>
+				
+				<div class="card-deck card-deck--micro">
+
+					<a class="card card--micro" href="#">
+						<img title="Druhá derivace touhy AUDIO" class="card-img-top" src="https://placekitten.com/100/100" alt="" width="100" height="100">
+						<div class="card-body">
+							<h5 class="card-title">Messenger bag man</h5>
+						</div>
+					</a>
+					
+					<a class="card card--micro" href="#">
+						<img title="Economics of Good and Evil" class="card-img-top" src="https://placekitten.com/100/100" alt="" width="100" height="100">
+						<div class="card-body">
+							<h5 class="card-title">Thundercats disrupt kitsch</h5>
+						</div>
+					</a>
+					
+					<a class="card card--micro" href="#">
+						<img title="Ekonómia dobra a zla" class="card-img-top" src="https://placekitten.com/100/100" alt="" width="100" height="100">
+						<div class="card-body">
+							<h5 class="card-title">Viral 90's flexitarian edison</h5>
+						</div>
+					</a>
+
+					<a title="a další" class="card card--micro card--link-more" href="#">
+						<div class="card-body">
+							<span class="fas fa-plus"></span> a další <span class="fas fa-chevron-right"></span>
+						</div>
+					</a>
+
+				</div>
+				<h5>Interpret</h5>
+				<div class="card-deck card-deck--micro">
+
+					<a class="card card--micro" href="#">
+						<img title="Ekonomie dobra a zla AUDIO" class="card-img-top" src="https://placekitten.com/100/100" alt="" width="100" height="100">
+						<div class="card-body">
+							<h5 class="card-title">Tattooed enamel pin</h5>
+						</div>
+					</a> </div>
+
+			</div>
+			
+			<div class="search-results-item--actions">
+				<a class="btn btn-primary btn-sm" href="#">Zobrazit profil</a> 
+			</div>
+			
+		</div>
+		
+		<div class="search-results-item--tag">
+			Profil
+		</div>
+		
+	</li>
 
 </ul>
 [/example]

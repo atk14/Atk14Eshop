@@ -123,6 +123,58 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 </ul>
 [/example]
 
+## Micro cards
+
+Provides small thumbnail cards with fixed width and link to view more items. Used in search results to show works by author.
+
+[example]
+<div class="card-deck card-deck--micro">
+
+	<a class="card card--micro" href="#">
+		<img title="Spirit" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card-body">
+			<h5 class="card-title">Spirit</h5>
+		</div>
+	</a>
+
+	<a class="card card--micro" href="#">
+		<img title="Construction Time Again" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card-body">
+			<h5 class="card-title">Construction Time Again</h5>
+		</div>
+	</a>
+
+	<a class="card card--micro" href="#">
+		<img title="A Broken Frame - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card-body">
+			<h5 class="card-title">A Broken Frame - download</h5>
+		</div>
+	</a>
+
+	<a class="card card--micro" href="#">
+		<img title="Black Celebration - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card-body">
+			<h5 class="card-title">Black Celebration - download</h5>
+		</div>
+	</a>
+
+	<a class="card card--micro" href="#">
+		<img title="Violator - Remixes Deluxe Edition" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card-body">
+			<h5 class="card-title">Violator - Remixes Deluxe Edition</h5>
+		</div>
+	</a>
+
+	<a title="a další" class="card card--micro card--link-more" href="#">
+		<div class="card-body">
+			<span class="fas fa-plus"></span> a další <span class="fas fa-chevron-right"></span>
+		</div>
+	</a>
+
+</div>
+[/example]
+
+
 ## Card deck 
 Based on Bootstrap card deck. To control number of cards per row, there are added modifier classes that control card sizing. Cards are responsive so on smallers display they are displayed with reasonable widths.
 
