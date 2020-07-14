@@ -72,9 +72,11 @@ class CardsForm extends AdminForm{
 			"label" => _("Brand"),
 			"required" => false,
 		)));
+		/* // Collections are obsolete in Atk14Eshop
 		$this->add_field("collection_id", new CollectionField(array(
 			"label" => _("Collection"),
 		)));
+		// */
 		$this->add_field("tags", new TagsField(array(
 			"label" => _("Tags"),
 			"required" => false,
