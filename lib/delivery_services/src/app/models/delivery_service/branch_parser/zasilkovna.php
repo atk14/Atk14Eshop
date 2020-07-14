@@ -27,7 +27,7 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	}
 
 	function getDistrict() {
-		return trim((string)$this->branch_element->district),
+		return trim((string)$this->branch_element->district);
 	}
 
 	function getZipCode() {
