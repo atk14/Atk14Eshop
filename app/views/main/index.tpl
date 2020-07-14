@@ -36,6 +36,11 @@
 
 </article>
 
+{assign var="logo_grid_items" LinkList::GetInstanceByCode("hp_logo_grid")}
+{if $logo_grid_items && !$logo_grid_items->isEmpty($current_region)}
+	{render partial="shared/logo_grid" link_list=$logo_grid_items show_titles=false fixed_size=true}
+{/if}
+
 {if $recent_articles}
 	<section class="section--recent-articles">
 		{capture assign=recent_articles_title}{t}Aktuality{/t}{/capture}
