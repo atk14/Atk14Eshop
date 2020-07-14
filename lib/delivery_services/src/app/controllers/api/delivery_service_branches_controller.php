@@ -17,6 +17,7 @@ class DeliveryServiceBranchesController extends ApiController {
 				$ar = [
 					"value" => $obj_dump["id"],
 					"label" => sprintf("%s, %s - %s", $obj_dump["zip"], $obj_dump["full_address"], $obj_dump["place"]),
+					"opening_hours" => $obj_dump["opening_hours"],
 				];
 				$this->api_data[] = $ar;
 			}

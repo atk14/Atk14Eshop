@@ -79,6 +79,7 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+				UTILS.handleSuggestions();
 			}
 		},
 
@@ -323,7 +324,6 @@
 						$( this ).parents( "li" ).last().addClass( "checked" );
 					}
 				} );
-				UTILS.deliveryServiceBranchSelector.init();
 			},
 
 			// Action-specific code
@@ -396,11 +396,6 @@
 				UTILS.initSimpleMap( "store-map" );
 			}
 
-		},
-		delivery_service_branches: {
-			set_branch: function() {
-				UTILS.handleSuggestions();
-			}
 		}
 
 	};

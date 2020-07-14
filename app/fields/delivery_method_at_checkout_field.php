@@ -7,6 +7,7 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	function __construct($options = []){
 		$options += [
 			"basket" => null,
+			"widget" => new DeliveryMethodSelect($options),
 		];
 
 		$this->basket = $options["basket"];

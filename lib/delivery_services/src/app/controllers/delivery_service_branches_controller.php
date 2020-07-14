@@ -2,6 +2,8 @@
 class DeliveryServiceBranchesController extends ApplicationController {
 	function set_branch() {
 
+		$this->tpl_data["branch_selector_form"] = $this->_get_form("branch_selector_form");
+
 		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
 

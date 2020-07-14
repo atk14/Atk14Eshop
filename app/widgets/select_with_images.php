@@ -4,8 +4,6 @@
  *
  * Napsano tak, ze v choices jsou objekty
  *
- *
- *
  * 	$this->add_field("agreement",new ChoiceField(array(
  * 		"label" => "Do you agree?",
  * 		"widget" => new SelectWithImages(array(
@@ -18,7 +16,6 @@
  * 	)));
  *
  */
-Atk14Require::Helper("modifier.display_price");
 class SelectWithImages extends RadioSelect
 {
 	var $input_type = "radio";
@@ -88,8 +85,8 @@ class RadioInputWithImage {
 			$final_attrs['checked'] = 'checked';
 		}
 
-		# pokud je napojena dopravni sluzba, potrebujeme zvolit pobocku
-		$final_attrs["data-branch_needed"] = !is_null($this->object->dm) && $this->object->dm->hasKey("delivery_service_id") && !is_null($this->object->dm->getDeliveryServiceId());
+#		# pokud je napojena dopravni sluzba, potrebujeme zvolit pobocku
+#		$final_attrs["data-branch_needed"] = !is_null($this->object->dm) && $this->object->dm->hasKey("delivery_service_id") && !is_null($this->object->dm->getDeliveryServiceId());
 		
 		#$final_attrs["data-can_be_ordered"] = $this->object->canBeOrdered() ? "true" : "false";
 		return '<input'.flatatt($final_attrs).' />';
@@ -132,24 +129,6 @@ class RadioInputWithImage {
 		return "<span class=\"v-price\">$price</span>";
 	}
 
-	function branchAddress() {
-		if (is_null($this->options["controller"])) {
-			return "";
-		}
-		$basket = $this->options["controller"]->basket;
-		$current_dm = $this->object->dm;
-		$basket_dm = $basket->getDeliveryMethod();
-
-		$branch = null;
-
-		if ($current_dm && $basket_dm && !is_null($current_dm->getDeliveryServiceId()) && ($current_dm->getDeliveryServiceId()===$basket_dm->getDeliveryServiceId())) {
-			$branch = $basket->getDeliveryServiceBranch();
-		}
-
-		$out = smarty_function_render(array("partial" => "delivery_service_branch_field", "branch" => $branch, "delivery_method" => $current_dm), $this->options["controller"]->_get_smarty());
-		return $out;
-	}
-
 	function render() {
 		$price = $this->price() ? " ".$this->price() : "";
 		$attr = [
@@ -157,6 +136,6 @@ class RadioInputWithImage {
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>'.$this->branchAddress();
+		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>';
 	}
 }

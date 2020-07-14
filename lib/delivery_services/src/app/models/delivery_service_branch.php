@@ -2,10 +2,13 @@
 class DeliveryServiceBranch extends ApplicationModel {
 
 	function getDeliveryMethodData() {
+		$_service = $this->getDeliveryService();
 		return json_encode([
 			"external_branch_id" => $this->getExternalBranchId(),
+			"delivery_service_id" => $_service->getId(),
+			"delivery_service_code" => $_service->getCode(),
 			"delivery_address" => [
-				"company" => $this->getDeliveryService()->getName(),
+				"company" => $_service->getName(),
 				"street" => $this->getStreet(),
 				"city" => $this->getCity(),
 				"zip" => $this->getZip(),

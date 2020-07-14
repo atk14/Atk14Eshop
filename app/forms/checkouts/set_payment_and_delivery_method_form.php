@@ -32,6 +32,11 @@ class SetPaymentAndDeliveryMethodForm extends CheckoutsForm {
 			$delivery_method = DeliveryMethod::FindFirst("id", $d["delivery_method_id"]);
 		}
 
+		$delivery_method_data = $this->controller->basket->getDeliveryMethodData();
+		if ($delivery_method->getDeliveryServiceId() && $delivery_method_data && $delivery_method->getDeliveryServiceId() != $delivery_method_data["delivery_service_id"]) {
+			$this->set_error("delivery_method_id", _("Vyberte výdejní místo pro zvolenou doručovací metodu"));
+		}
+
 		return array($err,$d);
 	}
 }
