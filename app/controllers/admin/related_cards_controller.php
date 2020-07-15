@@ -7,18 +7,24 @@
 class RelatedCardsController extends AdminController {
 
 	function create_new() {
-		$this->_add_card_to_breadcrumbs($this->card);
+		$card = $this->card;
+
+		$this->_add_card_to_breadcrumbs($card);
 		$this->template_name = "application/create_new";
 		$this->form = $this->_get_form("related_cards/create_new_form");
 		$this->_save_return_uri();
 		$this->page_title = $this->page_title_create_new;
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			if($this->card->getId()==$d["adding_card"]->getId()){
+			if($card->getId()==$d["adding_card"]->getId()){
 				$this->form->set_error("adding_card",_("The same product cannot be added to the product itself"));
 				return;
 			}
 			$this->lister->remove($d["adding_card"]);
 			$this->lister->add($d["adding_card"]);
+			if($d["also_create_opposite_link"]){
+				$opposite_lister = $d["adding_card"]->getRelatedCardsLister();
+				$opposite_lister->contains($card) || $opposite_lister->add($card);
+			}
 			$this->flash->success($this->success_notice_create_new);
 			return $this->_redirect_back();
 		}

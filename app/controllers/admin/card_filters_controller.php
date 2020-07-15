@@ -20,50 +20,50 @@ class CardFiltersController extends AdminController{
 
 		$current_category_ids = $card->getCategoryIds();
 
-		$sections = array();
-		$available_category_ids = array();
 		foreach($filters as $f){
-			$_fields = array();
+			$choices = [];
+			$initial = [];
 
 			foreach($f->getChildCategories() as $c){
-				$this->form->add_field("category_".$c->getId(),new BooleanField(array(
-					"label" => strip_tags($c->getName()),
-					"initial" => in_array($c->getId(),$current_category_ids),
-					"required" => false,
-				)));
-				$_fields[] = "category_".$c->getId();
-				$available_category_ids[] = $c->getId();
+				$choices[$c->getId()] = strip_tags($c->getName());
+				if(in_array($c->getId(),$current_category_ids)){
+					$initial[] = $c->getId();
+				}
 			}
 
-			if($_fields){
-				$sections[] = array(
-					"legend" => "/".$f->getPath()."/",
-					"fields" => $_fields
-				);
+			if($choices){
+				$this->form->add_field("filter_".$f->getId(), new MultipleChoiceField(array(
+					"label" => "/".$f->getPath()."/",
+					"choices" => $choices,
+					"initial" => $initial,
+					"required" => false,
+					"widget" => new CheckboxSelectMultiple(),
+				)));
 			}
 		}
 
-		if(!$sections){
+		$this->_save_return_uri();
+
+		if(!$this->form->fields){
+			$this->tpl_data["return_uri"] = $this->_get_return_uri();
 			$this->_execute_action("no_filter_categories");
 			return;
 		}
 
-		$this->tpl_data["sections"] = $sections;
-
-		$this->_save_return_uri();
-
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			foreach($d as $key => $value){
-				if(!preg_match('/^category_(\d+)$/',$key,$matches)){ continue; }
-				$c_id = $matches[1];
+			foreach($filters as $f){
+				foreach($f->getChildCategories() as $c){
+					$key = "filter_".$f->getId();
 
-				$value && $card->addToCategory($c_id);
-				!$value && $card->removeFromCategory($c_id);
-
-				$this->flash->success(_("Settings saved"));
-
-				$this->_redirect_back();
+					if(in_array($c->getId(),$d[$key])){
+						$card->addToCategory($c);
+					}else{
+						$card->removeFromCategory($c);
+					}
+				}
 			}
+			$this->flash->success(_("Settings saved"));
+			$this->_redirect_back();
 		}
 	}
 
