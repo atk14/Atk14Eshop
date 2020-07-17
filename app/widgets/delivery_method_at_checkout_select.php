@@ -19,7 +19,7 @@
  * 	)));
  *
  */
-class DeliveryMethodSelect extends SelectWithImages {
+class DeliveryMethodAtCheckoutSelect extends SelectWithImages {
 
 	function _renderer($name, $value, $attrs, $choices) {
 		$output = array();
