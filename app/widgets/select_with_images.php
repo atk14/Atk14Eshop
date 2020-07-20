@@ -85,10 +85,6 @@ class RadioInputWithImage {
 			$final_attrs['checked'] = 'checked';
 		}
 
-#		# pokud je napojena dopravni sluzba, potrebujeme zvolit pobocku
-#		$final_attrs["data-branch_needed"] = !is_null($this->object->dm) && $this->object->dm->hasKey("delivery_service_id") && !is_null($this->object->dm->getDeliveryServiceId());
-		
-		#$final_attrs["data-can_be_ordered"] = $this->object->canBeOrdered() ? "true" : "false";
 		return '<input'.flatatt($final_attrs).' />';
 	}
 
