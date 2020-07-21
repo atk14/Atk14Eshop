@@ -11,7 +11,7 @@ class BranchSelectorForm extends ApplicationForm {
 		$this->add_field("delivery_service_widget", new DeliveryServiceBranchField(array(
 			"label" => _("Výdejní místo"),
 			"required" => false,
-			"help_text" => _("Zde je widget s vyberem pobocky"),
+			"help_text" => _("Zadejte psč, město nebo název provozovny"),
 			"delivery_service_id" => $this->controller->delivery_method->getDeliveryService(),
 		)));
 	}

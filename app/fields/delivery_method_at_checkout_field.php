@@ -24,6 +24,25 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 		}
 		return $choices;
 	}
+
+	function clean($value) {
+		list($err,$value) = parent::clean($value);
+
+		if (is_null($_dm = DeliveryMethod::FindById($value))) {
+			return [_("There is no such delivery method"), null];
+		}
+
+		# pokud je zvolena dorucovaci metoda s vyberem vydejniho mista,
+		# tak kontrola kombinace dorucovaci sluzby a vydejniho mista, ze patri k sobe
+		$delivery_method_data = $this->basket->getDeliveryMethodData();
+		if (
+			$_dm && $_dm->getDeliveryServiceId() && $delivery_method_data &&
+			$_dm->getDeliveryServiceId() != $delivery_method_data["delivery_service_id"]
+		) {
+			return [_("Vyberte výdejní místo pro zvolenou doručovací metodu"), null];
+		}
+		return [$err,$value];
+	}
 }
 
 class DeliveryMethodChoice {
