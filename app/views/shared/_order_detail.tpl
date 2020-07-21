@@ -76,10 +76,10 @@
 
 		{foreach $vouchers as $voucher}
 			<tr class="table-products__item table-products__item--sale">
-				<td class="table-products__icon">{!"percentage"|icon}</td>
-				<td class="table-products__title">{t}Slevový kupón{/t}</td>
+				<td class="table-products__icon">{!$voucher->getIconSymbol()|icon}</td>
+				<td class="table-products__title">{$voucher->getDescription()}</td>
 				<td colspan="3" class="table-products__id">{$voucher}</td>
-				<td class="table-products__price">{!(-$voucher->getDiscountAmount())|display_price:"$currency"}</td>
+				<td class="table-products__price">{if $voucher->getDiscountAmount()}{!(-$voucher->getDiscountAmount())|display_price:"$currency"}{/if}</td>
 			</tr>
 		{/foreach}
 	{/trim}</tbody>

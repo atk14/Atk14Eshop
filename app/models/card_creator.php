@@ -60,4 +60,11 @@ class CardCreator extends ApplicationModel implements Rankable {
 	function toString(){
 		return $this->getCreator()->toString();
 	}
+
+  function destroy($destroy_for_real = null){
+    if(isset(self::$MainCreators)){
+      self::$MainCreators->clearCache();
+    }
+    return parent::destroy();
+  }
 }

@@ -6,13 +6,21 @@ class OrderQuantityField extends IntegerField {
 
 		$min_value = $product->getCalculatedMinimumQuantityToOrder();
 		$max_value = $product->getCalculatedMaximumQuantityToOrder();
+		$initial = $product->getCalculatedStandardQuantityToOrder();
+		$disabled = false;
+		if($max_value===0){
+			$min_value = 0;
+			$initial = 0;
+			$disabled = true;
+		}
 		$step = $product->getOrderQuantityStep();
 
 		$options += [
 			"min_value" => $min_value,
 			"max_value" => $max_value,
 			"step" => $step,
-			"initial" => $product->getCalculatedStandardQuantityToOrder()
+			"initial" => $initial,
+			"disabled" => $disabled,
 		];
 
 		$options["min_value"] = ceil($options["min_value"] / $step) * $step; // pokud bude $options["min_value"] 12 a $step=10, tak se tady $options["min_value"] zmeni na 20

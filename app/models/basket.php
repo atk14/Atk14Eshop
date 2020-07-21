@@ -162,8 +162,12 @@ class Basket extends BasketOrOrder {
 	}
 
 	/**
-	 * Prida produkt do kosiku. Pokud uz tam je, nastavit pocet na $amount.
-	 * Dana pokozka bude prvni v poradi.
+	 * Add the given amount of the product to the basket
+	 *
+	 * If the product already exists in the basket, it's amount will be rewritten.
+	 * This default behaviour can be changed by the option "rewrite_amount".
+	 *
+	 * By default, the newly created or updated basket item will be the first in line.
 	 *
 	 * $basket->addProduct($product); // 1ks
 	 * $basket->addProduct($product,10);
@@ -177,9 +181,15 @@ class Basket extends BasketOrOrder {
 
 		$options += array(
 			"update_rank" => true, // private stuff
+			"rewrite_amount" => true,
 		);
 
+		$rewrite_amount = $options["rewrite_amount"];
+
 		if(!$amount) {
+			if(!$rewrite_amount){
+				return;
+			}
 			$item = BasketItem::FindFirst("basket_id",$this,"product_id",$product,array("use_cache" => true));
 			if($item) {
 				$item->destroy();
@@ -197,7 +207,7 @@ class Basket extends BasketOrOrder {
 			":amount" => $amount,
 		);
 
-		$update_sql="UPDATE basket_items SET amount = :amount WHERE basket_id = :basket_id AND product_id = :product_id ";
+		$update_sql="UPDATE basket_items SET amount = ".($rewrite_amount ? "" : "amount + ").":amount WHERE basket_id = :basket_id AND product_id = :product_id ";
 		$sql = "DO $$ BEGIN
 			WITH updated AS ($update_sql RETURNING id)
 			INSERT INTO basket_items(id, basket_id, product_id, amount)

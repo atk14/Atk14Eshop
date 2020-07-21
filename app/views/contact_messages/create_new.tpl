@@ -5,7 +5,7 @@
 {/if}
 
 {capture assign="teaser"}{t}If you have any question, contact us through the following form. We will reply to you as soon as we can.{/t}{/capture}
-{render partial="shared/layout/content_header" title=$page_title tag=$tag teaser=$teaser}
+{render partial="shared/layout/content_header" title=$page_title title_tag=$tag teaser=$teaser}
 
 
 {render partial="shared/form"}

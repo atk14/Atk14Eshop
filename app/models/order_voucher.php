@@ -1,18 +1,10 @@
 <?php
-class OrderVoucher extends ApplicationModel implements Rankable {
+class OrderVoucher extends BasketOrOrderVoucher {
 	
 	function setRank($rank){
 		$this->_setRank($rank,[
 			"order_id" => $this->getOrderId(),
 		]);
-	}
-
-	function getVoucher(){
-		return Cache::Get("Voucher",$this->g("voucher_id"));
-	}
-
-	function getVoucherCode(){
-		return $this->getVoucher()->getVoucherCode();
 	}
 
 	function createdAdministratively(){
@@ -21,9 +13,5 @@ class OrderVoucher extends ApplicationModel implements Rankable {
 
 	function getCreatedByUser(){
 		return Cache::Get("User",$this->getCreatedByUserId());
-	}
-
-	function toString(){
-		return $this->getVoucherCode();
 	}
 }

@@ -64,8 +64,8 @@
 <tbody>
 	{foreach $order->getVouchers() as $voucher}
 		<tr style="text-align: right;">
-			<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;" colspan="4">{t}Slevový kupón{/t} {$voucher}</td>
-			<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;">-{!$voucher->getDiscountAmount()|display_price:"$currency"}</td>
+			<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;" colspan="4">{$voucher->getDescription()} {$voucher}</td>
+			<td style="background-color:{$table_cell_bgcolor}; color:{$table_cell_color}; padding: 0.6em 0.4em;">{if $voucher->getDiscountAmount()}-{!$voucher->getDiscountAmount()|display_price:"$currency"}{/if}</td>
 		</tr>
 	{/foreach}
 	{foreach $order->getCampaigns() as $campaign}

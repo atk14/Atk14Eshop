@@ -29,6 +29,12 @@ class VouchersForm extends AdminForm {
 			"required" => false,
 		)));
 
+		$this->add_translatable_field("description", new CharField(array(
+			"label" => _("Volný popis"),
+			"required" => false,
+			"help_text" => _("V případě potřeby popište zákazníkům význam tohoto slevového kupónu"),
+		)));
+
 		$this->add_field("repeatable", new BooleanField(array(
 			"label" => _("Lze uplatňovat opakovaně"),
 			"initial" => false,
@@ -64,12 +70,6 @@ class VouchersForm extends AdminForm {
 
 		if(isset($d["voucher_code"])){
 			$d["voucher_code"] = Translate::Upper($d["voucher_code"]);
-		}
-
-		if(isset($d["free_shipping"]) && isset($d["discount_amount"]) && isset($d["discount_percent"])){
-			if(!$d["free_shipping"] && $d["discount_amount"]==0 && $d["discount_percent"]==0){
-				$this->set_error(_("Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu nebo dopravu zdarma"));
-			}
 		}
 
 		if(!$this->has_errors()){

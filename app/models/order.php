@@ -321,6 +321,7 @@ class Order extends BasketOrOrder {
 	 *     stav (tedy zmeny responsible_user_id)
 	 */
 	function setNewOrderStatus($new_status_values=array(),$options = []) {
+		global $ATK14_GLOBAL;
 		$options += [
 			"mailer" => null,
 		];
@@ -344,10 +345,13 @@ class Order extends BasketOrOrder {
 			$new_status = Cache::Get("OrderStatus",$new_status);
 		}
 
+		$logged_user_id = ApplicationModel::_GetLoggedUserId();
+		$logged_user = Cache::Get("User",$logged_user_id);
+
 		$not_now = key_exists("order_status_set_at", $new_status_values);
 		$new_status_values += [
 			"order_status_set_at" => now(),
-			"order_status_set_by_user_id" => ApplicationModel::_GetLoggedUserId(),
+			"order_status_set_by_user_id" => $logged_user && $logged_user->isAdmin() && $ATK14_GLOBAL->getValue("namespace")=="admin" ? $logged_user : null,
 			"order_status_note" => null,
 		];
 

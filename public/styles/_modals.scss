@@ -1,0 +1,11 @@
+.modal {
+	.modal__quantity-change {
+		margin-bottom: 1.5rem;
+		.quantity {
+			font-size: 1.5rem;
+		}
+		.quantity-edit-link {
+			font-size: $font-size-sm;
+		}
+	}
+}

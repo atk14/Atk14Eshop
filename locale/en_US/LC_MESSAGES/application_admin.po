@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 17:10+0200\n"
+"POT-Creation-Date: 2020-06-12 11:16+0200\n"
 "PO-Revision-Date: 2020-05-12 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -3013,7 +3013,7 @@ msgstr ""
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:8
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:8
-#: ../app/forms/admin/vouchers/vouchers_form.php:53
+#: ../app/forms/admin/vouchers/vouchers_form.php:59
 msgid "Aktivní"
 msgstr ""
 
@@ -3783,31 +3783,33 @@ msgid "Procentní sleva poukazu"
 msgstr ""
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:33
-msgid "Lze uplatňovat opakovaně"
+msgid "Volný popis"
+msgstr ""
+
+#: ../app/forms/admin/vouchers/vouchers_form.php:35
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 msgstr ""
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:39
+msgid "Lze uplatňovat opakovaně"
+msgstr ""
+
+#: ../app/forms/admin/vouchers/vouchers_form.php:45
 #, php-format
 msgid "Minimální hodnota zboží v košíku s DPH [%s]"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:43
+#: ../app/forms/admin/vouchers/vouchers_form.php:49
 msgid ""
 "Kupón nebude možné použít, pokud bude v košíku zboží celkem za nižší částku"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:47
+#: ../app/forms/admin/vouchers/vouchers_form.php:53
 msgid "Oblasti platnosti kupónu"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:56
+#: ../app/forms/admin/vouchers/vouchers_form.php:62
 msgid "Neaktivní slevový kupón nebude možné použít"
-msgstr ""
-
-#: ../app/forms/admin/vouchers/vouchers_form.php:71
-msgid ""
-"Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu "
-"nebo dopravu zdarma"
 msgstr ""
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:81

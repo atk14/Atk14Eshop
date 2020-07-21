@@ -59,8 +59,15 @@ class CategoriesForm extends AdminForm{
 			"help_text" => sprintf(_("Recommended image size is %dx%d"),1920,1080),
 		)));
 
+		$this->add_field("tags", new TagsField(array(
+			"label" => _("Tags"),
+			"required" => false,
+			"create_missing_tags" => true,
+			"hint" => "akce , novinka"
+		)));
+
 		$this->add_field("visible", new BooleanField(array(
-			"label" => _("Is visible?"),
+			"label" => _("Is category visible?"),
 			"required" => false,
 			"initial" => true,
 		)));

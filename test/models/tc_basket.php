@@ -62,6 +62,48 @@ class TcBasket extends TcBase {
 		$basket->destroy();
 	}
 
+	function test_addProduct(){
+		$mint_tea = $this->products["mint_tea"];
+		$black_tea = $this->products["black_tea"];
+
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+
+		$this->assertEquals(true,$basket->isEmpty());
+		$this->assertEquals(0,sizeof($basket->getItems()));
+
+		$basket->addProduct($mint_tea,2);
+		$items = $basket->getItems();
+		$this->assertEquals(1,sizeof($items));
+		$this->assertEquals($mint_tea->getId(),$items[0]->getProductId());
+		$this->assertEquals(2,$items[0]->getAmount());
+
+		$basket->addProduct($mint_tea,1);
+		$items = $basket->getItems();
+		$this->assertEquals(1,sizeof($items));
+		$this->assertEquals($mint_tea->getId(),$items[0]->getProductId());
+		$this->assertEquals(1,$items[0]->getAmount()); // amount rewritten
+		
+		$basket->addProduct($mint_tea,3,["rewrite_amount" => false]);
+		$items = $basket->getItems();
+		$this->assertEquals(1,sizeof($items));
+		$this->assertEquals($mint_tea->getId(),$items[0]->getProductId());
+		$this->assertEquals(4,$items[0]->getAmount()); // amount increased
+
+		$basket->addProduct($black_tea);
+		$items = $basket->getItems();
+		$this->assertEquals(2,sizeof($basket->getItems()));
+		$this->assertEquals($black_tea->getId(),$items[0]->getProductId()); // last added product
+		$this->assertEquals($mint_tea->getId(),$items[1]->getProductId());
+
+		$basket->addProduct($mint_tea,1,["update_rank" => false]);
+		$items = $basket->getItems();
+		$this->assertEquals(2,sizeof($basket->getItems()));
+		$this->assertEquals($black_tea->getId(),$items[0]->getProductId());
+		$this->assertEquals($mint_tea->getId(),$items[1]->getProductId()); // last added product
+	}
+
 	function test_createOrder_integrity_key(){
 		$kveta = $this->users["kveta"];
 		$czechoslovakia = $this->regions["czechoslovakia"];

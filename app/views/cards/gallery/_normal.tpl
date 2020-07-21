@@ -2,7 +2,7 @@
 
 <section class="photo-gallery photo-gallery--product product-gallery product-gallery--no-variants">
 
-	<div class="gallery__images">
+	<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 
 	{foreach $card->getImages(false) as $image}
 		{assign geom $geometry_thumbnail}

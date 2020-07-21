@@ -2,12 +2,34 @@
   @include bg-variant(".bg-#{$color}", $value);
 }
 
+@each $color, $value in $grays {
+  @include bg-variant(".bg-gray-#{$color}", $value);
+}
+
 @each $color, $value in $colors {
   @include bg-gradient-variant(".bg-gradient-#{$color}", $value);
 }
 
 @each $color, $value in $colors {
   @include text-emphasis-variant(".text-#{$color}", $value);
+}
+
+@each $color, $value in $colors {
+	.text-contrast-#{$color} {
+		color: color-yiq( $value );
+	}
+}
+
+@each $color, $value in $theme-colors {
+	.text-contrast-#{$color} {
+		color: color-yiq( $value );
+	}
+}
+@each $color, $value in $grays {
+	.text-contrast-gray-#{$color} {
+		color: color-yiq( $value );
+		order: 0;
+	}
 }
 
 .color-sample {

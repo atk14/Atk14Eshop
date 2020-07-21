@@ -41,30 +41,37 @@ abstract class CardListController extends ApplicationController {
 			#"(SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) FROM category_cards WHERE card_id = cards.id AND category_id IN (SELECT * from $ctable) ORDER BY 1 LIMIT 1), cards.id DESC"
 		];
 
-		$this->_setup_category_breadcrumbs($options);
+		$this->_add_category_to_breadcrumbs($this->category,[
+			"path" => $path,
+			"first_breadcrumb_title" => $options["first_breadcrumb_title"],
+		]);
 		return [ $cond, $bind ];
 	}
 
-	function _setup_category_breadcrumbs($options) {
-			$_first = true;
-			$first_breadcrumb_title = $options["first_breadcrumb_title"];
+	function _add_category_to_breadcrumbs($category,$options = []) {
+		$options += [
+			"path" => "",
+			"first_breadcrumb_title" => "", // "" -> auto, "Novinky", "Slevy"
+		];
 
-			foreach($this->parent_categories as $ppath => $pc){
+		$path = $options["path"] ? $options["path"] : $category->getPath();
+		$categories = Category::GetInstancesOnPath($path);
 
-				if($_first){
-					$_first = false;
-					$_pc_name = $first_breadcrumb_title ? $first_breadcrumb_title : $pc->getName();
-				}else{
-					$_pc_name = $pc->getName();
-				}
+		$_first = true;
+		$first_breadcrumb_title = $options["first_breadcrumb_title"];
 
-				$_url = $this->_link_to(array("path" => $ppath));
-				$this->breadcrumbs[] = array($_pc_name,$_url);
+		foreach($categories as $ppath => $pc){
 
-				$this->go_back_url = $_url;
-				$this->go_back_url_title = sprintf(_("Zpět do %s"),strip_tags($_pc_name));
+			if($_first){
+				$_first = false;
+				$_pc_name = $first_breadcrumb_title ? $first_breadcrumb_title : $pc->getName();
+			}else{
+				$_pc_name = $pc->getName();
 			}
-			$this->breadcrumbs[] = (!$this->parent_categories && $first_breadcrumb_title) ? $first_breadcrumb_title : $this->category->getName();
+
+			$_url = $this->_link_to(array("action" => "categories/detail", "path" => $ppath));
+			$this->breadcrumbs[] = array($_pc_name,$_url);
+		}
 	}
 
 	function _setup_child_categories($options) {

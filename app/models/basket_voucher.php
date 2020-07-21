@@ -6,7 +6,7 @@
  *
  * 	$voucher->getDiscountAmount();
  */
-class BasketVoucher extends ApplicationModel implements Rankable {
+class BasketVoucher extends BasketOrOrderVoucher {
 
 	function setRank($rank){
 		$this->_setRank($rank,[
@@ -16,18 +16,6 @@ class BasketVoucher extends ApplicationModel implements Rankable {
 
 	function getBasket(){
 		return Cache::Get("Basket",$this->getBasketId());
-	}
-
-	function getVoucher(){
-		return Cache::Get("Voucher",$this->getVoucherId());
-	}
-
-	function getVoucherCode(){
-		return $this->getVoucher()->getVoucherCode();
-	}
-
-	function getDiscountPercent(){
-		return $this->getVoucher()->getDiscountPercent();
 	}
 
 	function getDiscountAmount($incl_vat = true){
@@ -57,9 +45,4 @@ class BasketVoucher extends ApplicationModel implements Rankable {
 
 		return $out;
 	}
-
-	function toString(){
-		return $this->getVoucherCode();
-	}
-
 }

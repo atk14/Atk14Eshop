@@ -1,5 +1,6 @@
 {placeholder}
 {trim}
+{placeholder for="extra_message"}
 {capture assign=url}{link_to action="main/index" _with_hostname=true _ssl=false}{/capture}
 {t
 	name="ATK14_APPLICATION_NAME"|dump_constant|strip_tags

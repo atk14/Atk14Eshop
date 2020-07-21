@@ -19,12 +19,17 @@ class CategoriesController extends AdminController{
 
 		$this->_save_return_uri();
 		$this->form->set_initial($this->category);
+		$this->form->set_initial("tags",$this->category->getTags());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+
+			$tags = $d["tags"];
+			unset($d["tags"]);
 
 			$this->_save_slug_state($this->category);
 
 			$this->category->s($d,array("reconstruct_missing_slugs" => true));
+			$this->category->setTags($tags);
 
 			$this->flash->success(_("Changes have been saved"));
 			$this->_redirect_back_or_edit_slug();
@@ -95,11 +100,15 @@ class CategoriesController extends AdminController{
 					return;
 				}
 			}
+
+			$tags = $d["tags"];
+			unset($d["tags"]);
 			
 			$d["parent_category_id"] = $this->parent_category;
 
 			$this->flash->success(_("Category has been created"));
 			$c = Category::CreateNewRecord($d);
+			$c->setTags($tags);
 			return $this->_redirect_to(array(
 				"action" => "edit",
 				"id" => $c,

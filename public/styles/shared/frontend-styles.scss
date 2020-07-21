@@ -1,8 +1,8 @@
 // Styles from frontend available in admin.
 
 @import "node_modules/bootstrap/scss/functions";
-@import "./public/styles/application_variables";
 @import "./public/styles/bootstrap_variables";
+@import "./public/styles/application_variables";
 
 // Frontend colors
 
@@ -10,10 +10,25 @@
 	.frontend-bg-#{$color} {
 		background-color: $value !important;
 	}
+	.frontend-text-contrast-#{$color} {
+		color: color-yiq( $value );
+	}
 }
 
 @each $color, $value in $theme-colors {
 	.frontend-bg-#{$color} {
 		background-color: $value !important;
+	}
+	.frontend-text-contrast-#{$color} {
+		color: color-yiq( $value );
+	}
+}
+
+@each $color, $value in $grays {
+	.frontend-bg-gray-#{$color} {
+		background-color: $value !important;
+	}
+	.frontend-text-contrast-gray-#{$color} {
+		color: color-yiq( $value );
 	}
 }

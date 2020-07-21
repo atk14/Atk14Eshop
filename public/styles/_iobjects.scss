@@ -54,6 +54,11 @@
 			color: $body-color;
 			font-size: 0.75rem;
 		}
+		
+		& + & {
+			margin-top: 0-$grid-gutter-width;
+			border-top: none;
+		}
 	}
 	&--card_promotion {
 		display: flex;
@@ -104,12 +109,9 @@
 			background-color: $gray-100;
 		}
 		& + & {
-			//margin-top: 0-$grid-gutter-width !important;
+			margin-top: 0-$grid-gutter-width;
+			border-top: none;
 		}
-	}
-	& + & {
-		margin-top: 0-$grid-gutter-width;
-		border-top: none;
 	}
 	@include media-breakpoint-down(xs){
 		& > a {

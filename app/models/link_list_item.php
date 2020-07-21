@@ -54,8 +54,9 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 			"reasonable_max_items_count" => null, // null will be returned when the count of submenu items exceeds this value
 		);
 
+		$params = $this->g("url_params");
+		if($params){ $params = json_decode($params,true); }
 		$target = $this->getTargetObject();
-		if(!$target){ return null; }
 
 		$menu = new Menu14();
 
@@ -69,6 +70,12 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 			foreach($target->getVisibleChildCategories() as $chi){
 				$path = $target->getPath()."/".$chi->getSlug(); // This must work for aliases
 				$menu->addItem($chi->getName(),Atk14Url::BuildLink(["namespace" => "", "action" => "categories/detail", "path" => $path]));
+			}
+		}
+
+		if($params && $params["namespace"]==="" && $params["controller"]==="brands" && $params["action"]==="index"){
+			foreach(Brand::FindAll() as $brand){
+				$menu->addItem($brand->getName(),Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $brand]));
 			}
 		}
 

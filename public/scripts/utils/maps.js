@@ -51,6 +51,7 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	/* global SMap */
 	/* global JAK */
 	/* global storeLocatorData */
+	/* global storeLocatorBounds */
 
 	var $ = window.jQuery;
 	// console.log( "initMultiMap", mapElemId );
@@ -65,6 +66,7 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	var mapContainer = $( "#" + mapElemId );
 	var enableClusters = mapContainer.data( "enable_clusters" );
 	var clusterDistance = mapContainer.data( "cluster_distance" );
+	var centerZoom;
 
 	// Init mapy
 	var stred = SMap.Coords.fromWGS84( 14.4234447, 50.0736203 );
@@ -83,24 +85,20 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	var markerLayer = new SMap.Layer.Marker();
 	mapa.addLayer( markerLayer );
 	markerLayer.enable();
+	
+	var onMapLoaded = function(){
 
-	if( enableClusters ) {
-
-		// We want clusters to have all the same size
-		// https://napoveda.seznam.cz/forum/threads/71496/1  http://jsfiddle.net/592sxtco/6/ 
-		var radius = function() { return 18; }
-
-		var MyCluster = function( id ) {
-			SMap.Marker.Cluster.call( this, id, { radius:radius } );
-			// this._dom.content.style.backgroundColor = "red";
-			// this._dom.circle.style.borderRadius = 0;
-		};
-		MyCluster.prototype = Object.create( SMap.Marker.Cluster.prototype );
-
-		// Auto clusterer
-		var clusterer = new SMap.Marker.Clusterer( mapa, clusterDistance, MyCluster );
-		markerLayer.setClusterer( clusterer );
+		// Tiles are loaded - remove listener and preloader
+		signalLoaded.removeListener( loadListenerId );
+		var preloader = document.getElementById( "stores-index__maploader" );
+		if( preloader ){
+			preloader.remove();
+		}
 	}
+	
+	// Listen to when tiles are loaded
+	var signalLoaded = mapa.getSignals();
+	var loadListenerId = signalLoaded.addListener( window, "tileset-load", onMapLoaded );
 
 	// Urcit posun markeru, pokud je na stejnem miste, jako nejaky jiny
 	// (stejnost na 3 desetinna mista)
@@ -165,8 +163,10 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 		positions.push( pos );
 		markers.push( new SMap.Marker( pos, "storeMarker_" + id, markerOptions ) );
 		markers[ i ].decorate( SMap.Marker.Feature.Card, card );
-		markerLayer.addMarker( markers[ i ] );
 	}
+
+	// Add markers to map
+	markerLayer.addMarker( markers );
 
 	// Klik na marker
 	mapa.getSignals().addListener( this, "marker-click", function( e ) {
@@ -231,9 +231,56 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 	mapa.getSignals().addListener( this, "card-close-click", function() {
 		$( ".store-item" ).removeClass( "active" );
 	} );
+	
+	
+	if( typeof storeLocatorBounds !== "undefined" ) {
 
-	// Spočítat pozici mapy tak, aby značky byly vidět
-	var centerZoom = mapa.computeCenterZoom( positions );
+		// If map bounds in storeLocatorBounds are defined, we use them to calculate center and zoom
+		var bounds = new Array();
+		for ( var i = 0; i < storeLocatorBounds.length; i++ ) {
+			bounds.push( SMap.Coords.fromWGS84( storeLocatorBounds[ i ].lng, storeLocatorBounds[ i ].lat ) );
+		};
+		centerZoom = mapa.computeCenterZoom( bounds );
+	} else {
+
+		// Calculate map center zoom from markers. Fails when there are more than tens of markers
+		centerZoom = mapa.computeCenterZoom( positions );
+	}
+
 	mapa.setCenterZoom( centerZoom[ 0 ], centerZoom[ 1 ] );
+
+	// Clustering
+	if( enableClusters ) {
+
+		// We want clusters to have all the same size
+		// https://napoveda.seznam.cz/forum/threads/71496/1  http://jsfiddle.net/592sxtco/6/ 
+		var radius = function() { return 18; }
+
+		var MyCluster = function( id ) {
+			SMap.Marker.Cluster.call( this, id, { radius:radius } );
+			// this._dom.content.style.backgroundColor = "red";
+			// this._dom.circle.style.borderRadius = 0;
+		};
+		MyCluster.prototype = Object.create( SMap.Marker.Cluster.prototype );
+
+		// set clustering mode depending on zoom
+		// https://napoveda.seznam.cz/forum/threads/65610/1#aid-109404
+		var isCloseView = function ( zoom ) {
+			return zoom >= 17
+		}
+
+		var setClustering = function setClustering( closeView ) {
+			markerLayer.setClusterer( closeView ? null : new SMap.Marker.Clusterer( mapa, clusterDistance, MyCluster ) );
+		}
+		var lastZoom = mapa.getZoom();
+		setClustering( isCloseView( lastZoom ) );
+		mapa.getSignals().addListener( window, "map-redraw", function ( e ) {
+			var zoom = e.target.getZoom();
+			if ( zoom !== lastZoom && isCloseView( zoom ) !== isCloseView( lastZoom ) ) { // closeView treshold crossed
+				setClustering( isCloseView( zoom ) );
+			}
+			lastZoom = zoom;
+		})
+	}
 	
 };

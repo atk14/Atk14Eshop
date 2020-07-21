@@ -26,7 +26,7 @@ CREATE TABLE vouchers (
 	--
 	CONSTRAINT chk_vouchers_discountamount CHECK (discount_amount >= 0.0),
 	CONSTRAINT chk_vouchers_discountpercent CHECK(discount_percent>=0.0 AND discount_percent<=100.0),
-	CONSTRAINT chk_vouchers CHECK(free_shipping OR discount_amount>=0.0 OR discount_percent>=0.0),
+	CONSTRAINT chk_vouchers CHECK(free_shipping OR discount_amount>=0.0 OR discount_percent>=0.0), -- this constraint is dopped in 0159_altering_vouchers.sql
 	--
 	CONSTRAINT fk_vouchers_cr_users FOREIGN KEY (created_by_user_id) REFERENCES users,
 	CONSTRAINT fk_vouchers_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users

@@ -1,0 +1,22 @@
+free_shipping:
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  voucher_code: FREE-SHIPPING
+  free_shipping: true
+
+percentage_discount:
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  voucher_code: PERCENTAGE-DISCOUNT
+  discount_percent: 2
+
+amount_discount:
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  voucher_code: AMOUNT-DISCOUNT
+  discount_percent: 0
+  discount_amount: 5
+
+free_voucher:
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  voucher_code: PROMO
+  discount_percent: 0
+  discount_amount: 0
+  free_shipping: false

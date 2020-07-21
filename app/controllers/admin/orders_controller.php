@@ -114,6 +114,11 @@ class OrdersController extends AdminController {
 				$this->tpl_data["vat_id_validation_url"] = "http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=".urlencode($countryCode)."&number=".urlencode($vatNumber)."&traderName=&traderStreet=&traderPostalCode=&traderCity=&requesterMemberStateCode=&requesterNumber=&action=check&check=Verify";
 			}
 		}
+
+		$has_digital_contents = $this->tpl_data["has_digital_contents"] = !!DigitalContent::GetInstancesByOrder($order);
+		if($has_digital_contents){
+			$this->tpl_data["digital_contents_url"] = $order->canBeFulfilled() ? $this->_link_to(["namespace" => "", "action" => "digital_contents/index", "order_token" => $order->getToken(DigitalContent::GetOrderTokenOptions())],["with_hostname" => $order->getRegion()->getDefaultDomain(), "ssl" => PRODUCTION]) : null;
+		}
 	}
 
 	function edit(){
