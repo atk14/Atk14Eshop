@@ -37,6 +37,7 @@ var applicationScripts = [
 	"public/scripts/utils/filterable_list.js",
 	"public/scripts/utils/handle_suggestions.js",
 	"public/scripts/delivery_service_branch_select.js",
+	"public/scripts/zasilkovna.js",
 	"public/scripts/application.js"
 ];
 

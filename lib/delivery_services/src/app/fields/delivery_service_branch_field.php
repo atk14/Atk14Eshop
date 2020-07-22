@@ -28,7 +28,7 @@ class DeliveryServiceBranchField extends CharField {
 		}
 
 		$branch = null;
-		if ($value && is_null($branch = DeliveryServiceBranch::FindById( (int)$value))) {
+		if ($value && is_null($branch = DeliveryServiceBranch::FindFirst( "delivery_service_id", $this->options["delivery_service_id"], "external_branch_id", $value))) {
 			return array(_("Pobočka nebyla nalezena"), null);
 		}
 		return array(null, $branch);
