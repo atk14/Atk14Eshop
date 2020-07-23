@@ -213,6 +213,13 @@ class DeliveryService extends ApplicationModel {
 		return $this->getName();
 	}
 
+	/**
+	 * Overrides generic getBranchesDownloadUrl()
+	 *
+	 * Adds some generic url processing, such as replacing placeholder for api key.
+	 *
+	 * @return string
+	 */
 	function getBranchesDownloadUrl() {
 		$url = $this->g("branches_download_url");
 		if (preg_match("/({API_KEY})/", $url)) {
@@ -221,13 +228,14 @@ class DeliveryService extends ApplicationModel {
 				$url = preg_replace("/({API_KEY})/", $_sys_param, $url);
 			}
 		}
-		trigger_error($url);
 		return $url;
 	}
 
 	/**
 	 * Looks at the branches download url and checks if it can be used
-	 * In case the keyword is not replaced, it means the api key is not provided so we can not use this service.
+	 *
+	 * In case the keyword is not replaced,
+	 * it means the api key is not provided so we should not use this service and also the delivery_method using this service.
 	 */
 	function canBeUsed() {
 		$download_url = $this->getBranchesDownloadUrl();

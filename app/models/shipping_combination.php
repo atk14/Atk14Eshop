@@ -145,6 +145,8 @@ class ShippingCombination extends ApplicationModel {
 					continue;
 				}
 			}
+			# kontrola, ze dorucovaci sluzba pouzita pro tuto metodu muze byt pouzita
+			# napriklad je zadany api klic (zatim jen toto)
 			if (($ds = $o->getDeliveryService()) && !$ds->canBeUsed()) {
 				continue;
 			}
