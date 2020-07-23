@@ -2,6 +2,9 @@
 class AddDeliveryMethods extends Atk14Migration {
 	function up() {
 
+		if (TEST) {
+			return;
+		}
 		$dm = DeliveryMethod::CreateNewRecord( [
 			"code" => "cp-balikovna",
 			"label_cs" => "Česká Pošta - Balíkovna",

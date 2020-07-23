@@ -212,4 +212,28 @@ class DeliveryService extends ApplicationModel {
 	function toString() {
 		return $this->getName();
 	}
+
+	function getBranchesDownloadUrl() {
+		$url = $this->g("branches_download_url");
+		if (preg_match("/({API_KEY})/", $url)) {
+			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
+			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
+				$url = preg_replace("/({API_KEY})/", $_sys_param, $url);
+			}
+		}
+		trigger_error($url);
+		return $url;
+	}
+
+	/**
+	 * Looks at the branches download url and checks if it can be used
+	 * In case the keyword is not replaced, it means the api key is not provided so we can not use this service.
+	 */
+	function canBeUsed() {
+		$download_url = $this->getBranchesDownloadUrl();
+		if (preg_match("/({API_KEY})/", $download_url)) {
+			return false;
+		}
+		return true;
+	}
 }

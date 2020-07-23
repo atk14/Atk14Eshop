@@ -145,6 +145,9 @@ class ShippingCombination extends ApplicationModel {
 					continue;
 				}
 			}
+			if (($ds = $o->getDeliveryService()) && !$ds->canBeUsed()) {
+				continue;
+			}
 			$delivery_methods[] = $o;
 		}
 
