@@ -233,7 +233,8 @@ class DeliveryService extends ApplicationModel {
 	 * @return string
 	 */
 	function getBranchesDownloadUrl() {
-		$url = $this->getParserClass()::$BRANCHES_DOWNLOAD_URL;
+		$className = $this->getParserClass();
+		$url = $className::$BRANCHES_DOWNLOAD_URL;
 		if (preg_match("/({API_KEY})/", $url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
