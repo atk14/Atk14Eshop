@@ -1,5 +1,3 @@
-ALTER TABLE delivery_services ADD COLUMN branches_download_url VARCHAR(255) NOT NULL;
-
 CREATE SEQUENCE seq_delivery_service_branches;
 
 CREATE TABLE delivery_service_branches (

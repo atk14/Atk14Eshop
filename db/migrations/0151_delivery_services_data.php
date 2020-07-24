@@ -10,17 +10,14 @@ class DeliveryServicesData extends Atk14Migration {
 			[
 				"code" => "cp-balik-na-postu",
 				"name" => "Česká Pošta - Balík na poštu",
-				"branches_download_url" => "http://napostu.ceskaposta.cz/vystupy/napostu.xml",
 			],
 			[
 				"code" => "cp-balikovna",
 				"name" => "Česká Pošta - Balíkovna",
-				"branches_download_url" => "http://napostu.ceskaposta.cz/vystupy/balikovny.xml",
 			],
 			[
 				"code" => "zasilkovna",
 				"name" => "Zásilkovna",
-				"branches_download_url" => "https://www.zasilkovna.cz/api/v3/{API_KEY}/branch.xml",
 			],
 		];
 

@@ -6,6 +6,8 @@ use DeliveryService\BranchParser;
 
 class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
+	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
+
 	function getExternalBranchId() {
 		return (string)$this->branch_element->id;
 	}

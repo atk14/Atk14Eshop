@@ -6,6 +6,8 @@ use DeliveryService\BranchParser;
 
 class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
+	static $BRANCHES_DOWNLOAD_URL = "http://napostu.ceskaposta.cz/vystupy/napostu.xml";
+
 	function getExternalBranchId() {
 		return trim((string)$this->branch_element->PSC);
 	}

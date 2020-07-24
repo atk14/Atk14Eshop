@@ -91,6 +91,20 @@ class DeliveryService extends ApplicationModel {
 		));
 	}
 
+	function setParserClass($parser_class) {
+		$this->parser_class = $parser_class;
+	}
+
+	function getParserClass() {
+		if (isset($this->parser_class)) {
+			return $this->parser_class;
+		}
+		$class_name = new String4($this->getCode());
+		$class_name->replace("-", "_");
+		$this->parser_class = $parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
+		return $parserClassName;
+	}
+
 	static function ReadBranchesData($code, $options=[], &$error_message=null) {
 		if (is_null($delivery_service = static::FindFirst("code", $code))) {
 			return false;
@@ -158,9 +172,7 @@ class DeliveryService extends ApplicationModel {
 
 		$current_branch_ids = $this->dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
-		$class_name = new String4($this->getCode());
-		$class_name->replace("-", "_");
-		$parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
+		$parserClassName = $this->getParserClass();
 
 		$_branch_element_name = sprintf("//default:%s", $parserClassName::GetXMLBranchName());
 
@@ -221,7 +233,7 @@ class DeliveryService extends ApplicationModel {
 	 * @return string
 	 */
 	function getBranchesDownloadUrl() {
-		$url = $this->g("branches_download_url");
+		$url = $this->getParserClass()::$BRANCHES_DOWNLOAD_URL;
 		if (preg_match("/({API_KEY})/", $url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {

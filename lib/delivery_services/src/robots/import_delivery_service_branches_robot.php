@@ -9,7 +9,7 @@
 class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 	function run() {
 		DeliveryService::UpdateBranches("zasilkovna", ["logger" => $this->logger]);
-		DeliveryService::UpdateBranches("cp-balik_na_postu", ["logger" => $this->logger]);
+		DeliveryService::UpdateBranches("cp-balik-na-postu", ["logger" => $this->logger]);
 		DeliveryService::UpdateBranches("cp-balikovna", ["logger" => $this->logger]);
 	}
 }

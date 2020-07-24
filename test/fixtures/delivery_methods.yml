@@ -24,3 +24,9 @@ post_cod:
   price: 120
   price_incl_vat: 120
 
+zasilkovna:
+  code: "zasilkovna"
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  price: 70
+  price_incl_vat: 70
+  delivery_service_id: "<?= $delivery_services["zasilkovna"]->getId() ?>"
