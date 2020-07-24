@@ -1,0 +1,47 @@
+posta_12000:
+  delivery_service_id: "<?= $delivery_services["posta"]->getId(); ?>"
+  external_branch_id: 12000
+  name: "Pošta Praha 2"
+  place: Praha 2
+  street: Moravská 1530/9
+  city: Praha
+  district: Hlavní město Praha
+  zip: 12000
+  country: CZ
+  full_address: "Moravská 1530/9, Vinohrady, 12000, Praha"
+
+posta_13000:
+  delivery_service_id: "<?= $delivery_services["posta"]->getId(); ?>"
+  external_branch_id: 13000
+  name: "Pošta Praha 3"
+  place: Praha 3
+  street: Olšanská 38/9
+  city: Praha
+  district: Hlavní město Praha
+  zip: 13000
+  country: CZ
+  full_address: "Olšanská 38/9, Žižkov, 13000, Praha"
+
+zasilkovna_1:
+  delivery_service_id: "<?= $delivery_services["zasilkovna"]->getId(); ?>"
+  external_branch_id: 1
+  name: "Zásilkovna první"
+  place: První pražská Zásilkovna
+  street: Zásilková I.
+  city: Praha
+  district: Hlavní město Praha
+  zip: 12345
+  country: CZ
+  full_address: "Praha, Zásilková I. (První pražská Zásilkovna)"
+
+zasilkovna_2:
+  delivery_service_id: "<?= $delivery_services["zasilkovna"]->getId(); ?>"
+  external_branch_id: 2
+  name: "Zásilkovna druhá"
+  place: Druhá pražská Zásilkovna
+  street: Zásilková II.
+  city: Praha
+  district: Hlavní město Praha
+  zip: 12345
+  country: CZ
+  full_address: "Praha, Zásilková II. (Druhá pražská Zásilkovna)"
