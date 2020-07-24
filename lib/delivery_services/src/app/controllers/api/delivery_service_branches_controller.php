@@ -15,7 +15,7 @@ class DeliveryServiceBranchesController extends ApiController {
 				$obj_dump = $_office->toArray();
 				# label pro naseptavadlo, ktery chceme vzdy ve stejnem formatu a udaje chceme mit v urcitem poradi
 				$ar = [
-					"value" => $obj_dump["id"],
+					"value" => $obj_dump["external_branch_id"],
 					"label" => sprintf("%s, %s - %s", $obj_dump["zip"], $obj_dump["full_address"], $obj_dump["place"]),
 					"opening_hours" => $obj_dump["opening_hours"],
 				];
