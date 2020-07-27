@@ -27,6 +27,7 @@
         "yarri/markdown-manual.mdbook": "^0.2.1",
         "atk14/vlnka": "^1.1",
         "atk14/company-number-field": "^0.1",
-        "aristath/ari-color": "^1.1.1"
+        "aristath/ari-color": "^1.1.1",
+        "mysutka/product_feed_generator": "^0.1.7"
     }
 }

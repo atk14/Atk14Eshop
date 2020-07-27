@@ -1,0 +1,1 @@
+../vendor/mysutka/product_feed_generator/src/robots/product_feed_generator_robot.php
