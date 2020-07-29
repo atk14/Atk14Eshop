@@ -55,6 +55,8 @@
 					{/foreach}
 				{/if}
 
+				{render partial="shared/langswitch_navbar"}
+
 				</ul>
 				
 				<hr class="mobile-separator">
