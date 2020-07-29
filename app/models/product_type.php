@@ -7,6 +7,12 @@ class ProductType extends ApplicationModel implements Translatable, iSlug, Ranka
 		return $this->g("name_$lang");
 	}
 
+	function getSlugSegment(){
+		// there must be no uniqueness constraint,
+		// so every record has its own segment
+		return (string)$this->getId();
+	}
+
 	function setRank($rank){
 		return $this->_setRank($rank);
 	}

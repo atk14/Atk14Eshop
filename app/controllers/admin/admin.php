@@ -26,7 +26,7 @@ class AdminController extends ApplicationBaseController{
 
 		foreach(array(
 			array(_("Welcome screen"),			"main"),
-			array(_("Orders"),							"orders,order_order_statuses"),
+			array(_("Orders"),							"orders,order_order_statuses,order_items,order_campaigns,order_vouchers"),
 			array(_("Articles"),						"articles"),
 			array(_("Pages"),								"pages"),
 			array(_("Link lists"),					"link_lists,link_list_items"),
@@ -39,7 +39,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),
 			array(_("Brands"),							"brands"),
-			array(_("Collections"),					"collections"),
+			// array(_("Collections"),					"collections"), // Collections are obsolete in Atk14Eshop
 			array(_("Stores"),							"stores"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
 			array(_("Pricelists"),					"pricelists,pricelist_items"),
@@ -107,6 +107,19 @@ class AdminController extends ApplicationBaseController{
 				$this->_link_to(array("action" => "categories/edit", "id" => $a))
 			);
 		}
+	}
+
+	function _add_order_to_breadcrumb($order){
+		if(!$order){ return; }
+
+		$this->breadcrumbs[] = [
+			sprintf(_("Objednávka %s"),$order->getOrderNo()),
+			$this->_link_to(["action" => "orders/detail", "id" => $order])
+		];
+		$this->breadcrumbs[] = [
+			sprintf(_("Editace objednávky %s"),$order->getOrderNo()),
+			$this->_link_to(["action" => "orders/edit", "id" => $order])
+		];
 	}
 
 	/**

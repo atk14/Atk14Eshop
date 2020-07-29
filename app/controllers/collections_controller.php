@@ -11,6 +11,9 @@ class CollectionsController extends ApplicationController{
 	}
 
 	function _before_filter(){
+		$this->_execute_action("error404"); // Collections are obsolete in Atk14Eshop
+		return;
+
 		$this->breadcrumbs[] = array(_("Collections"),$this->_link_to("index"));
 		if(in_array($this->action,array("detail"))){
 			$this->_find("collection");

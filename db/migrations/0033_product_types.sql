@@ -25,8 +25,8 @@ INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('product_ty
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('product_types',1,'en','page_title_pattern','%product_name%');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('product_types',1,'cs','page_title_pattern','%product_name%');
 --
-INSERT INTO slugs (table_name,record_id,lang,slug) VALUES('product_types',1,'en','product');
-INSERT INTO slugs (table_name,record_id,lang,slug) VALUES('product_types',1,'cs','produkt');
+INSERT INTO slugs (table_name,record_id,lang,slug,segment) VALUES('product_types',1,'en','product','1');
+INSERT INTO slugs (table_name,record_id,lang,slug,segment) VALUES('product_types',1,'cs','produkt','1');
 
 ALTER TABLE cards ADD product_type_id INT NOT NULL DEFAULT 1;
 ALTER TABLE cards ADD CONSTRAINT fk_cards_producttypes FOREIGN KEY (product_type_id) REFERENCES product_types;

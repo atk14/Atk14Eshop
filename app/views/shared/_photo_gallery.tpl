@@ -21,7 +21,7 @@
 		<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 			{foreach $images as $image}
 				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
 						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
 					</a>
 					<figcaption>

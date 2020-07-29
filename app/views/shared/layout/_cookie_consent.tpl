@@ -16,7 +16,8 @@ window.addEventListener( "load", function() {
 			"dismiss": "{t}Souhlasím{/t}",
 			"link": "{t}Více informací{/t}",
 			"href": "{"privacy_policy"|link_to_page}"
-		}
+		},
+		"container": document.getElementById("js--cookieconsent-container")
 	} ); 
 } );
 {/javascript_tag}

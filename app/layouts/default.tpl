@@ -100,8 +100,15 @@
 		
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}
+		{render partial="shared/cookieconsent_container"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+		
+		{if $controller=="styleguides"}
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+		{/if}
 	</body>
 </html>

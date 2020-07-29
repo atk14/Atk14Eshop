@@ -9,6 +9,7 @@ config/.secret_token.txt
 config/secret_token.txt
 public/dist
 public/admin/dist
+public/product_feeds
 vendor/*
 composer.lock
 package-lock.json

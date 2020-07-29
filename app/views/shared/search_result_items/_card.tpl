@@ -18,7 +18,7 @@
 		<div class="flags">		
 			{if $starting_price && $starting_price->discounted()}
 				<div class="product__flag product__flag--sale product__flag--lg">
-					<span class="product__flag__title">Sleva</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
+					<span class="product__flag__title">{t}Sleva{/t}</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
 				</div>
 			{/if}
 		</div>
@@ -41,10 +41,10 @@
 			
 		</div>
 		<div class="search-results-item--actions">
-			{a action="cards/detail" id=$card _class="btn btn-primary btn-sm"}{t}Informace o produktu{/t} <i class="icon ion-ios-arrow-forward"></i>{/a}
+			{a action="cards/detail" id=$card _class="btn btn-primary btn-sm"}{t}Zobrazit detaily{/t} <i class="icon ion-ios-arrow-forward"></i>{/a}
 		</div>
 	</div>
 	<div class="search-results-item--tag">
-		{t}Produkt{/t}
+		{$card->getProductType()|capitalize} {* e.g. Product, Book...*}
 	</div>
 </li>

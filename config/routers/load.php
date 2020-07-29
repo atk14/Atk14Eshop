@@ -16,7 +16,7 @@ Atk14Url::AddRouter("StyleguidesRouter");
 Atk14Url::AddRouter("CardsRouter");
 Atk14Url::AddRouter("CategoriesRouter");
 Atk14Url::AddRouter("BrandsRouter");
-Atk14Url::AddRouter("CollectionsRouter");
+//Atk14Url::AddRouter("CollectionsRouter"); // Collections are obsolete in Atk14Eshop
 Atk14Url::AddRouter("StoresRouter");
 
 Atk14Url::AddRouter("DigitalContentsRouter");
