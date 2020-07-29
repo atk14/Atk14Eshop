@@ -226,6 +226,7 @@
 				$( "html,body" ).animate( { scrollTop: $el.offset().top }, "slow" );
 			}
 		} else {
+			var origOffset = $( window ).scrollTop();
 
 			// Appending new items either to a masonry or to a classic list
 			if ( this.$list.hasClass( "masonry__items" ) ) {
@@ -236,10 +237,12 @@
 				);
 				$masonry.find( ".masonry__item:not(.custom-marker) input[type='number']" ).stepper();
 				$masonry.find( ".masonry__item" ).removeClass( "custom-marker" );
-			} else {
-				this.$list.append( data.items );
+			} else {				
+				$( data.items ).hide().appendTo( this.$list ).fadeIn( "slow" );
 			}
 			this.count += data.count;
+
+			$( "html,body" ).animate( { scrollTop: origOffset }, 0 );
 
 			if ( options.addToHistory ) {
 				window.history.replaceState(
