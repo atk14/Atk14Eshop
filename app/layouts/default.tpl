@@ -23,7 +23,7 @@
  * $DEVELOPMENT
  *}
 <!DOCTYPE html>
-<html lang="{$lang}" class="no-js">
+<html lang="{$lang}" prefix="og: http://ogp.me/ns#" class="no-js" >
 
 	<head>
 		{render partial="shared/layout/performance_optimizations"}
@@ -42,6 +42,7 @@
 		<meta name="description" content="{$page_description}">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+		{meta14}
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
 		{/if}

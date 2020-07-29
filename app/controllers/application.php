@@ -82,6 +82,10 @@ class ApplicationController extends ApplicationBaseController{
 		// Here, the $this->lazy_loader can be filled up with something
 
 		parent::_application_before_filter();
+		$this->meta14->setProperty("og:title", ATK14_APPLICATION_NAME);
+		$this->meta14->setProperty("og:type","website");
+		$this->meta14->addProperty("og:url", $this->request->getUrl());
+		$this->meta14->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
 	}
 
 	// Navigace u vytvareni objednavky

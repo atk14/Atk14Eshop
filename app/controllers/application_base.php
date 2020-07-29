@@ -99,6 +99,9 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+		if(!isset($this->tpl_data["meta14"]) && isset($this->meta14)){
+			$this->tpl_data["meta14"] = $this->meta14;
+		}
 
 		// data for language swith, see app/views/shared/_langswitch.tpl
 		$languages = array();
@@ -177,6 +180,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
+		$this->meta14 = new Meta14();
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
