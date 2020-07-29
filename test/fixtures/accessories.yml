@@ -1,0 +1,3 @@
+card1_accessory1:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  accessory_id: "<?= $cards["book"]->getId() ?>"

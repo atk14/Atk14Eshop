@@ -1,4 +1,4 @@
-{assign var=accessories value=$card->getAccessories()}
+{assign var=accessories value=$card->getViewableAccessories()}
 
 {if $accessories}
 	<section class="linked-cards linked-cards--accessories">
