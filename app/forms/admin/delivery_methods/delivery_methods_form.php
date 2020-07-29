@@ -74,6 +74,15 @@ class DeliveryMethodsForm extends AdminForm {
 			"help_text" => _("Pro systémové účely. Unikátní kód."),
 		));
 
+		$this->add_field("delivery_service_id", new DeliveryServiceField(array(
+			"label" => _("Služba pro obsluhu výdejních míst"),
+			"required" => false,
+			"help_text" => join("<br>", [
+				_("Služba poskytující možnost výběru výdejního místa"),
+				_("Může vyžadovat úpravu dalších nastavení v systému"),
+			]),
+		)));
+
 		$this->add_field("logo", new PupiqImageField(array(
 			"label" => _("Logo"),
 			"initial" => false,
