@@ -26,5 +26,7 @@ interface iDeliveryServiceBranchParser {
 	public function getOpeningHours();
 	public function getLatitude();
 	public function getLongitude();
+
+	static function GetRequirements();
 }
 

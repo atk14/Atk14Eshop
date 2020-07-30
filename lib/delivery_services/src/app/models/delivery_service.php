@@ -257,4 +257,10 @@ class DeliveryService extends ApplicationModel {
 		}
 		return true;
 	}
+
+	function getRequirements() {
+		$className = $this->getParserClass();
+		$requirements = $className::GetRequirements();
+		return $requirements;
+	}
 }

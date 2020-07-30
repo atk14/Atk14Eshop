@@ -121,4 +121,8 @@ class CpBalikovna extends DeliveryServiceBranchData implements iDeliveryServiceB
 	static function GetXMLBranchName() {
 		return "row";
 	}
+
+	static function GetRequirements() {
+		return null;
+	}
 }

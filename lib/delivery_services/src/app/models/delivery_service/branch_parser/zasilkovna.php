@@ -115,4 +115,10 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	static function GetXMLBranchName() {
 		return "branch";
 	}
+
+	static function GetRequirements() {
+		return [
+			"API_KEY" => "delivery_services.zasilkovna.api_key",
+		];
+	}
 }

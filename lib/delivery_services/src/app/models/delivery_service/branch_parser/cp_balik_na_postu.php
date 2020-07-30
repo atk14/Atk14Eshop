@@ -121,4 +121,8 @@ class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServi
 	static function GetXMLBranchName() {
 		return "row";
 	}
+
+	static function GetRequirements() {
+		return null;
+	}
 }

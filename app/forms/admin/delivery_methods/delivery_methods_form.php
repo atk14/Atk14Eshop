@@ -75,12 +75,7 @@ class DeliveryMethodsForm extends AdminForm {
 		));
 
 		$this->add_field("delivery_service_id", new DeliveryServiceField(array(
-			"label" => _("Služba pro obsluhu výdejních míst"),
 			"required" => false,
-			"help_text" => join("<br>", [
-				_("Služba poskytující možnost výběru výdejního místa"),
-				_("Může vyžadovat úpravu dalších nastavení v systému"),
-			]),
 		)));
 
 		$this->add_field("logo", new PupiqImageField(array(
@@ -103,7 +98,7 @@ class DeliveryMethodsForm extends AdminForm {
 
 		if(in_array("personal_pickup",$keys) && in_array("personal_pickup_on_store_id",$keys)){
 			if($d["personal_pickup_on_store_id"] && !$d["personal_pickup"]){
-				$this->set_error("personal_pickup",_("Pokud je vybrába prodejna pro osbní odběr, zatrhněte i osobní odběr"));
+				$this->set_error("personal_pickup",_("Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"));
 			}
 		}
 
