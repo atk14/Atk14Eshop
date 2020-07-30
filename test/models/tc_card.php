@@ -79,6 +79,20 @@ class TcCard extends TcBase {
 		$this->assertFalse($card->canBeSwitchedToNonVariantMode());
 	}
 
+	function test_isViewableInEshop(){
+		$coffee = $this->cards["coffee"];
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$coffee->s("visible",false);
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$coffee->s("deleted",true);
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$price_rounding = Product::FindByCode("price_rounding");
+		$this->assertEquals(false,$price_rounding->getCard()->isViewableInEshop());
+	}
+
 	function test_canBeOrdered(){
 		$tea = $this->cards["tea"];
 		$this->assertEquals(true,$tea->canBeOrdered());

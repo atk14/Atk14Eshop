@@ -447,7 +447,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function isVisible(){ return $this->getVisible(); }
 
 	function isViewableInEshop(){
-		if($this->isDeleted()){ return false; }
+		//if($this->isDeleted()){ return false; }
 
 		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
 
@@ -456,7 +456,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
 				return false;
 			}
-			if($product->isDeleted()){ return false; }
+			//if($product->isDeleted()){ return false; }
 		}
 
 		return true;
