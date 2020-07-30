@@ -15,7 +15,11 @@
 		{/capture}
 		{render partial="shared/layout/content_header" title=$card->getName() teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author}
 
-		{render partial="products_to_basket"}
+		{if !$card->isVisible() || $card->isDeleted()}
+			{render partial="sale_is_over"}
+		{else}
+			{render partial="products_to_basket"}
+		{/if}
 		
 		<div class="product-info">
 		{render partial="categories"}
