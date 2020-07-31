@@ -1,23 +1,39 @@
 <?php
 function smarty_function_meta14($params, $template) {
 	$smarty = atk14_get_smarty_from_template($template);
-	$meta = $smarty->getTemplateVars("meta14");
-	if(!$meta) {
+	$header = $smarty->getTemplateVars("head_tags_14");
+	if(!$header) {
 		return null;
 	}
 
 	$out = [];
-	foreach($meta->getItems() as $type => $i) {
-		foreach($i as $key => $values) {
-			if (is_array($values)) {
-				foreach($values as $value) {
-					$out[] = sprintf('<meta %s="%s" content="%s">', $type, $key, $value);
-				}
-			} else {
-				$out[] = sprintf('<meta %s="%s" content="%s">', $type, $key, $values);
+	DEVELOPMENT && ($out[] = "<!-- Head tags from helper - START -->\n");
+	# name, property, http-equiv
+	foreach($header->getItems() as $type => $i) {
+		# type name like google-site-verification in <meta name>, og:title in <meta property>
+		foreach($i as $key => $elements) {
+			# single type meta - make it an array so we can loop it
+			if (!is_array($elements)) {
+				$elements = [$elements];
+			}
+
+			foreach($elements as $element) {
+				$out[] = (string)$element;
 			}
 		}
 	}
+
+	foreach($header->getLinkTags() as $link_type => $links) {
+			if (!is_array($links)) {
+				$links = [$links];
+			}
+		foreach($links as $link) {
+			$out[] = (string)$link;
+		}
+	}
+
+	DEVELOPMENT && ($out[] = "\n<!-- Head tags from helper - END -->\n");
+
 	$out = join("\n", $out);
 	DEVELOPMENT && trigger_error($out);
 	return $out;

@@ -82,10 +82,16 @@ class ApplicationController extends ApplicationBaseController{
 		// Here, the $this->lazy_loader can be filled up with something
 
 		parent::_application_before_filter();
-		$this->meta14->setProperty("og:title", ATK14_APPLICATION_NAME);
-		$this->meta14->setProperty("og:type","website");
-		$this->meta14->addProperty("og:url", $this->request->getUrl());
-		$this->meta14->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
+		# adding various meta tags into head
+		$this->head_tags_14->addHttpEquiv("content-language", $this->lang);
+		$this->head_tags_14->setProperty("og:title", ATK14_APPLICATION_NAME);
+		$this->head_tags_14->setProperty("og:type","website");
+		$this->head_tags_14->addProperty("og:url", $this->request->getUrl());
+		$this->head_tags_14->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
+		$this->head_tags_14->setCharsetMeta(DEFAULT_CHARSET);
+		# adding link tags into head
+#		$this->head_tags_14->addLinkTag("preconnect", ["href" => "//i.pupiq.net"]);
+#		$this->head_tags_14->addLinkTag("preconnect", ["href" => "https://fonts.gstatic.com/"]);
 	}
 
 	// Navigace u vytvareni objednavky

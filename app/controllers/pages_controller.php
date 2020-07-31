@@ -12,6 +12,10 @@ class PagesController extends ApplicationController {
 		$this->tpl_data["creator"] = Creator::FindFirst("page_id",$this->page);
 
 		$this->_add_page_to_breadcrumbs($this->page);
+
+		if (!$this->page->isIndexable()) {
+			$this->head_tags_14->setMeta("robots", "noindex,noarchive");
+		}
 	}
 
 	function _before_filter(){

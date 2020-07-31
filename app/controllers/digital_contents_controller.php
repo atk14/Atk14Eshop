@@ -26,6 +26,8 @@ class DigitalContentsController extends ApplicationController {
 		$this->tpl_data["order"] = $order;
 		$this->tpl_data["digital_contents"] = $digital_contents;
 		$this->tpl_data["digital_contents_by_products"] = $digital_contents_by_products;
+
+		$this->head_tags_14->setMeta("robots", "noindex,noarchive");
 	}
 
 	function download(){

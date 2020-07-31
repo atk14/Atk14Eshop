@@ -33,6 +33,10 @@ class MainController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"limit" => 4,
 		]);
+
+		if ($page && !$page->isIndexable()) {
+			$this->head_tags_14->setMeta("robots", "noindex,noarchive");
+		}
 	}
 
 	function robots_txt(){

@@ -3,6 +3,7 @@ class TestsController extends ApplicationController {
 
 	function index(){
 		$this->page_title = "Testování komponent";
+		$this->head_tags_14->setMeta("robots", "noindex,noarchive");
 	}
 
 	function modal(){

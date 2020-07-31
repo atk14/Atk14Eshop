@@ -62,9 +62,4 @@
 		</div>
 	</section>
 {/if}
-	
-{if $page  && !$page->isIndexable()}
-	{content for=head}
-		<meta name="robots" content="noindex,noarchive">
-	{/content}
-{/if}
+

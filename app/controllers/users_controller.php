@@ -42,6 +42,7 @@ class UsersController extends ApplicationController{
 
 	function created(){
 		$this->page_title = _("Thank you for your registration!");
+		$this->head_tags_14->setMeta("robots", "noindex,noarchive");
 	}
 
 	function edit(){

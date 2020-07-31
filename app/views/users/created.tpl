@@ -20,7 +20,3 @@
 
 {/if}
 
-
-{content for=head}
-	<meta name="robots" content="noindex,noarchive">
-{/content}
