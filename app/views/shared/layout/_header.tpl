@@ -42,7 +42,6 @@
 						{/if}
 				{else}
 					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
-					<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
 				{/if}
 
 				{if sizeof(Region::GetInstances())>1}
