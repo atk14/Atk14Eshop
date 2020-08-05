@@ -56,7 +56,7 @@
 						</li>
 						{if $logged_user->isAdmin()}
 							<li class="nav-item">
-								{a action="main/index" namespace="admin" _class="nav-link"}{t}Administration{/t}{/a}
+								{a action="main/index" namespace="admin" _class="nav-link"}{!"wrench"|icon} {t}Administration{/t}{/a}
 							</li>
 						{/if}
 				{else}
@@ -82,11 +82,7 @@
 			{!$basket_info}
 			</div>
 		</div>
-	</nav>
-	{*<div class="logospace">
-		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/atk14-eshop.svg" alt="{$appname}" width="220" height="220" class="img-fluid">{/a}
-	</div>*}
-	
+	</nav>	
 	
 	<div class="container-fluid header-main__mainbar">
 		<div class="mainbar__controls">
@@ -109,7 +105,7 @@
 						</li>
 						{if $logged_user->isAdmin()}
 							<li class="nav-item">
-								{a action="main/index" namespace="admin" _class="nav-link"}{t}Administration{/t}{/a}
+								{a action="main/index" namespace="admin" _class="nav-link"}{!"wrench"|icon} {t}Administration{/t}{/a}
 							</li>
 						{/if}
 					{else}

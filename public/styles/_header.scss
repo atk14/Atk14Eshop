@@ -2,6 +2,9 @@
 $navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
 
+// Hide navbar above navbar breakpoint
+$hide_navbar_above_breakpoint: true;
+
 // When mainbar controls disappear
 $mainbar_controls_breakpoint_upper: md;
 $mainbar_controls_breakpoint_lower: sm;
@@ -10,7 +13,7 @@ $mainbar_controls_breakpoint_lower: sm;
 
 
 ol.breadcrumb {
-	border-bottom: 1px solid $gray-300;
+	border-bottom: 1px solid $border-color;
 }
 
 .header-main {
@@ -46,7 +49,7 @@ ol.breadcrumb {
 		animation-iteration-count: 1;
 	}
 
-
+	// Top navbar, also mobile menu
 	.nav-top {
 		padding-top: 0;
 		padding-bottom: 0;
@@ -248,11 +251,15 @@ ol.breadcrumb {
 
 		}
 
-		@include media-breakpoint-up($navbar_breakpoint_upper){
-			display: none;
+		@if $hide_navbar_above_breakpoint {
+			// Hide navbar on larger screens (above navbar breakpoint)
+			@include media-breakpoint-up($navbar_breakpoint_upper){
+				display: none;
+			}
 		}
 	}
 
+	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
 	.navbar-main {
 		text-transform: uppercase;
 		font-weight: 600;
@@ -317,6 +324,7 @@ ol.breadcrumb {
 		}
 	}
 
+	// Space for logo
 	.logospace {
 		margin: $grid-gutter-width/2 $grid-gutter-width/2;
 		display: flex;
@@ -326,8 +334,11 @@ ol.breadcrumb {
 		}
 	}
 
-
+	// Search and user and language links - hidden on mobile (on mobile items are visible in top nav)
 	&__mainbar {
+		
+		$mainbar-link-padding-x: $nav-link-padding-x;
+		
 		//outline: 1px dotted silver;
 		display: flex;
 		justify-content: space-between;
@@ -356,6 +367,8 @@ ol.breadcrumb {
 				align-items: center;
 				form {
 					margin: 0;
+					padding-left: $mainbar-link-padding-x;
+					padding-right: $mainbar-link-padding-x;
 				}
 			}
 			a {
@@ -363,6 +376,17 @@ ol.breadcrumb {
 			}
 			ul.nav {
 				justify-content: flex-end;
+				li.nav-item {
+					a.nav-link {
+						padding-left: $mainbar-link-padding-x;
+						padding-right: $mainbar-link-padding-x;
+					}
+					&:last-child {
+						a.nav-link {
+							padding-right: 0;
+						}
+					}
+				}
 			}
 			@include media-breakpoint-down($mainbar_controls_breakpoint_lower){
 				display: none;
