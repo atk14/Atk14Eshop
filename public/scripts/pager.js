@@ -237,7 +237,7 @@
 				);
 				$masonry.find( ".masonry__item:not(.custom-marker) input[type='number']" ).stepper();
 				$masonry.find( ".masonry__item" ).removeClass( "custom-marker" );
-			} else {				
+			} else {
 				$( data.items ).hide().appendTo( this.$list ).fadeIn( "slow" );
 			}
 			this.count += data.count;
