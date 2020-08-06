@@ -193,7 +193,15 @@
 		if ( data.pageSize ) {
 			this.pageSize = data.pageSize;
 		}
+
+		var $items = $( data.items );
 		var $masonry = this.$list.closest( ".masonry" );
+		var origOffset = $( window ).scrollTop();
+		var $body = $( "body" );
+		var origOverflowAnchor = $body.css( "overflow-anchor" );
+
+		$body.css( "overflow-anchor", "none" );
+
 		if ( data.offset !== this.offset + this.count ||
 			   data.count + this.count > this.sectionSize ||
 				 data.forceReplace
@@ -204,12 +212,12 @@
 				$masonry.find( ".masonry__item" ).addClass( "d-none" );
 				$masonry.colcade(
 					"prepend",
-					$( data.items ).filter( ".masonry__item" )
+					$items.filter( ".masonry__item" )
 				);
 				$masonry.find( ".masonry__item.d-none" ).remove();
 				$masonry.find( "input[type='number']" ).stepper();
 			} else {
-				this.$list.html( data.items );
+				this.$list.html( $items );
 			}
 
 			this.offset = data.offset;
@@ -226,23 +234,27 @@
 				$( "html,body" ).animate( { scrollTop: $el.offset().top }, "slow" );
 			}
 		} else {
-			var origOffset = $( window ).scrollTop();
 
 			// Appending new items either to a masonry or to a classic list
 			if ( this.$list.hasClass( "masonry__items" ) ) {
 				$masonry.find( ".masonry__item" ).addClass( "custom-marker" );
 				this.$list.closest( ".masonry" ).colcade(
 					"append",
-					$( data.items ).filter( ".masonry__item" )
+					$items.filter( ".masonry__item" )
 				);
 				$masonry.find( ".masonry__item:not(.custom-marker) input[type='number']" ).stepper();
 				$masonry.find( ".masonry__item" ).removeClass( "custom-marker" );
-			} else {				
-				$( data.items ).hide().appendTo( this.$list ).fadeIn( "slow" );
+			} else {
+				$items.hide().appendTo( this.$list ).fadeIn( "slow" );
 			}
+
 			this.count += data.count;
 
-			$( "html,body" ).animate( { scrollTop: origOffset }, 0 );
+			// This is a fallback when setting the overflow-anchor doesn't help.
+			// There is a small delay to make sure that the Colcade finished its job.
+			setTimeout( function() {
+				$( "html,body" ).scrollTop( origOffset );
+			}, 10 ); // very soon
 
 			if ( options.addToHistory ) {
 				window.history.replaceState(
@@ -261,6 +273,8 @@
 				this.addToUrl( this.url, { offset: this.offset - pSize, limit: pSize } ) : "" );
 		this.updateNextButton();
 		this.updateRemains();
+
+		$body.css( "overflow-anchor", origOverflowAnchor );
 
 		/**
 		 * Pustime si callback, pokud jsme si ho s daty poslali
