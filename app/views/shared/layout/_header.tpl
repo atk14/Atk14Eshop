@@ -63,15 +63,7 @@
 					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
 				{/if}
 
-				{if sizeof(Region::GetInstances())>1}
-					{foreach Region::GetInstances() as $region}
-						<li class="nav-item{if $region->getId()==$current_region->getId()} active{/if}">
-							{a namespace="" action="regions/set_region" id=$region _class="nav-link" _method="post" _rel="nofollow"}
-								{$region->getName()}
-							{/a}
-						</li>
-					{/foreach}
-				{/if}
+				{render partial="shared/regionswitch_navbar"}
 
 				{render partial="shared/langswitch_navbar"}
 
@@ -112,15 +104,7 @@
 						<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
 					{/if}
 
-					{if sizeof(Region::GetInstances())>1}
-						{foreach Region::GetInstances() as $region}
-							<li class="nav-item{if $region->getId()==$current_region->getId()} active{/if}">
-								{a namespace="" action="regions/set_region" id=$region _class="nav-link" _method="post" _rel="nofollow"}
-									{$region->getName()}
-								{/a}
-							</li>
-						{/foreach}
-					{/if}
+					{render partial="shared/regionswitch_navbar"}
 
 					{render partial="shared/langswitch_navbar"}
 
