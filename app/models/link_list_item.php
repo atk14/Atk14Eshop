@@ -68,6 +68,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 		if(is_a($target,"Category")){
 			foreach($target->getVisibleChildCategories() as $chi){
+				if($chi->isFilter()){ continue; }
 				$path = $target->getPath()."/".$chi->getSlug(); // This must work for aliases
 				$menu->addItem($chi->getName(),Atk14Url::BuildLink(["namespace" => "", "action" => "categories/detail", "path" => $path]));
 			}
