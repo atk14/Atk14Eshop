@@ -2,19 +2,19 @@
 class TestingRegionsMigration extends ApplicationMigration {
 
 	function up(){
-		if(PRODUCTION){ return; }
+		if(!DEVELOPMENT){ return; }
 
 		($default = Region::FindByCode("DEFAULT")) &&
 		$default->s([
-			"name_en" => "CZ",
-			"name_cs" => "ČR",
+			"name_en" => "Czechia",
+			"name_cs" => "Česká republika",
 		]);
 
 		($sk = Region::FindByCode("SK")) ||
 		($sk = Region::CreateNewRecord([
 			"code" => "SK",
-			"name_en" => "SK",
-			"name_cs" => "SK",
+			"name_en" => "Slovakia",
+			"name_cs" => "Slovensko",
 			"languages" => '["cs","en"]',
 			"currencies" => '["EUR"]',
 			"delivery_countries" => '["SK"]',
