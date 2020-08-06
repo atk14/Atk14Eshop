@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-07 10:51+0200\n"
-"PO-Revision-Date: 2020-07-07 10:58+0200\n"
+"POT-Creation-Date: 2020-08-06 14:57+0200\n"
+"PO-Revision-Date: 2020-08-06 14:58+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -61,7 +61,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:78
+#: ../app/controllers/password_recoveries_controller.php:81
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -237,6 +237,9 @@ msgstr "Tento produkt je vyprodán"
 msgid "Related products"
 msgstr "Související produkty"
 
+msgid "Je nám líto, ale prodej již skončil."
+msgstr "Je nám líto, ale prodej již skončil."
+
 msgid "Products"
 msgstr "Produkty"
 
@@ -363,8 +366,11 @@ msgstr "Prosím kontaktujte mě."
 msgid "The message has been sent. Thank you!"
 msgstr "Zpráva byla odeslána. Děkujeme!"
 
-msgid "Have you forgotten password?"
-msgstr "Zapomněl jste heslo?"
+msgid "New Registration"
+msgstr "Nová registrace"
+
+msgid "Forgotten password"
+msgstr "Zapomenuté heslo"
 
 msgid "You are signed in as <em>%1</em>."
 msgstr "Jste přihlášen jako <em>%1</em>."
@@ -864,10 +870,6 @@ msgstr "Odhlásit se"
 msgid "Administration"
 msgstr "Administrace"
 
-#: ../app/forms/users/create_new_form.php:22
-msgid "Register"
-msgstr "Registrovat"
-
 msgid "Telefon:"
 msgstr "Telefon:"
 
@@ -953,8 +955,8 @@ msgstr "Celý článek"
 msgid "Článek"
 msgstr "Článek"
 
-msgid "Informace o produktu"
-msgstr "Informace o produktu"
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
 
 msgid "Zobrazit kategorii"
 msgstr "Zobrazit kategorii"
@@ -962,8 +964,17 @@ msgstr "Zobrazit kategorii"
 msgid "Kategorie produktů"
 msgstr "Kategorie produktů"
 
+msgid "a další"
+msgstr "a další"
+
+msgid "Zobrazit profil"
+msgstr "Zobrazit profil"
+
 msgid "Zobrazit stránku"
 msgstr "Zobrazit stránku"
+
+msgid "Profil"
+msgstr "Profil"
 
 msgid "Stránka"
 msgstr "Stránka"
@@ -995,7 +1006,7 @@ msgstr "Stránky"
 msgid "Product categories"
 msgstr "Produktové kategorie"
 
-#: ../app/controllers/brands_controller.php:14
+#: ../app/controllers/brands_controller.php:18
 msgid "Brands"
 msgstr "Značky"
 
@@ -1062,6 +1073,9 @@ msgstr "V současné době nemáme žádnou prodejnu."
 
 msgid "Otevřeno"
 msgstr "Otevřeno"
+
+msgid "Loading map&hellip;"
+msgstr "Nahrávám mapu&hellip;"
 
 msgid "Search stores"
 msgstr "Vyhledat prodejny"
@@ -1256,7 +1270,7 @@ msgstr "Nákupní košík"
 msgid "Slevový kupón byl odebrán"
 msgstr "Slevový kupón byl odebrán"
 
-#: ../app/controllers/brands_controller.php:4
+#: ../app/controllers/brands_controller.php:5
 msgid "List of Brands"
 msgstr "Seznam značek"
 
@@ -1304,7 +1318,7 @@ msgstr "Nákupní košík"
 msgid "List of Collections"
 msgstr "Seznam kolekcí"
 
-#: ../app/controllers/collections_controller.php:14
+#: ../app/controllers/collections_controller.php:17
 msgid "Collections"
 msgstr "Kolekce"
 
@@ -1417,12 +1431,12 @@ msgstr ""
 "Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
 "nastavena."
 
-#: ../app/controllers/password_recoveries_controller.php:62
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:79
+#: ../app/controllers/password_recoveries_controller.php:82
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -1590,7 +1604,7 @@ msgstr "Takový stránka neexistuje"
 msgid "There is no such product"
 msgstr "Tento produkt neexistuje"
 
-#: ../app/fields/product_type_field.php:6
+#: ../app/fields/product_type_field.php:8
 msgid "typ produktu"
 msgstr "typ produktu"
 
@@ -1612,6 +1626,10 @@ msgstr "Štítek <em>%s</em> je uveden vícekrát"
 #: ../app/fields/vat_number_field.php:17
 msgid "DIČ není zadáno správně"
 msgstr "DIČ není zadáno správně"
+
+#: ../app/fields/voucher_field.php:16
+msgid "Toto není správný slevový kupón"
+msgstr "Toto není správný slevový kupón"
 
 #: ../app/forms/api/categories_suggestions/index_form.php:5
 #: ../app/forms/api/suggestions/index_form.php:5
@@ -1835,6 +1853,10 @@ msgstr "Nastavit nové heslo"
 #: ../app/forms/users/create_new_form.php:17
 msgid "In order to register you need to obtain an invitation code"
 msgstr "Pro registraci musíte znát kód platné pozvánky"
+
+#: ../app/forms/users/create_new_form.php:22
+msgid "Register"
+msgstr "Registrovat"
 
 #: ../app/forms/users/create_new_form.php:29
 msgid "This is not a valid invitation code"
@@ -2163,6 +2185,12 @@ msgstr "od"
 #: ../lib/filter/filter_range_section.php:235
 msgid "to"
 msgstr "do"
+
+#~ msgid "Have you forgotten password?"
+#~ msgstr "Zapomněl jste heslo?"
+
+#~ msgid "Informace o produktu"
+#~ msgstr "Informace o produktu"
 
 #~ msgid ""
 #~ "Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
