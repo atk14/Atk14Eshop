@@ -41,7 +41,7 @@
 		<div class="author">{!$author}</div>
 		{/if}
 		{if $teaser|trim || $brand|trim  || $meta|trim }
-		<div class="teaser"><p>{$img_w} / {$img_h} = {$aspect_ratio}</p>
+		<div class="teaser">
 			{if $brand|trim}
 				{!$brand}<br>
 			{/if}
