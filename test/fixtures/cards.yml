@@ -14,6 +14,10 @@ apple_cider:
   name_cs: Jablečný cider
   product_type_id: "<?= $product_types["drink"]->getId() ?>"
 
+apple_cider:
+  name_en: Apple Cider
+  name_cs: Jablečný cider
+
 peanuts:
   name_en: Peanuts
   name_cs: Arašídy
