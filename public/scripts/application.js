@@ -435,6 +435,16 @@
 					UTILS.initSimpleMap( "store-map" );
 				}
 
+				// List tree collapse all/expand all toggle
+				$( ".js-toggle-all-trees" ).on( "click", function() {
+					if( $( this ).hasClass( "collapsed" ) ){
+						$( ".list--tree.collapse" ).collapse( "show" );
+					} else {
+						$( ".list--tree.collapse" ).collapse( "hide" );
+					}
+					$( this ).toggleClass( [ "collapsed", "expanded" ] )
+				} );
+
 			}
 		}
 
