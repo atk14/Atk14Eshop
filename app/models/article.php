@@ -2,13 +2,8 @@
 class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\Indexable {
 
 	use TraitTags;
-<<<<<<< HEAD
-
-	static function GetTranslatableFields() { return array("title", "teaser", "body");}
-=======
 	
 	static function GetTranslatableFields() { return array("title", "teaser", "body", "page_title", "page_description");}
->>>>>>> atk14catalog/develop
 
 	function getSlugPattern($lang){ return $this->g("title_$lang"); }
 
