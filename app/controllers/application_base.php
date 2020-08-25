@@ -129,6 +129,7 @@ class ApplicationBaseController extends Atk14Controller{
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+		$this->tpl_data["nbsp"] = " ";
 
 		$this->tpl_data["lazy_loader"] = $this->lazy_loader;
 	}
