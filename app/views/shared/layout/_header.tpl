@@ -110,7 +110,7 @@
 
 				</ul>
 			</div>
-			<div class="mainbar__search_cart">
+			{*<div class="mainbar__search_cart">
 				<form class="form-inline" action="{link_to namespace="" action="searches/index"}">
 					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
@@ -118,7 +118,7 @@
 				<div>
 					{render partial="shared/layout/header/basket_info"}
 				</div>
-			</div>
+			</div>*}
 	</div>
 	<div class="logospace">
 		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/atk14-eshop.svg" alt="{$appname}" width="220" height="220" class="img-fluid">{/a}
