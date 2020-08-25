@@ -16,8 +16,8 @@
 						{!$eshop->getAddressCountry()|to_country_name}
 					</p>
 					<p>
-						{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>
-						{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>
+						{if "app.contact.phone"|system_parameter}{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>{/if}
+						{if "app.contact.email"|system_parameter}{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>{/if}
 					</p>
 					<p>
 						{t}IČ{/t}: {"merchant.billing_information.company_number"|system_parameter}<br>
