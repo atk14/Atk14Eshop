@@ -358,7 +358,21 @@ ol.breadcrumb {
 			grid-template-columns: auto;
 			grid-template-rows: 1fr auto 1fr;
 			& > * {
-				//outline: 1px dotted pink;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+			}
+			.mainbar__top {
+				align-self: start;
+				grid-row: 1/2;
+			}
+			.mainbar__middle {
+				align-self: center;
+				grid-row: 2/3;
+			}
+			.mainbar__bottom {
+				align-self: end;
+				grid-row: 3/4;
 			}
 			.mainbar__search_cart {
 				display: flex;

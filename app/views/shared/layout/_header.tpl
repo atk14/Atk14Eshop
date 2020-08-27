@@ -37,6 +37,17 @@
 				
 				<hr class="mobile-separator">
 				
+				<ul class="navbar-nav navbar-nav-main-mobile d-block d-{$nav_breakpoint}-none">
+					{assign main_menu LinkList::GetInstanceByCode("secondary_menu")}
+					{if $main_menu}
+						{foreach $main_menu->getItems($current_region) as $item}
+						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
+						{/foreach}
+					{/if}
+				</ul>
+				
+				<hr class="mobile-separator">
+				
 				<ul class="navbar-nav">
 					{if $logged_user}
 						{* user is logged in *}
@@ -78,7 +89,7 @@
 	
 	<div class="container-fluid header-main__mainbar">
 		<div class="mainbar__controls">
-			<div class="mainbar__links">
+			<div class="mainbar__top mainbar__links">
 				<ul class="nav">
 					{if $logged_user}
 						{* user is logged in *}
@@ -110,7 +121,7 @@
 
 				</ul>
 			</div>
-			{*<div class="mainbar__search_cart">
+			{*<div class="mainbar__middle mainbar__search_cart">
 				<form class="form-inline" action="{link_to namespace="" action="searches/index"}">
 					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
@@ -119,6 +130,18 @@
 					{render partial="shared/layout/header/basket_info"}
 				</div>
 			</div>*}
+			<div class="mainbar__bottom">
+				
+				<ul class="nav">
+					{assign main_menu LinkList::GetInstanceByCode("secondary_menu")}
+					{if $main_menu}
+						{foreach $main_menu->getItems($current_region) as $item}
+						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
+						{/foreach}
+					{/if}
+				</ul>
+				
+			</div>
 	</div>
 	<div class="logospace">
 		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/atk14-eshop.svg" alt="{$appname}" width="220" height="220" class="img-fluid">{/a}
