@@ -39,10 +39,13 @@ class FilterForCards extends Filter {
 
 		//Add filter sections
 		if($options['add_sections']) {
-			$category = $options['category']?:Category::RootCategory();
-			$sections = $category->getAvailableFilters();
-			foreach($sections as $section) {
-				new FilterCategorySection($this, $section->getFilterName(), $section);
+			if($options["category"]){
+				// $category = $options["category"]?:Category::RootCategory(); // toto je spatne - Category::RootCategory() nemusi existovat
+				$category = $options["category"];
+				$sections = $category->getAvailableFilters();
+				foreach($sections as $section) {
+					new FilterCategorySection($this, $section->getFilterName(), $section);
+				}
 			}
 
 			//Add filter technical specification
