@@ -1,3 +1,8 @@
+{*
+ * Template for header.
+ * $use_large_search_bar determines if large ful width search bar will be used.
+ *}
+{assign "use_large_search_bar" 1}
 {capture assign="basket_info"}
 	{render partial="shared/layout/header/basket_info" nav_class="navbar-nav"}
 {/capture}
@@ -121,7 +126,8 @@
 
 				</ul>
 			</div>
-			{*<div class="mainbar__middle mainbar__search_cart">
+			{if !$use_large_search_bar}
+			<div class="mainbar__middle mainbar__search_cart">
 				<form class="form-inline" action="{link_to namespace="" action="searches/index"}">
 					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
@@ -129,7 +135,8 @@
 				<div>
 					{render partial="shared/layout/header/basket_info"}
 				</div>
-			</div>*}
+			</div>
+			{/if}
 			<div class="mainbar__bottom">
 				
 				<ul class="nav">
@@ -163,7 +170,8 @@
 		</div>
 	</nav>
 	
-	
+	{if $use_large_search_bar}
 	{render partial="shared/layout/header/search_bar"}
+	{/if}
 
 </header>
