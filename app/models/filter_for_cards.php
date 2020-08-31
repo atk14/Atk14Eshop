@@ -39,9 +39,10 @@ class FilterForCards extends Filter {
 
 		//Add filter sections
 		if($options['add_sections']) {
-			if($options["category"]){
-				// $category = $options["category"]?:Category::RootCategory(); // toto je spatne - Category::RootCategory() nemusi existovat
-				$category = $options["category"];
+			// In case that products (cards) are displayed by a brand and not by a category,
+			// filters can be taken from the root category, if such category exists.
+			$category = $options["category"] ? $options["category"] : Category::RootCategory();
+			if($category){
 				$sections = $category->getAvailableFilters();
 				foreach($sections as $section) {
 					new FilterCategorySection($this, $section->getFilterName(), $section);
