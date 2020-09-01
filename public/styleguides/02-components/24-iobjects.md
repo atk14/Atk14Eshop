@@ -228,3 +228,107 @@ Creates link to product with image, basic description and price.
 	</div>
 </a>
 [/example]
+
+## Contact Card iObject
+
+Simple contact card. When using more than one Contact Card iObjects together, they should be wrapped in Contact card group iObject (see below).
+
+[example]
+<div class="iobject--contact">
+	<div class="iobject__image">
+		<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
+	</div>
+	<div class="iobject__body">
+		<div>
+			<h4 class="iobject__title">
+				Charlie Root <span>Good hearted serial killer</span>
+			</h4>
+			<div class="iobject__description">
+				<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
+				<ul class="list--icons">
+					<li>
+						<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
+						<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
+					</li>
+					<li>
+						<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+						<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+					</li>
+					<li>
+						<span class="list--icons__icon"><i class="fas fa-map-marker-alt"></i></span>
+						<span class="list--icons__value">23 Fascination Street<br>Gotham<br>120 00</span>
+					</li>
+				</ul>
+				<div class="d-flex justify-content-between align-items-end">
+					<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" class="iobject__qr-code" />
+					<a href="#" class="btn btn-sm btn-outline-primary">Více&hellip; <i class="fas fa-chevron-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+[/example]
+
+## Contact Card Group iObject
+
+Contact card group is responsive wrapper for multiple Contact Card iObjects.
+
+[example]
+<div class="iobject--contact-group">
+	<div class="iobject--contact">
+		<div class="iobject__image">
+			<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
+		</div>
+		<div class="iobject__body">
+			<div>
+				<h4 class="iobject__title">
+					Charlie Root <span>Good hearted serial killer</span>
+				</h4>
+				<div class="iobject__description">
+					<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
+							<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+							<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-map-marker-alt"></i></span>
+							<span class="list--icons__value">23 Fascination Street<br>Gotham<br>120 00</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="iobject--contact">
+		<div class="iobject__image">
+			<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
+		</div>
+		<div class="iobject__body">
+			<div>
+				<h4 class="iobject__title">
+					Charlie Root <span>Good hearted serial killer</span>
+				</h4>
+				<div class="iobject__description">
+					<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
+							<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+							<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+[/example]
