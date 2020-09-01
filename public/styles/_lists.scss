@@ -273,3 +273,13 @@ ul.list--active-filters {
 		}
 	}
 }
+
+.list--icons {
+	@extend .list-unstyled;
+	li {
+		display: flex;
+		.list--icons__icon {
+			flex-basis: 3ch;
+		}
+	}
+}

@@ -57,3 +57,22 @@ Enhanced look of standard HTML lists. When used in page or article content, no c
 	<li class="list-inline-item">List item</li>
 </ul>
 [/example]
+
+## Unstyled list with icons
+
+[example]
+<ul class="list--icons">
+	<li>
+		<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
+		<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
+	</li>
+	<li>
+		<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+		<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+	</li>
+	<li>
+		<span class="list--icons__icon"><i class="fas fa-map-marker-alt"></i></span>
+		<span class="list--icons__value">23 Fascination Street<br>Gotham<br>120 00</span>
+	</li>
+</ul>
+[/example]
