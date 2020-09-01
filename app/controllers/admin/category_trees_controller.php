@@ -21,7 +21,12 @@ class CategoryTreesController extends AdminController{
 
 	function detail(){
 		$this->page_title = _("Category tree");
-		Category::FindAll(array("use_cache" => true)); // Caching all categories
+
+		$options = array(
+			"is_filter" => null,
+			"visible" => null,
+		);
+		$this->tpl_data["tree"] = new CategoryTree($this->root, $options);
 	}
 
 	function set_rank() {

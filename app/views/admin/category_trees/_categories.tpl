@@ -1,8 +1,10 @@
-{if $categories}
+{if $categories && sizeof($categories)>0}
 	<ul class="list--tree list--tree-collapsible{if $tree_id} collapse{/if}"{if $tree_id} id="{$tree_id}"{/if}>
-		{foreach $categories as $c}
+		{foreach $categories as $node}
+			{assign var=c value=$node->getCategory()}
 			<li>
-				{if $c->getChildCategories()}
+				{assign var="child_tree_id" value=null}
+				{if $node->getChildCategories()}
 					{assign var="child_tree_id" value="tree_"|cat:uniqid()}
 					<span class="js-collapse-toggle" data-toggle="collapse" data-target="#{$child_tree_id}"><span class="js-icon--collapsed">{!"plus"|icon}</span><span class="js-icon--expanded">{!"minus"|icon}</span></span>
 				{/if}
@@ -15,7 +17,9 @@
 
 				{if !$c->g("visible")} <em>{!"eye-slash"|icon} ({t}invisible{/t})</em>{/if}
 
-				{render partial=categories categories=$c->getChildCategories() tree_id=$child_tree_id}
+				{* For a large tree, the include si far more quick than "render partial". *}
+				{* render partial=categories categories=$node tree_id=$child_tree_id *}
+				{include file="_categories.tpl" categories=$node tree_id=$child_tree_id}
 			</li>
 		{/foreach}
 	</ul>
