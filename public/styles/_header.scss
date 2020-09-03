@@ -40,7 +40,7 @@ ol.breadcrumb {
 		ul.navbar-nav {
 			li.nav-item {
 				& > a {
-					color: white;
+					//color: white;
 					padding: 0.35rem 1rem;
 					&:focus {
 						outline: none;
@@ -263,6 +263,11 @@ ol.breadcrumb {
 				display: none;
 			}
 		}
+		
+		@include media-breakpoint-up($navbar_breakpoint_upper){
+			font-size: 0.9rem;	
+		}
+		
 	}
 
 	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
