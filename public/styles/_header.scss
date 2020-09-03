@@ -1,9 +1,9 @@
-// When top navbar disappears
+// When top navbar become hamburger
 $navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
 
 // Hide navbar above navbar breakpoint
-$hide_navbar_above_breakpoint: true;
+$hide_navbar_above_breakpoint: false;
 
 // When mainbar controls disappear
 $mainbar_controls_breakpoint_upper: md;
@@ -154,8 +154,13 @@ ol.breadcrumb {
 			}
 		}
 
-		hr.mobile-separator {
-			display: none;
+		.menu-separator {
+			display: block;
+			width: 1px;
+			//height: 10px;
+			align-self: stretch;
+			background-color: rgba(white, 0.5);
+			padding: 0;
 		}
 
 		form.navbar-search {
@@ -189,6 +194,16 @@ ol.breadcrumb {
 					box-shadow: none;
 				}
 			}
+			@include media-breakpoint-up($navbar_breakpoint_upper) {
+				display: none;
+			}
+		}
+
+		.js--basket_info {
+			.cart__price {
+				display: inline-block;
+				margin-left: 0.5ch;
+			}
 		}
 
 
@@ -198,12 +213,20 @@ ol.breadcrumb {
 			.navbar-right {
 				display: block;
 			}
-			hr.mobile-separator {
+			.menu-separator {
 				display: block;
 				//background-color: rgba(white,0.35);
+				height: 1px;
+				width: 100%;
 				background-color:white;
 				margin: 0;
 			}
+			
+			// do not display more than one adjacent separators
+			hr.menu-separator + hr.menu-separator {
+				display: none;
+			}
+			
 			form.navbar-search {
 				margin-bottom: 1.5rem;
 				padding-left: $navbar-nav-link-padding-x *2;
@@ -351,6 +374,7 @@ ol.breadcrumb {
 			}
 			.mainbar__middle {
 				align-self: center;
+				align-self: end;
 				grid-row: 2/3;
 			}
 			.mainbar__bottom {
@@ -389,26 +413,38 @@ ol.breadcrumb {
 				display: none;
 			}
 		}
+		.nav-link--border {
+			border: 1px solid $border-color;
+			padding: $input-btn-padding-y $input-btn-padding-x !important;
+			font-size: $input-btn-font-size;
+			line-height: $input-btn-line-height;
+		}
 
 	}
 }
 
-.cart-num-items {
-	$size: 1.25rem; 
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	min-width: $size;
-	height: $size;
-	border-radius: $size/2;
-	background-color: $primary;
-	line-height: 1;
-	color: color-yiq($primary);
-	text-align: center;
-	padding: 0 $size/4;
-	font-size: 0.875rem;
-	font-weight: bold;
-	animation: cart-indicator-animation;
-	animation-duration: 0.5s;
-	animation-iteration-count: 1;
+.js--basket_info {
+	.cart-num-items {
+		$size: 1.25rem; 
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		min-width: $size;
+		height: $size;
+		border-radius: $size/2;
+		background-color: $primary;
+		line-height: 1;
+		color: color-yiq($primary);
+		text-align: center;
+		padding: 0 $size/4;
+		font-size: 0.875rem;
+		font-weight: bold;
+		animation: cart-indicator-animation;
+		animation-duration: 0.5s;
+		animation-iteration-count: 1;
+	}
+	.cart__price {
+		font-size: 0.75rem;//$font-size-sm;
+		font-weight: bold;
+	}
 }

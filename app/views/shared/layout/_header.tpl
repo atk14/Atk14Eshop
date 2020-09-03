@@ -2,7 +2,7 @@
  * Template for header.
  * $use_large_search_bar determines if large ful width search bar will be used.
  *}
-{assign "use_large_search_bar" 1}
+{assign "use_large_search_bar" 0}
 {capture assign="basket_info"}
 	{render partial="shared/layout/header/basket_info" nav_class="navbar-nav"}
 {/capture}
@@ -23,7 +23,7 @@
 				</div>
 			</div>
 			
-			<div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 				
 				<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
 					<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
@@ -40,18 +40,18 @@
 					{/if}
 				</ul>
 				
-				<hr class="mobile-separator">
+				<div class="menu-separator"></div>
 				
-				<ul class="navbar-nav navbar-nav-main-mobile d-block d-{$nav_breakpoint}-none">
-					{assign main_menu LinkList::GetInstanceByCode("secondary_menu")}
-					{if $main_menu}
-						{foreach $main_menu->getItems($current_region) as $item}
+				<ul class="navbar-nav xxnavbar-nav-main-mobile">
+					{assign secondary_menu LinkList::GetInstanceByCode("secondary_menu")}
+					{if $secondary_menu}
+						{foreach $secondary_menu->getItems($current_region) as $item}
 						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
 						{/foreach}
 					{/if}
 				</ul>
 				
-				<hr class="mobile-separator">
+				<div class="menu-separator"></div>
 				
 				<ul class="navbar-nav">
 					{if $logged_user}
@@ -62,6 +62,10 @@
 								{!"user"|icon} {$logged_user->getLogin()}
 							</a>
 							<div class="dropdown-menu">
+								{if $logged_user->isAdmin()}
+									{a action="main/index" namespace="admin" _class="dropdown-item"}{!"wrench"|icon} {t}Administration{/t}{/a}
+									<div class="dropdown-divider"></div>
+								{/if}
 								<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
 								<a href="{link_to action="orders/index"}" class="dropdown-item">{t}My orders{/t}</a>
 								<a href="{link_to action="delivery_addresses/index"}" class="dropdown-item">{t}Delivery addresses{/t}</a>
@@ -70,61 +74,27 @@
 								<div class="dropdown-divider"></div>
 							</div>
 						</li>
-						{if $logged_user->isAdmin()}
-							<li class="nav-item">
-								{a action="main/index" namespace="admin" _class="nav-link"}{!"wrench"|icon} {t}Administration{/t}{/a}
-							</li>
-						{/if}
 				{else}
 					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
 				{/if}
+					
+				<li class="menu-separator"></li>
 
 				{render partial="shared/regionswitch_navbar"}
-
 				{render partial="shared/langswitch_navbar"}
 
 				</ul>
 				
 			</div>
-			<div class="nav__desktop-items">
+			{*<div class="nav__desktop-items">
 			{!$basket_info}
-			</div>
+			</div>*}
 		</div>
 	</nav>	
 	
 	<div class="container-fluid header-main__mainbar">
 		<div class="mainbar__controls">
 			<div class="mainbar__top mainbar__links">
-				<ul class="nav">
-					{if $logged_user}
-						{* user is logged in *}
-						{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-								{!"user"|icon} {$logged_user->getLogin()}
-							</a>
-							<div class="dropdown-menu">
-								<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
-								<a href="{link_to action="orders/index"}" class="dropdown-item">{t}My orders{/t}</a>
-								<a href="{link_to action="delivery_addresses/index"}" class="dropdown-item">{t}Delivery addresses{/t}</a>
-								<div class="dropdown-divider"></div>
-								{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
-							</div>
-						</li>
-						{if $logged_user->isAdmin()}
-							<li class="nav-item">
-								{a action="main/index" namespace="admin" _class="nav-link"}{!"wrench"|icon} {t}Administration{/t}{/a}
-							</li>
-						{/if}
-					{else}
-						<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
-					{/if}
-
-					{render partial="shared/regionswitch_navbar"}
-
-					{render partial="shared/langswitch_navbar"}
-
-				</ul>
 			</div>
 			{if !$use_large_search_bar}
 			<div class="mainbar__middle mainbar__search_cart">
@@ -138,16 +108,6 @@
 			</div>
 			{/if}
 			<div class="mainbar__bottom">
-				
-				<ul class="nav">
-					{assign main_menu LinkList::GetInstanceByCode("secondary_menu")}
-					{if $main_menu}
-						{foreach $main_menu->getItems($current_region) as $item}
-						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
-						{/foreach}
-					{/if}
-				</ul>
-				
 			</div>
 	</div>
 	<div class="logospace">
