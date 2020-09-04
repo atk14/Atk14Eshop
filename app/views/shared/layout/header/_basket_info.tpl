@@ -1,5 +1,5 @@
 {if !$nav_class}
-	{assign var="nav_class" "nav"}
+	{assign var="nav_class" "nav navbar-nav"}
 {/if}
 <ul class="{$nav_class} js--basket_info">
 	<li class="nav-item">

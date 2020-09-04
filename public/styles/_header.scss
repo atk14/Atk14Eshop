@@ -1,4 +1,4 @@
-// When top navbar become hamburger
+// When top navbar become hamburger and main menu gets replaced with mobile main menu 
 $navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
 
@@ -37,7 +37,13 @@ ol.breadcrumb {
 		padding-top: 0;
 		padding-bottom: 0;
 
+		.navbar-collapse {
+			justify-content: flex-end;
+			align-items: flex-start;
+		}
+		
 		ul.navbar-nav {
+			flex-wrap: wrap;
 			li.nav-item {
 				& > a {
 					//color: white;
@@ -162,6 +168,11 @@ ol.breadcrumb {
 			background-color: rgba(white, 0.5);
 			padding: 0;
 		}
+		
+		// do not display more than one adjacent separators
+		.menu-separator + .menu-separator {
+			display: none;
+		}
 
 		form.navbar-search {
 			order: 0;
@@ -222,11 +233,6 @@ ol.breadcrumb {
 				margin: 0;
 			}
 			
-			// do not display more than one adjacent separators
-			hr.menu-separator + hr.menu-separator {
-				display: none;
-			}
-			
 			form.navbar-search {
 				margin-bottom: 1.5rem;
 				padding-left: $navbar-nav-link-padding-x *2;
@@ -271,7 +277,7 @@ ol.breadcrumb {
 	}
 
 	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
-	.navbar-main {
+	.navbar-main, .navbar-main--mobile {
 		text-transform: uppercase;
 		font-weight: 600;
 		ul.navbar-nav {
@@ -334,6 +340,20 @@ ol.breadcrumb {
 			}
 		}
 	}
+	
+	.navbar-main--mobile {
+		.container-fluid {
+			padding-left: $grid-gutter-width;
+			padding-right: $grid-gutter-width;
+			@include media-breakpoint-down(xs) {
+				padding-left: $grid-gutter-width/2;
+				padding-right: $grid-gutter-width/2;
+			}
+		}
+		@include media-breakpoint-up($navbar_breakpoint_upper){
+			display: none;
+		}
+	}
 
 	// Space for logo
 	.logospace {
@@ -342,6 +362,10 @@ ol.breadcrumb {
 		justify-content: center;
 		.logospace__logo {
 			display: block;
+			max-width: 200px;
+			@include media-breakpoint-down(xs){
+				max-width: 150px;
+			}
 		}
 	}
 
@@ -429,6 +453,10 @@ ol.breadcrumb {
 }
 
 .js--basket_info {
+	a {
+		color: inherit;
+	}
+	line-height: 1.3;
 	.cart-num-items {
 		$size: 1.25rem; 
 		display: inline-flex;

@@ -12,7 +12,6 @@
 	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} nav-top">
 		<div class="container-fluid">
 			{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
-			
 			<div class="nav__mobile-items d-md-none">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bars">{!"bars"|icon}</span>
@@ -23,7 +22,7 @@
 				</div>
 			</div>
 			
-			<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				
 				<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
 					<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
@@ -41,15 +40,8 @@
 				</ul>
 				
 				<div class="menu-separator"></div>
-				
-				<ul class="navbar-nav">
-					{assign secondary_menu LinkList::GetInstanceByCode("secondary_menu")}
-					{if $secondary_menu}
-						{foreach $secondary_menu->getItems($current_region) as $item}
-						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
-						{/foreach}
-					{/if}
-				</ul>
+					
+				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" nav_class="navbar-nav"}
 				
 				<div class="menu-separator"></div>
 				
@@ -77,9 +69,9 @@
 				{else}
 					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
 				{/if}
-					
-				<li class="menu-separator"></li>
-
+				</ul>
+				<div class="menu-separator"></div>
+				<ul class="navbar-nav">	
 				{render partial="shared/regionswitch_navbar"}
 				{render partial="shared/langswitch_navbar"}
 
@@ -127,6 +119,12 @@
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
 				{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav"}
 			</div>
+		</div>
+	</nav>
+	
+	<nav class="navbar navbar-dark bg-brand navbar-expand navbar-main--mobile xnavbar--hoverable-dropdowns">
+		<div class="container-fluid">
+				{render partial="shared/layout/header/nav_menu" menu="main_menu_mobile" nav_class="navbar-nav"}
 		</div>
 	</nav>
 	
