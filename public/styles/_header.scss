@@ -24,6 +24,9 @@ ol.breadcrumb {
 	padding: 0;
 	margin: auto;
 	margin-bottom: $grid-gutter-width;
+	width: 100%;
+	transition: top 0.5s;
+	z-index: 99;
 	h1, .h1 {
 		font-size: 1.5rem;
 		font-weight: bold;
@@ -448,7 +451,6 @@ ol.breadcrumb {
 			font-size: $input-btn-font-size;
 			line-height: $input-btn-line-height;
 		}
-
 	}
 }
 

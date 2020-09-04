@@ -8,7 +8,7 @@
 {/capture}
 {* from which breakpoint up should menu be visible - value should be the same as in scss *}
 {assign var=nav_breakpoint value="md"}
-<header class="header-main">
+<header class="header-main" id="header-main">
 	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} nav-top">
 		<div class="container-fluid">
 			{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
