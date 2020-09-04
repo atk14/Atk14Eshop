@@ -125,7 +125,7 @@
 
 			
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
-				{render partial="shared/layout/header/main_menu" menu="main_menu" nav_class="navbar-nav"}
+				{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav"}
 			</div>
 		</div>
 	</nav>
