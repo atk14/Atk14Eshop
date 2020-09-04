@@ -42,7 +42,7 @@
 				
 				<div class="menu-separator"></div>
 				
-				<ul class="navbar-nav xxnavbar-nav-main-mobile">
+				<ul class="navbar-nav">
 					{assign secondary_menu LinkList::GetInstanceByCode("secondary_menu")}
 					{if $secondary_menu}
 						{foreach $secondary_menu->getItems($current_region) as $item}
@@ -125,7 +125,7 @@
 
 			
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
-				{render partial="shared/layout/header/main_menu"}
+				{render partial="shared/layout/header/main_menu" menu="main_menu" nav_class="navbar-nav"}
 			</div>
 		</div>
 	</nav>

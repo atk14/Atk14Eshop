@@ -1,13 +1,15 @@
 {*
  *
- *	{render partial="shared/layout/header/main_menu"}
- *	{render partial="shared/layout/header/main_menu" enable_dropdown_menus=false}
+ *	{render partial="shared/layout/header/main_menu" menu="main_menu"}
+ *	{render partial="shared/layout/header/main_menu" menu="main_menu" nav_class="navbar-nav" enable_dropdown_menus=false}
  *}
 
-{assign main_menu LinkList::GetInstanceByCode("main_menu")}
+{if !isset($menu)}{assign menu "main_menu"}{/if}
 {if !isset($enable_dropdown_menus)}{assign enable_dropdown_menus true}{/if}
+{if !isset($nav_class)}{assign nav_class true}{/if}
+{assign main_menu LinkList::GetInstanceByCode($menu)}
 
-<ul class="navbar-nav">
+<ul class="{$nav_class}">
 	{if $main_menu}
 		{foreach $main_menu->getItems($current_region) as $item}
 			
