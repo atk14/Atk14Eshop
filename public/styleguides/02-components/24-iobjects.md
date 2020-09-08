@@ -236,33 +236,46 @@ Simple contact card. When using more than one Contact Card iObjects together, th
 [example]
 <div class="iobject--contact">
 	<div class="iobject__image">
-		<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
+		<img src="http://i.pupiq.net/i/6a/6a/91f/2f91f/1000x1249/pJ2r1i_100x100xc_ecbfd7b2fd239518.jpg" alt="Ellen Ripley" width="100" height="100">
 	</div>
 	<div class="iobject__body">
-		<div>
-			<h4 class="iobject__title">
-				Charlie Root <span>Good hearted serial killer</span>
-			</h4>
-			<div class="iobject__description">
-				<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
-				<ul class="list--icons">
-					<li>
-						<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
-						<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
-					</li>
-					<li>
-						<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
-						<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
-					</li>
-					<li>
-						<span class="list--icons__icon"><i class="fas fa-map-marker-alt"></i></span>
-						<span class="list--icons__value">23 Fascination Street<br>Gotham<br>120 00</span>
-					</li>
-				</ul>
-				<div class="d-flex justify-content-between align-items-end">
-					<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" class="iobject__qr-code" />
-					<a href="#" class="btn btn-sm btn-outline-primary">Více&hellip; <i class="fas fa-chevron-right"></i></a>
+		<h4 class="iobject__title">
+			Ellen Ripley <span>warrant officer</span>
+		</h4>
+		<div class="iobject__description">
+			<p>Beginning her career as a&nbsp;warrant officer with Weyland‑Yutani's&nbsp;commercial freight operations, she was assigned to the USCSS Nostromo in 2122.</p>
+			<ul class="list--icons">
+				<li>
+					<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+					<span class="list--icons__value"><a href="mailto:ripley@weyland-yutani.com">ripley@weyland‑yutani.com</a></span>
+				</li>
+				<li>
+					<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+					<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+				</li>
+				<li>
+					<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+					<span class="list--icons__value"><a href="https://avp.fandom.com/wiki/Ellen_Ripley">avp.fandom.com/wiki/Ellen_Ripley</a></span>
+				</li>
+			</ul>
+
+		</div>
+		<div class="iobject__body-bottom">
+			<div>
+				<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046">
+					<ul class="list--icons mb-0">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+							<span class="list--icons__value">QR code</span>
+						</li>
+					</ul>
+				</a>
+				<div class="collapse" id="person_qr_5f57a6054b046">
+					<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
 				</div>
+			</div>
+			<div class="text-right align-self-start">
+				<a href="#" class="btn btn-sm btn-outline-primary">Více… <i class="fas fa-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>
@@ -275,60 +288,199 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 
 [example]
 <div class="iobject--contact-group">
-	<div class="iobject--contact">
-		<div class="iobject__image">
-			<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
-		</div>
-		<div class="iobject__body">
-			<div>
-				<h4 class="iobject__title">
-					Charlie Root <span>Good hearted serial killer</span>
-				</h4>
-				<div class="iobject__description">
-					<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
-					<ul class="list--icons">
-						<li>
-							<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
-							<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
-						</li>
-						<li>
-							<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
-							<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
-						</li>
-						<li>
-							<span class="list--icons__icon"><i class="fas fa-map-marker-alt"></i></span>
-							<span class="list--icons__value">23 Fascination Street<br>Gotham<br>120 00</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="iobject--contact">
-		<div class="iobject__image">
-			<img class="img-fluid" src="/public/dist/images/styleguides-demo-face.jpg" alt="Charlie Root" width="100" height="100">
-		</div>
-		<div class="iobject__body">
-			<div>
+	<div class="iobject__heading">Seznam více osob</div>
+
+	<div class="iobject__cards">
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/912/2f912/204x229/f2vTD5_100x100xc_a8fa2904097863f9.jpg" alt="Fantomas" width="100" height="100">
+			</div>
+			<div class="iobject__body">
 				<h4 class="iobject__title">
-					Charlie Root <span>Good hearted serial killer</span>
+					Fantomas <span>Globální superzločinec</span>
 				</h4>
 				<div class="iobject__description">
-					<p>I'm baby pBR&B freegan lyft air plant pitchfork.</p>
+					<p>Ano, jsem to já, Fantomas. Mou pravou tvář nikdy nepoznáš.</p>
+
 					<ul class="list--icons">
 						<li>
-							<span class="list--icons__icon"><i class="fas fa-envelope"></i></span>
-							<span class="list--icons__value"><a href="#">charlie@demo.com</a></span>
+							<span class="list--icons__icon"><span class="fab fa-facebook"></span></span>
+							<span class="list--icons__value"><a href="https://facebook.com/">facebook.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fab fa-twitter"></span></span>
+							<span class="list--icons__value"><a href="https://twitter.com/">twitter.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:fantomas@fantomas.com">fantomas@fantomas.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-mobile-alt"></span></span>
+							<span class="list--icons__value"><a href="tel:+420123456789">+420&nbsp;123&nbsp;456&nbsp;789</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6052ad34" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6052ad34">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code</span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6052ad34">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/91e/2f91e/2000x1125/zTUyiW_100x100xc_67da62e4693f925d.jpg" alt="The Slečna" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					The Slečna <span></span>
+				</h4>
+				<div class="iobject__description">
+
+
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:slecna@email.email">slecna@email.email</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a60538abd" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a60538abd">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code</span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a60538abd">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="/public/dist/images/styleguides-demo-face.jpg" alt="Mrs. Paní" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					Charlie Root <span>Evil Admin</span>
+				</h4>
+				<div class="iobject__description">
+					<p>Quinoa pabst four loko, pour‑over bespoke truffaut tumblr forage.</p>
+
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fab fa-facebook"></span></span>
+							<span class="list--icons__value"><a href="https://facebook.com/">facebook.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:email@email.email">email@email.email</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-mobile-alt"></span></span>
+							<span class="list--icons__value"><a href="tel:+420123456789">+420&nbsp;123&nbsp;456&nbsp;789</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+							<span class="list--icons__value"><a href="https://tkk.cz/">tkk.cz</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6053ff53" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6053ff53">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code</span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6053ff53">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/91f/2f91f/1000x1249/pJ2r1i_100x100xc_ecbfd7b2fd239518.jpg" alt="Ellen Ripley" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					Ellen Ripley <span>warrant officer</span>
+				</h4>
+				<div class="iobject__description">
+					<p>Beginning her career as a&nbsp;warrant officer with Weyland‑Yutani's&nbsp;commercial freight operations, she was assigned to the USCSS Nostromo in 2122.</p>
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:ripley@weyland-yutani.com">ripley@weyland‑yutani.com</a></span>
 						</li>
 						<li>
 							<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
 							<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
 						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+							<span class="list--icons__value"><a href="https://avp.fandom.com/wiki/Ellen_Ripley">avp.fandom.com/wiki/Ellen_Ripley</a></span>
+						</li>
 					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code</span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6054b046">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+						<a href="#" class="btn btn-sm btn-outline-primary">Více… <i class="fas fa-chevron-right"></i></a>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
 </div>
 [/example]
