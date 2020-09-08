@@ -279,7 +279,13 @@ ul.list--active-filters {
 	li {
 		display: flex;
 		.list--icons__icon {
+			display: block;
 			flex-basis: 3ch;
+			color: $secondary;
+		}
+		.list--icons__value {
+			display: block;
+			line-break: anywhere;
 		}
 	}
 }

@@ -20,6 +20,10 @@
 		}
 	}
 	
+	&__heading {
+		@extend h3;
+	}
+	
 	// type-specific props
 	&--video {
 	}
@@ -134,25 +138,24 @@
 		
 		margin: $grid-gutter-width/2 0;
 		
-		max-width: 550px;
+		//max-width: 550px;
 		
 		display: flex;
 		flex-wrap: wrap;
+		align-items: stretch;
+		
 		
 		
 		.iobject__image {
-			//margin: 0 auto;
 			img {
 				width: 100px;
 				height: auto;
 				border-radius: 50%;
 				border: 1px solid $border-color;
-				//margin: auto;
 				display: block;
 			}
 			flex-basis: (100px+$grid-gutter-width/2);
 			flex-shrink: 0;
-			//flex-grow: 100;
 			margin-bottom: $grid-gutter-width/2;
 		}
 		.iobject__title {
@@ -168,13 +171,29 @@
 			flex-grow: 100;
 			flex-shrink: 0;
 			min-width: 240px;
+			min-height: calc(100% - 115px); // needed to be stretched vertically
 			flex-basis: calc(100% - #{100px+$grid-gutter-width/2});
-			p {
-				//margin-bottom: 0.5em;
+			
+			display: flex;
+			flex-direction: column;
+			
+			.iobject__description {
+				flex-grow: 100;
+			}
+			
+			.iobject__body-bottom {
+				display: flex;
+				align-items: center;
+				border-top: 1px solid $border-color;
+				padding-top: $grid-gutter-width/2;
+				& > div {
+					flex-basis: 50%;
+				}
 			}
 		}
 		.iobject__qr-code {
-			width: 2cm;
+			width: 5cm;
+			max-width: 100%;
 			height: auto;
 		}
 		.iobject__footer {
@@ -184,20 +203,28 @@
 	}
 	
 	&--contact-group {
-		display: flex;
-		flex-wrap: wrap;
-		margin: $grid-gutter-width/2 0-$grid-gutter-width/2;
-		& > .iobject--contact {
-			flex-basis: calc(50% - #{$grid-gutter-width});
-			margin: $grid-gutter-width/2;
-			min-width: 280px;
-			
-			//@include media-breakpoint-down(xs){
-			@media(max-width:700px){
-				flex-basis: 100%;
-				flex-shrink: 2;
+		.iobject__cards {
+			display: flex;
+			flex-wrap: wrap;
+			margin: $grid-gutter-width/2 0-$grid-gutter-width/2;
+			& > .iobject--contact {
+				flex-basis: calc(50% - #{$grid-gutter-width});
+				margin: $grid-gutter-width/2;
+				min-width: 280px;
+				
+				&:first-child:last-child {
+					flex-basis: 100%;
+					flex-grow: 10;
+					max-width: 100%;
+				}
+
+				@media(max-width:700px){
+					flex-basis: 100%;
+					flex-shrink: 2;
+				}
 			}
 		}
+		
 	}
 	
 }
