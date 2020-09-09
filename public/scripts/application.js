@@ -79,6 +79,29 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+
+				var suggest = function( e, field, eve ) {
+					var $field = $( field );
+					var $form = $field.closest( "form" );
+					var url = $form.attr( "action" );
+					var search = $field.val();
+					url = url + "?" + "format=snippet";
+					console.log( "tak - " + eve + " " + Date.now());
+					console.log( "search: " + search );
+					console.log( "url: " + url );
+				};
+
+				$( "#js--search" ).on ( "change", function( e ) {
+					suggest( e, this, "change" );
+				} );
+
+				//$( "#js--search" ).on ( "keypress", function( e ) {
+				//	suggest( e, this, "keypress" );
+				//} );
+
+				$( "#js--search" ).on ( "keydown", function( e ) {
+					suggest( e, this, "keydown" );
+				} );
 			}
 		},
 

@@ -97,6 +97,8 @@
 
 			{render partial="shared/layout/footer"}
 		</div>
+
+		<div id="js--suggesting" style="width: 800px; height: 600px; position: absolute; left: 200px; top: 200px; background-color: green; z-index: 10;">Suggesting!</div>
 		
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}

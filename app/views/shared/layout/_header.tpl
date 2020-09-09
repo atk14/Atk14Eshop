@@ -61,7 +61,7 @@
 				<hr class="mobile-separator">
 				
 				<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
-					<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
+					<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}" id="js--search" autocomplete="off">
 					<button type="submit" class="btn btn-sm btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>
 				
