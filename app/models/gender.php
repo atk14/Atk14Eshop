@@ -11,7 +11,7 @@ class Gender extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetInstances(){
 		if(!self::$Instances){
-			self::$Instances = self::FindAll(["order_by" => "id", "use_cache" => true]);
+			self::$Instances = self::FindAll(["use_cache" => true]);
 		}
 		return self::$Instances;
 	}
