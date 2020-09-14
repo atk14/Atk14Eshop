@@ -97,7 +97,6 @@
 							//scrolled down
 							direction = "down";
 						}
-						//console.log( prevScroll, currScroll, direction );
 
 						if ( direction !== prevDirection ) {
 							toggleHeader( direction, currScroll );
@@ -110,18 +109,15 @@
 						var header = document.getElementById ( "header-main" );
 						var docBody = document.getElementById ( "page-body" );
 						var headerHeight = header.offsetHeight;
-						if( currScroll > headerHeight + 5 ) {
+						if( currScroll > headerHeight + 50 ) {
 							
 							// Scrolled down
-							$( header ).css( "outline", "2px solid red" );
 							$( header ).css( "position", "fixed" );
-							$( header ).css( "top", ( 0 - headerHeight + 10 ) + "px" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
 							docBody.style.paddingTop = headerHeight + 40 + "px";
 						} else {
 							
 							// Top
-							$( header ).css( "outline", "none" );
-							$( header ).css( "outline", "2px solid black" );
 							$( header ).css( "position", "static" );
 							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
 							docBody.style.paddingTop = 0 + "px";
@@ -129,13 +125,11 @@
 						if ( direction === "up" && currScroll > headerHeight ) {
 							
 							// Scrolled down, hidden
-							$( header ).css( "outline", "2px solid violet" );
-							$( header ).css( "top", ( 0 - headerHeight + 10 ) + "px" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
 							
 						} else if ( direction === "down" ) {
 							
 							// Scrolled down, shown
-							$( header ).css( "outline", "2px solid green" );
 							$( header ).css( "top", "0px" );
 						}
 						
