@@ -80,15 +80,51 @@
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
 
+				var suggestingCache = {};
 				var suggest = function( e, field, eve ) {
 					var $field = $( field );
 					var $form = $field.closest( "form" );
 					var url = $form.attr( "action" );
 					var search = $field.val();
-					url = url + "?" + "format=snippet";
-					console.log( "tak - " + eve + " " + Date.now());
-					console.log( "search: " + search );
-					console.log( "url: " + url );
+					var fieldName = $field.attr( "name" );
+					var data = {};
+					var $suggestingArea = $( "#js--suggesting" );
+					$suggestingArea.data( "suggesting-for", search );
+
+					var searchFn = function( search ) { 
+						if ( suggestingCache[ search ] ) {
+							$suggestingArea.html( suggestingCache[ search ] );
+							return;
+						}
+
+						if( $suggestingArea.data( "suggesting" ) === "yes" ) {
+							return;
+						}
+
+						$suggestingArea.data( "suggesting", "yes" );
+
+						console.log( "tak - " + eve + " " + Date.now());
+						console.log( "search: " + search );
+						console.log( "url: " + url );
+
+						data[ "format" ] = "snippet";
+						data[ fieldName ] = search;
+						$.ajax( {
+							dataType: "html",
+							url: url,
+							data: data,
+							success: function( snippet ) {
+								$suggestingArea.html( snippet );
+								$suggestingArea.data( "suggesting", "" );
+								// Not caching for now - suggestingCache[ search ] = snippet;
+								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
+									searchFn( $suggestingArea.data( "suggesting-for" ) );
+								}
+							}
+						} );
+					}
+
+					searchFn( search );
 				};
 
 				$( "#js--search" ).on ( "change", function( e ) {
