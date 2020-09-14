@@ -142,7 +142,7 @@
 				} );
 
 				$( "body" ).on( "click keydown", function( e ) {
-					var $activeElement = $( document.activeElement );
+					var $activeElement = $( e.target );
 					var id = $activeElement.attr( "id" );
 					if ( id !== "js--search" && id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
