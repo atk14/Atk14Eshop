@@ -143,7 +143,10 @@
 
 				$( "body" ).on( "click keydown", function( e ) {
 					var $activeElement = $( document.activeElement );
-					if ( $activeElement.attr( "id" ) !== "js--search" ) {
+					var id = $activeElement.attr( "id" );
+					if ( id !== "js--search" && id !== "js--suggesting" &&
+							$activeElement.closest( "#js--suggesting" ).length === 0
+						) {
 						$( "#js--suggesting" ).fadeOut();
 					} else {
 						$( "#js--suggesting" ).fadeIn();

@@ -1,4 +1,4 @@
-{capture assign=url}{link_to action="articles/detail" id=$card}{/capture}
+{capture assign=url}{link_to action="articles/detail" id=$article}{/capture}
 
 {render partial="shared/search_result_items/generic_template.suggestion"
 	image_url=$article->getImageUrl()
