@@ -1,12 +1,22 @@
+// When top navbar become hamburger and main menu gets replaced with mobile main menu 
 $navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
 
+// Hide navbar above navbar breakpoint
+$hide_navbar_above_breakpoint: false;
+
+// When mainbar controls disappear
+$mainbar_controls_breakpoint_upper: md;
+$mainbar_controls_breakpoint_lower: sm;
 
 // Admin header and breadcrumbs
 
 
 ol.breadcrumb {
-	border-bottom: 1px solid $gray-300;
+	border-bottom: 1px solid $border-color;
+	@include media-breakpoint-down($navbar_breakpoint_lower){
+		margin-top: $grid-gutter-width/2;
+	}
 }
 
 .header-main {
@@ -14,6 +24,9 @@ ol.breadcrumb {
 	padding: 0;
 	margin: auto;
 	margin-bottom: $grid-gutter-width;
+	width: 100%;
+	transition: top 0.5s;
+	z-index: 99;
 	h1, .h1 {
 		font-size: 1.5rem;
 		font-weight: bold;
@@ -21,297 +34,452 @@ ol.breadcrumb {
 	@include media-breakpoint-down($navbar_breakpoint_lower){
 		margin-bottom: 0;
 	}
-}
-
-
-.nav-top {
-	//margin-bottom: $grid-gutter-width/2;
-	padding-top: 0;
-	padding-bottom: 0;
-	//background-color: #798878 !important;
 	
-	ul.navbar-nav {
-		li.nav-item {
-			& > a {
-				color: white;
-				padding: 0.35rem 1rem;
-				&:focus {
-					outline: none;
-				}
-			}
-			.cart-num-items {
-				$size: 1.25rem; 
-				display: inline-flex;
-				justify-content: center;
-				align-items: center;
-				min-width: $size;
-				height: $size;
-				border-radius: $size/2;
-				background-color: $primary;
-				line-height: 1;
-				//color: black;
-				text-align: center;
-				padding: 0 $size/4;
-				font-size: 0.875rem;
-				font-weight: bold;
-				animation: cart-indicator-animation;
-				animation-duration: 0.5s;
-				animation-iteration-count: 1;
-			}
-			@include media-breakpoint-down(sm){
-			.dropdown-menu {
-				background-color: inherit;
-				border: none;
-				padding-top: 0;
-				a {
-					color: white;
-					//padding-left: $grid-gutter-width;
-					margin-left: $grid-gutter-width/2;
-					border-left: 2px solid rgba(white, 0.65);
-					&:hover, &:active, &:focus {
-						background-color: $primary;
+	// Top navbar, also mobile menu
+	.nav-top {
+		padding-top: 0;
+		padding-bottom: 0;
+
+		.navbar-collapse {
+			justify-content: flex-end;
+			align-items: flex-start;
+		}
+		
+		ul.navbar-nav {
+			flex-wrap: wrap;
+			li.nav-item {
+				& > a {
+					//color: white;
+					padding: 0.35rem 1rem;
+					&:focus {
 						outline: none;
 					}
 				}
+				@include media-breakpoint-down(sm){
+				.dropdown-menu {
+					background-color: inherit;
+					border: none;
+					padding-top: 0;
+					.dropdown-item {
+						margin-left: 0;
+						border-left: none;
+						padding-left: 40px;
+					}
+					a {
+						color: white;
+						//padding-left: $grid-gutter-width;
+						margin-left: $grid-gutter-width/2;
+						border-left: 2px solid rgba(white, 0.65);
+						&:hover, &:active, &:focus {
+							background-color: $primary;
+							outline: none;
+						}
+					}
+				}
+				}
 			}
+		}
+
+		@keyframes cart-indicator-animation {
+			from {
+				transform: scale(2.5);
+			}
+			to {
+				transform: scale(1);
+			}
+		}
+
+
+		// Polozky zobrazene jen pri mobile view
+		.nav__mobile-items {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			@include media-breakpoint-up($navbar_breakpoint_upper){
+				display: none;
+			}
+		}
+
+		.nav__mobile__right {
+			@include media-breakpoint-up($mainbar_controls_breakpoint_upper) {
+				display: none;
+			}
+		}
+
+		// Polozky zobrazene jen pri desktop view	
+		.nav__desktop-items {
+			@include media-breakpoint-down($navbar_breakpoint_lower){
+				display: none;
+			}
+		}
+
+		// Adjust image height for SVG scaling proplerly
+		.navbar-brand {
+			img {
+				height: 30px;
+				width: auto;
+			}
+		}
+
+		// No border on hamburger
+		.navbar-toggler {
+			border: none;
+			color: white;
+			font-size: 1.5rem;
+			&:focus {
+				outline: none;
+			}
+			.icon-close {
+				display: none;
+			}
+			.icon-bars {
+				display: inline;
+			}
+			&[aria-expanded="true"] {
+				.icon-bars {
+					display: none;
+				}
+				.icon-close {
+					display: inline;
+				}
+			}
+		}
+
+		// App name
+		h1, .h1 {
+			font-size: inherit;
+			margin: inherit;
+			padding: inherit;
+			font-weight: inherit;
+			line-height: inherit;
+			display: inline;
+		}
+
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			ul.navbar-nav {
+				order: 1;
+			}
+		}
+
+		.menu-separator {
+			display: block;
+			width: 1px;
+			//height: 10px;
+			align-self: stretch;
+			background-color: rgba(white, 0.5);
+			padding: 0;
+		}
+		
+		// do not display more than one adjacent separators
+		.menu-separator + .menu-separator {
+			display: none;
+		}
+
+		form.navbar-search {
+			order: 0;
+			padding-right: 1rem;
+			margin-bottom: 0;
+			input.form-control-sm {
+				border-radius: 0;
+				border: none;
+				border-bottom: 1px solid rgba(white,.75);
+				background-color: transparent;
+				line-height: 1.1;
+				padding: 2px 2px !important;
+				height: 21px;
+				color: white;
+				width: 150px;
+				&::placeholder {
+					color: rgba(white,0.75);
+				}
+				&:focus, &:hover {
+					border-bottom-color: white;
+					box-shadow: none;
+				}
+			}
+			button {
+				border-radius: 0;
+				background-color: transparent;
+				border: none;
+				color: white;
+				&:focus {
+					box-shadow: none;
+				}
+			}
+			@include media-breakpoint-up($navbar_breakpoint_upper) {
+				display: none;
+			}
+		}
+
+		.js--basket_info {
+			.cart__price {
+				display: inline-block;
+				margin-left: 0.5ch;
+			}
+		}
+
+
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			padding-left: 0;
+			padding-right: 0;
+			.navbar-right {
+				display: block;
+			}
+			.menu-separator {
+				display: block;
+				//background-color: rgba(white,0.35);
+				height: 1px;
+				width: 100%;
+				background-color:white;
+				margin: 0;
+			}
+			
+			form.navbar-search {
+				margin-bottom: 1.5rem;
+				padding-left: $navbar-nav-link-padding-x *2;
+				padding-right: $navbar-nav-link-padding-x *2;
+				input.form-control-sm {
+					font-size: inherit;
+					max-width: calc(100% - 60px);
+					width: calc(100% - 60px);
+				}
+			}
+			.navbar-collapse {
+				.navbar-nav-main-mobile, .navbar-nav {
+					//display: block;
+					background-color: $brand;
+				}
+			}
+
+
+			ul.navbar-nav {
+				li.nav-item {
+					a.nav-link {
+						&:hover {
+							background-color: $link-color;
+						}
+					}
+				}
+			}
+
+		}
+
+		@if $hide_navbar_above_breakpoint {
+			// Hide navbar on larger screens (above navbar breakpoint)
+			@include media-breakpoint-up($navbar_breakpoint_upper){
+				display: none;
+			}
+		}
+		
+		@include media-breakpoint-up($navbar_breakpoint_upper){
+			font-size: 0.9rem;	
+		}
+		
+	}
+
+	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
+	.navbar-main, .navbar-main--mobile {
+		text-transform: uppercase;
+		font-weight: 600;
+		ul.navbar-nav {
+			li.nav-item {
+				a:focus {
+					outline: none;
+				}
+				.dropdown-toggle {
+					&:after {
+						border: none;
+						content: "\f078";
+						color: $navbar-dark-color;
+						font-family: "Font Awesome 5 Free";
+						font-weight: 900;
+						font-size: 0.65em;
+						margin-left: 0.5em;
+						//margin-top: 0.2em;
+						position: relative;
+						top: 0.05em;
+						transition: transform 0.25s;
+					}
+					// The animation turned out to be a little disturbing
+					//&[aria-expanded="true"] {
+					//	&:after {
+					//		transform: rotate(-180deg); 
+					//	}
+					//}
+					&:focus, &:active, &:hover {
+						outline: none;
+						box-shadow: none;
+						&:after {
+							color: $navbar-dark-hover-color;
+						}
+					}
+				}
+				div.nav-link a {
+					color: inherit;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+				.dropdown-menu {
+					margin-top: 0;
+					min-width: 100%;
+					background-color: rgba( desaturate( lighten( $brand, 3% ), 5% ),0.98 );
+					@supports(backdrop-filter: blur(5px)){
+						background-color: rgba($brand,0.9);
+						backdrop-filter: blur(5px);
+					}
+					text-transform: none;
+					border: none;
+					top: 97%;
+					a {
+						color: white;
+						&:hover, &:active, &:focus {
+							background-color: rgba($dark, 0.35);
+						}
+					}
+				}
 			}
 		}
 	}
 	
-	@keyframes cart-indicator-animation {
-		from {
-			transform: scale(2.5);
+	.navbar-main--mobile {
+		.container-fluid {
+			padding-left: $grid-gutter-width;
+			padding-right: $grid-gutter-width;
+			@include media-breakpoint-down(xs) {
+				padding-left: $grid-gutter-width/2;
+				padding-right: $grid-gutter-width/2;
+			}
 		}
-		to {
-			transform: scale(1);
-		}
-	}
-	
-	
-	// Polozky zobrazene jen pri mobile view
-	.nav__mobile-items {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
 		@include media-breakpoint-up($navbar_breakpoint_upper){
 			display: none;
 		}
 	}
-	
-	// Polozky zobrazene jen pri desktop view	
-	.nav__desktop-items {
-		@include media-breakpoint-down($navbar_breakpoint_lower){
-			display: none;
+
+	// Space for logo
+	.logospace {
+		margin: $grid-gutter-width/2 $grid-gutter-width/2;
+		display: flex;
+		justify-content: center;
+		.logospace__logo {
+			display: block;
+			max-width: 200px;
+			@include media-breakpoint-down(xs){
+				max-width: 150px;
+			}
 		}
 	}
-	
-	// Adjust image height for SVG scaling proplerly
-	.navbar-brand {
-		img {
-			height: 30px;
-			width: auto;
+
+	// Search and user and language links - hidden on mobile (on mobile items are visible in top nav)
+	&__mainbar {
+		
+		$mainbar-link-padding-x: $nav-link-padding-x;
+		
+		//outline: 1px dotted silver;
+		display: flex;
+		justify-content: space-between;
+		
+		.logospace {
+			order: 1;
+			padding: $grid-gutter-width/2 $grid-gutter-width/2;
+			padding-left: 0;
+			margin: 0;
+			//outline: 1px dotted aqua;
+			justify-content: flex-start;
 		}
-	}
-	
-	// No border on hamburger
-	.navbar-toggler {
-		border: none;
-		color: white;
-		font-size: 1.5rem;
-		&:focus {
-			outline: none;
-		}
-		.icon-close {
-			display: none;
-		}
-		.icon-bars {
-			display: inline;
-		}
-		&[aria-expanded="true"] {
-			.icon-bars {
+		.mainbar__controls {
+			order: 2;
+			//outline: 1px dotted purple;
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-rows: 1fr auto 1fr;
+			& > * {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+			}
+			.mainbar__top {
+				align-self: start;
+				grid-row: 1/2;
+			}
+			.mainbar__middle {
+				align-self: center;
+				align-self: end;
+				grid-row: 2/3;
+			}
+			.mainbar__bottom {
+				align-self: end;
+				grid-row: 3/4;
+			}
+			.mainbar__search_cart {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+				align-items: center;
+				form {
+					margin: 0;
+					padding-left: $mainbar-link-padding-x;
+					padding-right: $mainbar-link-padding-x;
+				}
+			}
+			a {
+				color: inherit;
+			}
+			ul.nav {
+				justify-content: flex-end;
+				li.nav-item {
+					a.nav-link {
+						padding-left: $mainbar-link-padding-x;
+						padding-right: $mainbar-link-padding-x;
+					}
+					&:last-child {
+						a.nav-link {
+							padding-right: 0;
+						}
+					}
+				}
+			}
+			@include media-breakpoint-down($mainbar_controls_breakpoint_lower){
 				display: none;
 			}
-			.icon-close {
-				display: inline;
-			}
+		}
+		.nav-link--border {
+			border: 1px solid $border-color;
+			padding: $input-btn-padding-y $input-btn-padding-x !important;
+			font-size: $input-btn-font-size;
+			line-height: $input-btn-line-height;
 		}
 	}
-	
-	// App name
-	h1, .h1 {
-		font-size: inherit;
-		margin: inherit;
-		padding: inherit;
-		font-weight: inherit;
-		line-height: inherit;
-		display: inline;
+}
+
+.js--basket_info {
+	a {
+		color: inherit;
 	}
-	
-	.langswitch {
-		.langswitch-flag {
-			// Sizing for SVG flag. Flags do not have the same aspect ratios so we set fixed height only.
-			height: 0.8rem;
-			width: auto;
-		}
-	}
-	
-	.navbar-right {
-		display: flex;
+	line-height: 1.3;
+	.cart-num-items {
+		$size: 1.25rem; 
+		display: inline-flex;
+		justify-content: center;
 		align-items: center;
-		ul.navbar-nav {
-			order: 1;
-		}
+		min-width: $size;
+		height: $size;
+		border-radius: $size/2;
+		background-color: $primary;
+		line-height: 1;
+		color: color-yiq($primary);
+		text-align: center;
+		padding: 0 $size/4;
+		font-size: 0.875rem;
+		font-weight: bold;
+		animation: cart-indicator-animation;
+		animation-duration: 0.5s;
+		animation-iteration-count: 1;
 	}
-	
-	hr.mobile-separator {
-		display: none;
-	}
-	
-	form.navbar-search {
-		order: 0;
-		padding-right: 1rem;
-		margin-bottom: 0;
-		input.form-control-sm {
-			border-radius: 0;
-			border: none;
-			border-bottom: 1px solid rgba(white,.75);
-			background-color: transparent;
-			line-height: 1.1;
-			padding: 2px 2px !important;
-			height: 21px;
-			color: white;
-			width: 150px;
-			&::placeholder {
-				color: rgba(white,0.75);
-			}
-			&:focus, &:hover {
-				border-bottom-color: white;
-				box-shadow: none;
-			}
-		}
-		button {
-			border-radius: 0;
-			background-color: transparent;
-			border: none;
-			color: white;
-			&:focus {
-				box-shadow: none;
-			}
-		}
-	}
-	
-	
-	@include media-breakpoint-down($navbar_breakpoint_lower){
-		padding-left: 0;
-		padding-right: 0;
-		.navbar-right {
-			display: block;
-		}
-		hr.mobile-separator {
-			display: block;
-			background-color: rgba(white,0.35);
-		}
-		form.navbar-search {
-			margin-bottom: 1.5rem;
-			padding-left: $navbar-nav-link-padding-x *2;
-			padding-right: $navbar-nav-link-padding-x *2;
-			input.form-control-sm {
-				font-size: inherit;
-				max-width: calc(100% - 60px);
-				width: calc(100% - 60px);
-			}
-		}
-		
-		.navbar-nav-main-mobile {
-			//display: block;
-			background-color: $brand;
-		}
-		
-		
-		ul.navbar-nav {
-			li.nav-item {
-				a.nav-link {
-					&:hover {
-						background-color: $link-color;
-					}
-				}
-			}
-		}
-		
-	}
-	
-		
-}
-
-.navbar-main {
-	text-transform: uppercase;
-	font-weight: 600;
-	ul.navbar-nav {
-		li.nav-item {
-			a:focus {
-				outline: none;
-			}
-			.dropdown-toggle {
-				&:after {
-					border: none;
-					content: "\f078";
-					color: $navbar-dark-color;
-					font-family: "Font Awesome 5 Free";
-					font-weight: 900;
-					font-size: 0.65em;
-					margin-left: 0.5em;
-					//margin-top: 0.2em;
-					position: relative;
-					top: 0.05em;
-					transition: transform 0.25s;
-				}
-				// The animation turned out to be a little disturbing
-				//&[aria-expanded="true"] {
-				//	&:after {
-				//		transform: rotate(-180deg); 
-				//	}
-				//}
-				&:focus, &:active, &:hover {
-					outline: none;
-					box-shadow: none;
-					&:after {
-						color: $navbar-dark-hover-color;
-					}
-				}
-			}
-			div.nav-link a {
-				color: inherit;
-				&:hover {
-					text-decoration: none;
-				}
-			}
-			.dropdown-menu {
-				margin-top: 0;
-				min-width: 100%;
-				background-color: rgba( desaturate( lighten( $brand, 3% ), 5% ),0.98 );
-				@supports(backdrop-filter: blur(5px)){
-					background-color: rgba($brand,0.9);
-					backdrop-filter: blur(5px);
-				}
-				text-transform: none;
-				border: none;
-				top: 97%;
-				a {
-					color: white;
-					&:hover, &:active, &:focus {
-						background-color: rgba($dark, 0.35);
-					}
-				}
-			}
-		}
-	}
-}
-
-.logospace {
-	margin: $grid-gutter-width/2 $grid-gutter-width/2;
-	display: flex;
-	justify-content: center;
-	.logospace__logo {
-		display: block;
+	.cart__price {
+		font-size: 0.75rem;//$font-size-sm;
+		font-weight: bold;
 	}
 }
