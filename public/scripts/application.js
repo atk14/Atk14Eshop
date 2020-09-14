@@ -190,22 +190,22 @@
 					searchFn( search );
 				};
 
-				$( "#js--search" ).on ( "change", function( e ) {
+				$( ".js--search" ).on ( "change", function( e ) {
 					suggest( e, this, "change" );
 				} );
 
-				//$( "#js--search" ).on ( "keypress", function( e ) {
+				//$( ".js--search" ).on ( "keypress", function( e ) {
 				//	suggest( e, this, "keypress" );
 				//} );
 
-				$( "#js--search" ).on ( "keydown", function( e ) {
+				$( ".js--search" ).on ( "keydown", function( e ) {
 					suggest( e, this, "keydown" );
 				} );
 
 				$( "body" ).on( "click keydown", function( e ) {
 					var $activeElement = $( e.target );
 					var id = $activeElement.attr( "id" );
-					if ( id !== "js--search" && id !== "js--suggesting" &&
+					if ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
 						) {
 						$( "#js--suggesting" ).fadeOut();

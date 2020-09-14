@@ -25,7 +25,7 @@
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				
 				<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
-					<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
+					<input name="q" type="text" class="form-control form-control-sm navbar-search-inputer="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-sm btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>
 				
@@ -91,7 +91,7 @@
 			{if !$use_large_search_bar}
 			<div class="mainbar__middle mainbar__search_cart">
 				<form class="form-inline" action="{link_to namespace="" action="searches/index"}">
-					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
+					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>
 				<div>
