@@ -80,6 +80,7 @@
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
 
+				// Prototyping Search Suggestions
 				var suggestingCache = {};
 				var suggest = function( e, field, eve ) {
 					var $field = $( field );
@@ -91,7 +92,8 @@
 					var $suggestingArea = $( "#js--suggesting" );
 					$suggestingArea.data( "suggesting-for", search );
 
-					var searchFn = function( search ) { 
+					var searchFn = function( search ) {
+						$suggestingArea.fadeIn();
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
 							return;
@@ -115,8 +117,8 @@
 							data: data,
 							success: function( snippet ) {
 								$suggestingArea.html( snippet );
+								suggestingCache[ search ] = snippet;
 								$suggestingArea.data( "suggesting", "" );
-								// Not caching for now - suggestingCache[ search ] = snippet;
 								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
 									searchFn( $suggestingArea.data( "suggesting-for" ) );
 								}
@@ -137,6 +139,15 @@
 
 				$( "#js--search" ).on ( "keydown", function( e ) {
 					suggest( e, this, "keydown" );
+				} );
+
+				$( "body" ).on( "click keydown", function( e ) {
+					var $activeElement = $( document.activeElement );
+					if ( $activeElement.attr( "id" ) !== "js--search" ) {
+						$( "#js--suggesting" ).fadeOut();
+					} else {
+						$( "#js--suggesting" ).fadeIn();
+					}
 				} );
 			}
 		},
