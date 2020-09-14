@@ -1,0 +1,16 @@
+
+/* Prvek | http://localhost:3000/ */
+
+.header-main {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  top: 0;
+  opacity: 0.7;
+}
+
+/* Prvek | http://localhost:3000/ */
+
+.body {
+  padding-top: 230px;
+}

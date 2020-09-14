@@ -28,6 +28,7 @@
 			color: white;
 			transition: transform 0.5s;
 			transform-origin: bottom right;
+			z-index: 99;
 		}
 		#js-devcssinfo:hover {
 			transform: scale(2);

@@ -79,6 +79,67 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+			
+				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
+					var prevScroll = document.documentElement.scrollTop || window.scrollY;
+					var  direction = "";
+					var prevDirection = ""
+
+					var handleHideScroll = function() {
+						var currScroll = document.documentElement.scrollTop || window.scrollY;
+
+						if ( currScroll > prevScroll ) {
+
+							// Scrolled up
+							direction = "up";
+						} else if ( currScroll < prevScroll ) {
+
+							//scrolled down
+							direction = "down";
+						}
+
+						if ( direction !== prevDirection ) {
+							toggleHeader( direction, currScroll );
+						}
+
+						prevScroll = currScroll;
+					}
+
+					var toggleHeader = function( direction, currScroll ) {
+						var header = document.getElementById ( "header-main" );
+						var docBody = document.getElementById ( "page-body" );
+						var headerHeight = header.offsetHeight;
+						if( currScroll > headerHeight + 50 ) {
+							
+							// Scrolled down
+							$( header ).css( "position", "fixed" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							docBody.style.paddingTop = headerHeight + 40 + "px";
+						} else {
+							
+							// Top
+							$( header ).css( "position", "static" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							docBody.style.paddingTop = 0 + "px";
+						}
+						if ( direction === "up" && currScroll > headerHeight ) {
+							
+							// Scrolled down, hidden
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							
+						} else if ( direction === "down" ) {
+							
+							// Scrolled down, shown
+							$( header ).css( "top", "0px" );
+						}
+						
+						console.log( "toggleHeader", direction, headerHeight );
+						prevDirection = direction;
+					};
+					
+					window.addEventListener( "scroll", handleHideScroll );
+					window.addEventListener( "resize", handleHideScroll );
+				}
 
 				// Prototyping Search Suggestions
 				var suggestingCache = {};
@@ -129,22 +190,22 @@
 					searchFn( search );
 				};
 
-				$( "#js--search" ).on ( "change", function( e ) {
+				$( ".js--search" ).on ( "change", function( e ) {
 					suggest( e, this, "change" );
 				} );
 
-				//$( "#js--search" ).on ( "keypress", function( e ) {
+				//$( ".js--search" ).on ( "keypress", function( e ) {
 				//	suggest( e, this, "keypress" );
 				//} );
 
-				$( "#js--search" ).on ( "keydown", function( e ) {
+				$( ".js--search" ).on ( "keydown", function( e ) {
 					suggest( e, this, "keydown" );
 				} );
 
 				$( "body" ).on( "click keydown", function( e ) {
-					var $activeElement = $( document.activeElement );
+					var $activeElement = $( e.target );
 					var id = $activeElement.attr( "id" );
-					if ( id !== "js--search" && id !== "js--suggesting" &&
+					if ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
 						) {
 						$( "#js--suggesting" ).fadeOut();
@@ -153,6 +214,7 @@
 					}
 				} );
 			}
+			
 		},
 
 		categories: {
