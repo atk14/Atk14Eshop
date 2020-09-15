@@ -154,6 +154,7 @@
 					$suggestingArea.data( "suggesting-for", search );
 
 					var searchFn = function( search ) {
+						positionSuggestingArea( $field, $suggestingArea );
 						$suggestingArea.fadeIn();
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
@@ -213,6 +214,11 @@
 						$( "#js--suggesting" ).fadeIn();
 					}
 				} );
+				
+				var positionSuggestingArea = function( searchField, suggArea ) {
+					var fieldOffset = searchField.offset();
+					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px")
+				}
 			}
 			
 		},
