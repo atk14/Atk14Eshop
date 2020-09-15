@@ -29,5 +29,11 @@ class SearchesController extends ApplicationController {
 
 		$finder = $this->tpl_data["finder"] = $texmit->search($d["q"],$options);
 		//print_r($finder);
+
+		$objects = $finder->getRecords();
+		$objects = array_filter($objects);
+		$this->tpl_data["cards"] = array_values(array_filter($objects,function($object){ return is_a($object,"Card"); }));
+		$this->tpl_data["categories"] = array_values(array_filter($objects,function($object){ return is_a($object,"Category"); }));
+		$this->tpl_data["others"] = array_values(array_filter($objects,function($object){ return !is_a($object,"Card") && !is_a($object,"Category"); }));
 	}
 }
