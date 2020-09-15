@@ -98,7 +98,11 @@
 			{render partial="shared/layout/footer"}
 		</div>
 
-		<div id="js--suggesting" class="search-suggestions">Suggesting!</div>
+		<div id="js--suggesting" class="search-suggestions">
+		<div class="suggestions__not-found">
+		<p><em>{t}Začněte psát, co hledáte...{/t}</em></p>
+		</div>
+		</div>
 
 		
 		{render partial="shared/layout/devcssinfo"}
