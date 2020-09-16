@@ -1,15 +1,6 @@
 // When top navbar become hamburger and main menu gets replaced with mobile main menu 
-$navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
-
-// Hide navbar above navbar breakpoint
-$hide_navbar_above_breakpoint: false;
-
-// When mainbar controls disappear
-$mainbar_controls_breakpoint_upper: md;
-$mainbar_controls_breakpoint_lower: sm;
-
-// Admin header and breadcrumbs
+$navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 
 
 ol.breadcrumb {
@@ -39,6 +30,10 @@ ol.breadcrumb {
 	.nav-top {
 		padding-top: 0;
 		padding-bottom: 0;
+		
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			background-color: $brand !important;	
+		}
 
 		.navbar-collapse {
 			justify-content: flex-end;
@@ -92,16 +87,53 @@ ol.breadcrumb {
 
 		// Polozky zobrazene jen pri mobile view
 		.nav__mobile-items {
+			$mob-nav-height: 60px;
+			$brand-padding-y: $grid-gutter-width/4;
+				
 			display: flex;
-			justify-content: space-between;
+			align-items: center;
+			justify-content: flex-start;
 			width: 100%;
 			@include media-breakpoint-up($navbar_breakpoint_upper){
 				display: none;
 			}
+			.navbar-brand {
+				flex-grow: 100;
+				padding-top: $grid-gutter-width/4;
+				padding-bottom: $grid-gutter-width/4;
+				// Adjust image height for SVG scaling proplerly
+				img {
+					height: $mob-nav-height - $brand-padding-y * 2;
+					width: auto;
+				}
+			}
+			
+			
+			
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						$mob-nav-link-padding-y: ( $mob-nav-height - (16px * 0.9) * $line-height-base ) / 2;
+						padding:  $mob-nav-link-padding-y 0.51rem !important;
+						color: white;
+					}
+				}
+				.dropdown-menu {
+					position: absolute !important;
+					background-color: rgba(black,0.8) !important;
+				}
+			}
+			
+			.cart__price {
+				@media(max-width:374px){
+					display: none !important;
+				}
+			}
+			
 		}
 
 		.nav__mobile__right {
-			@include media-breakpoint-up($mainbar_controls_breakpoint_upper) {
+			@include media-breakpoint-up($navbar_breakpoint_upper) {
 				display: none;
 			}
 		}
@@ -113,34 +145,33 @@ ol.breadcrumb {
 			}
 		}
 
-		// Adjust image height for SVG scaling proplerly
-		.navbar-brand {
-			img {
-				height: 30px;
-				width: auto;
-			}
-		}
+		
 
 		// No border on hamburger
 		.navbar-toggler {
 			border: none;
 			color: white;
-			font-size: 1.5rem;
+			font-size: 1.75rem;
+			text-align: left;
 			&:focus {
 				outline: none;
 			}
-			.icon-close {
-				display: none;
-			}
-			.icon-bars {
-				display: inline;
-			}
-			&[aria-expanded="true"] {
-				.icon-bars {
+			&__icon {
+				min-width: 2ch;
+				display: inline-block;
+				&--close {
 					display: none;
 				}
-				.icon-close {
-					display: inline;
+				&--bars {
+					
+				}
+			}
+			&[aria-expanded="true"] {
+				.navbar-toggler__icon--bars {
+					display: none;
+				}
+				.navbar-toggler__icon--close {
+					display: inline-block;
 				}
 			}
 		}
@@ -265,13 +296,6 @@ ol.breadcrumb {
 			}
 
 		}
-
-		@if $hide_navbar_above_breakpoint {
-			// Hide navbar on larger screens (above navbar breakpoint)
-			@include media-breakpoint-up($navbar_breakpoint_upper){
-				display: none;
-			}
-		}
 		
 		@include media-breakpoint-up($navbar_breakpoint_upper){
 			font-size: 0.9rem;	
@@ -377,7 +401,6 @@ ol.breadcrumb {
 		
 		$mainbar-link-padding-x: $nav-link-padding-x;
 		
-		//outline: 1px dotted silver;
 		display: flex;
 		justify-content: space-between;
 		
@@ -386,7 +409,6 @@ ol.breadcrumb {
 			padding: $grid-gutter-width/2 $grid-gutter-width/2;
 			padding-left: 0;
 			margin: 0;
-			//outline: 1px dotted aqua;
 			justify-content: flex-start;
 		}
 		.mainbar__controls {
@@ -441,9 +463,6 @@ ol.breadcrumb {
 					}
 				}
 			}
-			@include media-breakpoint-down($mainbar_controls_breakpoint_lower){
-				display: none;
-			}
 		}
 		.nav-link--border {
 			border: 1px solid $border-color;
@@ -451,6 +470,47 @@ ol.breadcrumb {
 			font-size: $input-btn-font-size;
 			line-height: $input-btn-line-height;
 		}
+		
+		
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			padding: 0;
+			display: block;
+			.logospace {
+				display: none;
+			}
+			.mainbar__controls {
+				display: block;
+				.mainbar__top, .mainbar__bottom, .mainbar__cartinfo {
+					display: none;
+				}
+				.mainbar__search_cart {
+					display: block;
+					.form-inline {
+						padding: 0;
+						padding: $grid-gutter-width/4;
+						background-color: $brand;
+						border: 1px solid rgba($body-bg, 0.5);
+						border-left: none;
+						border-right: none;
+						flex-wrap: nowrap;
+						input[type="text"] {
+							flex-grow: 10;
+							flex-basis: auto;
+							flex-grow: 10;
+							.btn {
+								flex-grow: 0;
+							}
+							input.form-control, .btn {
+								width: auto;
+								display: inline-block !important;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
 	}
 }
 

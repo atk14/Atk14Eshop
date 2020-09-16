@@ -12,15 +12,21 @@
 	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} nav-top">
 		<div class="container-fluid">
 			{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
+			
 			<div class="nav__mobile-items d-md-none">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="icon-bars">{!"bars"|icon}</span>
-					<span class="icon-close">{!"times"|icon}</span>
+					<span class="navbar-toggler__icon navbar-toggler__icon--bars">{!"bars"|icon}</span>
+					<span class="navbar-toggler__icon navbar-toggler__icon--close">{!"times"|icon}</span>
 				</button>
+				{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
+					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="220">
+				{/a}
+				{render partial="shared/layout/header/user_menu"}	
 				<div class="nav__mobile__right">
 					{!$basket_info}
 				</div>
 			</div>
+			
 			
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				
@@ -44,32 +50,7 @@
 				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" nav_class="navbar-nav"}
 				
 				<div class="menu-separator"></div>
-				
-				<ul class="navbar-nav">
-					{if $logged_user}
-						{* user is logged in *}
-						{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-								{!"user"|icon} {$logged_user->getLogin()}
-							</a>
-							<div class="dropdown-menu">
-								{if $logged_user->isAdmin()}
-									{a action="main/index" namespace="admin" _class="dropdown-item"}{!"wrench"|icon} {t}Administration{/t}{/a}
-									<div class="dropdown-divider"></div>
-								{/if}
-								<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
-								<a href="{link_to action="orders/index"}" class="dropdown-item">{t}My orders{/t}</a>
-								<a href="{link_to action="delivery_addresses/index"}" class="dropdown-item">{t}Delivery addresses{/t}</a>
-								<div class="dropdown-divider"></div>
-								{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
-								<div class="dropdown-divider"></div>
-							</div>
-						</li>
-				{else}
-					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"key"|icon} {t}Sign in{/t}</a></li>
-				{/if}
-				</ul>
+				{render partial="shared/layout/header/user_menu"}
 				<div class="menu-separator"></div>
 				<ul class="navbar-nav">	
 				{render partial="shared/regionswitch_navbar"}
@@ -82,7 +63,8 @@
 			{!$basket_info}
 			</div>*}
 		</div>
-	</nav>	
+	</nav>
+
 	
 	<div class="container-fluid header-main__mainbar">
 		<div class="mainbar__controls">
@@ -94,7 +76,7 @@
 					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>
-				<div>
+				<div class="mainbar__cartinfo">
 					{render partial="shared/layout/header/basket_info"}
 				</div>
 			</div>
