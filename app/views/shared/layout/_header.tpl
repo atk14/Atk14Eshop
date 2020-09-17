@@ -54,11 +54,13 @@
 		</div>
 	</nav>
 	
-	<nav class="navbar navbar-dark bg-brand navbar-expand navbar-main--mobile xnavbar--hoverable-dropdowns">
-		<div class="container-fluid">
-				{render partial="shared/layout/header/nav_menu" menu="main_menu_mobile" nav_class="navbar-nav"}
-		</div>
-	</nav>
+	{if $controller=="main" && $action=="index" }
+		<nav class="navbar navbar-dark bg-brand navbar-expand d-{$nav_breakpoint}-none navbar-main--mobile">
+			<div class="collapse navbar-collapse">
+				{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav"}
+			</div>
+		</nav>
+	{/if}
 	
 	{if $use_large_search_bar}
 	{render partial="shared/layout/header/search_bar"}

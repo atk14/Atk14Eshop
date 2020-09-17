@@ -432,9 +432,10 @@ ol.breadcrumb {
 	}
 	
 	.navbar-main--mobile {
+		display: block;
 		.container-fluid {
-			padding-left: $grid-gutter-width;
-			padding-right: $grid-gutter-width;
+			//padding-left: $grid-gutter-width;
+			//padding-right: $grid-gutter-width;
 			@include media-breakpoint-down(xs) {
 				padding-left: $grid-gutter-width/2;
 				padding-right: $grid-gutter-width/2;
@@ -443,7 +444,91 @@ ol.breadcrumb {
 		@include media-breakpoint-up($navbar_breakpoint_upper){
 			display: none;
 		}
+		
+		&.navbar-dark {
+			ul.navbar-nav {
+				li.nav-item {
+					border-color: rgba(white,0.5);
+					border-width: 1px;
+					.nav-link {
+						color: white;
+					}
+				}
+			}
+		}
+		&.navbar-light, &:not(.navbar-dark) {
+			ul.navbar-nav {
+				li.nav-item {
+					border-color: rgba($body-color,0.5);
+					border-width: 1px;
+					.nav-link {
+						color: $body-color;
+					}
+				}
+			}
+		}
+		
+		ul.navbar-nav {
+			flex-wrap: wrap;
+			width: 100%;
+			font-size: 0.9rem;
+			li.nav-item {
+				//border-color: rgba(white,0.5);
+				//border-width: 1px;
+				.nav-link {
+					height: 100%;
+					color: white;
+					padding: $grid-gutter-width/4 1rem;
+					&:hover {
+						background-color: $primary;
+						color: white;
+					}
+				}
+				@include media-breakpoint-between(sm, $navbar_breakpoint_upper){
+					flex-basis: 25%;
+					border-right-style: solid;
+					border-bottom-style: solid;
+					&:nth-child(4n+4) {
+						border-right-style: none;
+					}
+					&:nth-last-child(4):nth-child(4n+1),
+					&:nth-last-child(3):nth-child(4n+1),
+					&:nth-last-child(2):nth-child(4n+1),
+					&:nth-last-child(1):nth-child(4n+1) {
+						&, & ~ * {
+							border-bottom-style: none;
+						}
+						
+					}
+				}
+				@include media-breakpoint-down(xs){
+					flex-basis: 50%;
+					border-right-style: solid;
+					border-bottom-style: solid;
+					&:nth-child(2n+2) {
+						border-right-style: none;
+					}
+					&:nth-last-child(2):nth-child(2n+1),
+					&:nth-last-child(1):nth-child(2n+1) {
+						&, & ~ * {
+							border-bottom-style: none;
+						}
+						
+					}
+				}
+				@media(max-width: 360px) {
+					flex-basis: 100%;
+					border-bottom-style: solid !important;
+					border-right-style: none;
+				}
+			}
+		}
+		
 	}
+
+
+
+
 
 	// Space for logo
 	.logospace {
@@ -575,6 +660,11 @@ ol.breadcrumb {
 		
 		
 	}
+	
+	.nav--main-mobile {
+		outline: 1px solid black;
+	}
+	
 }
 
 .js--basket_info {

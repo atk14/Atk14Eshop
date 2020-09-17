@@ -25,25 +25,20 @@
 				</form>
 				{/if}
 				
-				<ul class="navbar-nav navbar-nav-main-mobile nav--2col">
-					{assign main_menu LinkList::GetInstanceByCode("main_menu")}
-					{if $main_menu}
-						{foreach $main_menu->getItems($current_region) as $item}
-						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
-						{/foreach}
-					{/if}
-				</ul>
+				{assign main_menu LinkList::GetInstanceByCode("main_menu")}
+				{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
 				
 				<div class="menu-separator"></div>
 				
 				{render partial="shared/layout/header/nav_menu" menu="secondary_menu_mobile" enable_dropdown_menus=false nav_class="navbar-nav nav--scrollable"}
 				
-				<div class="menu-separator"></div>
-				<ul class="navbar-nav">	
-				{render partial="shared/regionswitch_navbar"}
-				{render partial="shared/langswitch_navbar"}
-
-				</ul>
+				{if sizeof(Region::GetInstances())>1 || $supported_languages}
+					<div class="menu-separator"></div>
+					<ul class="navbar-nav">	
+					{render partial="shared/regionswitch_navbar"}
+					{render partial="shared/langswitch_navbar"}
+					</ul>
+				{/if}
 				
 			</div>
 		</div>

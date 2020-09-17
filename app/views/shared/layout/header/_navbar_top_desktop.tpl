@@ -10,13 +10,14 @@
 				<div class="menu-separator"></div>
 				
 				{render partial="shared/layout/header/user_menu"}
-				
-				<div class="menu-separator"></div>
-				
-				<ul class="navbar-nav">	
+								
+				{if sizeof(Region::GetInstances())>1 || $supported_languages}
+					<div class="menu-separator"></div>
+					<ul class="navbar-nav">	
 					{render partial="shared/regionswitch_navbar"}
 					{render partial="shared/langswitch_navbar"}
-				</ul>
+					</ul>
+				{/if}
 				
 			</div>
 			
