@@ -379,7 +379,6 @@ ol.breadcrumb {
 					&:after {
 						border: none;
 						content: "\f078";
-						color: $navbar-dark-color;
 						font-family: "Font Awesome 5 Free";
 						font-weight: 900;
 						font-size: 0.65em;
@@ -429,6 +428,37 @@ ol.breadcrumb {
 				}
 			}
 		}
+		
+		
+		&.navbar-dark {
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						color: $navbar-dark-color;
+					}
+					.dropdown-toggle {
+						&:after {
+							color: $navbar-dark-color;
+						}
+					}
+				}
+			}
+		}
+		&.navbar-light, &:not(.navbar-dark) {
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						color: $navbar-light-color;
+					}
+					.dropdown-toggle {
+						&:after {
+							color: $navbar-light-color;
+						}
+					}
+				}
+			}
+		}
+		
 	}
 	
 	.navbar-main--mobile {
@@ -498,7 +528,6 @@ ol.breadcrumb {
 						&, & ~ * {
 							border-bottom-style: none;
 						}
-						
 					}
 				}
 				@include media-breakpoint-down(xs){
