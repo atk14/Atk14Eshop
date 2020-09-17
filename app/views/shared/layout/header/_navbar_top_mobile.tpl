@@ -11,9 +11,7 @@
 					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="220">
 				{/a}
 				{render partial="shared/layout/header/user_menu"}	
-				<div class="nav__mobile__right">
-					{!$basket_info}
-				</div>
+				{!$basket_info}
 			</div>
 			
 			<div class="collapse navbar-collapse" id="navTopMobileNavDropdown">

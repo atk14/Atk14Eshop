@@ -126,7 +126,7 @@ ol.breadcrumb {
 		}
 
 
-		// Polozky zobrazene jen pri mobile view
+		// Polozky zobrazene v hornim pruhu jen pri mobile view
 		.nav__mobile-items {
 			$mob-nav-height: 60px;
 			$brand-padding-y: $grid-gutter-width/4;
@@ -170,12 +170,6 @@ ol.breadcrumb {
 				}
 			}
 			
-		}
-
-		.nav__mobile__right {
-			@include media-breakpoint-up($navbar_breakpoint_upper) {
-				display: none;
-			}
 		}
 
 		// Polozky zobrazene jen pri desktop view	
