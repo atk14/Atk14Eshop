@@ -2,6 +2,55 @@
 $navbar_breakpoint_lower: sm;
 $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 
+@mixin navbar-color-variations($navbar-color) {
+	color: $navbar-color;
+	.navbar-toggler {
+		color: inherit;
+	}
+	.menu-separator{
+		background-color: rgba($navbar-color, 0.5);
+	}
+	ul.navbar-nav {
+		li.nav-item {
+			a.nav-link {
+				color: $navbar-color;
+				&:hover {
+					background-color: $primary;
+					color: white;
+				}
+			}
+		}
+	}
+	form.navbar-search {
+		input.form-control-sm {
+			border-bottom: 1px solid rgba($navbar-color,.75);
+			color: $navbar-color;
+			&::placeholder {
+				color: rgba($navbar-color,0.75);
+			}
+			&:focus, &:hover {
+				border-bottom-color: $navbar-color;
+			}
+		}
+		button {
+			color: $navbar-color;
+		}
+	}
+	@include media-breakpoint-down($navbar_breakpoint_lower){
+		ul.nav--2col {
+			border-color: rgba($navbar-color, 0.5);
+		}
+		ul.navbar-nav {
+			li.nav-item {
+				.dropdown-menu {
+					.dropdown-item {
+						color: $navbar-color;
+					}
+				}
+			}
+		}
+	}
+}
 
 ol.breadcrumb {
 	border-bottom: 1px solid $border-color;
@@ -57,12 +106,8 @@ ol.breadcrumb {
 						padding-left: 40px;
 					}
 					a {
-						color: white;
-						//padding-left: $grid-gutter-width;
 						margin-left: $grid-gutter-width/2;
-						border-left: 2px solid rgba(white, 0.65);
 						&:hover, &:active, &:focus {
-							background-color: $primary;
 							outline: none;
 						}
 					}
@@ -110,8 +155,7 @@ ol.breadcrumb {
 				li.nav-item {
 					.nav-link {
 						$mob-nav-link-padding-y: ( $mob-nav-height - (16px * 0.9) * $line-height-base ) / 2;
-						padding:  $mob-nav-link-padding-y 0.51rem !important;
-						color: white;
+						padding:  $mob-nav-link-padding-y 0.5rem !important;
 					}
 				}
 				.dropdown-menu {
@@ -146,7 +190,6 @@ ol.breadcrumb {
 		// No border on hamburger
 		.navbar-toggler {
 			border: none;
-			color: white;
 			font-size: 1.75rem;
 			text-align: left;
 			&:focus {
@@ -193,9 +236,7 @@ ol.breadcrumb {
 		.menu-separator {
 			display: block;
 			width: 1px;
-			//height: 10px;
 			align-self: stretch;
-			background-color: rgba(white, 0.5);
 			padding: 0;
 		}
 		
@@ -211,18 +252,14 @@ ol.breadcrumb {
 			input.form-control-sm {
 				border-radius: 0;
 				border: none;
-				border-bottom: 1px solid rgba(white,.75);
 				background-color: transparent;
 				line-height: 1.1;
 				padding: 2px 2px !important;
 				height: 21px;
-				color: white;
 				width: 150px;
 				&::placeholder {
-					color: rgba(white,0.75);
 				}
 				&:focus, &:hover {
-					border-bottom-color: white;
 					box-shadow: none;
 				}
 			}
@@ -230,7 +267,6 @@ ol.breadcrumb {
 				border-radius: 0;
 				background-color: transparent;
 				border: none;
-				color: white;
 				&:focus {
 					box-shadow: none;
 				}
@@ -256,10 +292,8 @@ ol.breadcrumb {
 			}
 			.menu-separator {
 				display: block;
-				//background-color: rgba(white,0.35);
 				height: 1px;
 				width: 100%;
-				//background-color:white;
 				margin: 0;
 			}
 			
@@ -274,71 +308,53 @@ ol.breadcrumb {
 				}
 			}
 
+		}
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			ul.nav--2col {
+				display: flex;
+				flex-direction: row;
+				border-width: 1px;
+				border-style: none;
+				border-top-style: solid;
+				& > li.nav-item {
+					border-color: inherit;
+					border-width: 1px;
+					flex-basis: 50%;
+					flex-shrink: 0;
+					flex-grow: 0;
+					border-bottom-style: solid;
+					&:nth-child(2n+1){
+						border-right-style: solid;
+					}
+					&:nth-child(2n+1):nth-last-child(2), &:last-child {
+						border-bottom-style: none;
+					}
 
-			ul.navbar-nav {
-				li.nav-item {
-					a.nav-link {
-						color: white;
-						&:hover {
-							background-color: $link-color;
-						}
+					a {
+						height: 100%;
+					}
+
+					@media(max-width:360px) {
+						flex-basis: 100%;
+						border-right: none;
+						border-bottom-width: 1px !important;
 					}
 				}
 			}
 
-		}
-		
-		ul.nav--2col {
-			display: flex;
-			flex-direction: row;
-			border-width: 0;
-			border-color: rgba(white, 0.5);
-			border-style: solid;
-			border-top-width: 1px;
-			border-top: 1px solid rgba(white, 0.5);
-			& > li.nav-item {
-				border-color: inherit;
-				border-style: inherit;
-				border-width: 0;
-				flex-basis: 50%;
-				flex-shrink: 0;
-				flex-grow: 0;
-				border-bottom-width: 1px;
-				&:nth-child(2n+1){
-					border-right-width: 1px;
-				}
-				&:nth-child(2n+1):nth-last-child(2), &:last-child {
-					border-bottom-width: 0;
-				}
-				
-				a {
-					height: 100%;
-				}
-				
-				@media(max-width:360px) {
-					flex-basis: 100%;
-					border-right: none;
-					border-bottom-width: 1px !important;
+			ul.nav--scrollable {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				width: 100vw;
+				overflow-x: scroll;
+				-webkit-overflow-scrolling: touch;
+				-ms-overflow-style: -ms-autohiding-scrollbar;
+				& > li.nav-item {
+					word-break: keep-all;
+					white-space: nowrap;
 				}
 			}
-		}
-		
-		ul.nav--scrollable {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			width: 100vw;
-			overflow-x: scroll;
-			-webkit-overflow-scrolling: touch;
-			-ms-overflow-style: -ms-autohiding-scrollbar;
-			& > li.nav-item {
-				word-break: keep-all;
-				white-space: nowrap;
-			}
-		}
-		
-		@include media-breakpoint-up($navbar_breakpoint_upper){
-			font-size: 0.9rem;	
 		}
 		
 		// styles only for mobile variation
@@ -360,8 +376,22 @@ ol.breadcrumb {
 		&--desktop {
 		}
 		
+		
+		&.navbar-dark, & .navbar-collapse.color-scheme-dark {
+			@include navbar-color-variations(white);
+		}
+		&.navbar-light, & .navbar-collapse.color-scheme-light {
+			@include navbar-color-variations($body-color);
+		}
+		
+		@include media-breakpoint-up($navbar_breakpoint_upper){
+			font-size: 0.9rem;
+			&.navbar-dark {
+				@include navbar-color-variations(rgba(white,0.9));
+			}
+		}
+		
 	}
-
 
 
 
