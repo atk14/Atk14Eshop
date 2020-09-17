@@ -336,8 +336,8 @@ ol.breadcrumb {
 
 					@media(max-width:360px) {
 						flex-basis: 100%;
-						border-right: none;
-						border-bottom-width: 1px !important;
+						border-right-style: none !important;
+						border-bottom-style: solid !important;
 					}
 				}
 			}
