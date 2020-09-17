@@ -20,6 +20,6 @@
 			</div>
 		</li>
 	{else}
-		<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"user"|icon} {t}Sign in{/t}</a></li>
+	<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{!"user"|icon}<span class="d-none d-sm-inline"> {t}Sign in{/t}</span></a></li>
 	{/if}
 </ul>

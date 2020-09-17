@@ -31,10 +31,6 @@ ol.breadcrumb {
 		padding-top: 0;
 		padding-bottom: 0;
 		
-		@include media-breakpoint-down($navbar_breakpoint_lower){
-			background-color: $brand !important;	
-		}
-
 		.navbar-collapse {
 			justify-content: flex-end;
 			align-items: flex-start;
@@ -263,7 +259,7 @@ ol.breadcrumb {
 				//background-color: rgba(white,0.35);
 				height: 1px;
 				width: 100%;
-				background-color:white;
+				//background-color:white;
 				margin: 0;
 			}
 			
@@ -277,17 +273,12 @@ ol.breadcrumb {
 					width: calc(100% - 60px);
 				}
 			}
-			.navbar-collapse {
-				.navbar-nav-main-mobile, .navbar-nav {
-					//display: block;
-					background-color: $brand;
-				}
-			}
 
 
 			ul.navbar-nav {
 				li.nav-item {
 					a.nav-link {
+						color: white;
 						&:hover {
 							background-color: $link-color;
 						}
@@ -297,11 +288,83 @@ ol.breadcrumb {
 
 		}
 		
+		ul.nav--2col {
+			display: flex;
+			flex-direction: row;
+			border-width: 0;
+			border-color: rgba(white, 0.5);
+			border-style: solid;
+			border-top-width: 1px;
+			border-top: 1px solid rgba(white, 0.5);
+			& > li.nav-item {
+				border-color: inherit;
+				border-style: inherit;
+				border-width: 0;
+				flex-basis: 50%;
+				flex-shrink: 0;
+				flex-grow: 0;
+				border-bottom-width: 1px;
+				&:nth-child(2n+1){
+					border-right-width: 1px;
+				}
+				&:nth-child(2n+1):nth-last-child(2), &:last-child {
+					border-bottom-width: 0;
+				}
+				
+				a {
+					height: 100%;
+				}
+				
+				@media(max-width:360px) {
+					flex-basis: 100%;
+					border-right: none;
+					border-bottom-width: 1px !important;
+				}
+			}
+		}
+		
+		ul.nav--scrollable {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			width: 100vw;
+			overflow-x: scroll;
+			-webkit-overflow-scrolling: touch;
+			-ms-overflow-style: -ms-autohiding-scrollbar;
+			& > li.nav-item {
+				word-break: keep-all;
+				white-space: nowrap;
+			}
+		}
+		
 		@include media-breakpoint-up($navbar_breakpoint_upper){
 			font-size: 0.9rem;	
 		}
 		
+		// styles only for mobile variation
+		&--mobile {
+			//background-color: $brand !important;
+			.navbar-collapse {
+				ul.navbar-nav {
+					li.nav-item {
+						.nav-link {
+							padding-top: $grid-gutter-width/4;
+							padding-bottom: $grid-gutter-width/4;
+						}
+					}
+				}
+			}
+		}
+		
+		// styles only for desktop variation
+		&--desktop {
+		}
+		
 	}
+
+
+
+
 
 	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
 	.navbar-main, .navbar-main--mobile {
