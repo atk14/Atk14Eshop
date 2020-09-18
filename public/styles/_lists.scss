@@ -282,6 +282,7 @@ ul.list--active-filters {
 			display: block;
 			flex-basis: 3ch;
 			color: $secondary;
+			flex-shrink: 0;
 		}
 		.list--icons__value {
 			display: block;

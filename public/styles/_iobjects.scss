@@ -200,6 +200,21 @@
 			flex-basis: 100%;
 		}
 		
+		.qr-code-link {
+			.icon-down {
+				display: inline-block;
+				transform: rotate(0);
+				transition: transform 0.3s;
+				margin-left: 0.5ch;
+				font-size: 0.875em;
+			}
+			&[aria-expanded="true"]{
+				.icon-down {
+					display: inline-block;
+					transform: rotate(180deg);
+				}
+			}
+		}
 	}
 	
 	&--contact-group {
