@@ -25,7 +25,9 @@
 			</div>
 				<div class="col-12 col-md-5 col-lg-6">
 					<a href="/prodejny/showroom-praha/" class="banner banner--image-text--halfwidth">
-						<img src="/public/dist/images/hp-shop-banner.jpg" class="banner__image img-fluid" alt="">
+						<div class="banner__image">
+							<img src="/public/dist/images/hp-shop-banner.jpg" class="img-fluid" alt="">
+						</div>
 						<div class="banner__text">{t escape=no}Navštivte naši novou prodejnu{/t}</div>
 					</a>
 				</div>
