@@ -30,6 +30,24 @@ class Unit extends ApplicationModel implements Translatable {
 		return (int)$precision;
 	}
 
+	/**
+	 * Returns decimal places suitable for displaying quantity
+	 *
+	 *	// e.g. unit cm
+	 * 	echo $cm->getDisplayUnitMultiplier(); // 100
+	 * 	echo $cm->getDisplayUnit(); // m
+	 *	echo $cm->getDisplayQuantityPrecision(); // 2
+	 *
+	 *	{* in a template *}
+	 * 	amount: {($item->getAmount()/$unit->getDisplayUnitMultiplier())|format_number:$unit->getDisplayQuantityPrecision()} {$unit->getDisplayUnit()}
+	 *
+	 *	... for 120 cm it renders
+	 *	amount: 1,20 m
+	 */
+	function getDisplayQuantityPrecision(){
+		return log10($this->getDisplayUnitMultiplier()); // 0, 1, 2...
+	}
+
 	function getStockcountDisplayLimit(){
 		// TODO: store limits into database
 		$limits = [
