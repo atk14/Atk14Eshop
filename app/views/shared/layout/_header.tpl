@@ -1,9 +1,15 @@
 {*
  * Template for header.
  * $use_large_search_bar determines if large ful width search bar will be used.
- * $show_search_in_hamburger - if true search field is shown under hamburger menu
+ * $show_search_in_mobile - if true search field is always shown on mobile.
+ * 												if false, search is shown as icon (except on homepage)
+ * 
  *}
 {assign "use_large_search_bar" 0}
+{assign show_search_in_mobile 0}
+{if $controller=="main" && $action=="index"}
+	{assign show_search_in_mobile 1}
+{/if}
 {capture assign="basket_info"}
 	{render partial="shared/layout/header/basket_info" nav_class="navbar-nav"}
 {/capture}
@@ -12,7 +18,7 @@
 {assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 
 <header class="header-main" id="header-main">
-	
+
 	{render partial="shared/layout/header/navbar_top_mobile"}	
 	{render partial="shared/layout/header/navbar_top_desktop"}
 	
@@ -22,7 +28,7 @@
 			</div>
 			{if !$use_large_search_bar}
 			<div class="mainbar__middle mainbar__search_cart">
-				<form class="form-inline" action="{link_to namespace="" action="searches/index"}">
+				<form class="form-inline{if !$show_search_in_mobile} d-none d-{$nav_breakpoint}-flex{/if}" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field">
 					<input name="q" type="text" class="form-control" placeholder="{t}Hledat{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>

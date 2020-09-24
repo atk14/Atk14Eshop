@@ -157,6 +157,16 @@ ol.breadcrumb {
 					.nav-link {
 						$mob-nav-link-padding-y: ( $mob-nav-height - (16px * 0.9) * $line-height-base ) / 2;
 						padding:  $mob-nav-link-padding-y 0.5rem !important;
+						min-width: 6ch;
+						text-align: center;
+						@media(max-width:360px){
+							min-width: 4.5ch;
+						}
+						&.js--search-toggle {
+							.fas {
+								transform: scale(1.2);
+							}
+						}
 					}
 				}
 				.dropdown-menu {

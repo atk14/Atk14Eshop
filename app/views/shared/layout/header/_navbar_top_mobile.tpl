@@ -10,6 +10,11 @@
 				{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
 					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="220">
 				{/a}
+				{if !$show_search_in_mobile}
+				<ul class="navbar-nav">
+					<li class="nav-item"><a href="" class="nav-link js--search-toggle">{!"search"|icon}</a></li>
+				</ul>
+				{/if}
 				{render partial="shared/layout/header/user_menu"}	
 				{!$basket_info}
 			</div>
