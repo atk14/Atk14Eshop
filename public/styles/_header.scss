@@ -83,6 +83,7 @@ ol.breadcrumb {
 		.navbar-collapse {
 			justify-content: flex-end;
 			align-items: flex-start;
+			max-width: 100%;
 		}
 		
 		ul.navbar-nav {
@@ -340,7 +341,6 @@ ol.breadcrumb {
 				display: flex;
 				flex-direction: row;
 				flex-wrap: nowrap;
-				width: 100vw;
 				overflow-x: scroll;
 				-webkit-overflow-scrolling: touch;
 				-ms-overflow-style: -ms-autohiding-scrollbar;
