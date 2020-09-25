@@ -28,12 +28,23 @@
 				</form>
 				{/if}
 				
-				{assign main_menu LinkList::GetInstanceByCode("main_menu")}
-				{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
-				
-				<div class="menu-separator"></div>
-				
-				{render partial="shared/layout/header/nav_menu" menu="secondary_menu_mobile" enable_dropdown_menus=false nav_class="navbar-nav nav--scrollable"}
+				{if $controller=="main" && $action=="index"}
+
+					{* Homepage *}
+
+					{render partial="shared/layout/header/nav_menu" menu=$lazy_loader.secondary_menu_mobile enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
+
+				{else}
+
+					{* Elsewhere *}
+
+					{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
+
+					<div class="menu-separator"></div>
+
+					{render partial="shared/layout/header/nav_menu" menu=$lazy_loader.secondary_menu_mobile enable_dropdown_menus=false nav_class="navbar-nav nav--scrollable"}
+
+				{/if}
 				
 				{if sizeof(Region::GetInstances())>1 || $supported_languages}
 					<div class="menu-separator"></div>

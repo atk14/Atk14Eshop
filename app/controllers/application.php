@@ -81,6 +81,13 @@ class ApplicationController extends ApplicationBaseController{
 	function _application_before_filter() {
 		// Here, the $this->lazy_loader can be filled up with something
 
+		$this->lazy_loader["secondary_menu_mobile"] = function(){
+			if(($out = LinkList::GetInstanceByCode("secondary_menu_mobile")) && !$out->isEmpty()){
+				return $out;
+			}
+			return LinkList::GetInstanceByCode("secondary_menu");
+		};
+
 		parent::_application_before_filter();
 	}
 
