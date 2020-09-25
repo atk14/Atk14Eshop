@@ -6,7 +6,7 @@ There are two navbars in the site header. On narrow screens there is only one co
 				
 ## Top navbar
 
-There are two instances of top navbar in the header - one for desktop view and another one for mobile displays. Most of the markup are shared btween both of them.  Use <code>div.menu-separator</code> to separate navbar elements. Text and border colors is determined by <code>navbar-dark</code> or <code>navbar-light</code> classes of parent navbar component. If different color scheme for collapsing part of navbar is needed, use bg color <code>bg-*</code> utility classes and <code>color-scheme-dark</code> or <code>color-scheme-light</code> on <code>.navbar-collapse</code> element.
+There are two instances of top navbar in the header - one for desktop view and another one for mobile displays. Most of the markup are shared btween both of them.  Use <code>div.menu-separator</code> to separate navbar elements. Text and border colors is determined by <code>navbar-dark</code> or <code>navbar-light</code> classes of parent navbar component. If different color scheme for collapsing part of navbar is needed, use bg color <code>bg-*</code> utility classes and <code>navbar-dark</code> or <code>navbar-light</code> on <code>.navbar-collapse</code> element.
 
 
 ### Top navbar on desktop
@@ -244,8 +244,10 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 					<li class="nav-item">
 
-						<a href="#" class="nav-link xxnav-link--border">
+						<a href="#" class="nav-link">
 							<span class="fas fa-shopping-cart"></span><span class="d-none d-sm-inline"> Košík</span>
+							<span class="cart-num-items">1</span>
+							<div class="cart__price"><span class="currency_main"><span class="price">15</span>&nbsp;Kč</span></div>
 						</a>
 					</li>
 
@@ -399,8 +401,10 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 					<li class="nav-item">
 
-						<a href="#" class="nav-link xxnav-link--border">
+						<a href="#" class="nav-link">
 							<span class="fas fa-shopping-cart"></span><span class="d-none d-sm-inline"> Košík</span>
+							<span class="cart-num-items">1</span>
+							<div class="cart__price"><span class="currency_main"><span class="price">15</span>&nbsp;Kč</span></div>
 						</a>
 					</li>
 
@@ -552,8 +556,10 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 					<li class="nav-item">
 
-						<a href="#" class="nav-link xxnav-link--border">
+						<a href="#" class="nav-link">
 							<span class="fas fa-shopping-cart"></span><span class="d-none d-sm-inline"> Košík</span>
+							<span class="cart-num-items">1</span>
+							<div class="cart__price"><span class="currency_main"><span class="price">15</span>&nbsp;Kč</span></div>
 						</a>
 					</li>
 
@@ -561,7 +567,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 			</div>
 
-			<div class="collapse navbar-collapse color-scheme-light bg-light" id="navTopMobileNavDropdown3">
+			<div class="collapse navbar-collapse navbar-light bg-light" id="navTopMobileNavDropdown3">
 
 				<ul class="navbar-nav nav--2col">
 
@@ -755,21 +761,6 @@ Items are displayed inline even on mobile viewport. Use only with small number i
 
 
 
-
-
-
-<hr>
-
-[example]
-TODO
-[/example]
-
-The same nevbar when user is logged in and with indicator of item number in cart
-
-[example]
-TODO
-[/example]
-		
 ## Main navbar
 
 There are different instances of main navbar for mobile and destop view. Color styling is easily adjusted by <code>navbar-light</code> or <code>navbar-dark</code> class and <code>bg-*</code> background utility classes.

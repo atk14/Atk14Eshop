@@ -399,10 +399,10 @@ ol.breadcrumb {
 		}
 		
 		
-		&.navbar-dark, & .navbar-collapse.color-scheme-dark {
+		&.navbar-dark, & .navbar-collapse.navbar-dark {
 			@include navbar-color-variations(white);
 		}
-		&.navbar-light, & .navbar-collapse.color-scheme-light {
+		&.navbar-light, & .navbar-collapse.navbar-light {
 			@include navbar-color-variations($body-color);
 		}
 		
