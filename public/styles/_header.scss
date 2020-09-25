@@ -18,6 +18,11 @@ $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 					background-color: $primary;
 					color: white;
 				}
+				&.active {
+					color: $navbar-color;
+					border-bottom: 2px solid rgba($navbar-color, 0.5);
+					background-color: rgba($navbar-color, 0.15);
+				}
 			}
 		}
 	}
@@ -354,6 +359,21 @@ ol.breadcrumb {
 				& > li.nav-item {
 					word-break: keep-all;
 					white-space: nowrap;
+				}
+			}
+			
+			ul.nav--inline {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				& > li.nav-item {
+					word-break: keep-all;
+					white-space: nowrap;
+					a.nav-link {
+						.langswitch__flag {
+							display: block;
+						}
+					}
 				}
 			}
 		}
