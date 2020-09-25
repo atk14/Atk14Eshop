@@ -32,13 +32,13 @@
 
 					{* Homepage *}
 
-					{render partial="shared/layout/header/nav_menu" menu=$lazy_loader.secondary_menu_mobile enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
+					{render partial="shared/layout/header/nav_menu" menu=$lazy_loader.secondary_menu_mobile enable_dropdown_menus=false nav_class="navbar-nav nav--2col"}
 
 				{else}
 
 					{* Elsewhere *}
 
-					{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav navbar-nav-main-mobile nav--2col"}
+					{render partial="shared/layout/header/nav_menu" menu="main_menu" enable_dropdown_menus=false nav_class="navbar-nav nav--2col"}
 
 					<div class="menu-separator"></div>
 
