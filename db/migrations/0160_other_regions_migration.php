@@ -25,7 +25,7 @@ class OtherRegionsMigration extends ApplicationMigration {
 			"code" => "EU",
 			"name_en" => "EU",
 			"name_cs" => "EU",
-			"languages" => '["cs","en"]',
+			"languages" => '["en"]',
 			"currencies" => '["EUR"]',
 			"delivery_countries" => '["DE","AT","HU","PL","BE","FR","NL","GB","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]',
 		]));
