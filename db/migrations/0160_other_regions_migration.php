@@ -1,8 +1,8 @@
 <?php
-class TestingRegionsMigration extends ApplicationMigration {
+class OtherRegionsMigration extends ApplicationMigration {
 
 	function up(){
-		if(!DEVELOPMENT){ return; }
+		if(!DEVELOPMENT){ return; } // Has effect only in DEVELOPMENT
 
 		($default = Region::FindByCode("DEFAULT")) &&
 		$default->s([
@@ -36,6 +36,17 @@ class TestingRegionsMigration extends ApplicationMigration {
 
 		foreach(PaymentMethod::FindAll() as $o){
 			$o->s("regions",'{"DEFAULT":true,"SK":true,"EU":true}');
+		}
+
+		$regions = '{"DEFAULT": true, "SK": true, "EU": true}';
+		foreach([
+			"delivery_methods",
+			"payment_methods",
+			"campaigns",
+			"digital_contents",
+			"link_list_items",
+		] as $table){
+			$this->dbmole->doQuery("UPDATE $table SET regions=:regions",[":regions" => $regions]);
 		}
 	}
 }
