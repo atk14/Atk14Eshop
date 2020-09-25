@@ -8,7 +8,7 @@
 					<span class="navbar-toggler__icon navbar-toggler__icon--close">{!"times"|icon}</span>
 				</button>
 				{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
-					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="220">
+					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="80">
 				{/a}
 				{if !$show_search_in_mobile}
 				<ul class="navbar-nav">

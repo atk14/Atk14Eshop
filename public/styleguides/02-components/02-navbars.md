@@ -214,7 +214,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="220">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -371,7 +371,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop.svg" alt="ATK14 Eshop" width="220" height="220">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -526,7 +526,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="220">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
