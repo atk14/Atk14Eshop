@@ -1,8 +1,8 @@
 <?php
-class TestingRegionsMigration extends ApplicationMigration {
+class OtherRegionsMigration extends ApplicationMigration {
 
 	function up(){
-		if(!DEVELOPMENT){ return; }
+		if(!DEVELOPMENT){ return; } // Has effect only in DEVELOPMENT
 
 		($default = Region::FindByCode("DEFAULT")) &&
 		$default->s([
