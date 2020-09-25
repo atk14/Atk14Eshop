@@ -54,9 +54,6 @@ $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 
 ol.breadcrumb {
 	border-bottom: 1px solid $border-color;
-	@include media-breakpoint-down($navbar_breakpoint_lower){
-		margin-top: $grid-gutter-width/2;
-	}
 }
 
 .header-main {
@@ -72,7 +69,7 @@ ol.breadcrumb {
 		font-weight: bold;
 	}
 	@include media-breakpoint-down($navbar_breakpoint_lower){
-		margin-bottom: 0;
+		margin-bottom: $grid-gutter-width/2;
 	}
 	
 	// Top navbar, also mobile menu
