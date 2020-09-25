@@ -1,7 +1,7 @@
 {* Langswitch for use in navbars. For standalone use in navbar, see _langswitch 
 	* show_language_names - if true, language names are shown
 *}
-{if $all_languages}
+{if $all_languages && sizeof($all_languages)>1}
 
 {foreach $all_languages as $l}
 	<li class="nav-item langswitch">
