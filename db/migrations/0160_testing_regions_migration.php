@@ -37,5 +37,16 @@ class TestingRegionsMigration extends ApplicationMigration {
 		foreach(PaymentMethod::FindAll() as $o){
 			$o->s("regions",'{"DEFAULT":true,"SK":true,"EU":true}');
 		}
+
+		$regions = '{"DEFAULT": true, "SK": true, "EU": true}';
+		foreach([
+			"delivery_methods",
+			"payment_methods",
+			"campaigns",
+			"digital_contents",
+			"link_list_items",
+		] as $table){
+			$this->dbmole->doQuery("UPDATE $table SET regions=:regions",[":regions" => $regions]);
+		}
 	}
 }
