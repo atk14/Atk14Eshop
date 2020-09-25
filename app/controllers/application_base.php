@@ -101,7 +101,8 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		// data for language swith, see app/views/shared/_langswitch.tpl
-		$languages = array();
+		$all_languages = array(); // all language
+		$supported_languages = array(); // all language but the current language, TODO: should be renamed to other_languages
 		$current_language = null;
 		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
 		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
@@ -112,14 +113,17 @@ class ApplicationBaseController extends Atk14Controller{
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
 				"switch_url" => $this->_link_to($params)
 			);
+			$all_languages[] = $item;
 			if($this->lang==$l){
 				$current_language = $item;
 				continue;
 			}
-			$languages[] = $item;
+			$supported_languages[] = $item;
 		}
 		$this->tpl_data["current_language"] = $current_language;
-		$this->tpl_data["supported_languages"] = $languages;
+		$this->tpl_data["all_languages"] = $all_languages;
+		$this->tpl_data["supported_languages"] = $supported_languages;
+
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
 		$this->tpl_data["current_region"] = $basket->getRegion();
 		$this->tpl_data["current_currency"] = $basket->getCurrency();	
