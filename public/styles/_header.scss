@@ -348,7 +348,7 @@ ol.breadcrumb {
 				display: flex;
 				flex-direction: row;
 				flex-wrap: nowrap;
-				overflow-x: scroll;
+				overflow-x: auto;
 				-webkit-overflow-scrolling: touch;
 				-ms-overflow-style: -ms-autohiding-scrollbar;
 				& > li.nav-item {
