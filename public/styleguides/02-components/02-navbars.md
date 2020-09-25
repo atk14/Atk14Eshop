@@ -4,192 +4,294 @@ Navbars
 Navbars are based on Bootstrap Navbar component.
 There are two navbars in the site header. On narrow screens there is only one collapsed navbar containing items from both navbars to avoid multiple hamburger menus (try to resize this browser window to see it in action).
 				
-## Top navbar. 
+## Top navbar
 
-Top navbar with user
-Note that in collapsed state it includes also links from main navbar.
+There are two instances of top navbar in the header - one for desktop view and another one for mobile displays. Most of the markup are shared btween both of them.
+
+### Top navbar navs
+
+Navs are main building component of navbars. For top navbar we have several nav layouts created by adding <code>nav--*</code> modifier class to <code>navbar-nav component</code>, all variants are derived from Bootstrap nav component. Text and border colors is determined by <code>navbar-dark</code> or <code>navbar-light</code> classes of parent navbar component
+
+
+#### Plain Bootstrap nav
 
 [example]
-
-<nav class="navbar navbar-dark bg-dark navbar-expand-md nav-top">
-	<div class="container-fluid">
-
-		<div class="nav__mobile-items d-md-none">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="icon-bars"><span class="fas fa-bars"></span></span>
-				<span class="icon-close"><span class="fas fa-times"></span></span>
-			</button>
-			<div class="nav__mobile__right">
-				<ul class="navbar-nav js--basket_info">
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<span class="fas fa-shopping-cart"></span> Košík </a>
-					</li>
-				</ul>
-
-			</div>
-		</div>
-
-		<div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+<header class="header-main">
+	<div class="navbar navbar-dark bg-brand navbar-expand-md navbar-top">
+		<div class="navbar-collapse">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a href="#" class="nav-link"><span class="fas fa-key"></span> Přihlásit se</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Registrovat</a></li>
-
+				<li class="nav-item"><a href="#" class="nav-link">Item 1</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 2</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 3</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 4</a></li>
 			</ul>
-
-			<hr class="mobile-separator">
-
-			<form class="form-inline navbar-search" action="/vyhledavani/">
-				<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="Hledat">
-				<button type="submit" class="btn btn-sm btn-primary" title="Hledat"><span class="fas fa-search"></span></button>
-			</form>
-
-
-			<ul class="navbar-nav navbar-nav-main-mobile d-block d-md-none">
-				<li class="nav-item"><a href="#" class="nav-link">Obchod</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Úvod</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">O nás</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Prodejny</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Kontakt</a></li>
-			</ul>
-
-		</div>
-		<div class="nav__desktop-items">
-			<ul class="navbar-nav js--basket_info">
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<span class="fas fa-shopping-cart"></span> Košík 
-					</a>
-				</li>
-			</ul>
-
 		</div>
 	</div>
-</nav>
+</header>
+
+[/example]
+
+#### Nav with 2 column grid on mobile
+
+Useful for mobile variant of top navbar.
+On very small viewports items are stacked into sigle column. View in small window to see the effect.
+
+[example]
+<header class="header-main">
+	<div class="navbar navbar-dark bg-brand navbar-expand-md navbar-top">
+		<div class="navbar-collapse">
+			<ul class="navbar-nav nav--2col">
+				<li class="nav-item"><a href="#" class="nav-link">Item 1</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 2</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 3</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 4</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+[/example]
+
+#### Scrollable horizontal nav on mobile
+
+Useful for mobile variant of top navbar. This nav should be not used for primary navigation menus as all items may not be visible. View in small window to see the effect.
+
+[example]
+<header class="header-main">
+	<div class="navbar navbar-dark bg-brand navbar-expand-md navbar-top">
+		<div class="navbar-collapse">
+			<ul class="navbar-nav nav--scrollable">
+				<li class="nav-item"><a href="#" class="nav-link">Item 1</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 2</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 3</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 4</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 5</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 6</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 7</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 8</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+[/example]
+
+
+#### Nav with inline items on mobile
+
+Useful for mobile variant of top navbar.
+Items are displayed inline even on mobile viewport. Use only with small number items with short link texts or icons. View in small window to see the effect.
+
+[example]
+<header class="header-main">
+	<div class="navbar navbar-dark bg-brand navbar-expand navbar-top">
+		<div class="navbar-collapse">
+			<ul class="navbar-nav nav--inline">
+				<li class="nav-item"><a href="#" class="nav-link">Item 1</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 2</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 3</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Item 4</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+[/example]
+
+
+
+
+
+
+<hr>
+
+[example]
+TODO
 [/example]
 
 The same nevbar when user is logged in and with indicator of item number in cart
 
 [example]
-<nav class="navbar navbar-dark bg-dark navbar-expand-md nav-top">
-	<div class="container-fluid">
-
-		<div class="nav__mobile-items d-md-none">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="icon-bars"><span class="fas fa-bars"></span></span>
-				<span class="icon-close"><span class="fas fa-times"></span></span>
-			</button>
-			<div class="nav__mobile__right">
-				<ul class="navbar-nav js--basket_info">
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<span class="fas fa-shopping-cart"></span> Košík <span class="cart-num-items">3</span>
-						</a>
-					</li>
-				</ul>
-
-			</div>
-		</div>
-
-		<div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
-			<ul class="navbar-nav">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="fas fa-user"></span> admin
-					</a>
-					<div class="dropdown-menu">
-						<a href="#" class="dropdown-item">Profil</a>
-						<a href="#" class="dropdown-item">Moje objednávky</a>
-						<a href="#" class="dropdown-item">Dodací adresy</a>
-						<div class="dropdown-divider"></div>
-						<a data-method="post" class="dropdown-item" href="#">Odhlásit se</a>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Administrace</a> </li>
-			</ul>
-
-			<hr class="mobile-separator">
-
-			<form class="form-inline navbar-search" action="/vyhledavani/">
-				<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="Hledat">
-				<button type="submit" class="btn btn-sm btn-primary" title="Hledat"><span class="fas fa-search"></span></button>
-			</form>
-
-			<ul class="navbar-nav navbar-nav-main-mobile d-block d-md-none">
-				<li class="nav-item"><a href="#" class="nav-link">Obchod</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Úvod</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">O nás</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Prodejny</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Kontakt</a></li>
-			</ul>
-
-		</div>
-		<div class="nav__desktop-items">
-			<ul class="navbar-nav js--basket_info">
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<span class="fas fa-shopping-cart"></span> Košík <span class="cart-num-items">3</span>
-					</a>
-				</li>
-			</ul>
-
-		</div>
-	</div>
-</nav>
-
+TODO
 [/example]
 		
-## Main navbar. 
+## Main navbar
+
+There are different instances of main navbar for mobile and destop view. Color styling is easily adjusted by <code>navbar-light</code> or <code>navbar-dark</code> class and <code>bg-*</code> background utility classes.
+
+### Main navbar on large screens
 Note that on small screen this navbar is hidden and its links are visible in top navbar.  
 Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving different than default Bootstrap dropdowns - they open on mouse over and parent link is clickable. To revert dropdowns to standard Bootstrap behavior, simply remove <code>navbar--hoverable-dropdowns</code> class.
 
 [example]
+<p class="d-block d-md-none"><small>Resize browser window to see this example</small></p>
 
-<nav class="navbar navbar-dark bg-brand navbar-expand-md d-none d-md-flex navbar-main navbar--hoverable-dropdowns">
-	<div class="container-fluid">
+<header class="header-main">
 
-		<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
+	<nav class="navbar navbar-dark bg-brand navbar-expand-md d-none d-md-flex navbar-main navbar--hoverable-dropdowns">
+		<div class="container-fluid">
 
+			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
+
+				<ul class="navbar-nav">
+
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">Květiny</a>
+							<a href="#" class="dropdown-item">Retro</a>
+							<a href="#" class="dropdown-item">Krabice, krabičky</a>
+							<a href="#" class="dropdown-item">Zážitky</a>
+							<a href="#" class="dropdown-item">Knihy</a>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Hudba</a>
+					</li>
+					
+					<li class="nav-item">
+						<a href="#" class="nav-link">Květiny</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Retro</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Knihy</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Zážitky</a>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<p class="mt-3">Light variant</p>
+
+	<nav class="navbar navbar-light bg-light navbar-expand-md d-none d-md-flex navbar-main navbar--hoverable-dropdowns">
+		<div class="container-fluid">
+
+			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
+
+				<ul class="navbar-nav">
+
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">Květiny</a>
+							<a href="#" class="dropdown-item">Retro</a>
+							<a href="#" class="dropdown-item">Krabice, krabičky</a>
+							<a href="#" class="dropdown-item">Zážitky</a>
+							<a href="#" class="dropdown-item">Knihy</a>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Hudba</a>
+					</li>
+					
+					<li class="nav-item">
+						<a href="#" class="nav-link">Květiny</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Retro</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Knihy</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="nav-link">Zážitky</a>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+</header>
+[/example]
+
+### Main navbar on small screens
+
+This navbar is shown on small screens, typically only on homepage. Links are displayed in four, two columns or in single column depending on viewport width. Do not use dropdowns.
+
+[example]
+<p class="d-none d-md-block"><small>Resize browser window to see this example</small></p>
+
+<header class="header-main">
+
+	<nav class="navbar navbar-dark bg-brand navbar-expand d-md-none navbar-main--mobile">
+		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav">
 
-				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
-					<div class="dropdown-menu">
-						<a href="#" class="dropdown-item">Květiny</a>
-						<a href="#" class="dropdown-item">Retro</a>
-						<a href="#" class="dropdown-item">Krabice, krabičky</a>
-						<a href="#" class="dropdown-item">Materiál</a>
-						<a href="#" class="dropdown-item">Zážitky</a>
-						<a href="#" class="dropdown-item">Barva</a>
-						<a href="#" class="dropdown-item">Knihy</a>
-					</div>
+				<li class="nav-item">
+					<a href="/obchod/" class="nav-link">Obchod</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="#" class="nav-link">Úvod</a>
-				</li>
-
-				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
-					<div class="dropdown-menu">
-						<a href="#" class="dropdown-item">Pro média</a>
-						<a href="#" class="dropdown-item">Kontaktní údaje</a>
-					</div>
+					<a href="/obchod/retro/" class="nav-link">Retro</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="#" class="nav-link">Prodejny</a>
+					<a href="/obchod/hudba/" class="nav-link">Hudba</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="#" class="nav-link">Kontakt</a>
+					<a href="/obchod/zazitky/" class="nav-link">Zážitky</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/krabice-krabicky/" class="nav-link">Krabice</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/knihy/" class="nav-link">Knihy</a>
 				</li>
 
 			</ul>
-
 		</div>
-	</div>
-</nav>
+	</nav>
 
+	<p class="mt-3">Light variant</p>
+
+	<nav class="navbar navbar-light bg-light navbar-expand d-md-none navbar-main--mobile">
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav">
+
+				<li class="nav-item">
+					<a href="/obchod/" class="nav-link">Obchod</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/retro/" class="nav-link">Retro</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/hudba/" class="nav-link">Hudba</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/zazitky/" class="nav-link">Zážitky</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/krabice-krabicky/" class="nav-link">Krabice</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/obchod/knihy/" class="nav-link">Knihy</a>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
+
+</header>
 [/example]
