@@ -1,4 +1,4 @@
-	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} d-none d-{$nav_breakpoint}-block nav-top nav-top--desktop">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} d-none d-{$nav_breakpoint}-block navbar-top navbar-top--desktop">
 		<div class="container-fluid">
 			
 			<div class="collapse navbar-collapse" id="navTopDesktopNavDropdown">

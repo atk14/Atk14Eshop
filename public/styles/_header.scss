@@ -78,7 +78,7 @@ ol.breadcrumb {
 	}
 	
 	// Top navbar, also mobile menu
-	.nav-top {
+	.navbar-top {
 		padding-top: 0;
 		padding-bottom: 0;
 		
@@ -323,6 +323,7 @@ ol.breadcrumb {
 				border-width: 1px;
 				border-style: none;
 				border-top-style: solid;
+				width: 100%;
 				& > li.nav-item {
 					border-color: inherit;
 					border-width: 1px;

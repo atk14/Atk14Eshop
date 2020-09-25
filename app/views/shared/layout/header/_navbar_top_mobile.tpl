@@ -1,4 +1,4 @@
-	<nav class="navbar navbar-dark bg-brand navbar-expand-{$nav_breakpoint} d-{$nav_breakpoint}-none nav-top nav-top--mobile">
+	<nav class="navbar navbar-dark bg-brand navbar-expand-{$nav_breakpoint} d-{$nav_breakpoint}-none navbar-top navbar-top--mobile">
 		<div class="container-fluid">
 			{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 			

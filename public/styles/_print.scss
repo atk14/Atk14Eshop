@@ -1,6 +1,6 @@
 @media print {
 	.header-main {
-		.nav-top, form, .mainbar__controls, .navbar-main, .navbar-main--mobile {
+		.navbar-top, form, .mainbar__controls, .navbar-main, .navbar-main--mobile {
 			opacity: 0.5;
 			display: none !important;
 		}
