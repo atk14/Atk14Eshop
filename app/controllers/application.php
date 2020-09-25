@@ -89,6 +89,19 @@ class ApplicationController extends ApplicationBaseController{
 		};
 
 		parent::_application_before_filter();
+
+		// If the current language is not supported by the current selling region,
+		// here is a redirection to the default language.
+		if($this->request->get() && !$this->request->xhr() && !preg_match('/^error/',$this->action)){
+			$current_region = $this->_get_current_region();
+			$languages = $current_region->getLanguages();
+			$languages = array_map(function($lang){ return $lang->getId(); },$languages); // ["en","cs"]
+			if(!in_array($this->lang,$languages)){
+				$params = $this->params->toArray();
+				$params["lang"] = $languages[0];
+				return $this->_redirect_to($params);
+			}
+		}
 	}
 
 	// Navigace u vytvareni objednavky
