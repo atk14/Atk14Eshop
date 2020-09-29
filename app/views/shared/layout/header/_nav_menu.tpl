@@ -1,17 +1,21 @@
 {*
+ *	{render partial="shared/layout/header/nav_menu" menu=LinkList::GetInstanceByCode("main_menu")}
  *
- *	{render partial="shared/layout/header/main_menu" menu="main_menu"}
- *	{render partial="shared/layout/header/main_menu" menu="main_menu" nav_class="navbar-nav" enable_dropdown_menus=false}
+ *	{render partial="shared/layout/header/nav_menu" menu="main_menu"}
+ *	{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav" enable_dropdown_menus=false}
  *}
 
-{if !isset($menu)}{assign menu "main_menu"}{/if}
 {if !isset($enable_dropdown_menus)}{assign enable_dropdown_menus true}{/if}
 {if !isset($nav_class)}{assign nav_class true}{/if}
-{assign main_menu LinkList::GetInstanceByCode($menu)}
-{if $main_menu}
+
+{if is_string($menu)}
+	{assign menu LinkList::GetInstanceByCode($menu)}
+{/if}
+
+{if $menu && !$menu->isEmpty()}
 	<ul class="{$nav_class}">
 
-			{foreach $main_menu->getItems($current_region) as $item}
+			{foreach $menu->getItems($current_region) as $item}
 
 					{assign submenu ""}
 					{if $enable_dropdown_menus && $enable_dropdown_menus!=="false"}

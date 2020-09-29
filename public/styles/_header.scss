@@ -1,22 +1,64 @@
 // When top navbar become hamburger and main menu gets replaced with mobile main menu 
-$navbar_breakpoint_upper: md;
 $navbar_breakpoint_lower: sm;
+$navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 
-// Hide navbar above navbar breakpoint
-$hide_navbar_above_breakpoint: false;
-
-// When mainbar controls disappear
-$mainbar_controls_breakpoint_upper: md;
-$mainbar_controls_breakpoint_lower: sm;
-
-// Admin header and breadcrumbs
-
+@mixin navbar-color-variations($navbar-color) {
+	color: $navbar-color;
+	.navbar-toggler {
+		color: inherit;
+	}
+	.menu-separator{
+		background-color: rgba($navbar-color, 0.5);
+	}
+	ul.navbar-nav {
+		li.nav-item {
+			a.nav-link {
+				color: $navbar-color;
+				&:hover {
+					background-color: $primary;
+					color: white;
+				}
+				&.active {
+					color: $navbar-color;
+					border-bottom: 2px solid rgba($navbar-color, 0.5);
+					background-color: rgba($navbar-color, 0.15);
+				}
+			}
+		}
+	}
+	form.navbar-search {
+		input.form-control-sm {
+			border-bottom: 1px solid rgba($navbar-color,.75);
+			color: $navbar-color;
+			&::placeholder {
+				color: rgba($navbar-color,0.75);
+			}
+			&:focus, &:hover {
+				border-bottom-color: $navbar-color;
+			}
+		}
+		button {
+			color: $navbar-color;
+		}
+	}
+	@include media-breakpoint-down($navbar_breakpoint_lower){
+		ul.nav--2col {
+			border-color: rgba($navbar-color, 0.5);
+		}
+		ul.navbar-nav {
+			li.nav-item {
+				.dropdown-menu {
+					.dropdown-item {
+						color: $navbar-color;
+					}
+				}
+			}
+		}
+	}
+}
 
 ol.breadcrumb {
 	border-bottom: 1px solid $border-color;
-	@include media-breakpoint-down($navbar_breakpoint_lower){
-		margin-top: $grid-gutter-width/2;
-	}
 }
 
 .header-main {
@@ -32,17 +74,18 @@ ol.breadcrumb {
 		font-weight: bold;
 	}
 	@include media-breakpoint-down($navbar_breakpoint_lower){
-		margin-bottom: 0;
+		margin-bottom: $grid-gutter-width/2;
 	}
 	
 	// Top navbar, also mobile menu
-	.nav-top {
+	.navbar-top {
 		padding-top: 0;
 		padding-bottom: 0;
-
+		
 		.navbar-collapse {
 			justify-content: flex-end;
 			align-items: flex-start;
+			max-width: 100%;
 		}
 		
 		ul.navbar-nav {
@@ -66,12 +109,8 @@ ol.breadcrumb {
 						padding-left: 40px;
 					}
 					a {
-						color: white;
-						//padding-left: $grid-gutter-width;
 						margin-left: $grid-gutter-width/2;
-						border-left: 2px solid rgba(white, 0.65);
 						&:hover, &:active, &:focus {
-							background-color: $primary;
 							outline: none;
 						}
 					}
@@ -90,20 +129,60 @@ ol.breadcrumb {
 		}
 
 
-		// Polozky zobrazene jen pri mobile view
+		// Polozky zobrazene v hornim pruhu jen pri mobile view
 		.nav__mobile-items {
+			$mob-nav-height: 60px;
+			$brand-padding-y: $grid-gutter-width/4;
+				
 			display: flex;
-			justify-content: space-between;
+			align-items: center;
+			justify-content: flex-start;
 			width: 100%;
 			@include media-breakpoint-up($navbar_breakpoint_upper){
 				display: none;
 			}
-		}
-
-		.nav__mobile__right {
-			@include media-breakpoint-up($mainbar_controls_breakpoint_upper) {
-				display: none;
+			.navbar-brand {
+				flex-grow: 100;
+				padding-top: $grid-gutter-width/4;
+				padding-bottom: $grid-gutter-width/4;
+				// Adjust image height for SVG scaling proplerly
+				img {
+					height: $mob-nav-height - $brand-padding-y * 2;
+					width: auto;
+				}
 			}
+			
+			
+			
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						$mob-nav-link-padding-y: ( $mob-nav-height - (16px * 0.9) * $line-height-base ) / 2;
+						padding:  $mob-nav-link-padding-y 0.5rem !important;
+						min-width: 6ch;
+						text-align: center;
+						@media(max-width:360px){
+							min-width: 4.5ch;
+						}
+						&.js--search-toggle {
+							.fas {
+								transform: scale(1.2);
+							}
+						}
+					}
+				}
+				.dropdown-menu {
+					position: absolute !important;
+					background-color: rgba(black,0.8) !important;
+				}
+			}
+			
+			.cart__price {
+				@media(max-width:374px){
+					display: none !important;
+				}
+			}
+			
 		}
 
 		// Polozky zobrazene jen pri desktop view	
@@ -113,34 +192,32 @@ ol.breadcrumb {
 			}
 		}
 
-		// Adjust image height for SVG scaling proplerly
-		.navbar-brand {
-			img {
-				height: 30px;
-				width: auto;
-			}
-		}
+		
 
 		// No border on hamburger
 		.navbar-toggler {
 			border: none;
-			color: white;
-			font-size: 1.5rem;
+			font-size: 1.75rem;
+			text-align: left;
 			&:focus {
 				outline: none;
 			}
-			.icon-close {
-				display: none;
-			}
-			.icon-bars {
-				display: inline;
-			}
-			&[aria-expanded="true"] {
-				.icon-bars {
+			&__icon {
+				min-width: 2ch;
+				display: inline-block;
+				&--close {
 					display: none;
 				}
-				.icon-close {
-					display: inline;
+				&--bars {
+					
+				}
+			}
+			&[aria-expanded="true"] {
+				.navbar-toggler__icon--bars {
+					display: none;
+				}
+				.navbar-toggler__icon--close {
+					display: inline-block;
 				}
 			}
 		}
@@ -166,9 +243,7 @@ ol.breadcrumb {
 		.menu-separator {
 			display: block;
 			width: 1px;
-			//height: 10px;
 			align-self: stretch;
-			background-color: rgba(white, 0.5);
 			padding: 0;
 		}
 		
@@ -184,18 +259,14 @@ ol.breadcrumb {
 			input.form-control-sm {
 				border-radius: 0;
 				border: none;
-				border-bottom: 1px solid rgba(white,.75);
 				background-color: transparent;
 				line-height: 1.1;
 				padding: 2px 2px !important;
 				height: 21px;
-				color: white;
 				width: 150px;
 				&::placeholder {
-					color: rgba(white,0.75);
 				}
 				&:focus, &:hover {
-					border-bottom-color: white;
 					box-shadow: none;
 				}
 			}
@@ -203,7 +274,6 @@ ol.breadcrumb {
 				border-radius: 0;
 				background-color: transparent;
 				border: none;
-				color: white;
 				&:focus {
 					box-shadow: none;
 				}
@@ -229,10 +299,8 @@ ol.breadcrumb {
 			}
 			.menu-separator {
 				display: block;
-				//background-color: rgba(white,0.35);
 				height: 1px;
 				width: 100%;
-				background-color:white;
 				margin: 0;
 			}
 			
@@ -246,38 +314,109 @@ ol.breadcrumb {
 					width: calc(100% - 60px);
 				}
 			}
-			.navbar-collapse {
-				.navbar-nav-main-mobile, .navbar-nav {
-					//display: block;
-					background-color: $brand;
-				}
-			}
 
+		}
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			ul.nav--2col {
+				display: flex;
+				flex-direction: row;
+				border-width: 1px;
+				border-style: none;
+				border-top-style: solid;
+				width: 100%;
+				& > li.nav-item {
+					border-color: inherit;
+					border-width: 1px;
+					flex-basis: 50%;
+					flex-shrink: 0;
+					flex-grow: 0;
+					border-bottom-style: solid;
+					&:nth-child(2n+1){
+						border-right-style: solid;
+					}
+					&:nth-child(2n+1):nth-last-child(2), &:last-child {
+						border-bottom-style: none;
+					}
 
-			ul.navbar-nav {
-				li.nav-item {
-					a.nav-link {
-						&:hover {
-							background-color: $link-color;
-						}
+					a {
+						height: 100%;
+					}
+
+					@media(max-width:360px) {
+						flex-basis: 100%;
+						border-right-style: none !important;
+						border-bottom-style: solid !important;
 					}
 				}
 			}
 
-		}
-
-		@if $hide_navbar_above_breakpoint {
-			// Hide navbar on larger screens (above navbar breakpoint)
-			@include media-breakpoint-up($navbar_breakpoint_upper){
-				display: none;
+			ul.nav--scrollable {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+				-ms-overflow-style: -ms-autohiding-scrollbar;
+				& > li.nav-item {
+					word-break: keep-all;
+					white-space: nowrap;
+				}
+			}
+			
+			ul.nav--inline {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				& > li.nav-item {
+					word-break: keep-all;
+					white-space: nowrap;
+					a.nav-link {
+						.langswitch__flag {
+							display: block;
+						}
+					}
+				}
 			}
 		}
 		
+		// styles only for mobile variation
+		&--mobile {
+			//background-color: $brand !important;
+			.navbar-collapse {
+				ul.navbar-nav {
+					li.nav-item {
+						.nav-link {
+							padding-top: $grid-gutter-width/4;
+							padding-bottom: $grid-gutter-width/4;
+						}
+					}
+				}
+			}
+		}
+		
+		// styles only for desktop variation
+		&--desktop {
+		}
+		
+		
+		&.navbar-dark, & .navbar-collapse.navbar-dark {
+			@include navbar-color-variations(white);
+		}
+		&.navbar-light, & .navbar-collapse.navbar-light {
+			@include navbar-color-variations($body-color);
+		}
+		
 		@include media-breakpoint-up($navbar_breakpoint_upper){
-			font-size: 0.9rem;	
+			font-size: 0.9rem;
+			&.navbar-dark {
+				@include navbar-color-variations(rgba(white,0.9));
+			}
 		}
 		
 	}
+
+
+
 
 	// Main navbar - hidden on mobile (on mobile items are visible in top nav)
 	.navbar-main, .navbar-main--mobile {
@@ -292,7 +431,6 @@ ol.breadcrumb {
 					&:after {
 						border: none;
 						content: "\f078";
-						color: $navbar-dark-color;
 						font-family: "Font Awesome 5 Free";
 						font-weight: 900;
 						font-size: 0.65em;
@@ -342,12 +480,44 @@ ol.breadcrumb {
 				}
 			}
 		}
+		
+		
+		&.navbar-dark {
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						color: $navbar-dark-color;
+					}
+					.dropdown-toggle {
+						&:after {
+							color: $navbar-dark-color;
+						}
+					}
+				}
+			}
+		}
+		&.navbar-light, &:not(.navbar-dark) {
+			ul.navbar-nav {
+				li.nav-item {
+					.nav-link {
+						color: $navbar-light-color;
+					}
+					.dropdown-toggle {
+						&:after {
+							color: $navbar-light-color;
+						}
+					}
+				}
+			}
+		}
+		
 	}
 	
 	.navbar-main--mobile {
+		display: block;
 		.container-fluid {
-			padding-left: $grid-gutter-width;
-			padding-right: $grid-gutter-width;
+			//padding-left: $grid-gutter-width;
+			//padding-right: $grid-gutter-width;
 			@include media-breakpoint-down(xs) {
 				padding-left: $grid-gutter-width/2;
 				padding-right: $grid-gutter-width/2;
@@ -356,7 +526,90 @@ ol.breadcrumb {
 		@include media-breakpoint-up($navbar_breakpoint_upper){
 			display: none;
 		}
+		
+		&.navbar-dark {
+			ul.navbar-nav {
+				li.nav-item {
+					border-color: rgba(white,0.5);
+					border-width: 1px;
+					.nav-link {
+						color: white;
+					}
+				}
+			}
+		}
+		&.navbar-light, &:not(.navbar-dark) {
+			ul.navbar-nav {
+				li.nav-item {
+					border-color: rgba($body-color,0.5);
+					border-width: 1px;
+					.nav-link {
+						color: $body-color;
+					}
+				}
+			}
+		}
+		
+		ul.navbar-nav {
+			flex-wrap: wrap;
+			width: 100%;
+			font-size: 0.9rem;
+			li.nav-item {
+				//border-color: rgba(white,0.5);
+				//border-width: 1px;
+				.nav-link {
+					height: 100%;
+					color: white;
+					padding: $grid-gutter-width/4 1rem;
+					&:hover {
+						background-color: $primary;
+						color: white;
+					}
+				}
+				@include media-breakpoint-between(sm, $navbar_breakpoint_upper){
+					flex-basis: 25%;
+					border-right-style: solid;
+					border-bottom-style: solid;
+					&:nth-child(4n+4) {
+						border-right-style: none;
+					}
+					&:nth-last-child(4):nth-child(4n+1),
+					&:nth-last-child(3):nth-child(4n+1),
+					&:nth-last-child(2):nth-child(4n+1),
+					&:nth-last-child(1):nth-child(4n+1) {
+						&, & ~ * {
+							border-bottom-style: none;
+						}
+					}
+				}
+				@include media-breakpoint-down(xs){
+					flex-basis: 50%;
+					border-right-style: solid;
+					border-bottom-style: solid;
+					&:nth-child(2n+2) {
+						border-right-style: none;
+					}
+					&:nth-last-child(2):nth-child(2n+1),
+					&:nth-last-child(1):nth-child(2n+1) {
+						&, & ~ * {
+							border-bottom-style: none;
+						}
+						
+					}
+				}
+				@media(max-width: 360px) {
+					flex-basis: 100%;
+					border-bottom-style: solid !important;
+					border-right-style: none;
+				}
+			}
+		}
+		
 	}
+
+
+
+
 
 	// Space for logo
 	.logospace {
@@ -377,7 +630,6 @@ ol.breadcrumb {
 		
 		$mainbar-link-padding-x: $nav-link-padding-x;
 		
-		//outline: 1px dotted silver;
 		display: flex;
 		justify-content: space-between;
 		
@@ -386,7 +638,6 @@ ol.breadcrumb {
 			padding: $grid-gutter-width/2 $grid-gutter-width/2;
 			padding-left: 0;
 			margin: 0;
-			//outline: 1px dotted aqua;
 			justify-content: flex-start;
 		}
 		.mainbar__controls {
@@ -441,9 +692,6 @@ ol.breadcrumb {
 					}
 				}
 			}
-			@include media-breakpoint-down($mainbar_controls_breakpoint_lower){
-				display: none;
-			}
 		}
 		.nav-link--border {
 			border: 1px solid $border-color;
@@ -451,7 +699,53 @@ ol.breadcrumb {
 			font-size: $input-btn-font-size;
 			line-height: $input-btn-line-height;
 		}
+		
+		
+		@include media-breakpoint-down($navbar_breakpoint_lower){
+			padding: 0;
+			display: block;
+			.logospace {
+				display: none;
+			}
+			.mainbar__controls {
+				display: block;
+				.mainbar__top, .mainbar__bottom, .mainbar__cartinfo {
+					display: none;
+				}
+				.mainbar__search_cart {
+					display: block;
+					.form-inline {
+						padding: 0;
+						padding: $grid-gutter-width/4;
+						background-color: $brand;
+						border: 1px solid rgba($body-bg, 0.5);
+						border-left: none;
+						border-right: none;
+						flex-wrap: nowrap;
+						input[type="text"] {
+							flex-grow: 10;
+							flex-basis: auto;
+							flex-grow: 10;
+							.btn {
+								flex-grow: 0;
+							}
+							input.form-control, .btn {
+								width: auto;
+								display: inline-block !important;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
 	}
+	
+	.nav--main-mobile {
+		outline: 1px solid black;
+	}
+	
 }
 
 .js--basket_info {

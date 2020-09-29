@@ -262,11 +262,11 @@ Simple contact card. When using more than one Contact Card iObjects together, th
 		</div>
 		<div class="iobject__body-bottom">
 			<div>
-				<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046">
+				<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046" class="qr-code-link">
 					<ul class="list--icons mb-0">
 						<li>
 							<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
-							<span class="list--icons__value">QR code</span>
+							<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
 						</li>
 					</ul>
 				</a>
@@ -326,11 +326,11 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 				</div>
 				<div class="iobject__body-bottom">
 					<div>
-						<a href="#person_qr_5f57a6052ad34" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6052ad34">
+						<a href="#person_qr_5f57a6052ad34" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6052ad34" class="qr-code-link">
 							<ul class="list--icons mb-0">
 								<li>
 									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
-									<span class="list--icons__value">QR code</span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
 								</li>
 							</ul>
 						</a>
@@ -365,11 +365,11 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 				</div>
 				<div class="iobject__body-bottom">
 					<div>
-						<a href="#person_qr_5f57a60538abd" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a60538abd">
+						<a href="#person_qr_5f57a60538abd" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a60538abd" class="qr-code-link">
 							<ul class="list--icons mb-0">
 								<li>
 									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
-									<span class="list--icons__value">QR code</span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
 								</li>
 							</ul>
 						</a>
@@ -416,11 +416,11 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 				</div>
 				<div class="iobject__body-bottom">
 					<div>
-						<a href="#person_qr_5f57a6053ff53" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6053ff53">
+						<a href="#person_qr_5f57a6053ff53" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6053ff53" class="qr-code-link">
 							<ul class="list--icons mb-0">
 								<li>
 									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
-									<span class="list--icons__value">QR code</span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
 								</li>
 							</ul>
 						</a>
@@ -462,11 +462,11 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 				</div>
 				<div class="iobject__body-bottom">
 					<div>
-						<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046">
+						<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046"  class="qr-code-link">
 							<ul class="list--icons mb-0">
 								<li>
 									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
-									<span class="list--icons__value">QR code</span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
 								</li>
 							</ul>
 						</a>

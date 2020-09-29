@@ -1,10 +1,66 @@
 @media print {
-	.navbar-main,
+	.header-main {
+		.navbar-top, form, .mainbar__controls, .navbar-main, .navbar-main--mobile {
+			opacity: 0.5;
+			display: none !important;
+		}
+		.logospace {
+			.logospace__logo {
+				max-width: 3cm;
+			}
+		}
+		border-bottom: 1px solid $border-color;
+	}
+	
+	.card {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+	
+	.container-fluid {
+		max-width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
+	h2, h3, h4, h5 {
+		page-break-after: avoid;
+		break-after: avoid;
+	}
+	
+	#filter_form {
+		display: none;
+	}
+	
+	ol.breadcrumb {
+		margin-top: 0 - $grid-gutter-width;
+	}
+	
+	.add-to-cart-widget {
+		.quantity-widget, button {
+			display: none;
+		}
+	}
+	
+	.table-products {
+		&__addvoucher {
+			display: none;
+		}
+	}
+	
+	.form__footer {
+		display: none;
+	}
+	
 	.pagination-container,
 	.pager--rich {
 		display: none !important;
 	}
 	.footer {
+		padding-top: 0;
+		.footer__main {
+			display: none;
+		}
 		border-top: 1px solid $border-color;
 	}
 	article {

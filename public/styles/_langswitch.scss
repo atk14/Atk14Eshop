@@ -1,14 +1,16 @@
 	.langswitch {
-		.langswitch-flag {
+		.langswitch__flag {
 			// Sizing for SVG flag. Flags do not have the same aspect ratios so we set fixed height only.
 			display: inline-block;
 			height: 0.9em;
 			width: auto;
 			vertical-align: baseline;
-			margin-left: 0.125em;
-			&:first-child {
-				margin-left: 0;
-				margin-right: 0.125em;
-			}
+			margin: auto;
+		}
+		.langswitch__lang-name--small {
+			display: block;
+			text-align: center;
+			font-size: $font-size-sm;
+			margin-top: 0.25em;
 		}
 	}

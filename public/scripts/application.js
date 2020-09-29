@@ -79,6 +79,12 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+
+				// Mobile search show/hide toggle
+				$( ".js--search-toggle" ).on( "click", function( e ) {
+					e.preventDefault();
+					$( "#js--main_search_field" ).toggleClass( "d-flex" );
+				} );
 			
 				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
 					var prevScroll = document.documentElement.scrollTop || window.scrollY;
