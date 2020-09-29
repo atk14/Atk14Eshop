@@ -12,10 +12,14 @@
 		</ul>
 
 		<div class="suggestions__footer">
-		{if $finder->getTotalAmount()>5}
-			<p>{t total_amount=$finder->getTotalAmount()}Nalezeno celkem %1 výsledků.{/t}</p>
-		{/if}
-		<a href="{link_to action=index q=$params.q}" class="btn btn-secondary">{t}Zobrazit výsledky{/t}</a>
+			<center>
+			{if $finder->getTotalAmount()>5}
+				<p class="justify-content-center">{t total_amount=$finder->getTotalAmount()}Nalezeno celkem %1 výsledků.{/t}</p>
+			{/if}
+			{if $finder->getTotalAmount()>$finder->getLimit()}
+				<p class="justify-content-center"><a href="{link_to action=index q=$params.q}">{t}Zobrazit všechny výsledky{/t}</a></p>
+			{/if}
+			</center>
 		</div>	
 	{/if}
 </div>
