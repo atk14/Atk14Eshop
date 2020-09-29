@@ -193,6 +193,11 @@
 					}
 
 					searchFn( search );
+
+					$(window).on( "resize", function( e ) {
+						e.preventDefault();
+						positionSuggestingArea( $field, $suggestingArea );
+					} );
 				};
 
 				$( ".js--search" ).on ( "change", function( e ) {
@@ -221,7 +226,17 @@
 				
 				var positionSuggestingArea = function( searchField, suggArea ) {
 					var fieldOffset = searchField.offset();
-					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px")
+					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px");
+
+					// Get x position of search field right edge
+					var rightPos = fieldOffset.left + searchField.outerWidth();
+
+					// Align suggestions to rightPos if there is enough room, center otherwise
+					if( rightPos > suggArea.width() ) {
+						suggArea.css( "left", rightPos - suggArea.width() + "px" );
+					} else {
+						suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
+					}
 				}
 			}
 			
