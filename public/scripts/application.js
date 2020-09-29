@@ -173,10 +173,6 @@
 
 						$suggestingArea.data( "suggesting", "yes" );
 
-						console.log( "tak - " + eve + " " + Date.now());
-						console.log( "search: " + search );
-						console.log( "url: " + url );
-
 						data[ "format" ] = "snippet";
 						data[ fieldName ] = search;
 						$.ajax( {
@@ -185,7 +181,9 @@
 							data: data,
 							success: function( snippet ) {
 								$suggestingArea.html( snippet );
-								suggestingCache[ search ] = snippet;
+								if( search === $suggestingArea.data( "suggesting-for" ) ) {
+									suggestingCache[ search ] = snippet;
+								}
 								$suggestingArea.data( "suggesting", "" );
 								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
 									searchFn( $suggestingArea.data( "suggesting-for" ) );
@@ -205,7 +203,7 @@
 				//	suggest( e, this, "keypress" );
 				//} );
 
-				$( ".js--search" ).on ( "keydown", function( e ) {
+				$( ".js--search" ).on ( "keyup", function( e ) {
 					suggest( e, this, "keydown" );
 				} );
 
