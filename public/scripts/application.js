@@ -138,11 +138,10 @@
 							// Scrolled down, shown
 							$( header ).css( "top", "0px" );
 						}
-						
-						console.log( "toggleHeader", direction, headerHeight );
+	
 						prevDirection = direction;
 					};
-					
+	
 					window.addEventListener( "scroll", handleHideScroll );
 					window.addEventListener( "resize", handleHideScroll );
 				}
@@ -160,7 +159,6 @@
 					$suggestingArea.data( "suggesting-for", search );
 
 					var searchFn = function( search ) {
-						positionSuggestingArea( $field, $suggestingArea );
 						$suggestingArea.fadeIn();
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
@@ -193,6 +191,7 @@
 					}
 
 					searchFn( search );
+					positionSuggestingArea( $field, $suggestingArea );
 
 					$(window).on( "resize", function( e ) {
 						e.preventDefault();
@@ -221,6 +220,7 @@
 						$( "#js--suggesting" ).fadeOut();
 					} else {
 						$( "#js--suggesting" ).fadeIn();
+						positionSuggestingArea( $( ".js--search" ), $( "#js--suggesting") );
 					}
 				} );
 				
@@ -357,7 +357,6 @@
 					var totalPriceNice = totalPrice.toFixed(2).replace( ".", "," );
 					qtyWidget.find( ".js-quantity-total-price" ).html( totalPriceNice + "&nbsp;Kč" );
 					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
-					console.log( "qty", qty, "*", unitPrice, "=", totalPriceNice );
 				} );
 
 				// Kliknuti na preview obrazek v galerii vyvola ve skutecnosti kliknuti na prislusny thumbnail obrazek
