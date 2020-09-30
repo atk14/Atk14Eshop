@@ -17,7 +17,7 @@
 				<p class="justify-content-center">{t total_amount=$finder->getTotalAmount()}Nalezeno celkem %1 výsledků.{/t}</p>
 			{/if}
 			{if $finder->getTotalAmount()>$finder->getLimit()}
-				<p class="justify-content-center"><a href="{link_to action=index q=$params.q}">{t}Zobrazit všechny výsledky{/t}</a></p>
+				<p class="justify-content-center"><a href="{link_to action=index q=$params.q}" class="btn btn-outline-primary">{t}Zobrazit všechny výsledky{/t}</a></p>
 			{/if}
 			</center>
 		</div>	

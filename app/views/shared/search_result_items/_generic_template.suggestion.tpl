@@ -1,8 +1,9 @@
-<li class="suggestion">
+<li>
+	<a href="$url" class="suggestion">
 	{if $image_url}
-		<a href="{$url}" class="suggestion__image">
+		<div class="suggestion__image">
 			{!$image_url|pupiq_img:"80x60x#ffffff"}
-		</a>
+		</div>
 	{/if}
 
 	{if $type}
@@ -12,7 +13,7 @@
 	{/if}
 	
 	<span class="suggestion__title">
-		<a href="{$url}">{$title}</a>
+		{$title}
 
 		{if $subtitle}
 			<small class="suggestion__subtitle">{$subtitle}</small>
@@ -24,4 +25,5 @@
 			{!$price_info}
 		</span>
 	{/if}
+	</a>
 </li>

@@ -7,9 +7,9 @@
 	top: 200px;
 	background-color: $gray-100;
 	z-index: 10;
-	overflow-y: scroll;
+	overflow-y: auto;
 	display: none;
-	box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.4);
 }
 .suggestions {
 	.search-suggestions-list {
@@ -21,6 +21,12 @@
 			grid-template-columns: 80px auto auto;
 			
 			border-bottom: 1px solid $border-color;
+			
+			color: inherit;
+			
+			&:hover {
+				background-color: white;
+			}
 			
 			&__image {
 				grid-column: 1/2;
@@ -57,8 +63,14 @@
 	}
 	&__not-found {
 		padding: 1rem;
+		p:last-child {
+			margin-bottom: 0;
+		}
 	}
 	&__footer {
 		padding: 1rem;
+		p:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
