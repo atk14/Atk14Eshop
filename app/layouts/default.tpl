@@ -97,6 +97,13 @@
 
 			{render partial="shared/layout/footer"}
 		</div>
+
+		<div id="js--suggesting" class="search-suggestions">
+		<div class="suggestions__not-found">
+		<p><em>{t}searching ...{/t}</em></p>
+		</div>
+		</div>
+
 		
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}

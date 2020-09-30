@@ -138,13 +138,105 @@
 							// Scrolled down, shown
 							$( header ).css( "top", "0px" );
 						}
-						
-						console.log( "toggleHeader", direction, headerHeight );
+	
 						prevDirection = direction;
 					};
-					
+	
 					window.addEventListener( "scroll", handleHideScroll );
 					window.addEventListener( "resize", handleHideScroll );
+				}
+
+				// Prototyping Search Suggestions
+				var suggestingCache = {};
+				var suggest = function( e, field, eve ) {
+					var $field = $( field );
+					var $form = $field.closest( "form" );
+					var url = $form.attr( "action" );
+					var search = $field.val();
+					var fieldName = $field.attr( "name" );
+					var data = {};
+					var $suggestingArea = $( "#js--suggesting" );
+					$suggestingArea.data( "suggesting-for", search );
+
+					var searchFn = function( search ) {
+						if ( suggestingCache[ search ] ) {
+							$suggestingArea.html( suggestingCache[ search ] );
+							return;
+						}
+
+						if( $suggestingArea.data( "suggesting" ) === "yes" ) {
+							return;
+						}
+
+						$suggestingArea.data( "suggesting", "yes" );
+
+						data[ "format" ] = "snippet";
+						data[ fieldName ] = search;
+						$.ajax( {
+							dataType: "html",
+							url: url,
+							data: data,
+							success: function( snippet ) {
+								$suggestingArea.html( snippet );
+								if( search === $suggestingArea.data( "suggesting-for" ) ) {
+									suggestingCache[ search ] = snippet;
+								}
+								$suggestingArea.data( "suggesting", "" );
+								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
+									searchFn( $suggestingArea.data( "suggesting-for" ) );
+								}
+							}
+						} );
+					}
+
+					searchFn( search );
+					positionSuggestingArea( $field, $suggestingArea );
+
+					$(window).on( "resize", function( e ) {
+						e.preventDefault();
+						positionSuggestingArea( $field, $suggestingArea );
+					} );
+				};
+
+				$( ".js--search" ).on ( "change", function( e ) {
+					suggest( e, this, "change" );
+				} );
+
+				//$( ".js--search" ).on ( "keypress", function( e ) {
+				//	suggest( e, this, "keypress" );
+				//} );
+
+				$( ".js--search" ).on ( "keyup", function( e ) {
+					suggest( e, this, "keydown" );
+				} );
+
+				$( "body" ).on( "click keyup", function( e ) {
+					var $activeElement = $( e.target );
+					var id = $activeElement.attr( "id" );
+					var searchFieldIsActiveAndEmpty = $activeElement.hasClass( "js--search" ) && $activeElement.val().length === 0;
+					if ( searchFieldIsActiveAndEmpty || ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
+							$activeElement.closest( "#js--suggesting" ).length === 0
+						) ) {
+						$( "#js--suggesting" ).fadeOut();
+					} else {
+						$( "#js--suggesting" ).fadeIn();
+						positionSuggestingArea( $( ".js--search" ), $( "#js--suggesting") );
+					}
+				} );
+				
+				var positionSuggestingArea = function( searchField, suggArea ) {
+					var fieldOffset = searchField.offset();
+					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px");
+
+					// Get x position of search field right edge
+					var rightPos = fieldOffset.left + searchField.outerWidth();
+
+					// Align suggestions to rightPos if there is enough room, center otherwise
+					if( rightPos > suggArea.width() ) {
+						suggArea.css( "left", rightPos - suggArea.width() + "px" );
+					} else {
+						suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
+					}
 				}
 			}
 			
@@ -265,7 +357,6 @@
 					var totalPriceNice = totalPrice.toFixed(2).replace( ".", "," );
 					qtyWidget.find( ".js-quantity-total-price" ).html( totalPriceNice + "&nbsp;Kč" );
 					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
-					console.log( "qty", qty, "*", unitPrice, "=", totalPriceNice );
 				} );
 
 				// Kliknuti na preview obrazek v galerii vyvola ve skutecnosti kliknuti na prislusny thumbnail obrazek
