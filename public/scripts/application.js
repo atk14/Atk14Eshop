@@ -177,11 +177,11 @@
 							url: url,
 							data: data,
 							success: function( snippet ) {
-								$suggestingArea.html( snippet );
 								if( search === $suggestingArea.data( "suggesting-for" ) ) {
 									suggestingCache[ search ] = snippet;
 								}
 								$suggestingArea.data( "suggesting", "" );
+								$suggestingArea.html( snippet );
 								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
 									searchFn( $suggestingArea.data( "suggesting-for" ) );
 								}
@@ -190,10 +190,9 @@
 					}
 
 					searchFn( search );
-					positionSuggestingArea( $field, $suggestingArea );
 
-					$(window).on( "resize", function( e ) {
-						e.preventDefault();
+					$(window).on( "resize", function() {
+						$suggestingArea.data( "need_re_position", "yes" )
 						positionSuggestingArea( $field, $suggestingArea );
 					} );
 				};
@@ -201,10 +200,6 @@
 				$( ".js--search" ).on ( "change", function( e ) {
 					suggest( e, this, "change" );
 				} );
-
-				//$( ".js--search" ).on ( "keypress", function( e ) {
-				//	suggest( e, this, "keypress" );
-				//} );
 
 				$( ".js--search" ).on ( "keyup", function( e ) {
 					suggest( e, this, "keydown" );
@@ -214,17 +209,31 @@
 					var $activeElement = $( e.target );
 					var id = $activeElement.attr( "id" );
 					var searchFieldIsActiveAndEmpty = $activeElement.hasClass( "js--search" ) && $activeElement.val().length === 0;
+					var $suggArea = $( "#js--suggesting" );
 					if ( searchFieldIsActiveAndEmpty || ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
 						) ) {
-						$( "#js--suggesting" ).fadeOut();
+						if( $suggArea.data( "display_state" ) === "hidden" ) {
+							return;
+						}
+						$suggArea.fadeOut();
+						$suggArea.data( "display_state", "hidden" );
 					} else {
-						$( "#js--suggesting" ).fadeIn();
-						positionSuggestingArea( $( ".js--search" ), $( "#js--suggesting") );
+						positionSuggestingArea( $( ".js--search" ), $suggArea );
+						if( $suggArea.data( "display_state" ) === "visible" ) {
+							return;
+						}
+						$suggArea.fadeIn();
+						$suggArea.data( "display_state", "visible" );
 					}
 				} );
 				
 				var positionSuggestingArea = function( searchField, suggArea ) {
+
+					if( suggArea.data( "need_re_position" ) === "no" ) {
+						return;
+					}
+
 					var fieldOffset = searchField.offset();
 					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px");
 
@@ -237,6 +246,8 @@
 					} else {
 						suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
 					}
+
+					suggArea.data("need_re_position", "no");
 				}
 			}
 			
