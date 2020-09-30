@@ -2,21 +2,25 @@
 /**
  * Function designed for SearchesController to display a searched document
  *
- *	{display_search_result_item item=$item}
+ *	{display_search_result_item item=$item} {* $item is a Textmit\SearchResultItem *}
  *
  *	{display_search_result_item item=$item suggestion=true}
+ *
+ *	{display_search_result_item object=$object} {* $object is a ApplicationModel *}
  *
  */
 function smarty_function_display_search_result_item($params,$template){
 	$params += [
 		"item" => null,
+		"object" => null,
 		"suggestion" => false,
 	];
 
 	$item = $params["item"];
-	if(!$item){ return; }
+	$object = $params["object"];
+	if(!$item && !$object){ return; }
 
-	$object = $item->getObject();
+	$object = $item ? $item->getObject() : $object;
 	if(!$object){ return; }
 
 	$suggestion = $params["suggestion"];

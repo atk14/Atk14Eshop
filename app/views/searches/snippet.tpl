@@ -6,8 +6,8 @@
 	{else}
 
 		<ul class="search-suggestions-list">
-			{foreach $finder->getItems() as $item}
-				{display_search_result_item item=$item suggestion=true}
+			{foreach $objects as $object}
+				{display_search_result_item object=$object suggestion=true}
 			{/foreach}
 		</ul>
 

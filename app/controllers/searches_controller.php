@@ -32,8 +32,13 @@ class SearchesController extends ApplicationController {
 
 		$objects = $finder->getRecords();
 		$objects = array_filter($objects);
-		$this->tpl_data["cards"] = array_values(array_filter($objects,function($object){ return is_a($object,"Card"); }));
-		$this->tpl_data["categories"] = array_values(array_filter($objects,function($object){ return is_a($object,"Category"); }));
-		$this->tpl_data["others"] = array_values(array_filter($objects,function($object){ return !is_a($object,"Card") && !is_a($object,"Category"); }));
+		$this->tpl_data["cards"] = $cards = array_values(array_filter($objects,function($object){ return is_a($object,"Card"); }));
+		$this->tpl_data["categories"] = $categories = array_values(array_filter($objects,function($object){ return is_a($object,"Category"); }));
+		$this->tpl_data["others"] = $others = array_values(array_filter($objects,function($object){ return !is_a($object,"Card") && !is_a($object,"Category"); }));
+		$objects = [];
+		foreach([$cards,$categories,$others] as $ary){
+			foreach($ary as $o){ $objects[] = $o; }
+		}
+		$this->tpl_data["objects"] = $objects;
 	}
 }
