@@ -100,7 +100,7 @@
 
 		<div id="js--suggesting" class="search-suggestions">
 		<div class="suggestions__not-found">
-		<p><em>{t}... začněte psát hledaný výraz{/t}</em></p>
+		<p><em>{t}searching ...{/t}</em></p>
 		</div>
 		</div>
 
