@@ -41,7 +41,7 @@
 			</div>
 	</div>
 	<div class="logospace">
-		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/atk14-eshop.svg" alt="{$appname}" width="220" height="80" class="img-fluid">{/a}
+		{a action="main/index" namespace="" _title=$link_title _class="logospace__logo"}<img src="/public/dist/images/header-logo.svg" alt="{$appname}" width="220" height="80" class="img-fluid">{/a}
 	</div>
 </div>
 

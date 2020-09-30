@@ -7,9 +7,11 @@
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars">{!"bars"|icon}</span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close">{!"times"|icon}</span>
 				</button>
-				{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
-					<img src="/public/dist/images/atk14-eshop--inverse.svg" alt="{$appname}" width="220" height="80">
+				<div class="navbar-brand">
+				{a action="main/index" namespace="" _title=$link_title _class="xxnavbar-brand"}
+					<img src="/public/dist/images/header-logo--mobile.svg" alt="{$appname}" width="220" height="80">
 				{/a}
+				</div>
 				{if !$show_search_in_mobile}
 				<ul class="navbar-nav">
 					<li class="nav-item"><a href="" class="nav-link js--search-toggle">{!"search"|icon}</a></li>

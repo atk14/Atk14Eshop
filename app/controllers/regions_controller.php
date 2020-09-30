@@ -11,6 +11,21 @@ class RegionsController extends ApplicationController {
 		}
 
 		$this->permanentSession->s("region_id",$region->getId());
+		
+		// here is an attempt to redirect user to the default language of the selected region
+		$uri = $this->_get_return_uri();
+		$uri = preg_replace('/^(https?:\/\/[^\/]+)/','',$uri); // "http://atk14eshop.localhost/obchod/" -> "/obchod/"
+		$ary = Atk14Url::RecognizeRoute($uri);
+		if($ary && !preg_match("/^error/",$ary["action"])){
+			$uri = $this->_link_to([
+				"namespace" => $ary["namespace"],
+				"controller" => $ary["controller"],
+				"action" => $ary["action"],
+				"lang" => $region->getDefaultLanguage(),
+			] + $ary["get_params"]);
+			$this->_redirect_to($uri);
+			return;
+		}
 
 		$this->_redirect_back();
 	}
