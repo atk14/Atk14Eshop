@@ -159,7 +159,6 @@
 					$suggestingArea.data( "suggesting-for", search );
 
 					var searchFn = function( search ) {
-						$suggestingArea.fadeIn();
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
 							return;
@@ -211,12 +210,13 @@
 					suggest( e, this, "keydown" );
 				} );
 
-				$( "body" ).on( "click keydown", function( e ) {
+				$( "body" ).on( "click keyup", function( e ) {
 					var $activeElement = $( e.target );
 					var id = $activeElement.attr( "id" );
-					if ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
+					var searchFieldIsActiveAndEmpty = $activeElement.hasClass( "js--search" ) && $activeElement.val().length === 0;
+					if ( searchFieldIsActiveAndEmpty || ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
-						) {
+						) ) {
 						$( "#js--suggesting" ).fadeOut();
 					} else {
 						$( "#js--suggesting" ).fadeIn();
