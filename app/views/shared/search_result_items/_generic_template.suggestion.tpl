@@ -2,7 +2,7 @@
 	<a href="{$url}" class="suggestion">
 	{if $image_url}
 		<div class="suggestion__image">
-			{!$image_url|pupiq_img:"80x60x#ffffff"}
+			{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
 		</div>
 	{/if}
 
