@@ -16,7 +16,7 @@
 		{$title}
 
 		{if $subtitle}
-			<small class="suggestion__subtitle">{$subtitle}</small>
+			<br><small class="suggestion__subtitle">{$subtitle}</small>
 		{/if}
 	</span>
 
