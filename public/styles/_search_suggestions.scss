@@ -24,7 +24,8 @@
 			
 			color: inherit;
 			
-			&:hover {
+			&:hover, &:active, &:focus {
+				outline: none;
 				background-color: white;
 			}
 			
