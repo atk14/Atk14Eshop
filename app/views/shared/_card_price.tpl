@@ -17,7 +17,7 @@
 	{elseif $distinct_prices && sizeof($distinct_prices)>2}
 		{* there are more than two price on the card *}
 
-		{t price=$starting_price|display_price:$price_finder->getCurrency() escape=no}cena od %1{/t}
+		{t price=$starting_price|display_price:$price_finder->getCurrency() escape=no}cena od<br>%1{/t}
 
 	{else}
 		{* there is just one price on the card *}
