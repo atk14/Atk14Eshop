@@ -782,4 +782,25 @@ class Order extends BasketOrOrder {
 
 		return !$error_found;
 	}
+
+	function getPaymentQrCodeGenerator(){
+		$payment_method = $this->getPaymentMethod();
+		$region = $this->getRegion();
+		$bank_account = $region->getBankAccount();
+		$currency = $this->getCurrency();
+
+		$message = sprintf(_("obj. %s"),$this->getOrderNo())." - ".$region->getApplicationName()." - QR";
+		$message = String4::ToObject($message)->toAscii()->upper()->toString();
+		$generator = new PaymentQrCodeGenerator([
+			"amount" => $this->getPriceToPay(),
+			"variable_symbol" => $this->getOrderNo(),
+			"account_number" => $bank_account->getAccountNumber(),
+			"iban" => $bank_account->getIban(),
+			"swift" => $bank_account->getSwiftBic(),
+			"currency" => $currency->getCode(),
+			"message" => $message,
+		]);
+
+		return $generator;
+	}
 }
