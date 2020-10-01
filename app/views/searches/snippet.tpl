@@ -1,3 +1,13 @@
+{if !$request->xhr()}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="robots" content="noindex" />
+	<meta name="googlebot" content="noindex" />
+</head>
+<body>
+{/if}
+
 <div class="suggestions">
 	{if $finder->isEmpty()}
 		<div class="suggestions__not-found">
@@ -23,3 +33,8 @@
 		</div>	
 	{/if}
 </div>
+
+{if !$request->xhr()}
+</body>
+</html>
+{/if}
