@@ -1,5 +1,5 @@
 <li>
-	<a href="{$url}" class="suggestion">
+	<a href="{$url}" class="suggestion" tabindex="10">
 	{if $image_url}
 		<div class="suggestion__image">
 			{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
