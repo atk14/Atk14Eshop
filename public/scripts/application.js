@@ -209,12 +209,8 @@
 					} );
 				};
 
-				$( ".js--search" ).on ( "change", function( e ) {
-					suggest( e, this, "change" );
-				} );
-
 				$( ".js--search" ).on ( "keyup", function( e ) {
-					suggest( e, this, "keydown" );
+					suggest( e, this, "keyup" );
 				} );
 
 				$( "body" ).on( "click keyup", function( e ) {
