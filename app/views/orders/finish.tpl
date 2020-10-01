@@ -1,3 +1,5 @@
+{render partial="shared/checkout_navigation"}
+
 	{capture assign=page_title}{t}Děkujeme{/t}{/capture}
 	{capture assign=teaser}{t}…za Váš nákup, vraťte se brzy :){/t}{/capture}
 	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
