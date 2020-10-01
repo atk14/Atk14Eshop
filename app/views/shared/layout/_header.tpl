@@ -30,7 +30,7 @@
 			<div class="mainbar__middle mainbar__search_cart">
 				<form class="form-inline{if !$show_search_in_mobile} d-none d-{$nav_breakpoint}-flex{/if}" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field">
 					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
-					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
+					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
 				</form>
 				<div class="mainbar__cartinfo">
 					{render partial="shared/layout/header/basket_info"}
