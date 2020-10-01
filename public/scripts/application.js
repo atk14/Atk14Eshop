@@ -147,7 +147,11 @@
 				}
 
 				// Prototyping Search Suggestions
+				// TODO: rewrite it to a plugin
 				var suggestingCache = {};
+				var suggestingAreaVisible = false;
+				var suggestingAreaNeedsToBePositioned = true;
+
 				var suggest = function( e, field, eve ) {
 					var $field = $( field );
 					var $form = $field.closest( "form" );
@@ -156,11 +160,17 @@
 					var fieldName = $field.attr( "name" );
 					var data = {};
 					var $suggestingArea = $( "#js--suggesting" );
+
+					if( search === $suggestingArea.data( "suggesting-for" ) ) {
+						return;
+					}
+
 					$suggestingArea.data( "suggesting-for", search );
 
 					var searchFn = function( search ) {
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
+							// console.log( "replaced from cache" );
 							return;
 						}
 
@@ -181,9 +191,11 @@
 									suggestingCache[ search ] = snippet;
 								}
 								$suggestingArea.data( "suggesting", "" );
-								$suggestingArea.html( snippet );
 								if( search !== $suggestingArea.data( "suggesting-for" ) ) {
 									searchFn( $suggestingArea.data( "suggesting-for" ) );
+								} else {
+									$suggestingArea.html( snippet );
+									// console.log( "content replaced" );
 								}
 							}
 						} );
@@ -191,8 +203,8 @@
 
 					searchFn( search );
 
-					$(window).on( "resize", function() {
-						$suggestingArea.data( "need_re_position", "yes" )
+					$( window ).on( "resize", function() {
+						suggestingAreaNeedsToBePositioned = true;
 						positionSuggestingArea( $field, $suggestingArea );
 					} );
 				};
@@ -210,27 +222,30 @@
 					var id = $activeElement.attr( "id" );
 					var searchFieldIsActiveAndEmpty = $activeElement.hasClass( "js--search" ) && $activeElement.val().length === 0;
 					var $suggArea = $( "#js--suggesting" );
-					if ( searchFieldIsActiveAndEmpty || ( !$activeElement.hasClass( "js--search" ) && id !== "js--suggesting" &&
+					if (
+						searchFieldIsActiveAndEmpty || (
+							!$activeElement.hasClass( "js--search" ) &&
+							id !== "js--suggesting" &&
 							$activeElement.closest( "#js--suggesting" ).length === 0
-						) ) {
-						if( $suggArea.data( "display_state" ) === "hidden" ) {
-							return;
+						)
+					) {
+						if( suggestingAreaVisible ) {
+							$suggArea.fadeOut();
+							suggestingAreaVisible = false;
+							// console.log( "fadeOut" );
 						}
-						$suggArea.fadeOut();
-						$suggArea.data( "display_state", "hidden" );
 					} else {
 						positionSuggestingArea( $( ".js--search" ), $suggArea );
-						if( $suggArea.data( "display_state" ) === "visible" ) {
-							return;
+						if( !suggestingAreaVisible ) {
+							$suggArea.fadeIn();
+							suggestingAreaVisible = true;
+							// console.log( "fadeIn" );
 						}
-						$suggArea.fadeIn();
-						$suggArea.data( "display_state", "visible" );
 					}
 				} );
-				
-				var positionSuggestingArea = function( searchField, suggArea ) {
 
-					if( suggArea.data( "need_re_position" ) === "no" ) {
+				var positionSuggestingArea = function( searchField, suggArea ) {
+					if( !suggestingAreaNeedsToBePositioned ) {
 						return;
 					}
 
@@ -247,10 +262,12 @@
 						suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
 					}
 
-					suggArea.data("need_re_position", "no");
+					// console.log( "re-positioned" );
+
+					suggestingAreaNeedsToBePositioned = false;
 				}
 			}
-			
+
 		},
 
 		categories: {
