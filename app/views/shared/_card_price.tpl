@@ -4,8 +4,8 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
 
-{if $starting_price}
 <div class="card-price">
+{if $starting_price}
 	{if $distinct_prices && sizeof($distinct_prices)==2}
 		{* there are two price on the card *}
 
@@ -28,5 +28,7 @@
 		{!$starting_price|display_price:$price_finder->getCurrency()}
 
 	{/if}
-</div>
+{else}
+	{t}není v nabídce{/t}</p>
 {/if}
+</div>
