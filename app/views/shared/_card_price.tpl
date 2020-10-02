@@ -29,6 +29,6 @@
 
 	{/if}
 {else}
-	{t}není v nabídce{/t}</p>
+	<small><em>{t}není v nabídce{/t}</em></small>
 {/if}
 </div>
