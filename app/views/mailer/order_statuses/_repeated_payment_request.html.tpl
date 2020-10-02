@@ -7,7 +7,3 @@
 {t}Zde je rekapitulace údajů pro platbu bankovním převodem:{/t}
 <br/><br/>
 {render partial="partials/bank_transfer_data" order=$order}
-<br/><br/>
-{t}QR kód pro načtení platby do bankovní aplikace:{/t}
-<br/>
-<img src="cid:qrcode" width="200" height="200" alt="{t}QR kód{/t}">

@@ -8,6 +8,33 @@ use Shoptet\Spayd\Utilities\IbanUtilities;
 
 class PaymentQrCodeGenerator {
 
+	static function GetInstanceForOrder($order){
+		$payment_method = $order->getPaymentMethod();
+		$region = $order->getRegion();
+		$bank_account = $region->getBankAccount();
+		$currency = $order->getCurrency();
+
+		$message = sprintf(_("obj. %s"),$order->getOrderNo())." - ".$region->getApplicationName()." - QR";
+		$message = String4::ToObject($message)->toAscii()->upper()->toString();
+		$generator = new PaymentQrCodeGenerator([
+			"amount" => $order->getPriceToPay(),
+			"variable_symbol" => $order->getOrderNo(),
+			"account_number" => $bank_account->getAccountNumber(),
+			"iban" => preg_replace('/\s+/','',$bank_account->getIban()),
+			"swift" => preg_replace('/\s+/','',$bank_account->getSwiftBic()),
+			"currency" => $currency->getCode(),
+			"message" => $message,
+		]);
+
+		try {
+			$generator->getSpayd();
+		} catch(Exception $e) {
+			$generator = null;
+		}
+
+		return $generator;
+	}
+
 	function __construct($params = array()){
 		$params += array(
 			"amount" => null, // 99.80

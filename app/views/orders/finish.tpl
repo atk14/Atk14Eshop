@@ -16,23 +16,24 @@
 		<h4>{t}Platební údaje pro uhrazení objednávky{/t}</h4>
 		<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
 		<br>
-		<strong>{t}Číslo účtu:{/t}</strong> {$bank_account->getAccountNumber()}
-		<br>
-		{if $bank_account->getIban()}
-			<strong>IBAN:</strong> {$bank_account->getIban()}
-			<br>
-		{/if}
-		{if $bank_account->getSwiftBic()}
-			<strong>SWIFT:</strong> {$bank_account->getSwiftBic()}
-			<br>
-		{/if}
 		<strong>{t}Variabilní symbol:{/t}</strong> {$order->getOrderNo()}
 		<br>
-		{if $bank_account->getHolderName()}
-			<strong>{t}Majitel účtu:{/t}</strong> {$bank_account->getHolderName()}
+		<strong>{t}Číslo účtu:{/t}</strong> {$bank_account->getAccountNumber()}
+		{if $bank_account->getIban()}
 			<br>
+			<strong>IBAN:</strong> {$bank_account->getIban()}
 		{/if}
-
-		<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
-		<br>Zaplaťte objednávku pomocí QR kódu
+		{if $bank_account->getSwiftBic()}
+			<br>
+			<strong>SWIFT:</strong> {$bank_account->getSwiftBic()}
+		{/if}
+		{if $bank_account->getHolderName()}
+			<br>
+			<strong>{t}Majitel účtu:{/t}</strong> {$bank_account->getHolderName()}
+		{/if}
+		
+		{if constant("PAYMENT_QR_CODES_ENABLED")}
+			<br>
+			<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
+		{/if}
 	{/if}
