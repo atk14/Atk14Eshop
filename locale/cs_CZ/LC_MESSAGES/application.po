@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 14:57+0200\n"
-"PO-Revision-Date: 2020-08-06 14:58+0200\n"
+"POT-Creation-Date: 2020-10-02 14:56+0200\n"
+"PO-Revision-Date: 2020-10-02 14:49+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -19,6 +19,9 @@ msgstr ""
 
 msgid "Nahoru"
 msgstr "Nahoru"
+
+msgid "searching ..."
+msgstr "hledání ..."
 
 msgid "Zpráva z obchodu %1"
 msgstr "Zpráva z obchodu %1"
@@ -562,14 +565,20 @@ msgstr "Zde jsou bankovní údaje pro platbu bankovním převodem:"
 msgid "Částka k úhradě:"
 msgstr "Částka k úhradě:"
 
-msgid "Číslo účtu:"
-msgstr "Číslo účtu:"
-
 msgid "Variabilní symbol:"
 msgstr "Variabilní symbol:"
 
+msgid "Číslo účtu:"
+msgstr "Číslo účtu:"
+
 msgid "Majitel účtu:"
 msgstr "Majitel účtu:"
+
+msgid "QR kód pro načtení platby do bankovní aplikace:"
+msgstr "QR kód pro načtení platby do bankovní aplikace:"
+
+msgid "QR kód"
+msgstr "QR kód"
 
 msgid "Sledujte nás na&nbsp;Facebooku:"
 msgstr "Sledujte nás na&nbsp;Facebooku:"
@@ -636,6 +645,9 @@ msgstr "Pochlubte se přátelům s Vaším nákupem."
 msgid "Sdílet"
 msgstr "Sdílet"
 
+msgid "Platební údaje pro uhrazení objednávky"
+msgstr "Platební údaje pro uhrazení objednávky"
+
 msgid "Historie a detaily mých objednávek"
 msgstr "Historie a detaily mých objednávek"
 
@@ -692,6 +704,12 @@ msgstr "Hledat"
 msgid "Nic nebylo nalezeno."
 msgstr "Nic nebylo nalezeno."
 
+msgid "Nalezeno celkem %1 výsledků."
+msgstr "Nalezeno celkem %1 výsledků."
+
+msgid "Zobrazit všechny výsledky"
+msgstr "Zobrazit všechny výsledky"
+
 msgid "Attachments"
 msgstr "Přílohy"
 
@@ -701,8 +719,8 @@ msgstr "Produkty v kolekci"
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-msgid "cena od %1"
-msgstr "cena od %1"
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
 
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Doručovací adresa bude smazána. Pokračovat?"
@@ -853,6 +871,9 @@ msgstr "IČ"
 msgid "DIČ"
 msgstr "DIČ"
 
+msgid "Administration"
+msgstr "Administrace"
+
 msgid "Profile"
 msgstr "Profil"
 
@@ -866,9 +887,6 @@ msgstr "Dodací adresy"
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Odhlásit se"
-
-msgid "Administration"
-msgstr "Administrace"
 
 msgid "Telefon:"
 msgstr "Telefon:"
@@ -943,8 +961,14 @@ msgstr "Předchozí (šipka doleva)"
 msgid "Další (šipka doprava)"
 msgstr "Další (šipka doprava)"
 
+msgid "Select selling region"
+msgstr "Vyberte prodejní oblast"
+
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
+
+msgid "Article"
+msgstr "Článek"
 
 msgid "Zveřejněno dne %1"
 msgstr "Zveřejněno dne %1"
@@ -958,11 +982,14 @@ msgstr "Článek"
 msgid "Zobrazit detaily"
 msgstr "Zobrazit detaily"
 
+msgid "Kategorie produktů"
+msgstr "Kategorie produktů"
+
 msgid "Zobrazit kategorii"
 msgstr "Zobrazit kategorii"
 
-msgid "Kategorie produktů"
-msgstr "Kategorie produktů"
+msgid "Stránka"
+msgstr "Stránka"
 
 msgid "a další"
 msgstr "a další"
@@ -976,8 +1003,11 @@ msgstr "Zobrazit stránku"
 msgid "Profil"
 msgstr "Profil"
 
-msgid "Stránka"
-msgstr "Stránka"
+msgid "právě otevřeno"
+msgstr "právě otevřeno"
+
+msgid "Prodejna"
+msgstr "Prodejna"
 
 msgid "Právě otevřeno"
 msgstr "Právě otevřeno"
@@ -990,9 +1020,6 @@ msgstr "Informace o prodejně"
 
 msgid "Ukázat na mapě"
 msgstr "Ukázat na mapě"
-
-msgid "Prodejna"
-msgstr "Prodejna"
 
 msgid "Previous"
 msgstr "Předchozí"
@@ -1156,7 +1183,7 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:179
+#: ../app/controllers/application_base.php:186
 msgid "Home"
 msgstr "Domů"
 
@@ -1184,12 +1211,12 @@ msgstr "Objednávka %d"
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/application_mailer.php:170
+#: ../app/controllers/application_mailer.php:179
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_mailer.php:181
 #: ../app/controllers/application_mailer.php:190
+#: ../app/controllers/application_mailer.php:199
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
@@ -1204,21 +1231,25 @@ msgstr "Profil uživatele"
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:90
+#: ../app/controllers/application.php:110
 msgid "Basket"
 msgstr "Košík"
 
-#: ../app/controllers/application.php:91
+#: ../app/controllers/application.php:111
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:92
+#: ../app/controllers/application.php:112
 msgid "Delivery data"
-msgstr "Doručovací data"
+msgstr "Doručovací údaje"
 
-#: ../app/controllers/application.php:93
+#: ../app/controllers/application.php:113
 msgid "Summary"
 msgstr "Souhrn"
+
+#: ../app/controllers/application.php:114
+msgid "Order finished"
+msgstr "Objednávka dokončena"
 
 #: ../app/controllers/application_rest_api.php:76
 #, php-format
@@ -1243,7 +1274,7 @@ msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
 #: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
+#: ../app/controllers/articles_controller.php:58
 msgid "Articles"
 msgstr "Články"
 
@@ -1263,6 +1294,7 @@ msgstr "Slevový kupón byl přidán"
 #: ../app/controllers/baskets_controller.php:76
 #: ../app/controllers/baskets_controller.php:86
 #: ../app/controllers/baskets_controller.php:98
+#: ../app/controllers/orders_controller.php:92
 msgid "Shopping basket"
 msgstr "Nákupní košík"
 
@@ -1408,7 +1440,7 @@ msgstr "Vítejte"
 msgid "Archiv objednávek"
 msgstr "Archiv objednávek"
 
-#: ../app/controllers/orders_controller.php:32
+#: ../app/controllers/orders_controller.php:34
 msgid "Objednávka byla dokončena"
 msgstr "Objednávka byla dokončena"
 
@@ -1440,7 +1472,7 @@ msgstr "Vaše heslo bylo úspěšně změněno"
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: ../app/controllers/searches_controller.php:12
+#: ../app/controllers/searches_controller.php:10
 #, php-format
 msgid "Vyhledávání: „%s“"
 msgstr "Vyhledávání: „%s“"
@@ -2185,6 +2217,17 @@ msgstr "od"
 #: ../lib/filter/filter_range_section.php:235
 msgid "to"
 msgstr "do"
+
+#: ../lib/payment_qr_code_generator.php:17
+#, php-format
+msgid "obj. %s"
+msgstr "obj. %s"
+
+#~ msgid "Nic nebylo nelezeno."
+#~ msgstr "Nic nebylo nelezeno."
+
+#~ msgid "cena od %1"
+#~ msgstr "cena od %1"
 
 #~ msgid "Have you forgotten password?"
 #~ msgstr "Zapomněl jste heslo?"
