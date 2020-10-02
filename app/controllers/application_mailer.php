@@ -156,6 +156,15 @@ class ApplicationMailer extends Atk14Mailer {
 			$this->bcc .= $this->bcc ? ", " : "";
 			$this->bcc .= $order_status->getBccEmail();
 		}
+
+		if(PAYMENT_QR_CODES_ENABLED && in_array($order_status->getCode(),["waiting_for_bank_transfer","repeated_payment_request"])){
+			$generator = PaymentQrCodeGenerator::GetInstanceForOrder($order);
+			if($generator){
+				$png = $generator->renderPng(["size" => 200]);
+				$this->add_html_image($png,"qrcode","qr_code_".$order->getOrderNo().".png","image/png");
+				$this->tpl_data["display_qr_code"] = true;
+			}
+		}
 	}
 
 	/**

@@ -28,6 +28,8 @@
         "atk14/vlnka": "^1.1",
         "atk14/company-number-field": "^0.1",
         "aristath/ari-color": "^1.1.1",
-        "mysutka/product_feed_generator": "^0.1.7"
+        "mysutka/product_feed_generator": "^0.1.7",
+        "sunfoxcz/spayd-php": "^1.0",
+        "bacon/bacon-qr-code": "^1.0"
     }
 }

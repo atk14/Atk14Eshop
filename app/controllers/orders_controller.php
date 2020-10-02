@@ -29,6 +29,8 @@ class OrdersController extends ApplicationController {
 	}
 
 	function finish(){
+		$this->_prepare_checkout_navigation();
+
 		$this->page_title = _("Objednávka byla dokončena");
 
 		// Objednavka tady byt muze, ale taky nemusi...
@@ -86,7 +88,11 @@ class OrdersController extends ApplicationController {
 	}
 
 	function _before_filter(){
-		$this->_add_user_detail_breadcrumb();
+		if($this->action==="finish"){
+			$this->breadcrumbs[] = _("Shopping basket");
+		}else{
+			$this->_add_user_detail_breadcrumb();
+		}
 	}
 
 	function _logged_user_required(){

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 13:42+0200\n"
+"POT-Creation-Date: 2020-10-02 14:57+0200\n"
 "PO-Revision-Date: 2020-05-12 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -65,7 +65,7 @@ msgid "Date"
 msgstr "Date"
 
 #: ../app/controllers/admin/admin.php:34
-#: ../app/forms/admin/articles/articles_form.php:34
+#: ../app/forms/admin/articles/articles_form.php:48
 #: ../app/forms/admin/cards/cards_form.php:81
 #: ../app/forms/admin/categories/categories_form.php:63
 #: ../app/forms/admin/products/products_form.php:26
@@ -519,6 +519,12 @@ msgstr "Edit ranking"
 #: ../app/forms/admin/category_cards/edit_form.php:6
 msgid "Ranking"
 msgstr "Ranking"
+
+msgid "Expand all"
+msgstr ""
+
+msgid "Collapse all"
+msgstr ""
 
 #: ../app/controllers/admin/category_trees_controller.php:10
 msgid "Create new category tree"
@@ -1452,7 +1458,7 @@ msgid ""
 "ceníků u tohoto uživatele bude použito při registraci nových zákazníků."
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:33
+#: ../app/controllers/admin/users_controller.php:48
 msgid "Create a new user"
 msgstr "Create a new user"
 
@@ -2112,24 +2118,24 @@ msgstr ""
 msgid "List of discounts"
 msgstr "List of discounts"
 
-#: ../app/controllers/admin/error_redirections_controller.php:31
+#: ../app/controllers/admin/error_redirections_controller.php:40
 msgid "Create redirection"
 msgstr "Create redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:37
-#: ../app/controllers/admin/error_redirections_controller.php:55
+#: ../app/controllers/admin/error_redirections_controller.php:46
+#: ../app/controllers/admin/error_redirections_controller.php:64
 msgid "Another redirection with the same source URL already exists"
 msgstr "Another redirection with the same source URL already exists"
 
-#: ../app/controllers/admin/error_redirections_controller.php:42
+#: ../app/controllers/admin/error_redirections_controller.php:51
 msgid "The redirection has been created successfully"
 msgstr "The redirection has been created successfully"
 
-#: ../app/controllers/admin/error_redirections_controller.php:48
+#: ../app/controllers/admin/error_redirections_controller.php:57
 msgid "Editing redirection"
 msgstr "Editing redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:60
+#: ../app/controllers/admin/error_redirections_controller.php:69
 msgid "The redirection has been updated successfully"
 msgstr "The redirection has been updated successfully"
 
@@ -2432,8 +2438,8 @@ msgid "Editing parameter %s"
 msgstr "Editing parameter %s"
 
 #: ../app/controllers/admin/system_parameters_controller.php:44
-#: ../app/controllers/admin/tags_controller.php:64
-#: ../app/controllers/admin/users_controller.php:67
+#: ../app/controllers/admin/tags_controller.php:67
+#: ../app/controllers/admin/users_controller.php:82
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
@@ -2445,25 +2451,25 @@ msgstr ""
 msgid "Listing Tags"
 msgstr "Listing Tags"
 
-#: ../app/controllers/admin/tags_controller.php:37
+#: ../app/controllers/admin/tags_controller.php:40
 msgid "Create a new tag"
 msgstr "Create a new tag"
 
-#: ../app/controllers/admin/tags_controller.php:44
+#: ../app/controllers/admin/tags_controller.php:47
 msgid "The tag has been created successfully"
 msgstr "The tag has been created successfully"
 
-#: ../app/controllers/admin/tags_controller.php:52
+#: ../app/controllers/admin/tags_controller.php:55
 #, php-format
 msgid "Editing tag %s"
 msgstr "Editing tag %s"
 
-#: ../app/controllers/admin/tags_controller.php:59
+#: ../app/controllers/admin/tags_controller.php:62
 #: ../app/forms/admin/tags/create_new_form.php:7
 msgid "The same tag already exists"
 msgstr "The same tag already exists"
 
-#: ../app/controllers/admin/tags_controller.php:70
+#: ../app/controllers/admin/tags_controller.php:73
 msgid "The tag has been updated"
 msgstr "The tag has been updated"
 
@@ -2492,34 +2498,34 @@ msgstr "Please make sure you don't need to change slugs"
 msgid "Users list"
 msgstr "Users list"
 
-#: ../app/controllers/admin/users_controller.php:39
+#: ../app/controllers/admin/users_controller.php:54
 msgid "The user has been created successfully"
 msgstr "The user has been created successfully"
 
-#: ../app/controllers/admin/users_controller.php:45
+#: ../app/controllers/admin/users_controller.php:60
 #, php-format
 msgid "Detail uživatele %s"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:52
+#: ../app/controllers/admin/users_controller.php:67
 #, php-format
 msgid "Editing user %s"
 msgstr "Editing user %s"
 
-#: ../app/controllers/admin/users_controller.php:73
+#: ../app/controllers/admin/users_controller.php:88
 msgid "The user entry has been updated"
 msgstr "The user entry has been updated"
 
-#: ../app/controllers/admin/users_controller.php:81
+#: ../app/controllers/admin/users_controller.php:96
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr "Setting a new password to the user %s"
 
-#: ../app/controllers/admin/users_controller.php:89
+#: ../app/controllers/admin/users_controller.php:104
 msgid "Nothing needs to be updated"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:100
+#: ../app/controllers/admin/users_controller.php:115
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
@@ -2527,15 +2533,15 @@ msgstr ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:106
+#: ../app/controllers/admin/users_controller.php:121
 msgid "The password for the user <em>%user%</em> has been deleted."
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:123
+#: ../app/controllers/admin/users_controller.php:138
 msgid "The user entry has been deleted"
 msgstr "The user entry has been deleted"
 
-#: ../app/controllers/admin/users_controller.php:134
+#: ../app/controllers/admin/users_controller.php:149
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Now you are logged as <em>%s</em>"
@@ -2679,6 +2685,34 @@ msgid "Body"
 msgstr "Body"
 
 #: ../app/forms/admin/articles/articles_form.php:29
+#: ../app/forms/admin/cards/cards_form.php:58
+#: ../app/forms/admin/categories/categories_form.php:42
+#: ../app/forms/admin/pages/pages_form.php:28
+msgid "HTML title"
+msgstr "HTML title"
+
+#: ../app/forms/admin/articles/articles_form.php:32
+#: ../app/forms/admin/pages/pages_form.php:31
+msgid "Content for <html><head><title>. If left empty, the title is used."
+msgstr "Content for <html><head><title>. If left empty, the title is used."
+
+#: ../app/forms/admin/articles/articles_form.php:36
+#: ../app/forms/admin/cards/cards_form.php:65
+#: ../app/forms/admin/categories/categories_form.php:49
+#: ../app/forms/admin/pages/pages_form.php:35
+msgid "HTML description"
+msgstr "HTML description"
+
+#: ../app/forms/admin/articles/articles_form.php:39
+#: ../app/forms/admin/cards/cards_form.php:68
+#: ../app/forms/admin/categories/categories_form.php:52
+#: ../app/forms/admin/pages/pages_form.php:38
+msgid ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
+msgstr ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
+
+#: ../app/forms/admin/articles/articles_form.php:43
 msgid "Published At"
 msgstr "Published At"
 
@@ -2897,31 +2931,11 @@ msgstr "Information"
 msgid "Detailed description"
 msgstr "Detailed description"
 
-#: ../app/forms/admin/cards/cards_form.php:58
-#: ../app/forms/admin/categories/categories_form.php:42
-#: ../app/forms/admin/pages/pages_form.php:28
-msgid "HTML title"
-msgstr "HTML title"
-
 #: ../app/forms/admin/cards/cards_form.php:61
 msgid ""
 "Content for <html><head><title>. If left empty, it will be generated "
 "automatically."
 msgstr ""
-
-#: ../app/forms/admin/cards/cards_form.php:65
-#: ../app/forms/admin/categories/categories_form.php:49
-#: ../app/forms/admin/pages/pages_form.php:35
-msgid "HTML description"
-msgstr "HTML description"
-
-#: ../app/forms/admin/cards/cards_form.php:68
-#: ../app/forms/admin/categories/categories_form.php:52
-#: ../app/forms/admin/pages/pages_form.php:38
-msgid ""
-"Content for <meta name=\"description\">. If left empty, the teaser is used."
-msgstr ""
-"Content for <meta name=\"description\">. If left empty, the teaser is used."
 
 #: ../app/forms/admin/cards/cards_form.php:72
 msgid "Brand"
@@ -3515,10 +3529,6 @@ msgstr "The same code is used on a different page"
 #: ../app/forms/admin/pages/pages_form.php:12
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Image used on list of pages, social networks, etc."
-
-#: ../app/forms/admin/pages/pages_form.php:31
-msgid "Content for <html><head><title>. If left empty, the title is used."
-msgstr "Content for <html><head><title>. If left empty, the title is used."
 
 #: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
