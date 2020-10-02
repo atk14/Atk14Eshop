@@ -1,4 +1,5 @@
 <?php
+// TODO: Transform this into an ApplicationModel
 class BankAccount {
 
 	function getAccountNumber(){
