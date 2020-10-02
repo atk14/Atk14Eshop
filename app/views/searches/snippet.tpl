@@ -11,7 +11,7 @@
 <div class="suggestions">
 	{if $finder->isEmpty()}
 		<div class="suggestions__not-found">
-		<p><em>{t}Nic nebylo nelezeno.{/t}</em></p>
+		<p><em>{t}Nic nebylo nalezeno.{/t}</em></p>
 		</div>
 	{else}
 
