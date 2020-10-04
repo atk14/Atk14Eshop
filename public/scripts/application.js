@@ -205,7 +205,9 @@
 
 					$( window ).on( "resize", function() {
 						suggestingAreaNeedsToBePositioned = true;
-						positionSuggestingArea( $field, $suggestingArea );
+						if( suggestingAreaVisible ) {
+							positionSuggestingArea( $field, $suggestingArea );
+						}
 					} );
 				};
 
@@ -262,6 +264,8 @@
 
 					suggestingAreaNeedsToBePositioned = false;
 				}
+				// End of Search Suggestions
+
 			}
 
 		},
