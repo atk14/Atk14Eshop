@@ -206,7 +206,9 @@
 					$( window ).on( "resize", function() {
 						suggestingAreaNeedsToBePositioned = true;
 						if( suggestingAreaVisible ) {
-							positionSuggestingArea( $field, $suggestingArea );
+
+							// We need to delay a bit to wait for  possible transformations on the page
+							setTimeOut( positionSuggestingArea( $field, $suggestingArea ), 5000);
 						}
 					} );
 				};
