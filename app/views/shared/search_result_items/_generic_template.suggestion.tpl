@@ -8,15 +8,15 @@
 
 	{if $type}
 	<span class="suggestion__type">
-		<span class="badge badge-secondary">{$type}</span>
+		<span class="">{$type}</span>
 	</span>
 	{/if}
 	
-	<span class="suggestion__title">
-		{$title}
+	<span class="suggestion__description">
+		<h3 class="suggestion__title">{$title}</h3>
 
 		{if $subtitle}
-			<br><small class="suggestion__subtitle">{$subtitle}</small>
+			<small class="suggestion__subtitle">{$subtitle}</small>
 		{/if}
 	</span>
 

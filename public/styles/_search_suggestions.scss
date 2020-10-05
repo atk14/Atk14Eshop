@@ -18,7 +18,7 @@
 		margin: 0;
 		.suggestion {
 			display: grid;
-			grid-template-columns: 80px auto auto;
+			grid-template-columns: 80px 1fr auto;
 			
 			border: 1px solid transparent;
 			border-bottom: 1px solid $border-color;
@@ -28,6 +28,11 @@
 			&:hover, &:active, &:focus {
 				outline: none;
 				background-color: white;
+				text-decoration: none;
+				.suggestion__title {
+					text-decoration: underline;
+				}
+				
 			}
 			&:focus {
 				border: 1px solid rgba($primary, 0.75);
@@ -38,26 +43,38 @@
 				grid-column: 1/2;
 				grid-row: 1/3;
 			}
-			&__title {
+			&__description {
 				grid-column: 2/3;
-				grid-row: 2/3;
-				padding: 0 0.5em;
-				align-self: end;
+				grid-row: 1/3;
+				padding: 0.25rem 0.5rem;
+				align-self: start;
+				.suggestion__title {
+					margin: 0 0 0 0;
+					line-height: 1.1;
+					font-size: 1rem;
+					@include media-breakpoint-down(xs){
+						font-size: $font-size-sm;
+					}
+				}
 				a {
 					color: inherit;
 				}
 			}
 			&__type {
-				grid-column: 2/3;
-				grid-row: 1/2;
-				padding: 0 0.5em;
+				grid-column: 3/4;
+				grid-row: 2/3;
+				padding: 0.25rem 0.5rem 0 0.25rem;
+				justify-self: end;
+				align-self: end;
+				font-size: $font-size-sm;
+				color: $gray-600;
 			}
 			&__price {
 				grid-column: 3/4;
-				grid-row: 2/3;
+				grid-row: 1/2;
 				justify-self: end;
-				padding: 0 0.5em;
-				align-self: end;
+				padding: 0 0.5rem 0.25rem 0.25rem;
+				align-self: start;
 				.currency_main {
 					font-size: 1rem;
 					@include media-breakpoint-down(xs){
