@@ -145,10 +145,29 @@ ol.breadcrumb {
 				flex-grow: 100;
 				padding-top: $grid-gutter-width/4;
 				padding-bottom: $grid-gutter-width/4;
+				&:first-child {
+					// Add padding if this is first from left (ie no hamburger shown)
+					padding-left: $grid-gutter-width/4;
+				}
 				// Adjust image height for SVG scaling proplerly
 				img {
 					height: $mob-nav-height - $brand-padding-y * 2;
 					width: auto;
+				}
+				display: flex;
+				align-items: center;
+				&__text {
+					display: block;
+					color: inherit;
+					font-size: 0.875rem;
+					font-weight: 600;
+					margin: 0 1em;
+					max-width: 12ch;
+					white-space: normal;
+					line-height: 1.25;
+					@media(max-width:420px){
+						display: none;
+					}
 				}
 			}
 			
@@ -161,7 +180,7 @@ ol.breadcrumb {
 						padding:  $mob-nav-link-padding-y 0.5rem !important;
 						min-width: 6ch;
 						text-align: center;
-						@media(max-width:360px){
+						@media(max-width:450px){
 							min-width: 4.5ch;
 						}
 						&.js--search-toggle {
@@ -396,6 +415,13 @@ ol.breadcrumb {
 		
 		// styles only for desktop variation
 		&--desktop {
+			.navbar-brand {
+				font-size: 1rem;
+				font-weight: 600;
+				a {
+					color: inherit;
+				}
+			}
 		}
 		
 		
@@ -621,6 +647,10 @@ ol.breadcrumb {
 			max-width: 200px;
 			@include media-breakpoint-down(xs){
 				max-width: 150px;
+			}
+			img {
+				width: auto;
+				height: 75px;
 			}
 		}
 	}

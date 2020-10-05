@@ -53,9 +53,12 @@
 				</button>
 			{/if}
 			<div class="navbar-brand">
-			{a action="main/index" namespace="" _title=$link_title _class="xxnavbar-brand"}
-				<img src="/public/dist/images/header-logo--mobile.svg" alt="{$appname}" width="220" height="80">
+			{a action="main/index" namespace="" _title=$link_title _class="d-flex"}
+				<img src="/public/dist/images/header-logo--mobile.svg" alt="{$appname}" height="80">
 			{/a}
+			{*a action="main/index" namespace="" _title=$link_title _class="navbar-brand__text"}
+				{"app.name.short"|system_parameter}
+			{/a*}
 			</div>
 			{if !$show_search_in_mobile}
 			<ul class="navbar-nav">

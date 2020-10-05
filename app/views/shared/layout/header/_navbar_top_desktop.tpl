@@ -1,6 +1,8 @@
 	<nav class="navbar navbar-dark bg-dark navbar-expand-{$nav_breakpoint} d-none d-{$nav_breakpoint}-block navbar-top navbar-top--desktop">
 		<div class="container-fluid">
-			
+			{*<div class="navbar-brand">
+				{a namespace="" controller="main" action="index" _class="navbar-brand__text"}{"app.name"|system_parameter}{/a}
+			</div>*}
 			<div class="collapse navbar-collapse" id="navTopDesktopNavDropdown">
 				
 				<div class="menu-separator"></div>
