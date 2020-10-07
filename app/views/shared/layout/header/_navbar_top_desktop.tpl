@@ -7,7 +7,7 @@
 				
 				<div class="menu-separator"></div>
 					
-				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" nav_class="navbar-nav"}
+				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" enable_dropdown_menus=false nav_class="navbar-nav"}
 				
 				<div class="menu-separator"></div>
 				
