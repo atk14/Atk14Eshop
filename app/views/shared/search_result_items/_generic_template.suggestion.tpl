@@ -8,7 +8,7 @@
 
 	{if $type}
 	<span class="suggestion__type">
-		<span class="">{$type}</span>
+		<span class="">{$type|lower}</span>
 	</span>
 	{/if}
 	
