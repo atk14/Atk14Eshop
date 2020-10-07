@@ -10,7 +10,8 @@
 		.btn, .btn-group {
 			background-color: rgba(white, 0.85);
 			&:hover, &:focus {
-				background-color: black;
+				background-color: $primary;
+				color: white;
 			}
 		}
 	}
