@@ -75,10 +75,15 @@
 				justify-self: end;
 				padding: 0 0.5rem 0.25rem 0.25rem;
 				align-self: start;
-				.currency_main {
-					font-size: 1rem;
-					@include media-breakpoint-down(xs){
-						font-size: $font-size-sm;
+				line-height: 1.2;
+				text-align: right;
+				.card-price {
+					font-size: 0.75rem;
+					.currency_main {
+						font-size: 1rem;
+						@include media-breakpoint-down(xs){
+							font-size: $font-size-sm;
+						}
 					}
 				}
 			}
