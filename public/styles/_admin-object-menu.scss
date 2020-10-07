@@ -9,9 +9,17 @@
 		right: 0;
 		.btn, .btn-group {
 			background-color: rgba(white, 0.85);
+			
+			.admin-menu__edit-title {
+				display: none;
+			}
+			
 			&:hover, &:focus {
 				background-color: $primary;
 				color: white;
+				.admin-menu__edit-title {
+					display: inline;
+				}
 			}
 		}
 	}
@@ -23,5 +31,18 @@
 	}
 	.btn-outline-primary {
 		color: $primary;
+	}
+}
+
+.footer {
+	.admin-object-menu {
+		font-size: $font-size-sm;
+		opacity: 0.85;
+		&:hover {
+			opacity: 1;
+		}
+		&__wrapper {
+			top: 0;
+		}
 	}
 }
