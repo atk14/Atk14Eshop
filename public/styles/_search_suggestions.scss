@@ -19,6 +19,7 @@
 		.suggestion {
 			display: grid;
 			grid-template-columns: 80px 1fr auto;
+			min-height: 60px;
 			
 			border: 1px solid transparent;
 			border-bottom: 1px solid $border-color;
