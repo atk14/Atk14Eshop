@@ -1,3 +1,9 @@
+{dropdown_menu clearfix=false}
+	{a action="export" format="xlsx" warehouse_id=$warehouse}{t}Export as XLSX{/t}{/a}
+	{a action="export" format="csv" warehouse_id=$warehouse}{t}Export as CSV{/t}{/a}
+	{a action="import" warehouse_id=$warehouse}{t}Import from CSV{/t}{/a}
+{/dropdown_menu}
+
 <h1>{button_create_new warehouse_id=$warehouse}{/button_create_new} {$page_title}</h1>
 
 {render partial="shared/search_form"}
@@ -14,8 +20,8 @@
 		<tr>
 			<th></th>
 			{sortable key="catalog_id"}<th>{t}Catalog number{/t}</th>{/sortable}
-			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
 			{sortable key="stockcount"}<th>{t}Stockcount{/t}</th>{/sortable}
+			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
 			<th></th>
 		</tr>
 	</thead>
@@ -27,8 +33,8 @@
 			<tr>
 				<td>{render partial="shared/list_thumbnail" image=$product->getImage()}</td>
 				<td>{$product->getCatalogId()}</td>
-				<td>{$product->getName()}</td>
 				<td>{$warehouse_item->getStockcount()} {$product->getUnit()}</td>
+				<td>{$product->getName()}</td>
 				<td>
 					{dropdown_menu}
 						{a action="edit" id=$warehouse_item}{t}Edit{/t}{/a}

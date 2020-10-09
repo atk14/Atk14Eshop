@@ -57,10 +57,130 @@ class WarehouseItemsController extends AdminController {
 		$this->_destroy();
 	}
 
+	function export(){
+		$format = $this->params->getString("format");
+		if(!in_array($format,["csv","xlsx"])){
+			return $this->_execute_action("error404");
+		}
+
+		$rows = $this->dbmole->selectRows("
+			SELECT warehouse_items.product_id,warehouse_items.stockcount
+			FROM warehouse_items, products
+			WHERE
+				warehouse_items.warehouse_id=:warehouse_id AND
+				products.id=warehouse_items.product_id
+			ORDER BY
+				products.catalog_id	
+		",[":warehouse_id" => $this->warehouse]);
+
+		$product_ids = array_map(function($row){ return $row["product_id"]; },$rows);
+		Cache::Prepare("Product",$product_ids);
+
+		$writer = new CsvWriter();
+		
+		foreach($rows as $row){
+			$product = Cache::Get("Product",$row["product_id"]);
+			$writer->addRow([
+				"catalog_id" => $product->g("catalog_id"), // $product->getCatalogId() is not good for deleted products
+				"stockcount" => $row["stockcount"],
+				"unit" => (string)$product->getUnit(),
+				"name" => $product->getName(),
+			]);
+		}
+
+		$this->render_template = false;
+		$this->response->setContentType($format == "xlsx" ? "application/vnd.ms-excel" : "text/csv");
+		$this->response->setContentCharset("");
+		$filename = String4::ToObject($this->warehouse->getName())->toAscii()->gsub('/\s+/',' ')->gsub('/[^a-zA-Z0-9\.-]/','_')->substr(0,60)->append(".$format")->toString();
+		$this->response->setHeader("Content-disposition", "attachment; filename=\"{$filename}\"");
+		$this->response->write($writer->writeToString(["with_header" => true, "format" => $format]));
+	}
+
+	function import(){
+		$warehouse = $this->warehouse;
+		$this->page_title = sprintf(_("Import entries from CSV into warehouse %s"),$warehouse->getName());
+
+		$this->_save_return_uri();
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$reader = CsvReader::FromData($d["csv"]);
+
+			if($reader->getColumnCount()<2){
+				$this->form->set_error("csv",_("There must be at least 2 columns in the CSV data"));
+				return;
+			}
+			
+			$skipped = 0;
+			$unchanged = 0;
+			$created = 0;
+			$updated = 0;
+			$deleted = 0;
+
+			$update_ary = [];
+
+			$line = 0;
+			foreach($reader->getAssociativeRows(["keys" => ["catalog_id","stockcount"]]) as $row){
+				$line++;
+				if(!is_numeric($row["stockcount"])){
+					if($line==1){ continue; } // perhaps header
+					$this->form->set_error("csv",sprintf(_("Line %s: the second value must be a numeric value"),$line));
+					return;
+				}
+				$product = Product::GetInstanceByCatalogId($row["catalog_id"]);
+				if(!$product){
+					if($d["ignore_unknown_products"]){ $skipped++; continue; }
+					$this->form->set_error("csv",sprintf(_("Line %s: product %s was not found"),$line,h($row["catalog_id"])));
+					return;
+				}
+
+				$update_ary[$product->getId()] = $row["stockcount"];
+			}
+
+			$existing_ary = $this->dbmole->selectIntoAssociativeArray("SELECT product_id, stockcount FROM warehouse_items WHERE warehouse_id=:warehouse_id",[":warehouse_id" => $warehouse]);
+
+			foreach($update_ary as $product_id => $stockcount){
+				if(isset($existing_ary[$product_id]) && $existing_ary[$product_id]==$stockcount){
+					unset($existing_ary[$product_id]);
+					$unchanged++;
+					continue;
+				}
+				if(isset($existing_ary[$product_id])){
+					unset($existing_ary[$product_id]);
+					$wi = WarehouseItem::FindFirst("warehouse_id",$warehouse,"product_id",$product_id);
+					$wi->s("stockcount",$stockcount);
+					$updated++;
+					continue;
+				}
+				WarehouseItem::CreateNewRecord([
+					"warehouse_id" => $warehouse,
+					"product_id" => $product_id,
+					"stockcount" => $stockcount,
+				]);
+				$created++;
+			}
+
+			if($d["delete_unlisted_entries"]){
+				foreach(array_keys($existing_ary) as $product_id){
+					$this->dbmole->doQuery("DELETE FROM warehouse_id WHERE warehouse_id=:warehouse AND product_id=:product_id",[":warehouse" => $warehouse, ":product_id" => $product_id]);
+					$deleted++;
+				}
+			}
+
+			$this->flash->success(_("The import was completed successfully")."<ul><li>".join("</li><li>",[
+				sprintf(_("entries imported: %s"),$created + $updated),
+				sprintf(_("entries unchanged: %s"),$unchanged),
+				sprintf(_("entries deleted: %s"),$deleted),
+				// sprintf(_("entries skipped: %s"),$skipped) // may be confusing
+			])."</li></ul>");
+
+			$this->_redirect_back();
+		}
+	}
+
 	function _before_filter(){
 		$warehouse = null;
 
-		if(in_array($this->action,["index","create_new"])){
+		if(in_array($this->action,["index","create_new","export","import"])){
 			$warehouse = $this->_find("warehouse","warehouse_id");
 		}
 
