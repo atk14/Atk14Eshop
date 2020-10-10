@@ -16,7 +16,7 @@ class ImportForm extends WarehouseItemsForm {
 
 		$this->add_field("csv", new TextField([
 			"label" => _("CSV data"),
-			"help_text" => _("Copy the CSV data right from the Excel"),
+			"help_text" => _("Copy & paste the CSV data right from the Excel.")."<br>"._("Two columns are needed. The first column must contain catalog numbers, the second column must contain stockcounts.")."<br>"._("The empty stockcount means deleting the given warehouse entry."),
 			"trim_value" => true,
 		]));
 

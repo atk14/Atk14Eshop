@@ -58,42 +58,54 @@ class WarehouseItemsController extends AdminController {
 	}
 
 	function export(){
-		$format = $this->params->getString("format");
-		if(!in_array($format,["csv","xlsx"])){
-			return $this->_execute_action("error404");
+		$warehouse = $this->warehouse;
+		$this->page_title = sprintf(_("Export entries from warehouse %s"),$warehouse->getName());
+
+		if($this->params->defined("format") && ($d = $this->form->validate($this->params))){
+			$format = $d["format"];
+
+			$rows = $this->dbmole->selectRows("
+				SELECT * FROM (
+					SELECT warehouse_items.product_id,warehouse_items.stockcount, products.catalog_id
+					FROM warehouse_items, products
+					WHERE
+						warehouse_items.warehouse_id=:warehouse_id AND
+						products.id=warehouse_items.product_id
+					".($d["export_all_products"] ? "
+					UNION
+					SELECT id, NULL AS stockcount, catalog_id
+ 					FROM products
+					WHERE
+						NOT deleted AND
+						id NOT IN (SELECT product_id FROM warehouse_items WHERE warehouse_id=:warehouse_id) AND
+						(code IS NULL OR code!='price_rounding')
+					" : "")."	
+				)q	
+				ORDER BY catalog_id	
+			",[":warehouse_id" => $this->warehouse]);
+
+			$product_ids = array_map(function($row){ return $row["product_id"]; },$rows);
+			Cache::Prepare("Product",$product_ids);
+
+			$writer = new CsvWriter();
+			
+			foreach($rows as $row){
+				$product = Cache::Get("Product",$row["product_id"]);
+				$writer->addRow([
+					"catalog_id" => $product->g("catalog_id"), // $product->getCatalogId() is not good for deleted products
+					"stockcount" => $row["stockcount"],
+					"unit" => (string)$product->getUnit(),
+					"name" => $product->getName(),
+				]);
+			}
+
+			$this->render_template = false;
+			$this->response->setContentType($format == "xlsx" ? "application/vnd.ms-excel" : "text/csv");
+			$this->response->setContentCharset("");
+			$filename = String4::ToObject($this->warehouse->getName())->toAscii()->gsub('/\s+/',' ')->gsub('/[^a-zA-Z0-9\.-]/','_')->substr(0,60)->append(".$format")->toString();
+			$this->response->setHeader("Content-disposition", "attachment; filename=\"{$filename}\"");
+			$this->response->write($writer->writeToString(["with_header" => [_("Catalog number"),_("Stockcount"),_("Unit"),_("Product name")], "format" => $format]));
 		}
-
-		$rows = $this->dbmole->selectRows("
-			SELECT warehouse_items.product_id,warehouse_items.stockcount
-			FROM warehouse_items, products
-			WHERE
-				warehouse_items.warehouse_id=:warehouse_id AND
-				products.id=warehouse_items.product_id
-			ORDER BY
-				products.catalog_id	
-		",[":warehouse_id" => $this->warehouse]);
-
-		$product_ids = array_map(function($row){ return $row["product_id"]; },$rows);
-		Cache::Prepare("Product",$product_ids);
-
-		$writer = new CsvWriter();
-		
-		foreach($rows as $row){
-			$product = Cache::Get("Product",$row["product_id"]);
-			$writer->addRow([
-				"catalog_id" => $product->g("catalog_id"), // $product->getCatalogId() is not good for deleted products
-				"stockcount" => $row["stockcount"],
-				"unit" => (string)$product->getUnit(),
-				"name" => $product->getName(),
-			]);
-		}
-
-		$this->render_template = false;
-		$this->response->setContentType($format == "xlsx" ? "application/vnd.ms-excel" : "text/csv");
-		$this->response->setContentCharset("");
-		$filename = String4::ToObject($this->warehouse->getName())->toAscii()->gsub('/\s+/',' ')->gsub('/[^a-zA-Z0-9\.-]/','_')->substr(0,60)->append(".$format")->toString();
-		$this->response->setHeader("Content-disposition", "attachment; filename=\"{$filename}\"");
-		$this->response->write($writer->writeToString(["with_header" => true, "format" => $format]));
 	}
 
 	function import(){
@@ -121,7 +133,7 @@ class WarehouseItemsController extends AdminController {
 			$line = 0;
 			foreach($reader->getAssociativeRows(["keys" => ["catalog_id","stockcount"]]) as $row){
 				$line++;
-				if(!is_numeric($row["stockcount"])){
+				if(!is_numeric($row["stockcount"]) && $row["stockcount"]!==""){
 					if($line==1){ continue; } // perhaps header
 					$this->form->set_error("csv",sprintf(_("Line %s: the second value must be a numeric value"),$line));
 					return;
@@ -144,6 +156,15 @@ class WarehouseItemsController extends AdminController {
 					$unchanged++;
 					continue;
 				}
+				if($stockcount===""){
+					if(isset($existing_ary[$product_id])){
+						unset($existing_ary[$product_id]);
+						$wi = WarehouseItem::FindFirst("warehouse_id",$warehouse,"product_id",$product_id);
+						$wi->destroy();
+						$deleted++;
+					}
+					continue;
+				}
 				if(isset($existing_ary[$product_id])){
 					unset($existing_ary[$product_id]);
 					$wi = WarehouseItem::FindFirst("warehouse_id",$warehouse,"product_id",$product_id);
@@ -161,7 +182,7 @@ class WarehouseItemsController extends AdminController {
 
 			if($d["delete_unlisted_entries"]){
 				foreach(array_keys($existing_ary) as $product_id){
-					$this->dbmole->doQuery("DELETE FROM warehouse_id WHERE warehouse_id=:warehouse AND product_id=:product_id",[":warehouse" => $warehouse, ":product_id" => $product_id]);
+					$this->dbmole->doQuery("DELETE FROM warehouse_items WHERE warehouse_id=:warehouse AND product_id=:product_id",[":warehouse" => $warehouse, ":product_id" => $product_id]);
 					$deleted++;
 				}
 			}
