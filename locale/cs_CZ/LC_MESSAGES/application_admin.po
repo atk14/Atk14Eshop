@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 14:57+0200\n"
-"PO-Revision-Date: 2020-10-02 15:02+0200\n"
+"POT-Creation-Date: 2020-10-10 21:23+0200\n"
+"PO-Revision-Date: 2020-10-10 21:33+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -299,6 +299,7 @@ msgstr "Přidat produkt"
 msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
 #: ../app/forms/admin/cards/cards_form.php:26
 #: ../app/forms/admin/orders/index_form.php:65
@@ -1097,6 +1098,7 @@ msgstr "Stáhněte si originál"
 msgid "Založit novou cenu"
 msgstr "Založit novou cenu"
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/products/products_form.php:17
 msgid "Product name"
 msgstr "Název produktu"
@@ -1565,6 +1567,17 @@ msgstr "Kupón vytvořil/a"
 msgid "Najít objednávky s tímto kupónem"
 msgstr "Najít objednávky s tímto kupónem"
 
+#: ../app/forms/admin/warehouse_items/export_form.php:20
+msgid "Export"
+msgstr "Export"
+
+msgid "Import from CSV"
+msgstr "Importovat z CSV"
+
+msgid "Edit warehouse details"
+msgstr "Upravit údaje skladu"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/cards/cards_form.php:123
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
@@ -1582,6 +1595,12 @@ msgstr "Přidat sklad"
 
 msgid "Warehouse status"
 msgstr "Stav skladu"
+
+msgid "Export entries"
+msgstr "Exportovat položky"
+
+msgid "Import entries from CSV"
+msgstr "Importovat položky z CSV"
 
 msgid ""
 "You are about to permanently delete warehouse %1\n"
@@ -2604,6 +2623,54 @@ msgstr "Nový skladový záznam"
 msgid "Edit warehouse entry"
 msgstr "Editace skladového záznamu"
 
+#: ../app/controllers/admin/warehouse_items_controller.php:62
+#, php-format
+msgid "Export entries from warehouse %s"
+msgstr "Exportovat položky ze skladu %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/forms/admin/admin_form.php:191
+msgid "Unit"
+msgstr "Jednotka"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:113
+#, php-format
+msgid "Import entries from CSV into warehouse %s"
+msgstr "Importovat položky z CSV do skladu %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:121
+msgid "There must be at least 2 columns in the CSV data"
+msgstr "V datech CSV musí být alespoň 2 sloupce"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:138
+#, php-format
+msgid "Line %s: the second value must be a numeric value"
+msgstr "Řádek %s: druhá hodnota musí být číselná hodnota"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:144
+#, php-format
+msgid "Line %s: product %s was not found"
+msgstr "Řádek %s: produkt %s nebyl nalezen"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:190
+msgid "The import was completed successfully"
+msgstr "Import byl úspěšně dokončen"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:191
+#, php-format
+msgid "entries imported: %s"
+msgstr "položek naimportováno: %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:192
+#, php-format
+msgid "entries unchanged: %s"
+msgstr "položek nezměněno: %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:193
+#, php-format
+msgid "entries deleted: %s"
+msgstr "položek smazáno: %s"
+
 #: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 #: ../app/forms/admin/slider_items/slider_items_form.php:10
@@ -2647,10 +2714,6 @@ msgstr "Je aktivní?"
 #: ../app/forms/admin/admin_form.php:180
 msgid "Vat rate"
 msgstr "Sazba DPH"
-
-#: ../app/forms/admin/admin_form.php:191
-msgid "Unit"
-msgstr "Jednotka"
 
 #: ../app/forms/admin/admin_form.php:198
 msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
@@ -4044,9 +4107,49 @@ msgid "Platnost od musí být starší datum než Platnost do"
 msgstr "Platnost od musí být starší datum než Platnost do"
 
 #: ../app/forms/admin/warehouse_items/create_new_form.php:8
-#: ../app/forms/admin/warehouse_items/edit_form.php:8
+#: ../app/forms/admin/warehouse_items/edit_form.php:17
 msgid "Záznam o skladové zásobě tohoto produktu již existuje"
 msgstr "Záznam o skladové zásobě tohoto produktu již existuje"
+
+#: ../app/forms/admin/warehouse_items/export_form.php:6
+msgid "Format"
+msgstr "Formát"
+
+#: ../app/forms/admin/warehouse_items/export_form.php:13
+msgid "Export all products even when they are not listed in the warehouse?"
+msgstr "Exportovat všechny produkty, i když nejsou vedeny ve skladu?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:6
+msgid "Ignore unknown products?"
+msgstr "Ignorovat neznámé produkty?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:12
+msgid "Delete unlisted entries?"
+msgstr "Smazat neuvedené položky?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:18
+msgid "CSV data"
+msgstr "CSV data"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "Copy & paste the CSV data right from the Excel."
+msgstr "Zkopírujte data CSV přímo z aplikace Excel."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid ""
+"Two columns are needed. The first column must contain catalog numbers, the "
+"second column must contain stockcounts."
+msgstr ""
+"Očekávány jsou dva sloupce. První sloupec musí obsahovat katalogová čísla, "
+"druhý sloupec musí obsahovat skladovou zásobu."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "The empty stockcount means deleting the given warehouse entry."
+msgstr "Prázdný skladové množství způsobí smazání daného záznamu."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:23
+msgid "Import"
+msgstr "Importovat"
 
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"

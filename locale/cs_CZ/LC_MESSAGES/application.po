@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 14:56+0200\n"
-"PO-Revision-Date: 2020-10-02 14:49+0200\n"
+"POT-Creation-Date: 2020-10-10 21:23+0200\n"
+"PO-Revision-Date: 2020-10-10 21:23+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -722,6 +722,9 @@ msgstr "Seznam produktů"
 msgid "cena od<br>%1"
 msgstr "cena od<br>%1"
 
+msgid "není v nabídce"
+msgstr "není v nabídce"
+
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Doručovací adresa bude smazána. Pokračovat?"
 
@@ -990,6 +993,9 @@ msgstr "Zobrazit kategorii"
 
 msgid "Stránka"
 msgstr "Stránka"
+
+msgid "Tvůrce"
+msgstr "Tvůrce"
 
 msgid "a další"
 msgstr "a další"
