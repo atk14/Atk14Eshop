@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 14:57+0200\n"
+"POT-Creation-Date: 2020-10-10 21:23+0200\n"
 "PO-Revision-Date: 2020-05-12 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -296,6 +296,7 @@ msgstr "Add a product"
 msgid "No product has been found."
 msgstr "No product has been found."
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
 #: ../app/forms/admin/cards/cards_form.php:26
 #: ../app/forms/admin/orders/index_form.php:65
@@ -1094,6 +1095,7 @@ msgstr "Download original"
 msgid "Založit novou cenu"
 msgstr ""
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/products/products_form.php:17
 msgid "Product name"
 msgstr "Product name"
@@ -1540,6 +1542,17 @@ msgstr ""
 msgid "Najít objednávky s tímto kupónem"
 msgstr ""
 
+#: ../app/forms/admin/warehouse_items/export_form.php:20
+msgid "Export"
+msgstr ""
+
+msgid "Import from CSV"
+msgstr ""
+
+msgid "Edit warehouse details"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/cards/cards_form.php:123
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
@@ -1557,6 +1570,12 @@ msgstr "Add a warehouse"
 
 msgid "Warehouse status"
 msgstr "Warehouse status"
+
+msgid "Export entries"
+msgstr ""
+
+msgid "Import entries from CSV"
+msgstr ""
 
 msgid ""
 "You are about to permanently delete warehouse %1\n"
@@ -2579,6 +2598,54 @@ msgstr "New warehouse entry"
 msgid "Edit warehouse entry"
 msgstr "Edit warehouse entry"
 
+#: ../app/controllers/admin/warehouse_items_controller.php:62
+#, php-format
+msgid "Export entries from warehouse %s"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/forms/admin/admin_form.php:191
+msgid "Unit"
+msgstr "Unit"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:113
+#, php-format
+msgid "Import entries from CSV into warehouse %s"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:121
+msgid "There must be at least 2 columns in the CSV data"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:138
+#, php-format
+msgid "Line %s: the second value must be a numeric value"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:144
+#, php-format
+msgid "Line %s: product %s was not found"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:190
+msgid "The import was completed successfully"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:191
+#, php-format
+msgid "entries imported: %s"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:192
+#, php-format
+msgid "entries unchanged: %s"
+msgstr ""
+
+#: ../app/controllers/admin/warehouse_items_controller.php:193
+#, php-format
+msgid "entries deleted: %s"
+msgstr ""
+
 #: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 #: ../app/forms/admin/slider_items/slider_items_form.php:10
@@ -2621,10 +2688,6 @@ msgstr "Is active?"
 #: ../app/forms/admin/admin_form.php:180
 msgid "Vat rate"
 msgstr "Vat rate"
-
-#: ../app/forms/admin/admin_form.php:191
-msgid "Unit"
-msgstr "Unit"
 
 #: ../app/forms/admin/admin_form.php:198
 msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
@@ -3993,8 +4056,46 @@ msgid "Platnost od musí být starší datum než Platnost do"
 msgstr ""
 
 #: ../app/forms/admin/warehouse_items/create_new_form.php:8
-#: ../app/forms/admin/warehouse_items/edit_form.php:8
+#: ../app/forms/admin/warehouse_items/edit_form.php:17
 msgid "Záznam o skladové zásobě tohoto produktu již existuje"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/export_form.php:6
+msgid "Format"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/export_form.php:13
+msgid "Export all products even when they are not listed in the warehouse?"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:6
+msgid "Ignore unknown products?"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:12
+msgid "Delete unlisted entries?"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:18
+msgid "CSV data"
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "Copy & paste the CSV data right from the Excel."
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid ""
+"Two columns are needed. The first column must contain catalog numbers, the "
+"second column must contain stockcounts."
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "The empty stockcount means deleting the given warehouse entry."
+msgstr ""
+
+#: ../app/forms/admin/warehouse_items/import_form.php:23
+msgid "Import"
 msgstr ""
 
 #: ../app/forms/admin/warehouses/warehouses_form.php:10

@@ -30,6 +30,8 @@
         "aristath/ari-color": "^1.1.1",
         "mysutka/product_feed_generator": "^0.1.7",
         "sunfoxcz/spayd-php": "^1.0",
-        "bacon/bacon-qr-code": "^1.0"
+        "bacon/bacon-qr-code": "^1.0",
+        "atk14/csv-reader": "dev-master",
+        "atk14/csv-writer": "dev-master"
     }
 }
