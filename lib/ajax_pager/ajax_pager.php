@@ -86,8 +86,8 @@ class AjaxPager {
 		$this->params = $controller->params;
 		$this->controller = $controller;
 
-		$this->offset = (int) $this->params[$options['offset_name']];
-		$this->limit = (int ) $this->params[$options['limit_name']];
+		$this->offset = max((int)$this->params[$options['offset_name']],0);
+		$this->limit = max((int)$this->params[$options['limit_name']],0);
 		$this->total = $options['total'];
 
 		// HACK: Yarriho oprava
