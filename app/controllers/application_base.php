@@ -188,14 +188,6 @@ class ApplicationBaseController extends Atk14Controller{
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
 
-		// lazy_loader initialization
-		$this->lazy_loader["secondary_menu_mobile"] = function(){
-			if(($out = LinkList::GetInstanceByCode("secondary_menu_mobile")) && !$out->isEmpty()){
-				return $out;
-			}
-			return LinkList::GetInstanceByCode("secondary_menu");
-		};
-
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
 		}
