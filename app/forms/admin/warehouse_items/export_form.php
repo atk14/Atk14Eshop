@@ -12,7 +12,7 @@ class ExportForm extends WarehouseItemsForm {
 		$this->add_field("export_all_products", new BooleanField([
 			"label" => _("Export all products even when they are not listed in the warehouse?"),
 			"required" => false,
-			"initial" => true,
+			"initial" => false,
 		]));
 
 		$this->set_method("get");
