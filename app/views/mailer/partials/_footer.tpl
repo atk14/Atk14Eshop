@@ -35,7 +35,17 @@
             		<table class="row" style="border-collapse:collapse;border-spacing:0;display:table;padding:0;position:relative;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top">
             			<th class="smallprint small-12 large-12 columns first last" style="Margin:0 auto;color:#0a0a0a;font-family:{$font_stack};font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:40px 20px;padding-bottom:0;padding-left:16px;padding-right:16px;text-align:left;width:564px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#0a0a0a;font-family:{$font_stack};font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left">
             				<small style="color:{$footer_color};font-size:80%">
-            					<a href="{"terms_and_conditions"|link_to_page:"with_hostname"}" style="font-family:{$font_stack};color:{$footer_link_color};">{t}Obchodní podmínky{/t}</a>
+											{assign first 1}
+											{foreach [
+												"terms_and_conditions",
+												"privacy_policy"
+											] as $code}
+												{assign page Page::GetInstanceByCode($code)}
+												{if $page}
+													{if $first}{assign first 0}{else} | {/if}
+													<a href="{$page|link_to_page:"with_hostname"}" style="color:{$footer_link_color};">{$page->getTitle()}</a>
+												{/if}
+											{/foreach}
             				</small>
             			</th>
 <th class="expander" style="Margin:0;color:#0a0a0a;font-family:{$font_stack};font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0!important;text-align:left;visibility:hidden;width:0"></th></tr></table></th>
