@@ -1,6 +1,19 @@
 <?php
 class SuggestionsController extends ApiController{
 
+	function users(){
+		if(!$this->logged_user || !$this->logged_user->isAdmin()){
+			// this is for a logged-in administrator only
+			$this->_execute_action("error403");
+			return;
+		}
+
+		$this->_suggest([
+			"fields" => ["login","firstname","lastname"],
+			"order_by" => "LOWER(login) LIKE LOWER(:q)||'%' DESC, LOWER(lastname) LIKE LOWER(:q)||'%' DESC, LOWER(firstname) LIKE LOWER(:q)||'%' DESC, login",
+		]);
+	}
+
 	/**
 	 * ### Suggestion of Product Cards
 	 */
@@ -55,19 +68,6 @@ class SuggestionsController extends ApiController{
 			"fields" => array("name"),
 			"order_by" => "name LIKE :q||'%' DESC, LOWER(name) LIKE LOWER(name)||'%' DESC, LOWER(name), name",
 		));
-	}
-
-	function users(){
-		if(!$this->logged_user || !$this->logged_user->isAdmin()){
-			// this is for a logged-in administrator only
-			$this->_execute_action("error403");
-			return;
-		}
-
-		$this->_suggest([
-			"fields" => ["login","firstname","lastname","company","address_street","address_street2","address_city","address_state","address_zip"],
-			"order_by" => "LOWER(login) LIKE LOWER(:q)||'%' DESC, LOWER(lastname) LIKE LOWER(:q)||'%' DESC, LOWER(firstname) LIKE LOWER(:q)||'%' DESC, LOWER(company) LIKE LOWER(:q)||'%' DESC, login",
-		]);
 	}
 
 	function _suggest($options = array()){
