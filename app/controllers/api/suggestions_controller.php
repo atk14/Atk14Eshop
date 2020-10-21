@@ -13,6 +13,7 @@ class SuggestionsController extends ApiController{
 				"login",
 				"firstname",
 				"lastname",
+				"email",
 				"company",
 				"address_street",
 				"address_street2",
@@ -25,6 +26,7 @@ class SuggestionsController extends ApiController{
 				LOWER(lastname) LIKE LOWER(:q)||'%' DESC,
 				LOWER(firstname) LIKE LOWER(:q)||'%' DESC,
 				LOWER(company) LIKE LOWER(:q)||'%' DESC,
+				is_admin DESC,
 				login
 			",
 		]);
