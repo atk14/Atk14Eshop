@@ -83,7 +83,11 @@
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
 					e.preventDefault();
-					$( "#js--main_search_field" ).toggleClass( "d-flex" );
+					var $form = $( "#js--main_search_field" );
+					$form.toggleClass( "d-flex" );
+					if( $form.is( ":visible" ) ) {
+						$form.find( "input[type=text]" ).focus();
+					}
 				} );
 			
 				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
