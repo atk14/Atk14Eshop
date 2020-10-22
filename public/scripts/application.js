@@ -249,9 +249,11 @@
 				} );
 
 				var positionSuggestingArea = function( searchField, suggArea ) {
-					if( !suggestingAreaNeedsToBePositioned ) {
-						return;
-					}
+
+					// In the mobile layout the search input changes its location
+					//if( !suggestingAreaNeedsToBePositioned ) {
+					//	return;
+					//}
 
 					var fieldOffset = searchField.offset();
 					suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 +"px");
