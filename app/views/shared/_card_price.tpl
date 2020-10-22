@@ -3,10 +3,19 @@
  *}
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
+{assign products $card->getProducts()}
 
 <div class="card-price">
 {if $starting_price}
-	{if $distinct_prices && sizeof($distinct_prices)==2}
+	{if sizeof($distinct_prices)>=2 && sizeof($distinct_prices)<=3 && sizeof($products)<=3}
+		<ul class="list-unstyled">
+			{foreach $products as $product}
+				{assign price $price_finder->getPrice($product)}
+				<li><small>{$product->getLabel()}</small><br>{!$price|display_price:$price_finder->getCurrency()}</li>
+			{/foreach}
+		</ul>
+
+	{elseif $distinct_prices && sizeof($distinct_prices)==2}
 		{* there are two price on the card *}
 
 		<ul class="list-unstyled">
