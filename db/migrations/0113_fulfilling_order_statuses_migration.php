@@ -34,8 +34,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 		$values_ar[] = [
 			"id" => 2,
 			"code" => "waiting_for_bank_transfer",
-			"name_en" => "Waiting for payment by bank transfer",
-			"name_cs" => "Čekání na úhradu bankovním převodem",
+			"name_en" => "Request for payment by bank transfer",
+			"name_cs" => "Výzva k úhradě bankovním převodem",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
 			"reduce_stockount" => false,
