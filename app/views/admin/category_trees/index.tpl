@@ -10,7 +10,8 @@
 				</div>
 				<div>
 					{dropdown_menu}
-					{a action="detail" id=$root}{!"folder-open"|icon} {t}Detail{/t}{/a}
+					{a action="detail" id=$root}{!"project-diagram"|icon} {t}Detail{/t}{/a}
+					{a action="categories/edit" id=$root}{!"edit"|icon} {t}Edit{/t}{/a}
 					{if $root->isDeletable()}
 							{capture assign="confirm"}{t 1=$root->getName()|h escape=no}You are about to delete the catalog tree %1.
 		Are you sure?{/t}{/capture}
