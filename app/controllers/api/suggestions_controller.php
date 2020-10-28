@@ -64,8 +64,10 @@ class SuggestionsController extends ApiController{
 	 */
 	function products(){
 		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=products.card_id AND key='name' AND lang='$this->lang')";
+		$_product_label = "(SELECT body FROM translations WHERE table_name='products' AND record_id=products.id AND key='label' AND lang='$this->lang')";
+		$_product_name = "(SELECT body FROM translations WHERE table_name='products' AND record_id=products.id AND key='name' AND lang='$this->lang')";
 		$this->_suggest(array(
-			"fields" => array("catalog_id",$_name),
+			"fields" => array("catalog_id",$_name,$_product_label,$_product_name),
 			"order_by" => "UPPER(COALESCE($_name,'_____')) LIKE UPPER(:q)||'%' DESC, UPPER(catalog_id) LIKE UPPER(:q)||'%' DESC, $_name, catalog_id",
 			"conditions" => array(
 				"deleted='f'",
