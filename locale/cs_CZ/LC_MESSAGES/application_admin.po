@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-10 21:23+0200\n"
-"PO-Revision-Date: 2020-10-10 21:33+0200\n"
+"PO-Revision-Date: 2020-10-30 16:34+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -4145,7 +4145,7 @@ msgstr ""
 
 #: ../app/forms/admin/warehouse_items/import_form.php:19
 msgid "The empty stockcount means deleting the given warehouse entry."
-msgstr "Prázdný skladové množství způsobí smazání daného záznamu."
+msgstr "Nevyplněné skladové množství způsobí smazání daného záznamu."
 
 #: ../app/forms/admin/warehouse_items/import_form.php:23
 msgid "Import"
