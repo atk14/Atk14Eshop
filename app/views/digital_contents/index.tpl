@@ -35,7 +35,4 @@
 {/foreach}
 </div>
 
-{content for=head}
-	<meta name="robots" content="noindex,nofollow,noarchive">
-{/content}
-
+{render partial="shared/noindex_meta_tags"}

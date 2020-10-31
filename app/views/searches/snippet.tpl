@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="robots" content="noindex" />
+	<meta name="robots" content="noindex,nofollow,noarchive" />
 	<meta name="googlebot" content="noindex" />
 </head>
 <body>

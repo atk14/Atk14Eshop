@@ -10,7 +10,4 @@
 	<li>{a action="colors"}Manipulace s barvami{/a}</li>
 </ul>
 
-{content for=head}
-	<meta name="robots" content="noindex,noarchive">
-{/content}
-
+{render partial="shared/noindex_meta_tags"}
