@@ -1,0 +1,4 @@
+bitcoin:
+  code: BTC
+  decimals: 8
+  decimals_summary: 8

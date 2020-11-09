@@ -1,4 +1,8 @@
 <?php
+/**
+ *
+ * @fixture currencies
+ */
 class TcUnit extends TcBase {
 
 	function test(){
@@ -15,10 +19,17 @@ class TcUnit extends TcBase {
 	}
 
 	function test_getUnitPriceRoundingPrecision(){
+		$bitcoin = Currency::GetInstanceByCode("BTC");
+		$czk = Currency::GetInstanceByCode("CZK");
+
 		$pcs = Unit::FindByUnit("pcs");
-		$this->assertEquals(2,$pcs->getUnitPriceRoundingPrecision());
+		$this->assertEquals(2,$pcs->getUnitPriceRoundingPrecision()); // default currency
+		$this->assertEquals(2,$pcs->getUnitPriceRoundingPrecision($czk));
+		$this->assertEquals(8,$pcs->getUnitPriceRoundingPrecision($bitcoin));
 
 		$cm = Unit::FindByUnit("cm");
-		$this->assertEquals(4,$cm->getUnitPriceRoundingPrecision());
+		$this->assertEquals(4,$cm->getUnitPriceRoundingPrecision()); // default currency
+		$this->assertEquals(4,$cm->getUnitPriceRoundingPrecision($czk));
+		$this->assertEquals(10,$cm->getUnitPriceRoundingPrecision($bitcoin));
 	}
 }
