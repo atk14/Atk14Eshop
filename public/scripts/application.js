@@ -89,6 +89,23 @@
 						$form.find( "input[type=text]" ).focus();
 					}
 				} );
+
+				// After mobile navbar finished collapsing
+				$( "#navTopMobileNavDropdown" ).on( "hidden.bs.collapse", function () {
+					console.log( "navbar collapse" );
+					var $form = $( "#js--main_search_field" );
+					//$( $form ).detach().prependTo( "#js--main_search_container > *:first-child" );
+					var xxxx = $form.detach().prependTo( "#js--main_search_container" );
+					console.log("xxxx", xxxx.parent());
+				})
+
+				// After mobile navbar started to expanded
+				$( "#navTopMobileNavDropdown" ).on( "show.bs.collapse", function () {
+					console.log( "navbar expand" );
+					var $form = $( "#js--main_search_field" );
+					var zzzz = $form.detach().prependTo( "#navTopMobileNavDropdown" );
+					console.log("zzzz", zzzz.parent());
+				})
 			
 				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
 					var prevScroll = document.documentElement.scrollTop || window.scrollY;
