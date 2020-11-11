@@ -90,22 +90,35 @@
 					}
 				} );
 
-				// After mobile navbar finished collapsing
+				// After mobile navbar menu finished collapsing
+				// Place search field to its default position in DOM
 				$( "#navTopMobileNavDropdown" ).on( "hidden.bs.collapse", function () {
-					console.log( "navbar collapse" );
 					var $form = $( "#js--main_search_field" );
-					//$( $form ).detach().prependTo( "#js--main_search_container > *:first-child" );
-					var xxxx = $form.detach().prependTo( "#js--main_search_container" );
-					console.log("xxxx", xxxx.parent());
+					$form.detach().prependTo( "#js--main_search_container" );
 				})
 
-				// After mobile navbar started to expanded
+				// After mobile navbar menu started to expanded
+				// Move search field to mobile menu in DOM
 				$( "#navTopMobileNavDropdown" ).on( "show.bs.collapse", function () {
-					console.log( "navbar expand" );
 					var $form = $( "#js--main_search_field" );
-					var zzzz = $form.detach().prependTo( "#navTopMobileNavDropdown" );
-					console.log("zzzz", zzzz.parent());
+					$form.detach().prependTo( "#navTopMobileNavDropdown" );
 				})
+				
+				// When whole mobile navbar is hidden on resize (at reponsive breakpoint)
+				window.addEventListener( "resize", function() {
+					
+					if( $( ".navbar-top--mobile" ).css( "display" ) === "none" ){
+
+						// Collapse mobile navbar
+						if( $( ".navbar-top--mobile .navbar-toggler" ).hasClass( "collapsed" ) !== true ){
+							$( ".navbar-top--mobile .navbar-toggler" ).trigger( "click" );
+						}
+						
+						// Place search field to its default position in DOM
+						var $form = $( "#js--main_search_field" );
+						$form.detach().prependTo( "#js--main_search_container" );
+					}
+				});
 			
 				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
 					var prevScroll = document.documentElement.scrollTop || window.scrollY;
