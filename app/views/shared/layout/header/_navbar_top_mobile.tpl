@@ -2,7 +2,7 @@
 
 {capture assign=menu_collapse}{remove_if_contains_no_text}
 <div class="collapse navbar-collapse" id="navTopMobileNavDropdown">
-
+	<div class="searchfield_placeholder" id="js--mobile_search_placeholder">{* searchform is inserted by JS when needed *}</div>
 	{if $show_search_in_hamburger}
 	<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
 		<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">

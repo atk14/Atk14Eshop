@@ -101,7 +101,7 @@
 				// Move search field to mobile menu in DOM
 				$( "#navTopMobileNavDropdown" ).on( "show.bs.collapse", function () {
 					var $form = $( "#js--main_search_field" );
-					$form.detach().prependTo( "#navTopMobileNavDropdown" );
+					$form.detach().prependTo( "#js--mobile_search_placeholder" );
 				})
 				
 				// When whole mobile navbar is hidden on resize (at reponsive breakpoint)
