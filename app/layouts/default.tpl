@@ -100,7 +100,7 @@
 
 		<div id="js--suggesting" class="search-suggestions">
 		<div class="suggestions__not-found">
-		<p><em>{t}searching ...{/t}</em></p>
+		<p><em>{t}Searching...{/t}</em></p>
 		</div>
 		</div>
 
