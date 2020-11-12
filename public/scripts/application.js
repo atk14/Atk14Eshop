@@ -155,6 +155,7 @@
 				var suggestingCache = {};
 				var suggestingAreaVisible = false;
 				var suggestingAreaNeedsToBePositioned = true;
+				var suggestingAreaOriginalContent;
 
 				var suggest = function( e, field, eve ) {
 					var $field = $( field );
@@ -165,6 +166,13 @@
 					var data = {};
 					var $suggestingArea = $( "#js--suggesting" );
 
+					if( suggestingAreaOriginalContent === undefined ){
+						suggestingAreaOriginalContent = $suggestingArea.html();
+						console.log( suggestingAreaOriginalContent );
+					}
+					
+					search = search.trim();
+
 					if( search === $suggestingArea.data( "suggesting-for" ) ) {
 						return;
 					}
@@ -172,6 +180,11 @@
 					$suggestingArea.data( "suggesting-for", search );
 
 					var searchFn = function( search ) {
+						if( search === "" ) {
+							$suggestingArea.html( suggestingAreaOriginalContent );
+							return;
+						}
+
 						if ( suggestingCache[ search ] ) {
 							$suggestingArea.html( suggestingCache[ search ] );
 							// console.log( "replaced from cache" );
