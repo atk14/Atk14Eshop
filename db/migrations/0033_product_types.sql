@@ -18,7 +18,7 @@ CREATE TABLE product_types (
 );
 
 -- default product type
-INSERT INTO product_types (id,code) VALUES(1,'default');
+INSERT INTO product_types (id,code) VALUES(1,'product');
 --
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('product_types',1,'en','name','product');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('product_types',1,'cs','name','produkt');

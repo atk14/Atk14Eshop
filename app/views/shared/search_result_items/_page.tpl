@@ -59,7 +59,7 @@
 		{if $creator}
 			{t}Profil{/t}
 		{else}
-			{t}Stránka{/t}
+			{t}Informace{/t}
 		{/if}
 	</div>
 </li>

@@ -20,6 +20,10 @@
 		</div>
 	</div>
 	<div class="search-results-item--tag">
-		{t}Článek{/t}
+		{if $article->getPrimaryTag()}
+			{$article->getPrimaryTag()->getTagLocalized()|capitalize}
+		{else}
+			{t}Article{/t}
+		{/if}
 	</div>
 </li>

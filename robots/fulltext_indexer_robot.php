@@ -10,7 +10,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 
 		$RECIPE_ITEMS = [
 			"Card" => ["conditions" => ["visible","NOT deleted"], "order_by" => "created_at DESC, id DESC"],
-			"Page" => [],
+			"Page" => ["conditions" => ["visible","indexable","code IS NULL OR code!='homepage'"]],
 			"Article" => ["conditions" => ["published_at<=:now"], "bind_ar" => [":now" => $now], "order_by" => "published_at DESC, id DESC"],
 			/*
 			"Category" => [
