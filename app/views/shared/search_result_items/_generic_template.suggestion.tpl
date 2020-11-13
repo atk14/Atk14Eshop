@@ -2,7 +2,13 @@
 	<a href="{$url}" class="suggestion" tabindex="10">
 	{if $image_url}
 		<div class="suggestion__image">
-			{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
+			{assign w $image_url|img_width}
+			{assign h $image_url|img_height}
+			{if $w/$h>1.2 && $w/$h<1.6}
+				{!$image_url|pupiq_img:"80x60xcrop,format=png"}
+			{else}
+				{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
+			{/if}
 		</div>
 	{/if}
 

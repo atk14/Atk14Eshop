@@ -7,6 +7,15 @@ class SearchesController extends ApplicationController {
 
 		$format = $this->params->getString("format"); // "snippet"
 
+		if($format=="snippet"){
+			$this->render_layout = false;
+			$this->template_name = "snippet";
+		}
+
+		if(!strlen($d["q"])){
+			return;
+		}
+
 		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$d["q"]);
 
 		$texmit = new \Textmit\Client();
@@ -23,8 +32,6 @@ class SearchesController extends ApplicationController {
 		if($format=="snippet"){
 			$options["offset"] = 0;
 			$options["limit"] = 10;
-			$this->render_layout = false;
-			$this->template_name = "snippet";
 		}
 
 		$finder = $this->tpl_data["finder"] = $texmit->search($d["q"],$options);

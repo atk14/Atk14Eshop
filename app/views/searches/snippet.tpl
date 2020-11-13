@@ -9,7 +9,7 @@
 {/if}
 
 <div class="suggestions">
-	{if $finder->isEmpty()}
+	{if !$finder || $finder->isEmpty()}
 		<div class="suggestions__not-found">
 		<p><em>{t}Nic nebylo nalezeno.{/t}</em></p>
 		</div>
