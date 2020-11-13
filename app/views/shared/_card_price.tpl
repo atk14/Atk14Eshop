@@ -1,10 +1,17 @@
 {*
  *	{render partial="shared/card_price" card=$card}
+ *
+ *	{render partial="shared/card_price" card=$card default_price_label=""}
  *	{render partial="shared/card_price" card=$card default_price_label="Your price"}
  *}
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
 {assign products $card->getProducts()}
+{assign product_type $card->getProductType()}
+
+{if !isset($default_price_label) && $product_type->getCode()!="product"}
+	{assign default_price_label $product_type}
+{/if}
 
 <div class="card-price">
 {if $starting_price}
