@@ -37,6 +37,6 @@
 		</div>
 	</div>
 	<div class="search-results-item--tag">
-		{t}Kategorie produktů{/t}
+		{t}Kategorie{/t}
 	</div>
 </li>

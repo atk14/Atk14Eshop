@@ -1,5 +1,6 @@
 {*
  *	{render partial="shared/card_price" card=$card}
+ *	{render partial="shared/card_price" card=$card default_price_label="Your price"}
  *}
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
@@ -31,6 +32,9 @@
 	{else}
 		{* there is just one price on the card *}
 
+		{if $default_price_label}
+			<small>{$default_price_label}</small><br>
+		{/if}
 		{if $starting_price->discounted()}
 			<span class="card-price--before-discount">{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
 		{/if}

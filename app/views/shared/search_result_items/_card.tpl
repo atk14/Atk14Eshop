@@ -1,4 +1,5 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
+{assign main_creators CardCreator::GetMainCreatorsForCard($card)}
 
 <li class="search-results-item">
 	<div class="search-results-item--image">
@@ -30,6 +31,9 @@
 			</h4>
 			
 			<div class="search-result-description">
+				{if $main_creators}
+					<p><strong>{$main_creators|to_sentence}</strong></p>
+				{/if}
 				{!$card->getTeaser()|markdown}
 			</div>
 			
