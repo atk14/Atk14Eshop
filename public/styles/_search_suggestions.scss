@@ -64,21 +64,19 @@
 			}
 			&__type {
 				grid-column: 3/4;
-				//grid-row: 2/3;
-				grid-row: 1/2;
-				//padding: 0.25rem 0.5rem 0 0.25rem;
-				padding: 0 0.5rem 0.25rem 0.25rem;
+				grid-row: 1/3;
+				padding: 0.2rem 0.5rem 0.2rem 0.25rem;
 				justify-self: end;
 				//align-self: end;
 				align-self: start;
-				font-size: $font-size-sm;
+				font-size: $font-size-sm !important;
 				color: $gray-600;
 			}
 			&__price {
 				grid-column: 3/4;
-				grid-row: 1/2;
+				grid-row: 1/3;
 				justify-self: end;
-				padding: 0 0.5rem 0.25rem 0.25rem;
+				padding: 0.2rem 0.5rem 0.2rem 0.25rem;
 				align-self: start;
 				line-height: 1.2;
 				text-align: right;
@@ -90,6 +88,9 @@
 							font-size: $font-size-sm;
 						}
 					}
+				}
+				small {
+					font-size: $font-size-sm !important;
 				}
 			}
 		}
