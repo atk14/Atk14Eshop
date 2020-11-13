@@ -52,6 +52,9 @@ $card-border-style: 1px dashed $border-color;
 			top: 0;
 			width: 100%;
 			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 	
@@ -60,6 +63,15 @@ $card-border-style: 1px dashed $border-color;
 		flex-grow: 8;
 	}
 	
+	.card-body {
+
+		line-height: 1.25;
+		.card-text {
+			*:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
 	
 	.card-body--article {
 		display: flex;
@@ -89,11 +101,23 @@ $card-border-style: 1px dashed $border-color;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
+		padding-top: 0;
 		.btn {
 			margin-top: 0.5rem;
 		}
 		.btn:first-child:last-child {
 			margin-top: 0;
+		}
+		&__stockcount {
+			font-size: $font-size-sm;
+			color: $body-color;
+			line-height: 1;
+		}
+		&__icon {
+			position: relative;
+			top: -0.2em;
+			color: $primary;
+			align-self: flex-end;
 		}
 	}
 	
@@ -144,6 +168,19 @@ $card-border-style: 1px dashed $border-color;
 			grid-template-columns: 30% 1fr;
 		}
 		
+	}
+	
+	&--compact:not(.card--horizontal) {
+		.card-body {
+			padding: $grid-gutter-width/8 $grid-gutter-width/4;
+			font-size:  $font-size-sm;
+			line-height: 1.25;
+			.card-title {
+				font-size: inherit;
+				line-height: inherit;
+				margin-bottom: 0;
+			}
+		}
 	}
 	
 	&--micro {
