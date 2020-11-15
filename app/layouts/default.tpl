@@ -98,7 +98,7 @@
 			{render partial="shared/layout/footer"}
 		</div>
 
-		<div id="js--suggesting" class="search-suggestions">
+		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">
 		<p><em>{t}Searching...{/t}</em></p>
 		</div>

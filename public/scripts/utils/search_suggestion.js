@@ -1,6 +1,49 @@
 window.UTILS = window.UTILS || { };
 
-window.UTILS.search_suggestion = {
+/**
+ * Provide search suggestion on an input field with the given class
+ *
+ * A suggesting area (e.g. <div> element, by default invisible) is required in the DOM.
+ * Content for the suggesting  area is downloaded from the search form URL with the parameter format=snippet.
+ *
+ * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area" );
+ *
+ */
+window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
+	var $suggArea = $( "." + suggestingAreaClassName );
+	$suggArea.hide();
+
+	$( "." + fieldClassName ).on ( "keyup", function( e ) {
+		window.UTILS._search_suggestion.suggest( $( this ), $suggArea );
+	} );
+
+	$( "body" ).on( "click keyup", function( e ) {
+		var $activeElement = $( e.target );
+		var searchFieldIsActiveAndEmpty = $activeElement.hasClass( fieldClassName ) && $activeElement.val().length === 0;
+		if (
+			searchFieldIsActiveAndEmpty || (
+				!$activeElement.hasClass( fieldClassName ) &&
+				!$activeElement.hasClass( suggestingAreaClassName ) &&
+				$activeElement.closest( "." + suggestingAreaClassName ).length === 0
+			)
+		) {
+			if( window.UTILS._search_suggestion.suggestingAreaVisible ) {
+				$suggArea.fadeOut();
+				window.UTILS._search_suggestion.suggestingAreaVisible = false;
+				// console.log( "fadeOut" );
+			}
+		} else {
+			window.UTILS._search_suggestion.positionSuggestingArea( $( "." + fieldClassName ), $suggArea );
+			if( !window.UTILS._search_suggestion.suggestingAreaVisible ) {
+				$suggArea.fadeIn();
+				window.UTILS._search_suggestion.suggestingAreaVisible = true;
+				// console.log( "fadeIn" );
+			}
+		}
+	} );
+};
+
+window.UTILS._search_suggestion = {
 
 	suggestingAreaVisible: false,
 	suggestingCache: {},
@@ -14,8 +57,8 @@ window.UTILS.search_suggestion = {
 		var fieldName = $field.attr( "name" );
 		var data = {};
 
-		if( window.UTILS.search_suggestion.suggestingAreaOriginalContent === undefined ){
-			window.UTILS.search_suggestion.suggestingAreaOriginalContent = $suggestingArea.html();
+		if( window.UTILS._search_suggestion.suggestingAreaOriginalContent === undefined ){
+			window.UTILS._search_suggestion.suggestingAreaOriginalContent = $suggestingArea.html();
 		}
 		
 		search = search.trim();
@@ -28,12 +71,12 @@ window.UTILS.search_suggestion = {
 
 		var searchFn = function( search ) {
 			if( search === "" ) {
-				$suggestingArea.html( window.UTILS.search_suggestion.suggestingAreaOriginalContent );
+				$suggestingArea.html( window.UTILS._search_suggestion.suggestingAreaOriginalContent );
 				return;
 			}
 
-			if ( window.UTILS.search_suggestion.suggestingCache[ search ] ) {
-				$suggestingArea.html( window.UTILS.search_suggestion.suggestingCache[ search ] );
+			if ( window.UTILS._search_suggestion.suggestingCache[ search ] ) {
+				$suggestingArea.html( window.UTILS._search_suggestion.suggestingCache[ search ] );
 				// console.log( "replaced from cache" );
 				return;
 			}
@@ -50,9 +93,9 @@ window.UTILS.search_suggestion = {
 				dataType: "html",
 				url: url,
 				data: data,
-				success: function( snippet ) {
+				uccess: function( snippet ) {
 					if( search === $suggestingArea.data( "suggesting-for" ) ) {
-						window.UTILS.search_suggestion.suggestingCache[ search ] = snippet;
+						window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
 					}
 					$suggestingArea.data( "suggesting", "" );
 					if( search !== $suggestingArea.data( "suggesting-for" ) ) {
@@ -68,11 +111,11 @@ window.UTILS.search_suggestion = {
 		searchFn( search );
 
 		$( window ).on( "resize", function() {
-			window.UTILS.search_suggestion.suggestingAreaNeedsToBePositioned = true;
-			if( window.UTILS.search_suggestion.suggestingAreaVisible ) {
+			window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = true;
+			if( window.UTILS._search_suggestion.suggestingAreaVisible ) {
 
 				// We need to delay a bit to wait for  possible transformations on the page
-				setTimeOut( window.UTILS.search_suggestion.positionSuggestingArea( $field, $suggestingArea ), 5000);
+				setTimeout( window.UTILS._search_suggestion.positionSuggestingArea( $field, $suggestingArea ), 5000);
 			}
 		} );
 	},
@@ -80,7 +123,7 @@ window.UTILS.search_suggestion = {
 	positionSuggestingArea: function( searchField, suggArea ) {
 
 		// In the mobile layout the search input changes its location
-		//if( !window.UTILS.search_suggestion.suggestingAreaNeedsToBePositioned ) {
+		//if( !window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned ) {
 		//	return;
 		//}
 
@@ -99,40 +142,6 @@ window.UTILS.search_suggestion = {
 
 		// console.log( "re-positioned" );
 
-		window.UTILS.search_suggestion.suggestingAreaNeedsToBePositioned = false;
+		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = false;
 	}
-};
-
-window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaId ) {
-	var $suggArea = $( "#" + suggestingAreaId );
-
-	$( "." + fieldClassName ).on ( "keyup", function( e ) {
-		window.UTILS.search_suggestion.suggest( $( this ), $suggArea );
-	} );
-
-	$( "body" ).on( "click keyup", function( e ) {
-		var $activeElement = $( e.target );
-		var id = $activeElement.attr( "id" );
-		var searchFieldIsActiveAndEmpty = $activeElement.hasClass( fieldClassName ) && $activeElement.val().length === 0;
-		if (
-			searchFieldIsActiveAndEmpty || (
-				!$activeElement.hasClass( fieldClassName ) &&
-				id !== suggestingAreaId &&
-				$activeElement.closest( "#" + suggestingAreaId ).length === 0
-			)
-		) {
-			if( window.UTILS.search_suggestion.suggestingAreaVisible ) {
-				$suggArea.fadeOut();
-				window.UTILS.search_suggestion.suggestingAreaVisible = false;
-				// console.log( "fadeOut" );
-			}
-		} else {
-			window.UTILS.search_suggestion.positionSuggestingArea( $( "." + fieldClassName ), $suggArea );
-			if( !window.UTILS.search_suggestion.suggestingAreaVisible ) {
-				$suggArea.fadeIn();
-				window.UTILS.search_suggestion.suggestingAreaVisible = true;
-				// console.log( "fadeIn" );
-			}
-		}
-	} );
 };
