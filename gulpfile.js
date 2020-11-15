@@ -33,6 +33,7 @@ var applicationScripts = [
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/application.js"
 ];
 
