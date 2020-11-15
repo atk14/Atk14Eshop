@@ -19,7 +19,7 @@ php:
   - 7.2
   - 7.3
 #  - 7.4 # stopping testing in PHP7.4 - gd extension is not installed
-#  - nightly # package atk14/csv-writer, more precisely ellumilel/php-excel-writer is not compatible with PHP 8
+  - nightly # package atk14/csv-writer, more precisely ellumilel/php-excel-writer is not compatible with PHP 8
 
 before_install:
   - echo 'en_US.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
