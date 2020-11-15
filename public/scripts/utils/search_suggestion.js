@@ -93,7 +93,7 @@ window.UTILS._search_suggestion = {
 				dataType: "html",
 				url: url,
 				data: data,
-				uccess: function( snippet ) {
+				success: function( snippet ) {
 					if( search === $suggestingArea.data( "suggesting-for" ) ) {
 						window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
 					}
