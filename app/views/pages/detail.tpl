@@ -7,8 +7,8 @@
 		</div>
 	</header>*}
 	{assign var="colorbg" false}
-	{if $creator && $page->getImageUrl()}
-		{assign var="image" $page->getImageUrl()}
+	{if $creator}
+		{assign var="image" $creator->getImageUrl()}
 		{assign var="colorbg" true}
 	{/if}
 	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
