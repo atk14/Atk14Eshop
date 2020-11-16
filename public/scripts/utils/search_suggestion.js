@@ -11,6 +11,12 @@ window.UTILS = window.UTILS || { };
  */
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
 	var $suggArea = $( "." + suggestingAreaClassName );
+
+	if ( $suggArea.length === 0 ) {
+		console.log( "searchSuggestion: Warning! No suggesting area found with class " + suggestingAreaClassName );
+		return;
+	}
+
 	$suggArea.hide();
 
 	$( "." + fieldClassName ).on ( "keyup", function( e ) {
