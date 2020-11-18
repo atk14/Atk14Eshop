@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-10 21:23+0200\n"
-"PO-Revision-Date: 2020-10-30 16:34+0100\n"
+"POT-Creation-Date: 2020-11-18 13:35+0100\n"
+"PO-Revision-Date: 2020-11-18 13:37+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -58,6 +58,7 @@ msgstr "Seznam je prázdný."
 msgid "Title"
 msgstr "Název"
 
+#: ../app/forms/admin/articles/articles_form.php:29
 msgid "Author"
 msgstr "Autor"
 
@@ -65,7 +66,7 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../app/controllers/admin/admin.php:34
-#: ../app/forms/admin/articles/articles_form.php:48
+#: ../app/forms/admin/articles/articles_form.php:54
 #: ../app/forms/admin/cards/cards_form.php:81
 #: ../app/forms/admin/categories/categories_form.php:63
 #: ../app/forms/admin/products/products_form.php:26
@@ -167,6 +168,9 @@ msgstr "Platnost do"
 msgid "Datum vytvoření"
 msgstr "Datum vytvoření"
 
+msgid "Edit creator %1"
+msgstr "Editace tvůrce %1"
+
 msgid "The product is not yet placed in a category with a filter."
 msgstr "Produkt zatím nebyl zařazen do kategorie s filtrem."
 
@@ -244,9 +248,6 @@ msgstr "Tvůrci"
 
 msgid "Edit creator"
 msgstr "Upravit tvůrce"
-
-msgid "Upravit vazbu tvůrce s produktem"
-msgstr "Upravit vazbu tvůrce s produktem"
 
 msgid "Visit the creator page"
 msgstr "Navštívit stránku tvůrce"
@@ -1434,35 +1435,13 @@ msgid "Sign in as this user"
 msgstr "Přihlásit se jako tento uživatel"
 
 msgid ""
-"Uživatel %1 se nebude moci přihlásit ke svému účtu. Přejete si zablokovat "
-"uživatele?"
-msgstr ""
-"Uživatel %1 se nebude moci přihlásit ke svému účtu. Přejete si zablokovat "
-"uživatele?"
-
-msgid "Blokovat uživatele"
-msgstr "Blokovat uživatele"
-
-msgid "Přejete si povolit uživateli přihlášení k účtu?"
-msgstr "Přejete si povolit uživateli přihlášení k účtu?"
-
-msgid "Odblokovat uživatele"
-msgstr "Odblokovat uživatele"
-
-msgid "Přidej administrátorskou roli"
-msgstr "Přidej administrátorskou roli"
-
-msgid "Uprav administrátorskou roli"
-msgstr "Uprav administrátorskou roli"
-
-msgid ""
 "You are about to permanently delete user %1\n"
-"Are you sure about that?"
+"\tAre you sure about that?"
 msgstr ""
-"Chystáte se trvale smazat uživatele %1\n"
-"Jste si jistý/á?"
+"Chystáte se nevratně smazat uživatele %1\n"
+"\tJste si skutečně jistý?"
 
-msgid "Smazat uživatele"
+msgid "Delete user"
 msgstr "Smazat uživatele"
 
 msgid "On this page you can set a new password to the user <em>%1</em>."
@@ -1515,16 +1494,6 @@ msgstr "běžný uživatel"
 
 msgid "not active"
 msgstr "neaktivní"
-
-msgid ""
-"You are about to permanently delete user %1\n"
-"\tAre you sure about that?"
-msgstr ""
-"Chystáte se nevratně smazat uživatele %1\n"
-"\tJste si skutečně jistý?"
-
-msgid "Delete user"
-msgstr "Smazat uživatele"
 
 msgid "Add a VAT rate"
 msgstr "Přidat sazbu DPH"
@@ -2775,28 +2744,28 @@ msgstr "Je očekáván formát <a href=\"%s\">Markdown</a>"
 msgid "Body"
 msgstr "Tělo"
 
-#: ../app/forms/admin/articles/articles_form.php:29
+#: ../app/forms/admin/articles/articles_form.php:35
 #: ../app/forms/admin/cards/cards_form.php:58
 #: ../app/forms/admin/categories/categories_form.php:42
 #: ../app/forms/admin/pages/pages_form.php:28
 msgid "HTML title"
 msgstr "HTML název"
 
-#: ../app/forms/admin/articles/articles_form.php:32
+#: ../app/forms/admin/articles/articles_form.php:38
 #: ../app/forms/admin/pages/pages_form.php:31
 msgid "Content for <html><head><title>. If left empty, the title is used."
 msgstr ""
 "Obsah pro <html><head><title>. Pokud bude ponecháno prázdné, bude použit "
 "název."
 
-#: ../app/forms/admin/articles/articles_form.php:36
+#: ../app/forms/admin/articles/articles_form.php:42
 #: ../app/forms/admin/cards/cards_form.php:65
 #: ../app/forms/admin/categories/categories_form.php:49
 #: ../app/forms/admin/pages/pages_form.php:35
 msgid "HTML description"
 msgstr "HTML popis"
 
-#: ../app/forms/admin/articles/articles_form.php:39
+#: ../app/forms/admin/articles/articles_form.php:45
 #: ../app/forms/admin/cards/cards_form.php:68
 #: ../app/forms/admin/categories/categories_form.php:52
 #: ../app/forms/admin/pages/pages_form.php:38
@@ -2806,7 +2775,7 @@ msgstr ""
 "Obsah pro <meta name=\"description\">. Pokud bude ponecháno prázdné, použije "
 "se teaser."
 
-#: ../app/forms/admin/articles/articles_form.php:43
+#: ../app/forms/admin/articles/articles_form.php:49
 msgid "Published At"
 msgstr "Publikováno dne"
 
@@ -4154,6 +4123,41 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Upravit vazbu tvůrce s produktem"
+#~ msgstr "Upravit vazbu tvůrce s produktem"
+
+#~ msgid ""
+#~ "Uživatel %1 se nebude moci přihlásit ke svému účtu. Přejete si zablokovat "
+#~ "uživatele?"
+#~ msgstr ""
+#~ "Uživatel %1 se nebude moci přihlásit ke svému účtu. Přejete si zablokovat "
+#~ "uživatele?"
+
+#~ msgid "Blokovat uživatele"
+#~ msgstr "Blokovat uživatele"
+
+#~ msgid "Přejete si povolit uživateli přihlášení k účtu?"
+#~ msgstr "Přejete si povolit uživateli přihlášení k účtu?"
+
+#~ msgid "Odblokovat uživatele"
+#~ msgstr "Odblokovat uživatele"
+
+#~ msgid "Přidej administrátorskou roli"
+#~ msgstr "Přidej administrátorskou roli"
+
+#~ msgid "Uprav administrátorskou roli"
+#~ msgstr "Uprav administrátorskou roli"
+
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "Chystáte se trvale smazat uživatele %1\n"
+#~ "Jste si jistý/á?"
+
+#~ msgid "Smazat uživatele"
+#~ msgstr "Smazat uživatele"
 
 #~ msgid ""
 #~ "At the moment no one knows the actual user's password because passwords "

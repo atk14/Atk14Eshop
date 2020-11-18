@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-10 21:23+0200\n"
-"PO-Revision-Date: 2020-10-10 21:23+0200\n"
+"POT-Creation-Date: 2020-11-18 13:35+0100\n"
+"PO-Revision-Date: 2020-11-18 13:36+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "Nahoru"
 msgstr "Nahoru"
 
-msgid "searching ..."
-msgstr "hledání ..."
+msgid "Searching..."
+msgstr "Vyhledává se..."
 
 msgid "Zpráva z obchodu %1"
 msgstr "Zpráva z obchodu %1"
@@ -583,9 +583,6 @@ msgstr "QR kód"
 msgid "Sledujte nás na&nbsp;Facebooku:"
 msgstr "Sledujte nás na&nbsp;Facebooku:"
 
-msgid "Obchodní podmínky"
-msgstr "Obchodní podmínky"
-
 msgid ""
 "Hello,\n"
 "\n"
@@ -719,8 +716,8 @@ msgstr "Produkty v kolekci"
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-msgid "cena od<br>%1"
-msgstr "cena od<br>%1"
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
 
 msgid "není v nabídce"
 msgstr "není v nabídce"
@@ -979,23 +976,20 @@ msgstr "Zveřejněno dne %1"
 msgid "Celý článek"
 msgstr "Celý článek"
 
-msgid "Článek"
-msgstr "Článek"
-
 msgid "Zobrazit detaily"
 msgstr "Zobrazit detaily"
 
-msgid "Kategorie produktů"
-msgstr "Kategorie produktů"
+msgid "Kategorie"
+msgstr "Kategorie"
 
 msgid "Zobrazit kategorii"
 msgstr "Zobrazit kategorii"
 
-msgid "Stránka"
-msgstr "Stránka"
+msgid "Informace"
+msgstr "Informace"
 
-msgid "Tvůrce"
-msgstr "Tvůrce"
+msgid "Profil"
+msgstr "Profil"
 
 msgid "a další"
 msgstr "a další"
@@ -1005,9 +999,6 @@ msgstr "Zobrazit profil"
 
 msgid "Zobrazit stránku"
 msgstr "Zobrazit stránku"
-
-msgid "Profil"
-msgstr "Profil"
 
 msgid "právě otevřeno"
 msgstr "právě otevřeno"
@@ -1478,7 +1469,7 @@ msgstr "Vaše heslo bylo úspěšně změněno"
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: ../app/controllers/searches_controller.php:10
+#: ../app/controllers/searches_controller.php:19
 #, php-format
 msgid "Vyhledávání: „%s“"
 msgstr "Vyhledávání: „%s“"
@@ -1597,7 +1588,7 @@ msgstr "Toto uživatelské jméno je již zabráno"
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky."
 
-#: ../app/fields/object_field.php:31
+#: ../app/fields/object_field.php:34
 msgid "There is no such record"
 msgstr "Takový záznam neexistuje"
 
@@ -2058,7 +2049,7 @@ msgstr "Objednávku nelze doručit na danou doručovací adresu"
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
-#: ../app/models/currency.php:53
+#: ../app/models/currency.php:54
 msgid "Kč"
 msgstr "Kč"
 
@@ -2109,6 +2100,14 @@ msgstr "Zaplaceno"
 #: ../app/models/payment_status.php:9
 msgid "Zrušeno"
 msgstr "Zrušeno"
+
+#: ../app/models/user.php:110
+msgid "inactive user"
+msgstr "neaktivní uživatel"
+
+#: ../app/models/user.php:113
+msgid "administrator"
+msgstr "administrátor"
 
 #: ../app/models/voucher.php:43 ../app/models/voucher.php:70
 #, php-format
@@ -2228,6 +2227,27 @@ msgstr "do"
 #, php-format
 msgid "obj. %s"
 msgstr "obj. %s"
+
+#~ msgid "searching ..."
+#~ msgstr "hledání ..."
+
+#~ msgid "Obchodní podmínky"
+#~ msgstr "Obchodní podmínky"
+
+#~ msgid "cena od<br>%1"
+#~ msgstr "cena od<br>%1"
+
+#~ msgid "Článek"
+#~ msgstr "Článek"
+
+#~ msgid "Kategorie produktů"
+#~ msgstr "Kategorie produktů"
+
+#~ msgid "Stránka"
+#~ msgstr "Stránka"
+
+#~ msgid "Tvůrce"
+#~ msgstr "Tvůrce"
 
 #~ msgid "Nic nebylo nelezeno."
 #~ msgstr "Nic nebylo nelezeno."
@@ -2677,9 +2697,6 @@ msgstr "obj. %s"
 
 #~ msgid "Go to home page"
 #~ msgstr "Přejděte na úvodní stránku"
-
-#~ msgid "administrator"
-#~ msgstr "administrátor"
 
 #~ msgid "This login has been already taken"
 #~ msgstr "Tento login je již zabrán"

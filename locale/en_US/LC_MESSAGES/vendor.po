@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 21:13+0200\n"
+"POT-Creation-Date: 2020-11-18 13:35+0100\n"
 "PO-Revision-Date: 2020-05-12 17:22+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -140,7 +140,7 @@ msgstr "funny-green-mug"
 msgid "Write something like black-cat-white-cat"
 msgstr "Write something like black-cat-white-cat"
 
-#: ../vendor/atk14/url-field/src/url_field.php:12
+#: ../vendor/atk14/url-field/src/url_field.php:13
 msgid "This doesn't look like an URL"
 msgstr "This doesn't look like an URL"
 
