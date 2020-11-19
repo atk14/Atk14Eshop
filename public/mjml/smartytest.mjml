@@ -1,0 +1,70 @@
+<mjml>
+	<mj-head>
+		<mj-preview>Hello MJML</mj-preview>
+		<mj-font href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" name="Inter"></mj-font>
+		<mj-style inline="inline">
+			a {
+				color: orangered;
+			}
+			.bodycolor {
+				color: #444;
+				text-decoration:none;
+			}
+			a.bodycolor:hover {
+				text-decoration:underline;
+			}
+			p {
+				margin: 0 0 16px 0;
+			}
+			p.compact {
+				margin-bottom: 4px;
+			}
+			p.small {
+				font-size: 14px;
+			}
+			p.nomargin {
+				margin-bottom: 0
+			}
+			p.item-price {
+				text-align: right;
+			}
+			.currency-main {
+				font-size: 16px;
+				font-weight: bold;
+			}
+			.product-card .currency-main {
+				color: ##$var1##;
+			}
+		</mj-style>
+		<mj-attributes>
+			<mj-class name="header" background-color="##$var2##" text-align="center" full-width="full-width" />
+			<mj-class name="bodytext" line-height="1.5" />
+			<mj-class name="smalltext" color="##$var3##" font-size="14px" line-height="1.5" />
+			<mj-class name="footer" background-color="#ccc" font-size="16px" line-height="1.25" padding-top="16px" />
+			<mj-class name="footertext" color="#444" font-size="14px" line-height="1.25" />
+			<mj-class name="footersmalllink" color="#fff" font-size="12px" line-height="1.25" text-transform="none" />
+			<mj-class name="order-item" />
+			<mj-class name="thin" border-color="#999" border-width="1px" padding="0 25px" />
+			<mj-class name="button-cta--big" font-size="20px"/>
+			<mj-class name="button-cta--small" padding="0 0 0 0"/>
+			<mj-class name="order-overview" full-width="full-width" background-color="white" />
+			<mj-class name="product-card" padding-bottom="20px" />
+			
+			<mj-all font-family="Inter,Helvetica,Arial,sans-serif" font-size="16px" line-height="1.25"  color="#444" />
+			<mj-spacer height="40px" />
+			<mj-divider border-color="##$var6##" border-width="2px" />
+			<mj-section padding-top="0" padding-bottom="0" />
+			<mj-button background-color="##$var4##" color="white"  font-weight="bold" />
+		</mj-attributes>
+	</mj-head>
+	
+	<mj-body background-color="##$var5##">
+		<mj-include path="partials/header.mjml"></mj-include>
+		<mj-raw>{$some smarty tag inside mj-raw tag}</mj-raw>
+		<mj-section>
+			<mj-column>
+				<mj-text>mj-text with some {$smarty} tag...</mj-text>
+			</mj-column>
+		</mj-section>
+	</mj-body>
+</mjml>

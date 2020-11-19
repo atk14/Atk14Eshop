@@ -3,6 +3,8 @@ var del = require( "del" );
 var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
+var mjml = require( "gulp-mjml" );
+var mjmlEngine = require( "mjml" );
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
@@ -127,6 +129,18 @@ gulp.task( "copy", function() {
 		} );
 } );
 
+// MJML emails
+gulp.task( "mjml", function(){
+	gulp.src( "public/mjml/*.mjml" )
+		.pipe( mjml( mjmlEngine, { minify: true, fileExt: ".tpl" } ) )
+	
+		// fileExt option seems to be not working, so rename files to .tpl this way
+		.pipe( rename( function( path ) {
+			path.extname = ".html"
+		}))
+		.pipe( gulp.dest( "public/dist/emails" ) );
+} );
+
 // Clean
 gulp.task( "clean", function() {
 	del.sync( "public/dist" );
@@ -149,6 +163,9 @@ gulp.task( "serve", [ "styles" ], function() {
 
 	// If styles files change = run 'styles' task with style injection
 	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
+
+	// If mjml files change = run 'mjml' task, then reload browser
+	gulp.watch( "public/mjml/**/*.mjml", [ "mjml" ] ).on( "change", browserSync.reload );
 } );
 
 // Build
@@ -157,6 +174,7 @@ var buildTasks = [
 	"styles",
 	"styles-vendor",
 	"scripts",
+	"mjml",
 	"copy"
 ];
 
