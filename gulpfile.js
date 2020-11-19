@@ -5,6 +5,7 @@ var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 var mjml = require( "gulp-mjml" );
 var mjmlEngine = require( "mjml" );
+var replace = require( "gulp-replace" );
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
@@ -132,7 +133,10 @@ gulp.task( "copy", function() {
 // MJML emails
 gulp.task( "mjml", function(){
 	gulp.src( "public/mjml/*.mjml" )
-		.pipe( mjml( mjmlEngine, { minify: true, fileExt: ".tpl" } ) )
+		.pipe( mjml( mjmlEngine, { minify: false, fileExt: ".tpl" } ) )
+
+		// Replace ##...## with Smarty tags
+		.pipe( replace( /##(.+?)##/g, "{$1}" ) )
 	
 		// fileExt option seems to be not working, so rename files to .tpl this way
 		.pipe( rename( function( path ) {

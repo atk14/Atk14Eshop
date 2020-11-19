@@ -67,6 +67,7 @@
     "moment": "^2.24.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
-    "gulp-mjml": "^4.0.2"
+    "gulp-mjml": "^4.0.2",
+    "gulp-replace": "^1.0.0"
   }
 }

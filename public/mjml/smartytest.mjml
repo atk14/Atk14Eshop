@@ -64,6 +64,7 @@
 		<mj-section>
 			<mj-column>
 				<mj-text>mj-text with some {$smarty} tag...</mj-text>
+				<mj-text>##(.+)##</mj-text>
 			</mj-column>
 		</mj-section>
 	</mj-body>
