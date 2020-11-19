@@ -5,6 +5,7 @@ class ObjectField extends CharField{
 		$options += array(
 			"class_name" => null,
 			"null_empty_output" => true,
+			"return_object" => true, // Return an object or its id?
 			"suggesting" => true,
 			"widget" => new TextInput(),
 		);
@@ -16,6 +17,9 @@ class ObjectField extends CharField{
 		$this->class_name = $options["class_name"];
 		unset($options["class_name"]);
 
+		$this->return_object = $options["return_object"];
+		unset($options["return_object"]);
+
 		if($options["suggesting"]){
 			$action = String4::ToObject(get_class($this))->gsub('/Field$/','')->pluralize()->underscore()->toString(); // PersonField -> people
 
@@ -23,7 +27,6 @@ class ObjectField extends CharField{
 			$options["widget"]->attrs["data-suggesting_url"] = Atk14Url::BuildLink(array("namespace" => "api", "controller" => "suggestions", "action" => $action, "format" => "json"));
 		}
 		unset($options["suggesting"]);
-
 
 		parent::__construct($options);
 
@@ -66,6 +69,6 @@ class ObjectField extends CharField{
 			return array($this->messages["not_found"],null);
 		}
 
-		return array(null,$object);
+		return array(null,$this->return_object ? $object : $object->getId());
 	}
 }

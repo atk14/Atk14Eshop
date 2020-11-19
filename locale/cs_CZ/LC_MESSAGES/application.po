@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-07 10:51+0200\n"
-"PO-Revision-Date: 2020-07-07 10:58+0200\n"
+"POT-Creation-Date: 2020-11-18 13:35+0100\n"
+"PO-Revision-Date: 2020-11-18 13:36+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -19,6 +19,9 @@ msgstr ""
 
 msgid "Nahoru"
 msgstr "Nahoru"
+
+msgid "Searching..."
+msgstr "Vyhledává se..."
 
 msgid "Zpráva z obchodu %1"
 msgstr "Zpráva z obchodu %1"
@@ -61,7 +64,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:78
+#: ../app/controllers/password_recoveries_controller.php:81
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -237,6 +240,9 @@ msgstr "Tento produkt je vyprodán"
 msgid "Related products"
 msgstr "Související produkty"
 
+msgid "Je nám líto, ale prodej již skončil."
+msgstr "Je nám líto, ale prodej již skončil."
+
 msgid "Products"
 msgstr "Produkty"
 
@@ -363,8 +369,11 @@ msgstr "Prosím kontaktujte mě."
 msgid "The message has been sent. Thank you!"
 msgstr "Zpráva byla odeslána. Děkujeme!"
 
-msgid "Have you forgotten password?"
-msgstr "Zapomněl jste heslo?"
+msgid "New Registration"
+msgstr "Nová registrace"
+
+msgid "Forgotten password"
+msgstr "Zapomenuté heslo"
 
 msgid "You are signed in as <em>%1</em>."
 msgstr "Jste přihlášen jako <em>%1</em>."
@@ -556,20 +565,23 @@ msgstr "Zde jsou bankovní údaje pro platbu bankovním převodem:"
 msgid "Částka k úhradě:"
 msgstr "Částka k úhradě:"
 
-msgid "Číslo účtu:"
-msgstr "Číslo účtu:"
-
 msgid "Variabilní symbol:"
 msgstr "Variabilní symbol:"
+
+msgid "Číslo účtu:"
+msgstr "Číslo účtu:"
 
 msgid "Majitel účtu:"
 msgstr "Majitel účtu:"
 
+msgid "QR kód pro načtení platby do bankovní aplikace:"
+msgstr "QR kód pro načtení platby do bankovní aplikace:"
+
+msgid "QR kód"
+msgstr "QR kód"
+
 msgid "Sledujte nás na&nbsp;Facebooku:"
 msgstr "Sledujte nás na&nbsp;Facebooku:"
-
-msgid "Obchodní podmínky"
-msgstr "Obchodní podmínky"
 
 msgid ""
 "Hello,\n"
@@ -630,6 +642,9 @@ msgstr "Pochlubte se přátelům s Vaším nákupem."
 msgid "Sdílet"
 msgstr "Sdílet"
 
+msgid "Platební údaje pro uhrazení objednávky"
+msgstr "Platební údaje pro uhrazení objednávky"
+
 msgid "Historie a detaily mých objednávek"
 msgstr "Historie a detaily mých objednávek"
 
@@ -686,6 +701,12 @@ msgstr "Hledat"
 msgid "Nic nebylo nalezeno."
 msgstr "Nic nebylo nalezeno."
 
+msgid "Nalezeno celkem %1 výsledků."
+msgstr "Nalezeno celkem %1 výsledků."
+
+msgid "Zobrazit všechny výsledky"
+msgstr "Zobrazit všechny výsledky"
+
 msgid "Attachments"
 msgstr "Přílohy"
 
@@ -695,8 +716,11 @@ msgstr "Produkty v kolekci"
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-msgid "cena od %1"
-msgstr "cena od %1"
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
+
+msgid "není v nabídce"
+msgstr "není v nabídce"
 
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Doručovací adresa bude smazána. Pokračovat?"
@@ -847,6 +871,9 @@ msgstr "IČ"
 msgid "DIČ"
 msgstr "DIČ"
 
+msgid "Administration"
+msgstr "Administrace"
+
 msgid "Profile"
 msgstr "Profil"
 
@@ -860,13 +887,6 @@ msgstr "Dodací adresy"
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Odhlásit se"
-
-msgid "Administration"
-msgstr "Administrace"
-
-#: ../app/forms/users/create_new_form.php:22
-msgid "Register"
-msgstr "Registrovat"
 
 msgid "Telefon:"
 msgstr "Telefon:"
@@ -941,8 +961,14 @@ msgstr "Předchozí (šipka doleva)"
 msgid "Další (šipka doprava)"
 msgstr "Další (šipka doprava)"
 
+msgid "Select selling region"
+msgstr "Vyberte prodejní oblast"
+
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
+
+msgid "Article"
+msgstr "Článek"
 
 msgid "Zveřejněno dne %1"
 msgstr "Zveřejněno dne %1"
@@ -950,23 +976,35 @@ msgstr "Zveřejněno dne %1"
 msgid "Celý článek"
 msgstr "Celý článek"
 
-msgid "Článek"
-msgstr "Článek"
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
 
-msgid "Informace o produktu"
-msgstr "Informace o produktu"
+msgid "Kategorie"
+msgstr "Kategorie"
 
 msgid "Zobrazit kategorii"
 msgstr "Zobrazit kategorii"
 
-msgid "Kategorie produktů"
-msgstr "Kategorie produktů"
+msgid "Informace"
+msgstr "Informace"
+
+msgid "Profil"
+msgstr "Profil"
+
+msgid "a další"
+msgstr "a další"
+
+msgid "Zobrazit profil"
+msgstr "Zobrazit profil"
 
 msgid "Zobrazit stránku"
 msgstr "Zobrazit stránku"
 
-msgid "Stránka"
-msgstr "Stránka"
+msgid "právě otevřeno"
+msgstr "právě otevřeno"
+
+msgid "Prodejna"
+msgstr "Prodejna"
 
 msgid "Právě otevřeno"
 msgstr "Právě otevřeno"
@@ -980,9 +1018,6 @@ msgstr "Informace o prodejně"
 msgid "Ukázat na mapě"
 msgstr "Ukázat na mapě"
 
-msgid "Prodejna"
-msgstr "Prodejna"
-
 msgid "Previous"
 msgstr "Předchozí"
 
@@ -995,7 +1030,7 @@ msgstr "Stránky"
 msgid "Product categories"
 msgstr "Produktové kategorie"
 
-#: ../app/controllers/brands_controller.php:14
+#: ../app/controllers/brands_controller.php:18
 msgid "Brands"
 msgstr "Značky"
 
@@ -1062,6 +1097,9 @@ msgstr "V současné době nemáme žádnou prodejnu."
 
 msgid "Otevřeno"
 msgstr "Otevřeno"
+
+msgid "Loading map&hellip;"
+msgstr "Nahrávám mapu&hellip;"
 
 msgid "Search stores"
 msgstr "Vyhledat prodejny"
@@ -1142,7 +1180,7 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:179
+#: ../app/controllers/application_base.php:186
 msgid "Home"
 msgstr "Domů"
 
@@ -1170,12 +1208,12 @@ msgstr "Objednávka %d"
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/application_mailer.php:170
+#: ../app/controllers/application_mailer.php:179
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_mailer.php:181
 #: ../app/controllers/application_mailer.php:190
+#: ../app/controllers/application_mailer.php:199
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
@@ -1190,21 +1228,25 @@ msgstr "Profil uživatele"
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:90
+#: ../app/controllers/application.php:110
 msgid "Basket"
 msgstr "Košík"
 
-#: ../app/controllers/application.php:91
+#: ../app/controllers/application.php:111
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:92
+#: ../app/controllers/application.php:112
 msgid "Delivery data"
-msgstr "Doručovací data"
+msgstr "Doručovací údaje"
 
-#: ../app/controllers/application.php:93
+#: ../app/controllers/application.php:113
 msgid "Summary"
 msgstr "Souhrn"
+
+#: ../app/controllers/application.php:114
+msgid "Order finished"
+msgstr "Objednávka dokončena"
 
 #: ../app/controllers/application_rest_api.php:76
 #, php-format
@@ -1229,7 +1271,7 @@ msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
 #: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
+#: ../app/controllers/articles_controller.php:58
 msgid "Articles"
 msgstr "Články"
 
@@ -1249,6 +1291,7 @@ msgstr "Slevový kupón byl přidán"
 #: ../app/controllers/baskets_controller.php:76
 #: ../app/controllers/baskets_controller.php:86
 #: ../app/controllers/baskets_controller.php:98
+#: ../app/controllers/orders_controller.php:92
 msgid "Shopping basket"
 msgstr "Nákupní košík"
 
@@ -1256,7 +1299,7 @@ msgstr "Nákupní košík"
 msgid "Slevový kupón byl odebrán"
 msgstr "Slevový kupón byl odebrán"
 
-#: ../app/controllers/brands_controller.php:4
+#: ../app/controllers/brands_controller.php:5
 msgid "List of Brands"
 msgstr "Seznam značek"
 
@@ -1304,7 +1347,7 @@ msgstr "Nákupní košík"
 msgid "List of Collections"
 msgstr "Seznam kolekcí"
 
-#: ../app/controllers/collections_controller.php:14
+#: ../app/controllers/collections_controller.php:17
 msgid "Collections"
 msgstr "Kolekce"
 
@@ -1394,7 +1437,7 @@ msgstr "Vítejte"
 msgid "Archiv objednávek"
 msgstr "Archiv objednávek"
 
-#: ../app/controllers/orders_controller.php:32
+#: ../app/controllers/orders_controller.php:34
 msgid "Objednávka byla dokončena"
 msgstr "Objednávka byla dokončena"
 
@@ -1417,16 +1460,16 @@ msgstr ""
 "Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
 "nastavena."
 
-#: ../app/controllers/password_recoveries_controller.php:62
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:79
+#: ../app/controllers/password_recoveries_controller.php:82
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: ../app/controllers/searches_controller.php:12
+#: ../app/controllers/searches_controller.php:19
 #, php-format
 msgid "Vyhledávání: „%s“"
 msgstr "Vyhledávání: „%s“"
@@ -1545,7 +1588,7 @@ msgstr "Toto uživatelské jméno je již zabráno"
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky."
 
-#: ../app/fields/object_field.php:31
+#: ../app/fields/object_field.php:34
 msgid "There is no such record"
 msgstr "Takový záznam neexistuje"
 
@@ -1590,7 +1633,7 @@ msgstr "Takový stránka neexistuje"
 msgid "There is no such product"
 msgstr "Tento produkt neexistuje"
 
-#: ../app/fields/product_type_field.php:6
+#: ../app/fields/product_type_field.php:8
 msgid "typ produktu"
 msgstr "typ produktu"
 
@@ -1612,6 +1655,10 @@ msgstr "Štítek <em>%s</em> je uveden vícekrát"
 #: ../app/fields/vat_number_field.php:17
 msgid "DIČ není zadáno správně"
 msgstr "DIČ není zadáno správně"
+
+#: ../app/fields/voucher_field.php:16
+msgid "Toto není správný slevový kupón"
+msgstr "Toto není správný slevový kupón"
 
 #: ../app/forms/api/categories_suggestions/index_form.php:5
 #: ../app/forms/api/suggestions/index_form.php:5
@@ -1836,6 +1883,10 @@ msgstr "Nastavit nové heslo"
 msgid "In order to register you need to obtain an invitation code"
 msgstr "Pro registraci musíte znát kód platné pozvánky"
 
+#: ../app/forms/users/create_new_form.php:22
+msgid "Register"
+msgstr "Registrovat"
+
 #: ../app/forms/users/create_new_form.php:29
 msgid "This is not a valid invitation code"
 msgstr "Toto neni kód platné pozvánky"
@@ -1998,7 +2049,7 @@ msgstr "Objednávku nelze doručit na danou doručovací adresu"
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
-#: ../app/models/currency.php:53
+#: ../app/models/currency.php:54
 msgid "Kč"
 msgstr "Kč"
 
@@ -2049,6 +2100,14 @@ msgstr "Zaplaceno"
 #: ../app/models/payment_status.php:9
 msgid "Zrušeno"
 msgstr "Zrušeno"
+
+#: ../app/models/user.php:110
+msgid "inactive user"
+msgstr "neaktivní uživatel"
+
+#: ../app/models/user.php:113
+msgid "administrator"
+msgstr "administrátor"
 
 #: ../app/models/voucher.php:43 ../app/models/voucher.php:70
 #, php-format
@@ -2163,6 +2222,44 @@ msgstr "od"
 #: ../lib/filter/filter_range_section.php:235
 msgid "to"
 msgstr "do"
+
+#: ../lib/payment_qr_code_generator.php:17
+#, php-format
+msgid "obj. %s"
+msgstr "obj. %s"
+
+#~ msgid "searching ..."
+#~ msgstr "hledání ..."
+
+#~ msgid "Obchodní podmínky"
+#~ msgstr "Obchodní podmínky"
+
+#~ msgid "cena od<br>%1"
+#~ msgstr "cena od<br>%1"
+
+#~ msgid "Článek"
+#~ msgstr "Článek"
+
+#~ msgid "Kategorie produktů"
+#~ msgstr "Kategorie produktů"
+
+#~ msgid "Stránka"
+#~ msgstr "Stránka"
+
+#~ msgid "Tvůrce"
+#~ msgstr "Tvůrce"
+
+#~ msgid "Nic nebylo nelezeno."
+#~ msgstr "Nic nebylo nelezeno."
+
+#~ msgid "cena od %1"
+#~ msgstr "cena od %1"
+
+#~ msgid "Have you forgotten password?"
+#~ msgstr "Zapomněl jste heslo?"
+
+#~ msgid "Informace o produktu"
+#~ msgstr "Informace o produktu"
 
 #~ msgid ""
 #~ "Svou zásilku můžete sledovat přes následující odkaz: <a href=\"%1\">%1</a>"
@@ -2600,9 +2697,6 @@ msgstr "do"
 
 #~ msgid "Go to home page"
 #~ msgstr "Přejděte na úvodní stránku"
-
-#~ msgid "administrator"
-#~ msgstr "administrátor"
 
 #~ msgid "This login has been already taken"
 #~ msgstr "Tento login je již zabrán"

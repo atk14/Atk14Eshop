@@ -6,7 +6,7 @@
 	{/if}
 	<div class="card-body">
 		<h2 class="card-title">{$article->getTitle()}</h2>
-		<p class="card-meta">{render partial="author_and_date"}</p>
 		<div class="card-text">{$article->getTeaser()|markdown|strip_tags}</div>
+		<p class="card-meta">{render partial="author_and_date"}</p>
 	</div>
 {/a}

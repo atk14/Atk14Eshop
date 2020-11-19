@@ -80,7 +80,80 @@
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
 				UTILS.handleSuggestions();
+
+				// Mobile search show/hide toggle
+				$( ".js--search-toggle" ).on( "click", function( e ) {
+					e.preventDefault();
+					var $form = $( "#js--main_search_field" );
+					$form.toggleClass( "d-flex" );
+					if( $form.is( ":visible" ) ) {
+						$form.find( "input[type=text]" ).focus();
+					}
+				} );
+			
+				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
+					var prevScroll = document.documentElement.scrollTop || window.scrollY;
+					var  direction = "";
+					var prevDirection = ""
+
+					var handleHideScroll = function() {
+						var currScroll = document.documentElement.scrollTop || window.scrollY;
+
+						if ( currScroll > prevScroll ) {
+
+							// Scrolled up
+							direction = "up";
+						} else if ( currScroll < prevScroll ) {
+
+							//scrolled down
+							direction = "down";
+						}
+
+						if ( direction !== prevDirection ) {
+							toggleHeader( direction, currScroll );
+						}
+
+						prevScroll = currScroll;
+					}
+
+					var toggleHeader = function( direction, currScroll ) {
+						var header = document.getElementById ( "header-main" );
+						var docBody = document.getElementById ( "page-body" );
+						var headerHeight = header.offsetHeight;
+						if( currScroll > headerHeight + 50 ) {
+							
+							// Scrolled down
+							$( header ).css( "position", "fixed" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							docBody.style.paddingTop = headerHeight + 40 + "px";
+						} else {
+							
+							// Top
+							$( header ).css( "position", "static" );
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							docBody.style.paddingTop = 0 + "px";
+						}
+						if ( direction === "up" && currScroll > headerHeight ) {
+							
+							// Scrolled down, hidden
+							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
+							
+						} else if ( direction === "down" ) {
+							
+							// Scrolled down, shown
+							$( header ).css( "top", "0px" );
+						}
+	
+						prevDirection = direction;
+					};
+	
+					window.addEventListener( "scroll", handleHideScroll );
+					window.addEventListener( "resize", handleHideScroll );
+				}
+
+				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
 			}
+
 		},
 
 		categories: {
@@ -198,7 +271,6 @@
 					var totalPriceNice = totalPrice.toFixed(2).replace( ".", "," );
 					qtyWidget.find( ".js-quantity-total-price" ).html( totalPriceNice + "&nbsp;Kč" );
 					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
-					console.log( "qty", qty, "*", unitPrice, "=", totalPriceNice );
 				} );
 
 				// Kliknuti na preview obrazek v galerii vyvola ve skutecnosti kliknuti na prislusny thumbnail obrazek
@@ -436,7 +508,23 @@
 					UTILS.initSimpleMap( "store-map" );
 				}
 
+				// List tree collapse all/expand all toggle
+				$( ".js-toggle-all-trees" ).on( "click", function() {
+					if( $( this ).hasClass( "collapsed" ) ){
+						$( ".list--tree.collapse" ).collapse( "show" );
+					} else {
+						$( ".list--tree.collapse" ).collapse( "hide" );
+					}
+					$( this ).toggleClass( [ "collapsed", "expanded" ] )
+				} );
+
 			}
+
+		},
+
+		// In this json, the actions for namespace "api" can be defined
+		api: {
+
 		}
 
 	};
@@ -446,10 +534,14 @@
 	 * See: http://goo.gl/z9dmd
 	 */
 	APPLICATION.INITIALIZER = {
-		exec: function( controller, action ) {
+		exec: function( namespace, controller, action ) {
 			var ns = APPLICATION,
 				c = controller,
 				a = action;
+
+			if( namespace && namespace.length > 0 && ns[ namespace ] ) {
+				ns = ns[ namespace ];
+			}
 
 			if ( a === undefined ) {
 				a = "init";
@@ -462,12 +554,13 @@
 
 		init: function() {
 			var body = document.body,
+			namespace = body.getAttribute( "data-namespace" ),
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			APPLICATION.INITIALIZER.exec( "common" );
-			APPLICATION.INITIALIZER.exec( controller );
-			APPLICATION.INITIALIZER.exec( controller, action );
+			APPLICATION.INITIALIZER.exec( namespace, "common" );
+			APPLICATION.INITIALIZER.exec( namespace, controller );
+			APPLICATION.INITIALIZER.exec( namespace, controller, action );
 		}
 	};
 

@@ -359,6 +359,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $this->_removeRelatedCard($this->getRelatedCardsLister(),$card);
 	}
 
+	function getViewableRelatedCards() {
+		return array_filter($this->getRelatedCards(), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
+	}
+
 	function getConsumablesLister() {
 		return $this->getLister("Card", array(
 			"table_name" => "consumables",
@@ -379,6 +385,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $this->_removeRelatedCard($this->getConsumablesLister(),$card);
 	}
 
+	function getViewableConsumables() {
+		return array_filter($this->getConsumables(), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
+	}
+
 	function getAccessoriesLister() {
 		return $this->getLister("Card", array(
 			"table_name" => "accessories",
@@ -397,6 +409,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function removeAccessory($card) {
 		return $this->_removeRelatedCard($this->getAccessoriesLister(),$card);
+	}
+
+	function getViewableAccessories() {
+		return array_filter($this->getAccessories(), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
 	}
 
 	protected function _addRelatedCard($lister,$card){
@@ -429,7 +447,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function isVisible(){ return $this->getVisible(); }
 
 	function isViewableInEshop(){
-		if($this->isDeleted()){ return false; }
+		//if($this->isDeleted()){ return false; }
 
 		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
 
@@ -438,7 +456,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
 				return false;
 			}
-			if($product->isDeleted()){ return false; }
+			//if($product->isDeleted()){ return false; }
 		}
 
 		return true;

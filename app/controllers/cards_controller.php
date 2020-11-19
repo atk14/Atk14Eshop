@@ -8,8 +8,9 @@ class CardsController extends ApplicationController{
 			return $this->_execute_action("error404");
 		}
 
-		if(!$card->isVisible() || $card->isDeleted()){
-			$this->response->setStatusCode("404"); // Zde se nastavi pouze response code 404, ale produkt se normalne zobrazi.
+		if($card->isDeleted()){
+			// In case of a deleted product, the HTTP 404 Not Found status is set but the product is displayed on the page.
+			$this->response->setStatusCode("404");
 		}
 
 		$this->page_title = $card->getPageTitle();

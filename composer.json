@@ -8,7 +8,7 @@
         "atk14/phone-field": "^1.1",
         "atk14/drink-markdown": "^0.6.1",
         "essence/essence": ">=2.6.1",
-        "atk14/menu14": "^1.1.1",
+        "atk14/menu14": "^1.4",
         "yarri/my-blowfish": "^1.4",
         "yarri/full-text-search-query-like": "^0.2",
         "atk14/confirmation-field": "^1.0",
@@ -17,7 +17,7 @@
         "dragonbe/vies": "1.0.6",
         "yarri/lazy-loader": "^1.2",
         "html2text/html2text": "^4.0",
-        "atk14/textmit-client": "^1.2.1",
+        "atk14/textmit-client": "dev-master",
         "atk14/decimal-field": "^1.0",
         "atk14/localized-decimal-field": "^1.0",
         "atk14/zip-field": "^0.1.0",
@@ -28,6 +28,10 @@
         "atk14/vlnka": "^1.1",
         "atk14/company-number-field": "^0.1",
         "aristath/ari-color": "^1.1.1",
-        "mysutka/product_feed_generator": "^0.1.7"
+        "mysutka/product_feed_generator": "^0.1.7",
+        "sunfoxcz/spayd-php": "^1.0",
+        "bacon/bacon-qr-code": "^1.0",
+        "atk14/csv-reader": "^1.1",
+        "atk14/csv-writer": "^1.0"
     }
 }

@@ -7,10 +7,10 @@
 	"snapchat" => "snapchat",
 	"twitter" => "twitter",
 	"vimeo" => "vimeo",
-	"youtube" => "youtube"
+	"youtube" => "youtube",
+	"soundcloud" => "soundcloud"
 ] as $network => $icon}
 	{if "app.contact.social.$network"|system_parameter}
 		<a href="{"app.contact.social.$network"|system_parameter}" class="footer__socialicon">{!$icon|icon}</a>
 	{/if}
 {/foreach}
-

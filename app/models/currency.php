@@ -1,4 +1,6 @@
 <?php
+defined("DEFAULT_CURRENCY") || define("DEFAULT_CURRENCY","CZK");
+
 class Currency extends ApplicationModel{
 
 	use TraitCodebook;
@@ -16,7 +18,6 @@ class Currency extends ApplicationModel{
 	}
 
 	static function GetDefaultCurrency(){
-		defined("DEFAULT_CURRENCY") || define("DEFAULT_CURRENCY","CZK");
 		return self::GetInstanceByCode(DEFAULT_CURRENCY);
 	}
 
@@ -25,7 +26,7 @@ class Currency extends ApplicationModel{
 	 *
 	 * Obviously the default currency has rate 1.0
 	 *
-	 *	$rate = $eur->getRate();
+	 *	$rate = $eur->getRate(); // e.g. 26.5
 	 *	$rate = $eur->getRate("2017-09-27");
 	 *	$rate = $eur->getRate("2017-09-27 12:33:33");
 	 *	$rate = $eur->getRate(time());
@@ -56,15 +57,32 @@ class Currency extends ApplicationModel{
 		return isset($tr[$code]) ? $tr[$code] : $code;
 	}
 
-	function roundPrice($price){
+	function roundPrice($price,$mode = PHP_ROUND_HALF_UP){
 		if(!is_null($price)){
-			return round($price,$this->getDecimals());
+			return round($price,$this->getDecimals(),$mode);
 		}
 	}
 
-	function roundSummaryPrice($price){
+	/**
+	 *
+	 * 	$pcs = Unit::FindByUnit("pcs");
+	 *	$pcs->getDisplayUnitMultiplier(); // 1
+	 * 	$price = $currency->roundUnitPrice(1.23456,$pcs); // 1.23
+	 *
+	 *	$cm = Unit::FindByUnit("cm");
+	 *	$cm->getDisplayUnitMultiplier(); // 100
+	 *	$price = $currency->roundUnitPrice(1.23456,$cm); // 1.2346
+	 */
+	function roundUnitPrice($price,$unit,$mode = PHP_ROUND_HALF_UP){
+		if(is_null($price)){ return null; }
+
+		$decimals = $unit->getUnitPriceRoundingPrecision($this);
+		return round($price,$decimals,$mode);
+	}
+
+	function roundSummaryPrice($price,$mode = PHP_ROUND_HALF_UP){
 		if(!is_null($price)){
-			return round($price,$this->getDecimalsSummary());
+			return round($price,$this->getDecimalsSummary(),$mode);
 		}
 	}
 

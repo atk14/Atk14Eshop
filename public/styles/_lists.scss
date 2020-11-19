@@ -89,10 +89,10 @@ ol.timeline {
 
 ul.list--radios {
 	$itemPadding: 0.75rem;
+	$inputSize: 1.25rem;
 	li.list__item {
 		background-color: $gray-100;
 		margin-bottom: $grid-gutter-width/4;
-		padding: $itemPadding;
 		//cursor: pointer;
 
 		&--disabled {
@@ -101,9 +101,71 @@ ul.list--radios {
 		}
 		
 		.form-check {
+			position: relative;
+			padding: 0;
+			input[type="radio"], input[type="checkbox"] {
+				position: absolute;
+				top: $itemPadding;
+				left: $itemPadding;
+				//margin-right: 0;
+				margin: 0;
+			}
+			
+			input[type=radio] {
+				opacity: 0.1;
+			}
+			
+			input[type=radio] ~ label {
+				&:before {
+					position: absolute;
+					left: $itemPadding;
+					top: $itemPadding;
+					display: block;
+					content: "";
+					width: $inputSize;
+					height: $inputSize;
+					border: 1px solid $border-color;
+					background-color: white;
+					border-radius: 50%;
+					/*font-family: "Font Awesome 5 Free";
+					font-weight: 900;
+					font-size: $inputSize*0.5;
+					line-height: 1;*/
+				}
+			}
+			
+			input[type=radio]:checked ~ label {
+				&:before {
+					background-color: $primary;
+					border-color: $primary;
+					/*color: white;
+					content: "\f00c";
+					content: "\f111";*/
+				}
+				&:after {
+					$dotSize: $inputSize*0.4;
+					position: absolute;
+					display: block;
+					left: $itemPadding + ($inputSize - $dotSize) / 2;
+					top: $itemPadding + ($inputSize - $dotSize) / 2;
+					width: $dotSize;
+					height: $dotSize;
+					border-radius: 50%;
+					background-color: white;
+					content: "";
+				}
+			}
+			
+			input:checked~label {
+				//outline: 1px solid $border-color;
+			}
+			
 			label {
 				display: flex;
-				margin-left: 5px;
+				position: relative;
+				padding: $itemPadding;
+				padding-left: $itemPadding * 2 + $inputSize;
+				//outline: 1px dotted red;
 				.v-image {
 					display: block;
 					flex-basis: 50px;
@@ -270,6 +332,23 @@ ul.list--active-filters {
 					content: counter(ol-counter, lower-alpha)".";
 				}
 			}
+		}
+	}
+}
+
+.list--icons {
+	@extend .list-unstyled;
+	li {
+		display: flex;
+		.list--icons__icon {
+			display: block;
+			flex-basis: 3ch;
+			color: $secondary;
+			flex-shrink: 0;
+		}
+		.list--icons__value {
+			display: block;
+			line-break: anywhere;
 		}
 	}
 }

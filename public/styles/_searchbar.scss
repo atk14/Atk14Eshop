@@ -1,0 +1,70 @@
+.searchbar {
+	border-bottom: 1px solid $border-color;
+	padding-top: $grid-gutter-width/2;
+	padding-bottom: $grid-gutter-width/2;
+	background-color: $gray-200;
+	
+	& > .container-fluid > .row {
+		margin-top: 0-$grid-gutter-width/4;
+		margin-bottom: 0-$grid-gutter-width/4;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		
+		& > * {
+			margin-left: $grid-gutter-width/2;
+			margin-right: $grid-gutter-width/2;
+			margin: $grid-gutter-width/4 $grid-gutter-width/2;
+		}
+		
+		@include media-breakpoint-down(xs){
+			display: block;
+		}
+		
+	}
+	
+	a {
+		color: inherit;
+	}
+	
+	&__basket {
+		//background-color: rgba(aqua, 0.15);
+		&--outline {
+			a {
+				display: inline-block;
+				background-color: $gray-100;
+				background-color: rgba(white, 0.5);
+				border: 1px solid $border-color;
+				padding: calc(#{$input-btn-padding-y-lg} + 0.125rem) $input-btn-padding-x-lg;
+				line-height: $input-btn-line-height-lg;
+				transition: background-color 0.25s;
+				&:hover {
+					background-color: $secondary;
+					color: white;
+					text-decoration: none;
+					transition: background-color 0.1s;
+				}
+			}
+		}
+	}
+	
+	form {
+		//outline: 1px dotted red;
+		flex-grow: 10;
+		margin-bottom: 0;
+		input[type="text"] {
+			flex-grow: 10;
+			flex-basis: auto;
+		}
+		.btn {
+			flex-grow: 0;
+		}
+		input.form-control, .btn {
+			width: auto;
+			display: inline-block !important;
+		}
+	}
+	
+	
+	
+}

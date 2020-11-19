@@ -14,3 +14,5 @@
 {render partial="shared/layout/content_header" title=$page_title teaser=$order_status}
 
 {render partial="shared/order_detail" user=$order->getUser()}
+
+{render partial="shared/noindex_meta_tags"}

@@ -38,6 +38,7 @@ var applicationScripts = [
 	"public/scripts/utils/handle_suggestions.js",
 	"public/scripts/delivery_service_branch_select.js",
 	"public/scripts/zasilkovna.js",
+	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/application.js"
 ];
 

@@ -72,9 +72,9 @@
 		{/cache}
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{render partial="shared/trackers/google/tag_manager_body"}
-		<div class="body">
+		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
 			<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
@@ -97,6 +97,13 @@
 
 			{render partial="shared/layout/footer"}
 		</div>
+
+		<div class="search-suggestions js--suggesting">
+		<div class="suggestions__not-found">
+		<p><em>{t}Searching...{/t}</em></p>
+		</div>
+		</div>
+
 		
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}

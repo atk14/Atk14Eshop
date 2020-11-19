@@ -19,7 +19,7 @@
 	{elseif $ppq_img_hostname}
 		{assign ppq_hostname $ppq_img_hostname}
 	{/if}
-	{if $ppq_hostname}
+	{if $ppq_hostname && $ppq_hostname!==$request->getHttpHost()}
 		<link rel="preconnect" href="//{$ppq_hostname}">
 	{/if}
 {/if}

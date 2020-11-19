@@ -101,4 +101,19 @@ class User extends ApplicationModel{
 	function getBasePricelist(){
 		return Cache::Get("Pricelist",$this->getBasePricelistId());
 	}
+
+	function toHumanReadableString(){
+		$out = [];
+		$out[] = trim($this->getFirstname()." ".$this->getLastname());
+		$out[] = $this->getCompany();
+		if(!$this->isActive()){
+			$out[] = _("inactive user");
+		}
+		if($this->isAdmin()){
+			$out[] = _("administrator");
+		}
+		$out = array_filter($out);
+		
+		return sprintf("%s (%s)",$this->getLogin(),join(", ",$out));
+	}
 }

@@ -237,7 +237,7 @@ class ProductPrice {
 	function _roundUnitPrice($price){
 		if(is_null($price)){ return null; }
 
-		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision();
+		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision($this->getCurrency());
 		return round($price,$precision);
 	}
 

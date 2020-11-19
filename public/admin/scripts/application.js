@@ -111,6 +111,19 @@
 			}
 		},
 
+		category_trees: {
+			detail: function() {
+				$( ".js-toggle-all-trees" ).on( "click", function() {
+					if( $( this ).hasClass( "collapsed" ) ){
+						$( ".list--tree.collapse" ).collapse( "show" );
+					} else {
+						$( ".list--tree.collapse" ).collapse( "hide" );
+					}
+					$( this ).toggleClass( [ "collapsed", "expanded" ] )
+				} );
+			}
+		},
+
 		utils: {
 
 			initializeMarkdonEditors: function() {
@@ -437,10 +450,14 @@
 	 * See: http://goo.gl/z9dmd
 	 */
 	ADMIN.INITIALIZER = {
-		exec: function( controller, action ) {
+		exec: function( namespace, controller, action ) {
 			var ns = ADMIN,
 				c = controller,
 				a = action;
+
+			if( namespace && namespace.length > 0 && ns[ namespace ] ) {
+				ns = ns[ namespace ];
+			}
 
 			if ( a === undefined ) {
 				a = "init";
@@ -453,12 +470,13 @@
 
 		init: function() {
 			var body = document.body,
+			namespace = body.getAttribute( "data-namespace" ),
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			ADMIN.INITIALIZER.exec( "common" );
-			ADMIN.INITIALIZER.exec( controller );
-			ADMIN.INITIALIZER.exec( controller, action );
+			ADMIN.INITIALIZER.exec( namespace, "common" );
+			ADMIN.INITIALIZER.exec( namespace, controller );
+			ADMIN.INITIALIZER.exec( namespace, controller, action );
 		}
 	};
 

@@ -1,6 +1,37 @@
 <?php
 class SuggestionsController extends ApiController{
 
+	function users(){
+		if(!$this->logged_user || !$this->logged_user->isAdmin()){
+			// this is for a logged-in administrator only
+			$this->_execute_action("error403");
+			return;
+		}
+
+		$this->_suggest([
+			"fields" => [
+				"login",
+				"firstname",
+				"lastname",
+				"email",
+				"company",
+				"address_street",
+				"address_street2",
+				"address_city",
+				"address_state",
+				"address_zip"
+			],
+			"order_by" => "
+				LOWER(login) LIKE LOWER(:q)||'%' DESC,
+				LOWER(lastname) LIKE LOWER(:q)||'%' DESC,
+				LOWER(firstname) LIKE LOWER(:q)||'%' DESC,
+				LOWER(company) LIKE LOWER(:q)||'%' DESC,
+				is_admin DESC,
+				login
+			",
+		]);
+	}
+
 	/**
 	 * ### Suggestion of Product Cards
 	 */
@@ -33,8 +64,10 @@ class SuggestionsController extends ApiController{
 	 */
 	function products(){
 		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=products.card_id AND key='name' AND lang='$this->lang')";
+		$_product_label = "(SELECT body FROM translations WHERE table_name='products' AND record_id=products.id AND key='label' AND lang='$this->lang')";
+		$_product_name = "(SELECT body FROM translations WHERE table_name='products' AND record_id=products.id AND key='name' AND lang='$this->lang')";
 		$this->_suggest(array(
-			"fields" => array("catalog_id",$_name),
+			"fields" => array("catalog_id",$_name,$_product_label,$_product_name),
 			"order_by" => "UPPER(COALESCE($_name,'_____')) LIKE UPPER(:q)||'%' DESC, UPPER(catalog_id) LIKE UPPER(:q)||'%' DESC, $_name, catalog_id",
 			"conditions" => array(
 				"deleted='f'",

@@ -52,6 +52,10 @@ class BasketOrOrder extends ApplicationModel {
 		return Cache::Get("Currency",$this->getCurrencyId());
 	}
 
+	function getRegion(){
+		return Cache::Get("Region",$this->getRegionId());
+	}
+
 	/**
 	 * Cena za polozky
 	 */

@@ -81,7 +81,27 @@ class ApplicationController extends ApplicationBaseController{
 	function _application_before_filter() {
 		// Here, the $this->lazy_loader can be filled up with something
 
+		$this->lazy_loader["secondary_menu_mobile"] = function(){
+			if(($out = LinkList::GetInstanceByCode("secondary_menu_mobile")) && !$out->isEmpty()){
+				return $out;
+			}
+			return LinkList::GetInstanceByCode("secondary_menu");
+		};
+
 		parent::_application_before_filter();
+
+		// If the current language is not supported by the current selling region,
+		// here is a redirection to the default language.
+		if($this->request->get() && !$this->request->xhr() && !preg_match('/^error/',$this->action)){
+			$current_region = $this->_get_current_region();
+			$languages = $current_region->getLanguages();
+			$languages = array_map(function($lang){ return $lang->getId(); },$languages); // ["en","cs"]
+			if(!in_array($this->lang,$languages)){
+				$params = $this->params->toArray();
+				$params["lang"] = $languages[0];
+				return $this->_redirect_to($params);
+			}
+		}
 	}
 
 	// Navigace u vytvareni objednavky
@@ -90,7 +110,8 @@ class ApplicationController extends ApplicationBaseController{
 		$navi[] = [_("Basket"),"baskets/edit"];
 		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method"]];
 		$navi[] = [_("Delivery data"),["checkouts/user_identification","checkouts/set_billing_and_delivery_data"]];
-		$navi[] = [_("Summary"),["checkouts/summary","checkouts/finish"]];
+		$navi[] = [_("Summary"),["checkouts/summary"]];
+		$navi[] = [_("Order finished"),["checkouts/finish","orders/finish"]];
 
 		$active_item_passed = false;
 		foreach($navi as $item){

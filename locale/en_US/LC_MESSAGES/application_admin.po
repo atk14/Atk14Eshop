@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 13:42+0200\n"
-"PO-Revision-Date: 2020-05-12 17:21+0200\n"
+"POT-Creation-Date: 2020-11-18 13:35+0100\n"
+"PO-Revision-Date: 2020-11-18 14:11+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -58,6 +58,7 @@ msgstr "The list is empty."
 msgid "Title"
 msgstr "Title"
 
+#: ../app/forms/admin/articles/articles_form.php:29
 msgid "Author"
 msgstr "Author"
 
@@ -65,7 +66,7 @@ msgid "Date"
 msgstr "Date"
 
 #: ../app/controllers/admin/admin.php:34
-#: ../app/forms/admin/articles/articles_form.php:34
+#: ../app/forms/admin/articles/articles_form.php:54
 #: ../app/forms/admin/cards/cards_form.php:81
 #: ../app/forms/admin/categories/categories_form.php:63
 #: ../app/forms/admin/products/products_form.php:26
@@ -165,11 +166,14 @@ msgstr "Valid to"
 msgid "Datum vytvoření"
 msgstr ""
 
+msgid "Edit creator %1"
+msgstr "Edit creator %1"
+
 msgid "The product is not yet placed in a category with a filter."
 msgstr "The product is not yet placed in a category with a filter."
 
 msgid "go back"
-msgstr ""
+msgstr "go back"
 
 msgid "Je-li třeba, upravte název a slug zachovávaného produktu."
 msgstr ""
@@ -242,9 +246,6 @@ msgstr "Creators"
 msgid "Edit creator"
 msgstr "Edit creator"
 
-msgid "Upravit vazbu tvůrce s produktem"
-msgstr ""
-
 msgid "Visit the creator page"
 msgstr "Visit the creator page"
 
@@ -296,6 +297,7 @@ msgstr "Add a product"
 msgid "No product has been found."
 msgstr "No product has been found."
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
 #: ../app/forms/admin/cards/cards_form.php:26
 #: ../app/forms/admin/orders/index_form.php:65
@@ -520,6 +522,12 @@ msgstr "Edit ranking"
 msgid "Ranking"
 msgstr "Ranking"
 
+msgid "Expand all"
+msgstr "Expand all"
+
+msgid "Collapse all"
+msgstr "Collapse all"
+
 #: ../app/controllers/admin/category_trees_controller.php:10
 msgid "Create new category tree"
 msgstr "Create new category tree"
@@ -625,10 +633,10 @@ msgid "kategorie #%1"
 msgstr ""
 
 msgid "produkt %1"
-msgstr ""
+msgstr "product %1"
 
 msgid "Editovat"
-msgstr ""
+msgstr "Edit"
 
 msgid "Vytvořit novou slevu"
 msgstr ""
@@ -733,13 +741,13 @@ msgid "Link list"
 msgstr "Link list"
 
 msgid "Dny"
-msgstr ""
+msgstr "Days"
 
 msgid "Měsíce"
-msgstr ""
+msgstr "Months"
 
 msgid "Roky"
-msgstr ""
+msgstr "Years"
 
 msgid "Eshop %1: Administration"
 msgstr "Eshop %1: Administration"
@@ -775,7 +783,7 @@ msgid "Stav objednávky"
 msgstr ""
 
 msgid "Tisk"
-msgstr ""
+msgstr "Print"
 
 msgid "Určit zodpovědnou osobu"
 msgstr ""
@@ -1088,6 +1096,7 @@ msgstr "Download original"
 msgid "Založit novou cenu"
 msgstr ""
 
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/products/products_form.php:17
 msgid "Product name"
 msgstr "Product name"
@@ -1130,12 +1139,14 @@ msgid ""
 "You are about to permanently delete pricelist %1\n"
 "\t\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete pricelist %1\n"
+"\t\tAre you sure about that?"
 
 msgid "Fotogalerii lze přidat hned po vytvoření varianty produktu."
 msgstr ""
 
 msgid "Add a new product type"
-msgstr ""
+msgstr "Add a new product type"
 
 msgid "Typem produktu lze ovlivnit:"
 msgstr ""
@@ -1158,6 +1169,8 @@ msgid ""
 "You are about to permanently delete product type %1\n"
 "Are you sure about that?"
 msgstr ""
+"You are about to permanently delete product type %1\n"
+"Are you sure about that?"
 
 msgid "Add a region"
 msgstr "Add a region"
@@ -1294,7 +1307,7 @@ msgid "Kód produktu"
 msgstr ""
 
 msgid "Jednotka"
-msgstr ""
+msgstr "Unit"
 
 msgid "Sazba DPH"
 msgstr ""
@@ -1377,7 +1390,7 @@ msgid "Přihlašovací jméno"
 msgstr ""
 
 msgid "Jméno"
-msgstr ""
+msgstr "Name"
 
 msgid "oslovení"
 msgstr ""
@@ -1389,7 +1402,7 @@ msgid "administrátor"
 msgstr ""
 
 msgid "Firma"
-msgstr ""
+msgstr "Company"
 
 msgid "Doručovací adresy"
 msgstr ""
@@ -1407,52 +1420,34 @@ msgid "Sign in as this user"
 msgstr "Sign in as this user"
 
 msgid ""
-"Uživatel %1 se nebude moci přihlásit ke svému účtu. Přejete si zablokovat "
-"uživatele?"
-msgstr ""
-
-msgid "Blokovat uživatele"
-msgstr ""
-
-msgid "Přejete si povolit uživateli přihlášení k účtu?"
-msgstr ""
-
-msgid "Odblokovat uživatele"
-msgstr ""
-
-msgid "Přidej administrátorskou roli"
-msgstr ""
-
-msgid "Uprav administrátorskou roli"
-msgstr ""
-
-msgid ""
 "You are about to permanently delete user %1\n"
-"Are you sure about that?"
+"\tAre you sure about that?"
 msgstr ""
 "You are about to permanently delete user %1\n"
-"Are you sure about that?"
+"\tAre you sure about that?"
 
-msgid "Smazat uživatele"
-msgstr ""
+msgid "Delete user"
+msgstr "Delete user"
 
 msgid "On this page you can set a new password to the user <em>%1</em>."
-msgstr ""
+msgstr "On this page you can set a new password to the user <em>%1</em>."
 
 msgid "At the moment the user has no password set. So he can't signed in."
-msgstr ""
+msgstr "At the moment the user has no password set. So he can't signed in."
 
 msgid ""
 "At the moment no one knows the actual user's password because passwords are "
 "not stored in plain text form."
 msgstr ""
+"At the moment no one knows the actual user's password because passwords are "
+"not stored in plain text form."
 
 msgid ""
 "Editujete zástupného uživatele pro nepřihlášeného zákazníka. Nastavení "
 "ceníků u tohoto uživatele bude použito při registraci nových zákazníků."
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:33
+#: ../app/controllers/admin/users_controller.php:48
 msgid "Create a new user"
 msgstr "Create a new user"
 
@@ -1471,7 +1466,7 @@ msgid "inactive user"
 msgstr "inactive user"
 
 msgid "user without password"
-msgstr ""
+msgstr "user without password"
 
 msgid "administrator"
 msgstr "administrator"
@@ -1481,16 +1476,6 @@ msgstr "regular user"
 
 msgid "not active"
 msgstr "not active"
-
-msgid ""
-"You are about to permanently delete user %1\n"
-"\tAre you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"\tAre you sure about that?"
-
-msgid "Delete user"
-msgstr "Delete user"
 
 msgid "Add a VAT rate"
 msgstr "Add a VAT rate"
@@ -1534,6 +1519,17 @@ msgstr ""
 msgid "Najít objednávky s tímto kupónem"
 msgstr ""
 
+#: ../app/forms/admin/warehouse_items/export_form.php:20
+msgid "Export"
+msgstr "Export"
+
+msgid "Import from CSV"
+msgstr "Import from CSV"
+
+msgid "Edit warehouse details"
+msgstr "Edit warehouse details"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
 #: ../app/forms/admin/cards/cards_form.php:123
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
@@ -1551,6 +1547,12 @@ msgstr "Add a warehouse"
 
 msgid "Warehouse status"
 msgstr "Warehouse status"
+
+msgid "Export entries"
+msgstr "Export entries"
+
+msgid "Import entries from CSV"
+msgstr "Import entries from CSV"
 
 msgid ""
 "You are about to permanently delete warehouse %1\n"
@@ -1601,7 +1603,7 @@ msgstr "Users"
 
 #: ../app/controllers/admin/admin.php:37
 msgid "Product types"
-msgstr ""
+msgstr "Product types"
 
 #: ../app/controllers/admin/admin.php:38
 msgid "Categories"
@@ -2112,24 +2114,24 @@ msgstr ""
 msgid "List of discounts"
 msgstr "List of discounts"
 
-#: ../app/controllers/admin/error_redirections_controller.php:31
+#: ../app/controllers/admin/error_redirections_controller.php:40
 msgid "Create redirection"
 msgstr "Create redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:37
-#: ../app/controllers/admin/error_redirections_controller.php:55
+#: ../app/controllers/admin/error_redirections_controller.php:46
+#: ../app/controllers/admin/error_redirections_controller.php:64
 msgid "Another redirection with the same source URL already exists"
 msgstr "Another redirection with the same source URL already exists"
 
-#: ../app/controllers/admin/error_redirections_controller.php:42
+#: ../app/controllers/admin/error_redirections_controller.php:51
 msgid "The redirection has been created successfully"
 msgstr "The redirection has been created successfully"
 
-#: ../app/controllers/admin/error_redirections_controller.php:48
+#: ../app/controllers/admin/error_redirections_controller.php:57
 msgid "Editing redirection"
 msgstr "Editing redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:60
+#: ../app/controllers/admin/error_redirections_controller.php:69
 msgid "The redirection has been updated successfully"
 msgstr "The redirection has been updated successfully"
 
@@ -2352,15 +2354,15 @@ msgstr "Editing product %s (%s)"
 
 #: ../app/controllers/admin/product_types_controller.php:5
 msgid "Listing product types"
-msgstr ""
+msgstr "Listing product types"
 
 #: ../app/controllers/admin/product_types_controller.php:11
 msgid "New product type"
-msgstr ""
+msgstr "New product type"
 
 #: ../app/controllers/admin/product_types_controller.php:17
 msgid "Editing of the product type"
-msgstr ""
+msgstr "Editing of the product type"
 
 #: ../app/controllers/admin/regions_controller.php:5
 msgid "List of selling regions"
@@ -2432,38 +2434,38 @@ msgid "Editing parameter %s"
 msgstr "Editing parameter %s"
 
 #: ../app/controllers/admin/system_parameters_controller.php:44
-#: ../app/controllers/admin/tags_controller.php:64
-#: ../app/controllers/admin/users_controller.php:67
+#: ../app/controllers/admin/tags_controller.php:67
+#: ../app/controllers/admin/users_controller.php:82
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
 #: ../app/controllers/admin/system_parameters_controller.php:47
 msgid "Parameter value has been updated"
-msgstr ""
+msgstr "Parameter value has been updated"
 
 #: ../app/controllers/admin/tags_controller.php:5
 msgid "Listing Tags"
 msgstr "Listing Tags"
 
-#: ../app/controllers/admin/tags_controller.php:37
+#: ../app/controllers/admin/tags_controller.php:40
 msgid "Create a new tag"
 msgstr "Create a new tag"
 
-#: ../app/controllers/admin/tags_controller.php:44
+#: ../app/controllers/admin/tags_controller.php:47
 msgid "The tag has been created successfully"
 msgstr "The tag has been created successfully"
 
-#: ../app/controllers/admin/tags_controller.php:52
+#: ../app/controllers/admin/tags_controller.php:55
 #, php-format
 msgid "Editing tag %s"
 msgstr "Editing tag %s"
 
-#: ../app/controllers/admin/tags_controller.php:59
+#: ../app/controllers/admin/tags_controller.php:62
 #: ../app/forms/admin/tags/create_new_form.php:7
 msgid "The same tag already exists"
 msgstr "The same tag already exists"
 
-#: ../app/controllers/admin/tags_controller.php:70
+#: ../app/controllers/admin/tags_controller.php:73
 msgid "The tag has been updated"
 msgstr "The tag has been updated"
 
@@ -2492,34 +2494,34 @@ msgstr "Please make sure you don't need to change slugs"
 msgid "Users list"
 msgstr "Users list"
 
-#: ../app/controllers/admin/users_controller.php:39
+#: ../app/controllers/admin/users_controller.php:54
 msgid "The user has been created successfully"
 msgstr "The user has been created successfully"
 
-#: ../app/controllers/admin/users_controller.php:45
+#: ../app/controllers/admin/users_controller.php:60
 #, php-format
 msgid "Detail uživatele %s"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:52
+#: ../app/controllers/admin/users_controller.php:67
 #, php-format
 msgid "Editing user %s"
 msgstr "Editing user %s"
 
-#: ../app/controllers/admin/users_controller.php:73
+#: ../app/controllers/admin/users_controller.php:88
 msgid "The user entry has been updated"
 msgstr "The user entry has been updated"
 
-#: ../app/controllers/admin/users_controller.php:81
+#: ../app/controllers/admin/users_controller.php:96
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr "Setting a new password to the user %s"
 
-#: ../app/controllers/admin/users_controller.php:89
+#: ../app/controllers/admin/users_controller.php:104
 msgid "Nothing needs to be updated"
-msgstr ""
+msgstr "Nothing needs to be updated"
 
-#: ../app/controllers/admin/users_controller.php:100
+#: ../app/controllers/admin/users_controller.php:115
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
@@ -2527,15 +2529,15 @@ msgstr ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:106
+#: ../app/controllers/admin/users_controller.php:121
 msgid "The password for the user <em>%user%</em> has been deleted."
-msgstr ""
+msgstr "The password for the user <em>%user%</em> has been deleted."
 
-#: ../app/controllers/admin/users_controller.php:123
+#: ../app/controllers/admin/users_controller.php:138
 msgid "The user entry has been deleted"
 msgstr "The user entry has been deleted"
 
-#: ../app/controllers/admin/users_controller.php:134
+#: ../app/controllers/admin/users_controller.php:149
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Now you are logged as <em>%s</em>"
@@ -2572,6 +2574,54 @@ msgstr "New warehouse entry"
 #: ../app/controllers/admin/warehouse_items_controller.php:52
 msgid "Edit warehouse entry"
 msgstr "Edit warehouse entry"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:62
+#, php-format
+msgid "Export entries from warehouse %s"
+msgstr "Export entries from warehouse %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/forms/admin/admin_form.php:191
+msgid "Unit"
+msgstr "Unit"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:113
+#, php-format
+msgid "Import entries from CSV into warehouse %s"
+msgstr "Import entries from CSV into warehouse %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:121
+msgid "There must be at least 2 columns in the CSV data"
+msgstr "There must be at least 2 columns in the CSV data"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:138
+#, php-format
+msgid "Line %s: the second value must be a numeric value"
+msgstr "Line %s: the second value must be a numeric value"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:144
+#, php-format
+msgid "Line %s: product %s was not found"
+msgstr "Line %s: product %s was not found"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:190
+msgid "The import was completed successfully"
+msgstr "The import was completed successfully"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:191
+#, php-format
+msgid "entries imported: %s"
+msgstr "entries imported: %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:192
+#, php-format
+msgid "entries unchanged: %s"
+msgstr "entries unchanged: %s"
+
+#: ../app/controllers/admin/warehouse_items_controller.php:193
+#, php-format
+msgid "entries deleted: %s"
+msgstr "entries deleted: %s"
 
 #: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
@@ -2615,10 +2665,6 @@ msgstr "Is active?"
 #: ../app/forms/admin/admin_form.php:180
 msgid "Vat rate"
 msgstr "Vat rate"
-
-#: ../app/forms/admin/admin_form.php:191
-msgid "Unit"
-msgstr "Unit"
 
 #: ../app/forms/admin/admin_form.php:198
 msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
@@ -2678,7 +2724,35 @@ msgstr "<a href=\"%s\">Markdown</a> format is expected"
 msgid "Body"
 msgstr "Body"
 
-#: ../app/forms/admin/articles/articles_form.php:29
+#: ../app/forms/admin/articles/articles_form.php:35
+#: ../app/forms/admin/cards/cards_form.php:58
+#: ../app/forms/admin/categories/categories_form.php:42
+#: ../app/forms/admin/pages/pages_form.php:28
+msgid "HTML title"
+msgstr "HTML title"
+
+#: ../app/forms/admin/articles/articles_form.php:38
+#: ../app/forms/admin/pages/pages_form.php:31
+msgid "Content for <html><head><title>. If left empty, the title is used."
+msgstr "Content for <html><head><title>. If left empty, the title is used."
+
+#: ../app/forms/admin/articles/articles_form.php:42
+#: ../app/forms/admin/cards/cards_form.php:65
+#: ../app/forms/admin/categories/categories_form.php:49
+#: ../app/forms/admin/pages/pages_form.php:35
+msgid "HTML description"
+msgstr "HTML description"
+
+#: ../app/forms/admin/articles/articles_form.php:45
+#: ../app/forms/admin/cards/cards_form.php:68
+#: ../app/forms/admin/categories/categories_form.php:52
+#: ../app/forms/admin/pages/pages_form.php:38
+msgid ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
+msgstr ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
+
+#: ../app/forms/admin/articles/articles_form.php:49
 msgid "Published At"
 msgstr "Published At"
 
@@ -2835,7 +2909,7 @@ msgstr ""
 #: ../app/forms/admin/card_merging/create_new/get_labels_form.php:22
 #, php-format
 msgid "Label for product %s"
-msgstr ""
+msgstr "Label for product %s"
 
 #: ../app/forms/admin/card_merging/create_new/get_primary_card_form.php:6
 msgid "Zachovávaný produkt"
@@ -2897,31 +2971,11 @@ msgstr "Information"
 msgid "Detailed description"
 msgstr "Detailed description"
 
-#: ../app/forms/admin/cards/cards_form.php:58
-#: ../app/forms/admin/categories/categories_form.php:42
-#: ../app/forms/admin/pages/pages_form.php:28
-msgid "HTML title"
-msgstr "HTML title"
-
 #: ../app/forms/admin/cards/cards_form.php:61
 msgid ""
 "Content for <html><head><title>. If left empty, it will be generated "
 "automatically."
 msgstr ""
-
-#: ../app/forms/admin/cards/cards_form.php:65
-#: ../app/forms/admin/categories/categories_form.php:49
-#: ../app/forms/admin/pages/pages_form.php:35
-msgid "HTML description"
-msgstr "HTML description"
-
-#: ../app/forms/admin/cards/cards_form.php:68
-#: ../app/forms/admin/categories/categories_form.php:52
-#: ../app/forms/admin/pages/pages_form.php:38
-msgid ""
-"Content for <meta name=\"description\">. If left empty, the teaser is used."
-msgstr ""
-"Content for <meta name=\"description\">. If left empty, the teaser is used."
 
 #: ../app/forms/admin/cards/cards_form.php:72
 msgid "Brand"
@@ -3018,7 +3072,7 @@ msgstr ""
 
 #: ../app/forms/admin/categories/categories_form.php:70
 msgid "Is category visible?"
-msgstr ""
+msgstr "Is category visible?"
 
 #: ../app/forms/admin/categories/create_alias_form.php:6
 msgid "Umístit do kategorie"
@@ -3061,7 +3115,7 @@ msgstr "Localized name"
 
 #: ../app/forms/admin/creators/creators_form.php:19
 msgid "Profile page"
-msgstr ""
+msgstr "Profile page"
 
 #: ../app/forms/admin/creators/creators_form.php:21
 msgid ""
@@ -3515,10 +3569,6 @@ msgstr "The same code is used on a different page"
 #: ../app/forms/admin/pages/pages_form.php:12
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Image used on list of pages, social networks, etc."
-
-#: ../app/forms/admin/pages/pages_form.php:31
-msgid "Content for <html><head><title>. If left empty, the title is used."
-msgstr "Content for <html><head><title>. If left empty, the title is used."
 
 #: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
@@ -3983,13 +4033,60 @@ msgid "Platnost od musí být starší datum než Platnost do"
 msgstr ""
 
 #: ../app/forms/admin/warehouse_items/create_new_form.php:8
-#: ../app/forms/admin/warehouse_items/edit_form.php:8
+#: ../app/forms/admin/warehouse_items/edit_form.php:17
 msgid "Záznam o skladové zásobě tohoto produktu již existuje"
 msgstr ""
+
+#: ../app/forms/admin/warehouse_items/export_form.php:6
+msgid "Format"
+msgstr "Format"
+
+#: ../app/forms/admin/warehouse_items/export_form.php:13
+msgid "Export all products even when they are not listed in the warehouse?"
+msgstr "Export all products even when they are not listed in the warehouse?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:6
+msgid "Ignore unknown products?"
+msgstr "Ignore unknown products?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:12
+msgid "Delete unlisted entries?"
+msgstr "Delete unlisted entries?"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:18
+msgid "CSV data"
+msgstr "CSV data"
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "Copy & paste the CSV data right from the Excel."
+msgstr "Copy & paste the CSV data right from the Excel."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid ""
+"Two columns are needed. The first column must contain catalog numbers, the "
+"second column must contain stockcounts."
+msgstr ""
+"Two columns are needed. The first column must contain catalog numbers, the "
+"second column must contain stockcounts."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:19
+msgid "The empty stockcount means deleting the given warehouse entry."
+msgstr "The empty stockcount means deleting the given warehouse entry."
+
+#: ../app/forms/admin/warehouse_items/import_form.php:23
+msgid "Import"
+msgstr "Import"
 
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
+
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #~ msgid "Show larger image"
 #~ msgstr "Show larger image"

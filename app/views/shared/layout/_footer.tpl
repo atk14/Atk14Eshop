@@ -16,8 +16,8 @@
 						{!$eshop->getAddressCountry()|to_country_name}
 					</p>
 					<p>
-						{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>
-						{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>
+						{if "app.contact.phone"|system_parameter}{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>{/if}
+						{if "app.contact.email"|system_parameter}{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>{/if}
 					</p>
 					<p>
 						{t}IČ{/t}: {"merchant.billing_information.company_number"|system_parameter}<br>
@@ -33,8 +33,8 @@
 	</div>
 	<div class="footer__smallprint">
 		<div class="container-fluid">
-			<p>&copy;&nbsp;2019 {"app.name"|system_parameter}</p>
-			<p>Created by NTV AGE</p>
+			<p>&copy;&nbsp;2019&nbsp;&ndash;&nbsp;{"Y"|date} {"app.name"|system_parameter}</p>
+			<p>Created by <a href="https://www.snapps.eu/"><strong>sna<em>pp</em>s!</strong></a></p>
 		</div>
 	</div>
 	

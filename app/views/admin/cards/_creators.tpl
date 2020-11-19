@@ -11,8 +11,8 @@
 		{foreach $card_creators as $card_creator}
 			<li class="list-group-item" data-id="{$card_creator->getId()}">
 				{dropdown_menu clearfix=false}
+					{a action="card_creators/edit" id=$card_creator return_uri=$return_uri}{icon glyph="edit"} {t}Upravit{/t}{/a}
 					{a action="creators/edit" id=$card_creator->getCreator() return_uri=$return_uri}{icon glyph="user"} {t}Edit creator{/t}{/a}
-					{a action="card_creators/edit" id=$card_creator return_uri=$return_uri}{icon glyph="edit"} {t}Upravit vazbu tvůrce s produktem{/t}{/a}
 					{if $card_creator->getPage()}
 						<a href="{$card_creator->getPage()|link_to_page}">{!"eye-open"|icon} {t}Visit the creator page{/t}</a>
 					{/if}

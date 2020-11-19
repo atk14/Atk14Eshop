@@ -73,6 +73,15 @@ class Lang {
 	}
 
 	/**
+	 * $data = $lang->toArray(); // ["id" => "en", "LANG" => "en_US.UTF-8", "name" => "english"]
+	 */
+	function toArray(){
+		$data = $this->data;
+		$data["id"] = $this->getId();
+		return $data;
+	}
+
+	/**
 	 *
 	 *	$lang = Lang::GetCurrentLang();
 	 *	echo "$lang"; // "cs"

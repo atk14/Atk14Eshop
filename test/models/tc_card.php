@@ -7,6 +7,9 @@
  * @fixture category_cards
  * @fixture pricelist_items
  * @fixture warehouse_items
+ * @fixture related_cards
+ * @fixture consumables
+ * @fixture accessories
  */
 class TcCard extends TcBase {
 
@@ -76,6 +79,20 @@ class TcCard extends TcBase {
 		$this->assertFalse($card->canBeSwitchedToNonVariantMode());
 	}
 
+	function test_isViewableInEshop(){
+		$coffee = $this->cards["coffee"];
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$coffee->s("visible",false);
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$coffee->s("deleted",true);
+		$this->assertEquals(true,$coffee->isViewableInEshop());
+
+		$price_rounding = Product::FindByCode("price_rounding");
+		$this->assertEquals(false,$price_rounding->getCard()->isViewableInEshop());
+	}
+
 	function test_canBeOrdered(){
 		$tea = $this->cards["tea"];
 		$this->assertEquals(true,$tea->canBeOrdered());
@@ -84,5 +101,47 @@ class TcCard extends TcBase {
 			$p->s("visible",false);
 		}
 		$this->assertEquals(false,$tea->canBeOrdered());
+	}
+
+	function test_getRelatedCards() {
+		$this->assertCount(1, $this->cards["coffee"]->getRelatedCards());
+		$this->assertCount(0, $this->cards["tea"]->getRelatedCards());
+		$this->assertCount(1, $this->cards["coffee"]->getViewableRelatedCards());
+		$this->assertCount(0, $this->cards["tea"]->getViewableRelatedCards());
+
+		$this->cards["tea"]->s("visible", false);
+		Cache::Clear();
+		$this->assertCount(1, $this->cards["coffee"]->getRelatedCards());
+		$this->assertCount(0, $this->cards["tea"]->getRelatedCards());
+		$this->assertCount(0, $this->cards["coffee"]->getViewableRelatedCards());
+		$this->assertCount(0, $this->cards["tea"]->getViewableRelatedCards());
+	}
+
+	function test_getConsumables() {
+		$this->assertCount(1, $this->cards["coffee"]->getConsumables());
+		$this->assertCount(0, $this->cards["tea"]->getConsumables());
+		$this->assertCount(1, $this->cards["coffee"]->getViewableConsumables());
+		$this->assertCount(0, $this->cards["tea"]->getViewableConsumables());
+
+		$this->cards["tea"]->s("visible", false);
+		Cache::Clear();
+		$this->assertCount(1, $this->cards["coffee"]->getConsumables());
+		$this->assertCount(0, $this->cards["tea"]->getConsumables());
+		$this->assertCount(0, $this->cards["coffee"]->getViewableConsumables());
+		$this->assertCount(0, $this->cards["tea"]->getViewableConsumables());
+	}
+
+	function test_getAccessories() {
+		$this->assertCount(1, $this->cards["coffee"]->getAccessories());
+		$this->assertCount(0, $this->cards["book"]->getAccessories());
+		$this->assertCount(1, $this->cards["coffee"]->getViewableAccessories());
+		$this->assertCount(0, $this->cards["book"]->getViewableAccessories());
+
+		$this->cards["book"]->s("visible", false);
+		Cache::Clear();
+		$this->assertCount(1, $this->cards["coffee"]->getAccessories());
+		$this->assertCount(0, $this->cards["book"]->getAccessories());
+		$this->assertCount(0, $this->cards["coffee"]->getViewableAccessories());
+		$this->assertCount(0, $this->cards["book"]->getViewableAccessories());
 	}
 }

@@ -68,7 +68,7 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 
 		$address = parent::getAddress($lang);
 		if($address){
-			return $address;
+			return trim($address);
 		}
 
 		Atk14Require::Helper("modifier.to_country_name");
