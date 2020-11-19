@@ -3,7 +3,7 @@
 				<mj-image src="../images/email-logo.png" height="40px" width="103px" alt="app name" href="#"></mj-image>
 			</mj-column>
 		</mj-section>
-		<mj-section padding-top="0" padding-bottom="0">
+		<mj-section>
 			<mj-column>
 				<mj-spacer></mj-spacer>
 			</mj-column>

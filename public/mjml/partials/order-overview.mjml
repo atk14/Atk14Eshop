@@ -8,7 +8,7 @@
 				</mj-column>
 			</mj-section>
 			
-			<mj-section padding-top="0" padding-bottom="0">
+			<mj-section>
 				<mj-column width="100%" padding-top="0" padding-bottom="0">
 					<mj-text mj-class="smalltext">
 						Číslo objednávky: <strong>356166</strong><br>
@@ -22,31 +22,31 @@
 			<mj-include path="order-item.mjml"></mj-include>
 			<mj-include path="order-item.mjml"></mj-include>
 			<mj-include path="order-item.mjml"></mj-include>
-			<mj-section padding="0">
+			<mj-section>
 				<mj-group>
 					<mj-column padding="0" width="50%"><mj-text>Celkem</mj-text></mj-column>
 					<mj-column padding="0" width="50%"><mj-text align="right">8&nbsp;488&nbsp;Kč</mj-text></mj-column>
 				</mj-group>
 			</mj-section>
-			<mj-section padding="0">
+			<mj-section>
 				<mj-group>
 					<mj-column padding="0" width="50%"><mj-text>Doprava</mj-text></mj-column>
 					<mj-column padding="0" width="50%"><mj-text align="right">150&nbsp;Kč</mj-text></mj-column>
 				</mj-group>
 			</mj-section>
-			<mj-section padding="0">
+			<mj-section>
 				<mj-column width="100%">
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
 			</mj-section>
-			<mj-section padding="0">
+			<mj-section>
 				<mj-group>
 					<mj-column padding="0" width="50%"><mj-text>Celkem k&nbsp;úhradě</mj-text></mj-column>
 					<mj-column padding="0" width="50%"><mj-text align="right"><strong>8&nbsp;638&nbsp;Kč</strong></mj-text></mj-column>
 				</mj-group>
 			</mj-section>
 			
-			<mj-section  padding-top="20px">
+			<mj-section padding-top="20px">
 				<mj-column width="100%" padding="0">
 					<mj-text>
 						<p class="nomargin"><strong>Doprava</strong></p>
@@ -55,7 +55,7 @@
 				</mj-column>
 			</mj-section>
 			
-			<mj-section padding-top="0" padding-bottom="0">
+			<mj-section>
 				<mj-column width="100%" padding-top="0" padding-bottom="0">
 					<mj-text mj-class="smalltext">
 						Dopravce: <strong>Česká pošta (platba předem)</strong><br>
@@ -86,7 +86,7 @@
 				</mj-column>
 			</mj-section>
 			
-			<mj-section padding-top="0" padding-bottom="0">
+			<mj-section>
 				<mj-column>
 					<mj-spacer></mj-spacer>
 				</mj-column>

@@ -1,10 +1,10 @@
-		<mj-section padding-top="0" padding-bottom="0">
+		<mj-section>
 			<mj-column>
 				<mj-spacer></mj-spacer>
 			</mj-column>
 		</mj-section>
 
-		<mj-section mj-class="footer" full-width="full-width" css-class="footer">
+		<mj-section mj-class="footer" css-class="footer">
 			<mj-column>
 				<mj-text mj-class="footertext">
 					<p>
@@ -27,7 +27,7 @@
 			</mj-column>
 		</mj-section>
 
-		<mj-section mj-class="footer" full-width="full-width" background-color="gray" padding-top="0" padding-bottom="0">
+		<mj-section mj-class="footer-bottom">
 			<mj-column padding-left="15px" padding-right="15px">
 				<mj-navbar align="left">
 					<mj-navbar-link href="#" mj-class="footersmalllink">Obchodní podmínky</mj-navbar-link>
