@@ -8,7 +8,7 @@
 	<td>{$order->getCreatedAt()|format_datetime}</td>
 	<td>{if $order->getInvoiceCompany()}{$order->getInvoiceCompany()}, {/if}{$order->getInvoiceName()}<br>
 	<span style="white-space:nowrap;">{t 1=$order->getEmail() escape=false}%1{/t}</span><br>
-	{t 1=$order->getPhones()|join:", " escape=false}%1{/t}</td>
+	{t 1=", "|join:$order->getPhones() escape=false}%1{/t}</td>
 	<td>{!$delivery_method}<hr>{!$payment_method}</td>
 	<td class="text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
 	<td>
@@ -16,7 +16,7 @@
 		<br><em>({$order->getOrderStatusSetAt()|humanize_date})</em>
 	</td>
 	<td>
-		{if $order->getAllNotes()}<span title="{$order->getAllNotes()|join:"\n\n"}" class="label label-warning">{!"question-sign"|icon}</span>{/if}
+		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="label label-warning">{!"question-sign"|icon}</span>{/if}
 	</td>
 	<td>
 		{$order->getUpdatedAt()|format_datetime|default:$mdash}
