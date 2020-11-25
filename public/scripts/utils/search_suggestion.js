@@ -161,8 +161,9 @@ window.UTILS._search_suggestion = {
 		var fieldOffset = searchField.offset();
 		suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 + "px" );
 
-		// Get x position of search field right edge
-		var rightPos = fieldOffset.left + searchField.outerWidth();
+		// Get x position of search field right edge plus button width
+		var searchBtnWidth = searchField.siblings( "button" ).outerWidth();
+		var rightPos = fieldOffset.left + searchField.outerWidth() + searchBtnWidth;
 
 		// Align suggestions to rightPos if there is enough room, center otherwise
 		if ( rightPos > suggArea.width() ) {
