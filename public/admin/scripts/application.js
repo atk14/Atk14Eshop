@@ -36,6 +36,7 @@
 
 				UTILS.leaving_unsaved_page_checker.init();
 
+				// eslint-disable-next-line no-unused-vars
 				var filterableNav = new UTILS.filterableList( {
 					searchInput: 	$( "#nav-filter__input" ),
 					clearButton: 	$( "#nav-filter__clear" ),

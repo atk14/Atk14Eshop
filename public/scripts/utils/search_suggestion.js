@@ -23,7 +23,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 
 	$suggArea.hide();
 
-	$( "." + fieldClassName ).on( "keyup", function( e ) {
+	$( "." + fieldClassName ).on( "keyup", function() {
 		window.UTILS._search_suggestion.suggest( $( this ), $suggArea );
 	} );
 
