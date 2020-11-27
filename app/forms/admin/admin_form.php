@@ -253,12 +253,12 @@ class AdminForm extends ApplicationForm{
 		if(preg_match('/EditForm/',get_class($this))){
 
 			if($product && $conflicted_product && $product->getId()!=$conflicted_product->getId()){
-				$this->set_error("catalog_id",_("The same catalog number is used for another product"));
+				$this->set_error("catalog_id",_("The same catalog number is used for another product").' (<a href="'.Atk14Url::BuildLink(["action" => "cards/edit", "id" => $conflicted_product->getCardId()]).'">'._("open in administration").'</a>)');
 			}
 
 		}elseif($conflicted_product){
 
-			$this->set_error("catalog_id",_("The same catalog number is used for another product"));
+			$this->set_error("catalog_id",_("The same catalog number is used for another product").' (<a href="'.Atk14Url::BuildLink(["action" => "cards/edit", "id" => $conflicted_product->getCardId()]).'">'._("open in administration").'</a>)');
 
 		}
 	}
