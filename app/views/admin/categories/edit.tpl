@@ -140,8 +140,18 @@ Do you really want this?{/t}{/capture}
 				<ul class="list-group list-sortable" data-sortable-url="{link_to action="category_cards/set_rank" category_id=$category}">
 					{foreach $cards as $card}
 						<li class="list-group-item" data-id="{$card->getId()}">
+							<div class="float-left">
 							{render partial="shared/list_thumbnail" image=$card->getImage()}
+							</div>
+							<div class="float-left">
 							{$card->getName()}
+							<br>
+							<small>
+							{foreach $card->getProducts() as $product}
+								{$product->getCatalogId()}{if !$product@last}, {/if}
+							{/foreach}
+							</small>
+							</div>
 							{if !$card->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 							{dropdown_menu}
 								{a action="cards/edit" id=$card}{!"edit"|icon} {t}Edit product{/t}{/a}
