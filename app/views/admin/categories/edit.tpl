@@ -143,7 +143,7 @@ Do you really want this?{/t}{/capture}
 							<div class="float-left">
 							{render partial="shared/list_thumbnail" image=$card->getImage()}
 							</div>
-							<div class="float-left">
+							<div class="float-left pr-2">
 							{$card->getName()}
 							<br>
 							<small>
