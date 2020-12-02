@@ -160,7 +160,10 @@ window.UTILS._search_suggestion = {
 					window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
 
 					// It is expected that result for just one character is super fast
-					if ( search === $suggestingArea.data( "suggesting-for" ) || search.length === 1 ) {
+					if (
+						search === $suggestingArea.data( "suggesting-for" ) ||
+						search.length === 1
+					) {
 						$suggestingArea.html( snippet );
 
 						// Logging
@@ -182,8 +185,8 @@ window.UTILS._search_suggestion = {
 
 		// Search for the first character to improve responsivity
 		if ( search.length > 1 && !$suggestingArea.data( "suggesting-for" ) ) {
-			$suggestingArea.data( "suggesting-for", search.substr( 0, 1) );
-			searchFn( search.substr( 0, 1) );
+			$suggestingArea.data( "suggesting-for", search.substr( 0, 1 ) );
+			searchFn( search.substr( 0, 1 ) );
 		}
 
 		$suggestingArea.data( "suggesting-for", search );
