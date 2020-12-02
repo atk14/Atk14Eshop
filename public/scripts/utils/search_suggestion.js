@@ -48,6 +48,8 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 				$activeElement.closest( "." + suggestingAreaClassName ).length === 0
 			)
 		) {
+
+			// Event outside suggestion area or search field: Hide suggestion area if visible
 			if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
 				$suggArea.fadeOut();
 				window.UTILS._search_suggestion.suggestingAreaVisible = false;
@@ -56,13 +58,19 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 				// console.log( "fadeOut" );
 			}
 		} else {
+
+			// Event inside search field or sugg. area
 			if ( $activeElement.hasClass( fieldClassName ) ) {
+
+				// Event inside search field
 				window.UTILS._search_suggestion.positionSuggestingArea(
 					$activeElement,
 					$suggArea
 				);
 			}
 			if ( !window.UTILS._search_suggestion.suggestingAreaVisible ) {
+
+				// Show suggestions if hidden
 				$suggArea.fadeIn();
 				window.UTILS._search_suggestion.suggestingAreaVisible = true;
 
