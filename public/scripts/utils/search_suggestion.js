@@ -81,10 +81,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 	} );
 
 	$( "body" ).on( "touchstart", function( e ) {
-		if(
+		if (
 			$currentSearchField &&
 			$currentSearchField.is( ":focus" ) &&
-			!$( e.target ).hasClass( fieldClassName ) // clicked on the field itself?
+			!$( e.target ).hasClass( fieldClassName ) // Clicked on the field itself?
 		) {
 			$currentSearchField.blur();
 		}
