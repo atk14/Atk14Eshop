@@ -80,6 +80,16 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		}
 	} );
 
+	$( "body" ).on( "touchstart", function( e ) {
+		if(
+			$currentSearchField &&
+			$currentSearchField.is( ":focus" ) &&
+			!$( e.target ).hasClass( fieldClassName ) // clicked on the field itself?
+		) {
+			$currentSearchField.blur();
+		}
+	} );
+
 	$( window ).on( "resize", function() {
 		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = true;
 
