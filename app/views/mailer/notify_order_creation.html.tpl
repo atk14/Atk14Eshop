@@ -111,4 +111,9 @@
 	</tbody>
 </table>
 
+{if $order->getNote()}
+	<br/>
+	{t}Vaše poznámka k objednávce:{/t} {!$order->getNote()|h|nl2br}
+{/if}
+
 {render partial="order_status_check_notice.html"}
