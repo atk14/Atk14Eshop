@@ -88,7 +88,7 @@
 </table>
 
 {if is_null($order->getShippingFeeInclVat())}
-	<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small><br><br>
+	<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small><br/><br/>
 {/if}
 
 {render partial="partials/title_box" content="{t}Přeprava{/t}"}
