@@ -45,7 +45,7 @@
 			<td style="padding: 0.6em 0.4em; width: 20%;text-align:right; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 		{else}
 			<td style="padding: 0.6em 0.4em;width: 15%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{$product->getCatalogId()}</td>
-			<td style="padding: 0.6em 0.4em;width: 30%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};"><strong>{$product->getName()}</strong></td>
+			<td style="padding: 0.6em 0.4em;width: 30%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};"><strong><a href="{$product|link_to_product:"with_hostname=$default_domain"}" style="color:{$table_cell_color};">{$product->getName()}</a></strong></td>
 			<td style="padding: 0.6em 0.4em; width: 20%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getUnitPriceInclVat()|display_price:"$currency"}</td>
 			<td style="padding: 0.6em 0.4em; width: 15%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{$item->getAmount()} {$product->getUnit()}</td>
 			<td style="padding: 0.6em 0.4em; width: 20%;text-align:right; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
