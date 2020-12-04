@@ -9,6 +9,7 @@ text_color: "#212121"
 link_color: "#81971a"
 link_style: "color: #81971a; font-weight: bold; text-decoration: none;"
 visited_link_color: "#81971a"
+primary: "#ff9933"
 
 # Header colors + logo
 header_bgcolor: "white"
