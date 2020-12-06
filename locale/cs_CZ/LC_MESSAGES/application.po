@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 13:35+0100\n"
-"PO-Revision-Date: 2020-11-18 13:36+0100\n"
+"POT-Creation-Date: 2020-12-06 18:03+0100\n"
+"PO-Revision-Date: 2020-12-06 18:04+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -456,6 +456,9 @@ msgstr "Dodací adresa"
 msgid "Fakturační adresa"
 msgstr "Fakturační adresa"
 
+msgid "Vaše poznámka k objednávce:"
+msgstr "Vaše poznámka k objednávce:"
+
 msgid "Vaše objednávka č.%1"
 msgstr "Vaše objednávka č.%1"
 
@@ -857,6 +860,9 @@ msgstr "Sociální sítě"
 msgid "Upravit údaje prodejny"
 msgstr "Upravit údaje prodejny"
 
+msgid "zobrazit všechny prodejny"
+msgstr "zobrazit všechny prodejny"
+
 msgid "Upravit údaje provozovny"
 msgstr "Upravit údaje provozovny"
 
@@ -1184,36 +1190,36 @@ msgstr "Zakázáno"
 msgid "Home"
 msgstr "Domů"
 
-#: ../app/controllers/application_mailer.php:104
+#: ../app/controllers/application_mailer.php:105
 msgid "New registration"
 msgstr "Nová registrace"
 
-#: ../app/controllers/application_mailer.php:113
+#: ../app/controllers/application_mailer.php:114
 msgid "Reset Your Password"
 msgstr "Obnova vašeho hesla"
 
-#: ../app/controllers/application_mailer.php:122
+#: ../app/controllers/application_mailer.php:123
 msgid "Your password was updated"
 msgstr "Vaše heslo bylo změněno"
 
-#: ../app/controllers/application_mailer.php:133
+#: ../app/controllers/application_mailer.php:134
 #, php-format
 msgid "Order %d"
 msgstr "Objednávka %d"
 
-#: ../app/controllers/application_mailer.php:153
+#: ../app/controllers/application_mailer.php:154
 #: ../app/controllers/application.php:78
 #: ../app/controllers/orders_controller.php:18
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/application_mailer.php:179
+#: ../app/controllers/application_mailer.php:180
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_mailer.php:190
-#: ../app/controllers/application_mailer.php:199
+#: ../app/controllers/application_mailer.php:191
+#: ../app/controllers/application_mailer.php:200
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
