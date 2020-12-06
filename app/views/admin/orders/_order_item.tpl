@@ -33,7 +33,7 @@
 			{a action="orders/edit" id=$order}{!"edit"|icon} {t}Upravit{/t}{/a}
 			{a action="orders/set_responsible_user" id=$order}{!"user"|icon} {t}Přiřadit zodpovědnou osobu{/t}{/a}
 			{if $order->getAllowedNextOrderStatuses()}
-				{a action="order_order_statuses/create_new" order_id=$order}{!"tasks"|icon} {t}Nastavit nový stav objednávky{/t}{/a}
+				{a action="order_order_statuses/create_new" order_id=$order}{!"level-up-alt"|icon} {t}Změnit stav objednávky{/t}{/a}
 			{/if}
 		{/dropdown_menu}
 	</td>

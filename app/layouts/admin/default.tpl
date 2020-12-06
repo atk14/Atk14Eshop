@@ -73,7 +73,7 @@
 			{/if}
 			<div class="body{if $section_navigation} has-nav-section{/if}">
 					{if $section_navigation}
-						<nav class="nav-section">
+						<nav class="nav-section d-print-none">
 							{render partial="shared/layout/section_navigation"}
 						</nav>
 					{/if}
