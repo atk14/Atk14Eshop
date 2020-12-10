@@ -19,36 +19,34 @@
 				</mj-column>
 			</mj-section>
 			
-			<mj-raw>{foreach $order->getItems() as $item}
-			{assign product $item->getProduct()}
-			</mj-raw>
-			<mj-include path="order-item.mjml"></mj-include>
-			<mj-raw>{/foreach}</mj-raw>
-			<mj-section>
-				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>{t}Cena celkem{/t}</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right">{!$order->getItemsPriceInclVat()|display_price:"$currency"}</mj-text></mj-column>
-				</mj-group>
-			</mj-section>
-			
-			<mj-raw>{foreach $order->getVouchers() as $voucher}</mj-raw>
-			<mj-section>
-				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>{$voucher->getDescription()}</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right">{$voucher}</mj-text></mj-column>
-				</mj-group>
-			</mj-section>
+			<mj-raw>{foreach $order->getItems() as $item}</mj-raw>
+				<mj-include path="order-item.mjml"></mj-include>
+				<mj-raw>{/foreach}</mj-raw>
+				<mj-section>
+					<mj-group>
+						<mj-column padding="0" width="50%"><mj-text>{t}Cena celkem{/t}</mj-text></mj-column>
+						<mj-column padding="0" width="50%"><mj-text align="right">{!$order->getItemsPriceInclVat()|display_price:"$currency"}</mj-text></mj-column>
+					</mj-group>
+				</mj-section>
+
+				<mj-raw>{foreach $order->getVouchers() as $voucher}</mj-raw>
+				<mj-section>
+					<mj-group>
+						<mj-column padding="0" width="50%"><mj-text>{$voucher->getDescription()}</mj-text></mj-column>
+						<mj-column padding="0" width="50%"><mj-text align="right">{$voucher}</mj-text></mj-column>
+					</mj-group>
+				</mj-section>
 			<mj-raw>{/foreach}</mj-raw>
 			
 			<mj-raw>{foreach $order->getCampaigns() as $campaign}
 			{if $campaign->getDiscountAmount()}
 			</mj-raw>
-			<mj-section>
-				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>{$campaign}</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right">-{!$campaign->getDiscountAmount()|display_price:"$currency"}</mj-text></mj-column>
-				</mj-group>
-			</mj-section>
+				<mj-section>
+					<mj-group>
+						<mj-column padding="0" width="50%"><mj-text>{$campaign}</mj-text></mj-column>
+						<mj-column padding="0" width="50%"><mj-text align="right">-{!$campaign->getDiscountAmount()|display_price:"$currency"}</mj-text></mj-column>
+					</mj-group>
+				</mj-section>
 			<mj-raw>{/if}
 			{/foreach}
 			</mj-raw>
@@ -71,6 +69,16 @@
 					<mj-column padding="0" width="50%"><mj-text align="right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></mj-text></mj-column>
 				</mj-group>
 			</mj-section>
+			
+			<mj-raw>{if is_null($order->getShippingFeeInclVat())}</mj-raw>
+				<mj-section>
+					<mj-column padding="0">
+						<mj-text>
+							<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small>
+						</mj-text>
+					</mj-column>
+				</mj-section>
+			<mj-raw>{/if}</mj-raw>
 			
 			<mj-section padding-top="20px">
 				<mj-column width="100%" padding="0">
@@ -102,6 +110,27 @@
 					</mj-text>
 				</mj-column>
 				<mj-column width="100%">
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+			
+			<mj-raw>{if $order->getNote()}</mj-raw>
+				<mj-section>
+					<mj-column padding="0">
+						<mj-text mj-class="smalltext">
+							<strong>{t}Vaše poznámka k objednávce:{/t}</strong><br>
+							{!$order->getNote()|h|nl2br}
+						</mj-text>
+						<mj-divider mj-class="thin"></mj-divider>
+					</mj-column>
+				</mj-section>
+			<mj-raw>{/if}</mj-raw>
+			
+			<mj-section>
+				<mj-column padding="0">
+					<mj-text mj-class="smalltext">
+						{render partial="order_status_check_notice.html"}
+					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
 			</mj-section>

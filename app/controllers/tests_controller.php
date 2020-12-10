@@ -27,6 +27,7 @@ class TestsController extends ApplicationController {
 
 	function notify_order_creation(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
+		$order = Order::FindById(96); // use this to view particular order instead of the last one
 		$this->mailer->notify_order_creation($order);
 		$this->_dump_email();
 	}

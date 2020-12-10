@@ -1,4 +1,7 @@
-<mj-raw>{if $product->getCode()=="price_rounding"}</mj-raw>
+<mj-raw>
+{assign product $item->getProduct()}
+{if $product->getCode()=="price_rounding"}	
+</mj-raw>
 
 	<mj-section mj-class="order-item">
 		<mj-column width="15%" padding-top="0" padding-right="0">

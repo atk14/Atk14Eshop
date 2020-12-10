@@ -1,39 +1,45 @@
 # All the values are accessible in mailer templates as variables, e.g. <a href=".." style="{$link_style}">
 
 # General settings
-body_width: "580px" # Container width
-bg_color: "#f2f4f2"
-container_bg_color: "#f2f4f2"
-font_stack: "Helvetica, Arial, sans-serif"
-text_color: "#212121"
-link_color: "#81971a"
-link_style: "color: #81971a; font-weight: bold; text-decoration: none;"
-visited_link_color: "#81971a"
-primary: "#ff9933"
+# body_width: "580px" # Container width
+bg_color: "#f6f6f6"
+# container_bg_color: "#f2f4f2"
+font_stack: "Inter,Helvetica,Arial,sans-serif"
+font_name: "Inter"
+font_url: "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+text_color: "#444"
+link_color: "#fc5130"
+link_style: "color: #fc5130; font-weight: bold; text-decoration: none;"
+visited_link_color: "#fc5130"
+primary_color: "#fc5130"
+brand_color: "#30bced"
+button_color: "white"
+
 
 # Header colors + logo
-header_bgcolor: "white"
-header_color: "#81971a"
+# header_bgcolor: "white"
+# header_color: "#81971a"
 logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/email-logo.png"
 
 # Footer colors
 footer_bgcolor: "#ccc"
-footer_color: "#555"
-footer_link_color: "#555"
+footer_color: "#444"
+
+footer_link_color: "#fc5130"
 
 # Boxed title colors 
 # titlebox_bgcolor: "#5F2929"
-titlebox_bgcolor: "#81971a"
-titlebox_color: "#fff"
-special_note_bgcolor: "#FFA334" # special note
-special_note_color: "#fff"
+# titlebox_bgcolor: "#81971a"
+# titlebox_color: "#fff"
+# special_note_bgcolor: "#FFA334" # special note
+# special_note_color: "#fff"
 
 # Table colors
-table_header_bgcolor: "#b9babe"
-table_header_color: "#212121"
-table_cell_bgcolor: "#EBECEE"
-table_cell_color: "#212121"
-table_accent_bgcolor: "#555" # total sum row
-table_accent_color: "#fff"
+# table_header_bgcolor: "#b9babe"
+# table_header_color: "#212121"
+# table_cell_bgcolor: "#EBECEE"
+# table_cell_color: "#212121"
+# table_accent_bgcolor: "#555" # total sum row
+# table_accent_color: "#fff"
 
 # vim: set ts=2 et:
