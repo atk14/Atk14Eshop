@@ -1,4 +1,4 @@
-<h5>{t}Social networks{/t}</h5>
+{capture assign=links}{trim}
 {foreach [
 	"facebook" => "facebook-square",
 	"instagram" => "instagram",
@@ -14,3 +14,9 @@
 		<a href="{"app.contact.social.$network"|system_parameter}" class="footer__socialicon">{!$icon|icon}</a>
 	{/if}
 {/foreach}
+{/trim}{/capture}
+
+{if $links}
+	<h5>{t}Social networks{/t}</h5>
+	{!$links}
+{/if}

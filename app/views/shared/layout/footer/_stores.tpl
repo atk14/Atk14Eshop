@@ -1,9 +1,14 @@
-{foreach Store::FindAll("visible",true) as $store}
-	{if $store->getCode()!="eshop"}
-		{admin_menu for=$store edit_title="{t}Upravit údaje prodejny{/t}" only_edit=1}
-		<h5>{a action="stores/detail" id=$store}{$store->getName()}{/a}</h5>
-		<address>
-			{!$store->getAddress()|h|nl2br}<br>
-		</address>
-	{/if}
+{assign max_stores 3}
+{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[],["limit" => $max_stores + 1])}
+
+{foreach array_slice($stores,0,$max_stores) as $store}
+	{admin_menu for=$store edit_title="{t}Upravit údaje prodejny{/t}" only_edit=1}
+	<h5>{a action="stores/detail" id=$store}{$store->getName()}{/a}</h5>
+	<address>
+		{!$store->getAddress()|h|nl2br}<br>
+	</address>
 {/foreach}
+
+{if sizeof($stores)>$max_stores}
+	<a href="{link_to namespace="" action="stores/index"}">{t}zobrazit všechny prodejny{/t}</a>
+{/if}

@@ -12,6 +12,8 @@ window.UTILS = window.UTILS || { };
  */
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
 	var $suggArea = $( "." + suggestingAreaClassName );
+	var $field = $( "." + fieldClassName );
+	var $currentSearchField;
 
 	if ( $suggArea.length === 0 ) {
 		console.log(
@@ -23,7 +25,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 
 	$suggArea.hide();
 
-	$( "." + fieldClassName ).on( "keyup", function( e ) {
+	$field.on( "keyup focus", function( e ) {
 		window.UTILS._search_suggestion.suggest( $( this ), $suggArea );
 	} );
 
@@ -32,13 +34,22 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		var searchFieldIsActiveAndEmpty =
 			$activeElement.hasClass( fieldClassName ) &&
 			$activeElement.val().length === 0;
+
+		if ( $activeElement.hasClass( fieldClassName ) ) {
+			$currentSearchField = $activeElement;
+		}
+
 		if (
+			!$currentSearchField ||
+			!$currentSearchField.is( ":visible" ) ||
 			searchFieldIsActiveAndEmpty || (
 				!$activeElement.hasClass( fieldClassName ) &&
 				!$activeElement.hasClass( suggestingAreaClassName ) &&
 				$activeElement.closest( "." + suggestingAreaClassName ).length === 0
 			)
 		) {
+
+			// Event outside suggestion area or search field: Hide suggestion area if visible
 			if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
 				$suggArea.fadeOut();
 				window.UTILS._search_suggestion.suggestingAreaVisible = false;
@@ -47,17 +58,62 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 				// console.log( "fadeOut" );
 			}
 		} else {
-			window.UTILS._search_suggestion.positionSuggestingArea(
-				$( "." + fieldClassName ),
-				$suggArea
-			);
+
+			// Event inside search field or sugg. area
+			if ( $activeElement.hasClass( fieldClassName ) ) {
+
+				// Event inside search field
+				window.UTILS._search_suggestion.positionSuggestingArea(
+					$activeElement,
+					$suggArea
+				);
+			}
 			if ( !window.UTILS._search_suggestion.suggestingAreaVisible ) {
+
+				// Show suggestions if hidden
 				$suggArea.fadeIn();
 				window.UTILS._search_suggestion.suggestingAreaVisible = true;
 
 				// Logging
 				// console.log( "fadeIn" );
 			}
+		}
+	} );
+
+	$( "body" ).on( "touchstart", function( e ) {
+		if (
+			$currentSearchField &&
+			$currentSearchField.is( ":focus" ) &&
+			!$( e.target ).hasClass( fieldClassName ) // Clicked on the field itself?
+		) {
+			$currentSearchField.blur();
+		}
+	} );
+
+	$( window ).on( "resize", function() {
+		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = true;
+
+		// Hide suggestions if corresponding searchfield is not visible anymore
+		// Warning: we are checking offset top value to be greater than zero
+		// if searchfiled would be positioned on top of the screen there would be problem
+		if ( $currentSearchField ) {
+			if (	$currentSearchField.css( "display" ) === "none" ||
+				$currentSearchField.offset().top < 1 ) {
+				$suggArea.fadeOut();
+				window.UTILS._search_suggestion.suggestingAreaVisible = false;
+			}
+		}
+
+		if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
+
+			// We need to delay a bit to wait for  possible transformations on the page
+			setTimeout(
+				window.UTILS._search_suggestion.positionSuggestingArea(
+					$currentSearchField,
+					$suggArea
+				),
+				5000
+			);
 		}
 	} );
 };
@@ -79,14 +135,6 @@ window.UTILS._search_suggestion = {
 		if ( window.UTILS._search_suggestion.suggestingAreaOriginalContent === undefined ) {
 			window.UTILS._search_suggestion.suggestingAreaOriginalContent = $suggestingArea.html();
 		}
-
-		search = search.trim();
-
-		if ( search === $suggestingArea.data( "suggesting-for" ) ) {
-			return;
-		}
-
-		$suggestingArea.data( "suggesting-for", search );
 
 		var searchFn = function( search ) {
 			if ( search === "" ) {
@@ -117,38 +165,42 @@ window.UTILS._search_suggestion = {
 				url: url,
 				data: data,
 				success: function( snippet ) {
-					if ( search === $suggestingArea.data( "suggesting-for" ) ) {
-						window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
-					}
 					$suggestingArea.data( "suggesting", "" );
-					if ( search !== $suggestingArea.data( "suggesting-for" ) ) {
-						searchFn( $suggestingArea.data( "suggesting-for" ) );
-					} else {
+
+					window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
+
+					// It is expected that result for just one character is super fast
+					if (
+						search === $suggestingArea.data( "suggesting-for" ) ||
+						search.length === 1
+					) {
 						$suggestingArea.html( snippet );
 
 						// Logging
 						// console.log( "content replaced" );
 					}
+
+					if ( search !== $suggestingArea.data( "suggesting-for" ) ) {
+						searchFn( $suggestingArea.data( "suggesting-for" ) );
+					}
 				}
 			} );
 		};
 
+		search = search.trim();
+
+		if ( search === $suggestingArea.data( "suggesting-for" ) ) {
+			return;
+		}
+
+		// Search for the first character to improve responsivity
+		if ( search.length > 1 && !$suggestingArea.data( "suggesting-for" ) ) {
+			$suggestingArea.data( "suggesting-for", search.substr( 0, 1 ) );
+			searchFn( search.substr( 0, 1 ) );
+		}
+
+		$suggestingArea.data( "suggesting-for", search );
 		searchFn( search );
-
-		$( window ).on( "resize", function() {
-			window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = true;
-			if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
-
-				// We need to delay a bit to wait for  possible transformations on the page
-				setTimeout(
-					window.UTILS._search_suggestion.positionSuggestingArea(
-						$field,
-						$suggestingArea
-					),
-					5000
-				);
-			}
-		} );
 	},
 
 	positionSuggestingArea: function( searchField, suggArea ) {
@@ -161,8 +213,9 @@ window.UTILS._search_suggestion = {
 		var fieldOffset = searchField.offset();
 		suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 + "px" );
 
-		// Get x position of search field right edge
-		var rightPos = fieldOffset.left + searchField.outerWidth();
+		// Get x position of search field right edge plus button width
+		var searchBtnWidth = searchField.siblings( "button" ).outerWidth();
+		var rightPos = fieldOffset.left + searchField.outerWidth() + searchBtnWidth;
 
 		// Align suggestions to rightPos if there is enough room, center otherwise
 		if ( rightPos > suggArea.width() ) {
@@ -173,6 +226,8 @@ window.UTILS._search_suggestion = {
 
 		// Logging
 		// console.log( "re-positioned" );
+		// console.log( searchField );
+		// console.log( fieldOffset , rightPos );
 
 		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = false;
 	}

@@ -48,4 +48,14 @@ class SearchesController extends ApplicationController {
 		}
 		$this->tpl_data["objects"] = $objects;
 	}
+
+	function _before_filter(){
+		// Caching result for 1 character for 1 hour
+		if(PRODUCTION && $this->action==="index" && $this->request->xhr() && $this->params->getString("format")==="snippet" && strlen(trim($this->params->getString("q")))==1){
+			$this->_caches_action([
+				"salt" => mb_strtolower(trim($this->params->getString("q"))),
+				"expires" => 60 * 60, // 1h
+			]);
+		}
+	}
 }

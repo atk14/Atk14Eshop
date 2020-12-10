@@ -85,6 +85,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$region = $region ? $region : $this->current_region;
 		$this->current_region = $region;
 		$this->tpl_data["region"] = $region;
+		$this->tpl_data["default_domain"] = $region->getDefaultDomain();
 		$this->from = $region->getEmail();
 		$this->from_name = $region->getApplicationName();
 

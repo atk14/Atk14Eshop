@@ -19,10 +19,10 @@
 	{/if}
 	
 	<span class="suggestion__description">
-		<h3 class="suggestion__title">{$title}</h3>
+		<h3 class="suggestion__title">{highlight_keywords keywords=$params.q opening_tag='<mark>' closing_tag='</mark>'}{!$title}{/highlight_keywords}</h3>
 
 		{if $subtitle}
-			<small class="suggestion__subtitle">{$subtitle}</small>
+			<small class="suggestion__subtitle">{highlight_keywords keywords=$params.q opening_tag='<mark>' closing_tag='</mark>'}{!$subtitle}{/highlight_keywords}</small>
 		{/if}
 	</span>
 

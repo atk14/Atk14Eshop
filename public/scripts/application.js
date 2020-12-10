@@ -72,8 +72,7 @@
 							}
 						} );
 				} );
-				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
-						//console.log( e.type );
+				$navbar.find( $dropdown ).on ( "mouseleave", function() {
 						var $this = $(this);
 						$this.removeClass( showClass );
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
@@ -450,6 +449,7 @@
 			index: function() {
 				UTILS.initMultiMap( "allstores_map" );
 
+				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
 					clearButton: 	$( "#stores-filter__clear" ),

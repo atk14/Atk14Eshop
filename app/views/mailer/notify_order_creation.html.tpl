@@ -45,7 +45,7 @@
 			<td style="padding: 0.6em 0.4em; width: 20%;text-align:right; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
 		{else}
 			<td style="padding: 0.6em 0.4em;width: 15%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{$product->getCatalogId()}</td>
-			<td style="padding: 0.6em 0.4em;width: 30%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};"><strong>{$product->getName()}</strong></td>
+			<td style="padding: 0.6em 0.4em;width: 30%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};"><strong><a href="{$product|link_to_product:"with_hostname=$default_domain"}" style="color:{$table_cell_color};">{$product->getName()}</a></strong></td>
 			<td style="padding: 0.6em 0.4em; width: 20%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getUnitPriceInclVat()|display_price:"$currency"}</td>
 			<td style="padding: 0.6em 0.4em; width: 15%; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{$item->getAmount()} {$product->getUnit()}</td>
 			<td style="padding: 0.6em 0.4em; width: 20%;text-align:right; background-color:{$table_cell_bgcolor}; color:{$table_cell_color};">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
@@ -88,7 +88,7 @@
 </table>
 
 {if is_null($order->getShippingFeeInclVat())}
-	<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small><br><br>
+	<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small><br/><br/>
 {/if}
 
 {render partial="partials/title_box" content="{t}Přeprava{/t}"}
@@ -110,5 +110,10 @@
 		</tr>
 	</tbody>
 </table>
+
+{if $order->getNote()}
+	<br/>
+	{t}Vaše poznámka k objednávce:{/t} {!$order->getNote()|h|nl2br}
+{/if}
 
 {render partial="order_status_check_notice.html"}

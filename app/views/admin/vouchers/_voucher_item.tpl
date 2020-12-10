@@ -1,6 +1,6 @@
 <tr>
 	<td>{$voucher->getId()}</td>
-	<td>{$voucher->getRegions()|join:", "}</td>
+	<td>{", "|join:$voucher->getRegions()}</td>
 	<td>{$voucher->getVoucherCode()}</td>
 	<td>
 		{if $voucher->getDiscountPercent()}

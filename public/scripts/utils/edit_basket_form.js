@@ -41,6 +41,8 @@ window.UTILS.edit_basket_form.refresh = function() {
 	}
 	$form.attr( "data-submitting", "true" );
 	// console.log( "refreshing..." );
+
+	// eslint-disable-next-line no-undef
 	ATK14.handleRemote( $form );
 	$form.removeAttr( "data-submitting" );
 };
