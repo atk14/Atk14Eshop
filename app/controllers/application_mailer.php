@@ -103,6 +103,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
 		$this->subject = _("New registration");
+		$this->tpl_data["message_type"] = "notify_user_registration";
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
 	}
 
@@ -112,6 +113,8 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$this->to = $user->getEmail();
 		$this->subject = _("Reset Your Password");
+		
+		$this->tpl_data["message_type"] = "notify_password_recovery";
 		// body is rendered from app/views/mailer/notify_password_recovery.tpl
 	}
 
@@ -121,6 +124,8 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$this->to = $user->getEmail();
 		$this->subject = _("Your password was updated");
+		
+		$this->tpl_data["message_type"] = "notify_password_update_in_recovery";
 	}
 
 	function notify_order_creation($order){
@@ -132,6 +137,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["shipping_days"] = SystemParameter::ContentOn("orders.notifications.shipping_days");
 		$this->tpl_data["special_note"] = SystemParameter::ContentOn("orders.notifications.special_note");
 		$this->subject = sprintf(_("Order %d"),$order->getOrderNo());
+		$this->tpl_data["message_type"] = "notify_order_creation";
 
 		$order_status = OrderStatus::GetInstanceByCode("new");
 		if($order_status && $order_status->getBccEmail()){
@@ -152,6 +158,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["personal_pickup_on_store"] = $delivery_method->getPersonalPickupOnStore();
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - ".$order_status->getName();
+		$this->tpl_data["message_type"] = "notify_order_status_update";
 
 		if($order_status->getBccEmail()){
 			$this->bcc .= $this->bcc ? ", " : "";
@@ -184,6 +191,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["request"] = $request;
 		$this->tpl_data["logged_user"] = $logged_user;
 		$this->render_layout = false;
+		$this->tpl_data["message_type"] = "contact_message";
 	}
 
 	function send_information_request($params,$request,$logged_user){
@@ -193,11 +201,13 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["request"] = $request;
 		$this->tpl_data["logged_user"] = $logged_user;
 		$this->render_layout = false;
+		$this->tpl_data["message_type"] = "send_information_request";
 	}
 
 	function send_copy_of_information_request_to_customer($email,$text){
 		$this->to = $email;
 		$this->subject = _("Request for information");
 		$this->tpl_data["text"] = $text;
+		$this->tpl_data["message_type"] = "send_copy_of_information_request_to_customer";
 	}
 }

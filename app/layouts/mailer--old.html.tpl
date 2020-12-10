@@ -1,9 +1,3 @@
-{assign var="use_mjml" value=true}
-{if $use_mjml}
--- Message Type ($message_type): {$message_type}<br>
--- Use MJML ($use_mjml): {$use_mjml}
-	{render partial="template"}
-{else}
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
 <html>
 <head>
@@ -19,8 +13,6 @@
 	{if $preheader_text}
 	<span class="preheader" style="color:{$bg_color};display:none!important;font-size:1px;line-height:1px;max-height:0;max-width:0;mso-hide:all!important;opacity:0;overflow:hidden;visibility:hidden">{!$preheader_text}</span>
 	{/if}
--- Message Type ($message_type): {$message_type}<br>
--- Use MJML ($use_mjml): {$use_mjml}
 
 	{render partial="partials/mail_wrapper_start"}
 	{render partial="partials/header_1col"}
@@ -53,4 +45,3 @@
 <!-- /footer -->
 </body>
 </html>
-{/if}

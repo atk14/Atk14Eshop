@@ -1,0 +1,53 @@
+		<mj-wrapper>
+			<mj-section padding-top="20px">
+				<mj-column width="100%" padding="0">
+					<mj-text>
+						<p class="nomargin"><strong>Mohlo by vás zajímat</strong></p>
+					</mj-text>
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+			
+			<mj-section padding-top="10px" padding-bottom="10px">
+				<mj-column>
+					<mj-image src="https://placekitten.com/500/400" alt="Item image" padding-bottom="10px" href="{$link}" fluid-on-mobile="true"></mj-image>
+				</mj-column>
+				<mj-column>
+					<mj-text>
+						<p><strong>Jianbing activated charcoal thundercats wolf gentrify</strong></p>
+						<p class="nomargin">Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal. </p>
+					</mj-text>
+				</mj-column>
+			</mj-section>
+			
+			<mj-section padding="0">
+				<mj-column width="100%" padding="0">
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+			
+			<mj-section padding-top="10px" padding-bottom="10px">
+				<mj-column>
+					<mj-text>
+						<p><strong>Keffiyeh sustainable blog franzen</strong></p>
+						<p class="nomargin">Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.</p>
+					</mj-text>
+				</mj-column>
+				<mj-column>
+					<mj-image src="https://placekitten.com/600/400" alt="Item image" padding-bottom="10px" href="{$link}" fluid-on-mobile="true"></mj-image>
+				</mj-column>
+			</mj-section>
+			
+			<mj-section padding="0">
+				<mj-column width="100%" padding="0">
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+			
+			<mj-section padding-top="20px">
+				<mj-column>
+					<mj-button mj-class="button-cta--big" href="#">Start shopping!</mj-button>
+				</mj-column>
+			</mj-section>
+			
+		</mj-wrapper>

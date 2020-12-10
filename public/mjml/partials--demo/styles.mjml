@@ -42,10 +42,8 @@
 			<mj-all font-family="Inter,Helvetica,Arial,sans-serif" font-size="16px" line-height="1.25"  color="#444" />
 			<mj-spacer height="40px" />
 			<mj-divider border-color="lightgreen" border-width="2px" />
-			<mj-wrapper border="1px dotted fuchsia" />
-			<mj-section padding-top="0" padding-bottom="0" border="1px dotted aqua" />
+			<mj-section padding-top="0" padding-bottom="0" />
 			<mj-button background-color="#fc5130" color="white"  font-weight="bold" />
-			<mj-spacer container-background-color="beige" />
 			
 			// MJML classes for MJML tags with mj-class attributes
 			
@@ -54,7 +52,6 @@
 			// main content
 			<mj-class name="bodytext" line-height="1.5" />
 			<mj-class name="smalltext" color="#444" font-size="14px" line-height="1.5" />
-			<mj-class name="header__logo" width="103px" height="40px" />
 			// footer
 			<mj-class name="footer" full-width="full-width" background-color="#ccc" font-size="16px" line-height="1.25" padding-top="16px" />
 			<mj-class name="footer-bottom" full-width="full-width" background-color="gray" font-size="16px" line-height="1.25" />

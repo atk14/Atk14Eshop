@@ -2,7 +2,7 @@
 			<mj-section>
 				<mj-column width="100%" padding="0">
 					<mj-text>
-						<p class="nomargin"><strong>Podrobnosti objednávky</strong></p>
+						<p class="nomargin"><strong>{t}Detaily objednávky{/t}</strong></p>
 					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
@@ -11,29 +11,55 @@
 			<mj-section>
 				<mj-column width="100%" padding-top="0" padding-bottom="0">
 					<mj-text mj-class="smalltext">
-						Číslo objednávky: <strong>356166</strong><br>
-						Vytvořena:  8. 10. 2092, 10:23<br>
-						Platba: Zaplatit dobírkou, zaplatíte až při převzetí
+						{t}Číslo objednávky:{/t} <strong>{!$order->getOrderNo()}</strong><br>
+						{t}Vytvořena:{/t} {$order->getCreatedAt()|format_datetime}<br>
+						{t}Platba:{/t} {$order->getPaymentMethod()}
 					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
 			</mj-section>
 			
+			<mj-raw>{foreach $order->getItems() as $item}
+			{assign product $item->getProduct()}
+			</mj-raw>
 			<mj-include path="order-item.mjml"></mj-include>
-			<mj-include path="order-item.mjml"></mj-include>
-			<mj-include path="order-item.mjml"></mj-include>
+			<mj-raw>{/foreach}</mj-raw>
 			<mj-section>
 				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>Celkem</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right">8&nbsp;488&nbsp;Kč</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text>{t}Cena celkem{/t}</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right">{!$order->getItemsPriceInclVat()|display_price:"$currency"}</mj-text></mj-column>
 				</mj-group>
 			</mj-section>
+			
+			<mj-raw>{foreach $order->getVouchers() as $voucher}</mj-raw>
 			<mj-section>
 				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>Doprava</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right">150&nbsp;Kč</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text>{$voucher->getDescription()}</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right">{$voucher}</mj-text></mj-column>
 				</mj-group>
 			</mj-section>
+			<mj-raw>{/foreach}</mj-raw>
+			
+			<mj-raw>{foreach $order->getCampaigns() as $campaign}
+			{if $campaign->getDiscountAmount()}
+			</mj-raw>
+			<mj-section>
+				<mj-group>
+					<mj-column padding="0" width="50%"><mj-text>{$campaign}</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right">-{!$campaign->getDiscountAmount()|display_price:"$currency"}</mj-text></mj-column>
+				</mj-group>
+			</mj-section>
+			<mj-raw>{/if}
+			{/foreach}
+			</mj-raw>
+			
+			<mj-section>
+				<mj-group>
+					<mj-column padding="0" width="50%"><mj-text>{t}Doprava{/t}</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</mj-text></mj-column>
+				</mj-group>
+			</mj-section>
+			
 			<mj-section>
 				<mj-column width="100%">
 					<mj-divider mj-class="thin"></mj-divider>
@@ -41,15 +67,15 @@
 			</mj-section>
 			<mj-section>
 				<mj-group>
-					<mj-column padding="0" width="50%"><mj-text>Celkem k&nbsp;úhradě</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right"><strong>8&nbsp;638&nbsp;Kč</strong></mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text>{t}Celkem k úhradě{/t}</mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></mj-text></mj-column>
 				</mj-group>
 			</mj-section>
 			
 			<mj-section padding-top="20px">
 				<mj-column width="100%" padding="0">
 					<mj-text>
-						<p class="nomargin"><strong>Doprava</strong></p>
+						<p class="nomargin"><strong>{t}Přeprava{/t}</strong></p>
 					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
@@ -58,27 +84,21 @@
 			<mj-section>
 				<mj-column width="100%" padding-top="0" padding-bottom="0">
 					<mj-text mj-class="smalltext">
-						Dopravce: <strong>Česká pošta (platba předem)</strong><br>
-						Tracking: <a href="#">356166</a><br>
+						{t}Dopravce:{/t} <strong>{$order->getDeliveryMethod()}</strong><br>
+						{*Tracking: <a href="#">356166</a><br>*}
 					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
 				<mj-column width="50%" padding-top="0" padding-bottom="0">
 					<mj-text mj-class="smalltext">
-						<strong>Billing Address:</strong><br>
-						James Bond<br>
-							Domažlická 1<br>
-							130 00 Praha 3<br>
-							Czech Republic
+						<strong>{t}Fakturační adresa{/t}</strong><br>
+						{render partial="shared/order/invoice_address"}
 					</mj-text>
 				</mj-column padding-top="0" padding-bottom="0">
 				<mj-column width="50%">
 					<mj-text mj-class="smalltext">
-						<strong>Delivery Address:</strong><br>
-						James Bond<br>
-							Domažlická 1<br>
-							130 00 Praha 3<br>
-							Czech Republic
+						<strong>{t}Dodací adresa{/t}</strong><br>
+						{render partial="shared/order/delivery_address"}
 					</mj-text>
 				</mj-column>
 				<mj-column width="100%">

@@ -1,0 +1,39 @@
+		<mj-section>
+			<mj-column>
+				<mj-spacer></mj-spacer>
+			</mj-column>
+		</mj-section>
+
+		<mj-section mj-class="footer" css-class="footer">
+			<mj-column>
+				<mj-text mj-class="footertext">
+					<p>
+						<a href="#">Superior Products</a><br>
+						Domažlická 1<br>
+						130 00 Praha 3
+					</p>
+					<p>Tel: +420 123 456 789</p>
+				</mj-text>
+			</mj-column>
+			<mj-column>
+				<mj-social font-size="15px" icon-size="30px" mode="vertical" align="left">
+					<mj-social-element name="facebook" href="https://mjml.io/">
+						Facebook
+					</mj-social-element>
+					<mj-social-element name="instagram" href="https://mjml.io/">
+						Instagram
+					</mj-social-element>
+				</mj-social>
+			</mj-column>
+		</mj-section>
+
+		<mj-section mj-class="footer-bottom">
+			<mj-column padding-left="15px" padding-right="15px">
+				<mj-navbar align="left">
+					<mj-navbar-link href="#" mj-class="footersmalllink">Obchodní podmínky</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">Ochrana soukromí</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">Kontakty</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">Prodejny</mj-navbar-link>
+				</mj-navbar>
+			</mj-column>
+		</mj-section>

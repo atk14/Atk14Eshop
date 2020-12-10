@@ -1,6 +1,6 @@
 		<mj-section mj-class="header">
 			<mj-column>
-				<mj-image mj-class="header__logo" src="{$logo_src}" alt="app name" href="{!$region->getDefaultUrl()}"></mj-image>
+				<mj-image src="../images/email-logo.png" height="40px" width="103px" alt="app name" href="#"></mj-image>
 			</mj-column>
 		</mj-section>
 		<mj-section>

@@ -140,7 +140,7 @@ gulp.task( "mjml", function(){
 	
 		// fileExt option seems to be not working, so rename files to .tpl this way
 		.pipe( rename( function( path ) {
-			path.extname = ".html"
+			path.extname = ".tpl"
 		}))
 		.pipe( gulp.dest( "public/dist/emails" ) );
 } );

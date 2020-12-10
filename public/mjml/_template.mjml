@@ -1,21 +1,25 @@
 <mjml>
 	<mj-head>
-		<mj-preview>Hello MJML</mj-preview>
+	
+		<mj-preview>{!$preheader_text}</mj-preview>
+		
 		<mj-include path="partials/styles.mjml"></mj-include>
 	</mj-head>
-	
 	<mj-body>
+		<mj-raw><!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/header.mjml"></mj-include>
-
+		<mj-raw><!-- /header --></mj-raw>
 		<mj-include path="partials/text.mjml"></mj-include>
 		
+		<mj-raw>{if $message_type == "notify_order_creation" }</mj-raw>
 		<mj-include path="partials/order-overview.mjml"></mj-include>
+		<mj-raw>{/if}</mj-raw>
 		
 		<mj-include path="partials/products-gallery.mjml"></mj-include>
 		
 		<mj-include path="partials/text-cta.mjml"></mj-include>
-
+		<mj-raw><!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/footer.mjml"></mj-include>
-		
+		<mj-raw><!-- /footer --></mj-raw>
 	</mj-body>
 </mjml>
