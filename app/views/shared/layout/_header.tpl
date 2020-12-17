@@ -28,7 +28,7 @@
 			</div>
 			{if !$use_large_search_bar}
 			<div class="mainbar__middle mainbar__search_cart">
-				<form class="form-inline{if !$show_search_in_mobile} d-none d-{$nav_breakpoint}-flex{/if}" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field">
+				<form class="form-inline{if !$show_search_in_mobile} d-none d-{$nav_breakpoint}-flex{/if}" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field" style="border: 2px solid  red;">
 					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
 				</form>

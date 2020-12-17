@@ -3,12 +3,17 @@
 {capture assign=menu_collapse}{remove_if_contains_no_text}
 <div class="collapse navbar-collapse" id="navTopMobileNavDropdown">
 
-	{if $show_search_in_hamburger}
+	{*if $show_search_in_hamburger}
 	<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
 		<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
 		<button type="submit" class="btn btn-sm btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 	</form>
-	{/if}
+	{/if*}
+	
+	<form class="form-inline{if !$show_search_in_mobile} xd-none d-{$nav_breakpoint}-flex{/if}" action="{link_to namespace="" action="searches/index"}" id="js--navbar_search_field" style="xxbackground-color:  red;">
+					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
+					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
+				</form>
 
 	{if $controller=="main" && $action=="index"}
 
