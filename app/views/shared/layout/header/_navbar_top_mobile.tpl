@@ -53,7 +53,7 @@
 				{"app.name.short"|system_parameter}
 			{/a*}
 			</div>
-			{if !$show_search_in_mobile}
+			{if !$show_search_in_mobile && !$use_large_search_bar}
 			<ul class="navbar-nav">
 				<li class="nav-item"><a href="" class="nav-link js--search-toggle">{!"search"|icon}</a></li>
 			</ul>
@@ -62,10 +62,12 @@
 			{!$basket_info}
 		</div>
 		
-		<form class="form-inline search-form-mobile {if $show_search_in_mobile} show{/if}" action="{link_to namespace="" action=" searches/index"}" id="js--mobile_search_field">
+		{if !$use_large_search_bar}
+		<form class="form-inline search-form-mobile {if $show_search_in_mobile} show{/if}" action="{link_to namespace="" action="searches/index"}" id="js--mobile_search_field">
 			<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
 			<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
 		</form>
+		{/if}
 	
 		{!$menu_collapse}
 
