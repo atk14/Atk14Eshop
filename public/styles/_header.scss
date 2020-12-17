@@ -580,7 +580,11 @@ ol.breadcrumb {
 			display: none;
 		}
 		
+		border-top-width: 1px;
+		border-top-style: solid;
+		
 		&.navbar-dark {
+			border-color: rgba(white,0.5);
 			ul.navbar-nav {
 				li.nav-item {
 					border-color: rgba(white,0.5);
@@ -592,6 +596,7 @@ ol.breadcrumb {
 			}
 		}
 		&.navbar-light, &:not(.navbar-dark) {
+			border-color: rgba($body-color,0.5);
 			ul.navbar-nav {
 				li.nav-item {
 					border-color: rgba($body-color,0.5);
@@ -760,23 +765,7 @@ ol.breadcrumb {
 		
 		
 		@include media-breakpoint-down($navbar_breakpoint_lower){
-			padding: 0;
-			display: block;
-			.logospace {
-				display: none;
-			}
-			.mainbar__controls {
-				display: block;
-				.mainbar__top, .mainbar__bottom, .mainbar__cartinfo {
-					display: none;
-				}
-				.mainbar__search_cart {
-					display: block;
-					.form-inline {
-						@include header-search-form-mobile( $brand );
-					}
-				}
-			}
+			display: none;
 		}
 		
 		
@@ -784,6 +773,19 @@ ol.breadcrumb {
 	
 	.nav--main-mobile {
 		outline: 1px solid black;
+	}
+	
+	.search-form-mobile {
+		@include header-search-form-mobile( $brand );
+		width: 100%;
+		margin-bottom: 0;
+		border-bottom: none;
+		display: none;
+		&.show {
+			@include media-breakpoint-down($navbar_breakpoint_lower){
+				display: flex;
+			}
+		}
 	}
 	
 }
