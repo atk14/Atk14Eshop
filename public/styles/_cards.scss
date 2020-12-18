@@ -115,11 +115,14 @@ $card-border-style: 1px dashed $border-color;
 			color: $body-color;
 			line-height: 1;
 		}
-		&__icon {
+		& > .card-footer__icon {
 			position: relative;
 			top: -0.2em;
 			color: $brand;
 			align-self: flex-end;
+		}
+		.btn > .card-footer__icon:first-child {
+			margin-right: 0.25em;
 		}
 	}
 	

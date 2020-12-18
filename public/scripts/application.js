@@ -82,8 +82,8 @@
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
 					e.preventDefault();
-					var $form = $( "#js--main_search_field" );
-					$form.toggleClass( "d-flex" );
+					var $form = $( "#js--mobile_search_field" );
+					$form.toggleClass( "show" );
 					if( $form.is( ":visible" ) ) {
 						$form.find( "input[type=text]" ).focus();
 					}

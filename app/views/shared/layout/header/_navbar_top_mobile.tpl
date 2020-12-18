@@ -3,13 +3,6 @@
 {capture assign=menu_collapse}{remove_if_contains_no_text}
 <div class="collapse navbar-collapse" id="navTopMobileNavDropdown">
 
-	{if $show_search_in_hamburger}
-	<form class="form-inline navbar-search" action="{link_to namespace="" action="searches/index"}">
-		<input name="q" type="text" class="form-control form-control-sm navbar-search-input" placeholder="{t}Hledat{/t}">
-		<button type="submit" class="btn btn-sm btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
-	</form>
-	{/if}
-
 	{if $controller=="main" && $action=="index"}
 
 		{* Homepage *}
@@ -60,7 +53,7 @@
 				{"app.name.short"|system_parameter}
 			{/a*}
 			</div>
-			{if !$show_search_in_mobile}
+			{if !$show_search_in_mobile && !$use_large_search_bar}
 			<ul class="navbar-nav">
 				<li class="nav-item"><a href="" class="nav-link js--search-toggle">{!"search"|icon}</a></li>
 			</ul>
@@ -68,7 +61,14 @@
 			{render partial="shared/layout/header/user_menu"}
 			{!$basket_info}
 		</div>
-
+		
+		{if !$use_large_search_bar}
+		<form class="form-inline search-form-mobile {if $show_search_in_mobile} show{/if}" action="{link_to namespace="" action="searches/index"}" id="js--mobile_search_field">
+			<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
+			<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
+		</form>
+		{/if}
+	
 		{!$menu_collapse}
 
 	</div>
