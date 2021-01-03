@@ -9,7 +9,7 @@
 		{*$current_language.name|capitalize*}
 		<span class="caret"></span>
 	</a>
-	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="langswitch_{$uniqid}">
+	<div class="dropdown-menu dropdown-menu-right {$dropdown_class}" aria-labelledby="langswitch_{$uniqid}">
 		{foreach $supported_languages as $l}
 				<a href="{$l.switch_url}" class="dropdown-item">
 					<img src="{$public}/dist/images/languages/{$l.lang}.svg" class="langswitch-flag" alt="{$l.name|capitalize}" width="24" height="15">

@@ -2,7 +2,7 @@
  *	{render partial="shared/layout/header/nav_menu" menu=LinkList::GetInstanceByCode("main_menu")}
  *
  *	{render partial="shared/layout/header/nav_menu" menu="main_menu"}
- *	{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav" enable_dropdown_menus=false}
+ *	{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav" enable_dropdown_menus=false dropdown_class="dropdown-menu--dark bg-dark dropdown-menu--transparent dropdown-highlight-danger"}
  *}
 
 {if !isset($enable_dropdown_menus)}{assign enable_dropdown_menus true}{/if}
@@ -25,7 +25,7 @@
 					{if $submenu}
 						<li class="nav-item dropdown">
 								<a href="{$item->getUrl()}" class="nav-link dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$item->getTitle()}</a>
-								<div class="dropdown-menu">
+								<div class="dropdown-menu {$dropdown_class}">
 									{foreach $submenu->getItems() as $subitem}
 										<a href="{$subitem->getUrl()}" class="dropdown-item">{$subitem->getTitle()}</a>
 									{/foreach}
