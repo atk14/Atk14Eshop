@@ -3,7 +3,11 @@ Navbars
 
 Navbars are based on Bootstrap Navbar component.
 There are two navbars in the site header. On narrow screens there is only one collapsed navbar containing items from both navbars to avoid multiple hamburger menus (try to resize this browser window to see it in action).
-				
+
+For styling dropdowns, see [Dropdowns](../components:dropdowns). In general, background color of dropdowns used in navbars should match background color of the parent navbar (with optional transparency effect).
+
+(Note: some recent changes in header markup not yet shown in this guide.)
+
 ## Top navbar
 
 There are two instances of top navbar in the header - one for desktop view and another one for mobile displays. Most of the markup are shared btween both of them.  Use <code>div.menu-separator</code> to separate navbar elements. Text and border colors is determined by <code>navbar-dark</code> or <code>navbar-light</code> classes of parent navbar component. If different color scheme for collapsing part of navbar is needed, use bg color <code>bg-*</code> utility classes and <code>navbar-dark</code> or <code>navbar-light</code> on <code>.navbar-collapse</code> element.
@@ -28,7 +32,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a href="#" class="dropdown-item">Pro média</a>
 							<a href="#" class="dropdown-item">Kontaktní údaje</a>
 						</div>
@@ -51,7 +55,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
-						<div class="dropdown-menu dropdown-menu-right">
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a class="dropdown-item" href="#"><span class="fas fa-wrench"></span> Administrace</a>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">Profil</a>
@@ -74,7 +78,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 							Česká republika
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu" aria-labelledby="regionswitch_5f6e11f66f1ee">
+						<div class="dropdown-menu dropdown-menu--dark dropdown-menu--transparent bg-dark" aria-labelledby="regionswitch_5f6e11f66f1ee">
 
 							<a data-method="post" class="dropdown-item" rel="nofollow" href="#"> Slovensko
 							</a>
@@ -88,7 +92,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 							<img src="/public//dist/images/languages/cs.svg" class="langswitch-flag" alt="Česky" width="24" height="15">
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="langswitch_5f6e11f66feb5">
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark" aria-labelledby="langswitch_5f6e11f66feb5">
 							<a href="#" class="dropdown-item">
 								<img src="/public//dist/images/languages/en.svg" class="langswitch-flag" alt="English" width="24" height="15">
 								English
@@ -118,7 +122,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 					<li class="nav-item dropdown">
 						<a href="/o-nas/" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu bg-light dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Pro média</a>
 							<a href="#" class="dropdown-item">Kontaktní údaje</a>
 						</div>
@@ -141,7 +145,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
-						<div class="dropdown-menu dropdown-menu-right">
+						<div class="dropdown-menu dropdown-menu-right bg-light dropdown-menu--transparent">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">Profil</a>
@@ -164,7 +168,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 							Česká republika
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu" aria-labelledby="regionswitch_5f6e11f66f1ee">
+						<div class="dropdown-menu bg-light dropdown-menu--transparent" aria-labelledby="regionswitch_5f6e11f66f1ee">
 
 							<a data-method="post" class="dropdown-item" rel="nofollow" href="#"> Slovensko
 							</a>
@@ -178,7 +182,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 							<img src="/public//dist/images/languages/cs.svg" class="langswitch-flag" alt="Česky" width="24" height="15">
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="langswitch_5f6e11f66feb5">
+						<div class="dropdown-menu dropdown-menu-right bg-light dropdown-menu--transparent" aria-labelledby="langswitch_5f6e11f66feb5">
 							<a href="#" class="dropdown-item">
 								<img src="/public//dist/images/languages/en.svg" class="langswitch-flag" alt="English" width="24" height="15">
 								English
@@ -214,7 +218,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="80">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/header-logo--mobile.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -371,7 +375,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop.svg" alt="ATK14 Eshop" width="220" height="80">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/header-logo.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -383,7 +387,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
-						<div class="dropdown-menu dropdown-menu-right">
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">Profil</a>
@@ -526,7 +530,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="80">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/header-logo--mobile.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -783,7 +787,7 @@ Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving differen
 
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu dropdown-menu--dark bg-brand dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Květiny</a>
 							<a href="#" class="dropdown-item">Retro</a>
 							<a href="#" class="dropdown-item">Krabice, krabičky</a>
@@ -829,7 +833,7 @@ Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving differen
 
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu bg-light dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Květiny</a>
 							<a href="#" class="dropdown-item">Retro</a>
 							<a href="#" class="dropdown-item">Krabice, krabičky</a>
