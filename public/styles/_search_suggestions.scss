@@ -5,11 +5,11 @@
 	height: auto;
 	position: absolute;
 	top: 200px;
-	background-color: $gray-100;
+	background-color: white;
 	z-index: 100;
 	overflow-y: auto;
 	display: none;
-	box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 7px 15px 0px rgba(0,0,0,0.6);
 }
 .suggestions {
 	.search-suggestions-list {
@@ -29,7 +29,7 @@
 			
 			&:hover, &:active, &:focus {
 				outline: none;
-				background-color: white;
+				background-color: $gray-100;
 				text-decoration: none;
 				.suggestion__title {
 					text-decoration: underline;
