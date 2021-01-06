@@ -77,7 +77,7 @@
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
-			<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
+			<div class="container-fluid{if $section_navigation} has-nav-section{/if} has-nav-section">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
@@ -86,6 +86,10 @@
 				{if $section_navigation}
 					<nav class="nav-section">
 						{render partial="shared/layout/section_navigation"}
+					</nav>
+				{else}
+					<nav class="nav-section">
+						{render partial="shared/layout/sidebar_nav"}
 					</nav>
 				{/if}
 
