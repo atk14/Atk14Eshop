@@ -14,11 +14,10 @@
 // Applies CSS Grid for layout w/sidebar
 
 .has-nav-section {
-	border: 1px solid red;
 	@include media-breakpoint-up(md){
 		display: grid;
 		padding-left: 0;
-		grid-template-columns: 230px 1fr;
+		grid-template-columns: 230px minmax(0,1fr);
 		grid-template-areas: 'sidebar breadcrumb' 'sidebar mainbody';
 		//grid-gap: $grid-gutter-width/2;
 		
@@ -30,7 +29,6 @@
 			grid-area: sidebar;
 			border-right: 1px solid $gray-300;
 			//padding-right: $grid-gutter-width/2;
-			border: 1px solid blue;
 		}
 		
 		.nav--breadcrumb {
@@ -39,7 +37,6 @@
 		
 		.content-main {
 			grid-area: mainbody;
-			border: 1px solid pink;
 		}
 	}
 	
