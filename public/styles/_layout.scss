@@ -14,7 +14,10 @@
 // Applies CSS Grid for layout w/sidebar
 
 .has-nav-section {
-	@include media-breakpoint-up(md){
+	.nav-section {
+		display: none;
+	}
+	@include media-breakpoint-up(xl){
 		display: grid;
 		padding-left: 0;
 		grid-template-columns: 230px minmax(0,1fr);
@@ -26,6 +29,7 @@
 		}
 		
 		.nav-section {
+			display: block;
 			grid-area: sidebar;
 			//border-right: 1px solid $border-color;
 			//padding-right: $grid-gutter-width/2;
