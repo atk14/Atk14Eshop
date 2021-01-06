@@ -32,7 +32,7 @@
 
 			{else}
 
-				<a href="{$item->getUrl()}" class="nav-link" id="sidebar_menu_item_{$item->getId()}">{$item->getTitle()} <small>{$item->getId()} {$active}</small></a>
+				<a href="{$item->getUrl()}" class="nav-link" id="sidebar_menu_item_{$item->getId()}">{$item->getTitle()}</a>
 
 			{/if}
 
