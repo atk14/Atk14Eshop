@@ -19,7 +19,7 @@
 			
 			{if $submenu}
 
-			<a href="{$item->getUrl()}" class="nav-link{if $active} active{else} collapsed{/if}" id="sidebar_menu_item_{$item->getId()}" data-toggle="collapse" data-target="#sidebar_submenu_{$item->getId()}" aria-expanded="false" aria-controls="sidebar_submenu_{$item->getId()}">{$item->getTitle()}  <small>{$item->getId()} {$active}</small></a>
+			<a href="{$item->getUrl()}" class="nav-link{if $active} active{else} collapsed{/if}" id="sidebar_menu_item_{$item->getId()}" data-toggle="collapse" data-target="#sidebar_submenu_{$item->getId()}" aria-expanded="false" aria-controls="sidebar_submenu_{$item->getId()}">{$item->getTitle()}</a>
 
 			<ul class="nav nav--sidebar__submenu collapse{if $active} show{/if}" id="sidebar_submenu_{$item->getId()}" aria-labelledby="sidebar_menu_item_{$item->getId()}" data-parent="#sidebar_menu">
 				{foreach $submenu->getItems() as $subitem}
