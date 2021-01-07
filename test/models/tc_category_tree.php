@@ -32,6 +32,50 @@ class TcCategoryTree extends TcBase {
 			"catalog/usage/indoor",
 		),$paths);
 
-		// etc.
+		$paths = array_map(function($category){ return $category->getPath(); },$nodes[2]->getChildCategories());
+		$this->assertEquals(array(
+			"catalog/food-drinks/hot-drinks",
+			"catalog/food-drinks/cold-drinks"
+		),$paths);
+
+		$paths = array_map(function($category){ return $category->getPath(); },$nodes[3]->getChildCategories());
+		$this->assertEquals(array(
+			"catalog/shoes/kids",
+			"catalog/shoes/men"
+		),$paths);
+
+		// disaloving filters
+
+		$tree = CategoryTree::GetInstance($root,array("is_filter" => false));
+
+		$nodes = $tree->getChildNodes();
+		$this->assertEquals(2,sizeof($nodes));
+
+		$paths = array_map(function($category){ return $category->getPath(); },$nodes[0]->getChildCategories());
+		$this->assertEquals(array(
+			"catalog/food-drinks/hot-drinks",
+			"catalog/food-drinks/cold-drinks"
+		),$paths);
+
+		$paths = array_map(function($category){ return $category->getPath(); },$nodes[1]->getChildCategories());
+		$this->assertEquals(array(
+			"catalog/shoes/kids",
+			"catalog/shoes/men"
+		),$paths);
+
+		// testing aliases
+
+		$root = $this->categories["kids"];
+
+		$tree = CategoryTree::GetInstance($root);
+
+		$nodes = $tree->getChildNodes();
+		$this->assertEquals(1,sizeof($nodes));
+
+		$paths = array_map(function($category){ return $category->getPath(); },$nodes[0]->getChildCategories());
+		$this->assertEquals(array(
+			"catalog/shoes/kids/girls",
+			"catalog/shoes/kids/boys"
+		),$paths);
 	}
 }
