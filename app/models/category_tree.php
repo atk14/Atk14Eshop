@@ -35,6 +35,7 @@
  */
 
 class CategoryNode implements IteratorAggregate, Countable {
+
 	function __construct($tree, $id) {
 		$this->tree = $tree;
 		$this->id = $id;
@@ -70,6 +71,14 @@ class CategoryNode implements IteratorAggregate, Countable {
 			$out[] = $this->tree->categories[$id['id']];
 		}
 		return $out;
+	}
+
+	function getChildNodes(){
+		$nodes = array();
+		foreach($this as $node){
+			$nodes[] = $node;
+		}
+		return $nodes;
 	}
 
 	function getCardsCount() {
@@ -115,6 +124,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 
 
 class CategoryTree extends CategoryNode {
+
 	/**
 	 * @param mixed integer (id of categories) or Category object or array of such values
 	 * or null (whole tree - maybe 'self' => false option is needed?)
@@ -139,7 +149,11 @@ class CategoryTree extends CategoryNode {
 			}
 			$this->parentIds = $parentIds;
 			parent::__construct( $this, null );
-		}
+	}
+
+	static function GetInstance($parentIds = null, $options = array()){
+		return new CategoryTree($parentIds,$options);
+	}
 
 	function fetch() {
 		if( $this->fetched ) {
