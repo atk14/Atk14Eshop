@@ -25,7 +25,11 @@
 		{render partial="categories"}
 		{render partial="creators"}
 		{if !$card->hasCardSection("tech_spec")}
-			{render partial="technical_specifications"}
+			<section class="section--product-info section--tech_spec">
+				<div class="section__body">
+					{render partial="technical_specifications"}
+				</div>
+			</section>
 		{/if}
 
 		{render partial="shared/attachments" object=$card}

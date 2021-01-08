@@ -36,10 +36,11 @@
 
 class CategoryNode implements IteratorAggregate, Countable {
 
-	function __construct($tree, $id) {
+	function __construct($tree, $id, $parent = null) {
 		$this->tree = $tree;
 		$this->id = $id;
 		$this->fetched = false;
+		$this->parent = $parent;
 	}
 
 	function fetch() {
@@ -103,6 +104,18 @@ class CategoryNode implements IteratorAggregate, Countable {
 		return $this->getChildCategoriesCount();
 	}
 
+	/**
+	 *
+	 *	echo $node->getPath(); // "catalog/food/candies"
+	 */
+	function getPath(){
+		if($this->parent){
+			// this respects symlinks in category tree (aliasing)
+			return strlen($this->parent->getPath()) ? $this->parent->getPath()."/".$this->getCategory()->getSlug() : $this->getCategory()->getPath();
+		}
+		return $this->getCategory()->getPath();
+	}
+
 	function getIterator() {
 		$this->fetch();
 		$out=array();
@@ -110,7 +123,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 		$real_id = $this->id;
 		if(isset($this->tree->childs[$real_id])) {
 			foreach($this->tree->childs[$real_id] as $id) {
-				$out[] = new CategoryNode($this->tree, $id['id'] );
+				$out[] = new CategoryNode($this->tree, $id['id'], $this);
 			};
 		}
 		return new ArrayIterator($out);
