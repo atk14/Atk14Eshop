@@ -15,23 +15,13 @@
 		<li class="nav-item">
 			{if $node->hasChilds()}
 
-				<a href="{link_to action="categories/detail" path=$category->getPath()}" class="nav-link{if $active} active{else} collapsed{/if}" id="sidebar_menu_item_{$node->getId()}" data-toggle="collapse" data-target="#sidebar_submenu_{$node->getId()}" aria-expanded="false" aria-controls="sidebar_submenu_{$node->getId()}">{$category->getName()}</a>
+				<a href="{link_to action="categories/detail" path=$node->getPath()}" class="nav-link{if $active} active{else} collapsed{/if}" id="sidebar_menu_item_{$node->getId()}" data-toggle="collapse" data-target="#sidebar_submenu_{$node->getId()}" aria-expanded="false" aria-controls="sidebar_submenu_{$node->getId()}">{$category->getName()}</a>
 
-				<ul class="nav nav--sidebar__submenu collapse{if $active} show{/if}" id="sidebar_submenu_{$node->getId()}" aria-labelledby="sidebar_menu_item_{$node->getId()}" data-parent="#sidebar_menu">
-					{foreach $node->getChildNodes() as $subnode}
-						{assign subcategory $subnode->getCategory()}
-						{assign active_subitem $current_category && $current_category->isDescendantOf($subcategory)}
+				{render partial="shared/layout/sidebar_nav_submenu" tree=$node active=$active}
 
-						{* TODO: pokud se jedna o aktivni polozku, nastavit $active_subitem na 1*}
-						<li class="nav-item">
-							<a href="{link_to action="categories/detail" path=$subcategory->getPath()}" class="nav-link{if $active_subitem} active{/if}">{$subcategory->getName()}</a>
-						</li>
-					{/foreach}
-				</ul>
-				
 			{else}
 
-				<a href="{link_to action="categories/detail" path=$category->getPath()}" class="nav-link{if $active} active{/if}" id="sidebar_menu_item_{$node->getId()}">{$category->getName()}</a>
+				<a href="{link_to action="categories/detail" path=$node->getPath()}" class="nav-link{if $active} active{/if}" id="sidebar_menu_item_{$node->getId()}">{$category->getName()}</a>
 
 			{/if}
 		</li>
