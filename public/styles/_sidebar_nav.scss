@@ -8,41 +8,27 @@
 	
 	& > .nav-item {
 		border-top: 1px solid $border-color;
+		display: grid;
+		grid-template-rows: auto auto;
+		grid-template-columns: 1fr 2rem;
 		
 		& > a.nav-link {
+			grid-row: 1/2;
+			grid-column: 1/2;
 			color: inherit;
-			padding-right: 2rem;
+			//padding-right: 2rem;
 			position: relative;
+			flex-grow: 2;
 			
-			&[data-toggle="collapse"] {
-				&:after {
-					position: absolute;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					right: 0;
-					top: 0;
-					width: 2rem;
-					height: 100%;
-					font-family: "Font Awesome 5 Free";
-					font-weight: 900; 
-					content: "\f078";
-					line-height: 1;
-					color: $border-color;
-					transform: rotate(0);
-					transition: all 0.25s;
+			&:not(.collapsed) {
+				.expander {
+					transform: rotate(180deg);
+					//border-bottom: 1px solid $border-color;
 				}
-				
-				&:not(.collapsed) {
-					&:after {
-						transform: rotate(180deg);
-					}
-				}
-				
 			}
 			
 			
-			&.active {
+			&.active, {
 				background-color: $activeColor;
 				color: color-yiq($activeColor);
 				&:after {
@@ -56,6 +42,43 @@
 					color: color-yiq($hoverColor);
 				}
 			}
+		}
+	
+		.expander {
+			grid-row: 1/2;
+			grid-column: 2/3;
+			width: 2rem;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			line-height: 1;
+			color: $border-color;
+			cursor: pointer;
+			.fas, .far {
+				transform: rotate(0);
+				transition: all 0.25s;
+			}
+			//border-left: 1px solid $border-color;
+			&:hover {
+				background-color: $hoverColor;
+				color: color-yiq($hoverColor);
+			}
+			&:not(.collapsed) {
+				.fas, .far {
+					transform: rotate(180deg);
+				}
+			}
+		}
+		a.nav-link.active ~ .expander {
+			background-color: $activeColor;
+			color: color-yiq($activeColor);
+		}
+		
+		.submenu {
+			grid-row: 2/3;
+			grid-column: 1/3;
+			
 		}
 	}
 	
