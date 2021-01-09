@@ -23,3 +23,7 @@ book:
   name_en: "The Book"
   name_cs: "Ta kniha"
   product_type_id: "<?= $product_types["book"]->getId() ?>"
+
+shoe:
+  name_en: "Shoe"
+  name_cs: "Bota"

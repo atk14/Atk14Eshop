@@ -61,15 +61,20 @@ class CategoryNode implements IteratorAggregate, Countable {
 		return $this->tree->categories[$this->id];
 	}
 
+	function hasChildCategories() {
+		$this->fetch();
+		return isset($this->tree->childs[$this->id]) && $this->tree->childs[$this->id];
+	}
 	function getChildCategories() {
 		$this->fetch();
 		$out=array();
-		if(!isset($this->tree->childs[$this->id])) {
+		$real_id = $this->data['real_id'];
+		if(!isset($this->tree->childs[$real_id])) {
 			return $out;
 		}
 
-		foreach($this->tree->childs[$this->id] as $id) {
-			$out[] = $this->tree->categories[$id['id']];
+		foreach($this->tree->childs[$real_id] as $id) {
+			$out[] = $this->tree->categories[$id['real_id']];
 		}
 		return $out;
 	}
@@ -88,7 +93,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 	}
 
 	function hasChilds() {
-		return $this->getChildCategoriesCount();
+		return (bool) $this->getChildCategoriesCount();
 	}
 
 	function getChildCategoriesCount() {
@@ -110,8 +115,9 @@ class CategoryNode implements IteratorAggregate, Countable {
 	 */
 	function getPath(){
 		if($this->parent){
+			$path = $this->parent->getPath();
 			// this respects symlinks in category tree (aliasing)
-			return strlen($this->parent->getPath()) ? $this->parent->getPath()."/".$this->getCategory()->getSlug() : $this->getCategory()->getPath();
+			return strlen($path) ? $path."/".$this->getCategory()->getSlug() : $this->getCategory()->getPath();
 		}
 		return $this->getCategory()->getPath();
 	}
@@ -132,6 +138,10 @@ class CategoryNode implements IteratorAggregate, Countable {
 	function getId() {
 		$this->fetch();
 		return $this->id;
+	}
+
+	function getSlug() {
+		return $this->getCategory()->getSlug();
 	}
 }
 
@@ -156,12 +166,12 @@ class CategoryTree extends CategoryNode {
 				'order_by' => 'rank, id',
 				'lazy' => true
 			];
+			parent::__construct($this, null, null );
 			$this->options = $options;
+			$this->parentIds = $parentIds;
 			if(!$this->options['lazy']) {
 				$this->fetch();
 			}
-			$this->parentIds = $parentIds;
-			parent::__construct( $this, null );
 	}
 
 	static function GetInstance($parentIds = null, $options = array()){
@@ -183,9 +193,11 @@ class CategoryTree extends CategoryNode {
 		$ids = array();
 		$out = array();
 
+
 		foreach($data as $row) {
 			$childs[$row['parent_category_id']][] = $row;
-			$ids[] = $row['id'];
+			$ids[$row['id']] = $row['id'];
+			$ids[$row['real_id']] = $row['real_id'];
 			$out[$row['id']] = $row;
 		}
 		foreach($childs as $k => $v) {
@@ -207,5 +219,10 @@ class CategoryTree extends CategoryNode {
 		}
 
 		parent::fetch();
+	}
+
+	function getPath() {
+			$this->fetch();
+			return $this->id ? $this->getCategory()->getPath() : null;
 	}
 }

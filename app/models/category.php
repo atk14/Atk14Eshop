@@ -589,6 +589,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	 * >>   ['id' => child_id, 'cards_count' => 20 ], .... ]
 	 */
 	static function GetSubtreeOfSql($ids, $options = []) {
+
 		$options += [
 			'self' => true,            //input categories will be in ouput (#TODO: incompatibile with direct_children_only)
 															   //'force' mean include me even if dont satisfy other requirements (e.g. visible, filter)
@@ -603,17 +604,24 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			'order_by' => 'rank ASC, id',    //order of returned categories
 			'direct_children_only' => false, //do not returns subsubcategories nor me, same as 'self'=false and 'level'=1
 
-			'has_cards' => false,		//do not return categories, that are empty (no cards in subtree) -- possible value 'any' means has a card with default filter
+			'has_cards' => false,		//true: do not return categories, that are empty (no cards in subtree) -- possible value 'any' means has a card with default filter, even if cards_filter is set
 			'cards_filter' => null, //filter for cards, affecting 'has_cards' and 'return_cards_count'
 
 			'return_id' => true,			//returns id in result
+			'no_aliases' => false,                 //nelezt do aliasu	
 			'return_cards_count' => false,	//returns count of cards in given subtree for each category
 			'return_parent_id' => false,			//returns parent_id for each card in result
 			'return_real_id' => false,			//returns real_id COALESCE(pointing_to_category_id or id) for each card
 			'return_level' => false, 	//returns level (from input category) in result. Require level set to avoid infinite loop
+			'return_original_id' => false, //returns join $ids => $child_category
+		                                       //only valid for simple recursive query
+
+			'conditions' => [],
+			'bind_ar' => [],
 		];
 
 		$cards = $options['return_cards_count'] || $options['has_cards'];
+
 
 		if($options['direct_children_only'] && $cards) {
 			$options['direct_children_only'] = false;
@@ -626,21 +634,24 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		$options['dealiased_input'] = !$options['follow_symlinks'] || $options['dealiased_input'];
 
 		/** Nastaveni podminek where **/
-		$filter = '';
+		$filter = $options['conditions'];
+		if(is_array($filter)) {
+			$filter = implode(' AND ', $filter);
+		}
+		if($filter) {
+			$filter = " AND $filter";
+		}
+		$bind = $options['bind_ar'];
+
+		
 		if(is_bool($options['is_filter'])) {
-			$filter .= $options['is_filter']?"AND is_filter='t'":"AND is_filter='f'";
+			$filter .= $options['is_filter']?" AND is_filter":" AND NOT is_filter";
 		}
 		if(is_bool($options['visible'])) {
-			$filter .= $options['visible']?"AND visible='t'":"AND visible='f'";
+			$filter .= $options['visible']?" AND visible":" AND NOT visible";
 		}
-		if($options['visible_to_user']!==false) {
-			$vtu = "'all'";
-			if($options['visible_to_user']) {
-				$vtu.= $options['visible_to_user']->isB2B()?",'b2b'":",'b2c'";
-			} else {
-				$vtu.= ",'b2c'";
-			}
-			$filter .= "AND visible_to_users IN ($vtu)";
+		if($options['no_aliases']) {
+			$filter .= ' AND pointing_to_category_id IS NULL';
 		}
 
 		$bind = [];
@@ -651,6 +662,11 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			$operator = 'IN :categories';
 		} elseif($ids === null) {
 			$operator = 'IS NULL';
+			$options['self'] = false;
+		} elseif($ids === false) {
+			$operator = false;
+		} elseif(is_string($ids)) {
+			$operator = $ids;
 		} else {
 			$operator = '= :categories';
 			$bind[':categories'] = $ids;
@@ -658,11 +674,16 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		if($options['return_real_id']) {
 			$options['dealias'] = false;
 		}
-		if($options['direct_children_only']) {
+
+		if($options['direct_children_only'] or $operator === false) {
 			$fields = '';
 			/** Budto chci jen podrizene, pak je to ciste jednoduchy sql dotaz **/
 			$join_field = 'id';
-			$condition = $options['dealiased_input']?"parent_category_id $operator":"parent_category_id IN (SELECT COALESCE(pointing_to_category_id,id) FROM categories WHERE id $operator)";
+			if($operator !== false) {
+				$condition = $options['dealiased_input']?"parent_category_id $operator":"parent_category_id IN (SELECT COALESCE(pointing_to_category_id,id) FROM categories WHERE id $operator)";
+			} else {
+				$condition ='1=1 ';
+			}
 			if( $options['return_id']) {
 				$fields = $options['dealias'] ? ',COALESCE(pointing_to_category_id,id) as id':',id';
 			}
@@ -683,19 +704,20 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		} else {
 
 			/** Anebo chci cely podstrom **/
-			$fields = [];
-			$gfields = [];
 			if($options['return_id']) {
 				$fields['id'] = $options['dealias'] ? 'real_id':'id';
 			}
 
 			if($options['return_parent_id'] || $cards) {
 				if($options['return_parent_id']) {
-					$fields['parent_category_id'] ='parent_category_id';
+					$fields['parent_category_id']='parent_category_id';
 				}
 				$parent_name = ", parent_category_id";
 				$parent_start = " ,NULL::int";
-				$parent = ", tree.id as parent_category_id";
+				$parent = $options['dealias'] ?
+						" ,tree.real_id as parent_category_id" :
+						" ,tree.id as parent_category_id" ;
+					;
 				$preorder = "parent_category_id,";
 			} else {
 				$parent_name = $parent_start = $parent = '';
@@ -703,11 +725,20 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			}
 
 			$real_id = 'COALESCE(pointing_to_category_id,c.id)';
+			$id = $options['dealias'] ? $real_id  : 'c.id';
 			$link_id = $options['follow_symlinks']?'real_id':'id';
-			if($options['self'] || !$options['dealiased_input']) {
-				$start_field = 'id';
+			$start_field = $options['self']?'id':'parent_category_id';
+
+
+			if($options['return_original_id']) {
+				$original_start = ", $start_field";
+				$original_field = ", original_id";
+				$original_name = ", original_id";
+				$fields['original_id']= "original_id";
 			} else {
-				$start_field='parent_category_id';
+				$original_start = '';
+				$original_field = '';
+				$original_name = '';
 			}
 
 			if($options['self'] == 'force') {
@@ -727,21 +758,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 			if($options['level']) {
 					$lfilter = "level <= :level";
+					$bind[':level'] = $options['level'];
 					if($options['min_level']) {
 						$bind[':min_level'] = $options['min_level'];
 						$lfilter .= ' AND level >= :min_level';
 					}
-					if($cards) {
-						#kdyz selektuji dle produktu, tak musim nejprve najit vsechny kategorie, ziskat z nich pocty
-						#predmetu a pak teprve to oriznout
-						$where_result .= " AND $lfilter ";
-						$bind[':level'] = $options['level'];
-					} else {
-						$filter .= " AND ($lfilter)";
-						#tady se filtruje dle levelu rodice, takze je potreba level snizit - zatimco v druhe vetvi ifu
-						#se filtruje dle levelu me, takze se nesnizuje
-						$bind[':level'] = $options['level'] - 1;
-					}
+					$where_result = "WHERE $lfilter ";
 					$preorder="level, $preorder";
 					$level_name = ', level';
 					$level_name_tree = ', tree.level';
@@ -754,12 +776,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					#Kdyz nefiltruju dle levelu, tak tam level nesmi byt! Jinak může dojít k zacykleni (takhle ho řeší UNION BEZ ALL)
 					$level_name = $level_name_tree = $level_start = $level = '';
 					$preorder = '';
+					$where_result = '';
 			}
 
 			if($where_result) {
 				$where_result = "WHERE ".substr($where_result, 4);
 			}
-
 			$cards = $options['has_cards'] || $options['return_cards_count'];
 
 			$fields_select = '';
@@ -777,22 +799,22 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			}
 
 			//Tendle kus proleze vsechny podrizene kategorie.
-			$sql = "WITH RECURSIVE tree(id, real_id $parent_name $level_name, rank) AS (
-						SELECT id, $real_id $parent_start $level_start, rank FROM
+			$sql = "WITH RECURSIVE tree(id, real_id $parent_name $original_name $level_name, rank) AS (
+						SELECT $id, $real_id $parent_start $original_start $level_start, rank FROM
 								categories c WHERE $start_field $operator
 								$startfilter
 					UNION
-						SELECT c.id, $real_id $parent $level, c.rank FROM categories c
+						SELECT $id, $real_id $parent $original_field $level, c.rank FROM categories c
 						JOIN tree ON (c.parent_category_id = tree.$link_id)
 					WHERE 1=1
 						$filter
 				)";
 			if($cards) {
 				//Kdyz chci jen s kartama, tak musim
-				// - ziskat seznamy caret v kazde kategorii
-				// - a vygenerovat seznam kategorie - id všech podrizených kategorií (members)
-				// (tedy zatímco v tree je jen relace otec - syn, v members je i otec - prapravnuk)
-				// - a poscitat to: to musim az tady, protoze duplicity karet v kategoriich
+				// - vygenerovat seznam kategorie - id všech podrizených kategorií (members)
+				// - zjistit, kde jsou karty
+				// - a pak to pro kazdou kategorii zvlast (duplicity!) poscitat/nebo to dle te
+				//    tabulky vyfiltrovat
 
 				// Seznam vsech relati predek - potomek (explicitne vyjadrena tranzitivita)
 				// Lezu od vsech uzlu stromu zpet nahoru
@@ -803,37 +825,35 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					ON (members.parent_id = tree.id) WHERE tree.parent_category_id IS NOT NULL
 				)";
 
-				// Karty v kategoriich
-				$fce = function($table, $cards_filter = null) use (&$bind) {
+			// Karty v kategoriich
+			$cards_filter = $options['cards_filter'] ;
+			$fce = function($table, &$cards_filter=null) use (&$bind) {
 					$cards_filter = $cards_filter ?: new FilterForCards(['add_sections' => false]);
-					$cards_filter = $cards_filter->result();
-					$cards_filter->join.= ' JOIN category_cards ccc ON (cards.id = ccc.card_id)';
-					$subquery = $cards_filter->select("ccc.category_id as cat_id, cards.id as card_id", ['add_options' => false]);
-					$bind+=$cards_filter->bind;
+					$result = $cards_filter->result();
+					$result->join.= ' JOIN category_cards ccc ON (cards.id = ccc.card_id)';
+					$subquery = $result->select("ccc.category_id as cat_id, cards.id as card_id", ['add_options' => false]);
+					$bind+=$result->bind;
 					return ", $table as (\n $subquery \n )";
 				};
-				$with .= $fce('catcards', $options['cards_filter']);
+				$with .= $fce('catcards', $cards_filter);
 
 				$subtable = " members ";
-				$isFiltered = $options['cards_filter'] && $options['cards_filter']->getParams();
-
-				if((!$isFiltered || !$options['return_cards_count']) && $options['has_cards'] === 'any') {
-					$options['has_cards'] = true;
-				}
-
-				if($options['has_cards'] === 'any') {
-					$with .= $fce('catcards2');
-					$subtable .= "INNER JOIN catcards2 ON (members.child_id = catcards2.cat_id)";
+				if($options['has_cards'] === 'any' && $cards_filter->isFiltered() && $options['return_cards_count']) {
+						//Cards count are by different filter than listed categories
+						$with .= $fce('catcards2');
+						$subtable .= "INNER JOIN catcards2 ON (members.child_id = catcards2.cat_id)";
+				} else {
+						$options['has_cards'] = (bool) $options['has_cards'];
 				}
 				$cjoin = $options['has_cards'] === true ? 'INNER' : 'LEFT';
 				$subtable .= " $cjoin JOIN catcards ON (members.child_id = catcards.cat_id)";
 
 				if($options['return_cards_count']) {
+					// - a poscitat to: to musim az tady, protoze duplicity karet v kategoriich
 					$fields_select.=", COALESCE(COUNT(DISTINCT catcards.card_id),0) as cards_count";
-					#$fields_select.=",card_id";
 					$sql= "$with \nSELECT $fields_select FROM tree
 												JOIN ($subtable)
-												ON (members.parent_id = tree.id)
+												ON (members.parent_id = tree.real_id)
 												$where_result
 												GROUP BY members.parent_id, $fields_group
 												$order";
@@ -846,7 +866,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					}
 					$sql= "$with \nSELECT $fields_select FROM tree \n $where_result \n $order";
 				}
-			} else {
+		} else {
 				//Jinak staci selectit jen z tree, ale musi tu byt distinct kvuli level fieldu
 				if($order) {
 					$sql .=  "\n SELECT DISTINCT ON($fields_group) $fields_select from tree $where_result $order";

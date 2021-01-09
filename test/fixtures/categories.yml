@@ -63,7 +63,15 @@ cold_drinks:
   parent_category_id: 1008
   name_en: Cold drinks
 
+other_drinks:
+  id: 1020
+  parent_category_id: 1008
+  name_en: Other drinks
 
+coffeine_drinks:
+  id: 1021
+  parent_category_id: 1008
+  name_en: Coffeine drinks
 
 
 shoes:

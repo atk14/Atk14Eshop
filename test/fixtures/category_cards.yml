@@ -1,11 +1,23 @@
 tea__color_green:
-  category_id: "<?php echo $categories["color_green"]->getId() ?>"
-  card_id: "<?php echo $cards["tea"]->getId() ?>"
+  category_id: "<?= $categories["color_green"]->getId() ?>"
+  card_id: "<?= $cards["tea"]->getId() ?>"
 
 tea__food_drinks:
-   category_id: "<?php echo $categories["food_drinks"]->getId() ?>"
-   card_id: "<?php echo $cards["tea"]->getId() ?>"
+   category_id: "<?= $categories["food_drinks"]->getId() ?>"
+   card_id: "<?= $cards["tea"]->getId() ?>"
 
 tea__hot_drinks:
-   category_id: "<?php echo $categories["hot_drinks"]->getId() ?>"
-   card_id: "<?php echo $cards["tea"]->getId() ?>"
+   category_id: "<?= $categories["hot_drinks"]->getId() ?>" 
+   card_id: "<?= $cards["tea"]->getId() ?>" 
+
+tea_coffeine__drinks:
+   category_id: "<?= $categories["coffeine_drinks"]->getId() ?>" 
+   card_id: "<?= $cards["tea"]->getId() ?>" 
+
+cider__cold_drinks:
+   category_id: "<?= $categories["cold_drinks"]->getId() ?>" 
+   card_id: "<?= $cards["apple_cider"]->getId() ?>" 
+
+shoe__mens_shoes:
+   category_id: "<?= $categories["mens_shoes"]->getId() ?>" 
+   card_id: "<?= $cards["shoe"]->getId() ?>" 
