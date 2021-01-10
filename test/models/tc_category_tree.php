@@ -72,16 +72,18 @@ class TcCategoryTree extends TcBase {
 
 		$root = $this->categories["kids"];
 
-		$tree = CategoryTree::GetInstance($root);
+		foreach([0,1] as $dealias) {
+			$tree = CategoryTree::GetInstance($root, ['dealias' => $dealias]);
 
-		$nodes = $tree->getChildNodes();
-		$this->assertEquals(1,sizeof($nodes));
+			$nodes = $tree->getChildNodes();
+			$this->assertEquals(1,sizeof($nodes));
 
-		$paths = array_map(function($node){ return $node->getPath(); },$nodes[0]->getChildNodes());
-		$this->assertEquals(array(
-			"kids/shoes/girls",
-			"kids/shoes/boys"
-		),$paths);
+			$paths = array_map(function($node){ return $node->getPath(); },$nodes[0]->getChildNodes());
+			$this->assertEquals(array(
+				"kids/shoes/girls",
+				"kids/shoes/boys",
+			),$paths);
+		}
 
 		$tree = CategoryTree::GetInstance(null, ["order_by" => "(SELECT code FROM categories WHERE id = tree.id)"]);
 		$out=[];
@@ -175,7 +177,8 @@ class TcCategoryTree extends TcBase {
 		$this->assertEquals(2, $tree->getChildCategoriesCount());
 		$this->assertEquals(1, $tree->getCardsCount());
 
-		$cat = Category::CreateNewRecord(['parent_category_id' => $this->categories['other_drinks'], 'pointing_to_category_id' => $this->categories['mens_shoes']]);
+		$cat = Category::CreateNewRecord(['parent_category_id' => $this->categories['other_drinks'], 'pointing_to_category_id' => $this->categories['mens_shoes'], 'name_en' => 
+		'eatable_shoes']);
 		$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => true, 'no_aliases' => true]);
 		foreach($tree as $t) {
 			$this->assertEquals(
@@ -206,6 +209,54 @@ class TcCategoryTree extends TcBase {
 				}
 			}
 		}
-	}
 
+		$this->categories['kids_shoes__boys']->addCard($this->cards['shoe']);
+		$this->callForData(
+			['has_cards' => [0,1],
+			'dealiased_input' => [0,1]],
+			function($opts) {
+				$tree = CategoryTree::GetInstance([$this->categories['catalog']],['level' => 2, 'self' => true]+$opts);
+				$this->assertNull($node=$tree->getNodeByPath('catalog/food-drinks/other-drinks-not-exists'));
+				$this->assertNull($node=$tree->getNodeByPath('catalog-not-exists'));
+				$this->assertNotNull($node=$tree->getNodeByPath('catalog/food-drinks/other-drinks'));
+				$this->assertEquals($node->getSlug(), 'other-drinks');
+				$this->assertFalse($node->hasChilds());
+
+				$tree = CategoryTree::GetInstance([$this->categories['catalog']],['level' => 2, 'self' => false]+$opts);
+				$this->assertNull($node=$tree->getNodeByPath('food-drinks/other-drinks-not-exists'));
+				$this->assertNull($node=$tree->getNodeByPath('catalog-not-exists'));
+				$this->assertNotNull($node=$tree->getNodeByPath('food-drinks/other-drinks'));
+				$this->assertEquals($node->getSlug(), 'other-drinks');
+				$this->assertFalse($node->hasChilds());
+
+				$this->callForData(
+					['self' => [ false, true]], function($opts) {
+						$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 2]+$opts);
+						$this->assertNull($node=$tree->getNodeByPath('food-drinks/other-drinks-not-exists'));
+						$this->assertNull($node=$tree->getNodeByPath('catalog-not-exists'));
+						$this->assertNotNull($node=$tree->getNodeByPath('food-drinks/other-drinks'));
+						$this->assertEquals($node->getSlug(), 'other-drinks');
+						$this->assertFalse($node->hasChilds());
+
+						$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 2, 'min_level' => 2] + $opts);
+						$this->assertNotNull($node=$tree->getNodeByPath('other-drinks'));
+						$this->assertFalse($node->hasChilds());
+				}, $opts);
+
+				$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 4, 'return_level'=>1,'self' => false] + $opts);
+				$this->assertNotNull($node=$tree->getNodeByPath('food-drinks/other-drinks/eatable-shoes/kids'));
+				$this->assertFalse($node->hasChilds());
+			}
+		);
+		$this->callForData(
+			['direct_children_only' => [0,1],
+			 'has_cards' => [0,1]],
+			function($opts) {
+			  $opts += ['dealiased_input' => false, 'self' => false];
+				#test for aliased categories to be properly readed (and dealiased) even if self=false
+				$tree=CategoryTree::GetInstance($this->categories['kids__kids_shoes'], $opts);
+				$this->assertTrue($tree->hasChildCategories());
+			}
+		);
+	}
 }

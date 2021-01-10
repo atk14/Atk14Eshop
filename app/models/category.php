@@ -643,7 +643,6 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		}
 		$bind = $options['bind_ar'];
 
-		
 		if(is_bool($options['is_filter'])) {
 			$filter .= $options['is_filter']?" AND is_filter":" AND NOT is_filter";
 		}
@@ -662,6 +661,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			$operator = 'IN :categories';
 		} elseif($ids === null) {
 			$operator = 'IS NULL';
+			$options['dealiased_input'] = true;
 			$options['self'] = false;
 		} elseif($ids === false) {
 			$operator = false;
@@ -727,7 +727,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			$real_id = 'COALESCE(pointing_to_category_id,c.id)';
 			$id = $options['dealias'] ? $real_id  : 'c.id';
 			$link_id = $options['follow_symlinks']?'real_id':'id';
-			$start_field = $options['self']?'id':'parent_category_id';
+			$start_field = ($options['self'] || !$options['dealiased_input'])?'id':'parent_category_id';
 
 
 			if($options['return_original_id']) {
@@ -757,17 +757,21 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			}
 
 			if($options['level']) {
-					$lfilter = "level <= :level";
+					if($cards) {
+						$where_result .= " AND level <= :level";
+					} else {
+						#level is the parent's level
+						$filter = " AND level <= :level-1";
+					}
 					$bind[':level'] = $options['level'];
 					if($options['min_level']) {
 						$bind[':min_level'] = $options['min_level'];
-						$lfilter .= ' AND level >= :min_level';
+						$where_result .= ' AND level >= :min_level';
 					}
-					$where_result = "WHERE $lfilter ";
 					$preorder="level, $preorder";
 					$level_name = ', level';
 					$level_name_tree = ', tree.level';
-					$level_start = ($options['self'] || !$options['dealiased_input'])?',0 ':',1 ';
+					$level_start = ($options['self'] || !$options['dealiased_input']) ?',0 ':',1 ';
 					$level = ',tree.level + 1';
 					if($options['return_level']) {
 						$fields['level'] = 'level';
@@ -776,12 +780,8 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					#Kdyz nefiltruju dle levelu, tak tam level nesmi byt! Jinak může dojít k zacykleni (takhle ho řeší UNION BEZ ALL)
 					$level_name = $level_name_tree = $level_start = $level = '';
 					$preorder = '';
-					$where_result = '';
 			}
 
-			if($where_result) {
-				$where_result = "WHERE ".substr($where_result, 4);
-			}
 			$cards = $options['has_cards'] || $options['return_cards_count'];
 
 			$fields_select = '';
@@ -800,14 +800,14 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 			//Tendle kus proleze vsechny podrizene kategorie.
 			$sql = "WITH RECURSIVE tree(id, real_id $parent_name $original_name $level_name, rank) AS (
-						SELECT $id, $real_id $parent_start $original_start $level_start, rank FROM
+				  SELECT $id, $real_id $parent_start $original_start $level_start, rank FROM
 								categories c WHERE $start_field $operator
 								$startfilter
 					UNION
-						SELECT $id, $real_id $parent $original_field $level, c.rank FROM categories c
-						JOIN tree ON (c.parent_category_id = tree.$link_id)
-					WHERE 1=1
-						$filter
+							SELECT $id, $real_id $parent $original_field $level, c.rank FROM categories c
+							JOIN tree ON (c.parent_category_id = tree.$link_id)
+						  WHERE TRUE
+						  $filter
 				)";
 			if($cards) {
 				//Kdyz chci jen s kartama, tak musim
@@ -828,7 +828,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			// Karty v kategoriich
 			$cards_filter = $options['cards_filter'] ;
 			$fce = function($table, &$cards_filter=null) use (&$bind) {
-					$cards_filter = $cards_filter ?: new FilterForCards(['add_sections' => false]);
+					$cards_filter = $cards_filter ?: new FilterForCards(User::GetAnonymousUser(), ['add_sections' => false, 'materialize_empty' => false, 'materialize_result' => false]);
 					$result = $cards_filter->result();
 					$result->join.= ' JOIN category_cards ccc ON (cards.id = ccc.card_id)';
 					$subquery = $result->select("ccc.category_id as cat_id, cards.id as card_id", ['add_options' => false]);
@@ -854,27 +854,24 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					$sql= "$with \nSELECT $fields_select FROM tree
 												JOIN ($subtable)
 												ON (members.parent_id = tree.real_id)
+												WHERE TRUE
 												$where_result
 												GROUP BY members.parent_id, $fields_group
 												$order";
 				} else {
-					$cond = "tree.id IN (\n SELECT parent_id FROM $subtable )";
-					if($where_result) {
-						$where_result.=" AND $cond";
-					} else {
-						$where_result = " WHERE $cond";
-					}
-					$sql= "$with \nSELECT $fields_select FROM tree \n $where_result \n $order";
+					$cond = "AND tree.id IN (\n SELECT parent_id FROM $subtable )";
+					$sql= "$with \nSELECT $fields_select FROM tree \n WHERE TRUE $where_result $cond \n $order";
 				}
 		} else {
 				//Jinak staci selectit jen z tree, ale musi tu byt distinct kvuli level fieldu
 				if($order) {
-					$sql .=  "\n SELECT DISTINCT ON($fields_group) $fields_select from tree $where_result $order";
+					$sql .=  "\n SELECT DISTINCT ON($fields_group) $fields_select from tree WHERE TRUE $where_result $order";
 				} else {
-					$sql .=  "\n SELECT DISTINCT $fields_select from tree $where_result $order";
+					$sql .=  "\n SELECT DISTINCT $fields_select from tree WHERE TRUE $where_result $order";
 				}
 			}
 		}
+		#echo $sql,"\n\n\n";
 		return array($sql, $bind);
 	}
 

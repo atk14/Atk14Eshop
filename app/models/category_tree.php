@@ -41,6 +41,10 @@ class CategoryNode implements IteratorAggregate, Countable {
 		$this->id = $id;
 		$this->fetched = false;
 		$this->parent = $parent;
+		$this->iterator = null;
+		if($this->parent) {
+			$this->level = $this->parent->level + 1;
+		}
 	}
 
 	function fetch() {
@@ -62,8 +66,12 @@ class CategoryNode implements IteratorAggregate, Countable {
 	}
 
 	function hasChildCategories() {
+		if(!$this->tree->_canDescendFromLevel($this->level)) {
+			return false;
+		}
 		$this->fetch();
-		return isset($this->tree->childs[$this->id]) && $this->tree->childs[$this->id];
+		$real_id = $this->data['real_id'];
+		return isset($this->tree->childs[$real_id]) && $this->tree->childs[$real_id];
 	}
 	function getChildCategories() {
 		$this->fetch();
@@ -97,6 +105,9 @@ class CategoryNode implements IteratorAggregate, Countable {
 	}
 
 	function getChildCategoriesCount() {
+		if(!$this->tree->_canDescendFromLevel($this->level)) {
+			return 0;
+		};
 		$this->fetch();
 		$real_id = $this->data['real_id'];
 		if(!isset($this->tree->childs[$real_id])) {
@@ -123,16 +134,30 @@ class CategoryNode implements IteratorAggregate, Countable {
 	}
 
 	function getIterator() {
-		$this->fetch();
-		$out=array();
-		#child kategorie nemusi byt
-		$real_id = $this->id;
-		if(isset($this->tree->childs[$real_id])) {
-			foreach($this->tree->childs[$real_id] as $id) {
-				$out[] = new CategoryNode($this->tree, $id['id'], $this);
-			};
+		if(!$this->iterator) {
+			$this->fetch();
+			$out=array();
+			#child kategorie nemusi byt
+			$real_id = $this->id;
+
+			if(isset($this->tree->childs[$real_id]) && $this->tree->_canDescendFromLevel($this->level)) {
+				foreach($this->tree->childs[$real_id] as $id) {
+					$out[] = new CategoryNode($this->tree, $id['id'], $this);
+				};
+			}
+			$this->iterator = new ArrayIterator($out);
 		}
-		return new ArrayIterator($out);
+		return $this->iterator;
+	}
+
+	function printSlugTree($prefix='') {
+		if($this->id!=null) {
+			echo $prefix, $this->getSlug(), " ({$this->id})\n";
+			$prefix.='  ';
+		}
+		foreach($this as $n) {
+			$n->printSlugTree($prefix);
+		}
 	}
 
 	function getId() {
@@ -142,6 +167,30 @@ class CategoryNode implements IteratorAggregate, Countable {
 
 	function getSlug() {
 		return $this->getCategory()->getSlug();
+	}
+
+	function getNodeByPath($path) {
+		if(!is_array($path)) {
+			$path = explode('/', $path);
+		}
+		$path=array_reverse($path);
+		$n = $this;
+		while($path) {
+			$p = array_pop($path);
+			foreach($n as $nn) {
+				if($nn->getSlug() === $p) {
+					$n=$nn;
+					continue 2;
+				}
+			}
+			return null;
+		};
+		return $n;
+	}
+
+	function _getNodeByPath(&$path) {
+		if(!$path) { return $this; };
+				return null;
 	}
 }
 
@@ -164,7 +213,10 @@ class CategoryTree extends CategoryNode {
 			$options+=[
 				'direct_children_only' => false,
 				'order_by' => 'rank, id',
-				'lazy' => true
+				'lazy' => true,
+
+				'min_level' => null,
+				'self' => true
 			];
 			parent::__construct($this, null, null );
 			$this->options = $options;
@@ -172,6 +224,7 @@ class CategoryTree extends CategoryNode {
 			if(!$this->options['lazy']) {
 				$this->fetch();
 			}
+			$this->level=0;
 	}
 
 	static function GetInstance($parentIds = null, $options = array()){
@@ -193,7 +246,6 @@ class CategoryTree extends CategoryNode {
 		$ids = array();
 		$out = array();
 
-
 		foreach($data as $row) {
 			$childs[$row['parent_category_id']][] = $row;
 			$ids[$row['id']] = $row['id'];
@@ -210,12 +262,22 @@ class CategoryTree extends CategoryNode {
 		$this->childs = $childs;
 		$this->result = $out;
 
-		if(is_array($this->parentIds)) {
-			$this->id = null;
-		} elseif(is_object($this->parentIds)) {
-			$this->id = $this->parentIds->getId();
+		if(is_array($this->parentIds) || $this->options['min_level'] || !$this->options['self']
+		  ) {
+				$this->id = null;
+				if($this->options['min_level']) {
+					$this->level = $this->options['min_level'] - 1;
+				} else {
+					$this->level =
+						is_array($this->parentIds) && $this->options['self'] ? -1 : 0;
+				}
 		} else {
-			$this->id = $this->parentIds;
+			if(is_object($this->parentIds)) {
+				$this->id = $this->parentIds->getId();
+			} else {
+				$this->id = $this->parentIds;
+			}
+			$this->level = 0;
 		}
 
 		parent::fetch();
@@ -224,5 +286,12 @@ class CategoryTree extends CategoryNode {
 	function getPath() {
 			$this->fetch();
 			return $this->id ? $this->getCategory()->getPath() : null;
+	}
+
+	function _canDescendFromLevel($level) {
+		if(!isset($this->options['level'])) {
+			return true;
+		}
+		return $level < $this->options['level'];
 	}
 }

@@ -15,4 +15,19 @@ class TcBase extends TcAtk14Model{
 	function tearDown(){
 		$this->dbmole->rollback();
 	}
+
+	function callForData($data, $function, $arguments = []) {
+		end($data);
+		$name = key($data);
+		$vals = array_pop($data);
+		if($data) {
+			foreach($vals as $v) {
+				$this->callForData($data, $function, $arguments + [ $name => $v ]);
+			}
+		}	else {
+			foreach($vals as $v) {
+				$function($arguments + [$name => $v]);
+			}
+		}
+	}
 }
