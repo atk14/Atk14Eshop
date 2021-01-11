@@ -213,8 +213,28 @@ class TcCategoryTree extends TcBase {
 		$this->categories['kids_shoes__boys']->addCard($this->cards['shoe']);
 		$this->callForData(
 			['has_cards' => [0,1],
-			'dealiased_input' => [0,1]],
+			 'dealiased_input' => [0,1],
+			 'dealias' => [0,1]
+			],
 			function($opts) {
+				if(!$opts['dealiased_input']) {
+					$this->callForData(
+						['level' => [null, 3],
+						 'return_cards_count' => [0,1]
+						],
+						function($opts) {
+							$hcds= $opts['return_cards_count'];
+							$tree = CategoryTree::GetInstance([$this->categories['other_drinks']], ['level' => 3, 'self' => true ]+$opts);
+							$this->assertEquals(1,$tree->getChildCategoriesCount());
+							$this->assertNotNull($node=$tree->getNodeByPath('other-drinks'));
+							$hcds && $this->assertEquals(1, $node->getCardsCount());
+							$this->assertNotNull($node=$tree->getNodeByPath('other-drinks/eatable-shoes'));
+							$hcds && $this->assertEquals(1, $node->getCardsCount());
+							$this->assertTrue($node->hasChildCategories());
+							$this->assertTrue((bool) $node->getChildNodes());
+					}, $opts);
+				}
+
 				$tree = CategoryTree::GetInstance([$this->categories['catalog']],['level' => 2, 'self' => true]+$opts);
 				$this->assertNull($node=$tree->getNodeByPath('catalog/food-drinks/other-drinks-not-exists'));
 				$this->assertNull($node=$tree->getNodeByPath('catalog-not-exists'));
@@ -243,7 +263,7 @@ class TcCategoryTree extends TcBase {
 						$this->assertFalse($node->hasChilds());
 				}, $opts);
 
-				$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 4, 'return_level'=>1,'self' => false] + $opts);
+				$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 4, 'self' => false] + $opts);
 				$this->assertNotNull($node=$tree->getNodeByPath('food-drinks/other-drinks/eatable-shoes/kids'));
 				$this->assertFalse($node->hasChilds());
 			}
