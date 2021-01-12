@@ -853,7 +853,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 					$fields_select.=", COALESCE(COUNT(DISTINCT catcards.card_id),0) as cards_count";
 					$sql= "$with \nSELECT $fields_select FROM tree
 												JOIN ($subtable)
-												ON (members.parent_id = tree.real_id)
+												ON (members.parent_id = tree.id)
 												WHERE TRUE
 												$where_result
 												GROUP BY members.parent_id, $fields_group

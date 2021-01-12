@@ -10,7 +10,7 @@
 				<h2 class="item__title">{$product->getName()}</h2>
 				{a action="cards/detail" id=$product->getCardId()}Podrobnosti o produktu {!"chevron-right"|icon}{/a}
 			</div>
-			<div class="list list--files">
+			<div class="list list--downloads">
 			{foreach $digital_contents_by_product.items as $digital_content}
 				<a href="{$digital_content->getDownloadUrl($order)}" class="list__item">
 					<div class="file__thumbnail">

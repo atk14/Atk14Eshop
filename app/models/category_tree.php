@@ -70,13 +70,13 @@ class CategoryNode implements IteratorAggregate, Countable {
 			return false;
 		}
 		$this->fetch();
-		$real_id = $this->data['real_id'];
+		$real_id = $this->id;
 		return isset($this->tree->childs[$real_id]) && $this->tree->childs[$real_id];
 	}
 	function getChildCategories() {
 		$this->fetch();
 		$out=array();
-		$real_id = $this->data['real_id'];
+		$real_id = $this->id;
 		if(!isset($this->tree->childs[$real_id])) {
 			return $out;
 		}
@@ -238,6 +238,7 @@ class CategoryTree extends CategoryNode {
 		$options = $this->options;
 
 		list($sql, $bind) = Category::GetSubtreeOfSql($this->parentIds, $options);
+		//echo $sql; echo "\n\n";
 
 		$dbmole = Category::GetDbMole();
 		$data = $dbmole->selectRows($sql, $bind);
