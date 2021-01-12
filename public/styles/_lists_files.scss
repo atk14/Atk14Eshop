@@ -98,6 +98,7 @@
 	padding-left: 0;
 	list-style: none;
 	line-height: 1.1;
+	margin-bottom: $grid-gutter-width;
 	.list__item {
 		border-bottom: 1px solid $border-color;
 		color: inherit;
@@ -146,6 +147,7 @@
 			min-width: 40%;
 		}
 		.file__title {
+			display: block;
 			font-weight: 700;
 			color: black;
 			word-wrap: break-all;
@@ -154,6 +156,7 @@
 			font-size: $font-size-sm;
 		}
 		.file__meta {
+			display: block;
 			font-size: $font-size-sm;
 			white-space: nowrap;
 		}
@@ -173,6 +176,7 @@
 	}
 	
 	.file__description {
+		display: block;
 		flex-basis: 100%;
 		font-size: $font-size-sm;
 		padding: $fileItemPadding;
