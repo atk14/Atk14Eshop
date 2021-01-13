@@ -4,7 +4,7 @@ var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 const { series, parallel } = require( "gulp" );
-//require( "./gulpfile-admin" );
+var admin = require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
@@ -162,15 +162,30 @@ var afterbuild = function(){
 		.pipe( $.size( { title: "build", gzip: true } ) );
 }
 
+// Build
 var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, copy ), afterbuild );
 
 // Export public tasks
 exports.styles = styles;
 exports.styles_vendor = styles_vendor;
 exports.scripts = scripts;
+exports.scripts = scripts_vendor;
 exports.lint = lint;
 exports.copy = copy;
 exports.clean = clean;
 exports.serve = series( styles, serve );
 exports.build = build;
 exports.default = series( clean, build );
+
+// Export public admin tasks
+exports.styles_admin = admin.styles_admin;
+exports.styles_vendor_admin = admin.styles_vendor_admin;
+exports.styles_from_frontend = admin.styles_from_frontend;
+exports.scripts_admin = admin.scripts_admin;
+exports.scripts_vendor_admin = admin.scripts_vendor_admin;
+exports.lint_admin = admin.lint_admin;
+exports.copy_admin = admin.copy_admin;
+exports.clean_admin = admin.clean_admin;
+exports.serve_admin = admin.serve_admin;
+exports.build_admin = admin.build_admin;
+exports.admin = admin.admin;
