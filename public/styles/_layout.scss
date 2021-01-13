@@ -19,7 +19,6 @@
 	}
 	@include media-breakpoint-up(xl){
 		display: grid;
-		align-items: start;
 		padding-left: 0;
 		grid-template-columns: 230px minmax(0,1fr);
 		grid-template-rows: auto 1fr;
@@ -28,6 +27,7 @@
 		
 		& > *:not(.nav-section) {
 			padding-left: $grid-gutter-width;
+			align-self: start;
 		}
 		
 		.nav-section {
@@ -35,10 +35,12 @@
 			grid-area: sidebar;
 			//border-right: 1px solid $border-color;
 			//padding-right: $grid-gutter-width/2;
+			align-self: start;
 		}
 		
 		.nav--breadcrumb {
 			grid-area: breadcrumb;
+			align-self: start;
 		}
 		
 		.content-main {

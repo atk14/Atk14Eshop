@@ -141,13 +141,14 @@
 			flex-grow: 10;
 			flex-shrink: 2;
 			padding-right: $grid-gutter-width/8;
-			align-items: center;
+			//align-items: center;
 			display: grid;
 			grid-template-columns: minmax(0,1fr) auto;
 			min-width: 40%;
 		}
 		.file__title {
 			display: block;
+			align-self: center;
 			font-weight: 700;
 			color: black;
 			word-wrap: break-all;
@@ -157,6 +158,7 @@
 		}
 		.file__meta {
 			display: block;
+			align-self: center;
 			font-size: $font-size-sm;
 			white-space: nowrap;
 		}
