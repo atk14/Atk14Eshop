@@ -77,7 +77,7 @@
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
-			{if $controller=="main" || $controller=="categories" || $controller=="cards" }
+			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 				{assign use_sidebar_menu true}
 			{/if}
 			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
