@@ -3,8 +3,7 @@ var del = require( "del" );
 var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
-const { series, parallel } = require( "gulp" );
-//require( "./gulpfile-admin" );
+require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
@@ -22,7 +21,7 @@ var vendorScripts = [
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
-	"node_modules/bootbox/bootbox.js"
+	"node_modules/bootbox/src/bootbox.js"
 ];
 
 var applicationScripts = [
@@ -39,7 +38,7 @@ var applicationScripts = [
 ];
 
 // CSS
-var styles = function() {
+gulp.task( "styles", function() {
 	return gulp.src( "public/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass( {
@@ -53,9 +52,9 @@ var styles = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
-var styles_vendor = function() {
+gulp.task( "styles-vendor", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
@@ -65,21 +64,19 @@ var styles_vendor = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
 // JS
-var scripts_vendor = function() {
-	return gulp.src( vendorScripts )
+gulp.task( "scripts", function() {
+	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-};
 
-var scripts = function() {
-	return gulp.src( applicationScripts )
+	gulp.src( applicationScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "application.js" ) )
 		.pipe( $.uglify() )
@@ -87,18 +84,18 @@ var scripts = function() {
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
-};
+} );
 
 // Lint & Code style
-var lint = function() {
+gulp.task( "lint", function() {
 	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
 		.pipe( $.eslint() )
 		.pipe( $.eslint.format() )
 		.pipe( $.eslint.failAfterError() );
-};
+} );
 
 // Copy
-var copy = function( done ) {
+gulp.task( "copy", function() {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
@@ -128,33 +125,47 @@ var copy = function( done ) {
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
 		} );
-	done();
-};
+} );
 
 // Clean
-var clean = function( done ) {
+gulp.task( "clean", function() {
 	del.sync( "public/dist" );
-	done();
-};
+} );
 
-var afterbuild = function(){
+// Server
+gulp.task( "serve", [ "styles" ], function() {
+	browserSync.init( {
+		proxy: "localhost:8000"
+	} );
+
+	// If these files change = reload browser
+	gulp.watch( [
+		"app/**/*.tpl",
+		"public/images/**/*"
+	] ).on( "change", browserSync.reload );
+
+	// If javascript files change = run 'scripts' task, then reload browser
+	gulp.watch( "public/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
+
+	// If styles files change = run 'styles' task with style injection
+	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
+} );
+
+// Build
+var buildTasks = [
+	"lint",
+	"styles",
+	"styles-vendor",
+	"scripts",
+	"copy"
+];
+
+gulp.task( "build", buildTasks, function() {
 	return gulp.src( "public/dist/**/*" )
 		.pipe( $.size( { title: "build", gzip: true } ) );
-}
-
-var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, copy ), afterbuild );
-
-
+} );
 
 // Default
-
-
-
-exports.styles = styles;
-exports.styles_vendor = styles_vendor;
-exports.scripts = scripts;
-exports.lint = lint;
-exports.copy = copy;
-exports.clean = clean;
-exports.build = build;
-exports.default = series( clean, build );
+gulp.task( "default", [ "clean" ], function() {
+	gulp.start( "build" );
+} );
