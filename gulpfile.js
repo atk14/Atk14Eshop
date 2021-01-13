@@ -137,6 +137,26 @@ var clean = function( done ) {
 	done();
 };
 
+// Server
+var serve = function(){
+	browserSync.init( {
+		proxy: "localhost:8000"
+	} );
+	
+	// If these files change = reload browser
+	gulp.watch( [
+		"app/**/*.tpl",
+		"public/images/**/*"
+	] ).on( "change", browserSync.reload );
+
+	// If javascript files change = run 'scripts' task, then reload browser
+	gulp.watch( "public/scripts/**/*.js", scripts ).on( "change", browserSync.reload );
+
+	// If styles files change = run 'styles' task with style injection
+	gulp.watch( "public/styles/**/*.scss", styles );
+}
+
+// Get size after build
 var afterbuild = function(){
 	return gulp.src( "public/dist/**/*" )
 		.pipe( $.size( { title: "build", gzip: true } ) );
@@ -144,17 +164,13 @@ var afterbuild = function(){
 
 var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, copy ), afterbuild );
 
-
-
-// Default
-
-
-
+// Export public tasks
 exports.styles = styles;
 exports.styles_vendor = styles_vendor;
 exports.scripts = scripts;
 exports.lint = lint;
 exports.copy = copy;
 exports.clean = clean;
+exports.serve = series( styles, serve );
 exports.build = build;
 exports.default = series( clean, build );
