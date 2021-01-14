@@ -10,10 +10,10 @@
 
 {else}
 
-	<table class="table">
+	<table class="table table-sm">
 
 	<thead>
-		<tr>
+		<tr class="table-dark">
 			<th>#</th>
 			<th>{t}Oblasti{/t}</th>
 			{sortable key=name}<th>{t}Název{/t}</th>{/sortable}
