@@ -1,4 +1,4 @@
-<ul class="nav nav--sidebar__submenu collapse{if $active} show{/if}" id="sidebar_submenu_{$node->getId()}" aria-labelledby="sidebar_menu_item_{$node->getId()}" data-parent="#sidebar_submenu_{$tree->getId()}">
+<ul class="nav nav--sidebar__submenu collapse{if $active} show{/if}" id="sidebar_submenu_{$node->getId()}" aria-labelledby="sidebar_menu_item_{$node->getId()}">
 
 {foreach $tree as $node}
 	{assign category $node->getCategory()}
