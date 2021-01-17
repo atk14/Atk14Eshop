@@ -278,5 +278,22 @@ class TcCategoryTree extends TcBase {
 				$this->assertTrue($tree->hasChildCategories());
 			}
 		);
+
+		#test, that conditions and bind_ar works
+		$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 4, 'self' => false,
+			'bind_ar' => [':idid' => $this->categories['food_drinks']],
+			'conditions' => 'c.id = :idid',
+			'dealiased_input' => true
+		]);
+		$tree->fetch();
+		$this->assertEquals(1, $tree->getChildCategoriesCount());
+
+		#test, that the conditions are not applied on self when resolving potential alias (pointing_to_category_id)
+		$tree = CategoryTree::GetInstance($this->categories['catalog'],['level' => 4, 'self' => false,
+			'bind_ar' => [':idid' => $this->categories['food_drinks']],
+			'conditions' => 'c.id = :idid',
+			'dealiased_input' => false
+		]);
+		$this->assertEquals(1, $tree->getChildCategoriesCount());
 	}
 }

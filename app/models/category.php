@@ -653,7 +653,6 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			$filter .= ' AND pointing_to_category_id IS NULL';
 		}
 
-		$bind = [];
 		if(is_array($ids)) {
 			if(!$ids) { return array('SELECT 1 WHERE False', []); };
 			#na tenhle nazev parametru trochu spoleha Cards::GetSqlConditionsForCards
@@ -752,6 +751,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 			if(!$options['self'] && !$options['dealiased_input']) {
 				$where_result = "AND NOT id $operator";
+				$startfilter = "";
 			} else {
 				$where_result = '';
 			}
@@ -761,7 +761,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 						$where_result .= " AND level <= :level";
 					} else {
 						#level is the parent's level
-						$filter = " AND level <= :level-1";
+						$filter .= " AND level <= :level-1";
 					}
 					$bind[':level'] = $options['level'];
 					if($options['min_level']) {
