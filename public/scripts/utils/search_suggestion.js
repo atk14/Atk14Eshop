@@ -25,7 +25,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 
 	$suggArea.hide();
 
-	$field.on( "keyup focus", function( e ) {
+	$field.on( "keyup focus", function() {
 		window.UTILS._search_suggestion.suggest( $( this ), $suggArea );
 	} );
 

@@ -66,6 +66,8 @@ definedef("DIGITAL_CONTENTS_DIRECTORY",__DIR__ . "/../data/digital_contents/");
 
 definedef("PAYMENT_QR_CODES_ENABLED",true);
 
+definedef("SIDEBAR_MENU_ENABLED",false);
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

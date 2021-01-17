@@ -135,9 +135,9 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"code" => "app.trackers.google.analytics.tracking_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Analytics Tracking ID",
-			"description_en" => "e.g. UA-000000-2",
+			"description_en" => "Tracking code will be inserted using Global Site Tag (gtag.js). You can insert multiple tracking ids separated with comma, semicolon, space. E.g. 'UA-000000-2,UA-000000-3;UA-000000-4'",
 			"name_cs" => "Google Analytics Tracking ID",
-			"description_cs" => "např. UA-000000-2",
+			"description_cs" => "Při zadání ID měření bude vložen měřící kód pomocí globální webové značky (gtag.js). Můžete vložit více ID oddělených čárkou, středníkem, mezerou. Např. 'UA-000000-2,UA-000000-3;UA-000000-4'",
 			"mandatory" => false,
 		]);
 

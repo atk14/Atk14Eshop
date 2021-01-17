@@ -147,6 +147,15 @@
 	}
 }
 
+// Folder
+.fileicon-folder {
+	&:before {
+		font-weight: 900;
+		content: "\f07b";
+		color: #aaa;
+	}
+}
+
 // Icon with text (i.e. file extension) in data-text attribute
 .fileicon[data-icon-text] {
 	position: relative;
