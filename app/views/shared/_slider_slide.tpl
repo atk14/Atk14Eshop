@@ -21,7 +21,7 @@
 			<a href="{$item->getUrl()}">
 		{/if}
 			<img src="{$item->getImageUrl()|img_url:"1500x500xcrop"}" class="d-none d-md-block img-fluid" alt="{$item->getTitle()}">
-			<img src="{$item->getImageUrl()|img_url:"900x600xcrop"}" class="d-block d-md-none img-fluid" alt="{$item->getTitle()}">
+			<img src="{$item->getImageUrl()|img_url:"900x300xcrop"}" class="d-block d-md-none img-fluid" alt="{$item->getTitle()}">
 		{if $item->getUrl()}
 			</a>
 		{/if}
