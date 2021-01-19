@@ -1,4 +1,4 @@
-<div class="swiper-slide slider-item-{$item@iteration-1}">
+<div class="swiper-slide slider-item-{$slide_number}">
 	{if $item->getTitle() != "" && $item->getDescription() != ""}
 		<div class="swiper-slide__image">
 			<img src="{$item->getImageUrl()|img_url:"900x600xcrop"}" class="img-fluid" alt="{$item->getTitle()}">

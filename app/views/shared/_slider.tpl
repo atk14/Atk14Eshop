@@ -17,7 +17,7 @@ $slides_per_view=auto|number 				default: 1
 			<div class="swiper-wrapper">
 
 				{foreach $slider->getVisibleItems() as $item}
-					{render partial="shared/slider_slide"}
+					{render partial="shared/slider_slide" slide_number=$item@iteration-1}
 				{/foreach}
 
 			</div>
