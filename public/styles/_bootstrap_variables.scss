@@ -109,11 +109,11 @@ $yiq-text-light:            $white !default;
 
 // Characters which are escaped by the escape-svg function
 $escaped-characters: (
-  ("<","%3c"),
-  (">","%3e"),
-  ("#","%23"),
-  ("(","%28"),
-  (")","%29"),
+  ("<", "%3c"),
+  (">", "%3e"),
+  ("#", "%23"),
+  ("(", "%28"),
+  (")", "%29"),
 ) !default;
 
 
@@ -744,6 +744,8 @@ $navbar-toggler-padding-x:          .75rem !default;
 $navbar-toggler-font-size:          $font-size-lg !default;
 $navbar-toggler-border-radius:      0;//$btn-border-radius !default;
 
+$navbar-nav-scroll-max-height:      75vh !default;
+
 $navbar-dark-color:                 rgba($white,0.85) !default;
 $navbar-dark-hover-color:           $white !default;
 $navbar-dark-active-color:          $white !default;
@@ -829,6 +831,8 @@ $pagination-disabled-color:         $gray-600 !default;
 $pagination-disabled-bg:            $white !default;
 $pagination-disabled-border-color:  $gray-300 !default;
 
+$pagination-border-radius-sm:       $border-radius-sm !default;
+$pagination-border-radius-lg:       $border-radius-lg !default;
 
 // Jumbotron
 
