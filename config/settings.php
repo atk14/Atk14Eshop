@@ -62,7 +62,9 @@ definedef("DEFAULT_BASE_PRICELIST","base");
 
 definedef("SAME_BASKET_IN_ALL_REGIONS",true);
 
-definedef("DIGITAL_CONTENTS_DIRECTORY",__DIR__ . "/../data/digital_contents/");
+definedef("DATA_DIRECTORY",__DIR__ . "/../data/");
+
+definedef("DIGITAL_CONTENTS_DIRECTORY",DATA_DIRECTORY . "/digital_contents/");
 
 definedef("PAYMENT_QR_CODES_ENABLED",true);
 
