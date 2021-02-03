@@ -28,7 +28,6 @@
 	<head>
 		{render partial="shared/layout/performance_optimizations"}
 		{render partial="shared/trackers/google/tag_manager_head"}
-		{render partial="shared/trackers/facebook/pixel"}
 		{render partial="shared/trackers/google/analytics"}
 		<meta charset="utf-8">
 
@@ -71,6 +70,7 @@
 		{cache key='layout_cookie_consent' lang=$lang expire=6000}
 		{render partial="shared/layout/cookie_consent"}
 		{/cache}
+		{facebook_pixel}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
