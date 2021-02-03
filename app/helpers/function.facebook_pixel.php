@@ -4,13 +4,27 @@ Atk14Require::Helper("block.javascript_tag");
 //Atk14Require::Helper("function.render");
 // smarty_function_render
 
+/**
+ *
+ * @param array $params
+ * - mode
+ * 	- basic - only PageView event is tracked
+ * 	- advanced - PageView and also other events in basic form are tracked
+ * 	- full - planned - additional parameters would be sent with events like product ids, currencies etc
+ * @return string
+ */
 function smarty_function_facebook_pixel($params, $template) {
+	$params += [
+		"mode" => "basic",
+	];
 	$template_dir = "shared/helpers/facebook_pixel/";
 
 	$facebook_pixel_id = SystemParameter::ContentOn("app.trackers.facebook.pixel.tracking_id");
 	if (!$facebook_pixel_id) {
 		return "";
 	}
+
+	$base_out = "";
 
 	$currency = null;
 	$request = $template->getTemplateVars("request");
@@ -26,6 +40,10 @@ function smarty_function_facebook_pixel($params, $template) {
 	# u xhr requestu nechceme natahovat zakladni knihovnu
 	if (!$request->xhr()) {
 		$base_out = $smarty->fetch($template_dir."_base_code.tpl");
+	}
+
+	if ($params["mode"]==="basic") {
+		return $base_out;
 	}
 
 	$event_template_name = "";
