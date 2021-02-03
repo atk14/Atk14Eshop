@@ -152,6 +152,16 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.facebook.pixel.tracking_id",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Facebook Pixel ID",
+			"description_en" => "Pixel's id to install base code for tracking user'a activities on your web",
+			"name_cs" => "Facebook Pixel ID",
+			"description_cs" => "Identifikátor pixelu pro vytvoření základního kódu pro sledování aktivit uživatele na vašem webu",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
 			"code" => "app.social.default_image",
 			"system_parameter_type_id" => $type["image_url"],
 			"name_en" => "Default image for social media sharing",
