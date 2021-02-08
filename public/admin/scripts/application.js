@@ -60,6 +60,8 @@
 					e.preventDefault();
 					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
 				} );
+
+				UTILS.async_file_upload.init();
 			}
 
 		},
