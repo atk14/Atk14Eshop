@@ -42,13 +42,13 @@ class FulltextIndexerRobot extends ApplicationRobot {
 				DISTINCT c.id
 			FROM
 				cards,
-				category_cards,
+				v_card_categories,
 				categories c
 			WHERE
 				cards.visible AND
 				NOT cards.deleted AND
-				category_cards.card_id=cards.id AND
-				c.id=category_cards.category_id AND
+				v_card_categories.card_id=cards.id AND
+				c.id=v_card_categories.category_id AND
 				c.visible AND
 				NOT c.is_filter AND
 				(
