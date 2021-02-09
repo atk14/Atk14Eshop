@@ -35,15 +35,19 @@ class FulltextIndexerRobot extends ApplicationRobot {
 		// Categories need special care. There are following requirements:
 		//
 		// - Indexed category must contain at least one product (i.e. card)
-		// - Indexed category must be visible including all its parents
+		// - Indexed category must be visible including all its parents (Category::isVisible())
 		// - Indexed category must not be a flter
 		$ids = $this->dbmole->selectIntoArray("
 			SELECT
-				c.id
+				DISTINCT c.id
 			FROM
+				cards,
 				category_cards,
 				categories c
 			WHERE
+				cards.visible AND
+				NOT cards.deleted AND
+				category_cards.card_id=cards.id AND
 				c.id=category_cards.category_id AND
 				c.visible AND
 				NOT c.is_filter AND
@@ -51,7 +55,7 @@ class FulltextIndexerRobot extends ApplicationRobot {
 					c.parent_category_id IS NULL OR
 					c.parent_category_id NOT IN (SELECT id FROM categories WHERE is_filter)
 				)
-			ORDER BY c.created_at DESC, id DESC
+			ORDER BY id DESC
 		");
 		$categories_to_index = [];
 		foreach(Cache::Get("Category",$ids) as $category){
