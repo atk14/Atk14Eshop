@@ -43,6 +43,7 @@ class OrdersController extends ApplicationController {
 			return;
 		}
 		if ($this->session->defined("track_order") && ($this->session->g("track_order")===true)) {
+			$this->tpl_data["track_order"] = true;
 			$currency = $order->getCurrency();
 			$pAr = array();
 			foreach($order->getOrderItems() as $oi) {
