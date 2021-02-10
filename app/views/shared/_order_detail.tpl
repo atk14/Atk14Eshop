@@ -174,13 +174,14 @@
 							{$order->getDeliveryAddressStreet2()}<br>
 				{/if}
 				{$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
-				{$order->getDeliveryAddressCountry()|to_country_name}<br>
-				{if $order->getDeliveryPhone()}
-					{$order->getDeliveryPhone()|display_phone|default:$mdash}
-				{/if}
+				{$order->getDeliveryAddressCountry()|to_country_name}
 				{if strlen($order->getDeliveryAddressNote())}
 					<br>
-					{t}Poznámka:{/t} {$order->getDeliveryAddressNote()}
+					<em>{t}Poznámka:{/t} {$order->getDeliveryAddressNote()}</em>
+				{/if}
+				{if $order->getDeliveryPhone()}
+					<br>
+					{$order->getDeliveryPhone()|display_phone|default:$mdash}
 				{/if}
 			</p>
 		</div>
