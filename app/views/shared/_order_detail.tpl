@@ -178,6 +178,10 @@
 				{if $order->getDeliveryPhone()}
 					{$order->getDeliveryPhone()|display_phone|default:$mdash}
 				{/if}
+				{if strlen($order->getDeliveryAddressNote())}
+					<br>
+					{t}Poznámka:{/t} {$order->getDeliveryAddressNote()}
+				{/if}
 			</p>
 		</div>
 		<div class="col-12 col-md">
