@@ -30,7 +30,7 @@ class DeliveryServicesData extends Atk14Migration {
 			"code" => "delivery_services.zasilkovna.api_key",
 			"name_cs" => "Zásilkovna API klíč",
 			"name_en" => "Zásilkovna API key",
-			"content" => "",
+			"content" => "41494564a70d6de6", // this key was taken from https://www.zasilkovna.cz/eshopy/implementace/xml
 			"mandatory" => false,
 			"description_cs" => "Klíč pro přístup k API služby Zásilkovna.cz",
 			"description_en" => "Key for access to API to the service Zásilkovna.cz",
