@@ -72,8 +72,7 @@
 							}
 						} );
 				} );
-				$navbar.find( $dropdown ).on ( "mouseleave", function( e ) {
-						//console.log( e.type );
+				$navbar.find( $dropdown ).on ( "mouseleave", function() {
 						var $this = $(this);
 						$this.removeClass( showClass );
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
@@ -84,8 +83,8 @@
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
 					e.preventDefault();
-					var $form = $( "#js--main_search_field" );
-					$form.toggleClass( "d-flex" );
+					var $form = $( "#js--mobile_search_field" );
+					$form.toggleClass( "show" );
 					if( $form.is( ":visible" ) ) {
 						$form.find( "input[type=text]" ).focus();
 					}
@@ -451,6 +450,7 @@
 			index: function() {
 				UTILS.initMultiMap( "allstores_map" );
 
+				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
 					clearButton: 	$( "#stores-filter__clear" ),

@@ -13,11 +13,12 @@
 	brand: content displayed just above teaser
 	title_tag: heading html tag used (default "h1")
 	tags: array of tags
+	class: optional additional css class(es) for .content-header root element
 *}
 {if !$title_tag}
 	{assign var=title_tag "h1"}
 {/if}
-<header class="content-header">
+<header class="content-header{if $class} {$class}{/if}">
 	{if $image}
 		{if $image_is_logo}
 			{assign var="geometry" "600x600"}

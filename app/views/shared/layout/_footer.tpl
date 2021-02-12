@@ -16,8 +16,10 @@
 						{!$eshop->getAddressCountry()|to_country_name}
 					</p>
 					<p>
-						{if "app.contact.phone"|system_parameter}{!"phone"|icon} <a href="tel:{"app.contact.phone"|system_parameter}">{"app.contact.phone"|system_parameter|display_phone}</a><br>{/if}
-						{if "app.contact.email"|system_parameter}{!"envelope"|icon} <a href="mailto:{"app.contact.email"|system_parameter}">{"app.contact.email"|system_parameter}</a>{/if}
+						{if "app.contact.phone"|system_parameter}<a href="tel:{"app.contact.phone"|system_parameter}" title="{t}phone number{/t}">{!"phone"|icon} {"app.contact.phone"|system_parameter|display_phone}</a><br>{/if}
+						{if "app.contact.email"|system_parameter}<a href="mailto:{"app.contact.email"|system_parameter}" title="{t}email{/t}">{!"envelope"|icon} {"app.contact.email"|system_parameter}</a><br>{/if}
+						{if "app.contact.messaging.skype"|system_parameter}<a href="skype:{"app.contact.messaging.skype"|system_parameter}" title="Skype">{!"skype"|icon}&nbsp;&nbsp;{"app.contact.messaging.skype"|system_parameter}</a><br>{/if}
+						{if "app.contact.messaging.icq"|system_parameter}<a href="https://icq.im/{"app.contact.messaging.icq"|system_parameter}" title="ICQ"><img src="{$public}images/icq-logo.svg" width="18" height="18" alt="ICQ"> {"app.contact.messaging.icq"|system_parameter}</a><br>{/if}
 					</p>
 					<p>
 						{t}IČ{/t}: {"merchant.billing_information.company_number"|system_parameter}<br>

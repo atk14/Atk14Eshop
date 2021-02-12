@@ -8,10 +8,10 @@
 
 {else}
 
-	<table class="table">
+	<table class="table table-sm">
 
 	<thead>
-		<tr>
+		<tr class="table-dark">
 			<th>#</th>
 			<th>{t}Regions{/t}</th>
 			{sortable key="voucher_code"}<th>{t}Kód{/t}</th>{/sortable}

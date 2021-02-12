@@ -10,4 +10,5 @@
 	url=$url
 	type=$type
 	title=$page->getTitle()
+	subtitle=$page->getTeaser()|markdown|strip_tags|truncate:100
 }

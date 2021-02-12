@@ -1,6 +1,8 @@
 <?php
 class Warehouse extends ApplicationModel implements Translatable, Rankable {
 
+	use TraitCodebook;
+
 	static function GetTranslatableFields(){ return array("name"); }
 
 	function setRank($rank){

@@ -7,7 +7,7 @@
 		{$current_region->getName()}
 		<span class="caret"></span>
 	</a>
-	<div class="dropdown-menu" aria-labelledby="regionswitch_{$uniqid}">
+	<div class="dropdown-menu {$dropdown_class}" aria-labelledby="regionswitch_{$uniqid}">
 		{foreach Region::GetInstances() as $region}
 			{if $region->getId()!==$current_region->getId()}
 				{a namespace="" action="regions/set_region" id=$region _class="dropdown-item" _method="post" _rel="nofollow"}

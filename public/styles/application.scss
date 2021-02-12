@@ -1,3 +1,5 @@
+$enable-deprecation-messages: false;
+
 // To allow to redefine variables in application-variables,
 // first we need to load functions and variables from bootstrap package.
 
@@ -25,7 +27,11 @@
 
 // Other SCSS
 
+@import "development_utils";
+
 @import "layout";
+
+@import "navs";
 
 @import "alerts";
 
@@ -40,6 +46,8 @@
 @import "main_page";
 
 @import "articles";
+
+@import "dropdowns";
 
 @import "header";
 
@@ -58,6 +66,8 @@
 @import "tables-cart";
 
 @import "lists";
+
+@import "lists_files";
 
 @import "iobjects";
 
@@ -102,6 +112,8 @@
 @import "langswitch";
 
 @import "searchbar";
+
+@import "sidebar_nav";
 
 @import "shared/clearfix";
 @import "shared/loading";

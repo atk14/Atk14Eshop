@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 13:35+0100\n"
-"PO-Revision-Date: 2020-11-18 13:37+0100\n"
+"POT-Creation-Date: 2020-12-06 18:03+0100\n"
+"PO-Revision-Date: 2020-12-06 18:04+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -781,9 +781,18 @@ msgstr "IP adresa"
 msgid "Export emails in CSV"
 msgstr "Export e-mailů v CSV"
 
+msgid "Změna stavu objednávky"
+msgstr "Změna stavu objednávky"
+
 #: ../app/forms/admin/orders/index_form.php:56
 msgid "Stav objednávky"
 msgstr "Stav objednávky"
+
+msgid "Order %1"
+msgstr "Objednávka %1"
+
+msgid "Total price: %1"
+msgstr "Celková cena: %1"
 
 msgid "Tisk"
 msgstr "Tisk"
@@ -791,8 +800,8 @@ msgstr "Tisk"
 msgid "Určit zodpovědnou osobu"
 msgstr "Určit zodpovědnou osobu"
 
-msgid "Nastavit nový stav objednávky"
-msgstr "Nastavit nový stav objednávky"
+msgid "Změnit stav objednávky"
+msgstr "Změnit stav objednávky"
 
 #: ../app/controllers/admin/campaigns_controller.php:5
 msgid "Kampaně"
@@ -828,9 +837,6 @@ msgstr "Zodpovědná osoba"
 
 msgid "Není určena &rarr; "
 msgstr "Není určena &rarr; "
-
-msgid "Změnit stav objednávky"
-msgstr "Změnit stav objednávky"
 
 msgid "kód: %1"
 msgstr "kód: %1"
@@ -2704,6 +2710,10 @@ msgstr "Stejný kód je již použit pro jiný záznam"
 msgid "The same catalog number is used for another product"
 msgstr "Stejné katalogové číslo se používá pro jiný produkt"
 
+#: ../app/forms/admin/admin_form.php:256 ../app/forms/admin/admin_form.php:261
+msgid "open in administration"
+msgstr "otevřít v administraci"
+
 #: ../app/forms/admin/articles/articles_form.php:11
 #: ../app/forms/admin/cards/create_new_form.php:24
 #: ../app/forms/admin/categories/categories_form.php:57
@@ -3701,6 +3711,10 @@ msgid "Variant name"
 msgstr "Název varianty"
 
 #: ../app/forms/admin/products/products_form.php:19
+msgid "There is no usually needed to fill this field."
+msgstr "Toto pole obvykle není nutné vyplňovat."
+
+#: ../app/forms/admin/products/products_form.php:19
 msgid "Fill in only when product name differs from it's card name"
 msgstr "Vyplňte, pouze pokud se název produktu liší od názvu jeho karty"
 
@@ -4123,6 +4137,9 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Nastavit nový stav objednávky"
+#~ msgstr "Nastavit nový stav objednávky"
 
 #~ msgid "Upravit vazbu tvůrce s produktem"
 #~ msgstr "Upravit vazbu tvůrce s produktem"

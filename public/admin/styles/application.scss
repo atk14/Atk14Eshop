@@ -1,3 +1,5 @@
+$enable-deprecation-messages: false;
+
 // To allow to redefine variables in application-variables,
 // first we need to load functions and variables from bootstrap package.
 
@@ -54,6 +56,7 @@
 @import "shared/js_utils";
 @import "shared/fileicons";
 @import "shared/dl_horizontal";
+@import "shared/async_file_input";
 @import "shared/colors";
 @import "shared/color_radio_checkbox";
 @import "shared/tags";

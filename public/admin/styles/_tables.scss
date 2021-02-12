@@ -20,6 +20,11 @@ tr.table-dark {
 
 table.table {
 	border-bottom: 1px solid $table-border-color;
+	tr {
+		th {
+			font-size: $font-size-sm;
+		}
+	}
 }
 
 // Responsive tables - display all as blocks

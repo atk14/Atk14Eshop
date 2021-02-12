@@ -1,6 +1,4 @@
-<div class="section__header">
-	<h1>{$page_title}</h1>
-</div>
+{render partial="shared/layout/content_header" title=$page_title}
 {content for="title_bar_title"}{t}Vyhledávání{/t}{/content}
 
 {form _class="form-inline"}

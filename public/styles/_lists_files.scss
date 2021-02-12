@@ -1,0 +1,231 @@
+.list--downloads {
+	border-top: 1px solid $border-color;
+	padding-left: 0;
+	list-style: none;
+
+	.list__item {
+		display: flex;
+		border-bottom: 1px solid $border-color;
+		padding: $grid-gutter-width/4;
+		color: inherit;
+		align-items: center;
+
+		.file__thumbnail {
+			flex-basis: 120px;
+			max-width: 120px;
+			flex-grow: 0;
+			flex-shrink: 0;
+			padding-right: $grid-gutter-width/4;
+		}
+
+		.file__icon {
+			flex-basis: 120px;
+			max-width: 120px;
+			text-align: center;
+			line-height: 1;
+			font-size: 4rem;
+			padding-right: $grid-gutter-width/4;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		.file__text {
+			flex-basis: auto;
+			flex-grow: 100;
+			flex-shrink: 2;
+			padding-right: $grid-gutter-width/4;
+			.file__title {
+				color: $headings-color;
+				font-weight: 600;
+				margin-bottom: 0;
+				word-wrap: break-word;
+			}
+			.file__meta {
+				font-size: $font-size-sm;
+			}
+		}
+
+		.file__actions {
+			.btn {
+				white-space: nowrap;
+			}
+		}
+
+		&:hover {
+			background-color: $gray-100;
+			text-decoration: none;
+		}
+
+		@include media-breakpoint-down(sm) {
+			.file__thumbnail, .file__icon {
+				flex-basis: 100px;
+				max-width: 100px;
+			}
+		}
+
+		@include media-breakpoint-down(xs) {
+			padding: $grid-gutter-width/2 0;
+			flex-wrap: wrap;
+			.file__thumbnail, .file__icon {
+				flex-basis: 50%;
+				max-width: 50%;
+				padding-right: 0;
+			}
+			.file__icon {
+				flex-grow: 10;
+				font-size: 6rem;
+			}
+			.file__text {
+				flex-basis: 100%;
+				flex-shrink: 0;
+				margin: $grid-gutter-width/8 0;
+			}
+			.file__actions {
+				flex-basis: 100%;
+				text-align: center;
+			}
+		}
+
+	}
+
+}
+
+.list--files {
+	$fileItemPadding: $grid-gutter-width/8;
+	$iconWidth: 40px;
+	
+	border-top: 1px solid $border-color;
+	padding-left: 0;
+	list-style: none;
+	line-height: 1.1;
+	margin-bottom: $grid-gutter-width;
+	.list__item {
+		border-bottom: 1px solid $border-color;
+		color: inherit;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.file__link {
+		flex-grow: 10;
+		padding: $fileItemPadding;
+		display: flex;
+		//flex-wrap: wrap;
+		color: inherit;
+		align-items: center;
+		
+		&:hover {
+			background-color: $gray-100;
+			text-decoration: none;
+			.file__title {
+				//text-decoration: underline;
+			}
+		}
+		
+		.file__icon {
+			display: block;
+			flex-basis: $iconWidth;
+			max-width: $iconWidth;
+			text-align: center;
+			line-height: 1;
+			font-size: 2rem;
+			padding-right: $fileItemPadding;
+			flex-grow: 0;
+			flex-shrink: 0;
+			.fileicon-folder {
+				font-size: 0.9em;
+			}
+		}
+		.file__text {
+			flex-basis: auto;
+			flex-grow: 10;
+			flex-shrink: 2;
+			padding-right: $grid-gutter-width/8;
+			//align-items: center;
+			display: grid;
+			grid-template-columns: minmax(0,1fr) auto;
+			min-width: 40%;
+		}
+		.file__title {
+			display: block;
+			align-self: center;
+			font-weight: 700;
+			color: black;
+			word-wrap: break-all;
+			overflow-wrap: break-word;
+			padding-right: $fileItemPadding;
+			font-size: $font-size-sm;
+		}
+		.file__meta {
+			display: block;
+			align-self: center;
+			font-size: $font-size-sm;
+			white-space: nowrap;
+		}
+		.file__description {
+			margin-top: $fileItemPadding;
+			border-top: none;
+			flex-basis: 100%;
+			padding: 0;
+			padding-left: 40px;
+		}
+		
+	}
+	
+	.file__action {
+		padding-left: $fileItemPadding;
+		font-size: 1.1rem;
+	}
+	
+	.file__description {
+		display: block;
+		flex-basis: 100%;
+		font-size: $font-size-sm;
+		padding: $fileItemPadding;
+		padding-left: $fileItemPadding + $iconWidth;
+		p, ul {
+			margin-bottom: 0.5rem;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	
+	@include media-breakpoint-down(sm) {
+		.file__text {
+			display: block !important;
+			.file__title {
+				margin-bottom: 0.25em;
+			}
+		}
+	}
+	
+	@include media-breakpoint-down(xs) {
+		.list__item {
+			display: block;
+		}
+		.file__link {
+			display: block;
+			.file__icon {
+				margin-bottom: $fileItemPadding;
+				text-align: left;
+			}
+			.file__text {
+				display: block !important;
+				.file__title {
+					margin-bottom: 0.25em;
+				}
+			}
+			.file__action {
+				display: none;
+			}
+			.file__description {
+				padding-left: 0;
+			}
+		}
+		.file__description {
+			padding-left: $fileItemPadding;
+		}
+	}
+	
+}

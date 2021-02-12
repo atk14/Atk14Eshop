@@ -5,3 +5,8 @@
 .nowrap {
 	white-space: nowrap;
 }
+
+mark {
+	padding: 0;
+	background-color: rgba($primary,0.2);
+}

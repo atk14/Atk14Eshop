@@ -57,6 +57,28 @@ $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 	}
 }
 
+// search form on mobile
+@mixin header-search-form-mobile($bgcolor: $brand) {
+	padding: $grid-gutter-width/4;
+	background-color: $bgcolor;
+	border: 1px solid rgba($body-bg, 0.5);
+	border-left: none;
+	border-right: none;
+	flex-wrap: nowrap;
+	input[type="text"] {
+		flex-grow: 10;
+		flex-basis: auto;
+		flex-grow: 10;
+		.btn {
+			flex-grow: 0;
+		}
+		input.form-control, .btn {
+			width: auto;
+			display: inline-block !important;
+		}
+	}
+}
+
 ol.breadcrumb {
 	border-bottom: 1px solid $border-color;
 }
@@ -410,6 +432,11 @@ ol.breadcrumb {
 						}
 					}
 				}
+				.form-inline {
+					@include header-search-form-mobile( $brand );
+					margin-bottom: 0;
+					border-bottom: none;
+				}
 			}
 		}
 		
@@ -487,22 +514,11 @@ ol.breadcrumb {
 					}
 				}
 				.dropdown-menu {
-					margin-top: 0;
+					margin-top: 1px;
 					min-width: 100%;
-					background-color: rgba( desaturate( lighten( $brand, 3% ), 5% ),0.98 );
-					@supports(backdrop-filter: blur(5px)){
-						background-color: rgba($brand,0.9);
-						backdrop-filter: blur(5px);
-					}
 					text-transform: none;
 					border: none;
 					top: 97%;
-					a {
-						color: white;
-						&:hover, &:active, &:focus {
-							background-color: rgba($dark, 0.35);
-						}
-					}
 				}
 			}
 		}
@@ -553,7 +569,11 @@ ol.breadcrumb {
 			display: none;
 		}
 		
+		border-top-width: 1px;
+		border-top-style: solid;
+		
 		&.navbar-dark {
+			border-color: rgba(white,0.5);
 			ul.navbar-nav {
 				li.nav-item {
 					border-color: rgba(white,0.5);
@@ -565,6 +585,7 @@ ol.breadcrumb {
 			}
 		}
 		&.navbar-light, &:not(.navbar-dark) {
+			border-color: rgba($body-color,0.5);
 			ul.navbar-nav {
 				li.nav-item {
 					border-color: rgba($body-color,0.5);
@@ -654,6 +675,7 @@ ol.breadcrumb {
 			}
 		}
 	}
+	
 
 	// Search and user and language links - hidden on mobile (on mobile items are visible in top nav)
 	&__mainbar {
@@ -732,41 +754,7 @@ ol.breadcrumb {
 		
 		
 		@include media-breakpoint-down($navbar_breakpoint_lower){
-			padding: 0;
-			display: block;
-			.logospace {
-				display: none;
-			}
-			.mainbar__controls {
-				display: block;
-				.mainbar__top, .mainbar__bottom, .mainbar__cartinfo {
-					display: none;
-				}
-				.mainbar__search_cart {
-					display: block;
-					.form-inline {
-						padding: 0;
-						padding: $grid-gutter-width/4;
-						background-color: $brand;
-						border: 1px solid rgba($body-bg, 0.5);
-						border-left: none;
-						border-right: none;
-						flex-wrap: nowrap;
-						input[type="text"] {
-							flex-grow: 10;
-							flex-basis: auto;
-							flex-grow: 10;
-							.btn {
-								flex-grow: 0;
-							}
-							input.form-control, .btn {
-								width: auto;
-								display: inline-block !important;
-							}
-						}
-					}
-				}
-			}
+			display: none;
 		}
 		
 		
@@ -774,6 +762,19 @@ ol.breadcrumb {
 	
 	.nav--main-mobile {
 		outline: 1px solid black;
+	}
+	
+	.search-form-mobile {
+		@include header-search-form-mobile( $brand );
+		width: 100%;
+		margin-bottom: 0;
+		border-bottom: none;
+		display: none;
+		&.show {
+			@include media-breakpoint-down($navbar_breakpoint_lower){
+				display: flex;
+			}
+		}
 	}
 	
 }

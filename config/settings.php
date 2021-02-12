@@ -35,7 +35,7 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info
-// define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
+// definedef("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
 
 // Or if you don't want to let users to register at all, set USER_REGISTRATION_ENABLED to false.
 definedef("USER_REGISTRATION_ENABLED",true);
@@ -52,6 +52,12 @@ definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
 definedef("TEXTMIT_API_KEY","123.aaa.bbb.ccc...");
 
+// Temporary files uploads (these settings effects use of AsyncFileField)
+// definedef("TEMPORARY_FILE_UPLOADS_ENABLED",true);
+// definedef("TEMPORARY_FILE_UPLOADS_DIRECTORY",__DIR__ . "/../tmp/temporary_file_uploads/");
+// definedef("TEMPORARY_FILE_UPLOADS_MAX_FILESIZE",512 * 1024 * 1024); // 512MB
+// definedef("TEMPORARY_FILE_UPLOADS_MAX_AGE", 2 * 60 * 60); // 2 hours
+
 definedef("CATALOG_ID_REGEXP",'/^[0-9A-Z_.\/-]{1,}$/i'); // see app/fields/catalog_id_field.php
 definedef("CATALOG_ID_AUTO_UPPERIZE",true);
 
@@ -62,9 +68,13 @@ definedef("DEFAULT_BASE_PRICELIST","base");
 
 definedef("SAME_BASKET_IN_ALL_REGIONS",true);
 
-definedef("DIGITAL_CONTENTS_DIRECTORY",__DIR__ . "/../data/digital_contents/");
+definedef("DATA_DIRECTORY",__DIR__ . "/../data/");
+
+definedef("DIGITAL_CONTENTS_DIRECTORY",DATA_DIRECTORY . "/digital_contents/");
 
 definedef("PAYMENT_QR_CODES_ENABLED",true);
+
+definedef("SIDEBAR_MENU_ENABLED",false);
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings

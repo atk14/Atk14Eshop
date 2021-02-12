@@ -1,10 +1,11 @@
 window.UTILS = window.UTILS || { };
 
 window.UTILS.initDashboardOrdersChart = function() {
-	
+
+	// eslint-disable-next-line no-undef
 	Chart.plugins.unregister(ChartDataLabels);
 
-
+	// eslint-disable-next-line no-undef
 	var color = Chart.helpers.color;
 	var primaryColor = "rgb(38, 124, 217)";
 	var ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
@@ -18,6 +19,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 				backgroundColor: color( primaryColor ).alpha( 0.5 ).rgbString(),
 				borderColor: color( primaryColor ).alpha( 0 ).rgbString(),
 				borderWidth: 0,
+				// eslint-disable-next-line no-undef
 				data: getOrderDataSlice( dailyOrderStats, currentResolution, 0),
 				type: "bar",
 				pointRadius: 0,
@@ -26,6 +28,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 				borderWidth: 2
 			}]
 		},
+		// eslint-disable-next-line no-undef
 		plugins: [ ChartDataLabels ],
 		options: {
 			animation: {
@@ -141,6 +144,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 					tooltip.displayColors = false;
 				},
 				callbacks: {
+					// eslint-disable-next-line no-unused-vars
 					label: function( tooltipItem, data ){
 						var label = tooltipItem.yLabel;
 						return label;
@@ -153,6 +157,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 					anchor: "end",
 					offset: -2,
 					color: primaryColor,
+					// eslint-disable-next-line no-unused-vars
 					formatter: function( value, context ) {
 						return value.y;
 					},
@@ -166,6 +171,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 		}
 	}
 	
+	// eslint-disable-next-line no-undef
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
 	toggleResolution( "days" )
 	
@@ -181,14 +187,17 @@ window.UTILS.initDashboardOrdersChart = function() {
 		var dataArray;
 		switch ( resolution ){
 			case "days":
+				// eslint-disable-next-line no-undef
 				dataArray = dailyOrderStats;
 				var tooltipFormat = "LL";
 				break;
 			case "months":
+				// eslint-disable-next-line no-undef
 				dataArray = monthlyOrderStats;
 				var tooltipFormat = "MMMM YYYY";
 				break;
 			case "years":
+				// eslint-disable-next-line no-undef
 				dataArray = yearlyOrderStats;
 				var tooltipFormat = "YYYY";
 				break;
@@ -216,9 +225,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 				break;
 		}
 		
-		var maxPageOffset = dataset.length / datePeriod;
-		//console.log( "len", dataset.length, "maxPageOffset", maxPageOffset, offset );
-		
 		pageOffset = offset;
 		
 		// Get start and end datapoint index
@@ -226,10 +232,13 @@ window.UTILS.initDashboardOrdersChart = function() {
 		var endIndex = Math.min( startIndex + datePeriod, dataset.length - 1 );
 		
 		// Start and end dates for display
+		// eslint-disable-next-line no-undef
 		var startDate = moment( dataset[ startIndex ].t ).format( "LL" );
 		if( offset === 0 ){
+			// eslint-disable-next-line no-undef
 			var endDate = moment().format( "LL" );
 		} else {
+			// eslint-disable-next-line no-undef
 			var endDate = moment( dataset[ endIndex ].t ).format( "LL" );
 		}
 		
@@ -265,12 +274,15 @@ window.UTILS.initDashboardOrdersChart = function() {
 		var dataArray;
 		switch ( currentResolution ){
 			case "days":
+				// eslint-disable-next-line no-undef
 				dataArray = dailyOrderStats;
 				break;
 			case "months":
+				// eslint-disable-next-line no-undef
 				dataArray = monthlyOrderStats;
 				break;
 			case "years":
+				// eslint-disable-next-line no-undef
 				dataArray = yearlyOrderStats;
 				break;
 		}

@@ -133,6 +133,35 @@ By default, markup expects movie aspect ratio to be 16:9.
 </div>
 [/example]
 
+
+## Audio iObject
+
+Audio iObject uses default browser styling of controls so it may look different across browsers. This iObject is intended for self-hosted audio files.  
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<audio controls>
+		<source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+	</audio>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is how horse sounds.</div>
+  </div>
+</div>
+[/example]
+
+For audio embedded from sites like SoundCloud, simply use their own embed code.
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/809320675&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/wereus" title="wereus" target="_blank" style="color: #cccccc; text-decoration: none;">wereus</a> · <a href="https://soundcloud.com/wereus/lockdown" title="Lockdown" target="_blank" style="color: #cccccc; text-decoration: none;">Lockdown</a></div>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is just generic iframe embed.</div>
+  </div>
+</div>
+[/example]
+
 ## File iObject
 [example]
 <div class="iobject iobject--file">

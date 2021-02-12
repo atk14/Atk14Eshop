@@ -1,7 +1,7 @@
 <tr>
 	<td>{$campaign->getId()}</td>
 
-	<td>{$campaign->getRegions()|join:", "}</td>
+	<td>{", "|join:$campaign->getRegions()}</td>
 
 	<td>{$campaign->getName()}</td>
 

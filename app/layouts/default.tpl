@@ -70,6 +70,7 @@
 		{cache key='layout_cookie_consent' lang=$lang expire=6000}
 		{render partial="shared/layout/cookie_consent"}
 		{/cache}
+		{facebook_pixel}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
@@ -77,7 +78,10 @@
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
-			<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
+			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
+				{assign use_sidebar_menu true}
+			{/if}
+			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
@@ -86,6 +90,10 @@
 				{if $section_navigation}
 					<nav class="nav-section">
 						{render partial="shared/layout/section_navigation"}
+					</nav>
+				{elseif $use_sidebar_menu}
+					<nav class="nav-section">
+						{render partial="shared/layout/sidebar_nav"}
 					</nav>
 				{/if}
 

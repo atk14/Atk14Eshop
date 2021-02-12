@@ -8,7 +8,7 @@ require( "./gulpfile-admin" );
 var vendorStyles = [
 	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/swiper/css/swiper.css",
+	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css"
 ];
@@ -19,7 +19,7 @@ var vendorScripts = [
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
-	"node_modules/swiper/js/swiper.js",
+	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",

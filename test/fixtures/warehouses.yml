@@ -1,0 +1,9 @@
+# the default warehouse for eshop is in db/migration/0101_warehouses.sql
+
+external:
+  code: "external"
+  applicable_to_eshop: true
+
+on_the_way:
+  code: "on_the_way"
+  applicable_to_eshop: false
