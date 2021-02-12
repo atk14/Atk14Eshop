@@ -1,15 +1,14 @@
 <?php
 /**
- * Import informaci o dorucovacich mistech
- *
- * ./scripts/robot_runner import_post_offices [filename]
- *
- * Kdyz neni zadan nazev souboru, stahne se aktualni verze z webu ( viz. $options["data_url"] )
+ * Imports branches for delivery services
  */
 class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
+
 	function run() {
-		DeliveryService::UpdateBranches("zasilkovna", ["logger" => $this->logger]);
-		DeliveryService::UpdateBranches("cp-balik-na-postu", ["logger" => $this->logger]);
-		DeliveryService::UpdateBranches("cp-balikovna", ["logger" => $this->logger]);
+		foreach(DeliveryService::FindAll() as $ds){
+			$this->logger->info(sprintf("going to import branches for DeliveryService#%s, code=%s",$ds->getId(),$ds->getCode()));
+			$this->logger->flush();
+			DeliveryService::UpdateBranches($ds->getCode(),["logger" => $this->logger]);
+		}
 	}
 }
