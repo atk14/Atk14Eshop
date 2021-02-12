@@ -111,7 +111,8 @@ The story Bastian reads is set in the magical land of Fantastica, an unrealistic
 		Image::AddImage($section,"http://i.pupiq.net/i/65/65/a58/1a58/375x500/Tc3kLF_375x500_45f99cf7011a6c69.jpg");
 
 		// Product
-		$product = Product::CreateNewRecord(array(
+		// $product = Product::CreateNewRecord(array( // ends with error: There is not table vat_rates in the database...
+		$this->dbmole->insertIntoTable("products",array(
 			"card_id" => $card,
 			"catalog_id" => "12345678",
 		));
