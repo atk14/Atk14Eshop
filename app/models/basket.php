@@ -1043,7 +1043,7 @@ class Basket extends BasketOrOrder {
 	 */
 	function getDeliveryServiceBranch() {
 		$method_data = $this->getDeliveryMethodData();
-		if (is_null($this->getDeliveryMethod())) {
+		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
 			return null;
 		}
 		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);

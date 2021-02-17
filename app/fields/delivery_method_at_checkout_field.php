@@ -28,7 +28,8 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	function clean($value) {
 		list($err,$value) = parent::clean($value);
 
-		if (is_null($_dm = DeliveryMethod::FindById($value))) {
+		# tady FindById dela problemy pri testovani, pokud dochazi k validaci formulare v nekolika testovacich metodach
+		if (is_null($_dm = DeliveryMethod::FindFirst("id", $value))) {
 			return [_("There is no such delivery method"), null];
 		}
 
@@ -36,10 +37,10 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 		# tak kontrola kombinace dorucovaci sluzby a vydejniho mista, ze patri k sobe
 		$delivery_method_data = $this->basket->getDeliveryMethodData();
 		if (
-			$_dm && $_dm->getDeliveryServiceId() && $delivery_method_data &&
-			$_dm->getDeliveryServiceId() != $delivery_method_data["delivery_service_id"]
+			$_dm && $_dm->getDeliveryServiceId() &&
+			(is_null($delivery_method_data) || ( $delivery_method_data && ($_dm->getDeliveryServiceId() != $delivery_method_data["delivery_service_id"])))
 		) {
-			return [_("Vyberte výdejní místo pro zvolenou doručovací metodu"), null];
+			return [_("Choose pickup place for selected delivery method"), null];
 		}
 		return [$err,$value];
 	}
