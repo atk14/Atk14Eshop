@@ -76,8 +76,8 @@ class TcCheckouts extends TcBase {
 
 		$this->assertEquals(200, $client->getStatusCode());
 		$this->assertNotEmpty($controller->form->get_errors());
-		$this->assertArrayHasKey("delivery_service_branches", $controller->form->errors);
-		$this->assertEquals(_("Pobočka nebyla nalezena"), $controller->form->errors["delivery_service_branch_id"]);
+		$this->assertArrayHasKey("delivery_service_branch_id", $controller->form->errors);
+		$this->assertEquals(_("Pobočka nebyla nalezena"), array_shift($controller->form->errors["delivery_service_branch_id"]));
 	}
 
 	/**
