@@ -1,8 +1,8 @@
 {**
-	* 'delivery_service_widget' je zamerne mimo form.
-	* Obsahuje naseptavac a nechceme odeslat ihned pri stisknuti 'Enter'.
+	* Input 'delivery_service_widget' je zamerne mimo form.
+	* Obsahuje naseptavac a nechceme ho vubec odeslat ani pri stisknuti 'Enter'.
 	* Ani ho nechceme videt v php kodu a zpracovavat ho pri validaci.
-	* Stisk enter je obslouzen js, ktery prenese id pobocky do formulare nize.
+	* Stisk enter je obslouzen js, ktery prenese id pobocky do formulare nize, ktery je po odeslani na serveru validovan.
 	*}
 
 {if $delivery_method->getCode()=="zasilkovna"}
@@ -13,6 +13,7 @@
 
 {render partial="shared/form"}
 
+{if $delivery_method->getCode()=="zasilkovna"}
 <script>
 {literal}
 document.addEventListener( "DOMContentLoaded", function() {
@@ -20,4 +21,4 @@ document.addEventListener( "DOMContentLoaded", function() {
 } );
 {/literal}
 </script>
-
+{/if}
