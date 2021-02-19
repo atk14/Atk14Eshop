@@ -29,7 +29,39 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 		<span class="card-price">
 			<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
 		</span>
-		<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+		<span class="card-footer__icon"><span class="fas fa-shopping-cart"></span> <span class="fas fa-chevron-right"></span></span>
+	</div>
+</a>
+[/example]
+
+### Small variation
+
+More compact version is created by adding <code>.card--sm</code> modifier class. There is also smaller variation of flag used.
+
+[example]
+<a class="card card--sm" href="#" style="max-width:200px;">
+	<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+	<div class="card__flags">
+		
+		<div class="product__flag product__flag--sale product__flag--sm">
+				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">50&nbsp;%</span>
+		</div>
+		
+	</div>
+	<div class="card__tags">
+		<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+	</div>
+	<div class="card-body">
+		<h4 class="card-title">Foto film</h4>
+		<div class="card-text">
+			<p>Negativní film.</p>
+		</div>
+	</div>
+	<div class="card-footer">
+		<span class="card-price">
+			<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
+		</span>
+		<span class="card-footer__icon"><span class="fas fa-shopping-cart"></span> <span class="fas fa-chevron-right"></span></span>
 	</div>
 </a>
 [/example]
