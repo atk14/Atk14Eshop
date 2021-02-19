@@ -4,9 +4,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="{$id}Label">{$title}</h5>
+				{if $close_button}
         <button type="button" class="close" data-dismiss="modal" aria-label="{t}zavřít{/t}">
           <span aria-hidden="true">&times;</span>
         </button>
+				{/if}
       </div>
       <div class="modal-body">
         {!$content}
