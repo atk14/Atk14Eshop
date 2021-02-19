@@ -187,6 +187,30 @@ $card-border-style: 1px dashed $border-color;
 			}
 		}
 	}
+
+	&--sm {
+		.card__flags {
+			right: $grid-gutter-width/4;
+			top: $grid-gutter-width/4;
+		}
+		.card-body {
+			padding: $grid-gutter-width/4;
+		}
+		.card-footer {
+			padding-left: $grid-gutter-width/4;
+			padding-right: $grid-gutter-width/4;
+			padding-bottom: $grid-gutter-width/4;
+			.card-price {
+				.currency_main {
+					font-size: 1rem;
+				}
+			}
+			.card-footer__icon {
+				font-size: 0.875rem;
+				top: -0.075em;
+			}
+		}
+	}
 	
 	&--micro {
 		//outline: 1px solid red;

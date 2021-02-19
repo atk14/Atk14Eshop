@@ -119,6 +119,10 @@
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+
+		{javascript_tag}
+			{placeholder for="js"}
+		{/javascript_tag}
 		
 		{if $controller=="styleguides"}
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />

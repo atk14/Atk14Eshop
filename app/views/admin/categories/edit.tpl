@@ -147,8 +147,8 @@ Do you really want this?{/t}{/capture}
 							{$card->getName()}
 							<br>
 							<small>
-							{foreach $card->getProducts() as $product}
-								{$product->getCatalogId()}{if !$product@last}, {/if}
+							{foreach $card->getProducts(["visible" => null]) as $product}
+								{if !$product->isVisible()}<span class="text-muted" title="{t}invisible{/t}">{/if}{$product->getCatalogId()}{if !$product->isVisible()}</span>{/if}{if !$product@last}, {/if}
 							{/foreach}
 							</small>
 							</div>

@@ -75,6 +75,13 @@ class CardsController extends AdminController{
 
 		$this->_save_return_uri();
 
+		if($this->request->get()){
+			// there may be a parameter in the URL
+			$this->form->set_initial([
+				"category" => $this->params->getString("category"),
+			]);
+		}
+
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 
 			$section_data = array();

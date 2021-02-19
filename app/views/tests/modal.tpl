@@ -12,6 +12,10 @@
 	Otevřít modal
 </button>
 
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#open_by_click_modal_no_close_button">
+	Otevřít modal bez zavíracího tlačítka
+</button>
+
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_vertically_centered">
 	Otevřít modal verikálně centrovaný
 </button>
@@ -29,6 +33,10 @@
 	<footer>
 		Patička nemůže chybět...
 	</footer>
+{/modal}
+
+{modal id="open_by_click_modal_no_close_button" title="Modal bez zavíracího tlačítka!" close_button=false}
+	<p>Hit Esc to close the modal.</p>
 {/modal}
 
 

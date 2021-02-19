@@ -24,7 +24,7 @@
 		}
 
 		$( window ).on( "popstate",
-				( function( ) { this.doPaging( window.document.location.href ); } ).bind( this )
+				( function( ) { this.doPaging( window.document.location.href, undefined, { noScroll: true } ); } ).bind( this )
 		);
 
 	};
@@ -303,11 +303,13 @@
 		return false;
 	};
 
-	ATK14COMMON.Pager.prototype.doPaging = function( href, button ) {
+	ATK14COMMON.Pager.prototype.doPaging = function( href, button, updatePagerOptions ) {
+			updatePagerOptions = updatePagerOptions || {};
+			updatePagerOptions.addToHistory = button;
 			$.ajax( {
 				url:     this.addToUrl( href, { "pager": 1 } ),
 				success: ( function( data ) {
-							this.updatePager( data, { addToHistory: button } );
+							this.updatePager( data, updatePagerOptions );
 							} ).bind( this ),
 				complete: function( ) {
 					if ( button && button.restoreText ) {
