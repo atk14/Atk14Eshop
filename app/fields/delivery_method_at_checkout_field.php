@@ -28,8 +28,7 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	function clean($value) {
 		list($err,$value) = parent::clean($value);
 
-		# tady FindById dela problemy pri testovani, pokud dochazi k validaci formulare v nekolika testovacich metodach
-		if (is_null($_dm = DeliveryMethod::FindFirst("id", $value))) {
+		if (is_null($_dm = DeliveryMethod::FindById($value))) {
 			return [_("There is no such delivery method"), null];
 		}
 
