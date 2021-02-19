@@ -8,4 +8,4 @@
 {render partial="shared/layout/content_header" title=$page_title title_tag=$tag teaser=$teaser}
 
 
-{render partial="shared/form"}
+{render partial="shared/form" form_class="form-horizontal"}
