@@ -1,6 +1,8 @@
 <?php
 class Slider extends ApplicationModel implements Rankable {
 
+	use TraitGetInstanceByCode;
+
 	function setRank($rank){
 		return $this->_setRank($rank);
 	}
