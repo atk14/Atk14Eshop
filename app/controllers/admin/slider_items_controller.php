@@ -3,7 +3,7 @@ class SliderItemsController extends AdminController {
 
 	function index(){
 		$this->page_title = sprintf(_("Images in slider %s"),$this->slider->getName());
-		$this->breadcrumbs[] = $this->slider->getName();
+		$this->_add_slider_to_breadcrumbs($this->slider);
 
 		$this->tpl_data["slider_items"] = $this->slider->getItems();
 	}
@@ -41,7 +41,8 @@ class SliderItemsController extends AdminController {
 		}
 	}
 
-	function _add_slider_to_breadcrumbs($slider){
-		$this->breadcrumbs[] = [$slider->getName(),$this->_link_to(["action" => "slider_items/index", "slider_id" => $slider])];
+	function _add_slider_to_breadcrumbs($slider){ 
+		$this->breadcrumbs[] = [$slider->getName(),$this->_link_to(["action" => "sliders/edit", "id" => $slider])];
+		$this->breadcrumbs[] = [_("Images"),$this->_link_to(["action" => "slider_items/index", "slider_id" => $slider])];
 	}
 }
