@@ -168,6 +168,9 @@
 				{$order->getDeliveryFirstname()} {$order->getDeliveryLastname()}<br>
 				{if $order->getDeliveryCompany()}
 					{$order->getDeliveryCompany()}<br>
+					{if $order->getDeliveryPlace()}
+						{$order->getDeliveryPlace()}<br>
+					{/if}
 				{/if}
 				{$order->getDeliveryAddressStreet()}<br>
 				{if $order->getDeliveryAddressStreet2()}

@@ -9,6 +9,7 @@ class DeliveryServiceBranch extends ApplicationModel {
 			"delivery_service_code" => $_service->getCode(),
 			"delivery_address" => [
 				"company" => $_service->getName(),
+				"place" => $this->getPlace(),
 				"street" => $this->getStreet(),
 				"city" => $this->getCity(),
 				"zip" => $this->getZip(),

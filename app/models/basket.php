@@ -1033,10 +1033,6 @@ class Basket extends BasketOrOrder {
 		return is_null($country) ? $this->g("address_country") : $country;
 	}
 
-	function getDeliveryMethodData() {
-		return json_decode($this->g("delivery_method_data"),true);
-	}
-
 	/**
 	 * Vrati nastavenou pobocku dorucovaci sluzby
 	 *
