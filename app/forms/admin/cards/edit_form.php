@@ -15,6 +15,7 @@ class EditForm extends CardsForm {
 	function clean() {
 		list($err,$d) = parent::clean();
 
+		$this->_clean_slugs($d,array("auto_correct" => true));
 		$this->_clean_catalog_id($d);
 
 		return array($err,$d);
