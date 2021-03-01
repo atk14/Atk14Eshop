@@ -150,6 +150,18 @@
 				}
 
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
+
+				// Expanding/collapsing FAQ items
+				$( "dl.faq dt, ul.faq .faq__q, ol.faq .faq__q" ).on( "click", function( e ) {
+					var qtitle =$( e.target );
+					var qcontent = qtitle.next()
+					qtitle.toggleClass( "expanded" );
+					if ( qtitle.hasClass( "expanded" ) ) {
+						qcontent.slideDown( "fast" );
+					} else {
+						qcontent.slideUp( "fast" );
+					}
+				} )
 			}
 
 		},
