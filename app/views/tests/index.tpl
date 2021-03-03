@@ -8,6 +8,7 @@
 	<li>{a action="e500"}Stránka s chybou 500{/a}</li>
 	<li>{a action="e503"}Stránka s chybou 503{/a}</li>
 	<li>{a action="colors"}Manipulace s barvami{/a}</li>
+	<li>{a action="grid"}Experimental grid layout{/a}</li>
 </ul>
 
 {render partial="shared/noindex_meta_tags"}

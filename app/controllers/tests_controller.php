@@ -24,6 +24,10 @@ class TestsController extends ApplicationController {
 	function colors(){
 		$this->page_title = "Color manipulation";
 	}
+	
+	function grid(){
+		$this->page_title = "Grid layout";
+	}
 
 	function notify_order_creation(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
