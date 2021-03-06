@@ -12,18 +12,52 @@
 	</div>
 </div>
 <div class="section--fullwidth section--text-over-image">
-	<img src="/public/dist/images/sealevel.jpg" class="img-fluid">
+	<img src="/public/dist/images/demogrid/sealevellower.jpg" class="img-fluid" style="align-self: end;">
 	<div class="container-fluid">
 		<div class="display-1"><strong>Williamsburg man braid next level</strong></div>
 	</div>
 </div>
-<section class="section--fullwidth" style="background-color: #1a5b71">
-	<div class="container-fluid" style="color: white; font-size: 1.25em; padding-top: 20px;  padding-bottom: 40px;">
+<section class="section--fullwidth" style="background-color: #2597B5">
+	<div class="container-fluid section--narrow" style="color: white; font-size: 1.25em; padding-top: 20px;  padding-bottom: 40px;">
 		<p>90's lomo health goth blog plaid kickstarter unicorn hell of occupy pop-up single-origin coffee. IPhone cronut pop-up fanny pack affogato vexillologist wolf glossier everyday carry franzen. Jianbing kickstarter chicharrones godard paleo DIY. Kickstarter wayfarers PBR&B master cleanse unicorn green juice copper mug kombucha sriracha hashtag kitsch viral ennui church-key blue bottle.</p>
 		
 		<p>Meh cronut squid, single-origin coffee next level literally hammock retro air plant deep v drinking vinegar. Keffiyeh tofu retro 8-bit affogato, you probably haven't heard of them taiyaki selvage coloring book brunch yr. Pork belly truffaut tousled typewriter forage wayfarers.</p>
 	</div>
 </section>
-<section>narrow</section>
-<section class="section--fullwidth">fullwidth</section>
+
+
+<section class="section--fullwidth section--text-over-image">
+	<img src="/public/dist/images/demogrid/plane.jpg" class="img-fluid">
+	<div class="container-fluid" style="align-self: end">
+		<div class="row justify-content-end">
+			<div class="col col-md-6" style="padding-top: 160px; align-self: end;">
+			<h3>Fanny pack paleo forage</h3>
+				<p>I'm baby hammock roof party neutra air plant. Fanny pack paleo forage bitters pabst swag chicharrones you probably haven't heard of them tacos. Swag cred polaroid austin try-hard aesthetic DIY intelligentsia disrupt tilde.</p>
+				<p>Flexitarian farm-to-table 3 wolf moon, blog slow-carb keffiyeh before they sold out hammock vape. Fam vaporware dreamcatcher coloring book +1, locavore retro seitan. Kickstarter celiac you probably haven't heard of them brooklyn meggings, crucifix gochujang banjo chartreuse street art pinterest. Portland bitters put a bird on it organic selvage wayfarers kickstarter semiotics. Slow-carb brooklyn gluten-free whatever distillery taxidermy +1.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section--narrow">
+	<div class="container-fluid" style="padding-top: 80px; padding-bottom: 40px;">
+		<h2>Cray affogato pork belly mlkshk cronut.</h2>
+		<p>Vegan poke sartorial cardigan, chicharrones mlkshk chillwave you probably haven't heard of them neutra. Glossier cold-pressed hell of tbh kogi pok pok yuccie vape retro thundercats. Distillery post-ironic lyft, narwhal locavore pok pok ugh cardigan PBR&B. Echo park pok pok put a bird on it whatever, kinfolk palo santo disrupt. Intelligentsia VHS keytar roof party portland.</p>
+
+		<p>Cray affogato pork belly mlkshk cronut. Austin farm-to-table cardigan helvetica ugh kombucha, marfa crucifix drinking vinegar activated charcoal live-edge cronut selvage yr cliche. Roof party locavore XOXO distillery bushwick af irony. Single-origin coffee etsy kale chips trust fund meggings, pork belly intelligentsia pug hammock food truck coloring book 8-bit disrupt affogato.</p>
+	</div>
+</section>
+
+<section class="section--fullwidth section--text-over-image">
+	<img src="/public/dist/images/demogrid/brushesleft.jpg" class="img-fluid">
+	<div class="container-fluid">
+		<div class="row justify-content-end">
+			<div class="col col-md-6">
+			<h3>Fanny pack paleo forage</h3>
+				<p>I'm baby hammock roof party neutra air plant. Fanny pack paleo forage bitters pabst swag chicharrones you probably haven't heard of them tacos. Swag cred polaroid austin try-hard aesthetic DIY intelligentsia disrupt tilde.</p>
+			</div>
+		</div>
+	</div>
+</section>
 <section>narrow</section>
