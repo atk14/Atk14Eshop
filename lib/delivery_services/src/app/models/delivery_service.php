@@ -3,6 +3,8 @@ use DeliveryService\BranchParser;
 
 class DeliveryService extends ApplicationModel {
 
+	use TraitCodebook;
+
 	/**
 	 * Vrati seznam pobocek pro dorucovaci sluzbu.
 	 */
