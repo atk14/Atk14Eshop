@@ -18,6 +18,8 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		return Cache::Get("LinkList", $this->getLinkListId());
 	}
 
+	function isVisible(){ return $this->g("visible"); }
+
 	/**
 	 * Tries to determine the object this link is pointing to
 	 *

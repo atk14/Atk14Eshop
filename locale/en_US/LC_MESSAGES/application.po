@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-18 13:35+0100\n"
-"PO-Revision-Date: 2021-02-18 15:09+0100\n"
+"PO-Revision-Date: 2021-02-23 18:16+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -889,7 +889,7 @@ msgid "My orders"
 msgstr "My orders"
 
 msgid "Delivery addresses"
-msgstr "My orders"
+msgstr "Delivery addresses"
 
 #: ../app/controllers/logins_controller.php:33
 #: ../app/forms/logins/destroy_form.php:4

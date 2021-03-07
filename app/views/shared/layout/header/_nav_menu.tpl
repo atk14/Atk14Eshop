@@ -15,7 +15,7 @@
 {if $menu && !$menu->isEmpty()}
 	<ul class="{$nav_class}">
 
-			{foreach $menu->getItems($current_region) as $item}
+			{foreach $menu->getVisibleItems($current_region) as $item}
 
 					{assign submenu ""}
 					{if $enable_dropdown_menus && $enable_dropdown_menus!=="false"}

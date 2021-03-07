@@ -4,6 +4,9 @@
 			{render partial="shared/list_thumbnail" image=$slider->getImageUrl()}
 			{$slider->getName()}
 		</div>
+		
+		{if strlen($slider->getCode())}<small>{$slider->getCode()}</small>{/if}
+
 		<div>
 			{dropdown_menu}
 				{a action="slider_items/index" slider_id=$slider}{!"list"|icon} {t}Images{/t}{/a}

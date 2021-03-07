@@ -148,4 +148,14 @@ class TcCard extends TcBase {
 		$this->assertCount(0, $this->cards["coffee"]->getViewableAccessories());
 		$this->assertCount(0, $this->cards["book"]->getViewableAccessories());
 	}
+
+	function test_GetFinderForCategory(){
+		$catalog = $this->categories["catalog"];
+
+		$finder = Card::GetFinderForCategory($catalog);
+		$this->assertTrue($finder->getTotalAmount()>0);
+
+		$finder = Card::GetFinderForCategory($catalog,array(),array("search_entire_branch" => false));
+		$this->assertTrue($finder->getTotalAmount()===0);
+	}
 }

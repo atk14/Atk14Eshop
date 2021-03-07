@@ -11,8 +11,12 @@ class CategoryTreesController extends AdminController{
 
 		$this->_save_return_uri();
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$tags = $d["tags"];
+			unset($d["tags"]);
+
 			$d["created_by_user_id"] = $this->logged_user;
-			Category::CreateNewRecord($d);
+			$tree = Category::CreateNewRecord($d);
+			$tree->setTags($tags);
 			
 			$this->flash->success(_("The category tree has been created"));
 			$this->_redirect_back();
