@@ -6,11 +6,12 @@ class DeliveryServiceBranchesController extends ApiController {
 	 */
 	function index() {
 		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
-			$this->api_data = array();
-			if (is_null($delivery_service = DeliveryService::FindById($this->params->getInt("delivery_service_id")))) {
-				return $this->_report_fail(_("Bad request"),400);
+			if (is_null($delivery_service = DeliveryService::FindById($d["delivery_service_id"]))) {
+				$this->form->set_error("delivery_service_id",_("Object not found"));
+				return;
 			}
 
+			$this->api_data = array();
 			foreach($delivery_service->findBranches($d["q"], array("countries" => $this->current_region->getDeliveryCountries())) as $_office) {
 				$obj_dump = $_office->toArray();
 				# label pro naseptavadlo, ktery chceme vzdy ve stejnem formatu a udaje chceme mit v urcitem poradi
@@ -37,6 +38,4 @@ class DeliveryServiceBranchesController extends ApiController {
 		}
 
 	}
-
-	function _private_ip_required(){ return true; }
 }

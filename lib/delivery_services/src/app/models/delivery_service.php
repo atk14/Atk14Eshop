@@ -31,8 +31,8 @@ class DeliveryService extends ApplicationModel {
 		);
 		$out = array();
 		$q = trim($q);
-		if (!$q) {
-			return null;
+		if (!strlen($q)) {
+			return array();
 		}
 
 		$bind_ar = [

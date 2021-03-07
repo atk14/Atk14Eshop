@@ -1,16 +1,20 @@
 <?php
 /**
+ *
  * @fixture delivery_services
  * @fixture delivery_service_branches
  */
 class TcDeliveryServiceBranches extends TcBase {
 
-	function test_posta() {
+	function test() {
+		// Czech Post
+
 		$suggestions = $this->_get("delivery_service_branches/index", [
 			"delivery_service_id" => $this->delivery_services["posta"],
 			"format" => "json",
 			"q" => "120",
 		]);
+		$this->assertEquals(200,$this->_getLastStatusCode());
 
 		$this->assertCount(1, $suggestions);
 		$sug = array_shift($suggestions);
@@ -28,6 +32,7 @@ class TcDeliveryServiceBranches extends TcBase {
 			"format" => "json",
 			"q" => "praha 3",
 		]);
+		$this->assertEquals(200,$this->_getLastStatusCode());
 
 		$this->assertCount(1, $suggestions);
 		$sug = array_shift($suggestions);
@@ -38,14 +43,15 @@ class TcDeliveryServiceBranches extends TcBase {
 		$this->assertEquals("13000", $sug["value"]);
 		$this->assertEquals("13000, Olšanská 38/9, Žižkov, 13000, Praha - Praha 3", $sug["label"]);
 		$this->assertEquals("", $sug["opening_hours"]);
-	}
 
-	function test_zasilkovna() {
+		// Packeta
+
 		$suggestions = $this->_get("delivery_service_branches/index", [
 			"delivery_service_id" => $this->delivery_services["zasilkovna"],
 			"format" => "json",
 			"q" => "120",
 		]);
+		$this->assertEquals(200,$this->_getLastStatusCode());
 		$this->assertCount(0, $suggestions);
 
 		# hledani podle 'zip'
@@ -65,6 +71,8 @@ class TcDeliveryServiceBranches extends TcBase {
 			"format" => "json",
 			"q" => "první",
 		]);
+		$this->assertEquals(200,$this->_getLastStatusCode());
+
 		$this->assertCount(1, $suggestions);
 	}
 }
