@@ -6,7 +6,7 @@ class DeliveryServiceBranchesController extends ApiController {
 	 */
 	function index() {
 		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
-			if (is_null($delivery_service = DeliveryService::FindById($d["delivery_service_id"]))) {
+			if (is_null($delivery_service = DeliveryService::GetInstanceById($d["delivery_service_id"]))) {
 				$this->form->set_error("delivery_service_id",_("Object not found"));
 				return;
 			}

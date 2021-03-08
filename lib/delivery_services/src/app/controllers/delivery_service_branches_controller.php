@@ -1,7 +1,7 @@
 <?php
 class DeliveryServiceBranchesController extends ApplicationController {
-	function set_branch() {
 
+	function set_branch() {
 		$this->tpl_data["branch_selector_form"] = $this->_get_form("branch_selector_form");
 
 		$this->_save_return_uri();
@@ -19,6 +19,9 @@ class DeliveryServiceBranchesController extends ApplicationController {
 	}
 
 	function _before_filter() {
-		$this->_find("delivery_method","delivery_method_id");
+		$dm = $this->_find("delivery_method","delivery_method_id");
+		if($dm && !$dm->getDeliveryService()){
+			return $this->_execute_action("error404");
+		}
 	}
 }

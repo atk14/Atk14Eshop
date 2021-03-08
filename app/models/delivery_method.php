@@ -67,6 +67,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
 	}
 
+	function getDeliveryService() {
+		return Cache::Get("DeliveryService",$this->getDeliveryServiceId());
+	}
+
 	/**
 	 * Vrati vsechny zeme, kam je mozne dorucit zasilku s touto dopravou
 	 *

@@ -6,9 +6,7 @@
  */
 class TcDeliveryServiceBranches extends TcBase {
 
-	function test() {
-		// Czech Post
-
+	function test_CzechPost() {
 		$suggestions = $this->_get("delivery_service_branches/index", [
 			"delivery_service_id" => $this->delivery_services["posta"],
 			"format" => "json",
@@ -44,8 +42,9 @@ class TcDeliveryServiceBranches extends TcBase {
 		$this->assertEquals("13000, Olšanská 38/9, Žižkov, 13000, Praha - Praha 3", $sug["label"]);
 		$this->assertEquals("", $sug["opening_hours"]);
 
-		// Packeta
+	}
 
+	function test_Packeta(){
 		$suggestions = $this->_get("delivery_service_branches/index", [
 			"delivery_service_id" => $this->delivery_services["zasilkovna"],
 			"format" => "json",
