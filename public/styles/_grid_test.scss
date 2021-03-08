@@ -4,12 +4,20 @@
 
 .body--fullwidth {
 	max-width: 100%;
+	
+	header#header-main {
+		max-width: 100%;
+	}
 
 	.content-main {
 		//background-color: rgba(yellow,0.2);
 		
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, $max-page-width) minmax(0, 1fr);
+		
+		& > * {
+			outline: 1px dotted rgba(aqua,0.5);
+		}
 		
 		& > *:not(.section--fullwidth) {
 			grid-column: 2/3;
@@ -25,6 +33,29 @@
 			max-width: $max-content-width;
 			margin-left: auto;
 			margin-right: auto;
+		}
+		
+		.container-fluid {
+			background-color: rgba(yellow,0.05 )!important;
+			margin-top: $grid-gutter-width;
+			margin-bottom: $grid-gutter-width;
+			
+			h2, h3, .h2, .h3, p {
+				//&:first-child {
+					margin-bottom: $grid-gutter-width;
+				//}
+			}
+			
+		}
+		
+		& > h1, & > h2, & > h3, & > h4, & > h5, & > .h1, & > .h2, & > .h3, & > .h4, & > .h5, p {
+			background-color: rgba(pink,0.1);
+			max-width: $max-content-width + $grid-gutter-width * 2;
+			padding-left: $grid-gutter-width;
+			padding-right: $grid-gutter-width;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: $grid-gutter-width;
 		}
 	}
 }
