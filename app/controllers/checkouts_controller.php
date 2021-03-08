@@ -34,7 +34,7 @@ class CheckoutsController extends ApplicationController {
 			return $this->_redirect_to("set_payment_and_delivery_method");
 		}
 
-		$this->page_title = _("Dodací adresa");
+		$this->page_title = _("Doručovací údaje");
 
 		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = $this->basket->deliveryToDeliveryPointSelected();
 
@@ -64,6 +64,9 @@ class CheckoutsController extends ApplicationController {
 				"address_zip" => $this->logged_user->getAddressZip(),
 				"address_country" => $this->logged_user->getAddressCountry(),
 			]);
+			// fine-tuning of the delivery_company field
+			$this->form->fields["delivery_company"]->required = true;
+			$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
 		}
 		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 

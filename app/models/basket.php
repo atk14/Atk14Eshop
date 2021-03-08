@@ -1046,9 +1046,6 @@ class Basket extends BasketOrOrder {
 		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
 	}
 
-	function getDeliveryServiceBranchAddress() {
-		return $this->getDeliveryPointAddress();
-	}
 	function getDeliveryPointAddress() {
 		$delivery_address = null;
 		$data = $this->getDeliveryMethodData();
@@ -1058,10 +1055,14 @@ class Basket extends BasketOrOrder {
 				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
 				unset($delivery_address[$k]);
 			}
-			$delivery_address["delivery_company"] = $delivery_address["company"];
+			$delivery_address["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
 			unset($delivery_address["company"]);
 		}
 		return $delivery_address;
+	}
+
+	function getDeliveryServiceBranchAddress() {
+		return $this->getDeliveryPointAddress();
 	}
 
 	/**
