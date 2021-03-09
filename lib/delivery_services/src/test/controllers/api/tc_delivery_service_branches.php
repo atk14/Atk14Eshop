@@ -28,7 +28,7 @@ class TcDeliveryServiceBranches extends TcBase {
 		$suggestions = $this->_get("delivery_service_branches/index", [
 			"delivery_service_id" => $this->delivery_services["posta"],
 			"format" => "json",
-			"q" => "praha 3",
+			"q" => "praha 3 žižkov",
 		]);
 		$this->assertEquals(200,$this->_getLastStatusCode());
 
