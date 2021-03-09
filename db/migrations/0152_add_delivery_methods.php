@@ -1,5 +1,5 @@
 <?php
-class AddDeliveryMethods extends Atk14Migration {
+class AddDeliveryMethods extends ApplicationMigration {
 
 	function up() {
 		if (TEST) {
