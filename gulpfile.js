@@ -130,6 +130,12 @@ gulp.task( "copy", function() {
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
 		} );
+
+	// The following alternative place for fontawesome files was added
+	// after the vendor script node_modules/jquery-ui-bundle/jquery-ui.js has beed added.
+	// TODO: to be investigated & solved & removed...
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/@fortawesome/fontawesome-free/webfonts/" ) );
 } );
 
 // Clean
