@@ -16,6 +16,10 @@
 	Otevřít modal bez zavíracího tlačítka
 </button>
 
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#open_by_click_modal_no_title_no_close_button">
+	Otevřít modal bez titulku i zavíracího tlačítka
+</button>
+
 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_vertically_centered">
 	Otevřít modal verikálně centrovaný
 </button>
@@ -39,6 +43,9 @@
 	<p>Hit Esc to close the modal.</p>
 {/modal}
 
+{modal id="open_by_click_modal_no_title_no_close_button" title="" close_button=false}
+	<p>Hit Esc to close the modal.</p>
+{/modal}
 
 {modal id="modal_vertically_centered" title="Modal #2!" vertically_centered=1}
 	<p>Toto je modal bez patičky.</p>
