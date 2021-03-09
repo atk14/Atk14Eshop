@@ -115,6 +115,10 @@ class AddDeliveryMethods extends ApplicationMigration {
 
 		ShippingCombination::SetPaymentMethodsForDeliveryMethod($zasilkovna, [$bank_transfer]);
 		ShippingCombination::SetPaymentMethodsForDeliveryMethod($zasilkovna_cod, [$cash_on_delivery]);
+
+		if($dm = DeliveryMethod::GetInstanceByCode("personal")){
+			$dm->setRank(999);
+		}
 	}
 
 	function _delVat($price){
