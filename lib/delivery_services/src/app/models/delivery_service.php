@@ -28,6 +28,7 @@ class DeliveryService extends ApplicationModel {
 		$options += array(
 			"limit" => 150,
 			"countries" => [],
+			"user" => null,
 		);
 		$out = array();
 		$q = trim($q);
@@ -76,11 +77,20 @@ class DeliveryService extends ApplicationModel {
 				);
 			}
 			$order = join(",", $order);
-			if ($unaccent_installed) {
-				$conditions[] = "lower(unaccent(name)) like lower(unaccent(:q)) OR lower(unaccent(full_address)) like lower(unaccent(:q))";
-			} else {
-				$conditions[] = "lower(name) like lower(:q) OR lower(full_address) like lower(:q)";
+
+			$_fields = array();
+			foreach(array(
+				"name",
+				"place",
+				"full_address"
+			) as $_f){
+				$_fields[] = $unaccent_installed ? "COALESCE(UNACCENT($_f),'')" : "COALESCE($_f,'')";
 			}
+			$_q = $this->dbmole->selectString($unaccent_installed ? "SELECT LOWER(UNACCENT(:q))" : "SELECT LOWER(:q)",[":q" => $q]);
+			if(!$ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",$_q,$bind_ar)){
+				return array();
+			}
+			$conditions[] = $ft_cond;
 		}
 		$bind_ar[":q"] = "%$q%";
 		$bind_ar[":q_zip"] = "$q%";

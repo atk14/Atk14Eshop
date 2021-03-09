@@ -1,5 +1,6 @@
 <?php
 class DeliveryServiceBranchField extends CharField {
+
 	function __construct($options = array()) {
 		$options += array(
 			# kvuli naseptavani

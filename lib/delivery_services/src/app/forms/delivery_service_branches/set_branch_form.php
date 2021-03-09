@@ -1,7 +1,7 @@
 <?php
 class SetBranchForm extends ApplicationForm {
-	function set_up() {
 
+	function set_up() {
 		$this->add_field("delivery_service_branch_id", new DeliveryServiceBranchField(array(
 			"label" => _("Pobočka"),
 			"help_text" => _("Zadejte PSČ, adresu nebo název místa"),

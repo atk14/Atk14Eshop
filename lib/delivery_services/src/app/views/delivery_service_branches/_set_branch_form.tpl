@@ -5,7 +5,9 @@
 	* Stisk enter je obslouzen js, ktery prenese id pobocky do formulare nize, ktery je po odeslani na serveru validovan.
 	*}
 
-{if $delivery_method->getCode()=="zasilkovna"}
+{assign delivery_service $delivery_method->getDeliveryService()}
+
+{if $delivery_service && $delivery_service->getCode()=="zasilkovna"}
 	<div id="atk14-widget-zasilkovna" data-api_key="{"delivery_services.zasilkovna.api_key"|system_parameter}"></div>
 {else}
 {render partial="shared/form_field" field=$branch_selector_form->get_field("delivery_service_widget")}
@@ -13,7 +15,7 @@
 
 {render partial="shared/form"}
 
-{if $delivery_method->getCode()=="zasilkovna"}
+{if $delivery_service && $delivery_service->getCode()=="zasilkovna"}
 <script>
 {literal}
 document.addEventListener( "DOMContentLoaded", function() {
