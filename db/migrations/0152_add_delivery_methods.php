@@ -6,6 +6,8 @@ class AddDeliveryMethods extends Atk14Migration {
 			return;
 		}
 
+		// ./scripts/console
+		//
 		// $dbmole->doQuery("DELETE FROM baskets WHERE id!=1");
 		// ($dm = DeliveryMethod::FindByCode("cp-balikovna")) && $dm->destroy();
 		// ($dm = DeliveryMethod::FindByCode("cp-balikovna_cod")) && $dm->destroy();
