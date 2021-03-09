@@ -1,17 +1,27 @@
 .delivery_service_branch {
 	display: none;
-//	background: white;
+	padding: 0 0.75rem 0 2.75rem;
 	.branch_button {
-		margin-left: auto;
+		white-space: nowrap;
+		margin-bottom: 0.75rem;
+		flex-grow: 10;
+		text-align: right;
+		padding-left: 0.75rem;
+		display: block;
 	}
 	.branch_address {
-//		color: @gray-base;
+		display: block;
+		font-size: $font-size-sm;
+		margin-bottom: 0.75rem;
 	}
 }
 
 // branch address with set branch link
 #form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
 }
 
 // fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
