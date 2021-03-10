@@ -1,6 +1,7 @@
 .delivery_service_branch {
 	display: none;
-	padding: 0 0.75rem 0 2.75rem;
+	padding: 0.75em 0.75rem 0 2.75rem;
+	border-top: 1px solid $border-color;
 	.branch_button {
 		white-space: nowrap;
 		margin-bottom: 0.75rem;
