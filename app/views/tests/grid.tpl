@@ -53,7 +53,7 @@
 </section>
 
 <section class="section--fullwidth section--text-over-image">
-	<img src="/public/dist/images/demogrid/brushesleft.jpg" class="img-fluid">
+	<img src="/public/dist/images/demogrid/brushesleft.jpg" class="img-fluid d-none d-md-block">
 	<div class="container-fluid">
 		<div class="row justify-content-end">
 			<div class="col col-md-6">
@@ -108,3 +108,20 @@
 <h2>Test root elements</h2>
 <p>Flannel jianbing raw denim retro 3 wolf moon tattooed adaptogen swag edison bulb biodiesel DIY fam chartreuse letterpress vegan. Vinyl swag unicorn roof party tote bag, brooklyn mustache bitters disrupt scenester schlitz activated charcoal craft beer. Poutine messenger bag humblebrag activated charcoal listicle selvage. Gentrify polaroid tumblr plaid, ugh pinterest blue bottle.</p>
 <p>Wayfarers chicharrones meggings cardigan post-ironic listicle messenger bag dreamcatcher. Live-edge kickstarter migas fam. Vinyl enamel pin chambray, mustache kinfolk iceland waistcoat vegan migas humblebrag edison bulb brooklyn XOXO. Biodiesel photo booth vaporware YOLO ethical salvia williamsburg vice. Snackwave iPhone hell of small batch hot chicken vape.</p>
+
+<div class="fullwidth">
+	<img src="/public/dist/images/demogrid/darkorange-top.svg" alt="" class="img-fluid">
+</div>
+
+<div class="fullwidth" style="background-color: #fc5130; background: linear-gradient(180deg, rgba(252,81,48,1) 0%, rgba(226,37,3,1) 100%);  color: white">
+	<div class="container-fluid narrow">
+		<h2 style="color: white;">Vinyl swag unicorn roof party tote bag, brooklyn mustache bitters disrupt</h2>
+		<p>Flannel jianbing raw denim retro 3 wolf moon tattooed adaptogen swag edison bulb biodiesel DIY fam chartreuse letterpress vegan. Vinyl swag unicorn roof party tote bag, brooklyn mustache bitters disrupt scenester schlitz activated charcoal craft beer. Poutine messenger bag humblebrag activated charcoal listicle selvage. Gentrify polaroid tumblr plaid, ugh pinterest blue bottle.</p>
+		<p>Cronut etsy skateboard, post-ironic butcher migas keytar shoreditch typewriter direct trade vegan. Pickled chillwave gastropub kombucha roof party chia letterpress waistcoat. Poke ennui kale chips lomo viral. Copper mug edison bulb pok pok gastropub keffiyeh, taiyaki kickstarter venmo occupy.</p>
+	</div>
+</div>
+
+
+<div class="fullwidth">
+	<img src="/public/dist/images/demogrid/darkorange-bottom.svg" alt="" class="img-fluid">
+</div>
