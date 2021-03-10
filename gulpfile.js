@@ -133,6 +133,7 @@ gulp.task( "copy", function() {
 
 	// The following alternative place for fontawesome files was added
 	// after the vendor script node_modules/jquery-ui-bundle/jquery-ui.js has beed added.
+	// See changeset 85cee100.
 	// TODO: to be investigated & solved & removed...
 	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
 		.pipe( gulp.dest( "public/dist/@fortawesome/fontawesome-free/webfonts/" ) );
