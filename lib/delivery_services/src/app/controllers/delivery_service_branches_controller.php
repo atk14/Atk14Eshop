@@ -23,5 +23,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		if($dm && !$dm->getDeliveryService()){
 			return $this->_execute_action("error404");
 		}
+		$this->breadcrumbs[] = _("Nákupní košík");
+		$this->_prepare_checkout_navigation();
 	}
 }
