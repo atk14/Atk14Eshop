@@ -11,4 +11,4 @@
 		{/capture}
 	{/if}
 {/trim}
- {if $delivery_service_branch_info}[ {trim}{$delivery_service_branch_info}{/trim} ]{/if}
+ {if $delivery_service_branch_info}<br>{trim}{$delivery_service_branch_info}{/trim}{/if}
