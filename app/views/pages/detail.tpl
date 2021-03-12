@@ -1,11 +1,8 @@
+{if $page->getCode()=="fullwidth"}
+	{use layout="containerless"}
+{/if}
 {admin_menu for=$page}
 <article>
-	{*<header class="content-header">
-		<h1>{$page->getTitle()}</h1>
-		<div class="teaser">
-		{!$page->getTeaser()|markdown}
-		</div>
-	</header>*}
 	{assign var="colorbg" false}
 	{if $creator}
 		{assign var="image" $creator->getImageUrl()}
@@ -13,12 +10,12 @@
 	{/if}
 	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
 	
-	<section class="page__body">
+	{*<section class="page__body">*}
 		{if !$page->isVisible() && $page->getCode()!="error404"}
 			<p><em>{t}This is not a visible page! It's not available to the public audience.{/t}</em></p>
 		{/if}
 		{!$page->getBody()|markdown}
-	</section>
+	{*</section>*}
 	
 </article>
 

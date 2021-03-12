@@ -1,28 +1,36 @@
+$griddebug: false;
+
 @mixin grid-fullwidth(){
 	grid-column: 1/4;
 }
 
+body.body--fullwidth {
+	background-color: white;
+}
+
 .body--fullwidth {
 	max-width: 100%;
-	background-color: white;
+	
+	
 	
 	header#header-main {
 		max-width: 100%;
 	}
 
-	.content-main {
-		//background-color: rgba(yellow,0.2);
+	.content-main, .content-main > article  {
+		//background-color: rgba(yellow,0.2
+		@include grid-fullwidth;
 		
-		//@include media-breakpoint-up(md){
-			display: grid;
-			grid-template-columns: minmax(0, 1fr) minmax(0, $max-page-width) minmax(0, 1fr);
-		//}
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, $max-page-width) minmax(0, 1fr);
 		
 		& > * {
-			outline: 1px dotted rgba(aqua,0.5);
+			@if $griddebug {
+				outline: 1px dotted rgba(aqua,0.5);
+			}
 		}
 		
-		& > *:not(.section--fullwidth) {
+		& > *:not(.section--fullwidth):not(.fullwidth):not(article) {
 			grid-column: 2/3;
 			//outline: 1px dotted red;
 		}
@@ -32,6 +40,24 @@
 			//outline: 1px dotted black;
 		}
 		
+		& > .section--fullwidth, & > .fullwidth {
+			& + *:not(.section--fullwidth):not(.fullwidth) {
+				@if $griddebug {
+					outline: 4px solid red;
+				}
+				margin-top: $grid-gutter-width;
+			}
+		}
+		
+		& > *:not(.section--fullwidth):not(.fullwidth) {
+			& + .fullwidth, & + .section--fullwidth {
+				@if $griddebug {
+					outline: 4px solid purple;
+				}
+				margin-top: $grid-gutter-width;
+			}
+		}
+		
 		.section--narrow, .narrow {
 			max-width: $max-content-width;
 			margin-left: auto;
@@ -39,7 +65,9 @@
 		}
 		
 		.container-fluid {
-			background-color: rgba(yellow,0.05 )!important;
+			@if $griddebug {
+				background-color: rgba(yellow,0.05 )!important;
+			}
 			margin-top: $grid-gutter-width;
 			margin-bottom: $grid-gutter-width;
 			
@@ -52,7 +80,9 @@
 		}
 		
 		& > h1, & > h2, & > h3, & > h4, & > h5, & > .h1, & > .h2, & > .h3, & > .h4, & > .h5, & > p {
-			background-color: rgba(pink,0.1);
+			@if $griddebug {
+				background-color: rgba(pink,0.1);
+			}
 			max-width: $max-content-width + $grid-gutter-width * 2;
 			padding-left: $grid-gutter-width * 2;
 			padding-right: $grid-gutter-width * 2;
@@ -60,6 +90,12 @@
 			margin-right: auto;
 			margin-bottom: $grid-gutter-width;
 		}
+		
+		.content-header {
+			margin-left: $grid-gutter-width;
+			margin-right: $grid-gutter-width;
+		}
+		
 	}
 	
 	

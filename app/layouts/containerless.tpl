@@ -74,7 +74,7 @@
 		{facebook_pixel}
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
+	<body class="body_{$controller}_{$action} body--fullwidth" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{render partial="shared/trackers/google/tag_manager_body"}
 		<div class="body body--fullwidth{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
 			{render partial="shared/layout/header"}
