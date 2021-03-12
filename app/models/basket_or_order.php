@@ -145,6 +145,16 @@ class BasketOrOrder extends ApplicationModel {
 		return $out;
 	}
 
+	function getDeliveryMethodData() {
+		return json_decode($this->g("delivery_method_data"),true);
+	}
+
+	function getDeliveryPlace() {
+		if ($data = $this->getDeliveryMethodData()) {
+			return $data["delivery_address"]["place"];
+		}
+	}
+
 	/**
 	 * Je DIC zvalidovane v systemu VIES: http://ec.europa.eu/taxation_customs/vies/vatResponse.html
 	 *

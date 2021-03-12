@@ -1,7 +1,8 @@
 <?php
 /**
  *
- * @fixture delivery_methods 
+ * @fixture delivery_services
+ * @fixture delivery_methods
  * @fixture payment_methods
  * @fixture shipping_combinations
  */
@@ -12,6 +13,7 @@ class TcShippingCombination extends TcBase {
 		$personal = $this->delivery_methods["personal"];
 		$post = $this->delivery_methods["post"];
 		$post_cod = $this->delivery_methods["post_cod"];
+		$zasilkovna = $this->delivery_methods["zasilkovna"];
 		//
 		$credit_card = $this->payment_methods["credit_card"];
 		$bank_transfer = $this->payment_methods["bank_transfer"];
@@ -28,6 +30,19 @@ class TcShippingCombination extends TcBase {
 
 		$this->assertTrue(ShippingCombination::IsAllowed($post_cod,$cash_on_delivery));
 		$this->assertFalse(ShippingCombination::IsAllowed($post_cod,$bank_transfer));
+
+		# bez api key neni kombinace se Zasilkovnou povolena
+		$this->assertFalse(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
+		# ted kdyz doplnime api key
+		$sys_param = SystemParameter::CreateNewRecord([
+			"system_parameter_type_id" => 1,
+			"code" => "delivery_services.zasilkovna.api_key",
+			"name_cs" => "Zásilkovna API klíč",
+			"content" => "12346",
+			"mandatory" => false,
+		]);
+		# je kombinace se Zasilkovnou povolena
+		$this->assertTrue(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
 
 		$basket = Basket::CreateNewRecord4UserAndRegion(User::GetAnonymousUser(),Region::GetDefaultRegion());
 

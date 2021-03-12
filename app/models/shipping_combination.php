@@ -72,6 +72,12 @@ class ShippingCombination extends ApplicationModel {
       return null;
     }
 
+		!is_object($delivery_method_id) && ($delivery_method_id = DeliveryMethod::GetInstanceById($delivery_method_id));
+		# check if DeliveryMethod is connected to a DeliveryService and if it is usable in that case.
+		if (($delivery_service=$delivery_method_id->getDeliveryService()) && !$delivery_service->canBeUsed()) {
+			return false;
+		}
+
 		$dbmole = self::GetDbMole();
 		$q = "
 			SELECT
@@ -144,6 +150,11 @@ class ShippingCombination extends ApplicationModel {
 				if(!$basket->hasEveryProductTag($tag_required)){
 					continue;
 				}
+			}
+			# kontrola, ze dorucovaci sluzba pouzita pro tuto metodu muze byt pouzita
+			# napriklad je zadany api klic (zatim jen toto)
+			if (($ds = $o->getDeliveryService()) && !$ds->canBeUsed()) {
+				continue;
 			}
 			$delivery_methods[] = $o;
 		}

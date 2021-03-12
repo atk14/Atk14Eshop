@@ -40,22 +40,18 @@
 	{render partial="shared/form_error"}
 
 	{if $delivery_point_selected}
-		{render partial="billing_and_delivery_data_form__delivery_point_selected"}
+		{render partial="invoice_data"}
+
+		{render partial="delivery_address"}
+		{*render partial="billing_and_delivery_data_form__delivery_point_selected"*}
 	{else}
-	<div class="form__body">
-		<h3 class="form__legend">{t}Adresa pro doručení{/t}</h3>
-		{render partial="shared/form_field" fields="delivery_firstname,delivery_lastname,email,delivery_company,delivery_address_street,delivery_address_city,delivery_address_zip,delivery_address_country,delivery_address_note,delivery_phone"}
-	</div>
-
+		{render partial="delivery_address"}
 		
-	<div class="form__body">
-		{render partial="shared/form_field" fields="fill_in_invoice_address"}
-	</div>
+		<div class="form__body">
+			{render partial="shared/form_field" fields="fill_in_invoice_address"}
+		</div>
 
-	<div class="form__body{if !$fill_in_invoice_address} nojs-only{/if}" id="invoice-address-fields">
-		<h3 class="form__legend">{t}Fakturační údaje{/t} <small>{t}(nepovinné){/t}</small></h3>
-		{render partial="shared/form_field" fields="firstname,lastname,company,company_number,vat_id,address_street,address_city,address_zip,address_country"}
-	</div>
+		{render partial="invoice_data"}
 	{/if}
 
 	<div class="form__footer">

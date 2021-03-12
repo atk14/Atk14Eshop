@@ -22,6 +22,9 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 			"label" => _("Chci zadat fakturační údaje"),
 			//"help_text" => _("nepovinné"),
 			"required" => false,
+
+			"initial" => $delivery_point_selected,
+			"disabled" => $delivery_point_selected,
 		]));
 
 		$this->set_button_text(_("Pokračovat"));

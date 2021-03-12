@@ -1,20 +1,20 @@
 credit_card:
   code: "cc",
-  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price: 0
   price_incl_vat: 0
   payment_gateway_id: 1
 
 bank_transfer:
   code: "bt"
-  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price: 0
   price_incl_vat: 0
   bank_transfer: true
 
 cash_on_delivery:
   code: "cod",
-  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true]) ?>"
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price: 75.238
   price_incl_vat: 79.0
   cash_on_delivery: true

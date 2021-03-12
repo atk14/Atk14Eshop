@@ -25,3 +25,5 @@ if(
 require_once(__DIR__ . "/functions.php");
 class_autoload(__DIR__ . '/filter/');
 class_autoload(__DIR__ . '/ajax_pager/');
+
+require_once(__DIR__."/delivery_services/src/load.php");
