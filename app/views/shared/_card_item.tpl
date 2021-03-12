@@ -29,7 +29,7 @@
 				<div class="card-author">{$creator}</div>
 			{/foreach}
 		{/if}
-		<div class="card-text">{$card->getTeaser()|markdown|strip_tags|truncate:200}</div>
+		<div class="card-text">{$card->getTeaser()|markdown|strip_tags|truncate:300}</div>
 	</div>
 
 	<div class="card-footer">
