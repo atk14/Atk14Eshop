@@ -120,6 +120,7 @@ ul.list--radios {
 					position: absolute;
 					left: $itemPadding;
 					//top: $itemPadding;
+					top: calc(50% - #{$inputSize/2});
 					display: block;
 					content: "";
 					width: $inputSize;
@@ -148,6 +149,7 @@ ul.list--radios {
 					display: block;
 					left: $itemPadding + ($inputSize - $dotSize) / 2;
 					//top: $itemPadding + ($inputSize - $dotSize) / 2;
+					top: calc(50% - #{$inputSize/2} + #{($inputSize - $dotSize) / 2};
 					width: $dotSize;
 					height: $dotSize;
 					border-radius: 50%;
