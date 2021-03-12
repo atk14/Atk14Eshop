@@ -32,8 +32,6 @@
 		{render partial="shared/trackers/google/tag_manager_head"}
 		{render partial="shared/trackers/google/analytics"}
 
-		{render partial="shared/trackers/google/analytics"}
-
 		<title>{trim}
 			{if $controller=="main" && $action=="index" && $namespace==""}
 				{$page_title|strip_tags}
