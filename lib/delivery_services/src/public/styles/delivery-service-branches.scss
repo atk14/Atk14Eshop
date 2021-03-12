@@ -6,7 +6,6 @@
 	.branch_button {
 		white-space: nowrap;
 		margin-bottom: 0.75rem;
-		flex-grow: 10;
 		text-align: right;
 		padding-left: 0.75rem;
 		display: block;
@@ -37,9 +36,6 @@
 // branch address with set branch link
 #form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
 	display: block;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
 }
 
 // fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
