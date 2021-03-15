@@ -1,5 +1,7 @@
 $griddebug: false;
 
+$section-spacing: $grid-gutter-width*2;
+
 @mixin grid-fullwidth(){
 	grid-column: 1/4;
 }
@@ -45,7 +47,7 @@ body.body--fullwidth {
 				@if $griddebug {
 					outline: 4px solid red;
 				}
-				margin-top: $grid-gutter-width;
+				margin-top: $section-spacing;
 			}
 		}
 		
@@ -54,7 +56,7 @@ body.body--fullwidth {
 				@if $griddebug {
 					outline: 4px solid purple;
 				}
-				margin-top: $grid-gutter-width;
+				margin-top: $section-spacing;
 			}
 		}
 		
