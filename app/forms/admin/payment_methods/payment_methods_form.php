@@ -48,17 +48,13 @@ class PaymentMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_field("price", new FloatField(array(
-			"label" => sprintf(_("Cena [%s]"),$currency),
-			"min_value" => 0,
-			"initial" => 0,
-		)));
-
 		$this->add_field("price_incl_vat", new FloatField(array(
 			"label" => sprintf(_("Cena s DPH [%s]"),$currency),
 			"min_value" => 0,
 			"initial" => 0,
 		)));
+
+		$this->add_vat_rate_id_field();
 
 		$this->add_code_field(array(
 			"label" => _("Kód platby"),

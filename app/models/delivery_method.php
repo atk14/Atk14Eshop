@@ -13,6 +13,14 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return array("label","title","description","email_description");
 	}
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function isActive() {
 		return $this->getActive();
 	}

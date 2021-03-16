@@ -11,6 +11,14 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	 */
 	static function GetTranslatableFields(){ return array("label","title","description"); }
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function isActive() {
 		return $this->getActive();
 	}

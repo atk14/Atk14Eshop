@@ -1,6 +1,14 @@
 <?php
 class DeliveryMethodCountrySpecification extends ApplicationModel {
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function getDeliveryMethod(){
 		return Cache::Get("DeliveryMethod",$this->getDeliveryMethodId());
 	}
