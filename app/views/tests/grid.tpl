@@ -33,7 +33,7 @@
 	<img src="/public/dist/images/demogrid/plane.jpg" class="img-fluid">
 	<div class="container-fluid" style="align-self: end">
 		<div class="row justify-content-end">
-			<div class="col col-md-6">
+			<div class="col col-md-6 mt-md-2g">
 			<h3>Fanny pack paleo forage</h3>
 				<p>I'm baby hammock roof party neutra air plant. Fanny pack paleo forage bitters pabst swag chicharrones you probably haven't heard of them tacos. Swag cred polaroid austin try-hard aesthetic DIY intelligentsia disrupt tilde.</p>
 				<p>Flexitarian farm-to-table 3 wolf moon, blog slow-carb keffiyeh before they sold out hammock vape. Fam vaporware dreamcatcher coloring book +1, locavore retro seitan. Kickstarter celiac you probably haven't heard of them brooklyn meggings, crucifix gochujang banjo chartreuse street art pinterest. Portland bitters put a bird on it organic selvage wayfarers kickstarter semiotics. Slow-carb brooklyn gluten-free whatever distillery taxidermy +1.</p>
