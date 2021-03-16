@@ -7,6 +7,7 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	function __construct($options = []){
 		$options += [
 			"basket" => null,
+			"widget" => new DeliveryMethodAtCheckoutSelect($options),
 		];
 
 		$this->basket = $options["basket"];
@@ -22,6 +23,25 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 			$choices[$o->getId()] = new DeliveryMethodChoice($o, $options);
 		}
 		return $choices;
+	}
+
+	function clean($value) {
+		list($err,$value) = parent::clean($value);
+
+		if (is_null($_dm = DeliveryMethod::FindById($value))) {
+			return [_("There is no such delivery method"), null];
+		}
+
+		# pokud je zvolena dorucovaci metoda s vyberem vydejniho mista,
+		# tak kontrola kombinace dorucovaci sluzby a vydejniho mista, ze patri k sobe
+		$delivery_method_data = $this->basket->getDeliveryMethodData();
+		if (
+			$_dm && $_dm->getDeliveryServiceId() &&
+			(is_null($delivery_method_data) || ( $delivery_method_data && ($_dm->getDeliveryServiceId() != $delivery_method_data["delivery_service_id"])))
+		) {
+			return [_("Choose pickup place for selected delivery method"), null];
+		}
+		return [$err,$value];
 	}
 }
 

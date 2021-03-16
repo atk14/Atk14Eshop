@@ -24,6 +24,8 @@
 		<div class="product-info">
 		{render partial="categories"}
 		{render partial="creators"}
+
+		{remove_if_contains_no_text}
 		{if !$card->hasCardSection("tech_spec")}
 			<section class="section--product-info section--tech_spec">
 				<div class="section__body">
@@ -31,6 +33,7 @@
 				</div>
 			</section>
 		{/if}
+		{/remove_if_contains_no_text}
 
 		{render partial="shared/attachments" object=$card}
 

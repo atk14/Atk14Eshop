@@ -78,6 +78,7 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+				UTILS.handleSuggestions();
 
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
@@ -412,7 +413,7 @@
 			set_billing_and_delivery_data: function() {
 
 				// Checkbox na zadavani fakturacni adresy
-				if( $( "#id_fill_in_invoice_address" ).is( ":checked" ) === false ){
+				if( $( "#id_fill_in_invoice_address" ).length && $( "#id_fill_in_invoice_address" ).is( ":checked" ) === false ){
 					$( "#invoice-address-fields" ).css( "display", "none" );
 				}
 

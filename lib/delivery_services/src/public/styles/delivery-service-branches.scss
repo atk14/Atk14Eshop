@@ -1,0 +1,57 @@
+.delivery_service_branch {
+	display: none;
+	padding: 0.75em 0.75rem 0 2.75rem;
+	border-top: 1px solid $border-color;
+	
+	.branch_button {
+		white-space: nowrap;
+		margin-bottom: 0.75rem;
+		text-align: right;
+		padding-left: 0.75rem;
+		display: block;
+		float: right;
+	}
+	.branch_address {
+		display: block;
+		font-size: $font-size-sm;
+		padding-bottom: 0.75rem;
+	}	
+	
+	@include media-breakpoint-only(md){
+		padding-left: 0.75rem;
+		.branch_button {
+			float: none;
+		}
+	}
+	@include media-breakpoint-down(xs){
+		padding-left: 0.75rem;
+	}
+	@media(max-width:420px){
+		.branch_button {
+			float: none;
+		}
+	}
+}
+
+// branch address with set branch link
+#form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
+	display: block;
+}
+
+// fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
+.ui-widget.ui-widget-content {
+	z-index: $zindex-modal;
+}
+
+#atk14-widget-zasilkovna {
+	height: 600px;
+}
+.modal--zasilkovna > .modal-dialog {
+	max-width: 1000px;
+}
+
+.modal--zasilkovna {
+	.modal-body {
+		padding: 0;
+	}
+}

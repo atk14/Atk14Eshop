@@ -10,3 +10,4 @@ cd ..
 ./scripts/robot_runner order_status_updater
 ./scripts/robot_runner fulltext_indexer
 ./scripts/robot_runner reindex_database
+./scripts/robot_runner import_delivery_service_branches

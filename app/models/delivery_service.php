@@ -1,4 +1,1 @@
-<?php
-class DeliveryService extends ApplicationModel {
-
-}
+../../lib/delivery_services/src/app/models/delivery_service.php

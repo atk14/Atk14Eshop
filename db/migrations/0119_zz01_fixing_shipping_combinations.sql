@@ -1,0 +1,8 @@
+ALTER TABLE shipping_combinations DROP CONSTRAINT fk_shipping_payment_method;
+ALTER TABLE shipping_combinations ADD CONSTRAINT fk_shippingcombinations_paymentmethods FOREIGN KEY (payment_method_id) REFERENCES payment_methods ON DELETE CASCADE;
+
+ALTER TABLE shipping_combinations DROP CONSTRAINT fk_shipping_delivery_method;
+ALTER TABLE shipping_combinations ADD CONSTRAINT fk_shippingcombinations_deliverymethods FOREIGN KEY (delivery_method_id) REFERENCES delivery_methods ON DELETE CASCADE;
+
+ALTER TABLE shipping_combinations DROP CONSTRAINT unq_shipping__delivery_method_payment_method;
+ALTER TABLE shipping_combinations ADD CONSTRAINT unq_shippingcombinations_delmethodid_paymethodid UNIQUE (payment_method_id, delivery_method_id);

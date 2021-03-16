@@ -74,6 +74,10 @@ class DeliveryMethodsForm extends AdminForm {
 			"help_text" => _("Pro systémové účely. Unikátní kód."),
 		));
 
+		$this->add_field("delivery_service_id", new DeliveryServiceField(array(
+			"required" => false,
+		)));
+
 		$this->add_field("logo", new PupiqImageField(array(
 			"label" => _("Logo"),
 			"initial" => false,
@@ -94,7 +98,7 @@ class DeliveryMethodsForm extends AdminForm {
 
 		if(in_array("personal_pickup",$keys) && in_array("personal_pickup_on_store_id",$keys)){
 			if($d["personal_pickup_on_store_id"] && !$d["personal_pickup"]){
-				$this->set_error("personal_pickup",_("Pokud je vybrába prodejna pro osbní odběr, zatrhněte i osobní odběr"));
+				$this->set_error("personal_pickup",_("Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"));
 			}
 		}
 

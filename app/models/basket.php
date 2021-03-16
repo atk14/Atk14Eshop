@@ -888,6 +888,7 @@ class Basket extends BasketOrOrder {
 		// Next automatic status
 		$next_status = OrderStatus::DetermineNextAutomaticStatus($order);
 		if($next_status){
+			$next_status->notificationEnabled() && $options["send_notification"] && sleep(1); // Sleep for 1 sec to ensure the payment request email is to be sent later than order creation notification
 			$order->setNewOrderStatus([
 				"order_status_id" => $next_status->getId(),
 				"order_status_set_at" => now(),
@@ -917,7 +918,8 @@ class Basket extends BasketOrOrder {
 		$update_ar = array();
 		foreach(array(
 			"payment_method_id",
-			"delivery_method_id"
+			"delivery_method_id",
+			"delivery_method_data",
 		) as $f){
 			$v = $basket->g($f);
 			if(!is_null($v)){
@@ -1032,8 +1034,36 @@ class Basket extends BasketOrOrder {
 		return is_null($country) ? $this->g("address_country") : $country;
 	}
 
-	function getDeliveryMethodData() {
-		return json_decode($this->g("delivery_method_data"),true);
+	/**
+	 * Vrati nastavenou pobocku dorucovaci sluzby
+	 *
+	 * @return DeliveryServiceBranch
+	 */
+	function getDeliveryServiceBranch() {
+		$method_data = $this->getDeliveryMethodData();
+		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
+			return null;
+		}
+		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+	}
+
+	function getDeliveryPointAddress() {
+		$delivery_address = null;
+		$data = $this->getDeliveryMethodData();
+		if (isset($data["delivery_address"])) {
+			$delivery_address = $data["delivery_address"];
+			foreach(["street","city","zip","country"] as $k) {
+				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
+				unset($delivery_address[$k]);
+			}
+			$delivery_address["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
+			unset($delivery_address["company"]);
+		}
+		return $delivery_address;
+	}
+
+	function getDeliveryServiceBranchAddress() {
+		return $this->getDeliveryPointAddress();
 	}
 
 	/**
@@ -1041,6 +1071,6 @@ class Basket extends BasketOrOrder {
 	 *
 	 */
 	function deliveryToDeliveryPointSelected() {
-		return false; //TODO
+		return !is_null($this->getDeliveryServiceBranch());
 	}
 }
