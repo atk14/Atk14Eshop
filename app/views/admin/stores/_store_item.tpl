@@ -1,15 +1,19 @@
 <li class="list-group-item" data-id="{$store->getId()}">
-		<div class="d-flex justify-content-between align-items-center">
-			<div>
+		<div class="item__properties">
+			<div class="item__title">
 				{render partial="shared/list_thumbnail" image=$store->getImageUrl()}
 
 				{$store->getName()}
 			</div>
-
-			{if strlen($store->getCode())}<small>{$store->getCode()}</small>{/if}
-			{if !$store->isVisible()}<em>({!"eye-slash"|icon} {t}invisible in the public list on web{/t})</em>{/if}
-
-			<div>
+			<span class="item__code">
+				{if strlen($store->getCode())}{$store->getCode()}{/if}
+			</span>
+			<span class="item__visibility-properties">
+				<span class="item__visibility">
+					{if !$store->isVisible()}{!"eye-slash"|icon} {t}invisible in the public list on web{/t}{/if}
+				</span>
+			</span>
+			<div class="item__controls">
 				{dropdown_menu}
 					{a action="edit" id=$store}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 					{if $store->isVisible()}

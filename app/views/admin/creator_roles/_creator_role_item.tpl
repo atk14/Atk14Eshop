@@ -1,10 +1,12 @@
 <li class="list-group-item" data-id="{$creator_role->getId()}">
-	<div class="d-flex justify-content-between align-items-center">
-		<div>
+	<div class="item__properties">
+		<div class="item__title">
 			{$creator_role->getName()}
 		</div>
-		{if strlen($creator_role->getCode())}<small>{$creator_role->getCode()}</small>{/if}
-		<div>
+		<span class="item__code">
+			{if strlen($creator_role->getCode())}{$creator_role->getCode()}{/if}
+		</span>
+		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$creator_role}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 

@@ -6,12 +6,14 @@
 		{foreach $slider_items as $slider_item}
 			
 			<li class="list-group-item" data-id="{$slider_item->getId()}">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
+				<div class="item__properties">
+					<div class="item__title">
 					{render partial="shared/list_thumbnail" image=$slider_item->getImageUrl()}
 					{$slider_item->getTitle()|default:$mdash}
 					</div>
-					{if !$slider_item->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
+					<span class="item__visibility-properties">
+						{if !$slider_item->isVisible()}<span class="item__visibility">{!"eye-slash"|icon} {t}invisible{/t}</span>{/if}
+					</span>
 					<div>
 						{dropdown_menu}
 							{a action="slider_items/edit" id=$slider_item}{icon glyph="edit"} {t}Upravit{/t}{/a}
