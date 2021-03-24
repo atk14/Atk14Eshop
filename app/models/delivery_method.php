@@ -119,16 +119,28 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return $this->g("code");
 	}
 
+	function getVatRate($country = null){
+		if($specification = $this->getCountrySpecification($country)){
+			return $specification->getVatRate();
+		}
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent($country = null){
+		if($specification = $this->getCountrySpecification($country)){
+			return $specification->getVatPercent();
+		}
+		return $this->getVatRate()->getVatPercent();
+	}
+
 	/**
 	 *
 	 *	$price = $dm->getPrice(); // vychozi cena
 	 *	$price = $dm->getPrice("SK"); // cena muze byt odlisna od ceny vychozi
 	 */
 	function getPrice($country = null){
-		if($specification = $this->getCountrySpecification($country)){
-			return $specification->getPrice();
-		}
-		return $this->g("price");
+		$price_incl_vat = $this->getPriceInclVat($country);
+		return ApplicationHelpers::DelVat($price_incl_vat,$this->getVatPercent($country));
 	}
 
 	/**

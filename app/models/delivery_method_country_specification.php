@@ -17,8 +17,20 @@ class DeliveryMethodCountrySpecification extends ApplicationModel {
 		return $this->_getSelfOrProxy("code");
 	}
 
+	function getVatRateId(){
+		return $this->_getSelfOrProxy("vat_rate_id");
+	}
+
+	function getVatRate(){
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent(){
+		return $this->getVatRate()->getVatPercent();
+	}
+
 	function getPrice(){
-		return $this->_getSelfOrProxy("price");
+		return ApplicationHelpers::DelVat($this->getPriceInclVat(),$this->getVatPercent());
 	}
 
 	function getPriceInclVat(){

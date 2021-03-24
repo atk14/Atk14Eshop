@@ -803,6 +803,7 @@ class Basket extends BasketOrOrder {
 		$incl_vat = !$without_vat;
 		$decimals = $without_vat ? $currency->getDecimals() : INTERNAL_PRICE_DECIMALS;
 		$delivery_method = $this->getDeliveryMethod();
+		$delivery_country = $this->_getDeliveryCountry();
 		$payment_method = $this->getPaymentMethod();
 
 		$values = $this->toArray();
@@ -834,19 +835,16 @@ class Basket extends BasketOrOrder {
 		$values["delivery_method_data"] = $this->g("delivery_method_data");
 
 		$delivery_fee_incl_vat = $this->getDeliveryFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
-		$delivery_fee_vat_percent = $incl_vat ? $delivery_method->getVatPercent() : 0.0;
+		$delivery_fee_vat_percent = $incl_vat ? $delivery_method->getVatPercent($delivery_country) : 0.0;
 		$delivery_fee = $this->_delVat($delivery_fee_incl_vat,$delivery_fee_vat_percent);
-		$values["delivery_fee"] = $delivery_fee;
+		$values["delivery_fee_incl_vat"] = $delivery_fee_incl_vat;
 		$values["delivery_fee_vat_percent"] = $delivery_fee_vat_percent;
 
 		$payment_fee_incl_vat = $this->getPaymentFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
 		$payment_fee_vat_percent = $incl_vat ? $payment_method->getVatPercent() : 0.0;
 		$payment_fee = $this->_delVat($payment_fee_incl_vat,$payment_fee_vat_percent);
-		$values["payment_fee"] = $payment_fee;
+		$values["payment_fee_incl_vat"] = $payment_fee_incl_vat;
 		$values["payment_fee_vat_percent"] = $payment_fee_vat_percent;
-
-		$values["payment_fee"] = $this->getPaymentFee();
-		$values["payment_fee_incl_vat"] = $this->getPaymentFee($incl_vat);
 
 		$values["price_to_pay"] = $price_to_pay = $this->getPriceToPay($incl_vat,$price_to_pay_without_rounding);
 

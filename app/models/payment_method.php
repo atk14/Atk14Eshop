@@ -73,4 +73,16 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 			)q
 		",[":payment_method" => $this]);
 	}
+
+	function getVatRate(){
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent(){
+		return $this->getVatRate()->getVatPercent();
+	}
+
+	function getPrice(){
+		return ApplicationHelpers::DelVat($this->getPriceInclVat(),$this->getVatPercent());
+	}
 }
