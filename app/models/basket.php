@@ -990,6 +990,7 @@ class Basket extends BasketOrOrder {
 		// Next automatic status
 		$next_status = OrderStatus::DetermineNextAutomaticStatus($order);
 		if($next_status){
+			$next_status->notificationEnabled() && $options["send_notification"] && sleep(1); // Sleep for 1 sec to ensure the payment request email is to be sent later than order creation notification
 			$order->setNewOrderStatus([
 				"order_status_id" => $next_status->getId(),
 				"order_status_set_at" => now(),

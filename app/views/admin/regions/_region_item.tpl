@@ -1,9 +1,9 @@
 <li class="list-group-item" data-id="{$region->getId()}">
-		<div class="d-flex justify-content-between align-items-center">
-			<div>
+		<div class="item__properties">
+			<div class="item__title">
 				{$region->getName()}
 			</div>
-			<div>
+			<div class="item__controls">
 				{dropdown_menu}
 					{a action="edit" id=$region}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 

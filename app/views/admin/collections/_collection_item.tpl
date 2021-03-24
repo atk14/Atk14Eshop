@@ -1,10 +1,10 @@
 <li class="list-group-item" data-id="{$collection->getId()}">
-	<div class="d-flex justify-content-between align-items-center">
-		<div>
+	<div class="item__properties">
+		<div class="item__title">
 			{render partial="shared/list_thumbnail" image=$collection->getImageUrl()}
 			{$collection->getName()}
 		</div>
-		<div>
+		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$collection}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 				{a namespace="" action="collections/detail" id=$collection}{!"eye"|icon} {t}Visit public link{/t}{/a}

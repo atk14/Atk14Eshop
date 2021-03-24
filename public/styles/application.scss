@@ -16,6 +16,9 @@ $enable-deprecation-messages: false;
 // Application specific variables, overrides bootstrap vars.
 @import "application_variables";
 
+// Spacing utiltities (must be imported after bootstrap_variables and before bootstrap)
+@import "spacing_utilities";
+
 // Fonts
 @import "fonts";
 
