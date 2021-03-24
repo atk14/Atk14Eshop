@@ -71,7 +71,11 @@ class Order extends BasketOrOrder {
 	}
 
 	function getPaymentFee($incl_vat = false){
-		return $incl_vat ? $this->g("payment_fee_incl_vat") : $this->g("payment_fee");
+		$fee = $this->getPaymentFeeInclVat();
+		if(!$incl_vat){
+			$fee = $this->_delVat($fee,$this->getPaymentFeeVatPercent());
+		}
+		return $fee;
 	}
 
 	function getPaymentTransaction(){
@@ -79,7 +83,11 @@ class Order extends BasketOrOrder {
 	}
 
 	function getDeliveryFee($incl_vat = false){
-		return $incl_vat ? $this->g("delivery_fee_incl_vat") : $this->g("delivery_fee");
+		$fee = $this->getDeliveryFeeInclVat();
+		if(!$incl_vat){
+			$fee = $this->_delVat($fee,$this->getDeliveryFeeVatPercent());
+		}
+		return $fee;
 	}
 
 	function getPhone(){

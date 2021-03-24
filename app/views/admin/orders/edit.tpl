@@ -27,12 +27,12 @@
 
 	<fieldset>
 		<legend>{t}Doprava{/t}</legend>
-		{render partial="shared/form_field" fields="delivery_method_id,delivery_fee,delivery_fee_incl_vat,tracking_number"}
+		{render partial="shared/form_field" fields="delivery_method_id,delivery_fee_incl_vat,delivery_fee_vat_percent,tracking_number"}
 	</fieldset>
 
 	<fieldset>
 		<legend>{t}Platba{/t}</legend>
-		{render partial="shared/form_field" fields="payment_method_id,payment_fee,payment_fee_incl_vat"}
+		{render partial="shared/form_field" fields="payment_method_id,payment_fee_incl_vat,payment_fee_vat_percent"}
 	</fieldset>
 
 	<fieldset>

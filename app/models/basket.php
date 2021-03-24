@@ -1009,15 +1009,6 @@ class Basket extends BasketOrOrder {
 		return $order;
 	}
 
-	function _delVat($price,$vat_percent){
-		if(is_null($price)){ return null; }
-
-		$vat_percent = (float)$vat_percent;
-		$out = ($price / (100.0 + $vat_percent)) * 100.0;
-		$out = round($out,INTERNAL_PRICE_DECIMALS);
-		return $out;
-	}
-
 	/**
 	 * Slouceni dvou kosiku
 	 *
