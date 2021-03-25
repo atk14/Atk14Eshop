@@ -1,6 +1,7 @@
 <tr>
 	<td>{$voucher->getId()}</td>
 	<td>{", "|join:$voucher->getRegions()}</td>
+	<td>{if $voucher->isGiftVoucher()}{!"gift"|icon}{/if}</td>
 	<td>{$voucher->getVoucherCode()}</td>
 	<td>
 		{if $voucher->getDiscountPercent()}
@@ -10,7 +11,10 @@
 			{!$voucher->getDiscountAmount()|display_price}<br>
 		{/if}
 		{if $voucher->freeShipping()}
-			{t}doprava zdarma{/t}
+			{t}doprava zdarma{/t}<br>
+		{/if}
+		{if $voucher->getDescription()}
+			<em>{$voucher->getDescription()|truncate:100}</em>
 		{/if}
 	</td>
 	<td>{render partial="shared/active_state" object=$voucher}</td>
