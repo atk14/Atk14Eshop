@@ -7,6 +7,10 @@ class OrderVoucher extends BasketOrOrderVoucher {
 		]);
 	}
 
+	function getOrder(){
+		return Cache::Get("Order",$this->getOrderId());
+	}
+
 	function createdAdministratively(){
 		return $this->g("created_administratively");
 	}
@@ -14,4 +18,9 @@ class OrderVoucher extends BasketOrOrderVoucher {
 	function getCreatedByUser(){
 		return Cache::Get("User",$this->getCreatedByUserId());
 	}
+
+	function getVatPercent(){
+		return $this->g("vat_percent");
+	}
+
 }

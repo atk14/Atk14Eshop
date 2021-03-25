@@ -846,6 +846,9 @@ class Basket extends BasketOrOrder {
 		$values["payment_fee_incl_vat"] = $payment_fee_incl_vat;
 		$values["payment_fee_vat_percent"] = $payment_fee_vat_percent;
 
+		$free_shipping = $this->freeShipping(); // false, true
+		$shipping_fee_incl_vat = $delivery_fee_incl_vat; // Pozor! Zjednoduseni. Tady se neuvazuje poplatek za platbu. Ten byva obvykle 0. A nize by to delalo problem se stanovenim sazby DPH, kdyby byly sazby za dopravu a platbu jine.
+
 		$values["price_to_pay"] = $price_to_pay = $this->getPriceToPay($incl_vat,$price_to_pay_without_rounding);
 
 		if(!$options["send_notification"]){
@@ -860,13 +863,21 @@ class Basket extends BasketOrOrder {
 
 		foreach($this->getItems() as $item){
 			$p_price = $item->getProductPrice();
+			$vat_percent = $incl_vat ? $item->getVatPercent() : 0.0;
+			$unit_price_incl_vat = $p_price->getUnitPrice($incl_vat); // pekne zaokrouhlena cena na 2 (resp. 4 u cm) des. mista
+			$unit_price = $this->_delVat($unit_price_incl_vat,$vat_percent); // toto bude zaokrouhleno na INTERNAL_PRICE_DECIMALS mist
+			$unit_price_before_discount_incl_vat = $p_price->getUnitPriceBeforeDiscount($incl_vat); // pekne zaokrouhleno
+			$unit_price_before_discount = $this->_delVat($unit_price_before_discount_incl_vat,$vat_percent); // zaokrouhleno na INTERNAL_PRICE_DECIMALS mist
+
 			OrderItem::CreateNewRecord([
 				"order_id" => $order,
 				"product_id" => $item->getProductId(),
 				"amount" => $item->getAmount(),
-				"unit_price_incl_vat" => $p_price->getRawUnitPriceInclVat(),
-				"unit_price_before_discount_incl_vat" => $p_price->getRawUnitPriceBeforeDiscountInclVat(),
-				"vat_percent" => $incl_vat ? $item->getVatPercent() : 0.0,
+				//"unit_price" => $unit_price,
+				"unit_price_incl_vat" => $unit_price_incl_vat,
+				//"unit_price_before_discount" => $unit_price_before_discount,
+				"unit_price_before_discount_incl_vat" => $unit_price_before_discount_incl_vat,
+				"vat_percent" => $vat_percent,
 				# zda byla poskytnuta sleva v kampani nebo pri pouziti poukazu (vouchers)
 				# napr. u zlevneneho zbozi se neposkytuje
 				"campaign_discount_applied" => (($this->getCampaignsDiscountAmount()>0) || ($this->getVouchersDiscountAmount(null, ["free_shipping" => false, "discount_amount" => false])>0)) && !$item->discounted(),
@@ -1007,6 +1018,15 @@ class Basket extends BasketOrOrder {
 		return $order;
 	}
 
+	function _delVat($price,$vat_percent){
+		if(is_null($price)){ return null; }
+
+		$vat_percent = (float)$vat_percent;
+		$out = ($price / (100.0 + $vat_percent)) * 100.0;
+		$out = round($out,INTERNAL_PRICE_DECIMALS);
+		return $out;
+	}
+
 	/**
 	 * Slouceni dvou kosiku
 	 *
@@ -1132,6 +1152,10 @@ class Basket extends BasketOrOrder {
 	protected function _getDeliveryCountry(){
 		$country = $this->g("delivery_address_country");
 		return is_null($country) ? $this->g("address_country") : $country;
+	}
+
+	function getDeliveryMethodData() {
+		return json_decode($this->g("delivery_method_data"),true);
 	}
 
 	/**
