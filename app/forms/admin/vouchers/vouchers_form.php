@@ -104,7 +104,7 @@ class VouchersForm extends AdminForm {
 			}
 		}
 
-		if(!$this->has_errors()){
+		if(!$this->has_errors() && array_key_exists("valid_to",$d)){
 			if($d["valid_from"] && $d["valid_to"]){
 				$valid_from = strtotime($d["valid_from"]);
 				$valid_to = strtotime($d["valid_to"]);
