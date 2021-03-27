@@ -20,3 +20,28 @@ free_voucher:
   discount_percent: 0
   discount_amount: 0
   free_shipping: false
+
+free_shipping:
+  voucher_code: FREE_DELIVERY
+  free_shipping: true
+  discount_amount: 90
+
+discount_10:
+  voucher_code: DISCOUNT_10
+  discount_percent: 10
+
+discount_15:
+  voucher_code: DISCOUNT_15
+  discount_percent: 15
+
+gift_coupon_200:
+  voucher_code: GIFT_COUPON_200
+  discount_amount: 200
+  gift_voucher: true
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+gift_coupon_500:
+  voucher_code: GIFT_COUPON_500
+  discount_amount: 500
+  gift_voucher: true
+  vat_rate_id: "<?= $vat_rates["ten"]->getId() ?>"

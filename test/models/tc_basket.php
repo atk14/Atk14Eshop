@@ -3,6 +3,8 @@
  *
  * @fixture regions
  * @fixture users
+ * @fixture vouchers
+ * @fixture campaigns
  * @fixture delivery_methods
  * @fixture payment_methods
  * @fixture shipping_combinations
@@ -11,6 +13,8 @@
  * @fixture pricelist_items
  * @fixture warehouse_items
  * @fixture tags
+ * @fixture delivery_services
+ * @fixture delivery_service_branches
  */
 class TcBasket extends TcBase {
 
@@ -142,6 +146,70 @@ class TcBasket extends TcBase {
 		$this->assertEquals(48.4,$item->getPriceInclVat());
 	}
 
+	function test_merge(){
+		$basket1 = Basket::CreateNewRecord([]);
+		$basket2 = Basket::CreateNewRecord([]);
+
+		$basket1->getVouchersLister()->add($this->vouchers["free_shipping"]);
+		$basket1->getVouchersLister()->add($this->vouchers["percentage_discount"]);
+
+		$basket2->getVouchersLister()->add($this->vouchers["percentage_discount"]);
+
+		$basket2->mergeBasket($basket1);
+
+		$vouchers = $basket2->getVouchers();
+		$this->assertEquals(2,sizeof($vouchers));
+
+		$this->assertEquals($this->vouchers["percentage_discount"]->getId(),$vouchers[0]->getVoucherId());
+		$this->assertEquals($this->vouchers["free_shipping"]->getId(),$vouchers[1]->getVoucherId());
+	}
+
+	function test_getCampaigns(){
+		$basket = Basket::CreateNewRecord([
+			"region_id" => $this->regions["czechoslovakia"]
+		]);
+		$this->assertEquals([],$basket->getCampaigns());
+		$this->assertEquals(false,$basket->freeShipping());
+
+		$campaing = Campaign::CreateNewRecord([
+			"regions" => json_encode([$this->regions["czechoslovakia"]->getCode() => true]),
+			"minimal_items_price_incl_vat" => 0.0,
+			"discount_percent" => 0.0,
+			"free_shipping" => true,
+		]);
+
+		$campaings = $basket->getCampaigns();
+		$this->assertEquals(1,sizeof($campaings));
+		$this->assertEquals($campaing->getId(),$campaings[0]->getCampaign()->getId());
+		$this->assertEquals(true,$basket->freeShipping());
+
+		// podminime kampan dopravou od DPD
+		$dpd = $this->delivery_methods["dpd"];
+		$parcel_service = $this->delivery_methods["parcel_service"];
+
+		$campaing->s([
+			"delivery_method_id" => $dpd,
+		]);
+
+		$campaings = $basket->getCampaigns();
+		$this->assertEquals(0,sizeof($campaings));
+		$this->assertEquals(false,$basket->freeShipping());
+
+		$basket->s([
+			"delivery_method_id" => $parcel_service,
+		]);
+		$this->assertEquals([],$basket->getCampaigns());
+		$this->assertEquals(false,$basket->freeShipping());
+
+		$basket->s([
+			"delivery_method_id" => $dpd,
+		]);
+		$campaings = $basket->getCampaigns();
+		$this->assertEquals(1,sizeof($campaings));
+		$this->assertEquals($campaing->getId(),$campaings[0]->getCampaign()->getId());
+		$this->assertEquals(true,$basket->freeShipping());
+	}
+
 	function test_hasEveryProductTag(){
 		$tag = $this->tags["fun"];
 
@@ -177,6 +245,30 @@ class TcBasket extends TcBase {
 
 		$tea_card->addTag($tag);
 		$this->assertTrue($basket->hasEveryProductTag($tag));
+	}
+
+	/**
+	 * Test, ze s vyberem dorucovaci sluzby s pobockami je zvolena i pobocka
+	 */
+	function test_delivery_service_needs_delivery_branch() {
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
+
+		$basket = Basket::CreateNewRecord([
+			"region_id" => $this->regions["czechoslovakia"]
+		]);
+		$basket->addProduct($this->products["mint_tea"], 5);
+
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"]->getId(),
+			"payment_method_id" => $this->payment_methods["bank_transfer"]->getId(),
+		]);
+		$this->assertFalse($basket->canOrderBeCreated($messages));
+		$this->assertCount(1, $messages);
+		$this->assertEquals("Delivery address has not been selected for the shipping method 'Packeta'", (string)$messages[0]);
+
+		$basket->s("delivery_method_data", $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData());
+		$this->assertTrue($basket->canOrderBeCreated($messages));
 	}
 
 	function test_canOrderBeCreated(){

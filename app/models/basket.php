@@ -718,7 +718,6 @@ class Basket extends BasketOrOrder {
 		$delivery_method_ids = array_map(function($o){ return $o->getId(); },$delivery_methods);
 		$payment_method_ids = array_map(function($o){ return $o->getId(); },$payment_methods);
 
-
 		if(
 			($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)) ||
 			($payment_method && !in_array($payment_method->getId(),$payment_method_ids)) ||

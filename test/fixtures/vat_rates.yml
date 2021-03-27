@@ -4,6 +4,12 @@ twenty_one:
   name_cs: "Dvacet jedna procent"
   vat_percent: 21.0
 
+ten:
+  code: ten
+  name_en: "Ten percent"
+  name_cs: "Deset procent"
+  vat_percent: 10.0
+
 five:
   code: five
   name_en: "Five percent"
