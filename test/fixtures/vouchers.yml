@@ -21,11 +21,6 @@ free_voucher:
   discount_amount: 0
   free_shipping: false
 
-free_shipping:
-  voucher_code: FREE_DELIVERY
-  free_shipping: true
-  discount_amount: 90
-
 discount_10:
   voucher_code: DISCOUNT_10
   discount_percent: 10
