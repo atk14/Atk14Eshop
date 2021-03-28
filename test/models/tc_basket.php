@@ -5,18 +5,19 @@
  * @fixture users
  * @fixture vouchers
  * @fixture campaigns
- * @fixture delivery_methods
- * @fixture payment_methods
- * @fixture shipping_combinations
+ * @fixture tags
  * @fixture cards
  * @fixture products
+ * @fixture card_tags
  * @fixture pricelist_items
  * @fixture warehouse_items
- * @fixture tags
  * @fixture delivery_services
  * @fixture delivery_service_branches
- * @fixture currency_rates
+ * @fixture delivery_methods
+ * @fixture payment_methods
  * @fixture discounts
+ * @fixture shipping_combinations
+ * @fixture currency_rates
  */
 class TcBasket extends TcBase {
 
@@ -512,6 +513,66 @@ class TcBasket extends TcBase {
 		$this->assertEquals(2.42,$items[0]->getUnitPriceBeforeDiscountInclVat());
 		$this->assertEquals(320.0,$items[0]->getPriceBeforeDiscount());
 		$this->assertEquals(387.2,$items[0]->getPriceBeforeDiscountInclVat());
+	}
+
+	/**
+	 * Hodnoty obsahuji:
+	 * - pocet kusu produktu 'wooden_button' v kosiku
+	 * - pouziti slevoveho poukazu.
+	 *
+	 * - ocekavany vysledek v campaign_discount_applied u polozky 'wooden_button'
+	 */
+	function provideItemValues() {
+		return [
+			# bez slevy za pokukaz
+			[ 1000, false, true],
+			[ 100, false, false],
+			# s procentni slevou za poukaz
+			[ 1000, "discount_10", true],
+			[ 100, "discount_10", true],
+			# s dopravou zdarma za poukaz
+			[ 1000, "free_shipping", true],
+			[ 100, "free_shipping", false],
+			# s celkovou slevou za poukaz
+			[ 1000, "supervelikonoce", true],
+			[ 100, "supervelikonoce", false],
+		];
+	}
+
+	/**
+	 * Chceme otestovat priznak campaign_discount_applied
+	 *
+	 * - na polozky ve sleve se neaplikuje sleva z kampane. Toto chceme videt v polozce objednavky.
+	 * - u mensich objednavek do 1000 kc se sleva v kampani neaplikuje
+	 * -- kostkovana_latka je ve sleve, takze se na ni sleva v kampani neaplikuje nikdy
+	 * -- na wooden_button se aplikuje sleva v kampani podle vyse objednavky
+	 * @dataProvider provideItemValues
+	 */
+	function test_create_order_with_discounted_product($amount, $apply_voucher, $expected_campaign_applied) {
+		$basket = $this->_prepareBasketWithWoodenButton();
+		$basket->s("user_id", $this->users["rambo"]);
+		$items = $basket->getItems();
+		$this->assertFalse($items[0]->discounted());
+
+		# sleva v kampani se aplikuje pouze na objednavky za minimalni cenu,
+		# proto  pridame vic metru do kosiku
+		$item2 = $basket->addProduct($this->products["kostkovana_latka"], $amount);
+		$this->assertTrue($item2->discounted());
+
+		if ($apply_voucher) {
+			$voucher = $this->vouchers[$apply_voucher];
+			$lister = $basket->getVouchersLister();
+			if(!$lister->contains($voucher)){
+				$lister->add($voucher);
+			}
+		}
+		$order = $basket->createOrder();
+		$campaigns_applied = [];
+		foreach($order->getItems() as $i) {
+			$campaigns_applied[$i->getProductId()] = $i->getCampaignDiscountApplied();
+		}
+		$this->assertEquals($expected_campaign_applied, $campaigns_applied[$this->products["wooden_button"]->getId()]);
+		$this->assertFalse($campaigns_applied[$this->products["kostkovana_latka"]->getId()]);
 	}
 
 	function test_canOrderBeCreated(){
