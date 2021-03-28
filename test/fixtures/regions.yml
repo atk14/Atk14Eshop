@@ -1,8 +1,35 @@
 czechoslovakia:
   code: CZECHOSLOVAKIA
-  name_cs: Československo
   name_en: Czechoslovakia
+  name_cs: Československo
   currencies: '["CZK"]'
   delivery_countries: '["CZ","SK"]'
   languages: '["cs","en"]'
+  domains: '[]'
+
+CR:
+  code: CR
+  name_en: "Czech republic"
+  name_cs: "Česká republika"
+  currencies: '["CZK"]'
+  delivery_countries: '["CZ"]'
+  languages: '["cs"]'
+  domains: '[]'
+
+SK:
+  code: SK
+  name_en: Slovakia
+  name_cs: Slovensko
+  currencies: '["EUR"]'
+  delivery_countries: '["SK"]'
+  languages: '["sk"]'
+  domains: '[]'
+
+EU:
+  code: EU
+  name_en: Europe
+  name_cs: Evropa
+  currencies: '["EUR"]'
+  delivery_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
+  languages: '["en"]'
   domains: '[]'

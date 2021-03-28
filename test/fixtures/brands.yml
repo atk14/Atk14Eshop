@@ -5,3 +5,15 @@ bob_and_son:
 
 heavenly_good_shoes:
   name: "Heavenly Good Shoes"
+
+microsoft:
+  id: 1000
+  name: Microsoft
+
+oracle:
+  id: 1001
+  name: Oracle
+
+suse:
+  id: 1002
+  name: Suse

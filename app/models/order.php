@@ -24,7 +24,8 @@ class Order extends BasketOrOrder {
 		}
 
 		$values += [
-			"language" => $region->getDefaultLanguage(),
+			//"language" => $region->getDefaultLanguage(),
+			"language" => $ATK14_GLOBAL->getLang(),
 		];
 
 		$out = parent::CreateNewRecord($values,$options);
@@ -613,7 +614,7 @@ class Order extends BasketOrOrder {
 				"order_id" => $this->getId(),
 				"product_id" => $delta_product,
 				"amount" => $delta > 0.0 ? 1 : -1,
-				"unit_price" => $delta_price_with_no_vat,
+				"unit_price_incl_vat" => $delta_price,
 				"vat_percent" => $delta_vat_percent,
 			];
 
@@ -622,7 +623,7 @@ class Order extends BasketOrOrder {
 			}else{
 				if(
 					$current_delta_item->g("amount")!=$delta_values["amount"] ||
-					$current_delta_item->g("unit_price")!=$delta_values["unit_price"] ||
+					$current_delta_item->getUnitPriceInclVat()!=$delta_values["unit_price_incl_vat"] ||
 					$current_delta_item->g("vat_percent")!=$delta_values["vat_percent"]
 				){
 					$current_delta_item->s($delta_values);

@@ -15,6 +15,8 @@
  * @fixture tags
  * @fixture delivery_services
  * @fixture delivery_service_branches
+ * @fixture currency_rates
+ * @fixture discounts
  */
 class TcBasket extends TcBase {
 
@@ -271,6 +273,247 @@ class TcBasket extends TcBase {
 		$this->assertTrue($basket->canOrderBeCreated($messages));
 	}
 
+	function test_getChecksum(){
+		$basket = Basket::CreateNewRecord([]);
+
+		$green_tea = $this->products["green_tea"];
+		$black_tea = $this->products["black_tea"];
+
+		$checksum_empty = $basket->getChecksum();
+
+		$basket->addProduct($green_tea);
+
+		$checksum_1 = $basket->getChecksum();
+
+		$basket->addProduct($black_tea);
+
+		$checksum_2 = $basket->getChecksum();
+
+		$this->assertTrue(strlen($checksum_empty)>0);
+		$this->assertTrue(strlen($checksum_1)>0);
+		$this->assertTrue(strlen($checksum_2)>0);
+
+		$this->assertNotEquals($checksum_empty,$checksum_1);
+		$this->assertNotEquals($checksum_empty,$checksum_2);
+		$this->assertNotEquals($checksum_1,$checksum_2);
+	}
+
+	function test_createOrder(){
+		$CR = Region::FindByCode("CR");
+		$SK = Region::FindByCode("SK");
+
+		$EUR = Currency::GetInstanceByCode("EUR");
+		$EUR->s("decimals_summary",1); // v ramci testovani nastavime 1 des. misto pro koncovou cenu, abychom meli zaokrouhlovani i na SK objednavce
+
+		$campaign = Campaign::CreateNewRecord([
+			"regions" => json_encode([$CR->getCode() => true]),
+			"minimal_items_price_incl_vat" => 41, // je to vice nez 2 knofliky bez DPH, ktere budeme mit v kosiku
+			"discount_percent" => 10,
+		]);
+		$campaign_sk = Campaign::CreateNewRecord([
+			"regions" => json_encode([$SK->getCode() => true]),
+			"minimal_items_price_incl_vat" => 41, // je to vice nez 2 knofliky bez DPH, ktere budeme mit v kosiku
+			"discount_percent" => 10,
+		]);
+		$voucher = Voucher::CreateNewRecord([
+			"voucher_code" => "TEST20",
+			"repeatable" => true,
+			"discount_amount" => 20,
+			"regions" => '{"CR": true, "SK": true, "EU": true}'
+		]);
+
+		$basket = $this->_prepareBasketWithWoodenButton();
+
+		$basket->getVouchersLister()->add($voucher);
+
+		$order = $basket->createOrder();
+
+		$this->assertEquals(false,$order->g("without_vat"));
+
+		$this->assertEquals(100,$order->getDeliveryFee());
+		$this->assertEquals(121,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(75.238095,$order->getPaymentFee());
+		$this->assertEquals(79.0,$order->getPaymentFeeInclVat());
+
+		$items = $order->getItems();
+		$this->assertEquals(2,sizeof($items)); // wooden_button + price_rounding
+		//
+		$this->assertEquals(21.0,$items[0]->getVatPercent());
+		$this->assertEquals(20,$items[0]->getUnitPrice());
+		$this->assertEquals(24.2,$items[0]->getUnitPriceInclVat());
+		$this->assertEquals(40,$items[0]->getPrice());
+		$this->assertEquals(48.4,$items[0]->getPriceInclVat());
+		$this->assertEquals(20,$items[0]->getUnitPriceBeforeDiscount());
+		$this->assertEquals(24.2,$items[0]->getUnitPriceBeforeDiscountInclVat());
+		//
+		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
+		$this->assertEquals(21.0,$items[1]->getVatPercent());
+		$this->assertEquals(0.4400,round($items[1]->getPriceInclVat(),4));
+		$this->assertEquals(0.44,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.36,$items[1]->getUnitPrice()); // 0.3636
+		$this->assertEquals(null,$items[1]->g("unit_price_before_discount_incl_vat"));
+
+		$campaigns = $order->getCampaigns();
+		$this->assertEquals(1,sizeof($campaigns));
+		$this->assertEquals(4.84,$campaigns[0]->getDiscountAmount());
+		$this->assertEquals(4.84,$campaigns[0]->g("discount_amount"));
+
+		$vouchers = $order->getVouchers();
+		$this->assertEquals(1,sizeof($vouchers));
+		$this->assertEquals(20,$vouchers[0]->getDiscountAmount());
+		$this->assertEquals(20,$vouchers[0]->g("discount_amount"));
+
+		$this->assertEquals(round(121 + 79 + 48.4 - 4.84 - 20.0),$order->getPriceToPay());
+
+		// SK objednavka v EUR
+		$basket = $this->_prepareEmptyBasket([
+			"region_id" => $SK,
+		]);
+		$basket = $this->_prepareBasketWithWoodenButton($basket);
+
+		$basket->getVouchersLister()->add($voucher);
+		$order = $basket->createOrder();
+
+		$this->assertEquals(false,$order->g("without_vat"));
+
+		$this->assertEquals(3.842975,$order->getDeliveryFee());
+		$this->assertEquals(4.65,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(2.895238,$order->getPaymentFee());
+		$this->assertEquals(3.04,$order->getPaymentFeeInclVat());
+
+		$items = $order->getItems();
+		$this->assertEquals(2,sizeof($items));
+		//
+		$this->assertEquals(21.0,$items[0]->getVatPercent());
+		$this->assertEquals(0.77,$items[0]->getUnitPrice());
+		$this->assertEquals(0.93,$items[0]->getUnitPriceInclVat());
+		$this->assertEquals(1.54,$items[0]->getPrice());
+		$this->assertEquals(1.86,$items[0]->getPriceInclVat());
+		$this->assertEquals(0.77,$items[0]->getUnitPriceBeforeDiscount());
+		$this->assertEquals(0.93,$items[0]->getUnitPriceBeforeDiscountInclVat());
+		//
+		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
+		$this->assertEquals(21.0,$items[1]->getVatPercent());
+		$this->assertEquals(0.0100,$items[1]->getPriceInclVat());
+		$this->assertEquals(0.01,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.01,$items[1]->getUnitPrice()); // 0.0083
+		$this->assertEquals(null,$items[1]->g("unit_price_before_discount_incl_vat"));
+
+		$campaigns = $order->getCampaigns();
+		$this->assertEquals(1,sizeof($campaigns));
+		$this->assertEquals(0.19,$campaigns[0]->getDiscountAmount());
+		$this->assertEquals(0.19,$campaigns[0]->g("discount_amount"));
+
+		$vouchers = $order->getVouchers();
+		$this->assertEquals(1,sizeof($vouchers));
+		$this->assertEquals(0.77,$vouchers[0]->getDiscountAmount());
+		$this->assertEquals(0.77,$vouchers[0]->g("discount_amount"));
+
+		$this->assertEquals(round(4.65 + 3.04 + 1.86 - 0.19 - 0.77,1),$order->getPriceToPay());
+
+		// objednavka bez DPH
+		$basket = $this->_prepareBasketWithWoodenButton();
+
+		$order = $basket->createOrder(["without_vat" => true]);
+
+		$this->assertEquals(true,$order->g("without_vat"));
+
+		$this->assertEquals(100,$order->getDeliveryFee());
+		$this->assertEquals(100,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(75.24,$order->getPaymentFee());
+		$this->assertEquals(75.24,$order->getPaymentFeeInclVat());
+
+		$items = $order->getItems();
+		$this->assertEquals(2,sizeof($items));
+		//
+		$this->assertEquals(0.0,$items[0]->getVatPercent());
+		$this->assertEquals(20,$items[0]->getUnitPrice());
+		$this->assertEquals(20,$items[0]->getUnitPriceInclVat());
+		$this->assertEquals(40,$items[0]->getPrice());
+		$this->assertEquals(40,$items[0]->getPriceInclVat());
+		//
+		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
+		$this->assertEquals(0.0,$items[1]->getVatPercent());
+		$this->assertEquals(0.24,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.24,$items[1]->getUnitPrice());
+		$this->assertEquals(-0.24,$items[1]->getPriceInclVat());
+
+		// kampan se pouzije, protoze hypoteticka cena s DPH je vyssi stanoveny nez limit, ale sleva je aplikovana na cenu bez DPH
+		$campaigns = $order->getCampaigns();
+		$this->assertEquals(1,sizeof($campaigns));
+		$this->assertEquals(4.0,$campaigns[0]->getDiscountAmount());
+
+		$this->assertEquals(round(100 + 75.238 + 40 - 4.0),$order->getPriceToPay());
+
+		// SK objednavka bez DPH v EUR
+		$basket = $this->_prepareEmptyBasket([
+			"region_id" => $SK,
+		]);
+		$basket = $this->_prepareBasketWithWoodenButton($basket);
+
+		$order = $basket->createOrder(["without_vat" => true]);
+
+		$this->assertEquals(true,$order->g("without_vat"));
+
+		$this->assertEquals(3.85,$order->getDeliveryFee());
+		$this->assertEquals(3.85,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(2.89,$order->getPaymentFee());
+		$this->assertEquals(2.89,$order->getPaymentFeeInclVat());
+
+		$items = $order->getItems();
+		$this->assertEquals(2,sizeof($items));
+		//
+		$this->assertEquals(0.0,$items[0]->getVatPercent());
+		$this->assertEquals(0.77,$items[0]->getUnitPrice());
+		$this->assertEquals(0.77,$items[0]->getUnitPriceInclVat());
+		$this->assertEquals(1.54,$items[0]->getPrice());
+		$this->assertEquals(1.54,$items[0]->getPriceInclVat());
+		//
+		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
+		$this->assertEquals(0.0,$items[1]->getVatPercent());
+		$this->assertEquals(0.03,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.03,$items[1]->getUnitPrice());
+		$this->assertEquals(-0.03,$items[1]->getPriceInclVat());
+
+		// kampan se pouzije, protoze hypoteticka cena s DPH je vyssi stanoveny nez limit, ale sleva je aplikovana na cenu bez DPH
+		$campaigns = $order->getCampaigns();
+		$this->assertEquals(1,sizeof($campaigns));
+		$this->assertEquals(0.15,$campaigns[0]->getDiscountAmount());
+
+		$this->assertEquals(round(3.85 + 2.89 + 1.54 - 0.15,1),$order->getPriceToPay());
+
+		// otestovani vyjimky pri vytvareni objednavky
+		// bez DPH s voucherem
+		$basket = $this->_prepareBasketWithWoodenButton();
+
+		$basket->getVouchersLister()->add($voucher);
+
+		try {
+			$order = $basket->createOrder(["without_vat" => true]);
+			$this->fail();
+		}catch(Exception $e){
+			$this->assertEquals("Actually I don't know how to determine vouchers discount amount without vat",$e->getMessage());
+		}
+
+		// testovani prenosu cen pred slevou;
+		// na kostkovana_latka je sleva 50%
+		$basket = $this->_prepareEmptyBasket();
+		$basket->addProduct($this->products["kostkovana_latka"],160); // 1.6m
+		$order = $basket->createOrder();
+
+		$items = $order->getItems();
+		$this->assertEquals(2,sizeof($items));
+
+		$this->assertEquals(1.0,$items[0]->getUnitPrice());
+		$this->assertEquals(1.21,$items[0]->getUnitPriceInclVat());
+		$this->assertEquals(160.0,$items[0]->getPrice());
+		$this->assertEquals(193.6,$items[0]->getPriceInclVat());
+		$this->assertEquals(2.0,$items[0]->getUnitPriceBeforeDiscount());
+		$this->assertEquals(2.42,$items[0]->getUnitPriceBeforeDiscountInclVat());
+		$this->assertEquals(320.0,$items[0]->getPriceBeforeDiscount());
+		$this->assertEquals(387.2,$items[0]->getPriceBeforeDiscountInclVat());
+	}
+
 	function test_canOrderBeCreated(){
 		Atk14Locale::Initialize(); // TODO: it is not clear why this is needed, certainly it should be handled on another place
 
@@ -323,5 +566,23 @@ class TcBasket extends TcBase {
 		$this->assertEquals(0,sizeof($messages)); // there is no message
 		$this->assertNull($basket->getDeliveryMethod());
 		$this->assertNull($basket->getPaymentMethod());
+	}
+
+	function _prepareEmptyBasket($values = []){
+		$values += [
+			"region_id" => Region::FindByCode("CR"),
+			"delivery_method_id" => isset($this->delivery_methods) ? $this->delivery_methods["dpd"] : null, // from fixture delivery_methods
+			"payment_method_id" => isset($this->payment_methods) ? $this->payment_methods["cash_on_delivery"] : null, // from fixture payment_methods
+		];
+		$basket = Basket::CreateNewRecord($values);
+		return $basket;
+	}
+
+	function _prepareBasketWithWoodenButton($basket = null){
+		if(is_null($basket)){
+			$basket = $this->_prepareEmptyBasket();
+		}
+		$basket->addProduct($this->products["wooden_button"],2);
+		return $basket;
 	}
 }

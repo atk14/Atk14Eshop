@@ -3,12 +3,14 @@ mint_tea:
   card_id: "<?php echo $cards["tea"]->getId() ?>"
   label_en: "mint"
   label_cs: "mátový"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 black_tea:
   catalog_id: TEA_BLACK
   card_id: "<?php echo $cards["tea"]->getId() ?>"
   label_en: "black"
   label_cs: "černý"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 green_tea:
   catalog_id: TEA_GREEN
@@ -17,6 +19,7 @@ green_tea:
   name_cs: "Zelený čaj"
   label_en: "green"
   label_cs: "zelený"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 herbal_tea:
   catalog_id: HERBAL_TEA
@@ -25,11 +28,94 @@ herbal_tea:
   name_cs: "Bylinková čaj"
   label_en: "herbal"
   label_cs: "bylinkový"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 peanuts:
   catalog_id: PEANUTS
   card_id: "<?php echo $cards["peanuts"]->getId() ?>"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 book:
   catalog_id: "BOOK"
   card_id: "<?php echo $cards["book"]->getId(); ?>"
+  vat_rate_id: "<?= $vat_rates["ten"]->getId() ?>"
+
+mix_birds:
+  card_id: "<?= $cards["mix_birds"]->getId() ?>"
+  catalog_id: "MIXBIRDS"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+mix_summer:
+  card_id: "<?= $cards["mix_summer"]->getId() ?>"
+  catalog_id: "MIXSUMMER"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+wooden_button:
+  card_id: "<?= $cards["wooden_button"]->getId() ?>"
+  catalog_id: "WOODEN_BUTTON"
+  minimum_quantity_to_order: 5
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+kostkovana_latka:
+  card_id: "<?= $cards["kostkovana_latka"]->getId() ?>"
+  catalog_id: "KOSTKOVANA_LATKA"
+  unit_id: "2" # cm
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+tea:
+  card_id: "<?=$cards["tea"]->getid() ?>"
+  catalog_id: "green_tea"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+blueberry:
+  card_id: "<?=$cards["blueberry"]->getid() ?>"
+  catalog_id: "blue_berry"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+bavlna_cervena:
+  card_id: "<?=$cards["bavlna"]->getId() ?>"
+  catalog_id: "00_024_15_1"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+bavlna_modra:
+  card_id: "<?=$cards["bavlna"]->getId() ?>"
+  catalog_id: "_2"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+bavlna_zelena:
+  card_id: "<?=$cards["bavlna"]->getId() ?>"
+  catalog_id: "00_024_15_"
+  unit_id: 2
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+popelin_s_oveckami:
+  card_id: "<?=$cards["popelin_s_oveckami"]->getId() ?>"
+  catalog_id: "02_2108_26"
+  unit_id: 2
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+zaviraci_spendlik:
+  card_id: "<?=$cards["zaviraci_spendlik"]->getId() ?>"
+  catalog_id: "zaviraci_spendlik"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+spendlik:
+  card_id: "<?=$cards["spendlik"]->getId() ?>"
+  catalog_id: "spendlik"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+jehla:
+  card_id: "<?=$cards["jehla"]->getId() ?>"
+  catalog_id: "jehla"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+latka_s_mnozstevnima_slevama:
+  card_id: "<?=$cards["latka_s_mnozstevnima_slevama"]->getId() ?>"
+  catalog_id: "latka_s_mnozstevnima_slevama"
+  unit_id: "<?=Unit::FindByUnit("cm")->getId() ?>"
+  vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+strih_v_pdf_formatu:
+  card_id: "<?=$cards["strih_v_pdf_formatu"]->getId() ?>"
+  catalog_id: "strih_v_pdf_formatu"
+  vat_rate_id: "<?= $vat_rates["ten"]->getId() ?>"
