@@ -11,12 +11,12 @@ class BasketItem extends BasketOrOrderItem {
 
 	protected function _getRawUnitPriceInclVat(){
 		$p_price = $this->getProductPrice();
-		return $p_price->getRawUnitPriceInclVat();
+		return round($p_price->getRawUnitPriceInclVat(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
 	}
 
 	protected function _getRawUnitPriceBeforeDiscountInclVat(){
 		$p_price = $this->getProductPrice();
-		return $p_price->getRawUnitPriceBeforeDiscountInclVat();
+		return round($p_price->getRawUnitPriceBeforeDiscountInclVat(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
 	}
 
 	function getVatPercent(){

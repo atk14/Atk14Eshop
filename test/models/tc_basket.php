@@ -575,6 +575,101 @@ class TcBasket extends TcBase {
 		$this->assertFalse($campaigns_applied[$this->products["kostkovana_latka"]->getId()]);
 	}
 
+	function test_proper_price_rounding(){
+		$basket = $this->_prepareEmptyBasket();
+	
+		// Pozn. posledni prihozene zbozi je v kosiku na prvnim miste
+		$basket->addProduct($this->products["spendlik"],2);
+		$basket->addProduct($this->products["zaviraci_spendlik"],3);
+		$basket->addProduct($this->products["bavlna_zelena"],52);
+
+		$items = $basket->getItems();
+
+		$this->assertEquals(3,sizeof($items));
+
+		$this->_check_proper_price_rounding_on_items($items);
+
+		$order = $basket->createOrder();
+
+		$order_items = $order->getItems();
+
+		// posledni polozka je zaokrouhleni
+		$this->assertEquals(4,sizeof($order_items));
+
+		// pro kontrolu proverime i vysi zaokrouhlovaciho produktu
+		// cena polozek je 77.66 + 37.95 + 2.60 = 118.21
+		$this->assertEquals(-0.21,$order_items[3]->getPriceInclVat());
+
+		$this->_check_proper_price_rounding_on_items($order_items);
+	}
+
+	function test_percentage_discounts_should_not_accumulate(){
+		$basket = $this->_prepareEmptyBasket();
+
+		$basket->addProduct($this->products["spendlik"],100);
+		$this->assertEquals(130.0,$basket->getItemsPriceInclVat());
+
+		$lister = $basket->getVouchersLister();
+
+		$lister->add($this->vouchers["discount_10"]);
+		$lister->add($this->vouchers["discount_15"]);
+
+		$basket_vouchers = $basket->getBasketVouchers();
+
+		$this->assertEquals(2,sizeof($basket_vouchers));
+		$this->assertEquals($this->vouchers["discount_10"]->getId(),$basket_vouchers[0]->getVoucherId());
+		$this->assertEquals($this->vouchers["discount_15"]->getId(),$basket_vouchers[1]->getVoucherId());
+
+		// nesmi se pocitat sleva z kuponu s mensi slevou
+		$this->assertEquals(0.0,$basket_vouchers[0]->getDiscountAmount());
+		$this->assertEquals(19.5,$basket_vouchers[1]->getDiscountAmount()); // 15% ze 130
+
+		$lister->remove($this->vouchers["discount_15"]);
+
+		$basket_vouchers = $basket->getBasketVouchers();
+
+		$this->assertEquals(1,sizeof($basket_vouchers));
+		$this->assertEquals($this->vouchers["discount_10"]->getId(),$basket_vouchers[0]->getVoucherId());
+
+		$this->assertEquals(13.0,$basket_vouchers[0]->getDiscountAmount()); // 10% ze 130
+
+		// ### Dalsi test s kampani 7% za registraci nad 1000 Kc
+
+		$basket = $this->_prepareEmptyBasket(["user_id" => $this->users["kveta"]]);
+
+		$basket->addProduct($this->products["spendlik"],1000);
+		$this->assertEquals(1300.00,$basket->getItemsPriceInclVat());
+
+		$basket_campaigns = $basket->getBasketCampaigns();
+
+		$this->assertEquals(1,sizeof($basket_campaigns));
+
+		$this->assertEquals(91,$basket_campaigns[0]->getDiscountAmount()); // 7% ze 1300
+
+		$lister = $basket->getVouchersLister();
+		$lister->add($this->vouchers["discount_10"]);
+
+		$basket_vouchers = $basket->getBasketVouchers();
+
+		$this->assertEquals(1,sizeof($basket_vouchers));
+
+		$this->assertEquals(130.0,$basket_vouchers[0]->getDiscountAmount()); // 10% ze 1300
+
+		$this->assertEquals(0.0,$basket_campaigns[0]->getDiscountAmount()); // 7% je mene nez 10%; sleva se nesmi uplatnit
+	}
+
+	function test_cashOnDeliveryEnabled(){
+		$basket = $this->_prepareEmptyBasket(["user_id" => $this->users["kveta"]]);
+
+		$this->assertEquals(true,$basket->cashOnDeliveryEnabled());
+
+		$basket->addProduct($this->products["wooden_button"],2);
+		$this->assertEquals(true,$basket->cashOnDeliveryEnabled());
+
+		$basket->addProduct($this->products["strih_v_pdf_formatu"],1);
+		$this->assertEquals(false,$basket->cashOnDeliveryEnabled());
+	}
+
 	function test_canOrderBeCreated(){
 		Atk14Locale::Initialize(); // TODO: it is not clear why this is needed, certainly it should be handled on another place
 
@@ -627,6 +722,29 @@ class TcBasket extends TcBase {
 		$this->assertEquals(0,sizeof($messages)); // there is no message
 		$this->assertNull($basket->getDeliveryMethod());
 		$this->assertNull($basket->getPaymentMethod());
+	}
+
+	function _check_proper_price_rounding_on_items($items){
+		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
+		$this->assertEquals(1.2342,$items[0]->getUnitPrice());
+		$this->assertEquals(1.4934,$items[0]->getUnitPriceInclVat());
+		// celk. cena pak na 2
+		$this->assertEquals(64.18,$items[0]->getPrice()); // round(1.2342 * 52, 2)
+		$this->assertEquals(77.66,$items[0]->getPriceInclVat()); // round(1.4934 * 52, 2)
+
+		// zaviraci_spendlik: kusove zbozi se zaokrouhluje na 2 desetiny - v ceniku je cena 10.4567
+		$this->assertEquals(10.45,$items[1]->getUnitPrice());
+		$this->assertEquals(12.65,$items[1]->getUnitPriceInclVat()); // round(10.4567 * 1.21, 2)
+		// celk. cena je taky na 2
+		$this->assertEquals(31.36,$items[1]->getPrice()); // (12.65 * 3) / 1.21
+		$this->assertEquals(37.95,$items[1]->getPriceInclVat()); // 12.65 * 3
+
+		// spendlik: kusove zbozi se zaokrouhluje na 2 desetiny - v ceniku je cena 1.0744
+		$this->assertEquals(1.07,$items[2]->getUnitPrice());
+		$this->assertEquals(1.30,$items[2]->getUnitPriceInclVat());
+		// celk. celk je taky na 2
+		$this->assertEquals(2.15,$items[2]->getPrice());
+		$this->assertEquals(2.60,$items[2]->getPriceInclVat());
 	}
 
 	function _prepareEmptyBasket($values = []){
