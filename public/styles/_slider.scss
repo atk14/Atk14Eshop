@@ -1,5 +1,9 @@
 .section--slider {
+<<<<<<< HEAD
 	max-width: $max-page-width;
+=======
+	//max-width: $max-page-width;
+>>>>>>> atk14catalog/feature/themes_for_iobjects
 	margin: auto;
 	padding: 0;
 	border: none;
@@ -40,12 +44,45 @@
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	&--thumbnails {
+		// set correct order for sliders.
+		// thumbnails must be placed before main slider in markup.
+		// this css just swaps them
+		// also fixes problems with swiper inside flexbox elem.
+		display: flex;
+		flex-direction: column;
+		& > * {
+			width: auto !important;
+			max-width: 100%;
+		}
+		.swiper--thumbnails {
+			order: 1;
+		}
+		.swiper--images {
+			order: 0;
+			.swiper-wrapper, .swiper-slide {
+				width: auto;
+				max-width: 100%;
+			}
+		}
+		.iobject__caption {
+			order: 2;
+		}
+	}
+	
+>>>>>>> atk14catalog/feature/themes_for_iobjects
 }
 .swiper-container {
 	//max-width: $maxContainerWidth -($grid-gutter-width*3);
 	//max-width: $maxContainerWidth;
 
+<<<<<<< HEAD
 	&[data-slides_per_view="auto"] {
+=======
+	&[data-slides_per_view="auto"]:not(.swiper--thumbnails) {
+>>>>>>> atk14catalog/feature/themes_for_iobjects
 		.swiper-wrapper {
 			.swiper-slide {
 				filter: brightness(0.5);
@@ -153,17 +190,54 @@
 	}
 }
 
+<<<<<<< HEAD
 .swiper-container {
 	&.swiper--images {
 		//margin-top: 0 - $grid-gutter-width;
 		//margin-left: 0 - $grid-gutter-width;
 		//margin-right: 0 - $grid-gutter-width;
 		background-color: $border-color;
+=======
+//.swiper-container {
+	.swiper--images {
+		.swiper-slide {
+			height: auto;
+			display: block;
+			background-color: transparent;
+			figure {
+				display: block;
+				margin: 0;
+				a {
+					display: block;
+				}
+				picture {
+					display: block;
+				}
+				img {
+					display: block;
+					margin: auto;
+				}
+				figcaption {
+					padding: $grid-gutter-width/4 $grid-gutter-width/2;
+					font-size: $font-size-sm;
+					text-align: center;
+				}
+			}
+		}
+		
+		
+>>>>>>> atk14catalog/feature/themes_for_iobjects
 		img {
 			background-color: white;
 		}
 		.swiper-pagination {
 			width: 100% !important;
+<<<<<<< HEAD
+=======
+			position: static !important;
+			margin: $grid-gutter-width/4 0;
+			margin: 0;
+>>>>>>> atk14catalog/feature/themes_for_iobjects
 		}
 		@include media-breakpoint-down(sm) {
 			//margin-top: 0 - $grid-gutter-width/2;
@@ -179,8 +253,54 @@
 			//margin-left: 0 - $grid-gutter-width/2;
 			//margin-right: 0 - $grid-gutter-width/2;
 			.swiper-pagination {
+<<<<<<< HEAD
 				display: none;
 			}
 		}
 	}
 }
+=======
+				//display: none;
+			}
+		}
+	}
+	
+	.swiper--images--dark {
+		.swiper-slide {
+			background-color: $dark;
+			figure {
+				figcaption {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: auto;
+					background-color: rgba(black,0.5);
+					color: white;
+					text-align: left;
+				}
+			}
+		}
+		.swiper-pagination {
+			margin-top: $grid-gutter-width/2;
+		}
+	}
+//}
+
+.swiper--thumbnails {
+	background-color: $dark;
+	//border-top: 1px solid $gray-600;
+	padding: 5px 0;
+	.swiper-slide {
+		filter: brightness(0.7);
+		transition: filter 0.35s;
+	}
+	.swiper-slide-thumb-active, .swiper-slide:hover {
+		filter: brightness(1);
+	}
+	.swiper-slide-thumb-active {
+		outline: 2px solid $primary;
+	}
+}
+
+>>>>>>> atk14catalog/feature/themes_for_iobjects
