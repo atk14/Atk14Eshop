@@ -1,3 +1,4 @@
+{use layout="containerless"}
 <article>
 		
 	{admin_menu for=$article}
@@ -12,12 +13,12 @@
 	{render partial="shared/layout/content_header" title=$article->getTitle() teaser=$article->getTeaser()|markdown tags=$snippet_tags meta=$article_meta image=$article->getImageUrl() colorbg=true}
 	
 	
-	<section class="article__body">
+	{*<section class="article__body">*}
 		{if !$article->isPublished()}
 			<p><em>{t}This is not a published article! It's not available to the public audience.{/t}</em></p>
 		{/if}
 		{!$article->getBody()|markdown}
-	</section>
+	{*</section>*}
 </article>
 
 {if $older_article || $newer_article}
