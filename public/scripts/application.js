@@ -9,12 +9,6 @@
 
 			// Application-wide code.
 			init: function() {
-				
-				// Init Swiper
-				UTILS.initSwiper();
-
-				// Init PhotoSwipe
-				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 
 				// Restores email addresses misted by the no_spam helper
 				$( ".atk14_no_spam" ).unobfuscate( {
@@ -40,6 +34,12 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				// Init Swiper
+				UTILS.initSwiper();
+
+				// Init PhotoSwipe
+				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );
