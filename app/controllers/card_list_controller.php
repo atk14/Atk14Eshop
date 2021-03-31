@@ -36,11 +36,9 @@ abstract class CardListController extends ApplicationController {
 		}
 		list($cond, $bind, $ctable) = $category->sqlConditionForCardsIdBranch('cards.id', ['categories_table' => true]);
 		$bind[':sort_category'] = $category;
-		$options += ['default_order' =>
-			"(SELECT rec FROM (SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) as rec, card_id FROM category_cards WHERE category_id IN (SELECT * from $ctable)) _q WHERE card_id = cards.id ORDER BY 1 LIMIT 1), cards.id DESC",
-			#"(SELECT row(NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC)) FROM category_cards WHERE card_id = cards.id AND category_id IN (SELECT * from $ctable) ORDER BY 1 LIMIT 1), cards.id DESC"
-		];
-
+		$do = new SqlJoinOrder("order_a, order_b, cards.id DESC",
+				"JOIN (SELECT NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id DESC), card_id from category_cards WHERE category_id IN (SELECT * from $ctable)) order_t(order_a,order_b) ON (order_t.card_id = cards.id)");
+		$options += ['default_order' => ['asc' => $do, 'desc' => $do->reversed() ]];
 		$this->_add_category_to_breadcrumbs($this->category,[
 			"path" => $path,
 			"first_breadcrumb_title" => $options["first_breadcrumb_title"],

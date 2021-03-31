@@ -43,7 +43,18 @@ class SqlResult {
 		if($where) {
 			$where = "WHERE $where";
 		}
-		return "SELECT {$field} \n FROM {$this->table} {$this->join} \n $where {$this->tail($options)}";
+		$join = $this->_joinWithOrderJoin($options);
+		return "SELECT {$field} \n FROM {$this->table} {$join} \n $where {$this->_tail($options)}";
+	}
+
+	function _joinWithOrderJoin(&$sqlOptions) {
+		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
+		$join = $this->join;
+		if($sqlOptions['order'] instanceof SQLJoinOrder) {
+			$join .= $sqlOptions['order']->join;
+			$sqlOptions['order'] = $sqlOptions['order']->asString();
+		}
+		return $join;
 	}
 
 	/***
@@ -58,66 +69,32 @@ class SqlResult {
 		if(!$sqlOptions['order']) {
 			$query = $this->select("distinct on ($field) $field");
 		} else {
-			$order = $sqlOptions['order'];
-			if(is_array($order)) {
-				$order = array_values($order);
-			} else {
-				$order = $this->_splitFields($order);
-			}
-			#odstranime ASC DESC a zapamatujeme
-			$order_fields = array_map(function ($v) { return preg_replace('/([^\s])\s+(ASC|DESC)(\s+NULLS\s+(FIRST|LAST))?\s*$/i','\1', $v); },  $order);
-			$desc = array_map(function ($order, $field) {return substr($order,strlen($field));}, $order, $order_fields);
-
-			$ffield = $field . ',' . implode(',', $order_fields);
-			$sqlOptions['order'] = $ffield;
+			$orderObj = SQLJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
+			#odstranime ASC DESC do separatniho pole
+			list($order_fields, $desc) = $orderObj->splitOptions();
 			//Tricky part: because of the ordering result must be
 			//out of the distincted query to be applied, the result should be
 			// SELECT f1,f2 FROM (<DISTINCTED QUERY>) _q(f1,f2,f3,f4,f5) ORDER BY 3,4,5
+			//subquery fields
+			$sub_fields = $field . ',' . implode(',', $order_fields);
 			$flen=$this->countFields($field, $sqlOptions, 'fields_count');
-			$alias = range(1,count($order)+$flen);
+			//aliases of the fields
+			$alias = range(1,$orderObj->fieldsCount() +$flen);
 			$alias = array_map(function ($v) {return "f$v";}, $alias);
-			$fields = implode(',', array_slice($alias, 0,$flen));
-
+			//outer fields
+			$fields = implode(',', array_slice($alias, 0, $flen));
+			//outer order
 			$order = array_slice($alias, $flen);
 			$order = array_map(function($o, $d) {return $o . $d;}, $order, $desc);
+
+			$sqlOptions['order'] = $orderObj->reorder('');
+			$query = $this->select("distinct on ($field) $sub_fields",
+				['limit' => false, 'offset' => false] + $sqlOptions);
 			$order = implode(',', $order);
 			$alias = implode(',', $alias);
-
-			$query = $this->select("distinct on ($field) $ffield",
-				['limit' => false, 'offset' => false, 'order' => false] + $sqlOptions);
 			$query = "SELECT $fields FROM ($query) _q($alias) ORDER BY $order, $fields " . $this->limitOffset($sqlOptions);
 		}
 		return array($query, $this->bind);
-	}
-
-	static function _splitFields($fields) {
-		$out = [];
-		$start = 0;
-		$len = strlen($fields);
-		$state = null;
-		$parenthesis = 0;
-
-		for($i=0;$i<strlen($fields);$i++) {
-			switch($state) {
-				case "'": if($fields[$i]=="'") $state=''; break;
-				case '"': if($fields[$i]=='"') $state=''; break;
-				default: switch($fields[$i]) {
-				case '"':	$state = '"'; break;
-				case "'":	$state = "'"; break;
-				case '(': $parenthesis +=1;break;
-				case ')': $parenthesis -=1;break;
-				case ',': if(!$parenthesis) {
-						$out[] = substr($fields,$start,$i-$start);
-						$start = $i+1;
-					};
-					break;
-				}
-				break;
-			}
-		}
-
-		$out[] = substr($fields, $start);
-		return $out;
 	}
 
 	/***
@@ -144,6 +121,10 @@ class SqlResult {
    **/
 	function tail($sqlOptions = []) {
 		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
+		return $this->_tail($sqlOptions);
+	}
+
+	function _tail($sqlOptions = []) {
 		$tail='';
 		if($sqlOptions['group']) { $tail=' GROUP BY '.$sqlOptions['group']; }
 		if($sqlOptions['having']) { $tail.=' HAVING '.$sqlOptions['having']; }
