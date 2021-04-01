@@ -1,4 +1,4 @@
-$griddebug: false;
+$griddebug: true;
 
 $section-spacing: $grid-gutter-width*2;
 
@@ -28,7 +28,7 @@ body.body--fullwidth {
 		
 		& > * {
 			@if $griddebug {
-				outline: 1px dotted rgba(aqua,0.5);
+				outline: 1px dotted rgba(aqua,0.75);
 			}
 		}
 		
@@ -45,7 +45,7 @@ body.body--fullwidth {
 		& > .section--fullwidth, & > .fullwidth {
 			& + *:not(.section--fullwidth):not(.fullwidth) {
 				@if $griddebug {
-					outline: 4px solid red;
+					outline: 1px solid red;
 				}
 				margin-top: $section-spacing;
 			}
@@ -121,6 +121,11 @@ body.body--fullwidth {
 				font-size: clamp(2em, 7vw, 100px);
 			}
 		}
+	}
+	
+	.row--shortcode.fullwidth {
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
 
