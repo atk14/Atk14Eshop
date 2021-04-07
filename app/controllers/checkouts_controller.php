@@ -109,7 +109,7 @@ class CheckoutsController extends ApplicationController {
 
 		if($this->basket->getPriceToPay()<0.0){
 			$this->flash->warning(_("Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"));
-			return $this->_redirect_to("basket/edit");
+			return $this->_redirect_to("baskets/edit");
 		}
 
 		$this->page_title = _("Rekapitulace objednávky");
