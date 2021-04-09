@@ -1153,11 +1153,11 @@ class Basket extends BasketOrOrder {
 		return is_null($country) ? $this->g("address_country") : $country;
 	}
 
-	function getDeliveryMethodData() {
-		$data = $this->g("delivery_method_data");
-		if(!$data){ return null; }
+	function getDeliveryMethodData($decode_json = true) {
+		$json = $this->g("delivery_method_data");
+		if(!$json){ return null; }
 
-		$data = json_decode($data,true);
+		$data = json_decode($json,true);
 		if(!$data){ return null; }
 
 		$d_method = $this->getDeliveryMethod();
@@ -1165,7 +1165,7 @@ class Basket extends BasketOrOrder {
 
 		if($data["delivery_service_id"]!==$d_method->getDeliveryServiceId()){ return null; }
 
-		return $data;
+		return $decode_json ? $data : $json;
 	}
 
 	/**
