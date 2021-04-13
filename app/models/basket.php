@@ -1034,6 +1034,21 @@ class Basket extends BasketOrOrder {
 		return is_null($country) ? $this->g("address_country") : $country;
 	}
 
+	function getDeliveryMethodData() {
+		$data = $this->g("delivery_method_data");
+		if(!$data){ return null; }
+
+		$data = json_decode($data,true);
+		if(!$data){ return null; }
+
+		$d_method = $this->getDeliveryMethod();
+		if(!$d_method){ return null; }
+
+		if($data["delivery_service_id"]!==$d_method->getDeliveryServiceId()){ return null; }
+
+		return $data;
+	}
+
 	/**
 	 * Vrati nastavenou pobocku dorucovaci sluzby
 	 *
@@ -1071,6 +1086,7 @@ class Basket extends BasketOrOrder {
 	 *
 	 */
 	function deliveryToDeliveryPointSelected() {
-		return !is_null($this->getDeliveryServiceBranch());
+		$d_method = $this->getDeliveryMethod();
+		return $d_method && $d_method->getDeliveryService();
 	}
 }
