@@ -724,6 +724,37 @@ class TcBasket extends TcBase {
 		$this->assertNull($basket->getPaymentMethod());
 	}
 
+	function test_getDeliveryMethodData(){
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+
+		$this->assertNull($basket->getDeliveryMethodData());
+		$this->assertNull($basket->getDeliveryMethodData(false));
+
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
+			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(),
+		]);
+		//
+		$dm_data = $basket->getDeliveryMethodData();
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data_json = $basket->getDeliveryMethodData(false);
+		$this->assertTrue(is_string($dm_data_json));
+		$this->assertTrue(!!preg_match('/{/',$dm_data_json));
+
+		// setting data for another method
+		$basket->s([
+			"delivery_method_data" => $this->delivery_service_branches["posta_12000"]->getDeliveryMethodData(),
+		]);
+		//
+		$this->assertNull(null,$basket->getDeliveryMethodData());
+		$this->assertNull(null,$basket->getDeliveryMethodData(false));
+		$this->assertNotNull($basket->g("delivery_method_data"));
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());
