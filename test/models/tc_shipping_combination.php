@@ -32,15 +32,11 @@ class TcShippingCombination extends TcBase {
 		$this->assertFalse(ShippingCombination::IsAllowed($post_cod,$bank_transfer));
 
 		# bez api key neni kombinace se Zasilkovnou povolena
+		$sys_param = SystemParameter::GetInstanceByCode("delivery_services.zasilkovna.api_key");
+		$sys_param->s("content",null);
 		$this->assertFalse(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
 		# ted kdyz doplnime api key
-		$sys_param = SystemParameter::CreateNewRecord([
-			"system_parameter_type_id" => 1,
-			"code" => "delivery_services.zasilkovna.api_key",
-			"name_cs" => "Zásilkovna API klíč",
-			"content" => "12346",
-			"mandatory" => false,
-		]);
+		$sys_param->s("content","12345");
 		# je kombinace se Zasilkovnou povolena
 		$this->assertTrue(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
 

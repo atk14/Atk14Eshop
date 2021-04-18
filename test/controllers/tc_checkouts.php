@@ -14,18 +14,6 @@
  */
 class TcCheckouts extends TcBase {
 
-	function setUp() {
-		parent::setUp();
-
-		# set API_KEY to activate Zasilkovna
-		SystemParameter::CreateNewRecord([
-			"code" => "delivery_services.zasilkovna.api_key",
-			"content" => "some-api-key",
-			"system_parameter_type_id" => 1,
-		]);
-		Cache::Clear();
-	}
-
 	function tearDown() {
 		# we need to logout user after each test otherwise fixtures setup fails as created_by_user_id is filled with user id of newly created user in one of tests performed in this class;
 		$this->client->post("logins/destroy");

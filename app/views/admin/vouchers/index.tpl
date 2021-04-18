@@ -14,6 +14,7 @@
 		<tr class="table-dark">
 			<th>#</th>
 			<th>{t}Regions{/t}</th>
+			<th></th>
 			{sortable key="voucher_code"}<th>{t}Kód{/t}</th>{/sortable}
 			{sortable key="discount"}<th>{t}Hodnota{/t}</th>{/sortable}
 			{sortable key="active"}<th>{t}Je aktivní?{/t}</th>{/sortable}

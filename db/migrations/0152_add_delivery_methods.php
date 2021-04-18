@@ -26,7 +26,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Česká Pošta - Balíkovna (platba předem)",
 
 			"price_incl_vat" => 55,
-			"price" => $this->_delVat(55),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balikovna"),
@@ -40,7 +39,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Česká Pošta - Balíkovna (dobírka)",
 
 			"price_incl_vat" => 75,
-			"price" => $this->_delVat(75),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balikovna"),
@@ -54,7 +52,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Česká Pošta - Balík na poštu (platba předem)",
 
 			"price_incl_vat" => 110,
-			"price" => $this->_delVat(110),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balik-na-postu"),
@@ -68,7 +65,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Česká Pošta - Balík na poštu (dobírka)",
 
 			"price_incl_vat" => 127,
-			"price" => $this->_delVat(127),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balik-na-postu"),
@@ -82,7 +78,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Zásilkovna (platba předem)",
 
 			"price_incl_vat" => 65,
-			"price" => $this->_delVat(65),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("zasilkovna"),
@@ -96,7 +91,6 @@ class AddDeliveryMethods extends ApplicationMigration {
 			"label_cs" => "Zásilkovna (dobírka)",
 
 			"price_incl_vat" => 85,
-			"price" => $this->_delVat(85),
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("zasilkovna"),
@@ -119,11 +113,5 @@ class AddDeliveryMethods extends ApplicationMigration {
 		if($dm = DeliveryMethod::GetInstanceByCode("personal")){
 			$dm->setRank(999);
 		}
-	}
-
-	function _delVat($price){
-		$price = ($price / 121.0) * 100.0;
-		$price = round($price,2);
-		return $price;
 	}
 }

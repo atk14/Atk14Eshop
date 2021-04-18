@@ -108,10 +108,10 @@ class RadioInputWithImage {
 
 	function hint() {
 		Atk14Require::Helper("modifier.markdown");
+		$hint_title = $this->object->getHintTitle();
 		$hint = $this->object->getHint();
 		$hint = smarty_modifier_markdown($hint);
-		if(!$hint) { return ''; };
-		$hint_title = $this->object->getHintTitle();
+		if(!strlen($hint_title) && !strlen($hint)) { return ''; };
 		if($hint_title){
 			$hint_title = '<span class="v-hint-title">'.$hint_title.'</span>';
 		}

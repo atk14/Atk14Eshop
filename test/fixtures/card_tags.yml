@@ -1,0 +1,3 @@
+strih_v_pdf_formatu__digital_product:
+  card_id: "<?= $cards["strih_v_pdf_formatu"]->getId() ?>"
+  tag_id: "<?= Tag::GetInstanceByCode("digital_product")->getId() ?>"
