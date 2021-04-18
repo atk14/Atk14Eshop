@@ -644,14 +644,21 @@ class Order extends BasketOrOrder {
 		return false;
 	}
 
-	function getDeliveryMethodData($decode_json = true){
+	function getDeliveryMethodData($options = []){
+		if(!is_array($options)){
+			$options = ["as_json" => $options];
+		}
+		$options += [
+			"as_json" => false,
+		];
+
 		$json = $this->g("delivery_method_data");
 		if(!$json){ return null; }
 
 		$data = json_decode($json,true);
 		if(!$data){ return null; }
 
-		return $decode_json ? $data : $json;
+		return $options["as_json"] ? $json : $data;
 	}
 
 	function getTrackingUrl() {

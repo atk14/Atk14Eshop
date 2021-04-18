@@ -2,6 +2,8 @@
 /**
  *
  * @fixture orders
+ * @fixture delivery_methods
+ * @fixture delivery_service_branches
  */
 class TcOrder extends TcBase {
 
@@ -144,5 +146,49 @@ class TcOrder extends TcBase {
 			"delivery_phone" => "+420.605333444"
 		]);
 		$this->assertEquals(["+420.605333444"],$order->getPhones());
+	}
+
+	function test_getDeliveryMethodData(){
+		$order = $this->orders["test"];
+
+		$this->assertNull($order->getDeliveryMethodData());
+		$this->assertNull($order->getDeliveryMethodData(["as_json" => false]));
+		$this->assertNull($order->getDeliveryMethodData(["as_json" => true]));
+		$this->assertNull($order->getDeliveryMethodData(false));
+		$this->assertNull($order->getDeliveryMethodData(true));
+
+		$order->s([
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
+			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(["as_json" => true]),
+		]);
+		//
+		$dm_data = $order->getDeliveryMethodData();
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data = $order->getDeliveryMethodData(["as_json" => false]);
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data = $order->getDeliveryMethodData(false);
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data_json = $order->getDeliveryMethodData(["as_json" => true]);
+		$this->assertTrue(is_string($dm_data_json));
+		$this->assertTrue(!!preg_match('/{/',$dm_data_json));
+		//
+		$dm_data_json = $order->getDeliveryMethodData(true);
+		$this->assertTrue(is_string($dm_data_json));
+		$this->assertTrue(!!preg_match('/{/',$dm_data_json));
+
+		// setting data for another method has no effect on Order::getDeliveryMethodData()
+		$order->s([
+			"delivery_method_data" => $this->delivery_service_branches["posta_12000"]->getDeliveryMethodData(["as_json" => true]),
+		]);
+		//
+		$dm_data = $order->getDeliveryMethodData();
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("Praha 2",$dm_data["delivery_address"]["place"]);
 	}
 }

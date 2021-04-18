@@ -730,28 +730,44 @@ class TcBasket extends TcBase {
 		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
 
 		$this->assertNull($basket->getDeliveryMethodData());
+		$this->assertNull($basket->getDeliveryMethodData(["as_json" => false]));
+		$this->assertNull($basket->getDeliveryMethodData(["as_json" => true]));
 		$this->assertNull($basket->getDeliveryMethodData(false));
+		$this->assertNull($basket->getDeliveryMethodData(true));
 
 		$basket->s([
 			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
-			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(),
+			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(["as_json" => true]),
 		]);
 		//
 		$dm_data = $basket->getDeliveryMethodData();
 		$this->assertNotNull($dm_data);
 		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
 		//
-		$dm_data_json = $basket->getDeliveryMethodData(false);
+		$dm_data = $basket->getDeliveryMethodData(["as_json" => false]);
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data = $basket->getDeliveryMethodData(false);
+		$this->assertNotNull($dm_data);
+		$this->assertEquals("První pražská Zásilkovna",$dm_data["delivery_address"]["place"]);
+		//
+		$dm_data_json = $basket->getDeliveryMethodData(["as_json" => true]);
+		$this->assertTrue(is_string($dm_data_json));
+		$this->assertTrue(!!preg_match('/{/',$dm_data_json));
+		//
+		$dm_data_json = $basket->getDeliveryMethodData(true);
 		$this->assertTrue(is_string($dm_data_json));
 		$this->assertTrue(!!preg_match('/{/',$dm_data_json));
 
 		// setting data for another method
 		$basket->s([
-			"delivery_method_data" => $this->delivery_service_branches["posta_12000"]->getDeliveryMethodData(),
+			"delivery_method_data" => $this->delivery_service_branches["posta_12000"]->getDeliveryMethodData(["as_json" => true]),
 		]);
 		//
-		$this->assertNull(null,$basket->getDeliveryMethodData());
-		$this->assertNull(null,$basket->getDeliveryMethodData(false));
+		$this->assertNull($basket->getDeliveryMethodData());
+		$this->assertNull($basket->getDeliveryMethodData(["as_json" => false]));
+		$this->assertNull($basket->getDeliveryMethodData(["as_json" => true]));
 		$this->assertNotNull($basket->g("delivery_method_data"));
 	}
 

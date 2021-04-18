@@ -1,7 +1,14 @@
 <?php
 class DeliveryServiceBranch extends ApplicationModel {
 
-	function getDeliveryMethodData($encode_to_json = true) {
+	function getDeliveryMethodData($options = []) {
+		if(!is_array($options)){
+			$options = ["as_json" => $options];
+		}
+		$options += [
+			"as_json" => true,
+		];
+
 		$_service = $this->getDeliveryService();
 		$data = [
 			"external_branch_id" => $this->getExternalBranchId(),
@@ -16,9 +23,7 @@ class DeliveryServiceBranch extends ApplicationModel {
 				"country" => $this->getCountry(),
 			],
 		];
-		if($encode_to_json){
-			return json_encode($data);
-		}
-		return $data;
+
+		return $options["as_json"] ? json_encode($data) : $data;
 	}
 }
