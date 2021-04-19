@@ -259,7 +259,9 @@ class Basket extends BasketOrOrder {
 		if($delivery = $this->getDeliveryMethod()){
 			$currency = $this->getCurrency();
 			$country = $this->_getDeliveryCountry();
-			$price = $delivery->getPrice($country) / $currency->getRate();
+			$price = $delivery->getPrice($country);
+			if(is_null($price)){ return null; }
+			$price = $price / $currency->getRate();
 			return $currency->roundPrice($price);
 		}
 	}
@@ -275,7 +277,9 @@ class Basket extends BasketOrOrder {
 		if($delivery = $this->getDeliveryMethod()){
 			$currency = $this->getCurrency();
 			$country = $this->_getDeliveryCountry();
-			$price = $delivery->getPriceInclVat($country) / $currency->getRate();
+			$price = $delivery->getPriceInclVat($country);
+			if(is_null($price)){ return null; }
+ 			$price = $price / $currency->getRate();
 			return $currency->roundPrice($price);
 		}
 	}
