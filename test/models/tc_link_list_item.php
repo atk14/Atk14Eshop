@@ -40,9 +40,12 @@ class TcLinkListItem extends TcBase {
 		$submenu = $lli->getSubmenu();
 		$this->assertNotNull($submenu);
 		$items = $submenu->getItems();
-		$this->assertEquals(2,sizeof($items)); // there are two brands
+		$this->assertEquals(5,sizeof($items)); // there are two brands
 		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["bob_and_son"]]),$items[0]->getUrl());
 		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["heavenly_good_shoes"]]),$items[1]->getUrl());
+		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["microsoft"]]),$items[2]->getUrl());
+		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["oracle"]]),$items[3]->getUrl());
+		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["suse"]]),$items[4]->getUrl());
 
 		$lli = $this->link_list_items["main_menu__external"];
 		$this->assertEquals(null,$lli->getSubmenu());

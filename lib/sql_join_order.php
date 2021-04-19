@@ -2,18 +2,18 @@
 
 /**
  *  Class, that holds order for a given table, possibly with a join clause:
- *  new SQLJoinOrder('a,b,c');
- *  new SQLJoinOrder(['a','b','c']);
- *  new SQLJoinOrder('a,b,cards.c', 'JOIN cards');
+ *  new SqlJoinOrder('a,b,c');
+ *  new SqlJoinOrder(['a','b','c']);
+ *  new SqlJoinOrder('a,b,cards.c', 'JOIN cards');
  *  To be used with sqlResult:
- *  $sqlResult->select('id', ['order' => SQLJoinOrder('rank', 
+ *  $sqlResult->select('id', ['order' => SqlJoinOrder('rank', 
  *															          'JOIN (SELECT rank FROM ranktable WHERE ...) order_table'
  **/
 
-class SQLJoinOrder {
+class SqlJoinOrder {
 
-	static function ToSQLJoinOrder($order) {
-		return $order instanceof SQLJoinOrder ? $order : new SQLJoinOrder($order);
+	static function ToSqlJoinOrder($order) {
+		return $order instanceof SqlJoinOrder ? $order : new SqlJoinOrder($order);
 	}
 
 	function __construct($order, $join='', $reversed=false) {
@@ -45,7 +45,7 @@ class SQLJoinOrder {
 	}
 
 	/***
-	 * new SQLJoinOrder('a,b DESC, c')->decomposeOptions()
+	 * new SqlJoinOrder('a,b DESC, c')->decomposeOptions()
    * >> [ ['a', 'b', 'c' ], ['','DESC', ''] ]	 
 	 ***/	
 	function splitOptions() {
@@ -71,7 +71,7 @@ class SQLJoinOrder {
 	}
 
 	function reversed() {
-		return new SQLJoinOrder($this->order, $this->join, !$this->reversed);
+		return new SqlJoinOrder($this->order, $this->join, !$this->reversed);
 	}
 
 	function _handle_reverse() {

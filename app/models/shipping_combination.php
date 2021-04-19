@@ -190,6 +190,25 @@ class ShippingCombination extends ApplicationModel {
 
 		$payment_methods = PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]);
 
+		if(!$payment_methods){
+			return [[],[]];
+		}
+
+		$delivery_methods = DeliveryMethod::FindAll([
+			"conditions" => [
+				"id IN :delivery_methods",
+				"id IN (SELECT delivery_method_id FROM shipping_combinations WHERE payment_method_id IN :payment_methods)"
+			],
+			"bind_ar" => [
+				":delivery_methods" => $delivery_methods,
+				":payment_methods" => $payment_methods,
+			]
+		]);
+
+		if(!$delivery_methods){
+			return [[],[]];
+		}
+
 		return [$delivery_methods,$payment_methods];
 	}
 }

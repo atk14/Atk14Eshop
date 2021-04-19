@@ -1,0 +1,12 @@
+# nizsi sleva nebude uvazovana
+kostkovana_latka_30:
+  product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
+  discount_percent: 30
+
+kostkovana_latka:
+  product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
+  discount_percent: 50
+
+popelin_s_oveckami:
+  product_id: "<?= $products["popelin_s_oveckami"]->getId() ?>"
+  discount_percent: 40

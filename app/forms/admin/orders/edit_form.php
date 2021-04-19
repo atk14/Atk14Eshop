@@ -19,14 +19,18 @@ class EditForm extends OrdersForm {
 		$this->add_field("delivery_method_id",new DeliveryMethodField([
 			"label" => _("Způsob dopravy"),
 		]));
-		$this->_add_price_field("delivery_fee",["label" => _("Poplatek za dopravu"), "required" => false]);
 		$this->_add_price_field("delivery_fee_incl_vat",["label" => _("Poplatek za dopravu včetně DPH"), "required" => false]);
+		$this->add_field("delivery_fee_vat_percent", new VatPercentField([
+			"label" => _("Sazba DPH za dopravu"),
+		]));
 
 		$this->add_field("payment_method_id",new PaymentMethodField([
 			"label" => _("Způsob platby"),
 		]));
-		$this->_add_price_field("payment_fee",_("Poplatek za platbu"));
 		$this->_add_price_field("payment_fee_incl_vat",_("Poplatek za platbu včetně DPH"));
+		$this->add_field("payment_fee_vat_percent", new VatPercentField([
+			"label" => _("Sazba DPH za platební metodu"),
+		]));
 
 		$currency = $this->controller->order->getCurrency();
 

@@ -8,7 +8,6 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 			"label_en" => "Czech Post (payment in advance)",
 			"label_cs" => "Česká pošta (platba předem)",
 			"logo" => "http://i.pupiq.net/i/65/65/287/29287/250x250/Dxhnpz_250x250_e809c1d63dcd0c16.png",
-			"price" => 90,
 			"price_incl_vat" => 90,
 		]);
 
@@ -18,7 +17,6 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 			"label_en" => "Czech Post (cash on delivery)",
 			"label_cs" => "Česká pošta (dobírka)",
 			"logo" => "http://i.pupiq.net/i/65/65/287/29287/250x250/Dxhnpz_250x250_e809c1d63dcd0c16.png",
-			"price" => 120,
 			"price_incl_vat" => 120,
 		]);
 
@@ -29,7 +27,6 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 			"label_cs" => "Osobní převzetí na prodejně",
 			"personal_pickup" => true,
 			"personal_pickup_on_store_id" => Store::FindFirst(),
-			"price" => 0,
 			"price_incl_vat" => 0,
 		]);
 
@@ -41,7 +38,6 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 			"cash_on_delivery" => false,
 			"label_en" => "Bank transfer",
 			"label_cs" => "Bankovní převod",
-			"price" => 0,
 			"price_incl_vat" => 0,
 		]);
 
@@ -53,8 +49,7 @@ class PaymentAndDeliveryMethodsMigration extends ApplicationMigration {
 			"cash_on_delivery" => true,
 			"label_en" => "Cash on delivery",
 			"label_cs" => "Zaplatit dobírkou, zaplatíte až při převzetí",
-			"price" => 0,
-			"price" => 0,
+			"price_incl_vat" => 0,
 		]);
 
 		ShippingCombination::CreateNewRecord([

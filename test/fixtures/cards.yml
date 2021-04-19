@@ -27,3 +27,72 @@ book:
 shoe:
   name_en: "Shoe"
   name_cs: "Bota"
+
+mix_birds:
+  name_en: Fabric mix Birds
+  name_cs: Látkový mix Ptáčci
+
+mix_summer:
+  name_en: Fabric mix Summer
+  name_cs: Látkový mix Léto
+
+wooden_button:
+  name_en: Wooden button
+  name_cs: Dřevěný knoflík
+  <?php if ($brands) echo "brand_id: ",$brands["microsoft"]->getId();?>
+
+kostkovana_latka:
+  name_cs: Kostkovaná látka
+
+zaviraci_spendlik:
+  name_cs: Zavírací špendlík
+
+spendlik:
+  name_cs: Špendlík
+  slug_cs: spendlik
+  slug_sk: spendlik
+  slug_en: pin
+
+jehla:
+  name_cs: Jehla
+
+mold:
+  name_en: Mold
+  name_cs: Plíseň
+  <?php if($brands) echo "brand_id: ",$brands["microsoft"]->getId();?>
+
+blueberry:
+  name_en: Blueberry
+  name_cs: Borůvky
+
+ghost:
+  name_en: Ghost
+  name_cs: Duch
+  visible: False
+
+spectre:
+  name_en: Spectre
+  name_cs: Spektra
+  visible: False
+
+spagethimonster:
+  name_en: Spagethimonster
+  deleted: true
+
+expelled_ghost:
+  name_en: Expelled ghost
+  name_cs: Zapuzený duch
+  deleted: true
+  visible: false
+
+bavlna:
+  name_cs: Bavlna
+
+popelin_s_oveckami:
+  name_cs: Popelín s ovečkami
+
+latka_s_mnozstevnima_slevama:
+  name_cs: "Látka s množstevníma slevema"
+
+strih_v_pdf_formatu:
+  name_cs: "Střih v PDF formátu"

@@ -28,6 +28,10 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 	function clean($value) {
 		list($err,$value) = parent::clean($value);
 
+		if(!is_null($err) || is_null($value)){
+			return [$err,$value];
+		}
+
 		if (is_null($_dm = DeliveryMethod::FindById($value))) {
 			return [_("There is no such delivery method"), null];
 		}

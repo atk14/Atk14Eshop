@@ -2,6 +2,23 @@ bob_and_son:
   name: "Bob & son"
   slug_en: "bob-and-son"
   slug_cs: "bob-and-son"
+  rank: 10
 
 heavenly_good_shoes:
   name: "Heavenly Good Shoes"
+  rank: 20
+
+microsoft:
+  id: 1000
+  name: Microsoft
+  rank: 30
+
+oracle:
+  id: 1001
+  name: Oracle
+  rank: 40
+
+suse:
+  id: 1002
+  name: Suse
+  rank: 50

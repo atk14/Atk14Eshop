@@ -1,11 +1,11 @@
 test:
   region_id: "<?=$regions["czechoslovakia"]->getId()?>"
   delivery_method_id: "<?=$delivery_methods["personal"]->getId()?>"
-  delivery_fee: 0
   delivery_fee_incl_vat: 0
+  delivery_fee_vat_percent: 21.0
   payment_method_id: "<?=$payment_methods["cash_on_delivery"]->getId()?>"
-  payment_fee: 75.238
   payment_fee_incl_vat: 79.0
+  payment_fee_vat_percent: 5.0
   price_to_pay: 1000
   phone: +420.605111222
   delivery_phone: +420.605333444
@@ -13,11 +13,11 @@ test:
 test_cash_on_delivery:
   region_id: "<?=$regions["czechoslovakia"]->getId()?>"
   delivery_method_id: "<?=$delivery_methods["personal"]->getId()?>"
-  delivery_fee: 0
   delivery_fee_incl_vat: 0
+  delivery_fee_vat_percent: 21.0
   payment_method_id: "<?=$payment_methods["cash_on_delivery"]->getId()?>"
-  payment_fee: 75.238
   payment_fee_incl_vat: 79.0
+  payment_fee_vat_percent: 5.0
   price_to_pay: 1000
   phone: +420.605111222
   delivery_phone: +420.605333444
@@ -25,11 +25,11 @@ test_cash_on_delivery:
 test_bank_transfer:
   region_id: "<?=$regions["czechoslovakia"]->getId()?>"
   delivery_method_id: "<?=$delivery_methods["dpd"]->getId()?>"
-  delivery_fee: 0
   delivery_fee_incl_vat: 0
+  delivery_fee_vat_percent: 21.0
   payment_method_id: "<?=$payment_methods["bank_transfer"]->getId()?>"
-  payment_fee: 75.238
   payment_fee_incl_vat: 79.0
+  payment_fee_vat_percent: 5.0
   price_to_pay: 1000
   phone: +420.605111222
   delivery_phone: +420.605333444
