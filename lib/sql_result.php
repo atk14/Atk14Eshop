@@ -50,7 +50,7 @@ class SqlResult {
 	function _joinWithOrderJoin(&$sqlOptions) {
 		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
 		$join = $this->join;
-		if($sqlOptions['order'] instanceof SQLJoinOrder) {
+		if($sqlOptions['order'] instanceof SqlJoinOrder) {
 			$join .= $sqlOptions['order']->join;
 			$sqlOptions['order'] = $sqlOptions['order']->asString();
 		}
@@ -69,7 +69,7 @@ class SqlResult {
 		if(!$sqlOptions['order']) {
 			$query = $this->select("distinct on ($field) $field");
 		} else {
-			$orderObj = SQLJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
+			$orderObj = SqlJoinOrder::ToSqlJoinOrder($sqlOptions['order']);
 			#odstranime ASC DESC do separatniho pole
 			list($order_fields, $desc) = $orderObj->splitOptions();
 			//Tricky part: because of the ordering result must be
