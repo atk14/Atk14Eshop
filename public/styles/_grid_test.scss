@@ -12,7 +12,9 @@ body.body--fullwidth {
 
 .body--fullwidth {
 	max-width: 100%;
-	
+	@if $griddebug {
+		border: 2.25px dashed red;
+	}
 	
 	
 	header#header-main {
@@ -126,6 +128,20 @@ body.body--fullwidth {
 	.row--shortcode.fullwidth {
 		margin-left: 0;
 		margin-right: 0;
+	}
+}
+
+body:not(.body--fullwidth) {
+	background-color: #211;
+	article {
+		& > * {
+			@if $griddebug {
+				border: 2px dashed blue;
+			}
+		}
+		& > *:not(.content-header) {
+			max-width: $max-content-width;
+		}
 	}
 }
 
