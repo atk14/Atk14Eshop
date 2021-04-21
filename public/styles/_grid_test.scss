@@ -1,4 +1,4 @@
-$griddebug: true;
+$griddebug: false;
 
 $section-spacing: $grid-gutter-width*2;
 
@@ -10,7 +10,7 @@ body.body--fullwidth {
 	background-color: white;
 }
 
-.body--fullwidth {
+.body--fullwidth, .body--fullwidth .body {
 	max-width: 100%;
 	@if $griddebug {
 		border: 2.25px dashed red;

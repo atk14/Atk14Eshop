@@ -76,7 +76,7 @@
 
 	<body class="body_{$controller}_{$action} body--fullwidth" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{render partial="shared/trackers/google/tag_manager_body"}
-		<div class="body body--fullwidth{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
+		<div class="body {if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
 			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
