@@ -93,7 +93,7 @@ header.content-header, .content-header {
 		padding-right: $grid-gutter-width;
 		&--dark {
 			// when __text has dark background
-			padding: $grid-gutter-width;
+			//padding: $grid-gutter-width;
 			h1, .h1, .teaser, .meta, p {
 				color: white;
 			}
@@ -102,6 +102,12 @@ header.content-header, .content-header {
 			h1, .h1 {
 				flex-grow: 10;
 			}
+		}
+	}
+	
+	&--bg {
+		.content-header__text {
+			padding: $grid-gutter-width;
 		}
 	}
 	

@@ -18,7 +18,7 @@
 {if !$title_tag}
 	{assign var=title_tag "h1"}
 {/if}
-<header class="content-header{if $class} {$class}{/if}">
+<header class="content-header{if $class} {$class}{/if}{if $image && $colorbg} content-header--bg{/if}">
 	{if $image}
 		{if $image_is_logo}
 			{assign var="geometry" "600x600"}
