@@ -5,9 +5,18 @@
 	// caption - title, description
 	.iobject__caption {
 		margin-top: 0.5rem;
+		margin-left: auto;
+		margin-right: auto;
 		padding-bottom: 0.5rem;
 		border-bottom: 1px solid $border-color;
 		font-size: 0.875rem;
+
+		// limit caption max-width - useful when iobject is displayed fullwidth without horiz. margins
+		max-width: calc(100vw - #{$grid-gutter-width*2});
+		@include media-breakpoint-down(xs){
+			max-width: calc(100vw - #{$grid-gutter-width});
+		}
+		
 		.iobject__title {
 			font-weight: 600;
 			.iobject__title__separator {
