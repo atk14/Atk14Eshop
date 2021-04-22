@@ -1,4 +1,4 @@
-$griddebug: true;
+$griddebug: false;
 
 $section-spacing: $grid-gutter-width*2;
 
@@ -114,9 +114,11 @@ body.body--fullwidth {
 			margin-bottom: $grid-gutter-width;
 		}
 		
-		& > .content-header--bg, .iobject:not(.iobject--picture-fullwidth) {
+		& > .content-header--bg, .iobject--picture:not(.iobject--picture-fullwidth), .iobject--video, .iobject--gallery {
 			@include grid-page;
-			border: 2px solid orangered;
+			@if $griddebug {
+				border: 2px dotted orangered;
+			}
 		};
 		
 	}
