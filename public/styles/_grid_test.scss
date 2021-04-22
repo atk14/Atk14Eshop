@@ -1,9 +1,15 @@
-$griddebug: false;
+$griddebug: true;
 
 $section-spacing: $grid-gutter-width*2;
 
 @mixin grid-fullwidth(){
-	grid-column: 1/4;
+	grid-column: 1/6;
+}
+@mixin grid-page(){
+	grid-column: 2/5 !important;
+}
+@mixin grid-content {
+	grid-column: 3/4;
 }
 
 body.body--fullwidth {
@@ -26,16 +32,29 @@ body.body--fullwidth {
 		@include grid-fullwidth;
 		
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, $max-page-width) minmax(0, 1fr);
+		
+		grid-template-columns: minmax(0, 1fr) 0 minmax(0, #{$max-page-width - (2*$grid-gutter-width)}) 0 minmax(0, 1fr);
+		
+		@media(max-width: $max-page-width){
+			@if $griddebug {
+				background-color: rgba(green,0.05);
+			}
+			grid-template-columns: minmax(0, 1fr) $grid-gutter-width minmax(0, #{$max-page-width - (2*$grid-gutter-width)}) $grid-gutter-width minmax(0, 1fr);
+		}
+		
+		@include media-breakpoint-down(xs) {
+			grid-template-columns: minmax(0, 1fr) $grid-gutter-width/2 minmax(0, #{$max-page-width - (2*$grid-gutter-width)}) $grid-gutter-width/2 minmax(0, 1fr);
+		}
 		
 		& > * {
 			@if $griddebug {
-				outline: 1px dotted rgba(aqua,0.75);
+				outline: 2px dotted rgba(aqua,0.75);
 			}
 		}
 		
 		& > *:not(.section--fullwidth):not(.fullwidth):not(article) {
-			grid-column: 2/3;
+			//grid-column: 2/3;
+			@include grid-content;
 			//outline: 1px dotted red;
 		}
 		
@@ -95,10 +114,10 @@ body.body--fullwidth {
 			margin-bottom: $grid-gutter-width;
 		}
 		
-		.content-header {
-			margin-left: $grid-gutter-width;
-			margin-right: $grid-gutter-width;
-		}
+		& > .content-header--bg, .iobject:not(.iobject--picture-fullwidth) {
+			@include grid-page;
+			border: 2px solid orangered;
+		};
 		
 	}
 	
