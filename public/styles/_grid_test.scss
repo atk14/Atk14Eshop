@@ -8,6 +8,11 @@ $section-spacing: $grid-gutter-width*2;
 @mixin grid-page(){
 	grid-column: 2/5 !important;
 }
+@mixin grid-page-sm(){
+	@include media-breakpoint-down(sm){
+		@include grid-page;
+	}
+}
 @mixin grid-content {
 	grid-column: 3/4;
 }
@@ -114,12 +119,18 @@ body.body--fullwidth {
 			margin-bottom: $grid-gutter-width;
 		}
 		
-		& > .content-header--bg, .iobject--picture:not(.iobject--picture-fullwidth), .iobject--video, .iobject--gallery {
+		& > .content-header--bg, & > .iobject--picture:not(.iobject--picture-fullwidth), & > .iobject--video, & > .iobject--gallery {
 			@include grid-page;
 			@if $griddebug {
 				border: 2px dotted orangered;
 			}
 		};
+		& > .iobject--card_promotion {
+			@include grid-page-sm;
+			@if $griddebug {
+				border: 2px dotted hotpink;
+			}
+		}
 		
 	}
 	
