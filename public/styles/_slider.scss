@@ -41,29 +41,31 @@
 	}
 	
 	&--thumbnails {
-		// set correct order for sliders.
-		// thumbnails must be placed before main slider in markup.
-		// this css just swaps them
-		// also fixes problems with swiper inside flexbox elem.
-		display: flex;
-		flex-direction: column;
-		& > * {
-			width: auto !important;
-			max-width: 100%;
-			min-width: 100%;
-		}
-		.swiper--thumbnails {
-			order: 1;
-		}
-		.swiper--images {
-			order: 0;
-			.swiper-wrapper, .swiper-slide {
-				width: auto;
+		.slider-with-thumbnails {
+			// set correct order for sliders.
+			// thumbnails must be placed before main slider in markup.
+			// this css just swaps them
+			// also fixes problems with swiper inside flexbox elem.
+			display: flex;
+			flex-direction: column;
+			& > * {
+				width: auto !important;
 				max-width: 100%;
+				min-width: 100%;
 			}
-		}
-		.iobject__caption {
-			order: 2;
+			.swiper--thumbnails {
+				order: 1;
+			}
+			.swiper--images {
+				order: 0;
+				.swiper-wrapper, .swiper-slide {
+					width: auto;
+					max-width: 100%;
+				}
+			}
+			.iobject__caption {
+				order: 2;
+			}
 		}
 	}
 	

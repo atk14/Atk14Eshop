@@ -35,38 +35,38 @@
 {else if $images}
 	{assign uniqid uniqid()}
 	<section class="section--slider section--slider--thumbnails">
-		
-		<div class="swiper-container swiper--thumbnails" data-slides_per_view="auto" data-loop="{$loop|default: false}" data-autoplay="false" data-slider_id="t_{$uniqid}" id="swiper_t_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if} data-spacebetween="5">
-			<div class="swiper-wrapper">
-		
-				{foreach $images as $image}
-					<div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
-						<img {!$image|img_attrs:$geometry_thumbnail} alt="{$image->getName()}" class="img-fluid">
-					</div>
-				{/foreach}
+		<div class="slider-with-thumbnails">
+			<div class="swiper-container swiper--thumbnails" data-slides_per_view="auto" data-loop="{$loop|default: false}" data-autoplay="false" data-slider_id="t_{$uniqid}" id="swiper_t_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if} data-spacebetween="5">
+				<div class="swiper-wrapper">
 
-			</div>
-			
-			<!-- If we need navigation buttons -->
-			<div class="swiper-button-prev" id="swiper_button_prev_t_{$uniqid}"><span class="sr-only">{t}Previous{/t}</span></div>
-			<div class="swiper-button-next" id="swiper_button_next_t_{$uniqid}"><span class="sr-only">{t}Next{/t}</span></div>
-		</div>
-		
+					{foreach $images as $image}
+						<div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
+							<img {!$image|img_attrs:$geometry_thumbnail} alt="{$image->getName()}" class="img-fluid">
+						</div>
+					{/foreach}
 
-		<div class="swiper-container swiper--images gallery__images swiper--images--dark" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: false}" data-autoplay="false" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if} data-thumbs="#swiper_t_{$uniqid}">
-			<div class="swiper-wrapper">
+				</div>
 
-				{foreach $images as $image}
-					{render partial="shared/photo_gallery_slider_item" image=$image}
-				{/foreach}
-
+				<!-- If we need navigation buttons -->
+				<div class="swiper-button-prev" id="swiper_button_prev_t_{$uniqid}"><span class="sr-only">{t}Previous{/t}</span></div>
+				<div class="swiper-button-next" id="swiper_button_next_t_{$uniqid}"><span class="sr-only">{t}Next{/t}</span></div>
 			</div>
 
-			<!-- If we need navigation buttons -->
-			<div class="swiper-button-prev" id="swiper_button_prev_{$uniqid}"><span class="sr-only">{t}Previous{/t}</span></div>
-			<div class="swiper-button-next" id="swiper_button_next_{$uniqid}"><span class="sr-only">{t}Next{/t}</span></div>
+
+			<div class="swiper-container swiper--images gallery__images swiper--images--dark" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: false}" data-autoplay="false" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if} data-thumbs="#swiper_t_{$uniqid}">
+				<div class="swiper-wrapper">
+
+					{foreach $images as $image}
+						{render partial="shared/photo_gallery_slider_item" image=$image}
+					{/foreach}
+
+				</div>
+
+				<!-- If we need navigation buttons -->
+				<div class="swiper-button-prev" id="swiper_button_prev_{$uniqid}"><span class="sr-only">{t}Previous{/t}</span></div>
+				<div class="swiper-button-next" id="swiper_button_next_{$uniqid}"><span class="sr-only">{t}Next{/t}</span></div>
+			</div>
 		</div>
-		
 		
 	
 		{if $photo_gallery_title}
