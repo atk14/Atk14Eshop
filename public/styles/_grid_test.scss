@@ -132,6 +132,14 @@ body.body--fullwidth {
 			}
 		}
 		
+		& > article > div:not([class]) {
+			max-width: $max-content-width;
+			@if $griddebug {
+				background-color: rgba(yellow,0.25);
+				outline: 2px dashed green;
+			}
+		}
+		
 	}
 	
 	.section--text-over-image {
@@ -164,7 +172,6 @@ body.body--fullwidth {
 }
 
 body:not(.body--fullwidth) {
-	background-color: #211;
 	article {
 		& > * {
 			@if $griddebug {
