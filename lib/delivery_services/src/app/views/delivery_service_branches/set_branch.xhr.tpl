@@ -18,5 +18,9 @@ $modal.appendTo("body");
 $("#delivery_service_branch_select").modal("show");
 
 {if $zasilkovna}
-$("#atk14-widget-zasilkovna").Zasilkovna( { target_input_id: "id_delivery_service_branch_id" });
+$("#atk14-widget-zasilkovna").Zasilkovna( {
+	target_input_id: "id_delivery_service_branch_id",
+	countries: {!$basket->getDeliveryCountriesAllowed()|to_json},
+	language: "{$lang}"
+} );
 {/if}
