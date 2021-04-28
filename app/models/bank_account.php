@@ -63,7 +63,7 @@ class BankAccount extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function isDeletable(){
-		return true;
+		return strlen($this->getCode())==0;
 	}
 
   function toString(){

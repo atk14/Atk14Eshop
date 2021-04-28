@@ -36,39 +36,39 @@ CREATE TABLE bank_accounts (
 	CONSTRAINT fk_bankaccounts_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO bank_accounts (
-	id,
-	regions,
-	currencies,
-	account_number,
-	iban,
-	swift_bic,
-	holder_name,
-	bank_name,
-	bank_address_street,
-	bank_address_street2,
-	bank_address_city,
-	bank_address_state,
-	bank_address_zip,
-	bank_address_country
-) VALUES (
-	NEXTVAL('seq_bank_accounts'),
-	('{"'||(SELECT code FROM regions ORDER BY id LIMIT 1)||'": true}')::JSON,
-	'["CZK"]',
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.number'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.iban'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.swift_bic'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.holder'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.street'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.street2'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.city'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.state'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.zip'),
-	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.country')
-);
-
-INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('bank_accounts',CURRVAL('seq_bank_accounts'),'en','name',(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'));
-INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('bank_accounts',CURRVAL('seq_bank_accounts'),'cs','name',(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'));
-
-DELETE FROM system_parameters WHERE code LIKE 'merchant.billing_information.bank_account%';
+-- INSERT INTO bank_accounts (
+-- 	id,
+-- 	regions,
+-- 	currencies,
+-- 	account_number,
+-- 	iban,
+-- 	swift_bic,
+-- 	holder_name,
+-- 	bank_name,
+-- 	bank_address_street,
+-- 	bank_address_street2,
+-- 	bank_address_city,
+-- 	bank_address_state,
+-- 	bank_address_zip,
+-- 	bank_address_country
+-- ) VALUES (
+-- 	NEXTVAL('seq_bank_accounts'),
+-- 	('{"'||(SELECT code FROM regions ORDER BY id LIMIT 1)||'": true}')::JSON,
+-- 	'["CZK"]',
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.number'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.iban'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.swift_bic'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.holder'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.street'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.street2'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.city'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.state'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.zip'),
+-- 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.address.country')
+-- );
+-- 
+-- INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('bank_accounts',CURRVAL('seq_bank_accounts'),'en','name',(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'));
+-- INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('bank_accounts',CURRVAL('seq_bank_accounts'),'cs','name',(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.bank.name'));
+-- 
+-- DELETE FROM system_parameters WHERE code LIKE 'merchant.billing_information.bank_account%';

@@ -11,7 +11,10 @@ class PaymentQrCodeGenerator {
 	static function GetInstanceForOrder($order){
 		$payment_method = $order->getPaymentMethod();
 		$region = $order->getRegion();
-		$bank_account = $region->getBankAccount();
+		$bank_account = $order->getBankAccount();
+		if(!$bank_account){
+			return null;
+		}
 		$currency = $order->getCurrency();
 
 		$message = sprintf(_("obj. %s"),$order->getOrderNo())." - ".$region->getApplicationName()." - QR";

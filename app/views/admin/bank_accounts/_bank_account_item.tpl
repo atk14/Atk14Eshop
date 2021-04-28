@@ -4,12 +4,19 @@
 			{render partial="shared/active_state" object=$bank_account}
 			{$bank_account->getAccountNumber()} - {$bank_account->getName()}
 			<br>
-			<small>{render partial="shared/region_list" regions=$bank_account->getRegions()}</small>
+			<small></small>
 		</div>
+
 		<div class="item__properties">
-			<small>{t}peněžní měny{/t}:</small><br>
+			<small>{t}sales regions{/t}:</small><br>
+			{render partial="shared/region_list" regions=$bank_account->getRegions()}
+		</div>
+
+		<div class="item__properties">
+			<small>{t}currencies{/t}:</small><br>
 			{to_sentence var=$bank_account->getCurrencies() last_word_connector=", "}
 		</div>
+
 		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$bank_account}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
