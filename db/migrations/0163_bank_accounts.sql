@@ -53,7 +53,7 @@ INSERT INTO bank_accounts (
 	bank_address_country
 ) VALUES (
 	NEXTVAL('seq_bank_accounts'),
-	'{"'||(SELECT code FROM regions ORDER BY id LIMIT 1)||'": true}',
+	('{"'||(SELECT code FROM regions ORDER BY id LIMIT 1)||'": true}')::JSON,
 	'["CZK"]',
 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.number'),
 	(SELECT content FROM system_parameters WHERE code='merchant.billing_information.bank_account.iban'),
