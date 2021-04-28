@@ -6,7 +6,7 @@
  * $this->dbmole->selectRows($result->select('id'), $result->bind);
  */
 class SqlResult {
-	function __construct($table, $where, $bind = [], $sqlOptions = []) {
+	function __construct($table='', $where='', $bind = [], $sqlOptions = []) {
 		$this->table = $table;
 		$this->join = '';
 		$this->where = $where;
@@ -15,7 +15,7 @@ class SqlResult {
 	}
 
 	/** Default options for **/
-	static $DefaultSqlOptions =  [
+	static $DefaultSqlOptions = [
 			'order' => null,
 			'group' => null,
 			'having' => null,
@@ -29,9 +29,15 @@ class SqlResult {
 	}
 
 	function count($options=[]) {
+		if(isset($this->sqlOptions['count_sql'])) {
+			return $this->sqlOptions['count_sql'];
+		}
 		return $this->select("COUNT(*)", $options);
 	}
 
+	function setCountSql($sql) {
+		$this->sqlOptions['count_sql'] = $sql;
+	}
 	/***
 	 * Return query selecting given field
 	 * $result = new SqlResult('cards', 'visible');
@@ -213,5 +219,9 @@ class SqlResult {
 			$options +=$this->sqlOptions;
 		}
 		return $options;
+	}
+
+	function addBind($bind) {
+		$this->bind+=$bind;
 	}
 }
