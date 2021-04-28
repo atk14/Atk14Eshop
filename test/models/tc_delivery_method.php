@@ -57,5 +57,19 @@ class TcDeliveryMethod extends TcBase {
 		$this->assertTrue(is_null($by_agreement->getPriceInclVat()));
 		$this->assertTrue(is_null($by_agreement->getPrice()));
 		$this->assertEquals(21,$by_agreement->getVatPercent());
+
+		//
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat());
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat());
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ","SK"]));
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["CZ","SK"]));
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ"]));
+		$this->assertEquals(121.0,$dpd->getHighestPriceInclVat(["CZ"]));
+
+		$this->assertEquals(200.0,$dpd->getLowestPriceInclVat(["SK"]));
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["SK"]));
 	}
 }
