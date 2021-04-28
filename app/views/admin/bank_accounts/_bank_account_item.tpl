@@ -7,6 +7,10 @@
 			<small></small>
 		</div>
 
+		<div class="item__code">
+			{$bank_account->getCode()}
+		</div>
+
 		<div class="item__properties">
 			<small>{t}sales regions{/t}:</small><br>
 			{render partial="shared/region_list" regions=$bank_account->getRegions()}

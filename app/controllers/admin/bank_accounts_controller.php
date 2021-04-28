@@ -22,4 +22,10 @@ class BankAccountsController extends AdminController {
 	function destroy(){
 		$this->_destroy();
 	}
+
+	function _before_filter(){
+		if(in_array($this->action,["edit"])){
+			$this->_find("bank_account");
+		}
+	}
 }

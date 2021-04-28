@@ -692,6 +692,9 @@ class Order extends BasketOrOrder {
 				return $ba;
 			}
 		}
+
+		// Fallback
+		return BankAccount::GetInstanceByCode("default");
 	}
 
 	/**

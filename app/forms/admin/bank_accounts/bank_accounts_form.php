@@ -85,5 +85,7 @@ class BankAccountsForm extends AdminForm {
 			"max_length" => 255,
 			"required" => false,
 		]));
+
+		$this->add_code_field();
 	}
 }
