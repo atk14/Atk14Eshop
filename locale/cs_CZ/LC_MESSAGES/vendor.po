@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 13:35+0100\n"
-"PO-Revision-Date: 2020-03-16 10:18+0100\n"
+"POT-Creation-Date: 2021-04-28 18:47+0200\n"
+"PO-Revision-Date: 2021-04-28 18:48+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -16,6 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Nahrávání dočasných souborů není povoleno"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "Soubor přesahuje maximální povolenou velikost, která je %s"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Chyba 1"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Chyba 2"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
@@ -91,11 +116,13 @@ msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 msgid "Enter phone number"
 msgstr "Zadejte telefonní číslo"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
 msgid "remove"
 msgstr "odstranit"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:42
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
 msgid "Download attachment"
 msgstr "Stáhnout přílohu"
@@ -104,7 +131,7 @@ msgstr "Stáhnout přílohu"
 msgid "Display image"
 msgstr "Zobrazit obrázek"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:95
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:115
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -154,6 +181,9 @@ msgstr "Zadejte prosím platné PSČ"
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:60
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Zadejte PSČ ve formátu NNN NN"
+
+#~ msgid "The file was now fully upload, please upload it again"
+#~ msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Zadejte platné telefonní číslo (+420.605123456)"

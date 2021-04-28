@@ -12,7 +12,7 @@
 	*}
 
 	{if $order && $order->getPaymentMethod()->isBankTransfer()}
-		{assign bank_account $order->getRegion()->getBankAccount()}
+		{assign bank_account $order->getBankAccount()}
 		<h4>{t}Platební údaje pro uhrazení objednávky{/t}</h4>
 		{assign currency $order->getCurrency()}
 		<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
