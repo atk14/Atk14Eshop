@@ -155,19 +155,40 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return $this->g("price_incl_vat");
 	}
 
-	function getLowestPriceInclVat(){
-		$price = $this->getPriceInclVat();
-		$spec_price = $this->dbmole->selectFloat("SELECT MIN(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method",[":delivery_method" => $this]);
-		if(isset($spec_price) && $spec_price<$price){
-			return $spec_price;
-		}
-		return $price;
+	/**
+	 *
+	 *	$lowest_price = $dm->getLowestPriceInclVat();
+	 *	$lowest_price = $dm->getLowestPriceInclVat(["CZ","SK"]);
+	 */
+	function getLowestPriceInclVat($countries = null){
+		return $this->_getLowestOrHighestPriceInclVat("MIN",$countries);
 	}
 
-	function getHighestPriceInclVat(){
+	/**
+	 *
+	 *	$highest_price = $dm->getHighestPriceInclVat();
+	 *	$highest_price = $dm->getHighestPriceInclVat(["CZ","SK"]);
+	 */
+	function getHighestPriceInclVat($countries = null){
+		return $this->_getLowestOrHighestPriceInclVat("MAX",$countries);
+	}
+
+	protected function _getLowestOrHighestPriceInclVat($MAX,$countries){
 		$price = $this->getPriceInclVat();
-		$spec_price = $this->dbmole->selectFloat("SELECT MAX(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method",[":delivery_method" => $this]);
-		if(isset($spec_price) && $spec_price>$price){
+		$bind_ar = [":delivery_method" => $this];
+		$countries_sql = "";
+		if($countries){
+			$countries_sql = " AND country IN :countries";
+			$bind_ar[":countries"] = $countries;
+		}
+		$spec_price = $this->dbmole->selectFloat("SELECT $MAX(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+		if(!is_null($spec_price) && $countries){
+			$cnt = $this->dbmole->selectInt("SELECT COUNT(*) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+			if($cnt == sizeof($countries)){
+				return $spec_price;
+			}
+		}
+		if(!is_null($spec_price) && (($MAX=="MAX" && $spec_price>$price) || ($MAX=="MIN" &&  $spec_price<$price))){
 			return $spec_price;
 		}
 		return $price;
