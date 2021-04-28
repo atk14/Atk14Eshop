@@ -72,10 +72,10 @@ class SqlResult {
 	 */
 	function distinctOnSelect($field = 'id', $sqlOptions = []) {
 		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
-		if(!$sqlOptions['order']) {
+		$orderObj = SQLJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
+		if(!$orderObj->isOrdered()) {
 			$query = $this->select("distinct on ($field) $field");
 		} else {
-			$orderObj = SqlJoinOrder::ToSqlJoinOrder($sqlOptions['order']);
 			#odstranime ASC DESC do separatniho pole
 			list($order_fields, $desc) = $orderObj->splitOptions();
 			//Tricky part: because of the ordering result must be
@@ -93,7 +93,7 @@ class SqlResult {
 			$order = array_slice($alias, $flen);
 			$order = array_map(function($o, $d) {return $o . $d;}, $order, $desc);
 
-			$sqlOptions['order'] = $orderObj->reorder('');
+			$sqlOptions['order'] = $orderObj->prependOrder($field);
 			$query = $this->select("distinct on ($field) $sub_fields",
 				['limit' => false, 'offset' => false] + $sqlOptions);
 			$order = implode(',', $order);
