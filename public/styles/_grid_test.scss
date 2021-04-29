@@ -107,13 +107,26 @@ body.body--fullwidth {
 			
 		}
 		
+		& > .container-fluid, & > .section--narrow > .container-fluid {
+			@if $griddebug {
+				background-color: rgba(lightcoral,0.2);	
+			}
+			padding-left: 0;
+			padding-right: 0;
+		}
+		
 		& > h1, & > h2, & > h3, & > h4, & > h5, & > .h1, & > .h2, & > .h3, & > .h4, & > .h5, & > p {
 			@if $griddebug {
 				background-color: rgba(pink,0.1);
 			}
-			max-width: $max-content-width + $grid-gutter-width * 2;
-			padding-left: $grid-gutter-width * 2;
-			padding-right: $grid-gutter-width * 2;
+			max-width: $max-content-width;
+			// should we comment out this padding?
+			//max-width: $max-content-width + $grid-gutter-width * 2;
+			//padding-left: $grid-gutter-width * 2;
+			//padding-right: $grid-gutter-width * 2;
+			@if $griddebug {
+				outline: 7px solid rgba(violet,0.5);
+			}
 			margin-left: auto;
 			margin-right: auto;
 			margin-bottom: $grid-gutter-width;
