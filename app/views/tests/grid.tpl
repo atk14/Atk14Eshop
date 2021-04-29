@@ -145,3 +145,30 @@
 		<p>Wayfarers chicharrones meggings cardigan post-ironic listicle messenger bag dreamcatcher. Live-edge kickstarter migas fam. Vinyl enamel pin chambray, mustache kinfolk iceland waistcoat vegan migas humblebrag edison bulb brooklyn XOXO. Biodiesel photo booth vaporware YOLO ethical salvia williamsburg vice. Snackwave iPhone hell of small batch hot chicken vape.</p>
 	</div>
 </section>
+
+
+<div class="section--narrow">
+<div class="microtext">.section--narrow</div>
+	<p>Wayfarers chicharrones meggings cardigan post-ironic listicle messenger bag dreamcatcher. Live-edge kickstarter migas fam. Vinyl enamel pin chambray, mustache kinfolk iceland waistcoat vegan migas humblebrag edison bulb brooklyn XOXO.</p>
+</div>
+
+
+<div class="container-fluid">
+	<div class="microtext">.container-fluid</div>
+	<p>. Occupy bushwick food truck, sartorial vexillologist fashion axe etsy knausgaard kogi iceland gentrify 3 wolf moon chicharrones raw denim dreamcatcher. Palo santo neutra etsy sustainable, vape copper mug retro air plant keytar craft beer church-key pabst. Single-origin coffee farm-to-table try-hard copper mug, heirloom 3 wolf moon paleo pour-over tofu.</p>
+</div>
+
+<div class="fullwidth">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<div class="microtext">.fullwidth &gt; .container-fluid &gt; .row &gt; .col-12.col-md-6</div>
+				<p>Stumptown raw denim fingerstache post-ironic vegan gentrify williamsburg microdosing actually bushwick umami dreamcatcher humblebrag. Fixie squid tote bag polaroid vexillologist freegan.</p>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="microtext">.fullwidth &gt; .container-fluid &gt; .row &gt; .col-12.col-md-6</div>
+				<p>Fixie squid organic, stumptown palo santo vexillologist tofu hoodie sriracha meggings affogato kitsch raclette asymmetrical. Chillwave tousled franzen viral organic craft beer scenester vape +1 pickled.</p>
+			</div>
+		</div>
+	</div>
+</div>
