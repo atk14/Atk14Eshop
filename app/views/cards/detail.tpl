@@ -38,6 +38,7 @@
 		{render partial="shared/attachments" object=$card}
 
 		{foreach $card->getCardSections() as $section}
+			{remove_if_contains_no_text}
 			<section class="section--product-info section--{$section->getTypeCode()}">
 				{if $section->getName()}
 				<h3 class="section__title">{$section->getName()}</h3>
@@ -60,6 +61,7 @@
 					{render partial="shared/attachments" object=$section}
 				</div>
 			</section>
+			{/remove_if_contains_no_text}
 		{/foreach}
 		</div>	
 	</div>
