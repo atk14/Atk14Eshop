@@ -1,5 +1,5 @@
-Full width content layout
-=========================
+Advanced Grid Layout system
+===========================
 
 To create pages with more ambitious full width layouts one may opt-in for Advanced Grid Layout system.
 
@@ -22,3 +22,32 @@ Switch layout from <code>default</code> to <code>containerless</code> by enterin
 (todo)
 
 ## Basic markup for Advanced Grid Layout
+
+[example]
+<div class="body--fullwidth">
+	<div class="content-main">
+		<section class="section--fullwidth" style="background-color: lightblue">
+			<div class="container-fluid">
+				<h5>Full width section</h5>
+				<p>I'm baby pickled helvetica ramps vaporware gentrify twee shabby chic small batch pinterest vegan tousled. 90's copper mug crucifix asymmetrical. Snackwave typewriter tumeric YOLO man braid.</p>
+			</div>
+		</section>
+		
+		<section class="section--narrow">
+			<div class="container-fluid">
+				<h5>Narrow section</h5>
+				<p>Tilde franzen slow-carb YOLO venmo. Fingerstache bitters godard semiotics, chillwave vegan glossier four loko unicorn banh mi. Chicharrones food truck forage sustainable, tote bag glossier keffiyeh brooklyn asymmetrical schlitz letterpress.</p>
+			</div>
+		</section>
+		
+		<div class="container-fluid">
+			<h5>Container fluid</h5>
+			<p>Twee gastropub green juice, sriracha iceland truffaut blog ethical literally glossier asymmetrical roof party biodiesel salvia tousled. Cliche stumptown cronut tilde meggings cloud bread crucifix.</p>
+		</div>
+		
+		<p>Tilde franzen slow-carb YOLO venmo. Fingerstache bitters godard semiotics, chillwave vegan glossier four loko unicorn banh mi. Chicharrones food truck forage sustainable, tote bag glossier keffiyeh brooklyn asymmetrical schlitz letterpress. Cloud bread lyft gentrify scenester hammock actually austin forage mustache williamsburg butcher jean shorts VHS polaroid wayfarers. Direct trade actually thundercats pabst, biodiesel bushwick hammock tumeric yuccie lomo.</p>
+		
+	</div>
+	
+</div>
+[example]
