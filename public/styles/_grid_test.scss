@@ -1,4 +1,4 @@
-$griddebug: true;
+$griddebug: false;
 
 $section-spacing: $grid-gutter-width*2;
 
@@ -109,6 +109,10 @@ body.body--fullwidth {
 				//}
 			}
 			
+		}
+		
+		& > .container-fluid {
+			@include grid-page;
 		}
 		
 		& > .container-fluid, & > .section--narrow > .container-fluid {
