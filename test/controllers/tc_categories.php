@@ -19,12 +19,14 @@ class TcCategories extends TcBase {
 		$client->get("categories/detail",["path" => $this->categories["hot_drinks"]->getPath()]);
 		$this->assertCards(["coffee","tea"],$client->controller->finder->getRecords());
 
+		$client->get("categories/detail",["path" => $this->categories["cold_drinks"]->getPath()]);
+		$this->assertCards(["apple-cider"],$client->controller->finder->getRecords());
+
 		$client->get("categories/detail",["path" => $this->categories["coffeine_drinks"]->getPath()]);
 		// TODO: toto nedopada - je tam "ORDER BY rank ASC, id ASC"?
-		//$this->assertCards(["coffee","tea"],$client->controller->finder->getRecords());
+		$this->assertCards(["coffee","tea"],$client->controller->finder->getRecords());
 
 		$client->get("categories/detail",["path" => $this->categories["food_drinks"]->getPath()]);
-		// TODO: toto nedopada - tea a apple-cider jsou primo ve food_drinks, coffee je az v podkategorii
-		//$this->assertCards(["tea","apple-cider","coffee",],$client->controller->finder->getRecords());
+		$this->assertCards(["tea","apple-cider","coffee",],$client->controller->finder->getRecords());
 	}
 }
