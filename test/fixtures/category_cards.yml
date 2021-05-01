@@ -7,7 +7,7 @@ food_drinks__tea:
   card_id: "<?= $cards["tea"]->getId() ?>"
   rank: 1000
 
-food_drinks__tea:
+food_drinks__apple_cider:
   category_id: "<?= $categories["food_drinks"]->getId() ?>"
   card_id: "<?= $cards["apple_cider"]->getId() ?>"
   rank: 1001

@@ -13,6 +13,11 @@
  */
 class TcCard extends TcBase {
 
+	function assertCategories($paths_exp,$categories){
+		$paths = array_map(function($category){ return $category->getPath(); },$categories);
+		$this->assertEquals($paths_exp,$paths);
+	}
+
 	function test(){
 		$tea = $this->cards["tea"];
 		$catalog = $this->categories["catalog"];
@@ -25,22 +30,25 @@ class TcCard extends TcBase {
 		// Testing Card::getCategories()
 
 		$categories = $tea->getCategories();
-		$this->assertEquals(4,sizeof($categories));
-		$this->assertEquals($color_green->getId(),$categories[0]->getId());
-		$this->assertEquals($food_drinks->getId(),$categories[1]->getId());
-		$this->assertEquals($hot_drinks->getId(),$categories[2]->getId());
-		$this->assertEquals($coffeine_drinks->getId(),$categories[3]->getId());
+		$this->assertCategories([
+			'catalog/food-drinks/coffeine-drinks',
+			'catalog/color/green',
+			'catalog/food-drinks',
+			'catalog/food-drinks/hot-drinks',
+		],$categories);
 
 		$categories = $tea->getCategories(array("consider_filters" => false));
-		$this->assertEquals(3,sizeof($categories));
-		$this->assertEquals($food_drinks->getId(),$categories[0]->getId());
-		$this->assertEquals($hot_drinks->getId(),$categories[1]->getId());
-		$this->assertEquals($coffeine_drinks->getId(),$categories[2]->getId());
+		$this->assertCategories([
+			'catalog/food-drinks/coffeine-drinks',
+			'catalog/food-drinks',
+			'catalog/food-drinks/hot-drinks',
+		],$categories);
 
 		$categories = $tea->getCategories(array("consider_filters" => false, "deduplicate" => true));
-		$this->assertEquals(2,sizeof($categories));
-		$this->assertEquals($hot_drinks->getId(),$categories[0]->getId());
-		$this->assertEquals($coffeine_drinks->getId(),$categories[1]->getId());
+		$this->assertCategories([
+			'catalog/food-drinks/coffeine-drinks',
+			'catalog/food-drinks/hot-drinks',
+		],$categories);
 
 		$categories = $tea->getCategories(array("root_category" => $catalog));
 		$this->assertEquals(4,sizeof($categories));
