@@ -112,47 +112,47 @@ class TcCategoryTree extends TcBase {
 			$this->assertEquals(
 				['other-drinks' => 0,
 				 'cold-drinks' => 1,
-				 'coffeine-drinks' => 1,
-				 'hot-drinks' => 1 ][$t->getSlug()],
+				 'coffeine-drinks' => 2,
+				 'hot-drinks' => 2 ][$t->getSlug()],
 				 $t->getCardsCount());
 		}
 		$this->assertEquals(4, $tree->getChildCategoriesCount());
-		$this->assertEquals(2, $tree->getCardsCount());
+		$this->assertEquals(3, $tree->getCardsCount());
 
 		$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => 'any' ]);
 		foreach($tree as $t) {
 			$this->assertEquals(
 				['cold-drinks' => 1,
-				 'coffeine-drinks' => 1,
-				 'hot-drinks' => 1 ][$t->getSlug()],
+				 'coffeine-drinks' => 2,
+				 'hot-drinks' => 2 ][$t->getSlug()],
 				 $t->getCardsCount());
 		}
 		$this->assertEquals(3, $tree->getChildCategoriesCount());
-		$this->assertEquals(2, $tree->getCardsCount());
+		$this->assertEquals(3, $tree->getCardsCount());
 
 		$filter = new FilterForCards(User::GetAnonymousUser(), ['category' => $this->categories['food_drinks']]);
 		$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => true, 'cards_filter' => $filter]);
 		foreach($tree as $t) {
 			$this->assertEquals(
 				['cold-drinks' => 1,
-				 'coffeine-drinks' => 1,
-				 'hot-drinks' => 1 ][$t->getSlug()],
+				 'coffeine-drinks' => 2,
+				 'hot-drinks' => 2 ][$t->getSlug()],
 				 $t->getCardsCount());
 		}
 		$this->assertEquals(3, $tree->getChildCategoriesCount());
-		$this->assertEquals(2, $tree->getCardsCount());
+		$this->assertEquals(3, $tree->getCardsCount());
 
 		//'has_cards' => 'true': test for non-boolean value
 		$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => 'true', 'cards_filter' => $filter]);
 		foreach($tree as $t) {
 			$this->assertEquals(
 				['cold-drinks' => 1,
-				 'coffeine-drinks' => 1,
-				 'hot-drinks' => 1 ][$t->getSlug()],
+				 'coffeine-drinks' => 2,
+				 'hot-drinks' => 2 ][$t->getSlug()],
 				 $t->getCardsCount());
 		}
 		$this->assertEquals(3, $tree->getChildCategoriesCount());
-		$this->assertEquals(2, $tree->getCardsCount());
+		$this->assertEquals(3, $tree->getCardsCount());
 
 		$filter->parse( ['f_f'.$this->categories['color']->getId() => [$this->categories['color_green']->getId() ] ] );
 		$this->assertTrue($filter->isFiltered());
@@ -182,13 +182,13 @@ class TcCategoryTree extends TcBase {
 		$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => true, 'no_aliases' => true]);
 		foreach($tree as $t) {
 			$this->assertEquals(
-				[ 'coffeine-drinks' => 1,
+				[ 'coffeine-drinks' => 2,
 				  'cold-drinks' => 1,
-				 'hot-drinks' => 1 ][$t->getSlug()],
+				 'hot-drinks' => 2 ][$t->getSlug()],
 				 $t->getCardsCount());
 		}
 		$this->assertEquals(3, $tree->getChildCategoriesCount());
-		$this->assertEquals(2, $tree->getCardsCount());
+		$this->assertEquals(3, $tree->getCardsCount());
 
 		foreach([ $this->categories['mens_shoes'],  $this->categories['shoes'] ] as $c) {
 			foreach([ true, false ] as $dealias) {
@@ -196,15 +196,15 @@ class TcCategoryTree extends TcBase {
 				$cat->s('pointing_to_category_id', $c);
 				$tree = CategoryTree::GetInstance($this->categories['food_drinks'],['return_cards_count' => true, 'has_cards' => true, 'dealias' => $dealias]);
 				$this->assertEquals(4, $tree->getChildCategoriesCount());
-				$this->assertEquals(3, $tree->getCardsCount());
+				$this->assertEquals(4, $tree->getCardsCount());
 				$tree->fetch();
 
 				foreach($tree as $t) {
 				$this->assertEquals(
-					[ 'coffeine-drinks' => 1,
+					[ 'coffeine-drinks' => 2,
 						'other-drinks' => 1,
 						'cold-drinks' => 1,
-					 'hot-drinks' => 1 ][$t->getSlug()],
+					 'hot-drinks' => 2 ][$t->getSlug()],
 					 $t->getCardsCount());
 				}
 			}
