@@ -1,11 +1,13 @@
 color_green__tea:
   category_id: "<?= $categories["color_green"]->getId() ?>"
   card_id: "<?= $cards["tea"]->getId() ?>"
+  rank_rev: 100
 
 food_drinks__tea:
   category_id: "<?= $categories["food_drinks"]->getId() ?>"
   card_id: "<?= $cards["tea"]->getId() ?>"
   rank: 1000
+  rank_rev: 10
 
 food_drinks__apple_cider:
   category_id: "<?= $categories["food_drinks"]->getId() ?>"
@@ -21,23 +23,25 @@ hot_drinks__tea:
   category_id: "<?= $categories["hot_drinks"]->getId() ?>"
   card_id: "<?= $cards["tea"]->getId() ?>"
   rank: 2
+  rank_rev: 20
 
 coffeine_drinks__coffe:
-   id: 1112
-   category_id: "<?= $categories["coffeine_drinks"]->getId() ?>"
-   card_id: "<?= $cards["coffee"]->getId() ?>"
-   rank: 999
+  id: 1112
+  category_id: "<?= $categories["coffeine_drinks"]->getId() ?>"
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  rank: 999
 
 coffeine_drinks__tea:
-   id: 1111
-   category_id: "<?= $categories["coffeine_drinks"]->getId() ?>"
-   card_id: "<?= $cards["tea"]->getId() ?>"
-   rank: 999
+  id: 1111
+  category_id: "<?= $categories["coffeine_drinks"]->getId() ?>"
+  card_id: "<?= $cards["tea"]->getId() ?>"
+  rank: 999
+  rank_rev: 30
 
 cold_drinks__cider:
-   category_id: "<?= $categories["cold_drinks"]->getId() ?>"
-   card_id: "<?= $cards["apple_cider"]->getId() ?>"
+  category_id: "<?= $categories["cold_drinks"]->getId() ?>"
+  card_id: "<?= $cards["apple_cider"]->getId() ?>"
 
 mens_shoes__shoe:
-   category_id: "<?= $categories["mens_shoes"]->getId() ?>"
-   card_id: "<?= $cards["shoe"]->getId() ?>"
+  category_id: "<?= $categories["mens_shoes"]->getId() ?>"
+  card_id: "<?= $cards["shoe"]->getId() ?>"

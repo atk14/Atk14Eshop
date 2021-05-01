@@ -31,23 +31,23 @@ class TcCard extends TcBase {
 
 		$categories = $tea->getCategories();
 		$this->assertCategories([
-			'catalog/food-drinks/coffeine-drinks',
-			'catalog/color/green',
 			'catalog/food-drinks',
 			'catalog/food-drinks/hot-drinks',
+			'catalog/food-drinks/coffeine-drinks',
+			'catalog/color/green',
 		],$categories);
 
 		$categories = $tea->getCategories(array("consider_filters" => false));
 		$this->assertCategories([
-			'catalog/food-drinks/coffeine-drinks',
 			'catalog/food-drinks',
 			'catalog/food-drinks/hot-drinks',
+			'catalog/food-drinks/coffeine-drinks',
 		],$categories);
 
 		$categories = $tea->getCategories(array("consider_filters" => false, "deduplicate" => true));
 		$this->assertCategories([
-			'catalog/food-drinks/coffeine-drinks',
 			'catalog/food-drinks/hot-drinks',
+			'catalog/food-drinks/coffeine-drinks',
 		],$categories);
 
 		$categories = $tea->getCategories(array("root_category" => $catalog));
