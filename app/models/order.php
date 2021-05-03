@@ -681,6 +681,21 @@ class Order extends BasketOrOrder {
 		return !!DigitalContent::GetInstancesByOrder($this);
 	}
 
+	function getBankAccount(){
+		$region = $this->getRegion();
+		$currency = $this->getCurrency();
+		foreach(BankAccount::FindAll([
+			"conditions" => "active AND (regions->>:region)::BOOLEAN",
+			"bind_ar" => [":region" => $region->getCode()],
+		]) as $ba){
+			if(in_array($currency->getCode(),json_decode($ba->g("currencies"),true))){
+				return $ba;
+			}
+		}
+
+		// Fallback
+		return BankAccount::GetInstanceByCode("default");
+	}
 
 	/**
 	 * Pruchod vsemi zaznamy csv

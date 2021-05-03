@@ -1,5 +1,4 @@
-{assign region $order->getRegion()}
-{assign bank_account $region->getBankAccount()}
+{assign bank_account $order->getBankAccount()}
 
 <strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
 <br/><br/>

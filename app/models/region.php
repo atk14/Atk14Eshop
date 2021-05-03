@@ -194,10 +194,6 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		return (array)json_decode($this->g("delivery_countries"),true);
 	}
 
-	function getBankAccount(){
-		return new BankAccount();
-	}
-
 	function isDefaultRegion(){
 		$def = self::GetDefaultRegion();
 		return $this->getId()==$def->getId();

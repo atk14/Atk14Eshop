@@ -1,6 +1,6 @@
 {assign card $card_promotion->getCard()}
 {assign image_url $card_promotion->getImageUrl()}
-{assign price_finder PriceFinder::GetInstance()}
+{assign price_finder PriceFinder::GetCurrentInstance()}
 {assign starting_price $price_finder->getStartingPrice($card)}
 
 <a href="{$card_promotion->getUrl()}" class="iobject iobject--card_promotion">

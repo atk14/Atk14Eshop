@@ -11,6 +11,7 @@ class PriceFinder {
 	protected $dbmole;
 
 	static $PriceFinders = [];
+	static protected $CurrentInstance = null;
 
 	protected function __construct($user,$currency = null,$current_date = null){
 		$this->user = $user;
@@ -45,6 +46,18 @@ class PriceFinder {
 			 self::$PriceFinders[$hash] = new PriceFinder($user,$currency,$current_date);
 		}
 		return self::$PriceFinders[$hash];
+	}
+
+	static function GetCurrentInstance(){
+		if(self::$CurrentInstance){
+			return self::$CurrentInstance;
+		}
+		return self::GetInstance();
+	}
+
+	static function SetCurrentInstance($price_finder){
+		myAssert(is_a($price_finder,"PriceFinder"));
+		self::$CurrentInstance = $price_finder;
 	}
 
 	/**
@@ -149,6 +162,8 @@ class PriceFinder {
 		}
 		return [$starting_price,$starting_base_price];
 	}
+
+	function getUser(){ return $this->user; }
 
 	function getCurrency(){ return $this->currency; }
 
