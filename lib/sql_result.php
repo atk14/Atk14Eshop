@@ -72,7 +72,7 @@ class SqlResult {
 	 */
 	function distinctOnSelect($field = 'id', $sqlOptions = []) {
 		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
-		$orderObj = SQLJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
+		$orderObj = SqlJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
 		if(!$orderObj->isOrdered()) {
 			$query = $this->select("distinct on ($field) $field");
 		} else {
