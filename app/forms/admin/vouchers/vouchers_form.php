@@ -7,7 +7,7 @@ class VouchersForm extends AdminForm {
 		$this->add_field("voucher_code", new CharField([
 			"label" => _("Kód"),
 			"max_length" => 255,
-			"help_text" => _("Písmenný kód bude automaticky převeden na velká písmena"),
+			"help_text" => _('Zadejte text pro slevu, který bude zákazník vkládat do políčka "Slevové kupóny/Dárkové poukazy" v košíku. Kód může být textový i číselný, popřípadě kombinace obojího. Nerozlišují se velká a malá písmena ani mezery (je-li kód "SLEVA21", uplatní se sleva i při použití textu "sleva21" nebo "Sleva21" či "sleva 21" atd.)'),
 		]));
 
 		$this->add_field("discount_amount", new PriceField([

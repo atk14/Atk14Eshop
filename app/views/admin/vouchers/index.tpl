@@ -1,5 +1,7 @@
 <h1>{button_create_new}{/button_create_new} {$page_title}</h1>
 
+<p>{t}Administrace slevových kupónů ve formě dárkového nebo slevového poukazu. Sleva na základě kódu se uplatní na jakýkoliv produkt v e-shopu. Nelze prioritizovat žádnou kategorii.{/t}</p>
+
 {render partial="shared/search_form"}
 
 {if $finder->isEmpty()}
