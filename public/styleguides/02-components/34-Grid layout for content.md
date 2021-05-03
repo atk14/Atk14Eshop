@@ -19,7 +19,8 @@ Switch layout from <code>default</code> to <code>containerless</code> by enterin
 
 ### How tu turn on Advanced Grid Layout in HTML and CSS
 
-(todo)
+You need full width div with class <code>.body--fullwidth</code> and nested div with <code>.content-main</code> class. 
+(TODO simplify this)
 
 ## Basic markup for Advanced Grid Layout
 
