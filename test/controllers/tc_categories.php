@@ -23,7 +23,6 @@ class TcCategories extends TcBase {
 		$this->assertCards(["apple-cider"],$client->controller->finder->getRecords());
 
 		$client->get("categories/detail",["path" => $this->categories["coffeine_drinks"]->getPath()]);
-		// TODO: toto nedopada - je tam "ORDER BY rank ASC, id ASC"?
 		$this->assertCards(["coffee","tea"],$client->controller->finder->getRecords());
 
 		$client->get("categories/detail",["path" => $this->categories["food_drinks"]->getPath()]);
