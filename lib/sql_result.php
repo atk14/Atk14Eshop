@@ -6,7 +6,7 @@
  * $this->dbmole->selectRows($result->select('id'), $result->bind);
  */
 class SqlResult {
-	function __construct($table, $where, $bind = [], $sqlOptions = []) {
+	function __construct($table='', $where='', $bind = [], $sqlOptions = []) {
 		$this->table = $table;
 		$this->join = '';
 		$this->where = $where;
@@ -15,7 +15,7 @@ class SqlResult {
 	}
 
 	/** Default options for **/
-	static $DefaultSqlOptions =  [
+	static $DefaultSqlOptions = [
 			'order' => null,
 			'group' => null,
 			'having' => null,
@@ -29,9 +29,15 @@ class SqlResult {
 	}
 
 	function count($options=[]) {
+		if(isset($this->sqlOptions['count_sql'])) {
+			return $this->sqlOptions['count_sql'];
+		}
 		return $this->select("COUNT(*)", $options);
 	}
 
+	function setCountSql($sql) {
+		$this->sqlOptions['count_sql'] = $sql;
+	}
 	/***
 	 * Return query selecting given field
 	 * $result = new SqlResult('cards', 'visible');
@@ -66,10 +72,10 @@ class SqlResult {
 	 */
 	function distinctOnSelect($field = 'id', $sqlOptions = []) {
 		$sqlOptions = $this->prepareSqlOptions($sqlOptions);
-		if(!$sqlOptions['order']) {
+		$orderObj = SqlJoinOrder::ToSQLJoinOrder($sqlOptions['order']);
+		if(!$orderObj->isOrdered()) {
 			$query = $this->select("distinct on ($field) $field");
 		} else {
-			$orderObj = SqlJoinOrder::ToSqlJoinOrder($sqlOptions['order']);
 			#odstranime ASC DESC do separatniho pole
 			list($order_fields, $desc) = $orderObj->splitOptions();
 			//Tricky part: because of the ordering result must be
@@ -87,7 +93,7 @@ class SqlResult {
 			$order = array_slice($alias, $flen);
 			$order = array_map(function($o, $d) {return $o . $d;}, $order, $desc);
 
-			$sqlOptions['order'] = $orderObj->reorder('');
+			$sqlOptions['order'] = $orderObj->prependOrder($field);
 			$query = $this->select("distinct on ($field) $sub_fields",
 				['limit' => false, 'offset' => false] + $sqlOptions);
 			$order = implode(',', $order);
@@ -213,5 +219,9 @@ class SqlResult {
 			$options +=$this->sqlOptions;
 		}
 		return $options;
+	}
+
+	function addBind($bind) {
+		$this->bind+=$bind;
 	}
 }

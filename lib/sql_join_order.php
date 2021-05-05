@@ -22,6 +22,22 @@ class SqlJoinOrder {
 		$this->reversed=$reversed;
 	}
 
+	function isOrdered() {
+		return $this->array || $this->order;
+	}
+
+	function prependOrder($field) {
+		$this->_handle_reverse();
+		if($this->array) {
+			array_unshift($this->array, $field);
+			$this->order = null;
+		} else {
+			$this->order = "$field,".$this->order;
+			$this->array = null;
+		}
+		return $this;
+	}
+
 	/**
 	 *  Return order fields as array
 	 **/
@@ -39,7 +55,7 @@ class SqlJoinOrder {
 	function asString() {
 		$this->_handle_reverse();
 		if($this->order === null) {
-			$this->order = implode(', ', $this->order);
+			$this->order = implode(', ', $this->array);
 		}
 		return $this->order;
 	}

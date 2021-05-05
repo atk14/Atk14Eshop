@@ -27,7 +27,7 @@ class PriceFinder {
 		$this->dbmole = Pricelist::GetDbmole();
 		$this->currency = $currency;
 		$this->current_date = $current_date;
-		$this->priceData = new CacheSomething([$this, 'getPriceDataFor'], 'product');
+		$this->priceData = new CacheSomething([$this, 'getPriceDataFor'], 'Product');
 	}
 
 	static function GetInstance($user = null,$currency = null,$current_date = null){
