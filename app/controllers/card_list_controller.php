@@ -171,7 +171,7 @@ abstract class CardListController extends ApplicationController {
 			'use_cache' => true
 		]);
 		$this->finder->getRecordIds();
-		var_dump($this->dbmole->getQuery());
+		//var_dump($this->dbmole->getQuery());
 		$afp = $this->params->g('active_filter_page');
 		if(!$afp || !key_exists($afp, $this->form->get_tab_fields())) {
 			$fk = $this->form->get_tab_fields();
