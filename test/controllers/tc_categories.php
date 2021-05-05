@@ -26,6 +26,6 @@ class TcCategories extends TcBase {
 		$this->assertCards(["coffee","tea"],$client->controller->finder->getRecords());
 
 		$client->get("categories/detail",["path" => $this->categories["food_drinks"]->getPath()]);
-		$this->assertCards(["tea","apple-cider","coffee",],$client->controller->finder->getRecords());
+		$this->assertCards(["tea","apple-cider","coffee"],$client->controller->finder->getRecords());
 	}
 }
