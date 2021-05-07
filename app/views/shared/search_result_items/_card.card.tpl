@@ -23,7 +23,7 @@
 			{render partial="shared/tags" tags=$card->getTags()}
 		</div>
 	{/if}
-	<div class="search-results-item--tag">
+	<div class="card__label">
 		{$card->getProductType()|capitalize} {* e.g. Product, Book...*}
 	</div>
 	
@@ -40,6 +40,7 @@
 			{render partial="shared/card_price" card=$card}
 			<span class="card-footer__icon">{a action="cards/detail" id=$card}{!"shopping-cart"|icon} {!"chevron-right"|icon}{/a}</span>
 		{/if}
+		<div class="w-100 mt-2">{a action="cards/detail" id=$card _class="btn btn-primary btn-sm"}{t}Zobrazit produkt{/t}{/a}</div>
 	</div>
 	
 </div>

@@ -8,7 +8,7 @@
 	{/a}
 	
 	
-	<div class="search-results-item--tag">
+	<div class="card__label">
 		{if $article->getPrimaryTag()}
 			{$article->getPrimaryTag()->getTagLocalized()|capitalize}
 		{else}

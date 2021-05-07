@@ -8,7 +8,7 @@
 	{/a}
 	
 	
-	<div class="search-results-item--tag">
+	<div class="card__label">
 		{t}Prodejna{/t}
 	</div>
 	

@@ -11,7 +11,7 @@
 		{/if}
 	{/a}
 	
-	<div class="search-results-item--tag">
+	<div class="card__label">
 		{if $creator}
 			{t}Profil{/t}
 		{else}

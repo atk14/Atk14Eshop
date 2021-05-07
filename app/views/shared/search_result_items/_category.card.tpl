@@ -7,7 +7,7 @@
 		{/if}
 	{/a}
 	
-	<div class="search-results-item--tag">
+	<div class="card__label">
 		{t}Kategorie{/t}
 	</div>
 	
