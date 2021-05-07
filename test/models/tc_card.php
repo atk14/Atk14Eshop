@@ -5,13 +5,13 @@
  * @fixture cards
  * @fixture categories
  * @fixture category_cards
+ * @fixture technical_specification_keys
+ * @fixture technical_specifications
  * @fixture pricelist_items
  * @fixture warehouse_items
  * @fixture related_cards
  * @fixture consumables
  * @fixture accessories
- * @fixture technical_specification_keys
- * @fixture technical_specifications
  */
 class TcCard extends TcBase {
 
