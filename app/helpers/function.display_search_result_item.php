@@ -14,10 +14,12 @@ function smarty_function_display_search_result_item($params,$template){
 		"item" => null,
 		"object" => null,
 		"suggestion" => false,
+		"use_cards" => false,
 	];
 
 	$item = $params["item"];
 	$object = $params["object"];
+	$use_cards = $params["use_cards"];
 	if(!$item && !$object){ return; }
 
 	$object = $item ? $item->getObject() : $object;
@@ -27,8 +29,14 @@ function smarty_function_display_search_result_item($params,$template){
 
 	$class = get_class($object); // "Article"
 	$object_name = String4::ToObject($class)->underscore()->toString(); // "Article" -> "article"
-
-	$_tpl = "shared/search_result_items/_$object_name.tpl";
+	
+	if( $use_cards ) {
+		$_tpl = "shared/search_result_items/_$object_name.card.tpl";
+		//echo "CARDS TRUE ". $_tpl;
+	} else {
+		$_tpl = "shared/search_result_items/_$object_name.tpl";
+		//echo "CARDS FALSE ". $_tpl;
+	}
 
 	if( $suggestion && $template->templateExists( "shared/search_result_items/_$object_name.suggestion.tpl" ) ){
 		$_tpl = "shared/search_result_items/_$object_name.suggestion.tpl";

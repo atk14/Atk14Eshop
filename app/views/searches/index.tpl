@@ -20,7 +20,15 @@
 				{display_search_result_item item=$item}
 			{/foreach}
 		</ul>
-
+		<hr>
+		<hr>
+		<hr>
+		<hr>
+		<div class="card-deck card-deck--sized-4">
+			{foreach $finder->getItems() as $item}
+				{display_search_result_item item=$item use_cards=true}
+			{/foreach}
+		</div>
 		{paginator}
 	
 	{/if}
