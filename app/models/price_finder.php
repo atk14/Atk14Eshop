@@ -13,14 +13,17 @@ class PriceFinder {
 	static $PriceFinders = [];
 	static protected $CurrentInstance = null;
 
-	protected function __construct($user,$currency = null,$current_date = null){
-		$this->user = $user;
+	protected function __construct($user = null,$currency = null,$current_date = null){
+		if(!$user){
+			$user = User::GetAnonymousUser();
+		}
 		if(!$currency){
 			$currency = Currency::GetDefaultCurrency();
 		}
 		if(is_null($current_date)){
 			$current_date = now();
 		}
+		$this->user = $user;
 		$this->pricelist = $user->getPricelist();
 		$this->base_pricelist = $user->getBasePricelist();
 		if($this->base_pricelist && $this->base_pricelist->getId()==$this->pricelist->getId()){ $this->base_pricelist = null; }
@@ -39,8 +42,10 @@ class PriceFinder {
 				$instance = new PriceFinder($args[0],$args[1],$args[2]);
 			}elseif(sizeof($args)==2){
 				$instance = new PriceFinder($args[0],$args[1]);
-			}else{
+			}elseif(sizeof($args)==1){
 				$instance = new PriceFinder($args[0]);
+			}else{
+				$instance = new PriceFinder();
 			}
 			self::$PriceFinders[$instance_key] = $instance;
 		}
