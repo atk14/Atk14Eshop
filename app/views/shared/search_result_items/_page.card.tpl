@@ -1,6 +1,6 @@
 {assign root_page $page->getRootPage()}
 {assign creator Creator::FindFirst("page_id",$page)}
-<div class="card">
+<div class="card card--search {if $creator}card--search--author{else}card--search--page{/if}">
 	{a action="pages/detail" id=$page}
 		{if $page->getImageUrl()}
 			<img {!$page->getImageUrl()|img_attrs:'400x300x#ffffff'} alt="{$page->getTitle()}" class="card-img-top">

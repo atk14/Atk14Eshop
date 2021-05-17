@@ -116,3 +116,18 @@ form#form_searches_index {
 		
 	}
 }
+
+.card--search {
+	background-color: rgba(yellow,0.2);
+	&:not(.card--search--author) {
+		order: 10;
+		background-color: rgba(green,0.2);
+	}
+	&--author {
+		order: 0;
+		background-color: rgba(red,0.2);
+		outline: 2px solid red;
+		flex-basis: 50% !important;
+		max-width: 50% !important;
+	}
+}

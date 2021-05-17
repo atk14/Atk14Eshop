@@ -1,7 +1,7 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign main_creators CardCreator::GetMainCreatorsForCard($card)}
 
-<div class="card">
+<div class="card card--search card--search--card">
 
 	{a action="cards/detail" id=$card}
 		{if $card->getImage()}

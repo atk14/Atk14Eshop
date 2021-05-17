@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card card--search card--search--article">
 	{a action="articles/detail" id=$article}
 		{if $article->getImageUrl()}
 				<img {!$article->getImageUrl()|img_attrs:'400x300x#ffffff'} alt="{$article->getTitle()}" class="card-img-top">

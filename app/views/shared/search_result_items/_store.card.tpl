@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card card--search card--search--store">
 	{a action="stores/detail" id=$store}
 		{if $store->getImageUrl()}
 			{!$store->getImageUrl()|pupiq_img:"400x300x#ffffff":"class='card-img-top'"}

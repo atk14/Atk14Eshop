@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card card--search card--search--category">
 	{a action="categories/detail" path=$category->getPath()}
 		{if $category->getImageUrl()}
 			<img {!$category->getImageUrl()|img_attrs:'400x300x#ffffff'} alt="{$category->getName()}" class="card-img-top">
