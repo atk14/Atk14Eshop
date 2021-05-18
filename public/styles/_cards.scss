@@ -36,8 +36,12 @@ $card-border-style: 1px dashed $border-color;
 	position: relative;
 	
 	// override height attribute
-	.card-img-top, .card-img-bottom {
+	// use .card__image in case you need wrapper around image
+	.card-img-top, .card-img-bottom, .card__image {
 		height: auto;
+	}
+	.card__image {
+		position: relative;
 	}
 	
 	// If image is logo it should be wraped in .card__logo to have nice padding;
@@ -149,13 +153,28 @@ $card-border-style: 1px dashed $border-color;
 		top: $grid-gutter-width/2;
 	}
 	
+	.card__label {
+		// to be placed inside .card__image
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		display: inline-block;
+		padding: 0.5em 0.5em;
+		font-weight: 600;
+		line-height: 1;
+		color: white;
+		background-color: rgba(black,0.8);
+		
+	}
+	
 	&--horizontal {
 		display: grid;
 		grid-template-columns: 200px 1fr;
 		grid-template-rows: 1fr auto;
 		grid-template-areas: "card-image card-body"
 												"card-image card-footer";
-		.card-img-top {
+		.card-img-top, .card__image {
+			// use .card__image in case you need wrapper around image
 			grid-area: card-image;
 		}
 		.card-body {

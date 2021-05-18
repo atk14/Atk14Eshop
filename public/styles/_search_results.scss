@@ -2,7 +2,7 @@ form#form_searches_index {
 	margin-bottom: $grid-gutter-width;
 }
 
-
+/*
 .search-results-list {
 	list-style: none;
 	padding: 0;
@@ -115,9 +115,10 @@ form#form_searches_index {
 		}
 		
 	}
-}
+}*/
 
 .card--search {
+	border: $card-border-style !important;
 	&:not(.card--search--creator) {
 		order: 10;
 	}
