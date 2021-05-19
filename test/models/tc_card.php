@@ -5,6 +5,8 @@
  * @fixture cards
  * @fixture categories
  * @fixture category_cards
+ * @fixture technical_specification_keys
+ * @fixture technical_specifications
  * @fixture pricelist_items
  * @fixture warehouse_items
  * @fixture related_cards
@@ -165,5 +167,18 @@ class TcCard extends TcBase {
 
 		$finder = Card::GetFinderForCategory($catalog,array(),array("search_entire_branch" => false));
 		$this->assertTrue($finder->getTotalAmount()===0);
+	}
+
+	function test_getTechnicalSpecifications(){
+		$coffee = $this->cards["coffee"];
+
+		$technical_specifications = $coffee->getTechnicalSpecifications();
+		$this->assertEquals(3,sizeof($technical_specifications));
+		$this->assertEquals(["aroma","weight","acidity"],array_map(function($ts){ return $ts->getTechnicalSpecificationKey()->g("key"); },$technical_specifications));
+
+		$this->assertEquals("Strong",(string)$coffee->getTechnicalSpecification("aroma"));
+		$this->assertEquals("200g",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["weight"]));
+		$this->assertEquals("Low",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["acidity"]->getId()));
+		$this->assertEquals(null,$coffee->getTechnicalSpecification("width"));
 	}
 }

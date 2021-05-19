@@ -13,14 +13,17 @@ class PriceFinder {
 	static $PriceFinders = [];
 	static protected $CurrentInstance = null;
 
-	protected function __construct($user,$currency = null,$current_date = null){
-		$this->user = $user;
+	protected function __construct($user = null,$currency = null,$current_date = null){
+		if(!$user){
+			$user = User::GetAnonymousUser();
+		}
 		if(!$currency){
 			$currency = Currency::GetDefaultCurrency();
 		}
 		if(is_null($current_date)){
 			$current_date = now();
 		}
+		$this->user = $user;
 		$this->pricelist = $user->getPricelist();
 		$this->base_pricelist = $user->getBasePricelist();
 		if($this->base_pricelist && $this->base_pricelist->getId()==$this->pricelist->getId()){ $this->base_pricelist = null; }
@@ -30,22 +33,37 @@ class PriceFinder {
 		$this->priceData = new CacheSomething([$this, 'getPriceDataFor'], 'Product');
 	}
 
-	static function GetInstance($user = null,$currency = null,$current_date = null){
-		if(!$user){
-			$user = User::GetAnonymousUser();
+	static function GetInstance(){
+		$args = func_get_args();
+		$instance_key = self::_ArgsToInstanceKey($args);
+		if( !key_exists($instance_key, self::$PriceFinders) ) {
+			// ReflectionClass cannot be used here, because the __construct is protected
+			if(sizeof($args)>=3){
+				$instance = new PriceFinder($args[0],$args[1],$args[2]);
+			}elseif(sizeof($args)==2){
+				$instance = new PriceFinder($args[0],$args[1]);
+			}elseif(sizeof($args)==1){
+				$instance = new PriceFinder($args[0]);
+			}else{
+				$instance = new PriceFinder();
+			}
+			self::$PriceFinders[$instance_key] = $instance;
 		}
-		if(!$currency){
-			$currency = Currency::GetDefaultCurrency();
+		return self::$PriceFinders[$instance_key];
+	}
+
+	protected static function _ArgsToInstanceKey($args){
+		$out = [];
+		foreach($args as $arg){
+			if(is_array($arg)){
+				$out[] = self::_ArgsToInstanceKey($arg);
+				continue;
+			}
+			$class = is_object($arg) ? get_class($arg) : "";
+			$value = is_a($arg,"TableRecord") ? $arg->getId() : "$arg";
+			$out[] = "$class:$value";
 		}
-		if(!$current_date){
-			$current_date = date("Y-m-d H:i");
-		}
-		$id = $user ? $user->getId() : '';
-		$hash = $id."/".$currency->getCode()."/".$current_date;
-		if( !key_exists($hash, self::$PriceFinders) ) {
-			 self::$PriceFinders[$hash] = new PriceFinder($user,$currency,$current_date);
-		}
-		return self::$PriceFinders[$hash];
+		return join(";",$out);
 	}
 
 	static function GetCurrentInstance(){
