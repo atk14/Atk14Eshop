@@ -14,13 +14,6 @@
 		<p class="nosearchresult">{t}Nic nebylo nalezeno.{/t}</p>
 
 	{else}
-{*
-		<ul class="search-results-list">
-			{foreach $finder->getItems() as $item}
-				{display_search_result_item item=$item}
-			{/foreach}
-		</ul>
-*}
 		<div class="card-deck card-deck--sized-4">
 			{foreach $finder->getItems() as $item}
 				{display_search_result_item item=$item use_cards=true}

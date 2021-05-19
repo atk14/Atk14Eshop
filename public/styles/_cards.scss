@@ -270,6 +270,41 @@ $card-border-style: 1px dashed $border-color;
 		}
 		
 	}
+
+	// Search results
+	&--search {
+		border: $card-border-style !important;
+		&:not(.card--search--creator) {
+			order: 10;
+		}
+		&--creator {
+			order: 0;
+			flex-basis: 50% !important;
+			max-width: 50% !important;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: stretch;
+			& > .creator_profile {
+				@extend .card;
+				flex-basis: 50% !important;
+				max-width: 50% !important;
+				flex-shrink: 0;
+				border: none !important;
+			}
+			& > .creator_works {
+				flex-basis: 50%;
+				flex-shrink: 0;
+				padding: $card-spacer-x;
+				.card--micro {
+					max-width: 90px;
+					min-width: 90px;
+					flex-basis: percenage(1/3);
+				}
+			}
+		}
+	}
+
 }
 
 // When displaying lists as card decks, groups or columns 
