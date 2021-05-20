@@ -17,7 +17,7 @@
 	<div class="card-body">
 	
 		<h4 class="card-title">
-			{a action="stores/detail" id=$store}{$store->getName()}{/a}
+			{a action="stores/detail" id=$store}{highlight_keywords keywords=$params.q tag="<mark>"}{$store->getName()}{/highlight_keywords}{/a}
 		</h4>
 		
 		{if $store->isOpen()}
@@ -26,9 +26,11 @@
 		
 		<div class="card-text">
 			<p>
+				{highlight_keywords keywords=$params.q tag="<mark>"}
 				{$store->getAddressStreet()}, {$store->getAddressCity()}<br>
 				{t}tel:{/t} {$store->getPhone()}<br>
 				{t}e-mail:{/t} {$store->getEmail()}
+				{/highlight_keywords}
 			</p>
 		</div>
 			

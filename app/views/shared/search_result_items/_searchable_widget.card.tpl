@@ -6,9 +6,9 @@
 	</div>
 	<div class="card-body">
 		<h4 class="card-title">
-			<a href="{$searchable_widget->getUrl()}">{$searchable_widget->getTitle()}</a>
+			<a href="{$searchable_widget->getUrl()}">{highlight_keywords keywords=$params.q tag="<mark>"}{$searchable_widget->getTitle()}{/highlight_keywords}</a>
 		</h4>
-		<div class="card-text"><p>{!$searchable_widget->getBody()|markdown}</p></div>
+		<div class="card-text"><p>{highlight_keywords keywords=$params.q tag="<mark>"}{!$searchable_widget->getBody()|markdown}{/highlight_keywords}</p></div>
 	</div>
 	
 	<div class="card-footer">
