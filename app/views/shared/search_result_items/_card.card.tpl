@@ -28,11 +28,11 @@
 		</div>
 	</div>
 	<div class="card-body">
-		<h4 class="card-title">{a action="cards/detail" id=$card}{$card->getName()}{/a}</h4>
+		<h4 class="card-title">{a action="cards/detail" id=$card}{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getName()}{/highlight_keywords}{/a}</h4>
 		{if $main_creators}
 			<div class="card-author">{$main_creators|to_sentence}</div>
 		{/if}
-		<div class="card-text">{$card->getTeaser()|markdown|strip_tags|truncate:300}</div>
+		<div class="card-text">{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getTeaser()|markdown|strip_tags|truncate:300}{/highlight_keywords}</div>
 	</div>
 	
 	<div class="card-footer">

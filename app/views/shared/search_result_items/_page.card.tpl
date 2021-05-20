@@ -26,12 +26,14 @@
 
 		<div class="card-body">
 			<h4 class="card-title">
+				{highlight_keywords keywords=$params.q tag="<mark>"}
 				{if $root_page->getId()!=$page->getId()}
 					{a action="pages/detail" id=$root_page}{$root_page->getTitle()}{/a} /
 				{/if}
 				{a action="pages/detail" id=$page}{$page->getTitle()}{/a}
+				{/highlight_keywords}
 			</h4>
-			<div class="card-text"><p>{$page->getTeaser()|markdown|strip_tags:false}</p></div>
+			<div class="card-text"><p>{highlight_keywords keywords=$params.q tag="<mark>"}{$page->getTeaser()|markdown|strip_tags:false}{/highlight_keywords}</p></div>
 
 
 
@@ -61,7 +63,7 @@
 						{a action="cards/detail" id=$card _class="card card--micro"}
 							{!$card->getImage()|pupiq_img:"90x90x#ffffff":"title={$card->getName()},class='card-img-top'"}
 							<div class="card-body">
-								<h5 class="card-title">{$card->getName()}</h5>
+								<h5 class="card-title">{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getName()}{/highlight_keywords}</h5>
 							</div>
 						{/a}
 					{/if}

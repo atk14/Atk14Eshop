@@ -13,8 +13,8 @@
 		</div>
 	</div>
 	<div class="card-body">
-		<h4 class="card-title">{a action="categories/detail" path=$category->getPath()}{$category->getLongName()}{/a}</h4>
-		<div class="card-text">{$category->getTeaser()}</div>
+		<h4 class="card-title">{a action="categories/detail" path=$category->getPath()}{highlight_keywords keywords=$params.q tag="<mark>"}{$category->getLongName()}{/highlight_keywords}{/a}</h4>
+		<div class="card-text">{highlight_keywords keywords=$params.q tag="<mark>"}{$category->getTeaser()}{/highlight_keywords}</div>
 	</div>
 
 	<div class="card-footer">
