@@ -275,12 +275,21 @@ $card-border-style: 1px dashed $border-color;
 	&--search {
 		border: $card-border-style !important;
 		&:not(.card--search--creator) {
-			order: 10;
+			.card-deck > & {
+				order: 10;
+			}
 		}
 		&--creator {
-			order: 0;
-			flex-basis: 50% !important;
-			max-width: 50% !important;
+			//order: 0;
+			//flex-basis: calc(50% - #{$card-deck-margin * 2}) !important;
+			//max-width: calc(50% - #{$card-deck-margin * 2})  !important;
+			.card-deck > & {
+				outline: 1px solid red;
+				order: 0;
+				flex-basis: calc(50% - #{$card-deck-margin * 2}) !important;
+				max-width: calc(50% - #{$card-deck-margin * 2})  !important;
+			}
+			grid-column: span 2;
 			display: flex;
 			flex-direction: row;
 			justify-content: flex-start;
@@ -694,6 +703,30 @@ a.card {
 			&:hover {
 				background-color: $gray-200;
 			}
+		}
+	}
+}
+
+.card-grid {
+	display: grid;
+	&--cols-4 {
+		@include media-breakpoint-up(sm) {
+			//grid-gap: $card-deck-margin * 2;
+			grid-auto-flow: dense;
+			margin-left: 0 - $card-deck-margin;
+			margin-right:0 - $card-deck-margin;
+			& > .card {
+				margin: $card-deck-margin;
+			}
+		}
+		@include media-breakpoint-between(sm,md) {
+			grid-template-columns: 1fr 1fr;
+		}
+		@include media-breakpoint-only(lg) {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+		@include media-breakpoint-up(xl) {
+			grid-template-columns: 1fr 1fr 1fr 1fr;
 		}
 	}
 }
