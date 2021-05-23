@@ -16,7 +16,7 @@
 	{else}		
 		<div class="card-grid card-grid--cols-4">
 			{foreach $finder->getItems() as $item}
-				{display_search_result_item item=$item use_cards=true}
+				{display_search_result_item item=$item}
 			{/foreach}
 		</div>
 		{paginator}
