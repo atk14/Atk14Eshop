@@ -10,8 +10,17 @@ function smarty_block_highlight_keywords($params,$content,$template,&$repeat){
 
 	$params += [
 		"keywords" => "",
-		"opening_tag" => '<span style="background-color: #ffff00;">',
-		"closing_tag" => '</span>',
+		"tag" => "", // <span style="background-color: #ffff00;">
+	];
+
+	if($params["tag"] && preg_match("/^<([^ ]+).*>/",$params["tag"],$matches)){
+		$params["opening_tag"] = $params["tag"];
+		$params["closing_tag"] = "</$matches[1]>";
+	}
+
+	$params += [
+		"opening_tag" => '<mark>',
+		"closing_tag" => '</mark>',
 	];
 
 	$keywords = $params["keywords"];

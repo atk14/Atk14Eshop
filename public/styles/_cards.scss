@@ -36,8 +36,12 @@ $card-border-style: 1px dashed $border-color;
 	position: relative;
 	
 	// override height attribute
-	.card-img-top, .card-img-bottom {
+	// use .card__image in case you need wrapper around image
+	.card-img-top, .card-img-bottom, .card__image {
 		height: auto;
+	}
+	.card__image {
+		position: relative;
 	}
 	
 	// If image is logo it should be wraped in .card__logo to have nice padding;
@@ -120,6 +124,13 @@ $card-border-style: 1px dashed $border-color;
 			top: -0.2em;
 			color: $brand;
 			align-self: flex-end;
+			a {
+				color: inherit;
+				&:hover {
+					text-decoration: none;
+					color: $link-color;
+				}
+			}
 		}
 		.btn > .card-footer__icon:first-child {
 			margin-right: 0.25em;
@@ -142,13 +153,29 @@ $card-border-style: 1px dashed $border-color;
 		top: $grid-gutter-width/2;
 	}
 	
+	.card__label {
+		// to be placed inside .card__image
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		display: inline-block;
+		padding: 0.35em 0.5em;
+		font-weight: 600;
+		line-height: 1;
+		color: white;
+		background-color: rgba($secondary,0.8);
+		font-size: $font-size-sm;
+		
+	}
+	
 	&--horizontal {
 		display: grid;
 		grid-template-columns: 200px 1fr;
 		grid-template-rows: 1fr auto;
 		grid-template-areas: "card-image card-body"
 												"card-image card-footer";
-		.card-img-top {
+		.card-img-top, .card__image {
+			// use .card__image in case you need wrapper around image
 			grid-area: card-image;
 		}
 		.card-body {
@@ -244,6 +271,51 @@ $card-border-style: 1px dashed $border-color;
 		}
 		
 	}
+
+	// Search results
+	&--search {
+		border: $card-border-style !important;
+		&:not(.card--search--creator) {
+			.card-deck > & {
+				order: 10;
+			}
+		}
+		&--creator {
+			//order: 0;
+			//flex-basis: calc(50% - #{$card-deck-margin * 2}) !important;
+			//max-width: calc(50% - #{$card-deck-margin * 2})  !important;
+			.card-deck > & {
+				outline: 1px solid red;
+				order: 0;
+				flex-basis: calc(50% - #{$card-deck-margin * 2}) !important;
+				max-width: calc(50% - #{$card-deck-margin * 2})  !important;
+			}
+			grid-column: span 2;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: stretch;
+			& > .creator_profile {
+				@extend .card;
+				flex-basis: calc(50% - #{$card-deck-margin}) !important;
+				max-width: calc(50% - #{$card-deck-margin}) !important;
+				flex-shrink: 0;
+				border: none !important;
+			}
+			& > .creator_works {
+				flex-basis: 50%;
+				flex-shrink: 0;
+				flex-grow: 2;
+				padding: $card-spacer-x;
+				.card--micro {
+					max-width: 90px;
+					min-width: 90px;
+					flex-basis: percenage(1/3);
+				}
+			}
+		}
+	}
+
 }
 
 // When displaying lists as card decks, groups or columns 
@@ -633,6 +705,30 @@ a.card {
 			&:hover {
 				background-color: $gray-200;
 			}
+		}
+	}
+}
+
+.card-grid {
+	display: grid;
+	&--cols-4 {
+		@include media-breakpoint-up(sm) {
+			//grid-gap: $card-deck-margin * 2;
+			grid-auto-flow: dense;
+			margin-left: 0 - $card-deck-margin;
+			margin-right:0 - $card-deck-margin;
+			& > .card {
+				margin: $card-deck-margin;
+			}
+		}
+		@include media-breakpoint-between(sm,md) {
+			grid-template-columns: 1fr 1fr;
+		}
+		@include media-breakpoint-only(lg) {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+		@include media-breakpoint-up(xl) {
+			grid-template-columns: 1fr 1fr 1fr 1fr;
 		}
 	}
 }

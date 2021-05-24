@@ -27,8 +27,8 @@ function smarty_function_display_search_result_item($params,$template){
 
 	$class = get_class($object); // "Article"
 	$object_name = String4::ToObject($class)->underscore()->toString(); // "Article" -> "article"
-
-	$_tpl = "shared/search_result_items/_$object_name.tpl";
+	
+	$_tpl = "shared/search_result_items/_$object_name.card.tpl";
 
 	if( $suggestion && $template->templateExists( "shared/search_result_items/_$object_name.suggestion.tpl" ) ){
 		$_tpl = "shared/search_result_items/_$object_name.suggestion.tpl";
