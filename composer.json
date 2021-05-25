@@ -35,6 +35,6 @@
         "atk14/csv-reader": "^1.1",
         "atk14/csv-writer": "^1.1",
         "yarri/keywords-highlighter": "^0.1.1",
-        "atk14/sql-builder": "^1.1"
+        "atk14/sql-builder": "^2.0.1"
     }
 }

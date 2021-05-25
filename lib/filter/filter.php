@@ -56,7 +56,7 @@ class Filter {
 		$this->sections = [];
 
 		//Unmaterialized result for empty sql
-		$this->emptySql = (new SqlConditions($table))->where($options['conditions'])->bind($options['bind']);
+		$this->emptySql = (new SqlTable($table))->where($options['conditions'])->bind($options['bind']);
 		$this->emptySql->options['autojoins'] = true;
 		$this->emptySql->setSqlOptions(array_intersect_key($this->options, ['order', 'limit','offset']));
 
