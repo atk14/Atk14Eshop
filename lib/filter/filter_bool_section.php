@@ -26,7 +26,7 @@ class FilterBoolSection extends FilterBaseSection {
 		];
 
 		parent::__construct($filter, $name, $options);
-		$this->emptyCounts = null;
+		$this->unfilteredCounts = null;
 		$this->counts = null;
 	}
 
@@ -89,7 +89,7 @@ class FilterBoolSection extends FilterBaseSection {
 	function sqlBoolValue() {
 		$field = $this->options['field'];
 		if(preg_match('/^[a-z0-9_]+$/', $field)) {
-			$field = "{$this->getMainJoin($this->filter->emptySql())->getTableName()}.$field";
+			$field = "{$this->getMainJoin($this->filter->unfilteredSql())->getTableName()}.$field";
 		}
 		return $field;
 	}
@@ -111,16 +111,16 @@ class FilterBoolSection extends FilterBaseSection {
 			return $this->getEmptyCounts();
 		}
 		if($this->counts === null) {
-			$this->counts = $this->getCountsOn($this->filter->parsedSql());
+			$this->counts = $this->getCountsOn($this->filter->filteredSql());
 		}
 		return $this->counts;
 	}
 
 	function getEmptyCounts() {
-		if($this->emptyCounts === null) {
-			$this->emptyCounts = $this->getCountsOn($this->filter->emptySql());
+		if($this->unfilteredCounts === null) {
+			$this->unfilteredCounts = $this->getCountsOn($this->filter->unfilteredSql());
 		}
-		return $this->emptyCounts;
+		return $this->unfilteredCounts;
 	}
 
 	function getCountsOn($sql) {

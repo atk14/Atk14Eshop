@@ -31,7 +31,7 @@ class FilterRangeSection extends FilterBaseSection {
 	 */
 	function getPossibleRange() {
 		if(!$this->possibleRange) {
-			$this->possibleRange = $this->getRangeOn($this->filter->emptySql());
+			$this->possibleRange = $this->getRangeOn($this->filter->unfilteredSql());
 		}
 		return $this->possibleRange;
 	}
@@ -44,9 +44,9 @@ class FilterRangeSection extends FilterBaseSection {
 	 */
 	function getAvailableRange() {
 		if($this->availableRange === null) {
-			if(array_diff_key($this->filter->getParams(), [$this->getParamName() => 0])) {
+			if($this->filter->isFilteredExcept($this->name)) {
 				$this->availableRange = $this->getRangeOn(
-					$this->filter->parsedSql
+					$this->filter->filteredSql
 				);
 			} else {
 				$this->availableRange = $this->getPossibleRange();
@@ -88,25 +88,12 @@ class FilterRangeSection extends FilterBaseSection {
 		return $a;
 	}
 
-	/**
-	 * Create a form field(s) for current section
-	 *
-	 * foreach($section->createFormFields() as $field) {
-	 *   $form->add_field($field);
-	 * }
+	/*
+	 * Is there any valid value for this section
 	 */
-	function createFormFields() {
-		$class = $this->options['form_field'];
-		$out = [];
-
-		if($this->fixed===null && $class && $this->getPossibleRange()) {
-			$name = $this->getParamName();
-			$out[$name] = new $class(
-				$this->formFieldOptions('min') +
-				$this->options['form_field_options']
-			);
-		}
-		return $out;
+	function isPossible() {
+		$range = $this->getPossibleRange();
+		return $range && $range['min'] < $range['max'];
 	}
 
 	/*
@@ -115,12 +102,11 @@ class FilterRangeSection extends FilterBaseSection {
 	function formFieldOptions() {
 		 $range = $this->getPossibleRange();
 		 $out = [
-			 'filter_section' => $this,
 			 "min_value" => $range['min'],
 			 "max_value" => $range['max'],
 			 'initial' => $range,
 			 'disabled' => !$range
-		 ];
+		 ] + parent::formFieldOptions();
 		 return $out;
 	}
 
@@ -131,52 +117,44 @@ class FilterRangeSection extends FilterBaseSection {
 	function parseValues($values) {
 		$pname = $this->getParamName();
 		$this->availableRange = null;
-		if(!key_exists($pname, $values)) {
+		if(!key_exists($pname, $values) || !$ar=$this->getPossibleRange()) {
 			$this->values=[];
 		} else {
 			$this->values = $values[$pname];
 			$this->values = array_intersect_key(  $this->values, ['min' => 0, 'max' => 0]);
-			if( !isset($this->values['min']) ) { unset( $this->values['min'] ); };
-			if( !isset($this->values['max']) ) { unset( $this->values['max'] ); };
+			if( !isset($this->values['min']) || $this->values['min'] <= $ar['min']) {
+				unset( $this->values['min'] );
+			}
+			if( !isset($this->values['max']) || $this->values['max'] >= $ar['max']) {
+				unset( $this->values['max'] );
+			};
 		}
 	}
 
 	/**
 	 * Add conditions to ParsedSqlResult based on given values
 	 **/
-	function addConditions($values, $sql=null) {
-		if(!$values) { return; }
-		if(!$ar=$this->getAvailableRange()) { return ; }
+	function getConditions($values) {
+		if(!$values) { return [null,null]; }
+		if(!$ar=$this->getPossibleRange()) { return [null,null]; }
 		$values += $ar;
 
-		$sql = $this->getMainJoin($sql);
-		if($ar['min'] < $values['min']) {
-			$sql->bind(":{$this->name}_min", $values['min']);
-			if($ar['max'] > $values['max']) {
-				$sql->namedWhere($this->name, "{$this->getSqlField()} BETWEEN :{$this->name}_min AND :{$this->name}_max");
-				$sql->bind(":{$this->name}_max", $values['max']);
+		$bind = [];
+		if(key_exists('min', $values)) {
+			$bind[":{$this->name}_min"] = $values['min'];
+			if(key_exists('max', $values)) {
+				$condition="{$this->getSqlField()} BETWEEN :{$this->name}_min AND :{$this->name}_max";
+				$bind[":{$this->name}_max"] = $values['max'];
 			} else {
-				$sql->namedWhere($this->name, "{$this->getSqlField()} >= :{$this->name}_min");
+				$condition = "{$this->getSqlField()} >= :{$this->name}_min";
 			}
-		} elseif($ar['max'] > $values['max']) {
-				$sql->namedWhere($this->name, "{$this->getSqlField()} <= :{$this->name}_max");
-				$sql->bind(":{$this->name}_max", $values['max']);
+		} elseif(key_exists('max', $values)) {
+				$bind[":{$this->name}_max"] = $values['max'];
+				$condition = "{$this->getSqlField()} <= :{$this->name}_max";
+		} else {
+				$condition = null;
 		}
-	}
-
-	/**
-	 * Return SQL full name of filtered field
-	 * $brands = $filter->addJoin('brands', .... );
-	 * $section = new FilterSection($filter, 'name', ['field' => 'id', join => $brands ]);
-	 * $section->getSqlField()
-	 * > 'cards.id'
-	 */
-	function getSqlField($field = 'field') {
-		$field = $this->options[$field];
-		if(preg_match('/^[a-z0-9_]+$/', $field)) {
-			$field = "{$this->getMainJoin($this->filter->emptySql())->getTableName()}.$field";
-		}
-		return $field;
+		return [ $condition, $bind ];
 	}
 
 	/**

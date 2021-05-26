@@ -14,12 +14,18 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 																#used as given in options in $this->options['form_field_options']['choices']
 			#forms framework support
 			'form_field' => 'FilterMultipleChoiceField',                  # name of FormField to be created by createFormFields
-			'form_field_options' => [ 'label' => $name, 'choices' => [] ],# options passed to createFormFields
+			'form_field_options' => [],
 
 			#commonly no need to redefine
-			'condition_over_subtable' => null, //whether the condition is over subtable or not - default is (bool) join
-			'multiple' => true								 //user can select multiple values
+			'condition_over_subtable' => null, //whether the condition is oversubtable or not - default is (bool) join
+			'multiple' => true,                //user can select multiple values
+
+			'counts_in_labels' => true,
+			'label_string' => '%s (%s)',
+			'label_string_unselected' => '%s (%+d)',
+			'disable_nonlimiting' => false
 		];
+		$options['form_field_options'] += [ 'label' => $name, 'choices' => [] ]; # options passed to createFormFields
 		parent::__construct($filter, $name, $options);
 		$this->choiceLabels = $this->options['form_field_options']['choices'];
 		$this->forceChoices = $this->options['force_choices'];
@@ -27,6 +33,7 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 		$this->possibleChoices = null;         //cache for choices
 		$this->availableChoices = null;         //cache for choices
 		$this->availableCounts = null; //cache for availableCounts
+		$this->updatedChoices = null;     //real choices with counts and disabled choices
 
 		if($this->options['condition_over_subtable'] === null) {
 			$this->options['condition_over_subtable'] = (bool) $this->options['join'];
@@ -40,11 +47,8 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 	 * >> [ 1, 6, 15 ]
 	 */
 	function getPossibleChoices() {
-		if($this->forceChoices) {
-			$this->possibleChoices = array_keys($this->getChoiceLabels());
-		}
 		if(!$this->possibleChoices) {
-			$this->possibleChoices = $this->getChoicesOn($this->filter->emptySql());
+			$this->possibleChoices = $this->getChoicesOn($this->filter->unfilteredSql());
 		}
 		return $this->possibleChoices;
 	}
@@ -58,9 +62,9 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 	 */
 	function getAvailableChoices() {
 		if($this->availableChoices === null) {
-			if($this->forceChoices || array_diff_key($this->filter->getParams(), [$this->getParamName() => 0])) {
+			if($this->forceChoices || $this->filter->isFilteredExcept($this->name)) {
 				$this->availableChoices = $this->getChoicesOn(
-					$this->filter->parsedSql
+					$this->filter->filteredSql
 				);
 			} else {
 				$this->availableChoices = $this->getPossibleChoices();
@@ -76,19 +80,18 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 	 * There is 10 items for brand with id 1 and 7 for brand 15.
 	 */
 	function getPossibleCounts() {
-		return $this->getCountsOn($this->filter->emptySql()->result());
+		return $this->getCountsOn($this->filter->unfilteredSql()->result());
 	}
 
 	/**
 	 * Returns array of count of items that match the filter.
 	 * (the counts can be limited by other filter's sections)
-   *
+	 *
 	 * If $this->isFiltered() (some option in this filter section is checked)
+	 * and the filter is aditive (OR opertator is applied on the choices)
 	 * then the result is number of items, that will be shown IN ADDITION
-	 * to the current selection (negative number means, that the choice
-	 * lower the number of items in selection - e.g. when FilterFlagSection
-   * has AND operator between the choices)
-   *
+	 * to the current selection.
+	 *
 	 * $section->getAvailableCount();
 	 * >> [ 1 => 4, 15 => 2 ]
 	 * There is only 4 items for brand with id 1 and 2 for brand 15,
@@ -97,15 +100,47 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 	function getAvailableCounts() {
 		if(!$this->availableCounts) {
 			$counts = $this->countAvailable();
-			if($this->values) {
-				$no = $this->getPossibleChoices();
-				$counts += array_fill_keys(array_keys(array_diff_key(array_flip($no), $counts)),null);
-			}
 		  $this->availableCounts = $counts;
 		}
 		return $this->availableCounts;
 	}
 
+	/** Generate counts for FilterBaseSection::getAvailableCount
+	 *  (getAvailableCounts take care of caching and filling missing items
+	 *  this method just counts and can be redefined)
+	 */
+	function countAvailable() {
+		$sql = $this->filter->filteredSql;
+
+		if($this->values && $this->isAditive()) {
+			$options = $this->sqlOptions(true);
+			$result = $sql->result($options);
+			$idField = $this->filter->getIdField();
+			$notIn = $this->filter->result();
+			$notIn = $notIn->select("$idField", ['add_options' => false]);
+			$out=$this->getCountsOn($result, "$idField NOT IN ($notIn)");
+			if($this->values) {
+				#do not disable by user explicitly selected options
+				$out += array_fill_keys($this->values, null);
+			}
+		} else {
+
+			$options=$this->sqlOptions();
+			$result = $sql->result($options);
+			$out=$this->getCountsOn($result);
+		}
+		return $out;
+	}
+
+	function getChoices() {
+		$out = $this->getChoiceLabels();
+		if(!$this->forceChoices) {
+			$choices = $this->getPossibleChoices();
+			$choices = array_combine($choices, $choices);
+			$out = array_intersect_key($out + $choices, $choices);
+		}
+		return $out;
+	}
 	/**
 	 * Return the array of choices, that should be disabled: the choices,
 	 * which selection results in empty (filtered) set and not chosen in filter.
@@ -114,72 +149,79 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 		if(!$this->isParsed()) {
 			return [];
 		}
-		$available = array_flip($this->getAvailableChoices());
-
-		if($this->values) {
-			$available += array_flip($this->values);
+		if($this->updatedChoices === null) {
+			$this->_computeChoices();
 		}
-		return array_flip(array_diff_key(
-			array_flip($this->getPossibleChoices()), $available
-		));
-	}
-
-	function getChoices($options = []) {
-		$options += [
-			'counts' => true,
-			'empty_string' => '%s (%s)',
-			'unselected_string' => '%s (%+d)',
-		];
-		$out = $this->getChoiceLabels();
-		if(!$this->forceChoices) {
-			$choices = $this->getPossibleChoices();
-			$choices = array_combine($choices, $choices);
-			$out = array_intersect_key($out + $choices, $choices);
-		}
-
-		if($options['counts'] && $this->isParsed()) {
-			$cnts = $this->getAvailableCounts();
-			$count = $this->filter->getAllRecordsCount();
-			if($this->values) {
-				$count -= $this->filter->getRecordsCount();
-			}
-			if($this->values && $this->options['multiple']) {
-				$str = $options['unselected_string'];
-			} else {
-				$str = $options['empty_string'];
-			}
-			foreach($cnts as $k => $v) {
-				if($v == $count) {
-					unset($out[$k]);
-				} elseif($v) {
-					$out[$k] = sprintf($str,$out[$k], $v);
-				}
-			}
-		}
-		return $out;
+		return $this->updatedChoices['disabled'];
 	}
 
 	/**
-	 * Create a form field(s) for current section
-	 *
-	 * foreach($section->createFormFields() as $field) {
-	 *   $form->add_field($field);
-	 * }
-	 */
-	function createFormFields() {
-		if($this->fixed) {
+	 * Choices, that are not checked by user, but they are common to
+	 * all items
+   **/
+	function getImplicitChoices() {
+		if(!$this->isParsed()) {
 			return [];
 		}
-		$name = $this->getParamName();
-		$class = $this->options['form_field'];
-		$out = [];
-		if($class && $this->getPossibleChoices()) {
-			$out[$name] = new $class(
-				$this->options['form_field_options'] +
-											['filter_section' => $this]
-			);
+		if($this->updatedChoices === null) {
+			$this->_computeChoices();
 		}
-		return $out;
+		return $this->updatedChoices['implicit'];
+	}
+
+	function getUpdatedChoices() {
+		if(!$this->isParsed()) {
+			return $this->getChoices();
+		}
+		if($this->updatedChoices === null) {
+			$this->_computeChoices();
+		}
+		return $this->updatedChoices['labels'];
+	}
+
+	function _computeChoices() {
+		$labels = $this->getChoices();
+		$implicit = [];
+		$values = array_flip($this->values);
+
+		if($this->options['counts_in_labels']) {
+			$available = $this->getAvailableCounts();
+
+			$disabled = array_diff_key(
+				array_flip($this->getPossibleChoices()), $available
+			);
+
+			if( $this->options['disable_nonlimiting'] ) {
+				$count = $this->filter->getRecordsCount();
+			}
+			$aditive = $this->isAditive();
+			if($this->values && $this->options['multiple'] && $aditive) {
+				$str = $this->options['label_string_unselected'];
+			} else {
+				$str = $this->options['label_string'];
+			}
+			foreach($available as $k => $v) {
+				if($this->options['disable_nonlimiting'] && $v == $count) {
+					$implicit[] = $disabled[$k] = $k;
+				} elseif($v > 0 && !key_exists($k, $values)) {
+					$labels[$k] = sprintf($str,$labels[$k], $v);
+				}
+			}
+		} else {
+			$disabled = [];
+		}
+		$this->updatedChoices = [
+			'labels' =>  $labels,
+			'disabled' => array_keys($disabled),
+			'implicit' => $implicit
+		];
+	}
+
+	/**
+	 * Has any valid value?
+	 */
+	function isPossible() {
+		return $this->getPossibleChoices();
 	}
 
 	/**
@@ -198,49 +240,15 @@ abstract class FilterChoiceSection extends FilterBaseSection {
 		return $this->choiceLabels;
 	}
 
-	/** Generate counts for FilterBaseSection::getAvailableCount
-	 *  (getAvailableCounts take care of caching and filling missing items
-   *  this method just counts and can be redefined)
-	 */
-	function countAvailable() {
-		$sql = $this->filter->parsedSql();
-		if($this->values) {
-			if($this->options['condition_over_subtable'] && $this->options['multiple']) {
-				//condition over subtable, so we must compute
-				//two sets and subtract
-				$result = $sql->result(
-					$this->sqlOptions(true)
-				);
-				$notIn = $sql->result( $this->sqlOptions());
-				$notIn = $this->filter->result();
-				$idField = $this->filter->getIdField();
-				$notIn = $notIn->select("$idField", ['add_options' => false]);
-				$result->andWhere("$idField NOT IN \n( $notIn )");
-			} else {
-				//condition over table, so just WHERE NOT is sufficient
-				$options = $this->sqlOptions();
-				if($this->options['multiple']) {
-					$options['not_where'] = $this->name;
-				} else {
-					$options['disable_where'] = $this->name;
-				}
-				$result = $sql->result($options);
-			}
-		} else {
-			$result = $sql->result(
-				$this->sqlOptions()
-			);
-		}
-	  return $this->getCountsOn($result);
-	}
-
 	/**
 	 * Parse values (from form)
 	 */
 	function parseValues($values) {
-		$pname = $this->getParamName();
 		$this->availableCounts = null;
 		$this->availableChoices = null;
+		$this->updatedChoices = null;
+
+		$pname = $this->getParamName();
 		if(!key_exists($pname, $values)) {
 			$this->values=[];
 		} else {

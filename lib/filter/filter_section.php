@@ -3,7 +3,8 @@ class FilterSection extends FilterChoiceSection {
 	function __construct($filter, $name, $options) {
 		$options += [
 			'field' => null,				//e.g. 'brand_id' -- choices will be the possible values of the field
-			'order' => null,				//order of returned coices
+			'order' => true,				//order of returned coices
+			'order_after_distinct' => true,
 			'condition' => null,		//condition that limit choices
 
 			'label_class' => null,
@@ -11,9 +12,10 @@ class FilterSection extends FilterChoiceSection {
 
 			#commonly no need for redefining
 					#choices are readed dynamically
-			'form_field_options' => [ 'label' => $name, 'choices' => null ],
+			'form_field_options' => [],
 			'not_null' => null,			//condition on field not null. Default value !condition_over_subtable
 		];
+		$options['form_field_options'] += [ 'choices' => null ]; # options passed to createFormFields
 		parent::__construct($filter, $name, $options);
 		if($this->options['not_null'] === null) {
 			$this->options['not_null'] = !$this->options['condition_over_subtable'];
@@ -31,14 +33,26 @@ class FilterSection extends FilterChoiceSection {
 
 		$field = $this->getSqlField();
 		$orderfield = $this->getSqlField('order');
-		$distinct = $field . ($orderfield?',':'') . $orderfield;
+		if(!is_string($orderfield)) {
+			$orderfield=null;
+		}
 
-		$sql = $result->select(
-				"DISTINCT ON($distinct) $field",
-				['order' => $orderfield?:$field,
-		     'add_options' => false]
-	  );
-		$out = $this->getDbMole()->selectIntoArray($sql, $result->bind);
+		if($this->options['order_after_distinct']) {
+			$sql = $result->select("DISTINCT $field",[
+				'add_options' => false
+			]);
+			$bind = $result->bind;
+			if($orderfield) {
+				$sql = "SELECT * FROM ($sql) _q ORDER BY $orderfield";
+			}
+		} else {
+			list($sql, $bind) = $result->distinctOnSelect(
+					$field,
+					['order' => $orderfield,
+					 'add_options' => false]
+			 );
+		}
+		$out = $this->getDbMole()->selectIntoArray($sql, $bind);
 		return $out;
 	}
 
@@ -46,29 +60,41 @@ class FilterSection extends FilterChoiceSection {
 	 * Returns all fields that are needed by this table
    **/
 	function getUsedFields() {
-		$out = $this->options['order']?
-							$this->stripFieldNames(explode(',', $this->options['order'])):
+		$out = is_string($this->options['order'])?
+							\SqlBuilder\FieldsUtils::StripFields($this->options['order']):
 							[];
 		$out[] = $this->options['field'];
 		return $out;
 	}
 
+	function isAditive() {
+		return true;
+	}
+
 	/**
-	 * Returns counts of filtered items restricted by a given SQLResult object.
+	 * Returns counts of items restricted by a given SQLResult object for each available
+	 * choice.
+	 * If $where is given, then the counts are further restricted by the condition
 	 */
-	function getCountsOn($sql) {
+	function getCountsOn($sql, $where=null) {
+		$id = $this->filter->getIdField();
 		if($this->options['condition']) {
 			$sql->andWhere($this->options['condition']);
 		}
-		$id = $this->filter->getIdField();
+		if($where) {
+			$count = "COUNT(DISTINCT CASE WHEN $where THEN $id ELSE NULL END)";
+		} else {
+			$count = "COUNT(DISTINCT $id)";
+		}
 		$field = $this->getSqlField();
 		$query = $sql->select(
-				"$field, COUNT(DISTINCT $id)",
+				"$field, $count",
 				[ 'group' => $field,
 					'add_options' => false,
 				]
 				);
 		$out = $this->getDbMole()->selectIntoAssociativeArray($query, $sql->bind);
+		$out = array_map("intval", $out);
 		return $out;
 	}
 
@@ -89,20 +115,18 @@ class FilterSection extends FilterChoiceSection {
 	 */
 	function getSqlField($field = 'field') {
 		$field = $this->options[$field];
+		if(!is_string($field)) {
+			return $field;
+		}
 		if(preg_match('/^[a-z0-9_]+$/', $field)) {
-			$field = "{$this->getMainJoin($this->filter->emptySql)->getTableName()}.$field";
+			$field = "{$this->getMainJoin($this->filter->unfilteredSql)->getTableName()}.$field";
 		}
 		return $field;
 	}
 
-	/**
-	 * Add conditions to ParsedSqlResult based on given values
-	 **/
-	function addConditions($values, $sql=null) {
-		if(!$values) { return; }
+	function getConditions($values) {
 		$condition = "{$this->getSqlField()} IN :{$this->name}";
-		$sql = $this->getMainJoin($sql);
-		$sql->namedWhere($this->name, $condition)->bind(":{$this->name}", $values);
+		return [$condition, [":{$this->name}" => $values]];
 	}
 
 	/**
@@ -119,11 +143,28 @@ class FilterSection extends FilterChoiceSection {
 			$choices = $this->getPossibleChoices();
 			$choices = array_combine($choices, $choices);
 			$objs = $class::GetInstanceById($choices, ['use_cache' => true]);
+			if(isset($this->options['label_preprocess'])) {
+				$objs = $this->options['label_preprocess']($objs);
+			}
+
+			$order = $this->options['order'];
+			if(is_callable($order) && !is_string($order)) {
+				uasort($objs, $order);
+			}
 
 			if($method) {
-				foreach($objs as &$v) {
-					$v = $v->$method();
+				if($method instanceof Closure) {
+					foreach($objs as &$v) {
+						$v = $method($v);
+					}
+				} else {
+					foreach($objs as &$v) {
+						$v = $v->$method();
+					}
 				}
+			}
+			if($order === true) {
+				uasort($objs, 'strcoll');
 			}
 			$this->choiceLabels = $objs;
 		}

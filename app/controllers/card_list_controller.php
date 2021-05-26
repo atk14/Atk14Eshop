@@ -36,7 +36,7 @@ abstract class CardListController extends ApplicationController {
 		}
 		list($cond, $bind, $ctable) = $category->sqlConditionForCardsIdBranch('cards.id', ['categories_table' => true]);
 		$bind[':sort_category'] = $category;
-		$do = new SqlJoinOrder("order_a, order_b, cards.id ASC",
+		$do = new \SqlBuilder\SqlJoinOrder("order_a, order_b, cards.id ASC",
 				"JOIN (SELECT NOT category_id = :sort_category, row_number() over(partition by category_id order by rank, card_id ASC), card_id from category_cards WHERE category_id IN (SELECT * from $ctable)) order_t(order_a,order_b) ON (order_t.card_id = cards.id)");
 		$options += ['default_order' => ['asc' => $do, 'desc' => $do->reversed() ]];
 		$this->_add_category_to_breadcrumbs($this->category,[
@@ -96,7 +96,7 @@ abstract class CardListController extends ApplicationController {
 		$sorting['default'] = $options['default_order'];
 		#$sorting['price'] = '(SELECT ROW(price, NOW() - sorting_date) FROM prepared_cards WHERE id=cards.id)';
 		#$sorting['price_desc'] = '(SELECT ROW(-price, sorting_date) FROM prepared_cards WHERE id=cards.id)';
-		#$options['materialize_fields'][] = 'price';
+		#$options['materialized_fields'][] = 'price';
 		$sorting['popularity'] = '(SELECT ROW(-rating, NOW() - sorting_date) FROM prepared_cards WHERE id=cards.id)';
 		$sorting['name'] = "(SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='name' AND lang=:lang)";
 		$sorting['code'] = "(SELECT public_catalog_id(catalog_id) FROM products WHERE card_id = cards.id)";
@@ -116,7 +116,7 @@ abstract class CardListController extends ApplicationController {
 			'bind' => [],
 			'category' => true,
 			"first_breadcrumb_title" => "", // "" -> auto, "Novinky", "Slevy"
-			"materialize_fields" => []
+			"materialized_fields" => []
 		];
 		if($options['category']) {
 			$out = $this->_setup_category($options);
@@ -153,7 +153,7 @@ abstract class CardListController extends ApplicationController {
 				'conditions' => $cond,
 				'bind' => $bind,
 				'category' => $this->category,
-				'materialize_fields' => array_merge($options['materialize_fields']),
+				'materialized_fields' => array_merge($options['materialized_fields']),
 				#'currency' => $this->basket->getCurrency()
 		]);
 		$this->tpl_data['page_params'] = array_filter($this->params->toArray(),function($k) { return substr($k,0,2) !== 'f_'; }, ARRAY_FILTER_USE_KEY);

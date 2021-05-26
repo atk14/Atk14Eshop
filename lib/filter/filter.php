@@ -1,4 +1,6 @@
 <?php
+use \SqlBuilder\SqlTable;
+use \SqlBuilder\MaterializedSqlTable;
 /**
  * $filter = new Filter('cards', [
 		 'conditions' => ' visible = true,
@@ -29,7 +31,8 @@
 	)
  */
 
-class Filter {
+class Filter implements IteratorAggregate {
+	var $hasNoRecords = false;
 	function __construct($table, $options) {
 		$options += [
 			'id_field' => 'id',
@@ -40,13 +43,23 @@ class Filter {
 			'order' => null,
 			'prefix' => 'f_',
 			'dbmole' => '',
-			'model' => null,                //Name of model for created finder
-			'materialize_result' => true,   //If the result of the query is needed more than once, materialize it
-			'materialize_empty' => true,
-			'materialize_fields' => [],
-			'fixed_filters' => [],                //add this to result of filter, disable given sections
-			'fixed_filter_values' => []           //add this to result of filter, allow to select other values from filter
+			'model' => null,                 //Name of model for created finder
+			'materialize' => true,           //Materialize dataset of all possible records
+			'materialize_result' => true,    //Materialize dataset of all filtered records
+			'materialized_fields' => [],
+			'default_landing_page' => false,      //Default value for landing_page option of sections.
 		];
+		if(isset($options['fixed_filter_values'])) {
+			throw new Exception("Removed options fixed_filter_values and fixed_filters. Use ['section'][\$name]['fixed'|'fixed_values'])");
+		};
+		if(isset($options['fixed_filters'])) {
+			throw new Exception("Removed options fixed_filter_values and fixed_filters. Use ['section'][\$name]['fixed'|'fixed_values'])");
+		};
+		if(isset($options['materialize_fields'])) {
+			throw new Exception("Filter: materialize_fields renamed to materialized_fields");
+		};
+
+
 		$this->options = $options;
 		if(!$this->options['dbmole']) {
 			global $dbmole;
@@ -54,33 +67,57 @@ class Filter {
 		}
 
 		$this->sections = [];
+		$this->visibleSections = null;
 
 		//Unmaterialized result for empty sql
-		$this->emptySql = (new SqlTable($table))->where($options['conditions'])->bind($options['bind']);
-		$this->emptySql->options['autojoins'] = true;
-		$this->emptySql->setSqlOptions(array_intersect_key($this->options, ['order', 'limit','offset']));
+		if($table instanceof SqlTable) {
+			$this->unfilteredSql = $table;
+		} else {
+			$this->unfilteredSql = (new SqlTable($table));
+	  }
+		$this->unfilteredSql->where($options['conditions'])->bind($options['bind']);
+		$this->unfilteredSql->options['autojoins'] = true;
+		$this->unfilteredSql->setSqlOptions(array_intersect_key($this->options, ['order', 'limit','offset']));
 
-		//Materialized result for unfiltered sql
-		$this->preparedSql = $this->emptySql;
+		$this->unfilteredSql = new MaterializedSqlTable($this->unfilteredSql, $this->getDbmole(), function() {
+			return [
+				'fields' => $this->getMaterializedFields(),
+				'copy_joins' => $this->sectionsJoinNames(),
+				'table_name_pattern' => 'materialized_filter'
+			];
+			}, ['materialize' => $options['materialize']]
+		);
 
-		//Unmaterialized result for filtered sql
-		$this->parsedSql = null;
-		$this->parsedSqlCount = [];
-		$this->emptySqlCount = null;
-		//Materialized result for filtered sql
-		$this->materializedSql = null;
+		$this->clearPrecomputed();
+	}
+
+	function getIterator() {
+		if($this->visibleSections===null) {
+			$this->visibleSections=$this->visibleSections();
+		}
+		return new ArrayIterator($this->visibleSections);
+	}
+
+	function clearPrecomputed() {
+		$this->unfilteredSqlCount = null;
+		$this->filteredSql = null;
+		$this->resultSql = null;
+		$this->filteredSqlCount = [];
 
 		$this->params = null;
 		$this->filtered = false;
-		$this->table = $this->emptySql->getTableName();
+		$this->unfilteredSql->table->pattern = null;
+		$this->table = $this->unfilteredSql->getTableName();
 	}
 
 	function __clone() {
-		if( $this->preparedSql !== $this->emptySql) {
-			$this->emptySql = clone $this->emptySql;
-			$this->preparedSql = clone $this->preparedSql;
-		} else {
-			$this->preparedSql = $this->emptySql = clone $this->emptySql;
+		$this->unfilteredSql = clone $this->unfilteredSql;
+		if($this->filteredSql) {
+			$this->filteredSql = clone $this->filteredSql;
+		}
+		if($this->resultSql) {
+			$this->resultSql = clone $this->resultSql;
+			$this->unfilteredSql->pattern = $this->resultSql;
 		}
 		$this->sections=array_map(function($v) {return clone $v;}, $this->sections);
 	}
@@ -92,18 +129,15 @@ class Filter {
 	/**
 	 * Return sql object of query without filtering (all objects)
 	 */
-	function emptySql() {
-		if($this->options['materialize_empty']) {
-			$this->materialize();
-		}
-		return $this->preparedSql;
+	function unfilteredSql() {
+		return $this->unfilteredSql;
 	}
 
 	/**
 	 * Return sql object of query with applied filters
 	 */
-	function parsedSql() {
-		return $this->parsedSql;
+	function filteredSql() {
+		return $this->filteredSql;
 	}
 
 	function getMaterializedFields($secondary = false) {
@@ -112,43 +146,34 @@ class Filter {
 			$fields = array_merge( $fields, $s->getMainTableFields());
 		}
 
-		if($of = $this->options['materialize_fields']) {
+		if($of = $this->options['materialized_fields']) {
 			if(is_array($of)) {
 				$fields = array_merge($fields, $of);
 			} else {
 				$fields[] = $of;
 			}
 		}
-		$fields = array_flip(array_flip($fields));
-		$main = $this->emptySql->getTableName();
+		$main = $this->unfilteredSql->getTableName();
 		$fields = array_map(function($v) use($main, $secondary) {
 				if(preg_match("/([a-zA-Z_][a-zA-Z0-9_]*)\\.(.+)/",$v, $matches)) {
 					$t = $matches[1];
-					if($t == $main) { return $v; };
 					$f = $matches[2];
-					return $secondary ? "$main.{$t}_{$f}" : "$v as {$t}_{$f}";
+					if($t == $main) {
+						return $secondary === 'empty' ? $f : $v;
+					};
+					if($secondary === 'empty') {
+						return "{$t}_{$f}";
+					} else if($secondary) {
+						return "$main.{$t}_{$f}";
+					} else {
+						return  "$v as {$t}_{$f}";
+					}
 				} else {
 					return $v;
 				}
 		}, $fields);
+		$fields = array_flip(array_flip($fields));
 		return $fields;
-	}
-
-	/**
-	 *  Precompute available products (nonfiltered)
-	 **/
-	function materialize($options = []) {
-		if($this->preparedSql !== $this->emptySql) {
-			return;
-		}
-
-		$fields = $this->getMaterializedFields();
-
-		$this->preparedSql = $this->emptySql->materialize($this->getDbmole(),$fields, [
-			'copy_joins' => $this->sectionsJoinNames(),
-			'fields' => $fields,
-			'table_name_pattern' => 'materialized_filter',
-		]);
 	}
 
 	/**
@@ -168,7 +193,7 @@ class Filter {
 	 * $filter->addCondition('visible AND NOT deleted');
 	 */
 	function addCondition($condition) {
-		return $this->preparedSql->where($condition);
+		return $this->unfilteredSql->where($condition);
 	}
 
 	/**
@@ -178,7 +203,7 @@ class Filter {
 	 * $filter->addBind(':visible', true);
 	 */
 	function addBind($name, $value = null) {
-		return $this->preparedSql->bind($name, $value);
+		return $this->unfilteredSql->bind($name, $value);
 	}
 
 	/**
@@ -187,12 +212,9 @@ class Filter {
 	 * $filter->setSqlOptions(['limit' => 10, 'offset' => 0, 'order' => 'name DESC']);
 	 */
 	function setSqlOptions($options) {
-		$this->emptySql->setSqlOptions($options);
-		if( $this->emptySql !== $this->preparedSql) {
-			$this->preparedSql->setSqlOptions($options);
-		}
-		if($this->parsedSql) {
-			$this->parsedSql->setSqlOptions($options);
+		$this->unfilteredSql->setSqlOptions($options);
+		if($this->filteredSql) {
+			$this->filteredSql->setSqlOptions($options);
 		}
 	}
 
@@ -205,11 +227,11 @@ class Filter {
 	 * $join->setActive();
 	 */
 	function addJoin($table, $where = null) {
-		return $this->preparedSql->join($table, $where);
+		return $this->unfilteredSql->join($table, $where);
 	}
 
 	/**
-	 * Parse params and generate $this->parsedSql object with propper conditions
+	 * Parse params and generate $this->filteredSql object with propper conditions
 	 * $params = $form->validate();
 	 * $filter->parse($params);
 	 * $finder = new FilterFinder($filter);
@@ -219,14 +241,28 @@ class Filter {
 		if($params === null) {
 			$params = [];
 		}
-		$this->parsedSql = $this->preparedSql->copy();
-		$this->parsedSqlCount = [];
-		$this->params = null;
-		$this->materializedSql = null;
-		$this->filtered = false;
+		$this->filteredSql = $this->unfilteredSql->copy();
+		$this->resultSql = new MaterializedSqlTable(
+			$this->filteredSql,
+			$this->getDbMole(),
+			function() { return [
+				'fields' => $this->getMaterializedFields( $this->unfilteredSql->isMaterialized()),
+				'table_name_pattern' => 'materialized_filter'
+			]; },
+			[
+				'materialize' => $this->options['materialize_result'],
+			]
+		);
+		$this->unfilteredSql->table->pattern = $this->resultSql;
 
-		foreach($this->sections as $section) {
-			$this->filtered = $section->parse($params, $this->parsedSql) || $this->filtered;
+		$this->filteredSqlCount = [];
+		$this->params = null;
+
+		$this->filtered = [];
+		foreach($this as $name => $section) {
+			if($section->parse($params, $this->filteredSql)) {
+				$this->filtered[$name] = true;
+			}
 		}
 	}
 
@@ -234,14 +270,21 @@ class Filter {
 	 * Some options have been selected in filter?
 	 */
 	function isFiltered() {
-		return $this->filtered;
+		return (bool) $this->filtered;
+	}
+
+	/**
+	 *
+	 */
+	function isFilteredExcept($section) {
+		return count($this->filtered) >= (isset($this->filtered[$section])?2:1);
 	}
 
 	/**
 	 * The filter has already parsed params?
 	 */
 	function isParsed() {
-		return (bool) $this->parsedSql;
+		return (bool) $this->filteredSql;
 	}
 
 	/**
@@ -249,35 +292,45 @@ class Filter {
 	 * echo "Found {$filter->getRecordCounts()} records";
 	 */
 	function getRecordsCount($field = null) {
+		if($this->hasNoRecords) {
+			return 0;
+		}
 		if(!$field) {
 			$field = $this->getIdField();
 		}
 
-		if(!key_exists($field, $this->parsedSqlCount)) {
+		if(!key_exists($field, $this->filteredSqlCount)) {
 			$result = $this->result();
-			$this->parsedSqlCount[$field] = (int) $this->getDbMole()->selectSingleValue(
+			$this->filteredSqlCount[$field] = (int) $this->getDbMole()->selectSingleValue(
 					$result->select("COUNT(DISTINCT $field)",false),
 					$result->bind
 			);
 		}
-		return $this->parsedSqlCount[$field];
+		return $this->filteredSqlCount[$field];
 	}
 
 	/** Returns number of items without any filter **/
 	function getAllRecordsCount() {
-		if($this->emptySqlCount === null) {
-			$result = $this->emptySqlResult();
-			$this->emptySqlCount = (int) $this->getDbMole()->selectSingleValue(
+		if($this->hasNoRecords) {
+			return 0;
+		}
+
+		if($this->unfilteredSqlCount === null) {
+			$result = $this->unfilteredSqlResult();
+			$this->unfilteredSqlCount = (int) $this->getDbMole()->selectSingleValue(
 					$result->select("COUNT(DISTINCT {$this->getIdField()})",false),
 					$result->bind
 			);
 		}
-		return $this->emptySqlCount;
+		return $this->unfilteredSqlCount;
 	}
 
 	/** Returns number of items without any filter **/
 	function unfilteredRecordExists() {
-		$result = $this->emptySqlResult();
+		if($this->hasNoRecords) {
+			return false;
+		}
+		$result = $this->unfilteredSqlResult();
 		return $result->select("EXIST {$this->getIdField()})",false);
 	}
 
@@ -287,14 +340,14 @@ class Filter {
 	 * Returns query and bind params for obtainings ids of filtered products
 	 * Possible multiple occurences of id must be a bit specially handled by
 	 * generating SQL
-	 * list($sql, $bind) = $filter->resultSql();
+	 * list($sql, $bind) = $filter->resultQuery();
 	 * Cards::FindAll([
 			'conditions' => "id IN ({$result->select('id')})",
 			'bind_ar' => $result->bind]);
 	 */
-	function resultSql($sqlOptions = []) {
+	function resultQuery($sqlOptions = []) {
 		$sql = $this->result($sqlOptions);
-		return $query = $sql->distinctOnSelect( $this->getIdField() );
+		return $query = [ $sql->distinctOnSelect( $this->getIdField() ), $sql->bind ];
 	}
 
 	/**
@@ -305,39 +358,25 @@ class Filter {
 			'bind_ar' => $result->bind]);
 	 */
 	function result($sqlOptions = []) {
-		if(!$this->isParsed() || !$this->filtered) {
-			return $this->emptySqlResult($sqlOptions);
-		}
-
-		if(key_exists('materialize', $sqlOptions)) {
-			$materialize = $sqlOptions['materialize'];
-			if($materialize === 'if_requested') {
-				$materialize = $materialize && $this->options['materialize_result'];
+		if($this->hasNoRecords) {
+			$fields = $this->getMaterializedFields('empty');
+			if(!in_array($this->options['id_field'], $fields)) {
+				$fields[] = $this->options['id_field'];
 			}
-			unset($sqlOptions['materialize']);
-		} else {
-			$materialize = null;
-		}
-		if( $materialize === null ) { $materialize=
-			$this->options['materialize_result'] &&
-			$this->options['materialize_result'] !== 'if_requested' &&
-			!$sqlOptions;
+			$fnames = implode(',', $fields);
+			$fvalues = "NULL".str_repeat(",NULL", count($fields)-1);
+			return new SqlResult(
+				"(VALUES ($fvalues)) {$this->unfilteredSql->name}($fnames)",
+				"FALSE"
+			);
 		}
 
-		if( !$materialize ) {
-			return $this->parsedSqlResult($sqlOptions);
+		if(!$this->filtered) {
+			return $this->unfilteredSql->result($sqlOptions);
 		}
 
 
-		if( !$this->materializedSql ) {
-			$fields = $this->getMaterializedFields( $this->emptySql !== $this->preparedSql);
-			$this->materializedSql = $this->parsedSql->materialize(
-				$this->getDbmole(),
-				$fields, [
-					'table_name_pattern' => 'materialized_filter',
-			]);
-		}
-		return $this->materializedSql->result();
+		return $this->resultSql->result($sqlOptions);
 	}
 
 	//INTERNAL METHODS
@@ -345,15 +384,15 @@ class Filter {
 	/**
 	 * Returns SqlResult object for query WITHOUT filter conditions
 	 **/
-	function emptySqlResult($options = []) {
-		return $this->emptySql()->result($options);
+	function unfilteredSqlResult($options = []) {
+		return $this->unfilteredSql()->result($options);
 	}
 
 	/**
 	 * Returns SqlResult object for query WITH filter conditions
 	 */
-	function parsedSqlResult($options = []) {
-		return $this->parsedSql->result($options);
+	function filteredSqlResult($options = []) {
+		return $this->filteredSql->result($options);
 	}
 
 	/**
@@ -362,7 +401,7 @@ class Filter {
 	 * >> cards.id
    */
 	function getIdField() {
-		return "{$this->table}.{$this->options['id_field']}";
+		return "{$this->getMainTableName()}.{$this->options['id_field']}";
 	}
 
 	/** Returns database access object **/
@@ -380,19 +419,15 @@ class Filter {
 			throw new Exception("Section already exists");
 		}
 		$this->sections[$section->getName()] = $section;
-		if(key_exists($name, $this->options['fixed_filters'])) {
-			$section->setFixed( $this->options['fixed_filters'][$name] );
-		}
-		if(key_exists($name, $this->options['fixed_filter_values'])) {
-			$section->setFixedValues( $this->options['fixed_filter_values'][$name] );
-		}
+		//invalidate sorted enabled sections
+		$this->visibleSections = null;
 	}
 
 	function getParams() {
 		if($this->params === null) {
 			if($this->sections) {
 				$f = function($v) { return $v->getParams();};
-				$params = array_map($f, $this->sections);
+				$params = array_map($f, iterator_to_array($this));
 				$this->params = call_user_func_array('array_merge', $params);
 			} else {
 				$this->params = [];
@@ -413,7 +448,7 @@ class Filter {
 		$out = [];
 		$params = $this->getParams();
 		if($params) {
-			foreach($this->sections as $section) {
+			foreach($this as $section) {
 				$sparams = $section->getActiveFilters($params);
 				if($commonParams) {
 					$sparams = array_map(function($v) use($commonParams) {
@@ -427,8 +462,9 @@ class Filter {
 		return $out;
 	}
 
-	function sortedSections() {
+	function visibleSections() {
 		$sections = $this->sections;
+		$sections = array_filter($sections, function($s) {return $s->isVisible();});
 		usort($sections, function($a, $b) {
 			if($a->getRank() == $b->getRank()) {
 				$a = $a->getName();
@@ -443,5 +479,46 @@ class Filter {
 			return $a > $b ? 1 : -1;
 		});
 		return $sections;
+	}
+	function addAlwaysFalseCondition() {
+			$this->addCondition("1=0");
+			$this->hasNoRecords=true;
+	}
+
+	function sureHasNoRecords() {
+			return $this->hasNoRecords;
+	}
+
+	function getMainTableName() {
+			return $this->unfilteredSql->getTableName();
+	}
+
+	/**
+	 * Return FilterLandingPage object, if just one section (with landing assigned page)
+	 * filters the results, the section has l.p. assigned, and the l.p. matches the
+	 * conditions (e.g. just one choice from the filter is choosed)
+	 **/
+	function landingPage() {
+		$lp = false;
+		foreach($this->sections as $s) {
+			$p = $s->landingPage();
+			if($p===false) {
+				continue;
+			}
+			if($p===true || $lp) {
+				return false;
+			}
+			$lp = $p;
+		}
+		return $lp;
+	}
+
+	function getLandingPagesFilterParams() {
+		$out = array_map(function($section) {
+			return (!$section->isFixed() && is_object($section->options['landing_page']))?
+						$section->options['landing_page']->enumLandingPages($section) :
+						[];
+		}, iterator_to_array($this));
+		return array_merge(...array_values($out));
 	}
 }

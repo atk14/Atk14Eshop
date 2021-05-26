@@ -26,8 +26,11 @@ class FilterFlagsSection extends FilterChoiceSection {
 		parent::__construct($filter, $name, $options);
 		$this->options += [
 			'fields' => null,      //e.g. [ is_active, action_item => "CAST(table.action_item AS BOOL)" ] -- choices are given boolean fields
+			'visible_choices' => null, #If it is set, limit displayed choices by the given list
+			'fixed_values' => [],
 			'operator' => 'OR',
 			'field_expression' => null,
+			'field_expressions' => [],
 		];
 
 		if(key_exists('choices', $this->options['form_field_options']) && !$this->options['fields']) {
@@ -46,11 +49,23 @@ class FilterFlagsSection extends FilterChoiceSection {
 			}
 			$this->fields[$k] = $v;
 		}
-		#can be set by constructor, when fields are not yet constructed
 		$this->setOperator($this->options['operator']);
-		if($this->fixedValues) {
-			$this->setFixedValues($this->fixedValues);
+		if( $this->options['visible_choices'] === null) {
+			$this->visibleFields = $this->fields;
+		} else {
+			$this->visibleFields = array_intersect_key($this->fields, array_flip($this->options['visible_choices']));
 		}
+		if($this->options['fixed_values']) {
+			$this->setFixedValues($this->options['fixed_values']);
+		}
+	}
+
+	function getVisibleFields() {
+		return $this->visibleFields;
+	}
+
+	function isAditive() {
+		return ! $this->andOperator;
 	}
 
 	function setFixedValues($values) {
@@ -59,16 +74,13 @@ class FilterFlagsSection extends FilterChoiceSection {
 		}
 		$this->fixedValues = $values;
 		if($this->fields) {
-			$this->addConditions($values, $this->filter->emptySql);
+			$this->addConditions($values, $this->filter->unfilteredSql);
 			$fvalues = array_flip($values);
-			$this->fields = array_diff_key($this->fields, $fvalues);
+			#$this->fields = array_diff_key($this->fields, $fvalues);
 			if($this->forceChoices) {
 				$this->forceChoices = array_diff_key($this->fields, $fvalues);
 			}
-			$this->options['form_field_options']['choices'] = array_diff_key(
-				$this->options['form_field_options']['choices'],
-				$fvalues
-			);
+			$this->visibleFields = array_diff_key($this->visibleFields, $fvalues);
 		}
 	}
 
@@ -79,7 +91,7 @@ class FilterFlagsSection extends FilterChoiceSection {
 
 	function getChoicesOn($sql) {
 		$result = $sql->result($this->sqlOptions(!$this->andOperator));
-		foreach($this->fields as $k => $v) {
+		foreach($this->visibleFields as $k => $v) {
 				$fields[] = "bool_or($v) AS $k";
 		}
 		$sql = $result->select(implode(',', $fields), false);
@@ -89,12 +101,15 @@ class FilterFlagsSection extends FilterChoiceSection {
 	}
 
 	function getUsedFields() {
-		return $this->stripFieldNames($this->fields);
+		return array_values(\SqlBuilder\FieldsUtils::StripFields($this->fields));
 	}
 
-	function getCountsOn($sql) {
-		foreach($this->fields as $k => $v) {
-			$fields[] = "($v)::integer AS $k";
+	function getCountsOn($sql, $where=null) {
+		if($where) {
+			$where = " AND $where";
+		}
+		foreach($this->getVisibleFields() as $k => $v) {
+			$fields[] = "($v$where)::integer AS $k";
 			$results[] = "sum($k) AS $k";
 		}
 		$field = $this->filter->getIdField();
@@ -102,28 +117,13 @@ class FilterFlagsSection extends FilterChoiceSection {
 		$query = $sql->select("DISTINCT " . implode(',', $fields));
 		$query = "SELECT " . implode(',', $results) . " FROM ($query) _q";
 		$out = $this->getDbmole()->selectRow($query, $sql->bind);
-		return array_filter($out);
+		return array_map("intval", array_filter($out));
 	}
 
-	function addConditions($values, $sql=null) {
+	function getConditions($values) {
 		$values = array_intersect_key( $this->fields, array_flip($values) );
 		if(!$values) { return; }
 		$conditions = "(" . implode(" {$this->operator}  ", $values). ")";
-		$sql=$this->getMainJoin($sql);
-		$sql->namedWhere($this->name, $conditions);
-	}
-
-	function countAvailable() {
-		if(!$this->andOperator){
-			return parent::countAvailable();
-		}
-		$sql = $this->filter->parsedSql->result($this->sqlOptions());
-		$result = $this->getCountsOn($sql);
-
-		if($this->values) {
-			$cnt = $this->filter->getRecordsCount();
-			$result = array_map(function($v) use($cnt) { return $v - $cnt;}, $result);
-		}
-		return $result;
+		return [$conditions, []];
 	}
 }

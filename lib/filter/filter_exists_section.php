@@ -30,7 +30,7 @@ class FilterExistsSection extends FilterBoolSection {
 			$sql = $this->getMainJoin($sql);
 			$sql->setActive(true);
 			$sql->setJoinBy('LEFT JOIN');
-			$this->filter->parsedSql->namedWhere(
+			$this->filter->filteredSql->namedWhere(
 				$this->name,
 				parent::sqlBoolValue() . ' IS NULL'
 			);
