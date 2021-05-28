@@ -36,6 +36,6 @@
         "atk14/csv-writer": "^1.1",
         "yarri/keywords-highlighter": "^0.1.1",
         "atk14/sql-builder": "^3.0.2",
-        "atk14/category-filter": "dev-master"
+        "atk14/category-filter": "^1.0"
     }
 }
