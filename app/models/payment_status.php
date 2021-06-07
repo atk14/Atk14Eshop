@@ -1,6 +1,8 @@
 <?php
 class PaymentStatus extends ApplicationModel {
 
+	use TraitGetInstanceByCode;
+
 	function getName(){
 		$code = $this->getCode();
 		$tr = [

@@ -6,6 +6,14 @@ class PaymentTransaction extends ApplicationModel {
 			"secret" => (string)String4::RandomString(8),
 		];
 
+		$order = $values["order_id"];
+		$order = is_a($order,"Order") ? $order : Order::GetInstanceById($order);
+
+		$values += [
+			"price_to_pay" => $order->getPriceToPay(),
+			"currency_id" => $order->getCurrency(),
+		];
+
 		return parent::CreateNewRecord($values,$options);
 	}
 
@@ -26,6 +34,10 @@ class PaymentTransaction extends ApplicationModel {
 
 	function getPaymentStatus(){
 		return Cache::Get("PaymentStatus",$this->getPaymentStatusId());
+	}
+
+	function getCurrency(){
+		return Cache::Get("Currency",$this->getCurrencyId());
 	}
 
 	/**
@@ -51,6 +63,14 @@ class PaymentTransaction extends ApplicationModel {
 		if(isset($tr[$code]) && $payment_method->isOnlineMethod() && $current_order_status->getCode()=='waiting_for_online_payment'){
 			// zmena stavu online platby meni i stav objednavky, ale pouze za urcitych okolnosti
 			$order->setNewOrderStatus($tr[$code]);
+			if($code === "paid"){
+				// Protoze je metoda Order::increasePricePaid() multi-threaded safe,
+				// je tady pojistka, ktera brani ve vicenasobnem navyseni zaplacene castky.
+				$current_price_paid = (float)$order->getPricePaid();
+				myAssert($current_price_paid === 0.0);
+				$order->increasePricePaid($this->getPriceToPay());
+				myAssert(round($order->getPricePaid(),INTERNAL_PRICE_DECIMALS)===round(($current_price_paid + $this->getPriceToPay()),INTERNAL_PRICE_DECIMALS));
+			}
 		}
 
 		$this->s([
@@ -65,6 +85,35 @@ class PaymentTransaction extends ApplicationModel {
 	 */
 	function started(){
 		return !is_null($this->g("payment_transaction_started_at"));
+	}
+
+	function isRepeatable(){
+		$payment_status = $this->getPaymentStatus();
+		if(is_null($payment_status)){
+			// platebni transakce jeste ani nezacala
+			return true;
+		}
+		return in_array($payment_status->getCode(),["pending","cancelled"]);
+	}
+
+	function copyIntoNewTransaction(){
+		$fields = [
+			"order_id",
+			"payment_gateway_id",
+			"testing_payment",
+			"payment_transaction_url",
+			"currency_id",
+			"price_to_pay",
+		];
+
+		$values = [];
+		foreach($fields as $f){
+			$values[$f] = $this->g($f);
+		}
+
+		$values["rank"] = $this->g("rank") + 1;
+
+		return self::CreateNewRecord($values);
 	}
 
 	/**

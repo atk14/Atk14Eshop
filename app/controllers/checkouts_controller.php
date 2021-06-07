@@ -191,5 +191,4 @@ class CheckoutsController extends ApplicationController {
 		parent::_before_render();
 		$this->_prepare_checkout_navigation();
 	}
-
 }

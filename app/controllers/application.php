@@ -111,7 +111,7 @@ class ApplicationController extends ApplicationBaseController{
 		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method","delivery_service_branches/set_branch"]];
 		$navi[] = [_("Delivery data"),["checkouts/user_identification","checkouts/set_billing_and_delivery_data"]];
 		$navi[] = [_("Summary"),["checkouts/summary"]];
-		$navi[] = [_("Order finished"),["checkouts/finish","orders/finish"]];
+		$navi[] = [_("Order finished"),["checkouts/finish","orders/finish","pay_u/start_transaction"]];
 
 		$active_item_passed = false;
 		foreach($navi as $item){
