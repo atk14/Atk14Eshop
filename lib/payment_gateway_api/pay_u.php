@@ -17,6 +17,9 @@ class PayU extends PaymentGatewayApi {
 		]);
 	}
 
+	//protected function _getCurrentPaymentStatusCode(&$payment_transaction){
+	//}
+
 	function renderForm($payment_transaction){
 		global $HTTP_REQUEST;
 		$order = $payment_transaction->getOrder();
@@ -33,8 +36,8 @@ class PayU extends PaymentGatewayApi {
 			//"amount" => number_format(($order->getTotalPriceInclVat() * 100),2,".",""), // v halerich!!! asi to ma byy bez des. mist...
 			"amount" => ($payment_transaction->getPriceToPay() * 100), // v halerich!!! asi to ma byt bez des. mist...
 			// TODO: currency!
-			"desc" => sprintf(_("Objednávka v e-shopu %s"),ATK14_APPLICATION_NAME), // TODO: $this->_description,
-			"desc2" => sprintf(_("Objednávka v e-shopu %s"),ATK14_APPLICATION_NAME), // TODO: substr($order->getDescription(),0,1024),
+			"desc" => sprintf(_("Objednávka č. %s v e-shopu %s"),$order->getOrderNo(),ATK14_APPLICATION_NAME), // TODO: $this->_description,
+			"desc2" => $this->_getOrderDescription($order), sprintf(_("Objednávka v e-shopu %s"),ATK14_APPLICATION_NAME), // TODO: substr($order->getDescription(),0,1024),
 			"order_id" => $order->getOrderNo(),
 			"first_name" => $order->getFirstname(),
 			"last_name" => $order->getLastname(),

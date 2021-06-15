@@ -17,6 +17,24 @@ class PaymentTransaction extends ApplicationModel {
 		return parent::CreateNewRecord($values,$options);
 	}
 
+	static function GetCurrentPaymentTransactionForOrder($order){
+		$dbmole = self::GetDbmole();
+		$transaction_id = $dbmole->selectInt("
+			SELECT id FROM payment_transactions
+			WHERE
+				order_id=:order
+			ORDER BY
+				COALESCE(payment_status_id,0)=:status_paid DESC, -- zaplacena transakce ma absolutni prednost
+				COALESCE(payment_status_id,0)=:status_cancelled ASC, -- zrusene transakce budou na konci seznamu
+				created_at DESC, id DESC -- dale rozhoduje cerstvost zaznamu, novejsi je vyse
+		",[
+			":order" => $order,
+			":status_paid" => PaymentStatus::GetInstanceByCode("paid"),
+			":status_cancelled" => PaymentStatus::GetInstanceByCode("cancelled"),
+		]);
+		return Cache::Get("PaymentTransaction",$transaction_id);
+	}
+
 	function getToken($options = []){
 		if(is_string($options)){
 			$options = array("extra_salt" => $options);

@@ -8,22 +8,13 @@ class PayUController extends PaymentGatewaysBaseController {
 			return $this->_execute_action("error404");
 		}
 
+		if($order->isPaid()){
+			return $this->_execute_action("error404");
+		}
+
 		// 
 		$pay_u_gateway = PaymentGateway::GetInstanceByCode("pay_u");
-		$transaction_id = $this->dbmole->selectInt("
-			SELECT id FROM payment_transactions
-			WHERE
-				order_id=:order
-			ORDER BY	
-				COALESCE(payment_status_id,0)=:status_paid DESC, -- zaplacena transakce ma absolutni prednost
-				COALESCE(payment_status_id,0)=:status_cancelled ASC, -- zrusene transakce budou na konci seznamu
-				created_at DESC, id DESC -- dale rozhoduje cerstvost zaznamu, novejsi je vyse
-		",[
-			":order" => $order,
-			":status_paid" => PaymentStatus::GetInstanceByCode("paid"),
-			":status_cancelled" => PaymentStatus::GetInstanceByCode("cancelled"),
-		]);
-		$transaction = PaymentTransaction::GetInstanceById($transaction_id);
+		$transaction = PaymentTransaction::GetCurrentPaymentTransactionForOrder($order);
 
 		if(!$transaction || $transaction->getPaymentGatewayId()!==$pay_u_gateway->getId()){
 			return $this->_execute_action("error404");
