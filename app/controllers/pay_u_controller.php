@@ -56,8 +56,8 @@ class PayUController extends PaymentGatewaysBaseController {
 		$this->render_template = false;
 		$this->response->write("OK");
 
-		if(!$transaction = PayuTransaction::FindFirst("id",$this->params->getString("session_id"))){
-			$this->logger->error("there is no PayuTransaction with id=".$this->params->getString("session_id"));
+		if(!$transaction = PayuTransaction::FindFirst("id",$this->params->getInt("session_id"))){
+			$this->logger->error("there is no PayuTransaction with id=".$this->params->getInt("session_id"));
 			return;
 		}
 
