@@ -17,8 +17,38 @@ class PayU extends PaymentGatewayApi {
 		]);
 	}
 
-	//protected function _getCurrentPaymentStatusCode(&$payment_transaction){
-	//}
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction){
+		$order = $payment_transaction->getOrder();
+		$status = $this->_getPaymentStatus($payment_transaction,$err_code,$err_message);
+		if(!$status){
+			$this->logger->warn(sprintf("payment status cannot be checked for PaymentTransaction#%s (Order#%s, order_no=%s): %s (%s)",$payment_transaction->getId(),$order->getId(),$order->getOrderNo(),$err_message,$err_code));
+			return;
+		}
+
+		$tr = [
+			"pending" => [
+				"1", // new
+				"4", // started
+				"5", // awaiting receipt
+			],
+			"paid" => [
+				"99", // payment received - ended
+			],
+			"cancelled" => [
+				"2", // cancelled
+				"3", // rejected
+				"7", // payment rejected
+			],
+		];
+
+		foreach($tr as $code => $statuses){
+			if(in_array($status->getStatus(),$statuses)){
+				return $code;
+			}
+		}
+
+		$this->logger(sprintf("unknown payment status for PaymentTransaction#%s (Order#%s, order_no=%s): %s (%s)",$payment_transaction->getId(),$order->getId(),$order->getOrderNo(),$status->getStatus(),$status->getStatusDescription()));
+	}
 
 	function renderForm($payment_transaction){
 		global $HTTP_REQUEST;
@@ -182,4 +212,43 @@ class PayU extends PaymentGatewayApi {
 
 		return md5($out);
 	}
+
+	function _getPaymentStatus($payment_transaction,&$err_code,&$err_message){
+		$uf = new \UrlFetcher("https://secure.payu.com/paygw/UTF/Payment/get");
+		$params = array(
+			"pos_id" => PAYU_POS_ID,
+			"session_id" => $payment_transaction->getId(),
+			"ts" => time(),
+		);
+
+		$params["sig"] = $this->_calcSignature($params);
+
+		//var_dump($params);
+		
+		if($uf->post($this->_build_params($params))){
+			if(!$out = PayU\PaymentStatus::GetInstance($uf->getContent(),$err_code,$err_message,$options = array("key2" => PAYU_KEY2))){
+				return null;
+			}
+			if($out->getPosId()!=PAYU_POS_ID){
+				$err_message = sprintf("incorrect pos id %s!=%s",$out->getPosId(),PAYU_POS_ID);
+				return null;
+			}
+			if(!$out->signatureValid()){
+				$err_message = "incorrect signature";
+				return null;
+			}
+			return $out;
+		}
+
+		$err_message = "network error: ".$uf->getErrorMessage();
+	}
+
+	function _build_params($params){
+		$out = array();
+		foreach($params as $k => $v){
+			$out[] = "$k=".urlencode($v);
+		}
+		return join("&",$out);
+	}
+
 }

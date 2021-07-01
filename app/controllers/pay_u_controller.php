@@ -46,6 +46,25 @@ class PayUController extends PaymentGatewaysBaseController {
 		$this->tpl_data["payment_form"] = $payment_form;
 	}
 
+	function update_status(){
+		$this->logger->info("pay_u/update_status post dump");
+		$this->logger->info("request_uri: ".$this->request->getRequestUri());
+		$this->logger->info("request_method: ".$this->request->getMethod());
+		$this->logger->info("raw_post_data:\n".$this->request->getRawPostData());
+		$this->logger->info("params:\n".print_r($this->params->toArray(),true));
+		$this->logger->info("remote addr: ".$this->request->getRemoteAddr());
+		$this->render_template = false;
+		$this->response->write("OK");
+
+		if(!$transaction = PayuTransaction::FindFirst("id",$this->params->getString("session_id"))){
+			$this->logger->error("there is no PayuTransaction with id=".$this->params->getString("session_id"));
+			return;
+		}
+
+		$pay_u = new PaymentGatewayApi\PayU();
+		$pay_u->updatePayuStatus($transaction);
+	}
+
 	function _before_render(){
 		parent::_before_render();
 		$this->_prepare_checkout_navigation();
