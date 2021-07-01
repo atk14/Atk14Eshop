@@ -1,6 +1,11 @@
 <?php
 namespace PaymentGatewayApi;
 
+definedef("PAYU_POS_ID","1111");
+definedef("PAYU_KEY1","0123456789abcdef0123456789abcdef");
+definedef("PAYU_KEY2","0123456789abcdef0123456789abcdef");
+definedef("PAYU_POS_AUTH_KEY","secret");
+
 class PayU extends PaymentGatewayApi {
 
 	protected $set_new_new_transaction_to_started_state = false;
@@ -216,7 +221,7 @@ class PayU extends PaymentGatewayApi {
 	function _getPaymentStatus($payment_transaction,&$err_code,&$err_message){
 		$uf = new \UrlFetcher("https://secure.payu.com/paygw/UTF/Payment/get");
 		$params = array(
-			"pos_id" => PAYU_POS_ID,
+			"pos_id" => \PAYU_POS_ID,
 			"session_id" => $payment_transaction->getId(),
 			"ts" => time(),
 		);
@@ -226,11 +231,11 @@ class PayU extends PaymentGatewayApi {
 		//var_dump($params);
 		
 		if($uf->post($this->_build_params($params))){
-			if(!$out = PayU\PaymentStatus::GetInstance($uf->getContent(),$err_code,$err_message,$options = array("key2" => PAYU_KEY2))){
+			if(!$out = PayU\PaymentStatus::GetInstance($uf->getContent(),$err_code,$err_message,$options = array("key2" => \PAYU_KEY2))){
 				return null;
 			}
-			if($out->getPosId()!=PAYU_POS_ID){
-				$err_message = sprintf("incorrect pos id %s!=%s",$out->getPosId(),PAYU_POS_ID);
+			if($out->getPosId()!=\PAYU_POS_ID){
+				$err_message = sprintf("incorrect pos id %s!=%s",$out->getPosId(),\PAYU_POS_ID);
 				return null;
 			}
 			if(!$out->signatureValid()){

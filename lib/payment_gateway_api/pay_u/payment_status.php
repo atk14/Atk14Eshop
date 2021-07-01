@@ -1,6 +1,8 @@
 <?php
 namespace PaymentGatewayApi\PayU;
 
+require_once(__DIR__ . "/../pay_u.php"); // it is due to constants
+
 class PaymentStatus {
 
 	protected function __construct(){
