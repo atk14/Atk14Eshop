@@ -60,14 +60,14 @@ class PayU extends PaymentGatewayApi {
 		//<script language="JavaScript" type="text/JavaScript" src="https://secure.payu.com/jsgenerator/js/jquery-latest.js"></script>
 
 		$fields = array(
-			"pos_id" => PAYU_POS_ID,
+			"pos_id" => \PAYU_POS_ID,
 			"session_id" => $payment_transaction->getId(), // TODO: $this->_transaction->getPayuSessionId(), // ??
-			"pos_auth_key" => PAYU_POS_AUTH_KEY,
+			"pos_auth_key" => \PAYU_POS_AUTH_KEY,
 			//"amount" => number_format(($order->getTotalPriceInclVat() * 100),2,".",""), // v halerich!!! asi to ma byy bez des. mist...
 			"amount" => ($payment_transaction->getPriceToPay() * 100), // v halerich!!! asi to ma byt bez des. mist...
 			// TODO: currency!
-			"desc" => sprintf(_("Objednávka č. %s v e-shopu %s"),$order->getOrderNo(),ATK14_APPLICATION_NAME), // TODO: $this->_description,
-			"desc2" => $this->_getOrderDescription($order), sprintf(_("Objednávka v e-shopu %s"),ATK14_APPLICATION_NAME), // TODO: substr($order->getDescription(),0,1024),
+			"desc" => sprintf(_("Objednávka č. %s v e-shopu %s"),$order->getOrderNo(),\ATK14_APPLICATION_NAME), // TODO: $this->_description,
+			"desc2" => $this->_getOrderDescription($order), sprintf(_("Objednávka v e-shopu %s"),\ATK14_APPLICATION_NAME), // TODO: substr($order->getDescription(),0,1024),
 			"order_id" => $order->getOrderNo(),
 			"first_name" => $order->getFirstname(),
 			"last_name" => $order->getLastname(),
@@ -114,7 +114,7 @@ class PayU extends PaymentGatewayApi {
 		// tady je ext_calc:0 -> tj. v signarute nepocitame s pay_type
 		$content = sprintf('
 		<script language="javascript" type="text/javascript" src="https://secure.payu.com/paygw/UTF/js/%s/%s/template:3/ext_calc:0/paytype.js"></script>
-		',PAYU_POS_ID,substr(PAYU_KEY1,0,2));
+		',\PAYU_POS_ID,substr(\PAYU_KEY1,0,2));
 	
 		$content .= '<form action="https://secure.payu.com/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
 
@@ -167,7 +167,7 @@ class PayU extends PaymentGatewayApi {
 		}
 
 		if(!isset($salt)){
-			$salt = PAYU_KEY1;
+			$salt = \PAYU_KEY1;
 		}
 
 		$options += array(

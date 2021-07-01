@@ -67,7 +67,7 @@ class PaymentStatus {
 		$err_message = null;
 
 		$options += array(
-			"key2" => PAYU_KEY2,
+			"key2" => \PAYU_KEY2,
 		);
 
 		$xmole = new \XMole();
