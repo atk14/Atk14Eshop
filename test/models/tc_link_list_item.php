@@ -4,6 +4,8 @@
  * @fixture pages
  * @fixture brands
  * @fixture categories
+ *
+ * this needs to be the last fixture
  * @fixture link_list_items
  */
 class TcLinkListItem extends TcBase {
