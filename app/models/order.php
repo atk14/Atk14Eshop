@@ -91,6 +91,18 @@ class Order extends BasketOrOrder {
 		return $fee;
 	}
 
+	/**
+	 *
+	 *	$order->increasePricePaid(10.0);
+	 * 	$order->increasePricePaid(22.2);
+	 *	echo $order->getPricePaid(); // 33.2
+	 */
+	function increasePricePaid($price){
+		$price = (float)$price;
+		$this->dbmole->doQuery("UPDATE orders SET price_paid=COALESCE(price_paid,0.0)+:price WHERE id=:order",[":price" => $price,":order" => $this]);
+		$this->_readValues();
+	}
+
 	function getPhone(){
 		if($phone = $this->g("phone")){
 			return $phone;
