@@ -1,6 +1,7 @@
 <?php
 namespace PaymentGatewayApi;
 
+definedef("PAYU_TESTING",false);
 definedef("PAYU_POS_ID","1111");
 definedef("PAYU_KEY1","0123456789abcdef0123456789abcdef");
 definedef("PAYU_KEY2","0123456789abcdef0123456789abcdef");
@@ -9,6 +10,10 @@ definedef("PAYU_POS_AUTH_KEY","secret");
 class PayU extends PaymentGatewayApi {
 
 	protected $set_new_new_transaction_to_started_state = false;
+
+	function testingApi(){
+		return \PAYU_TESTING;
+	}
 	
 	function _getStartTransactionUrl(&$payment_transaction,&$transaction_id){
 		$order = $payment_transaction->getOrder();
@@ -72,7 +77,7 @@ class PayU extends PaymentGatewayApi {
 			"amount" => ($payment_transaction->getPriceToPay() * 100), // v halerich!!! asi to ma byt bez des. mist...
 			// TODO: currency!
 			"desc" => sprintf(_("Objednávka č. %s v e-shopu %s"),$order->getOrderNo(),\ATK14_APPLICATION_NAME), // TODO: $this->_description,
-			"desc2" => $this->_getOrderDescription($order), sprintf(_("Objednávka v e-shopu %s"),\ATK14_APPLICATION_NAME), // TODO: substr($order->getDescription(),0,1024),
+			"desc2" => "",
 			"order_id" => $order->getOrderNo(),
 			"first_name" => $order->getFirstname(),
 			"last_name" => $order->getLastname(),
@@ -98,7 +103,7 @@ class PayU extends PaymentGatewayApi {
 			$fields["pay_type"] = $prefered_pay_type;
 			$fields["sig"] = $this->_calcSignature($fields,array("consider_pay_type" => true));
 
-			$content .= '<form action="https://secure.payu.com/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
+			$content .= '<form action="https://'.(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com").'/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
 			$content .= $this->_renderHiddenFields($fields);
 
 			$content .= '
@@ -118,10 +123,10 @@ class PayU extends PaymentGatewayApi {
 
 		// tady je ext_calc:0 -> tj. v signarute nepocitame s pay_type
 		$content = sprintf('
-		<script language="javascript" type="text/javascript" src="https://secure.payu.com/paygw/UTF/js/%s/%s/template:3/ext_calc:0/paytype.js"></script>
+		<script language="javascript" type="text/javascript" src="https://'.(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com").'/paygw/UTF/js/%s/%s/template:3/ext_calc:0/paytype.js"></script>
 		',\PAYU_POS_ID,substr(\PAYU_KEY1,0,2));
 	
-		$content .= '<form action="https://secure.payu.com/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
+		$content .= '<form action="https://'.(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com").'/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
 
 		/* // !! pokud pocitame signature, radeji to prevedema na ASCII, ono to totiz vypada, ze ten podpis se pocita z UTF-8 hodnot
 		$fields = Translate::Trans($fields,DEFAULT_CHARSET,"ASCII");
@@ -219,7 +224,7 @@ class PayU extends PaymentGatewayApi {
 	}
 
 	function _getPaymentStatus($payment_transaction,&$err_code,&$err_message){
-		$uf = new \UrlFetcher("https://secure.payu.com/paygw/UTF/Payment/get");
+		$uf = new \UrlFetcher("https://".(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com")."/paygw/UTF/Payment/get");
 		$params = array(
 			"pos_id" => \PAYU_POS_ID,
 			"session_id" => $payment_transaction->getId(),

@@ -18,7 +18,8 @@ class PaymentGatewayApi {
 	}
 
 	function testingApi(){
-		return false;
+		$class = get_class($this);
+		throw new \Exception("Method $class::testingApi() needs to be defined");
 	}
 
 	final function startTransaction(&$payment_transaction){
