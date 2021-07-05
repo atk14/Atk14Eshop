@@ -85,7 +85,7 @@ class PaymentTransaction extends ApplicationModel {
 			"cancelled" => "payment_failed",
 		];
 
-		if(isset($tr[$code]) && $payment_method->isOnlineMethod() && $current_order_status->getCode()=='waiting_for_online_payment'){
+		if(isset($tr[$code]) && $payment_method->isOnlineMethod() && in_array($current_order_status->getCode(),['waiting_for_online_payment','payment_failed'])){
 			// zmena stavu online platby meni i stav objednavky, ale pouze za urcitych okolnosti
 			$order->setNewOrderStatus($tr[$code]);
 			if($code === "paid"){

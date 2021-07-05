@@ -1,4 +1,16 @@
 <?php
+/**
+ * Controller for a PayU classic API.
+ *
+ * A classic API POS (point of sale) needs to be configured in PayU merchant panel.
+ *
+ * Data coding: UTF-8
+ * URLs:
+ * - Error return address:      http://atk14eshop.localhost/cs/pay_u/finish_transaction/?session_id=%sessionId%&type=%payType%&error=%error%
+ * - Successful return address: http://atk14eshop.localhost/cs/pay_u/finish_transaction/?session_id=%sessionId%&type=%payType%
+ * - Address for reports:				http://atk14eshop.localhost/cs/pay_u/update_status/
+ */
+
 require_once(__DIR__ . "/payment_gateways_base.php");
 
 class PayUController extends PaymentGatewaysBaseController {

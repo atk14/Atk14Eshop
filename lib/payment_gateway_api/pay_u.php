@@ -2,6 +2,7 @@
 namespace PaymentGatewayApi;
 
 definedef("PAYU_TESTING",false);
+definedef("PAYU_CURRENCY","CZK");
 definedef("PAYU_POS_ID","1111");
 definedef("PAYU_KEY1","0123456789abcdef0123456789abcdef");
 definedef("PAYU_KEY2","0123456789abcdef0123456789abcdef");
@@ -67,6 +68,8 @@ class PayU extends PaymentGatewayApi {
 		];
 
 		$order = $payment_transaction->getOrder();
+
+		myAssert($order->getCurrency()->getCode()===PAYU_CURRENCY);
 
 		$prefered_pay_type = null;
 		//$prefered_pay_type = "kb";

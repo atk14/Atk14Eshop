@@ -36,15 +36,12 @@ class PaymentTransactionsController extends ApplicationController {
 			return;
 		}
 
-		// Pokud je uspesne zaplaceno, presmerujeme uzivaka na orders/finish, kde je nadherna stranka s podekovanim
-		if($pt && $pt->getPaymentStatus() && in_array($pt->getPaymentStatus()->getCode(),["paid","pending"])){
-			$order = $this->payment_transaction->getOrder();
-			$this->_redirect_to([
-				"action" => "orders/finish",
-				"token" => $order->getToken(),
-			]);
-			return;
-		}
+		$order = $this->payment_transaction->getOrder();
+		$this->_redirect_to([
+			"action" => "orders/finish",
+			"token" => $order->getToken(),
+			"lang" => $order->getLanguage(),
+		]);
 	}
 
 	function _before_filter(){
