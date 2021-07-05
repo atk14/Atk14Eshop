@@ -48,6 +48,17 @@ class PaymentTransactionsController extends ApplicationController {
 	}
 
 	function _before_filter(){
-		$this->payment_transaction = $this->tpl_data["payment_transaction"] = PaymentTransaction::GetInstanceByToken($this->params->getString("token"));
+		$pt = null;
+		if($this->params->defined("order_token")){
+			$order = Order::GetInstanceByToken($this->params->getString("order_token"),["extra_salt" => "payment_transaction_start", "hash_length" => 10]);
+			if($order){
+				$pt = $order->getPaymentTransaction();
+			}
+		}elseif($this->params->defined("token")){
+			$pt = PaymentTransaction::GetInstanceByToken($this->params->getString("token"));
+		}elseif($this->session->defined("current_payment_transaction_id")){
+			$pt = PaymentTransaction::GetInstanceById($this->session->g("current_payment_transaction_id"));
+		}
+		$this->payment_transaction = $this->tpl_data["payment_transaction"] = $pt;
 	}
 }

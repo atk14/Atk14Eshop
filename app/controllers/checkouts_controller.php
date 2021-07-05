@@ -151,14 +151,6 @@ class CheckoutsController extends ApplicationController {
 				]);
 			}
 
-			if($pt = $order->getPaymentTransaction()){
-				$this->_redirect_to([
-					"action" => "payment_transactions/start",
-					"token" => $pt->getToken(),
-				]);
-				return;
-			}
-
 			$this->_redirect_to([
 				"action" => "finish",
 				"token" => $order->getToken(),

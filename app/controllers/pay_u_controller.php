@@ -24,6 +24,8 @@ class PayUController extends PaymentGatewaysBaseController {
 			return $this->_execute_action("error404");
 		}
 
+		$this->layout_name = "blank";
+
 		$this->page_title = _("Úhrada objednávky");
 
 		// pri opakovanem navstiveni tohoto URL dochazi k vytvoreni nove transakce
@@ -42,8 +44,26 @@ class PayUController extends PaymentGatewaysBaseController {
 
 		$pay_u_api = new PaymentGatewayApi\PayU();
 		
-		$payment_form = $pay_u_api->renderForm($transaction);
+		$payment_form = $pay_u_api->renderForm($transaction,[
+			"submit_form_immediately" => true, 
+		]);
 		$this->tpl_data["payment_form"] = $payment_form;
+	}
+
+	function finish_transaction(){
+		$payment_transaction = PaymentTransaction::GetInstanceById($this->params->getInt("session_id"));
+		if(!$payment_transaction || $payment_transaction->getPaymentGateway()->getCode()!=="pay_u"){
+			$this->_redirect_to("payment_transactions/finish");
+			return;
+		}
+
+		$pay_u = new PaymentGatewayApi\PayU();
+		$pay_u->updateStatus($payment_transaction);
+
+		$this->_redirect_to([
+			"action" => "payment_transactions/finish",
+			"token" => $payment_transaction->getToken(),
+		]);
 	}
 
 	function update_status(){
@@ -56,17 +76,12 @@ class PayUController extends PaymentGatewaysBaseController {
 		$this->render_template = false;
 		$this->response->write("OK");
 
-		if(!$transaction = PayuTransaction::FindFirst("id",$this->params->getInt("session_id"))){
-			$this->logger->error("there is no PayuTransaction with id=".$this->params->getInt("session_id"));
+		if(!$transaction = PaymentTransaction::FindFirst("id",$this->params->getInt("session_id"))){
+			$this->logger->error("there is no PaymentTransaction with id=".$this->params->getInt("session_id"));
 			return;
 		}
 
 		$pay_u = new PaymentGatewayApi\PayU();
-		$pay_u->updatePayuStatus($transaction);
-	}
-
-	function _before_render(){
-		parent::_before_render();
-		$this->_prepare_checkout_navigation();
+		$pay_u->updateStatus($transaction);
 	}
 }

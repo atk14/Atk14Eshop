@@ -1,15 +1,35 @@
 {render partial="shared/checkout_navigation"}
 
-	{capture assign=page_title}{t}Děkujeme{/t}{/capture}
-	{capture assign=teaser}{t}…za Váš nákup, vraťte se brzy :){/t}{/capture}
+{capture assign=page_title}{t}Děkujeme{/t}{/capture}
+{capture assign=teaser}{t}…za Váš nákup, vraťte se brzy :){/t}{/capture}
+
+{if $order && $order->isPaid()}
+
+	{capture assign=page_title}<span class="text-success">{!"check"|icon}</span> {t}Objednávka byla zaplacena{/t}{/capture}
+	{capture assign=teaser}{t}Děkujeme...{/t}{/capture}
+
 	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
 
-	{* TODO: Zakomentovavame fb tlacitko - nemame totiz verejny detail
-	<p class="lead">{t}Pochlubte se přátelům s Vaším nákupem.{/t}</p>
-	<div>
-		<a href="#" class="btn btn--social-fb">{t}Sdílet{/t}</a>
-	</div>
-	*}
+{elseif $payment_transaction_start_url}
+
+	{assign payment_method $order->getPaymentMethod()}
+
+	{capture assign=page_title}{t}Děkujeme za Váš nákup{/t}{/capture}
+	{capture assign=teaser}{t}Za okamžik budete přesměrováni na platební bránu.{/t}{/capture}
+
+	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
+
+	<p>
+		{t 1=$payment_transaction_start_url|h escape=false}V případě, že k přesměrování nedojde, <a href="%1">klikněte zde</a>.{/t}
+	</p>
+
+	{content for="head"}
+		<meta http-equiv="refresh" content="4;url={$payment_transaction_start_url}" />
+	{/content}
+
+{else}
+
+	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
 
 	{if $order && $order->getPaymentMethod()->isBankTransfer()}
 		{assign bank_account $order->getBankAccount()}
@@ -38,3 +58,5 @@
 			<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
 		{/if}
 	{/if}
+
+{/if}

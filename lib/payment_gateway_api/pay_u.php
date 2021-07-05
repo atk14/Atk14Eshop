@@ -60,8 +60,12 @@ class PayU extends PaymentGatewayApi {
 		$this->logger(sprintf("unknown payment status for PaymentTransaction#%s (Order#%s, order_no=%s): %s (%s)",$payment_transaction->getId(),$order->getId(),$order->getOrderNo(),$status->getStatus(),$status->getStatusDescription()));
 	}
 
-	function renderForm($payment_transaction){
+	function renderForm($payment_transaction,$options = []){
 		global $HTTP_REQUEST;
+		$options += [
+			"submit_form_immediately" => false,
+		];
+
 		$order = $payment_transaction->getOrder();
 
 		$prefered_pay_type = null;
@@ -98,7 +102,7 @@ class PayU extends PaymentGatewayApi {
 			$fields[$k] = mb_substr($fields[$k],0,100);
 		}
 
-		if($prefered_pay_type){
+		if($prefered_pay_type || $options["submit_form_immediately"]){
 			// tady zname dopredu typ platby
 			$fields["pay_type"] = $prefered_pay_type;
 			$fields["sig"] = $this->_calcSignature($fields,array("consider_pay_type" => true));

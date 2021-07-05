@@ -35,6 +35,13 @@ class PaymentTransaction extends ApplicationModel {
 		return Cache::Get("PaymentTransaction",$transaction_id);
 	}
 
+	function getPaymentTransactionUrl(){
+		if($this->g("payment_transaction_url")){
+			return $this->g("payment_transaction_url");
+		}
+		return $this->getOrder()->getPaymentTransactionStartUrl();
+	}
+
 	function getToken($options = []){
 		if(is_string($options)){
 			$options = array("extra_salt" => $options);

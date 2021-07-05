@@ -5,7 +5,6 @@ class Order extends BasketOrOrder {
 
 	static function CreateNewRecord($values,$options = []){
 		global $ATK14_GLOBAL;
-
 		$values += [
 			"id" => Order::GetNextId(),
 			"region_id" => Region::GetDefaultRegion()->getId(),
@@ -79,8 +78,25 @@ class Order extends BasketOrOrder {
 		return $fee;
 	}
 
+	/**
+	 * Returns the most recent payment transaction of the order
+	 */
 	function getPaymentTransaction(){
 		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "id DESC"]);
+	}
+
+	function getPaymentTransactionStartUrl(){
+		if(!$this->getPaymentTransaction()){
+			return;
+		}
+		return Atk14Url::BuildLink([
+			"namespace" => "",
+			"action" => "payment_transactions/start",
+			"order_token" => $this->getToken(["extra_salt" => "payment_transaction_start", "hash_length" => 10]),
+		],[
+			"with_hostname" => true,
+			"ssl" => REDIRECT_TO_SSL_AUTOMATICALLY,
+		]);
 	}
 
 	function getDeliveryFee($incl_vat = false){
