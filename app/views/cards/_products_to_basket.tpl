@@ -82,7 +82,7 @@
 								<div class="secondary-controls__item">
 									{if WatchedProduct::IsWatchedProduct($product,$logged_user)}
 										<span class="link--small">
-											{!"dog"|icon} <span class="link__text">{t}naskladnění sleduje hlídací pes{/t}</span>
+											{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>
 										</span>
 									{else}
 										{a action="watched_products/create_new" product_id=$product _class="link--small"}{!"dog"|icon} <span class="link__text">{t}Aktivovat hlídacího psa{/t}{/a}</span>
