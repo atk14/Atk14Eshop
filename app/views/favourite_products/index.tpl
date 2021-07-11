@@ -1,5 +1,5 @@
 {if !$favourite_products}
-	{capture assign="teaser"}{t}You haven`t added any items to your wishlist yet.{/t}{/capture}
+	{capture assign="teaser"}{t}You haven`t added any items to your favourites yet.{/t}{/capture}
 {else}
 	{assign var=teaser ""}
 {/if}
@@ -7,7 +7,8 @@
 {render partial="shared/layout/content_header" title="$page_title" teaser=$teaser}
 
 {if !$favourite_products}
-		<p>{t escape=no}To add product to your wishlist, click on <span class="text-danger">{!"heart"|icon}</span> icon on product page.{/t}</p>
+		{capture assign="heart_icon"}<span class="text-danger">{!"heart"|icon}</span>{/capture}
+		<p>{t heart_icon=$heart_icon escape=no}To add product to your favourites, click on %1 icon on product page.{/t}</p>
 {else}
 
 	<table class="table table--products table--products-simple">
