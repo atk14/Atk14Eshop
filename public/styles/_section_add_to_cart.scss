@@ -102,4 +102,14 @@
 			}
 		}
 	}
+	.secondary-controls {
+		//margin-bottom: $grid-gutter-width/4;
+		&__item {
+			display: inline-block;
+			margin-right: 1em;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
 }

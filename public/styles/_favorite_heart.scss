@@ -1,0 +1,43 @@
+/*
+
+product favorite status
+
+     .--.  .--.
+    :  _ \/ _  :
+ _\/ \ 6    6 /
+   \__\  '   /
+       \'--'/ \__/_ 
+       /\  /\    \ 
+      /  \/  \
+      \      /
+      _\    /_
+     (__\  /__)
+
+*/
+
+.fav_status {
+	&--just_added {
+		.fas {
+			animation-name: heart-added;
+			animation-duration: 0.65s;
+			animation-iteration-count: 1;
+		}
+	}
+	&--is_fav {
+		
+	}
+	&--not_fav {
+		
+	}
+}
+
+@keyframes heart-added {
+	from {
+		transform: scale(3);
+		opacity: 0.35;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}

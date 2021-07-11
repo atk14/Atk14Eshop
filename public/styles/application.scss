@@ -122,6 +122,8 @@ $enable-deprecation-messages: false;
 
 @import "faq";
 
+@import "favorite_heart";
+
 @import "shared/clearfix";
 @import "shared/loading";
 @import "shared/buttons";
@@ -129,6 +131,7 @@ $enable-deprecation-messages: false;
 @import "shared/fileicons";
 @import "shared/colors";
 @import "shared/color_radio_checkbox";
+@import "shared/tooltips";
 
 @import "styleguides";
 @import "md_book";
