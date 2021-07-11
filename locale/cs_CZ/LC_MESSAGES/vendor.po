@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 18:47+0200\n"
-"PO-Revision-Date: 2021-04-28 18:48+0200\n"
+"POT-Creation-Date: 2021-07-11 19:52+0200\n"
+"PO-Revision-Date: 2021-07-11 20:12+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -41,6 +41,30 @@ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+
+#: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
+msgid "Filtrovat"
+msgstr "Filtrovat"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:21
+msgid "Vše"
+msgstr "Vše"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:22
+msgid "Ano"
+msgstr "Ano"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:23
+msgid "Ne"
+msgstr "Ne"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:209
+msgid "from"
+msgstr "od"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
+msgid "to"
+msgstr "do"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
@@ -134,6 +158,34 @@ msgstr "Zobrazit obrázek"
 #: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:115
 msgid "Unknown error"
 msgstr "Neznámá chyba"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:18
+msgid "Minimum of the range is required"
+msgstr "Je vyžadováno minimum rozsahu"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:19
+msgid "Maximum of the range is required"
+msgstr "Je vyžadováno maximum z rozsahu"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:20
+msgid "Value is out of range of allowed values"
+msgstr "Hodnota je mimo rozsah povolených hodnot"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:21
+msgid "Invalid input for range field"
+msgstr "Neplatný vstup pro pole rozsahu"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:22
+msgid "This range field accepts only numeric values"
+msgstr "Toto pole rozsahu přijímá pouze číselné hodnoty"
+
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:49
+msgid "od"
+msgstr "od"
+
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:51
+msgid "do"
+msgstr "do"
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
 msgid ""
