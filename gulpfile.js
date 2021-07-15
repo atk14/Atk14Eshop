@@ -23,7 +23,7 @@ var vendorScripts = [
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
-	"node_modules/bootbox/src/bootbox.js"
+	"node_modules/bootbox/dist/bootbox.all.min.js"
 ];
 
 var applicationScripts = [
