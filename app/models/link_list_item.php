@@ -37,10 +37,10 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		switch("$params[controller]/$params[action]"){
 			case "pages/detail":
 				return Cache::Get("Page",(int)$params["id"]);
-			case "categories/detail":
-				return Category::GetInstanceByPath($params["path"]);
 			case "main/index":
 				return Page::GetInstanceByCode("homepage");
+			case "categories/detail":
+				return Category::GetInstanceByPath($params["path"]);
 		}
 	}
 
