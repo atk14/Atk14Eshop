@@ -8,3 +8,4 @@ cd $(dirname $0)
 cd ..
 
 ./scripts/robot_runner refresh_mv_card_categories_robot.php
+./scripts/robot_runner payment_status_checker
