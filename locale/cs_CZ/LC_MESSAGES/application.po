@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 20:03+0200\n"
-"PO-Revision-Date: 2021-07-11 20:03+0200\n"
+"POT-Creation-Date: 2021-07-28 15:46+0200\n"
+"PO-Revision-Date: 2021-07-28 15:47+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -237,8 +237,8 @@ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
 msgid "This product is sold out"
 msgstr "Tento produkt je vyprodán"
 
-msgid "naskladnění sleduje hlídací pes"
-msgstr "naskladnění sleduje hlídací pes"
+msgid "Naskladnění sleduje hlídací pes"
+msgstr "Naskladnění sleduje hlídací pes"
 
 #: ../app/forms/watched_products/create_new_form.php:19
 msgid "Aktivovat hlídacího psa"
@@ -623,6 +623,14 @@ msgstr "Telefon"
 msgid "Product"
 msgstr "Produkt"
 
+msgid ""
+"produkt <em>%1</em> s katalogovým číslem <em>%2</em> byl právě naskladněn."
+msgstr ""
+"produkt <em>%1</em> s katalogovým číslem <em>%2</em> byl právě naskladněn."
+
+msgid "Produkt najdete na adrese"
+msgstr "Produkt najdete na adrese"
+
 msgid "Děkujeme za nákup v obchodě %1!"
 msgstr "Děkujeme za nákup v obchodě %1!"
 
@@ -923,6 +931,10 @@ msgstr "Moje objednávky"
 
 msgid "Delivery addresses"
 msgstr "Dodací adresy"
+
+#: ../app/controllers/favourite_products_controller.php:5
+msgid "Oblíbené produkty"
+msgstr "Oblíbené produkty"
 
 #: ../app/controllers/logins_controller.php:33
 #: ../app/forms/logins/destroy_form.php:4
@@ -1279,6 +1291,11 @@ msgstr "Zpráva zaslaná z kontaktní stránky"
 msgid "Request for information"
 msgstr "Žádost o informaci"
 
+#: ../app/controllers/application_mailer.php:207
+#, php-format
+msgid "Naskladnění produktu: %s"
+msgstr "Naskladnění produktu: %s"
+
 #: ../app/controllers/application.php:45
 #: ../app/controllers/users_controller.php:5
 msgid "User profile"
@@ -1470,10 +1487,6 @@ msgid ""
 msgstr ""
 "Pro stažení digitálních souborů z objednávky se prosím přihlaste jako "
 "uživatel <em>%s</em>"
-
-#: ../app/controllers/favourite_products_controller.php:5
-msgid "Oblíbené produkty"
-msgstr "Oblíbené produkty"
 
 #: ../app/controllers/logins_controller.php:16
 #, php-format
@@ -2370,6 +2383,9 @@ msgstr "Neplatná pobočka"
 #, php-format
 msgid "obj. %s"
 msgstr "obj. %s"
+
+#~ msgid "naskladnění sleduje hlídací pes"
+#~ msgstr "naskladnění sleduje hlídací pes"
 
 #~ msgid "aktivovat hlídacího psa"
 #~ msgstr "aktivovat hlídacího psa"

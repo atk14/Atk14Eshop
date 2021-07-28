@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-18 13:35+0100\n"
-"PO-Revision-Date: 2020-05-12 17:22+0200\n"
+"POT-Creation-Date: 2021-07-28 15:46+0200\n"
+"PO-Revision-Date: 2021-07-28 16:03+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -16,6 +16,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Temporary file uploading is not enabled"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "The file exceeds the maximum file size, which is %s"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Error 1"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Error 2"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr ""
+"The file has been already deleted on the server, please upload it again"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "The file was not fully uploaded, please upload it again"
+
+#: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
+msgid "Filtrovat"
+msgstr "Filter"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:21
+msgid "Vše"
+msgstr "All"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:22
+msgid "Ano"
+msgstr "Yes"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:23
+msgid "Ne"
+msgstr "No"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:209
+msgid "from"
+msgstr "from"
+
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
+msgid "to"
+msgstr "to"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
@@ -91,11 +141,13 @@ msgstr "Enter valid phone number (%sample_phone_number%)"
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
 msgid "remove"
 msgstr "remove"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:42
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
 msgid "Download attachment"
 msgstr "Download attachment"
@@ -104,9 +156,37 @@ msgstr "Download attachment"
 msgid "Display image"
 msgstr "Display image"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:95
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:115
 msgid "Unknown error"
 msgstr "Unknown error"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:18
+msgid "Minimum of the range is required"
+msgstr "Minimum of the range is required"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:19
+msgid "Maximum of the range is required"
+msgstr "Maximum of the range is required"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:20
+msgid "Value is out of range of allowed values"
+msgstr "Value is out of range of allowed values"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:21
+msgid "Invalid input for range field"
+msgstr "Invalid input for range field"
+
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:22
+msgid "This range field accepts only numeric values"
+msgstr "This range field accepts only numeric values"
+
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:49
+msgid "od"
+msgstr "from"
+
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:51
+msgid "do"
+msgstr "to"
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
 msgid ""
