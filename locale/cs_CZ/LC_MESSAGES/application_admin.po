@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 18:20+0200\n"
-"PO-Revision-Date: 2021-04-28 18:33+0200\n"
+"POT-Creation-Date: 2021-07-11 19:52+0200\n"
+"PO-Revision-Date: 2021-07-11 20:12+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -619,10 +619,6 @@ msgstr "Specifické hodnoty u podporovaných zemí"
 msgid "Země"
 msgstr "Země"
 
-#: ../app/forms/admin/pricelist_items/pricelist_items_form.php:11
-msgid "Cena"
-msgstr "Cena"
-
 msgid "Cena s DPH"
 msgstr "Cena s DPH"
 
@@ -897,6 +893,10 @@ msgstr "validovat DIČ"
 
 msgid "Doručovací adresa"
 msgstr "Doručovací adresa"
+
+#: ../app/forms/admin/pricelist_items/pricelist_items_form.php:11
+msgid "Cena"
+msgstr "Cena"
 
 msgid "Celková cena bez DPH:"
 msgstr "Celková cena bez DPH:"
@@ -1554,6 +1554,15 @@ msgstr "Náhledový obrázek"
 msgid "Není nastaven"
 msgstr "Není nastaven"
 
+msgid ""
+"Administrace slevových kupónů ve formě dárkového nebo slevového poukazu. "
+"Sleva na základě kódu se uplatní na jakýkoliv produkt v e-shopu. Nelze "
+"prioritizovat žádnou kategorii."
+msgstr ""
+"Administrace slevových kupónů ve formě dárkového nebo slevového poukazu. "
+"Sleva na základě kódu se uplatní na jakýkoliv produkt v e-shopu. Nelze "
+"prioritizovat žádnou kategorii."
+
 msgid "Nebyl nalezen žádný voucher."
 msgstr "Nebyl nalezen žádný voucher."
 
@@ -1780,16 +1789,20 @@ msgstr "Vytvořit objekt typu %s"
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:296
+#: ../app/controllers/admin/admin.php:303
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:420
+#: ../app/controllers/admin/admin.php:337
+msgid "Ve formuláři nebylo nic změněno"
+msgstr "Ve formuláři nebylo nic změněno"
+
+#: ../app/controllers/admin/admin.php:458
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:439
+#: ../app/controllers/admin/admin.php:477
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -4157,7 +4170,7 @@ msgstr "Automatické spuštění videa"
 msgid "Po ukončení přehrát znovu"
 msgstr "Po ukončení přehrát znovu"
 
-#: ../app/forms/admin/vouchers/create_new_form.php:8
+#: ../app/forms/admin/vouchers/create_new/get_data_form.php:8
 #: ../app/forms/admin/vouchers/edit_form.php:8
 msgid "Stejný kód má jiný slevový kupón"
 msgstr "Stejný kód má jiný slevový kupón"
@@ -4171,8 +4184,18 @@ msgid "dárkový (zakoupený) poukaz"
 msgstr "dárkový (zakoupený) poukaz"
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:10
-msgid "Písmenný kód bude automaticky převeden na velká písmena"
-msgstr "Písmenný kód bude automaticky převeden na velká písmena"
+msgid ""
+"Zadejte text pro slevu, který bude zákazník vkládat do políčka \"Slevové "
+"kupóny/Dárkové poukazy\" v košíku. Kód může být textový i číselný, popřípadě "
+"kombinace obojího. Nerozlišují se velká a malá písmena ani mezery (je-li kód "
+"\"SLEVA21\", uplatní se sleva i při použití textu \"sleva21\" nebo "
+"\"Sleva21\" či \"sleva 21\" atd.)"
+msgstr ""
+"Zadejte text pro slevu, který bude zákazník vkládat do políčka \"Slevové "
+"kupóny/Dárkové poukazy\" v košíku. Kód může být textový i číselný, popřípadě "
+"kombinace obojího. Nerozlišují se velká a malá písmena ani mezery (je-li kód "
+"\"SLEVA21\", uplatní se sleva i při použití textu \"sleva21\" nebo "
+"\"Sleva21\" či \"sleva 21\" atd.)"
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:14
 #, php-format
@@ -4278,6 +4301,9 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Písmenný kód bude automaticky převeden na velká písmena"
+#~ msgstr "Písmenný kód bude automaticky převeden na velká písmena"
 
 #~ msgid "System name"
 #~ msgstr "Systémový název"

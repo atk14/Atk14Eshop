@@ -37,6 +37,11 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $basket;
 
+	/**
+	 * @var FavouriteProductsAccessor
+	 */
+	var $favourite_products_accessor;
+
 
 	function error404(){
 		if($this->_redirected_on_error404()){
@@ -182,6 +187,8 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();
 
+		$this->favourite_products_accessor = $this->tpl_data["favourite_products_accessor"] = new FavouriteProductsAccessor($this->logged_user,$this->permanentSession);
+
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
 
@@ -291,6 +298,10 @@ class ApplicationBaseController extends Atk14Controller{
 				$new_basket->mergeBasket($current_basket);
 			}
 			$current_basket && !$current_basket->isDummy() && $current_basket->destroy();
+
+			$new_favourite_products_accessor = new FavouriteProductsAccessor($user);
+			$new_favourite_products_accessor->mergeFavouriteProductsAccessor($this->favourite_products_accessor);
+			$this->favourite_products_accessor->destroy();
 		}
 
 		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";

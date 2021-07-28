@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 18:20+0200\n"
-"PO-Revision-Date: 2021-04-28 18:37+0200\n"
+"POT-Creation-Date: 2021-07-11 20:03+0200\n"
+"PO-Revision-Date: 2021-07-11 20:03+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -237,6 +237,13 @@ msgstr "Cena: %1 <span class=\"dph\">včetně DPH</span>"
 msgid "This product is sold out"
 msgstr "Tento produkt je vyprodán"
 
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
+
+#: ../app/forms/watched_products/create_new_form.php:19
+msgid "Aktivovat hlídacího psa"
+msgstr "Aktivovat hlídacího psa"
+
 msgid "Related products"
 msgstr "Související produkty"
 
@@ -346,6 +353,17 @@ msgstr "soubor %1"
 
 msgid "Stáhnout"
 msgstr "Stáhnout"
+
+msgid "You haven`t added any items to your favourites yet."
+msgstr "Dosud jste nepřidali žádné produkty do svých oblíbených."
+
+msgid "To add product to your favourites, click on %1 icon on product page."
+msgstr ""
+"Chcete-li přidat produkt do oblíbených, klikněte na ikonu %1 na stránce "
+"produktu."
+
+msgid "cena není stanovena"
+msgstr "cena není stanovena"
 
 msgid "Greetings"
 msgstr "Dobrý den"
@@ -730,6 +748,21 @@ msgstr "upravit"
 msgid "smazat"
 msgstr "smazat"
 
+msgid "Produkt byl přidán do <a href=\"%1\">oblíbených</a>"
+msgstr "Produkt byl přidán do <a href=\"%1\">oblíbených</a>"
+
+msgid "Remove from favourites"
+msgstr "Odebrat z oblíbených"
+
+msgid "Odebrat z oblíbených"
+msgstr "Odebrat z oblíbených"
+
+msgid "Přidat do oblíbených"
+msgstr "Přidat do oblíbených"
+
+msgid "Add to favourites"
+msgstr "Přidat do oblíbených"
+
 msgid "Vybráno:"
 msgstr "Vybráno:"
 
@@ -990,8 +1023,8 @@ msgstr "Zveřejněno dne %1"
 msgid "Celý článek"
 msgstr "Celý článek"
 
-msgid "Zobrazit detaily"
-msgstr "Zobrazit detaily"
+msgid "Zobrazit produkt"
+msgstr "Zobrazit produkt"
 
 msgid "Kategorie"
 msgstr "Kategorie"
@@ -999,14 +1032,11 @@ msgstr "Kategorie"
 msgid "Zobrazit kategorii"
 msgstr "Zobrazit kategorii"
 
-msgid "Informace"
-msgstr "Informace"
-
 msgid "Profil"
 msgstr "Profil"
 
-msgid "a další"
-msgstr "a další"
+msgid "Informace"
+msgstr "Informace"
 
 msgid "Zobrazit profil"
 msgstr "Zobrazit profil"
@@ -1014,8 +1044,8 @@ msgstr "Zobrazit profil"
 msgid "Zobrazit stránku"
 msgstr "Zobrazit stránku"
 
-msgid "právě otevřeno"
-msgstr "právě otevřeno"
+msgid "a další"
+msgstr "a další"
 
 msgid "Prodejna"
 msgstr "Prodejna"
@@ -1029,8 +1059,8 @@ msgstr "tel:"
 msgid "Informace o prodejně"
 msgstr "Informace o prodejně"
 
-msgid "Ukázat na mapě"
-msgstr "Ukázat na mapě"
+msgid "právě otevřeno"
+msgstr "právě otevřeno"
 
 msgid "Pages"
 msgstr "Stránky"
@@ -1179,6 +1209,21 @@ msgstr "Aktuální heslo"
 msgid "New password"
 msgstr "Nové heslo"
 
+msgid "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
+msgstr "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
+
+msgid "hlídalo se od"
+msgstr "hlídalo se od"
+
+msgid "hlídá se od"
+msgstr "hlídá se od"
+
+msgid "naskladnění oznámeno"
+msgstr "naskladnění oznámeno"
+
+msgid "zatím nenaskladněno"
+msgstr "zatím nenaskladněno"
+
 #: ../app/controllers/api/logins_controller.php:33
 msgid "Bad password"
 msgstr "Špatné heslo"
@@ -1187,15 +1232,15 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
-#: ../app/controllers/application_base.php:55
+#: ../app/controllers/application_base.php:60
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:69
+#: ../app/controllers/application_base.php:74
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:186
+#: ../app/controllers/application_base.php:193
 msgid "Home"
 msgstr "Domů"
 
@@ -1426,6 +1471,10 @@ msgstr ""
 "Pro stažení digitálních souborů z objednávky se prosím přihlaste jako "
 "uživatel <em>%s</em>"
 
+#: ../app/controllers/favourite_products_controller.php:5
+msgid "Oblíbené produkty"
+msgstr "Oblíbené produkty"
+
 #: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
@@ -1534,6 +1583,23 @@ msgstr "Údaje vašeho účtu byly změněny"
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
+#: ../app/controllers/watched_products_controller.php:5
+msgid "Uložené položky hlídacího psa"
+msgstr "Uložené položky hlídacího psa"
+
+#: ../app/controllers/watched_products_controller.php:36
+msgid "Aktivace hlídacího psa"
+msgstr "Aktivace hlídacího psa"
+
+#: ../app/controllers/watched_products_controller.php:48
+#, php-format
+msgid ""
+"Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na "
+"adrese %s"
+msgstr ""
+"Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na "
+"adrese %s"
+
 #: ../app/fields/admin_field.php:16
 msgid "select administrator"
 msgstr "vyberte administrátora"
@@ -1596,7 +1662,7 @@ msgstr "Tento způsob dopravy neexistuje"
 msgid "Choose pickup place for selected delivery method"
 msgstr "Vyberte výdejní místo pro vybraný způsob doručení"
 
-#: ../app/fields/delivery_method_at_checkout_field.php:95
+#: ../app/fields/delivery_method_at_checkout_field.php:97
 #, php-format
 msgid "od %s do %s dle země doručení"
 msgstr "od %s do %s dle země doručení"
@@ -1907,11 +1973,6 @@ msgstr "Uložit adresu"
 msgid "Uložit změny"
 msgstr "Uložit změny"
 
-#: ../app/forms/filter_form.php:8
-#: ../lib/filter/copy/app/forms/filter_form.php:8
-msgid "Filtrovat"
-msgstr "Filtrovat"
-
 #: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
 msgstr "Přihlásit se"
@@ -1966,6 +2027,14 @@ msgstr "IČ zadávejte pouze v případě, že je vyplněn název společnosti"
 #: ../app/forms/users/users_form.php:47
 msgid "Password doesn't match"
 msgstr "Heslo se neshoduje"
+
+#: ../app/forms/watched_products/create_new_form.php:6
+msgid "E-mail"
+msgstr "E-mail"
+
+#: ../app/forms/watched_products/create_new_form.php:15
+msgid "Kontrola"
+msgstr "Kontrola"
 
 #: ../app/helpers/modifier.display_bool.php:13
 msgid "Yes"
@@ -2297,30 +2366,37 @@ msgstr "Zadejte PSČ, adresu nebo název místa"
 msgid "Neplatná pobočka"
 msgstr "Neplatná pobočka"
 
-#: ../lib/filter/filter_bool_section.php:21
-msgid "Vše"
-msgstr "Vše"
-
-#: ../lib/filter/filter_bool_section.php:22
-msgid "Ano"
-msgstr "Ano"
-
-#: ../lib/filter/filter_bool_section.php:23
-msgid "Ne"
-msgstr "Ne"
-
-#: ../lib/filter/filter_range_section.php:231
-msgid "from"
-msgstr "od"
-
-#: ../lib/filter/filter_range_section.php:235
-msgid "to"
-msgstr "do"
-
 #: ../lib/payment_qr_code_generator.php:20
 #, php-format
 msgid "obj. %s"
 msgstr "obj. %s"
+
+#~ msgid "aktivovat hlídacího psa"
+#~ msgstr "aktivovat hlídacího psa"
+
+#~ msgid "Zobrazit detaily"
+#~ msgstr "Zobrazit detaily"
+
+#~ msgid "Ukázat na mapě"
+#~ msgstr "Ukázat na mapě"
+
+#~ msgid "Filtrovat"
+#~ msgstr "Filtrovat"
+
+#~ msgid "Vše"
+#~ msgstr "Vše"
+
+#~ msgid "Ano"
+#~ msgstr "Ano"
+
+#~ msgid "Ne"
+#~ msgstr "Ne"
+
+#~ msgid "from"
+#~ msgstr "od"
+
+#~ msgid "to"
+#~ msgstr "do"
 
 #~ msgid "zvolit pobočku"
 #~ msgstr "zvolit pobočku"
@@ -3288,9 +3364,6 @@ msgstr "obj. %s"
 
 #~ msgid "No records found."
 #~ msgstr "Nebyl nalezen žádný záznam."
-
-#~ msgid "E-mail"
-#~ msgstr "E-mail"
 
 #~ msgid "The password recovery link has been sent to your e-mail address."
 #~ msgstr "Odkaz pro obnovu hesla byl odeslán na vaší e-mailovou adresu"
