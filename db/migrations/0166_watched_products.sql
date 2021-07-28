@@ -6,6 +6,7 @@ CREATE TABLE watched_products (
 	product_id INTEGER NOT NULL,
 	user_id INTEGER,
 	email VARCHAR(255),
+	language CHAR(2) NOT NULL,
 	--
 	notified BOOLEAN DEFAULT 'f',
 	notified_at TIMESTAMP,
