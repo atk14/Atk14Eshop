@@ -15,7 +15,7 @@ class WatchedProduct extends ApplicationModel {
 		if(is_null($user)){
 			return null;
 		}
-		return self::FindFirst("product_id",$product,"user_id",$user);
+		return self::FindFirst("product_id",$product,"user_id",$user,"notified",false);
 	}
 
 	static function GetWatchedProductsToNotify(){
