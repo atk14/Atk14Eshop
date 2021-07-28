@@ -23,6 +23,7 @@
         "atk14/zip-field": "^0.1.0",
         "chrisjean/php-ico": "^1.0",
         "atk14/slug-field": "^1.1",
+        "atk14/hcaptcha-field": "^0.1.0",
         "atk14/recaptcha-field": "^0.1.2",
         "yarri/markdown-manual.mdbook": "^0.2.1",
         "atk14/async-file-field": "^1.0",
