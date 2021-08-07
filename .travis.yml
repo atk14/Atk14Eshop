@@ -34,6 +34,7 @@ before_install:
 
 before_script:
   - travis_retry composer install --dev --no-interaction --prefer-dist
+  - sudo service postgresql restart # What? Postgresql is not running?
   - echo "y" | ATK14_ENV=test ./scripts/create_database
   - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
   - ATK14_ENV=test ./scripts/migrate
