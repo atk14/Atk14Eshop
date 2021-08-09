@@ -162,6 +162,16 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 		]);
 
 		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.facebook.site_verification.html_tag",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "HTML tag for Facebook domain verification",
+			"description_en" => "One or more HTML meta tags for Facebook domain verification",
+			"name_cs" => "HTML tag pro Facebook domain verification",
+			"description_cs" => "Jeden nebo více HTML meta tagů pro Facebook domain verification",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
 			"code" => "app.social.default_image",
 			"system_parameter_type_id" => $type["image_url"],
 			"name_en" => "Default image for social media sharing",
