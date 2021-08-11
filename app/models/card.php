@@ -279,11 +279,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $categories;
 	}
 
-	function getPrimaryCategory(){
-		$categories = $this->getCategories(array(
+	function getPrimaryCategory($options = []){
+		$options += [
 			"consider_invisible_categories" => false,
-			"consider_filters" => false
-		));
+			"consider_filters" => false,
+		];
+		$categories = $this->getCategories($options);
 		if($categories){
 			return $categories[0];
 		}

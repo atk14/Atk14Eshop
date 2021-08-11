@@ -181,4 +181,23 @@ class TcCard extends TcBase {
 		$this->assertEquals("Low",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["acidity"]->getId()));
 		$this->assertEquals(null,$coffee->getTechnicalSpecification("width"));
 	}
+
+	function test_getPrimaryCategory(){
+		$coffee = $this->cards["coffee"];
+
+		$primary_category = $coffee->getPrimaryCategory();
+		$this->assertNotNull($primary_category);
+		$this->assertEquals("Hot drinks",$primary_category->getName());
+
+		$this->categories["hot_drinks"]->s("visible",false);
+		Cache::Clear();
+
+		$primary_category = $coffee->getPrimaryCategory();
+		$this->assertNotNull($primary_category);
+		$this->assertEquals("Coffeine drinks",$primary_category->getName());
+
+		$primary_category = $coffee->getPrimaryCategory(["consider_invisible_categories" => true]);
+		$this->assertNotNull($primary_category);
+		$this->assertEquals("Hot drinks",$primary_category->getName());
+	}
 }
