@@ -25,9 +25,26 @@
 			{assign price $price_finder->getPrice($product)}
 			{assign base_price $price_finder->getBasePrice($product)}
 
+			{capture assign=price_info}
+				{if $price && $price->priceExists()}
+					<div class="prices">
+						<div class="price--main">
+							{if $price->discounted()}
+							<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
+							{/if}
+							{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
+							{if $base_price}
+								<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPriceInclVat()|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!($base_price->getPriceInclVat()-$price->getPriceInclVat())|display_price:$price->getCurrency()}</span></span>
+							{/if}
+						</div>
+					</div>
+				{/if}
+			{/capture}
+
 			{if $card->hasVariants()}
 				<div class="tab-pane fade{if $product@iteration == 1} show active{/if}" id="tab-variant-content-{$product->getId()}" role="tabpanel" aria-labelledby="tab-variant-{$product->getId()}">
 			{/if}
+
 				<div class="cart-panel">
 					<div class="cart-panel__meta">
 						<p>
@@ -40,17 +57,9 @@
 					<div class="cart-panel__controls">
 					{if $product->canBeOrdered($price_finder)}
 						<div class="add-to-cart-widget">
-							<div class="prices">
-								<div class="price--main">
-									{if $price->discounted()}
-									<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
-									{/if}
-									{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
-									{if $base_price}
-										<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPriceInclVat()|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!($base_price->getPriceInclVat()-$price->getPriceInclVat())|display_price:$price->getCurrency()}</span></span>
-									{/if}
-								</div>
-							</div>
+
+							{!$price_info}
+
 							<form method="post" action="{link_to action="baskets/add_product"}" class="form_remote" data-remote="true">
 
 								{!$product|add_to_basket_field}
@@ -66,32 +75,39 @@
 							<p><em>{t}This product is not in offer{/t}</em></p>
 						</div>
 					{else}
-						<div class="add-to-cart-meta">	
 
-							<p class="price">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}Price: %1 <span class="dph">incl. VAT</span>{/t}</p>
+						<div class="add-to-cart-widget">
 
-							<p><em>{t}This product is sold out{/t}</em></p>
+							{!$price_info}
+
+							{if $price && $price->priceExists() && !WatchedProduct::IsWatchedProduct($product,$logged_user)}
+								<p>
+									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}{/a}</span>
+								</p>
+							{else}
+								<p><em>{t}This product is sold out{/t}</em></p>
+							{/if}
 
 						</div>
+
 					{/if}
+
 						<div class="secondary-controls">
-						<div class="secondary-controls__item">
-							{render partial="shared/favourite_product_icon" product=$product}
-						</div>
-							{if !$product->canBeOrdered($price_finder) && $price && $price->priceExists()}
+							<div class="secondary-controls__item">
+								{render partial="shared/favourite_product_icon" product=$product}
+							</div>
+							{if !$product->canBeOrdered($price_finder) && WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<div class="secondary-controls__item">
-									{if WatchedProduct::IsWatchedProduct($product,$logged_user)}
-										<span class="link--small">
-											{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>
-										</span>
-									{else}
-										{a action="watched_products/create_new" product_id=$product _class="link--small"}{!"dog"|icon} <span class="link__text">{t}Aktivovat hlídacího psa{/t}{/a}</span>
-									{/if}
+									<span class="link--small">
+										{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>
+									</span>
 								</div>
 							{/if}
 						</div>
+
 					</div>
 				</div>
+
 			{if $card->hasVariants()}
 				</div>
 			{/if}
@@ -102,4 +118,5 @@
 		{/if}
 
 	{/if}
+
 </section>
