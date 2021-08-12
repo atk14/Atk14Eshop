@@ -88,6 +88,13 @@ class PaymentTransaction extends ApplicationModel {
 		if(isset($tr[$code]) && $payment_method->isOnlineMethod() && in_array($current_order_status->getCode(),['waiting_for_online_payment','payment_failed'])){
 			// zmena stavu online platby meni i stav objednavky, ale pouze za urcitych okolnosti
 			$order->setNewOrderStatus($tr[$code]);
+			if(!is_null($order->g("updated_by_user_id"))){
+				// we don't want to store logged-in user in updated_by_user_id
+				$order->s([
+					"updated_by_user_id" => null,
+					"updated_at" => $order->g("updated_at"),
+				]);
+			}
 			if($code === "paid"){
 				// Protoze je metoda Order::increasePricePaid() multi-threaded safe,
 				// je tady pojistka, ktera brani ve vicenasobnem navyseni zaplacene castky.
