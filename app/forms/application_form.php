@@ -196,7 +196,7 @@ class ApplicationForm extends Atk14Form{
 			"required" => $required,
 			"disabled" => $disabled,
 			"allowed_countries" => $allowed_countries,
-			"include_empty_choice" => !$required || sizeof($allowed_countries)>1,
+			"include_empty_choice" => !$required || !is_array($allowed_countries) || sizeof($allowed_countries)>1,
 			"empty_choice_text" => "-- "._("země")." --",
 		)));
 
