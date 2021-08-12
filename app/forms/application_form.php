@@ -189,12 +189,14 @@ class ApplicationForm extends Atk14Form{
 		if(($required && $current_region_countries) || ($options["only_allowed_countries_for_delivery"] && sizeof($current_region_countries)==1)){
 			$initial = $current_region_countries[0];
 		}
+		$allowed_countries = ($options["only_allowed_countries_for_delivery"] ? $current_region_countries : $all_allowed_countries);
 		$this->add_field("{$prefix}address_country",new CountryField(array(
 			"label" => _("Země"),
 			"initial" => $initial,
 			"required" => $required,
 			"disabled" => $disabled,
-			"allowed_countries" => ($options["only_allowed_countries_for_delivery"] ? $current_region_countries : $all_allowed_countries),
+			"allowed_countries" => $allowed_countries,
+			"include_empty_choice" => !$required || sizeof($allowed_countries)>1,
 			"empty_choice_text" => "-- "._("země")." --",
 		)));
 
