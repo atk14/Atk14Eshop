@@ -16,7 +16,7 @@
 		<br><em>({$order->getOrderStatusSetAt()|humanize_date})</em>
 	</td>
 	<td>
-		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="label label-warning">{!"question-sign"|icon}</span>{/if}
+		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="badge badge-warning">{!"question"|icon}</span>{/if}
 	</td>
 	<td>
 		{$order->getUpdatedAt()|format_datetime|default:$mdash}
