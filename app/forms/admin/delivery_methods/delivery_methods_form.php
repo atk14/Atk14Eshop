@@ -15,6 +15,11 @@ class DeliveryMethodsForm extends AdminForm {
 			"json_encode" => true,
 		)));
 
+		$this->add_field("user_registration_required", new BooleanField([
+			"label" => _("Pouze pro přihlášené?"),
+			"required" => false,
+		]));
+
 		$this->add_translatable_field("label", new CharField(array(
 			"label" => _("Název dopravy"),
 		)));

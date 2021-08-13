@@ -15,6 +15,11 @@ class PaymentMethodsForm extends AdminForm {
 			"json_encode" => true,
 		)));
 
+		$this->add_field("user_registration_required", new BooleanField([
+			"label" => _("Pouze pro přihlášené?"),
+			"required" => false,
+		]));
+
 		$this->add_field("bank_transfer", new BooleanField(array(
 			"label" => _("Jedná se o bankovní převod?"),
 			"required" => false,
