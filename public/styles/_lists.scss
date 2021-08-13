@@ -88,8 +88,12 @@ ol.timeline {
 
 
 ul.list--radios {
-	$itemPadding: 0.75rem;
-	$inputSize: 1.25rem;
+	$itemPadding: 0.75rem;		// vert padding of label element
+	$inputSize: 1.25rem;			//radio outer ring size
+	$dotSize: $inputSize*0.4; // radio inner dot size
+	$yCorrection: 0.1rem; 		// correction to help with nice vertical centering
+	$imageSize: 50rem/16;			// thumbnail height (50px in rem unit
+	$imageSizeXS: 30rem/16;		// thumbnail height XS (30px in rem unit
 	li.list__item {
 		background-color: $gray-100;
 		margin-bottom: $grid-gutter-width/4;
@@ -105,7 +109,7 @@ ul.list--radios {
 			padding: 0;
 			input[type="radio"], input[type="checkbox"] {
 				position: absolute;
-				top: $itemPadding;
+				top: $itemPadding + $yCorrection;
 				left: $itemPadding;
 				//margin-right: 0;
 				margin: 0;
@@ -119,8 +123,8 @@ ul.list--radios {
 				&:before {
 					position: absolute;
 					left: $itemPadding;
-					//top: $itemPadding;
-					top: calc(50% - #{$inputSize/2});
+					top: $itemPadding + $yCorrection;
+					//top: calc(50% - #{$inputSize/2});
 					display: block;
 					content: "";
 					width: $inputSize;
@@ -144,12 +148,11 @@ ul.list--radios {
 					content: "\f111";*/
 				}
 				&:after {
-					$dotSize: $inputSize*0.4;
 					position: absolute;
 					display: block;
 					left: $itemPadding + ($inputSize - $dotSize) / 2;
-					//top: $itemPadding + ($inputSize - $dotSize) / 2;
-					top: calc(50% - #{$inputSize/2} + #{($inputSize - $dotSize) / 2};
+					top: $itemPadding + ($inputSize - $dotSize) / 2  + $yCorrection;
+					//top: calc(50% - #{$inputSize/2} + #{($inputSize - $dotSize) / 2};
 					width: $dotSize;
 					height: $dotSize;
 					border-radius: 50%;
@@ -168,11 +171,11 @@ ul.list--radios {
 				position: relative;
 				padding: $itemPadding;
 				padding-left: $itemPadding * 2 + $inputSize;
-				//outline: 1px dotted red;
 				.v-image {
 					display: block;
 					flex-basis: 50px;
 					max-width: 50px;
+					align-self: flex-start;
 					margin-right: $grid-gutter-width/4;
 					img {
 						width: 50px;
@@ -200,6 +203,7 @@ ul.list--radios {
 				.v-price {
 					margin-left: $grid-gutter-width/4;
 					font-weight: 600;
+					align-self: flex-start;
 					&.for-free {
 						color: $success;
 					}
@@ -217,6 +221,37 @@ ul.list--radios {
 				}
 			}
 			
+			&.form-check--has-image {
+				@include media-breakpoint-up(sm) {
+					input[type=radio] ~ label {
+						&:before {
+							top: $itemPadding + $imageSize/2 - $inputSize/2;
+						}
+						&:after {
+							top: $itemPadding - $dotSize / 2  + $imageSize / 2;
+						}
+					}
+					label {
+						.v-price {
+							//align-self: center;
+							height: 50px;
+							display: flex;
+							align-items: center;
+						}
+					}
+				}
+				@include media-breakpoint-down(xs) {
+					input[type=radio] ~ label {
+						&:before {
+							top: $itemPadding + $imageSizeXS/2 - $inputSize/2;
+						}
+						&:after {
+							top: $itemPadding - $dotSize / 2  + $imageSizeXS / 2;
+						}
+					}
+				}
+			}
+
 			@media(max-width:450px){}
 		}
 		&:last-child {
