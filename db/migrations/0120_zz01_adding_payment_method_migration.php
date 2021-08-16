@@ -14,6 +14,7 @@ class Zz01AddingPaymentMethodMigration extends ApplicationMigration {
 			"label_en" => "Online payment via PayU payment gateway",
 			"label_cs" => "Online platba přes platební bránu PayU",
 			"price_incl_vat" => 0,
+			"active" => false,
 		]);
 
 		foreach(["cpost","digital_delivery","cp-balikovna","cp-balik-na-postu","zasilkovna","personal"] as $code){
