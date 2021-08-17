@@ -191,4 +191,26 @@ class TcOrder extends TcBase {
 		$this->assertNotNull($dm_data);
 		$this->assertEquals("Praha 2",$dm_data["delivery_address"]["place"]);
 	}
+
+	function test_increasePricePaid(){
+		$dbmole = Order::GetDbmole();
+
+		$order = $this->orders["test"];
+		$this->assertTrue(null === $order->getPricePaid());
+
+		$order->increasePricePaid(null);
+		$this->assertTrue(0.0 === $order->getPricePaid());
+
+		$order->increasePricePaid(10.25);
+		$this->assertTrue(10.25 === $order->getPricePaid());
+
+		$order->increasePricePaid(12.33);
+		$this->assertTrue(22.58 === $order->getPricePaid());
+
+		$this->assertEquals(1,$dbmole->getAffectedRows());
+
+		// we need to be sure, that Order::increasePricePaid() affects just one record
+		$order = Order::GetInstanceById($this->orders["test_bank_transfer"]->getId(),["use_cache" => false]);
+		$this->assertEquals(null,$order->getPricePaid());
+	}
 }

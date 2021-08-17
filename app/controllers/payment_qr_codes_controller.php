@@ -9,9 +9,10 @@ class PaymentQrCodesController extends ApplicationController {
 
 		$payment_method = $order->getPaymentMethod();
 
-		if(!$payment_method->isBankTransfer()){
-			return $this->_execute_action("error404");
-		}
+		// When online payment fails, the bank transfer can be offered to the customer...
+		//if(!$payment_method->isBankTransfer()){
+		//	return $this->_execute_action("error404");
+		//}
 
 		$generator = PaymentQrCodeGenerator::GetInstanceForOrder($order);
 

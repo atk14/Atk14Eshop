@@ -5,7 +5,6 @@ class Order extends BasketOrOrder {
 
 	static function CreateNewRecord($values,$options = []){
 		global $ATK14_GLOBAL;
-
 		$values += [
 			"id" => Order::GetNextId(),
 			"region_id" => Region::GetDefaultRegion()->getId(),
@@ -79,8 +78,25 @@ class Order extends BasketOrOrder {
 		return $fee;
 	}
 
+	/**
+	 * Returns the most recent payment transaction of the order
+	 */
 	function getPaymentTransaction(){
 		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "id DESC"]);
+	}
+
+	function getPaymentTransactionStartUrl(){
+		if(!$this->getPaymentTransaction()){
+			return;
+		}
+		return Atk14Url::BuildLink([
+			"namespace" => "",
+			"action" => "payment_transactions/start",
+			"order_token" => $this->getToken(["extra_salt" => "payment_transaction_start", "hash_length" => 10]),
+		],[
+			"with_hostname" => true,
+			"ssl" => REDIRECT_TO_SSL_AUTOMATICALLY,
+		]);
 	}
 
 	function getDeliveryFee($incl_vat = false){
@@ -89,6 +105,18 @@ class Order extends BasketOrOrder {
 			$fee = $this->_delVat($fee,$this->getDeliveryFeeVatPercent());
 		}
 		return $fee;
+	}
+
+	/**
+	 *
+	 *	$order->increasePricePaid(10.0);
+	 * 	$order->increasePricePaid(22.2);
+	 *	echo $order->getPricePaid(); // 33.2
+	 */
+	function increasePricePaid($price){
+		$price = (float)$price;
+		$this->dbmole->doQuery("UPDATE orders SET price_paid=COALESCE(price_paid,0.0)+:price WHERE id=:order",[":price" => $price,":order" => $this]);
+		$this->_readValues();
 	}
 
 	function getPhone(){
