@@ -1,12 +1,12 @@
 <?php
 namespace PaymentGatewayApi;
 
-definedef("PAYU_TESTING",false);
-definedef("PAYU_CURRENCY","CZK");
-definedef("PAYU_POS_ID","1111");
-definedef("PAYU_KEY1","0123456789abcdef0123456789abcdef");
-definedef("PAYU_KEY2","0123456789abcdef0123456789abcdef");
-definedef("PAYU_POS_AUTH_KEY","secret");
+definedef("PAYU_TESTING",false); // true (testing gateway), false
+definedef("PAYU_CURRENCY",""); // "CZK"
+definedef("PAYU_POS_ID",""); // "1111"
+definedef("PAYU_KEY1",""); // "0123456789abcdef0123456789abcdef"
+definedef("PAYU_KEY2",""); // "0123456789abcdef0123456789abcdef"
+definedef("PAYU_POS_AUTH_KEY",""); // "secret"
 
 class PayU extends PaymentGatewayApi {
 
