@@ -22,7 +22,7 @@ class SelectWithImages extends RadioSelect
 
 	function __construct($options = array()){
 		$options += array(
-			"image_geometry" => "x100",
+			"image_geometry" => "100x100x#ffffff",
 			"price_fetcher" => null,
 			"show_prices" => false,
 			"show_sales" => false,
