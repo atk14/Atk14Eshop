@@ -1154,7 +1154,16 @@ class Basket extends BasketOrOrder {
 
 	protected function _getDeliveryCountry(){
 		$country = $this->g("delivery_address_country");
-		return is_null($country) ? $this->g("address_country") : $country;
+		$country = is_null($country) ? $this->g("address_country") : $country;
+		if(is_null($country)){
+			$region = $this->getRegion();
+			$countries = $region->getDeliveryCountries();
+			if(sizeof($countries)==1){
+				// There is no way to deliver order to another country
+				$country = $countries[0];
+			}
+		}
+		return $country;
 	}
 
 	function getDeliveryMethodData($options = []) {
