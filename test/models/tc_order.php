@@ -4,6 +4,7 @@
  * @fixture orders
  * @fixture delivery_methods
  * @fixture delivery_service_branches
+ * @fixture payment_transactions
  */
 class TcOrder extends TcBase {
 
@@ -212,5 +213,25 @@ class TcOrder extends TcBase {
 		// we need to be sure, that Order::increasePricePaid() affects just one record
 		$order = Order::GetInstanceById($this->orders["test_bank_transfer"]->getId(),["use_cache" => false]);
 		$this->assertEquals(null,$order->getPricePaid());
+	}
+
+	function test_getPaymentTransaction(){
+		$order = $this->orders["test"];
+
+		$this->assertEquals(null,$order->getPaymentTransaction());
+
+		//
+
+		$order = $this->orders["test_credit_card"];
+
+		$pt = $order->getPaymentTransaction();
+		$this->assertEquals($this->payment_transactions["test_credit_card_2"]->getId(),$pt->getId());
+
+		$this->payment_transactions["test_credit_card_1"]->s([
+			"payment_status_id" => PaymentStatus::GetInstanceByCode("paid"),
+		]);
+
+		$pt = $order->getPaymentTransaction();
+		$this->assertEquals($this->payment_transactions["test_credit_card_1"]->getId(),$pt->getId());
 	}
 }
