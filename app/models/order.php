@@ -82,7 +82,7 @@ class Order extends BasketOrOrder {
 	 * Returns the most recent payment transaction of the order
 	 */
 	function getPaymentTransaction(){
-		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "id DESC"]);
+		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "payment_status_id=(SELECT id FROM payment_statuses WHERE code='paid') DESC, id DESC"]);
 	}
 
 	function getPaymentTransactionStartUrl(){
