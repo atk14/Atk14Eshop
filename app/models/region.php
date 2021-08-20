@@ -202,7 +202,7 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	function isDeletable(){
 		return
 			!$this->isDefaultRegion() &&
-			0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM baskets WHERE region_id=:region LIMIT 1 UNION SELECT id FROM orders WHERE region_id=:region)",[":region" => $this]);
+			0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM (SELECT id FROM baskets WHERE region_id=:region LIMIT 1)q1 UNION SELECT id FROM (SELECT id FROM orders WHERE region_id=:region)q2)q",[":region" => $this]);
 	}
 
 	function toString(){
