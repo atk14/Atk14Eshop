@@ -14,6 +14,7 @@
  * @fixture delivery_services
  * @fixture delivery_service_branches
  * @fixture delivery_methods
+ * @fixture delivery_method_country_specifications
  * @fixture payment_methods
  * @fixture discounts
  * @fixture shipping_combinations
@@ -377,8 +378,8 @@ class TcBasket extends TcBase {
 
 		$this->assertEquals(false,$order->g("without_vat"));
 
-		$this->assertEquals(3.842975,$order->getDeliveryFee());
-		$this->assertEquals(4.65,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(7.32381,$order->getDeliveryFee());
+		$this->assertEquals(7.69,$order->getDeliveryFeeInclVat());
 		$this->assertEquals(2.895238,$order->getPaymentFee());
 		$this->assertEquals(3.04,$order->getPaymentFeeInclVat());
 
@@ -395,9 +396,9 @@ class TcBasket extends TcBase {
 		//
 		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
 		$this->assertEquals(21.0,$items[1]->getVatPercent());
-		$this->assertEquals(0.0100,$items[1]->getPriceInclVat());
-		$this->assertEquals(0.01,$items[1]->g("unit_price_incl_vat"));
-		$this->assertEquals(0.01,$items[1]->getUnitPrice()); // 0.0083
+		$this->assertEquals(-0.03,$items[1]->getPriceInclVat());
+		$this->assertEquals(0.03,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.02,$items[1]->getUnitPrice());
 		$this->assertEquals(null,$items[1]->g("unit_price_before_discount_incl_vat"));
 
 		$campaigns = $order->getCampaigns();
@@ -410,7 +411,7 @@ class TcBasket extends TcBase {
 		$this->assertEquals(0.77,$vouchers[0]->getDiscountAmount());
 		$this->assertEquals(0.77,$vouchers[0]->g("discount_amount"));
 
-		$this->assertEquals(round(4.65 + 3.04 + 1.86 - 0.19 - 0.77,1),$order->getPriceToPay());
+		$this->assertEquals(round(7.69 + 3.04 + 1.86 - 0.19 - 0.77,1),$order->getPriceToPay());
 
 		// objednavka bez DPH
 		$basket = $this->_prepareBasketWithWoodenButton();
@@ -456,8 +457,8 @@ class TcBasket extends TcBase {
 
 		$this->assertEquals(true,$order->g("without_vat"));
 
-		$this->assertEquals(3.85,$order->getDeliveryFee());
-		$this->assertEquals(3.85,$order->getDeliveryFeeInclVat());
+		$this->assertEquals(7.33,$order->getDeliveryFee());
+		$this->assertEquals(7.33,$order->getDeliveryFeeInclVat());
 		$this->assertEquals(2.89,$order->getPaymentFee());
 		$this->assertEquals(2.89,$order->getPaymentFeeInclVat());
 
@@ -472,16 +473,16 @@ class TcBasket extends TcBase {
 		//
 		$this->assertEquals("price_rounding",$items[1]->getProduct()->getCode());
 		$this->assertEquals(0.0,$items[1]->getVatPercent());
-		$this->assertEquals(0.03,$items[1]->g("unit_price_incl_vat"));
-		$this->assertEquals(0.03,$items[1]->getUnitPrice());
-		$this->assertEquals(-0.03,$items[1]->getPriceInclVat());
+		$this->assertEquals(0.01,$items[1]->g("unit_price_incl_vat"));
+		$this->assertEquals(0.01,$items[1]->getUnitPrice());
+		$this->assertEquals(-0.01,$items[1]->getPriceInclVat());
 
 		// kampan se pouzije, protoze hypoteticka cena s DPH je vyssi stanoveny nez limit, ale sleva je aplikovana na cenu bez DPH
 		$campaigns = $order->getCampaigns();
 		$this->assertEquals(1,sizeof($campaigns));
 		$this->assertEquals(0.15,$campaigns[0]->getDiscountAmount());
 
-		$this->assertEquals(round(3.85 + 2.89 + 1.54 - 0.15,1),$order->getPriceToPay());
+		$this->assertEquals(round(7.33 + 2.89 + 1.54 - 0.15,1),$order->getPriceToPay());
 
 		// otestovani vyjimky pri vytvareni objednavky
 		// bez DPH s voucherem
@@ -780,12 +781,45 @@ class TcBasket extends TcBase {
 		$this->assertTrue(is_null($basket->getDeliveryFee(true)));
 		$this->assertTrue(is_null($basket->getDeliveryFeeInclVat()));
 
-		$basket->s("delivery_method_id",$this->delivery_methods["dpd"]->getId());
+		// Delivery with Zasilkovna has the same price in different countries
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"]->getId(),
+			"delivery_address_country" => null,
+		]);
+		//
+		$this->assertEquals(57.85,$basket->getDeliveryFee());
+		$this->assertEquals(70.0,$basket->getDeliveryFee(true));
+		$this->assertEquals(70.0,$basket->getDeliveryFeeInclVat());
+
+		// Delivery with DPD has different prices in different countries
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["dpd"]->getId(),
+			"delivery_address_country" => null,
+		]);
+		//
+		$this->assertEquals(null,$basket->getDeliveryFee());
+		$this->assertEquals(null,$basket->getDeliveryFee(true));
+		$this->assertEquals(null,$basket->getDeliveryFeeInclVat());
+
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["dpd"]->getId(),
+			"delivery_address_country" => "CZ",
+		]);
 		//
 		$this->assertEquals(100.0,$basket->getDeliveryFee());
 		$this->assertEquals(121.0,$basket->getDeliveryFee(true));
 		$this->assertEquals(121.0,$basket->getDeliveryFeeInclVat());
 
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["dpd"]->getId(),
+			"delivery_address_country" => "SK",
+		]);
+		//
+		$this->assertEquals(190.48,$basket->getDeliveryFee());
+		$this->assertEquals(200.0,$basket->getDeliveryFee(true));
+		$this->assertEquals(200.0,$basket->getDeliveryFeeInclVat());
+
+		// Delivery by agreement has no price set
 		$basket->s("delivery_method_id",$this->delivery_methods["by_agreement"]->getId());
 		//
 		$this->assertTrue(is_null($basket->getDeliveryFee()));

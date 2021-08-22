@@ -249,9 +249,6 @@ class Basket extends BasketOrOrder {
 	 * Vraci cenu v dane mene
 	 */
 	function getDeliveryFee($incl_vat = false,$options = []){
-		if($incl_vat){
-			return $this->getDeliveryFeeInclVat($options);
-		}
 		$options += [
 			"check_for_free_shipping_campaign_or_voucher" => true,
 		];
@@ -259,7 +256,10 @@ class Basket extends BasketOrOrder {
 		if($delivery = $this->getDeliveryMethod()){
 			$currency = $this->getCurrency();
 			$country = $this->_getDeliveryCountry();
-			$price = $delivery->getPrice($country);
+			if(is_null($country) && $delivery->getLowestPriceInclVat()!=$delivery->getHighestPriceInclVat()){
+				return null;
+			}
+			$price = $incl_vat ? $delivery->getPriceInclVat($country) : $delivery->getPrice($country);
 			if(is_null($price)){ return null; }
 			$price = $price / $currency->getRate();
 			return $currency->roundPrice($price);
@@ -270,18 +270,7 @@ class Basket extends BasketOrOrder {
 	 * Vraci cenu v dane mene
 	 */
 	function getDeliveryFeeInclVat($options = []){
-		$options += [
-			"check_for_free_shipping_campaign_or_voucher" => true,
-		];
-		if($options["check_for_free_shipping_campaign_or_voucher"] && $this->freeShipping()){ return 0.0; }
-		if($delivery = $this->getDeliveryMethod()){
-			$currency = $this->getCurrency();
-			$country = $this->_getDeliveryCountry();
-			$price = $delivery->getPriceInclVat($country);
-			if(is_null($price)){ return null; }
- 			$price = $price / $currency->getRate();
-			return $currency->roundPrice($price);
-		}
+		return $this->getDeliveryFee(true,$options);
 	}
 
 	/**
