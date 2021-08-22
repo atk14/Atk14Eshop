@@ -13,6 +13,10 @@ class PaymentMethodsController extends AdminController {
 	}
 
 	function edit() {
+		if($this->payment_method->getPaymentGateway() && !$this->payment_method->getPaymentGateway()->isProperlyConfigured() && !$this->payment_method->isActive()){
+			$this->form->disable_fields(["active"]);
+			$this->form->fields["active"]->help_text = _("This method cannot be enabled, because the relevant payment gateway is not configured yet.")." "._("Contact the eshop administrator to configure the payment gateway.");
+		}
 		$this->_edit([
 			"page_title" => _("Editace možnosti platby"),
 		]);

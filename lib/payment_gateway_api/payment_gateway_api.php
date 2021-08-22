@@ -5,6 +5,11 @@ class PaymentGatewayApi {
 
 	protected $set_new_new_transaction_to_started_state = true;
 
+	static function IsProperlyConfigured(){
+		$class = get_called_class();
+		throw new \Exception("Static method $class::IsProperlyConfigured() needs to be defined");
+	}
+
 	function __construct($options = []){
 		global $ATK14_GLOBAL, $HTTP_REQUEST;
 

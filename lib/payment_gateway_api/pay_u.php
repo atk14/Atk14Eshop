@@ -12,6 +12,13 @@ class PayU extends PaymentGatewayApi {
 
 	protected $set_new_new_transaction_to_started_state = false;
 
+	static function IsProperlyConfigured(){
+		foreach(["PAYU_CURRENCY","PAYU_POS_ID","PAYU_KEY1","PAYU_KEY2","PAYU_POS_AUTH_KEY"] as $c_name){
+			if(!strlen(constant($c_name))){ return false; }
+		}
+		return true;
+	}
+
 	function testingApi(){
 		return \PAYU_TESTING;
 	}
