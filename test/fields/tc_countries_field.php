@@ -43,4 +43,23 @@ class TcCountriesField extends TcBase {
 		$mesg = $this->assertInvalid("");
 		$this->assertEquals('Please, write comma-separated list of country codes',$msg);
 	}
+
+	function test_format_initial_value(){
+		$form = new Atk14Form();
+
+		$form["countries"] = new CountriesField([
+			"initial" => '["CZ","SK"]'
+		]);
+		$this->assertContains('value="CZ, SK"',$form["countries"]->as_widget());
+
+		$form["countries"] = new CountriesField([
+			"initial" => ["PL","HU"]
+		]);
+		$this->assertContains('value="PL, HU"',$form["countries"]->as_widget());
+
+		$form["countries"] = new CountriesField([
+			"initial" => "CZ, PL"
+		]);
+		$this->assertContains('value="CZ, PL"',$form["countries"]->as_widget());
+	}
 }
