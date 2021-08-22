@@ -1,7 +1,21 @@
+{assign currencies $region->getCurrencies()}
+{assign delivery_countries $region->getDeliveryCountries()}
+
 <li class="list-group-item" data-id="{$region->getId()}">
 		<div class="item__properties">
 			<div class="item__title">
 				{$region->getName()}
+			</div>
+			<div class="item__code">
+				{$region->getCode()}
+			</div>
+			<div class="item__properties">
+				<small>{t}delivery to{/t}:</small><br>
+				{$delivery_countries|to_sentence}
+			</div>
+			<div class="item__properties">
+				<small>{if sizeof($currencies)==1}{t}currency{/t}:{else}{t}currencies{/t}:{/if}</small><br>
+				{$currencies|to_sentence}
 			</div>
 			<div class="item__controls">
 				{dropdown_menu}

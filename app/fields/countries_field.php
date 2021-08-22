@@ -24,8 +24,11 @@ class CountriesField extends CharField {
 		if(is_string($data)){
 			$d = json_decode($data,true);
 			if(is_array($d)){
-				return $d;
+				$data = $d;
 			}
+		}
+		if(is_array($data)){
+			$data = join(", ",$data);
 		}
 		return $data;
 	}

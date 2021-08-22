@@ -7,6 +7,12 @@ class RegionsForm extends AdminForm {
 			"max_length" => 255,
 		]));
 
+		$this->add_field("delivery_countries", new CountriesField([
+			"label" => _("Delivery to countries"),
+			"required" => true,
+			"help_text" => "Comma-separated list of country codes",
+		]));
+
 		$this->add_field("currencies", new CurrenciesField([
 			"label" => _("Supported currencies"),
 			"json_encode" => true,
