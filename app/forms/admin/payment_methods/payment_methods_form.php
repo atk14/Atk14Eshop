@@ -75,7 +75,9 @@ class PaymentMethodsForm extends AdminForm {
 
 		if(sizeof(array_intersect($keys,array("payment_gateway_id","bank_transfer","cash_on_delivery")))){
 			if(!$d["bank_transfer"] && !$d["cash_on_delivery"] && is_null($d["payment_gateway_id"])){
-				$this->set_error(_("Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte platební bránu"));
+				// In case of invoice with due date, this check is not meaningful.
+				// Because it is not a bank transfer or cash on delivery.
+				// $this->set_error(_("Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte platební bránu"));
 			}
 			if($d["bank_transfer"]+$d["cash_on_delivery"]+!is_null($d["payment_gateway_id"])>=2){
 				$this->set_error(_("Zatrhněte, zda se jedná buďto o bankovní převod nebo o dobírku, nebo vyberte platební bránu. Hodnoty nelze kombinovat."));
