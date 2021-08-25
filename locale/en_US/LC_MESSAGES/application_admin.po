@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-28 15:46+0200\n"
+"POT-Creation-Date: 2021-08-25 11:38+0200\n"
 "PO-Revision-Date: 2020-11-18 14:11+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -1199,6 +1199,12 @@ msgstr ""
 msgid "Add a region"
 msgstr "Add a region"
 
+msgid "delivery to"
+msgstr ""
+
+msgid "currency"
+msgstr ""
+
 msgid ""
 "You are about to permanently delete VAT rate %1\n"
 "\t\tAre you sure about that?"
@@ -2356,16 +2362,26 @@ msgstr "The page has been updated successfully"
 msgid "Způsoby platby"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:17
+#: ../app/controllers/admin/payment_methods_controller.php:18
+msgid ""
+"This method cannot be enabled, because the relevant payment gateway is not "
+"configured yet."
+msgstr ""
+
+#: ../app/controllers/admin/payment_methods_controller.php:18
+msgid "Contact the eshop administrator to configure the payment gateway."
+msgstr ""
+
+#: ../app/controllers/admin/payment_methods_controller.php:21
 msgid "Editace možnosti platby"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:26
+#: ../app/controllers/admin/payment_methods_controller.php:30
 #, php-format
 msgid "Možnost platby '%s' zapnuta"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:37
+#: ../app/controllers/admin/payment_methods_controller.php:41
 #, php-format
 msgid "Možnost platby '%s' vypnuta"
 msgstr ""
@@ -3838,6 +3854,18 @@ msgstr ""
 
 #: ../app/forms/admin/product_types/product_types_form.php:23
 msgid "Lze použít následující zástupné značky:"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:11
+msgid "Delivery to countries"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:17
+msgid "Supported currencies"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:22
+msgid "Currently, only one currency can be selected."
 msgstr ""
 
 #: ../app/forms/admin/related_cards/create_new_form.php:10

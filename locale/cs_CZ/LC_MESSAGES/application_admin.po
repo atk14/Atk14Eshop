@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-11 19:52+0200\n"
-"PO-Revision-Date: 2021-07-11 20:12+0200\n"
+"POT-Creation-Date: 2021-08-25 11:38+0200\n"
+"PO-Revision-Date: 2021-08-25 11:47+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -1217,6 +1217,12 @@ msgstr ""
 msgid "Add a region"
 msgstr "Přidat oblast"
 
+msgid "delivery to"
+msgstr "doručování do:"
+
+msgid "currency"
+msgstr "měna"
+
 msgid ""
 "You are about to permanently delete VAT rate %1\n"
 "\t\tAre you sure about that?"
@@ -2382,16 +2388,28 @@ msgstr "Stránka byla úspěšně aktualizována"
 msgid "Způsoby platby"
 msgstr "Způsoby platby"
 
-#: ../app/controllers/admin/payment_methods_controller.php:17
+#: ../app/controllers/admin/payment_methods_controller.php:18
+msgid ""
+"This method cannot be enabled, because the relevant payment gateway is not "
+"configured yet."
+msgstr ""
+"Tuto metodu nelze aktivovat, protože příslušná platební brána ještě není "
+"nakonfigurována."
+
+#: ../app/controllers/admin/payment_methods_controller.php:18
+msgid "Contact the eshop administrator to configure the payment gateway."
+msgstr "Pro konfiguraci platební brány se obraťte na správce e-shopu."
+
+#: ../app/controllers/admin/payment_methods_controller.php:21
 msgid "Editace možnosti platby"
 msgstr "Editace možnosti platby"
 
-#: ../app/controllers/admin/payment_methods_controller.php:26
+#: ../app/controllers/admin/payment_methods_controller.php:30
 #, php-format
 msgid "Možnost platby '%s' zapnuta"
 msgstr "Možnost platby '%s' zapnuta"
 
-#: ../app/controllers/admin/payment_methods_controller.php:37
+#: ../app/controllers/admin/payment_methods_controller.php:41
 #, php-format
 msgid "Možnost platby '%s' vypnuta"
 msgstr "Možnost platby '%s' vypnuta"
@@ -3888,6 +3906,18 @@ msgstr "Vzor pro generování názvu stránky"
 #: ../app/forms/admin/product_types/product_types_form.php:23
 msgid "Lze použít následující zástupné značky:"
 msgstr "Lze použít následující zástupné značky:"
+
+#: ../app/forms/admin/regions/regions_form.php:11
+msgid "Delivery to countries"
+msgstr "Země doručení"
+
+#: ../app/forms/admin/regions/regions_form.php:17
+msgid "Supported currencies"
+msgstr "Podporované měny"
+
+#: ../app/forms/admin/regions/regions_form.php:22
+msgid "Currently, only one currency can be selected."
+msgstr "Momentálně může být vybrána pouze jedna měna."
 
 #: ../app/forms/admin/related_cards/create_new_form.php:10
 msgid "Vytvořit také opačnou vazbu?"
