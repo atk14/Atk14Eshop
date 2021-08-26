@@ -220,6 +220,15 @@ ul.list--radios {
 						color: $success;
 					}
 				}
+
+				// simpler variation when label contains just one span
+				.label__text {
+					min-height: $minHeight;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					line-height: 1.2;
+				}
 			}
 
 			@include media-breakpoint-down(xs) {
@@ -250,6 +259,9 @@ ul.list--radios {
 					}
 					.v-price {
 						padding-top: $textPaddingTopXS;
+					}
+					.label__text {
+						min-height: $minHeightXS;
 					}
 				}
 			}
