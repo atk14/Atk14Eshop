@@ -29,8 +29,8 @@
 		{assign "img_h" $image|img_height:$geometry}
 		{assign "aspect_ratio"  $img_w/$img_h}
 	
-		<div class="content-header__image{if $aspect_ratio<=1} content-header__image--portrait{/if}{if $image_is_logo} content-header__image--logo{/if}" {if !$image_is_logo}style="background-color: {$image|img_color:"dark_vibrant"|default:"transparent"};"{/if}>
-			<img src="{$image|img_url:$geometry_detail}" class="img-fluid" {if !$image_is_logo}style="background-color: {$image|img_color:"light_vibrant"|default:{$image|img_color:"light_muted"}|default:"transparent"};"{/if} alt="{$title}">
+		<div class="content-header__image{if $aspect_ratio<=1} content-header__image--portrait{/if}{if $image_is_logo} content-header__image--logo{/if}" {if !$image_is_logo && $colorbg}style="background-color: {$image|img_color:"dark_vibrant"|default:"transparent"};"{/if}>
+			<img src="{$image|img_url:$geometry_detail}" class="img-fluid" {if !$image_is_logo && $colorbg}style="background-color: {$image|img_color:"light_vibrant"|default:{$image|img_color:"light_muted"}|default:"transparent"};"{/if} alt="{$title}">
 		</div>
 	{/if}
 	<div class="content-header__text{if $colorbg} content-header__text--dark{/if}"{if $image && $colorbg} style="background-color: {$image|img_color:"dark_vibrant"|default:{$image|img_color:"dark_muted"}|default:"transparent"};"{/if}>
