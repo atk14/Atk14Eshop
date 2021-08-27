@@ -28,7 +28,7 @@
 		<tr>
 			<th>{t}Zodpovědná osoba{/t}</th>
 			<td>
-				{if $responsible_user}{$responsible_user}{else}{t escape=false}Není určena &rarr; {/t}{a action="set_responsible_user" id=$order}přiřadit{/a}{/if}
+				{if $responsible_user}{$responsible_user}{else}{t escape=false}Není určena &rarr; {/t}{a action="set_responsible_user" id=$order _class="btn btn-outline-primary btn-sm mb-2"}přiřadit{/a}{/if}
 			</td>
 		</tr>
 
@@ -36,7 +36,7 @@
 			<th>{t}Stav objednávky{/t}</th>
 			<td>
 				{if $order->getAllowedNextOrderStatuses()}
-					{a action="order_order_statuses/create_new" order_id=$order}{t}Změnit stav objednávky{/t}{/a}
+					{a action="order_order_statuses/create_new" order_id=$order _class="btn btn-outline-primary btn-sm mb-2"}{t}Změnit stav objednávky{/t}{/a}
 				{/if}
 				<ul>
 						{if $order_history_items}
