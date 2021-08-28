@@ -44,6 +44,11 @@ class UsersForm extends AdminForm{
 			"initial" => $anonymous ? $anonymous->g("base_pricelist_id") : null,
 		)));
 
+		$this->add_field("customer_groups", new ManuallyAssignableCustomerGroupsField([
+			"label" => _("Customer groups"),
+			"required" => false,
+		]));
+
 		$this->add_field("active",new BooleanField(array(
 			"label" => _("Is active?"),
 			"required" => false,

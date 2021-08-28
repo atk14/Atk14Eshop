@@ -54,6 +54,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("404 Redirections"),			"error_redirections"),
 			array(_("Order statuses"),				"order_statuses"),
 			array(_("Selling regions"),				"regions"),
+			array(_("Customer groups"),				"customer_groups"),
 			array(_("Bank accounts"),					"bank_accounts"),
 			array(_("System preferences"),		"system_parameters"),
 		) as $item){

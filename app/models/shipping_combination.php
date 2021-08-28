@@ -110,6 +110,7 @@ class ShippingCombination extends ApplicationModel {
 		];
 
 		$region = $basket->getRegion();
+		($user = $basket->getUser()) || ($user = User::GetAnonymousUser());
 
 		$conditions = $bind_ar = [];
 		$conditions[] = "active";
@@ -146,6 +147,10 @@ class ShippingCombination extends ApplicationModel {
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 		]) as $o){
+			if(!is_null($o->g("required_customer_group_id")) && !$user->isInCustomerGroup($o->g("required_customer_group_id"))){
+				continue;
+			}
+
 			if($tag_required = $o->getRequiredTag()){
 				if(!$basket->hasEveryProductTag($tag_required)){
 					continue;
@@ -188,7 +193,13 @@ class ShippingCombination extends ApplicationModel {
 		$conditions[] = "id IN (SELECT payment_method_id FROM shipping_combinations WHERE delivery_method_id IN :delivery_methods)";
 		$bind_ar[":delivery_methods"] = $delivery_methods;
 
-		$payment_methods = PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]);
+		$payment_methods = [];
+		foreach(PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]) as $o){
+			if(!is_null($o->g("required_customer_group_id")) && !$user->isInCustomerGroup($o->g("required_customer_group_id"))){
+				continue;
+			}
+			$payment_methods[] = $o;
+		}
 
 		if(!$payment_methods){
 			return [[],[]];

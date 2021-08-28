@@ -31,6 +31,10 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 		return $this->_setRank($rank);
 	}
 
+	function getRequiredCustomerGroup(){
+		return Cache::Get("CustomerGroup",$this->getRequiredCustomerGroupId());
+	}
+
 	function setDeliveryMethods($delivery_methods) {
 		return ShippingCombination::SetDeliveryMethodsForPaymentMethod($this,$delivery_methods);
 	}

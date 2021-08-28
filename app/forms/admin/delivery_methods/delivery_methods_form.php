@@ -35,6 +35,11 @@ class DeliveryMethodsForm extends AdminForm {
 			"help_text" => _("Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa provozovny a její otevírací doba."),
 		)));
 
+		$this->add_field("required_customer_group_id", new CustomerGroupField(array(
+			"label" => _("Only for customer group"),
+			"required" => false,
+		)));
+
 		$help_text = _("Pokud nebude částka určena, znamená to, že cena za dopravu bude stanovena následnou dohodou.");
 		//
 		$this->add_field("price_incl_vat", new PriceField(array(
