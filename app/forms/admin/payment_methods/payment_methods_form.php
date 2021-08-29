@@ -48,6 +48,11 @@ class PaymentMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
+		$this->add_field("required_customer_group_id", new CustomerGroupField(array(
+			"label" => _("Only for customer group"),
+			"required" => false,
+		)));
+
 		$this->add_field("price_incl_vat", new FloatField(array(
 			"label" => sprintf(_("Cena s DPH [%s]"),$currency),
 			"min_value" => 0,

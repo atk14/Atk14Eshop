@@ -53,10 +53,17 @@ class UsersController extends AdminController{
 	function create_new(){
 		$this->page_title = _("Create a new user");
 
+		$this->form->set_initial("customer_groups",[
+			CustomerGroup::GetInstanceByCode("registered"),
+		]);
+
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			User::CreateNewRecord($d);
+			$customer_groups = $d["customer_groups"];
+			unset($d["customer_groups"]);
+			$user = User::CreateNewRecord($d);
+			$user->setManuallyAssignableCustomerGroups($customer_groups);
 			$this->flash->success(_("The user has been created successfully"));
 			$this->_redirect_back();
 		}
@@ -80,6 +87,7 @@ class UsersController extends AdminController{
 				"active",
 			]);
 		}
+		$this->form->set_initial("customer_groups",$this->user->getCustomerGroups());
 
 		$this->_save_return_uri();
 
@@ -89,8 +97,12 @@ class UsersController extends AdminController{
 				return $this->_redirect_back();
 			}
 
+			$customer_groups = $d["customer_groups"];
+			unset($d["customer_groups"]);
+
 			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
+			$this->user->setManuallyAssignableCustomerGroups($customer_groups);
 			$this->flash->success(_("The user entry has been updated"));
 			$this->_redirect_back();
 		}

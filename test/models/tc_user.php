@@ -1,6 +1,7 @@
 <?php
 /**
  * @fixture users
+ * @fixture customer_groups
  */
 class TcUser extends TcBase{
 
@@ -104,5 +105,37 @@ class TcUser extends TcBase{
 		$rambo = User::Login("rambo","secret",$bad_password);
 		$this->assertNull($rambo);
 		$this->assertFalse($bad_password);
+	}
+
+	function test_CustomerGroups(){
+		$anonymous = User::GetAnonymousUser();
+		$customer_groups = $anonymous->getCustomerGroups();
+		$this->assertEquals(1,sizeof($customer_groups));
+		$this->assertEquals("unregistered",$customer_groups[0]->getCode());
+
+		$this->assertEquals(true,$anonymous->isInCustomerGroup("unregistered"));
+		$this->assertEquals(false,$anonymous->isInCustomerGroup("registered"));
+		$this->assertEquals(false,$anonymous->isInCustomerGroup($this->customer_groups["vip_customers"]));
+
+		$rambo = $this->users["rambo"];
+		$customer_groups = $rambo->getCustomerGroups();
+		$this->assertEquals(1,sizeof($customer_groups));
+		$this->assertEquals("registered",$customer_groups[0]->getCode());
+
+		$this->assertEquals(false,$rambo->isInCustomerGroup("unregistered"));
+		$this->assertEquals(true,$rambo->isInCustomerGroup("registered"));
+		$this->assertEquals(false,$rambo->isInCustomerGroup($this->customer_groups["vip_customers"]->getId()));
+
+		$lister = $rambo->getLister("CustomerGroups");
+		$lister->append($this->customer_groups["vip_customers"]);
+
+		$customer_groups = $rambo->getCustomerGroups();
+		$this->assertEquals(2,sizeof($customer_groups));
+		$this->assertEquals("registered",$customer_groups[0]->getCode());
+		$this->assertEquals("vip_customers",$customer_groups[1]->getCode());
+
+		$this->assertEquals(false,$rambo->isInCustomerGroup("unregistered"));
+		$this->assertEquals(true,$rambo->isInCustomerGroup("registered"));
+		$this->assertEquals(true,$rambo->isInCustomerGroup($this->customer_groups["vip_customers"]->getId()));
 	}
 }
