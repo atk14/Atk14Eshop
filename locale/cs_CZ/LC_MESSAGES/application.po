@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-25 11:38+0200\n"
+"POT-Creation-Date: 2021-08-29 23:31+0200\n"
 "PO-Revision-Date: 2021-08-25 11:43+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -2286,11 +2286,11 @@ msgstr "Zaplaceno"
 msgid "Zrušeno"
 msgstr "Zrušeno"
 
-#: ../app/models/user.php:110
+#: ../app/models/user.php:176
 msgid "inactive user"
 msgstr "neaktivní uživatel"
 
-#: ../app/models/user.php:113
+#: ../app/models/user.php:179
 msgid "administrator"
 msgstr "administrátor"
 
