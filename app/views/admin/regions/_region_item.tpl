@@ -10,11 +10,11 @@
 				{$region->getCode()}
 			</div>
 			<div class="item__properties">
-				<small>{t}delivery to{/t}:</small><br>
+				<small>{t}Delivery to{/t}:</small><br>
 				{$delivery_countries|to_sentence}
 			</div>
 			<div class="item__properties">
-				<small>{if sizeof($currencies)==1}{t}currency{/t}:{else}{t}currencies{/t}:{/if}</small><br>
+				<small>{if sizeof($currencies)==1}{t}Currency{/t}:{else}{t}Currencies{/t}:{/if}</small><br>
 				{$currencies|to_sentence}
 			</div>
 			<div class="item__controls">
