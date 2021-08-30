@@ -20,10 +20,8 @@
 	{* Podminky *}
 	<td>
 		<ul>
-			{if $campaign->userRegistrationRequired()}
-				<li>{t}pouze pro přihlášené{/t}</li>
-			{else}
-				<li>{t}i pro neregistrované{/t}</li>
+			{if $campaign->getRequiredCustomerGroup()}
+				<li>{t customer_group=$campaign->getRequiredCustomerGroup()}pouze pro zákaznickou skupinu %1{/t}</li>
 			{/if}
 			{if $campaign->getMinimalItemsPriceInclVat()}
 				{assign currency Currency::GetDefaultCurrency()}

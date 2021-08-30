@@ -18,10 +18,10 @@ class CampaignsForm extends AdminForm {
 			"label" => _("Název kampaně"),
 		]));
 
-		$this->add_field("user_registration_required", new BooleanField([
-			"label" => _("Pouze pro přihlášené?"),
+		$this->add_field("required_customer_group_id", new CustomerGroupField(array(
+			"label" => _("Only for customer group"),
 			"required" => false,
-		]));
+		)));
 
 		$this->add_field("minimal_items_price_incl_vat", new PriceField([
 			"label" => sprintf(_("Minimální cena zboží v košíku [%s]"),Currency::GetDefaultCurrency()),

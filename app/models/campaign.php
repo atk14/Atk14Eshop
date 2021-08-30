@@ -9,12 +9,12 @@ class Campaign extends ApplicationModel implements Translatable {
 		return $this->g("free_shipping");
 	}
 
-	function userRegistrationRequired(){
-		return $this->g("user_registration_required");
-	}
-
 	function isActive(){
 		return $this->g("active");
+	}
+
+	function getRequiredCustomerGroup(){
+		return Cache::Get("CustomerGroup",$this->getRequiredCustomerGroupId());
 	}
 
 	function hasBeenUsed(){

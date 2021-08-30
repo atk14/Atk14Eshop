@@ -416,7 +416,7 @@ class Basket extends BasketOrOrder {
 		}
 
 		$region = $this->getRegion();
-		$user = $this->getUser();
+		($user = $this->getUser()) || ($user = User::GetAnonymousUser());
 		$current_price = $this->getItemsPriceInclVat();
 
 		$conditions = [
@@ -425,14 +425,12 @@ class Basket extends BasketOrOrder {
 			"(regions->>:region_code)::BOOLEAN",
 			"valid_from IS NULL OR valid_from<=:now",
 			"valid_to IS NULL OR valid_to>=:now",
+			"required_customer_group_id IS NULL OR required_customer_group_id IN :customer_groups",
 		];
-		if(!$user){
-			$conditions[] = "NOT user_registration_required";
-		}
-
 		$bind_ar = [
 			":region_code" => $region->getCode(),
 			":now" => now(),
+			":customer_groups" => $user->getCustomerGroups(),
 		];
 
 		$campaign = Campaign::FindFirst([
@@ -512,7 +510,7 @@ class Basket extends BasketOrOrder {
 		$out = [];
 
 		$currency = $this->getCurrency();
-		$user = $this->getUser();
+		($user = $this->getUser()) || ($user = User::GetAnonymousUser());
 		$region = $this->getRegion();
 		$delivery_method = $considered_delivery_method ? $considered_delivery_method : $this->getDeliveryMethod();
 		$items_price_incl_vat = $this->getItemsPriceInclVat() * $currency->getRate();
@@ -526,9 +524,8 @@ class Basket extends BasketOrOrder {
 		$conditions[] = "valid_from IS NULL OR valid_from<:now";
 		$conditions[] = "valid_to IS NULL OR valid_to>:now";
 		$bind_ar[":now"] = $now;
-		if(!$user){
-			$conditions[] = "NOT user_registration_required";
-		}
+		$conditions[] = "required_customer_group_id IS NULL OR required_customer_group_id IN :customer_groups";
+		$bind_ar[":customer_groups"] = $user->getCustomerGroups();
 		if($delivery_method){
 			$conditions[] = "delivery_method_id IS NULL OR delivery_method_id=:delivery_method";
 			$bind_ar[":delivery_method"] = $delivery_method;

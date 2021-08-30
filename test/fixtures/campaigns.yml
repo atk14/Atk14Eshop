@@ -2,7 +2,7 @@ registration_discount:
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true]) ?>"
   name_en: "7% discount over 1000 CZK for registration"
   name_cs: "Sleva 7% nad 1000 Kč za registraci"
-  user_registration_required: true
+  required_customer_group_id: "<?= CustomerGroup::GetInstanceByCode("registered")->getId() ?>"
   minimal_items_price_incl_vat: 1000
   discount_percent: 7.0
 
@@ -10,6 +10,6 @@ free_shipping:
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true]) ?>"
   name_en: "Free shipping"
   name_cs: "Doprava zdarma"
-  user_registration_required: false
+  required_customer_group_id: NULL
   minimal_items_price_incl_vat: 2000
   free_shipping: true

@@ -17,7 +17,8 @@ class CustomerGroup extends ApplicationModel implements Translatable, Rankable {
 		return
 			$this->isManuallyAssignable() &&
 			!DeliveryMethod::FindFirst("required_customer_group_id",$this) &&
-			!PaymentMethod::FindFirst("required_customer_group_id",$this);
+			!PaymentMethod::FindFirst("required_customer_group_id",$this) &&
+			!Campaign::FindFirst("required_customer_group_id",$this);
 	}
 
 	function toString(){
