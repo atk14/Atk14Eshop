@@ -75,7 +75,8 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 				UNION
 				(SELECT id FROM orders WHERE payment_method_id=:payment_method LIMIT 1)
 			)q
-		",[":payment_method" => $this]);
+		",[":payment_method" => $this]) &&
+		!Campaign::FindFirst("required_payment_method_id",$this);
 	}
 
 	function getVatRate(){

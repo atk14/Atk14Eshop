@@ -425,12 +425,16 @@ class Basket extends BasketOrOrder {
 			"(regions->>:region_code)::BOOLEAN",
 			"valid_from IS NULL OR valid_from<=:now",
 			"valid_to IS NULL OR valid_to>=:now",
-			"required_customer_group_id IS NULL OR required_customer_group_id IN :customer_groups",
+			"required_customer_group_id IS NULL OR required_customer_group_id IN :required_customer_groups",
+			"required_delivery_method_id IS NULL OR required_delivery_method_id=:required_delivery_method",
+			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method"
 		];
 		$bind_ar = [
 			":region_code" => $region->getCode(),
 			":now" => now(),
-			":customer_groups" => $user->getCustomerGroups(),
+			":required_customer_groups" => $user->getCustomerGroups(),
+			":required_delivery_method" => $this->getDeliveryMethod(),
+			":required_payment_method" => $this->getPaymentMethod,
 		];
 
 		$campaign = Campaign::FindFirst([
@@ -518,22 +522,28 @@ class Basket extends BasketOrOrder {
 
 		// Zakladni podminky
 		$conditions = $bind_ar = [];
-		$conditions[] = "(regions->>:region_code)::BOOLEAN";
+		$conditions = [
+			"(regions->>:region_code)::BOOLEAN",
+			"active",
+			"valid_from IS NULL OR valid_from<:now",
+			"valid_to IS NULL OR valid_to>:now",
+			"required_customer_group_id IS NULL OR required_customer_group_id IN :required_customer_groups",
+			"required_delivery_method_id IS NULL OR required_delivery_method_id=:required_delivery_method",
+			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method",
+			"minimal_items_price_incl_vat<=:items_price_incl_vat",
+		];
 		$bind_ar[":region_code"] = $region->getCode(); 
-		$conditions[] = "active";
-		$conditions[] = "valid_from IS NULL OR valid_from<:now";
-		$conditions[] = "valid_to IS NULL OR valid_to>:now";
 		$bind_ar[":now"] = $now;
-		$conditions[] = "required_customer_group_id IS NULL OR required_customer_group_id IN :customer_groups";
-		$bind_ar[":customer_groups"] = $user->getCustomerGroups();
+		$bind_ar[":required_customer_groups"] = $user->getCustomerGroups();
+		$bind_ar[":required_delivery_method"] = $this->getDeliveryMethod();
+		$bind_ar[":required_payment_method"] = $this->getPaymentMethod();
+		$bind_ar[":items_price_incl_vat"] = $items_price_incl_vat;
 		if($delivery_method){
 			$conditions[] = "delivery_method_id IS NULL OR delivery_method_id=:delivery_method";
 			$bind_ar[":delivery_method"] = $delivery_method;
 		}else{
 			$conditions[] = "delivery_method_id IS NULL";
 		}
-		$conditions[] = "minimal_items_price_incl_vat<=:items_price_incl_vat";
-		$bind_ar[":items_price_incl_vat"] = $items_price_incl_vat;
 
 		// Napred hledame kampan s nejvyhodnejsi procentrni slevou
 		$_conditions = $conditions;

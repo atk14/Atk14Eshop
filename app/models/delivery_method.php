@@ -113,7 +113,8 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 				UNION
 				(SELECT id FROM orders WHERE delivery_method_id=:delivery_method LIMIT 1)
 			)q
-		",[":delivery_method" => $this]);
+		",[":delivery_method" => $this]) &&
+		!Campaign::FindFirst("required_delivery_method_id",$this);
 	}
 
 	function getCode($country = null){

@@ -17,6 +17,14 @@ class Campaign extends ApplicationModel implements Translatable {
 		return Cache::Get("CustomerGroup",$this->getRequiredCustomerGroupId());
 	}
 
+	function getRequiredDeliveryMethod(){
+		return Cache::Get("DeliveryMethod",$this->getRequiredDeliveryMethodId());
+	}
+
+	function getRequiredPaymentMethod(){
+		return Cache::Get("PaymentMethod",$this->getRequiredPaymentMethodId());
+	}
+
 	function hasBeenUsed(){
 		return 0<$this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM order_campaigns WHERE campaign_id=:campaign LIMIT 1)q",[":campaign" => $this]);
 	}
