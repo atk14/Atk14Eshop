@@ -14,7 +14,7 @@ table.table {
 		tr {
 			th {
 				font-weight: 400;
-				font-size: 0.75rem;
+				font-size: $font-size-sm;
 				line-height: 1.1;
 				vertical-align: top;
 			}
@@ -34,6 +34,7 @@ table.table {
 		font-size: 0.75rem;
 		font-weight: normal;
 		color: $body-color;
+		line-height: 1.2;
 	}
 }
 
@@ -269,6 +270,16 @@ table.table--products.table--products-simple {
 			}
 			td.table-products__price {
 				font-weight: $font-weight-bold;
+			}
+			@include media-breakpoint-up(md) {
+				td:last-child, th:last-child {
+					text-align: right;
+					.list--icons {
+						li {
+							justify-content: end;
+						}
+					}
+				}
 			}
 			@include media-breakpoint-down(sm) {
 				grid-template-areas: "image title title"
