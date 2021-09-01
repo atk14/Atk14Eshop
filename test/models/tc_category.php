@@ -147,11 +147,7 @@ class TcCategory extends TcBase {
 		$cat = Category::GetInstanceByPath("catalog/obuv/deti",$lang); // language mixing
 		$this->assertNull($cat);
 
-<<<<<<< HEAD
-		// GetInstanceByPath
-=======
 		// GetInstancesOnPath
->>>>>>> atk14catalog/develop
 
 		$lang = null;
 		$cats = Category::GetInstancesOnPath("catalog/shoes/kids",$lang);
