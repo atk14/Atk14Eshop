@@ -151,7 +151,10 @@ class TcCategory extends TcBase {
 
 		$lang = null;
 		$cats = Category::GetInstancesOnPath("catalog/shoes/kids",$lang);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
 		$this->assertEquals(3,sizeof($cats));
+		$this->assertEquals(["catalog","catalog/shoes","catalog/shoes/kids"],$keys);
 		$this->assertEquals("catalog",$cats[0]->getSlug());
 		$this->assertEquals("shoes",$cats[1]->getSlug());
 		$this->assertEquals("kids",$cats[2]->getSlug());

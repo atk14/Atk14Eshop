@@ -41,9 +41,9 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	 *
 	 * ```
 	 * $categories = Category::GetInstancesOnPath("mistnosti/jidelna/stul");
-	 * $categories[0]->getSlug(); //mistnosti
-	 * $categories[1]->getSlug(); //jidelna
-	 * $categories[2]->getSlug(); //stul
+	 * $categories["mistnosti"]->getSlug(); //mistnosti
+	 * $categories["mistnosti/jidelna"]->getSlug(); //jidelna
+	 * $categories["mistnosti/jidelna/stul"]->getSlug(); //stul
 	 * ```
 	 */
 	static function GetInstancesOnPath($path, &$lang = null) {
@@ -66,7 +66,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			}
 			$c = $c->realMe();
 			$cpath .= "/$slug";
-			$out[] = $c;
+			$out[substr($cpath,1)] = $c;
 			$parent_category_id = $c->getId();
 		}
 		return $out;
