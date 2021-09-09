@@ -117,7 +117,7 @@ class PayU extends PaymentGatewayApi {
 			$fields["pay_type"] = $prefered_pay_type;
 			$fields["sig"] = $this->_calcSignature($fields,array("consider_pay_type" => true));
 
-			$content .= '<form action="https://'.(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com").'/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
+			$content = '<form action="https://'.(\PAYU_TESTING ? "secure.snd.payu.com" : "secure.payu.com").'/paygw/UTF/NewPayment" method="post" name="payform" id="payform">';
 			$content .= $this->_renderHiddenFields($fields);
 
 			$content .= '
