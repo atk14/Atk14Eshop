@@ -89,12 +89,13 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	static function GetInstanceByName($parent_category,$name,&$lang = null){
 		global $ATK14_GLOBAL;
 
+		$name = (string)$name;
 		$categories = $parent_category ? $parent_category->getChildCategories() : Category::FindAll("parent_category_id",null);
 
 		$langs = $lang ? [$lang] : $ATK14_GLOBAL->getSupportedLangs();
 		foreach($categories as $category){
 			foreach($langs as $l){
-				if($category->g("name_$l")==$name){
+				if((string)$category->g("name_$l")===$name){
 					$lang = $l;
 					return $category;
 				}
@@ -302,6 +303,11 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 	function getCards(){
 		return $this->getCardsLister()->getRecords(["preread_data" => false]);
+	}
+
+	function getVisibleCards(){
+		$cards = array_filter($this->getCards(),function($card){ return $card->isVisible() && !$card->isDeleted(); });
+		return array_values($cards);
 	}
 	
 	/**
