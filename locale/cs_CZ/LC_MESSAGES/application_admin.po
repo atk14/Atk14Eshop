@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-29 23:31+0200\n"
+"POT-Creation-Date: 2021-09-09 22:49+0200\n"
 "PO-Revision-Date: 2021-08-29 23:35+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -1643,6 +1643,18 @@ msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
 
+msgid "pouze pro zákaznickou skupinu %1"
+msgstr ""
+
+msgid "pouze při zvoleném způsobu doručení %1"
+msgstr ""
+
+msgid "pouze při zvolené platební metodě %1"
+msgstr ""
+
+msgid "pouze pro způsob doručení %1"
+msgstr ""
+
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
 msgstr "Přidání nového příslušenství"
@@ -2989,41 +3001,51 @@ msgid "Název kampaně"
 msgstr "Název kampaně"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:22
-msgid "Pouze pro přihlášené?"
-msgstr "Pouze pro přihlášené?"
-
-#: ../app/forms/admin/campaigns/campaigns_form.php:27
 #, php-format
 msgid "Minimální cena zboží v košíku [%s]"
 msgstr "Minimální cena zboží v košíku [%s]"
 
+#: ../app/forms/admin/campaigns/campaigns_form.php:26
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:39
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:52
+msgid "Only for customer group"
+msgstr "Pouze pro zákaznickou skupinu"
+
 #: ../app/forms/admin/campaigns/campaigns_form.php:31
-msgid "Vztahuje se pouze na dopravu"
-msgstr "Vztahuje se pouze na dopravu"
+msgid "Uplatňuje se pouze při použitém způsobu doručení"
+msgstr ""
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:33
-msgid "nezáleží na dopravě"
-msgstr "nezáleží na dopravě"
+#: ../app/forms/admin/campaigns/campaigns_form.php:36
+msgid "Uplatňuje se pouze při použité platební metodě"
+msgstr ""
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:37
+#: ../app/forms/admin/campaigns/campaigns_form.php:41
 #: ../app/forms/admin/discounts/discounts_form.php:6
 msgid "Procentní sleva"
 msgstr "Procentní sleva"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:39
+#: ../app/forms/admin/campaigns/campaigns_form.php:43
 msgid "Nastavte nulu, pokud je toto kampaň na dopravu zdarma"
 msgstr "Nastavte nulu, pokud je toto kampaň na dopravu zdarma"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:43
+#: ../app/forms/admin/campaigns/campaigns_form.php:47
 #: ../app/forms/admin/vouchers/vouchers_form.php:32
 msgid "Doprava zdarma?"
 msgstr "Doprava zdarma?"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:55
+#: ../app/forms/admin/campaigns/campaigns_form.php:52
+msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:54
+msgid "všechny způsoby"
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:66
 msgid "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
 msgstr "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:58
+#: ../app/forms/admin/campaigns/campaigns_form.php:69
 msgid "Je nutné nastavit buďto procentní slevu nebo dopravu zdarma"
 msgstr "Je nutné nastavit buďto procentní slevu nebo dopravu zdarma"
 
@@ -3407,11 +3429,6 @@ msgid ""
 msgstr ""
 "Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa "
 "provozovny a její otevírací doba."
-
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:39
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:52
-msgid "Only for customer group"
-msgstr "Pouze pro zákaznickou skupinu"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:43
 msgid ""
@@ -3865,6 +3882,10 @@ msgstr "Obrázek"
 #: ../app/forms/admin/pictures/pictures_form.php:12
 msgid "Alternative look"
 msgstr "Alternativní vzhled"
+
+#: ../app/forms/admin/pictures/pictures_form.php:13
+msgid "Card"
+msgstr ""
 
 #: ../app/forms/admin/pricelist_items/create_new_form.php:8
 #: ../app/forms/admin/pricelist_items/edit_form.php:13
@@ -4351,6 +4372,15 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Pouze pro přihlášené?"
+#~ msgstr "Pouze pro přihlášené?"
+
+#~ msgid "Vztahuje se pouze na dopravu"
+#~ msgstr "Vztahuje se pouze na dopravu"
+
+#~ msgid "nezáleží na dopravě"
+#~ msgstr "nezáleží na dopravě"
 
 #~ msgid "sales regions"
 #~ msgstr "prodejní oblasti"
