@@ -9,7 +9,7 @@
 		{!$category_recommended_cards->getDescription()|markdown}
 	{/if}
 	
-	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
+	{render partial="shared/card_list" cards=$category_recommended_cards->getVisibleCards() title=""}
 {/if}
 
 <article class="main-article">
