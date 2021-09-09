@@ -138,7 +138,7 @@ Collapsible menu suitable for use on frontend with large category structures. Us
 	<li class="nav-item nav-item--has-submenu">
 		<a href="#" class="nav-link active">Květiny</a>
 
-		<span class="expander  " id="sidebar_menu_item_35" data-toggle="collapse" data-target="#sidebar_submenu_35" aria-expanded="true" aria-controls="sidebar_submenu_35">
+		<span class="expander  " role="button" id="sidebar_menu_item_35" data-toggle="collapse" data-target="#sidebar_submenu_35" aria-expanded="true" aria-controls="sidebar_submenu_35">
 			<span class="fas fa-chevron-down"></span>
 		</span>
 
@@ -158,7 +158,7 @@ Collapsible menu suitable for use on frontend with large category structures. Us
 
 			<li class="nav-item nav-item--has-submenu">
 				<a href="#" class="nav-link active">Divoké</a>
-				<span class="expander  " id="sidebar_menu_item_39" data-toggle="collapse" data-target="#sidebar_submenu_39" aria-expanded="true" aria-controls="sidebar_submenu_39">
+				<span class="expander  " role="button" id="sidebar_menu_item_39" data-toggle="collapse" data-target="#sidebar_submenu_39" aria-expanded="true" aria-controls="sidebar_submenu_39">
 					<span class="fas fa-chevron-down"></span>
 				</span>
 
@@ -198,7 +198,7 @@ Collapsible menu suitable for use on frontend with large category structures. Us
 
 	<li class="nav-item nav-item--has-submenu">
 		<a href="#" class="nav-link">Hudba</a>
-		<span class="expander  collapsed" id="sidebar_menu_item_69" data-toggle="collapse" data-target="#sidebar_submenu_69" aria-expanded="false" aria-controls="sidebar_submenu_69">
+		<span class="expander  collapsed" role="button" id="sidebar_menu_item_69" data-toggle="collapse" data-target="#sidebar_submenu_69" aria-expanded="false" aria-controls="sidebar_submenu_69">
 			<span class="fas fa-chevron-down"></span>
 		</span>
 
