@@ -42,3 +42,8 @@ kostkovana_latka:
   product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
   warehouse_id: 1
   stockcount: 202
+
+jehla:
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: -23

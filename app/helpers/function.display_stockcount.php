@@ -25,7 +25,7 @@ function smarty_function_display_stockcount($params,$template){
 	foreach($products as $_product){
 		if($_product->getUnitId()!==$unit->getId()){ return; } // mixed units
 		if(!$_product->canBeOrdered()){ continue; }
-		$max += $_product->getCalculatedMaximumQuantityToOrder();
+		$max += $_product->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]);
 
 		// we need to find the right product for the template
 		if(!$product->canBeOrdered()){ $product = $_product; }

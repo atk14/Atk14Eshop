@@ -217,8 +217,8 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 * Nikdy nevrati null!
 	 * Vrati nejake vysoke cislo, pokud neni pocet omezen
 	 */
-	function getCalculatedMaximumQuantityToOrder(){
-		$max = $this->getMaximumQuantityToOrder();
+	function getCalculatedMaximumQuantityToOrder($options = []){
+		$max = $this->getMaximumQuantityToOrder($options);
 
 		if(is_null($max)){
 			$max = 999999;
@@ -271,8 +271,12 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 * * vracena hodnota NERESPEKTUJE nejmensiho delitele, k tomu je funkce getCalculatedMaximumQuantityToOrder()
 	 *
 	 */
-	function getMaximumQuantityToOrder(){
-		if(!$this->getConsiderStockcount()){
+	function getMaximumQuantityToOrder($options = []){
+		$options += [
+			"real_quantity" => false, // true - do not care of consider_stockount
+		];
+
+		if(!$this->getConsiderStockcount() && !$options["real_quantity"]){
 			// Skladova zasoba se v tomto pripade pri stanoveni max. mnozstvi neuvazuje
 			return null;
 		}
