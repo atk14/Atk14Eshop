@@ -1,6 +1,18 @@
+{*
+ * {render partial="cards/product_menu_links" product=$product}
+ * {render partial="cards/product_menu_links" product=$product display_dividers=0}
+ *}
+
+{if !isset($display_dividers)}
+	{assign display_dividers 1}
+{/if}
+
 {if $product}
 
 {assign divider "<div class=\"dropdown-divider\"></div>"}
+{if !$display_dividers}
+	{assign divider ""}
+{/if}
 
 {foreach WarehouseItem::FindAll("product_id",$product) as $item}
 	{a action="warehouse_items/edit" id=$item}{!"boxes"|icon} {t warehouse=$item->getWarehouse()->getName()}Edit stockount in warehouse %1{/t}{/a}
