@@ -196,7 +196,7 @@ class AdminForm extends ApplicationForm{
 
 	function add_consider_stockcount_field(){
 		$this->add_field("consider_stockcount", new ReverseBooleanField([
-			"label" => _("Lze produkt objednat bez ohledu na skladovou zásobu?"),
+			"label" => _("Lze produkt objednat, i když není skladem?"),
 			"help_text" => _("Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové zásoby (např. digitální soubor)"),
 			"required" => false,
 			"initial" => true,
