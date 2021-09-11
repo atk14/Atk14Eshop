@@ -23,7 +23,7 @@
 					{/if}
 
 					{if $submenu}
-						<li class="nav-item dropdown">
+						<li class="nav-item dropdown{if $item->getCssClass()} {$item->getCssClass()}{/if}">
 								<a href="{$item->getUrl()}" class="nav-link dropdown-toggle"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$item->getTitle()}</a>
 								<div class="dropdown-menu {$dropdown_class}">
 									{foreach $submenu->getItems() as $subitem}
@@ -32,7 +32,7 @@
 								</div>
 						</li>
 					{else}
-						<li class="nav-item">
+						<li class="nav-item{if $item->getCssClass()} {$item->getCssClass()}{/if}">
 							<a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a>
 						</li>
 					{/if}
