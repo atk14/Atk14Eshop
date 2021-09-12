@@ -1,0 +1,11 @@
+stuntman:
+  name_en: Stuntman
+  name_cs: Kaskadér
+  plural_name_en: Stuntmans
+  plural_name_cs: Kaskadéři
+
+makeup_artist:
+  name_en: Makeup artist
+  name_cs: Maskér
+  plural_name_en: Makeup artists
+  plural_name_cs: Maskéři
