@@ -8,7 +8,7 @@ class DeliveryMethodsController extends AdminController {
 
 	function create_new() {
 		$this->_create_new(array(
-			"page_title" => "Vytvořit nový způsob dopravy",
+			"page_title" => _("Vytvořit nový způsob dopravy"),
 			"create_closure" => function($d){
 				$designated_for_tags = $d["designated_for_tags"];
 				unset($d["designated_for_tags"]);
