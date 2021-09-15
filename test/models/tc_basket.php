@@ -214,7 +214,7 @@ class TcBasket extends TcBase {
 		$this->assertEquals(true,$basket->freeShipping());
 	}
 
-	function test_hasEveryProductTag(){
+	function test_hasEveryProductTag_containsProductWithTag(){
 		$tag = $this->tags["fun"];
 
 		$tea_card = $this->cards["tea"];
@@ -228,27 +228,35 @@ class TcBasket extends TcBase {
 
 		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
 		$this->assertFalse($basket->hasEveryProductTag($tag));
+		$this->assertFalse($basket->containsProductWithTag($tag));
 
 		$basket->addProduct($black_tea);
 		$this->assertFalse($basket->hasEveryProductTag($tag));
+		$this->assertFalse($basket->containsProductWithTag($tag));
 
 		$black_tea->addTag($tag);
 		$this->assertTrue($basket->hasEveryProductTag($tag));
+		$this->assertTrue($basket->containsProductWithTag($tag));
 
 		$basket->addProduct($book);
 		$this->assertFalse($basket->hasEveryProductTag($tag));
+		$this->assertTrue($basket->containsProductWithTag($tag));
 
 		$book->addTag($tag);
 		$this->assertFalse($basket->hasEveryProductTag($tag)); // it's because the book is not variant product
+		$this->assertTrue($basket->containsProductWithTag($tag));
 
 		$book_card->addTag($tag);
 		$this->assertTrue($basket->hasEveryProductTag($tag));
+		$this->assertTrue($basket->containsProductWithTag($tag));
 
 		$basket->addProduct($green_tea);
 		$this->assertFalse($basket->hasEveryProductTag($tag));
+		$this->assertTrue($basket->containsProductWithTag($tag));
 
 		$tea_card->addTag($tag);
 		$this->assertTrue($basket->hasEveryProductTag($tag));
+		$this->assertTrue($basket->containsProductWithTag($tag));
 	}
 
 	/**
