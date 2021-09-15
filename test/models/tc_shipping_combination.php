@@ -5,6 +5,8 @@
  * @fixture delivery_methods
  * @fixture payment_methods
  * @fixture shipping_combinations
+ * @fixture products
+ * @fixture card_tags
  */
 class TcShippingCombination extends TcBase {
 
@@ -58,5 +60,23 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(null == ShippingCombination::IsAllowed($dpd,null));
 		$this->assertTrue(null == ShippingCombination::IsAllowed(null,$credit_card));
 		$this->assertTrue(null == ShippingCombination::IsAllowed(null,null));
+
+		// *Digital product download* is an exclusive delivery method for digital products
+
+		$this->assertTrue($basket->isEmpty());
+
+		$basket->addProduct($this->products["strih_v_pdf_formatu"]);
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$this->assertEquals(1,sizeof($delivery_methods));
+		$labels = array_map(function($dm){ return $dm->getLabel(); },$delivery_methods);
+		$this->assertTrue(in_array("Digital product download",$labels));
+
+		$basket->addProduct($this->products["green_tea"]);
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$this->assertTrue(sizeof($delivery_methods)>0);
+		$labels = array_map(function($dm){ return $dm->getLabel(); },$delivery_methods);
+		$this->assertTrue(!in_array("Digital product download",$labels));
 	}
 }

@@ -1102,6 +1102,16 @@ class Basket extends BasketOrOrder {
 		return true;
 	}
 
+	function containsProductWithTag($tag){
+		foreach($this->getBasketItems() as $item){
+			$product = $item->getProduct();
+			if($product->containsTag($tag)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 *
 	 *	$basket1->addProduct("1111/11111111",2);

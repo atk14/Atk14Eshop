@@ -221,4 +221,24 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	function getRequiredTag(){
 		return Cache::Get("Tag",$this->getRequiredTagId());
 	}
+
+	function getDesignatedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "delivery_methods_designated_for_tags",
+		]);
+	}
+
+	function getDesignatedForTags(){
+		return $this->getDesignatedForTagsLister()->getRecords();
+	}
+
+	function getExcludedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "delivery_methods_excluded_for_tags",
+		]);
+	}
+		
+	function getExcludedForTags(){
+		return $this->getExcludedForTagsLister()->getRecords();
+	}
 }

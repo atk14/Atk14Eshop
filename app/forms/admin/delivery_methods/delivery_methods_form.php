@@ -63,10 +63,22 @@ class DeliveryMethodsForm extends AdminForm {
 			"help_text" => _("Lze vybrat pouze, pokud bude zatržen <em>osobní odběr</em>"),
 		)));
 
-		$this->add_field("required_tag_id", new TagField(array(
-			"label" => _("Povinné klíčové slovo"),
+		$this->add_field("designated_for_tags", new TagsField(array(
+			"label" => _("Určeno pro štítky"),
 			"required" => false,
-			"help_text"  => _("Doručovací metodu bude možné použít jen v případě, že všechny produkty v košíku budou obsahovat požadované klíčové slovo."),
+			"help_text" => _("Doručovací metoda bude použita, pokud alespoń jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
+		$this->add_field("excluded_for_tags", new TagsField(array(
+			"label" => _("Vyloučeno pro štítky"),
+			"required" => false,
+			"help_text" => _("Doručovací metoda NEBUDE použita, pokud alespoń jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
+		$this->add_field("required_tag_id", new TagField(array(
+			"label" => _("Exkluzivně pro štítek"),
+			"required" => false,
+			"help_text"  => _("Doručovací metoda bude použita, pokud všechny produkty v košíku budou obsahovat tento štítek. Ostatní metody nebudou použity."),
 		)));
 
 		$this->add_code_field(array(

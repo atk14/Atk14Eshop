@@ -1,11 +1,15 @@
 dpd:
   code: "dpd_test"
+  label_en: "DPD"
+  label_cs: "DPD"
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price_incl_vat: 121
   vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 personal:
   code: "personal_test"
+  label_en: "Personal pickup"
+  label_cs: "Osobní odběr"
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price_incl_vat: 0
   vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
@@ -14,12 +18,16 @@ personal:
 
 post:
   code: "post_test"
+  label_en: "Czech Post"
+  label_cs: "Česká pošta"
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price_incl_vat: 190
   vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
 
 post_cod:
   code: "post_cod_test"
+  label_en: "Czech Post - cash on delivery"
+  label_cs: "Česká pošta - dobírka"
   regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true]) ?>"
   price_incl_vat: 120
   vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"

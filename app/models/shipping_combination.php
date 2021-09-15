@@ -143,6 +143,7 @@ class ShippingCombination extends ApplicationModel {
 		}
 
 		$delivery_methods = [];
+		$exclusive_delivery_methods = [];
 		foreach(DeliveryMethod::FindAll([
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
@@ -151,17 +152,35 @@ class ShippingCombination extends ApplicationModel {
 				continue;
 			}
 
-			if($tag_required = $o->getRequiredTag()){
-				if(!$basket->hasEveryProductTag($tag_required)){
-					continue;
-				}
-			}
 			# kontrola, ze dorucovaci sluzba pouzita pro tuto metodu muze byt pouzita
 			# napriklad je zadany api klic (zatim jen toto)
 			if (($ds = $o->getDeliveryService()) && !$ds->canBeUsed()) {
 				continue;
 			}
+
+			foreach($o->getDesignatedForTags() as $t){
+				if(!$basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
+			foreach($o->getExcludedForTags() as $t){
+				if($basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
+			if($tag_required = $o->getRequiredTag()){
+				if(!$basket->hasEveryProductTag($tag_required)){
+					continue;
+				}
+				$exclusive_delivery_methods[] = $o;
+			}
 			$delivery_methods[] = $o;
+		}
+
+		if($exclusive_delivery_methods){
+			$delivery_methods = $exclusive_delivery_methods;
 		}
 
 		if(!$delivery_methods){

@@ -26,6 +26,21 @@
 		</div>
 
 		<div class="item__properties">
+			{if $delivery_method->getDesignatedForTags()}
+				<small>{t}Určeno pro štítky{/t}</small><br>
+				{$delivery_method->getDesignatedForTags()|to_sentence}<br>
+			{/if}
+			{if $delivery_method->getExcludedForTags()}
+				<small>{t}Vyloučeno pro štítky{/t}</small><br>
+				{$delivery_method->getExcludedForTags()|to_sentence}<br>
+			{/if}
+			{if $delivery_method->getRequiredTag()}
+				<small>{t}Exkluzivní metoda pro štítek{/t}</small><br>
+				{$delivery_method->getRequiredTag()}
+			{/if}
+		</div>
+
+		<div class="item__properties">
 			{if $delivery_method->getRequiredCustomerGroup()}
 				<small>{t}Only for customer group:{/t}</small><br>
 				{$delivery_method->getRequiredCustomerGroup()}
