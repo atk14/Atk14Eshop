@@ -415,6 +415,20 @@ class Basket extends BasketOrOrder {
 			return 0.0;
 		}
 
+		/*
+		foreach($this->getBasketCampaigns() as $bs){
+			if(!$bs->freeShipping()){ continue; }
+			$required_price = $bs->getMinimalItemsPriceInclVat();
+			$current_price = $this->getItemsPriceInclVat();
+			$add_more = $required_price - $current_price;
+			if($add_more<0.0){
+				return 0.0;
+			}
+			return $add_more;
+		}
+		return;
+		*/
+
 		$region = $this->getRegion();
 		($user = $this->getUser()) || ($user = User::GetAnonymousUser());
 		$current_price = $this->getItemsPriceInclVat();
@@ -434,16 +448,17 @@ class Basket extends BasketOrOrder {
 			":now" => now(),
 			":required_customer_groups" => $user->getCustomerGroups(),
 			":required_delivery_method" => $this->getDeliveryMethod(),
-			":required_payment_method" => $this->getPaymentMethod,
+			":required_payment_method" => $this->getPaymentMethod(),
 		];
 
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"order_by" => "minimal_items_price_incl_vat",
 		]);
-
-		if($campaign){
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$campaign = $campaigns[0];
 			$currency = $this->getCurrency();
 			$required_price = $campaign->getMinimalItemsPriceInclVat() / $currency->getRate();
 
@@ -451,7 +466,7 @@ class Basket extends BasketOrOrder {
 			if($add_more<0.0){
 				return 0.0;
 			}
-			return $add_more;
+			return $currency->roundPrice($add_more);
 		}
 	}
 
@@ -549,31 +564,51 @@ class Basket extends BasketOrOrder {
 		$_conditions = $conditions;
 		$_bind_ar = $bind_ar;
 		$_conditions[] = "discount_percent>0.0";
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $_conditions,
 			"bind_ar" => $_bind_ar,
 			"order_by" => "discount_percent DESC", // nejvyssi sleva jako prvni
 		],[
 			"use_cache" => true,
 		]);
-		if($campaign){
-			$out[] = new BasketCampaign($this,$campaign);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
 		}
 
 		// Ted kampan s dopravou zdarma
 		$_conditions = $conditions;
 		$_bind_ar = $bind_ar;
 		$_conditions[] = "free_shipping";
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $_conditions,
 			"bind_ar" => $_bind_ar,
 		],[
 			"use_cache" => true,
 		]);
-		if($campaign){
-			$out[] = new BasketCampaign($this,$campaign);
+		$conditions = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
 		}
 
+		return $out;
+	}
+
+	protected function _filterOutInappropriateCampaigns($campaigns){
+		$out = [];
+		foreach($campaigns as $campaign){
+			foreach($campaign->getDesignatedForTags() as $t){
+				if(!$this->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+			foreach($campaign->getExcludedForTags() as $t){
+				if($this->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+			$out[] = $campaign;
+		}
 		return $out;
 	}
 

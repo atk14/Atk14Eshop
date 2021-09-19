@@ -10,3 +10,6 @@ wisdom:
 spring:
   code: "spring_2000"
   tag: "spring 2000"
+
+oversized_product:
+  tag: "oversized product"

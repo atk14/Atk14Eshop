@@ -37,6 +37,18 @@ class CampaignsForm extends AdminForm {
 			"required" => false,
 		)));
 
+		$this->add_field("designated_for_tags", new TagsField(array(
+			"label" => _("Určeno pro štítky"),
+			"required" => false,
+			"help_text" => _("Kampaň bude uvažována, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
+		$this->add_field("excluded_for_tags", new TagsField(array(
+			"label" => _("Vyloučeno pro štítky"),
+			"required" => false,
+			"help_text" => _("Kampaň NEBUDE uvažována, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
 		$this->add_field("discount_percent", new PercentField([
 			"label" => _("Procentní sleva"),
 			"initial" => 0.0,

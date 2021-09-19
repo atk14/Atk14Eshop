@@ -120,3 +120,7 @@ strih_v_pdf_formatu:
   card_id: "<?=$cards["strih_v_pdf_formatu"]->getId() ?>"
   catalog_id: "strih_v_pdf_formatu"
   vat_rate_id: "<?= $vat_rates["ten"]->getId() ?>"
+
+fridge:
+  card_id: "<?= $cards["fridge"]->getId() ?>"
+  catalog_id: "fridge"

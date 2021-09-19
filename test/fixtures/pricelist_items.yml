@@ -119,3 +119,8 @@ latka_s_mnozstevnima_slevama_5:
   product_id: "<?= $products["latka_s_mnozstevnima_slevama"]->getId() ?>"
   minimum_quantity: "500" # 5m
   price: "1.089" # 108.9 za metr
+
+fridge:
+  pricelist_id: 1
+  product_id: "<?= $products["fridge"]->getId() ?>"
+  price: "11999"

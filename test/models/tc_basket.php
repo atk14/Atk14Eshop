@@ -5,6 +5,8 @@
  * @fixture users
  * @fixture vouchers
  * @fixture campaigns
+ * @fixture campaign_excluded_for_tags
+ * @fixture campaign_designated_for_tags
  * @fixture tags
  * @fixture cards
  * @fixture products
@@ -835,6 +837,37 @@ class TcBasket extends TcBase {
 		$this->assertTrue(is_null($basket->getDeliveryFeeInclVat()));
 	}
 
+	function test_getAddMoreToGetFreeDelivery(){
+		// CZK
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+		$this->assertEquals("CZK",$basket->getCurrency()->getCode());
+		$this->assertEquals(2000.0,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"]);
+		$this->assertEquals(1975.8,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"],10);
+		$this->assertEquals(1758.0,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"],1000);
+		$this->assertEquals(0.0,$basket->getAddMoreToGetFreeDelivery());
+		// oversized_product
+		$basket->setProductAmount($this->products["mint_tea"],0);
+		$basket->addProduct($this->products["fridge"]);
+		$this->assertEquals(8001.0,$basket->getAddMoreToGetFreeDelivery());
+
+		// EUR
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["SK"]);
+		$this->assertEquals("EUR",$basket->getCurrency()->getCode());
+		$this->assertEquals(76.92,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"]);
+		$this->assertEquals(75.99,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"],10);
+		$this->assertEquals(67.62,$basket->getAddMoreToGetFreeDelivery());
+		$basket->addProduct($this->products["mint_tea"],1000);
+		$this->assertEquals(0.0,$basket->getAddMoreToGetFreeDelivery());
+		// oversized_product
+		$basket->setProductAmount($this->products["mint_tea"],0);
+		$basket->addProduct($this->products["fridge"]);
+		$this->assertEquals(307.73,$basket->getAddMoreToGetFreeDelivery());
+	}
 
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342

@@ -1,4 +1,4 @@
-<?php
+/<?php
 class DeliveryMethodsForm extends AdminForm {
 
 	function set_up() {
@@ -66,13 +66,13 @@ class DeliveryMethodsForm extends AdminForm {
 		$this->add_field("designated_for_tags", new TagsField(array(
 			"label" => _("Určeno pro štítky"),
 			"required" => false,
-			"help_text" => _("Doručovací metoda bude použita, pokud alespoń jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+			"help_text" => _("Doručovací metoda bude použita, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
 		)));
 
 		$this->add_field("excluded_for_tags", new TagsField(array(
 			"label" => _("Vyloučeno pro štítky"),
 			"required" => false,
-			"help_text" => _("Doručovací metoda NEBUDE použita, pokud alespoń jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+			"help_text" => _("Doručovací metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
 		)));
 
 		$this->add_field("required_tag_id", new TagField(array(

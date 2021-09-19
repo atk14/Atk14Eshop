@@ -21,7 +21,13 @@
 				<li>{t delivery_method=$campaign->getRequiredDeliveryMethod()}pouze při zvoleném způsobu doručení %1{/t}</li>
 			{/if}
 			{if $campaign->getRequiredPaymentMethod()}
-				<li>{t delivery_method=$campaign->getRequiredPaymentMethod()}pouze při zvolené platební metodě %1{/t}</li>
+				<li>{t payment_method=$campaign->getRequiredPaymentMethod()}pouze při zvolené platební metodě %1{/t}</li>
+			{/if}
+			{if $campaign->getDesignatedForTags()}
+				<li>{t}Určeno pro štítky{/t}: {$campaign->getDesignatedForTags()|to_sentence}</li>
+			{/if}
+			{if $campaign->getExcludedForTags()}
+				<li>{t}Vyloučeno pro štítky{/t}: {$campaign->getExcludedForTags()|to_sentence}</li>
 			{/if}
 		</ul>
 	</td>

@@ -96,3 +96,7 @@ latka_s_mnozstevnima_slevama:
 
 strih_v_pdf_formatu:
   name_cs: "Střih v PDF formátu"
+
+fridge:
+  name_en: "School bus"
+  name_cs: "Školní autobus"

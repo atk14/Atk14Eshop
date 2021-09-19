@@ -37,13 +37,38 @@ class CampaignsController extends AdminController {
 
 	function create_new(){
 		$this->_create_new([
-			"page_title" => _("Nová kampaň")
+			"page_title" => _("Nová kampaň"),
+			"create_closure" => function($d){
+				$designated_for_tags = $d["designated_for_tags"];
+				unset($d["designated_for_tags"]);
+				$excluded_for_tags = $d["excluded_for_tags"];
+				unset($d["excluded_for_tags"]);
+				$campaign = Campaign::CreateNewRecord($d);
+				$campaign->getDesignatedForTagsLister()->setRecords($designated_for_tags);
+				$campaign->getExcludedForTagsLister()->setRecords($excluded_for_tags);
+				return $campaign;
+			}
 		]);
 	}
 
 	function edit(){
 		$this->_edit([
-			"page_title" => _("Editace kampaně")
+			"page_title" => _("Editace kampaně"),
+			"set_initial_closure" => function($form,$campaign){
+				$form->set_initial($campaign);
+				$form->set_initial("designated_for_tags",$campaign->getDesignatedForTags());
+				$form->set_initial("excluded_for_tags",$campaign->getExcludedForTags());
+			},
+			"update_closure" => function($campaign,$d){
+				$designated_for_tags = $d["designated_for_tags"];
+				unset($d["designated_for_tags"]);
+				$excluded_for_tags = $d["excluded_for_tags"];
+				unset($d["excluded_for_tags"]);
+				$campaign->s($d);
+				$campaign->getDesignatedForTagsLister()->setRecords($designated_for_tags);
+				$campaign->getExcludedForTagsLister()->setRecords($excluded_for_tags);
+				return $campaign;
+			}
 		]);
 	}
 
