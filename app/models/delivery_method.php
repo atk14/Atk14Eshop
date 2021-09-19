@@ -224,7 +224,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	function getDesignatedForTagsLister(){
 		return $this->getLister("Tags",[
-			"table_name" => "delivery_methods_designated_for_tags",
+			"table_name" => "delivery_method_designated_for_tags",
 		]);
 	}
 
@@ -234,7 +234,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	function getExcludedForTagsLister(){
 		return $this->getLister("Tags",[
-			"table_name" => "delivery_methods_excluded_for_tags",
+			"table_name" => "delivery_method_excluded_for_tags",
 		]);
 	}
 		

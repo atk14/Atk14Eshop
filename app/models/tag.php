@@ -45,8 +45,8 @@ class Tag extends ApplicationModel implements Translatable {
 					SELECT COUNT(*) AS cnt FROM article_tags WHERE tag_id=:id UNION
 					SELECT COUNT(*) AS cnt FROM card_tags WHERE tag_id=:id UNION
 					SELECT COUNT(*) AS cnt FROM product_tags WHERE tag_id=:id UNION
-					SELECT COUNT(*) AS cnt FROM delivery_methods_designated_for_tags WHERE tag_id=:id UNION
-					SELECT COUNT(*) AS cnt FROM delivery_methods_excluded_for_tags WHERE tag_id=:id UNION
+					SELECT COUNT(*) AS cnt FROM delivery_method_designated_for_tags WHERE tag_id=:id UNION
+					SELECT COUNT(*) AS cnt FROM delivery_method_excluded_for_tags WHERE tag_id=:id UNION
 					SELECT COUNT(*) AS cnt FROM delivery_methods WHERE required_tag_id=:id UNION
 					SELECT COUNT(*) AS cnt FROM campaign_designated_for_tags WHERE tag_id=:id UNION
 					SELECT COUNT(*) AS cnt FROM campaign_excluded_for_tags WHERE tag_id=:id UNION
