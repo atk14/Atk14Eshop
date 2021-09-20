@@ -586,7 +586,7 @@ class Basket extends BasketOrOrder {
 		],[
 			"use_cache" => true,
 		]);
-		$conditions = $this->_filterOutInappropriateCampaigns($campaigns);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
 		if($campaigns){
 			$out[] = new BasketCampaign($this,$campaigns[0]);
 		}
