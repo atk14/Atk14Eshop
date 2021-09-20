@@ -66,4 +66,11 @@ class BasketCampaign {
 		return $out;
 	}
 
+	function toArray(){
+		return [
+			"campaign" => $this->getCampaign()->toArray(),
+			"basket" => $this->getBasket()->toArray(),
+		];
+	}
+
 }
