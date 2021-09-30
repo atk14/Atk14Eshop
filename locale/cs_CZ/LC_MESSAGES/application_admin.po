@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-09 22:49+0200\n"
-"PO-Revision-Date: 2021-08-29 23:35+0200\n"
+"PO-Revision-Date: 2021-09-30 11:00+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -2704,7 +2704,7 @@ msgstr "Editace slevového poukazu"
 #: ../app/controllers/admin/warehouse_items_controller.php:7
 #, php-format
 msgid "Products in warehouse %s"
-msgstr "Produkty v skladu %s"
+msgstr "Produkty ve skladu %s"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:42
 msgid "New warehouse entry"
