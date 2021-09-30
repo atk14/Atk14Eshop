@@ -53,4 +53,8 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 		";
 		$this->dbmole->doQuery($sql, $bind_ar);
 	}
+
+	function isDeletable(){
+		return true;
+	}
 }
