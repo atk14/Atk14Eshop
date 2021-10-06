@@ -3,7 +3,7 @@
 
 		<div class="item__title">
 			{if $delivery_method->getLogo()}
-				{!$delivery_method->getLogo()|pupiq_img:"x40"}
+				{!$delivery_method->getLogo()|pupiq_img:"40x40x#ffffff"}
 			{/if}
 			#{$delivery_method->getId()}
 

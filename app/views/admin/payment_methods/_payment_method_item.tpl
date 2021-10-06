@@ -3,7 +3,7 @@
 
 		<div class="item__title">
 			{if $payment_method->getLogo()}
-				{!$payment_method->getLogo()|pupiq_img:"x40"}
+				{!$payment_method->getLogo()|pupiq_img:"40x40x#ffffff"}
 			{/if}
 			#{$payment_method->getId()}
 
