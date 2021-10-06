@@ -15,7 +15,7 @@
 {/if}
 
 {foreach WarehouseItem::FindAll("product_id",$product) as $item}
-	{a action="warehouse_items/edit" id=$item}{!"boxes"|icon} {t warehouse=$item->getWarehouse()->getName()}Edit stockount in warehouse %1{/t}{/a}
+	{a action="warehouse_items/edit" id=$item}{!"boxes"|icon} {t warehouse=$item->getWarehouse()->getName()}Edit stockcount in warehouse %1{/t}{/a}
 	{if $item@last}{!$divider}{/if}
 {foreachelse}	
 	{assign warehouse Warehouse::GetDefaultInstance4Eshop()}

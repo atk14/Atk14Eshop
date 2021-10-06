@@ -273,7 +273,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 */
 	function getMaximumQuantityToOrder($options = []){
 		$options += [
-			"real_quantity" => false, // true - do not care of consider_stockount
+			"real_quantity" => false, // true - do not care of consider_stockcount
 		];
 
 		if(!$this->getConsiderStockcount() && !$options["real_quantity"]){
