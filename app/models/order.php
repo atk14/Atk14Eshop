@@ -441,10 +441,10 @@ class Order extends BasketOrOrder {
 
 		$warehouse = Warehouse::GetDefaultInstance4Eshop();
 		if($warehouse && $orig_status->getId()!=$new_status->getId()){
-			if(!$orig_status->reduceStockount() && $new_status->reduceStockount()){
+			if(!$orig_status->reduceStockcount() && $new_status->reduceStockcount()){
 				$this->_updateWarehouseItems($warehouse,-1);
 			}
-			if($orig_status->reduceStockount() && !$new_status->reduceStockount()){
+			if($orig_status->reduceStockcount() && !$new_status->reduceStockcount()){
 				$this->_updateWarehouseItems($warehouse,1);
 			}
 		}
