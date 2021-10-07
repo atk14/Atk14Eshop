@@ -107,6 +107,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
 		$this->tpl_data["current_region"] = $current_region = $basket->getRegion();
+		$this->tpl_data["allowed_regions"] = $this->_get_allowed_regions();
 		$this->tpl_data["current_currency"] = $basket->getCurrency();
 
 		// data for language swith, see app/views/shared/_langswitch.tpl
@@ -214,15 +215,27 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
+	function _get_allowed_regions(){
+		$regions = Region::GetInstances();
+		return $regions;
+	}
+
 	function _get_current_region(){
-		if($region = Region::GetRegionByDomain($this->request->getHttpHost())){
-			return $region;
+		$region = Region::GetRegionByDomain($this->request->getHttpHost());
+		if(!$region){
+			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}
-		$region_id = $this->permanentSession->g("region_id");
-		if(isset($region_id) && ($region = Cache::Get("Region",$region_id))){
-			return $region;
+		if(!$region){
+			$region = Region::GetDefaultRegion();
 		}
-		return Region::GetDefaultRegion();
+
+		// current region has to be found in allowed regions
+		$allowed_regions = $this->_get_allowed_regions();
+		if(!array_filter($allowed_regions,function($r) use($region){ return $r->getId()===$region->getId(); })){
+			$region = $allowed_regions[0];
+		}
+
+		return $region;
 	}
 
 	/**

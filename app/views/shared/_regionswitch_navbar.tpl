@@ -1,4 +1,4 @@
-{if sizeof(Region::GetInstances())>1}
+{if sizeof($allowed_regions)>1}
 
 {assign uniqid ""|uniqid}
 
@@ -8,7 +8,7 @@
 		<span class="caret"></span>
 	</a>
 	<div class="dropdown-menu {$dropdown_class}" aria-labelledby="regionswitch_{$uniqid}">
-		{foreach Region::GetInstances() as $region}
+		{foreach $allowed_regions as $region}
 			{if $region->getId()!==$current_region->getId()}
 				{a namespace="" action="regions/set_region" id=$region _class="dropdown-item" _method="post" _rel="nofollow"}
 					{$region->getName()}

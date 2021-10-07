@@ -21,7 +21,7 @@
 
 	{/if}
 
-	{if sizeof(Region::GetInstances())>1 || $supported_languages}
+	{if sizeof($allowed_regions)>1 || $supported_languages}
 		<div class="menu-separator"></div>
 		<ul class="navbar-nav nav--inline">
 			{render partial="shared/langswitch_navbar_expanded" show_language_names=true}

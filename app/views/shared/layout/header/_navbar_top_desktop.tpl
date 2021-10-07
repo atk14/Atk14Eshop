@@ -13,7 +13,7 @@
 				
 				{render partial="shared/layout/header/user_menu" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 								
-				{if sizeof(Region::GetInstances())>1 || $supported_languages}
+				{if sizeof($allowed_regions)>1 || $supported_languages}
 					<div class="menu-separator"></div>
 					<ul class="navbar-nav">	
 					{render partial="shared/regionswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
