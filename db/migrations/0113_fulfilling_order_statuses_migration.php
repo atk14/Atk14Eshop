@@ -192,11 +192,13 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"payment_accepted",
 				"repeated_payment_request",
 				"payment_failed",
+				"processing",
 				"cancelled",
 			],
 			"repeated_payment_request" => [
 				"payment_accepted",
 				"payment_failed",
+				"processing",
 				"cancelled",
 			],
 			"payment_accepted" => [
