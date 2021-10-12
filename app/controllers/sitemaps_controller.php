@@ -16,6 +16,7 @@ class SitemapsController extends ApplicationController{
 				"visible",
 				"indexable"
 			),
+			"use_cache" => true,
 		));
 
 		$this->tpl_data["categories"] = Category::FindAll(array(
@@ -24,7 +25,8 @@ class SitemapsController extends ApplicationController{
 				"visible",
 				"NOT is_filter",
 				"pointing_to_category_id IS NULL" // is not alias
-			)
+			),
+			"use_cache" => true,
 		));
 
 		$this->tpl_data["cards"] = Card::FindAll(array(
@@ -34,6 +36,7 @@ class SitemapsController extends ApplicationController{
 			),
 			"order_by" => "created_at DESC",
 			"limit" => 1000,
+			"use_cache" => true,
 		));
 	
 		$this->tpl_data["articles"] = Article::FindAll(array(
@@ -43,6 +46,7 @@ class SitemapsController extends ApplicationController{
 			),
 			"order_by" => "published_at DESC",
 			"limit" => 20,
+			"use_cache" => true,
 		));
 
 		$this->tpl_data["brands"] = Brand::FindAll(array(
