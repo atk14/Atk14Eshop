@@ -114,7 +114,7 @@ class TcOrder extends TcBase {
 		$order->setNewOrderStatus("waiting_for_bank_transfer");
 		$statuses = $order->getAllowedNextOrderStatuses();
 		$statuses = $this->_statuses_to_codes($statuses);
-		$this->assertEquals(["payment_accepted","repeated_payment_request","payment_failed","cancelled"],$statuses);
+		$this->assertEquals(["payment_accepted","repeated_payment_request","payment_failed","processing","cancelled"],$statuses);
 
 		$order->setNewOrderStatus("payment_accepted");
 		$statuses = $order->getAllowedNextOrderStatuses();
