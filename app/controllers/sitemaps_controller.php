@@ -53,12 +53,14 @@ class SitemapsController extends ApplicationController{
 			"conditions" => array(
 				"visible",
 			),
+			"use_cache" => true,
 		));
 
 		$this->tpl_data["stores"] = Store::FindAll(array(
 			"conditions" => array(
 				"visible",
 			),
+			"use_cache" => true,
 		));
 
 		if($this->params->getString("format")=="xml"){
