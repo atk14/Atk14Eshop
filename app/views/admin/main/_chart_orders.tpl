@@ -19,9 +19,11 @@
 		</div>
 
 	<div>
-	<div class="chart-canvas-container">	
-		<canvas class="dashboard-chart__canvas" id="ordersChart" data-width="800" data-height="200"></canvas>
-	</div>
+		<div class="chart-wrapper">
+			<div class="chart-canvas-container">	
+				<canvas class="dashboard-chart__canvas" id="ordersChart" data-width="800" data-height="200"></canvas>
+			</div>
+		</div>
 	<hr>
 
 	<script>
