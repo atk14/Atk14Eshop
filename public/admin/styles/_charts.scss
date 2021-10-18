@@ -1,14 +1,13 @@
 .dashboard-chart {
 
 	.chart-wrapper {
-		border: 1px solid red;
 		width: 100%;
 		overflow: auto;
 	}
 
 	.chart-canvas-container {
 		position: relative;
-		min-width: 1200px;
+		min-width: 1200px; // Chart scrolls when container is narrower than this.
 
 		.dashboard-chart__canvas {
 			width: 800px;
