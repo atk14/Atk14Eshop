@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-09 22:49+0200\n"
-"PO-Revision-Date: 2021-09-30 11:00+0200\n"
+"PO-Revision-Date: 2021-10-18 13:27+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -391,7 +391,7 @@ msgid "Technical specifications"
 msgstr "Technické specifikace"
 
 msgid "There is no record yet."
-msgstr "Není zde žádný záznam"
+msgstr "Není zde žádný záznam."
 
 msgid "Edit value"
 msgstr "Upravit hodnotu"
@@ -726,7 +726,7 @@ msgid "Drag files here"
 msgstr "Přetáhněte soubory sem"
 
 msgid "Photos"
-msgstr "Fotografie"
+msgstr "Fotky"
 
 msgid "Přidat obrázky do fotogalerie"
 msgstr "Přidat obrázky do fotogalerie"
@@ -747,7 +747,7 @@ msgid "The size of the original:"
 msgstr "Velikost originálu:"
 
 msgid "Add image"
-msgstr "Přidat obrázek:"
+msgstr "Přidat obrázek"
 
 msgid "Currently there are no images."
 msgstr "Momentálně tady nejsou žádné obrázky."
@@ -1384,8 +1384,8 @@ msgid ""
 "Upload multiple files with the file dialog or by dragging and dropping "
 "images onto the dashed region"
 msgstr ""
-"Nahrajte více obrázků buďto pomocí souborový dialogu nebo přetažením obrázků "
-"do vyčárkované oblasti"
+"Nahrajte více souborů v souborovém dialogu nebo přetažením obrázků do "
+"vyčárkované oblasti"
 
 msgid "Submit form"
 msgstr "Odeslat formulář"
@@ -1769,7 +1769,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
-msgstr "Prodejní oblasti"
+msgstr "Prodejná oblasti"
 
 #: ../app/controllers/admin/admin.php:57
 #: ../app/forms/admin/users/users_form.php:48
@@ -2704,7 +2704,7 @@ msgstr "Editace slevového poukazu"
 #: ../app/controllers/admin/warehouse_items_controller.php:7
 #, php-format
 msgid "Products in warehouse %s"
-msgstr "Produkty ve skladu %s"
+msgstr "Produkty v skladu %s"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:42
 msgid "New warehouse entry"
@@ -3564,7 +3564,7 @@ msgstr ""
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:27
 msgid "Examples:"
-msgstr "Příklady"
+msgstr "Příklady:"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:37
 msgid "Moved permanently?"
@@ -4373,6 +4373,21 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+msgid "sales regions"
+msgstr "prodejní oblasti"
+
+msgid "currencies"
+msgstr "měny"
+
+msgid "delivery to"
+msgstr "doručování do"
+
+msgid "currency"
+msgstr "měna"
+
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
 #~ msgid "Pouze pro přihlášené?"
 #~ msgstr "Pouze pro přihlášené?"
 
@@ -4382,23 +4397,11 @@ msgstr "Uplatňuje se v e-shopu?"
 #~ msgid "nezáleží na dopravě"
 #~ msgstr "nezáleží na dopravě"
 
-#~ msgid "sales regions"
-#~ msgstr "prodejní oblasti"
-
-#~ msgid "currencies"
-#~ msgstr "měny"
-
 #~ msgid "osobní odběr"
 #~ msgstr "osobní odběr"
 
 #~ msgid "prodejna není určena"
 #~ msgstr "prodejna není určena"
-
-#~ msgid "delivery to"
-#~ msgstr "doručování do:"
-
-#~ msgid "currency"
-#~ msgstr "měna"
 
 #~ msgid ""
 #~ "Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte "
@@ -4436,9 +4439,6 @@ msgstr "Uplatňuje se v e-shopu?"
 
 #~ msgid "Cena [%s]"
 #~ msgstr "Cena [%s]"
-
-#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid ""
 #~ "Kupón nebude možné použít, pokud bude v košíku zboží celkem za nižší "

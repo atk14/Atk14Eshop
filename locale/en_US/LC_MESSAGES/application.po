@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-25 11:38+0200\n"
-"PO-Revision-Date: 2021-08-25 11:57+0200\n"
+"PO-Revision-Date: 2021-10-18 13:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -336,7 +336,7 @@ msgid "The message has been sent to us. We will reply as soon as we can."
 msgstr "The message has been sent to us. We will reply as soon as we can."
 
 msgid "Nemáte uloženou žádnou doručovací adresu"
-msgstr "You have no delivery address saved."
+msgstr "You have no delivery address saved"
 
 msgid "vytvořte novou"
 msgstr "create new"
@@ -448,7 +448,7 @@ msgid "Objednávka: <strong>č. %1 vytvořená %2</strong>"
 msgstr "Order: <strong>No. %1 created %2</strong>"
 
 msgid "Platba:"
-msgstr "Payment"
+msgstr "Payment:"
 
 msgid "Celkem k úhradě"
 msgstr "Total to pay"
@@ -542,7 +542,7 @@ msgid "Vaše objednávka č. %1 je připravena k vyzvednutí na výdejním míst
 msgstr "Your order No. %1 is ready to collect at the dispensing point"
 
 msgid "Vaše objednávka č. %1 je připravena k odeslání."
-msgstr "Your order No. %1 is ready for shipment"
+msgstr "Your order No. %1 is ready for shipment."
 
 msgid ""
 "Doposud jsme nedobdrželi platbu za Vaši objednávku č. %1. Zboží Vám bude "
@@ -631,7 +631,7 @@ msgstr "Product"
 msgid ""
 "produkt <em>%1</em> s katalogovým číslem <em>%2</em> byl právě naskladněn."
 msgstr ""
-"The product <em>%1</em> with catalog number <em>%2</em> has just been "
+"the product <em>%1</em> with catalog number <em>%2</em> has just been "
 "stocked."
 
 msgid "Produkt najdete na adrese"
@@ -1840,7 +1840,7 @@ msgstr "VAT number is incorrect"
 
 #: ../app/fields/voucher_field.php:16
 msgid "Toto není správný slevový kupón"
-msgstr "The discount coupon is incorrect."
+msgstr "The discount coupon is incorrect"
 
 #: ../app/forms/api/categories_suggestions/index_form.php:5
 #: ../app/forms/api/suggestions/index_form.php:5
@@ -2012,7 +2012,7 @@ msgstr ""
 
 #: ../app/forms/checkouts/summary_form.php:31
 msgid "Zatrhněte prosím souhlas s obchodními podmínkami."
-msgstr "Please check the consent with Terms and Conditions"
+msgstr "Please check the consent with Terms and Conditions."
 
 #: ../app/forms/contact_messages/create_new_form.php:24
 #: ../app/forms/information_requests/create_new_form.php:26
@@ -2237,7 +2237,7 @@ msgstr "Delivery address has not been selected for the shipping method '%s'"
 
 #: ../app/models/basket.php:750
 msgid "Objednávku nelze doručit na danou doručovací adresu"
-msgstr "The order cannot be delivered to the given delivery address."
+msgstr "The order cannot be delivered to the given delivery address"
 
 #: ../app/models/basket.php:751
 msgid "upravte doručovací adresu"
@@ -2306,7 +2306,7 @@ msgstr "administrator"
 #: ../app/models/voucher.php:43 ../app/models/voucher.php:70
 #, php-format
 msgid "Voucher %s nelze použít"
-msgstr "Voucher %s cannot be applied."
+msgstr "Voucher %s cannot be applied"
 
 #: ../app/models/voucher.php:48
 msgid "Voucher nemůže být použit v prázdném košíku"
@@ -2367,15 +2367,15 @@ msgstr "Previous page"
 
 #: ../lib/ajax_pager/ajax_pager.php:69
 msgid "Zbývá 1 položka z %t"
-msgstr "1 item of %t left."
+msgstr "1 item of %t left"
 
 #: ../lib/ajax_pager/ajax_pager.php:70
 msgid "Zbývají %s položky z %t"
-msgstr "%s items of %s left."
+msgstr "%s items of %s left"
 
 #: ../lib/ajax_pager/ajax_pager.php:71
 msgid "Zbývá %s položek z %t"
-msgstr "%s items of %s left."
+msgstr "%s items of %s left"
 
 #: ../lib/ajax_pager/ajax_pager.php:75
 msgid "Vyhledáno celkem %t produktů"
@@ -2486,32 +2486,59 @@ msgstr "Order No. %s in eshop %s"
 msgid "obj. %s"
 msgstr "ord. No. %s"
 
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
 
-#~ msgid "Pochlubte se přátelům s Vaším nákupem."
-#~ msgstr "Share your shopping experience with your friends."
+msgid "Pochlubte se přátelům s Vaším nákupem."
+msgstr "Share your shopping experience with your friends."
 
-#~ msgid "Sdílet"
-#~ msgstr "Share"
+msgid "Sdílet"
+msgstr "Share"
 
-#~ msgid "zvolit pobočku"
-#~ msgstr "choose a branch office"
+msgid "zvolit pobočku"
+msgstr "choose a branch office"
+
+msgid "Pobočka: %1, %2, %3, %4"
+msgstr "Branch:  %1, %2, %3, %4"
+
+msgid "Zobrazit detaily"
+msgstr "View details"
+
+msgid "Ukázat na mapě"
+msgstr "Show on map"
+
+msgid "Filtrovat"
+msgstr "Filter"
+
+msgid "searching ..."
+msgstr "searching ..."
+
+msgid "Obchodní podmínky"
+msgstr "Terms and Conditions"
+
+msgid "cena od<br>%1"
+msgstr "price from<br>%1"
+
+msgid "Článek"
+msgstr "Article"
+
+msgid "Kategorie produktů"
+msgstr "Product category"
+
+msgid "Stránka"
+msgstr "Page"
+
+msgid "Tvůrce"
+msgstr "Creator"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nothing was found."
+
+msgid "cena od %1"
+msgstr "price from %1"
 
 #~ msgid "(nepovinné)"
 #~ msgstr "(optional)"
-
-#~ msgid "Pobočka: %1, %2, %3, %4"
-#~ msgstr "Branch:  %1, %2, %3, %4"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "View details"
-
-#~ msgid "Ukázat na mapě"
-#~ msgstr "Show on map"
-
-#~ msgid "Filtrovat"
-#~ msgstr "Filter"
 
 #~ msgid "Vše"
 #~ msgstr "All"
@@ -2528,35 +2555,8 @@ msgstr "ord. No. %s"
 #~ msgid "to"
 #~ msgstr "to"
 
-#~ msgid "searching ..."
-#~ msgstr "searching ..."
-
-#~ msgid "Obchodní podmínky"
-#~ msgstr "Terms and Conditions"
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "price from<br>%1"
-
-#~ msgid "Článek"
-#~ msgstr "Article"
-
-#~ msgid "Kategorie produktů"
-#~ msgstr "Product category"
-
-#~ msgid "Stránka"
-#~ msgstr "Page"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Creator"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nothing was found."
-
 #~ msgid "Have you forgotten password?"
 #~ msgstr "Have you forgotten password?"
-
-#~ msgid "cena od %1"
-#~ msgstr "price from %1"
 
 #~ msgid "V případě dotazů nás můžete kontaktovat na emailu %1"
 #~ msgstr "If you have any questions, you can contact us at %1"
