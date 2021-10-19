@@ -147,6 +147,8 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_before_filter(){
+		global $ATK14_GLOBAL;
+
 		$this->permanentSession = new Atk14Session( new SessionStorer([
 			'cookie_expiration' => 84600*356,
 			'session_name' => 'permanent'
@@ -186,6 +188,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+		$ATK14_GLOBAL->setValue("logged_user",$this->logged_user); // we need this in app/helpers/function.admin_menu.php
 		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();
 
 		$this->favourite_products_accessor = $this->tpl_data["favourite_products_accessor"] = new FavouriteProductsAccessor($this->logged_user,$this->permanentSession);
