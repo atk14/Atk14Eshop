@@ -1,10 +1,13 @@
 .dashboard-chart {
+
+	.chart-wrapper {
+		width: 100%;
+		overflow: auto;
+	}
+
 	.chart-canvas-container {
-		//width: 100%;
-		//max-width: 100%;
 		position: relative;
-		//overflow-x: hidden;
-		//overflow: hidden;
+		min-width: 1200px; // Chart scrolls when container is narrower than this.
 
 		.dashboard-chart__canvas {
 			width: 800px;

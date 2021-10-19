@@ -290,5 +290,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 		ordersChart.update();
 	}
 	
+	$( ".chart-wrapper" ).scrollLeft( 1200 );
 	
 };
