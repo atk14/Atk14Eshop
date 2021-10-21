@@ -175,18 +175,24 @@ class DeliveryService extends ApplicationModel {
 
 		// Prohledani namespacu a prirazeni prefixu tam, kde je prazdny.
 		// jinak nelze pouzit volani xpath()
+		$nsPrefix = "";
 		foreach($xml->getDocNamespaces() as $strPrefix => $strNamespace) {
-			if(strlen($strPrefix)==0) {
-				$strPrefix="default"; //Assign an arbitrary namespace prefix.
+			if (in_array($strPrefix, ["xsi", "xsd"])) {
+				continue;
 			}
-			$xml->registerXPathNamespace($strPrefix,$strNamespace);
+			if(strlen($strPrefix)==0) {
+				$nsPrefix="default"; //Assign an arbitrary namespace prefix.
+			}
+			$xml->registerXPathNamespace($nsPrefix,$strNamespace);
 		}
+
+		$xml->registerXPathNamespace("br", "http://atk14.org/branch");
 
 		$current_branch_ids = $this->dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
 		$parserClassName = $this->getParserClass();
 
-		$_branch_element_name = sprintf("//default:%s", $parserClassName::GetXMLBranchName());
+		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $parserClassName::GetXMLBranchName());
 
 		foreach($xml->xpath($_branch_element_name) as $branch_row) {
 			$_branchAr = $parserClassName::ParseBranch($branch_row);
