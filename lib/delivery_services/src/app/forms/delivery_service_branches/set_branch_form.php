@@ -9,7 +9,7 @@ class SetBranchForm extends ApplicationForm {
 			"widget" => new HiddenInput()
 		)));
 
-		$this->set_button_text(_("Pokračovat"));
+		$this->set_button_text(_("Vybrat výdejní místo"));
 	}
 
 	function clean() {
