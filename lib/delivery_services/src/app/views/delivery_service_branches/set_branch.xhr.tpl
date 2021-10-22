@@ -1,5 +1,6 @@
 {assign delivery_service $delivery_method->getDeliveryService()}
 {assign zasilkovna $delivery_service && $delivery_service->getCode()=="zasilkovna"}
+{assign gls $delivery_service && $delivery_service->getCode()=="gls"}
 
 {assign modal_title $page_title}
 {if $zasilkovna}{assign modal_title ""}{/if}
@@ -11,7 +12,7 @@ var $modal = $({jstring}{modal id=delivery_service_branch_select title=$modal_ti
 {render partial="set_branch_form"}
 {/modal}{/jstring});
 
-{if $zasilkovna}
+{if $zasilkovna || $gls}
 $modal.addClass("modal--zasilkovna");
 {/if}
 $modal.appendTo("body");
@@ -23,4 +24,13 @@ $("#atk14-widget-zasilkovna").Zasilkovna( {
 	countries: {!$basket->getDeliveryCountriesAllowed()|to_json},
 	language: "{$lang}"
 } );
+{/if}
+
+{if $gls}
+$("#atk14-widget-gls").GLS( {
+	target_input_id: "id_delivery_service_branch_id",
+	countries: {!$basket->getDeliveryCountriesAllowed()|to_json},
+	language: "{$lang}"
+});
+
 {/if}
