@@ -106,14 +106,20 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 		return $this->getVisible();
 	}
 
+	function isIndexable($check_parents = true){
+		$page = $this;
+		while($page){
+			if(!$page->g("indexable")){ return false; }
+			if(!$check_parents){ return true; }
+			$page = $page->getParentPage();
+		}
+		return true;
+	}
+
 	function setRank($new_rank){
 		return $this->_setRank($new_rank,array(
 			"parent_page_id" => $this->g("parent_page_id"),
 		));
-	}
-
-	function isIndexable(){
-		return $this->getIndexable();
 	}
 
 	function getFulltextData($lang){
