@@ -14,6 +14,42 @@
 			<th>{t}Your email{/t}</th>
 			<td>{$logged_user->getEmail()|default:$mdash}</td>
 		</tr>
+		{if $logged_user->getCompany()}
+		<tr>
+			<th>{t}Company{/t}</th>
+			<td>
+				{$logged_user->getCompany()}
+				{if $logged_user->getCompanyNumber()}
+					<br>
+					{t}IČ{/t}: {$logged_user->getCompanyNumber()}
+				{/if}
+				{if $logged_user->getVatId()}
+					<br>
+					{t}DIČ{/t}: {$logged_user->getVatId()}
+				{/if}
+			</td>
+		</tr>
+		{/if}
+		<tr>
+			<th>{t}Address{/t}</th>
+			<td>
+				{remove_if_contains_no_text}
+				{$logged_user->getAddressStreet()}<br>
+				{if $logged_user->getAddressStreet2()}
+					{$logged_user->getAddressStreet2()}<br>
+				{/if}
+				{$logged_user->getAddressZip()} {$logged_user->getAddressCity()}<br>
+				{if $logged_user->getAddressState()}
+					{$logged_user->getAddressState()}<br>
+				{/if}
+				{$logged_user->getAddressCountry()|to_country_name}<br>
+				{/remove_if_contains_no_text}
+			</td>
+		</tr>
+		<tr>
+			<th>{t}Phone{/t}</th>
+			<td>{$logged_user->getPhone()|default:$mdash}</td>
+		</tr>
 		{if $logged_user->isAdmin}
 			<tr>
 				<th>{t}Are you admin?{/t}</th>
