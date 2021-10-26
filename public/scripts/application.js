@@ -436,18 +436,26 @@
 					$cards.removeClass( "card--active" );
 					$card.addClass( "card--active" );
 
-					$( "#form_checkouts_set_billing_and_delivery_data input" ).each( function() {
+					$( "#form_checkouts_set_billing_and_delivery_data input, #form_checkouts_set_billing_and_delivery_data select" ).each( function() {
 							var name = this.name;
-							if ( name.substr( 0, 9 ) !== "delivery_" ) {
+							var $input = $( this );
+							var origColor = $input.css( "color" );
+							var backgroundColor = $input.css( "background-color" );
+
+							if ( name.substr( 0, 9 ) === "delivery_" ) {
+								name = name.substr( 9 );
+							} else if ( name !== "phone" ) {
 								return;
 							}
-							name = name.substr( 9 );
 							if ( data[ name ] !== undefined ) {
 								this.value = data[ name ];
+								$input.css( "color", backgroundColor );
+								$input.animate( {
+									color: origColor
+								} );
 							}
 					} );
 				} );
-
 			}
 
 		},
