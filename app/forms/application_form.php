@@ -138,6 +138,7 @@ class ApplicationForm extends Atk14Form{
 			"add_note" => true,
 			"add_address_street2" => false,
 			"add_address_state" => true,
+			"allowed_countries" => null, // null, ["CZ","SK"]; null means all countries - if you play with this, have only_allowed_countries_for_delivery set to false!
 			"only_allowed_countries_for_delivery" => false,
 			"disabled" => false,
 		];
@@ -183,7 +184,7 @@ class ApplicationForm extends Atk14Form{
 
 		//$all_allowed_countries = Region::GetDeliveryCountriesFromAllRegions();
 		// Fakturacni adresa by mela byt zadatelna pro kazdy stat na svete..
-		$all_allowed_countries = null;
+		$all_allowed_countries = $options["allowed_countries"];
 
 		$current_region_countries = $this->controller->current_region->getDeliveryCountries();
 		$initial = null;
