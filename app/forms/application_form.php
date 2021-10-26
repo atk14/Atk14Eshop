@@ -137,6 +137,7 @@ class ApplicationForm extends Atk14Form{
 			"required" => true,
 			"add_note" => true,
 			"add_address_street2" => false,
+			"add_address_state" => true,
 			"only_allowed_countries_for_delivery" => false,
 			"disabled" => false,
 		];
@@ -168,7 +169,7 @@ class ApplicationForm extends Atk14Form{
 			"required" => $required,
 			"disabled" => $disabled,
 		]));
-		$this->add_field("{$prefix}address_state", new CharField([
+		$options["add_address_state"] && $this->add_field("{$prefix}address_state", new CharField([
 			"label" => _("State / Province / Region"),
 			"max_length" => 255,
 			"required" => false,

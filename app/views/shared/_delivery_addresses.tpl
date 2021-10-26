@@ -10,13 +10,16 @@
 				{if $da->getAddressStreet2()}
 					{$da->getAddressStreet2()}<br>
 				{/if}
-				{$da->getAddressCity()}<br>
-				{$da->getAddressZip()}<br>
-				{$da->getAddressCountry()|to_country_name}<br>
-				{if $da->getAddressNote()}
-					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
+				{$da->getAddressZip()} {$da->getAddressCity()}<br>
+				{if $da->getAddressState()}
+					{$da->getAddressState()}<br>
 				{/if}
-				{t}telefon:{/t} {$da->getPhone()|display_phone|default:$mdash}
+				{$da->getAddressCountry()|to_country_name}<br>
+				{$da->getPhone()|display_phone|default:$mdash}
+				{if $da->getAddressNote()}
+					<br>
+					<small>{t}poznámka:{/t} {$da->getAddressNote()}</small>
+				{/if}
 			</div>
 			<div class="card-footer card__actions justify-content-start">
 				{capture assign="confirm"}{t escape=false}Doručovací adresa bude smazána. Pokračovat?{/t}{/capture}

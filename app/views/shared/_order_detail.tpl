@@ -180,13 +180,13 @@
 				{/if}
 				{$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
 				{$order->getDeliveryAddressCountry()|to_country_name}
-				{if strlen($order->getDeliveryAddressNote())}
-					<br>
-					<em>{t}Poznámka:{/t} {$order->getDeliveryAddressNote()}</em>
-				{/if}
 				{if $order->getDeliveryPhone()}
 					<br>
 					{$order->getDeliveryPhone()|display_phone|default:$mdash}
+				{/if}
+				{if strlen($order->getDeliveryAddressNote())}
+					<br>
+					<small>{t}poznámka:{/t} {$order->getDeliveryAddressNote()}</small>
 				{/if}
 			</p>
 		</div>
