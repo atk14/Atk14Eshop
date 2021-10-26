@@ -9,21 +9,7 @@
 		{assign addresscounter $smarty.foreach.addresscounter.iteration}
 		<li class="card bg-light">
 			<div class="card-body js--card-address {if $addresscounter == 1}card--active{/if}">
-				{$da->getFirstname()} {$da->getLastname()}<br>
-				{if $da->getCompany()}
-					{$da->getCompany()}<br>
-				{/if}
-				{$da->getAddressStreet()}<br>
-				{if $da->getAddressStreet2()}
-					{$da->getAddressStreet2()}<br>
-				{/if}
-				{$da->getAddressCity()}<br>
-				{$da->getAddressZip()}<br>
-				{$da->getAddressCountry()|to_country_name}<br>
-				{if $da->getAddressNote()}
-					<em>{t}Poznámka:{/t} {$da->getAddressNote()}</em><br>
-				{/if}
-				{t}telefon:{/t} {$da->getPhone()|display_phone|default:$mdash}
+				{render partial="shared/delivery_address" delivery_address=$da}
 			</div>
 			<div class="card-footer card__actions justify-content-start">
 				<button class="js--predefined-address card__action btn btn-primary btn-sm" data-json="{$da->toJson()}">{!"check"|icon} <span>{t}Použít{/t}</span></button>
