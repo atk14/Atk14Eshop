@@ -430,9 +430,9 @@
 				// Vyber dorucovacich adres
 				$( ".js--predefined-address" ).click( function() {
 					var data = $( this ).data( "json" ),
-						$card = $( this ).closest( ".js--card-address" ),
+						$card = $( this ).closest( ".card" ).find( ".js--card-address" ),
 						$cards = $( ".js--card-address" );
-
+console.log($card);
 					$cards.removeClass( "card--active" );
 					$card.addClass( "card--active" );
 

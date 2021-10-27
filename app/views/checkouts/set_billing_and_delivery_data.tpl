@@ -8,7 +8,7 @@
 	{foreach $delivery_addresses as $da name=addresscounter}
 		{assign addresscounter $smarty.foreach.addresscounter.iteration}
 		<li class="card bg-light">
-			<div class="card-body js--card-address {if $addresscounter == 1}card--active{/if}">
+			<div class="card-body js--card-address {*if $addresscounter == 1}card--active{/if*}">
 				{render partial="shared/delivery_address" delivery_address=$da}
 			</div>
 			<div class="card-footer card__actions justify-content-start">
