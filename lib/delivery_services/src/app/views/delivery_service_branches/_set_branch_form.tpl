@@ -9,6 +9,7 @@
 
 {if $delivery_service && $delivery_service->getCode()=="zasilkovna"}
 	<div id="atk14-widget-zasilkovna" data-api_key="{"delivery_services.zasilkovna.api_key"|system_parameter}"></div>
+	{render partial="shared/form"}
 {elseif $delivery_service && $delivery_service->getCode()=="gls"}
 	<iframe id="atk14-widget-gls" src="https://maps.gls-czech.cz/?tdetail=3&lng=cs"></iframe>
 	<div class="container-fluid branch-detail">
