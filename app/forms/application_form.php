@@ -207,7 +207,7 @@ class ApplicationForm extends Atk14Form{
 			"max_length" => 255,
 			"required" => false,
 			"disabled" => $disabled,
-			"help_text" => _("Např. číslo patra nebo dveří"),
+			"help_text" => _("Např. číslo patra nebo dveří, označení zvonku a podobně"),
 		)));
 	}
 
