@@ -99,6 +99,7 @@ class DeliveryAddress extends ApplicationModel {
 		]);
 		
 		if(!$da){
+			$cr_values["created_automatically"] = true;
 			$da = DeliveryAddress::CreateNewRecord($cr_values);
 		}
 
