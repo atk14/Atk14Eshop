@@ -165,29 +165,7 @@
 		<div class="col-12 col-md">
 			<h5 class="h5">{!"map-marker-alt"|icon} {t}Doručovací adresa:{/t}</h5>
 			<p>
-				{$order->getDeliveryFirstname()} {$order->getDeliveryLastname()}<br>
-				{if $order->getDeliveryCompany()}
-					{$order->getDeliveryCompany()}<br>
-					{*
-					{if $order->getDeliveryPlace()}
-						{$order->getDeliveryPlace()}<br>
-					{/if}
-					*}
-				{/if}
-				{$order->getDeliveryAddressStreet()}<br>
-				{if $order->getDeliveryAddressStreet2()}
-							{$order->getDeliveryAddressStreet2()}<br>
-				{/if}
-				{$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
-				{$order->getDeliveryAddressCountry()|to_country_name}
-				{if $order->getDeliveryPhone()}
-					<br>
-					{$order->getDeliveryPhone()|display_phone|default:$mdash}
-				{/if}
-				{if strlen($order->getDeliveryAddressNote())}
-					<br>
-					<small>{t}poznámka:{/t} {$order->getDeliveryAddressNote()}</small>
-				{/if}
+				{render partial="shared/delivery_address" object_with_delivery_address=$order}
 			</p>
 		</div>
 		<div class="col-12 col-md">
