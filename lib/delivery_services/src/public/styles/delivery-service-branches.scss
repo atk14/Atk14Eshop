@@ -59,6 +59,9 @@
 	.modal-body {
 		padding: 0;
 	}
+	iframe {
+		border: none !important;
+	}
 	.branch-detail {
 		&.container-fluid {
 			padding: 0 $grid-gutter-width/2;
