@@ -112,7 +112,7 @@ class DeliveryAddress extends ApplicationModel {
 
 	function toExportArray(){
 		$out = $this->toArray();
-		foreach(["user_id","last_used_at","created_at","updated_at"] as $k){
+		foreach(["user_id","last_used_at","created_at","updated_at","created_automatically"] as $k){
 			unset($out[$k]);
 		}
 		Atk14Require::Helper("modifier.display_phone");
