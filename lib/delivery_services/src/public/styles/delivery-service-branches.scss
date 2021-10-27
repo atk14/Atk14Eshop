@@ -46,6 +46,7 @@
 #atk14-widget-gls {
 	height: 600px;
 	width: 100%;
+	margin-bottom: -7px;
 }
 #atk14-widget-zasilkovna {
 	height: 600px;
@@ -57,5 +58,38 @@
 .modal--zasilkovna {
 	.modal-body {
 		padding: 0;
+	}
+	.branch-detail {
+		&.container-fluid {
+			padding: 0 $grid-gutter-width/2;
+		}
+		#atk14-widget-branch {
+			padding: $grid-gutter-width/4 0;
+
+			.branch-text {
+				@include media-breakpoint-up(sm) {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+				}
+				.branch-address {
+				}
+				.branch-name {
+					font-weight: $font-weight-bold;
+				}
+				form {
+					margin-bottom: 0;
+					fieldset {
+						margin-bottom: 0;
+					}
+				}
+			}
+			
+			.branch-image {
+				max-width: 100%;
+				height: auto;
+				max-height: 150px;
+			}
+		}
 	}
 }
