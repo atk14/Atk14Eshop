@@ -10,7 +10,6 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false, "disabled" => $delivery_point_selected]);
 		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => true, "disabled" => $delivery_point_selected]);
 		$this->_add_phone(["prefix" => "delivery_"]);
-		$this->fields["delivery_address_note"]->label = _("Upozornění pro doručovatele");
 
 		// fakturacni adresa
 		$this->_add_firstname_lastname(["required" => false]);

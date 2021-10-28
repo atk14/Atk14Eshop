@@ -203,7 +203,7 @@ class ApplicationForm extends Atk14Form{
 		)));
 
 		$options["add_note"] && $this->add_field("{$prefix}address_note", new CharField(array(
-			"label" => _("Poznámka"),
+			"label" => _("Upozornění pro doručovatele"),
 			"max_length" => 255,
 			"required" => false,
 			"disabled" => $disabled,
