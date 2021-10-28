@@ -56,5 +56,11 @@
 					</div>
 				</td>
 			</tr>
+
+			<tr>
+				<td colspan="7">
+					{render partial="shared/form_field" field="note"}
+				</td>
+			</tr>
 			
 		</tfoot>

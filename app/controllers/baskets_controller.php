@@ -13,6 +13,8 @@ class BasketsController extends ApplicationController {
 			$this->session->clear("voucher_initial");
 		}
 
+		$this->form->set_initial("note",$basket->getNote());
+
 		if($this->request->post()){
 			// Chyby z formulare neukazujeme, tak aktualizaci kosiku resime takto:
 
@@ -42,6 +44,11 @@ class BasketsController extends ApplicationController {
 							$this->flash->success(_("Slevový kupón byl přidán"));
 						}
 					}
+				}
+
+				if(array_key_exists("note",$d) && $basket->getNote()!==$d["note"]){
+					// only update note when the field is presented in the form
+					$basket->s("note",$d["note"]);
 				}
 			}
 

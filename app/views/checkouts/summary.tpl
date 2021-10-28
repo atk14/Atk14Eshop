@@ -8,7 +8,7 @@
 {form}
 	{render partial="shared/form_error" small_form=false}
 	<div class="form__body">
-		{render partial="shared/order_detail" order=$basket}
+		{render partial="shared/order_detail" order=$basket show_note=false}
 		{render partial="shared/form_field" field="note"}
 	</div>
 	<div class="form__footer">

@@ -114,6 +114,7 @@ class CheckoutsController extends ApplicationController {
 
 		$this->page_title = _("Rekapitulace objednávky");
 
+		$this->form->set_initial("note",$this->basket->getNote());
 		$this->form->set_hidden_field("checksum",$this->basket->getChecksum());
 
 		if($this->request->post() && !is_null($d = $this->form->validate($this->params))){

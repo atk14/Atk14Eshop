@@ -2,13 +2,16 @@
  * Detail objednavky nebo kosiku
  *}
 
+{if !isset($show_note)}
+	{assign show_note true}
+{/if}
+
 {assign currency $order->getCurrency()}
 {assign vouchers $order->getVouchers()}
 {assign campaigns $order->getCampaigns()}
 {assign object_class $order|get_class}
 {assign is_basket $object_class=="Basket"}
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
-
 
 {*
  * Tohle neni v designu
@@ -114,7 +117,7 @@
 		<tr class="table-products__tfootstart">
 			{strip}
 			<td colspan="3" class="table-products__note">
-				{if $order->getNote()}
+				{if $show_note && $order->getNote()}
 					<em>{!$order->getNote()|h|nl2br}</em>
 				{/if}
 			</td>
