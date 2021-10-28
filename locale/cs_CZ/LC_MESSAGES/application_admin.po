@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 22:49+0200\n"
+"POT-Creation-Date: 2021-10-28 21:51+0200\n"
 "PO-Revision-Date: 2021-10-18 13:27+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -120,26 +120,39 @@ msgstr ""
 msgid "Add a new brand"
 msgstr "Přidat novou značku"
 
-msgid "doprava zdarma"
-msgstr "doprava zdarma"
-
-msgid "sleva %1%"
-msgstr "sleva %1%"
-
-msgid "pouze pro přihlášené"
-msgstr "pouze pro přihlášené"
-
-msgid "i pro neregistrované"
-msgstr "i pro neregistrované"
-
 msgid "minimální výše objednávky %1"
 msgstr "minimální výše objednávky %1"
 
 msgid "bez omezení výše objednávky"
 msgstr "bez omezení výše objednávky"
 
-msgid "pouze pro dopravu %1"
-msgstr "pouze pro dopravu %1"
+msgid "pouze pro zákaznickou skupinu %1"
+msgstr ""
+
+msgid "pouze při zvoleném způsobu doručení %1"
+msgstr ""
+
+msgid "pouze při zvolené platební metodě %1"
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:41
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:67
+msgid "Určeno pro štítky"
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:47
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:73
+msgid "Vyloučeno pro štítky"
+msgstr ""
+
+msgid "doprava zdarma"
+msgstr "doprava zdarma"
+
+msgid "pouze pro způsob doručení %1"
+msgstr ""
+
+msgid "sleva %1%"
+msgstr "sleva %1%"
 
 msgid "Upravit"
 msgstr "Upravit"
@@ -175,11 +188,11 @@ msgstr "Oblasti"
 msgid "Název"
 msgstr "Název"
 
-msgid "Obsah"
-msgstr "Obsah"
-
 msgid "Podmínky"
 msgstr "Podmínky"
+
+msgid "Obsah"
+msgstr "Obsah"
 
 msgid "Je aktivní?"
 msgstr "Je aktivní?"
@@ -337,6 +350,7 @@ msgstr "Katalogové číslo"
 #: ../app/forms/admin/card_merging/create_new/edit_primary_card_names_form.php:6
 #: ../app/forms/admin/cards/cards_form.php:15
 #: ../app/forms/admin/categories/categories_form.php:13
+#: ../app/forms/admin/categories/move_to_category/fix_slug_collision_form.php:6
 #: ../app/forms/admin/collections/collections_form.php:5
 #: ../app/forms/admin/creator_roles/creator_roles_form.php:6
 #: ../app/forms/admin/creators/creators_form.php:6
@@ -358,8 +372,8 @@ msgstr "Vytvořeno"
 msgid "Updated at"
 msgstr "Změněno"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Upravit skladovou položku ve skladu %1"
+msgid "Edit stockcount in warehouse %1"
+msgstr ""
 
 msgid "Create new entry in warehouse %1"
 msgstr "Vytvořit nový záznam ve skladu %1"
@@ -457,7 +471,7 @@ msgstr "Vytvořit a editovat alias"
 msgid "Add a new subcategory"
 msgstr "Přidat podkategorii"
 
-#: ../app/controllers/admin/categories_controller.php:80
+#: ../app/controllers/admin/categories_controller.php:136
 msgid "filter option"
 msgstr "možnost filtru"
 
@@ -540,6 +554,14 @@ msgstr "Přidat doporučený produkt"
 
 msgid "Recommended products"
 msgstr "Doporučené produkty"
+
+msgid "Collision category found!"
+msgstr ""
+
+msgid ""
+"There is a collision category with the same slug in the new place. Please "
+"correct the slug."
+msgstr ""
 
 msgid "Id"
 msgstr "Id"
@@ -630,6 +652,9 @@ msgstr "Vytvořit novou zákaznickou skupinu"
 msgid "Osobní odběr na prodejně"
 msgstr "Osobní odběr na prodejně"
 
+msgid "Exkluzivní metoda pro štítek"
+msgstr ""
+
 msgid "Only for customer group:"
 msgstr "Pouze pro zákaznickou skupinu:"
 
@@ -652,7 +677,7 @@ msgid "Cena s DPH"
 msgstr "Cena s DPH"
 
 #: ../app/forms/admin/delivery_method_country_specifications/delivery_method_country_specifications_form.php:18
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:73
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:85
 msgid "Kód dopravy"
 msgstr "Kód dopravy"
 
@@ -1643,18 +1668,6 @@ msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
 
-msgid "pouze pro zákaznickou skupinu %1"
-msgstr ""
-
-msgid "pouze při zvoleném způsobu doručení %1"
-msgstr ""
-
-msgid "pouze při zvolené platební metodě %1"
-msgstr ""
-
-msgid "pouze pro způsob doručení %1"
-msgstr ""
-
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
 msgstr "Přidání nového příslušenství"
@@ -1925,7 +1938,7 @@ msgstr "Značka byla smazána"
 msgid "Nová kampaň"
 msgstr "Nová kampaň"
 
-#: ../app/controllers/admin/campaigns_controller.php:46
+#: ../app/controllers/admin/campaigns_controller.php:56
 msgid "Editace kampaně"
 msgstr "Editace kampaně"
 
@@ -2041,49 +2054,50 @@ msgstr "Editace možnosti filtru \"%s\""
 msgid "Editing category \"%s\""
 msgstr "Editace kategorie \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:49
+#: ../app/controllers/admin/categories_controller.php:72
+#: ../app/controllers/admin/categories_controller.php:91
 #, php-format
 msgid "Moving category %s"
 msgstr "Přesun kategorie %s"
 
-#: ../app/controllers/admin/categories_controller.php:54
+#: ../app/controllers/admin/categories_controller.php:77
 msgid "The category can not be moved under itself"
 msgstr "Kategorie nemůže být přesunuta pod sebe sama"
 
-#: ../app/controllers/admin/categories_controller.php:58
+#: ../app/controllers/admin/categories_controller.php:115
 msgid "The category was moved"
 msgstr "Kategorie byla přesunuta"
 
-#: ../app/controllers/admin/categories_controller.php:75
+#: ../app/controllers/admin/categories_controller.php:131
 msgid "New subcategory"
 msgstr "Nová podkategorie"
 
-#: ../app/controllers/admin/categories_controller.php:87
+#: ../app/controllers/admin/categories_controller.php:143
 msgid "Category cannot be created when the parent category is an alias"
 msgstr "Kategorie nelze vytvořit, pokud je nadřazená kategorie alias"
 
-#: ../app/controllers/admin/categories_controller.php:93
+#: ../app/controllers/admin/categories_controller.php:149
 msgid "On this place a new category cannot be created"
 msgstr "Na tomto místě nemůže být vytvořena nová kategorie"
 
-#: ../app/controllers/admin/categories_controller.php:99
+#: ../app/controllers/admin/categories_controller.php:155
 msgid "Filter cannot be created when the parent category is also a filter"
 msgstr "Filtr nelze vytvořit, pokud je nadřazená kategorie také filtr"
 
-#: ../app/controllers/admin/categories_controller.php:109
+#: ../app/controllers/admin/categories_controller.php:165
 msgid "Category has been created"
 msgstr "Kategorie byla vytvořena"
 
-#: ../app/controllers/admin/categories_controller.php:130
+#: ../app/controllers/admin/categories_controller.php:186
 msgid "The category was deleted"
 msgstr "Kategorie byla smazána"
 
-#: ../app/controllers/admin/categories_controller.php:139
+#: ../app/controllers/admin/categories_controller.php:195
 #, php-format
 msgid "Creating new link to the category \"%s\""
 msgstr "Vytvoření odkazu na kategorii \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:147
+#: ../app/controllers/admin/categories_controller.php:203
 msgid "Alias was created"
 msgstr "Alias byl vytvořen"
 
@@ -2198,16 +2212,20 @@ msgstr "Specifické hodnoty dopravy pro %s"
 msgid "Způsoby dopravy"
 msgstr "Způsoby dopravy"
 
-#: ../app/controllers/admin/delivery_methods_controller.php:19
+#: ../app/controllers/admin/delivery_methods_controller.php:11
+msgid "Vytvořit nový způsob dopravy"
+msgstr ""
+
+#: ../app/controllers/admin/delivery_methods_controller.php:29
 msgid "Editace způsobu dopravy"
 msgstr "Editace způsobu dopravy"
 
-#: ../app/controllers/admin/delivery_methods_controller.php:28
+#: ../app/controllers/admin/delivery_methods_controller.php:53
 #, php-format
 msgid "Způsob dopravy '%s' zapnut"
 msgstr "Způsob dopravy '%s' zapnut"
 
-#: ../app/controllers/admin/delivery_methods_controller.php:39
+#: ../app/controllers/admin/delivery_methods_controller.php:64
 #, php-format
 msgid "Způsob dopravy '%s' vypnut"
 msgstr "Způsob dopravy '%s' vypnut"
@@ -2807,8 +2825,8 @@ msgid "Vat rate"
 msgstr "Sazba DPH"
 
 #: ../app/forms/admin/admin_form.php:199
-msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
-msgstr "Lze produkt objednat bez ohledu na skladovou zásobu?"
+msgid "Lze produkt objednat, i když není skladem?"
+msgstr ""
 
 #: ../app/forms/admin/admin_form.php:200
 msgid ""
@@ -2841,7 +2859,7 @@ msgstr "otevřít v administraci"
 #: ../app/forms/admin/collections/collections_form.php:17
 #: ../app/forms/admin/creators/creators_form.php:15
 #: ../app/forms/admin/images/images_form.php:6
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:21
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:27
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
@@ -2987,7 +3005,7 @@ msgid "Pages of the manufacturer"
 msgstr "Stránky výrobce"
 
 #: ../app/forms/admin/brands/brands_form.php:22
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:82
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:94
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:70
 msgid "Logo"
 msgstr "Logo"
@@ -3019,33 +3037,45 @@ msgstr ""
 msgid "Uplatňuje se pouze při použité platební metodě"
 msgstr ""
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:41
+#: ../app/forms/admin/campaigns/campaigns_form.php:43
+msgid ""
+"Kampaň bude uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
+"jeden z uvedených štítků."
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:49
+msgid ""
+"Kampaň NEBUDE uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
+"jeden z uvedených štítků."
+msgstr ""
+
+#: ../app/forms/admin/campaigns/campaigns_form.php:53
 #: ../app/forms/admin/discounts/discounts_form.php:6
 msgid "Procentní sleva"
 msgstr "Procentní sleva"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:43
+#: ../app/forms/admin/campaigns/campaigns_form.php:55
 msgid "Nastavte nulu, pokud je toto kampaň na dopravu zdarma"
 msgstr "Nastavte nulu, pokud je toto kampaň na dopravu zdarma"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:47
+#: ../app/forms/admin/campaigns/campaigns_form.php:59
 #: ../app/forms/admin/vouchers/vouchers_form.php:32
 msgid "Doprava zdarma?"
 msgstr "Doprava zdarma?"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:52
+#: ../app/forms/admin/campaigns/campaigns_form.php:64
 msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
 msgstr ""
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:54
+#: ../app/forms/admin/campaigns/campaigns_form.php:66
 msgid "všechny způsoby"
 msgstr ""
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:66
+#: ../app/forms/admin/campaigns/campaigns_form.php:78
 msgid "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
 msgstr "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
 
-#: ../app/forms/admin/campaigns/campaigns_form.php:69
+#: ../app/forms/admin/campaigns/campaigns_form.php:81
 msgid "Je nutné nastavit buďto procentní slevu nebo dopravu zdarma"
 msgstr "Je nutné nastavit buďto procentní slevu nebo dopravu zdarma"
 
@@ -3295,11 +3325,15 @@ msgstr "Umístit do kategorie"
 msgid "Napište lomítko, pokud chcete prohledat strom kategorií od kořene."
 msgstr "Napište lomítko, pokud chcete prohledat strom kategorií od kořene."
 
-#: ../app/forms/admin/categories/move_to_category_form.php:6
+#: ../app/forms/admin/categories/move_to_category/fix_slug_collision_form.php:27
+msgid "The same slug already exists at this place"
+msgstr ""
+
+#: ../app/forms/admin/categories/move_to_category/get_data_form.php:6
 msgid "Parent category"
 msgstr "Rodičovská Kategorie"
 
-#: ../app/forms/admin/categories/move_to_category_form.php:10
+#: ../app/forms/admin/categories/move_to_category/get_data_form.php:10
 msgid "Move category"
 msgstr "Přesunout kategorii"
 
@@ -3320,6 +3354,10 @@ msgstr "Tento produkt už je součástí této kolekce"
 #, php-format
 msgid "Tento produkt už je součástí jiné kolekce [%s]"
 msgstr "Tento produkt už je součástí jiné kolekce [%s]"
+
+#: ../app/forms/admin/creator_roles/creator_roles_form.php:11
+msgid "Plural name"
+msgstr ""
 
 #: ../app/forms/admin/creators/creators_form.php:10
 msgid "Localized name"
@@ -3455,27 +3493,37 @@ msgstr "Vyberte prodejnu pro osobní odběr"
 msgid "Lze vybrat pouze, pokud bude zatržen <em>osobní odběr</em>"
 msgstr "Lze vybrat pouze, pokud bude zatržen <em>osobní odběr</em>"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:67
-msgid "Povinné klíčové slovo"
-msgstr "Povinné klíčové slovo"
-
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:69
 msgid ""
-"Doručovací metodu bude možné použít jen v případě, že všechny produkty v "
-"košíku budou obsahovat požadované klíčové slovo."
+"Doručovací metoda bude použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
 msgstr ""
-"Doručovací metodu bude možné použít jen v případě, že všechny produkty v "
-"košíku budou obsahovat požadované klíčové slovo."
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:74
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:75
+msgid ""
+"Doručovací metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
+msgstr ""
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:79
+msgid "Exkluzivně pro štítek"
+msgstr ""
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:81
+msgid ""
+"Doručovací metoda bude použita, pokud všechny produkty v košíku budou "
+"obsahovat tento štítek. Ostatní metody nebudou použity."
+msgstr ""
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:86
 msgid "Pro systémové účely. Unikátní kód."
 msgstr "Pro systémové účely. Unikátní kód."
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:88
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:100
 msgid "URL pro sledování zásilky"
 msgstr "URL pro sledování zásilky"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:90
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:102
 msgid ""
 "Znak '@' v URL bude nahrazen číslem zásilky.<br>Např. 'https://www."
 "postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
@@ -3483,15 +3531,15 @@ msgstr ""
 "Znak '@' v URL bude nahrazen číslem zásilky.<br>Např. 'https://www."
 "postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:101
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:113
 msgid "Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"
 msgstr "Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:107
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:119
 msgid "Specify the price incl. VAT"
 msgstr "Zadejte cenu vč. DPH"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:110
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:122
 msgid "Specify the price"
 msgstr "Zadejte cenu"
 
@@ -3630,7 +3678,11 @@ msgstr ""
 "Interní odkaz by měl být zadán jako URI (např. /o-nas/). Externí odkaz musí "
 "být zadán v úplném tvaru (např. https://example.com/file.pdf)."
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:23
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:21
+msgid "CSS class"
+msgstr ""
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:29
 msgid "In some cases the link looks better with an image."
 msgstr "V některých případech vypadá odkaz lépe s obrázkem."
 
@@ -4373,20 +4425,45 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
-msgid "sales regions"
-msgstr "prodejní oblasti"
+#~ msgid "pouze pro přihlášené"
+#~ msgstr "pouze pro přihlášené"
 
-msgid "currencies"
-msgstr "měny"
+#~ msgid "i pro neregistrované"
+#~ msgstr "i pro neregistrované"
 
-msgid "delivery to"
-msgstr "doručování do"
+#~ msgid "pouze pro dopravu %1"
+#~ msgstr "pouze pro dopravu %1"
 
-msgid "currency"
-msgstr "měna"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Upravit skladovou položku ve skladu %1"
 
-msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgid "Lze produkt objednat bez ohledu na skladovou zásobu?"
+#~ msgstr "Lze produkt objednat bez ohledu na skladovou zásobu?"
+
+#~ msgid "Povinné klíčové slovo"
+#~ msgstr "Povinné klíčové slovo"
+
+#~ msgid ""
+#~ "Doručovací metodu bude možné použít jen v případě, že všechny produkty v "
+#~ "košíku budou obsahovat požadované klíčové slovo."
+#~ msgstr ""
+#~ "Doručovací metodu bude možné použít jen v případě, že všechny produkty v "
+#~ "košíku budou obsahovat požadované klíčové slovo."
+
+#~ msgid "sales regions"
+#~ msgstr "prodejní oblasti"
+
+#~ msgid "currencies"
+#~ msgstr "měny"
+
+#~ msgid "delivery to"
+#~ msgstr "doručování do"
+
+#~ msgid "currency"
+#~ msgstr "měna"
+
+#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid "Pouze pro přihlášené?"
 #~ msgstr "Pouze pro přihlášené?"
