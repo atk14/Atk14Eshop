@@ -48,7 +48,7 @@
 		</tr>
 		<tr>
 			<th>{t}Phone{/t}</th>
-			<td>{$logged_user->getPhone()|default:$mdash}</td>
+			<td>{$logged_user->getPhone()|display_phone|default:$mdash}</td>
 		</tr>
 		{if $logged_user->isAdmin}
 			<tr>
