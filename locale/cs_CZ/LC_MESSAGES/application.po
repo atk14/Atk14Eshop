@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-28 22:54+0200\n"
-"PO-Revision-Date: 2021-10-28 22:55+0200\n"
+"PO-Revision-Date: 2021-10-28 23:02+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1267,7 +1267,7 @@ msgstr "Ano, jste"
 
 #: ../app/controllers/users_controller.php:48
 msgid "Change your account data"
-msgstr "Změnit vaše údaje"
+msgstr "Změna vašich údajů"
 
 #: ../app/controllers/users_controller.php:65
 msgid "Change your password"
