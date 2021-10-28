@@ -60,6 +60,8 @@
 </table>
 
 <div class="form__footer form__footer--simple">
-	{a action="edit" _class="btn btn-primary"}{t}Change your account data{/t}{/a}
-	{a action="edit_password" _class="btn btn-primary"}{t}Change your password{/t}{/a}
+	{a action="edit" _class="btn btn-default"}{t}Change your account data{/t}{/a}
+	{a action="edit_password" _class="btn btn-default"}{t}Change your password{/t}{/a}
+	{a action="delivery_addresses/index" _class="btn btn-default"}{t}Delivery addresses{/t}{/a}
+	{a action="favourite_products/index" _class="btn btn-default"}{t}Favourite products{/t}{/a}
 </div>

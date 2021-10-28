@@ -6,7 +6,7 @@
 
 {else}
 
-	<p>{a action="create_new" _class="btn btn-primary"}{!"plus-circle"|icon} {t}Vytvořit novou adresu{/t}{/a}</p>
+	<p>{a action="create_new" _class="btn btn-primary"}{!"plus-circle"|icon} {t}Přidat novou adresu{/t}{/a}</p>
 
 	{render partial="shared/delivery_addresses" delivery_addresses=$delivery_addresses}
 

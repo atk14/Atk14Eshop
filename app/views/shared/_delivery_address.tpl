@@ -26,7 +26,7 @@
 	{$object_with_delivery_address->getDeliveryPhone()|display_phone|default:$mobject_with_delivery_addresssh}
 	{if $object_with_delivery_address->getDeliveryAddressNote()}
 		<br>
-		<small>{t}poznámka:{/t} {$object_with_delivery_address->getDeliveryAddressNote()}</small>
+		<small>{t}upozornění:{/t} {$object_with_delivery_address->getDeliveryAddressNote()}</small>
 	{/if}
 
 {elseif $delivery_address}
@@ -47,7 +47,7 @@
 	{$delivery_address->getPhone()|display_phone|default:$mdelivery_addresssh}
 	{if $delivery_address->getAddressNote()}
 		<br>
-		<small>{t}poznámka:{/t} {$delivery_address->getAddressNote()}</small>
+		<small>{t}upozornění:{/t} {$delivery_address->getAddressNote()}</small>
 	{/if}
 
 {/if}

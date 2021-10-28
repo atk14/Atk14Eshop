@@ -37,4 +37,10 @@ class FavouriteProductsController extends ApplicationController {
 			$this->_redirect_back();
 		}
 	}
+
+	function _before_filter(){
+		if($this->logged_user){
+			$this->_add_user_detail_breadcrumb();
+		}
+	}
 }
