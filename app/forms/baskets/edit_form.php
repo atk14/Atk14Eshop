@@ -12,7 +12,7 @@ class EditForm extends BasketsForm {
 		]));
 
 		$this->add_field("note", new TextField([
-			'label' => _('Poznámka k objednávce'),
+			'label' => _('Vaše poznámka k objednávce'),
 			'required' => false,
 			'max_length' => 1000,
 			'widget' => new Textarea([
