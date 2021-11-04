@@ -1,5 +1,5 @@
 <?php
-class DeliveryServicesDataGLS extends Atk14Migration {
+class DeliveryServicesDataGLS extends ApplicationMigration {
 
 	function up() {
 
@@ -22,7 +22,7 @@ class DeliveryServicesDataGLS extends Atk14Migration {
 		$active = DEVELOPMENT;
 
 		$gls = DeliveryMethod::CreateNewRecord( [
-			"code" => "gls",
+			"code" => "gls_parcel_shop",
 			"label_en" => "GLS (payment in advance)",
 			"label_cs" => "GLS (platba předem)",
 
@@ -35,7 +35,7 @@ class DeliveryServicesDataGLS extends Atk14Migration {
 		]);
 
 		$gls_cod = DeliveryMethod::CreateNewRecord( [
-			"code" => "gls_cod",
+			"code" => "gls_parcel_shop_cod",
 			"label_en" => "GLS (cash on delivery)",
 			"label_cs" => "GLS (dobírka)",
 
