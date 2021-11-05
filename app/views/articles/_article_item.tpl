@@ -6,7 +6,11 @@
 	{/if}
 	<div class="card-body">
 		<h2 class="card-title">{$article->getTitle()}</h2>
-		<div class="card-text">{$article->getTeaser()|markdown|strip_html}</div>
+		{if $article->getTeaser()}
+		<div class="card-teaser">{$article->getTeaser()|markdown|strip_html|truncate:200}</div>
+		{/if}
+	</div>
+	<div class="card-footer">
 		<p class="card-meta">{render partial="author_and_date"}</p>
 	</div>
 {/a}
