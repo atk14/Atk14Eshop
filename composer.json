@@ -27,6 +27,7 @@
         "atk14/recaptcha-field": "^0.1.2",
         "yarri/markdown-manual.mdbook": "^0.2.1",
         "atk14/async-file-field": "^1.0",
+        "yarri/keywords-highlighter": "^0.1.2",
         "atk14/vlnka": "^1.1",
         "atk14/company-number-field": "^0.1",
         "aristath/ari-color": "^1.1.1",
@@ -35,7 +36,6 @@
         "bacon/bacon-qr-code": "^1.0",
         "atk14/csv-reader": "^1.1",
         "atk14/csv-writer": "^1.1",
-        "yarri/keywords-highlighter": "^0.1.1",
         "atk14/sql-builder": "^3.0.2",
         "atk14/category-filter": "^1.0"
     }
