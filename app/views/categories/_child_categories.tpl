@@ -22,7 +22,7 @@
 				<div class="child-category__text">
 					<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small>&nbsp;{!"angle-right"|icon}</h4>
 					{if $cc->getTeaser()}
-						<p class="child-category__text__teaser">{$cc->getTeaser()|markdown|strip_tags|truncate:200}</p>
+						<p class="child-category__text__teaser">{$cc->getTeaser()|markdown|strip_html|truncate:200}</p>
 					{/if}
 				</div>
 				{/a}

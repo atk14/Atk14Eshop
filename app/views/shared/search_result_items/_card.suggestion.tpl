@@ -5,7 +5,7 @@
 {if $main_creators}
 	{capture assign="subtitle"}{$main_creators|to_sentence}{/capture}
 {else}
-	{capture assign=subtitle}{$card->getTeaser()|markdown|strip_tags|html_entity_decode|truncate:100}{/capture}
+	{capture assign=subtitle}{$card->getTeaser()|markdown|strip_html|truncate:100}{/capture}
 {/if}
 
 {render partial="shared/search_result_items/generic_template.suggestion"

@@ -32,7 +32,7 @@
 		{if $main_creators}
 			<div class="card-author">{$main_creators|to_sentence}</div>
 		{/if}
-		<div class="card-text">{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getTeaser()|markdown|strip_tags|truncate:300}{/highlight_keywords}</div>
+		<div class="card-text">{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getTeaser()|markdown|strip_html|truncate:300}{/highlight_keywords}</div>
 	</div>
 	
 	<div class="card-footer">
