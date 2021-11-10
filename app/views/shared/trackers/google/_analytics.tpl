@@ -1,5 +1,5 @@
 {assign analytics_tracking_id "app.trackers.google.analytics.tracking_id"|system_parameter}
-{assign analytics_tracking_id "/[, ;]/"|preg_split:$analytics_tracking_id}
+{assign analytics_tracking_id "/[, ;]/"|preg_split:$analytics_tracking_id|array_filter}
 
 {if $analytics_tracking_id}
 <!-- Global site tag (gtag.js) - Google Analytics -->
