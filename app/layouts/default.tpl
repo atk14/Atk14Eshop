@@ -42,6 +42,9 @@
 
 		<meta name="description" content="{$page_description}">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		{if $browser_theme_color}
+		<meta name="theme-color" content="{$browser_theme_color}">
+		{/if}
 
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}

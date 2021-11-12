@@ -144,6 +144,8 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->tpl_data["nbsp"] = " ";
 
 		$this->tpl_data["lazy_loader"] = $this->lazy_loader;
+
+		$this->tpl_data += (array)$ATK14_GLOBAL->getConfig("theme/frontend");
 	}
 
 	function _application_before_filter(){
