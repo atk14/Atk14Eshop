@@ -46,7 +46,7 @@ class SelectWithImages extends RadioSelect
 		$data_api_url = "";
 		//$ch && ($data_api_url = Atk14Url::BuildLink(array("namespace" => "api", "controller" => "cards", "action" => "detail", "id" => $ch->object->getCard())));
 		//return "<ul class=\"radios\" data-api_detail_url=\"".$data_api_url."\">\n".implode("\n", $output)."\n</ul>";
-		return "<ul class=\"list list--radios\">\n".implode("\n", $output)."\n</ul>";
+		return "<ul class=\"list list--radios list--radios--lg\">\n".implode("\n", $output)."\n</ul>";
 	}
 }
 

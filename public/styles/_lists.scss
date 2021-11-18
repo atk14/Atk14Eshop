@@ -85,11 +85,14 @@ ol.timeline {
 }
 
 
-
-
-ul.list--radios {
+@mixin listRadiosLayout( $compact: false ) {
 	// vert padding of label element
-	$itemVPadding: 0.375rem;
+	$itemVPadding: null;
+	@if $compact {
+		$itemVPadding: 0rem;
+	}	@else {
+		$itemVPadding: 0.375rem;
+	}
 	// horiz padding of label element
 	$itemHPadding: 0.75rem;
 	//radio outer ring size
@@ -276,6 +279,14 @@ ul.list--radios {
 			margin-bottom: 0;
 		}
 	}
+}
+
+ul.list--radios {
+	@include listRadiosLayout( true );
+}
+ul.list--radios--lg {
+	@include listRadiosLayout( false );
+	outline: 2px solid red;
 }
 
 ul.list--checkboxes {
