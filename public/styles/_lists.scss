@@ -286,7 +286,6 @@ ul.list--radios {
 }
 ul.list--radios--lg {
 	@include listRadiosLayout( false );
-	outline: 2px solid red;
 }
 
 ul.list--checkboxes {
