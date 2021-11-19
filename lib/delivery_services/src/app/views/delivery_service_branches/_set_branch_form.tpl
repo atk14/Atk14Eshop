@@ -8,62 +8,28 @@
 {assign delivery_service $delivery_method->getDeliveryService()}
 
 {if $delivery_service && $delivery_service->getCode()=="zasilkovna"}
-	<div id="atk14-widget-zasilkovna" data-api_key="{"delivery_services.zasilkovna.api_key"|system_parameter}"></div>
-	{render partial="shared/form"}
+	{render partial="widget_html_zasilkovna"}
 {elseif $delivery_service && $delivery_service->getCode()=="gls"}
-	<iframe id="atk14-widget-gls" src="https://maps.gls-czech.cz/?tdetail=3&lng=cs"></iframe>
-	<div class="container-fluid branch-detail">
-
-	<div id="atk14-widget-branch" class="row">
-		<div class="col-12 col-sm-6 branch-text">
-			<div>
-				<div class="branch-name"></div>
-				<div class="branch-address"></div>
-			</div>
-			{render partial="shared/form"}
-		</div>
-		<div class="col-12 col-sm-6 text-sm-right">
-			<img class="branch-image">
-		</div>
-	</div>
+	{render partial="widget_html_gls"}
+{elseif $delivery_service && $delivery_service->getCode()=="cp-balikovna"}
+	{render partial="widget_html_cp_balikovna"}
 {else}
 	{render partial="shared/form_field" field=$branch_selector_form->get_field("delivery_service_widget")}
 	{render partial="shared/form"}
 {/if}
 
-{*render partial="shared/form"*}
-
-	
-</div>
-{**
- * Inicializace obsluhy vyberu pobocky pro Zasilkovnu.
- *}
+<script>
+document.addEventListener( "DOMContentLoaded", function() {
 {if $delivery_service && $delivery_service->getCode()=="zasilkovna"}
-<script>
-{literal}
-document.addEventListener( "DOMContentLoaded", function() {
-	$("#atk14-widget-zasilkovna").Zasilkovna( { target_input_id: "id_delivery_service_branch_id" });
-} );
-{/literal}
-</script>
+	{render partial="widget_js_zasilkovna"}
 {/if}
 
-{**
- * Inicializace obsluhy vyberu pobocky pro GLS.
- *}
 {if $delivery_service && $delivery_service->getCode()=="gls"}
-<script>
-{literal}
-document.addEventListener( "DOMContentLoaded", function() {
-	$("#atk14-widget-gls").GLS( {
-		target_input_id: "id_delivery_service_branch_id",
-{/literal}
-		countries: {!$basket->getDeliveryCountriesAllowed()|to_json},
-		language: {jstring}{$lang}{/jstring}
-{literal}
-	});
-} );
-{/literal}
-</script>
+	{render partial="widget_js_gls"}
 {/if}
 
+{if $delivery_service && $delivery_service->getCode()=="cp-balikovna"}
+	{render partial="widget_js_cp_balikovna"}
+{/if}
+} );
+</script>
