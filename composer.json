@@ -37,6 +37,7 @@
         "atk14/csv-reader": "^1.1",
         "atk14/csv-writer": "^1.1",
         "atk14/sql-builder": "^3.0.2",
-        "atk14/category-filter": "^1.0"
+        "atk14/category-filter": "^1.0",
+        "atk14/cookie-consent": "dev-master"
     }
 }

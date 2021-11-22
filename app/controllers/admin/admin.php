@@ -56,6 +56,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Selling regions"),				"regions"),
 			array(_("Customer groups"),				"customer_groups"),
 			array(_("Bank accounts"),					"bank_accounts"),
+			array(_("Cookie consent"),				"cookie_consent_categories"),
 			array(_("System preferences"),		"system_parameters"),
 		) as $item){
 			$_label = $item[0];
