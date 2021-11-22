@@ -20,25 +20,25 @@ class CookieConsentCategoriesDataMigration extends ApplicationMigration {
 		CookieConsentCategory::CreateNewRecord([
 			"id" => 2,
 			"code" => "analytics",
-			"active" => false,
+			"active" => DEVELOPMENT,
 			"cookies_regexp" => "/^(_ga.*|_gid.*|_utm.*)$/",
 			"necessary" => false,
 			"title_en" => "Analytic Cookies",
 			"title_cs" => "Analytická cookies",
 			"description_en" => "Analytical cookies allow us to measure the performance of our website and the effects of the adjustments we make to the website on an ongoing basis. We process the data obtained through these cookies in aggregate, without using identifiers that point to specific users of our website. If you disable the use of analytics cookies in relation to your visit, we lose the ability to analyse performance and optimise our measures.",
-			"description_cs" => "Analytické cookies nám umožňují měření výkonu našeho webu a účinků úprav, které průběžně ne web nasazujeme. Data získaná pomocí těchto cookies zpracováváme souhrnně, bez použití identifikátorů, které ukazují na konkrétní uživatelé našeho webu. Pokud vypnete používání analytických cookies ve vztahu k Vaší návštěvě, ztrácíme možnost analýzy výkonu a optimalizace našich opatření.",
+			"description_cs" => "Analytické cookies nám umožňují měření výkonu našeho webu a účinků úprav, které průběžně ne web nasazujeme. Data získaná pomocí těchto cookies zpracováváme souhrnně, bez použití identifikátorů, které ukazují na konkrétní uživatelé našeho webu. Pokud vypnete používání analytických cookies ve vztahu k vaší návštěvě, ztrácíme možnost analýzy výkonu a optimalizace našich opatření.",
 		]);
 
 		CookieConsentCategory::CreateNewRecord([
 			"id" => 3,
 			"code" => "advertising",
-			"active" => false,
+			"active" => DEVELOPMENT,
 			"cookies_regexp" => "/^(_fb)$/",
 			"necessary" => false,
 			"title_cs" => "Reklamní cookies",
 			"title_en" => "Marketing & Advertising",
 			"description_en" => "Advertising cookies allow us to show you relevant content or ads tailored to your interests both on our site and on third party sites.",
-			"description_cs" => "Reklamní cookies nám umožňují zobrazovat Vám vhodný obsah nebo reklamy přizpůsobené Vašim zájmům jak na našich stránkách, tak na stránkách třetích subjektů.",
+			"description_cs" => "Reklamní cookies nám umožňují zobrazovat vám vhodný obsah nebo reklamy přizpůsobené vašim zájmům jak na našich stránkách, tak na stránkách třetích subjektů.",
 		]);
 	}
 }
