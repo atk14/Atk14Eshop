@@ -85,11 +85,16 @@ ol.timeline {
 }
 
 
-
-
-ul.list--radios {
+@mixin listRadiosLayout( $compact: false ) {
 	// vert padding of label element
-	$itemPadding: 0.75rem;
+	$itemVPadding: null;
+	@if $compact {
+		$itemVPadding: 0rem;
+	}	@else {
+		$itemVPadding: 0.375rem;
+	}
+	// horiz padding of label element
+	$itemHPadding: 0.75rem;
 	//radio outer ring size
 	$inputSize: 1.25rem;
 	// radio inner dot size
@@ -124,8 +129,8 @@ ul.list--radios {
 			padding: 0;
 			input[type="radio"], input[type="checkbox"] {
 				position: absolute;
-				top: $itemPadding + $yCorrection;
-				left: $itemPadding;
+				top: $itemVPadding + $yCorrection;
+				left: $itemHPadding;
 				//margin-right: 0;
 				margin: 0;
 			}
@@ -137,8 +142,8 @@ ul.list--radios {
 			input[type=radio] ~ label {
 				&:before {
 					position: absolute;
-					left: $itemPadding;
-					top: $itemPadding + $imageSize/2 - $inputSize/2;
+					left: $itemHPadding;
+					top: $itemVPadding + $imageSize/2 - $inputSize/2;
 					display: block;
 					content: "";
 					width: $inputSize;
@@ -157,8 +162,8 @@ ul.list--radios {
 				&:after {
 					position: absolute;
 					display: block;
-					left: $itemPadding + ($inputSize - $dotSize) / 2;
-					top: $itemPadding - $dotSize / 2  + $imageSize / 2;
+					left: $itemHPadding + ($inputSize - $dotSize) / 2;
+					top: $itemVPadding - $dotSize / 2  + $imageSize / 2;
 					width: $dotSize;
 					height: $dotSize;
 					border-radius: 50%;
@@ -174,10 +179,10 @@ ul.list--radios {
 			label {
 				display: flex;
 				align-items: flex-start;
-				min-height: $minHeight + 2 * $itemPadding;
+				min-height: $minHeight + 2 * $itemVPadding;
 				position: relative;
-				padding: $itemPadding;
-				padding-left: $itemPadding * 2 + $inputSize;
+				padding: $itemVPadding $itemHPadding;
+				padding-left: $itemHPadding * 2 + $inputSize;
 				.v-image {
 					display: block;
 					flex-basis: 50px;
@@ -234,17 +239,17 @@ ul.list--radios {
 			@include media-breakpoint-down(xs) {
 				input[type=radio] ~ label {
 					&:before {
-						top: $itemPadding + $imageSizeXS/2 - $inputSize/2;
+						top: $itemVPadding + $imageSizeXS/2 - $inputSize/2;
 					}
 				}
 				input[type=radio]:checked ~ label {
 					&:after {
-						top: $itemPadding - $dotSize / 2  + $imageSizeXS / 2;
+						top: $itemVPadding - $dotSize / 2  + $imageSizeXS / 2;
 					}
 				}
 
 				label {
-					min-height: $minHeightXS + 2 * $itemPadding;
+					min-height: $minHeightXS + 2 * $itemVPadding;
 					.v-image {
 						flex-basis: 30px;
 						max-width: 30px;
@@ -274,6 +279,13 @@ ul.list--radios {
 			margin-bottom: 0;
 		}
 	}
+}
+
+ul.list--radios {
+	@include listRadiosLayout( true );
+}
+ul.list--radios--lg {
+	@include listRadiosLayout( false );
 }
 
 ul.list--checkboxes {

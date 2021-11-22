@@ -50,13 +50,13 @@ Horizontal forms differ from Bootstrap horizontal forms. To avoid using grid cla
 			<label for="id_gender_id_0" class="control-label">Oslovení </label>
 			<ul class="list list--radios">
 				<li class="list__item">
-					<div class="form-check"><input id="id_gender_id_0" class="form-check-input" type="radio" name="gender_id" value="1"> <label class="form-check-label" for="id_gender_id_0">pan</label></div>
+					<div class="form-check"><input id="id_gender_id_0" class="form-check-input" type="radio" name="gender_id" value="1"> <label class="form-check-label" for="id_gender_id_0"><span class="label__text">pan</span></label></div>
 				</li>
 				<li class="list__item">
-					<div class="form-check"><input id="id_gender_id_1" class="form-check-input" type="radio" name="gender_id" value="2"> <label class="form-check-label" for="id_gender_id_1">paní</label></div>
+					<div class="form-check"><input id="id_gender_id_1" class="form-check-input" type="radio" name="gender_id" value="2"> <label class="form-check-label" for="id_gender_id_1"><span class="label__text">paní</span></label></div>
 				</li>
 				<li class="list__item">
-					<div class="form-check"><input id="id_gender_id_2" class="form-check-input" type="radio" name="gender_id" value="3"> <label class="form-check-label" for="id_gender_id_2">slečna</label></div>
+					<div class="form-check"><input id="id_gender_id_2" class="form-check-input" type="radio" name="gender_id" value="3"> <label class="form-check-label" for="id_gender_id_2"><span class="label__text">slečna</span></label></div>
 				</li>
 			</ul>
 		</div>
@@ -186,13 +186,35 @@ Only items different from standard Bootstrap form controls are described here.
 	<div class="form-group">
 		<ul class="list list--radios">
 			<li class="list__item">
-				<div class="form-check"><input id="id_0" class="form-check-input" type="radio" name="gender_id" value="1"> <label class="form-check-label" for="id_0">pan</label></div>
+				<div class="form-check"><input id="id_0" class="form-check-input" type="radio" name="gender_id" value="1"> <label class="form-check-label" for="id_0"><span class="label__text">pan</span></label></div>
 			</li>
 			<li class="list__item">
-				<div class="form-check"><input id="id_1" class="form-check-input" type="radio" name="gender_id" value="2"> <label class="form-check-label" for="id_1">paní</label></div>
+				<div class="form-check"><input id="id_1" class="form-check-input" type="radio" name="gender_id" value="2"> <label class="form-check-label" for="id_1"><span class="label__text">paní</span></label></div>
 			</li>
 			<li class="list__item">
-				<div class="form-check"><input id="id_2" class="form-check-input" type="radio" name="gender_id" value="3"> <label class="form-check-label" for="id_2">slečna</label></div>
+				<div class="form-check"><input id="id_2" class="form-check-input" type="radio" name="gender_id" value="3"> <label class="form-check-label" for="id_2"><span class="label__text">slečna</span></label></div>
+			</li>
+		</ul>
+	</div>
+</form>
+[/example]
+
+### Radios list - larger
+
+Modifier class <code>list--radios--lg</code> adds more vertical padding. Useful when list items contain images.
+
+[example]
+<form class="form-horizontal">
+	<div class="form-group">
+		<ul class="list list--radios list--radios--lg">
+			<li class="list__item">
+				<div class="form-check"><input id="id_0" class="form-check-input" type="radio" name="gender_id" value="1"> <label class="form-check-label" for="id_0"><span class="label__text">pan</span></label></div>
+			</li>
+			<li class="list__item">
+				<div class="form-check"><input id="id_1" class="form-check-input" type="radio" name="gender_id" value="2"> <label class="form-check-label" for="id_1"><span class="label__text">paní</span></label></div>
+			</li>
+			<li class="list__item">
+				<div class="form-check"><input id="id_2" class="form-check-input" type="radio" name="gender_id" value="3"> <label class="form-check-label" for="id_2"><span class="label__text">slečna</span></label></div>
 			</li>
 		</ul>
 	</div>
@@ -205,15 +227,30 @@ Useful for building shipping methods or payment methods selectors.
 <form>
 	<div class="form-group form-group--id_delivery_method_id_0 form-group--required">
 		<label for="id_delivery_method_id_0" class="control-label">Vyberte způsob dopravy </label>
-		<ul class="list list--radios">
-			<li class="list__item checked" data-id="11">
-				<div class="form-check"><input id="id_delivery_method_id_0" type="radio" name="delivery_method_id" value="11" class="form-check-input" checked="checked" data-branch_needed=""><label for="id_delivery_method_id_0" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (platba předem)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+
+		<ul class="list list--radios list--radios--lg">
+			<li class="list__item" data-id="11">
+				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_0" data-branch_needed="1" type="radio" name="delivery_method_id" value="11" class="form-check-input"><label for="id_delivery_method_id_0" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png" alt=""></span><span class="v-description"><span class="v-name">Česká Pošta - Balík do ruky (platba předem)</span></span> <span class="v-price">90,00 </span></label></div>
 			</li>
 			<li class="list__item" data-id="12">
-				<div class="form-check"><input id="id_delivery_method_id_1" type="radio" name="delivery_method_id" value="12" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_1" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/955/2e955/300x300/O01dyC_100x100_a677ac8eb6fd674d.png" alt=""></span><span class="v-description"><span class="v-name">Česká pošta (dobírka)</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_1" data-branch_needed="1" type="radio" name="delivery_method_id" value="12" class="form-check-input"><label for="id_delivery_method_id_1" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png" alt=""></span><span class="v-description"><span class="v-name">Česká Pošta - Balík do ruky (dobírka)</span></span> <span class="v-price">120,00 </span></label></div>
+			</li>
+			<li class="list__item" data-id="19">
+				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_6" data-branch_needed="1" type="radio" name="delivery_method_id" value="19" class="form-check-input"><label for="id_delivery_method_id_6" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png" alt=""></span><span class="v-description"><span class="v-name">Zásilkovna (platba předem)</span></span> <span class="v-price">65,00 </span></label></div>
+				<div class="delivery_service_branch">
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=19" class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address">13000 Praha 3, Biskupcova 1837/4 (Lahůdky u Čtyřky)</span>
+				</div>
+			</li>
+			<li class="list__item checked" data-id="20">
+				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_7" data-branch_needed="1" type="radio" name="delivery_method_id" value="20" class="form-check-input" checked="checked"><label for="id_delivery_method_id_7" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png" alt=""></span><span class="v-description"><span class="v-name">Zásilkovna (dobírka)</span><div class="v-hint"><p>I'm baby seitan offal austin stumptown cred pour-over lo-fi raclette. Live-edge umami iPhone gastropub, pour-over flannel pug yuccie. Forage vegan flannel, poke kinfolk yuccie vaporware.</p></div></span> <span class="v-price">85,00 </span></label></div>
+				<div class="delivery_service_branch" style="display: block;">
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=20" class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address">13000 Praha 3, Biskupcova 1837/4 (Lahůdky u Čtyřky)</span>
+				</div>
 			</li>
 			<li class="list__item" data-id="13">
-				<div class="form-check"><input id="id_delivery_method_id_2" type="radio" name="delivery_method_id" value="13" class="form-check-input" data-branch_needed=""><label for="id_delivery_method_id_2" class="form-check-label"><span class="v-description"><span class="v-name">Osobní převzetí na prodejně</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+				<div class="form-check"><input id="id_delivery_method_id_8" data-branch_needed="1" type="radio" name="delivery_method_id" value="13" class="form-check-input"><label for="id_delivery_method_id_8" class="form-check-label"><span class="v-description"><span class="v-name">Osobní převzetí na prodejně</span></span> <span class="v-price for-free">Zdarma</span></label></div>
 			</li>
 		</ul>
 	</div>
