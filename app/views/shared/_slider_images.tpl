@@ -15,7 +15,7 @@ $centered_slides=true|false					default: undefined
 {assign var=geometry value="1000x600"}
 <section class="section--slider">
 	
-	<div class="swiper-container swiper--images" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
+	<div class="swiper swiper--images" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
 		<div class="swiper-wrapper">
 
 			{foreach $slider->getVisibleItems() as $item}

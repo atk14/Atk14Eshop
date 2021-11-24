@@ -13,7 +13,7 @@ $slides_per_view=auto|number 				default: 1
 {assign uniqid uniqid()}
 <section class="section--slider">
 	{if $slider->getVisibleItems()|count > 1}
-		<div class="swiper-container" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}">
+		<div class="swiper" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}">
 			<div class="swiper-wrapper">
 
 				{foreach $slider->getVisibleItems() as $item}
