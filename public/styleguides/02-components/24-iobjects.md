@@ -19,7 +19,7 @@ iObjects are objects placed usually within text content of article, page, produc
 [/example]
 
 ## Gallery iObject
-There is Gallery component inside.
+There is Gallery component inside. It may contain various types of [gallery component](/styleguides/components%3Aimage-galleries/) (except Product Galleries).
 
 [example]
 <div class="iobject iobject--gallery">
