@@ -1,1 +1,0 @@
-../../vendor/atk14/cookie-consent/src/db/migrations/0020_cookie_consent_migration.sql
