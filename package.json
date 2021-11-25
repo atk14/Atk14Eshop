@@ -38,8 +38,9 @@
     "bootstrap-markdown-editor-4": "https://github.com/yarri/bootstrap-markdown-editor.git#1566a6b",
     "bootstrap4-notify": "4.0.3",
     "browser-sync": "^2.26.7",
-    "chart.js": "^2.9.3",
-    "chartjs-plugin-datalabels": "^0.7.0",
+    "chart.js": "^3.6.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
+    "chartjs-adapter-moment": "^1.0.0",
     "cookieconsent": "^3.1.0",
     "del": "^2.0.2",
     "favicons": "^6.0.0",
@@ -60,7 +61,7 @@
     "jquery": "~3.4.1",
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "node-sass": "^4.12.0",
     "photoswipe": "^4.1.3",
     "popper.js": "^1.15.0",
@@ -68,5 +69,6 @@
     "svg-country-flags": "^1.2.6",
     "swiper": "^7.3.0",
     "unobfuscatejs": "^1.0.2"
+
   }
 }

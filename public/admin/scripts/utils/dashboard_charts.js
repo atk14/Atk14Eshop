@@ -3,7 +3,9 @@ window.UTILS = window.UTILS || { };
 window.UTILS.initDashboardOrdersChart = function() {
 
 	// eslint-disable-next-line no-undef
-	Chart.plugins.unregister(ChartDataLabels);
+	//Chart.plugins.unregister(ChartDataLabels);
+	Chart.unregister(ChartDataLabels);
+	Chart.register(ChartDataLabels);
 
 	// eslint-disable-next-line no-undef
 	var color = Chart.helpers.color;
@@ -34,7 +36,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 			animation: {
 			},
 			scales: {
-				xAxes: [{
+				x: {
 					type: "time",
 					time: {
 						displayFormats: {
@@ -113,8 +115,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 						offsetGridLines: true,
 						display: false,
 					}
-				}],
-				yAxes: [{
+				},
+				y: {
 					gridLines: {
 						drawBorder: false
 					},
@@ -125,7 +127,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 					ticks: {
 						min: 0,
 					}
-				}]
+				}
 			},
 			legend: {
 				display: false
@@ -203,7 +205,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 				break;
 		}
 		dataset.data = getOrderDataSlice( dataArray, resolution, 0);
-		ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
+		//ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
+		ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
 		ordersChart.update();
 	}
 	
