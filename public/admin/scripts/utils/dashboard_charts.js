@@ -174,13 +174,14 @@ window.UTILS.initDashboardOrdersChart = function() {
 		}
 	}
 	
-	var ordersChartConfig = {
+	
+	var xxxxordersChartConfig = {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [1546340400000, 1546426800000, 1546513200000, 1546599600000, 1546686000000, 1546772400000, 1559383200000, 1546858800000, 1546945200000, 1547031600000, 1547118000000],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -207,11 +208,60 @@ window.UTILS.initDashboardOrdersChart = function() {
             }
         }
     }
-}
+	}
+	
+	var allData = getOrderDataSlice( dailyOrderStats, currentResolution, 0);
+	var labels = splitData( allData, "t" );
+	var data = splitData( allData, "y" );
+
+	var ordersChartConfig = {
+    type: 'bar',
+    data: {
+        labels: labels, //[1546340400000, 1546426800000, 1546513200000, 1546599600000, 1546686000000, 1546772400000, 1559383200000, 1546858800000, 1546945200000, 1547031600000, 1547118000000],
+        datasets: [{
+            // label: '# of Votes',
+            data: data, //[12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+			plugins: {
+				legend: {
+					display: false
+				}
+			},
+			scales: {
+					x: {
+					},
+					y: {
+							beginAtZero: true
+					}
+			},
+			maintainAspectRatio: false,
+    }
+	}
 
 	// eslint-disable-next-line no-undef
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
-	toggleResolution( "days" )
+	console.log( "ordersChart.config.data.labels", ordersChart.config.data.labels );
+	console.log( "ordersChart.config.data.datasets[0].data", ordersChart.config.data.datasets[0].data );
+	toggleResolution( "days" );
 	
 	// console.log(ordersChart.options.scales.xAxes[0].time.displayFormats);
 	
@@ -220,7 +270,11 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 	
 	function toggleResolution( resolution ) {
-		var dataset = ordersChart.config.data.datasets[0];
+		console.log( "testtt" );
+		var dataset = ordersChart.config.data.datasets[0].data;
+		var labels = ordersChart.config.data.labels[0];
+		console.log( {dataset}, {labels} );
+		return;
 		currentResolution = resolution;
 		var dataArray;
 		switch ( resolution ){
@@ -241,6 +295,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 				break;
 		}
 		dataset.data = getOrderDataSlice( dataArray, resolution, 0);
+		console.log(dataset.data);
 		//ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
 		ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
 		ordersChart.update();
@@ -307,6 +362,20 @@ window.UTILS.initDashboardOrdersChart = function() {
 	$( "#chartRange__right" ).on( "click", function() {
 		shiftOffset( -1 );
 	} );
+
+	function splitData( data, dataset ) {
+		console.log( { data } );
+		var out = new Array();
+		for (var i = 0; i < data.length; i++ ) {
+			if ( dataset === "t" ) {
+				out.push( data[i].t );
+			} else {
+				out.push( data[i].y )
+			}
+		}
+		console.log( { out } );
+		return out;
+	}
 	
 	function shiftOffset( numPages ) {
 		var dataset = ordersChart.config.data.datasets[0];
