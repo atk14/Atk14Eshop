@@ -174,16 +174,14 @@ window.UTILS.initDashboardOrdersChart = function() {
 		}
 	}
 		
-	var allData = getOrderDataSlice( dailyOrderStats, currentResolution, 0);
-	var labels = splitData( allData, "t" );
-	var data = splitData( allData, "y" );
+	var initialChartData = getOrderDataSlice( dailyOrderStats, currentResolution, 0);
 
 	var ordersChartConfig = {
     type: 'bar',
     data: {
-        labels: labels, //[1546340400000, 1546426800000, 1546513200000, 1546599600000, 1546686000000, 1546772400000, 1559383200000, 1546858800000, 1546945200000, 1547031600000, 1547118000000],
+        labels: initialChartData.labels,
         datasets: [{
-            data: data, //[12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5],
+            data: initialChartData.data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -222,8 +220,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 
 	// eslint-disable-next-line no-undef
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
-	//console.log( "ordersChart.config.data.labels", ordersChart.config.data.labels );
-	//console.log( "ordersChart.config.data.datasets[0].data", ordersChart.config.data.datasets[0].data );
 	toggleResolution( "days" );
 	
 	// console.log(ordersChart.options.scales.xAxes[0].time.displayFormats);
@@ -233,12 +229,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 	
 	function toggleResolution( resolution ) {
-		console.log( "toggleResolution" );
-		// next 3 lines to be deleted later
-		//var dataArr = ordersChart.config.data.datasets[0].data;
-		//var labelsArr = ordersChart.config.data.labels[0];
-		//console.log( {dataArr}, {labelsArr} );
-		//return;
 		currentResolution = resolution;
 		var dataArray;
 		switch ( resolution ){
@@ -259,9 +249,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 				break;
 		}
 		var d = getOrderDataSlice( dataArray, resolution, 0);
-		ordersChart.data.datasets[0].data = splitData( d, "y" );
-		ordersChart.data.labels = splitData( d, "t" );
-		//console.log(dataset.data);
+		ordersChart.data.datasets[0].data = d.data;
+		ordersChart.data.labels = d.labels;
 		//ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
 		//ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
 		ordersChart.update();
@@ -318,8 +307,21 @@ window.UTILS.initDashboardOrdersChart = function() {
 			$( "#chartRange__right" ).prop( "disabled", false );
 		}
 		
-		// Return slice of dataset (endIndex not included, so there is +1)
-		return dataset.slice( startIndex, endIndex + 1 );
+		// get slice of dataset (endIndex not included, so there is +1)
+		var slice = dataset.slice( startIndex, endIndex + 1 );
+		var output = new Object();
+		output.labels = new Array();
+		output.data = new Array();
+
+		// prepare output obj with labels and data arrays
+		for( var i = 0; i < slice.length; i++){
+			output.labels.push( slice[i].t );
+			output.data.push( slice[i].y );
+		}
+
+		//console.log( {output} );
+
+		return output;
 	}
 	
 	$( "#chartRange__left" ).on( "click", function() {
@@ -328,20 +330,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 	$( "#chartRange__right" ).on( "click", function() {
 		shiftOffset( -1 );
 	} );
-
-	function splitData( data, dataset ) {
-		//console.log( { data } );
-		var out = new Array();
-		for (var i = 0; i < data.length; i++ ) {
-			if ( dataset === "t" ) {
-				out.push( data[i].t );
-			} else {
-				out.push( data[i].y )
-			}
-		}
-		//console.log( { out } );
-		return out;
-	}
 	
 	function shiftOffset( numPages ) {
 		//var dataset = ordersChart.config.data.datasets[0];
@@ -362,8 +350,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 		}
 
 		var d = getOrderDataSlice( dataArray, currentResolution, pageOffset + numPages);
-		ordersChart.data.datasets[0].data = splitData( d, "y" );
-		ordersChart.data.labels = splitData( d, "t" );
+		ordersChart.data.datasets[0].data = d.data;
+		ordersChart.data.labels = d.labels;
 
 		ordersChart.update();
 	}
