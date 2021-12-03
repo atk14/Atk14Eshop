@@ -173,43 +173,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 			}
 		}
 	}
-	
-	
-	var xxxxordersChartConfig = {
-    type: 'bar',
-    data: {
-        labels: [1546340400000, 1546426800000, 1546513200000, 1546599600000, 1546686000000, 1546772400000, 1559383200000, 1546858800000, 1546945200000, 1547031600000, 1547118000000],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-	}
-	
+		
 	var allData = getOrderDataSlice( dailyOrderStats, currentResolution, 0);
 	var labels = splitData( allData, "t" );
 	var data = splitData( allData, "y" );
@@ -219,7 +183,6 @@ window.UTILS.initDashboardOrdersChart = function() {
     data: {
         labels: labels, //[1546340400000, 1546426800000, 1546513200000, 1546599600000, 1546686000000, 1546772400000, 1559383200000, 1546858800000, 1546945200000, 1547031600000, 1547118000000],
         datasets: [{
-            // label: '# of Votes',
             data: data, //[12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -259,8 +222,8 @@ window.UTILS.initDashboardOrdersChart = function() {
 
 	// eslint-disable-next-line no-undef
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
-	console.log( "ordersChart.config.data.labels", ordersChart.config.data.labels );
-	console.log( "ordersChart.config.data.datasets[0].data", ordersChart.config.data.datasets[0].data );
+	//console.log( "ordersChart.config.data.labels", ordersChart.config.data.labels );
+	//console.log( "ordersChart.config.data.datasets[0].data", ordersChart.config.data.datasets[0].data );
 	toggleResolution( "days" );
 	
 	// console.log(ordersChart.options.scales.xAxes[0].time.displayFormats);
@@ -270,11 +233,12 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 	
 	function toggleResolution( resolution ) {
-		console.log( "testtt" );
-		var dataset = ordersChart.config.data.datasets[0].data;
-		var labels = ordersChart.config.data.labels[0];
-		console.log( {dataset}, {labels} );
-		return;
+		console.log( "toggleResolution" );
+		// next 3 lines to be deleted later
+		//var dataArr = ordersChart.config.data.datasets[0].data;
+		//var labelsArr = ordersChart.config.data.labels[0];
+		//console.log( {dataArr}, {labelsArr} );
+		//return;
 		currentResolution = resolution;
 		var dataArray;
 		switch ( resolution ){
@@ -294,10 +258,12 @@ window.UTILS.initDashboardOrdersChart = function() {
 				var tooltipFormat = "YYYY";
 				break;
 		}
-		dataset.data = getOrderDataSlice( dataArray, resolution, 0);
-		console.log(dataset.data);
+		var d = getOrderDataSlice( dataArray, resolution, 0);
+		ordersChart.data.datasets[0].data = splitData( d, "y" );
+		ordersChart.data.labels = splitData( d, "t" );
+		//console.log(dataset.data);
 		//ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
-		ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
+		//ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
 		ordersChart.update();
 	}
 	
@@ -364,7 +330,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 
 	function splitData( data, dataset ) {
-		console.log( { data } );
+		//console.log( { data } );
 		var out = new Array();
 		for (var i = 0; i < data.length; i++ ) {
 			if ( dataset === "t" ) {
@@ -373,12 +339,12 @@ window.UTILS.initDashboardOrdersChart = function() {
 				out.push( data[i].y )
 			}
 		}
-		console.log( { out } );
+		//console.log( { out } );
 		return out;
 	}
 	
 	function shiftOffset( numPages ) {
-		var dataset = ordersChart.config.data.datasets[0];
+		//var dataset = ordersChart.config.data.datasets[0];
 		var dataArray;
 		switch ( currentResolution ){
 			case "days":
@@ -394,7 +360,11 @@ window.UTILS.initDashboardOrdersChart = function() {
 				dataArray = yearlyOrderStats;
 				break;
 		}
-		dataset.data = getOrderDataSlice( dataArray, currentResolution, pageOffset + numPages);
+
+		var d = getOrderDataSlice( dataArray, currentResolution, pageOffset + numPages);
+		ordersChart.data.datasets[0].data = splitData( d, "y" );
+		ordersChart.data.labels = splitData( d, "t" );
+
 		ordersChart.update();
 	}
 	
