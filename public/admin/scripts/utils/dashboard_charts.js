@@ -182,7 +182,7 @@ window.UTILS.initDashboardOrdersChart = function() {
         labels: initialChartData.labels,
         datasets: [{
             data: initialChartData.data,
-            backgroundColor: [
+            /*backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
                 "rgba(255, 206, 86, 0.2)",
@@ -197,7 +197,9 @@ window.UTILS.initDashboardOrdersChart = function() {
                 "rgba(75, 192, 192, 1)",
                 "rgba(153, 102, 255, 1)",
                 "rgba(255, 159, 64, 1)"
-            ],
+            ],*/
+						backgroundColor: color( primaryColor ).alpha( 0.5 ).rgbString(),
+						borderColor: color( primaryColor ).alpha( 0 ).rgbString(),
             borderWidth: 1
         }]
     },
@@ -205,19 +207,47 @@ window.UTILS.initDashboardOrdersChart = function() {
 			plugins: {
 				legend: {
 					display: false
-				}
+				},
+				tooltip: {
+					displayColors: false,
+					bodyFont: {
+						size: 24,
+						weight: "bold"
+					}
+				},
 			},
 			scales: {
 					x: {
+						type: "timeseries",
+						//type: "time",
+						distribution: "series",
+						time: {
+							unit: "day",
+							displayFormats: {
+								day: "LL", // 6. prosince 20121
+								//day: "l", // 6. 12. 2021
+								month: "MMMM YYYY"
+							}
+						},
+						ticks: {
+							autoSkip: true,
+							autoSkipPadding: 0,
+							maxRotation: 0,
+							align: "start",
+						},
+						grid: {
+							display: false,
+							offset: false
+						}
 					},
 					y: {
-							beginAtZero: true,
-							ticks: {
-								// Show only whole numbers
-								callback: function(value) {
-									if ( Number.isInteger( value ) ) { return value; }
-								}
+						beginAtZero: true,
+						ticks: {
+							// Show whole numbers only
+							callback: function(value) {
+								if ( Number.isInteger( value ) ) { return value; }
 							}
+						}
 					}
 			},
 			maintainAspectRatio: false,
@@ -237,28 +267,35 @@ window.UTILS.initDashboardOrdersChart = function() {
 	function toggleResolution( resolution ) {
 		currentResolution = resolution;
 		var dataArray;
+		var align = "center";
 		switch ( resolution ){
 			case "days":
 				// eslint-disable-next-line no-undef
 				dataArray = dailyOrderStats;
 				var tooltipFormat = "LL";
+				var unit = "day";
+				align = "start"; 
 				break;
 			case "months":
 				// eslint-disable-next-line no-undef
 				dataArray = monthlyOrderStats;
 				var tooltipFormat = "MMMM YYYY";
+				var unit = "month";
 				break;
 			case "years":
 				// eslint-disable-next-line no-undef
 				dataArray = yearlyOrderStats;
 				var tooltipFormat = "YYYY";
+				var unit = "year";
 				break;
 		}
 		var d = getOrderDataSlice( dataArray, resolution, 0);
 		ordersChart.data.datasets[0].data = d.data;
 		ordersChart.data.labels = d.labels;
 		//ordersChart.options.scales.xAxes[0].time.tooltipFormat = tooltipFormat;
-		//ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
+		ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
+		ordersChart.options.scales.x.time.unit = unit;
+		ordersChart.options.scales.x.ticks.align = align;
 		ordersChart.update();
 	}
 	
@@ -362,6 +399,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 		ordersChart.update();
 	}
 	
+	// scroll chart to the most end when in x-scrollable container
 	$( ".chart-wrapper" ).scrollLeft( 1200 );
 	
 };
