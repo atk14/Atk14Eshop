@@ -177,26 +177,26 @@ window.UTILS.initDashboardOrdersChart = function() {
 	var initialChartData = getOrderDataSlice( dailyOrderStats, currentResolution, 0);
 
 	var ordersChartConfig = {
-    type: 'bar',
+    type: "bar",
     data: {
         labels: initialChartData.labels,
         datasets: [{
             data: initialChartData.data,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)"
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)"
             ],
             borderWidth: 1
         }]
@@ -211,14 +211,20 @@ window.UTILS.initDashboardOrdersChart = function() {
 					x: {
 					},
 					y: {
-							beginAtZero: true
+							beginAtZero: true,
+							ticks: {
+								// Show only whole numbers
+								callback: function(value) {
+									if ( Number.isInteger( value ) ) { return value; }
+								}
+							}
 					}
 			},
 			maintainAspectRatio: false,
     }
 	}
 
-	// eslint-disable-next-line no-undef
+	// eslint-disable-next-line no-undef // new Intl.NumberFormat("cs-CZ", {  maximumFractionDigits: 0 }).format(num)
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
 	toggleResolution( "days" );
 	
