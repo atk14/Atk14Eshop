@@ -1,14 +1,12 @@
 window.UTILS = window.UTILS || { };
 
+// this line adds eslint config for this file to avoid compile time errors and warnings
+/* global dailyOrderStats, Chart, ChartDataLabels, monthlyOrderStats, yearlyOrderStats, moment */
+
 window.UTILS.initDashboardOrdersChart = function() {
 
-	// eslint-disable-next-line no-undef
-	//Chart.plugins.unregister(ChartDataLabels);
-	//Chart.unregister(ChartDataLabels);
-	// eslint-disable-next-line no-undef
 	Chart.register(ChartDataLabels);
 
-	// eslint-disable-next-line no-undef
 	var color = Chart.helpers.color;
 	var primaryColor = "rgb(38, 124, 217)";
 	var ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
@@ -60,7 +58,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 			scales: {
 					x: {
 						type: "timeseries",
-						//type: "time",
 						distribution: "series",
 						time: {
 							unit: "day",
@@ -100,34 +97,33 @@ window.UTILS.initDashboardOrdersChart = function() {
     }
 	}
 
-	// eslint-disable-next-line no-undef // new Intl.NumberFormat("cs-CZ", {  maximumFractionDigits: 0 }).format(num)
+	// Create chart
 	var ordersChart = new Chart( ordersChartCtx, ordersChartConfig );
 	toggleResolution( "days" );
 		
+	// Resolution change buttons
 	$( "#chartResulutionToggle input" ).on( "change", function() {
 		toggleResolution( $( this ).val() );
 	} );
 	
+	// Toggle resolution (days/months/years)
 	function toggleResolution( resolution ) {
 		currentResolution = resolution;
 		var dataArray;
 		var align = "center";
 		switch ( resolution ){
 			case "days":
-				// eslint-disable-next-line no-undef
 				dataArray = dailyOrderStats;
 				var tooltipFormat = "LL";
 				var unit = "day";
 				align = "start"; 
 				break;
 			case "months":
-				// eslint-disable-next-line no-undef
 				dataArray = monthlyOrderStats;
 				var tooltipFormat = "MMMM YYYY";
 				var unit = "month";
 				break;
 			case "years":
-				// eslint-disable-next-line no-undef
 				dataArray = yearlyOrderStats;
 				var tooltipFormat = "YYYY";
 				var unit = "year";
@@ -142,6 +138,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 		ordersChart.update();
 	}
 	
+	// Get data for selected resolution and timeframe
 	function getOrderDataSlice( dataset, resolution, offset ){
 		
 		// Offset means how many datePeriods to past we will move
@@ -167,13 +164,10 @@ window.UTILS.initDashboardOrdersChart = function() {
 		var endIndex = Math.min( startIndex + datePeriod, dataset.length - 1 );
 		
 		// Start and end dates for display
-		// eslint-disable-next-line no-undef
 		var startDate = moment( dataset[ startIndex ].t ).format( "LL" );
 		if( offset === 0 ){
-			// eslint-disable-next-line no-undef
 			var endDate = moment().format( "LL" );
 		} else {
-			// eslint-disable-next-line no-undef
 			var endDate = moment( dataset[ endIndex ].t ).format( "LL" );
 		}
 		
@@ -205,8 +199,6 @@ window.UTILS.initDashboardOrdersChart = function() {
 			output.data.push( slice[i].y );
 		}
 
-		//console.log( {output} );
-
 		return output;
 	}
 	
@@ -218,19 +210,15 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 	
 	function shiftOffset( numPages ) {
-		//var dataset = ordersChart.config.data.datasets[0];
 		var dataArray;
 		switch ( currentResolution ){
 			case "days":
-				// eslint-disable-next-line no-undef
 				dataArray = dailyOrderStats;
 				break;
 			case "months":
-				// eslint-disable-next-line no-undef
 				dataArray = monthlyOrderStats;
 				break;
 			case "years":
-				// eslint-disable-next-line no-undef
 				dataArray = yearlyOrderStats;
 				break;
 		}
