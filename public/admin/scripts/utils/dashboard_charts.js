@@ -233,4 +233,14 @@ window.UTILS.initDashboardOrdersChart = function() {
 	// scroll chart to the most end when in x-scrollable container
 	$( ".chart-wrapper" ).scrollLeft( 1200 );
 	
+
+	window.addEventListener( "beforeprint", function() {
+		ordersChart.resize();
+		console.log( ordersChart );
+		console.log( "ordersChart beforeprint" );
+	} );
+	window.addEventListener( "afterprint" , function() {
+		ordersChart.resize();
+	} );
+
 };

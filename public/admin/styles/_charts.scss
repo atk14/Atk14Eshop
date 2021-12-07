@@ -42,5 +42,16 @@
 			min-width: 12ch;
 		}
 	}
+
+	@media print {
+		.chart-wrapper {
+			overflow: visible;
+		}
+		.chart-canvas-container {
+			min-width: 0;
+			width: 100%;
+		}
+	}
+
 }
 
