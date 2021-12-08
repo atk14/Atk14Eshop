@@ -233,7 +233,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 	// scroll chart to the most end when in x-scrollable container
 	$( ".chart-wrapper" ).scrollLeft( 1200 );
 	
-
+	// print adjustments
 	window.addEventListener( "beforeprint", function() {
 		ordersChart.resize();
 		console.log( ordersChart );
@@ -242,5 +242,29 @@ window.UTILS.initDashboardOrdersChart = function() {
 	window.addEventListener( "afterprint" , function() {
 		ordersChart.resize();
 	} );
+
+	// dark mode event listener
+	document.addEventListener( "darkModeChange", function( e ){
+		checkChartDarkMode();
+	} );
+
+	// dark mode switch 
+	function checkChartDarkMode() {
+		var color = Chart.defaults.color;
+		var gridColor = Chart.defaults.borderColor;
+		if( $( "body" ).hasClass( "dark-mode" ) ) {
+			color = "#ffffff";
+			gridColor = "#444";
+		} 
+		ordersChart.options.scales.x.ticks.color = color;
+		ordersChart.options.scales.y.ticks.color = color;
+		ordersChart.options.scales.x.grid.borderColor = gridColor;
+		ordersChart.options.scales.y.grid.borderColor = gridColor;
+		ordersChart.options.scales.x.grid.color = gridColor;
+		ordersChart.options.scales.y.grid.color = gridColor;
+		ordersChart.update();
+	}
+
+	checkChartDarkMode();
 
 };
