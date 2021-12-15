@@ -244,7 +244,7 @@ window.UTILS.initDashboardOrdersChart = function() {
 	} );
 
 	// dark mode event listener
-	document.addEventListener( "darkModeChange", function( e ){
+	document.addEventListener( "darkModeChange", function(){
 		checkChartDarkMode();
 	} );
 
