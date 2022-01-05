@@ -54,7 +54,7 @@ function smarty_function_facebook_pixel($params, $template) {
 		return "\n$out_noscript\n";
 	}
 	if ($params["mode"]==="basic") {
-		return "{$base_out}\n{$out_noscript}";
+		return "{$base_out}\n";
 	}
 
 
