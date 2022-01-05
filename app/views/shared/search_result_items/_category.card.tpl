@@ -25,7 +25,15 @@
 		</h4>
 		<div class="card-text">
 			{highlight_keywords keywords=$params.q tag="<mark>"}
-				{remove_if_contains_no_text}<p>{$category->getTeaser()|markdown|strip_html|truncate:300}</p>{/remove_if_contains_no_text}
+				{remove_if_contains_no_text}
+				<p>
+					{if $category->getTeaser()}
+						{$category->getTeaser()|markdown|strip_html|truncate:300}
+					{else}
+						{$category->getDescription()|markdown|strip_html|truncate:300}
+					{/if}
+				</p>
+				{/remove_if_contains_no_text}
 
 				{* few child categories *}
 				{assign limit 4}
