@@ -37,7 +37,15 @@
 				{a action="pages/detail" id=$page}{$page->getTitle()}{/a}
 				{/highlight_keywords}
 			</h4>
-			<div class="card-text"><p>{highlight_keywords keywords=$params.q tag="<mark>"}{$page->getTeaser()|markdown|strip_html}{/highlight_keywords}</p></div>
+			<div class="card-text"><p>
+				{highlight_keywords keywords=$params.q tag="<mark>"}
+					{if $page->getTeaser()}
+						{$page->getTeaser()|markdown|strip_html|truncate:300}
+					{else}
+						{$page->getBody()|markdown|strip_html|truncate:300}
+					{/if}
+				{/highlight_keywords}
+			</p></div>
 
 
 
