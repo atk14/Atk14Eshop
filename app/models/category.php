@@ -638,6 +638,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			'return_level' => false, 	//returns level (from input category) in result. Require level set to avoid infinite loop
 			'return_original_id' => false, //returns join $ids => $child_category
 		                                       //only valid for simple recursive query
+			'limit' => null,
 
 			'conditions' => [],
 			'bind_ar' => [],
@@ -894,6 +895,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 				}
 			}
 		}
+
+		if (isset($options["limit"])) {
+			$limit = max((int)$options["limit"],0);
+			$sql = "SELECT * FROM ($sql LIMIT ".(int)$options["limit"].") qlimit";
+		}
+
 		#echo $sql,"\n\n\n";
 		return array($sql, $bind);
 	}
