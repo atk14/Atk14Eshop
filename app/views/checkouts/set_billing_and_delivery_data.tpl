@@ -28,7 +28,7 @@
 	{if $delivery_point_selected}
 		{render partial="invoice_data"}
 
-		{render partial="delivery_address"}
+		{render partial="delivery_address" delivery_point_selected=$delivery_point_selected}
 		{*render partial="billing_and_delivery_data_form__delivery_point_selected"*}
 	{else}
 		{render partial="delivery_address"}
