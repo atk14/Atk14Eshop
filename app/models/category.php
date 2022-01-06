@@ -617,7 +617,6 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			'self' => true,            //input categories will be in ouput (#TODO: incompatibile with direct_children_only)
 															   //'force' mean include me even if dont satisfy other requirements (e.g. visible, filter)
 			'visible' => null,         //if not null, returns only categories with given visible tag
-			'visible_to_user' => false,//if not false, returns only categories visible to given user
 			'is_filter' => null,       //if not null, returns only categories with given filter tag
 			'dealias' => false,        //return id of real kategories, not symlinks
 			'dealiased_input' => false,//no need to dealias input ids (thus there is no alias in input)

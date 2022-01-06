@@ -37,7 +37,7 @@
 
 				{* few child categories *}
 				{assign limit 4}
-				{assign child_cats  $category->getChildCategories(["direct_children_only" => true, "is_filter" => false, "visible" => true, "visible_to_user" => $logged_user, "limit" => $limit+1])}
+				{assign child_cats  $category->getChildCategories(["direct_children_only" => true, "is_filter" => false, "visible" => true, "limit" => $limit+1])}
 				{if $child_cats}
 					{assign limit_exceeded sizeof($child_cats)>$limit}
 					<ul class="list-unstyled">
