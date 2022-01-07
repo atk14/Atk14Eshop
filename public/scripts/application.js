@@ -432,7 +432,6 @@
 					var data = $( this ).data( "json" ),
 						$card = $( this ).closest( ".card" ).find( ".js--card-address" ),
 						$cards = $( ".js--card-address" );
-console.log($card);
 					$cards.removeClass( "card--active" );
 					$card.addClass( "card--active" );
 
@@ -455,6 +454,37 @@ console.log($card);
 								} );
 							}
 					} );
+				} );
+			},
+
+			summary: function() {
+				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
+				//$( "form#form_checkouts_summary .btn[type='submit']" ).on( "click", function( e ){
+				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
+					console.log( "submitt", $( "#id_confirmation" ).prop( "checked" ) );
+					
+					btn.popover( {
+						customClass: "popover--danger popover--bold",
+						// TODO umistit podle polohy tlacitka vuci viewportu, aby to bylo videt
+						placement: "top",
+						// TODO spravny text 
+						content: "Klikněte na souhlas s podmínkama.",
+					} );
+					if( $( "#id_confirmation" ).prop( "checked" ) !== true ) {
+						e.preventDefault();
+						btn.popover( "show" );
+					}else{
+						// e.preventDefault();
+						btn.popover( "hide" );
+						console.log( "proceed" );
+					}
+				} );
+				console.log( "summary" );
+				$( "form#form_checkouts_summary #id_confirmation" ).on( "change", function(){
+					console.log( "checkbox" );
+					if( $( "#id_confirmation" ).prop( "checked" ) ){
+						btn.popover( "hide" );
+					}
 				} );
 			}
 
