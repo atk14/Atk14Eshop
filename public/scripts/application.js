@@ -458,32 +458,35 @@
 			},
 
 			summary: function() {
+				// Before order submit, check if confirmation checkbox is checked
 				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
-				//$( "form#form_checkouts_summary .btn[type='submit']" ).on( "click", function( e ){
+				var confirmationFormGroup = $( "form#form_checkouts_summary .form-group--id_confirmation" );
+				var confirmationChkBox = $( "form#form_checkouts_summary #id_confirmation" );
 				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
-					console.log( "submitt", $( "#id_confirmation" ).prop( "checked" ) );
-					
+					console.log( "submitt", confirmationChkBox.prop( "checked" ) );
 					btn.popover( {
 						customClass: "popover--danger popover--bold",
-						// TODO umistit podle polohy tlacitka vuci viewportu, aby to bylo videt
 						placement: "top",
 						// TODO spravny text 
 						content: "Klikněte na souhlas s podmínkama.",
 					} );
-					if( $( "#id_confirmation" ).prop( "checked" ) !== true ) {
+					if( confirmationChkBox.prop( "checked" ) !== true ) {
 						e.preventDefault();
 						btn.popover( "show" );
+						confirmationFormGroup.addClass( "form-group--has-error" );
 					}else{
-						// e.preventDefault();
+						//e.preventDefault();
 						btn.popover( "hide" );
+						confirmationFormGroup.removeClass( "form-group--has-error" );
 						console.log( "proceed" );
 					}
 				} );
 				console.log( "summary" );
-				$( "form#form_checkouts_summary #id_confirmation" ).on( "change", function(){
+				confirmationChkBox.on( "change", function(){
 					console.log( "checkbox" );
-					if( $( "#id_confirmation" ).prop( "checked" ) ){
+					if( confirmationChkBox.prop( "checked" ) ){
 						btn.popover( "hide" );
+						confirmationFormGroup.removeClass( "form-group--has-error" );
 					}
 				} );
 			}
