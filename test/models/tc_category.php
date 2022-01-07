@@ -248,4 +248,20 @@ class TcCategory extends TcBase {
 		$cats = Category::GetInstancesOnNamePath("Catalog/Shoes/Kids/Nonsence",$lang);
 		$this->assertEquals(null,$cats);
 	}
+
+	function test_getChildCategories(){
+		$catalog = $this->categories["catalog"];
+
+		$child_ar = $catalog->getChildCategories(["visible" => true]);
+		$this->assertEquals(4,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["limit" => 1]);
+		$this->assertEquals(1,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["direct_children_only" => false, "is_filter" => false, "visible" => true]);
+		$this->assertEquals(10,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["direct_children_only" => false, "is_filter" => false, "visible" => true, "limit" => 1]);
+		$this->assertEquals(1,sizeof($child_ar));
+	}
 }

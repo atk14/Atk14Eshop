@@ -126,3 +126,11 @@ kids__kids_shoes:
   pointing_to_category_id: 1014
   name_en: "Shoes"
   name_cs: "Obuv"
+
+
+hidden:
+  id: 1022
+  parent_category_id: 1001
+  name_en: "Hidden category"
+  name_cs: "Skrytá kategorie"
+  visible: false
