@@ -130,6 +130,7 @@ kids__kids_shoes:
 
 hidden:
   id: 1022
+  code: "hidden"
   parent_category_id: 1001
   name_en: "Hidden category"
   name_cs: "Skrytá kategorie"
