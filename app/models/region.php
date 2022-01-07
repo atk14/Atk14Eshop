@@ -5,11 +5,23 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetTranslatableFields(){ return array("name", "application_name", "application_long_name"); }
 
-	static function GetInstances(){
+	static function GetAllInstances(){
 		static $regions;
 		if(!$regions){
-			$regions = Region::FindAll(["order_by" => "id", "use_cache" => true]);
+			$regions = Region::FindAll(["use_cache" => true]);
 		}
+		return $regions;
+	}
+
+	static function GetInstances(){
+		trigger_error("Method Region::GetInstances() is deprecated, use Region::GetAllInstances()");
+		return self::GetAllInstances();
+	}
+
+	static function GetActiveInstances(){
+		$regions = self::GetAllInstances();
+		$regions = array_filter($regions,function($region){ return $region->isActive(); });
+		$regions = array_values($regions);
 		return $regions;
 	}
 
@@ -23,16 +35,16 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetRegionByDomain($domain){
-		foreach(self::GetInstances() as $r){
+		foreach(self::GetActiveInstances() as $r){
 			if(in_array($domain,$r->getDomains())){
 				return $r;
 			}
 		}
 	}
 
-	static function GetDeliveryCountriesFromallRegions(){
+	static function GetDeliveryCountriesFromAllRegions(){
 		$all_allowed_countries = [];
-		foreach(Region::GetInstances() as $region){
+		foreach(Region::GetAllInstances() as $region){
 			$dcs = $region->getDeliveryCountries();
 			$all_allowed_countries += array_combine($dcs,$dcs);
 		}
@@ -42,6 +54,10 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	function setRank($rank){
 		$this->_setRank($rank);
+	}
+
+	function isActive() {
+		return $this->getActive();
 	}
 
 	function getApplicationName(){
