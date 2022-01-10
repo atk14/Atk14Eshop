@@ -468,7 +468,7 @@
 						customClass: "popover--danger popover--bold",
 						placement: "top",
 						// TODO spravny text 
-						content: "Klikněte na souhlas s podmínkama.",
+						content: "Klikněte na souhlas s obchodními podmínkami.",
 					} );
 					if( confirmationChkBox.prop( "checked" ) !== true ) {
 						e.preventDefault();
@@ -481,9 +481,7 @@
 						console.log( "proceed" );
 					}
 				} );
-				console.log( "summary" );
 				confirmationChkBox.on( "change", function(){
-					console.log( "checkbox" );
 					if( confirmationChkBox.prop( "checked" ) ){
 						btn.popover( "hide" );
 						confirmationFormGroup.removeClass( "form-group--has-error" );

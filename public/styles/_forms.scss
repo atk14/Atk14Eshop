@@ -141,7 +141,7 @@ form {
 form {
 	.form-group {
 		&.form-group--has-error {
-			border: 2px solid $danger;
+			//border: 2px solid $danger;
 			.form-control {
 				border: 2px solid $danger;
 			}
@@ -157,6 +157,16 @@ form {
 	}
 }
 
+form#form_checkouts_summary .form-group--id_confirmation {
+	&.form-group--has-error {
+		border: 2px solid $danger;
+		background-color: $danger;
+		color: white;
+		label {
+			color: white;
+		}
+	}
+}
 
 // search form
 .form-search {
