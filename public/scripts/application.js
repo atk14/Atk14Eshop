@@ -459,16 +459,16 @@
 
 			summary: function() {
 				// Before order submit, check if confirmation checkbox is checked
+				// If not show reminder
 				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
 				var confirmationFormGroup = $( "form#form_checkouts_summary .form-group--id_confirmation" );
 				var confirmationChkBox = $( "form#form_checkouts_summary #id_confirmation" );
 				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
-					console.log( "submitt", confirmationChkBox.prop( "checked" ) );
+					var errMsg = confirmationChkBox.parents().find( "*[data-confirmation-reminder]" ).data( "confirmation-reminder" );
 					btn.popover( {
 						customClass: "popover--danger popover--bold",
 						placement: "top",
-						// TODO spravny text 
-						content: "Klikněte na souhlas s obchodními podmínkami.",
+						content: errMsg,
 					} );
 					if( confirmationChkBox.prop( "checked" ) !== true ) {
 						e.preventDefault();

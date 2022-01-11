@@ -165,6 +165,10 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		label {
 			color: white;
 		}
+		.feedback.feedback--invalid {
+			background-color: inherit;
+			color: inherit;
+		}
 	}
 }
 
