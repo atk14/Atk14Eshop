@@ -10,7 +10,7 @@ class TcCategoryTree extends TcBase {
 	function test(){
 		$root = Category::FindByCode("catalog");
 
-		$tree = CategoryTree::GetInstance($root);
+		$tree = CategoryTree::GetInstance($root,array("visible" => true));
 		$this->assertEquals(true,$tree->hasChilds());
 
 		$nodes = $tree->getChildNodes();
@@ -49,7 +49,7 @@ class TcCategoryTree extends TcBase {
 
 		// disaloving filters
 
-		$tree = CategoryTree::GetInstance($root,array("is_filter" => false));
+		$tree = CategoryTree::GetInstance($root,array("is_filter" => false, "visible" => true));
 
 		$nodes = $tree->getChildNodes();
 		$this->assertEquals(2,sizeof($nodes));

@@ -70,6 +70,8 @@ class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\
 
 		$fd->addText($this->getTitle($lang),"a");
 
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
+
 		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
 
 		$fd->setDate($this->getPublishedAt());

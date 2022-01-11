@@ -40,15 +40,15 @@
 				{assign child_cats  $category->getChildCategories(["direct_children_only" => true, "is_filter" => false, "visible" => true, "limit" => $limit+1])}
 				{if $child_cats}
 					{assign limit_exceeded sizeof($child_cats)>$limit}
-					<ul class="list-unstyled">
+					<ul class="xxxxlist-unstyled list--categories-mini">
 						{foreach $child_cats as $child_cat}
-							<li>
+							
 							{if $limit_exceeded && $child_cat@last}
-								<span class="text-muted">{t}a další...{/t}</span>
+								<li class="list-item--more"><span class="text-muted">{t}a další...{/t}</span></li>
 							{else}
-								<a href="{$child_cat|link_to_category}">{$child_cat}</a>
+								<li><a href="{$child_cat|link_to_category}">{$child_cat}</a></li>
 							{/if}
-							</li>
+							
 						{/foreach}
 					</ul>
 				{/if}
