@@ -463,6 +463,7 @@
 				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
 				var confirmationFormGroup = $( "form#form_checkouts_summary .form-group--id_confirmation" );
 				var confirmationChkBox = $( "form#form_checkouts_summary #id_confirmation" );
+				var reminderTimeout;
 				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
 					var errMsg = confirmationChkBox.parents().find( "*[data-confirmation-reminder]" ).data( "confirmation-reminder" );
 					btn.popover( {
@@ -474,19 +475,23 @@
 						e.preventDefault();
 						btn.popover( "show" );
 						confirmationFormGroup.addClass( "form-group--has-error" );
+						reminderTimeout = setTimeout( hideReminderPopover, 3000 );
 					}else{
 						//e.preventDefault();
-						btn.popover( "hide" );
-						confirmationFormGroup.removeClass( "form-group--has-error" );
-						console.log( "proceed" );
+						hideReminderPopover();
+						confirmationFormGroup.removeClass( "form-group--has-error" );					
 					}
 				} );
 				confirmationChkBox.on( "change", function(){
 					if( confirmationChkBox.prop( "checked" ) ){
-						btn.popover( "hide" );
+						hideReminderPopover();
 						confirmationFormGroup.removeClass( "form-group--has-error" );
 					}
 				} );
+				var hideReminderPopover = function() {
+					clearTimeout( reminderTimeout );
+					btn.popover( "hide" );
+				}
 			}
 
 		},
