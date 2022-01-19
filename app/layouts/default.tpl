@@ -118,6 +118,7 @@
 		</div>
 
 		
+		{render partial="shared/basket_info_float"}
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}
 		{render partial="shared/cookieconsent_container"}

@@ -150,6 +150,31 @@
 					window.addEventListener( "resize", handleHideScroll );
 				}
 
+				if ( "IntersectionObserver" in window ) {
+					function floatBasketInfo( changes, observer ){
+						var floatBasket = $( ".js--basket_info_float" )
+						console.log( "floatBasketInfo" );
+						console.log( {changes} );
+						console.log( {observer} );
+						changes.forEach(change => {
+							console.log( change );
+							//console.log( change.intersectionRatio );
+							if ( change.isIntersecting ) {
+								floatBasket.removeClass( "show" );
+							} else {
+								floatBasket.addClass( "show" );
+							}
+						});
+					}
+					var viewportObserver = new IntersectionObserver( floatBasketInfo, {
+						root: null, // relative to document viewport 
+						rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+						threshold: 0.75 // visible amount of item shown in relation to root
+					} );
+					viewportObserver.observe( $( ".mainbar__cartinfo .js--basket_info ").get( 0 ) );
+				}
+				
+
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
 
 				// Expanding/collapsing FAQ items
