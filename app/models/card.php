@@ -562,9 +562,17 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	/**
-	 * Sourozenci z dane kategorie
+	 * Siblings from the given category
+	 *
+	 * If no category is given than primary category is considered
 	 */
-	function getCategorySiblings($category) {
+	function getCategorySiblings($category = null) {
+		if(!$category){
+			$category = $this->getPrimaryCategory();
+		}
+		if(!$category){
+			return [];
+		}
 		$cards = $category->getCards();
 		$_siblings = array();
 		foreach($cards as $_c) {
@@ -574,6 +582,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$_siblings[] = $_c;
 		}
 		return $_siblings;
+	}
+
+	function getViewableCategorySiblings($category = null) {
+		return array_filter($this->getCategorySiblings($category), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
 	}
 
 	function getAlternativeCards($options=array()) {
