@@ -561,6 +561,15 @@ console.log($card);
 					$( this ).toggleClass( [ "collapsed", "expanded" ] )
 				} );
 
+				// TOC search
+				var storeList = new UTILS.filterableList( {
+					searchInput: 	$( "#chapter_filter" ),
+					clearButton: 	false,
+					submitButton: false,
+					listItems:		$( ".js--chapter_toc > *" ),
+					searchTextSelector: false,
+				} );
+
 			}
 
 		},
