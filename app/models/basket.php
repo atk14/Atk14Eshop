@@ -1275,6 +1275,12 @@ class Basket extends BasketOrOrder {
 	 * Are prices without VAT important for the given user (i.e. this basket)?
 	 */
 	function displayPricesWithoutVat(){
+		if(!SystemParameter::ContentOn("merchant.vat_payer")){
+			return false;
+		}
+
+		// Here is a place for your implementation...
+
 		return false;
 	}
 }
