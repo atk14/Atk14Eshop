@@ -150,6 +150,29 @@
 					window.addEventListener( "resize", handleHideScroll );
 				}
 
+				// Floating cart info show/hide 
+				// Using IntersectionObserver rather than watching scroll
+				if ( "IntersectionObserver" in window && document.getElementsByClassName( "js--basket_info_float-container" ).length > 0 ) {
+					function floatBasketInfo( changes ){
+						var floatBasket = $( ".js--basket_info_float-container" );
+						changes.forEach( function( change ) {
+							if ( change.isIntersecting ) {
+								floatBasket.removeClass( "show" );
+							} else {
+								floatBasket.addClass( "show" );
+							}
+						});
+					}
+
+					// Watch if top menu basket info is in viewport
+					var viewportObserver = new IntersectionObserver( floatBasketInfo, {
+						root: null, // relative to document viewport 
+						rootMargin: "0px", // margin around root. Values are similar to css property. Unitless values not allowed
+						threshold: 0.75 // visible amount of item shown in relation to root
+					} );
+					viewportObserver.observe( $( ".js--mainbar__cartinfo" ).get( 0 ) );
+				}
+
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
 
 				// Expanding/collapsing FAQ items
