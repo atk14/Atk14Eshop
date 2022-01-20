@@ -24,6 +24,22 @@
  */
 class TcBasket extends TcBase {
 
+	function test_GetDummyBasket(){
+		$def_region = Region::GetDefaultRegion();
+		$eu = $this->regions["EU"];
+		$rambo = $this->users["rambo"];
+
+		$basket = Basket::GetDummyBasket();
+		$this->assertTrue($basket->isDummy());
+		$this->assertEquals($def_region->getId(),$basket->getRegionId());
+		$this->assertNull($basket->getUser());
+
+		$basket = Basket::GetDummyBasket($eu,$rambo);
+		$this->assertTrue($basket->isDummy());
+		$this->assertEquals($eu->getId(),$basket->getRegionId());
+		$this->assertEquals($rambo->getId(),$basket->getUserId());
+	}
+
 	function test_CreateNewRecord4UserAndRegion(){
 		$kveta = $this->users["kveta"];
 		$czechoslovakia = $this->regions["czechoslovakia"];
