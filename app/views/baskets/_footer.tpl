@@ -21,7 +21,7 @@
 								<td class="text-right">{!$basket->getItemsPriceBeforeDiscountInclVat()|display_price:"$currency,summary"}</td>
 							</tr>
 
-							{if ($basket->getItemsPriceInclVat() - $basket->getItemsPriceBeforeDiscountInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())>0.0}
+							{if ($basket->getItemsPriceInclVat() - $basket->getItemsPriceBeforeDiscountInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())!=0.0}
 							<tr>
 								<th class="text--red">{t}Slevy celkem{/t}</th>
 								<td class="text-right text--red">{!($basket->getItemsPriceInclVat() - $basket->getItemsPriceBeforeDiscountInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())|display_price:"$currency,summary"}</td>
