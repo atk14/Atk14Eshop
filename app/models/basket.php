@@ -1269,4 +1269,11 @@ class Basket extends BasketOrOrder {
 		$d_method = $this->getDeliveryMethod();
 		return $d_method && $d_method->getDeliveryService();
 	}
+
+	/**
+	 * Are prices without VAT important for the given user (i.e. this basket)?
+	 */
+	function displayPricesWithoutVat(){
+		return false;
+	}
 }

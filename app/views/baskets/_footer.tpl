@@ -1,3 +1,5 @@
+{assign incl_vat !$basket->displayPricesWithoutVat()}
+
 		<tfoot>
 
 			<tr class="table-products__tfootstart">
@@ -17,27 +19,33 @@
 					<table>
 						<tbody>
 							<tr>
-								<th class="text--nowrap">{t escape=no}Cena za zboží<span class="text-muted"> vč. DPH</span>{/t}</th>
-								<td class="text-right">{!$basket->getItemsPriceBeforeDiscountInclVat()|display_price:"$currency,summary"}</td>
+								<th class="text--nowrap">
+									{if $incl_vat}
+										{t escape=no}Cena za zboží<span class="text-muted"> vč. DPH</span>{/t}
+									{else}
+										{t escape=no}Cena za zboží<span class="text-muted"> bez DPH</span>{/t}
+									{/if}
+								</th>
+								<td class="text-right">{!$basket->getItemsPriceBeforeDiscount($incl_vat)|display_price:"$currency,summary"}</td>
 							</tr>
 
-							{if ($basket->getItemsPriceInclVat() - $basket->getItemsPriceBeforeDiscountInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())!=0.0}
+							{if ($basket->getItemsPrice($incl_vat) - $basket->getItemsPriceBeforeDiscount($incl_vat) - $basket->getVouchersDiscountAmount($incl_vat) - $basket->getCampaignsDiscountAmount($incl_vat))!=0.0}
 							<tr>
 								<th class="text--red">{t}Slevy celkem{/t}</th>
-								<td class="text-right text--red">{!($basket->getItemsPriceInclVat() - $basket->getItemsPriceBeforeDiscountInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())|display_price:"$currency,summary"}</td>
+								<td class="text-right text--red">{!($basket->getItemsPrice($incl_vat) - $basket->getItemsPriceBeforeDiscount($incl_vat) - $basket->getVouchersDiscountAmount($incl_vat) - $basket->getCampaignsDiscountAmount($incl_vat))|display_price:"$currency,summary"}</td>
 							</tr>
 							<tr>
 								<th>{t}Cena zboží celkem{/t}</th>
-								<td class="text-right">{!($basket->getItemsPriceInclVat() - $basket->getVouchersDiscountAmount() - $basket->getCampaignsDiscountAmount())|display_price:"$currency,summary"}</td>
+								<td class="text-right">{!($basket->getItemsPrice($incl_vat) - $basket->getVouchersDiscountAmount($incl_vat) - $basket->getCampaignsDiscountAmount($incl_vat))|display_price:"$currency,summary"}</td>
 							</tr>
 							{/if}
 
 							<tr>
 								<th class="{if $basket->freeShipping()}text-success{/if}">{t}Doprava{/t}</th>
-								<td class="text-right {if $basket->freeShipping()}text-success{/if}">{!$basket->getShippingFeeInclVat()|display_price:"$currency,summary"|default:"&mdash;"}</td>
+								<td class="text-right {if $basket->freeShipping()}text-success{/if}">{!$basket->getShippingFee($incl_vat)|display_price:"$currency,summary"|default:"&mdash;"}</td>
 							</tr>
 							<tr>
-								<th class="table-products__pricetopay">{t}Cena celkem{/t}</th>
+								<th class="table-products__pricetopay">{if $incl_vat}{t}Cena celkem{/t}{else}{t}Cena celkem vč. DPH{/t}{/if}</th>
 								<td class="table-products__pricetopay">{!$basket->getPriceToPay()|display_price:"$currency,summary"}</td>
 							</tr>
 						</tbody>
