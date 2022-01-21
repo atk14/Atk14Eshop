@@ -18,6 +18,9 @@
 					</td>
 					<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
 					<td class="js--unit_price table-products__unit-price"><span class="property__key">{if $incl_vat}{t}Jedn. cena{/t}{else}{t}Jedn. cena bez DPH{/t}{/if}</span> {render partial="baskets/unit_price" unit=$product->getUnit()}</td>
+					{if !$incl_vat}
+					<td class="table-products__vat-percent"><span class="property__key">{t escape=no}%&nbsp;DPH{/t}</span>{if $price}{$price->getVatPercent()}{/if}</td>
+					{/if}
 					<td class="table-products__amount" data-url="{link_to namespace="api" controller="basket_items" action="add" product=$product->getId() format='json'}">
 						<span class="property__key">{t}Množství{/t}</span>
 						{*$item->getAmount()*}

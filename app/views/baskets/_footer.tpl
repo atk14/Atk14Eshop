@@ -3,7 +3,7 @@
 		<tfoot>
 
 			<tr class="table-products__tfootstart">
-				<td colspan="4" class="text-center table-products__free-shipping">
+				<td colspan="{if $incl_vat}4{else}5{/if}" class="text-center table-products__free-shipping">
 					{if $basket->freeShipping()}
 						<div class="sticker sticker--free-shipping">
 							<div class="sticker__icon">{!"truck"|icon}</div>
@@ -56,7 +56,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan="7" class="table-products__addvoucher">
+				<td colspan="{if $incl_vat}7{else}8{/if}" class="table-products__addvoucher">
 					<div class="vouchers"{if isset($vouchers_anchor_set) && !$vouchers_anchor_set} id="vouchers"{/if}>
 						<h4>{t}Slevové kupóny / dárkové poukazy{/t}</h4>
 						<div class="input-group input-group--voucher">
@@ -70,7 +70,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="7">
+				<td colspan="{if $incl_vat}7{else}8{/if}">
 					{render partial="shared/form_field" field="note"}
 				</td>
 			</tr>
