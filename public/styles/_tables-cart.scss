@@ -49,6 +49,9 @@ table.table-products {
 				&.table-products__amount {
 					text-align: center;
 				}
+				&.table-products__vat-percent {
+					text-align: right;
+				}
 				&.table-products__price {
 					text-align: right;
 					white-space: nowrap;
@@ -105,6 +108,13 @@ table.table-products {
 				
 				&.table-products__amount {
 					text-align: center;
+					.quantity-widget {
+						display: inline-flex;
+					}
+				}
+
+				&.table-products__vat-percent {
+					text-align: right;
 				}
 				
 				&.table-products__unit-price {
@@ -240,7 +250,7 @@ table.table-products {
 				grid-template-columns: 120px 1fr 1fr 30px;
 				grid-template-rows: auto auto auto;
 				grid-template-areas: "image title title actions"
-														"image unitprice unitprice actions"
+														"image unitprice vat actions"
 														"image amount	price actions";
 				td {
 					display: block;
@@ -264,6 +274,11 @@ table.table-products {
 					&.table-products__amount {
 						grid-area: amount;
 						text-align: left !important;
+					}
+
+					&.table-products__vat-percent {
+						grid-area: vat;
+						//text-align: left !important;
 					}
 					
 					&.table-products__price {
@@ -380,15 +395,12 @@ table.table-products {
 				display: grid;
 				width: 100%;
 				@include cart-border-normal;
-				grid-template-columns: 90px 1fr 30px;
+				grid-template-columns: 20vw 1fr 1fr 30px;
 				grid-template-rows: auto auto auto auto;
-				//grid-template-areas: "image title actions"
-				//										"unitprice amount actions"
-				//										"price price actions";
-				grid-template-areas: "image title actions"
-														"image unitprice actions"
-														"image amount actions"
-														"price price actions";
+				grid-template-areas: "image title title actions"
+														"image unitprice unitprice actions"
+														"image amount amount actions"
+														"image vat price actions";
 				td {
 					display: block;
 					border-bottom: none !important;
@@ -408,6 +420,11 @@ table.table-products {
 
 					&.table-products__amount {
 						grid-area: amount;
+					}
+
+					&.table-products__vat-percent {
+						grid-area: vat;
+						text-align: left !important;
 					}
 
 					&.table-products__price {
