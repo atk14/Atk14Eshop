@@ -296,7 +296,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket){
-			$basket = Basket::GetDummyBasket($region);
+			$basket = Basket::GetDummyBasket($region,$this->logged_user);
 		}
 	
 		$basket->setRegion($region);
