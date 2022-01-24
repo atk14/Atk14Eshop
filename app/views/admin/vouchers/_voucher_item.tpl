@@ -1,8 +1,8 @@
 <tr>
-	<td>{$voucher->getId()}</td>
+	<td>{highlight_search_query}{$voucher->getId()}{/highlight_search_query}</td>
 	<td>{", "|join:$voucher->getRegions()}</td>
 	<td>{if $voucher->isGiftVoucher()}{!"gift"|icon}{/if}</td>
-	<td>{$voucher->getVoucherCode()}</td>
+	<td>{{highlight_search_query}}{$voucher->getVoucherCode()}{/highlight_search_query}</td>
 	<td>
 		{if $voucher->getDiscountPercent()}
 			{!$voucher->getDiscountPercent()}%<br>
