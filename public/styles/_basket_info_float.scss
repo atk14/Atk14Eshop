@@ -52,6 +52,11 @@
       .cart__price {
         font-size: 0.75rem;
         font-weight: bold;
+        min-width: 65px;
+        white-space: nowrap;
+        &:empty {
+          display: none;
+        }
       }
     }
 

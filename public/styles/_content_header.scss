@@ -102,6 +102,9 @@ header.content-header, .content-header {
 			h1, .h1, .teaser, .meta, p {
 				color: white;
 			}
+			a {
+				color: inherit;
+			}
 			display: flex;
 			flex-direction: column;
 			h1, .h1 {
