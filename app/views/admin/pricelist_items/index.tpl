@@ -30,8 +30,8 @@
 			{assign product $pricelist_item->getProduct()}
 			<tr>
 				<td>{render partial="shared/list_thumbnail" image=$product->getImage()}</td>
-				<td>{$product->getCatalogId()}</td>
-				<td>{$product->getName()}</td>
+				<td>{highlight_search_query}{$product->getCatalogId()}{/highlight_search_query}</td>
+				<td>{highlight_search_query}{$product->getName()}{/highlight_search_query}</td>
 				<td>{$pricelist_item->getMinimumQuantity()} {$product->getUnit()}</td>
 				<td>{$pricelist_item->getPrice()|display_price:"$currency,format=plain"}</td>
 				<td>{$pricelist_item->getPriceInclVat()|display_price:"$currency,format=plain"}</td>
