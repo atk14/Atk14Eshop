@@ -63,3 +63,31 @@
   }
 
 }
+
+
+.basket-contents-popup {
+  position: absolute;
+  z-index: $zindex-modal;
+  left: 100px;
+  top: 100px;
+  width: 400px;
+  min-height: 100px;
+  box-shadow: $box-shadow-lg;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: white;
+  &__content {
+    &.empty {
+      min-height: 100px;
+      border-bottom: 1px solid $border-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__footer {
+    padding: $modal-inner-padding;
+    text-align: center;
+    
+  }
+}
