@@ -9,10 +9,12 @@
 
 {t}V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili úhradu bankovním převodem, podklady k úhradě objednávky Vám budou zaslány obratem.{/t}
 
-{if $shipping_days=="3-5"}
-	{t shipping_days=$shipping_days}Objednávka bude expedována do %1 pracovních dní od připsání platby na náš bankovní účet.{/t}
-{else}
-	{t shipping_days=$shipping_days}Objednávka bude expedována do %1 pracovních dnů od připsání platby na náš bankovní účet.{/t}
+{if strlen($shipping_days)}
+	{if $shipping_days=="3-5"}
+		{t shipping_days=$shipping_days}Objednávka bude expedována do %1 pracovních dní od připsání platby na náš bankovní účet.{/t}
+	{else}
+		{t shipping_days=$shipping_days}Objednávka bude expedována do %1 pracovních dnů od připsání platby na náš bankovní účet.{/t}
+	{/if}
 {/if}
 
 <br/><br/>
