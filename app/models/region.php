@@ -7,7 +7,7 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetAllInstances(){
 		static $regions;
-		if(!$regions){
+		if(!$regions || TEST){
 			$regions = Region::FindAll(["use_cache" => true]);
 		}
 		return $regions;
@@ -42,11 +42,46 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		}
 	}
 
+	/**
+	 * @return string[]
+	 */
 	static function GetDeliveryCountriesFromAllRegions(){
+		$regions = self::GetAllInstances();
+		return self::_MergeCountries($regions,"getDeliveryCountries");
+	}
+
+	/**
+	 * @return string[]
+	 */
+	static function GetDeliveryCountriesFromActiveRegions(){
+		$regions = self::GetActiveInstances();
+		return self::_MergeCountries($regions,"getDeliveryCountries");
+	}
+
+	/**
+	 * @return string[] || NULL
+	 */
+	static function GetInvoiceCountriesFromAllRegions(){
+		$regions = self::GetAllInstances();
+		return self::_MergeCountries($regions,"getInvoiceCountries");
+	}
+
+	/**
+	 * @return string[] || NULL
+	 */
+	static function GetInvoiceCountriesFromActiveRegions(){
+		$regions = self::GetActiveInstances();
+		return self::_MergeCountries($regions,"getInvoiceCountries");
+	}
+
+	static protected function _MergeCountries($regions,$method){
 		$all_allowed_countries = [];
-		foreach(Region::GetAllInstances() as $region){
-			$dcs = $region->getDeliveryCountries();
-			$all_allowed_countries += array_combine($dcs,$dcs);
+		foreach($regions as $region){
+			$countries = $region->$method();
+			if(is_null($countries)){
+				return null; // null means no limit
+			}
+			$all_allowed_countries += array_combine($countries,$countries);
 		}
 		$all_allowed_countries = array_values($all_allowed_countries);
 		return $all_allowed_countries;
@@ -197,6 +232,20 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	function getDefaultCurrency(){
 		if($currencies = $this->getCurrencies()){
 			return $currencies[0];
+		}
+	}
+
+	/**
+	 *
+	 *	if(is_null($region->getInvoiceCountries())){
+	 *		// without limits
+	 *	}
+	 *
+	 * @return string[] || NULL
+	 */
+	function getInvoiceCountries(){
+		if($this->g("invoice_countries")){
+			return (array)json_decode($this->g("invoice_countries"),true);
 		}
 	}
 
