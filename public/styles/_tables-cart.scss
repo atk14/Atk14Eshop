@@ -571,3 +571,98 @@ table.table-products {
 }
 
 
+table.table-products--mini {
+  $tableW: 500px;
+
+  @include media-breakpoint-up(xs) {
+  width: 100%;
+  max-width: $tableW;
+  display: block;
+  padding: 0 $modal-inner-padding;
+  border-bottom: 1px solid $border-color;
+
+  // left and right margin must be set to avoid negative margin on xs view (as defined in .table-products)
+  margin: 0 !important;
+
+  tbody.table-products__list {
+
+    display: block;
+    border-bottom: none;
+
+    tr.table-products__item {
+
+      display: grid;
+      grid-template-columns: 70px 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas: "title title title"
+													 "image amount price";
+      grid-gap: 5px;
+      gap: 5px;
+
+      margin: 5px 0;
+      border-bottom: 1px solid $border-color;
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td{
+        
+        padding: 0;
+        border: none;
+        border-bottom: none;
+        display: block;
+        //font-size: $font-size-sm;
+
+        &.table-products {
+
+          &__image {
+            grid-area: image;
+            max-width: 0 !important;
+            min-width: 70px !important;
+            border-bottom: none;
+            img {
+              max-width: 60px;
+              height: auto;
+            }
+          }
+
+          &__title {
+            grid-area: title;
+            border: none;
+          }
+
+          &__amount {
+            grid-area: amount;
+            text-align: right !important;
+            border-bottom: none;
+          }
+
+          &__price {
+            font-size: 1em;
+            grid-area: price;
+            align-self: start !important;
+            border-bottom: none;
+            .currency_main {
+              font-size: 1em;
+            }
+          }
+
+          &__vat-percent, &__unit-price, &__id, &__actions {
+            display: none !important;
+          }
+
+        }
+      }
+    }
+
+    .property__key {
+      display: block !important;
+    }
+
+    .table-products__id {
+      display: none !important;
+    }
+
+  }
+
+}}
