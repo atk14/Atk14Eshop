@@ -1,11 +1,21 @@
 .modal {
-	.modal__quantity-change {
-		margin-bottom: 1.5rem;
-		.quantity {
-			font-size: 1.5rem;
-		}
-		.quantity-edit-link {
-			font-size: $font-size-sm;
+	.modal-body {
+
+		.modal__quantity-change {
+			margin-bottom: 1.5rem;
+			.quantity {
+				font-size: 1.5rem;
+			}
+			.quantity-edit-link {
+				font-size: $font-size-sm;
+			}
 		}
 	}
+
+	table.table-products--mini {
+		max-height: 150px;
+		overflow-y: auto;
+		border-top: none;
+	}
+
 }
