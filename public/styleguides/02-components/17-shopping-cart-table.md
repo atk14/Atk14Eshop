@@ -222,3 +222,37 @@ The same table is used for non-ediatble order overview:
 	</tfoot>
 </table>
 [/example]
+
+## Mini shopping cart table
+
+Used in popover cart preview on hover on small cart info. The markup is the same as products section in cart overview table above (only <code>tbody.table-products__list</code> part is used. VAT, unit price etc. may be omited). 
+
+[example]
+
+<table class="table-products table-products--mini">
+	<tbody class="table-products__list">
+		<tr class="table-products__item">
+			<td class="table-products__image"><a href="/produkt/brasna-na-fotak/"><img src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_120x120xffffff_cbdd0820323d5eb4.jpg" alt="" width="120" height="120"></a></td>
+			<td class="table-products__title">
+				<a href="/produkt/brasna-na-fotak/">Brašna na foťák</a> <span class="d-block d-lg-none table-products__id"><span class="property__key">Kód</span>BRASNA</span>
+			</td>
+			<td class="table-products__id"><span class="d-none d-lg-inline">BRASNA</span></td>
+			<td class="table-products__unit-price"><span class="property__key">Jedn. cena</span> <span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span></td>
+			<td class="table-products__amount"><span class="property__key">Množství</span>1</td>
+			<td class="table-products__price"><span class="property__key">Celkem</span><span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span></td>
+		</tr>
+		<tr class="table-products__item">
+			<td class="table-products__image"><a href="/produkt/violator-download/"><img src="http://i.pupiq.net/i/6f/6f/bb7/2dbb7/800x800/CRFjDM_120x120xffffff_a5edc907c202f446.jpg" alt="" width="120" height="120"></a></td>
+			<td class="table-products__title">
+				<a href="/produkt/violator-download/">Violator (download)</a> <br><small><span class="badge badge-pill badge-secondary">digitální produkt</span></small>
+				<span class="d-block d-lg-none table-products__id"><span class="property__key">Kód</span>4646DL</span>
+			</td>
+			<td class="table-products__id"><span class="d-none d-lg-inline">4646DL</span></td>
+			<td class="table-products__unit-price"><span class="property__key">Jedn. cena</span> <span class="currency_main"><span class="price">250,00</span>&nbsp;Kč</span></td>
+			<td class="table-products__amount"><span class="property__key">Množství</span>4</td>
+			<td class="table-products__price"><span class="property__key">Celkem</span><span class="currency_main"><span class="price">1&nbsp;000,00</span>&nbsp;Kč</span></td>
+		</tr>
+	</tbody>
+</table>
+
+[/example]
