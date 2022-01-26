@@ -15,7 +15,7 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 		$this->_add_firstname_lastname(["required" => false]);
 		$this->_add_email();
 		$this->_add_company_fields(["enable_vat_id_validation" => true]);
-		$this->_add_address_fields(["required" => false, "add_note" => false]);
+		$this->_add_address_fields(["required" => false, "add_note" => false, "only_allowed_countries_for_invoice" => true]);
 
 		$this->add_field("fill_in_invoice_address",new BooleanField([
 			"label" => _("Chci zadat fakturační údaje"),
