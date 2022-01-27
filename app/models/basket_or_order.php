@@ -193,7 +193,10 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 
-	function getShippingFee(){
+	function getShippingFee($incl_vat = false){
+		if($incl_vat){
+			return $this->getShippingFeeInclVat();
+		}
 		$delivery_fee = $this->getDeliveryFee();
 		if(is_null($delivery_fee)){
 			return null;

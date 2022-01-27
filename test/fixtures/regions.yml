@@ -4,6 +4,7 @@ czechoslovakia:
   name_cs: Československo
   currencies: '["CZK"]'
   delivery_countries: '["CZ","SK"]'
+  invoice_countries: '["CZ","SK"]'
   languages: '["cs","en"]'
   domains: '[]'
 
@@ -13,6 +14,7 @@ CR:
   name_cs: "Česká republika"
   currencies: '["CZK"]'
   delivery_countries: '["CZ"]'
+  invoice_countries: '["CZ"]'
   languages: '["cs"]'
   domains: '[]'
 
@@ -22,6 +24,7 @@ SK:
   name_cs: Slovensko
   currencies: '["EUR"]'
   delivery_countries: '["SK"]'
+  invoice_countries: '["SK"]'
   languages: '["sk"]'
   domains: '[]'
 
@@ -31,5 +34,6 @@ EU:
   name_cs: Evropa
   currencies: '["EUR"]'
   delivery_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
+  invoice_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
   languages: '["en"]'
   domains: '[]'

@@ -32,9 +32,9 @@
 			{assign product $warehouse_item->getProduct()}
 			<tr>
 				<td>{render partial="shared/list_thumbnail" image=$product->getImage()}</td>
-				<td>{$product->getCatalogId()}</td>
+				<td>{highlight_search_query}{$product->getCatalogId()}{/highlight_search_query}</td>
 				<td>{$warehouse_item->getStockcount()} {$product->getUnit()}</td>
-				<td>{$product->getName()}</td>
+				<td>{highlight_search_query}{$product->getName()}{/highlight_search_query}</td>
 				<td>
 					{dropdown_menu}
 						{a action="edit" id=$warehouse_item}{t}Edit{/t}{/a}

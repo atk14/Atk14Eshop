@@ -126,7 +126,7 @@ class TcCheckouts extends TcBase {
 			"address_street" => "21, Jump Street",
 			"address_city" => "Florida",
 			"address_zip" => "90210",
-			"address_country" => "US",
+			"address_country" => "CZ", // "US" is not allowed invoice country in the region
 			"phone" => "+420555000555",
 			"password" => "simple.password",
 			"password_repeat" => "simple.password",
