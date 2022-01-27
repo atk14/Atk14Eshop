@@ -176,6 +176,7 @@
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
 
 				// Floating cart preview
+				// eslint-disable-next-line no-unused-vars
 				var cartPreview = new UTILS.CartPreview( {
 					triggers: $( ".js--mainbar__cartinfo, .js--basket_info_float-container" ),
 					delay: 1500
@@ -569,6 +570,7 @@ console.log($card);
 				} );
 
 				// TOC search
+				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#chapter_filter" ),
 					clearButton: 	false,
