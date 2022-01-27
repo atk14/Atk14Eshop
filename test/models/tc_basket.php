@@ -885,6 +885,23 @@ class TcBasket extends TcBase {
 		$this->assertEquals(307.73,$basket->getAddMoreToGetFreeDelivery());
 	}
 
+	function test_getShippingFee(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$this->assertEquals(null,$basket->getShippingFee());
+		$this->assertEquals(null,$basket->getShippingFee(true));
+		$this->assertEquals(null,$basket->getShippingFeeInclVat(true));
+
+		$basket->s(array(
+			"delivery_method_id" => $this->delivery_methods["personal"],
+			"payment_method_id" => $this->payment_methods["cash_on_delivery"]
+		));
+
+		$this->assertEquals(75.24,$basket->getShippingFee());
+		$this->assertEquals(79.0,$basket->getShippingFee(true));
+		$this->assertEquals(79.0,$basket->getShippingFeeInclVat());
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());
