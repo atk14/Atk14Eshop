@@ -40,10 +40,13 @@
 							</tr>
 							{/if}
 
+							{if !is_null($basket->getShippingFee())}
 							<tr>
 								<th class="{if $basket->freeShipping()}text-success{/if}">{t}Doprava{/t}</th>
 								<td class="text-right {if $basket->freeShipping()}text-success{/if}">{!$basket->getShippingFee($incl_vat)|display_price:"$currency,summary"|default:"&mdash;"}</td>
 							</tr>
+							{/if}
+
 							<tr>
 								<th class="table-products__pricetopay">{if $incl_vat}{t}Cena celkem{/t}{else}{t}Cena celkem vč. DPH{/t}{/if}</th>
 								<td class="table-products__pricetopay">{!$basket->getPriceToPay()|display_price:"$currency,summary"}</td>
