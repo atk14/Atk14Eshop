@@ -40,7 +40,7 @@ window.UTILS.CartPreview = function( options ) {
 
       self.cartPopup.addClass( "show" );
       var target = $( e.currentTarget );
-      self.cartPopup.css( "top", target.offset().top );
+      self.cartPopup.css( "top", target.offset().top + "px" );
       self.cartPopup.css( "left", ( target.offset().left - 400 ) + "px");
       self.cartShown = true;
     }
