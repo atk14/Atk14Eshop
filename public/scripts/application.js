@@ -156,6 +156,7 @@
 					function floatBasketInfo( changes ){
 						var floatBasket = $( ".js--basket_info_float-container" );
 						changes.forEach( function( change ) {
+							console.log("cahnge");
 							if ( change.isIntersecting ) {
 								floatBasket.removeClass( "show" );
 							} else {
@@ -174,6 +175,12 @@
 				}
 
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
+
+				// Floating cart preview
+				var cartPreview = new UTILS.CartPreview( {
+					triggers: $( ".js--mainbar__cartinfo, " )
+				} );
+
 
 				// Expanding/collapsing FAQ items
 				$( "dl.faq dt, ul.faq .faq__q, ol.faq .faq__q" ).on( "click", function( e ) {

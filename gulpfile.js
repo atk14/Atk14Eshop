@@ -40,6 +40,7 @@ var applicationScripts = [
 	"public/scripts/delivery_service_branch_select.js",
 	"public/scripts/zasilkovna.js",
 	"public/scripts/utils/search_suggestion.js",
+	"public/scripts/utils/cart_preview.js",
 	"public/scripts/application.js"
 ];
 
