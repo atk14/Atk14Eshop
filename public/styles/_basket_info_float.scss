@@ -22,7 +22,7 @@
 
     & > a.js--basket_info_float {
       display: block;
-      position: absolute;
+      position: relative;
       right: 0;
       top: 0;
 
@@ -44,9 +44,6 @@
       }
 
       .cart-num-items {
-        /*position: absolute;
-        top: $grid-gutter-width/8;
-        left: 20px;*/
       }
 
       .cart__price {
@@ -66,6 +63,7 @@
 
 
 .basket-preview {
+  display: none;
   position: absolute;
   z-index: $zindex-modal;
   left: 100px;
@@ -76,6 +74,11 @@
   border: 1px solid $border-color;
   border-radius: $border-radius;
   background-color: white;
+
+  &.show {
+    display: block;
+  }
+
   &__content {
     &.empty {
       min-height: 100px;
@@ -89,5 +92,22 @@
     padding: $modal-inner-padding;
     text-align: center;
     
+  }
+
+  &--fading {
+    animation: basket-preview-fade-anim;
+    animation-duration: 0.75s;
+    animation-delay: 0.75s;
+    animation-iteration-count: 1;
+    outline: 1mm dashed greenyellow;
+  }
+
+}
+
+@keyframes basket-preview-fade-anim {
+  from {
+    opacity: 1;
+  } to {
+    opacity: 0;
   }
 }

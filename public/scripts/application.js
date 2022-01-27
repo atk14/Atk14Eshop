@@ -156,7 +156,6 @@
 					function floatBasketInfo( changes ){
 						var floatBasket = $( ".js--basket_info_float-container" );
 						changes.forEach( function( change ) {
-							console.log("cahnge");
 							if ( change.isIntersecting ) {
 								floatBasket.removeClass( "show" );
 							} else {
@@ -178,7 +177,8 @@
 
 				// Floating cart preview
 				var cartPreview = new UTILS.CartPreview( {
-					triggers: $( ".js--mainbar__cartinfo, " )
+					triggers: $( ".js--mainbar__cartinfo, .js--basket_info_float-container" ),
+					delay: 1500
 				} );
 
 

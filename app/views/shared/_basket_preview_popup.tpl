@@ -1,4 +1,4 @@
-<div class="basket-preview js--basket-preview-popup d-none">
+<div class="basket-preview js--basket-preview">
   <div class="basket-preview__content js--loader empty">
     <div class="spinner-border" role="status"></div>
   </div>
