@@ -42,6 +42,7 @@ window.UTILS.CartPreview = function( options ) {
       var target = $( e.currentTarget );
       self.cartPopup.css( "top", target.offset().top + "px" );
       self.cartPopup.css( "left", ( target.offset().left - 400 ) + "px");
+      self.cartPopup.addClass( "basket-preview--fadein" );
       self.cartShown = true;
     }
   };
@@ -53,6 +54,8 @@ window.UTILS.CartPreview = function( options ) {
       self.intervalID = 0;
     }
     self.cartPopup.removeClass( "show" );
+    self.cartPopup.removeClass( "basket-preview--fadeout" );
+    self.cartPopup.removeClass( "basket-preview--fadeout-fast" );
     self.cartShown = false;
   }
 
@@ -62,7 +65,8 @@ window.UTILS.CartPreview = function( options ) {
       clearInterval( self.intervalID );
       self.intervalID = 0;
     }
-    self.cartPopup.removeClass( "basket-preview--fading" );
+    self.cartPopup.removeClass( "basket-preview--fadeout" );
+    self.cartPopup.removeClass( "basket-preview--fadeout-fast" );
   }
 
   // Set up event handlers
@@ -73,14 +77,19 @@ window.UTILS.CartPreview = function( options ) {
 
     // Mouse leaves trigger - schedule delayed hide
     this.options.triggers.on( "mouseleave", function() {
-      self.cartPopup.addClass( "basket-preview--fading" );
+      self.cartPopup.removeClass( "basket-preview--fadein" );
+      self.cartPopup.addClass( "basket-preview--fadeout" );
       self.intervalID = setTimeout( self.hideCart, self.options.delay );
     } );
 
     // Mouse enters popup - cancel scheduled hide
     this.cartPopup.on( "mouseenter", this.keepCartOpen );
 
-    // Mouse leaves popup - hide immediately
-    this.cartPopup.on( "mouseleave", this.hideCart );
+    // Mouse leaves popup - schedule faster hide
+    this.cartPopup.on( "mouseleave", function() {
+      self.cartPopup.removeClass( "basket-preview--fadein" );
+      self.cartPopup.addClass( "basket-preview--fadeout-fast" );
+      self.intervalID = setTimeout( self.hideCart, 500 );
+    } );
   }
 };

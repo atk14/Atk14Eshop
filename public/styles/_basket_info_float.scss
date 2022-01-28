@@ -94,19 +94,39 @@
     
   }
 
-  &--fading {
-    animation: basket-preview-fade-anim;
+  &--fadeout {
+    animation: basket-preview-fadeout-anim;
     animation-duration: 0.75s;
     animation-delay: 0.75s;
     animation-iteration-count: 1;
   }
 
+  &--fadeout-fast {
+    animation: basket-preview-fadeout-anim;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+  }
+
+  &--fadein {
+    animation: basket-preview-fadein-anim;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+  }
+
 }
 
-@keyframes basket-preview-fade-anim {
+@keyframes basket-preview-fadeout-anim {
   from {
     opacity: 1;
   } to {
     opacity: 0;
+  }
+}
+
+@keyframes basket-preview-fadein-anim {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
   }
 }
