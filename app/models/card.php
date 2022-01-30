@@ -63,10 +63,13 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-
-		Atk14Require::Helper("modifier.markdown");
-		$out = smarty_modifier_markdown($this->getTeaser($lang));
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			Atk14Require::Helper("modifier.markdown");
+			$out = smarty_modifier_markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function getImages($options = array()){
