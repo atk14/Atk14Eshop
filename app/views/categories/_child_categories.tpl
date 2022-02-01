@@ -15,7 +15,7 @@
 			<li class="list-item">
 				{a path=$cc->getPath()}
 					{if $cc->getImage()}
-						{!$cc->getImage()|pupiq_img:"!60x60":"class='child-category__image'"}
+						{!$cc->getImage()|pupiq_img:"60x60xtransparent":"class='child-category__image'"}
 					{else}	
 						<img src="{$public}images/camera.svg" width="60" height="60" class="child-category__image">
 					{/if}
