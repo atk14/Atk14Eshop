@@ -1,12 +1,13 @@
 <tr>
-	<td>{$campaign->getId()}</td>
+	<td>{highlight_search_query}{$campaign->getId()}{/highlight_search_query}</td>
 
 	<td>{", "|join:$campaign->getRegions()}</td>
 
-	<td>{$campaign->getName()}</td>
+	<td>{highlight_search_query}{$campaign->getName()}{/highlight_search_query}</td>
 
 	{* Podminky *}
 	<td>
+		{highlight_search_query}
 		<ul>
 			{if $campaign->getMinimalItemsPriceInclVat()}
 				{assign currency Currency::GetDefaultCurrency()}
@@ -30,6 +31,7 @@
 				<li>{t}Vyloučeno pro štítky{/t}: {$campaign->getExcludedForTags()|to_sentence}</li>
 			{/if}
 		</ul>
+		{/highlight_search_query}
 	</td>
 
 	{* Obsah *}

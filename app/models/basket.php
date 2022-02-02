@@ -73,14 +73,15 @@ class Basket extends BasketOrOrder {
 		return $basket;
 	}
 
-	static function GetDummyBasket($region = null){
+	static function GetDummyBasket($region = null,$user = null){
 		if(!$region){ $region = Region::GetDefaultRegion(); }
 		$basket = Cache::Get("Basket",self::ID_DUMMY);
 
 		$out = clone($basket);
 		$out->setValuesVirtually([
 			"region_id" => $region->getId(),
-			"currency_id" => $region->getDefaultCurrency()->getId()
+			"currency_id" => $region->getDefaultCurrency()->getId(),
+			"user_id" => $user ? $user->getId() : null,
 		]);
 
 		return $out;
@@ -1268,5 +1269,18 @@ class Basket extends BasketOrOrder {
 	function deliveryToDeliveryPointSelected() {
 		$d_method = $this->getDeliveryMethod();
 		return $d_method && $d_method->getDeliveryService();
+	}
+
+	/**
+	 * Are prices without VAT important for the given user (i.e. this basket)?
+	 */
+	function displayPricesWithoutVat(){
+		if(!SystemParameter::ContentOn("merchant.vat_payer")){
+			return false;
+		}
+
+		// Here is a place for your implementation...
+
+		return false;
 	}
 }

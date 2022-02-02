@@ -2,7 +2,7 @@ Add to cart widget
 ==================
 
 ## Add to cart element for product without variants.
-Optional discounted and usual prices shown.
+Optional discounted and usual prices and secondary price (without VAT) shown.
 
 [example]
 <section class="section--add-to-cart">
@@ -19,7 +19,9 @@ Optional discounted and usual prices shown.
 				<div class="prices">
 					<div class="price--main">
 						<span class="price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
-						<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> <span class="price--recommended">Běžná cena: <span class="currency_main"><span class="price">850,00</span>&nbsp;Kč</span> Ušetříte: <span class="moneysaved"><span class="currency_main"><span class="price">255,00</span>&nbsp;Kč</span></span></span>
+						<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span>
+						<span class="price--secondary"><span class="currency_main"><span class="price">537</span>&nbsp;Kč</span> <span class="dph">without VAT</span></span>
+						<span class="price--recommended">Běžná cena: <span class="currency_main"><span class="price">850,00</span>&nbsp;Kč</span> Ušetříte: <span class="moneysaved"><span class="currency_main"><span class="price">255,00</span>&nbsp;Kč</span></span></span>
 					</div>
 				</div>
 				<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">

@@ -12,4 +12,10 @@ class RegionsController extends AdminController {
 		]);
 	}
 
+	function _before_filter(){
+		if(in_array($this->action,["edit"])){
+			$this->_find("region");
+		}
+	}
+
 }

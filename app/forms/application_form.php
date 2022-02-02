@@ -138,8 +138,9 @@ class ApplicationForm extends Atk14Form{
 			"add_note" => true,
 			"add_address_street2" => false,
 			"add_address_state" => true,
-			"allowed_countries" => null, // null, ["CZ","SK"]; null means all countries - if you play with this, have only_allowed_countries_for_delivery set to false!
+			"allowed_countries" => null, // null, ["CZ","SK"]; null means all countries - if you play with this, have only_allowed_countries_for_delivery and only_allowed_countries_for_invoice set to false!
 			"only_allowed_countries_for_delivery" => false,
+			"only_allowed_countries_for_invoice" => false,
 			"disabled" => false,
 		];
 		$prefix = $options["prefix"];
@@ -182,16 +183,19 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => $disabled,
 		]));
 
-		//$all_allowed_countries = Region::GetDeliveryCountriesFromAllRegions();
-		// Fakturacni adresa by mela byt zadatelna pro kazdy stat na svete..
-		$all_allowed_countries = $options["allowed_countries"];
-
-		$current_region_countries = $this->controller->current_region->getDeliveryCountries();
-		$initial = null;
-		if(($required && $current_region_countries) || ($options["only_allowed_countries_for_delivery"] && sizeof($current_region_countries)==1)){
-			$initial = $current_region_countries[0];
+		// $allowed_countries = Region::GetDeliveryCountriesFromActiveRegions();
+		$current_region = $this->controller->current_region;
+		$allowed_countries = $options["allowed_countries"];
+		if($options["only_allowed_countries_for_delivery"]){
+			$allowed_countries = $current_region->getDeliveryCountries();
 		}
-		$allowed_countries = ($options["only_allowed_countries_for_delivery"] ? $current_region_countries : $all_allowed_countries);
+		if($options["only_allowed_countries_for_invoice"]){
+			$allowed_countries = $current_region->getInvoiceCountries() ? $current_region->getInvoiceCountries() : null; // null means no limit
+		}
+		$initial = null;
+		if(($required && $allowed_countries) || ($allowed_countries && sizeof($allowed_countries)==1)){
+			$initial = $allowed_countries[0];
+		}
 		$this->add_field("{$prefix}address_country",new CountryField(array(
 			"label" => _("Země"),
 			"initial" => $initial,

@@ -1,0 +1,65 @@
+.js--basket_info_float-container {
+  $cartBorderStyle:  none;
+  $cartBorderRadius: 6px;//$border-radius;
+  $cartBgColor:      $brand;
+
+  display: none;
+
+  @media( min-width: $max-page-width + 200px ) {
+    display: block;
+    &.show {
+      //display: block;
+      right: 0;
+      opacity: 1;
+    }
+    
+    position: fixed;
+    z-index: $zindex-fixed;
+    right: -100px;
+    top: 100px;
+    opacity: 0;
+    transition: all 0.5s;
+
+    & > a.js--basket_info_float {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      max-width: 90px;
+      background-color: $cartBgColor;
+      border: $cartBorderStyle;
+      border-bottom-left-radius: $cartBorderRadius;
+      border-top-left-radius: $cartBorderRadius;
+      color: color-yiq( $cartBgColor );
+      padding: $grid-gutter-width/8 $grid-gutter-width/4;
+      
+      &:hover {
+        color: color-yiq( $cartBgColor );
+        text-decoration: none;
+      }
+
+      .cart__icon {
+        font-size: 1.25em;
+      }
+
+      .cart-num-items {
+        /*position: absolute;
+        top: $grid-gutter-width/8;
+        left: 20px;*/
+      }
+
+      .cart__price {
+        font-size: 0.75rem;
+        font-weight: bold;
+        min-width: 65px;
+        white-space: nowrap;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+
+  }
+
+}

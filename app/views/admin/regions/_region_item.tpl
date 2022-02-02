@@ -4,6 +4,7 @@
 <li class="list-group-item" data-id="{$region->getId()}">
 		<div class="item__properties">
 			<div class="item__title">
+				{render partial="shared/active_state" object=$region}
 				{$region->getName()}
 			</div>
 			<div class="item__code">

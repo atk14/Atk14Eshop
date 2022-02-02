@@ -26,6 +26,16 @@
 			}
 		}
 	}
+
+	&--secondary {
+		display: block;
+		font-size: 0.875rem;
+		.currency_main {
+			color: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+		}
+	}
 	
 	ul {
 		margin-bottom: 0;

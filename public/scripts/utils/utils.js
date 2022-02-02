@@ -10,7 +10,7 @@ window.UTILS.initSwiper = function() {
 
 	var $ = window.jQuery;
 
-	$( ".swiper-container" ).each( function( index, container ) {
+	$( ".swiper" ).each( function( index, container ) {
 		var $container = $( container );
 		var slidesPerView = $container.data( "slides_per_view" );
 		var loop = $container.data( "loop" );

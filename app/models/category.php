@@ -183,7 +183,11 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
 		$out = $this->getTeaser($lang);
-		if(strlen($out)){ return strip_tags($out); }
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function isVisible($check_parent_visibility = true){
@@ -617,7 +621,6 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			'self' => true,            //input categories will be in ouput (#TODO: incompatibile with direct_children_only)
 															   //'force' mean include me even if dont satisfy other requirements (e.g. visible, filter)
 			'visible' => null,         //if not null, returns only categories with given visible tag
-			'visible_to_user' => false,//if not false, returns only categories visible to given user
 			'is_filter' => null,       //if not null, returns only categories with given filter tag
 			'dealias' => false,        //return id of real kategories, not symlinks
 			'dealiased_input' => false,//no need to dealias input ids (thus there is no alias in input)
@@ -638,6 +641,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			'return_level' => false, 	//returns level (from input category) in result. Require level set to avoid infinite loop
 			'return_original_id' => false, //returns join $ids => $child_category
 		                                       //only valid for simple recursive query
+			'limit' => null,
 
 			'conditions' => [],
 			'bind_ar' => [],
@@ -894,6 +898,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 				}
 			}
 		}
+
+		if (isset($options["limit"])) {
+			$limit = max((int)$options["limit"],0);
+			$sql = "SELECT * FROM ($sql LIMIT ".(int)$options["limit"].") qlimit";
+		}
+
 		#echo $sql,"\n\n\n";
 		return array($sql, $bind);
 	}

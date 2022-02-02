@@ -24,6 +24,22 @@
  */
 class TcBasket extends TcBase {
 
+	function test_GetDummyBasket(){
+		$def_region = Region::GetDefaultRegion();
+		$eu = $this->regions["EU"];
+		$rambo = $this->users["rambo"];
+
+		$basket = Basket::GetDummyBasket();
+		$this->assertTrue($basket->isDummy());
+		$this->assertEquals($def_region->getId(),$basket->getRegionId());
+		$this->assertNull($basket->getUser());
+
+		$basket = Basket::GetDummyBasket($eu,$rambo);
+		$this->assertTrue($basket->isDummy());
+		$this->assertEquals($eu->getId(),$basket->getRegionId());
+		$this->assertEquals($rambo->getId(),$basket->getUserId());
+	}
+
 	function test_CreateNewRecord4UserAndRegion(){
 		$kveta = $this->users["kveta"];
 		$czechoslovakia = $this->regions["czechoslovakia"];
@@ -867,6 +883,23 @@ class TcBasket extends TcBase {
 		$basket->setProductAmount($this->products["mint_tea"],0);
 		$basket->addProduct($this->products["fridge"]);
 		$this->assertEquals(307.73,$basket->getAddMoreToGetFreeDelivery());
+	}
+
+	function test_getShippingFee(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$this->assertEquals(null,$basket->getShippingFee());
+		$this->assertEquals(null,$basket->getShippingFee(true));
+		$this->assertEquals(null,$basket->getShippingFeeInclVat(true));
+
+		$basket->s(array(
+			"delivery_method_id" => $this->delivery_methods["personal"],
+			"payment_method_id" => $this->payment_methods["cash_on_delivery"]
+		));
+
+		$this->assertEquals(75.24,$basket->getShippingFee());
+		$this->assertEquals(79.0,$basket->getShippingFee(true));
+		$this->assertEquals(79.0,$basket->getShippingFeeInclVat());
 	}
 
 	function _check_proper_price_rounding_on_items($items){

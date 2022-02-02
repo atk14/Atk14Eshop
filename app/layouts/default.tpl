@@ -75,6 +75,7 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
+		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
@@ -115,6 +116,7 @@
 
 		{render partial="shared/cookie_consent/banner"}
 		
+		{render partial="shared/basket_info_float_container"}
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}
 

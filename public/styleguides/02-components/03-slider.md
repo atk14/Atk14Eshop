@@ -11,7 +11,7 @@ Slides with images and text. Fourth slide in example is image only with no text.
 	
 <section class="section--slider">
 
-	<div class="swiper-container" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="5ecbbd720a916" id="swiper_5ecbbd720a916">
+	<div class="swiper" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="5ecbbd720a916" id="swiper_5ecbbd720a916">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0">
@@ -74,7 +74,7 @@ Slides with images and text. Fourth slide in example is image only with no text.
 </section>
 [/example]
 
-If there is just one slide only, it is possible to use it without <code>.swiper-container</code> and <code>.swiper-wrapper</code> wraping elements and without navigation elements. Our <code>_slider.tpl</code> template does this automatically.
+If there is just one slide only, it is possible to use it without <code>.swiper</code> and <code>.swiper-wrapper</code> wraping elements and without navigation elements. Our <code>_slider.tpl</code> template does this automatically.
 
 [example]
 	
@@ -107,7 +107,7 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 [example]
 <section class="section--slider">
 
-	<div class="swiper-container swiper--images" data-slides_per_view="auto" data-loop="1" data-autoplay="6000" data-slider_id="5ef491cf8f7dd" id="swiper_5ef491cf8f7dd" data-breakpoint="600" data-centered_slides="1">
+	<div class="swiper swiper--images" data-slides_per_view="auto" data-loop="1" data-autoplay="6000" data-slider_id="5ef491cf8f7dd" id="swiper_5ef491cf8f7dd" data-breakpoint="600" data-centered_slides="1">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0" style="width: auto">
@@ -142,7 +142,7 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 [example]
 <section class="section--slider">
 
-	<div class="swiper-container swiper--images" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="bvbvccv" id="swiper_bvbvccv" data-breakpoint="600">
+	<div class="swiper swiper--images" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="bvbvccv" id="swiper_bvbvccv" data-breakpoint="600">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0" style="width: auto">

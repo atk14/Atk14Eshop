@@ -7,6 +7,12 @@ class RegionsForm extends AdminForm {
 			"max_length" => 255,
 		]));
 
+		$this->add_field("active", new BooleanField(array(
+			"label" => _("Is active?"),
+			"initial" => true,
+			"required" => false,
+		)));
+
 		$this->add_field("delivery_countries", new CountriesField([
 			"label" => _("Delivery to countries"),
 			"required" => true,

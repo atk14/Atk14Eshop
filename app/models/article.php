@@ -7,17 +7,21 @@ class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\
 
 	function getSlugPattern($lang){ return $this->g("title_$lang"); }
 
-	function getPageTitle(){
-		$out = parent::getPageTitle();
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
 		if(strlen($out)){ return $out; }
-		return $this->getTitle();
+		return $this->getTitle($lang);
 	}
 
-	function getPageDescription(){
-		$out = parent::getPageDescription();
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-		$out = $this->getTeaser();
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 
@@ -69,6 +73,8 @@ class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\
 		$fd = new \Textmit\FulltextData($this,$lang);
 
 		$fd->addText($this->getTitle($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
 
 		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
 

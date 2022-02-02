@@ -64,6 +64,20 @@
 							}
 						}
 					}
+					.price--secondary {
+						display: block;
+						margin-top: 0.5rem;
+						font-weight: normal;
+						color: $body-color;
+						font-size: 0.875rem;
+						.currency_main {
+							font-size: 0.875rem !important;
+							.price {
+								color: inherit;
+								font-size: 0.875rem;
+							}
+						}
+					}
 				}
 				form {
 					display: flex;

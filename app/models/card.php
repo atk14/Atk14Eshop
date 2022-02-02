@@ -63,10 +63,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-
-		Atk14Require::Helper("modifier.markdown");
-		$out = smarty_modifier_markdown($this->getTeaser($lang));
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function getImages($options = array()){
@@ -562,9 +564,17 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	/**
-	 * Sourozenci z dane kategorie
+	 * Siblings from the given category
+	 *
+	 * If no category is given than primary category is considered
 	 */
-	function getCategorySiblings($category) {
+	function getCategorySiblings($category = null) {
+		if(!$category){
+			$category = $this->getPrimaryCategory();
+		}
+		if(!$category){
+			return [];
+		}
 		$cards = $category->getCards();
 		$_siblings = array();
 		foreach($cards as $_c) {
@@ -574,6 +584,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$_siblings[] = $_c;
 		}
 		return $_siblings;
+	}
+
+	function getViewableCategorySiblings($category = null) {
+		return array_filter($this->getCategorySiblings($category), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
 	}
 
 	function getAlternativeCards($options=array()) {

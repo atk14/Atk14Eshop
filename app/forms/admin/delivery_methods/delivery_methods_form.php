@@ -42,12 +42,13 @@ class DeliveryMethodsForm extends AdminForm {
 
 		$help_text = _("Pokud nebude částka určena, znamená to, že cena za dopravu bude stanovena následnou dohodou.");
 		//
-		$this->add_field("price_incl_vat", new PriceField(array(
+		$f = $this->add_field("price_incl_vat", new PriceField(array(
 			"label" => sprintf(_("Výchozí cena s DPH [%s]"),$currency),
 			"required" => false,
 			"initial" => 0,
 			"help_text" => $help_text,
 		)));
+		$f->widget->attrs["placeholder"] = _("cena neurčena");
 
 		$this->add_vat_rate_id_field();
 

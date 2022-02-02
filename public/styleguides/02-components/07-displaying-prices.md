@@ -31,11 +31,12 @@ Prices are in <code>ul</code> list. If there are more than two prices, "From" pr
 </span>
 [/example]
 
-## Single price with discounted and original price
+## Single price with discounted and original price and with secondary price ("without VAT" in this example)
 
 [example]
 <span class="card-price">
 	<span class="card-price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
 	<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span>
+	<span class="card-price--secondary"><span class="price">595,00</span>&nbsp;Kč without VAT</span>
 </span>
 [/example]

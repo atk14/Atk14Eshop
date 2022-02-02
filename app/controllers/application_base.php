@@ -227,7 +227,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _get_allowed_regions(){
-		$regions = Region::GetInstances();
+		$regions = Region::GetActiveInstances();
 		return $regions;
 	}
 
@@ -236,7 +236,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!$region){
 			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}
-		if(!$region){
+		if(!$region || !$region->isActive()){
 			$region = Region::GetDefaultRegion();
 		}
 
@@ -302,7 +302,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket){
-			$basket = Basket::GetDummyBasket($region);
+			$basket = Basket::GetDummyBasket($region,$this->logged_user);
 		}
 	
 		$basket->setRegion($region);
