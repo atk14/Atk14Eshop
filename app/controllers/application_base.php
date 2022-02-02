@@ -206,10 +206,10 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_execute_action("error403");
 		}
 
-		// Cookina pro cookie consent se pouzije misto check cookie
-		if(!SESSION_STORER_COOKIE_NAME_CHECK && !$this->request->defined(COOKIE_CONSENT_SETTINGS_COOKIE_NAME,"C")){
+		// CookieConsent's cookie acts like a check cookie
+		if(!SESSION_STORER_COOKIE_NAME_CHECK && !$this->request->getCookieVars()){
 			$settings = CookieConsent::GetSettings($this->request);
-			$settings->saveSettings($this->response,["delete_rejected_cookies" => false]); // Tady se proste ulozi akt. nastaveni (tedy zatim se navstevnik nevyjadril) 
+			$settings->saveSettings($this->response,array("delete_rejected_cookies" => false));
 		}
 	}
 
