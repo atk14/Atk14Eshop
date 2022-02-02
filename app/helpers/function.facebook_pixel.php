@@ -17,6 +17,10 @@ Atk14Require::Helper("block.javascript_tag");
  * @return string
  */
 function smarty_function_facebook_pixel($params, $template) {
+	if(!CookieConsent::Accepted("advertising")){
+		return "";
+	}
+
 	$params += [
 		"mode" => "basic",
 		"part" => "head",

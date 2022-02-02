@@ -1,3 +1,5 @@
+{if CookieConsent::Accepted("analytics")}
+
 {assign analytics_tracking_id "app.trackers.google.analytics.tracking_id"|system_parameter}
 {assign analytics_tracking_id "/[, ;]/"|preg_split:$analytics_tracking_id|array_filter}
 
@@ -14,5 +16,7 @@
   gtag('config', '{$tracking_id}');
 	{/foreach}
 </script>
+
+{/if}
 
 {/if}
