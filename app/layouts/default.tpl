@@ -26,6 +26,9 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
+
+		{cookie_consent_datalayer_command}
+
 		<meta charset="utf-8">
 	
 		{render partial="shared/layout/performance_optimizations"}
