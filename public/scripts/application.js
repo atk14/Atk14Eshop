@@ -455,7 +455,6 @@
 					var data = $( this ).data( "json" ),
 						$card = $( this ).closest( ".card" ).find( ".js--card-address" ),
 						$cards = $( ".js--card-address" );
-console.log($card);
 					$cards.removeClass( "card--active" );
 					$card.addClass( "card--active" );
 
@@ -479,6 +478,43 @@ console.log($card);
 							}
 					} );
 				} );
+			},
+
+			summary: function() {
+				// Before order submit, check if confirmation checkbox is checked
+				// If not show reminder
+				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
+				var confirmationFormGroup = $( "form#form_checkouts_summary .form-group--id_confirmation" );
+				var confirmationChkBox = $( "form#form_checkouts_summary #id_confirmation" );
+				var reminderTimeout;
+				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
+					var errMsg = confirmationChkBox.parents().find( "*[data-confirmation-reminder]" ).data( "confirmation-reminder" );
+					btn.popover( {
+						customClass: "popover--danger popover--bold",
+						placement: "top",
+						content: errMsg,
+					} );
+					if( confirmationChkBox.prop( "checked" ) !== true ) {
+						e.preventDefault();
+						btn.popover( "show" );
+						confirmationFormGroup.addClass( "form-group--has-error" );
+						reminderTimeout = setTimeout( hideReminderPopover, 3000 );
+					}else{
+						//e.preventDefault();
+						hideReminderPopover();
+						confirmationFormGroup.removeClass( "form-group--has-error" );					
+					}
+				} );
+				confirmationChkBox.on( "change", function(){
+					if( confirmationChkBox.prop( "checked" ) ){
+						hideReminderPopover();
+						confirmationFormGroup.removeClass( "form-group--has-error" );
+					}
+				} );
+				var hideReminderPopover = function() {
+					clearTimeout( reminderTimeout );
+					btn.popover( "hide" );
+				}
 			}
 
 		},
