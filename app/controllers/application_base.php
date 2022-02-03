@@ -205,6 +205,12 @@ class ApplicationBaseController extends Atk14Controller{
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
 		}
+
+		// CookieConsent's cookie acts like a check cookie
+		if(!SESSION_STORER_COOKIE_NAME_CHECK && !$this->request->getCookieVars()){
+			$settings = CookieConsent::GetSettings($this->request);
+			$settings->saveSettings($this->response,array("delete_rejected_cookies" => false));
+		}
 	}
 
 	function _application_after_filter(){

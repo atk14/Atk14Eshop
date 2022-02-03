@@ -83,6 +83,10 @@ definedef("PAYMENT_QR_CODES_ENABLED",true);
 
 definedef("SIDEBAR_MENU_ENABLED",false);
 
+// The SessionStorer's check cookie is disabled here.
+// A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
+definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

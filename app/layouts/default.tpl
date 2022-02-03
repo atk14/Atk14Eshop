@@ -26,6 +26,9 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
+
+		{cookie_consent_datalayer_command}
+
 		<meta charset="utf-8">
 	
 		{render partial="shared/layout/performance_optimizations"}
@@ -71,9 +74,6 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
-		{cache key='layout_cookie_consent' lang=$lang expire=6000}
-		{render partial="shared/layout/cookie_consent"}
-		{/cache}
 		{facebook_pixel}
 	</head>
 
@@ -117,11 +117,11 @@
 		</div>
 		</div>
 
+		{render partial="shared/cookie_consent/banner"}
 		
 		{render partial="shared/basket_info_float_container"}
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}
-		{render partial="shared/cookieconsent_container"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
