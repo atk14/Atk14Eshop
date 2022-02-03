@@ -2,6 +2,9 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
+
+		{cookie_consent_datalayer_command}
+
 		<meta charset="utf-8">
 	
 		{render partial="shared/layout/performance_optimizations"}
@@ -44,9 +47,6 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
-		{cache key='layout_cookie_consent' lang=$lang expire=6000}
-		{render partial="shared/layout/cookie_consent"}
-		{/cache}
 		{facebook_pixel}
 	</head>
 
