@@ -6,6 +6,11 @@ class SliderItemsForm extends AdminForm {
 			"label" => _("Obrázek"),
 		]));
 
+		$this->add_field("small_image_url", new PupiqImageField([
+			"label" => _("Malý obrázek"),
+			"required" => false,
+		]));
+
 		$this->add_translatable_field("title", new CharField([
 			"label" => _("Titulek"),
 			"required" => false,
