@@ -1,3 +1,5 @@
+{assign settings CookieConsent::GetSettings()}
+
 <script>
 {literal}
   !function(f,b,e,v,n,t,s)
@@ -9,6 +11,16 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 {/literal}
+  fbq('consent', 'revoke');
   fbq('init', '{$facebook_pixel_id}');
   fbq('track', 'PageView');
+  {if CookieConsent::Accepted("advertising")}
+  fbq('consent', 'grant');
+  {/if}
+  {if $settings && $settings->needsToBeConfirmed()}
+    document.addEventListener( "consentupdate", function( ev ) \{
+      var ad_consent = ev.grantedConsents.ad_storage;
+      fbq('consent', ad_consent === "granted" ? "grant" : "revoke" );
+    } );
+  {/if}
 </script>

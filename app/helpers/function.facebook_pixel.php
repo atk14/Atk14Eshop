@@ -5,6 +5,17 @@ Atk14Require::Helper("block.javascript_tag");
 // smarty_function_render
 
 /**
+ * This helper generates tracking code for Facebook Pixel.
+ *
+ * Code in basic mode with only PageView event.
+ * ```
+ * {facebook_pixel}
+ * ```
+ *
+ * Advanced code tracking more events.
+ * ```
+ * {facebook_pixel mode=advanced}
+ * ```
  *
  * @param array $params
  * - mode
@@ -17,9 +28,6 @@ Atk14Require::Helper("block.javascript_tag");
  * @return string
  */
 function smarty_function_facebook_pixel($params, $template) {
-	if(!CookieConsent::Accepted("advertising")){
-		return "";
-	}
 
 	$params += [
 		"mode" => "basic",
