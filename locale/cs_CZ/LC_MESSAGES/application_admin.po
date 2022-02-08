@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 16:16+0100\n"
-"PO-Revision-Date: 2022-01-31 16:14+0100\n"
+"POT-Creation-Date: 2022-02-08 14:17+0100\n"
+"PO-Revision-Date: 2022-02-08 14:18+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.3\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -50,6 +50,7 @@ msgstr "Seznam je prázdný."
 
 #: ../app/forms/admin/articles/articles_form.php:6
 #: ../app/forms/admin/attachments/attachments_form.php:9
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:16
 #: ../app/forms/admin/files/files_form.php:8
 #: ../app/forms/admin/images/images_form.php:10
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:6
@@ -516,11 +517,11 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:104
+#: ../app/controllers/admin/admin.php:105
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:105
+#: ../app/controllers/admin/admin.php:106
 msgid "link"
 msgstr "odkaz"
 
@@ -623,6 +624,27 @@ msgstr "Produkty v kolekci"
 
 msgid "Add a collection"
 msgstr "Přidat kolekci"
+
+msgid "necessary"
+msgstr ""
+
+msgid "inactive"
+msgstr ""
+
+msgid ""
+"You are about to permanently delete cookie consent category %1.\n"
+"Are you sure about that?"
+msgstr ""
+
+msgid "Přidat novou kategorii"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_statistics_controller.php:7
+msgid "Statistika klikání"
+msgstr ""
+
+msgid "Stáhnout ve formátu CSV"
+msgstr ""
 
 msgid ""
 "You are about to permanently delete creator role %1\n"
@@ -1271,6 +1293,15 @@ msgstr ""
 "Chystáte se trvale smazat sazbu DPH %1\n"
 "\t\tJste si jistý/á?"
 
+msgid "unknown active state"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "not active"
+msgstr "neaktivní"
+
 msgid ""
 "You are about to delete the attachment %1\n"
 "Are you sure about that?"
@@ -1575,9 +1606,6 @@ msgstr "administrátor"
 msgid "regular user"
 msgstr "běžný uživatel"
 
-msgid "not active"
-msgstr "neaktivní"
-
 msgid "Add a VAT rate"
 msgstr "Přidat sazbu DPH"
 
@@ -1669,12 +1697,6 @@ msgid ""
 msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
-
-msgid "unknown active state"
-msgstr ""
-
-msgid "active"
-msgstr ""
 
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
@@ -1802,60 +1824,64 @@ msgid "Bank accounts"
 msgstr "Bankovní účty"
 
 #: ../app/controllers/admin/admin.php:59
+msgid "Cookie consent"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:60
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:91
+#: ../app/controllers/admin/admin.php:92
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:118
+#: ../app/controllers/admin/admin.php:119
 #: ../app/controllers/admin/orders_controller.php:102
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/admin.php:122
+#: ../app/controllers/admin/admin.php:123
 #: ../app/controllers/admin/orders_controller.php:133
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/admin.php:168
+#: ../app/controllers/admin/admin.php:169
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:203
+#: ../app/controllers/admin/admin.php:204
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:217
+#: ../app/controllers/admin/admin.php:218
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:269
+#: ../app/controllers/admin/admin.php:270
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:304
+#: ../app/controllers/admin/admin.php:305
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:338
+#: ../app/controllers/admin/admin.php:339
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:459
+#: ../app/controllers/admin/admin.php:460
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:478
+#: ../app/controllers/admin/admin.php:479
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -2184,6 +2210,22 @@ msgstr "Přidat nový spotřební materiál"
 #: ../app/controllers/admin/consumables_controller.php:10
 msgid "Consumable product has been added"
 msgstr "Spotřební materiál byl přidán"
+
+#: ../app/controllers/admin/cookie_consent_categories_controller.php:5
+msgid "Kategorie souhlasu používání cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_categories_controller.php:15
+msgid "Editace kategorie pro nastavení cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consents_controller.php:11
+msgid "Nastavení cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_statistics_controller.php:6
+msgid "Statistika klikání na souhlas s použitím cookies"
+msgstr ""
 
 #: ../app/controllers/admin/creator_roles_controller.php:5
 msgid "Creator roles"
@@ -2790,13 +2832,14 @@ msgstr "položek smazáno: %s"
 
 #: ../app/forms/admin/admin_form.php:108
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
-#: ../app/forms/admin/slider_items/slider_items_form.php:10
+#: ../app/forms/admin/slider_items/slider_items_form.php:17
 msgid "Titulek"
 msgstr "Titulek"
 
 #: ../app/forms/admin/admin_form.php:117
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
-#: ../app/forms/admin/slider_items/slider_items_form.php:16
+#: ../app/forms/admin/slider_items/slider_items_form.php:23
 msgid "Popis"
 msgstr "Popis"
 
@@ -3363,6 +3406,59 @@ msgstr "Tento produkt už je součástí této kolekce"
 #, php-format
 msgid "Tento produkt už je součástí jiné kolekce [%s]"
 msgstr "Tento produkt už je součástí jiné kolekce [%s]"
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:6
+msgid "Kód sekce"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:21
+msgid "Je to nezbytná sekce?"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:26
+msgid "Aktivní?"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:32
+msgid "Regulární výraz pro detekci cookies"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:45
+msgid "Číslo verze"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:50
+msgid ""
+"Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
+"použitím cookies v této kategorii."
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
+#: ../app/forms/admin/cookie_consents/edit_form.php:12
+#: ../app/forms/admin/cookie_consents/edit_form.php:21
+#: ../app/forms/admin/cookie_consents/edit_form.php:26
+msgid "Formátování Markdown"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:6
+msgid "Titulek cookie lišty"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:11
+msgid "Text cookie lišty"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:16
+msgid "Titulek dialogu"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:20
+msgid "Úvodní text dialogu"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:25
+msgid "Text v patičce dialogu"
+msgstr ""
 
 #: ../app/forms/admin/creator_roles/creator_roles_form.php:11
 msgid "Plural name"
@@ -4041,11 +4137,27 @@ msgstr "neaktivní platební metoda"
 msgid "Vyberte dostupné způsoby platby"
 msgstr "Vyberte dostupné způsoby platby"
 
-#: ../app/forms/admin/slider_items/slider_items_form.php:21
+#: ../app/forms/admin/slider_items/slider_items_form.php:7
+msgid "Ořezává se automaticky na poměr stran 3:1."
+msgstr "Ořezává se automaticky na poměr stran 3:1."
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:11
+msgid "Malý obrázek"
+msgstr ""
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:13
+msgid ""
+"Zobrazí se na malých displejích pouze pokud není vyplněn žádný text (ořezává "
+"se na poměr stran 1:1,15 a 1:1)."
+msgstr ""
+"Zobrazí se na malých displejích pouze pokud není vyplněn žádný text (ořezává "
+"se na poměr stran 1:1,15 a 1:1)."
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:28
 msgid "URL / cesta"
 msgstr "URL / cesta"
 
-#: ../app/forms/admin/slider_items/slider_items_form.php:24
+#: ../app/forms/admin/slider_items/slider_items_form.php:31
 msgid ""
 "Interní odkaz zadávejte pouze ve formě URI (např. /napoveda/). Odkaz na "
 "externí web musí obsahovat celou cestu včetně domény (např. http://www."
@@ -4438,20 +4550,20 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
-msgid "sales regions"
-msgstr "prodejní oblasti"
+#~ msgid "sales regions"
+#~ msgstr "prodejní oblasti"
 
-msgid "currencies"
-msgstr "měny"
+#~ msgid "currencies"
+#~ msgstr "měny"
 
-msgid "delivery to"
-msgstr "doručování do"
+#~ msgid "delivery to"
+#~ msgstr "doručování do"
 
-msgid "currency"
-msgstr "měna"
+#~ msgid "currency"
+#~ msgstr "měna"
 
-msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid "pouze pro přihlášené"
 #~ msgstr "pouze pro přihlášené"

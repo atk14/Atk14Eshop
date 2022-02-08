@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 16:16+0100\n"
-"PO-Revision-Date: 2022-01-31 16:14+0100\n"
+"POT-Creation-Date: 2022-02-08 14:17+0100\n"
+"PO-Revision-Date: 2022-02-08 14:25+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.3\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -50,6 +50,7 @@ msgstr "The list is empty."
 
 #: ../app/forms/admin/articles/articles_form.php:6
 #: ../app/forms/admin/attachments/attachments_form.php:9
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:16
 #: ../app/forms/admin/files/files_form.php:8
 #: ../app/forms/admin/images/images_form.php:10
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:6
@@ -509,11 +510,11 @@ msgstr "Subcategories"
 msgid "filter options"
 msgstr "filter options"
 
-#: ../app/controllers/admin/admin.php:104
+#: ../app/controllers/admin/admin.php:105
 msgid "filter"
 msgstr "filter"
 
-#: ../app/controllers/admin/admin.php:105
+#: ../app/controllers/admin/admin.php:106
 msgid "link"
 msgstr "link"
 
@@ -616,6 +617,27 @@ msgstr "Products in the collection"
 
 msgid "Add a collection"
 msgstr "Add a collection"
+
+msgid "necessary"
+msgstr ""
+
+msgid "inactive"
+msgstr ""
+
+msgid ""
+"You are about to permanently delete cookie consent category %1.\n"
+"Are you sure about that?"
+msgstr ""
+
+msgid "Přidat novou kategorii"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_statistics_controller.php:7
+msgid "Statistika klikání"
+msgstr ""
+
+msgid "Stáhnout ve formátu CSV"
+msgstr ""
 
 msgid ""
 "You are about to permanently delete creator role %1\n"
@@ -1253,6 +1275,15 @@ msgstr ""
 "You are about to permanently delete VAT rate %1\n"
 "\t\tAre you sure about that?"
 
+msgid "unknown active state"
+msgstr ""
+
+msgid "active"
+msgstr ""
+
+msgid "not active"
+msgstr "not active"
+
 msgid ""
 "You are about to delete the attachment %1\n"
 "Are you sure about that?"
@@ -1551,9 +1582,6 @@ msgstr "administrator"
 msgid "regular user"
 msgstr "regular user"
 
-msgid "not active"
-msgstr "not active"
-
 msgid "Add a VAT rate"
 msgstr "Add a VAT rate"
 
@@ -1643,12 +1671,6 @@ msgid ""
 msgstr ""
 "You are about to permanently delete warehouse %1\n"
 "\t\tAre you sure about that?"
-
-msgid "unknown active state"
-msgstr ""
-
-msgid "active"
-msgstr ""
 
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
@@ -1776,60 +1798,64 @@ msgid "Bank accounts"
 msgstr ""
 
 #: ../app/controllers/admin/admin.php:59
+msgid "Cookie consent"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:60
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "System preferences"
 
-#: ../app/controllers/admin/admin.php:91
+#: ../app/controllers/admin/admin.php:92
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:118
+#: ../app/controllers/admin/admin.php:119
 #: ../app/controllers/admin/orders_controller.php:102
 #, php-format
 msgid "Objednávka %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:122
+#: ../app/controllers/admin/admin.php:123
 #: ../app/controllers/admin/orders_controller.php:133
 #, php-format
 msgid "Editace objednávky %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:168
+#: ../app/controllers/admin/admin.php:169
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "List of objects of type %s"
 
-#: ../app/controllers/admin/admin.php:203
+#: ../app/controllers/admin/admin.php:204
 msgid "The record has been created"
 msgstr "The record has been created"
 
-#: ../app/controllers/admin/admin.php:217
+#: ../app/controllers/admin/admin.php:218
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Create an object of type %s"
 
-#: ../app/controllers/admin/admin.php:269
+#: ../app/controllers/admin/admin.php:270
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:304
+#: ../app/controllers/admin/admin.php:305
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:338
+#: ../app/controllers/admin/admin.php:339
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:459
+#: ../app/controllers/admin/admin.php:460
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:478
+#: ../app/controllers/admin/admin.php:479
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -2158,6 +2184,22 @@ msgstr "Adding new consumable product"
 #: ../app/controllers/admin/consumables_controller.php:10
 msgid "Consumable product has been added"
 msgstr "Consumable product has been added"
+
+#: ../app/controllers/admin/cookie_consent_categories_controller.php:5
+msgid "Kategorie souhlasu používání cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_categories_controller.php:15
+msgid "Editace kategorie pro nastavení cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consents_controller.php:11
+msgid "Nastavení cookies"
+msgstr ""
+
+#: ../app/controllers/admin/cookie_consent_statistics_controller.php:6
+msgid "Statistika klikání na souhlas s použitím cookies"
+msgstr ""
 
 #: ../app/controllers/admin/creator_roles_controller.php:5
 msgid "Creator roles"
@@ -2762,13 +2804,14 @@ msgstr "entries deleted: %s"
 
 #: ../app/forms/admin/admin_form.php:108
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
-#: ../app/forms/admin/slider_items/slider_items_form.php:10
+#: ../app/forms/admin/slider_items/slider_items_form.php:17
 msgid "Titulek"
 msgstr "Title"
 
 #: ../app/forms/admin/admin_form.php:117
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
-#: ../app/forms/admin/slider_items/slider_items_form.php:16
+#: ../app/forms/admin/slider_items/slider_items_form.php:23
 msgid "Popis"
 msgstr "Description"
 
@@ -3331,6 +3374,59 @@ msgstr "This product is already part of this collection"
 #, php-format
 msgid "Tento produkt už je součástí jiné kolekce [%s]"
 msgstr "This product is already part of another collection [%s]"
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:6
+msgid "Kód sekce"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:21
+msgid "Je to nezbytná sekce?"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:26
+msgid "Aktivní?"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:32
+msgid "Regulární výraz pro detekci cookies"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:45
+msgid "Číslo verze"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:50
+msgid ""
+"Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
+"použitím cookies v této kategorii."
+msgstr ""
+
+#: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
+#: ../app/forms/admin/cookie_consents/edit_form.php:12
+#: ../app/forms/admin/cookie_consents/edit_form.php:21
+#: ../app/forms/admin/cookie_consents/edit_form.php:26
+msgid "Formátování Markdown"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:6
+msgid "Titulek cookie lišty"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:11
+msgid "Text cookie lišty"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:16
+msgid "Titulek dialogu"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:20
+msgid "Úvodní text dialogu"
+msgstr ""
+
+#: ../app/forms/admin/cookie_consents/edit_form.php:25
+msgid "Text v patičce dialogu"
+msgstr ""
 
 #: ../app/forms/admin/creator_roles/creator_roles_form.php:11
 msgid "Plural name"
@@ -3996,11 +4092,27 @@ msgstr ""
 msgid "Vyberte dostupné způsoby platby"
 msgstr ""
 
-#: ../app/forms/admin/slider_items/slider_items_form.php:21
+#: ../app/forms/admin/slider_items/slider_items_form.php:7
+msgid "Ořezává se automaticky na poměr stran 3:1."
+msgstr "Image will be cropped automatically to 3:1 aspect ratio."
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:11
+msgid "Malý obrázek"
+msgstr ""
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:13
+msgid ""
+"Zobrazí se na malých displejích pouze pokud není vyplněn žádný text (ořezává "
+"se na poměr stran 1:1,15 a 1:1)."
+msgstr ""
+"Image will be shown on small viewports only if no slide text is present (it "
+"will be auto cropped to 1:1.15 and 1:1 aspect ratios)."
+
+#: ../app/forms/admin/slider_items/slider_items_form.php:28
 msgid "URL / cesta"
 msgstr ""
 
-#: ../app/forms/admin/slider_items/slider_items_form.php:24
+#: ../app/forms/admin/slider_items/slider_items_form.php:31
 msgid ""
 "Interní odkaz zadávejte pouze ve formě URI (např. /napoveda/). Odkaz na "
 "externí web musí obsahovat celou cestu včetně domény (např. http://www."
@@ -4383,15 +4495,15 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Edit stockount in warehouse %1"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Edit stockount in warehouse %1"
 
-msgid ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #~ msgid "System name"
 #~ msgstr "System name"
