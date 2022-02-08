@@ -1,6 +1,6 @@
 {assign var=geometry_lg value="1500x500xcrop"}
 {assign var=geometry_sm value="900x300xcrop"}
-{assign var=geometry_sm_fullheight value="900x900xcrop"}{* h =  1.15 * w *}
+{assign var=geometry_sm_fullheight value="900x900xcrop"}{* h =  1 * w *}
 {assign var=geometry_xs_fullheight value="900x1035xcrop"}{* h = 1.15 * w *}
 {assign var=geometry_half value="900x600xcrop"}
 <div class="swiper-slide slider-item-{$slide_number}">
