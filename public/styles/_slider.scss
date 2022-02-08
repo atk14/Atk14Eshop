@@ -41,6 +41,13 @@
 				flex-basis: 45vw;
 			}
 		}
+		@media (max-width: 380px) {
+			&__text {
+				padding: $grid-gutter-width/4 $grid-gutter-width/4;
+				font-size: $font-size-sm;
+				line-height: 1.2;
+			}
+		}
 	}
 	
 	&--thumbnails {
