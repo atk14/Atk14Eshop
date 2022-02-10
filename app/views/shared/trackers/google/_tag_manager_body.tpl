@@ -1,6 +1,5 @@
 {**
  * Custom code for body is preferred over the basic one based only on a container_id.
- * When a code for body or code for <head> is defined
  *}
 {assign container_id "app.trackers.google.tag_manager.container_id"|system_parameter}
 {assign custom_code "app.trackers.google.tag_manager.custom_code.body"|system_parameter}
