@@ -1,5 +1,11 @@
+{**
+ * Custom code is preferred over the basic one based only on a container_id.
+ *}
 {assign container_id "app.trackers.google.tag_manager.container_id"|system_parameter}
-{if $container_id}
+{assign custom_code "app.trackers.google.tag_manager.custom_code.head"|system_parameter}
+{if $custom_code}
+{!$custom_code}
+{elseif $container_id}
 <!-- Google Tag Manager -->
 {literal}
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

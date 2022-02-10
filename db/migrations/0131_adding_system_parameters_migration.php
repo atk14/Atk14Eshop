@@ -145,9 +145,29 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"code" => "app.trackers.google.tag_manager.container_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Tag Manager Container ID",
-			"description_en" => "e.g. GTM-XXXX",
+			"description_en" => "e.g. GTM-XXXX. Standard Javascript code will be generated to load GTM script",
 			"name_cs" => "Google Tag Manager Container ID",
-			"description_cs" => "např. GTM-XXXX",
+			"description_cs" => "např. GTM-XXXX. Vygeneruje se standardní Javascriptový kód pro nahrání GTM skriptu",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.tag_manager.custom_code.head",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "Google Tag Manager Custom Code for <head> section",
+			"description_en" => "Custom snippet of code to load GTM script. It can include special instruction, e.g. for using a different GTM environment.<br>Usually is not necessary and it is enouch to set only the <b>container_id</b>.",
+			"name_cs" => "Google Tag Manager - vlastní kód pro <head> část",
+			"description_cs" => "Vlastní kód pro vložení GTM skriptu. Může obsahovat zvláštní instrukce, například pro použití jiného GTM prostředí.<br>Obvykle není potřeba a stačí nastavit pouze <b>container_id</b>",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.tag_manager.custom_code.body",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "Google Tag Manager Custom Code for <body> section",
+			"description_en" => "Custom snippet of code to load GTM script. It can include special instruction, e.g. for using a different GTM environment.<br>Usually is not necessary and it is enouch to set only the <b>container_id</b>.",
+			"name_cs" => "Google Tag Manager - vlastní kód pro <body> část",
+			"description_cs" => "Vlastní kód pro vložení GTM skriptu. Může obsahovat zvláštní instrukce, například pro použití jiného GTM prostředí.<br>Obvykle není potřeba a stačí nastavit pouze <b>container_id</b>",
 			"mandatory" => false,
 		]);
 
