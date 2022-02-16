@@ -208,5 +208,11 @@ class TcCard extends TcBase {
 		
 		$coffee->getCategoriesLister()->setRecords(array());
 		$this->assertFalse($coffee->isIndexable());
+
+		$coffee->getCategoriesLister()->setRecords(array($this->categories["hidden"]));
+		$this->assertFalse($coffee->isIndexable());
+
+		$coffee->getCategoriesLister()->setRecords(array($this->categories["hidden"],$this->categories["hot_drinks"]));
+		$this->assertTrue($coffee->isIndexable());
 	}
 }
