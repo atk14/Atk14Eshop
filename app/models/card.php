@@ -787,6 +787,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	function isIndexable(){
+		// If the product card is not listed in any category, it shall not be indexable
+		if(!$this->getCategories()){
+			return false;
+		}
+
 		return $this->isVisible() && !$this->isDeleted();
 	}
 

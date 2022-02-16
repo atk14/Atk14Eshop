@@ -200,4 +200,13 @@ class TcCard extends TcBase {
 		$this->assertNotNull($primary_category);
 		$this->assertEquals("Hot drinks",$primary_category->getName());
 	}
+
+	function test_isIndexable(){
+		$coffee = $this->cards["coffee"];
+
+		$this->assertTrue($coffee->isIndexable());
+		
+		$coffee->getCategoriesLister()->setRecords(array());
+		$this->assertFalse($coffee->isIndexable());
+	}
 }
