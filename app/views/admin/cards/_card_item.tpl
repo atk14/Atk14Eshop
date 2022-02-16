@@ -1,5 +1,5 @@
 <tr>
-	<td class="item-id">{$card->getId()}</td>
+	<td class="item-id">{highlight_search_query}{$card->getId()}{/highlight_search_query}</td>
 	<td class="item-thumbnail">{render partial="shared/list_thumbnail" image=$card->getImage()}</td>
 	<td>{highlight_search_query}{render partial="shared/product_codes" products=$card->getProducts(["visible" => null])}{/highlight_search_query}</td>
 	<td class="item-title">
