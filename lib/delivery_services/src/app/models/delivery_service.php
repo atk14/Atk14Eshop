@@ -28,7 +28,6 @@ class DeliveryService extends ApplicationModel {
 		$options += array(
 			"limit" => 150,
 			"countries" => [],
-			"user" => null,
 		);
 		$out = array();
 		$q = trim($q);
