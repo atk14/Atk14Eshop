@@ -1,11 +1,13 @@
 <?php
 class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
-	use TraitUrlParams;
+	use TraitUrlParams {
+		getUrl as _getUrl;
+	}
 	use TraitRegions;
 
 	static function GetTranslatableFields() {
-		return array("title");
+		return array("title","url_localized");
 	}
 
 	function setRank($new_rank) {
@@ -97,5 +99,35 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		}
 
 		return $menu;
+	}
+
+	function getUrl($lang = null,$options = []){
+		global $ATK14_GLOBAL;
+
+		if(is_array($lang)){
+			$options = $lang;
+		}else{
+			$options += [
+				"lang" => $lang,
+			];
+		}
+
+		$options += [
+			"with_hostname" => false,
+			"lang" => null,
+		];
+
+		$lang = $options["lang"];
+		unset($options["lang"]);
+
+		if(is_null($lang)){
+			$lang = $ATK14_GLOBAL->getLang();
+		}
+
+		if(strlen($this->g("url_localized_$lang"))){
+			return $this->g("url_localized_$lang");
+		}
+
+		return $this->_getUrl($lang,$options);
 	}
 }
