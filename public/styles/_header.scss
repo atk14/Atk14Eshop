@@ -484,7 +484,7 @@ ol.breadcrumb {
 					&:after {
 						border: none;
 						content: "\f078";
-						font-family: "Font Awesome 5 Free";
+						font-family: $fa-font-family;
 						font-weight: 900;
 						font-size: 0.65em;
 						margin-left: 0.5em;

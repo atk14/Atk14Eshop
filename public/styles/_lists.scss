@@ -431,7 +431,7 @@ ul.list--active-filters {
 			position: relative;
 			&::before {
 				content: "\f07b";
-				font-family: "Font Awesome 5 Free";
+				font-family: $fa-font-family;
 				font-weight: 400;
 				display: flex;
 				position: absolute;

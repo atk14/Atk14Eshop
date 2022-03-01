@@ -52,7 +52,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 			&.js--previous, &.js--first {
 				&:before {
 					margin-right: 0.5em;
-					font-family: "Font Awesome 5 Free";
+					font-family: $fa-font-family;
 					font-weight: 900;
 					content: "\f053";
 				}
@@ -69,7 +69,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 			&.next-page {
 				&:after {
 					margin-left: 0.5em;
-					font-family: "Font Awesome 5 Free";
+					font-family: $fa-font-family;
 					font-weight: 900;
 					content: "\f054";
 				}
@@ -78,7 +78,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 			&.next-items {
 				&:before {
 					margin-right: 0.5em;
-					font-family: "Font Awesome 5 Free";
+					font-family: $fa-font-family;
 					font-weight: 900;
 					content: "\f067";
 				}
