@@ -23,7 +23,7 @@ class HourField extends FloatField{
 
 	function clean($value){
 		$value = trim($value);
-		if(strlen($value)==""){
+		if(strlen($value)==0){
 			return parent::clean(""); // null
 		}
 
