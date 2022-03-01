@@ -1,7 +1,16 @@
 <?php
 class HourField extends FloatField{
 
+	protected $allow_2400 = false;
+
 	function __construct($options = array()){
+		$options += array(
+			"allow_2400" => false, // alowes time 24:00
+		);
+
+		$this->allow_2400 = $options["allow_2400"];
+		unset($options["allow_2400"]);
+
 		parent::__construct($options);
 
 		$this->update_message("invalid_hour_format",_("Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"));
@@ -32,7 +41,11 @@ class HourField extends FloatField{
 			return array($this->messages["invalid_hour_format"],null);
 		}
 
-		if($value<0.0 || $value>24.0){
+		if((!$this->allow_2400 && $value>=24.00) || ($this->allow_2400 && $value>24.00)){
+			return array($this->messages["invalid_hour_format"],null);
+		}
+
+		if($value<0.0){
 			return array($this->messages["invalid_hour_format"],null);
 		}
 	
