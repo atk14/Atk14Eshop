@@ -18,6 +18,7 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 		array_shift($argv);
 		array_shift($argv);
 
+		$required = [];
 		while($code = array_shift($argv)) {
 			$required[] = $code;
 		}
