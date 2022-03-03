@@ -1,1 +1,0 @@
-../../lib/delivery_services/src/public/scripts/zasilkovna.js
