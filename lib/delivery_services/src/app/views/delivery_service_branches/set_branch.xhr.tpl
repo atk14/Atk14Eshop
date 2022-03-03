@@ -1,7 +1,7 @@
 {assign delivery_service $delivery_method->getDeliveryService()}
+{assign delivery_service_code $delivery_service && $delivery_service->getCode()}
 {assign zasilkovna $delivery_service && $delivery_service->getCode()=="zasilkovna"}
 {assign gls $delivery_service && $delivery_service->getCode()=="gls"}
-{assign cp_balikovna $delivery_service && $delivery_service->getCode()=="cp-balikovna"}
 
 {assign modal_title $page_title}
 {if $zasilkovna}{assign modal_title ""}{/if}
@@ -19,14 +19,6 @@ $modal.addClass("modal--zasilkovna");
 $modal.appendTo("body");
 $("#delivery_service_branch_select").modal("show");
 
-{if $zasilkovna}
-  {render partial="widget_js_zasilkovna"}
-{/if}
-
-{if $gls}
-  {render partial="widget_js_gls"}
-{/if}
-
-{if $cp_balikovna}
-  {render partial="widget_js_cp_balikovna"}
+{if $delivery_service}
+	{render partial=$widget_template_js}
 {/if}

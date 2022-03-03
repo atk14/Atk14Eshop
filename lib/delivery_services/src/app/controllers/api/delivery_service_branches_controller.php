@@ -2,7 +2,7 @@
 class DeliveryServiceBranchesController extends ApiController {
 
 	/**
-	 * ### Seznam pošt
+	 * ### List of pickup points for given delivery service
 	 */
 	function index() {
 		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
@@ -23,19 +23,5 @@ class DeliveryServiceBranchesController extends ApiController {
 				$this->api_data[] = $ar;
 			}
 		}
-	}
-
-	/**
-	 * ### Detail pošty
-	 */
-	function detail() {
-		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
-			if (!$office = PostOffice::FindByZip($d["zip"])) {
-				return $this->_execute_action("error404");
-
-			}
-			$this->api_data = ObjectDump::Dump($office);
-		}
-
 	}
 }
