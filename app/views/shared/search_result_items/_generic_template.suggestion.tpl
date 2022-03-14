@@ -1,4 +1,4 @@
-<li>
+<li class="search-suggestions-list__item search-suggestions-list__item--{$object_type}{if $class} {$class}{/if}">
 	<a href="{$url}" class="suggestion" tabindex="10">
 	{if $image_url}
 		<div class="suggestion__image">

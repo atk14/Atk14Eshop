@@ -1,7 +1,7 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign creators CardCreator::GetMainCreatorsForCard($card)}
 
-{a action="cards/detail" id=$card _class="card"}{trim}
+<a href="{link_to action="cards/detail" id=$card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">{trim}
 	{if $card->getImage()}
 		<img {!$card->getImage()|img_attrs:"400x300x#ffffff"} class="card-img-top" alt="{$card->getName()}">
 	{else}
@@ -39,4 +39,4 @@
 		{/if}
 	</div>
 
-{/trim}{/a}
+{/trim}</a>

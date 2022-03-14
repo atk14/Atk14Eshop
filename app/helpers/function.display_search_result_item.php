@@ -39,9 +39,11 @@ function smarty_function_display_search_result_item($params,$template){
 		return;
 	}
 
-	$template->assign($object_name,$object);
+	$template->assign($object_name,$object); // "article",$article
+	$template->assign("object_type",$object_name); // "object_type","article"
 	$out = $template->fetch($_tpl);
 	$template->clearAssign($object_name);
+	$template->clearAssign("object_type");
 
 	return $out;
 }

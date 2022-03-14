@@ -8,10 +8,13 @@
 	{capture assign=subtitle}{$card->getTeaser()|markdown|strip_html|truncate:100}{/capture}
 {/if}
 
+{capture assign=class}search-suggestions-list__item--card--id-{$card->getId()}{if $basket->contains($card)} search-suggestions-list__item--card--in-basket{/if}{/capture}
+
 {render partial="shared/search_result_items/generic_template.suggestion"
 	image_url=$card->getImage()
 	url=$url
 	type=""
 	title=$card->getName()
 	price_info=$price_info
+	class=$class
 }
