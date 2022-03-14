@@ -232,6 +232,20 @@ class TcBasket extends TcBase {
 		$this->assertEquals(true,$basket->freeShipping());
 	}
 
+	function test_contains(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$this->assertEquals(false,$basket->contains($this->products["green_tea"]));
+		$this->assertEquals(false,$basket->contains($this->products["black_tea"]));
+		$this->assertEquals(false,$basket->contains($this->cards["tea"]));
+
+		$basket->setProductAmount($this->products["green_tea"],1);
+
+		$this->assertEquals(true,$basket->contains($this->products["green_tea"]));
+		$this->assertEquals(false,$basket->contains($this->products["black_tea"]));
+		$this->assertEquals(true,$basket->contains($this->cards["tea"]));
+	}
+
 	function test_hasEveryProductTag_containsProductWithTag(){
 		$tag = $this->tags["fun"];
 

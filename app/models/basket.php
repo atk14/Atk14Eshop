@@ -242,6 +242,21 @@ class Basket extends BasketOrOrder {
 		return $this->getProductAmount($product)>0;
 	}
 
+	/**
+	 *
+	 *	$basket->contains($product); // true or false
+	 *	$basket->contains($card); // true or false
+	 */
+	function contains($product_or_card){
+		if(is_a($product_or_card,"Card")){
+			foreach($product_or_card->getProducts() as $prod){
+				if($this->containsProduct($prod)){ return true; }
+			}
+			return false;
+		}
+		return $this->containsProduct($product_or_card);
+	}
+
 	function getDeliveryMethod(){
 		return Cache::Get("DeliveryMethod",$this->getDeliveryMethodId());
 	}
