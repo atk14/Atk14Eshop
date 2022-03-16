@@ -52,6 +52,21 @@ class TcLinkListItem extends TcBase {
 		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["microsoft"]]),$items[2]->getUrl());
 		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["oracle"]]),$items[3]->getUrl());
 		$this->assertEquals(Atk14Url::BuildLink(["namespace" => "", "action" => "brands/detail", "id" => $this->brands["suse"]]),$items[4]->getUrl());
+
+		// submenu linked by the same code (main_menu_code)
+		$lli = $this->link_list_items["test_list__main_menu"];
+		$submenu = $lli->getSubmenu();
+		$items = $submenu->getItems();
+		$this->assertEquals(5,sizeof($items));
+		$this->assertEquals("Home",$items[0]->getTitle());
+		$this->assertEquals("/",$items[0]->getUrl());
+		$this->assertEquals("Testing page",$items[1]->getTitle());
+		$this->assertEquals("/testing-page/",$items[1]->getUrl());
+		$this->assertEquals("ATK14 Framework",$items[2]->getTitle());
+		$this->assertEquals("https://www.atk14.net/",$items[2]->getUrl());
+
+		$lli->s("code","different_code");
+		$this->assertEquals(null,$lli->getSubmenu());
 	}
 
 	function test_changing_url_according_to_language(){
