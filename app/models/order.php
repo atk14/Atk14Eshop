@@ -786,7 +786,7 @@ class Order extends BasketOrOrder {
 		return [$imported, $not_imported_messages];
 	}
 
-	protected function _set_tracking_info($tracking_no, $params=array(), &$imported_ar, &$not_imported_ar) {
+	protected function _set_tracking_info($tracking_no, $params, &$imported_ar, &$not_imported_ar) {
 		$service_tracking_number_regexp = [
 			"cp" => "^[A-Z]{2}[0-9]{9,}[A-Z]?$",
 			"ppl" => "^[0-9]{11,}$",
