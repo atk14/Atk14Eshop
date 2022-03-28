@@ -173,12 +173,13 @@ class TcCard extends TcBase {
 		$coffee = $this->cards["coffee"];
 
 		$technical_specifications = $coffee->getTechnicalSpecifications();
-		$this->assertEquals(3,sizeof($technical_specifications));
-		$this->assertEquals(["aroma","weight","acidity"],array_map(function($ts){ return $ts->getTechnicalSpecificationKey()->g("key"); },$technical_specifications));
+		$this->assertEquals(4,sizeof($technical_specifications));
+		$this->assertEquals(["aroma","weight","acidity","decaffeinated"],array_map(function($ts){ return $ts->getTechnicalSpecificationKey()->g("key"); },$technical_specifications));
 
 		$this->assertEquals("Strong",(string)$coffee->getTechnicalSpecification("aroma"));
 		$this->assertEquals("200g",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["weight"]));
 		$this->assertEquals("Low",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["acidity"]->getId()));
+		$this->assertEquals("No",(string)$coffee->getTechnicalSpecification($this->technical_specification_keys["decaffeinated"]->getId()));
 		$this->assertEquals(null,$coffee->getTechnicalSpecification("width"));
 	}
 
