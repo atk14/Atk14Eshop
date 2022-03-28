@@ -10,6 +10,7 @@ acidity:
 
 width:
   key: width
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("integer")->getId() ?>"
   key_localized_en: Width
   key_localized_cs: Šířka
 
@@ -22,3 +23,11 @@ weight:
   key: weight
   key_localized_en: Weight
   key_localized_cs: Hmotnost
+
+decaffeinated:
+  key: "Decaffeinated"
+  code: "decaffeinated"
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("boolean")->getId() ?>"
+  key_localized_en: "Decaffeinated"
+  key_localized_cs: "Bez kofeinu" 
+

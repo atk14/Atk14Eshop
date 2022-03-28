@@ -1,5 +1,5 @@
 <?php
-class TechnicalSpecificationKey extends ApplicationModel implements Translatable {
+class TechnicalSpecificationKey extends ApplicationModel implements Translatable, Rankable {
 
 	protected static $CacheKeys;
 
@@ -41,6 +41,10 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 		return $out;
 	}
 
+	function setRank($rank){
+		return $this->_setRank($rank);
+	}
+
 	function getKey($lang = null){
 		global $ATK14_GLOBAL;
 
@@ -53,6 +57,33 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 		}
 
 		return $this->g("key");
+	}
+
+	function getTechnicalSpecificationKeyType(){
+		return Cache::Get("TechnicalSpecificationKeyType",$this->getTechnicalSpecificationKeyTypeId());
+	}
+
+	// Alias
+	function getType(){
+		return $this->getTechnicalSpecificationKeyType();
+	}
+
+	function isDeletable(){
+		if(strlen($this->getCode())>0){
+			return false;
+		}
+		if($this->getTechnicalSpecificationKeyType()->getCode()!=="text"){
+			return false;
+		}
+		$count = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM
+				technical_specifications, cards
+			WHERE
+				technical_specifications.technical_specification_key_id=:key AND
+				cards.id=technical_specifications.card_id AND
+				NOT cards.deleted
+		",[":key" => $this]);
+		return $count === 0;
 	}
 
 	function toString(){
