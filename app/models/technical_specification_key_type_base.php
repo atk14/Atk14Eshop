@@ -50,6 +50,10 @@ class TechnicalSpecificationKeyType_Base {
 		}
 	}
 
+	function parseValue($str_value){
+		return null;
+	}
+
 	function getField($options = []){
 		return $this->_getField($this->_field_class,$options);
 	}

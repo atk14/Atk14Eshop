@@ -3,6 +3,27 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 
 	public static function GetTranslatableFields(){ return array("content_localized"); }
 
+	public static function CreateNewRecord($values,$options = array()){
+		$values += array(
+			"content" => null,
+		);
+
+		$key = Cache::Get("TechnicalSpecificationKey",$values["technical_specification_key_id"]);
+
+		if(!array_key_exists("content_json",$values) && $key){
+			$type = $key->getType();
+			$transformator = $type->getTransformator();
+			if($transformator){
+				$raw_conent = $transformator->parseValue((string)$values["content"]);
+				if(!is_null($raw_conent)){
+					$values["content_json"] = $transformator->encodeValue($raw_conent);
+				}
+			}
+		}
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	/**
 	 * Saves a technical specification for the given product card
 	 *

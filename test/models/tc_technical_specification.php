@@ -38,4 +38,33 @@ class TcTechnicalSpecification extends TcBase {
 		$this->assertEquals("Ne",$ts->getContent("cs"));
 		$this->assertTrue(false === $ts->getRawContent());
 	}
+
+	function test_autoparsing_raw_value(){
+		// ### Type: Integer
+
+		// auto-parsing integer value succeeded
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["book"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "12",
+		));
+		$this->assertEquals('{"integer":12}',$ts->getContentJson());
+
+		// auto-parsing integer value failed
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["fridge"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "Its' too heavy",
+		));
+		$this->assertNull($ts->getContentJson());
+
+		// auto-parsing integer value not desired
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["peanuts"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "12",
+			"content_json" => null,
+		));
+		$this->assertNull($ts->getContentJson());
+	}
 }
