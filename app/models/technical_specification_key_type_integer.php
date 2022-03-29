@@ -8,8 +8,15 @@ class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyTyp
 	}
 
 	function parseValue($str_value){
+		$str_value = String4::ToObject($str_value)
+			->trim()
+			->gsub('/^\+\s*/','') // "+ 12" -> "12"
+			->gsub('/^-\s*/','-') // "- 12" -> "-12"
+			->gsub('/\s*[a-zA-Z]+$/','') // "12 kg" -> "12"
+			->gsub('/(\d)\s*/','\1') // "123 456" -> "123456"
+			->toString();
 		$int = (int)$str_value;
-		if($str_value === "$int"){
+		if("$str_value" === "$int"){
 			return $int;
 		}
 	}
