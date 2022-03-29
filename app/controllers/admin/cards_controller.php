@@ -277,23 +277,19 @@ class CardsController extends AdminController{
 				return;
 			}
 
-			$key = $d["technical_specification_key_id"];
-			if($key->getType()->getTransformator()){
-				// Here, we need a value for content_json. Type without transformator is an ordinary textual type.
-				// TODO: If the value for content_json can be converted from $d["content"], the redirection is not neccesary.
+			$d["card_id"] = $this->card;
+			$ts = TechnicalSpecification::CreateNewRecord($d);
+
+			if($ts->getKey()->getType()->getTransformator() && is_null($ts->getContentJson())){
+				$this->flash->warning(_("Please fill in all required fields"));
 				$this->_redirect_to(array(
 					"controller" => "technical_specifications",
-					"action" => "create_new",
-					"card_id" => $this->card,
-					"technical_specification_key_id" => $key,
-					"content" => $d["content"],
+					"action" => "edit",
+					"id" => $ts,
 					"return_uri" => $this->_link_to(array("action" => "cards/edit", "id" => $this->card))."#technical_specifications",
 				));
 				return;
 			}
-
-			$d["card_id"] = $this->card;
-			TechnicalSpecification::CreateNewRecord($d);
 
 			if(!$this->request->xhr()){
 				$this->_redirect_to(array(
