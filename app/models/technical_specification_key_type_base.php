@@ -57,7 +57,7 @@ class TechnicalSpecificationKeyType_Base {
 	function _getField($class_name,$options){
 		$options += [
 			"label" => $this->_label,
-			"required" => false,
+			"required" => true,
 		];
 
 		return new $class_name($options);

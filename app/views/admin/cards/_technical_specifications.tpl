@@ -16,6 +16,10 @@
 			<li class="list-group-item" data-id="{$ts->getId()}">
 				<strong>{$ts->getKey()->g("key")}:</strong> {!$ts->getContent()|truncate:50|h}
 
+				{if $ts->getKey()->getType()->getTransformator() && !$ts->g("content_json")}
+					<span class="badge badge-danger" title="{t}missing the internal value{/t}">&nbsp;{!"exclamation"|icon}&nbsp;</span>
+				{/if}
+
 				{dropdown_menu}
 					{a action="technical_specifications/edit" id=$ts return_uri=$return_uri}{icon glyph=edit} {t}Edit value{/t}{/a}
 					{a action="technical_specification_keys/edit" id=$ts->getTechnicalSpecificationKeyId() return_uri=$return_uri}{icon glyph=edit} {t}Edit key{/t}{/a}
