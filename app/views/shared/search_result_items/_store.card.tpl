@@ -4,7 +4,7 @@
 			{if $store->getImageUrl()}
 				{!$store->getImageUrl()|pupiq_img:"400x300x#ffffff":"class='card-img-top'"}
 			{else}
-				<img src="{$public}dist/images/default_store_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top">
+				<img src="{$public}dist/images/default_store_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top default-image">
 			{/if}
 		{/a}
 

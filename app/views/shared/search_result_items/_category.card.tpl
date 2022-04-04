@@ -6,7 +6,7 @@
 			{if $category->getImageUrl()}
 				<img {!$category->getImageUrl()|img_attrs:'400x300x#ffffff'} alt="{$category->getName()}" class="card-img-top">
 			{else}
-				<img src="{$public}dist/images/default_category_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top">
+				<img src="{$public}dist/images/default_category_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top default-image">
 			{/if}
 		{/a}
 
