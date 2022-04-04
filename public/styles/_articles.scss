@@ -5,7 +5,13 @@
 
 article {
 	.article__body, .page__body, .styleguide-example__output {
-		max-width: $max-content-width;
+		width: 100%;
+		& > *:not(fullwidth) {
+			max-width: $max-content-width;
+		}
+		& > *.fullwidth {
+			max-width: 100%;
+		}
 		h2 {
 			margin-bottom: $grid-gutter-width;
 		}
