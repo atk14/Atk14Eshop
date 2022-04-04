@@ -64,11 +64,7 @@
 
 				{render partial="shared/langswitch_navbar"}
 			</ul>
-			<ul class="navbar-nav">
-				<li class="nav-item quick-add-menu">
-					<a href="#" class="nav-link" title="{t}Quick add{/t}">{!"circle-plus"|icon:"solid"}</a>
-				</li>
-			</ul>
+			{render partial="shared/quick_add_menu"}
 		</div>
 	</div>
 </nav>
