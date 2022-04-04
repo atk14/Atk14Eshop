@@ -513,3 +513,20 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 	</div>
 </div>
 [/example]
+
+## Making iObjects span full width of a page
+
+iObjects (or any other HTML elements) that are direct children of <code>.article__body</code> or <code>.page__body</code> elements may be make full width simply by adding <code>fullwidth</code> class.
+
+[example]
+<div class="iobject iobject--picture fullwidth">
+	<figure>
+		<a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333">
+			<img class="iobject--picture__img img-fluid" src="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg" width="1100" height="733" class="img-responsive" alt="Obrázek vložený do textu" srcset="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_600x399_2e393aa27e479f82.jpg 600w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_800x533_881624f39158db46.jpg 800w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg 1100w" sizes="100vw">
+		</a>
+		<figcaption class="iobject__caption">
+			<div class="iobject__title"><a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333"><span class="fas fa-search-plus"></span></a> <span class="iobject__title__separator">|</span> Obrázek vložený do textu</div>
+		</figcaption>
+	</figure>
+</div>
+[/example]
