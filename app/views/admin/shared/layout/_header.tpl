@@ -64,6 +64,7 @@
 
 				{render partial="shared/langswitch_navbar"}
 			</ul>
+			{render partial="shared/quick_add_menu"}
 		</div>
 	</div>
 </nav>
