@@ -12,7 +12,7 @@ class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyTyp
 			->trim()
 			->gsub('/^\+\s*/','') // "+ 12" -> "12"
 			->gsub('/^-\s*/','-') // "- 12" -> "-12"
-			->gsub('/\s*[a-zA-Z]+$/','') // "12 kg" -> "12"
+			->gsub('/\s*[a-zA-Z]+(|\/(m2|m3))$/','') // "12 kg" -> "12", "123 g/m2" -> "123"
 			->gsub('/(\d)\s*/','\1') // "123 456" -> "123456"
 			->toString();
 		$int = (int)$str_value;
