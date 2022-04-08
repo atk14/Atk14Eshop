@@ -398,6 +398,12 @@
 						return false;
 					}
 				} );
+
+				// Auto submission of the set-region form
+				$("#form_baskets_set_region select").on( "change",  function() {
+					$( document.body ).addClass( "loading" );
+					$(this).parent( "form" ).submit();
+				} );
 			}
 		},
 
