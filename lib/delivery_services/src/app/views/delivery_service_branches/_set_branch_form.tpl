@@ -8,6 +8,7 @@
 {assign delivery_service $delivery_method->getDeliveryService()}
 
 {if $delivery_service}
+	{render partial="shared/form_error"}
 	{render partial=$widget_template_html}
 {else}
 	{render partial="shared/form_field" field=$branch_selector_form->get_field("delivery_service_widget")}
