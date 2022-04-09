@@ -1290,12 +1290,26 @@ class Basket extends BasketOrOrder {
 	 * Are prices without VAT important for the given user (i.e. this basket)?
 	 */
 	function displayPricesWithoutVat(){
+		global $ATK14_GLOBAL;
 		if(!SystemParameter::ContentOn("merchant.vat_payer")){
 			return false;
+		}
+
+		if(!is_null($ATK14_GLOBAL->getConfig("display_prices_without_vat"))){
+			//	File local_config/display_prices_without_vat.php may contain
+			//	return true; // true or false
+			return $ATK14_GLOBAL->getConfig("display_prices_without_vat");
 		}
 
 		// Here is a place for your implementation...
 
 		return false;
+	}
+
+	/**
+	 * Opposite method to displayPricesWithoutVat()
+	 */
+	function displayPricesInclVat(){
+		return !$this->displayPricesWithoutVat();
 	}
 }

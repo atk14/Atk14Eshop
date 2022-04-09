@@ -48,3 +48,14 @@
 	}
 }
 
+.price--incl-vat {
+	font-size: $font-size-sm;
+	margin-top: 0.25em;
+	color: $body-color;
+	font-weight: $font-weight-normal;
+	.currency_main {
+		color: inherit !important;
+		font-size: inherit;
+		font-weight: inherit !important;
+	}
+}

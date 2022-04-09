@@ -1,4 +1,4 @@
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 		<tfoot>
 

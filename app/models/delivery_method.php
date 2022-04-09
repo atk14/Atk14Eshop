@@ -162,11 +162,29 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	/**
 	 *
+	 *	$lowest_price = $dm->getLowestPrice();
+	 *	$lowest_price = $dm->getLowestPrice(["CZ","SK"]);
+	 */
+	function getLowestPrice($countries = null){
+		return $this->_getLowestOrHighestPrice(false,"MIN",$countries);
+	}
+
+	/**
+	 *
 	 *	$lowest_price = $dm->getLowestPriceInclVat();
 	 *	$lowest_price = $dm->getLowestPriceInclVat(["CZ","SK"]);
 	 */
 	function getLowestPriceInclVat($countries = null){
-		return $this->_getLowestOrHighestPriceInclVat("MIN",$countries);
+		return $this->_getLowestOrHighestPrice(true,"MIN",$countries);
+	}
+
+	/**
+	 *
+	 *	$highest_price = $dm->getHighestPrice();
+	 *	$highest_price = $dm->getHighestPrice(["CZ","SK"]);
+	 */
+	function getHighestPrice($countries = null){
+		return $this->_getLowestOrHighestPrice(false,"MAX",$countries);
 	}
 
 	/**
@@ -175,18 +193,22 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	 *	$highest_price = $dm->getHighestPriceInclVat(["CZ","SK"]);
 	 */
 	function getHighestPriceInclVat($countries = null){
-		return $this->_getLowestOrHighestPriceInclVat("MAX",$countries);
+		return $this->_getLowestOrHighestPrice(true,"MAX",$countries);
 	}
 
-	protected function _getLowestOrHighestPriceInclVat($MAX,$countries){
-		$price = $this->getPriceInclVat();
+	protected function _getLowestOrHighestPrice($incl_vat,$MAX,$countries){
+		$field = $incl_vat ? "price_incl_vat" : "100.0 * (price_incl_vat / (100.0 + (SELECT vat_percent FROM vat_rates WHERE id=delivery_method_country_specifications.vat_rate_id)))";
+		$price = $incl_vat ? $this->getPriceInclVat() : $this->getPrice();
 		$bind_ar = [":delivery_method" => $this];
 		$countries_sql = "";
 		if($countries){
 			$countries_sql = " AND country IN :countries";
 			$bind_ar[":countries"] = $countries;
 		}
-		$spec_price = $this->dbmole->selectFloat("SELECT $MAX(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+		$spec_price = $this->dbmole->selectFloat("SELECT $MAX($field) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+		if(!$incl_vat && !is_null($spec_price)){
+			$spec_price = round($spec_price,INTERNAL_PRICE_DECIMALS);
+		}
 		if(!is_null($spec_price) && $countries){
 			$cnt = $this->dbmole->selectInt("SELECT COUNT(*) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
 			if($cnt == sizeof($countries)){

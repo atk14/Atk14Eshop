@@ -124,3 +124,8 @@ fridge:
   pricelist_id: 1
   product_id: "<?= $products["fridge"]->getId() ?>"
   price: "11999"
+
+book:
+  pricelist_id: 1
+  product_id: "<?= $products["book"]->getId() ?>"
+  price: 279

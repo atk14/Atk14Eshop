@@ -1,4 +1,4 @@
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 		{* trim is here to enable detect empty (=no whitespace) tbody tag by css when there are no discounts so we can use :empty css rules *}
 		<tbody class="table-products__discounts">{trim}

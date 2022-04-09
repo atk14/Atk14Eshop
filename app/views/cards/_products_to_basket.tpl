@@ -1,4 +1,6 @@
 {assign products $card->getProducts()}
+{assign currency $price_finder->getCurrency()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 <section class="section--add-to-cart">
 
@@ -30,11 +32,14 @@
 					<div class="prices">
 						<div class="price--main">
 							{if $price->discounted()}
-							<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscountInclVat()|display_price:$price_finder->getCurrency()}</span>
+							<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscount($incl_vat)|display_price:$price_finder->getCurrency()}</span>
 							{/if}
-							{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}
+							{t price=$price->getPrice($incl_vat)|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{if $incl_vat}{t}incl. VAT{/t}{else}{t}excl. VAT{/t}{/if}</span>{/t}
+							{if !$incl_vat}
+								<div class="price--incl-vat">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}</div>
+							{/if}
 							{if $base_price}
-								<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPriceInclVat()|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!($base_price->getPriceInclVat()-$price->getPriceInclVat())|display_price:$price->getCurrency()}</span></span>
+								<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPrice($incl_vat)|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$price->getCurrency()}</span></span>
 							{/if}
 						</div>
 					</div>
