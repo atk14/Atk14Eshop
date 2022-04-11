@@ -36,3 +36,15 @@
 	}
 	
 }
+
+.basket-edit-header-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	.content-header {
+		flex-grow: 100;
+		margin-right: 2ch;
+	}
+	form {
+		flex-basis: 200px;
+	}
+}
