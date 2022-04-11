@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 14:17+0100\n"
-"PO-Revision-Date: 2022-03-02 13:43+0100\n"
+"POT-Creation-Date: 2022-04-11 18:10+0200\n"
+"PO-Revision-Date: 2022-04-11 18:22+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -128,29 +128,29 @@ msgid "bez omezení výše objednávky"
 msgstr "bez omezení výše objednávky"
 
 msgid "pouze pro zákaznickou skupinu %1"
-msgstr ""
+msgstr "pouze pro zákaznickou skupinu %1"
 
 msgid "pouze při zvoleném způsobu doručení %1"
-msgstr ""
+msgstr "pouze při zvoleném způsobu doručení %1"
 
 msgid "pouze při zvolené platební metodě %1"
-msgstr ""
+msgstr "pouze při zvolené platební metodě %1"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:41
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:68
 msgid "Určeno pro štítky"
-msgstr ""
+msgstr "Určeno pro štítky"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:47
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:74
 msgid "Vyloučeno pro štítky"
-msgstr ""
+msgstr "Vyloučeno pro štítky"
 
 msgid "doprava zdarma"
 msgstr "doprava zdarma"
 
 msgid "pouze pro způsob doručení %1"
-msgstr ""
+msgstr "pouze pro způsob doručení %1"
 
 msgid "sleva %1%"
 msgstr "sleva %1%"
@@ -374,7 +374,7 @@ msgid "Updated at"
 msgstr "Změněno"
 
 msgid "Edit stockcount in warehouse %1"
-msgstr ""
+msgstr "Edit stockcount in warehouse %1"
 
 msgid "Create new entry in warehouse %1"
 msgstr "Vytvořit nový záznam ve skladu %1"
@@ -407,6 +407,9 @@ msgstr "Technické specifikace"
 
 msgid "There is no record yet."
 msgstr "Není zde žádný záznam."
+
+msgid "missing the internal value"
+msgstr "chybí interní hodnota"
 
 msgid "Edit value"
 msgstr "Upravit hodnotu"
@@ -626,25 +629,27 @@ msgid "Add a collection"
 msgstr "Přidat kolekci"
 
 msgid "necessary"
-msgstr ""
+msgstr "nezbytné"
 
 msgid "inactive"
-msgstr ""
+msgstr "neaktivní"
 
 msgid ""
 "You are about to permanently delete cookie consent category %1.\n"
 "Are you sure about that?"
 msgstr ""
+"Chystáte se trvale smazat kategorii souhlasu se soubory cookie %1.\n"
+"Jste si tím jistý/á?"
 
 msgid "Přidat novou kategorii"
-msgstr ""
+msgstr "Přidat novou kategorii"
 
 #: ../app/controllers/admin/cookie_consent_statistics_controller.php:7
 msgid "Statistika klikání"
-msgstr ""
+msgstr "Statistika klikání"
 
 msgid "Stáhnout ve formátu CSV"
-msgstr ""
+msgstr "Stáhnout ve formátu CSV"
 
 msgid ""
 "You are about to permanently delete creator role %1\n"
@@ -677,7 +682,7 @@ msgid "Osobní odběr na prodejně"
 msgstr "Osobní odběr na prodejně"
 
 msgid "Exkluzivní metoda pro štítek"
-msgstr ""
+msgstr "Exkluzivní metoda pro štítek"
 
 msgid "Only for customer group:"
 msgstr "Pouze pro zákaznickou skupinu:"
@@ -1294,10 +1299,10 @@ msgstr ""
 "\t\tJste si jistý/á?"
 
 msgid "unknown active state"
-msgstr ""
+msgstr "neznámý stav aktivity"
 
 msgid "active"
-msgstr ""
+msgstr "aktivní"
 
 msgid "not active"
 msgstr "neaktivní"
@@ -1825,7 +1830,7 @@ msgstr "Bankovní účty"
 
 #: ../app/controllers/admin/admin.php:59
 msgid "Cookie consent"
-msgstr ""
+msgstr "Souhlas se soubory cookie"
 
 #: ../app/controllers/admin/admin.php:60
 #: ../app/controllers/admin/system_parameters_controller.php:5
@@ -2038,16 +2043,19 @@ msgid "Variants mode has been deactivated"
 msgstr "Variantní režim byl deaktivován"
 
 #: ../app/controllers/admin/cards_controller.php:276
-#: ../app/controllers/admin/technical_specifications_controller.php:12
-#: ../app/controllers/admin/technical_specifications_controller.php:36
+#: ../app/controllers/admin/technical_specifications_controller.php:20
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:308
+#: ../app/controllers/admin/cards_controller.php:284
+msgid "Please fill in all required fields"
+msgstr "Vyplňte prosím všechna povinná pole"
+
+#: ../app/controllers/admin/cards_controller.php:319
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:326
+#: ../app/controllers/admin/cards_controller.php:337
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -2213,19 +2221,19 @@ msgstr "Spotřební materiál byl přidán"
 
 #: ../app/controllers/admin/cookie_consent_categories_controller.php:5
 msgid "Kategorie souhlasu používání cookies"
-msgstr ""
+msgstr "Kategorie souhlasu používání cookies"
 
 #: ../app/controllers/admin/cookie_consent_categories_controller.php:15
 msgid "Editace kategorie pro nastavení cookies"
-msgstr ""
+msgstr "Editace kategorie pro nastavení cookies"
 
 #: ../app/controllers/admin/cookie_consents_controller.php:11
 msgid "Nastavení cookies"
-msgstr ""
+msgstr "Nastavení cookies"
 
 #: ../app/controllers/admin/cookie_consent_statistics_controller.php:6
 msgid "Statistika klikání na souhlas s použitím cookies"
-msgstr ""
+msgstr "Statistika klikání na souhlas s použitím cookies"
 
 #: ../app/controllers/admin/creator_roles_controller.php:5
 msgid "Creator roles"
@@ -2264,7 +2272,7 @@ msgstr "Způsoby dopravy"
 
 #: ../app/controllers/admin/delivery_methods_controller.php:11
 msgid "Vytvořit nový způsob dopravy"
-msgstr ""
+msgstr "Vytvořit nový způsob dopravy"
 
 #: ../app/controllers/admin/delivery_methods_controller.php:29
 msgid "Editace způsobu dopravy"
@@ -2678,7 +2686,7 @@ msgstr "Stejný klíč již existuje"
 msgid "Add new technical specification"
 msgstr "Přidat novou technickou specifikaci"
 
-#: ../app/controllers/admin/technical_specifications_controller.php:19
+#: ../app/controllers/admin/technical_specifications_controller.php:27
 msgid "New technical specification record has been created"
 msgstr "Byl vytvořen nový záznam technické specifikace"
 
@@ -2878,7 +2886,7 @@ msgstr "Sazba DPH"
 
 #: ../app/forms/admin/admin_form.php:199
 msgid "Lze produkt objednat, i když není skladem?"
-msgstr ""
+msgstr "Lze produkt objednat, i když není skladem?"
 
 #: ../app/forms/admin/admin_form.php:200
 msgid ""
@@ -2911,7 +2919,7 @@ msgstr "otevřít v administraci"
 #: ../app/forms/admin/collections/collections_form.php:17
 #: ../app/forms/admin/creators/creators_form.php:15
 #: ../app/forms/admin/images/images_form.php:6
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:27
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:34
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
@@ -3083,23 +3091,27 @@ msgstr "Pouze pro zákaznickou skupinu"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:31
 msgid "Uplatňuje se pouze při použitém způsobu doručení"
-msgstr ""
+msgstr "Uplatňuje se pouze při použitém způsobu doručení"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:36
 msgid "Uplatňuje se pouze při použité platební metodě"
-msgstr ""
+msgstr "Uplatňuje se pouze při použité platební metodě"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:43
 msgid ""
 "Kampaň bude uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
 "jeden z uvedených štítků."
 msgstr ""
+"Kampaň bude uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
+"jeden z uvedených štítků."
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:49
 msgid ""
 "Kampaň NEBUDE uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
 "jeden z uvedených štítků."
 msgstr ""
+"Kampaň NEBUDE uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
+"jeden z uvedených štítků."
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:53
 #: ../app/forms/admin/discounts/discounts_form.php:6
@@ -3117,11 +3129,11 @@ msgstr "Doprava zdarma?"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:64
 msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
-msgstr ""
+msgstr "Doprava zdarma se vztahuje pouze na způsob doručení"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:66
 msgid "všechny způsoby"
-msgstr ""
+msgstr "všechny způsoby"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:78
 msgid "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
@@ -3222,7 +3234,6 @@ msgid "Specification name"
 msgstr "Název specifikace"
 
 #: ../app/forms/admin/cards/add_technical_specification_form.php:10
-#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:9
 msgid "Value"
 msgstr "Hodnota"
 
@@ -3333,6 +3344,7 @@ msgid "Typ obsahu"
 msgstr "Typ obsahu"
 
 #: ../app/forms/admin/card_sections/card_sections_form.php:14
+#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:20
 msgid "Text"
 msgstr "Text"
 
@@ -3409,60 +3421,62 @@ msgstr "Tento produkt už je součástí jiné kolekce [%s]"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:6
 msgid "Kód sekce"
-msgstr ""
+msgstr "Kód sekce"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:21
 msgid "Je to nezbytná sekce?"
-msgstr ""
+msgstr "Je to nezbytná sekce?"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:26
 msgid "Aktivní?"
-msgstr ""
+msgstr "Aktivní?"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:32
 msgid "Regulární výraz pro detekci cookies"
-msgstr ""
+msgstr "Regulární výraz pro detekci cookies"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:45
 msgid "Číslo verze"
-msgstr ""
+msgstr "Číslo verze"
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:50
 msgid ""
 "Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
 "použitím cookies v této kategorii."
 msgstr ""
+"Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
+"použitím cookies v této kategorii."
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
 #: ../app/forms/admin/cookie_consents/edit_form.php:12
 #: ../app/forms/admin/cookie_consents/edit_form.php:21
 #: ../app/forms/admin/cookie_consents/edit_form.php:26
 msgid "Formátování Markdown"
-msgstr ""
+msgstr "Formátování Markdown"
 
 #: ../app/forms/admin/cookie_consents/edit_form.php:6
 msgid "Titulek cookie lišty"
-msgstr ""
+msgstr "Titulek cookie lišty"
 
 #: ../app/forms/admin/cookie_consents/edit_form.php:11
 msgid "Text cookie lišty"
-msgstr ""
+msgstr "Text cookie lišty"
 
 #: ../app/forms/admin/cookie_consents/edit_form.php:16
 msgid "Titulek dialogu"
-msgstr ""
+msgstr "Titulek dialogu"
 
 #: ../app/forms/admin/cookie_consents/edit_form.php:20
 msgid "Úvodní text dialogu"
-msgstr ""
+msgstr "Úvodní text dialogu"
 
 #: ../app/forms/admin/cookie_consents/edit_form.php:25
 msgid "Text v patičce dialogu"
-msgstr ""
+msgstr "Text v patičce dialogu"
 
 #: ../app/forms/admin/creator_roles/creator_roles_form.php:11
 msgid "Plural name"
-msgstr ""
+msgstr "Název v množném čísle"
 
 #: ../app/forms/admin/creators/creators_form.php:10
 msgid "Localized name"
@@ -3588,7 +3602,7 @@ msgstr "Výchozí cena s DPH [%s]"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:51
 msgid "cena neurčena"
-msgstr ""
+msgstr "cena neurčena"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:56
 msgid "Osobní odběr"
@@ -3607,22 +3621,28 @@ msgid ""
 "Doručovací metoda bude použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
+"Doručovací metoda bude použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:76
 msgid ""
 "Doručovací metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
+"Doručovací metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:80
 msgid "Exkluzivně pro štítek"
-msgstr ""
+msgstr "Exkluzivně pro štítek"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:82
 msgid ""
 "Doručovací metoda bude použita, pokud všechny produkty v košíku budou "
 "obsahovat tento štítek. Ostatní metody nebudou použity."
 msgstr ""
+"Doručovací metoda bude použita, pokud všechny produkty v košíku budou "
+"obsahovat tento štítek. Ostatní metody nebudou použity."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:87
 msgid "Pro systémové účely. Unikátní kód."
@@ -3788,10 +3808,18 @@ msgstr ""
 "být zadán v úplném tvaru (např. https://example.com/file.pdf)."
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:21
+msgid "Specific URL for the given language"
+msgstr "Specifická adresa URL pro daný jazyk"
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:24
+msgid "If necessary, a specific URL can be specified for the given language."
+msgstr "V případě potřeby lze zadat konkrétní adresu URL pro daný jazyk."
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:28
 msgid "CSS class"
 msgstr "Třída CSS"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:29
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:36
 msgid "In some cases the link looks better with an image."
 msgstr "V některých případech vypadá odkaz lépe s obrázkem."
 
@@ -4143,7 +4171,7 @@ msgstr "Ořezává se automaticky na poměr stran 3:1."
 
 #: ../app/forms/admin/slider_items/slider_items_form.php:11
 msgid "Malý obrázek"
-msgstr ""
+msgstr "Malý obrázek"
 
 #: ../app/forms/admin/slider_items/slider_items_form.php:13
 msgid ""
@@ -4357,17 +4385,25 @@ msgid "Color"
 msgstr "Barva"
 
 #: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:6
-#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:5
+#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:8
 msgid "Key"
 msgstr "Klíč"
 
 #: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:13
+msgid "Key type"
+msgstr "Typ klíče"
+
+#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:15
+msgid "The key type cannot be changed at this place"
+msgstr "Typ klíče nelze na tomto místě změnit"
+
+#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:21
 msgid "Lokalizovaný název"
 msgstr "Lokalizovaný název"
 
-#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:14
-msgid "Localized value"
-msgstr "Lokalizovaná hodnota"
+#: ../app/forms/admin/technical_specifications/technical_specifications_form.php:27
+msgid "Localized text"
+msgstr "Lokalizovaný text"
 
 #: ../app/forms/admin/users/edit_password_form.php:6
 msgid "New password"
@@ -4549,6 +4585,9 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Localized value"
+#~ msgstr "Lokalizovaná hodnota"
 
 #~ msgid "sales regions"
 #~ msgstr "prodejní oblasti"

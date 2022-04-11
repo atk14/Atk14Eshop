@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 14:17+0100\n"
-"PO-Revision-Date: 2022-01-31 15:24+0100\n"
+"POT-Creation-Date: 2022-04-11 18:10+0200\n"
+"PO-Revision-Date: 2022-04-11 18:23+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -24,7 +24,7 @@ msgstr "Nahrávání dočasných souborů není povoleno"
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
 #, php-format
 msgid "The file exceeds the maximum file size, which is %s"
-msgstr "Soubor překračuje maximální velikost, která je %s."
+msgstr "Soubor překračuje maximální velikost, která je %s"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
 msgid "Error 1"
@@ -36,11 +36,11 @@ msgstr "Chyba 2"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
 msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu."
+msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
 msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu."
+msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu"
 
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"
@@ -90,119 +90,121 @@ msgstr "Zadejte IČ ve formátu LV a 11 číslic"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_categories_controller.php:5
 msgid "Kategorie souhlasu používání cookies"
-msgstr ""
+msgstr "Kategorie souhlasu používání cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_categories_controller.php:15
 msgid "Editace kategorie pro nastavení cookies"
-msgstr ""
+msgstr "Editace kategorie pro nastavení cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consents_controller.php:11
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:5
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:6
 msgid "Nastavení cookies"
-msgstr ""
+msgstr "Nastavení cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_statistics_controller.php:6
 msgid "Statistika klikání na souhlas s použitím cookies"
-msgstr ""
+msgstr "Statistika klikání na souhlas s použitím cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_statistics_controller.php:7
 msgid "Statistika klikání"
-msgstr ""
+msgstr "Statistika klikání"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:33
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:63
 msgid "Nastavení cookies bylo uloženo"
-msgstr ""
+msgstr "Nastavení cookies bylo uloženo"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:49
 msgid "Používání všech cookies bylo přijato"
-msgstr ""
+msgstr "Používání všech cookies bylo přijato"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:56
 msgid "Používání cookies bylo zamítnuto"
-msgstr ""
+msgstr "Používání cookies bylo zamítnuto"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:6
 msgid "Kód sekce"
-msgstr ""
+msgstr "Kód sekce"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:16
 msgid "Title"
-msgstr ""
+msgstr "Titulek"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:21
 msgid "Je to nezbytná sekce?"
-msgstr ""
+msgstr "Je to nezbytná sekce?"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:26
 msgid "Aktivní?"
-msgstr ""
+msgstr "Aktivní?"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:32
 msgid "Regulární výraz pro detekci cookies"
-msgstr ""
+msgstr "Regulární výraz pro detekci cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:45
 msgid "Číslo verze"
-msgstr ""
+msgstr "Číslo verze"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:50
 msgid ""
 "Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
 "použitím cookies v této kategorii."
 msgstr ""
+"Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
+"použitím cookies v této kategorii."
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 msgid "Popis"
-msgstr ""
+msgstr "Popis"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:12
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:21
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:26
 msgid "Formátování Markdown"
-msgstr ""
+msgstr "Formátování Markdown"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:6
 msgid "Titulek cookie lišty"
-msgstr ""
+msgstr "Titulek cookie lišty"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:11
 msgid "Text cookie lišty"
-msgstr ""
+msgstr "Text cookie lišty"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:16
 msgid "Titulek dialogu"
-msgstr ""
+msgstr "Titulek dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:20
 msgid "Úvodní text dialogu"
-msgstr ""
+msgstr "Úvodní text dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:25
 msgid "Text v patičce dialogu"
-msgstr ""
+msgstr "Text v patičce dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:4
 msgid "Nastavení"
-msgstr ""
+msgstr "Nastavení"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:5
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:7
 msgid "Souhlas můžete odmítnout %1 zde </a>"
-msgstr ""
+msgstr "Souhlas můžete odmítnout %1 zde </a>"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:8
 msgid "Souhlasím s použitím všech cookies"
-msgstr ""
+msgstr "Souhlasím s použitím všech cookies"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:9
 msgid "Souhlasím s použitím vybraných cookies"
-msgstr ""
+msgstr "Souhlasím s použitím vybraných cookies"
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:24
 msgid ""
@@ -293,7 +295,7 @@ msgstr "Stáhnout přílohu"
 msgid "Display image"
 msgstr "Zobrazit obrázek"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:115
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:113
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
