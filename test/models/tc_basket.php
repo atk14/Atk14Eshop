@@ -524,18 +524,17 @@ class TcBasket extends TcBase {
 
 		$this->assertEquals(round(7.33 + 2.89 + 1.54 - 0.15,1),$order->getPriceToPay());
 
-		// otestovani vyjimky pri vytvareni objednavky
+		// otestovani vytvareni objednavky
 		// bez DPH s voucherem
 		$basket = $this->_prepareBasketWithWoodenButton();
-
 		$basket->getVouchersLister()->add($voucher);
 
-		try {
-			$order = $basket->createOrder(["without_vat" => true]);
-			$this->fail();
-		}catch(Exception $e){
-			$this->assertEquals("Actually I don't know how to determine vouchers discount amount without vat",$e->getMessage());
-		}
+		$order = $basket->createOrder(["without_vat" => true]);
+		$vouchers = $order->getVouchers();
+
+		$this->assertEquals(1,sizeof($vouchers));
+		$this->assertEquals(16.53,$vouchers[0]->getDiscountAmount()); // 16.53 * 1.21 == 20.0
+		$this->assertTrue(null === $vouchers[0]->getVatPercent()); // vat_percent is not stored
 
 		// testovani prenosu cen pred slevou;
 		// na kostkovana_latka je sleva 50%
@@ -916,6 +915,29 @@ class TcBasket extends TcBase {
 		$this->assertEquals(79.0,$basket->getShippingFeeInclVat());
 	}
 
+	function test_getAveragedItemsVatPercent(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$this->assertTrue(null == $basket->getAveragedItemsVatPercent());
+
+		$basket->setProductAmount($this->products["mint_tea"],1);
+		$this->assertEquals(21.0,$basket->getAveragedItemsVatPercent());
+
+		$basket->setProductAmount($this->products["black_tea"],2);
+		$this->assertEquals(21.0,$basket->getAveragedItemsVatPercent());
+
+		$basket->setProductAmount($this->products["book"],1);
+		$this->assertEquals(12.05,$basket->getAveragedItemsVatPercent());
+
+		$basket->setProductAmount($this->products["book"],2);
+		$this->assertEquals(11.13,$basket->getAveragedItemsVatPercent());
+
+		$basket->setProductAmount($this->products["mint_tea"],0);
+		$basket->setProductAmount($this->products["black_tea"],0);
+
+		$this->assertEquals(10.0,$basket->getAveragedItemsVatPercent());
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());
@@ -937,23 +959,5 @@ class TcBasket extends TcBase {
 		// celk. celk je taky na 2
 		$this->assertEquals(2.15,$items[2]->getPrice());
 		$this->assertEquals(2.60,$items[2]->getPriceInclVat());
-	}
-
-	function _prepareEmptyBasket($values = []){
-		$values += [
-			"region_id" => Region::FindByCode("CR"),
-			"delivery_method_id" => isset($this->delivery_methods) ? $this->delivery_methods["dpd"] : null, // from fixture delivery_methods
-			"payment_method_id" => isset($this->payment_methods) ? $this->payment_methods["cash_on_delivery"] : null, // from fixture payment_methods
-		];
-		$basket = Basket::CreateNewRecord($values);
-		return $basket;
-	}
-
-	function _prepareBasketWithWoodenButton($basket = null){
-		if(is_null($basket)){
-			$basket = $this->_prepareEmptyBasket();
-		}
-		$basket->addProduct($this->products["wooden_button"],2);
-		return $basket;
 	}
 }

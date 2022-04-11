@@ -1,5 +1,5 @@
 {assign currency $basket->getCurrency()}
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 		<tfoot>
 

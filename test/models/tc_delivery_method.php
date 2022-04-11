@@ -61,15 +61,23 @@ class TcDeliveryMethod extends TcBase {
 		//
 
 		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat());
+		$this->assertEquals(100.0,$dpd->getLowestPrice());
 		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat());
+		$this->assertEquals(190.47619,$dpd->getHighestPrice());
 
 		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ","SK"]));
+		$this->assertEquals(100.0,$dpd->getLowestPrice(["CZ","SK"]));
 		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["CZ","SK"]));
+		$this->assertEquals(190.47619,$dpd->getHighestPrice(["CZ","SK"]));
 
 		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ"]));
+		$this->assertEquals(100.0,$dpd->getLowestPrice(["CZ"]));
 		$this->assertEquals(121.0,$dpd->getHighestPriceInclVat(["CZ"]));
+		$this->assertEquals(100.0,$dpd->getHighestPrice(["CZ"]));
 
 		$this->assertEquals(200.0,$dpd->getLowestPriceInclVat(["SK"]));
+		$this->assertEquals(190.47619,$dpd->getLowestPrice(["SK"]));
 		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["SK"]));
+		$this->assertEquals(190.47619,$dpd->getHighestPrice(["SK"]));
 	}
 }

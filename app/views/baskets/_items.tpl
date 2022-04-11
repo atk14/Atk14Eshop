@@ -1,5 +1,5 @@
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 		<tbody class="table-products__list">
 

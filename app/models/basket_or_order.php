@@ -95,6 +95,30 @@ class BasketOrOrder extends ApplicationModel {
 		return $this->getItemsPriceBeforeDiscount(true);
 	}
 
+	function getAveragedItemsVatPercent(){
+		$used_vat_rates = [];
+		foreach($this->getItems() as $item){
+			$vat_percent = $item->getVatPercent();
+			if(in_array($vat_percent,$used_vat_rates)){ continue; }
+			$used_vat_rates[] = $vat_percent;
+		}
+
+		if(sizeof($used_vat_rates)==0){
+			return null;
+		}
+
+		if(sizeof($used_vat_rates)==1){
+			return $used_vat_rates[0];
+		}
+
+		// TODO: needs to be more precise
+		$price = $this->getItemsPrice();
+		$price_incl_vat = $this->getItemsPriceInclVat();
+		if(!$price){ return null; }
+		$out = ($price_incl_vat - $price) / ($price / 100.0);
+		return round($out,2);
+	}
+
 	function getDeliveryFirstname(){
 		return $this->_getDelivery("firstname");
 	}
@@ -231,10 +255,10 @@ class BasketOrOrder extends ApplicationModel {
 			if (!is_null($options["discount_percent"]) && ($options["discount_percent"]===false) && $v->getDiscountPercent()) {
 				continue;
 			}
-			if (!is_null($options["discount_amount"]) && ($options["discount_amount"]===false) && $v->getVoucher()->getDiscountAmount()) {
+			if (!is_null($options["discount_amount"]) && ($options["discount_amount"]===false) && $v->getVoucher()->getDiscountAmount($incl_vat)) {
 				continue;
 			}
-			$out += $v->getDiscountAmount();
+			$out += $v->getDiscountAmount($incl_vat);
 		}
 		return $out;
 	}

@@ -40,10 +40,11 @@ class BasketVoucher extends BasketOrOrderVoucher {
 		$out = $currency->roundPrice($out);
 
 		if(!$incl_vat){
-			if(is_null($voucher->getVatPercent())){
-				throw new Exception("Actually I don't know how to determine vouchers discount amount without vat");
+			$vat_percent = $voucher->getVatPercent();
+			if(is_null($vat_percent)){
+				$vat_percent = $basket->getAveragedItemsVatPercent();
 			}
-			$out = ($out / (100.0 + $voucher->getVatPercent())) * 100.0;
+			$out = ($out / (100.0 + $vat_percent)) * 100.0;
 			$out = $currency->roundPrice($out);
 		}
 

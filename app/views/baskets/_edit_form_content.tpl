@@ -1,4 +1,4 @@
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 
 <div id="js--edit_form_content">
 

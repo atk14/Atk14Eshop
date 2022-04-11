@@ -76,6 +76,7 @@ class DeliveryMethodChoice {
 		}
 
 		$basket = $this->options["basket"];
+		$incl_vat = $basket->displayPricesInclVat();
 		$delivery_countries = $basket->getDeliveryCountriesAllowed();
 
 		$price = $o->getPriceInclVat();
@@ -85,8 +86,10 @@ class DeliveryMethodChoice {
 
 		$price = $price / $rate;
 
-		$lowest_price  = $o->getLowestPriceInclVat($delivery_countries) / $rate;
-		$highest_price = $o->getHighestPriceInclVat($delivery_countries) / $rate;
+		$lowest_price  = $incl_vat ? $o->getLowestPriceInclVat($delivery_countries) : $o->getLowestPrice($delivery_countries);
+		$lowest_price  = $lowest_price / $rate;
+		$highest_price = $incl_vat ? $o->getHighestPriceInclVat($delivery_countries) : $o->getHighestPrice($delivery_countries);
+		$highest_price = $highest_price / $rate;
 		$price = $lowest_price;
 		if($price == 0.0 || $basket->freeShipping($this->dm)){
 			$price = 0;

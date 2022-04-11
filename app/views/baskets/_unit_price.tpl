@@ -1,5 +1,5 @@
 {assign currency $basket->getCurrency()}
-{assign incl_vat !$basket->displayPricesWithoutVat()}
+{assign incl_vat $basket->displayPricesInclVat()}
 {if $price->discounted()}
 	<span class="table-products__unit-price-before-sale" {if $unit}data-title="{$unit}"{/if}><s>{!$price->getUnitPriceBeforeDiscount($incl_vat)|display_price:$currency}</s></span>
 	<span class="table-products__unit-price-after-sale" {if $unit}data-title="{$unit}"{/if}>{!$price->getUnitPrice($incl_vat)|display_price:$currency}</span>
