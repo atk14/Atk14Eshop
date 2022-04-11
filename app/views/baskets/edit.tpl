@@ -1,4 +1,7 @@
 {render partial="shared/checkout_navigation"}
+
+{render partial="set_region_form" form=$set_region_form}
+
 {capture assign=page_title}{t}Košík{/t}{/capture}
 {render partial="shared/layout/content_header" title=$page_title}
 

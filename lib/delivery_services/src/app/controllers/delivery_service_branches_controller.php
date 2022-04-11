@@ -11,6 +11,10 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$dsb = $d["delivery_service_branch_id"];
+			if(!in_array($dsb->getCountry(),$this->basket->getDeliveryCountriesAllowed())){
+				$this->form->set_error(_("Nepřípustná země pro doručení"));
+				return;
+			}
 			$dsb && ($d["delivery_method_id"] = $this->delivery_method);
 			$dsb && ($d["delivery_method_data"] = $dsb->getDeliveryMethodData());
 			unset($d["delivery_service_branch_id"]);

@@ -22,6 +22,7 @@ class TcTechnicalSpecificationKeyType extends TcBase {
 			["1234 kg",	1234],
 			["123 456",	123456],
 			["34KG",		34],
+			["12 g/m2", 12],
 			["0",				0],
 			["unknown",	null],
 		]);
