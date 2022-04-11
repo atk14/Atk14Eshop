@@ -1,3 +1,4 @@
+{assign currency $basket->getCurrency()}
 {assign incl_vat !$basket->displayPricesWithoutVat()}
 
 		{* trim is here to enable detect empty (=no whitespace) tbody tag by css when there are no discounts so we can use :empty css rules *}
