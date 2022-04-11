@@ -3,7 +3,8 @@ class SetRegionForm extends ApplicationForm {
 
 	function set_up(){
 		$choices = [];
-		foreach(Region::GetActiveInstances() as $region){
+		// Region::GetActiveInstances() may differ from $this->controller->_get_allowed_regions()
+		foreach($this->controller->_get_allowed_regions() as $region){
 			$choices[$region->getId()] = $region->getName();
 		}
 

@@ -84,7 +84,7 @@ class BasketsController extends ApplicationController {
 
 		$this->_prepare_checkout_navigation();
 
-		if(sizeof(Region::GetActiveInstances())>1){
+		if(sizeof($this->_get_allowed_regions())>1){
 			$this->tpl_data["set_region_form"] = $this->_get_form("regions/set_region");
 		}
 	}
