@@ -1291,11 +1291,14 @@ class Basket extends BasketOrOrder {
 	 */
 	function displayPricesWithoutVat(){
 		global $ATK14_GLOBAL;
+
 		if(!SystemParameter::ContentOn("merchant.vat_payer")){
 			return false;
 		}
 
 		if(!is_null($ATK14_GLOBAL->getConfig("display_prices_without_vat"))){
+			// This is mainly for development purposes!
+			//
 			//	File local_config/display_prices_without_vat.php may contain
 			//	return true; // true or false
 			return $ATK14_GLOBAL->getConfig("display_prices_without_vat");
