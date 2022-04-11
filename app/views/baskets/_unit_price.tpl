@@ -1,3 +1,4 @@
+{assign currency $basket->getCurrency()}
 {assign incl_vat !$basket->displayPricesWithoutVat()}
 {if $price->discounted()}
 	<span class="table-products__unit-price-before-sale" {if $unit}data-title="{$unit}"{/if}><s>{!$price->getUnitPriceBeforeDiscount($incl_vat)|display_price:$currency}</s></span>
