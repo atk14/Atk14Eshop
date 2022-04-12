@@ -34,7 +34,7 @@
 				</td>
 				<td class="table-products__price">
 					{capture assign=fallback_message}<span class="text-secondary">{t}cena není stanovena{/t}</span>{/capture}
-					{!$price_finder->getPrice($product)|display_price|default:$fallback_message}
+					{render partial="shared/product_price" product=$product fallback_message=$fallback_message}
 				</td>
 				<td class="table-products__item-actions">
 					{render partial="shared/favourite_product_icon" product=$product}
