@@ -213,6 +213,9 @@ $card-border-style: 1px dashed $border-color;
 				margin-bottom: 0;
 			}
 		}
+		.card-footer {
+			padding: $grid-gutter-width/8 $grid-gutter-width/4;
+		}
 	}
 
 	&--sm {
@@ -228,8 +231,9 @@ $card-border-style: 1px dashed $border-color;
 			padding-right: $grid-gutter-width/4;
 			padding-bottom: $grid-gutter-width/4;
 			.card-price {
+				font-size: $font-size-sm;
 				.currency_main {
-					font-size: 1rem;
+					//font-size: 1rem;
 				}
 			}
 			.card-footer__icon {

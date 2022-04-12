@@ -90,9 +90,27 @@
 							font-size: $font-size-sm;
 						}
 					}
+					.price--incl-vat {
+						font-size: 0.75rem;
+						.currency_main {
+							font-size: $font-size-sm;
+						}
+					}
 				}
 				small {
 					font-size: 0.8rem;//$font-size-sm !important;
+				}
+				ul.list-unstyled {
+					li {
+						padding-bottom: 0.25rem;
+						margin-bottom: 0.25rem;
+						border-bottom: 1px solid $border-color;
+						&:last-child {
+							padding-bottom: 0;
+							margin-bottom: 0;
+							border-bottom: none;
+						}
+					}
 				}
 			}
 		}

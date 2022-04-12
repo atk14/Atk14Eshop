@@ -1,6 +1,7 @@
 // Styling price for product cards, product promotion iobject, related product cards
 .card-price {
 	display: inline-block;
+	font-size: $font-size-sm;
 	.currency_main {
 		color: $brand;
 		font-size: 1.25rem;
