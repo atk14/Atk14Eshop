@@ -56,6 +56,7 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"decimals" => $current_currency->getDecimals(),
 		"show_decimals" => true,
 		"without_vat" => false,
+		"show_vat_label" => false,
 		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"..
 		"mark_decimals" => false,
 		"show_zero" => true,
@@ -100,7 +101,13 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		$ordering_unit = "/".$options["ordering_unit"];
 	}
 
-	$out = sprintf("<span class=\"currency_main\"><span class='price'>%s</span>&nbsp;${currency}${ordering_unit}</span>",$formatted_price);
+	$vat_label = "";
+	if ($options["show_vat_label"]) {
+		$vat_label = " ";
+		$vat_label .= $options["without_vat"] ? _("excl. VAT") : _("incl. VAT");
+	}
+
+	$out = sprintf("<span class=\"currency_main\"><span class='price'>%s</span>&nbsp;${currency}${ordering_unit}</span>${vat_label}",$formatted_price);
 
 	if($options["format"]=="plain"){
 		$out = strip_tags($out);

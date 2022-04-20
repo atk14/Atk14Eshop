@@ -12,8 +12,7 @@
 {assign incl_vat $basket->displayPricesInclVat()}
 {assign currency $price_finder->getCurrency()}
 
-{capture assign=dp_options}{$currency}{if !$incl_vat},without_vat{/if}{/capture}
-{capture assign=excl_vat}{if !$incl_vat} {t}excl. VAT{/t}{/if}{/capture}
+{capture assign=dp_options}{$currency}{if !$incl_vat},without_vat,show_vat_label{/if}{/capture}
 
 {if !isset($default_price_label) && $product_type->getCode()!="product"}
 	{assign default_price_label $product_type}
@@ -26,9 +25,9 @@
 			{foreach $products as $product}
 				{assign price $price_finder->getPrice($product)}
 				<li>
-					<small>{$product->getLabel()}</small><br>{!$price|display_price:$dp_options}{$excl_vat}
+					<small>{$product->getLabel()}</small><br>{!$price|display_price:$dp_options}
 					{if !$incl_vat}
-						<div class="price--incl-vat">{!$price|display_price:"$currency"} {t}incl. VAT{/t}</div>
+						<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
 					{/if}
 				</li>
 			{/foreach}
@@ -40,9 +39,9 @@
 		<ul class="list-unstyled">
 			{foreach $distinct_prices as $price}
 				<li>
-					{!$price|display_price:$dp_options}{$excl_vat}
+					{!$price|display_price:$dp_options}
 					{if !$incl_vat}
-						<div class="price--incl-vat">{!$price|display_price:"$currency"} {t}incl. VAT{/t}</div>
+						<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
 					{/if}
 				</li>
 			{/foreach}
@@ -51,9 +50,9 @@
 	{elseif $distinct_prices && sizeof($distinct_prices)>2}
 		{* there are more than two price on the card *}
 
-		{t price=$starting_price|display_price:$dp_options escape=no}<small>cena od</small><br>%1{/t}{$excl_vat}
+		{t price=$starting_price|display_price:$dp_options escape=no}<small>cena od</small><br>%1{/t}
 		{if !$incl_vat}
-			<div class="price--incl-vat">{!$starting_price|display_price:"$currency"} {t}incl. VAT{/t}</div>
+			<div class="price--incl-vat">{!$starting_price|display_price:"$currency,show_vat_label"}</div>
 		{/if}
 
 	{else}
@@ -66,9 +65,9 @@
 			<span class="card-price--before-discount">{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$dp_options}</span>
 		{/if}
 
-		{!$starting_price|display_price:$dp_options}{$excl_vat}
+		{!$starting_price|display_price:$dp_options}
 		{if !$incl_vat}
-			<div class="price--incl-vat">{!$starting_price|display_price:"$currency"} {t}incl. VAT{/t}</div>
+			<div class="price--incl-vat">{!$starting_price|display_price:"$currency,show_vat_label"}</div>
 		{/if}
 
 	{/if}
