@@ -13,6 +13,7 @@
 {assign currency $price_finder->getCurrency()}
 
 {capture assign=dp_options}{$currency}{if !$incl_vat},without_vat,show_vat_label{/if}{/capture}
+{capture assign=dp_incl_vat_options}{$currency},show_vat_label{/capture}
 
 {if !isset($default_price_label) && $product_type->getCode()!="product"}
 	{assign default_price_label $product_type}
@@ -27,7 +28,7 @@
 				<li>
 					<small>{$product->getLabel()}</small><br>{!$price|display_price:$dp_options}
 					{if !$incl_vat}
-						<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
+						<div class="price--incl-vat">{!$price|display_price:$dp_incl_vat_options}</div>
 					{/if}
 				</li>
 			{/foreach}
@@ -41,7 +42,7 @@
 				<li>
 					{!$price|display_price:$dp_options}
 					{if !$incl_vat}
-						<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
+						<div class="price--incl-vat">{!$price|display_price:$dp_incl_vat_options}</div>
 					{/if}
 				</li>
 			{/foreach}
@@ -52,7 +53,7 @@
 
 		{t price=$starting_price|display_price:$dp_options escape=no}<small>cena od</small><br>%1{/t}
 		{if !$incl_vat}
-			<div class="price--incl-vat">{!$starting_price|display_price:"$currency,show_vat_label"}</div>
+			<div class="price--incl-vat">{!$starting_price|display_price:$dp_incl_vat_options}</div>
 		{/if}
 
 	{else}
@@ -67,7 +68,7 @@
 
 		{!$starting_price|display_price:$dp_options}
 		{if !$incl_vat}
-			<div class="price--incl-vat">{!$starting_price|display_price:"$currency,show_vat_label"}</div>
+			<div class="price--incl-vat">{!$starting_price|display_price:$dp_incl_vat_options}</div>
 		{/if}
 
 	{/if}
