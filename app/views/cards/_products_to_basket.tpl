@@ -32,14 +32,16 @@
 					<div class="prices">
 						<div class="price--main">
 							{if $price->discounted()}
-							<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscount($incl_vat)|display_price:$price_finder->getCurrency()}</span>
+							<span class="price--before-discount">{!$price->getUnitPriceBeforeDiscount($incl_vat)|display_price:$currency}</span>
 							{/if}
-							{t price=$price->getPrice($incl_vat)|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{if $incl_vat}{t}incl. VAT{/t}{else}{t}excl. VAT{/t}{/if}</span>{/t}
-							{if !$incl_vat}
-								<div class="price--incl-vat">{t price=$price->getPriceInclVat()|display_price:$price->getCurrency() escape=no}%1 <span class="dph">{t}incl. VAT{/t}</span>{/t}</div>
+							{if $incl_vat}
+								{!$price|display_price:"$currency,show_vat_label"}
+							{else}
+								{!$price|display_price:"$currency,without_vat,show_vat_label"}
+								<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
 							{/if}
 							{if $base_price}
-								<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPrice($incl_vat)|display_price:$price->getCurrency()} Ušetříte: <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$price->getCurrency()}</span></span>
+								<span class="price--recommended">{t}Běžná cena:{/t} {!$base_price->getPrice($incl_vat)|display_price:$currency} Ušetříte: <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span></span>
 							{/if}
 						</div>
 					</div>

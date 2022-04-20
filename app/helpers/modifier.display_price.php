@@ -103,8 +103,8 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 
 	$vat_label = "";
 	if ($options["show_vat_label"]) {
-		$vat_label = " ";
-		$vat_label .= $options["without_vat"] ? _("excl. VAT") : _("incl. VAT");
+		$vat_label = $options["without_vat"] ? _("excl. VAT") : _("incl. VAT");
+		$vat_label = " <span class=\"dph\">$vat_label</span>";
 	}
 
 	$out = sprintf("<span class=\"currency_main\"><span class='price'>%s</span>&nbsp;${currency}${ordering_unit}</span>${vat_label}",$formatted_price);
