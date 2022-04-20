@@ -36,6 +36,7 @@ function smarty_function_display_stockcount($params,$template){
 	$stockcount_precision = ceil(log10($unit->getDisplayUnitMultiplier())); // 100 -> 2; 1000 -> 3; 1 -> 0
 
 	$template->assign("product",$product);
+	$template->assign("card",$product->getCard());
 	$template->assign("unit",$unit);
 	$template->assign("stockcount",$stockcount);
 	$template->assign("stockcount_precision",$stockcount_precision);
