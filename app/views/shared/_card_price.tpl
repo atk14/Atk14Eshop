@@ -63,7 +63,7 @@
 			<small>{$default_price_label}</small><br>
 		{/if}
 		{if $starting_price->discounted()}
-			<span class="card-price--before-discount">{!$starting_price->getUnitPriceBeforeDiscountInclVat()|display_price:$dp_options}</span>
+			<span class="card-price--before-discount">{!$starting_price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 		{/if}
 
 		{!$starting_price|display_price:$dp_options}
