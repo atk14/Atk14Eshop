@@ -150,7 +150,9 @@ class ProductPrice {
 	 * @return ProductPriceBeforeDiscount
 	 */
 	function getProductPriceBeforeDiscount(){
-		return new ProductPriceBeforeDiscount($this);
+		if($this->discounted()){
+			return new ProductPriceBeforeDiscount($this);
+		}
 	}
 
   //

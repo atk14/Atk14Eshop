@@ -34,7 +34,7 @@
 					<div class="prices">
 						<div class="price--main">
 							{if $price->discounted()}
-							<span class="price--before-discount">{!$price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
+								<span class="price--before-discount">{!$price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 							{/if}
 							{if $incl_vat}
 								{!$price|display_price:"$dp_options,show_vat_label"}

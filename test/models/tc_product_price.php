@@ -11,6 +11,8 @@ class TcProductPrice extends TcBase {
 	function test_getPriceBeforeDiscount(){
 		$price_finder = PriceFinder::GetInstance($this->users["rambo"]);
 
+		//
+
 		$product_price = $price_finder->getPrice($this->products["popelin_s_oveckami"],100);
 
 		$this->assertEquals(0.7388,$product_price->getUnitPrice());
@@ -29,5 +31,12 @@ class TcProductPrice extends TcBase {
 		$this->assertEquals(1.2314,$product_price_before_discount->getUnitPriceBeforeDiscount());
 		$this->assertEquals(123.14,$product_price_before_discount->getPriceBeforeDiscount());
 		$this->assertEquals(false,$product_price_before_discount->discounted());
+
+		//
+
+		$product_price = $price_finder->getPrice($this->products["wooden_button"],2);
+
+		$this->assertEquals(false,$product_price->discounted());
+		$this->assertEquals(null,$product_price->getProductPriceBeforeDiscount());
 	}
 }
