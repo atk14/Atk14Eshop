@@ -185,7 +185,31 @@
 					} else {
 						qcontent.slideUp( "fast" );
 					}
-				} )
+				} );
+
+				// Set proper scale for product card image scaling on hover
+				var setCardHoverScale = function() {
+					// find card image
+					var cardImage = $( ".section--list-products .card .card-img-top" );
+					if( cardImage.length > 0 ) {
+						// access to values stored in css variables
+						var r = document.querySelector( ":root " );
+						var rs = getComputedStyle( r );
+						// get card image actual width (CAUTION: assumes all cards are the same width)
+						var cardW = $( ".section--list-products .card .card-img-top" ).width();
+						// read desired hover width from css
+						var imgW = rs.getPropertyValue( "--card_hover_width" );
+						var hoverScale = imgW / cardW;
+						//console.log( {cardW}, {imgW}, {hoverScale} );
+						// set desired scale value to css variable
+						r.style.setProperty( "--card_hover_scale", hoverScale );
+					}
+				};
+				setCardHoverScale();
+				window.addEventListener( "resize", setCardHoverScale );
+
+				// Init NoUiSlider
+
 			}
 
 		},

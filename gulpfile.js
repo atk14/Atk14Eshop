@@ -10,7 +10,8 @@ var vendorStyles = [
 	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
-	"node_modules/cookieconsent/build/cookieconsent.min.css"
+	"node_modules/cookieconsent/build/cookieconsent.min.css",
+	"node_modules/nouislider/dist/nouislider.min.css"
 ];
 
 var vendorScripts = [
@@ -23,7 +24,8 @@ var vendorScripts = [
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
-	"node_modules/bootbox/dist/bootbox.all.min.js"
+	"node_modules/bootbox/dist/bootbox.all.min.js",
+	"node_modules/nouislider/dist/nouislider.min.js"
 ];
 
 var applicationScripts = [
@@ -32,6 +34,7 @@ var applicationScripts = [
 	"public/scripts/utils/swiper.js",
 	"public/scripts/pager.js",
 	"public/scripts/filter.js",
+	"public/scripts/nouislider.js",
 	"public/scripts/utils/basket_shipping_rules.js",
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
