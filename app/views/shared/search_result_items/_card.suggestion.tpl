@@ -1,5 +1,6 @@
 {capture assign=url}{link_to action="cards/detail" id=$card}{/capture}
-{capture assign=price_info}{render partial="shared/card_price" card=$card default_price_label=$card->getProductType()|lower}{/capture}
+{capture assign=default_price_label}{if $card->getProductType()->getCode()!="product"}{$card->getProductType()|lower}{/if}{/capture}
+{capture assign=price_info}{render partial="shared/card_price" card=$card default_price_label=$default_price_label}{/capture}
 {assign main_creators CardCreator::GetMainCreatorsForCard($card)}
 {assign subtitle ""}
 {if $main_creators}
