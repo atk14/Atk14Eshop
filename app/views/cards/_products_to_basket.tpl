@@ -37,11 +37,12 @@
 								<span class="price--before-discount">{!$price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 							{/if}
 							{if $incl_vat}
-								{!$price|display_price:"$dp_options,show_vat_label"}
+								<span class="price--primary">{!$price|display_price:"$dp_options,show_vat_label"}</span>
 							{else}
-								{!$price|display_price:"$dp_options"}
+								<span class="price--primary">{!$price|display_price:"$dp_options"}</span>
 								<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
 							{/if}
+							
 							{if $base_price}
 								<span class="price--recommended">
 									{t}Běžná cena:{/t} {!$base_price->getPrice()|display_price:$dp_options}

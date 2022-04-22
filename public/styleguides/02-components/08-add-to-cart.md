@@ -19,8 +19,8 @@ Optional discounted and usual prices and secondary price (without VAT) shown.
 				<div class="prices">
 					<div class="price--main">
 						<span class="price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
-						<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span>
-						<span class="price--secondary"><span class="currency_main"><span class="price">537</span>&nbsp;Kč</span> <span class="dph">without VAT</span></span>
+						<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span>
+						<span class="price--secondary"><span class="currency_main"><span class="price">537</span>&nbsp;Kč</span> <span class="vat_label">without VAT</span></span>
 						<span class="price--recommended">Běžná cena: <span class="currency_main"><span class="price">850,00</span>&nbsp;Kč</span> Ušetříte: <span class="moneysaved"><span class="currency_main"><span class="price">255,00</span>&nbsp;Kč</span></span></span>
 					</div>
 				</div>
@@ -73,7 +73,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">37,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">37,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -102,7 +102,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">35,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">35,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -131,7 +131,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">39,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">39,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -160,7 +160,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">49,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">49,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 

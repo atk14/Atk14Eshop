@@ -1,55 +1,11 @@
-// Styling price for product cards, product promotion iobject, related product cards
-.card-price {
-	display: inline-block;
-	font-size: $font-size-sm;
-	.currency_main {
-		color: $brand;
-		font-size: 1.25rem;
-		font-weight: 900;
-		.price {
-			
-		}
-		.dph {
-			
-		}
-	}
-	// price before discount
-	&--before-discount {
-		display: block;
-		.currency_main {
-			color: $body-color;
-			text-decoration: line-through;
-			font-weight: 600;
-			color: $gray-500;
-			font-size: 1rem;
-			.price {
+$price-font-size-big: 1.75rem;
+$price-font-size-lg: $font-size-lg;
+$price-font-size-normal: $font-size-base;
+$price-font-size-sm: $font-size-sm;
+$price-font-size-xs: 0.75rem;
 
-			}
-		}
-	}
-
-	&--secondary {
-		display: block;
-		font-size: 0.875rem;
-		.currency_main {
-			color: inherit;
-			font-size: inherit;
-			font-weight: inherit;
-		}
-	}
-	
-	ul {
-		margin-bottom: 0;
-		li {
-			margin-bottom: 0.15rem;
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-	}
-}
-
-.price--incl-vat {
+@mixin secondary_price {
+	display: block;
 	font-size: $font-size-sm;
 	margin-top: 0.25em;
 	color: $body-color;
@@ -60,3 +16,247 @@
 		font-weight: inherit !important;
 	}
 }
+
+.vat_label {
+	font-size: $price-font-size-sm;
+	color: inherit;
+	font-weight: normal;
+	white-space: nowrap;
+}
+
+// Styling price for product cards, product promotion iobject, related product cards
+.card-price {
+	display: inline-block;
+	font-size: $price-font-size-sm;
+	.price {
+
+		// main price
+		&--primary {
+			.currency_main {
+				color: $brand;
+				font-size: $price-font-size-lg;
+				font-weight: 900;
+				&__price {
+				}
+				&__ordering-unit {
+				}
+			}
+		}
+	
+		// price before discount
+		&--before-discount {
+			display: block;
+			.currency_main {
+				color: $body-color;
+				text-decoration: line-through;
+				font-weight: 600;
+				color: $gray-500;
+				font-size: $price-font-size-normal;
+				&__price {
+				}
+			}
+		}
+
+		// price incl vat, secondary price
+		&--secondary, &--incl-vat {
+			@include secondary_price();
+		}
+	}
+
+	
+	
+	ul {
+		margin-bottom: 0;
+		li {
+			margin-bottom: 0.35rem;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	
+
+}
+
+
+
+// Prices on product detail
+.section--add-to-cart {
+	.prices {
+		line-height: 1;
+
+		.price--primary {
+			display: block;
+			.currency_main {
+				color: $brand;
+				font-size: $price-font-size-big;
+				font-weight: 600;
+			}
+		}
+
+		.price--before-discount {
+			display: block;
+			display: block;
+			margin-bottom: 0.25rem;
+			.currency_main {
+				font-size: $price-font-size-lg;
+				font-weight: 600;
+				text-decoration: line-through;
+				color: $gray-500;
+			}
+		}
+
+		.price--recommended {
+			display: block;
+			display: block;
+			margin-top: 0.5rem;
+			font-weight: normal;
+			//color: $gray-500;
+			font-size: $price-font-size-xs;
+			.currency_main {
+				text-decoration: line-through;
+				&__price {
+				}
+			}
+			.moneysaved {
+				.currency_main {
+					&__price {
+						text-decoration: none;
+					}
+				}
+			}
+			.vat_label {
+				font-size: inherit;
+			}
+		}
+		.price--secondary, .price--incl-vat  {
+			@include secondary_price();
+			margin-top: 0.5em;
+		}
+	}
+}
+
+// Prices on search suggestions 
+
+.suggestions {
+	.search-suggestions-list {
+		.suggestion__price {
+			.card-price {
+				font-size: $price-font-size-xs;
+				.currency_main {
+					font-size: 1rem;
+					@include media-breakpoint-down(xs){
+						font-size: $font-size-sm;
+					}
+				}
+				.price--incl-vat {
+					font-size: $price-font-size-xs;
+					.currency_main {
+						font-size: $price-font-size-sm;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+// For debug:
+$priceDisplayDebug: false;
+
+@if $priceDisplayDebug {
+	.body:hover {
+
+		.currency_main {
+			border: 2px solid rgba(red,0.5);
+			.price, &__price {
+				border: 2px dotted rgba(blue,0.5);
+			}
+		}
+		.vat_label {
+			border: 1px dotted black;
+		}
+
+		.card-price {
+			background-color: rgba(aqua,0.1);
+			
+			.price {
+				border: 2px dotted rgba(blue,0.5);
+			}
+			.vat_label {
+				border: 1px dotted black;
+			}
+
+
+			.card-price--before-discount {
+
+			}
+
+		}
+
+		.price--primary {
+			border: 2px solid green;
+		}
+	}
+}
+
+/*
+
+Markup structure of price display widget output (modifier.display_price.php)
+ |---.currency_main
+ |     |----.currency_main__price         "8,23"
+ |     |----.currency_main__currency      "EUR"
+ |     |----.currency_main__ordering-unit ""
+ |
+ |---.vat_label                           "bez DPH"
+
+Markup structure on card (also search suggestions, card iobject):
+
+.card-price
+ |---.card-price--before-discount
+ |    |---.currency_main
+ |    |    |--- ...
+ |    |
+ |    |---.vat_label "bez DPH"
+ |
+ |---.price--primary
+ |    |---.currency_main
+ |    |    ...
+ |
+ |---.vat_label "bez DPH"
+ |
+ |---.price--incl-vat
+      |---.currency_main
+      |    |--- ...
+      |
+      |---.vat_label "vč. DPH"
+
+
+Markup structure on product detail:
+
+
+.prices 
+ |---.price--main
+      |---.price--before-discount
+      |    |---.currency_main
+      |    |    ...
+      |
+      |---.price--primary
+      |    |---.currency_main
+      |    |    ...
+      |
+      |---.price--incl-vat
+      |    |---.currency_main
+      |    |    ...
+      |
+			|---.price--recommended
+			     |---? "Běžná cena:"
+			     |---.currency_main
+			     |    ...
+			     |---? "Ušetříte:"
+			     |---.moneysaved
+			     |    |---.currency_main
+			     |    |    ...
+  
+*/

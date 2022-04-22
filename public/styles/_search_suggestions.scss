@@ -82,21 +82,9 @@
 				align-self: start;
 				line-height: 1.2;
 				text-align: right;
-				.card-price {
-					font-size: 0.75rem;
-					.currency_main {
-						font-size: 1rem;
-						@include media-breakpoint-down(xs){
-							font-size: $font-size-sm;
-						}
-					}
-					.price--incl-vat {
-						font-size: 0.75rem;
-						.currency_main {
-							font-size: $font-size-sm;
-						}
-					}
-				}
+				
+				// Price styling moved to _prices.scss
+
 				small {
 					font-size: 0.8rem;//$font-size-sm !important;
 				}

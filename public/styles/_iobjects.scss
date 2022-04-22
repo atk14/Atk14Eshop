@@ -199,12 +199,16 @@
 				}
 				.iobject__description {
 					font-size: 0.875rem;
+					p {
+						margin-bottom: 0;
+					}
 				}
 				.iobject__footer {
 					display: flex;
 					justify-content: space-between;
 					align-items: flex-end;
 					margin-top: 1rem;
+					line-height: 1;
 					.card-footer-icon {
 						font-size: 1.25rem;
 					}

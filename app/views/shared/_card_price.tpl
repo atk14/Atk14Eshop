@@ -26,7 +26,8 @@
 			{foreach $products as $product}
 				{assign price $price_finder->getPrice($product)}
 				<li>
-					<small>{$product->getLabel()}</small><br>{!$price|display_price:$dp_options}
+					<small>{$product->getLabel()}</small>
+					<div class="price--primary">{!$price|display_price:$dp_options}</div>
 					{if !$incl_vat}
 						<div class="price--incl-vat">{!$price|display_price:$dp_incl_vat_options}</div>
 					{/if}
@@ -40,7 +41,7 @@
 		<ul class="list-unstyled">
 			{foreach $distinct_prices as $price}
 				<li>
-					{!$price|display_price:$dp_options}
+					<div class="price--primary">{!$price|display_price:$dp_options}</div>
 					{if !$incl_vat}
 						<div class="price--incl-vat">{!$price|display_price:$dp_incl_vat_options}</div>
 					{/if}
@@ -51,7 +52,7 @@
 	{elseif $distinct_prices && sizeof($distinct_prices)>2}
 		{* there are more than two price on the card *}
 
-		{t price=$starting_price|display_price:$dp_options escape=no}<small>cena od</small><br>%1{/t}
+		{t price=$starting_price|display_price:$dp_options escape=no}<small>cena od</small><div class="price--primary">%1</div>{/t}
 		{if !$incl_vat}
 			<div class="price--incl-vat">{!$starting_price|display_price:$dp_incl_vat_options}</div>
 		{/if}
@@ -63,10 +64,10 @@
 			<small>{$default_price_label}</small><br>
 		{/if}
 		{if $starting_price->discounted()}
-			<span class="card-price--before-discount">{!$starting_price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
+			<span class="price--before-discount">{!$starting_price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 		{/if}
 
-		{!$starting_price|display_price:$dp_options}
+		<div class="price--primary">{!$starting_price|display_price:$dp_options}</div>
 		{if !$incl_vat}
 			<div class="price--incl-vat">{!$starting_price|display_price:$dp_incl_vat_options}</div>
 		{/if}
