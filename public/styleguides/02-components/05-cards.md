@@ -26,9 +26,13 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 		</div>
 	</div>
 	<div class="card-footer">
-		<span class="card-price">
-			<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
-		</span>
+		<div class="card-price">
+			<div class="price--primary">
+				<span class="currency_main">
+					<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+				</span>
+			</div>
+		</div>
 		<span class="card-footer__icon"><span class="fas fa-shopping-cart"></span> <span class="fas fa-chevron-right"></span></span>
 	</div>
 </a>
@@ -58,9 +62,13 @@ More compact version is created by adding <code>.card--sm</code> modifier class.
 		</div>
 	</div>
 	<div class="card-footer">
-		<span class="card-price">
-			<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
-		</span>
+		<div class="card-price">
+			<div class="price--primary">
+				<span class="currency_main">
+					<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+				</span>
+			</div>
+		</div>
 		<span class="card-footer__icon"><span class="fas fa-shopping-cart"></span> <span class="fas fa-chevron-right"></span></span>
 	</div>
 </a>
@@ -229,9 +237,13 @@ Available classes for 2, 3, 4 or 6 cards per row:
 			</div>
 		</div>
 		<div class="card-footer">
-			<span class="card-price">
-				<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
-			</span>
+			<div class="card-price">
+				<div class="price--primary">
+					<span class="currency_main">
+						<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+					</span>
+				</div>
+			</div>
 			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
 		</div>
 	</a>
@@ -246,9 +258,13 @@ Available classes for 2, 3, 4 or 6 cards per row:
 			</div>
 		</div>
 		<div class="card-footer">
-			<span class="card-price">
-				<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
-			</span>
+			<div class="card-price">
+				<div class="price--primary">
+					<span class="currency_main">
+						<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+					</span>
+				</div>
+			</div>
 			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
 		</div>
 	</a>
@@ -263,9 +279,13 @@ Available classes for 2, 3, 4 or 6 cards per row:
 			</div>
 		</div>
 		<div class="card-footer">
-			<span class="card-price">
-				<span class="currency_main"><span class="price">40,00</span>&nbsp;Kč</span>
-			</span>
+			<div class="card-price">
+				<div class="price--primary">
+					<span class="currency_main">
+						<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+					</span>
+				</div>
+			</div>
 			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
 		</div>
 	</a>
