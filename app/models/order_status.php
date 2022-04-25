@@ -69,8 +69,8 @@ class OrderStatus extends ApplicationModel implements Translatable, Rankable {
 		return $this->g("blocking_stockcount");
 	}
 
-	function reduceStockount(){
-		return $this->g("reduce_stockount");
+	function reduceStockcount(){
+		return $this->g("reduce_stockcount");
 	}
 
 	function finishedSuccessfully(){

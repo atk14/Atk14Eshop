@@ -2,13 +2,17 @@
  * Detail objednavky nebo kosiku
  *}
 
+{if !isset($show_note)}
+	{assign show_note true}
+{/if}
+
 {assign currency $order->getCurrency()}
 {assign vouchers $order->getVouchers()}
 {assign campaigns $order->getCampaigns()}
 {assign object_class $order|get_class}
 {assign is_basket $object_class=="Basket"}
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
-
+{assign incl_vat $basket->displayPricesInclVat()}
 
 {*
  * Tohle neni v designu
@@ -28,9 +32,12 @@
 			<th class="table-products__image"><span class="sr-only">{t}Obrázek{/t}</span></th>
 			<th class="table-products__title">{t}Produkt{/t}<span class="d-block d-lg-none">{t}Kód{/t}</span></th>
 			<th class="table-products__id">{t}Kód{/t}</th>
-			<th class="table-products__unit-price">{t}Jedn. cena{/t}</th>
+			<th class="table-products__unit-price">{if $incl_vat}{t}Jedn. cena{/t}{else}{t}Jedn. cena bez DPH{/t}{/if}</th>
+			{if !$incl_vat}
+			<th class="table-products__vat-percent">{t escape=no}%&nbsp;DPH{/t}</th>
+			{/if}
 			<th class="table-products__amount">{t}Množství{/t}</th>
-			<th class="table-products__price">{t}Celkem{/t}</th>
+			<th class="table-products__price">{if $incl_vat}{t}Celkem{/t}{else}{t}Celkem bez DPH{/t}{/if}</th>
 		</tr>
 	</thead>
 	<tbody class="table-products__list">
@@ -43,8 +50,11 @@
 					<td class="table-products__title">{$product->getName()}</td>
 					<td class="table-products__id"></td>
 					<td class="table-products__unit-price"></td>
+					{if !$incl_vat}
+					<td class="table-products__vat-percent"></td>
+					{/if}
 					<td class="table-products__amount"></td>
-					<td class="table-products__price">{!$item->getPriceInclVat()|display_price:"$currency"}</td>
+					<td class="table-products__price">{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{else}
 					<td class="table-products__image">{a action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
 					<td class="table-products__title">
@@ -54,10 +64,13 @@
 						{/if}
 						<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span>
 					</td>
-				<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
-					<td class="table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {!$item->getUnitPriceInclVat()|display_price:$currency}</td>
+					<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
+					<td class="table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {!$item->getUnitPrice($incl_vat)|display_price:$currency}</td>
+					{if !$incl_vat}
+					<td class="table-products__vat-percent">{$item->getVatPercent()}</td>
+					{/if}
 					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()}</td>
-					<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!$item->getPriceInclVat()|display_price:"$currency"}</td>
+					<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{/if}
 			</tr>
 		{/foreach}
@@ -65,11 +78,11 @@
 	
 	<tbody class="table-products__discounts">{trim}
 		{foreach $campaigns as $campaign}
-			{if $campaign->getDiscountAmount()}
+			{if $campaign->getDiscountAmount($incl_vat)}
 			<tr class="table-products__item table-products__item--sale">
 				<td class="table-products__icon">{!"percentage"|icon}</td>
-				<td class="table-products__title" colspan="4">{$campaign->getName()}</td>
-				<td class="table-products__price">{!(-$campaign->getDiscountAmount())|display_price:"$currency"}</td>
+				<td class="table-products__title" colspan="{if $incl_vat}4{else}5{/if}">{$campaign->getName()}</td>
+				<td class="table-products__price">{!(-$campaign->getDiscountAmount($incl_vat))|display_price:"$currency"}</td>
 			</tr>
 			{/if}
 		{/foreach}
@@ -78,8 +91,8 @@
 			<tr class="table-products__item table-products__item--sale">
 				<td class="table-products__icon">{!$voucher->getIconSymbol()|icon}</td>
 				<td class="table-products__title">{$voucher->getDescription()}</td>
-				<td colspan="3" class="table-products__id">{$voucher}</td>
-				<td class="table-products__price">{if $voucher->getDiscountAmount()}{!(-$voucher->getDiscountAmount())|display_price:"$currency"}{/if}</td>
+				<td colspan="{if $incl_vat}3{else}4{/if}" class="table-products__id">{$voucher}</td>
+				<td class="table-products__price">{if $voucher->getDiscountAmount($incl_vat)}{!(-$voucher->getDiscountAmount($incl_vat))|display_price:"$currency"}{/if}</td>
 			</tr>
 		{/foreach}
 	{/trim}</tbody>
@@ -88,15 +101,15 @@
 		<tr class="table-products__item">
 			<td class="table-products__icon">{!"truck"|icon}</td>
 			<td class="table-products__title">{t}Doprava:{/t}</td>
-			<td colspan="3" class="table-products__id">{$order->getDeliveryMethod()->getLabel()}{render partial="shared/order/delivery_method_data" show_branch_id=false}</td>
-			<td class="table-products__price">{!$order->getDeliveryFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
+			<td colspan="{if $incl_vat}3{else}4{/if}" class="table-products__id">{$order->getDeliveryMethod()->getLabel()}{render partial="shared/order/delivery_method_data" show_branch_id=false}</td>
+			<td class="table-products__price">{!$order->getDeliveryFee($incl_vat)|display_price:"$currency"|default:$mdash}</td>
 		</tr>
 		{if $is_basket==false && $order->getDeliveryMethod()->getTrackingUrl()}
 			{assign tracking_url $order->getTrackingUrl()}
 			<tr class="table-products__item">
 				<td class="table-products__icon"></td>
 				<td class="table-products__title">{t}Číslo zásilky{/t}:</td>
-				<td colspan="4">
+				<td colspan="{if $incl_vat}4{else}5{/if}">
 					{if $tracking_url}<a href="{$order->getTrackingUrl()}">{$order->getTrackingNumber()}</a>{else}{t}Není zadáno{/t}{/if}
 				</td>
 			</tr>
@@ -105,46 +118,46 @@
 		<tr class="table-products__item">
 			<td class="table-products__icon">{!"wallet"|icon}</td>
 			<td class="table-products__title">{t}Platba:{/t}</td>
-			<td colspan="3">{$order->getPaymentMethod()->getLabel()}</td>
-			<td class="table-products__price">{!$order->getPaymentFeeInclVat()|display_price:"$currency"}</td>
+			<td colspan="{if $incl_vat}3{else}4{/if}">{$order->getPaymentMethod()->getLabel()}</td>
+			<td class="table-products__price">{!$order->getPaymentFee($incl_vat)|display_price:"$currency"}</td>
 		</tr>
 	</tbody>
 	
 	<tfoot>
 		<tr class="table-products__tfootstart">
 			{strip}
-			<td colspan="3" class="table-products__note">
-				{if $order->getNote()}
+			<td colspan="{if $incl_vat}3{else}4{/if}" class="table-products__note">
+				{if $show_note && $order->getNote()}
 					<em>{!$order->getNote()|h|nl2br}</em>
 				{/if}
 			</td>
 			{/strip}
-			<td colspan="3" class="text-right table-products__price-summary">
+			<td colspan="{if $incl_vat}3{else}4{/if}" class="text-right table-products__price-summary">
 				<table>
 					<tbody>
 						<tr>
-							<th>{t escape=no}Cena za zboží<span class="text-muted"> vč. DPH</span>{/t}</th>
-							<td class="text-right">{!$order->getItemsPriceInclVat()|display_price:"$currency"}</td>
+							<th>{if $incl_vat}{t escape=no}Cena za zboží<span class="text-muted"> vč. DPH</span>{/t}{else}{t escape=no}Cena za zboží<span class="text-muted"> bez DPH</span>{/t}{/if}</th>
+							<td class="text-right">{!$order->getItemsPrice($incl_vat)|display_price:"$currency"}</td>
 						</tr>
 						<tr>
 							<th>{t}Doprava a platba{/t}</th>
-							<td class="text-right">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</td>
+							<td class="text-right">{!$order->getShippingFee($incl_vat)|display_price:"$currency"|default:$mdash}</td>
 						</tr>
 						{if $order->getCampaignsDiscountAmount()}
 						<tr>
 							<th>{t}Slevová kampaň{/t}</th>
-							<td class="text-right">{!(-$order->getCampaignsDiscountAmount())|display_price:"$currency"}</td>
+							<td class="text-right">{!(-$order->getCampaignsDiscountAmount($incl_vat))|display_price:"$currency"}</td>
 						</tr>
 						{/if}
 						{if $order->getVouchersDiscountAmount()}
 						<tr>
 							<th>{if sizeof($vouchers)>1}{t}Slevové kupóny{/t}{else}{t}Slevový kupón{/t}{/if}</th>
-							<td class="text-right">{!(-$order->getVouchersDiscountAmount())|display_price:"$currency"}</td>
+							<td class="text-right">{!(-$order->getVouchersDiscountAmount($incl_vat))|display_price:"$currency"}</td>
 						</tr>
 						{/if}
 						<tr>
-							<th class="table-products__pricetopay">{t}Cena celkem{/t}</th>
-							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</td>
+							<th class="table-products__pricetopay">{if $incl_vat}{t}Cena celkem{/t}{else}{t}Cena celkem vč. DPH{/t}{/if}</th>
+							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFee())}<sup>*</sup>{/if}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -153,7 +166,7 @@
 	</tfoot>
 </table>
 
-{if is_null($order->getShippingFeeInclVat())}
+{if is_null($order->getShippingFee())}
 	<p class="text-right">
 		<small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small></td>
 	</p>
@@ -165,19 +178,7 @@
 		<div class="col-12 col-md">
 			<h5 class="h5">{!"map-marker-alt"|icon} {t}Doručovací adresa:{/t}</h5>
 			<p>
-				{$order->getDeliveryFirstname()} {$order->getDeliveryLastname()}<br>
-				{if $order->getDeliveryCompany()}
-					{$order->getDeliveryCompany()}<br>
-				{/if}
-				{$order->getDeliveryAddressStreet()}<br>
-				{if $order->getDeliveryAddressStreet2()}
-							{$order->getDeliveryAddressStreet2()}<br>
-				{/if}
-				{$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
-				{$order->getDeliveryAddressCountry()|to_country_name}<br>
-				{if $order->getDeliveryPhone()}
-					{$order->getDeliveryPhone()|display_phone|default:$mdash}
-				{/if}
+				{render partial="shared/delivery_address" object_with_delivery_address=$order}
 			</p>
 		</div>
 		<div class="col-12 col-md">

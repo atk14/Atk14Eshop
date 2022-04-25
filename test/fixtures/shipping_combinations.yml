@@ -17,3 +17,7 @@ post__bank_transfer:
 post_cod__cash_on_delivery:
   delivery_method_id: "<?= $delivery_methods["post_cod"]->getId() ?>"
   payment_method_id: "<?= $payment_methods["cash_on_delivery"]->getId() ?>"
+
+zasilkovna__bank_transfer:
+  delivery_method_id: "<?= $delivery_methods["zasilkovna"]->getId() ?>"
+  payment_method_id: "<?= $payment_methods["bank_transfer"]->getId() ?>"

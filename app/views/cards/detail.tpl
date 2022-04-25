@@ -24,13 +24,21 @@
 		<div class="product-info">
 		{render partial="categories"}
 		{render partial="creators"}
+
+		{remove_if_contains_no_text}
 		{if !$card->hasCardSection("tech_spec")}
-			{render partial="technical_specifications"}
+			<section class="section--product-info section--tech_spec">
+				<div class="section__body">
+					{render partial="technical_specifications"}
+				</div>
+			</section>
 		{/if}
+		{/remove_if_contains_no_text}
 
 		{render partial="shared/attachments" object=$card}
 
 		{foreach $card->getCardSections() as $section}
+			{remove_if_contains_no_text}
 			<section class="section--product-info section--{$section->getTypeCode()}">
 				{if $section->getName()}
 				<h3 class="section__title">{$section->getName()}</h3>
@@ -53,6 +61,7 @@
 					{render partial="shared/attachments" object=$section}
 				</div>
 			</section>
+			{/remove_if_contains_no_text}
 		{/foreach}
 		</div>	
 	</div>

@@ -1,6 +1,15 @@
 .iobject {
+	// At which viewport size non-full-width iobjects expand to full width
+	$iObjectWidthBreakpoint: md;
 	
-	margin: $grid-gutter-width 0;
+	// Default top/bottom spacing for full-width iobjects
+	$defaultVMargin: $grid-gutter-width * 2;
+	
+	// Spacing for non-full-width iobjects
+	$floatVMargin: $grid-gutter-width * 2; 
+	
+	margin: $defaultVMargin 0;
+	clear: both;
 	
 	// caption - title, description
 	.iobject__caption {
@@ -23,11 +32,107 @@
 	&__heading {
 		@extend h3;
 	}
+
+	// layout props - placement, width 
+	
+	@include media-breakpoint-up( $iObjectWidthBreakpoint ) {
+		&--full_width {
+			width: 100%;
+		}
+		&--half_width {
+			width: 50%;
+		}
+		&--third_width {
+			width: 33.33%;
+		}
+		&--center {
+			margin: auto;
+		}
+		&--left {
+			float: left;
+			margin: 0 $floatVMargin $floatVMargin 0;
+		}
+		&--right {
+			float: right;
+			margin: 0 0 $floatVMargin $floatVMargin;
+		}
+	}
+	
+	
 	
 	// type-specific props
 	&--video {
 	}
+	&--audio {
+		audio {
+			width: 100%;
+		}
+	}
 	&--picture {
+		
+		picture {
+			display: block;
+			source {
+				line-height: 0;
+				height: 0;
+				overflow: hidden;
+			}
+			img {
+				display: block;
+			}
+		}
+
+		&-fullwidth {
+			margin: 0;
+			padding: 0;
+			figure {
+				margin: 0;
+				padding: 0;
+			}
+		}
+		
+		&-card {
+			margin-top: 0 !important;
+			background-color: white;
+			&:hover {
+				background-color: white;
+			}
+			figure {
+				margin: 0;
+				height: 100%;
+				.image-wrap {
+					display: block;
+					
+					// uncomment only if known fixed image aspect ratio is used
+					// in this case 4:3
+					/*
+					position: relative;
+					padding-top: percentage(3/4);
+					img {
+						position: absolute;
+						left: 0;
+						top: 0;
+					}
+					*/
+				}
+				figcaption.card-body {
+					background-color: transparent;
+					border-bottom: none;
+					margin: 0;
+					padding: 1.25rem;
+					.card-title {
+						margin-bottom: 0.5em;	
+					}
+					.card-text {
+						font-size: 1em;
+						font-style: normal;
+						//margin-bottom: 1em;
+					}
+				}
+			}
+		}
+		
+		
 	}
 	&--gallery {
 		section.photo-gallery {
@@ -60,60 +165,67 @@
 		}
 		
 		& + & {
-			margin-top: 0-$grid-gutter-width;
+			margin-top: 0-$defaultVMargin;
 			border-top: none;
 		}
 	}
 	&--card_promotion {
-		display: flex;
-		background-color: white;
-		text-decoration: none;
-		color: inherit;
+		
 		border-bottom: 1px solid $border-color;
 		border-top: 1px solid $border-color;
-		.iobject__image {
-			flex-basis: 200px;
-			flex-shrink: 0;
-			position: relative;
-			.iobject__flags {
-				position: absolute;
-				right: 1rem;
-				top: 1rem;
-			}
-		}
-		.iobject__body {
+		.iobject__content {
 			display: flex;
-			flex-direction: column;
-			flex-grow: 10;
-			justify-content: space-between;
-			padding: $grid-gutter-width/2;
-			.iobject__title {
-				font-size: 1.25rem;
-			}
-			.iobject__description {
-				font-size: 0.875rem;
-			}
-			.iobject__footer {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-end;
-				margin-top: 1rem;
-				.card-footer-icon {
-					font-size: 1.25rem;
-				}
-			}
-		}
-		@media(max-width: 700px){
-			display: block;
-		}
-		&:hover {
+			background-color: white;
 			text-decoration: none;
 			color: inherit;
-			//box-shadow: 0px 0px 34px 0px rgba(0,0,0,0.35);
-			background-color: $gray-100;
+			.iobject__image {
+				flex-basis: 200px;
+				flex-shrink: 0;
+				position: relative;
+				.iobject__flags {
+					position: absolute;
+					right: 1rem;
+					top: 1rem;
+				}
+			}
+			.iobject__body {
+				display: flex;
+				flex-direction: column;
+				flex-grow: 10;
+				justify-content: space-between;
+				padding: $grid-gutter-width/2;
+				.iobject__title {
+					font-size: 1.25rem;
+				}
+				.iobject__description {
+					font-size: 0.875rem;
+					p {
+						margin-bottom: 0;
+					}
+				}
+				.iobject__footer {
+					display: flex;
+					justify-content: space-between;
+					align-items: flex-end;
+					margin-top: 1rem;
+					line-height: 1;
+					.card-footer-icon {
+						font-size: 1.25rem;
+					}
+				}
+			}
+			@media(max-width: 700px){
+				display: block;
+			}
+			&:hover {
+				text-decoration: none;
+				color: inherit;
+				//box-shadow: 0px 0px 34px 0px rgba(0,0,0,0.35);
+				background-color: $gray-100;
+			}
 		}
 		& + & {
-			margin-top: 0-$grid-gutter-width;
+			margin-top: 0-$defaultVMargin;
 			border-top: none;
 		}
 	}
@@ -254,3 +366,26 @@
 		font-weight: 600;
 	}
 }
+
+// Picture iObjects in a table
+// Removes excessive margins and borders
+table.table {
+	tr, tbody tr {
+		td, th {
+			.iobject--picture {
+				///outline: 1px dashed red;
+				margin: 0;
+				figure {
+					margin: 0;
+					///outline: 1px dotted blue;
+					figcaption {
+						border-bottom: none;
+						margin-bottom: 0;
+						padding-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}
+

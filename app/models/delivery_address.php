@@ -99,6 +99,7 @@ class DeliveryAddress extends ApplicationModel {
 		]);
 		
 		if(!$da){
+			$cr_values["created_automatically"] = true;
 			$da = DeliveryAddress::CreateNewRecord($cr_values);
 		}
 
@@ -107,5 +108,18 @@ class DeliveryAddress extends ApplicationModel {
 
 	function getName(){
 		return trim($this->getFirstname()." ".$this->getLastname());
+	}
+
+	function toExportArray(){
+		$out = $this->toArray();
+		foreach(["user_id","last_used_at","created_at","updated_at","created_automatically"] as $k){
+			unset($out[$k]);
+		}
+		Atk14Require::Helper("modifier.display_phone");
+		$phone = $out["phone"];
+		$phone = smarty_modifier_display_phone($phone,false);
+		$phone = str_replace(html_entity_decode("&nbsp;")," ",$phone);
+		$out["phone"] = $phone;
+		return $out;
 	}
 }

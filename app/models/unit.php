@@ -1,7 +1,11 @@
 <?php
-class Unit extends ApplicationModel implements Translatable {
+class Unit extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetTranslatableFields(){ return ["unit_localized", "display_unit_localized"]; }
+
+	function setRank($rank){
+		$this->_setRank($rank);
+	}
 
 	function getUnitLocalized(){
 		$out = parent::getUnitLocalized(); // "ks"

@@ -2,6 +2,8 @@
 /**
  *
  * @fixture stores
+ * @fixture delivery_methods
+ * @fixture delivery_method_country_specifications
  */
 class TcDeliveryMethod extends TcBase {
 
@@ -30,5 +32,52 @@ class TcDeliveryMethod extends TcBase {
 
 		$dm->s("email_description_en","Email description");
 		$this->assertEquals("Email description",$dm->getEmailDescription());
+	}
+
+	function test_country_specifications(){
+		$dpd = $this->delivery_methods["dpd"];
+
+		$this->assertEquals("dpd_test",$dpd->getCode());
+		$this->assertEquals(121.0,$dpd->getPriceInclVat());
+		$this->assertEquals(100.0,$dpd->getPrice());
+		$this->assertEquals(21.0,$dpd->getVatPercent());
+
+		$this->assertEquals("dpd_test_slovakia",$dpd->getCode("SK"));
+		$this->assertEquals(200.0,$dpd->getPriceInclVat("SK"));
+		$this->assertEquals(190.47619,$dpd->getPrice("SK"));
+		$this->assertEquals(5.0,$dpd->getVatPercent("SK"));
+
+		$this->assertEquals("dpd_test",$dpd->getCode("CZ"));
+		$this->assertEquals(121.0,$dpd->getPriceInclVat("CZ"));
+		$this->assertEquals(100.0,$dpd->getPrice("CZ"));
+		$this->assertEquals(21.0,$dpd->getVatPercent("CZ"));
+
+		$by_agreement = $this->delivery_methods["by_agreement"];
+
+		$this->assertTrue(is_null($by_agreement->getPriceInclVat()));
+		$this->assertTrue(is_null($by_agreement->getPrice()));
+		$this->assertEquals(21,$by_agreement->getVatPercent());
+
+		//
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat());
+		$this->assertEquals(100.0,$dpd->getLowestPrice());
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat());
+		$this->assertEquals(190.47619,$dpd->getHighestPrice());
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ","SK"]));
+		$this->assertEquals(100.0,$dpd->getLowestPrice(["CZ","SK"]));
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["CZ","SK"]));
+		$this->assertEquals(190.47619,$dpd->getHighestPrice(["CZ","SK"]));
+
+		$this->assertEquals(121.0,$dpd->getLowestPriceInclVat(["CZ"]));
+		$this->assertEquals(100.0,$dpd->getLowestPrice(["CZ"]));
+		$this->assertEquals(121.0,$dpd->getHighestPriceInclVat(["CZ"]));
+		$this->assertEquals(100.0,$dpd->getHighestPrice(["CZ"]));
+
+		$this->assertEquals(200.0,$dpd->getLowestPriceInclVat(["SK"]));
+		$this->assertEquals(190.47619,$dpd->getLowestPrice(["SK"]));
+		$this->assertEquals(200.0,$dpd->getHighestPriceInclVat(["SK"]));
+		$this->assertEquals(190.47619,$dpd->getHighestPrice(["SK"]));
 	}
 }

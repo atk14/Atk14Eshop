@@ -8,4 +8,5 @@
 	url=$url
 	type=$type
 	title=$article->getTitle()
+	subtitle=$article->getTeaser()|default:$article->getBody()|markdown|strip_html|truncate:100
 }

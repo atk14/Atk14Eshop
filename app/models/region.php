@@ -5,11 +5,23 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	static function GetTranslatableFields(){ return array("name", "application_name", "application_long_name"); }
 
-	static function GetInstances(){
+	static function GetAllInstances(){
 		static $regions;
-		if(!$regions){
-			$regions = Region::FindAll(["order_by" => "id", "use_cache" => true]);
+		if(!$regions || TEST){
+			$regions = Region::FindAll(["use_cache" => true]);
 		}
+		return $regions;
+	}
+
+	static function GetInstances(){
+		trigger_error("Method Region::GetInstances() is deprecated, use Region::GetAllInstances()");
+		return self::GetAllInstances();
+	}
+
+	static function GetActiveInstances(){
+		$regions = self::GetAllInstances();
+		$regions = array_filter($regions,function($region){ return $region->isActive(); });
+		$regions = array_values($regions);
 		return $regions;
 	}
 
@@ -23,18 +35,53 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetRegionByDomain($domain){
-		foreach(self::GetInstances() as $r){
+		foreach(self::GetActiveInstances() as $r){
 			if(in_array($domain,$r->getDomains())){
 				return $r;
 			}
 		}
 	}
 
-	static function GetDeliveryCountriesFromallRegions(){
+	/**
+	 * @return string[]
+	 */
+	static function GetDeliveryCountriesFromAllRegions(){
+		$regions = self::GetAllInstances();
+		return self::_MergeCountries($regions,"getDeliveryCountries");
+	}
+
+	/**
+	 * @return string[]
+	 */
+	static function GetDeliveryCountriesFromActiveRegions(){
+		$regions = self::GetActiveInstances();
+		return self::_MergeCountries($regions,"getDeliveryCountries");
+	}
+
+	/**
+	 * @return string[] || NULL
+	 */
+	static function GetInvoiceCountriesFromAllRegions(){
+		$regions = self::GetAllInstances();
+		return self::_MergeCountries($regions,"getInvoiceCountries");
+	}
+
+	/**
+	 * @return string[] || NULL
+	 */
+	static function GetInvoiceCountriesFromActiveRegions(){
+		$regions = self::GetActiveInstances();
+		return self::_MergeCountries($regions,"getInvoiceCountries");
+	}
+
+	static protected function _MergeCountries($regions,$method){
 		$all_allowed_countries = [];
-		foreach(Region::GetInstances() as $region){
-			$dcs = $region->getDeliveryCountries();
-			$all_allowed_countries += array_combine($dcs,$dcs);
+		foreach($regions as $region){
+			$countries = $region->$method();
+			if(is_null($countries)){
+				return null; // null means no limit
+			}
+			$all_allowed_countries += array_combine($countries,$countries);
 		}
 		$all_allowed_countries = array_values($all_allowed_countries);
 		return $all_allowed_countries;
@@ -42,6 +89,10 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	function setRank($rank){
 		$this->_setRank($rank);
+	}
+
+	function isActive() {
+		return $this->getActive();
 	}
 
 	function getApplicationName(){
@@ -186,16 +237,26 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	/**
 	 *
+	 *	if(is_null($region->getInvoiceCountries())){
+	 *		// without limits
+	 *	}
+	 *
+	 * @return string[] || NULL
+	 */
+	function getInvoiceCountries(){
+		if($this->g("invoice_countries")){
+			return (array)json_decode($this->g("invoice_countries"),true);
+		}
+	}
+
+	/**
+	 *
 	 *	var_dump($region->getDeliveryCountries()); // ["CZ"]
 	 *
 	 * @return string[]
 	 */
 	function getDeliveryCountries(){
 		return (array)json_decode($this->g("delivery_countries"),true);
-	}
-
-	function getBankAccount(){
-		return new BankAccount();
 	}
 
 	function isDefaultRegion(){
@@ -206,7 +267,7 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	function isDeletable(){
 		return
 			!$this->isDefaultRegion() &&
-			0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM baskets WHERE region_id=:region LIMIT 1 UNION SELECT id FROM orders WHERE region_id=:region)",[":region" => $this]);
+			0 === $this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM (SELECT id FROM baskets WHERE region_id=:region LIMIT 1)q1 UNION SELECT id FROM (SELECT id FROM orders WHERE region_id=:region)q2)q",[":region" => $this]);
 	}
 
 	function toString(){

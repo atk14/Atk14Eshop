@@ -7,17 +7,17 @@
 				
 				<div class="menu-separator"></div>
 					
-				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" enable_dropdown_menus=false nav_class="navbar-nav"}
+				{render partial="shared/layout/header/nav_menu" menu="secondary_menu" enable_dropdown_menus=false nav_class="navbar-nav" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 				
 				<div class="menu-separator"></div>
 				
-				{render partial="shared/layout/header/user_menu"}
+				{render partial="shared/layout/header/user_menu" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 								
-				{if sizeof(Region::GetInstances())>1 || $supported_languages}
+				{if sizeof($allowed_regions)>1 || $supported_languages}
 					<div class="menu-separator"></div>
 					<ul class="navbar-nav">	
-					{render partial="shared/regionswitch_navbar"}
-					{render partial="shared/langswitch_navbar"}
+					{render partial="shared/regionswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
+					{render partial="shared/langswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 					</ul>
 				{/if}
 				

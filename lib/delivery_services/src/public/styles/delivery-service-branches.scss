@@ -1,0 +1,104 @@
+.delivery_service_branch {
+	display: none;
+	padding: 0.75em 0.75rem 0 2.75rem;
+	border-top: 1px solid $border-color;
+	
+	.branch_button {
+		white-space: nowrap;
+		margin-bottom: 0.75rem;
+		text-align: right;
+		padding-left: 0.75rem;
+		display: block;
+		float: right;
+	}
+	.branch_address {
+		display: block;
+		font-size: $font-size-sm;
+		padding-bottom: 0.75rem;
+	}	
+	
+	@include media-breakpoint-only(md){
+		padding-left: 0.75rem;
+		.branch_button {
+			float: none;
+		}
+	}
+	@include media-breakpoint-down(xs){
+		padding-left: 0.75rem;
+	}
+	@media(max-width:420px){
+		.branch_button {
+			float: none;
+		}
+	}
+}
+
+// branch address with set branch link
+#form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
+	display: block;
+}
+
+// fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
+.ui-widget.ui-widget-content {
+	z-index: $zindex-modal;
+}
+
+#atk14-widget-gls {
+	height: 600px;
+	width: 100%;
+	margin-bottom: -7px;
+}
+
+#atk14-widget-cp-balikovna {
+	height: 600px;
+	width: 100%;
+}
+
+#atk14-widget-zasilkovna {
+	height: 600px;
+}
+.modal--pickup_point > .modal-dialog {
+	max-width: 1000px;
+}
+
+.modal--pickup_point {
+	.modal-body {
+		padding: 0;
+	}
+	iframe {
+		border: none !important;
+	}
+	.branch-detail {
+		&.container-fluid {
+			padding: 0 $grid-gutter-width/2;
+		}
+		#atk14-widget-branch {
+			padding: $grid-gutter-width/4 0;
+
+			.branch-text {
+				@include media-breakpoint-up(sm) {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+				}
+				.branch-address {
+				}
+				.branch-name {
+					font-weight: $font-weight-bold;
+				}
+				form {
+					margin-bottom: 0;
+					fieldset {
+						margin-bottom: 0;
+					}
+				}
+			}
+			
+			.branch-image {
+				max-width: 100%;
+				height: auto;
+				max-height: 150px;
+			}
+		}
+	}
+}

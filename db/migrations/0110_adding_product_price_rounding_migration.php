@@ -17,6 +17,8 @@ class AddingProductPriceRoundingMigration extends ApplicationMigration {
 			"card_id" => $card,
 			"catalog_id" => "000/000000",
 			"visible" => false,
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+			"consider_stockcount" => false,
 		]);
 	}
 }

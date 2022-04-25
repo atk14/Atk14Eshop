@@ -1,0 +1,2 @@
+ALTER TABLE delivery_methods ADD COLUMN required_customer_group_id INT;
+ALTER TABLE delivery_methods ADD CONSTRAINT fk_deliverymethods_reqcustomergroups FOREIGN KEY (required_customer_group_id) REFERENCES customer_groups;

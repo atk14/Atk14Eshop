@@ -3,8 +3,16 @@
 	<span class="text-danger">{t}Not in stock{/t}</span>
 
 {elseif !$product->considerStockcount()}
-	
-	<span class="text-success">{t}In stock{/t}</span>
+
+	{if $stockcount>0 || $product->containsTag("digital_product") || $card->containsTag("digital_product")}
+
+		<span class="text-success">{t}In stock{/t}</span>
+
+	{else}
+
+		<span class="text-success">{t}On order{/t}</span>
+
+	{/if}
 
 {elseif $stockcount>$unit->getStockcountDisplayLimit()}
 

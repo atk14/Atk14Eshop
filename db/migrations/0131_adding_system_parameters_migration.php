@@ -135,9 +135,9 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"code" => "app.trackers.google.analytics.tracking_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Analytics Tracking ID",
-			"description_en" => "e.g. UA-000000-2",
+			"description_en" => "Tracking code will be inserted using Global Site Tag (gtag.js). You can insert multiple tracking ids separated with comma, semicolon, space. E.g. 'UA-000000-2,UA-000000-3;UA-000000-4'",
 			"name_cs" => "Google Analytics Tracking ID",
-			"description_cs" => "např. UA-000000-2",
+			"description_cs" => "Při zadání ID měření bude vložen měřící kód pomocí globální webové značky (gtag.js). Můžete vložit více ID oddělených čárkou, středníkem, mezerou. Např. 'UA-000000-2,UA-000000-3;UA-000000-4'",
 			"mandatory" => false,
 		]);
 
@@ -145,9 +145,49 @@ class AddingSystemParametersMigration extends ApplicationMigration {
 			"code" => "app.trackers.google.tag_manager.container_id",
 			"system_parameter_type_id" => $type["string"],
 			"name_en" => "Google Tag Manager Container ID",
-			"description_en" => "e.g. GTM-XXXX",
+			"description_en" => "e.g. GTM-XXXX. Standard Javascript code will be generated to load GTM script",
 			"name_cs" => "Google Tag Manager Container ID",
-			"description_cs" => "např. GTM-XXXX",
+			"description_cs" => "např. GTM-XXXX. Vygeneruje se standardní Javascriptový kód pro nahrání GTM skriptu",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.tag_manager.custom_code.head",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "Google Tag Manager Custom Code for <head> section",
+			"description_en" => "Custom snippet of code to load GTM script. It can include special instruction, e.g. for using a different GTM environment.<br>Usually is not necessary and it is enouch to set only the <b>container_id</b>.",
+			"name_cs" => "Google Tag Manager - vlastní kód pro <head> část",
+			"description_cs" => "Vlastní kód pro vložení GTM skriptu. Může obsahovat zvláštní instrukce, například pro použití jiného GTM prostředí.<br>Obvykle není potřeba a stačí nastavit pouze <b>container_id</b>",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.google.tag_manager.custom_code.body",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "Google Tag Manager Custom Code for <body> section",
+			"description_en" => "Custom snippet of code to load GTM script. It can include special instruction, e.g. for using a different GTM environment.<br>Usually is not necessary and it is enouch to set only the <b>container_id</b>.",
+			"name_cs" => "Google Tag Manager - vlastní kód pro <body> část",
+			"description_cs" => "Vlastní kód pro vložení GTM skriptu. Může obsahovat zvláštní instrukce, například pro použití jiného GTM prostředí.<br>Obvykle není potřeba a stačí nastavit pouze <b>container_id</b>",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.facebook.pixel.tracking_id",
+			"system_parameter_type_id" => $type["string"],
+			"name_en" => "Facebook Pixel ID",
+			"description_en" => "Pixel's id to install base code for tracking user'a activities on your web",
+			"name_cs" => "Facebook Pixel ID",
+			"description_cs" => "Identifikátor pixelu pro vytvoření základního kódu pro sledování aktivit uživatele na vašem webu",
+			"mandatory" => false,
+		]);
+
+		SystemParameter::CreateNewRecord([
+			"code" => "app.trackers.facebook.site_verification.html_tag",
+			"system_parameter_type_id" => $type["text"],
+			"name_en" => "HTML tag for Facebook domain verification",
+			"description_en" => "One or more HTML meta tags for Facebook domain verification",
+			"name_cs" => "HTML tag pro Facebook domain verification",
+			"description_cs" => "Jeden nebo více HTML meta tagů pro Facebook domain verification",
 			"mandatory" => false,
 		]);
 

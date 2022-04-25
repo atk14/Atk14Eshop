@@ -1,0 +1,1 @@
+../../../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_categories_controller.php

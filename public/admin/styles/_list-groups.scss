@@ -18,6 +18,52 @@
 		&:hover {
 			background-color: rgba( black, 0.05);
 		}
+		.item__properties {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			& > * {
+				display: block;
+				flex-basis: 0;
+				flex-grow: 3;
+				min-width: 200px;
+				padding-right: 1rem;
+				&:last-child {
+					text-align: right;
+					padding-right: 0;
+				}
+			}
+			.item__title {
+				flex-grow: 4;
+			}
+			.item__code {
+				font-size: $font-size-sm;
+			}
+			.item__visibility-properties {
+				font-size: $font-size-sm;
+				font-style: italic;
+				& > * {
+					display: block;
+				}
+				.fas, .far {
+					min-width: 3ch;
+					color: $secondary;
+				}
+				.item__map-visibility {
+				}
+				.item__visibility {
+				}
+			}
+			.item__languages {
+				&:empty {
+					display: none;
+				}
+			}
+			.item__controls {
+				flex-grow: 2;
+			}
+		}
 	}
 	
 	&--iobjects {

@@ -5,7 +5,7 @@
 {capture assign=title}
 	{$category->getLongName()} <small>({$finder->getRecordsCount()})</small>
 {/capture}
-{assign image $category->getImageUrl()|img_url:"200x200"}
+{assign image $category->getImageUrl()|img_url:"600x600"}
 {if !$teaser|trim|strlen}
 	{* no teaser? -> do not display the image *}
 	{assign image ""}

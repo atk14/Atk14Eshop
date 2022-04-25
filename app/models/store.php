@@ -103,6 +103,10 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 		return "$lat, $lng";
 	}
 
+	function toString(){
+		return (string)$this->getName();
+	}
+
 	function isIndexable(){
 		return $this->isVisible();
 	}

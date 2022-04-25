@@ -9,12 +9,6 @@
 
 			// Application-wide code.
 			init: function() {
-				
-				// Init Swiper
-				UTILS.initSwiper();
-
-				// Init PhotoSwipe
-				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 
 				// Restores email addresses misted by the no_spam helper
 				$( ".atk14_no_spam" ).unobfuscate( {
@@ -40,6 +34,12 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				// Init Swiper
+				UTILS.initSwiper();
+
+				// Init PhotoSwipe
+				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );
@@ -78,6 +78,7 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
+				UTILS.handleSuggestions();
 
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
@@ -149,7 +150,66 @@
 					window.addEventListener( "resize", handleHideScroll );
 				}
 
+				// Floating cart info show/hide 
+				// Using IntersectionObserver rather than watching scroll
+				if ( "IntersectionObserver" in window && document.getElementsByClassName( "js--basket_info_float-container" ).length > 0 ) {
+					function floatBasketInfo( changes ){
+						var floatBasket = $( ".js--basket_info_float-container" );
+						changes.forEach( function( change ) {
+							if ( change.isIntersecting ) {
+								floatBasket.removeClass( "show" );
+							} else {
+								floatBasket.addClass( "show" );
+							}
+						});
+					}
+
+					// Watch if top menu basket info is in viewport
+					var viewportObserver = new IntersectionObserver( floatBasketInfo, {
+						root: null, // relative to document viewport 
+						rootMargin: "0px", // margin around root. Values are similar to css property. Unitless values not allowed
+						threshold: 0.75 // visible amount of item shown in relation to root
+					} );
+					viewportObserver.observe( $( ".js--mainbar__cartinfo" ).get( 0 ) );
+				}
+
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
+
+				// Expanding/collapsing FAQ items
+				$( "dl.faq dt, ul.faq .faq__q, ol.faq .faq__q" ).on( "click", function( e ) {
+					var qtitle =$( e.target );
+					var qcontent = qtitle.next()
+					qtitle.toggleClass( "expanded" );
+					if ( qtitle.hasClass( "expanded" ) ) {
+						qcontent.slideDown( "fast" );
+					} else {
+						qcontent.slideUp( "fast" );
+					}
+				} );
+
+				// Set proper scale for product card image scaling on hover
+				var setCardHoverScale = function() {
+					// find card image
+					var cardImage = $( ".section--list-products .card .card-img-top" );
+					if( cardImage.length > 0 ) {
+						// access to values stored in css variables
+						var r = document.querySelector( ":root " );
+						var rs = getComputedStyle( r );
+						// get card image actual width (CAUTION: assumes all cards are the same width)
+						var cardW = $( ".section--list-products .card .card-img-top" ).width();
+						// read desired hover width from css
+						var imgW = rs.getPropertyValue( "--card_hover_width" );
+						var hoverScale = imgW / cardW;
+						//console.log( {cardW}, {imgW}, {hoverScale} );
+						// set desired scale value to css variable
+						r.style.setProperty( "--card_hover_scale", hoverScale );
+					}
+				};
+				setCardHoverScale();
+				window.addEventListener( "resize", setCardHoverScale );
+
+				// Init NoUiSlider
+
 			}
 
 		},
@@ -362,6 +422,12 @@
 						return false;
 					}
 				} );
+
+				// Auto submission of the set-region form
+				$("#form_baskets_set_region select").on( "change",  function() {
+					$( document.body ).addClass( "loading" );
+					$(this).parent( "form" ).submit();
+				} );
 			}
 		},
 
@@ -400,7 +466,7 @@
 			set_billing_and_delivery_data: function() {
 
 				// Checkbox na zadavani fakturacni adresy
-				if( $( "#id_fill_in_invoice_address" ).is( ":checked" ) === false ){
+				if( $( "#id_fill_in_invoice_address" ).length && $( "#id_fill_in_invoice_address" ).is( ":checked" ) === false ){
 					$( "#invoice-address-fields" ).css( "display", "none" );
 				}
 
@@ -417,24 +483,68 @@
 				// Vyber dorucovacich adres
 				$( ".js--predefined-address" ).click( function() {
 					var data = $( this ).data( "json" ),
-						$card = $( this ).closest( ".js--card-address" ),
+						$card = $( this ).closest( ".card" ).find( ".js--card-address" ),
 						$cards = $( ".js--card-address" );
-
 					$cards.removeClass( "card--active" );
 					$card.addClass( "card--active" );
 
-					$( "#form_checkouts_set_billing_and_delivery_data input" ).each( function() {
+					$( "#form_checkouts_set_billing_and_delivery_data input, #form_checkouts_set_billing_and_delivery_data select" ).each( function() {
 							var name = this.name;
-							if ( name.substr( 0, 9 ) !== "delivery_" ) {
+							var $input = $( this );
+							var origColor = $input.css( "color" );
+							var backgroundColor = $input.css( "background-color" );
+
+							if ( name.substr( 0, 9 ) === "delivery_" ) {
+								name = name.substr( 9 );
+							} else if ( name !== "phone" ) {
 								return;
 							}
-							name = name.substr( 9 );
 							if ( data[ name ] !== undefined ) {
 								this.value = data[ name ];
+								$input.css( "color", backgroundColor );
+								$input.animate( {
+									color: origColor
+								} );
 							}
 					} );
 				} );
+			},
 
+			summary: function() {
+				// Before order submit, check if confirmation checkbox is checked
+				// If not show reminder
+				var btn = $( "form#form_checkouts_summary .btn[type='submit']" );
+				var confirmationFormGroup = $( "form#form_checkouts_summary .form-group--id_confirmation" );
+				var confirmationChkBox = $( "form#form_checkouts_summary #id_confirmation" );
+				var reminderTimeout;
+				$( "form#form_checkouts_summary" ).on( "submit", function( e ){
+					var errMsg = confirmationChkBox.parents().find( "*[data-confirmation-reminder]" ).data( "confirmation-reminder" );
+					btn.popover( {
+						customClass: "popover--danger popover--bold",
+						placement: "top",
+						content: errMsg,
+					} );
+					if( confirmationChkBox.prop( "checked" ) !== true ) {
+						e.preventDefault();
+						btn.popover( "show" );
+						confirmationFormGroup.addClass( "form-group--has-error" );
+						reminderTimeout = setTimeout( hideReminderPopover, 3000 );
+					}else{
+						//e.preventDefault();
+						hideReminderPopover();
+						confirmationFormGroup.removeClass( "form-group--has-error" );					
+					}
+				} );
+				confirmationChkBox.on( "change", function(){
+					if( confirmationChkBox.prop( "checked" ) ){
+						hideReminderPopover();
+						confirmationFormGroup.removeClass( "form-group--has-error" );
+					}
+				} );
+				var hideReminderPopover = function() {
+					clearTimeout( reminderTimeout );
+					btn.popover( "hide" );
+				}
 			}
 
 		},
@@ -515,6 +625,15 @@
 						$( ".list--tree.collapse" ).collapse( "hide" );
 					}
 					$( this ).toggleClass( [ "collapsed", "expanded" ] )
+				} );
+
+				// TOC search
+				var storeList = new UTILS.filterableList( {
+					searchInput: 	$( "#chapter_filter" ),
+					clearButton: 	false,
+					submitButton: false,
+					listItems:		$( ".js--chapter_toc > *" ),
+					searchTextSelector: false,
 				} );
 
 			}

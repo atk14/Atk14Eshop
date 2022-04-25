@@ -7,6 +7,8 @@ Page header usually consists of Top Navbar (separate variants for desktop and mo
 
 Complete header with desktop and mobile navbars, mainbar and with optional large search bar
 
+(Note: some recent changes in header markup not yet shown in this guide.)
+
 [example]
 <header class="header-main">
 
@@ -20,7 +22,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
-				<a class="navbar-brand" href="/"> <img src="/public/dist/images/atk14-eshop--inverse.svg" alt="ATK14 Eshop" width="220" height="80">
+				<a class="navbar-brand" href="/"> <img src="/public/dist/images/header-logo--mobile.svg" alt="ATK14 Eshop" width="220" height="80">
 				</a>
 
 				<ul class="navbar-nav">
@@ -175,7 +177,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a href="#" class="dropdown-item">Pro média</a>
 							<a href="#" class="dropdown-item">Kontaktní údaje</a>
 						</div>
@@ -198,7 +200,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
-						<div class="dropdown-menu dropdown-menu-right">
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a class="dropdown-item" href="#"><span class="fas fa-wrench"></span> Administrace</a>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">Profil</a>
@@ -221,7 +223,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 							Česká republika
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu" aria-labelledby="regionswitch_5f6e11f66f1ee">
+						<div class="dropdown-menu dropdown-menu--dark dropdown-menu--transparent bg-dark" aria-labelledby="regionswitch_5f6e11f66f1ee">
 
 							<a data-method="post" class="dropdown-item" rel="nofollow" href="#"> Slovensko
 							</a>
@@ -235,7 +237,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 							<img src="/public//dist/images/languages/cs.svg" class="langswitch-flag" alt="Česky" width="24" height="15">
 							<span class="caret"></span>
 						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="langswitch_5f6e11f66feb5">
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark" aria-labelledby="langswitch_5f6e11f66feb5">
 							<a href="#" class="dropdown-item">
 								<img src="/public//dist/images/languages/en.svg" class="langswitch-flag" alt="English" width="24" height="15">
 								English
@@ -279,7 +281,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 			</div>
 		</div>
 		<div class="logospace">
-			<a class="logospace__logo" href="/"><img src="/public/dist/images/atk14-eshop.svg" alt="ATK14 Eshop" class="img-fluid" width="220" height="80"></a>
+			<a class="logospace__logo" href="/"><img src="/public/dist/images/header-logo.svg" alt="ATK14 Eshop" class="img-fluid" width="220" height="80"></a>
 		</div>
 	</div>
 
@@ -294,7 +296,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu dropdown-menu--dark bg-brand dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Květiny</a>
 							<a href="#" class="dropdown-item">Retro</a>
 							<a href="#" class="dropdown-item">Krabice, krabičky</a>

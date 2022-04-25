@@ -5,7 +5,13 @@
 
 article {
 	.article__body, .page__body, .styleguide-example__output {
-		max-width: $max-content-width;
+		width: 100%;
+		& > *:not(fullwidth) {
+			max-width: $max-content-width;
+		}
+		& > *.fullwidth {
+			max-width: 100%;
+		}
 		h2 {
 			margin-bottom: $grid-gutter-width;
 		}
@@ -58,7 +64,7 @@ article {
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				font-family: "Font Awesome 5 Free";
+				font-family: $fa-font-family;
 				font-weight: 900;
 				content: "\f053";
 				font-size: 1.5rem;

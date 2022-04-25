@@ -17,7 +17,7 @@ class ApplicationController extends ApplicationBaseController{
 			return parent::error404();
 		}
 
-		$this->page_title = $page->getTitle();
+		$this->page_title = $page->getPageTitle();
 		$this->page_description = $page->getPageDescription();
 		$this->_add_page_to_breadcrumbs($page);
 		$this->response->setStatusCode(404);
@@ -108,7 +108,7 @@ class ApplicationController extends ApplicationBaseController{
 	function _prepare_checkout_navigation(){
 		$navi = new Menu14();
 		$navi[] = [_("Basket"),"baskets/edit"];
-		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method"]];
+		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method","delivery_service_branches/set_branch"]];
 		$navi[] = [_("Delivery data"),["checkouts/user_identification","checkouts/set_billing_and_delivery_data"]];
 		$navi[] = [_("Summary"),["checkouts/summary"]];
 		$navi[] = [_("Order finished"),["checkouts/finish","orders/finish"]];

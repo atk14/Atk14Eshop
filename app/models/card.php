@@ -63,10 +63,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-
-		Atk14Require::Helper("modifier.markdown");
-		$out = smarty_modifier_markdown($this->getTeaser($lang));
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function getImages($options = array()){
@@ -279,11 +281,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $categories;
 	}
 
-	function getPrimaryCategory(){
-		$categories = $this->getCategories(array(
+	function getPrimaryCategory($options = []){
+		$options += [
 			"consider_invisible_categories" => false,
-			"consider_filters" => false
-		));
+			"consider_filters" => false,
+		];
+		$categories = $this->getCategories($options);
 		if($categories){
 			return $categories[0];
 		}
@@ -561,9 +564,17 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	/**
-	 * Sourozenci z dane kategorie
+	 * Siblings from the given category
+	 *
+	 * If no category is given than primary category is considered
 	 */
-	function getCategorySiblings($category) {
+	function getCategorySiblings($category = null) {
+		if(!$category){
+			$category = $this->getPrimaryCategory();
+		}
+		if(!$category){
+			return [];
+		}
 		$cards = $category->getCards();
 		$_siblings = array();
 		foreach($cards as $_c) {
@@ -573,6 +584,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$_siblings[] = $_c;
 		}
 		return $_siblings;
+	}
+
+	function getViewableCategorySiblings($category = null) {
+		return array_filter($this->getCategorySiblings($category), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
 	}
 
 	function getAlternativeCards($options=array()) {
@@ -602,6 +619,35 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function getTechnicalSpecifications(){
 		return TechnicalSpecification::FindAll("card_id",$this);
+	}
+
+	/**
+	 * Returns the first occurrence of TechnicalSpecification with the given key
+	 *
+	 *	echo $card->getTechnicalSpecification("weight");
+	 *	echo $card->getTechnicalSpecification(123);
+	 *	echo $card->getTechnicalSpecification($tech_spec_key);
+	 *
+	 * @return TechnicalSpecification
+	 */
+	function getTechnicalSpecification($key){
+		static $KEYS;
+
+		if(is_numeric($key) && ($obj = Cache::Get("TechnicalSpecificationKey",$key))){
+			$key = $obj;
+		}
+		if(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByKey($key))){
+			$key = $obj;
+		}
+		if(!is_object($key)){
+			return null;
+		}
+
+		foreach($this->getTechnicalSpecifications() as $ts){
+			if($ts->getTechnicalSpecificationKeyId()==$key->getId()){
+				return $ts;
+			}
+		}
 	}
 
 	function setValues($values,$options=array()) {
@@ -638,6 +684,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	static function GetFinderForCategory($category, $filter_d = array(), $options = array()) {
 
 		$options = array_merge(array(
+			"search_entire_branch" => true, // search for cards in the given category and also in all its subcategories and so on (true) or search for cards only in the given category (false)?
 			"limit" => 50,
 			"offset" => 0,
 			"order" => "default", // "default", "price_asc", "price_desc"
@@ -670,7 +717,11 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		$bind_ar[":this_category"] = $category;
 		
 		$conditions[] = "category_cards.category_id IN :categories";
-		$bind_ar[":categories"] = $category->getBranchCategoryIds();
+		if($options["search_entire_branch"]){
+			$bind_ar[":categories"] = $category->getBranchCategoryIds();
+		}else{
+			$bind_ar[":categories"] = array($category->isPointingToCategory() ? $category->getPointingToCategory() : $category);
+		}
 
 		$conditions[] = "cards.id=category_cards.card_id";
 		$conditions[] = "cards.visible='t'";
@@ -736,6 +787,14 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	function isIndexable(){
+		// If the product card is not listed in any category, it shall not be indexable
+		if(!$this->getCategories([
+			"consider_invisible_categories" => false,
+			"consider_filters" => false,
+		])){
+			return false;
+		}
+
 		return $this->isVisible() && !$this->isDeleted();
 	}
 
@@ -744,17 +803,17 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		$fd = new \Textmit\FulltextData($this,$lang);
 
-		$fd->addText($this->getName($lang),"a");
-
-		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
-
 		foreach($this->getProducts() as $product){
 			$fd->addText($product->getLabel(),"b");
 			$fd->addText($product->getCatalogId(),"d");
 		}
 
+		$fd->addText($this->getName($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)),"c");
+
 		if($brand = $this->getBrand()){
-			$fd->addText($brand->getName());
+			$fd->addText($brand->getName(),"c");
 		}
 
 		foreach($this->getCardSections() as $cs){

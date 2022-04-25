@@ -7,6 +7,14 @@ class TechnicalSpecificationsController extends AdminController {
 		$this->_save_return_uri();
 		$this->_add_card_to_breadcrumbs($this->card);
 
+		if($this->request->get()){
+			$this->form->set_initial($this->params);
+		}
+
+		if(isset($this->technical_specification_key)){
+			$this->form->set_initial("technical_specification_key_id",$this->technical_specification_key);
+		}
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(TechnicalSpecification::FindFirst("card_id",$this->card,"technical_specification_key_id",$d["technical_specification_key_id"])){
 				$this->form->set_error("technical_specification_key_id",_("The product already has this specification"));
@@ -31,11 +39,13 @@ class TechnicalSpecificationsController extends AdminController {
 
 		$this->_edit(array(
 			"update_closure" => function($object,$d){
+				/*
 				$existing_spec = TechnicalSpecification::FindFirst("card_id",$object->getCardId(),"technical_specification_key_id",$d["technical_specification_key_id"]);
 				if($existing_spec && $existing_spec->getId()!=$object->getId()){
 					$this->form->set_error("technical_specification_key_id",_("The product already has this specification"));
 					return;
 				}
+				*/
 				$object->s($d);
 			}
 		));
@@ -48,10 +58,14 @@ class TechnicalSpecificationsController extends AdminController {
 	function _before_filter(){
 		if($this->action=="create_new"){
 			$this->_find("card","card_id");
+			if($this->request->getGetVar("technical_specification_key_id")){
+				$this->_find("technical_specification_key","technical_specification_key_id");
+			}
 		}
 
 		if($this->action=="edit"){
-			$this->_find("technical_specification");
+			$ts = $this->_find("technical_specification");
+			$ts && ($this->technical_specification_key = $ts->getKey());
 		}
 	}
 }

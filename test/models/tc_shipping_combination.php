@@ -1,9 +1,12 @@
 <?php
 /**
  *
- * @fixture delivery_methods 
+ * @fixture delivery_services
+ * @fixture delivery_methods
  * @fixture payment_methods
  * @fixture shipping_combinations
+ * @fixture products
+ * @fixture card_tags
  */
 class TcShippingCombination extends TcBase {
 
@@ -12,6 +15,7 @@ class TcShippingCombination extends TcBase {
 		$personal = $this->delivery_methods["personal"];
 		$post = $this->delivery_methods["post"];
 		$post_cod = $this->delivery_methods["post_cod"];
+		$zasilkovna = $this->delivery_methods["zasilkovna"];
 		//
 		$credit_card = $this->payment_methods["credit_card"];
 		$bank_transfer = $this->payment_methods["bank_transfer"];
@@ -28,6 +32,15 @@ class TcShippingCombination extends TcBase {
 
 		$this->assertTrue(ShippingCombination::IsAllowed($post_cod,$cash_on_delivery));
 		$this->assertFalse(ShippingCombination::IsAllowed($post_cod,$bank_transfer));
+
+		# bez api key neni kombinace se Zasilkovnou povolena
+		$sys_param = SystemParameter::GetInstanceByCode("delivery_services.zasilkovna.api_key");
+		$sys_param->s("content",null);
+		$this->assertFalse(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
+		# ted kdyz doplnime api key
+		$sys_param->s("content","12345");
+		# je kombinace se Zasilkovnou povolena
+		$this->assertTrue(ShippingCombination::IsAllowed($zasilkovna, $bank_transfer));
 
 		$basket = Basket::CreateNewRecord4UserAndRegion(User::GetAnonymousUser(),Region::GetDefaultRegion());
 
@@ -47,5 +60,23 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(null == ShippingCombination::IsAllowed($dpd,null));
 		$this->assertTrue(null == ShippingCombination::IsAllowed(null,$credit_card));
 		$this->assertTrue(null == ShippingCombination::IsAllowed(null,null));
+
+		// *Digital product download* is an exclusive delivery method for digital products
+
+		$this->assertTrue($basket->isEmpty());
+
+		$basket->addProduct($this->products["strih_v_pdf_formatu"]);
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$this->assertEquals(1,sizeof($delivery_methods));
+		$labels = array_map(function($dm){ return $dm->getLabel(); },$delivery_methods);
+		$this->assertTrue(in_array("Digital product download",$labels));
+
+		$basket->addProduct($this->products["green_tea"]);
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$this->assertTrue(sizeof($delivery_methods)>0);
+		$labels = array_map(function($dm){ return $dm->getLabel(); },$delivery_methods);
+		$this->assertTrue(!in_array("Digital product download",$labels));
 	}
 }

@@ -26,44 +26,7 @@
 			.add-to-cart-widget {
 				.prices {
 					margin-bottom: $grid-gutter-width/2;
-					.price--main {
-						color: $brand;
-						font-size: 1.75rem;
-						font-weight: 600;
-						//margin-bottom: 1rem;
-						line-height: 1;
-						.dph {
-							font-size: 0.875rem;
-							color: $body-color;
-							font-weight: normal;
-							white-space: nowrap;
-						}
-					}
-					.price--before-discount {
-						display: block;
-						margin-bottom: 0.5rem;
-						font-size: 1.25rem;
-						.currency_main {
-							font-weight: 600;
-							text-decoration: line-through;
-							color: $gray-500;
-						}
-					}
-					.price--recommended {
-						display: block;
-						margin-top: 0.5rem;
-						font-weight: normal;
-						color: $gray-500;
-						font-size: 0.75rem;
-						.price {
-							text-decoration: line-through;
-						}
-						.moneysaved {
-							.price {
-								text-decoration: none;
-							}
-						}
-					}
+					// Styling of prices moved to _prices.scss
 				}
 				form {
 					display: flex;
@@ -99,6 +62,16 @@
 		.nav-link {
 			&:active, &:focus {
 				outline: none;
+			}
+		}
+	}
+	.secondary-controls {
+		//margin-bottom: $grid-gutter-width/4;
+		&__item {
+			display: inline-block;
+			margin-right: 1em;
+			&:last-child {
+				margin-right: 0;
 			}
 		}
 	}

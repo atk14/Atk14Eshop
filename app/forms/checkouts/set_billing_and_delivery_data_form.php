@@ -10,18 +10,20 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false, "disabled" => $delivery_point_selected]);
 		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => true, "disabled" => $delivery_point_selected]);
 		$this->_add_phone(["prefix" => "delivery_"]);
-		$this->fields["delivery_address_note"]->label = _("Poznámka k doručovací adrese");
 
 		// fakturacni adresa
 		$this->_add_firstname_lastname(["required" => false]);
 		$this->_add_email();
 		$this->_add_company_fields(["enable_vat_id_validation" => true]);
-		$this->_add_address_fields(["required" => false, "add_note" => false]);
+		$this->_add_address_fields(["required" => false, "add_note" => false, "only_allowed_countries_for_invoice" => true]);
 
 		$this->add_field("fill_in_invoice_address",new BooleanField([
 			"label" => _("Chci zadat fakturační údaje"),
 			//"help_text" => _("nepovinné"),
 			"required" => false,
+
+			"initial" => $delivery_point_selected,
+			"disabled" => $delivery_point_selected,
 		]));
 
 		$this->set_button_text(_("Pokračovat"));

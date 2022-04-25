@@ -3,7 +3,7 @@
 {assign unit $product->getUnit()}
 
 <div class="section__surface">
-	<p>{t name=$product->getName()|strip_tags}Do košíku jste úspěšně přidali produkt "%1".{/t}</p>
+	<p>{t name=$product->getName()|strip_html}Do košíku jste úspěšně přidali produkt "%1".{/t}</p>
 
 	{if $original_amount && $current_amount>$original_amount}
 		<p>{t}Váš nákupní košík již tento produkt obsahuje. Množství bylo upraveno.{/t}</p>

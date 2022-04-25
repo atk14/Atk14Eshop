@@ -5,11 +5,13 @@ Slider
 
 ## Basic slider with image and text content
 
+Slides with images and text. Fourth slide in example is image only with no text.
+
 [example]
 	
 <section class="section--slider">
 
-	<div class="swiper-container" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="5ecbbd720a916" id="swiper_5ecbbd720a916">
+	<div class="swiper" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="5ecbbd720a916" id="swiper_5ecbbd720a916">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0">
@@ -55,7 +57,12 @@ Slider
 					</div>
 				</div>
 			</div>
-
+			<div class="swiper-slide slider-item--3">
+				<a href="#">
+					<img src="http://i.pupiq.net/i/6f/6f/22a/3022a/2000x1500/8o0zwL_1500x500xc_17c2847a5797fc3e.jpg" class="d-none d-md-block img-fluid" alt="">
+					<img src="http://i.pupiq.net/i/6f/6f/22a/3022a/2000x1500/8o0zwL_900x300xc_2fe310d7f86c1bdd.jpg" class="d-block d-md-none img-fluid" alt="">
+				</a>
+			</div>
 		</div>
 
 		<!-- If we need navigation buttons -->
@@ -65,7 +72,30 @@ Slider
 	</div>
 	
 </section>
+[/example]
 
+If there is just one slide only, it is possible to use it without <code>.swiper</code> and <code>.swiper-wrapper</code> wraping elements and without navigation elements. Our <code>_slider.tpl</code> template does this automatically.
+
+[example]
+	
+<section class="section--slider">
+
+	<div class="swiper-slide slider-item-0">
+		<div class="swiper-slide__image">
+			<img src="http://i.pupiq.net/i/6f/6f/ac0/2dac0/2000x1335/cE8OAG_900x600xc_db480678eed2b0d9.jpg" class="img-fluid" alt="Lorem ipsum">
+		</div>
+		<div class="swiper-slide__text">
+			<div>
+				<h3 class="slide-title">Lorem ipsum</h3>
+				<p>Dolor sit amet, consectetur adipiscing elit. Quisque odio neque, convallis sed sollicitudin in, egestas non tortor.</p>
+			</div>
+			<div>
+				<a href="#" class="btn btn-sm btn-outline-primary">Více informací <i class="fas fa-chevron-right"></i></a>
+			</div>
+		</div>
+	</div>
+
+</section>
 [/example]
 
 ## Image slider
@@ -77,7 +107,7 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 [example]
 <section class="section--slider">
 
-	<div class="swiper-container swiper--images" data-slides_per_view="auto" data-loop="1" data-autoplay="6000" data-slider_id="5ef491cf8f7dd" id="swiper_5ef491cf8f7dd" data-breakpoint="600" data-centered_slides="1">
+	<div class="swiper swiper--images" data-slides_per_view="auto" data-loop="1" data-autoplay="6000" data-slider_id="5ef491cf8f7dd" id="swiper_5ef491cf8f7dd" data-breakpoint="600" data-centered_slides="1">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0" style="width: auto">
@@ -112,7 +142,7 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 [example]
 <section class="section--slider">
 
-	<div class="swiper-container swiper--images" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="bvbvccv" id="swiper_bvbvccv" data-breakpoint="600">
+	<div class="swiper swiper--images" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="bvbvccv" id="swiper_bvbvccv" data-breakpoint="600">
 		<div class="swiper-wrapper">
 
 			<div class="swiper-slide slider-item-0" style="width: auto">

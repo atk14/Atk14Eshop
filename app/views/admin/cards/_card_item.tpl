@@ -1,15 +1,15 @@
 <tr>
-	<td class="item-id">{$card->getId()}</td>
+	<td class="item-id">{highlight_search_query}{$card->getId()}{/highlight_search_query}</td>
 	<td class="item-thumbnail">{render partial="shared/list_thumbnail" image=$card->getImage()}</td>
-	<td>{render partial="shared/product_codes" products=$card->getProducts(["visible" => true])}</td>
+	<td>{highlight_search_query}{render partial="shared/product_codes" products=$card->getProducts(["visible" => null])}{/highlight_search_query}</td>
 	<td class="item-title">
-		{$card->getName()}
+		{highlight_search_query}{$card->getName()}{/highlight_search_query}
 		{if !$card->isVisible()}
 		<br><em>({!"eye-slash"|icon} {t}invisible{/t})</em>
 		{/if}
 	</td>
 	<td class="item-hasvariants">{$card->hasVariants()|display_bool}</td>
-	<td class="item-tags">{render partial="shared/tags" tags=$card->getTags()}</td>
+	<td class="item-tags">{highlight_search_query}{render partial="shared/tags" tags=$card->getTags()}{/highlight_search_query}</td>
 	<td class="item-created">{$card->getCreatedAt()|format_datetime}</td>
 	<td class="item-updated">{$card->getUpdatedAt()|format_datetime}</td>
 	<td class="item-actions">

@@ -32,7 +32,7 @@
 					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
 				</form>
-				<div class="mainbar__cartinfo">
+				<div class="mainbar__cartinfo js--mainbar__cartinfo">
 					{render partial="shared/layout/header/basket_info"}
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 
 			
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
-				{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav"}
+				{render partial="shared/layout/header/nav_menu" menu="main_menu" nav_class="navbar-nav" dropdown_class="dropdown-menu--dark bg-brand dropdown-menu--transparent"}
 			</div>
 		</div>
 	</nav>

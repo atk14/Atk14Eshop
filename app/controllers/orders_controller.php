@@ -35,6 +35,9 @@ class OrdersController extends ApplicationController {
 
 		// Objednavka tady byt muze, ale taky nemusi...
 		$this->tpl_data["order"] = $order = Order::GetInstanceByToken($this->params->getString("token"));
+		if($order && $order->getOrderStatus()->getCode()==="waiting_for_online_payment"){
+			$this->tpl_data["payment_transaction_start_url"] = $order->getPaymentTransactionStartUrl();
+		}
 		$this->_collectTransactionDataLayer($order);
 	}
 
@@ -43,6 +46,7 @@ class OrdersController extends ApplicationController {
 			return;
 		}
 		if ($this->session->defined("track_order") && ($this->session->g("track_order")===true)) {
+			$this->tpl_data["track_order"] = true;
 			$currency = $order->getCurrency();
 			$pAr = array();
 			foreach($order->getOrderItems() as $oi) {

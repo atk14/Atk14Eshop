@@ -10,33 +10,43 @@ require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/swiper/css/swiper.css",
+	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
-	"node_modules/cookieconsent/build/cookieconsent.min.css"
+	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
+	"node_modules/cookieconsent/build/cookieconsent.min.css",
+	"node_modules/nouislider/dist/nouislider.min.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
-	"node_modules/swiper/js/swiper.js",
+	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
-	"node_modules/bootbox/src/bootbox.js"
+	"node_modules/bootbox/dist/bootbox.all.min.js",
+	"node_modules/nouislider/dist/nouislider.min.js"
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
+	"public/scripts/utils/photoswipe.js",
+	"public/scripts/utils/swiper.js",
 	"public/scripts/pager.js",
 	"public/scripts/filter.js",
-	"public/scripts/utils/photoswipe.js",
+	"public/scripts/nouislider.js",
 	"public/scripts/utils/basket_shipping_rules.js",
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/scripts/utils/handle_suggestions.js",
+	"public/scripts/delivery_service_branch_select.js",
+	"public/scripts/delivery_service_widgets.js",
 	"public/scripts/utils/search_suggestion.js",
+	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/application.js"
 ];
 
@@ -128,6 +138,13 @@ gulp.task( "copy", function() {
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
 		} );
+
+	// The following alternative place for fontawesome files was added
+	// after the vendor script node_modules/jquery-ui-bundle/jquery-ui.js has beed added.
+	// See changeset 85cee100.
+	// TODO: to be investigated & solved & removed...
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/@fortawesome/fontawesome-free/webfonts/" ) );
 } );
 
 // MJML emails

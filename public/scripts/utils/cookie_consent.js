@@ -1,0 +1,1 @@
+../../../vendor/atk14/cookie-consent/src/public/scripts/utils/cookie_consent.js

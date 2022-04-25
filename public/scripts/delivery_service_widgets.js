@@ -1,0 +1,1 @@
+../../lib/delivery_services/src/public/scripts/delivery_service_widgets.js

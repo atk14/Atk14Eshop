@@ -37,6 +37,11 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $basket;
 
+	/**
+	 * @var FavouriteProductsAccessor
+	 */
+	var $favourite_products_accessor;
+
 
 	function error404(){
 		if($this->_redirected_on_error404()){
@@ -102,6 +107,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
 		$this->tpl_data["current_region"] = $current_region = $basket->getRegion();
+		$this->tpl_data["allowed_regions"] = $this->_get_allowed_regions();
 		$this->tpl_data["current_currency"] = $basket->getCurrency();
 
 		// data for language swith, see app/views/shared/_langswitch.tpl
@@ -138,9 +144,13 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->tpl_data["nbsp"] = " ";
 
 		$this->tpl_data["lazy_loader"] = $this->lazy_loader;
+
+		$this->tpl_data += (array)$ATK14_GLOBAL->getConfig("theme/frontend");
 	}
 
 	function _application_before_filter(){
+		global $ATK14_GLOBAL;
+
 		$this->permanentSession = new Atk14Session( new SessionStorer([
 			'cookie_expiration' => 84600*356,
 			'session_name' => 'permanent'
@@ -180,16 +190,26 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+		$ATK14_GLOBAL->setValue("logged_user",$this->logged_user); // we need this in app/helpers/function.admin_menu.php
 		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();
+
+		$this->favourite_products_accessor = $this->tpl_data["favourite_products_accessor"] = new FavouriteProductsAccessor($this->logged_user,$this->permanentSession);
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
+		PriceFinder::SetCurrentInstance($this->price_finder);
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
+		}
+
+		// CookieConsent's cookie acts like a check cookie
+		if(!SESSION_STORER_COOKIE_NAME_CHECK && !$this->request->getCookieVars()){
+			$settings = CookieConsent::GetSettings($this->request);
+			$settings->saveSettings($this->response,array("delete_rejected_cookies" => false));
 		}
 	}
 
@@ -206,15 +226,27 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
+	function _get_allowed_regions(){
+		$regions = Region::GetActiveInstances();
+		return $regions;
+	}
+
 	function _get_current_region(){
-		if($region = Region::GetRegionByDomain($this->request->getHttpHost())){
-			return $region;
+		$region = Region::GetRegionByDomain($this->request->getHttpHost());
+		if(!$region){
+			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}
-		$region_id = $this->permanentSession->g("region_id");
-		if(isset($region_id) && ($region = Cache::Get("Region",$region_id))){
-			return $region;
+		if(!$region || !$region->isActive()){
+			$region = Region::GetDefaultRegion();
 		}
-		return Region::GetDefaultRegion();
+
+		// current region has to be found in allowed regions
+		$allowed_regions = $this->_get_allowed_regions();
+		if(!array_filter($allowed_regions,function($r) use($region){ return $r->getId()===$region->getId(); })){
+			$region = $allowed_regions[0];
+		}
+
+		return $region;
 	}
 
 	/**
@@ -270,7 +302,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket){
-			$basket = Basket::GetDummyBasket($region);
+			$basket = Basket::GetDummyBasket($region,$this->logged_user);
 		}
 	
 		$basket->setRegion($region);
@@ -290,6 +322,10 @@ class ApplicationBaseController extends Atk14Controller{
 				$new_basket->mergeBasket($current_basket);
 			}
 			$current_basket && !$current_basket->isDummy() && $current_basket->destroy();
+
+			$new_favourite_products_accessor = new FavouriteProductsAccessor($user);
+			$new_favourite_products_accessor->mergeFavouriteProductsAccessor($this->favourite_products_accessor);
+			$this->favourite_products_accessor->destroy();
 		}
 
 		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";

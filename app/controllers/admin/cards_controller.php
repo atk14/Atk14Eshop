@@ -75,6 +75,13 @@ class CardsController extends AdminController{
 
 		$this->_save_return_uri();
 
+		if($this->request->get()){
+			// there may be a parameter in the URL
+			$this->form->set_initial([
+				"category" => $this->params->getString("category"),
+			]);
+		}
+
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 
 			$section_data = array();
@@ -271,7 +278,18 @@ class CardsController extends AdminController{
 			}
 
 			$d["card_id"] = $this->card;
-			TechnicalSpecification::CreateNewRecord($d);
+			$ts = TechnicalSpecification::CreateNewRecord($d);
+
+			if($ts->getKey()->getType()->getTransformator() && is_null($ts->getContentJson())){
+				$this->flash->warning(_("Please fill in all required fields"));
+				$this->_redirect_to(array(
+					"controller" => "technical_specifications",
+					"action" => "edit",
+					"id" => $ts,
+					"return_uri" => $this->_link_to(array("action" => "cards/edit", "id" => $this->card))."#technical_specifications",
+				));
+				return;
+			}
 
 			if(!$this->request->xhr()){
 				$this->_redirect_to(array(
@@ -324,7 +342,7 @@ class CardsController extends AdminController{
 	function _before_filter() {
 		if (in_array($this->action, array("edit","destroy","enable_variants","disable_variants","add_to_category","add_technical_specification","remove_from_category","append_external_source","remove_external_source", "set_category_rank"))) {
 			$card = $this->_find("card");
-			if($card->isDeleted()){
+			if($card && $card->isDeleted()){
 				return $this->_execute_action("error404");
 			}
 		}

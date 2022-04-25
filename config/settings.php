@@ -45,12 +45,25 @@ definedef("PUPIQ_HTTPS",REDIRECT_TO_SSL_AUTOMATICALLY);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
-// If these two constant are properly defined (see https://github.com/atk14/RecaptchaField#installation),
+// == hCaptcha ==
+// If these two constant are properly defined (see https://github.com/atk14/HcaptchaField#installation),
+// the hcaptcha field is being automatically added into the contact form...
+// define("HCAPTCHA_SITE_KEY","");
+// define("HCAPTCHA_SECRET_KEY","");
+
+// == reCAPTCHA ==
+// Or if these two constant are properly defined (see https://github.com/atk14/RecaptchaField#installation),
 // the re-captcha field is being automatically added into the contact form.
 // define("RECAPTCHA_SITE_KEY","");
 // define("RECAPTCHA_SECRET_KEY","");
 
 definedef("TEXTMIT_API_KEY","123.aaa.bbb.ccc...");
+
+// Temporary files uploads (these settings effects use of AsyncFileField)
+// definedef("TEMPORARY_FILE_UPLOADS_ENABLED",true);
+// definedef("TEMPORARY_FILE_UPLOADS_DIRECTORY",__DIR__ . "/../tmp/temporary_file_uploads/");
+// definedef("TEMPORARY_FILE_UPLOADS_MAX_FILESIZE",512 * 1024 * 1024); // 512MB
+// definedef("TEMPORARY_FILE_UPLOADS_MAX_AGE", 2 * 60 * 60); // 2 hours
 
 definedef("CATALOG_ID_REGEXP",'/^[0-9A-Z_.\/-]{1,}$/i'); // see app/fields/catalog_id_field.php
 definedef("CATALOG_ID_AUTO_UPPERIZE",true);
@@ -62,9 +75,17 @@ definedef("DEFAULT_BASE_PRICELIST","base");
 
 definedef("SAME_BASKET_IN_ALL_REGIONS",true);
 
-definedef("DIGITAL_CONTENTS_DIRECTORY",__DIR__ . "/../data/digital_contents/");
+definedef("DATA_DIRECTORY",__DIR__ . "/../data/");
+
+definedef("DIGITAL_CONTENTS_DIRECTORY",DATA_DIRECTORY . "/digital_contents/");
 
 definedef("PAYMENT_QR_CODES_ENABLED",true);
+
+definedef("SIDEBAR_MENU_ENABLED",false);
+
+// The SessionStorer's check cookie is disabled here.
+// A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
+definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings

@@ -10,9 +10,9 @@
 	<p>{t}Nebyla nalezena žádná objednávka.{/t}</p>
 {else}
 
-<table class="table table-striped">
+<table class="table table-sm table-striped">
 	<thead>
-		<tr>
+		<tr class="table-dark">
 			{sortable key=order_no}<th>{t}Číslo obj.{/t}</th>{/sortable}
 			{sortable key=created_at}<th>{t}Datum vytvoření{/t}</th>{/sortable}
 			<th>{t}Zákazník{/t},

@@ -33,6 +33,15 @@ class BasketCampaign {
 		return $this->getCampaign()->getDiscountPercent();
 	}
 
+	function getMinimalItemsPriceInclVat(){
+		$basket = $this->getBasket();
+		$campaign = $this->getCampaign();
+		$currency = $this->getBasket()->getCurrency();
+		$minimal_items_price_incl_vat = $campaign->getMinimalItemsPriceInclVat() / $currency->getRate();
+		$minimal_items_price_incl_vat = $currency->roundPrice($minimal_items_price_incl_vat);
+		return $minimal_items_price_incl_vat;
+	}
+
 	function getDiscountAmount($incl_vat = true){
 		$discount_percent = ApplicationHelpers::GetPercentageDiscountApplicableOnBasket($this);
 		if($discount_percent<=0.0){ return 0.0; }
@@ -55,6 +64,13 @@ class BasketCampaign {
 		$out = $currency->roundPrice($out);
 
 		return $out;
+	}
+
+	function toArray(){
+		return [
+			"campaign" => $this->getCampaign()->toArray(),
+			"basket" => $this->getBasket()->toArray(),
+		];
 	}
 
 }

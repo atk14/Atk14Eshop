@@ -10,6 +10,15 @@ class EditForm extends BasketsForm {
 			"null_empty_output" => true,
 			"hint" => _("Slevový kód"),
 		]));
+
+		$this->add_field("note", new TextField([
+			'label' => _('Vaše poznámka k objednávce'),
+			'required' => false,
+			'max_length' => 1000,
+			'widget' => new Textarea([
+				'attrs' => ['rows' => 2 ],
+			])
+		]));
 	}
 
 	function set_up_for_basket($basket){

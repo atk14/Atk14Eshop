@@ -1,0 +1,100 @@
+@mixin dev-outlines {
+	border: 1px solid rgba(lime, 0.6);
+	& >	* {
+		border: 1px dotted rgba(pink,0.4);
+		& >	* {
+			border: 1px dotted rgba(aqua,0.4);
+			& >	* {
+				border: 1px dotted rgba(purple,0.4);
+			}
+		}
+	}
+}
+
+.dev-outlines {
+	@include dev-outlines;
+}
+
+@mixin dev-hatches($color: rgba(purple,0.75)) {
+	// https://stripesgenerator.com/
+	background-image: linear-gradient(45deg, $color 4.55%, rgba(0, 0, 0, 0) 4.55%, rgba(0, 0, 0, 0) 50%, $color 50%, $color 54.55%, rgba(0, 0, 0, 0) 54.55%, rgba(0, 0, 0, 0) 100%);
+	background-size: 20px 20px;
+}
+
+.dev-hatches {
+	@include dev-hatches;
+}
+
+@mixin dev-bg {
+	border: 1px solid rgba(lime, 0.6);
+	background-color: rgba(lime, 0.1);
+	& >	* {
+		border: 1px dotted rgba(pink, 0.4);
+		background-color: rgba( pink, 0.1);
+		& >	* {
+			border: 1px dotted rgba(aqua, 0.4);
+			background-color: rgba(aqua, 0.1);
+			& >	* {
+				border: 1px dotted rgba(purple, 0.4);
+				background-color: rgba(purple, 0.1);
+				* {
+					background-color: rgba(violet, 0.1);
+				}
+			}
+		}
+	}
+}
+
+.dev-bg {
+	@include dev-bg;
+}
+
+
+
+.dev-headings {
+	h1, h2, h3, h4, h5 {
+		&:after {
+			display: inline-block;
+			padding: 0.125em 0.5em;
+			background-color: black;
+			color: white;
+			font-weight: 700;
+			font-size: $font-size-sm;
+			border-radius: 2rem;
+			line-height: 1.25;
+			margin-left: 0.25em;
+		}
+	}
+	h1 {
+		&:after {
+			background-color: red;
+			content: "H1";
+		}
+	}
+	h2 {
+		&:after {
+			background-color: orange;
+			content: "H2";
+			color: black;
+		}
+	}
+	h3 {
+		&:after {
+			background-color: lime;
+			content: "H3";
+			color: black;
+		}
+	}
+	h4 {
+		&:after {
+			background-color: green;
+			content: "H4";
+		}
+	}
+	h5 {
+		&:after {
+			background-color: cadetblue;
+			content: "H5";
+		}
+	}
+}

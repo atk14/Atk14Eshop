@@ -23,13 +23,15 @@ var vendorScripts = [
 	"node_modules/bootstrap4-notify/bootstrap-notify.js",
 	"node_modules/moment/moment.js",
 	"node_modules/moment/locale/cs.js",
-	"node_modules/chart.js/dist/Chart.js",
+	"node_modules/chart.js/dist/chart.js",
+	"node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.js",
 	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
+	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/application.js",

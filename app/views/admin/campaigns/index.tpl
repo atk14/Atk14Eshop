@@ -10,15 +10,15 @@
 
 {else}
 
-	<table class="table">
+	<table class="table table-sm">
 
 	<thead>
-		<tr>
+		<tr class="table-dark">
 			<th>#</th>
 			<th>{t}Oblasti{/t}</th>
 			{sortable key=name}<th>{t}Název{/t}</th>{/sortable}
-			<th>{t}Obsah{/t}</th>
 			<th>{t}Podmínky{/t}</th>
+			<th>{t}Obsah{/t}</th>
 			<th>{t}Je aktivní?{/t}</th>
 			<th>{t}Valid from{/t}</th>
 			<th>{t}Valid to{/t}</th>

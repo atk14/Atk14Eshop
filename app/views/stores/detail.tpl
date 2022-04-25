@@ -40,10 +40,10 @@
 			<div class="col-12 col-md store-properties-column">
 				<p>
 				{if $store->getPhone()}
-					{icon glyph=phone} <a href="tel:{$store->getPhone()}">{$store->getPhone()}</a><br>
+					{icon glyph=phone} <a href="tel:{$store->getPhone()}">{$store->getPhone()|display_phone}</a><br>
 				{/if}
 				{if $store->getEmail()}
-					{icon glyph="envelope"} <a href="mailto:{$store->getEmail()}">{$store->getEmail()}</a>
+					{icon glyph="envelope"} {no_spam}{$store->getEmail()}{/no_spam}
 				{/if}
 				</p>
 			</div>

@@ -34,7 +34,7 @@ class CheckoutsController extends ApplicationController {
 			return $this->_redirect_to("set_payment_and_delivery_method");
 		}
 
-		$this->page_title = _("Dodací adresa");
+		$this->page_title = _("Doručovací údaje");
 
 		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = $this->basket->deliveryToDeliveryPointSelected();
 
@@ -64,6 +64,9 @@ class CheckoutsController extends ApplicationController {
 				"address_zip" => $this->logged_user->getAddressZip(),
 				"address_country" => $this->logged_user->getAddressCountry(),
 			]);
+			// fine-tuning of the delivery_company field
+			$this->form->fields["delivery_company"]->required = true;
+			$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
 		}
 		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 
@@ -106,11 +109,12 @@ class CheckoutsController extends ApplicationController {
 
 		if($this->basket->getPriceToPay()<0.0){
 			$this->flash->warning(_("Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"));
-			return $this->_redirect_to("basket/edit");
+			return $this->_redirect_to("baskets/edit");
 		}
 
 		$this->page_title = _("Rekapitulace objednávky");
 
+		$this->form->set_initial("note",$this->basket->getNote());
 		$this->form->set_hidden_field("checksum",$this->basket->getChecksum());
 
 		if($this->request->post() && !is_null($d = $this->form->validate($this->params))){
@@ -148,14 +152,6 @@ class CheckoutsController extends ApplicationController {
 				]);
 			}
 
-			if($pt = $order->getPaymentTransaction()){
-				$this->_redirect_to([
-					"action" => "payment_transactions/start",
-					"token" => $pt->getToken(),
-				]);
-				return;
-			}
-
 			$this->_redirect_to([
 				"action" => "finish",
 				"token" => $order->getToken(),
@@ -188,5 +184,4 @@ class CheckoutsController extends ApplicationController {
 		parent::_before_render();
 		$this->_prepare_checkout_navigation();
 	}
-
 }

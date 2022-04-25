@@ -145,6 +145,16 @@ class ProductPrice {
 		return $this->getPriceBeforeDiscount(true);
   }
 
+	/**
+	 *
+	 * @return ProductPriceBeforeDiscount
+	 */
+	function getProductPriceBeforeDiscount(){
+		if($this->discounted()){
+			return new ProductPriceBeforeDiscount($this);
+		}
+	}
+
   //
 
   /**

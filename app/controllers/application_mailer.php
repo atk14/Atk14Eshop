@@ -210,4 +210,13 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["text"] = $text;
 		$this->tpl_data["message_type"] = "send_copy_of_information_request_to_customer";
 	}
+
+	function send_watchdog_notification($watched_product){
+		$lang = $watched_product->getLanguage();
+		$this->prev_lang = Atk14Locale::Initialize($lang);
+
+		$this->to = $watched_product->getEmail();
+		$this->tpl_data["product"] = $product = $watched_product->getProduct();
+		$this->subject = sprintf(_("Naskladnění produktu: %s"), "$product");
+	}
 }

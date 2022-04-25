@@ -3,6 +3,27 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 
 	public static function GetTranslatableFields(){ return array("content_localized"); }
 
+	public static function CreateNewRecord($values,$options = array()){
+		$values += array(
+			"content" => null,
+		);
+
+		$key = Cache::Get("TechnicalSpecificationKey",$values["technical_specification_key_id"]);
+
+		if(!array_key_exists("content_json",$values) && $key){
+			$type = $key->getType();
+			$transformator = $type->getTransformator();
+			if($transformator){
+				$raw_conent = $transformator->parseValue((string)$values["content"]);
+				if(!is_null($raw_conent)){
+					$values["content_json"] = $transformator->encodeValue($raw_conent);
+				}
+			}
+		}
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	/**
 	 * Saves a technical specification for the given product card
 	 *
@@ -21,6 +42,13 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 		return TechnicalSpecification::CreateNewRecord($values);
 	}
 
+	static function GetForCard($card, $key) {
+		if(!is_a($key,"TechnicalSpecificationKey")){
+			$key = TechnicalSpecificationKey::GetInstanceByKey($key);
+		}
+		return TechnicalSpecification::FindFirst("card_id", $card, "technical_specification_key_id", $key);
+	}
+
 	function setRank($rank){
 		return $this->_setRank($rank,array("card_id" => $this->g("card_id")));
 	}
@@ -29,6 +57,10 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 		return Cache::Get("TechnicalSpecificationKey",$this->getTechnicalSpecificationKeyId());
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	function getContent($lang = null){
 		global $ATK14_GLOBAL;
 
@@ -40,7 +72,48 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			return $content;
 		}
 
-		return $this->g("content");
+		if(strlen($content = $this->g("content"))){
+			return $content;
+		}
+	
+		// TODO: Tady je snaha o sestaveni hodnoty z content_json... Je to takove cele nesikovne, ale mozna to bude stacit
+		if(($json = $this->g("content_json")) && ($transformator = $this->getKey()->getType()->getTransformator())){
+			$value = $transformator->decodeValue($json);
+			if(is_array($value)){
+				return join(", ",$value);
+			}
+			if(is_bool($value)){
+				return $value ? _("Ano") : _("Ne");
+			}
+			return (string)$value;
+		}
+	}
+
+	/**
+	 *
+	 * @return mixed
+	 */
+	function getRawContent($lang = null){
+		global $ATK14_GLOBAL;
+		if(is_null($lang)){
+			$lang = $ATK14_GLOBAL->getLang();
+		}
+
+		if(($json = $this->g("content_json")) && ($transformator = $this->getKey()->getType()->getTransformator())){
+			return $transformator->decodeValue($json);
+		}
+
+		if(strlen($content = $this->g("content_localized_$lang"))){
+			return $content;
+		}
+
+		if(strlen($content = $this->g("content"))){
+			return $content;
+		}
+	}
+
+	function toString(){
+		return (string)$this->getContent();
 	}
 
 	function isIndexable(){

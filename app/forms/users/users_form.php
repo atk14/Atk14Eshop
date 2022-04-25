@@ -12,6 +12,7 @@ class UsersForm extends ApplicationForm{
 		$this->_add_company_fields(["enable_vat_id_validation" => false]);
 		$this->_add_address_fields([
 			"add_note" => false,
+			"allowed_countries" => Region::GetInvoiceCountriesFromActiveRegions(),
 		]);
 
 		$this->_add_phone();

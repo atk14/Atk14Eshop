@@ -1,11 +1,11 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign creators CardCreator::GetMainCreatorsForCard($card)}
 
-{a action="cards/detail" id=$card _class="card"}{trim}
+<a href="{link_to action="cards/detail" id=$card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">{trim}
 	{if $card->getImage()}
 		<img {!$card->getImage()|img_attrs:"400x300x#ffffff"} class="card-img-top" alt="{$card->getName()}">
 	{else}
-		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top">
+		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top default-image">
 	{/if}
 
 	<div class="card__flags">
@@ -29,7 +29,7 @@
 				<div class="card-author">{$creator}</div>
 			{/foreach}
 		{/if}
-		<div class="card-text">{!$card->getTeaser()|markdown}</div>
+		<div class="card-text">{$card->getTeaser()|markdown|strip_html|truncate:300}</div>
 	</div>
 
 	<div class="card-footer">
@@ -39,4 +39,4 @@
 		{/if}
 	</div>
 
-{/trim}{/a}
+{/trim}</a>

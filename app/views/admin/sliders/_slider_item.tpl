@@ -1,10 +1,14 @@
 <li class="list-group-item" data-id="{$slider->getId()}">
-	<div class="d-flex justify-content-between align-items-center">
-		<div>
+	<div class="item__properties">
+		<div class="item__title">
 			{render partial="shared/list_thumbnail" image=$slider->getImageUrl()}
 			{$slider->getName()}
 		</div>
-		<div>
+		
+		<span class="item__code">
+			{if strlen($slider->getCode())}{$slider->getCode()}{/if}
+		</span>
+		<div class="item__controls">
 			{dropdown_menu}
 				{a action="slider_items/index" slider_id=$slider}{!"list"|icon} {t}Images{/t}{/a}
 				{a action=edit id=$slider}{!"pencil-alt"|icon} {t}Edit{/t}{/a}

@@ -42,6 +42,10 @@ HTML;
 		));
 		}
 
+		if(!preg_match('/<iframe[^>]* loading="/',$out)){
+			$out = preg_replace('/(<iframe[^>]*)>/','\1 loading="lazy">',$out);
+		}
+
 		if($this->g("autoplay")){
 			$out = preg_replace('/(src=".*?)"/','\1&amp;autoplay=1"',$out);
 		}
@@ -53,6 +57,9 @@ HTML;
 			}
 			$out = preg_replace('/(src=".*?)"/','\1&amp;loop=1&amp;playlist='.$video_id.'"',$out);
 		}
+
+		// Privacy-enhanced mode
+		$out = preg_replace('/\bsrc="https:\/\/www.youtube.com/','src="https://www.youtube-nocookie.com/',$out);
 
 		return $out;
 	}

@@ -19,7 +19,7 @@ iObjects are objects placed usually within text content of article, page, produc
 [/example]
 
 ## Gallery iObject
-There is Gallery component inside.
+There is Gallery component inside. It may contain various types of [gallery component](/styleguides/components%3Aimage-galleries/) (except Product Galleries).
 
 [example]
 <div class="iobject iobject--gallery">
@@ -133,6 +133,35 @@ By default, markup expects movie aspect ratio to be 16:9.
 </div>
 [/example]
 
+
+## Audio iObject
+
+Audio iObject uses default browser styling of controls so it may look different across browsers. This iObject is intended for self-hosted audio files.  
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<audio controls>
+		<source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+	</audio>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is how horse sounds.</div>
+  </div>
+</div>
+[/example]
+
+For audio embedded from sites like SoundCloud, simply use their own embed code.
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/809320675&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/wereus" title="wereus" target="_blank" style="color: #cccccc; text-decoration: none;">wereus</a> · <a href="https://soundcloud.com/wereus/lockdown" title="Lockdown" target="_blank" style="color: #cccccc; text-decoration: none;">Lockdown</a></div>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is just generic iframe embed.</div>
+  </div>
+</div>
+[/example]
+
 ## File iObject
 [example]
 <div class="iobject iobject--file">
@@ -173,60 +202,45 @@ By default, markup expects movie aspect ratio to be 16:9.
 Creates link to product with image, basic description and price.
 
 [example]
-<a href="#" class="iobject iobject--card_promotion">
-	<div class="iobject__image">
-		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/ad2/2dad2/535x402/TNe2Uk_800x800xc_b54b0c65ed158351.jpg" alt="Mončičák hnědý" width="800" height="800">
-		<div class="iobject__flags">
-		</div>
-	</div>
-	<div class="iobject__body">
-		<div>
-			<h4 class="iobject__title">
-				Mončičák hnědý
-			</h4>
-			<div class="iobject__description">
-				<p>Plyšová hračka pro děti i dospělé.</p>
-			</div>
-		</div>
-		<span class="iobject__footer">
-			<div class="card-price">
-				<span class="currency_main"><span class="price">200,00</span>&nbsp;Kč</span>
-			</div>
-			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
-		</span>
-	</div>
-</a>
 
-<p>Another example with discounted price</p>
+<div class="iobject iobject--card_promotion">
+	<a href="/produkt/brasna-na-fotak/" class="iobject__content">
 
-<a href="/produkt/brasna-na-fotak/" class="iobject iobject--card_promotion">
-	<div class="iobject__image">
-		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_800x800xc_b90061d2b99471d3.jpg" alt="Brašna na foťák" width="800" height="800">
-		<div class="iobject__flags">
-			<div class="product__flag product__flag--sale product__flag--sm">
-				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">15&nbsp;%</span>
+		<div class="iobject__image">
+			<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_800x800xc_b90061d2b99471d3.jpg" alt="Brašna na foťák" width="800" height="800">
+			<div class="iobject__flags">
+				<div class="product__flag product__flag--sale product__flag--sm">
+					<span class="product__flag__title">Sleva</span> <span class="product__flag__number">15&nbsp;%</span>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="iobject__body">
-		<div>
-			<h4 class="iobject__title">
-				Brašna na foťák
-			</h4>
 
-			<div class="iobject__description">
-				<p>Kvalitní kožená brašna.</p>
+		<div class="iobject__body">
+
+			<div>
+				<h4 class="iobject__title">
+					Brašna na foťák
+				</h4>
+
+				<div class="iobject__description">
+					<p>Kvalitní kožená brašna.</p>
+				</div>
 			</div>
+
+			<div class="iobject__footer">
+				<div class="card-price">
+					<span class="price--before-discount"><span class="currency_main"><span class="currency_main__price">23,14</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">bez DPH</span></span>
+					<div class="price--primary"><span class="currency_main"><span class="currency_main__price">19,67</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">bez DPH</span></div>
+					<div class="price--incl-vat"><span class="currency_main"><span class="currency_main__price">23,80</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">vč. DPH</span></div>
+				</div>
+
+				<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+			</div>
+
 		</div>
-		<span class="iobject__footer">
-			<div class="card-price">
-				<span class="card-price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
-				<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span>
-			</div>
-			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
-		</span>
-	</div>
-</a>
+
+	</a>
+</div>
 [/example]
 
 ## Contact Card iObject
@@ -482,5 +496,22 @@ Contact card group is responsive wrapper for multiple Contact Card iObjects.
 		</div>
 		
 	</div>
+</div>
+[/example]
+
+## Making iObjects span full width of a page
+
+iObjects (or any other HTML elements) that are direct children of <code>.article__body</code> or <code>.page__body</code> elements may be make full width simply by adding <code>fullwidth</code> class.
+
+[example]
+<div class="iobject iobject--picture fullwidth">
+	<figure>
+		<a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333">
+			<img class="iobject--picture__img img-fluid" src="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg" width="1100" height="733" class="img-responsive" alt="Obrázek vložený do textu" srcset="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_600x399_2e393aa27e479f82.jpg 600w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_800x533_881624f39158db46.jpg 800w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg 1100w" sizes="100vw">
+		</a>
+		<figcaption class="iobject__caption">
+			<div class="iobject__title"><a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333"><span class="fas fa-search-plus"></span></a> <span class="iobject__title__separator">|</span> Obrázek vložený do textu</div>
+		</figcaption>
+	</figure>
 </div>
 [/example]

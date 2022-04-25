@@ -1,0 +1,6 @@
+dpd_slovakia:
+  delivery_method_id: "<?= $delivery_methods["dpd"]->getId() ?>"
+  country: "SK"
+  code: "dpd_test_slovakia"
+  price_incl_vat: 200
+  vat_rate_id: "<?= $vat_rates["five"]->getId() ?>"

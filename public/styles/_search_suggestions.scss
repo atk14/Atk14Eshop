@@ -5,11 +5,11 @@
 	height: auto;
 	position: absolute;
 	top: 200px;
-	background-color: $gray-100;
+	background-color: white;
 	z-index: 100;
 	overflow-y: auto;
 	display: none;
-	box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 7px 15px 0px rgba(0,0,0,0.6);
 }
 .suggestions {
 	.search-suggestions-list {
@@ -29,7 +29,7 @@
 			
 			&:hover, &:active, &:focus {
 				outline: none;
-				background-color: white;
+				background-color: $gray-100;
 				text-decoration: none;
 				.suggestion__title {
 					text-decoration: underline;
@@ -82,17 +82,23 @@
 				align-self: start;
 				line-height: 1.2;
 				text-align: right;
-				.card-price {
-					font-size: 0.75rem;
-					.currency_main {
-						font-size: 1rem;
-						@include media-breakpoint-down(xs){
-							font-size: $font-size-sm;
-						}
-					}
-				}
+				
+				// Price styling moved to _prices.scss
+
 				small {
 					font-size: 0.8rem;//$font-size-sm !important;
+				}
+				ul.list-unstyled {
+					li {
+						padding-bottom: 0.25rem;
+						margin-bottom: 0.25rem;
+						border-bottom: 1px solid $border-color;
+						&:last-child {
+							padding-bottom: 0;
+							margin-bottom: 0;
+							border-bottom: none;
+						}
+					}
 				}
 			}
 		}

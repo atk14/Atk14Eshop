@@ -8,12 +8,6 @@ class DeliveryMethodCountrySpecificationsForm extends AdminForm {
 
 		$currency = Currency::GetDefaultCurrency();
 
-		$this->add_field("price", new FloatField(array(
-			"label" => sprintf(_("Specifická cena [%s]"),$currency),
-			"min_value" => 0,
-			"required" => false,
-		)));
-
 		$this->add_field("price_incl_vat", new FloatField(array(
 			"label" => sprintf(_("Specifická cena s DPH [%s]"),$currency),
 			"min_value" => 0,

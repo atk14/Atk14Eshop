@@ -23,5 +23,7 @@ Atk14Url::AddRouter("DigitalContentsRouter");
 
 Atk14Url::AddRouter("AdminRouter");
 
+Atk14Url::AddRouter("CookieConsentsRouter");
+
 // Keep the DefaultRouter at the end of the list
 Atk14Url::AddRouter("DefaultRouter");

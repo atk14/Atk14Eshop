@@ -102,6 +102,72 @@ class User extends ApplicationModel{
 		return Cache::Get("Pricelist",$this->getBasePricelistId());
 	}
 
+	function getCustomerGroups(){
+		static $ALL_CUSTOMER_GROUPS;
+		if(!$ALL_CUSTOMER_GROUPS){
+			$ALL_CUSTOMER_GROUPS = CustomerGroup::FindAll(["use_cache" => true]);
+		}
+
+		$lister = $this->getLister("CustomerGroups");
+		$ids = $lister->getRecordIds(); // groups saved in db
+
+		$ids[] = CustomerGroup::GetInstanceByCode($this->isAnonymous() ? "unregistered" : "registered"); // unregistered or registered group is not saved in db
+
+		// Here is the place for other application-specific customer groups...
+	
+		$ids = TableRecord::ObjToId($ids);
+		$out = [];
+		foreach($ALL_CUSTOMER_GROUPS as $cg){
+			if(in_array($cg->getId(),$ids)){
+				$out[] = $cg;
+			}
+		}
+		
+		return $out;
+	}
+
+	/**
+	 *
+	 *	$user->isInCustomerGroup("vip_customers"); // code
+	 *	// or
+	 *	$user->isInCustomerGroup($id); // integer
+	 *	// or
+	 *	$user->isInCustomerGroup($customer_group); // object of CustomerGroup
+	 */
+	function isInCustomerGroup($group){
+		if(is_numeric($group) && ($g = Cache::Get("CustomerGroup",$group))){
+			$group = $g;
+		}elseif(!is_object($group)){
+			$group = CustomerGroup::GetInstanceByCode($group);
+		}
+		if(!$group){
+			return false;
+		}
+		foreach($this->getCustomerGroups() as $g){
+			if($g->getId()==$group->getId()){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Safely sets only customer groups which can be set manually
+	 */
+	function setManuallyAssignableCustomerGroups($groups){
+		$lister = $this->getLister("CustomerGroups");
+
+		$ids = TableRecord::ObjToId($groups);
+		foreach(CustomerGroup::FindAll() as $cg){
+			if(!$cg->isManuallyAssignable()){ continue; }
+			if($lister->contains($cg) && !in_array($cg->getId(),$ids)){
+				$lister->remove($cg);
+			}elseif(!$lister->contains($cg) && in_array($cg->getId(),$ids)){
+				$lister->append($cg);
+			}
+		}
+	}
+
 	function toHumanReadableString(){
 		$out = [];
 		$out[] = trim($this->getFirstname()." ".$this->getLastname());

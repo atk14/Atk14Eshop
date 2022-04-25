@@ -16,7 +16,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Nová objednávka",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 10,
 		];
 
@@ -27,7 +27,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Čekání na zpracování platební bránou",
 			"notification_enabled" => false,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 20,
 		];
 
@@ -38,7 +38,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Výzva k úhradě bankovním převodem",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 30,
 		];
 
@@ -49,7 +49,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Opakovaná výzva k platbě",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 35,
 		];
 
@@ -60,7 +60,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Platba byla přijata",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 40,
 		];
 
@@ -71,7 +71,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Platba nebyla uskutečněna",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 50,
 			//
 			"finishing_unsuccessfully" => true,
@@ -84,7 +84,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Zahájeno zpracování objednávky",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 60,
 		];
 
@@ -95,7 +95,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Připraveno k vyzvednutí na odběrném místě",
 			"notification_enabled" => true,
 			"blocking_stockcount" => true,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 65,
 			//
 			"finishing_successfully" => true,
@@ -108,7 +108,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Předáno dopravci",
 			"notification_enabled" => true,
 			"blocking_stockcount" => false,
-			"reduce_stockount" => true,
+			"reduce_stockcount" => true,
 			"rank"  => 70,
 			//
 			"finished_successfully" => true,
@@ -121,7 +121,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Doručeno",
 			"notification_enabled" => true,
 			"blocking_stockcount" => false,
-			"reduce_stockount" => true,
+			"reduce_stockcount" => true,
 			"rank"  => 90,
 			//
 			"finished_successfully" => true,
@@ -134,7 +134,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Úspěšně dokončeno",
 			"notification_enabled" => true,
 			"blocking_stockcount" => false,
-			"reduce_stockount" => true,
+			"reduce_stockcount" => true,
 			"rank"  => 95,
 			//
 			"finished_successfully" => true,
@@ -147,7 +147,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Zrušeno",
 			"notification_enabled" => true,
 			"blocking_stockcount" => false,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 100,
 			//
 			"finished_unsuccessfully" => true,
@@ -160,7 +160,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			"name_cs" => "Objednávka byla vrácena",
 			"notification_enabled" => true,
 			"blocking_stockcount" => false,
-			"reduce_stockount" => false,
+			"reduce_stockcount" => false,
 			"rank"  => 110,
 			//
 			"finished_unsuccessfully" => true,
@@ -192,11 +192,13 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"payment_accepted",
 				"repeated_payment_request",
 				"payment_failed",
+				"processing",
 				"cancelled",
 			],
 			"repeated_payment_request" => [
 				"payment_accepted",
 				"payment_failed",
+				"processing",
 				"cancelled",
 			],
 			"payment_accepted" => [

@@ -1,0 +1,56 @@
+// Color theming system for dropdown menus, extending Bootstrap .dropdown-menu
+
+// .dropdown-menu--dark: generates dark color scheme for dropdowns, can be customized further by .bg-* classes or custom css. Should be used with any dark dropdown background
+
+// .dropdown-menu--transparent: makes dropdown slightly transparent with blurred bg (if supported). Works only with .bg-* background color classes.
+
+// .dropdown-highlight-[$theme-color] customized dropdown item highlight bgcolor + automatic contrast text color, like .dropdown-highlight-primary
+
+// When implementing this theming system, it is recommended to remove existing custom color css styling from dropdowns css.
+
+.dropdown-menu {
+	margin-top: 0;
+	
+	// Dark variation, should be used with any dark dropdown background.
+	&--dark {
+		background-color: $dark;
+		color: white;
+		.dropdown-item {
+			color: white;
+		}
+		.dropdown-divider {
+			border-top-color: rgba(white,0.25);
+		}
+	}
+	
+	// Transparency and blur, works only with bg-* system color classes, like bg-primary etc.
+	&--transparent {
+		
+		// generate alpha color + blur for each .bg-[$theme color]
+		@each $colorName, $colorValue in $theme-colors {
+			&.bg-#{$colorName} {
+				background-color: rgba($colorValue,0.97) !important;
+				@supports(backdrop-filter: blur(5px)){
+					background-color: rgba($colorValue,0.9) !important;
+					backdrop-filter: blur(5px);
+				}
+			}
+		}
+		
+	}
+	
+	// dropdown item highlight color classes for each $theme-colors
+	@each $colorName, $colorValue in $theme-colors {
+		
+		&.dropdown-highlight-#{$colorName} {
+			a.dropdown-item, button.dropdown-item {
+				&:hover, &:focus, &:active, &.active {
+					background-color: $colorValue !important;
+					color: color-yiq($colorValue) !important;
+				}
+			}
+		}
+		
+	}
+	
+}

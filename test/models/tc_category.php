@@ -16,16 +16,19 @@ class TcCategory extends TcBase {
 		));
 		$this->assertTrue($root->isVisible());
 		$this->assertFalse($child->isVisible());
+		$this->assertFalse($child->isVisible(false));
 
 		$child->s("visible",true);
 		$this->assertTrue($root->isVisible());
 		$this->assertTrue($child->isVisible());
+		$this->assertTrue($child->isVisible(false));
 
 		Cache::Clear();
 
 		$root->s("visible",false);
 		$this->assertFalse($root->isVisible());
 		$this->assertFalse($child->isVisible());
+		$this->assertTrue($child->isVisible(false));
 	}
 
 	function test_isDescendantOf(){
@@ -67,6 +70,18 @@ class TcCategory extends TcBase {
 		$this->assertEquals($coffee->getId(),$cards[0]->getId());
 		$this->assertEquals($tea->getId(),$cards[1]->getId());
 		$this->assertEquals($apple_cider->getId(),$cards[2]->getId());
+
+		// -- getVisibleCards()
+
+		$cards = $food_drinks->getVisibleCards();
+		$this->assertEquals(3,sizeof($cards));
+
+		$coffee->s("visible",false);
+		$apple_cider->s("deleted",true);
+		Cache::Clear();
+		$cards = $food_drinks->getVisibleCards();
+		$this->assertEquals(1,sizeof($cards));
+		$this->assertEquals($tea->getId(),$cards[0]->getId());
 	}
 
 	function test_names(){
@@ -115,5 +130,142 @@ class TcCategory extends TcBase {
 
 		$this->assertNotNull(Category::FindByCode("kids_shoes"));
 		$this->assertNotNull(Category::FindByCode("kids_shoes__girls"));
+	}
+
+	function test_GetInstanceByPath(){
+		$lang = null;
+		$cat = Category::GetInstanceByPath("catalog/shoes/kids",$lang);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByPath("katalog/obuv/deti",$lang);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+		$this->assertEquals("cs",$lang);
+
+		$lang = "en";
+		$cat = Category::GetInstanceByPath("catalog/shoes/kids",$lang);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+
+		$lang = "cs";
+		$cat = Category::GetInstanceByPath("catalog/shoes/kids",$lang);
+		$this->assertNull($cat);
+
+		$lang = null;
+		$cat = Category::GetInstanceByPath("nonsence/nonsence",$lang);
+		$this->assertNull($cat);
+		
+		$lang = null;
+		$cat = Category::GetInstanceByPath("catalog/obuv/deti",$lang); // language mixing
+		$this->assertNull($cat);
+
+		// GetInstancesOnPath
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("catalog/shoes/kids",$lang);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(3,sizeof($cats));
+		$this->assertEquals(["catalog","catalog/shoes","catalog/shoes/kids"],$keys);
+		$this->assertEquals("catalog",$cats[0]->getSlug());
+		$this->assertEquals("shoes",$cats[1]->getSlug());
+		$this->assertEquals("kids",$cats[2]->getSlug());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("catalog/shoes/kids/nonsence",$lang);
+		$this->assertEquals(null,$cats);
+	}
+
+	function test_GetInstanceByNamePath(){
+
+		// GetInstancesOnPath without parent category
+
+		$lang = null;
+		$cat = Category::GetInstanceByName(null,"Catalog",$lang);
+		$this->assertEquals($this->categories["catalog"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = "en";
+		$cat = Category::GetInstanceByName(null,"Catalog",$lang);
+		$this->assertEquals($this->categories["catalog"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByName(null,"Katalog",$lang);
+		$this->assertEquals($this->categories["catalog"]->getId(),$cat->getId());
+		$this->assertEquals("cs",$lang);
+
+		$lang = "en";
+		$cat = Category::GetInstanceByName(null,"Katalog",$lang);
+		$this->assertNull($cat);
+
+		// GetInstancesOnPath with parent category
+
+		$catalog = $this->categories["catalog"];
+
+		$lang = null;
+		$cat = Category::GetInstanceByName($catalog,"Shoes",$lang);
+		$this->assertEquals($this->categories["shoes"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByName($catalog,"Obuv",$lang);
+		$this->assertEquals($this->categories["shoes"]->getId(),$cat->getId());
+		$this->assertEquals("cs",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByName($catalog,"Catalog",$lang); // nonsence
+		$this->assertNull($cat);
+
+		// GetInstanceByNamePath
+
+		$lang = null;
+		$cat = Category::GetInstanceByNamePath("Catalog/Shoes/Kids",$lang);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByNamePath("Katalog/Obuv/Děti",$lang);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+		$this->assertEquals("cs",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByNamePath("Katalog/Shoes/Děti",$lang); // language mixing
+		$this->assertNull($cat);
+
+		// GetInstancesOnNamePath
+
+		$lang = null;
+		$cats = Category::GetInstancesOnNamePath("Catalog/Shoes/Kids",$lang);
+		$this->assertEquals(3,sizeof($cats));
+		$this->assertEquals("catalog",$cats[0]->getSlug());
+		$this->assertEquals("shoes",$cats[1]->getSlug());
+		$this->assertEquals("kids",$cats[2]->getSlug());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnNamePath("Catalog/Shoes/Kids/Nonsence",$lang);
+		$this->assertEquals(null,$cats);
+	}
+
+	function test_getChildCategories(){
+		$catalog = $this->categories["catalog"];
+
+		$child_ar = $catalog->getChildCategories(["visible" => true]);
+		$this->assertEquals(4,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["visible" => false]);
+		$this->assertEquals(1,sizeof($child_ar));
+		$this->assertEquals("hidden",$child_ar[0]->getCode());
+
+		$child_ar = $catalog->getChildCategories(["limit" => 1]);
+		$this->assertEquals(1,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["direct_children_only" => false, "is_filter" => false, "visible" => true]);
+		$this->assertEquals(10,sizeof($child_ar));
+
+		$child_ar = $catalog->getChildCategories(["direct_children_only" => false, "is_filter" => false, "visible" => true, "limit" => 1]);
+		$this->assertEquals(1,sizeof($child_ar));
 	}
 }

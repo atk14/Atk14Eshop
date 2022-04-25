@@ -2,37 +2,49 @@ Add to cart widget
 ==================
 
 ## Add to cart element for product without variants.
-Optional discounted and usual prices shown.
+Optional discounted and usual prices and secondary price (without VAT) shown.
 
 [example]
 <section class="section--add-to-cart">
 	<div class="cart-panel">
 		<div class="cart-panel__meta">
-			<p>
-				<span class="text-success">Skladem 2 ks</span>
-			</p>
-			<p class="catalog-number">
-				Katalogové číslo: BRASNA </p>
+			<p><span class="text-success">In stock &gt; 10 pcs</span></p>
+			<p class="catalog-number">Catalog number: BRASNA</p>
 		</div>
 		<div class="cart-panel__controls">
 			<div class="add-to-cart-widget">
 				<div class="prices">
 					<div class="price--main">
-						<span class="price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
-						<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> <span class="price--recommended">Běžná cena: <span class="currency_main"><span class="price">850,00</span>&nbsp;Kč</span> Ušetříte: <span class="moneysaved"><span class="currency_main"><span class="price">255,00</span>&nbsp;Kč</span></span></span>
+							<span class="price--before-discount">
+								<span class="currency_main"><span class="currency_main__price">23.14</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">excl. VAT</span>
+							</span>
+							<span class="price--primary">
+								<span class="currency_main"><span class="currency_main__price">19.67</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">excl. VAT</span>
+							</span>
+							<div class="price--incl-vat">
+								<span class="currency_main"><span class="currency_main__price">23.80</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">incl. VAT</span>
+							</div>										
+							<span class="price--recommended">
+									Common price: <span class="currency_main"><span class="currency_main__price">28.10</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">excl. VAT</span>
+									Ušetříte: <span class="moneysaved"><span class="currency_main"><span class="currency_main__price">8.43</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span></span>
+								</span>
+							</div>
 					</div>
+					<form method="post" action="/en/baskets/add_product/" class="form_remote" data-remote="true">
+						<div class="quantity-widget js-spinner js-stepper"><button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Reduce the ordered quantity">-</button><input step="1" min="1" max="22" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" id="id_amount_24" type="number" name="amount" value="1"><button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Increase the ordered quantity">+</button>&nbsp;pcs</div>
+						<button type="submit" class="btn btn-primary add-to-cart-submit">Add to cart  <span class="fas fa-cart-plus"></span></button>
+						<input type="hidden" name="product_id" value="24">
+					</form>
+			</div>
+			<div class="secondary-controls">
+				<div class="secondary-controls__item">
+					<a href="/en/favourite_products/create_new/?product_id=24" title="Add to favourites" class="remote_link post link--small fav_status fav_status--not_fav" data-remote="true" data-method="post" rel="nofollow">
+						<span class="far fa-heart"></span> <span class="link__text">Add to favourites</span>
+					</a>
 				</div>
-				<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
-
-					<div class="quantity-widget js-spinner js-stepper"><button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button><input step="1" min="1" max="2" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" id="id_amount_24" type="number" name="amount" value="1"><button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks</div>
-
-					<button type="submit" class="btn btn-primary add-to-cart-submit">Přidat do košíku <span class="fas fa-cart-plus"></span></button>
-
-					<input type="hidden" name="product_id" value="24">
-				</form>
 			</div>
 		</div>
-	</div>
+	</div>	
 </section>
 [/example]
 
@@ -71,7 +83,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">37,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">37,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -100,7 +112,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">35,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">35,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -129,7 +141,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">39,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">39,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 
@@ -158,7 +170,7 @@ Switching vraiants also swaps main image in product gallery.
 					<div class="add-to-cart-widget">
 						<div class="prices">
 							<div class="price--main">
-								<span class="currency_main"><span class="price">49,00</span>&nbsp;Kč</span> <span class="dph">vč. DPH</span> </div>
+								<span class="currency_main"><span class="price">49,00</span>&nbsp;Kč</span> <span class="vat_label">vč. DPH</span> </div>
 						</div>
 						<form method="post" action="/cs/baskets/add_product/" class="form_remote" data-remote="true">
 

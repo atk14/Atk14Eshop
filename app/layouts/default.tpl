@@ -26,10 +26,14 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
+
+		{cookie_consent_datalayer_command}
+
+		<meta charset="utf-8">
+	
 		{render partial="shared/layout/performance_optimizations"}
 		{render partial="shared/trackers/google/tag_manager_head"}
 		{render partial="shared/trackers/google/analytics"}
-		<meta charset="utf-8">
 
 		<title>{trim}
 			{if $controller=="main" && $action=="index" && $namespace==""}
@@ -41,6 +45,9 @@
 
 		<meta name="description" content="{$page_description}">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		{if $browser_theme_color}
+		<meta name="theme-color" content="{$browser_theme_color}">
+		{/if}
 
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
@@ -67,17 +74,19 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
-		{cache key='layout_cookie_consent' lang=$lang expire=6000}
-		{render partial="shared/layout/cookie_consent"}
-		{/cache}
+		{facebook_pixel}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
+		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
-			<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
+			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
+				{assign use_sidebar_menu true}
+			{/if}
+			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
@@ -86,6 +95,10 @@
 				{if $section_navigation}
 					<nav class="nav-section">
 						{render partial="shared/layout/section_navigation"}
+					</nav>
+				{elseif $use_sidebar_menu}
+					<nav class="nav-section">
+						{render partial="shared/layout/sidebar_nav"}
 					</nav>
 				{/if}
 
@@ -104,13 +117,18 @@
 		</div>
 		</div>
 
+		{render partial="shared/cookie_consent/banner"}
 		
+		{render partial="shared/basket_info_float_container"}
 		{render partial="shared/layout/devcssinfo"}
 		{render partial="shared/photoswipe_root_element"}
-		{render partial="shared/cookieconsent_container"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+
+		{javascript_tag}
+			{placeholder for="js"}
+		{/javascript_tag}
 		
 		{if $controller=="styleguides"}
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />

@@ -96,7 +96,7 @@ Do you really want this?{/t}{/capture}
 							{if $child->isFilter()}<em>{t}filter{/t}:</em>{/if}
 							{if $child->isAlias()}<em>{t}link{/t}:</em>{/if}
 							{$child->getName()}
-							{if !$child->isVisible()}<em>({t}invisible{/t})</em>{/if}
+							{if !$child->isVisible(false)}<em>({t}invisible{/t})</em>{/if}
 							{dropdown_menu}
 								{a action="edit" id=$child}{icon glyph="edit"} {t}Edit{/t}{/a}
 								{if $child->isDeletable()}
@@ -147,8 +147,8 @@ Do you really want this?{/t}{/capture}
 							{$card->getName()}
 							<br>
 							<small>
-							{foreach $card->getProducts() as $product}
-								{$product->getCatalogId()}{if !$product@last}, {/if}
+							{foreach $card->getProducts(["visible" => null]) as $product}
+								{if !$product->isVisible()}<span class="text-muted" title="{t}invisible{/t}">{/if}{$product->getCatalogId()}{if !$product->isVisible()}</span>{/if}{if !$product@last}, {/if}
 							{/foreach}
 							</small>
 							</div>

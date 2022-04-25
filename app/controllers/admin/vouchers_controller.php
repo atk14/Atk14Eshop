@@ -34,22 +34,72 @@ class VouchersController extends AdminController {
 	}
 
 	function create_new(){
+		$this->page_title = _("Nový slevový kupón");
+
+		$this->_walk([
+			"save_return_uri",
+			"get_voucher_type",
+			"get_data",
+			"save",
+		]);
+	}
+
+	function create_new__save_return_uri(){
+		$this->_next_step($this->_get_return_uri());
+	}
+
+	function create_new__get_voucher_type(){
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			return $d["voucher_type"];
+		}
+	}
+
+	function create_new__get_data(){
+		if($this->returned_by["get_voucher_type"]=="gift_card"){
+			$this->page_title .= " - "._("dárkový poukaz");
+			$this->form->tune_for_gift_voucher();
+		}else{
+			$this->page_title .= " - "._("slevový poukaz");
+		}
+
 		if($this->request->get()){
 			$this->form->set_initial("voucher_code",Voucher::PrepareVoucherCode());
 		}
 
-		$this->_create_new([
-			"page_title" => _("Nový slevový kupón"),
-		]);
+		$this->_save_return_uri();
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$d["gift_voucher"] = $this->returned_by["get_voucher_type"]=="gift_card";
+			return $d;
+		}
+	}
+
+	function create_new__save(){
+		Voucher::CreateNewRecord($this->returned_by["get_data"]);
+		$this->_redirect_to($this->returned_by["save_return_uri"]);
 	}
 
 	function edit(){
+		$page_title = _("Editace slevového poukazu");
+		if($this->voucher->isGiftVoucher()){
+			$this->form->tune_for_gift_voucher();
+			$page_title .= " ("._("dárkový poukaz").")";
+		}else{
+			$page_title .= " ("._("slevový poukaz").")";
+		}
+
 		$this->_edit([
-			"page_title" => _("Editace slevového kupónu"),
+			"page_title" => $page_title,
 		]);
 	}
 
 	function destroy(){
 		$this->_destroy();
+	}
+
+	function _before_filter(){
+		if(in_array($this->action,["edit"])){
+			$this->_find("voucher");
+		}
 	}
 }

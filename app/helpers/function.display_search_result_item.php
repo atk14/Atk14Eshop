@@ -27,8 +27,8 @@ function smarty_function_display_search_result_item($params,$template){
 
 	$class = get_class($object); // "Article"
 	$object_name = String4::ToObject($class)->underscore()->toString(); // "Article" -> "article"
-
-	$_tpl = "shared/search_result_items/_$object_name.tpl";
+	
+	$_tpl = "shared/search_result_items/_$object_name.card.tpl";
 
 	if( $suggestion && $template->templateExists( "shared/search_result_items/_$object_name.suggestion.tpl" ) ){
 		$_tpl = "shared/search_result_items/_$object_name.suggestion.tpl";
@@ -39,9 +39,11 @@ function smarty_function_display_search_result_item($params,$template){
 		return;
 	}
 
-	$template->assign($object_name,$object);
+	$template->assign($object_name,$object); // "article",$article
+	$template->assign("object_type",$object_name); // "object_type","article"
 	$out = $template->fetch($_tpl);
 	$template->clearAssign($object_name);
+	$template->clearAssign("object_type");
 
 	return $out;
 }

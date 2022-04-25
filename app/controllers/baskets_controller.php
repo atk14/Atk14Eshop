@@ -13,6 +13,8 @@ class BasketsController extends ApplicationController {
 			$this->session->clear("voucher_initial");
 		}
 
+		$this->form->set_initial("note",$basket->getNote());
+
 		if($this->request->post()){
 			// Chyby z formulare neukazujeme, tak aktualizaci kosiku resime takto:
 
@@ -42,6 +44,11 @@ class BasketsController extends ApplicationController {
 							$this->flash->success(_("Slevový kupón byl přidán"));
 						}
 					}
+				}
+
+				if(array_key_exists("note",$d) && $basket->getNote()!==$d["note"]){
+					// only update note when the field is presented in the form
+					$basket->s("note",$d["note"]);
 				}
 			}
 
@@ -76,6 +83,10 @@ class BasketsController extends ApplicationController {
 		$this->page_title = $this->breadcrumbs[] = _("Shopping basket");
 
 		$this->_prepare_checkout_navigation();
+
+		if(sizeof($this->_get_allowed_regions())>1){
+			$this->tpl_data["set_region_form"] = $this->_get_form("regions/set_region");
+		}
 	}
 
 	function empty_basket(){

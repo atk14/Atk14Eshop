@@ -9,7 +9,7 @@
 		{!$category_recommended_cards->getDescription()|markdown}
 	{/if}
 	
-	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
+	{render partial="shared/card_list" cards=$category_recommended_cards->getVisibleCards() title=""}
 {/if}
 
 <article class="main-article">
@@ -53,11 +53,11 @@
 					{if $article->getImageUrl()}
 						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
 					{else}
-						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top">
+						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
 					{/if}
 					<div class="card-body">
 						<h2 class="card-title">{$article->getTitle()}</h2>
-						<div class="card-text">{$article->getTeaser()|markdown|strip_tags}</div>
+						<div class="card-text">{$article->getTeaser()|markdown|strip_html}</div>
 					</div>
 				{/a}
 			{/foreach}

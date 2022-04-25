@@ -7,8 +7,8 @@
 	{/if}
 
 	<ul class="list-unstyled">
-		{foreach $link_list->getItems($current_region) as $item}
-			<li>
+		{foreach $link_list->getVisibleItems($current_region) as $item}
+			<li{if $item->getCssClass()} class="{$item->getCssClass()}"{/if}>
 				<a href="{$item->getUrl()}">{$item->getTitle()}</a>
 			</li>
 		{/foreach}

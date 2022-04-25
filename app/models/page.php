@@ -40,7 +40,21 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 	}
 
 	function getChildPages() {
-		return Page::FindAll("parent_page_id", $this);
+		static $CACHE;
+		if(is_null($CACHE)){
+			$CACHE = [];
+			$rows = $this->dbmole->selectRows("SELECT parent_page_id, id FROM pages ORDER BY rank, id");
+			foreach($rows as $row){
+				$parent_page_id = $row["parent_page_id"];
+				$id = $row["id"];
+				if(!isset($CACHE[$parent_page_id])){ $CACHE[$parent_page_id] = []; }
+				$CACHE[$parent_page_id][] = $id;
+			}
+		}
+		if(!isset($CACHE[$this->getId()])){
+			return [];
+		}
+		return Cache::Get("Page",$CACHE[$this->getId()]);
 	}
 
 	function getVisibleChildPages(){
@@ -71,17 +85,21 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 		return sizeof($this->getChildPages())>0;
 	}
 
-	function getPageTitle(){
-		$out = parent::getPageTitle();
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
 		if(strlen($out)){ return $out; }
-		return $this->getTitle();
+		return $this->getTitle($lang);
 	}
 
-	function getPageDescription(){
-		$out = parent::getPageDescription();
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-		$out = $this->getTeaser();
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function isDeletable() {
@@ -92,14 +110,20 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 		return $this->getVisible();
 	}
 
+	function isIndexable($check_parents = true){
+		$page = $this;
+		while($page){
+			if(!$page->g("indexable")){ return false; }
+			if(!$check_parents){ return true; }
+			$page = $page->getParentPage();
+		}
+		return true;
+	}
+
 	function setRank($new_rank){
 		return $this->_setRank($new_rank,array(
 			"parent_page_id" => $this->g("parent_page_id"),
 		));
-	}
-
-	function isIndexable(){
-		return $this->getIndexable();
 	}
 
 	function getFulltextData($lang){

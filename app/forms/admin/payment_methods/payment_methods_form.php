@@ -48,10 +48,9 @@ class PaymentMethodsForm extends AdminForm {
 			"required" => false,
 		)));
 
-		$this->add_field("price", new FloatField(array(
-			"label" => sprintf(_("Cena [%s]"),$currency),
-			"min_value" => 0,
-			"initial" => 0,
+		$this->add_field("required_customer_group_id", new CustomerGroupField(array(
+			"label" => _("Only for customer group"),
+			"required" => false,
 		)));
 
 		$this->add_field("price_incl_vat", new FloatField(array(
@@ -59,6 +58,8 @@ class PaymentMethodsForm extends AdminForm {
 			"min_value" => 0,
 			"initial" => 0,
 		)));
+
+		$this->add_vat_rate_id_field();
 
 		$this->add_code_field(array(
 			"label" => _("Kód platby"),
@@ -79,7 +80,9 @@ class PaymentMethodsForm extends AdminForm {
 
 		if(sizeof(array_intersect($keys,array("payment_gateway_id","bank_transfer","cash_on_delivery")))){
 			if(!$d["bank_transfer"] && !$d["cash_on_delivery"] && is_null($d["payment_gateway_id"])){
-				$this->set_error(_("Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte platební bránu"));
+				// In case of invoice with due date, this check is not meaningful.
+				// Because it is not a bank transfer or cash on delivery.
+				// $this->set_error(_("Zatrhněte, zda se jedná o bankovní převod nebo o dobírku, nebo vyberte platební bránu"));
 			}
 			if($d["bank_transfer"]+$d["cash_on_delivery"]+!is_null($d["payment_gateway_id"])>=2){
 				$this->set_error(_("Zatrhněte, zda se jedná buďto o bankovní převod nebo o dobírku, nebo vyberte platební bránu. Hodnoty nelze kombinovat."));

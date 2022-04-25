@@ -1,0 +1,2 @@
+anonymous:
+  region_id: "<?= $regions["czechoslovakia"]->getId() ?>"

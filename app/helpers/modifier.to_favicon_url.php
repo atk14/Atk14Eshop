@@ -17,7 +17,11 @@
 function smarty_modifier_to_favicon_url($image_url){
 	global $ATK14_GLOBAL;
 
+	if(TEST){ return; } // this helper doesn't work in testing environment
+
 	if(!$image_url){ return; }
+	$pupiq = new Pupiq($image_url);
+	$image_url = $pupiq->getUrl(); // if necessary, it will convert $image_url to URL with the correct hostname
 
 	$token = substr(md5($image_url),0,16);
 

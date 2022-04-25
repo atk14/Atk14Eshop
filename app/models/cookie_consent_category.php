@@ -1,0 +1,1 @@
+../../vendor/atk14/cookie-consent/src/app/models/cookie_consent_category.php

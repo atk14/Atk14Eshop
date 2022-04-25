@@ -29,15 +29,19 @@ window.UTILS.filterableList = function( options ) {
 	
 
 	// Clear button handler
-	this.options.clearButton.on( "click", function( e ) {
-		myInstance.options.searchInput.val( "" );
-		myInstance.handlefilterableList( e );
-	} );
+	if( this.options.clearButton ){
+		this.options.clearButton.on( "click", function( e ) {
+			myInstance.options.searchInput.val( "" );
+			myInstance.handlefilterableList( e );
+		} );
+	}
 
 	// Submit button handler
-	this.options.submitButton.on( "click", function( e ) {
-		myInstance.handlefilterableList( e );
-	} );
+	if( this.options.submitButton ){
+		this.options.submitButton.on( "click", function( e ) {
+			myInstance.handlefilterableList( e );
+		} );
+	}
 	
 	// Filter items in list
 	this.handlefilterableList = function( e ) {
@@ -46,7 +50,9 @@ window.UTILS.filterableList = function( options ) {
 		var searchString = myInstance.options.searchInput.val().toLowerCase();
 
 		if ( searchString.length ) {
-			myInstance.options.clearButton.removeClass( "d-none" );
+			if( this.options.clearButton ){
+				myInstance.options.clearButton.removeClass( "d-none" );
+			}
 			myInstance.options.listItems.each( function( i, el ) {
 				var item = $( el );
 				if( myInstance.options.searchTextSelector ){
@@ -61,7 +67,9 @@ window.UTILS.filterableList = function( options ) {
 				}
 			} );
 		} else {
-			myInstance.options.clearButton.addClass( "d-none" );
+			if( this.options.clearButton ){
+				myInstance.options.clearButton.addClass( "d-none" );
+			}
 			myInstance.options.listItems.removeClass( "d-none" );
 		}
 	};

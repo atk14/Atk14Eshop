@@ -2,6 +2,9 @@
 class CardField extends ObjectField{
 
 	function __construct($options = array()){
+		$options += [
+			"widget" => new TextInput(["attrs" => ["placeholder" => _("... start typing name of an existing product")]]),
+		];
 		parent::__construct($options);
 
 		$this->update_messages(array(

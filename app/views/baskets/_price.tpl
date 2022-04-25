@@ -1,1 +1,3 @@
-{!$price->getPriceInclVat()|display_price:"$currency"}
+{assign currency $basket->getCurrency()}
+{assign incl_vat $basket->displayPricesInclVat()}
+{!$price->getPrice($incl_vat)|display_price:"$currency"}

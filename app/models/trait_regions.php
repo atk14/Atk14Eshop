@@ -9,7 +9,7 @@ trait TraitRegions {
 		$json = json_decode($json,true);
 
 		$out = [];
-		foreach(Region::GetInstances() as $r){
+		foreach(Region::GetAllInstances() as $r){
 			$c = $r->getCode();
 			if(isset($json[$c]) && $json[$c]){ $out[] = $r; }
 		}
