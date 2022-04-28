@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-11 18:10+0200\n"
-"PO-Revision-Date: 2022-04-11 18:22+0200\n"
+"POT-Creation-Date: 2022-04-28 12:52+0200\n"
+"PO-Revision-Date: 2022-04-25 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1703,6 +1703,36 @@ msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
 "\t\\ẗJste si jistý/á?"
 
+msgid "Upravit fotogalerii"
+msgstr "Upravit fotogalerii"
+
+msgid "Upravit obrázky fotogalerie"
+msgstr "Upravit obrázky fotogalerie"
+
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:14
+msgid "Language"
+msgstr ""
+
+msgid "Quick add"
+msgstr ""
+
+msgid "Add new:"
+msgstr ""
+
+msgid "Article"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+#: ../app/forms/admin/card_promotions/card_promotions_form.php:8
+#: ../app/forms/admin/category_cards/create_new_form.php:6
+#: ../app/forms/admin/category_recommended_cards/create_new_form.php:6
+#: ../app/forms/admin/related_cards/create_new_form.php:6
+#: ../app/forms/admin/warehouse_items/warehouse_items_form.php:6
+msgid "Product"
+msgstr "Produkt"
+
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
 msgstr "Přidání nového příslušenství"
@@ -1817,7 +1847,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
-msgstr "Prodejní oblasti"
+msgstr "Prodejná oblasti"
 
 #: ../app/controllers/admin/admin.php:57
 #: ../app/forms/admin/users/users_form.php:48
@@ -3221,14 +3251,6 @@ msgstr "Označení produktu %s"
 msgid "Zachovávaný produkt"
 msgstr "Zachovávaný produkt"
 
-#: ../app/forms/admin/card_promotions/card_promotions_form.php:8
-#: ../app/forms/admin/category_cards/create_new_form.php:6
-#: ../app/forms/admin/category_recommended_cards/create_new_form.php:6
-#: ../app/forms/admin/related_cards/create_new_form.php:6
-#: ../app/forms/admin/warehouse_items/warehouse_items_form.php:6
-msgid "Product"
-msgstr "Produkt"
-
 #: ../app/forms/admin/cards/add_technical_specification_form.php:6
 msgid "Specification name"
 msgstr "Název specifikace"
@@ -3813,7 +3835,7 @@ msgstr "Specifická adresa URL pro daný jazyk"
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:24
 msgid "If necessary, a specific URL can be specified for the given language."
-msgstr "V případě potřeby lze zadat konkrétní adresu URL pro daný jazyk."
+msgstr "V případě potřeby lze zadat specifickou adresu URL pro daný jazyk."
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:28
 msgid "CSS class"
@@ -3838,6 +3860,10 @@ msgstr "Zobrazovaný název"
 #: ../app/forms/admin/link_lists/link_lists_form.php:13
 msgid "About us"
 msgstr "O nás"
+
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:9
+msgid "language"
+msgstr ""
 
 #: ../app/forms/admin/order_campaigns/order_campaigns_form.php:17
 #: ../app/forms/admin/order_vouchers/order_vouchers_form.php:17
@@ -4586,23 +4612,23 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+msgid "sales regions"
+msgstr "prodejní oblasti"
+
+msgid "currencies"
+msgstr "měny"
+
+msgid "delivery to"
+msgstr "doručování do"
+
+msgid "currency"
+msgstr "měna"
+
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
 #~ msgid "Localized value"
 #~ msgstr "Lokalizovaná hodnota"
-
-#~ msgid "sales regions"
-#~ msgstr "prodejní oblasti"
-
-#~ msgid "currencies"
-#~ msgstr "měny"
-
-#~ msgid "delivery to"
-#~ msgstr "doručování do"
-
-#~ msgid "currency"
-#~ msgstr "měna"
-
-#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid "pouze pro přihlášené"
 #~ msgstr "pouze pro přihlášené"
