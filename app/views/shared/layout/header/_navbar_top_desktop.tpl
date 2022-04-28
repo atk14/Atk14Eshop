@@ -13,12 +13,16 @@
 				
 				{render partial="shared/layout/header/user_menu" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 								
-				{if sizeof($allowed_regions)>1 || $supported_languages}
+				{if sizeof($allowed_regions)>1 || sizeof($supported_languages)>0}
 					<div class="menu-separator"></div>
-					<ul class="navbar-nav">	
-					{render partial="shared/regionswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
-					{render partial="shared/langswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
-					</ul>
+					<ul class="navbar-nav">
+					{if sizeof($allowed_regions)>1}	
+						{render partial="shared/regionswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
+					{/if}
+					{if sizeof($supported_languages)>0}
+						{render partial="shared/langswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
+					{/if}
+				</ul>
 				{/if}
 				
 			</div>
