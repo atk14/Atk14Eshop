@@ -118,6 +118,7 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 }
 
 function __format_price__($price,$decimals = 0){
+	$decimals = (int)$decimals;
 	Atk14Require::Helper("modifier.display_number");
 	$out = number_format($price,$decimals,".","");
 	return smarty_modifier_display_number($out);
