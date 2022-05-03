@@ -166,7 +166,8 @@
 								type: "POST",
 								url: "/api/" + lang + "/markdown/transform/",
 								data: {
-									source: content
+									source: content,
+									base_href: $( el ).data( "base_href" )
 								},
 								success: function( output ) {
 									callback( output );
