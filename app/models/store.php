@@ -88,7 +88,7 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 			$ary[] = smarty_modifier_to_country_name($this->g("address_country"));
 		}
 
-		$ary = array_map(function($item){ return trim($item); },$ary);
+		$ary = array_map(function($item){ return trim((string)$item); },$ary);
 		$ary = array_filter($ary);
 		return join($options["connector"],$ary);
 	}

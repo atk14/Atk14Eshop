@@ -117,7 +117,7 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getDomains(){
-		return (array)json_decode($this->g("domains"),true);
+		return (array)json_decode((string)$this->g("domains"),true);
 	}
 
 	function getDefaultDomain(){
