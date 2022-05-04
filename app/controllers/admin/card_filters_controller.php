@@ -32,8 +32,9 @@ class CardFiltersController extends AdminController{
 			}
 
 			if($choices){
+				$visibility_note = $f->isVisible() ? "" : " ["._("invisible")."]";
 				$this->form->add_field("filter_".$f->getId(), new MultipleChoiceField(array(
-					"label" => "/".$f->getPath()."/",
+					"label" => "/".$f->getPath()."/".$visibility_note,
 					"choices" => $choices,
 					"initial" => $initial,
 					"required" => false,
