@@ -256,7 +256,7 @@ class TcCategory extends TcBase {
 		$this->assertEquals(4,sizeof($child_ar));
 
 		$child_ar = $catalog->getChildCategories(["visible" => false]);
-		$this->assertEquals(1,sizeof($child_ar));
+		$this->assertEquals(2,sizeof($child_ar));
 		$this->assertEquals("hidden",$child_ar[0]->getCode());
 
 		$child_ar = $catalog->getChildCategories(["limit" => 1]);
@@ -267,5 +267,24 @@ class TcCategory extends TcBase {
 
 		$child_ar = $catalog->getChildCategories(["direct_children_only" => false, "is_filter" => false, "visible" => true, "limit" => 1]);
 		$this->assertEquals(1,sizeof($child_ar));
+	}
+
+	function test_getAvailableFilters(){
+		$catalog = $this->categories["catalog"];
+
+		$filters = $catalog->getAvailableFilters();
+		$this->assertEquals(3,sizeof($filters));
+		$this->assertEquals("Color",$filters[0]->getName());
+		$this->assertEquals("Usage",$filters[1]->getName());
+		$this->assertEquals("Odour",$filters[2]->getName());
+
+		$filters = $catalog->getAvailableFilters(["visible" => true]);
+		$this->assertEquals(2,sizeof($filters));
+		$this->assertEquals("Color",$filters[0]->getName());
+		$this->assertEquals("Usage",$filters[1]->getName());
+
+		$filters = $catalog->getAvailableFilters(["visible" => false]);
+		$this->assertEquals(1,sizeof($filters));
+		$this->assertEquals("Odour",$filters[0]->getName());
 	}
 }
