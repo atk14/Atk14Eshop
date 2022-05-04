@@ -265,6 +265,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			if($p->isFilter()){ $filters[$p->getId()] = $p; }
 			$filters += $p->getAvailableFilters(array("consider_child_categories" => false));
 		}
+
 		return array_values($filters);
 	}
 
