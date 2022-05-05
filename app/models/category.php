@@ -76,9 +76,10 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	/**
 	 * $jidelna = Category::GetInstanceByPath("mistnosti/jidelna");
 	 */
-	static function GetInstanceByPath($path,&$lang = null, $start = null){
+	static function GetInstanceByPath($path, &$lang = null, $start = null){
 		$out = self::GetInstancesOnPath($path, $lang, $start);
-		if(!$out) { return null ; }
+		if(is_null($out)) { return null ; }
+		if($out === []){ return $start; }
 		return end($out);
 	}
 

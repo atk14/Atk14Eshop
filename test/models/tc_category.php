@@ -133,6 +133,10 @@ class TcCategory extends TcBase {
 	}
 
 	function test_GetInstanceByPath(){
+		$catalog = $this->categories["catalog"];
+
+		// GetInstanceByPath
+
 		$lang = null;
 		$cat = Category::GetInstanceByPath("catalog/shoes/kids",$lang);
 		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
@@ -157,6 +161,26 @@ class TcCategory extends TcBase {
 		
 		$lang = null;
 		$cat = Category::GetInstanceByPath("catalog/obuv/deti",$lang); // language mixing
+		$this->assertNull($cat);
+
+		// GetInstanceByPath with a start category
+
+		$lang = null;
+		$cat = Category::GetInstanceByPath("shoes/kids",$lang,$catalog);
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cat->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$cat = Category::GetInstanceByPath("",$lang,$catalog);
+		$this->assertEquals($catalog->getId(),$cat->getId());
+		$this->assertNull($lang);
+
+		$lang = "cs";
+		$cat = Category::GetInstanceByPath("shoes/kids",$lang,$catalog);
+		$this->assertNull($cat);
+
+		$lang = null;
+		$cat = Category::GetInstanceByPath("nonsence",$lang,$catalog);
 		$this->assertNull($cat);
 
 		// GetInstancesOnPath
@@ -209,8 +233,6 @@ class TcCategory extends TcBase {
 		$this->assertNull($cats);
 
 		// GetInstancesOnPath with a start category
-
-		$catalog = $this->categories["catalog"];
 
 		$lang = null;
 		$cats = Category::GetInstancesOnPath("shoes/kids",$lang,$catalog);
