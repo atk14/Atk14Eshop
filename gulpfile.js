@@ -3,6 +3,10 @@ var del = require( "del" );
 var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
+var babel = require( "gulp-babel" );
+var browserify = require( "browserify" );
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
@@ -21,12 +25,17 @@ var vendorScripts = [
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/swiper/swiper-bundle.js",
-	"node_modules/photoswipe/dist/photoswipe.js",
-	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
+	//"node_modules/photoswipe/dist/photoswipe.js",
+	//"node_modules/photoswipe/dist/photoswipe-ui-default.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
 	"node_modules/bootbox/dist/bootbox.all.min.js",
 	"node_modules/nouislider/dist/nouislider.min.js"
 ];
+
+var vendormESModules = [
+	"node_modules/photoswipe/dist/photoswipe-lightbox.esm.js",
+	"node_modules/photoswipe/dist/photoswipe.esm.js"
+]
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
@@ -77,7 +86,45 @@ gulp.task( "styles-vendor", function() {
 } );
 
 // JS
+gulp.task( "es6-commonjs",[ "clean-temp" ], function() {
+  return gulp.src( vendormESModules )
+    .pipe( babel() )
+    .pipe( gulp.dest( "public/dist/temp" ) );
+});
+
+gulp.task( "clean-temp", function() {
+  return del( [ "public/dist/temp" ] );
+});
+
+gulp.task('bundle-commonjs-clean', function() {
+  return del( ['public/dist/commonjs'] );
+});
+
+gulp.task( "commonjs-bundle" ,[ "bundle-commonjs-clean" , "es6-commonjs" ], function() {
+  //return browserify( [ "public/dist/temp/bootstrap.js"] ).bundle()
+  return browserify( [ "public/dist/temp/photoswipe.esm", "public/dist/temp/photoswipe-lightbox.esm.js" ] )
+		.transform("babelify", { presets: [ "@babel/preset-env" ] } )
+		.bundle()
+    .pipe( source( "modules.js" ) )
+    .pipe( buffer() )
+    .pipe( $.uglify( { mangle: {
+			reserved: [ "photoswipe", "photoswipe-lightbox", "PhotoSwipeLightbox" ]
+		} } ) )
+    .pipe( rename( "modules.js" ) )
+    .pipe( gulp.dest( "public/dist/scripts" ) );
+});
+
 gulp.task( "scripts", function() {
+	/*gulp.src( vendormESModules )
+		.pipe( $.sourcemaps.init() )
+		.pipe( $.concat( "vendor.js" ) )
+		.pipe( $.uglify() )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( gulp.dest( "public/dist/scripts" ) );
+	*/
+
+
 	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
