@@ -172,9 +172,91 @@ class TcCategory extends TcBase {
 		$this->assertEquals("kids",$cats[2]->getSlug());
 		$this->assertEquals("en",$lang);
 
+		$lang = "en";
+		$cats = Category::GetInstancesOnPath("catalog/shoes/kids",$lang);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(3,sizeof($cats));
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("katalog/obuv/deti",$lang);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(3,sizeof($cats));
+		$this->assertEquals(["katalog","katalog/obuv","katalog/obuv/deti"],$keys);
+		$this->assertEquals("catalog",$cats[0]->getSlug());
+		$this->assertEquals("shoes",$cats[1]->getSlug());
+		$this->assertEquals("kids",$cats[2]->getSlug());
+		$this->assertEquals("cs",$lang);
+
+		$lang = "cs";
+		$cats = Category::GetInstancesOnPath("katalog/obuv/deti",$lang);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(3,sizeof($cats));
+		$this->assertEquals(["katalog","katalog/obuv","katalog/obuv/deti"],$keys);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("",$lang);
+		$this->assertEquals([],$cats);
+
+		$lang = "en";
+		$cats = Category::GetInstancesOnPath("katalog/obuv/deti",$lang);
+		$this->assertNull($cats);
+
 		$lang = null;
 		$cats = Category::GetInstancesOnPath("catalog/shoes/kids/nonsence",$lang);
-		$this->assertEquals(null,$cats);
+		$this->assertNull($cats);
+
+		// GetInstancesOnPath with a start category
+
+		$catalog = $this->categories["catalog"];
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("shoes/kids",$lang,$catalog);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(2,sizeof($cats));
+		$this->assertEquals(["shoes","shoes/kids"],$keys);
+		$this->assertEquals("shoes",$cats[0]->getSlug());
+		$this->assertEquals("kids",$cats[1]->getSlug());
+		$this->assertEquals("en",$lang);
+
+		$lang = "en";
+		$cats = Category::GetInstancesOnPath("shoes/kids",$lang,$catalog);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(2,sizeof($cats));
+		$this->assertEquals(["shoes","shoes/kids"],$keys);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("obuv/deti",$lang,$catalog);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(2,sizeof($cats));
+		$this->assertEquals(["obuv","obuv/deti"],$keys);
+		$this->assertEquals("shoes",$cats[0]->getSlug());
+		$this->assertEquals("kids",$cats[1]->getSlug());
+		$this->assertEquals("cs",$lang);
+
+		$lang = "cs";
+		$cats = Category::GetInstancesOnPath("obuv/deti",$lang,$catalog);
+		$keys = array_keys($cats);
+		$cats = array_values($cats);
+		$this->assertEquals(2,sizeof($cats));
+		$this->assertEquals(["obuv","obuv/deti"],$keys);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("",$lang,$catalog);
+		$this->assertEquals([],$cats);
+
+		$lang = "en";
+		$cats = Category::GetInstancesOnPath("obuv/deti",$lang,$catalog);
+		$this->assertNull($cats);
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("shoes/kids/nonsence",$lang,$catalog);
+		$this->assertNull($cats);
 	}
 
 	function test_GetInstanceByNamePath(){
