@@ -97,7 +97,8 @@ gulp.task( "scripts", function() {
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
 
-	gulp.src( "public/scripts/modules/application_es6.js" )
+	// ES6 modules need different processing
+	gulp.src( applicationESModules )
 		.pipe( $.sourcemaps.init() )
 		.pipe( babel() )
 		.pipe( $.uglify() )
