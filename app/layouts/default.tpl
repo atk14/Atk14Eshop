@@ -121,18 +121,9 @@
 		{render partial="shared/basket_info_float_container"}
 		{render partial="shared/layout/devcssinfo"}
 
-		<script type="module">
-			import PhotoSwipeLightbox from "/public/dist/scripts/photoswipe-lightbox.esm.min.js";
-			const lightbox = new PhotoSwipeLightbox({
-				gallery: ".gallery__images, .iobject--picture",
-				children: "a",
-				pswpModule: () => import("/public/dist/scripts/photoswipe.esm.min.js")
-			});
-			console.log(lightbox);
-			lightbox.init();
-			</script>
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
 
 		{javascript_tag}
 			{placeholder for="js"}

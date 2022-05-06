@@ -5,7 +5,7 @@ window.UTILS = window.UTILS || { };
 // z Example on CodePen (First gallery, Second gallery)
 window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 
-/*
+
 		var $ = window.jQuery;
 
 		// Parse slide data (url, title, size ...) from DOM elements
@@ -209,5 +209,4 @@ window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 		if ( hashData.pid && hashData.gid ) {
 				openPhotoSwipe( hashData.pid, galleryElements[ hashData.gid - 1 ], true, true );
 		}
-*/
 };

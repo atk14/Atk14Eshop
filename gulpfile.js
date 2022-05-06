@@ -1,6 +1,7 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
 var rename = require( "gulp-rename" );
+var babel = require( "gulp-babel");
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
@@ -43,6 +44,10 @@ var applicationScripts = [
 	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/application.js"
 ];
+
+var applicationESModules = [
+	"public/scripts/modules/application_es6.js"
+]
 
 // CSS
 gulp.task( "styles", function() {
@@ -91,6 +96,16 @@ gulp.task( "scripts", function() {
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
+
+	gulp.src( "public/scripts/modules/application_es6.js" )
+		.pipe( $.sourcemaps.init() )
+		.pipe( babel() )
+		.pipe( $.uglify() )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
+		.pipe( browserSync.stream() );
+
 } );
 
 // Lint & Code style
@@ -114,9 +129,9 @@ gulp.task( "copy", function() {
 	gulp.src( "public/images/**/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
 	gulp.src( "node_modules/photoswipe/dist/photoswipe.esm.min.js" )
-		.pipe( gulp.dest( "public/dist/scripts" ) );
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
-		.pipe( gulp.dest( "public/dist/scripts" ) );
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )
