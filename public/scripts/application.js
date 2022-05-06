@@ -38,9 +38,6 @@
 				// Init Swiper
 				UTILS.initSwiper();
 
-				// Init PhotoSwipe
-				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
-
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );
 				var $dropdownToggle = $( ".dropdown-toggle" );
