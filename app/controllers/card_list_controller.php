@@ -63,7 +63,6 @@ abstract class CardListController extends ApplicationController {
 		$first_breadcrumb_title = $options["first_breadcrumb_title"];
 
 		foreach($categories as $ppath => $pc){
-
 			if($_first){
 				$_first = false;
 				$_pc_name = $first_breadcrumb_title ? $first_breadcrumb_title : $pc->getName();
@@ -71,7 +70,7 @@ abstract class CardListController extends ApplicationController {
 				$_pc_name = $pc->getName();
 			}
 			
-			$_url = $this->_link_to(array("action" => "categories/detail", "path" => $ppath));
+			$_url = $this->_link_to(array("action" => "$this->controller/detail", "path" => $ppath));
 			$this->breadcrumbs[] = array($_pc_name,$_url);
 		}
 	}
