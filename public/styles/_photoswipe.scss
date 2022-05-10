@@ -1,0 +1,28 @@
+// Additional styling for PhotoSwipe 5+
+.pswp {
+  .pswp__custom-caption {
+    background: rgba(black, 0.5);
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+    padding: 2px 8px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    &:empty {
+      display: none;
+    }
+    .iobject--picture__link, .iobject__title__separator {
+      display: none !important;
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  /*.pswp__bg {
+    //background-color: rgba(red,0.8);
+    backdrop-filter: blur(6px);
+  }*/
+}
