@@ -16,7 +16,7 @@
 				{if sizeof($allowed_regions)>1 || sizeof($supported_languages)>0}
 					<div class="menu-separator"></div>
 					<ul class="navbar-nav">
-					{if sizeof($allowed_regions)>1}	
+					{if sizeof($allowed_regions)>1}
 						{render partial="shared/regionswitch_navbar" dropdown_class="dropdown-menu--dark dropdown-menu--transparent bg-dark"}
 					{/if}
 					{if sizeof($supported_languages)>0}
