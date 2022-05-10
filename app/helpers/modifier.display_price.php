@@ -69,7 +69,7 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"ordering_unit" => null,
 	);
 	$currency = $options["currency"];
-	$currency_lower = strtolower($currency);
+	$currency_lower = strtolower($current_currency->getCode());
 
 	if(!$options["show_decimals"] || (isset($options["show_decimals_on_$currency_lower"]) && !$options["show_decimals_on_$currency_lower"])){
 		$options["decimals"] = 0;
