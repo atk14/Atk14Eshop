@@ -9,6 +9,8 @@
     position: absolute;
     left: 0;
     bottom: 0;
+    font-size: $font-size-sm;
+    line-height: 1.2;
     &:empty {
       display: none;
     }
