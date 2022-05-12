@@ -41,12 +41,11 @@ lightbox.init();
 // Trigger gallery from other links 
 // Used in gallery on product with variants
 // and in swiper slider gallery to prevent issues with duplicated slides
-
 var galleryTriggers = document.querySelectorAll( ".js_gallery_trigger" );
 
 galleryTriggers.forEach( function( el ) {
   el.addEventListener( "click", function( e ) {
-    
+
     var triggerElement =  e.currentTarget;
 
     // Get image ID 
@@ -70,3 +69,15 @@ galleryTriggers.forEach( function( el ) {
   } );
 } );
 
+// Trigger photoswipe from link in sinle picture iObject figcaption
+var pictureTriggers = document.querySelectorAll( ".js_picture_trigger" );
+
+pictureTriggers.forEach( function( el ) {
+  el.addEventListener( "click", function( e ) {
+    var imageLink = e.currentTarget.closest( "figure" ).querySelector( "a" );
+    if(imageLink){
+      imageLink.click();
+    }
+    e.preventDefault();
+  } );
+} );

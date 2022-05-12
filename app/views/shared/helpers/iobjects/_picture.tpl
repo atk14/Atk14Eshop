@@ -15,7 +15,7 @@ sizes="(max-width:1400px) 100vw, 1400px">
 		{if ($picture->getTitle() && $picture->isTitleVisible()) || $picture->getDescription()}
 		<figcaption class="iobject__caption">
 			{if $picture->getTitle() && $picture->isTitleVisible()}
-			<div class="iobject__title">{if $render_link}<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{if $picture->getTitle()}{$picture->getTitle()}{/if}">{!"search-plus"|icon}</a> <span class="iobject__title__separator">|</span> {/if}{$picture->getTitle()}</div>
+			<div class="iobject__title">{if $render_link}<a class="iobject--picture__link js_picture_trigger" href="{!$picture|img_url:$geometry_detail}" title="{if $picture->getTitle()}{$picture->getTitle()}{/if}">{!"search-plus"|icon}</a> <span class="iobject__title__separator">|</span> {/if}<strong>{$picture->getTitle()}</strong></div>
 			{/if}
 			{if {$picture->getDescription()}}
 				<div class="iobject__description">{$picture->getDescription()}</div>
