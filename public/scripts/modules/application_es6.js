@@ -8,21 +8,21 @@ const lightbox = new PhotoSwipeLightbox({
 });
 
 // Get image titles and captions
-lightbox.on('uiRegister', function() {
-  lightbox.pswp.ui.registerElement({
-    name: 'custom-caption',
+lightbox.on( "uiRegister", function() {
+  lightbox.pswp.ui.registerElement( {
+    name: "custom-caption",
     order: 9,
     isButton: false,
-    appendTo: 'root',
-    html: '',
-    onInit: (el, pswp) => {
-      lightbox.pswp.on('change', () => {
+    appendTo: "root",
+    html: "",
+    // eslint-disable-next-line no-unused-vars
+    onInit: ( el, pswp ) => {
+      lightbox.pswp.on( "change", () => {
         const currSlideElement = lightbox.pswp.currSlide.data.element;
         const parentFigure = currSlideElement.closest( "figure" );
         const figcaption = parentFigure.querySelector( "figcaption" );
-        let captionHTML = '';
+        let captionHTML = "";
         if (currSlideElement) {
-          const hiddenCaption = currSlideElement.querySelector('.hidden-caption-content');
           // get caption from alt attribute
           // captionHTML = currSlideElement.querySelector('img').getAttribute('alt');
           // Get caption from figcaption tag
@@ -30,7 +30,7 @@ lightbox.on('uiRegister', function() {
             captionHTML = figcaption.innerHTML;
           }
         }
-        el.innerHTML = captionHTML || '';
+        el.innerHTML = captionHTML || "";
       });
     }
   });

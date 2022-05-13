@@ -4,8 +4,8 @@
 			<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
 		</a>
 		<figcaption{if $image->getName()=="" && $image->getDescription()==""} class="d-none"{/if}>
-			<div><strong>{$image->getName()}</strong></div>
-			<div>{$image->getDescription()}</div>
+			<div class="gallery-item__title">{$image->getName()}</div>
+			<div class="gallery-item__description">{$image->getDescription()}</div>
 		</figcaption>
 	</figure>
 </div>

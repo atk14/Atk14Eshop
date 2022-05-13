@@ -87,8 +87,8 @@
 						<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
 					</a>
 					<figcaption>
-						<div><strong>{$image->getName()}</strong></div>
-						<div>{$image->getDescription()}</div>
+						<div class="gallery-item__title">{$image->getName()}</div>
+						<div class="gallery-item__description">{$image->getDescription()}</div>
 					</figcaption>
 					{if $num_remaining > 0 && $i == $max_num_show}
 						<div class="num-remaining"><span>+{$num_remaining}</span></div>

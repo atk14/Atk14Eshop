@@ -616,6 +616,7 @@
 				} );
 
 				// TOC search
+				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#chapter_filter" ),
 					clearButton: 	false,

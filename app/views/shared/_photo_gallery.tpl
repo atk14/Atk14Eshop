@@ -25,8 +25,8 @@
 						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
 					</a>
 					<figcaption>
-						<div><strong>{$image->getName()}</strong></div>
-						<div>{$image->getDescription()}</div>
+						<div class="gallery-item__title">{$image->getName()}</div>
+						<div class="gallery-item__description">{$image->getDescription()}</div>
 					</figcaption>
 			</figure>
 			{/foreach}

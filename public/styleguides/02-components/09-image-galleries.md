@@ -16,8 +16,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/ab6/2dab6/2000x1352/TmC2q7_295x200_5483742e7606eb68.jpg" alt="Název obrázku" class="" width="295" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Název obrázku</strong></div>
-				<div>Popisek ukázkového obrázku</div>
+				<div class="gallery-item__title">Název obrázku</div>
+				<div class="gallery-item__description">Popisek ukázkového obrázku</div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -25,8 +25,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/ab7/2dab7/2000x608/DHcISy_657x200_eabe43b407198f43.jpg" alt="Kolo" class="" width="657" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Kolo</strong></div>
-				<div></div>
+				<div class="gallery-item__title">Název obrázku</div>
+				<div class="gallery-item__description">Popisek ukázkového obrázku</div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -34,8 +34,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/ab8/2dab8/2000x3000/87VB9L_133x200_dd6ab44e70d32bcb.jpg" alt="Medůza" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Medůza</strong></div>
-				<div></div>
+				<div class="gallery-item__title">Medůza</div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -43,8 +43,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/ab9/2dab9/2000x1419/iJDTeF_281x200_2cd192f792d4794a.jpg" alt="Polaroid" class="" width="281" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Polaroid</strong></div>
-				<div>Přístroj pro instantní fotogalerie</div>
+				<div class="gallery-item__title">Polaroid</div>
+				<div class="gallery-item__description">Přístroj pro instantní fotogalerie</div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -52,8 +52,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/aba/2daba/2000x1600/pTaSqm_250x200_aa25e7fe3d59bf41.jpg" alt="" class="" width="250" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -61,8 +61,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/abb/2dabb/2000x1333/n7kaTb_300x200_32c13cf1d2aa6029.jpg" alt="" class="" width="300" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -70,8 +70,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/abc/2dabc/2000x2517/wV2FOg_158x200_9c81ac08fb818c76.jpg" alt="" class="" width="158" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -79,8 +79,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/abd/2dabd/2000x3000/jQA7c3_133x200_0035d611048d1886.jpg" alt="" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -88,8 +88,8 @@ With optional gallery caption. It works with our PhotoSwipe implementation. Invi
 				<img src="http://i.pupiq.net/i/6f/6f/abe/2dabe/2000x3000/WI98Sx_133x200_caec64189ba3e9d2.jpg" alt="" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 	</div>
@@ -110,8 +110,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/ab6/2dab6/2000x1352/TmC2q7_295x200_5483742e7606eb68.jpg" alt="Název obrázku" class="" width="295" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Název obrázku</strong></div>
-				<div>Popisek ukázkového obrázku</div>
+				<div class="gallery-item__title">Název obrázku</div>
+				<div class="gallery-item__description">Popisek ukázkového obrázku</div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -119,8 +119,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/ab7/2dab7/2000x608/DHcISy_657x200_eabe43b407198f43.jpg" alt="Kolo" class="" width="657" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Kolo</strong></div>
-				<div></div>
+				<div class="gallery-item__title">Kolo</div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -128,8 +128,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/ab8/2dab8/2000x3000/87VB9L_133x200_dd6ab44e70d32bcb.jpg" alt="Medůza" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Medůza</strong></div>
-				<div></div>
+				<div class="gallery-item__title">Medůza</div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -137,8 +137,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/ab9/2dab9/2000x1419/iJDTeF_281x200_2cd192f792d4794a.jpg" alt="Polaroid" class="" width="281" height="200">
 			</a>
 			<figcaption>
-				<div><strong>Polaroid</strong></div>
-				<div>Přístroj pro instantní fotogalerie</div>
+				<div class="gallery-item__title">Polaroid</div>
+				<div class="gallery-item__description">Přístroj pro instantní fotogalerie</div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -146,8 +146,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/aba/2daba/2000x1600/pTaSqm_250x200_aa25e7fe3d59bf41.jpg" alt="" class="" width="250" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -155,8 +155,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/abb/2dabb/2000x1333/n7kaTb_300x200_32c13cf1d2aa6029.jpg" alt="" class="" width="300" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -164,8 +164,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/abc/2dabc/2000x2517/wV2FOg_158x200_9c81ac08fb818c76.jpg" alt="" class="" width="158" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -173,8 +173,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/abd/2dabd/2000x3000/jQA7c3_133x200_0035d611048d1886.jpg" alt="" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 		<figure class="gallery__item">
@@ -182,8 +182,8 @@ Basic image gallery made smaller with <code>photo-gallery--compact</code> class:
 				<img src="http://i.pupiq.net/i/6f/6f/abe/2dabe/2000x3000/WI98Sx_133x200_caec64189ba3e9d2.jpg" alt="" class="" width="133" height="200">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 	</div>
@@ -207,8 +207,8 @@ This gallery component is used as main imagery on product detail page. Note that
 				<img src="https://i.pupiq.net/i/6f/6f/ad5/2dad5/3000x2250/TIwztc_800x600_ce9f9a6ead0a6853.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="800" height="600">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -217,8 +217,8 @@ This gallery component is used as main imagery on product detail page. Note that
 				<img src="https://i.pupiq.net/i/6f/6f/adc/2dadc/5062x3416/Gxzwaj_222x150_2fe2d1933aa1017a.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="222" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -227,8 +227,8 @@ This gallery component is used as main imagery on product detail page. Note that
 				<img src="https://i.pupiq.net/i/6f/6f/add/2dadd/1920x1280/xRLueJ_225x150_60eb74b92ea70650.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="225" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -255,8 +255,8 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 				<img src="https://i.pupiq.net/i/6f/6f/adb/2dadb/1920x1486/kpRLTo_193x150_0992657ccffcc085.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="193" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -265,8 +265,8 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 				<img src="https://i.pupiq.net/i/6f/6f/ade/2dade/1920x1080/SOJGz5_266x150_fa259df95b9c2b30.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="266" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -275,8 +275,8 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 				<img src="https://i.pupiq.net/i/6f/6f/ae0/2dae0/1920x1280/x7dzCj_225x150_3f7547969d4c80b7.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="225" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -285,8 +285,8 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 				<img src="https://i.pupiq.net/i/6f/6f/adf/2dadf/5616x3744/WfCRM2_225x150_4e46f4154aa20ff9.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="225" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -295,8 +295,8 @@ Markup is slightly more complex, fist image is outide gallery__images and its sr
 				<img src="https://i.pupiq.net/i/6f/6f/ad6/2dad6/3000x2250/qQ0D2A_200x150_00e0127009ac300e.jpg" alt="" class="img-fluid" itemprop="thumbnail" width="200" height="150">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -322,8 +322,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b7b/29b7b/2000x1281/PdG7LS_900x600xc_f696ff59a59d5e59.jpg" alt="" class="img-fluid" width="900" height="600">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -332,8 +332,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b7c/29b7c/2000x454/GAWzhe_300x300xc_ea03c81ca2551316.jpg" alt="Dlouhá fotka" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong>Dlouhá fotka</strong></div>
-				<div>Jak to jen bude vypadat?</div>
+				<div class="gallery-item__title">Dlouhá fotka</div>
+				<div class="gallery-item__description">Jak to jen bude vypadat?</div>
 			</figcaption>
 		</figure>
 
@@ -342,8 +342,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b7d/29b7d/2000x1333/spG0RP_300x300xc_4d0be275a83cc2fb.jpg" alt="" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -352,8 +352,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b7e/29b7e/2000x3006/Hryf1u_300x300xc_cf801a601358d81f.jpg" alt="" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 			<div class="num-remaining"><span>+17</span></div>
 		</figure>
@@ -363,8 +363,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b74/29b74/2000x1333/lur1j2_32x21_7c6a5f3de38cad8b.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -373,8 +373,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b6c/29b6c/2000x1334/Fumafz_32x21_796ccb788c877407.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -383,8 +383,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b76/29b76/2000x3000/zFmWbh_21x32_6c8922194def3cc3.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -393,8 +393,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b7f/29b7f/2000x851/uVKQRq_32x13_69a978ea76b19df5.png" alt="" class="img-fluid" width="32" height="13">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -403,8 +403,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b6d/29b6d/2000x1333/ALrTRB_32x21_82dd5fa59e4903b8.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -413,8 +413,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b75/29b75/2000x2500/6JcrlT_25x32_b3e998b3f66a1804.png" alt="" class="img-fluid" width="25" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -423,8 +423,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b80/29b80/2000x1076/Pu8A3O_32x17_e44c9720663cc997.png" alt="" class="img-fluid" width="32" height="17">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -433,8 +433,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b81/29b81/2000x3000/USbwyc_21x32_c244d19b3574f8ba.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -443,8 +443,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b82/29b82/2000x1788/akI9UT_32x28_302b81752a0d68d0.png" alt="" class="img-fluid" width="32" height="28">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -453,8 +453,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b83/29b83/2000x1586/rpmKVz_32x25_25f7f87769f2ea46.png" alt="" class="img-fluid" width="32" height="25">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -463,8 +463,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b85/29b85/2000x1333/nJqUw7_32x21_4f2ba73d6c636cd7.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -473,8 +473,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b86/29b86/2000x1331/vrc4J7_32x21_ea8e0aaeb7d10e09.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -483,8 +483,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b6f/29b6f/2000x3005/ouDAOW_21x32_41833ff32265b359.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -493,8 +493,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b88/29b88/2000x1125/kOFSoc_32x18_3b65b48e09bfb784.png" alt="" class="img-fluid" width="32" height="18">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -503,8 +503,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b87/29b87/2000x3000/BsKfq2_21x32_f0a0f88bb1c5c248.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -513,8 +513,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b89/29b89/2000x828/JoCWQ4_32x13_8b2395bd3ed6aa01.png" alt="" class="img-fluid" width="32" height="13">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -523,8 +523,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b6a/29b6a/2000x2000/1UdJpm_32x32_9a5367ba7f33e204.png" alt="" class="img-fluid" width="32" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -547,8 +547,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/cc7/2dcc7/2000x3000/4ji2uc_600x900xc_5c879955ee9ffb8b.jpg" alt="" class="img-fluid" width="600" height="900">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -557,8 +557,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/cc8/2dcc8/2000x1333/Nh28tD_300x300xc_98cb9355af8fb591.jpg" alt="Test obrázek" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong>Test obrázek</strong></div>
-				<div>Popisek ukázkového obrázku</div>
+				<div class="gallery-item__title">Test obrázek</div>
+				<div class="gallery-item__description">Popisek ukázkového obrázku</div>
 			</figcaption>
 		</figure>
 
@@ -567,8 +567,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/cc9/2dcc9/2000x1333/3ysV7l_300x300xc_cc710c33906b51c0.jpg" alt="" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -577,8 +577,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/cca/2dcca/2000x3043/InaFJh_300x300xc_6666d3a327334ed3.jpg" alt="" class="img-fluid" width="300" height="300">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 			<div class="num-remaining"><span>+4</span></div>
 		</figure>
@@ -588,8 +588,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/ccb/2dccb/2000x1331/U4LBiD_32x21_ecd1190149f06a99.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -598,8 +598,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/ccc/2dccc/2000x3001/H9VgFd_21x32_7148109fc9906d98.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -608,8 +608,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/ccd/2dccd/2000x1330/BLrAC9_32x21_dd05774b7f288204.png" alt="" class="img-fluid" width="32" height="21">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -618,8 +618,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/cce/2dcce/2000x3000/zAyN8U_21x32_b7fa53f4173513a3.png" alt="" class="img-fluid" width="21" height="32">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -642,8 +642,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/b89/29b89/2000x828/JoCWQ4_900x450xc_82dc700291f0bff6.jpg" alt="" class="img-fluid" width="900" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -652,8 +652,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/5e7/2f5e7/2000x1333/skaRKv_450x450xc_2c7f90d3db62a0b3.jpg" alt="" class="img-fluid" width="450" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -662,8 +662,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/5e8/2f5e8/2000x2500/JeGSbx_450x450xc_f08d72af5926c352.jpg" alt="" class="img-fluid" width="450" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -685,8 +685,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/5e9/2f5e9/2000x2500/5Ls3Un_450x900xc_7051006252f3b13b.jpg" alt="" class="img-fluid" width="450" height="900">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -695,8 +695,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/5ea/2f5ea/2000x1333/PgHtWe_450x450xc_46030de7445f5cd8.jpg" alt="" class="img-fluid" width="450" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -705,8 +705,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 				<img src="http://i.pupiq.net/i/6a/6a/5eb/2f5eb/2000x1500/tA0dRw_450x450xc_c2c7323d4d648947.jpg" alt="" class="img-fluid" width="450" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -730,8 +730,8 @@ Shown without optional gallery caption.
 				<img src="http://i.pupiq.net/i/6a/6a/926/2e926/2000x1333/h8y3wC_900x450xc_4fbf5024fc0e20b6.jpg" alt="Titulek obrázku" class="img-fluid" width="900" height="450">
 			</a>
 			<figcaption>
-				<div><strong>Titulek obrázku</strong></div>
-				<div>Popis obrázku</div>
+				<div class="gallery-item__title">Titulek obrázku</div>
+				<div class="gallery-item__description">Popis obrázku</div>
 			</figcaption>
 		</figure>
 
@@ -740,8 +740,8 @@ Shown without optional gallery caption.
 				<img src="http://i.pupiq.net/i/6a/6a/92d/2e92d/2000x1440/3IS09p_900x450xc_5cdfbecd85018510.jpg" alt="" class="img-fluid" width="900" height="450">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -760,8 +760,8 @@ Shown without optional gallery caption.
 				<img src="http://i.pupiq.net/i/6a/6a/cca/2dcca/2000x3043/InaFJh_450x900xc_004126fa96595151.jpg" alt="" class="img-fluid" width="450" height="900">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -770,8 +770,8 @@ Shown without optional gallery caption.
 				<img src="http://i.pupiq.net/i/6a/6a/5e6/2f5e6/2000x2997/zmlC6R_450x900xc_0c1cc2d45ff8dc42.jpg" alt="" class="img-fluid" width="450" height="900">
 			</a>
 			<figcaption>
-				<div><strong></strong></div>
-				<div></div>
+				<div class="gallery-item__title"></div>
+				<div class="gallery-item__description"></div>
 			</figcaption>
 		</figure>
 
@@ -808,8 +808,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="531" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -823,8 +823,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="600" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -838,8 +838,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="580" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -853,8 +853,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="599" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -868,8 +868,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="531" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -883,8 +883,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="600" height="400">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -934,8 +934,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="981" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -949,8 +949,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="900" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -964,8 +964,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="1115" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -979,8 +979,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="900" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -994,8 +994,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="900" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1009,8 +1009,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="981" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1024,8 +1024,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="900" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1135,8 +1135,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							alt="Test title" class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption>
-						<div><strong>Test title</strong></div>
-						<div>Test Descr</div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1149,8 +1149,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1163,8 +1163,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1177,8 +1177,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1191,8 +1191,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1205,8 +1205,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>
@@ -1219,8 +1219,8 @@ This gallery may be used in [Gallery iObject](/styleguides/components%3Aiobjects
 							class="img-fluid" itemprop="thumbnail" width="800" height="600">
 					</a>
 					<figcaption class="d-none">
-						<div><strong></strong></div>
-						<div></div>
+						<div class="gallery-item__title"></div>
+						<div class="gallery-item__description"></div>
 					</figcaption>
 				</figure>
 			</div>

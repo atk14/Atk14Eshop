@@ -20,9 +20,9 @@
 			{if $picture->getTitle() && $picture->isTitleVisible()}
 			<div class="iobject__title">
 				{if $render_link}
-					<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{if $picture->getTitle()}{$picture->getTitle()}{/if}">{!"search-plus"|icon}</a> <span class="iobject__title__separator">|</span>
+					<a class="iobject--picture__link js_picture_trigger" href="{!$picture|img_url:$geometry_detail}" title="{if $picture->getTitle()}{$picture->getTitle()}{/if}">{!"search-plus"|icon}</a> <span class="iobject__title__separator">|</span>
 				{/if}
-				<strong>{$picture->getTitle()}</strong>
+				{$picture->getTitle()}
 			</div>
 			{/if}
 			{if {$picture->getDescription()}}
