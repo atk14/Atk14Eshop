@@ -6,9 +6,6 @@ arch: ppc64le
 
 language: php
 
-addons:
-  postgresql: "9.4"
-
 services:
   - postgresql
 
