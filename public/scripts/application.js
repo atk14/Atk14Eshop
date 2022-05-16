@@ -38,9 +38,6 @@
 				// Init Swiper
 				UTILS.initSwiper();
 
-				// Init PhotoSwipe
-				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
-
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );
 				var $dropdownToggle = $( ".dropdown-toggle" );
@@ -331,16 +328,6 @@
 					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
 				} );
 
-				// Kliknuti na preview obrazek v galerii vyvola ve skutecnosti kliknuti na prislusny thumbnail obrazek
-				$( ".product-gallery .js_gallery_trigger" ).on( "click", function( e ) {
-					e.preventDefault();
-
-					var previewLink = $( this ).find( "a" ).get( 0 );
-					
-					var imageId = $( previewLink ).data( "preview_for" );
-					$( ".product-gallery .gallery__item[data-id=" + imageId + "] a" ).trigger( "click" );
-				} );
-
 				// Prepnuti varianty produktu
 				$( "#variants-nav a[data-product_id]" ).on( "click", function() {
 					var $link = $( this ),
@@ -350,6 +337,7 @@
 						$previewImage = $preview.find( "img" );
 					if ( !$galleryItem ) { return; }
 					$preview.data( "preview_for" , $galleryItem.data( "id" ) );
+					$preview.attr( "data-preview_for" , $galleryItem.data( "id" ) );
 					$previewImage.attr( "src", $galleryItem.data( "preview_image_url" ) );
 					$previewImage.attr( "width", $galleryItem.data( "preview_image_width" ) );
 					$previewImage.attr( "height", $galleryItem.data( "preview_image_height" ) );
@@ -628,6 +616,7 @@
 				} );
 
 				// TOC search
+				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#chapter_filter" ),
 					clearButton: 	false,
