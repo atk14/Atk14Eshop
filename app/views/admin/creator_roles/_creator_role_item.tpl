@@ -4,7 +4,7 @@
 			{$creator_role->getName()}
 		</div>
 		<span class="item__code">
-			{if strlen($creator_role->getCode())}{$creator_role->getCode()}{/if}
+			{if $creator_role->getCode()|strlen}{$creator_role->getCode()}{/if}
 		</span>
 		<div class="item__controls">
 			{dropdown_menu}

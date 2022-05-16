@@ -4,7 +4,7 @@
 				{$vat_rate->getName()} &mdash; {$vat_rate->getVatPercent()}%
 			</div>
 			<span class="item__code">
-				{if strlen($vat_rate->getCode())}{$vat_rate->getCode()}{/if}
+				{if $vat_rate->getCode()|strlen}{$vat_rate->getCode()}{/if}
 			</span>
 			<div class="item__controls">
 				{dropdown_menu}

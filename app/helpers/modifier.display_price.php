@@ -55,6 +55,10 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"summary" => false,
 		"decimals" => $current_currency->getDecimals(),
 		"show_decimals" => true,
+		// also the following options are available
+		// "show_decimals_on_czk" => true,
+		// "show_decimals_on_eur" => true,
+		// ...
 		"without_vat" => false,
 		"show_vat_label" => false,
 		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"..
@@ -65,8 +69,9 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"ordering_unit" => null,
 	);
 	$currency = $options["currency"];
+	$currency_lower = strtolower($current_currency->getCode());
 
-	if(!$options["show_decimals"]){
+	if(!$options["show_decimals"] || (isset($options["show_decimals_on_$currency_lower"]) && !$options["show_decimals_on_$currency_lower"])){
 		$options["decimals"] = 0;
 	}
 

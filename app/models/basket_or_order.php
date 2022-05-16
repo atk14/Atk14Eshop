@@ -132,7 +132,7 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 	function getDeliveryAddressStreet2(){
-		if(strlen($this->g("delivery_address_street"))){
+		if(strlen((string)$this->g("delivery_address_street"))){
 			return $this->g("delivery_address_street2");
 		}
 		return $this->g("address_street2");
@@ -163,7 +163,7 @@ class BasketOrOrder extends ApplicationModel {
 
 	function _getDelivery($key){
 		$out = $this->g("delivery_$key");
-		if(!strlen($out)){
+		if(!strlen((string)$out)){
 			$out = $this->g("$key");
 		}
 		return $out;

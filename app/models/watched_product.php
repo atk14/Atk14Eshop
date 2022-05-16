@@ -22,6 +22,8 @@ class WatchedProduct extends ApplicationModel {
 		$conditions = [
 			"watched_products.notified='f'",
 			"COALESCE((SELECT SUM(stockcount) FROM warehouse_items WHERE product_id=watched_products.product_id AND warehouse_id IN (SELECT id FROM warehouses WHERE applicable_to_eshop)),0)-(COALESCE((SELECT SUM(stockcount) FROM v_stockcount_blocations WHERE product_id=watched_products.product_id),0))>0",
+			"(SELECT visible FROM products WHERE products.id=watched_products.product_id)",
+			"NOT (SELECT deleted FROM products WHERE products.id=watched_products.product_id)",
 		];
 
 		return self::FindAll([

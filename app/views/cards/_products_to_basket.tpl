@@ -45,7 +45,7 @@
 							
 							{if $base_price}
 								<span class="price--recommended">
-									{t}Běžná cena:{/t} {!$base_price->getPrice()|display_price:$dp_options}
+									{t}Běžná cena:{/t} {!$base_price|display_price:$dp_options}
 									Ušetříte: <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span>
 								</span>
 							{/if}

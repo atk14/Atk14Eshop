@@ -74,6 +74,7 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
+		{enhanced_conversion_data}
 		{facebook_pixel}
 	</head>
 
