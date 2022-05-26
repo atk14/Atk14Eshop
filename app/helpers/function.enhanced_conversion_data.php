@@ -19,11 +19,14 @@ function smarty_function_enhanced_conversion_data($params, $template) {
 		"postal_code" => $order->getAddressZip(),
 		"country" => $order->getAddressCountry(),
 	];
+	$address["postal_code"] = preg_replace("/ /", "", $address["postal_code"]);
 
 	$conversion_data = [
 		"email" => $order->getEmail(),
 		"phone_number" => $order->getDeliveryPhone(),
 	];
+	$conversion_data["phone_number"] = preg_replace("/\./", "", $conversion_data["phone_number"]);
+
 	$conversion_data["address"] = array_filter($address);
 
 	$conversion_data = array_filter($conversion_data);
