@@ -229,6 +229,7 @@
 			border-top: none;
 		}
 	}
+	
 	@include media-breakpoint-down(xs){
 		& > a {
 			padding-top: 0.75rem;

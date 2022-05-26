@@ -2,7 +2,10 @@
 // Project specific Variables
 // --------------------------------------------------
 
-$max-page-width:					1400px;
+// Max width for .container-fluid
+$container-max-width: 1400px;
+$max-page-width: 1400px;
+
 $max-content-width:				850px;
 
 // Breadcrumbs
