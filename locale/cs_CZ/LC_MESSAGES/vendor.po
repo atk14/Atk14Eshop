@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-11 18:10+0200\n"
-"PO-Revision-Date: 2022-04-11 18:23+0200\n"
+"PO-Revision-Date: 2022-04-25 17:22+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -24,7 +24,7 @@ msgstr "Nahrávání dočasných souborů není povoleno"
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
 #, php-format
 msgid "The file exceeds the maximum file size, which is %s"
-msgstr "Soubor překračuje maximální velikost, která je %s"
+msgstr "Soubor překračuje maximální velikost, která je %s."
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
 msgid "Error 1"
@@ -36,11 +36,11 @@ msgstr "Chyba 2"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
 msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu"
+msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu."
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
 msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu"
+msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu."
 
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"
@@ -362,8 +362,8 @@ msgstr "Zadejte prosím platné PSČ"
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Zadejte PSČ ve formátu NNN NN"
 
-#~ msgid "The file was now fully upload, please upload it again"
-#~ msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+msgid "The file was now fully upload, please upload it again"
+msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Zadejte platné telefonní číslo (+420.605123456)"
@@ -376,3 +376,33 @@ msgstr "Zadejte PSČ ve formátu NNN NN"
 
 #~ msgid "Hello Another World!"
 #~ msgstr "Ahoj jiný světe!"
+
+#~ msgid "Service Unavailable"
+#~ msgstr "Služba je nedostupná"
+
+#~ msgid "This site is in maintenance. Please come back later."
+#~ msgstr "Probíhá údržba této stránky. Přijďte prosím později."
+
+#~ msgid "The form contains errors, therefore it cannot be processed."
+#~ msgstr "Formulář obsahuje chyby, proto nemůže být zpracován."
+
+#~ msgid "Please, submit the form again"
+#~ msgstr "Prosím, odešlete formulář znovu"
+
+#~ msgid "Sort table by this column"
+#~ msgstr "Třídit tabulku podle tohoto sloupce"
+
+#~ msgid "Are you sure?"
+#~ msgstr "Jste si jistý?"
+
+#~ msgid "items total"
+#~ msgstr "položek celkem"
+
+#~ msgid "Prev"
+#~ msgstr "Předchozí"
+
+#~ msgid "Next"
+#~ msgstr "Následující"
+
+#~ msgid "and"
+#~ msgstr "a"

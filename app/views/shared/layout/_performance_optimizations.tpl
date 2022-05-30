@@ -6,7 +6,6 @@
 
 {preload_link_tag file="$public/dist/styles/vendor.min.css" as="style"}
 {preload_link_tag file="$public/dist/styles/application.min.css" as="style"}
-{preload_link_tag file="$public/dist/styles/default-skin/default-skin.css" as="style"}
 
 {preload_link_tag file="$public/dist/scripts/vendor.min.js" as="script"}
 {preload_link_tag file="$public/dist/scripts/application.min.js" as="script"}

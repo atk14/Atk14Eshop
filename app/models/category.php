@@ -46,21 +46,22 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	 * $categories["mistnosti/jidelna/stul"]->getSlug(); //stul
 	 * ```
 	 */
-	static function GetInstancesOnPath($path, &$lang = null) {
+	static function GetInstancesOnPath($path, &$lang = null, $start = null, $options = []) {
 		$orig_lang = $lang;
 
 		$path = (string)$path;
-		if(!$path){ return null; }
+		if(!strlen($path)){ return []; }
 
-		$my_path='';
-		$slugs = explode("/",$path);
-		$parent_category_id = null;
-
-		$out = array();
+		if(is_object($start)) {
+			$parent_category_id = $start->getId();
+		} else {
+			$parent_category_id = $start;
+		}
+		$out = [];
 
 		$cpath = '';
-		foreach(explode('/',$path) as $slug){
-			if(!$c = Category::GetInstanceBySlug($slug,$lang,$parent_category_id)){
+		foreach(explode("/",$path) as $slug){
+			if(!$c = static::GetInstanceBySlug($slug,$lang,$parent_category_id,$options)){
 				$lang = $orig_lang; // nenechame nastaveny $lang na nejakou necekanou hodnotu
 				return null;
 			}
@@ -75,9 +76,10 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	/**
 	 * $jidelna = Category::GetInstanceByPath("mistnosti/jidelna");
 	 */
-	static function GetInstanceByPath($path,&$lang = null){
-		$out = self::GetInstancesOnPath($path, $lang);
-		if(!$out) { return null ; }
+	static function GetInstanceByPath($path, &$lang = null, $start = null){
+		$out = self::GetInstancesOnPath($path, $lang, $start);
+		if(is_null($out)) { return null ; }
+		if($out === []){ return $start; }
 		return end($out);
 	}
 
@@ -169,21 +171,21 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 
 	function getLongName($lang = null){
 		$out = parent::getLongName($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		return parent::getName($lang);
 	}
 
 	function getPageTitle($lang = null){
 		$out = parent::getPageTitle($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		return $this->getLongName($lang);
 	}
 
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		$out = $this->getTeaser($lang);
-		if(strlen($out)){
+		if(strlen((string)$out)){
 			$out = Markdown($out);
 			$out = String4::ToObject($out)->stripHtml()->toString();
 			return $out;
@@ -249,6 +251,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	function getAvailableFilters($options = array()){
 		$options += array(
 			"consider_child_categories" => true,
+			"visible" => null,
 		);
 
 		$filters = array();
@@ -265,6 +268,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			if($p->isFilter()){ $filters[$p->getId()] = $p; }
 			$filters += $p->getAvailableFilters(array("consider_child_categories" => false));
 		}
+
+		if(!is_null($options["visible"])){
+			$visible = (bool)$options["visible"];
+			$filters = array_filter($filters,function($filter) use($visible){ return $filter->isVisible() ^ !$visible; }); // XOR
+		}
+
 		return array_values($filters);
 	}
 

@@ -43,7 +43,7 @@ class FilterForCards extends Filter {
 			// filters can be taken from the root category, if such category exists.
 			$category = $options["category"] ? $options["category"] : Category::RootCategory();
 			if($category){
-				$sections = $category->getAvailableFilters();
+				$sections = $category->getAvailableFilters(["visible" => true]);
 				foreach($sections as $section) {
 					new FilterCategorySection($this, $section->getFilterName(), $section);
 				}

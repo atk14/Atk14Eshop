@@ -8,6 +8,11 @@
 					{$root->getName()}
 					{if !$root->isVisible()}<em class="text-muted">({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 				</div>
+				{if $root->getCode()}
+					<div class="item__code">
+						{$root->getCode()}
+					</div>
+				{/if}
 				<div class="item__controls">
 					{dropdown_menu}
 					{a action="detail" id=$root}{!"project-diagram"|icon} {t}Detail{/t}{/a}

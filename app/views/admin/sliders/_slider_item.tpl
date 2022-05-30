@@ -6,7 +6,7 @@
 		</div>
 		
 		<span class="item__code">
-			{if strlen($slider->getCode())}{$slider->getCode()}{/if}
+			{if $slider->getCode()|strlen}{$slider->getCode()}{/if}
 		</span>
 		<div class="item__controls">
 			{dropdown_menu}

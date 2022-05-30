@@ -19,6 +19,11 @@
 		</div>
 
 		<div class="item__properties">
+			<small>{t}Výchozí cena s DPH{/t}</small><br>
+			{$delivery_method->getPriceInclVat()|display_price:"format=plain"|default:"{t}cena neurčena{/t}"}
+		</div>
+
+		<div class="item__properties">
 			{if $delivery_method->getPersonalPickupOnStore()}
 				<small>{t}Osobní odběr na prodejně{/t}</small><br>
 				{$delivery_method->getPersonalPickupOnStore()}

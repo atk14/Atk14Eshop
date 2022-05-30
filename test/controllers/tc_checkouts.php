@@ -211,15 +211,16 @@ class TcCheckouts extends TcBase {
 	}
 
 	/**
-	 * Assigns a basket to current user.
-	 * The basket is not connected to a user.
+	 * Instantiates basket for the current user and adds a product into it.
 	 */
 	protected function _setup_basket() {
 		$client = $this->client;
 		$controller = $client->get("main/index");
 		$basket = $controller->_get_basket(true);
 
-		$controller->permanentSession->s("basket_id", $this->baskets["anonymous"]->getId());
+		$basket->addProduct($this->products["mint_tea"],1);
+
+		$controller->permanentSession->s("basket_id", $basket->getId());
 		$client->addCookie(new HttpCookie("permanent", $controller->permanentSession->getSecretToken()));
 		$controller = $client->get("main/index");
 		$this->assertFalse($controller->basket->isEmpty());

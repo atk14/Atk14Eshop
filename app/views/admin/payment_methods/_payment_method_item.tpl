@@ -19,6 +19,11 @@
 		</div>
 
 		<div class="item__properties">
+			<small>{t}Cena s DPH{/t}</small><br>
+			{$payment_method->getPriceInclVat()|display_price:"format=plain"}
+		</div>
+
+		<div class="item__properties">
 			{if $payment_method->getRequiredCustomerGroup()}
 				<small>{t}Only for customer group:{/t}</small><br>
 				{$payment_method->getRequiredCustomerGroup()}

@@ -59,7 +59,6 @@
 		{/javascript_tag}
 
 		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
-		{stylesheet_link_tag file="$public/dist/styles/default-skin/default-skin.css" hide_when_file_not_found=true}
 		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -74,6 +73,7 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{render partial="shared/social_meta"}
+		{enhanced_conversion_data}
 		{facebook_pixel}
 	</head>
 
@@ -121,10 +121,10 @@
 		
 		{render partial="shared/basket_info_float_container"}
 		{render partial="shared/layout/devcssinfo"}
-		{render partial="shared/photoswipe_root_element"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
 
 		{javascript_tag}
 			{placeholder for="js"}

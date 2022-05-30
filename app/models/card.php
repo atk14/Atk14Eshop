@@ -795,7 +795,13 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			return false;
 		}
 
-		return $this->isVisible() && !$this->isDeleted();
+		if(!$this->isVisible() || $this->isDeleted()){
+			return false;
+		}
+
+		// Here is a place for custom conditions
+
+		return true;
 	}
 
 	function getFulltextData($lang){

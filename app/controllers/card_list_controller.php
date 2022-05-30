@@ -1,5 +1,6 @@
 <?php
 abstract class CardListController extends ApplicationController {
+
 	var $page_size = 24;
 
 	function _setup_category(&$options) {
@@ -43,6 +44,9 @@ abstract class CardListController extends ApplicationController {
 			"path" => $path,
 			"first_breadcrumb_title" => $options["first_breadcrumb_title"],
 		]);
+		if(!is_array($cond)){
+			$cond = $cond ? [$cond] : [];
+		}
 		return [ $cond, $bind ];
 	}
 
@@ -59,7 +63,6 @@ abstract class CardListController extends ApplicationController {
 		$first_breadcrumb_title = $options["first_breadcrumb_title"];
 
 		foreach($categories as $ppath => $pc){
-
 			if($_first){
 				$_first = false;
 				$_pc_name = $first_breadcrumb_title ? $first_breadcrumb_title : $pc->getName();
@@ -67,7 +70,7 @@ abstract class CardListController extends ApplicationController {
 				$_pc_name = $pc->getName();
 			}
 			
-			$_url = $this->_link_to(array("action" => "categories/detail", "path" => $ppath));
+			$_url = $this->_link_to(array("action" => "$this->controller/detail", "path" => $ppath));
 			$this->breadcrumbs[] = array($_pc_name,$_url);
 		}
 	}
@@ -112,7 +115,7 @@ abstract class CardListController extends ApplicationController {
 
 	function _detail($options=[]){
 		$options += [
-			'conditions' => '',
+			'conditions' => '', // string or array
 			'bind' => [],
 			'category' => true,
 			"first_breadcrumb_title" => "", // "" -> auto, "Novinky", "Slevy"
@@ -128,16 +131,19 @@ abstract class CardListController extends ApplicationController {
 			$options += ['default_order' => 'cards.id DESC'];
 		}
 
-		if($options['conditions']) {
-			$cond += $options['conditions'];
-		}
 		$bind += $options['bind'];
 
 		#$bind[':lang'] = $this->lang;
 		#$cond[] = "(regions->>'$this->current_region')::BOOLEAN"; // "(regions->>'CR')::BOOLEAN"
 
 		if($options['conditions']){
-			$cond[] = $options['conditions'];
+			if(is_array($options['conditions'])){
+				foreach($options['conditions'] as $_c){
+					$cond[] = $_c;
+				}
+			}else{
+				$cond[] = $options['conditions'];
+			}
 		}
 
 		$this->form = $this->tpl_data['form'] = $this->_get_form("FilterForm");

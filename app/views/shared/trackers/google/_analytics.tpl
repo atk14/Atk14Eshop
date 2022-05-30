@@ -1,5 +1,5 @@
 {assign analytics_tracking_id "app.trackers.google.analytics.tracking_id"|system_parameter}
-{assign analytics_tracking_id "/[, ;]/"|preg_split:$analytics_tracking_id|array_filter}
+{assign analytics_tracking_id "/[, ;]/"|preg_split:"$analytics_tracking_id"|array_filter}
 {assign settings CookieConsent::GetSettings()}
 
 {if $analytics_tracking_id}

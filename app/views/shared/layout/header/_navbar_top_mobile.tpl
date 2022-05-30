@@ -21,15 +21,19 @@
 
 	{/if}
 
-	{if sizeof($allowed_regions)>1 || $supported_languages}
+	{if sizeof($allowed_regions)>1 || sizeof($supported_languages)>0}
 		<div class="menu-separator"></div>
+		{if sizeof($supported_languages)>0}
 		<ul class="navbar-nav nav--inline">
 			{render partial="shared/langswitch_navbar_expanded" show_language_names=true}
 		</ul>
+		{/if}
 		<div class="menu-separator"></div>
-		<ul class="navbar-nav">
-		{render partial="shared/regionswitch_navbar"}
-		</ul>
+		{if sizeof($allowed_regions)>1}
+			<ul class="navbar-nav">
+				{render partial="shared/regionswitch_navbar"}
+			</ul>
+		{/if}
 	{/if}
 
 </div>

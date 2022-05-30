@@ -29,8 +29,8 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 
 		$existing = $this->dbmole->selectIntoAssociativeArray("SELECT product_id,price FROM pricelist_items WHERE pricelist_id=:this",[":this" => $this]);
 		foreach($prices as $product_id => $price){
-			$price = number_format($price,'6','.','');
-			$existing_price = isset($existing[$product_id]) ? number_format($existing[$product_id],'6','.','') : null;
+			$price = number_format($price,6,'.','');
+			$existing_price = isset($existing[$product_id]) ? number_format($existing[$product_id],6,'.','') : null;
 			if(!isset($existing_price)){
 				PricelistItem::CreateNewRecord([
 					"pricelist_id" => $this,

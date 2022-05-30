@@ -1,0 +1,16 @@
+fridge_1:
+  product_id: "<?= $products["fridge"]->getId() ?>"
+  email: "john@doe.com"
+  language: "en"
+
+fridge_2:
+  product_id: "<?= $products["fridge"]->getId() ?>"
+  email: "samantha@doe.com"
+  language: "en"
+
+fridge_notified:
+  product_id: "<?= $products["fridge"]->getId() ?>"
+  email: "josh@doe.com"
+  language: "en"
+  notified: TRUE
+  notified_at: "2022-05-10 10:28:00"

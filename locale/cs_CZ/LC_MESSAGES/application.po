@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-11 18:10+0200\n"
-"PO-Revision-Date: 2022-04-11 18:13+0200\n"
+"POT-Creation-Date: 2022-04-28 12:52+0200\n"
+"PO-Revision-Date: 2022-04-25 17:20+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -236,12 +236,6 @@ msgstr "číslo produktu: %1"
 
 msgid "This product is not in offer"
 msgstr "Tento produkt není v nabídce"
-
-msgid "incl. VAT"
-msgstr "vč. DPH"
-
-msgid "excl. VAT"
-msgstr "bez DPH"
 
 msgid "Běžná cena:"
 msgstr "Běžná cena:"
@@ -809,8 +803,8 @@ msgstr "Produkty v kolekci"
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-msgid "<small>cena od</small><br>%1"
-msgstr "<small>cena od</small><br>%1"
+msgid "<small>cena od</small><div class=\"price--primary\">%1</div>"
+msgstr ""
 
 msgid "není v nabídce"
 msgstr "není v nabídce"
@@ -1754,7 +1748,7 @@ msgstr "Nic nebylo změněno"
 
 #: ../app/controllers/users_controller.php:61
 msgid "This email address is used by another user."
-msgstr "Tuto e-mailovou adresu používá jiný uživatel."
+msgstr "Stejná e-mailová adresa je již použita pro jiného uživatele."
 
 #: ../app/controllers/users_controller.php:70
 #, php-format
@@ -1762,8 +1756,8 @@ msgid ""
 "Your account data has been updated. Next time you should sign-in with login "
 "name <em>%s</em>."
 msgstr ""
-"Údaje vašeho účtu byly aktualizovány. Příště se přihlaste přihlašovacím "
-"jménem <em>%s</em>."
+"Údaje vašeho účtu byly aktualizovány. Příště byste se měl/a přihlásit pomocí "
+"přihlašovacího jména <em>%s</em>."
 
 #: ../app/controllers/users_controller.php:70
 msgid "Your account data has been updated"
@@ -2301,7 +2295,7 @@ msgstr "Pošli mi odkaz pro obnovu"
 msgid "Set new password"
 msgstr "Nastavit nové heslo"
 
-#: ../app/forms/regions/set_region_form.php:11
+#: ../app/forms/regions/set_region_form.php:12
 msgid "Selling region"
 msgstr "Prodejní oblast"
 
@@ -2356,6 +2350,14 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#: ../app/helpers/modifier.display_price.php:106
+msgid "excl. VAT"
+msgstr "bez DPH"
+
+#: ../app/helpers/modifier.display_price.php:106
+msgid "incl. VAT"
+msgstr "vč. DPH"
 
 #: ../app/helpers/modifier.humanize_date.php:13
 msgid "právě teď"
@@ -2740,6 +2742,30 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
+
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
+
+msgid "aktivovat hlídacího psa"
+msgstr "aktivovat hlídacího psa"
+
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
+
+msgid "searching ..."
+msgstr "hledání ..."
+
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
+
+msgid "Tvůrce"
+msgstr "Tvůrce"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nic nebylo nelezeno."
+
 #~ msgid ""
 #~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
 #~ msgstr ""
@@ -2759,27 +2785,6 @@ msgstr "obj. %s"
 
 #~ msgid "Souhlasím"
 #~ msgstr "Souhlasím"
-
-#~ msgid "naskladnění sleduje hlídací pes"
-#~ msgstr "naskladnění sleduje hlídací pes"
-
-#~ msgid "aktivovat hlídacího psa"
-#~ msgstr "aktivovat hlídacího psa"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "Zobrazit detaily"
-
-#~ msgid "searching ..."
-#~ msgstr "hledání ..."
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "cena od<br>%1"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Tvůrce"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nic nebylo nelezeno."
 
 #~ msgid "Poznámka k objednávce"
 #~ msgstr "Poznámka k objednávce"

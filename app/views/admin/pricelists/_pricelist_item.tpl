@@ -4,7 +4,7 @@
 				{$pricelist->getName()}
 			</div>
 			<span class="item__code">
-				{if strlen($pricelist->getCode())}<small>{$pricelist->getCode()}</small>{/if}
+				{if $pricelist->getCode()|strlen}<small>{$pricelist->getCode()}</small>{/if}
 			</span>
 			<div class="item__controls">
 				{dropdown_menu}

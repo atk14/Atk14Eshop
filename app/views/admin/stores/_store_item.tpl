@@ -6,7 +6,7 @@
 				{$store->getName()}
 			</div>
 			<span class="item__code">
-				{if strlen($store->getCode())}{$store->getCode()}{/if}
+				{if $store->getCode()|strlen}{$store->getCode()}{/if}
 			</span>
 			<span class="item__visibility-properties">
 				<span class="item__visibility">
