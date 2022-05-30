@@ -1,1 +1,1 @@
-{a namespace="admin" controller="link_list_items" action="index" link_list_id=$link_list}{!"list"|icon} <span class="admin-menu__edit-title">{t}Edit links{/t} {if $link_list->getCode()|strlen}({$link_list->getCode()})</span>{/a}
+{a namespace="admin" controller="link_list_items" action="index" link_list_id=$link_list}{!"list"|icon} <span class="admin-menu__edit-title">{t}Edit links{/t} {if $link_list->getCode()|strlen}({$link_list->getCode()}){/if}</span>{/a}
