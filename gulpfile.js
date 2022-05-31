@@ -168,7 +168,7 @@ gulp.task( "copy", function() {
 
 // MJML emails
 gulp.task( "mjml", function(){
-	gulp.src( "public/mjml/*.mjml" )
+	gulp.src( "app/views/mailer/mjml/*.mjml" )
 		.pipe( mjml( mjmlEngine, { minify: false, fileExt: ".tpl" } ) )
 
 		// Replace ##...## with Smarty tags
@@ -178,7 +178,7 @@ gulp.task( "mjml", function(){
 		.pipe( rename( function( path ) {
 			path.extname = ".tpl"
 		}))
-		.pipe( gulp.dest( "public/dist/emails" ) );
+		.pipe( gulp.dest( "app/views/mailer" ) );
 } );
 
 // Clean
