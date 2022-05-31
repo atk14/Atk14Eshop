@@ -53,7 +53,6 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 
 	$options += array(
 		"summary" => false,
-		"decimals" => $current_currency->getDecimals(),
 		"show_decimals" => true,
 		// also the following options are available
 		// "show_decimals_on_czk" => true,
@@ -69,6 +68,15 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"ordering_unit" => null,
 	);
 	$currency = $options["currency"];
+	if(is_object($currency)){
+		$current_currency = $currency;
+		$currency = $currency->getSymbol();
+	}
+
+	$options += array(
+		"decimals" => $current_currency->getDecimals(),
+	);
+
 	$currency_lower = strtolower($current_currency->getCode());
 
 	if(!$options["show_decimals"] || (isset($options["show_decimals_on_$currency_lower"]) && !$options["show_decimals_on_$currency_lower"])){

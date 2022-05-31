@@ -76,10 +76,11 @@ class DeliveryMethodChoice {
 		}
 
 		$basket = $this->options["basket"];
+		$currency = $basket->getCurrency();
 		$incl_vat = $basket->displayPricesInclVat();
 		$delivery_countries = $basket->getDeliveryCountriesAllowed();
 
-		$price = $o->getPriceInclVat();
+		$price = $incl_vat ? $o->getPriceInclVat() : $o->getPrice();
 		if(is_null($price)){
 			return null;
 		}
@@ -94,12 +95,13 @@ class DeliveryMethodChoice {
 		if($price == 0.0 || $basket->freeShipping($this->dm)){
 			$price = 0;
 		}elseif($lowest_price!=$highest_price){
-			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain", "currency" => $currency]);
+			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain"]);
 			$highest = smarty_modifier_display_price($highest_price,["format" => "plain", "currency" => $currency]);
 			//$price = sprintf(_("od %s"),$lowest);
 			$price = sprintf(_("od %s do %s dle země doručení"),$lowest,$highest);
 		}else{
 			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
+			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
 		}
 		return $price;
 	}
