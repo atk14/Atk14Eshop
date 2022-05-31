@@ -1,6 +1,9 @@
 {render partial="shared/checkout_navigation"}
 
-{render partial="shared/layout/content_header" title=$page_title}
+<div class="basket-edit-header-wrapper">
+	{render partial="shared/layout/content_header" title=$page_title}
+	{render partial="regions/set_region_form" form=$set_region_form}
+</div>
 
 {form _class="form" _novalidate="novalidate"}
 	{render partial="shared/form_error"}

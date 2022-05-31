@@ -412,7 +412,7 @@
 				} );
 
 				// Auto submission of the set-region form
-				$("#form_baskets_set_region select").on( "change",  function() {
+				$("#form_regions_set_region select").on( "change",  function() {
 					$( document.body ).addClass( "loading" );
 					$(this).parent( "form" ).submit();
 				} );
@@ -447,6 +447,12 @@
 							.removeClass( "checked" );
 						$( this ).parents( "li" ).last().addClass( "checked" );
 					}
+				} );
+
+				// Auto submission of the set-region form
+				$("#form_regions_set_region select").on( "change",  function() {
+					$( document.body ).addClass( "loading" );
+					$(this).parent( "form" ).submit();
 				} );
 			},
 

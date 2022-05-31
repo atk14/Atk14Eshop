@@ -8,6 +8,8 @@ class SetRegionForm extends ApplicationForm {
 			$choices[$region->getId()] = $region->getName();
 		}
 
+		$this->set_attr("id","form_regions_set_region");
+
 		$this->add_field("id", new ChoiceField([
 			"label" => _("Selling region"),
 			"choices" => $choices,
