@@ -19,7 +19,7 @@ button_color: "white"
 # Header colors + logo
 # header_bgcolor: "white"
 # header_color: "#81971a"
-logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/email-logo.png"
+logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/logo--email.png"
 
 # Footer colors
 footer_bgcolor: "#ccc"
