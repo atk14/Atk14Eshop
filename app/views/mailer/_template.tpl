@@ -2292,7 +2292,16 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    <!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+    <!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}{assign eshop Store::FindByCode("eshop")}
+		{if 'app.contact.social.facebook'|system_parameter}{assign show_fb true}{/if}
+		{if 'app.contact.social.instagram'|system_parameter}{assign show_ig true}{/if}
+		{if 'app.contact.social.linkedin'|system_parameter}{assign show_li true}{/if}
+		{if 'app.contact.social.pinterest'|system_parameter}{assign show_pi true}{/if}
+		{if 'app.contact.social.snapchat'|system_parameter}{assign show_sn true}{/if}
+		{if 'app.contact.social.twitter'|system_parameter}{assign show_tw true}{/if}
+		{if 'app.contact.social.vimeo'|system_parameter}{assign show_vm true}{/if}
+		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
+		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2361,11 +2370,16 @@
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
       <div style="font-family:{$font_stack};font-size:14px;line-height:1.25;text-align:left;color:{$footer_color};"><p style="margin: 0 0 16px 0;">
-						<a href="#" style="color: {$link_color};">Superior Products</a><br>
-						Domažlická 1<br>
-						130 00 Praha 3
+						<a href="{!$region->getDefaultUrl()}" style="color: {$link_color};">{"app.name.official"|system_parameter}</a><br>
+						{if $eshop}
+						{$eshop->getAddressStreet()}<br>
+						{if $eshop->getAddressStreet2()}
+						{$eshop->getAddressStreet2()}<br>
+						{/if}
+						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br>
+						{/if}
 					</p>
-					<p style="margin: 0 0 16px 0;">Tel: +420 123 456 789</p></div>
+					<p style="margin: 0 0 16px 0;">Tel: <a href="tel:{" app.contact.phone"|system_parameter|replace:".":""}" style="color: {$link_color};">{"app.contact.phone"|system_parameter|display_phone}</a></p></div>
     
                 </td>
               </tr>
@@ -2388,14 +2402,14 @@
       
       <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin:0px;">
         <tbody>
-          
+          {if $show_fb}
       <tr>
         <td style="padding:4px;vertical-align:middle;">
           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#3b5998;border-radius:3px;width:30px;">
             <tbody>
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://mjml.io/" target="_blank" style="color: {$link_color};">
+                  <a href="{'app.contact.social.facebook'|system_parameter}" target="_blank" style="color: {$link_color};">
                     <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
@@ -2405,20 +2419,20 @@
         </td>
         
           <td style="vertical-align:middle;">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://mjml.io/" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+            <a href="{'app.contact.social.facebook'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Facebook
             </a>
           </td>
           
       </tr>
-    
+    {/if}{if $show_ig}
       <tr>
         <td style="padding:4px;vertical-align:middle;">
           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#3f729b;border-radius:3px;width:30px;">
             <tbody>
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
-                  <a href="https://mjml.io/" target="_blank" style="color: {$link_color};">
+                  <a href="{'app.contact.social.instagram'|system_parameter}" target="_blank" style="color: {$link_color};">
                     <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
@@ -2428,13 +2442,174 @@
         </td>
         
           <td style="vertical-align:middle;">
-            <a href="https://mjml.io/" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+            <a href="{'app.contact.social.instagram'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Instagram
             </a>
           </td>
           
       </tr>
-    
+    {/if}{if $show_li}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#0077b5;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.linkedin'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.linkedin'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              LinkedIn
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_pi}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#bd081c;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.pinterest'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.pinterest'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              Pinterest
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_sn}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFA54;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.snapchat'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/snapchat.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.snapchat'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              Snapchat
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_tw}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#55acee;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.twitter'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/twitter.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.twitter'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              Twitter
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_vm}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#53B4E7;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.vimeo'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/vimeo.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.vimeo'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              Vimeo
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_yt}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#EB3323;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.youtube'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/youtube.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.youtube'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              YouTube
+            </a>
+          </td>
+          
+      </tr>
+    {/if}{if $show_sc}
+      <tr>
+        <td style="padding:4px;vertical-align:middle;">
+          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#EF7F31;border-radius:3px;width:30px;">
+            <tbody>
+              <tr>
+                <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
+                  <a href="{'app.contact.social.soundcloud'|system_parameter}" target="_blank" style="color: {$link_color};">
+                    <img height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/soundcloud.png" style="border-radius:3px;display:block;" width="30">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        
+          <td style="vertical-align:middle;">
+            <a href="{'app.contact.social.soundcloud'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
+              SoundCloud
+            </a>
+          </td>
+          
+      </tr>
+    {/if}
         </tbody>
       </table>
     
