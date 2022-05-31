@@ -16,6 +16,7 @@
 		<mj-raw>{/if}</mj-raw>
 		
 		<mj-include path="partials/products-gallery.mjml"></mj-include>
+		<mj-include path="partials/image-wide.mjml"></mj-include>
 		
 		<mj-include path="partials/text-cta.mjml"></mj-include>
 		<mj-raw><!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>

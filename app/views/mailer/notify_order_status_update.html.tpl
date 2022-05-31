@@ -1,7 +1,8 @@
 {t}Vážený zákazníku,{/t}<br/>
 
-{capture assign="order_title"}{t order_no=$order->getOrderNo()}Vaše objednávka č.%1{/t} - {$order_status}{/capture}
-{render partial="partials/title_box" content=$order_title}
+{*capture assign="order_title"}{t order_no=$order->getOrderNo()}Vaše objednávka č.%1{/t} - {$order_status}{/capture}
+{render partial="partials/title_box" content=$order_title*}
+<h1>{t order_no=$order->getOrderNo()}Vaše objednávka č.%1{/t}</h1>
 
 {render partial="order_statuses/$order_status_code.html"}
 

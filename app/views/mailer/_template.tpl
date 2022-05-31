@@ -1942,6 +1942,86 @@
         <tbody>
           
               <tr>
+                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                  
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+        <tbody>
+          <tr>
+            <td style="width:550px;">
+              
+        <a href="localhost:8000" target="_blank" style="color: {$link_color};">
+          
+      <img alt="image alt" height="200" src="http://placekitten.com/550/200" style="border:0;display:block;outline:none;text-decoration:none;height:200;width:100%;font-size:16px;" width="550">
+    
+        </a>
+      
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:20px;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+            
+      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+        <tbody>
+          <tr>
+            <td style="vertical-align:top;padding:0;">
+              
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
+        <tbody>
+          
+              <tr>
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
       <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>Mohlo by vás zajímat</strong></p></div>
@@ -2302,6 +2382,7 @@
 		{if 'app.contact.social.vimeo'|system_parameter}{assign show_vm true}{/if}
 		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
+		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2676,7 +2757,7 @@
   
         
       <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
-        Obchodní podmínky
+        {t}Obchodní podmínky{/t}
       </a>
     
         
@@ -2684,7 +2765,7 @@
   
         
       <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
-        Ochrana soukromí
+        {t}Ochrana soukromí{/t}
       </a>
     
         
@@ -2692,19 +2773,27 @@
   
         
       <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
-        Kontakty
+        {t}Kontakty{/t}
       </a>
     
         
-    <!--[if mso | IE]></td><td style="padding:15px 10px;" class="" ><![endif]-->
+    <!--[if mso | IE]></td><![endif]-->
+  
+      {if sizeof($stores) > 0}
+        
+    <!--[if mso | IE]><td style="padding:15px 10px;" class="" ><![endif]-->
   
         
       <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
-        Prodejny
+        {t}Prodejny{/t}
       </a>
     
         
-    <!--[if mso | IE]></td></tr></table><![endif]-->
+    <!--[if mso | IE]></td><![endif]-->
+  
+      {/if}
+          
+    <!--[if mso | IE]></tr></table><![endif]-->
   
         </div>
     

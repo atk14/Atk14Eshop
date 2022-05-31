@@ -9,6 +9,7 @@
 		{if 'app.contact.social.vimeo'|system_parameter}{assign show_vm true}{/if}
 		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
+		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
 		</mj-raw>
 		<mj-section>
 			<mj-column>
@@ -96,10 +97,12 @@
 		<mj-section mj-class="footer-bottom">
 			<mj-column padding-left="15px" padding-right="15px">
 				<mj-navbar align="left">
-					<mj-navbar-link href="#" mj-class="footersmalllink">Obchodní podmínky</mj-navbar-link>
-					<mj-navbar-link href="#" mj-class="footersmalllink">Ochrana soukromí</mj-navbar-link>
-					<mj-navbar-link href="#" mj-class="footersmalllink">Kontakty</mj-navbar-link>
-					<mj-navbar-link href="#" mj-class="footersmalllink">Prodejny</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Obchodní podmínky{/t}</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Ochrana soukromí{/t}</mj-navbar-link>
+					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Kontakty{/t}</mj-navbar-link>
+					<mj-raw>{if sizeof($stores) > 0}</mj-raw>
+					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Prodejny{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
 				</mj-navbar>
 			</mj-column>
 		</mj-section>
