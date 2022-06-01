@@ -95,9 +95,10 @@ class DeliveryMethodChoice {
 		if($price == 0.0 || $basket->freeShipping($this->dm)){
 			$price = 0;
 		}elseif($lowest_price!=$highest_price){
-			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain"]);
+			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain", "currency" => $currency, "show_currency" => false]);
+			$lowest = str_replace(" ",html_entity_decode("&nbsp;"),$lowest);
 			$highest = smarty_modifier_display_price($highest_price,["format" => "plain", "currency" => $currency]);
-			//$price = sprintf(_("od %s"),$lowest);
+			$highest = str_replace(" ",html_entity_decode("&nbsp;"),$highest);
 			$price = sprintf(_("od %s do %s dle země doručení"),$lowest,$highest);
 		}else{
 			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
