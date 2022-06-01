@@ -205,7 +205,7 @@ gulp.task( "serve", [ "styles" ], function() {
 	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
 
 	// If mjml files change = run 'mjml' task, then reload browser
-	gulp.watch( "public/mjml/**/*.mjml", [ "mjml" ] ).on( "change", browserSync.reload );
+	gulp.watch( "app/views/mailer/mjml/**/*.mjml", [ "mjml" ] ).on( "change", browserSync.reload );
 } );
 
 // Build

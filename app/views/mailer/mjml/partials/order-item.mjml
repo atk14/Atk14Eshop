@@ -32,7 +32,9 @@
 	
 	<mj-section mj-class="order-item">
 		<mj-column width="15%" padding-top="0" padding-right="0">
+			<mj-raw><!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 			<mj-image src="{!$product_image}" alt="" width="60px" align="left" padding-right="0" padding-bottom="0" href="{!$product_link}"></mj-image>
+			<mj-raw><!-- /htmlonly --></mj-raw>
 		</mj-column>
 		<mj-column width="60%" padding-top="0" padding-bottom="0">
 			<mj-text>

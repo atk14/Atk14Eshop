@@ -1,3 +1,4 @@
+<mj-raw><!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 <mj-wrapper>
   <mj-section padding-top="20px">
     <mj-column width="100%" padding="0">
@@ -5,3 +6,4 @@
     </mj-column>
   </mj-section>
 </mj-wrapper>
+<mj-raw><!-- /htmlonly --></mj-raw>
