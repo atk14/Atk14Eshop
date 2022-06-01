@@ -1,9 +1,13 @@
 				<mj-column css-class="product-card" mj-class="product-card">
+					<mj-raw><!-- htmlonly --></mj-raw>
 					<mj-image src="https://placekitten.com/500/500" alt="Item image" align="left" padding-bottom="0" href="{$link}" fluid-on-mobile="true"></mj-image>
+					<mj-raw><!-- /htmlonly --></mj-raw>
 					<mj-text>
 						<p class="compact"><a href="#" class="bodycolor"><strong>Product name</strong></a></p>
 						<p class="currency-main">1450&nbsp;Kč</p>
 						<p class="compact small">Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.</p>
 					</mj-text>
+					<mj-raw><!-- htmlonly --></mj-raw>
 					<mj-button mj-class="button-cta--small" href="#">Více informací</mj-button>
+					<mj-raw><!-- /htmlonly --></mj-raw>
 				</mj-column>
