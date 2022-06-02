@@ -88,7 +88,8 @@
   
     
       <div style="background-color:{$bg_color};">
-        <!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+        {assign voucher_code "ATK14ESHOP"}
+			{assign voucher_amount "20 %"}<!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
         <tbody>
           <tr>
@@ -1562,6 +1563,179 @@
                 <td style="font-size:0px;word-break:break-word;">
                   
       <div style="height:40px;line-height:40px;">&#8202;</div>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+        
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+      
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    {/if}{if $voucher_amount && $voucher_code }
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
+        <tbody>
+          <tr>
+            <td>
+              
+        
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" bgcolor="{$brand_color}" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+        
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:0;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+            
+      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+              <tr>
+                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                  
+      <div style="font-family:{$font_stack};font-size:18px;line-height:1.25;text-align:center;color:white;"><p style="margin: 0 0 16px 0;"><strong>{t}Vaše sleva na příští nákup{/t}</strong></p></div>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" bgcolor="{$brand_color}" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="background:{$brand_color};background-color:{$brand_color};margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:20px;padding-top:0;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:150px;" ><![endif]-->
+            
+      <div class="mj-column-per-25 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td><td align="ccenter" class="" style="vertical-align:top;width:300px;" ><![endif]-->
+            
+      <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+              <tr>
+                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                  
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:center;color:{$text_color};"><div style="background:white; padding:20px; border-radius:10px">
+            <p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0; font-size: 36px; color: {$primary_color};"><strong>{$voucher_amount}</strong></p>
+            <p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>{t}Kód:{/t} {$voucher_code}</strong></p>
+          </div></div>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td><td class="" style="vertical-align:top;width:150px;" ><![endif]-->
+            
+      <div class="mj-column-per-25 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:0;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+            
+      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+              <tr>
+                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                  
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:center;color:white;"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022</p></div>
     
                 </td>
               </tr>

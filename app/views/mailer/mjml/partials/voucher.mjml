@@ -1,0 +1,28 @@
+<mj-wrapper mj-class="voucher">
+  <mj-section>
+    <mj-column>
+      <mj-text color="white" align="center" font-size="18px">
+        <p><strong>{t}Vaše sleva na příští nákup{/t}</strong></p>
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  <mj-section background-color="{$brand_color}" padding-bottom="20px">
+    <mj-column width="25%"></mj-column>
+    <mj-column align="ccenter" width="50%">
+        <mj-text align="center">
+          <div style="background:white; padding:20px; border-radius:10px">
+            <p class="nomargin" style="font-size: 36px; color: ##$primary_color##;"><strong>{$voucher_amount}</strong></p>
+            <p class="nomargin"><strong>{t}Kód:{/t} {$voucher_code}</p>
+          </div>
+        </mj-text>
+    </mj-column>
+    <mj-column width="25%"></mj-column>
+  </mj-section>
+  <mj-section>
+    <mj-column>
+      <mj-text color="white" align="center" >
+        <p class="nomargin">Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022</p>
+      </mj-text>
+    </mj-column>
+  </mj-section>
+</mj-wrapper>
