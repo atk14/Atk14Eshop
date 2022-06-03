@@ -4,9 +4,9 @@ Using MJML e-mail templates
 Workfow
 -------
 
-MJML templates are compiled by Gulp from MJML markup to Smarty templates. After compilation, all occurences of ##...## sequence are replaced with {...} sequence. After compilation, **_master_template.tpl** file is ready for mailing. This template contains {placeholder} Smarty tag for placing main content and markup for rendering order overview table. If you need more different templates, simply create a copy of _master_template.mjml in mjml folder and edit it.
+MJML templates are compiled by Gulp from MJML markup to Smarty templates. After compilation, all occurences of ##...## sequence are replaced with {...} sequence. After compilation, **_master_template.tpl** file is ready for mailing. This template contains {placeholder} Smarty tag for placing main content and markup for rendering order overview table. If you need more different templates, simply create a copy of **_master_template.mjml** in mjml folder and edit it.
 
-All templates are populated with sample data from sample_data.mjml except Order Overview and Text (with {palceholder} tag) which are populated with real data.
+All templates are populated with sample data from **sample_data.mjml** except Order Overview and Text (with {palceholder} tag) which are populated with real data.
 
 For MJML docs see https://documentation.mjml.io/
 
@@ -16,7 +16,7 @@ Files
 All MJML templates are located in mjml folder
 
   **_master_template.mjml** - main template with header, footer, and other optional partials.
-  **partials**- folder containing partials to be included in template.mjml at compile time. Each partial file (except those witn names starting with _ underscore) is a component usable in main template file. File sample_data.mjml contains some sample data for demo purposes and is meant to be replaced with real data in the future.
+  **partials**- folder containing partials to be included in template.mjml at compile time. Each partial file (except those witn names starting with _ underscore) is a component usable in main template file. File **sample_data.mjml** contains some sample data for demo purposes and is meant to be replaced with real data in the future.
 
 Compiling
 ---------
