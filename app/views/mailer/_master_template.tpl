@@ -2565,6 +2565,7 @@
 		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
 		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
+		{assign phone_number "app.contact.phone"|system_parameter|replace:' ':''|replace:".":""}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2642,7 +2643,7 @@
 						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br>
 						{/if}
 					</p>
-					<p style="margin: 0 0 16px 0;">Tel: <a href="tel:{" app.contact.phone"|system_parameter|replace:".":""}" style="color: {$link_color};">{"app.contact.phone"|system_parameter|display_phone}</a></p></div>
+					<p style="margin: 0 0 16px 0;">Tel: <a href="tel:{$phone_number}" style="color: {$link_color};">{"app.contact.phone"|system_parameter|display_phone}</a></p></div>
     
                 </td>
               </tr>

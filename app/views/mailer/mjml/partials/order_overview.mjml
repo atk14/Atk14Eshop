@@ -20,7 +20,7 @@
 			</mj-section>
 			
 			<mj-raw>{foreach $order->getItems() as $item}</mj-raw>
-				<mj-include path="order-item.mjml"></mj-include>
+				<mj-include path="_order_item.mjml"></mj-include>
 				<mj-raw>{/foreach}</mj-raw>
 				<mj-section>
 					<mj-group>

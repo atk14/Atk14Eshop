@@ -8,8 +8,8 @@
 				</mj-column>
 			</mj-section>
 			<mj-section>
-				<mj-include path="product-card.mjml"></mj-include>
-				<mj-include path="product-card.mjml"></mj-include>
-				<mj-include path="product-card.mjml"></mj-include>
+				<mj-include path="_product_card.mjml"></mj-include>
+				<mj-include path="_product_card.mjml"></mj-include>
+				<mj-include path="_product_card.mjml"></mj-include>
 			</mj-section>
 		</mj-wrapper>
