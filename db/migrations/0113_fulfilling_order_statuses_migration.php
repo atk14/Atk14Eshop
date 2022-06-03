@@ -248,11 +248,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			],
 		];
 		foreach($next_order_statuses as $code => $next_codes){
-			$os = OrderStatus::GetInstanceByCode($code);
-			$finder = $os->getAllowedNextOrderStatusesLister();
-			foreach($next_codes as $next_code){
-				$finder->append(OrderStatus::GetInstanceByCode($next_code));
-			}
+			$this->_appendNextOrderStatuses($code,$next_codes);
 		}
 	}
 }
