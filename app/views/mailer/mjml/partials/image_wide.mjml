@@ -2,7 +2,7 @@
 <mj-wrapper>
   <mj-section padding-top="20px">
     <mj-column width="100%" padding="0">
-      <mj-image href="localhost:8000" src="http://placekitten.com/550/200" width="550" height="200" alt="image alt">      
+      <mj-image href="{!$banner_link}" src="{!$banner_image}" width="550" height="200" alt="{!$banner_alt}">      
     </mj-column>
   </mj-section>
 </mj-wrapper>

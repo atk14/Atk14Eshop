@@ -2,7 +2,7 @@
   <mj-section>
     <mj-column>
       <mj-text color="white" align="center" font-size="18px">
-        <p><strong>{t}Vaše sleva na příští nákup{/t}</strong></p>
+        <p><strong>{!$voucher_title}</strong></p>
       </mj-text>
     </mj-column>
   </mj-section>
@@ -21,7 +21,7 @@
   <mj-section>
     <mj-column>
       <mj-text color="white" align="center" >
-        <p class="nomargin">Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022</p>
+        <p class="nomargin">{!$voucher_footer}</p>
       </mj-text>
     </mj-column>
   </mj-section>

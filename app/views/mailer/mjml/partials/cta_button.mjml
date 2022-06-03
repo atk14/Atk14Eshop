@@ -1,0 +1,5 @@
+<mj-section padding-top="20px">
+  <mj-column>
+    <mj-button mj-class="button-cta--big" href="{!$cta_btn_link}">{!$cta_btn_text}</mj-button>
+  </mj-column>
+</mj-section>

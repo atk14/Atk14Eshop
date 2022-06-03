@@ -4,10 +4,7 @@
 		<mj-include path="partials/styles.mjml"></mj-include>
 	</mj-head>
 	<mj-body>
-		<mj-raw>
-			{assign voucher_code "ATK14ESHOP"}
-			{assign voucher_amount "20 %"}
-		</mj-raw>
+		<mj-include path="partials/sample_data.mjml"></mj-include>
 		<mj-raw><!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/header.mjml"></mj-include>
 		<mj-raw><!-- /header --></mj-raw>
@@ -24,7 +21,8 @@
 		<mj-include path="partials/products_gallery.mjml"></mj-include>
 		<mj-include path="partials/image_wide.mjml"></mj-include>
 		
-		<mj-include path="partials/text_cta.mjml"></mj-include>
+		<mj-include path="partials/text_images.mjml"></mj-include>
+		<mj-include path="partials/cta_button.mjml"></mj-include>
 		<mj-raw><!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/footer.mjml"></mj-include>
 		<mj-raw><!-- /footer --></mj-raw>

@@ -40,7 +40,7 @@
 .mj-column-per-60 { width:60% !important; max-width: 60%; }
 .mj-column-per-25 { width:25% !important; max-width: 25%; }
 .mj-column-per-50 { width:50% !important; max-width: 50%; }
-.mj-column-per-33-333333333333336 { width:33.333333333333336% !important; max-width: 33.333333333333336%; }
+.mj-column-per-33-33 { width:33.33% !important; max-width: 33.33%; }
       }
     </style>
     <style media="screen and (min-width:480px)">
@@ -49,7 +49,7 @@
 .moz-text-html .mj-column-per-60 { width:60% !important; max-width: 60%; }
 .moz-text-html .mj-column-per-25 { width:25% !important; max-width: 25%; }
 .moz-text-html .mj-column-per-50 { width:50% !important; max-width: 50%; }
-.moz-text-html .mj-column-per-33-333333333333336 { width:33.333333333333336% !important; max-width: 33.333333333333336%; }
+.moz-text-html .mj-column-per-33-33 { width:33.33% !important; max-width: 33.33%; }
     </style>
     
   
@@ -88,8 +88,28 @@
   
     
       <div style="background-color:{$bg_color};">
-        {assign voucher_code "ATK14ESHOP"}
-			{assign voucher_amount "20 %"}<!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+        {* Voucher *}
+  {assign voucher_code "ATK14ESHOP"}
+  {assign voucher_amount "20 %"}
+  {assign voucher_title "Vaše sleva na příští nákup"}
+  {assign voucher_footer "Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022"}
+
+  {* CTA button *}
+  {assign cta_btn_link "cta-test.html"}
+  {assign cta_btn_text "Start shopping!"}
+
+  {* Product Gallery - recommended to place no more than 3 cards in single gallery *}
+  {assign product_gallery_title "Mohlo by vás zajímat"}
+  {assign product_cards [ ["title" => "Card Title 1", "price" => "1450 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Card Title two", "price" => "2 380 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Third Card Title", "price" => "990 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ] ]}
+
+  {* Wide image / banner *}
+  {assign banner_image "http://placekitten.com/550/200"}
+  {assign banner_link "/banner-link"}
+  {assign banner_alt "Banner Alt text"}
+
+  {* Text with images - may contain any number of items *}
+  {assign text_images_title "Text s obrázky"}
+  {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ] ]}<!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
         <tbody>
           <tr>
@@ -1632,7 +1652,7 @@
               <tr>
                 <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:18px;line-height:1.25;text-align:center;color:white;"><p style="margin: 0 0 16px 0;"><strong>{t}Vaše sleva na příští nákup{/t}</strong></p></div>
+      <div style="font-family:{$font_stack};font-size:18px;line-height:1.25;text-align:center;color:white;"><p style="margin: 0 0 16px 0;"><strong>{!$voucher_title}</strong></p></div>
     
                 </td>
               </tr>
@@ -1735,7 +1755,7 @@
               <tr>
                 <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:center;color:white;"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022</p></div>
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:center;color:white;"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">{!$voucher_footer}</p></div>
     
                 </td>
               </tr>
@@ -1805,7 +1825,7 @@
               <tr>
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>Mohlo by vás zajímat</strong></p></div>
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>{!$product_gallery_title}</strong></p></div>
     
                 </td>
               </tr>
@@ -1851,9 +1871,11 @@
           <tbody>
             <tr>
               <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:0;text-align:center;">
-                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="product-card-outlook" style="vertical-align:top;width:200px;" ><![endif]-->
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><![endif]-->
+      {foreach $product_cards as $card}
+          <!--[if mso | IE]><td class="product-card-outlook" style="vertical-align:top;width:199.98px;" ><![endif]-->
             
-      <div class="mj-column-per-33-333333333333336 mj-outlook-group-fix product-card" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+      <div class="mj-column-per-33-33 mj-outlook-group-fix product-card" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
         
       <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
         <tbody>
@@ -1869,11 +1891,11 @@
       <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;" class="mj-full-width-mobile">
         <tbody>
           <tr>
-            <td style="width:150px;" class="mj-full-width-mobile">
+            <td style="width:149px;" class="mj-full-width-mobile">
               
         <a href="{$link}" target="_blank" style="color: {$link_color};">
           
-      <img alt="Item image" height="auto" src="https://placekitten.com/500/500" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="150">
+      <img alt="{$card.title}" height="auto" src="{$card.image}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="149">
     
         </a>
       
@@ -1888,9 +1910,9 @@
               <tr>
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;"><a href="#" class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>Product name</strong></a></p>
-						<p class="currency-main" style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: {$primary_color};">1450&nbsp;Kč</p>
-						<p class="compact small" style="margin: 0 0 16px 0; margin-bottom: 4px; font-size: 14px;">Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.</p></div>
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;"><a href="#" class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>{$card.title}</strong></a></p>
+						<p class="currency-main" style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: {$primary_color};">{$card.price}</p>
+						<p class="compact small" style="margin: 0 0 16px 0; margin-bottom: 4px; font-size: 14px;">{$card.description}</p></div>
     
                 </td>
               </tr>
@@ -1902,8 +1924,8 @@
         <tbody>
           <tr>
             <td align="center" bgcolor="{$primary_color}" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:{$primary_color};" valign="middle">
-              <a href="#" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 16px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
-                Více informací
+              <a href="{!$card.button_link}" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 16px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
+                {!$card.button_text}
               </a>
             </td>
           </tr>
@@ -1923,151 +1945,10 @@
     
       </div>
     
-          <!--[if mso | IE]></td><td class="product-card-outlook" style="vertical-align:top;width:200px;" ><![endif]-->
-            
-      <div class="mj-column-per-33-333333333333336 mj-outlook-group-fix product-card" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-        
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-        <tbody>
-          <tr>
-            <td style="vertical-align:top;padding-bottom:20px;">
-              
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
-        <tbody>
-          <!-- htmlonly -->
-              <tr>
-                <td align="left" style="font-size:0px;padding:10px 25px;padding-bottom:0;word-break:break-word;">
-                  
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;" class="mj-full-width-mobile">
-        <tbody>
-          <tr>
-            <td style="width:150px;" class="mj-full-width-mobile">
-              
-        <a href="{$link}" target="_blank" style="color: {$link_color};">
-          
-      <img alt="Item image" height="auto" src="https://placekitten.com/500/500" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="150">
-    
-        </a>
-      
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-                </td>
-              </tr>
-            <!-- /htmlonly -->
-              <tr>
-                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                  
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;"><a href="#" class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>Product name</strong></a></p>
-						<p class="currency-main" style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: {$primary_color};">1450&nbsp;Kč</p>
-						<p class="compact small" style="margin: 0 0 16px 0; margin-bottom: 4px; font-size: 14px;">Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.</p></div>
-    
-                </td>
-              </tr>
-            <!-- htmlonly -->
-              <tr>
-                <td align="center" vertical-align="middle" style="font-size:0px;padding:0 0 0 0;word-break:break-word;">
-                  
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
-        <tbody>
-          <tr>
-            <td align="center" bgcolor="{$primary_color}" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:{$primary_color};" valign="middle">
-              <a href="#" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 16px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
-                Více informací
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-                </td>
-              </tr>
-            <!-- /htmlonly -->
-        </tbody>
-      </table>
-    
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-      </div>
-    
-          <!--[if mso | IE]></td><td class="product-card-outlook" style="vertical-align:top;width:200px;" ><![endif]-->
-            
-      <div class="mj-column-per-33-333333333333336 mj-outlook-group-fix product-card" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-        
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-        <tbody>
-          <tr>
-            <td style="vertical-align:top;padding-bottom:20px;">
-              
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
-        <tbody>
-          <!-- htmlonly -->
-              <tr>
-                <td align="left" style="font-size:0px;padding:10px 25px;padding-bottom:0;word-break:break-word;">
-                  
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;" class="mj-full-width-mobile">
-        <tbody>
-          <tr>
-            <td style="width:150px;" class="mj-full-width-mobile">
-              
-        <a href="{$link}" target="_blank" style="color: {$link_color};">
-          
-      <img alt="Item image" height="auto" src="https://placekitten.com/500/500" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="150">
-    
-        </a>
-      
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-                </td>
-              </tr>
-            <!-- /htmlonly -->
-              <tr>
-                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                  
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;"><a href="#" class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>Product name</strong></a></p>
-						<p class="currency-main" style="margin: 0 0 16px 0; font-size: 16px; font-weight: bold; color: {$primary_color};">1450&nbsp;Kč</p>
-						<p class="compact small" style="margin: 0 0 16px 0; margin-bottom: 4px; font-size: 14px;">Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.</p></div>
-    
-                </td>
-              </tr>
-            <!-- htmlonly -->
-              <tr>
-                <td align="center" vertical-align="middle" style="font-size:0px;padding:0 0 0 0;word-break:break-word;">
-                  
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
-        <tbody>
-          <tr>
-            <td align="center" bgcolor="{$primary_color}" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:{$primary_color};" valign="middle">
-              <a href="#" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 16px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
-                Více informací
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-                </td>
-              </tr>
-            <!-- /htmlonly -->
-        </tbody>
-      </table>
-    
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-      </div>
-    
-          <!--[if mso | IE]></td></tr></table><![endif]-->
+          <!--[if mso | IE]></td><![endif]-->
+    {/foreach}
+
+      <!--[if mso | IE]></tr></table><![endif]-->
               </td>
             </tr>
           </tbody>
@@ -2127,9 +2008,9 @@
           <tr>
             <td style="width:550px;">
               
-        <a href="localhost:8000" target="_blank" style="color: {$link_color};">
+        <a href="{!$banner_link}" target="_blank" style="color: {$link_color};">
           
-      <img alt="image alt" height="200" src="http://placekitten.com/550/200" style="border:0;display:block;outline:none;text-decoration:none;height:200;width:100%;font-size:16px;" width="550">
+      <img alt="{!$banner_alt}" height="200" src="{!$banner_image}" style="border:0;display:block;outline:none;text-decoration:none;height:200;width:100%;font-size:16px;" width="550">
     
         </a>
       
@@ -2181,15 +2062,6 @@
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
           <tbody>
             <tr>
-              <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
-                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    
-      
-      <div style="margin:0px auto;max-width:600px;">
-        
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-          <tbody>
-            <tr>
               <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:20px;text-align:center;">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
@@ -2206,7 +2078,7 @@
               <tr>
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>Mohlo by vás zajímat</strong></p></div>
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>{!$text_images_title}</strong></p></div>
     
                 </td>
               </tr>
@@ -2243,7 +2115,11 @@
       </div>
     
       
-      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    {foreach $text_images_content as $item}{if $item@iteration%2==1}
+      
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
       <div style="margin:0px auto;max-width:600px;">
@@ -2267,9 +2143,9 @@
           <tr>
             <td style="width:250px;" class="mj-full-width-mobile">
               
-        <a href="{$link}" target="_blank" style="color: {$link_color};">
+        <a href="{$item.link}" target="_blank" style="color: {$link_color};">
           
-      <img alt="Item image" height="auto" src="https://placekitten.com/500/400" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="250">
+      <img alt="{$item.title}" height="auto" src="{$item.image}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="250">
     
         </a>
       
@@ -2296,8 +2172,8 @@
               <tr>
                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                   
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p style="margin: 0 0 16px 0;"><strong>Jianbing activated charcoal thundercats wolf gentrify</strong></p>
-						<p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal. </p></div>
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p style="margin: 0 0 16px 0;"><strong>{!$item.title}</strong></p>
+						<p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">{!$item.text}</p></div>
     
                 </td>
               </tr>
@@ -2316,7 +2192,88 @@
       </div>
     
       
-      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    {else}
+      
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div style="margin:0px auto;max-width:600px;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:10px;padding-top:10px;text-align:center;">
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:300px;" ><![endif]-->
+            
+      <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+              <tr>
+                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                  
+      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p style="margin: 0 0 16px 0;"><strong>{!$item.title}</strong></p>
+						<p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">{!$item.text}</p></div>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td><td class="" style="vertical-align:top;width:300px;" ><![endif]-->
+            
+      <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+        
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tbody>
+          
+              <tr>
+                <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:10px;word-break:break-word;">
+                  
+      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;" class="mj-full-width-mobile">
+        <tbody>
+          <tr>
+            <td style="width:250px;" class="mj-full-width-mobile">
+              
+        <a href="{$item.link}" target="_blank" style="color: {$link_color};">
+          
+      <img alt="{$item.title}" height="auto" src="{$item.image}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="250">
+    
+        </a>
+      
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    {/if}
+      
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
       <div style="margin:0px auto;max-width:600px;">
@@ -2369,133 +2326,11 @@
       </div>
     
       
-      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+      <!--[if mso | IE]></td></tr></table><![endif]-->
     
+    {/foreach}
       
-      <div style="margin:0px auto;max-width:600px;">
-        
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-          <tbody>
-            <tr>
-              <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:10px;padding-top:10px;text-align:center;">
-                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:300px;" ><![endif]-->
-            
-      <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-        
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
-        <tbody>
-          
-              <tr>
-                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                  
-      <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><p style="margin: 0 0 16px 0;"><strong>Keffiyeh sustainable blog franzen</strong></p>
-						<p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;">Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.</p></div>
-    
-                </td>
-              </tr>
-            
-        </tbody>
-      </table>
-    
-      </div>
-    
-          <!--[if mso | IE]></td><td class="" style="vertical-align:top;width:300px;" ><![endif]-->
-            
-      <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-        
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
-        <tbody>
-          
-              <tr>
-                <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:10px;word-break:break-word;">
-                  
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;" class="mj-full-width-mobile">
-        <tbody>
-          <tr>
-            <td style="width:250px;" class="mj-full-width-mobile">
-              
-        <a href="{$link}" target="_blank" style="color: {$link_color};">
-          
-      <img alt="Item image" height="auto" src="https://placekitten.com/600/400" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:16px;" width="250">
-    
-        </a>
-      
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-                </td>
-              </tr>
-            
-        </tbody>
-      </table>
-    
-      </div>
-    
-          <!--[if mso | IE]></td></tr></table><![endif]-->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-      </div>
-    
-      
-      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    
-      
-      <div style="margin:0px auto;max-width:600px;">
-        
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-          <tbody>
-            <tr>
-              <td style="direction:ltr;font-size:0px;padding:0;padding-bottom:0;padding-top:0;text-align:center;">
-                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
-            
-      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-        
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-        <tbody>
-          <tr>
-            <td style="vertical-align:top;padding:0;">
-              
-      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
-        <tbody>
-          
-              <tr>
-                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
-                  
-      <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
-      </p>
-      
-      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
-</td></tr></table><![endif]-->
-    
-    
-                </td>
-              </tr>
-            
-        </tbody>
-      </table>
-    
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-      </div>
-    
-          <!--[if mso | IE]></td></tr></table><![endif]-->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-      </div>
-    
-      
-      <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
       
       <div style="margin:0px auto;max-width:600px;">
@@ -2518,8 +2353,8 @@
         <tbody>
           <tr>
             <td align="center" bgcolor="{$primary_color}" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:{$primary_color};" valign="middle">
-              <a href="#" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 20px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
-                Start shopping!
+              <a href="{!$cta_btn_link}" style="display: inline-block; background: {$primary_color}; color: {$button_color}; font-family: {$font_stack}; font-size: 20px; font-weight: bold; line-height: 1.25; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
+                {!$cta_btn_text}
               </a>
             </td>
           </tr>
@@ -2535,15 +2370,6 @@
       </div>
     
           <!--[if mso | IE]></td></tr></table><![endif]-->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-      </div>
-    
-      
-      <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
               </td>
             </tr>
           </tbody>

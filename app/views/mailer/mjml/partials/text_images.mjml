@@ -1,0 +1,47 @@
+			<mj-section padding-top="20px">
+				<mj-column width="100%" padding="0">
+					<mj-text>
+						<p class="nomargin"><strong>{!$text_images_title}</strong></p>
+					</mj-text>
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+
+			<mj-raw>{foreach $text_images_content as $item}</mj-raw>
+			<mj-raw>{if $item@iteration%2==1}</mj-raw>
+			
+			<mj-section padding-top="10px" padding-bottom="10px">
+				<mj-column>
+					<mj-image src="{$item.image}" alt="{$item.title}" padding-bottom="10px" href="{$item.link}" fluid-on-mobile="true"></mj-image>
+				</mj-column>
+				<mj-column>
+					<mj-text>
+						<p><strong>{!$item.title}</strong></p>
+						<p class="nomargin">{!$item.text}</p>
+					</mj-text>
+				</mj-column>
+			</mj-section>
+
+			<mj-raw>{else}</mj-raw>
+
+			<mj-section padding-top="10px" padding-bottom="10px">
+				<mj-column>
+					<mj-text>
+						<p><strong>{!$item.title}</strong></p>
+						<p class="nomargin">{!$item.text}</p>
+					</mj-text>
+				</mj-column>
+				<mj-column>
+					<mj-image src="{$item.image}" alt="{$item.title}" padding-bottom="10px" href="{$item.link}" fluid-on-mobile="true"></mj-image>
+				</mj-column>
+			</mj-section>
+
+			<mj-raw>{/if}</mj-raw>
+
+			<mj-section padding="0">
+				<mj-column width="100%" padding="0">
+					<mj-divider mj-class="thin"></mj-divider>
+				</mj-column>
+			</mj-section>
+
+			<mj-raw>{/foreach}</mj-raw>

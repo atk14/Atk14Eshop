@@ -2,14 +2,14 @@
 			<mj-section padding-top="20px">
 				<mj-column width="100%" padding="0">
 					<mj-text>
-						<p class="nomargin"><strong>Mohlo by vás zajímat</strong></p>
+						<p class="nomargin"><strong>{!$product_gallery_title}</strong></p>
 					</mj-text>
 					<mj-divider mj-class="thin"></mj-divider>
 				</mj-column>
 			</mj-section>
 			<mj-section>
+				<mj-raw>{foreach $product_cards as $card}</mj-raw>
 				<mj-include path="_product_card.mjml"></mj-include>
-				<mj-include path="_product_card.mjml"></mj-include>
-				<mj-include path="_product_card.mjml"></mj-include>
+				<mj-raw>{/foreach}</mj-raw>
 			</mj-section>
 		</mj-wrapper>
