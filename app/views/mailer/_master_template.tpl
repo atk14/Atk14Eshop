@@ -89,27 +89,38 @@
     
       <div style="background-color:{$bg_color};">
         {* Voucher *}
+  {assign show_voucher true}
   {assign voucher_code "ATK14ESHOP"}
   {assign voucher_amount "20 %"}
   {assign voucher_title "Vaše sleva na příští nákup"}
   {assign voucher_footer "Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022"}
 
   {* CTA button *}
+  {assign show_cta_button true}
   {assign cta_btn_link "cta-test.html"}
   {assign cta_btn_text "Start shopping!"}
 
   {* Product Gallery - recommended to place no more than 3 cards in single gallery *}
+  {assign show_products_gallery true}
   {assign product_gallery_title "Mohlo by vás zajímat"}
   {assign product_cards [ ["title" => "Card Title 1", "price" => "1450 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Card Title two", "price" => "2 380 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Third Card Title", "price" => "990 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ] ]}
 
   {* Wide image / banner *}
+  {assign show_banner true}
   {assign banner_image "http://placekitten.com/550/200"}
   {assign banner_link "/banner-link"}
   {assign banner_alt "Banner Alt text"}
 
   {* Text with images - may contain any number of items *}
+  {assign show_text_images true}
   {assign text_images_title "Text s obrázky"}
-  {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ] ]}<!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+  {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ] ]}
+
+  {* Footer Links *}
+  {assign link_conditions "/terms-and-conditions"}
+  {assign link_privacy "/privacy"}
+  {assign link_contacts "/contacts"}
+  {assign link_stores "/stores"}<!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
         <tbody>
           <tr>
@@ -1617,7 +1628,7 @@
           </tr>
         </tbody>
       </table>
-    {/if}{if $voucher_amount && $voucher_code }
+    {/if}{if $voucher_amount && $voucher_code && $show_voucher }
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
         <tbody>
           <tr>
@@ -1790,7 +1801,7 @@
           </tr>
         </tbody>
       </table>
-    {/if}
+    {/if}{if $show_products_gallery}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -1968,7 +1979,7 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    <!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+    {/if}{if $show_banner}<!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2052,7 +2063,7 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    <!-- /htmlonly -->
+    <!-- /htmlonly -->{/if}{if $show_text_images}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2328,7 +2339,7 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    {/foreach}
+    {/foreach}{/if}{if $show_cta_button}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -2380,7 +2391,7 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    <!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}{assign eshop Store::FindByCode("eshop")}
+    {/if}<!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}{assign eshop Store::FindByCode("eshop")}
 		{if 'app.contact.social.facebook'|system_parameter}{assign show_fb true}{/if}
 		{if 'app.contact.social.instagram'|system_parameter}{assign show_ig true}{/if}
 		{if 'app.contact.social.linkedin'|system_parameter}{assign show_li true}{/if}
@@ -2762,38 +2773,50 @@
         
         <div class="mj-inline-links" style>
         
-    <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" align="left"><tr><td style="padding:15px 10px;" class="" ><![endif]-->
+    <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0" align="left"><tr><![endif]-->
+  
+          {if $link_conditions}
+        
+    <!--[if mso | IE]><td style="padding:15px 10px;" class="" ><![endif]-->
   
         
-      <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
+      <a class="mj-link" href="{$link_conditions}" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
         {t}Obchodní podmínky{/t}
       </a>
     
         
-    <!--[if mso | IE]></td><td style="padding:15px 10px;" class="" ><![endif]-->
+    <!--[if mso | IE]></td><![endif]-->
+  
+      {/if}{if $link_privacy}
+        
+    <!--[if mso | IE]><td style="padding:15px 10px;" class="" ><![endif]-->
   
         
-      <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
+      <a class="mj-link" href="{$link_privacy}" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
         {t}Ochrana soukromí{/t}
       </a>
     
         
-    <!--[if mso | IE]></td><td style="padding:15px 10px;" class="" ><![endif]-->
+    <!--[if mso | IE]></td><![endif]-->
+  
+      {/if}{if $link_contacts}
+        
+    <!--[if mso | IE]><td style="padding:15px 10px;" class="" ><![endif]-->
   
         
-      <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
+      <a class="mj-link" href="{$link_contacts}" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
         {t}Kontakty{/t}
       </a>
     
         
     <!--[if mso | IE]></td><![endif]-->
   
-      {if sizeof($stores) > 0}
+      {/if}{if $link_stores && sizeof($stores) > 0}
         
     <!--[if mso | IE]><td style="padding:15px 10px;" class="" ><![endif]-->
   
         
-      <a class="mj-link" href="#" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
+      <a class="mj-link" href="{$link_stores}" target="_blank" style="display: inline-block; color: #ffffff; font-family: {$font_stack}; font-size: 12px; font-weight: normal; line-height: 1.25; text-decoration: none; text-transform: none; padding: 15px 10px;">
         {t}Prodejny{/t}
       </a>
     

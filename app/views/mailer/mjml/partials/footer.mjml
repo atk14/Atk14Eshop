@@ -98,11 +98,17 @@
 		<mj-section mj-class="footer-bottom">
 			<mj-column padding-left="15px" padding-right="15px">
 				<mj-navbar align="left">
-					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Obchodní podmínky{/t}</mj-navbar-link>
-					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Ochrana soukromí{/t}</mj-navbar-link>
-					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Kontakty{/t}</mj-navbar-link>
-					<mj-raw>{if sizeof($stores) > 0}</mj-raw>
-					<mj-navbar-link href="#" mj-class="footersmalllink">{t}Prodejny{/t}</mj-navbar-link>
+					<mj-raw>{if $link_conditions}</mj-raw>
+					<mj-navbar-link href="{$link_conditions}" mj-class="footersmalllink">{t}Obchodní podmínky{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_privacy}</mj-raw>
+					<mj-navbar-link href="{$link_privacy}" mj-class="footersmalllink">{t}Ochrana soukromí{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_contacts}</mj-raw>
+					<mj-navbar-link href="{$link_contacts}" mj-class="footersmalllink">{t}Kontakty{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_stores && sizeof($stores) > 0}</mj-raw>
+					<mj-navbar-link href="{$link_stores}" mj-class="footersmalllink">{t}Prodejny{/t}</mj-navbar-link>
 					<mj-raw>{/if}</mj-raw>
 				</mj-navbar>
 			</mj-column>

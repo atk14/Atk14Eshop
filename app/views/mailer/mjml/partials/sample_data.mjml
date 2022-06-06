@@ -1,24 +1,35 @@
 <mj-raw>
   {* Voucher *}
+  {assign show_voucher true}
   {assign voucher_code "ATK14ESHOP"}
   {assign voucher_amount "20 %"}
   {assign voucher_title "Vaše sleva na příští nákup"}
   {assign voucher_footer "Slevový kód zadejte v níákupním košíku. Sleva platí do 15. 6. 2022"}
 
   {* CTA button *}
+  {assign show_cta_button true}
   {assign cta_btn_link "cta-test.html"}
   {assign cta_btn_text "Start shopping!"}
 
   {* Product Gallery - recommended to place no more than 3 cards in single gallery *}
+  {assign show_products_gallery true}
   {assign product_gallery_title "Mohlo by vás zajímat"}
   {assign product_cards [ ["title" => "Card Title 1", "price" => "1450 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Card Title two", "price" => "2 380 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Third Card Title", "price" => "990 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ] ]}
 
   {* Wide image / banner *}
+  {assign show_banner true}
   {assign banner_image "http://placekitten.com/550/200"}
   {assign banner_link "/banner-link"}
   {assign banner_alt "Banner Alt text"}
 
   {* Text with images - may contain any number of items *}
+  {assign show_text_images true}
   {assign text_images_title "Text s obrázky"}
   {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ] ]}
+
+  {* Footer Links *}
+  {assign link_conditions "/terms-and-conditions"}
+  {assign link_privacy "/privacy"}
+  {assign link_contacts "/contacts"}
+  {assign link_stores "/stores"}
 </mj-raw>

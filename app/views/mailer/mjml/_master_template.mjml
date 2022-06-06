@@ -8,21 +8,33 @@
 		<mj-raw><!-- header -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/header.mjml"></mj-include>
 		<mj-raw><!-- /header --></mj-raw>
+
 		<mj-include path="partials/text.mjml"></mj-include>
 		
 		<mj-raw>{if $message_type == "notify_order_creation" }</mj-raw>
 		<mj-include path="partials/order_overview.mjml"></mj-include>
 		<mj-raw>{/if}</mj-raw>
 		
-		<mj-raw>{if $voucher_amount && $voucher_code }</mj-raw>
+		<mj-raw>{if $voucher_amount && $voucher_code && $show_voucher }</mj-raw>
 		<mj-include path="partials/voucher.mjml"></mj-include>
 		<mj-raw>{/if}</mj-raw>
 
+		<mj-raw>{if $show_products_gallery}</mj-raw>
 		<mj-include path="partials/products_gallery.mjml"></mj-include>
+		<mj-raw>{/if}</mj-raw>
+
+		<mj-raw>{if $show_banner}</mj-raw>
 		<mj-include path="partials/image_wide.mjml"></mj-include>
-		
+		<mj-raw>{/if}</mj-raw>
+
+		<mj-raw>{if $show_text_images}</mj-raw>
 		<mj-include path="partials/text_images.mjml"></mj-include>
+		<mj-raw>{/if}</mj-raw>
+
+		<mj-raw>{if $show_cta_button}</mj-raw>
 		<mj-include path="partials/cta_button.mjml"></mj-include>
+		<mj-raw>{/if}</mj-raw>
+
 		<mj-raw><!-- footer -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}</mj-raw>
 		<mj-include path="partials/footer.mjml"></mj-include>
 		<mj-raw><!-- /footer --></mj-raw>
