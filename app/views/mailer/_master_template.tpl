@@ -228,7 +228,7 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
-    <!-- /header -->
+    <!-- /header -->{* These sections is populated with real data *}
       
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
     
@@ -1628,7 +1628,7 @@
           </tr>
         </tbody>
       </table>
-    {/if}{if $voucher_amount && $voucher_code && $show_voucher }
+    {/if}{* Sections below are populated with demo data. *}{if $voucher_amount && $voucher_code && $show_voucher }
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:{$brand_color};background-color:{$brand_color};width:100%;">
         <tbody>
           <tr>

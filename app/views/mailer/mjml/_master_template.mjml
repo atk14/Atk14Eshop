@@ -9,12 +9,14 @@
 		<mj-include path="partials/header.mjml"></mj-include>
 		<mj-raw><!-- /header --></mj-raw>
 
+		<mj-raw>{* These sections is populated with real data *}</mj-raw>
 		<mj-include path="partials/text.mjml"></mj-include>
 		
 		<mj-raw>{if $message_type == "notify_order_creation" }</mj-raw>
 		<mj-include path="partials/order_overview.mjml"></mj-include>
 		<mj-raw>{/if}</mj-raw>
 		
+		<mj-raw>{* Sections below are populated with demo data. *}</mj-raw>
 		<mj-raw>{if $voucher_amount && $voucher_code && $show_voucher }</mj-raw>
 		<mj-include path="partials/voucher.mjml"></mj-include>
 		<mj-raw>{/if}</mj-raw>
