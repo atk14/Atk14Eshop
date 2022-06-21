@@ -1,5 +1,5 @@
 <?php
-class OrderStatusUpdaterRobot extends ApplicationRobot {
+class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 
 	function run(){
 		$robot = User::FindById(User::ID_ROBOT);
@@ -12,7 +12,7 @@ class OrderStatusUpdaterRobot extends ApplicationRobot {
 				"conditions" => [
 					"created_at>:created_at_min",
 					"order_status_id=:order_status",
-					"DATE_TRUNC('day',order_status_set_at) + INTERVAL :days<=:now"
+					"order_status_set_at + INTERVAL :days<=:now"
 				],
 				"bind_ar" => [
 					":created_at_min" => $created_at_min,

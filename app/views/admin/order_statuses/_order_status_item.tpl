@@ -16,7 +16,7 @@
 		</small>
 	</div>
 
-	<div class="item__properties">
+	<div>
 		{if $next_automatic_order_status}
 			<small>
 				{t days=$order_status->getNextAutomaticOrderStatusAfterDays()}After %1 days it will automatically go into the state:{/t}<br>

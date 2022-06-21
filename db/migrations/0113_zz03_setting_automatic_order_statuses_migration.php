@@ -3,8 +3,8 @@ class Zz03SettingAutomaticOrderStatusesMigration extends ApplicationMigration {
 
 	function up(){
 		$table = [
-			"repeated_payment_request" => ["cancelled", 11],
-			"repeated_call_for_pickup_order" => ["cancelled", 11],
+			"repeated_payment_request" => ["cancelled", 10],
+			"repeated_call_for_pickup_order" => ["cancelled", 10],
 		];
 
 		foreach($table as $order_status => $next_automatic_order_status_ar){
