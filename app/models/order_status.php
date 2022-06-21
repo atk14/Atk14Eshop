@@ -49,6 +49,10 @@ class OrderStatus extends ApplicationModel implements Translatable, Rankable {
 		return $this->getAllowedNextOrderStatusesLister()->getRecords();
 	}
 
+	function getNextAutomaticOrderStatus(){
+		return Cache::Get("OrderStatus",$this->getNextAutomaticOrderStatusId());
+	}
+
 	/**
 	 * Oznamuje se tato zmena stavu uzivateli?
 	 */
