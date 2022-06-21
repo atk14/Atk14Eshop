@@ -12,12 +12,12 @@ class OrderStatusUpdaterRobot extends ApplicationRobot {
 				"conditions" => [
 					"created_at>:created_at_min",
 					"order_status_id=:order_status",
-					"DATE_TRUNC('day',order_status_set_at) + INTERVAL :days||' days'<=:now"
+					"DATE_TRUNC('day',order_status_set_at) + INTERVAL :days<=:now"
 				],
 				"bind_ar" => [
 					":created_at_min" => $created_at_min,
 					":order_status" => $order_status,
-					":days" => (string)$order_status->getNextAutomaticOrderStatusAfterDays(),
+					":days" => sprintf("%d days",$order_status->getNextAutomaticOrderStatusAfterDays()),
 					":now" => now(),
 				]
 			]);
