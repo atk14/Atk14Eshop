@@ -18,19 +18,19 @@
 			{$delivery_method->getCode()}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			<small>{t}Výchozí cena s DPH{/t}</small><br>
 			{$delivery_method->getPriceInclVat()|display_price:"format=plain"|default:"{t}cena neurčena{/t}"}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			{if $delivery_method->getPersonalPickupOnStore()}
 				<small>{t}Osobní odběr na prodejně{/t}</small><br>
 				{$delivery_method->getPersonalPickupOnStore()}
 			{/if}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			{if $delivery_method->getDesignatedForTags()}
 				<small>{t}Určeno pro štítky{/t}</small><br>
 				{$delivery_method->getDesignatedForTags()|to_sentence}<br>
@@ -45,7 +45,7 @@
 			{/if}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			{if $delivery_method->getRequiredCustomerGroup()}
 				<small>{t}Only for customer group:{/t}</small><br>
 				{$delivery_method->getRequiredCustomerGroup()}

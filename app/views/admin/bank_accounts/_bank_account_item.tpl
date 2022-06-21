@@ -11,12 +11,12 @@
 			{$bank_account->getCode()}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			<small>{t}Sales regions{/t}:</small><br>
 			{render partial="shared/region_list" regions=$bank_account->getRegions()}
 		</div>
 
-		<div class="item__properties">
+		<div>
 			<small>{t}Currencies{/t}:</small><br>
 			{to_sentence var=$bank_account->getCurrencies() last_word_connector=", "}
 		</div>
