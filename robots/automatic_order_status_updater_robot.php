@@ -19,7 +19,8 @@ class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 					":order_status" => $order_status,
 					":days" => sprintf("%d days",$order_status->getNextAutomaticOrderStatusAfterDays()),
 					":now" => now(),
-				]
+				],
+				"order_by" => "order_status_set_at, created_at, id",
 			]);
 			foreach($orders as $order){
 				$this->dbmole->begin();
