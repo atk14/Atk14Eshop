@@ -185,4 +185,17 @@ class TcUser extends TcBase{
 		$this->assertEquals(true,$rambo->isInCustomerGroup("registered"));
 		$this->assertEquals(true,$rambo->isInCustomerGroup($this->customer_groups["vip_customers"]->getId()));
 	}
+
+	function test_isRobot(){
+		$user = User::FindFirst("login","rambo");
+		$this->assertFalse($user->isRobot());
+
+		$user = User::FindFirst("login","robot");
+		$this->assertTrue($user->isRobot());
+	}
+
+	function test_GetRobot(){
+		$robot = User::GetRobot();
+		$this->assertTrue($robot->isRobot());
+	}
 }

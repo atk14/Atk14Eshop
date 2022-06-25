@@ -57,6 +57,10 @@ class User extends ApplicationModel{
 		return Cache::Get("User",User::ID_ANONYMOUS);
 	}
 
+	static function GetRobot(){
+		return Cache::Get("User",User::ID_ROBOT);
+	}
+
 	function getLogin(){
 		$login = $this->g("login");
 		if($this->isDeleted()){
@@ -97,6 +101,8 @@ class User extends ApplicationModel{
 	function isSuperAdmin(){ return $this->getId()==self::ID_SUPERADMIN; }
 
 	function isAnonymous(){ return $this->getId()==self::ID_ANONYMOUS; }
+
+	function isRobot(){ return $this->getId()===self::ID_ROBOT; }
 
 	function toString(){ return (string)$this->getName(); }
 
