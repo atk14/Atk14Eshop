@@ -2,10 +2,12 @@
 class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 
 	function run(){
-		$robot = User::FindById(User::ID_ROBOT);
+		$robot = User::GetRobot();
 		$now = now();
 		$created_at_min = Date::ByDate($now)->minusDays(30)->toString();
 		$order_statuses = OrderStatus::FindAll("next_automatic_order_status_id IS NOT NULL");
+
+		$total_changes = 0;
 
 		foreach($order_statuses as $order_status){	
 			$orders = Order::FindAll([
@@ -32,7 +34,11 @@ class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 				]);
 				$this->dbmole->commit();
 				$this->logger->info(sprintf("order status automatically updated on order %s (Order#%s) from %s to %s",$order->getOrderNo(),$order->getId(),$current_order_status->getCode(),$next_automatic_order_status->getCode()));
+
+				$total_changes++;
 			}
+
+			$this->logger->info("total changes: $total_changes");
 		}
 	}
 }
