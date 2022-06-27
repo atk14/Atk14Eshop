@@ -31,14 +31,17 @@ class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 				$order->setNewOrderStatus([
 					"order_status_id" => $next_automatic_order_status,
 					"order_status_set_by_user_id" => $robot,
+				],[
+					"mailer" => $this->mailer,
 				]);
-				$this->dbmole->commit();
+				!TEST && $this->dbmole->commit();
 				$this->logger->info(sprintf("order status automatically updated on order %s (Order#%s) from %s to %s",$order->getOrderNo(),$order->getId(),$current_order_status->getCode(),$next_automatic_order_status->getCode()));
 
 				$total_changes++;
 			}
 
-			$this->logger->info("total changes: $total_changes");
 		}
+
+		$this->logger->info("total changes: $total_changes");
 	}
 }
