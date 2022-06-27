@@ -38,5 +38,6 @@ class TcAutomaticOrderStatusUpdaterRobot extends TcBase {
 		$this->assertContains("total changes: 1",$robot->logger->buffer->toString());
 		$order = Order::GetInstanceById($order); // re-read order
 		$this->assertEquals("cancelled",$order->getOrderStatus()->getCode());
+		$this->assertTrue($order->getOrderStatusSetByUser()->isRobot());
 	}
 }
