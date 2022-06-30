@@ -48,6 +48,9 @@
 		{if $campaign->getDiscountPercent()}
 			<li>{t discount_percent=$campaign->getDiscountPercent()}sleva %1%{/t}</li>
 		{/if}
+		{if $campaign->getGiftProduct()}
+			<li>{t escape=no amount=$campaign->getGiftAmount() product=$campaign->getGiftProduct()|h}dárek k objednávce: %1 &times; %2{/t}</li>
+		{/if}
 		</ul>
 	</td>
 

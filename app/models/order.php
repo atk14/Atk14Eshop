@@ -576,11 +576,11 @@ class Order extends BasketOrOrder {
 	}
 
 	function getVouchers() {
-		return OrderVoucher::FindAll("order_id",$this);
+		return OrderVoucher::FindAll("order_id",$this,["use_cache" => true]);
 	}
 
 	function getCampaigns() {
-		return OrderCampaign::FindAll("order_id",$this);
+		return OrderCampaign::FindAll("order_id",$this,["use_cache" => true]);
 	}
 
 	function getUpdatedByUser(){
