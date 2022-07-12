@@ -29,6 +29,10 @@ class OrderCampaign extends ApplicationModel implements Rankable {
 		return $this->getCampaign()->getName();
 	}
 
+	function getGiftOrderItem(){
+		return Cache::Get("OrderItem",$this->getGiftOrderItemId());
+	}
+
 	function createdAdministratively(){
 		return $this->g("created_administratively");
 	}

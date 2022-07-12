@@ -8,9 +8,9 @@
 				{assign product $item->getProduct()}
 				{assign price $item->getProductPrice()}
 				<tr class="table-products__item">
-					<td class="table-products__image">{a namespace="" action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
+					<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
 					<td class="table-products__title">
-						{a namespace="" action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}
+						<a href="{$product|link_to_product}">{$product->getName()}</a>
 						{if $product->getCard()->containsTag($tag_digital_product)}
 							<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
 						{/if}

@@ -5,6 +5,20 @@
 		<tbody class="table-products__discounts">{trim}
 			{* Kampane *}
 			{foreach $basket_campaigns as $campaign}
+				{if $campaign->getGiftProduct()}
+					{assign product $campaign->getGiftProduct()}
+					<tr class="table-products__item table-products__item--sale">
+						<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
+						<td colspan="{if $incl_vat}3{else}4{/if}" class="table-products__title">
+							<a href="{$product|link_to_product}"><strong>{$product->getName()}</strong></a>
+						</td>
+						<td class="table-products__amount" align="center">
+							{$campaign->getGiftAmount()} {$product->getUnit()}
+						</td>
+						<td class="table-products__price text-success">{!0|display_price:$currency}</td>
+						<td class="table-products__item-actions"></td>
+					</tr>
+				{/if}
 				{if $campaign->getDiscountAmount()>0.0}
 				<tr class="table-products__item table-products__item--sale">
 					<td class="table-products__icon">{!"percentage"|icon}</td>

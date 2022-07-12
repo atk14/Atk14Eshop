@@ -56,9 +56,9 @@
 					<td class="table-products__amount"></td>
 					<td class="table-products__price">{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{else}
-					<td class="table-products__image">{a action="cards/detail" id=$product->getCardId()}{!$product->getImage()|pupiq_img:"120x120x#ffffff"}{/a}</td>
+					<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
 					<td class="table-products__title">
-						{a action="cards/detail" id=$product->getCardId()}{$product->getName()}{/a}
+						<a href="{$product|link_to_product}">{$product->getName()}</a>
 						{if $product->getCard()->containsTag($tag_digital_product)}
 							<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
 						{/if}
@@ -74,6 +74,32 @@
 				{/if}
 			</tr>
 		{/foreach}
+
+		{* an order already has possible gifts in its items *}
+		{if is_a($order,"Basket")}
+			{foreach $order->getCampaigns() as $campaign}
+				{assign product $campaign->getGiftProduct()}
+				{if $product}
+					<tr class="table-products__item">
+						<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
+						<td class="table-products__title">
+							<a href="{$product|link_to_product}">{$product->getName()}</a>
+							{if $product->getCard()->containsTag($tag_digital_product)}
+								<br><small><span class="badge badge-pill badge-secondary">{$tag_digital_product->getTagLocalized()}</span></small>
+							{/if}
+							<span class="d-block d-lg-none table-products__id"><span class="property__key">{t}Kód{/t}</span>{$product->getCatalogId()}</span>
+						</td>
+						<td class="table-products__id"><span class="d-none d-lg-inline">{$product->getCatalogId()}</span></td>
+						<td class="table-products__unit-price"><span class="property__key">{t}Jedn. cena{/t}</span> {!0.0|display_price:$currency}</td>
+						{if !$incl_vat}
+						<td class="table-products__vat-percent">{$product->getVatPercent()}</td>
+						{/if}
+						<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$campaign->getGiftAmount()}</td>
+						<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!0.0|display_price:"$currency"}</td>
+					</tr>	
+				{/if}
+			{/foreach}
+		{/if}
 	</tbody>
 	
 	<tbody class="table-products__discounts">{trim}

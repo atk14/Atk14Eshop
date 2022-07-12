@@ -1,3 +1,7 @@
+{assign currency $basket->getCurrency()}
+{assign basket_vouchers $basket->getBasketVouchers()}
+{assign basket_campaigns $basket->getBasketCampaigns()}
+{assign vouchers_anchor_set 0}
 {assign incl_vat $basket->displayPricesInclVat()}
 
 <div id="js--edit_form_content">
