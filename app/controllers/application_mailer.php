@@ -55,6 +55,16 @@ class ApplicationMailer extends Atk14Mailer {
 	}
 
 	function _after_render(){
+		// Converting CSS to inline styles
+		if(preg_match('/(<style\b[^>]*>(?<styles>.*?)<\/style>)/si',$this->body_html,$matches)){
+			$styles = trim($matches["styles"]);
+			$css_inliner = new TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
+			$this->body_html = $css_inliner->convert(
+				$this->body_html,
+				$styles
+			);
+		}
+
 		if(!$this->body && $this->body_html){
 			// Missing plain text body will be automatically created from the HTML body.
 			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.
