@@ -36,7 +36,7 @@
 				} );
 
 				// Init Swiper
-				UTILS.initSwiper();
+				//UTILS.initSwiper();
 
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );

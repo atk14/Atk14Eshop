@@ -2,6 +2,8 @@ var gulp = require( "gulp" );
 var del = require( "del" );
 var rename = require( "gulp-rename" );
 var babel = require( "gulp-babel");
+var rollup = require( "rollup" );
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
@@ -29,7 +31,7 @@ var vendorScripts = [
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
-	"public/scripts/utils/swiper.js",
+//	"public/scripts/utils/swiper.js",
 	"public/scripts/pager.js",
 	"public/scripts/filter.js",
 	"public/scripts/nouislider.js",
@@ -48,6 +50,8 @@ var applicationScripts = [
 var applicationESModules = [
 	"public/scripts/modules/application_es6.js"
 ]
+
+var splittedModules = "public/scripts/modules/index.js";
 
 // CSS
 gulp.task( "styles", function() {
@@ -106,8 +110,28 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
-
 } );
+
+gulp.task("rollup", () => {
+	return rollup
+		.rollup({
+			input: splittedModules,
+			external: ["photoswipe"],
+			plugins: [ nodeResolve( {
+				preferBuiltins: false,
+				jsnext:true,
+				
+			} ) ],
+		})
+		.then(bundle => {
+			return bundle.write({
+				dir: "./public/dist/scripts/modules2",
+				format: "es",
+				name: "library",
+				sourcemap: true
+			});
+		});
+});
 
 // Lint & Code style
 gulp.task( "lint", function() {
