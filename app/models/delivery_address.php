@@ -40,6 +40,8 @@ class DeliveryAddress extends ApplicationModel {
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"order_by" => "COALESCE(last_used_at,created_at) DESC",
+		],[
+			"use_cache" => true,
 		]);
 	}
 
