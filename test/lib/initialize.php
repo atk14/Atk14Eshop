@@ -1,3 +1,5 @@
 <?php
 define("TEST",true);
-require(dirname(__FILE__)."/../../atk14/load.php");
+define("ATK14_DEFAULT_LANG","en");
+
+require(__DIR__."/../../atk14/load.php");
