@@ -70,7 +70,8 @@ class OrdersController extends AdminController {
 				"address_note",
 				"phone",
 				"note",
-				"(SELECT string_agg(voucher_code, ' ') FROM vouchers v , order_vouchers ov WHERE ov.voucher_id=v.id AND ov.order_id= orders.id)"
+				"(SELECT string_agg(voucher_code, ' ') FROM vouchers v , order_vouchers ov WHERE ov.voucher_id=v.id AND ov.order_id= orders.id)",
+				"(SELECT login FROM users WHERE id=orders.user_id)",
 			) as $f){
 				$_ar[] = "COALESCE($f,'')";
 			}
