@@ -2,6 +2,7 @@
 {assign product $discount->getProduct()}
 
 <tr>
+	{highlight_search_query}
 	<td>{$discount->getId()}</td>
 	<td>
 		{if $category}
@@ -21,6 +22,7 @@
 			{a action="cards/edit" id=$product->getCardId()}{$product->getName()}{/a}
 		{/if}
 	</td>
+	{/highlight_search_query}
 	<td>{$discount->getValidFrom()|format_datetime|default:$mdash}</td>
 	<td>{$discount->getValidTo()|format_datetime|default:$mdash}</td>
 	<td>{$discount->getCreatedAt()|format_datetime}</td>
