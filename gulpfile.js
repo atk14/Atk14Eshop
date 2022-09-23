@@ -106,7 +106,6 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
-
 } );
 
 // Lint & Code style
