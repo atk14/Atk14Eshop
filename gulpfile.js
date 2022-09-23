@@ -108,18 +108,6 @@ gulp.task( "scripts", function() {
 		.pipe( browserSync.stream() );
 } );
 
-	// ES6 modules need different processing
-	gulp.src( applicationESModules )
-		.pipe( $.sourcemaps.init() )
-		.pipe( babel() )
-		.pipe( $.uglify() )
-		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
-		.pipe( browserSync.stream() );
-
-} );
-
 // Lint & Code style
 gulp.task( "lint", function() {
 	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
