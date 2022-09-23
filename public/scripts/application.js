@@ -38,7 +38,6 @@
 				// Init Swiper
 				UTILS.initSwiper();
 
-<<<<<<< HEAD
 				// Navbar dropdowns work on mouseover
 				var $dropdown = $( ".dropdown" );
 				var $dropdownToggle = $( ".dropdown-toggle" );
@@ -228,8 +227,6 @@
 
 			// Action-specific code
 			index: function() {
-=======
->>>>>>> atk14catalog/develop
 			}
 		},
 
