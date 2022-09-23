@@ -106,6 +106,17 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
+} );
+
+	// ES6 modules need different processing
+	gulp.src( applicationESModules )
+		.pipe( $.sourcemaps.init() )
+		.pipe( babel() )
+		.pipe( $.uglify() )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
+		.pipe( browserSync.stream() );
 
 } );
 
