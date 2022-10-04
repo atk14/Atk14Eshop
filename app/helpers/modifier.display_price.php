@@ -53,10 +53,15 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 
 	$options += array(
 		"summary" => false,
-		"decimals" => $current_currency->getDecimals(),
 		"show_decimals" => true,
+		// also the following options are available
+		// "show_decimals_on_czk" => true,
+		// "show_decimals_on_eur" => true,
+		// ...
 		"without_vat" => false,
-		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"..
+		"show_vat_label" => false,
+		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"...
+		"show_currency" => true,
 		"mark_decimals" => false,
 		"show_zero" => true,
 		"format" => "html", // "html" n. "plain"
@@ -64,8 +69,18 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"ordering_unit" => null,
 	);
 	$currency = $options["currency"];
+	if(is_object($currency)){
+		$current_currency = $currency;
+		$currency = $currency->getSymbol();
+	}
 
-	if(!$options["show_decimals"]){
+	$options += array(
+		"decimals" => $current_currency->getDecimals(),
+	);
+
+	$currency_lower = strtolower($current_currency->getCode());
+
+	if(!$options["show_decimals"] || (isset($options["show_decimals_on_$currency_lower"]) && !$options["show_decimals_on_$currency_lower"])){
 		$options["decimals"] = 0;
 	}
 
@@ -100,7 +115,14 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		$ordering_unit = "/".$options["ordering_unit"];
 	}
 
-	$out = sprintf("<span class=\"currency_main\"><span class='price'>%s</span>&nbsp;${currency}${ordering_unit}</span>",$formatted_price);
+	$vat_label = "";
+	if ($options["show_vat_label"]) {
+		$vat_label = $options["without_vat"] ? _("excl. VAT") : _("incl. VAT");
+		$vat_label = " <span class=\"vat_label\">$vat_label</span>";
+	}
+
+	$currency_str = $options["show_currency"] ? "&nbsp;<span class=\"currency_main__currency\">${currency}</span>" : "";
+	$out = sprintf("<span class=\"currency_main\"><span class=\"currency_main__price\">%s</span>$currency_str<span class=\"currency_main__ordering-unit\">${ordering_unit}</span></span>${vat_label}",$formatted_price);
 
 	if($options["format"]=="plain"){
 		$out = strip_tags($out);
@@ -111,6 +133,7 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 }
 
 function __format_price__($price,$decimals = 0){
+	$decimals = (int)$decimals;
 	Atk14Require::Helper("modifier.display_number");
 	$out = number_format($price,$decimals,".","");
 	return smarty_modifier_display_number($out);

@@ -28,7 +28,7 @@
 		<tr>
 			<th>{t}Zodpovědná osoba{/t}</th>
 			<td>
-				{if $responsible_user}{$responsible_user}{else}{t escape=false}Není určena &rarr; {/t}{a action="set_responsible_user" id=$order}přiřadit{/a}{/if}
+				{if $responsible_user}{$responsible_user}{else}{t escape=false}Není určena &rarr; {/t}{a action="set_responsible_user" id=$order _class="btn btn-outline-primary btn-sm mb-2"}přiřadit{/a}{/if}
 			</td>
 		</tr>
 
@@ -36,7 +36,7 @@
 			<th>{t}Stav objednávky{/t}</th>
 			<td>
 				{if $order->getAllowedNextOrderStatuses()}
-					{a action="order_order_statuses/create_new" order_id=$order}{t}Změnit stav objednávky{/t}{/a}
+					{a action="order_order_statuses/create_new" order_id=$order _class="btn btn-outline-primary btn-sm mb-2"}{t}Změnit stav objednávky{/t}{/a}
 				{/if}
 				<ul>
 						{if $order_history_items}
@@ -129,8 +129,17 @@
 					<li>{$order->getDeliveryMethod()}{render partial="shared/order/delivery_method_data"}</li>
 					<li>{t}Poplatek:{/t} {!$order->getDeliveryFee()|display_price:"$currency,summary"}</li>
 					<li>{t}Poplatek s DPH:{/t} {!$order->getDeliveryFeeInclVat()|display_price:"$currency,summary"}</li>
-{assign tracking_number $order->getTrackingNumber()}
-					<li>{t}Číslo zásilky pro sledování:{/t} {if $tracking_number}<a href="{$order->getTrackingUrl()}">{$tracking_number}</a>{else}{t}Není vyplněno{/t}{/if}</li>
+					<li>{t}Číslo zásilky pro sledování:{/t}
+						{assign tracking_number $order->getTrackingNumber()}
+						{if $tracking_number}
+							{if $order->getTrackingUrl()}
+								<a href="{$order->getTrackingUrl()}">{$tracking_number}</a>
+							{else}
+								{$tracking_number} ({t}vzor pro sledovací URL není nastaven{/t} &rarr; {a action="delivery_methods/edit" id=$order->getDeliveryMethod()}nastavit?{/a})
+							{/if}
+						{else}
+							{t}Není vyplněno{/t}{/if}
+						</li>
 				</ul>
 			</td>
 		</tr>

@@ -37,6 +37,11 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $basket;
 
+	/**
+	 * @var FavouriteProductsAccessor
+	 */
+	var $favourite_products_accessor;
+
 
 	function error404(){
 		if($this->_redirected_on_error404()){
@@ -103,40 +108,52 @@ class ApplicationBaseController extends Atk14Controller{
 			$this->tpl_data["head_tags_14"] = $this->head_tags_14;
 		}
 
+		$this->tpl_data["basket"] = $basket = $this->_get_basket();
+		$this->tpl_data["current_region"] = $current_region = $basket->getRegion();
+		$this->tpl_data["allowed_regions"] = $this->_get_allowed_regions();
+		$this->tpl_data["current_currency"] = $basket->getCurrency();
+
 		// data for language swith, see app/views/shared/_langswitch.tpl
-		$languages = array();
+		$all_languages = array(); // all language
+		$supported_languages = array(); // all language but the current language, TODO: should be renamed to other_languages
 		$current_language = null;
 		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
 		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
-		foreach($ATK14_GLOBAL->getConfig("locale") as $l => $locale){
-			$params["lang"] = $l;
+		foreach($current_region->getLanguages() as $lang){
+			$l = $lang->getId(); // "en", "cs", ...
+			$locale = $lang->toArray();
+			$params["lang"] = $lang->getId();
 			$item = array(
 				"lang" => $l,
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
 				"switch_url" => $this->_link_to($params)
 			);
+			$all_languages[] = $item;
 			if($this->lang==$l){
 				$current_language = $item;
 				continue;
 			}
-			$languages[] = $item;
+			$supported_languages[] = $item;
 		}
 		$this->tpl_data["current_language"] = $current_language;
-		$this->tpl_data["supported_languages"] = $languages;
-		$this->tpl_data["basket"] = $basket = $this->_get_basket();
-		$this->tpl_data["current_region"] = $basket->getRegion();
-		$this->tpl_data["current_currency"] = $basket->getCurrency();	
+		$this->tpl_data["all_languages"] = $all_languages;
+		$this->tpl_data["supported_languages"] = $supported_languages;
 
 		// It's better to write
 		//	{$val|default:$mdash}
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+		$this->tpl_data["nbsp"] = " ";
 
 		$this->tpl_data["lazy_loader"] = $this->lazy_loader;
+
+		$this->tpl_data += (array)$ATK14_GLOBAL->getConfig("theme/frontend");
 	}
 
 	function _application_before_filter(){
+		global $ATK14_GLOBAL;
+
 		$this->permanentSession = new Atk14Session( new SessionStorer([
 			'cookie_expiration' => 84600*356,
 			'session_name' => 'permanent'
@@ -163,20 +180,23 @@ class ApplicationBaseController extends Atk14Controller{
 
 		if(
 			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
-			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
+			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && constant("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
 		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$scheme = $this->request->getScheme();
+			$scheme = (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")) ? "https" : $this->request->getScheme();
 			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
 			return $this->_redirect_to_ssl();
 		}
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+		$ATK14_GLOBAL->setValue("logged_user",$this->logged_user); // we need this in app/helpers/function.admin_menu.php
 		$this->effective_user = $this->logged_user?:User::GetAnonymousUser();
+
+		$this->favourite_products_accessor = $this->tpl_data["favourite_products_accessor"] = new FavouriteProductsAccessor($this->logged_user,$this->permanentSession);
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
@@ -184,9 +204,16 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
+		PriceFinder::SetCurrentInstance($this->price_finder);
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
+		}
+
+		// CookieConsent's cookie acts like a check cookie
+		if(!SESSION_STORER_COOKIE_NAME_CHECK && !$this->request->getCookieVars()){
+			$settings = CookieConsent::GetSettings($this->request);
+			$settings->saveSettings($this->response,array("delete_rejected_cookies" => false));
 		}
 	}
 
@@ -203,15 +230,27 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
+	function _get_allowed_regions(){
+		$regions = Region::GetActiveInstances();
+		return $regions;
+	}
+
 	function _get_current_region(){
-		if($region = Region::GetRegionByDomain($this->request->getHttpHost())){
-			return $region;
+		$region = Region::GetRegionByDomain($this->request->getHttpHost());
+		if(!$region){
+			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}
-		$region_id = $this->permanentSession->g("region_id");
-		if(isset($region_id) && ($region = Cache::Get("Region",$region_id))){
-			return $region;
+		if(!$region || !$region->isActive()){
+			$region = Region::GetDefaultRegion();
 		}
-		return Region::GetDefaultRegion();
+
+		// current region has to be found in allowed regions
+		$allowed_regions = $this->_get_allowed_regions();
+		if(!array_filter($allowed_regions,function($r) use($region){ return $r->getId()===$region->getId(); })){
+			$region = $allowed_regions[0];
+		}
+
+		return $region;
 	}
 
 	/**
@@ -267,7 +306,7 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		if(!$basket){
-			$basket = Basket::GetDummyBasket($region);
+			$basket = Basket::GetDummyBasket($region,$this->logged_user);
 		}
 	
 		$basket->setRegion($region);
@@ -287,6 +326,10 @@ class ApplicationBaseController extends Atk14Controller{
 				$new_basket->mergeBasket($current_basket);
 			}
 			$current_basket && !$current_basket->isDummy() && $current_basket->destroy();
+
+			$new_favourite_products_accessor = new FavouriteProductsAccessor($user);
+			$new_favourite_products_accessor->mergeFavouriteProductsAccessor($this->favourite_products_accessor);
+			$this->favourite_products_accessor->destroy();
 		}
 
 		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";

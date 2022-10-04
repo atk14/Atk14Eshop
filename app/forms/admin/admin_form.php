@@ -98,6 +98,7 @@ class AdminForm extends ApplicationForm{
 
 	function add_slug_field(){
 		return $this->add_translatable_field("slug",new SlugField(array(
+			"max_length" => Slug::SlugMaxLength(),
 			"required" => false,
 		)));
 	}
@@ -195,7 +196,7 @@ class AdminForm extends ApplicationForm{
 
 	function add_consider_stockcount_field(){
 		$this->add_field("consider_stockcount", new ReverseBooleanField([
-			"label" => _("Lze produkt objednat bez ohledu na skladovou zásobu?"),
+			"label" => _("Lze produkt objednat, i když není skladem?"),
 			"help_text" => _("Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové zásoby (např. digitální soubor)"),
 			"required" => false,
 			"initial" => true,
@@ -238,6 +239,78 @@ class AdminForm extends ApplicationForm{
 		}
 	}
 
+	/**
+	 * Cleanes slugs
+	 *
+	 * It is intended to be used only in edit forms or when the edited object is known.
+	 *
+	 *	$this->_clean_slugs($data);
+	 *	$this->_clean_slugs($data,["auto_correct" => true]);
+	 *
+	 *	$this->_clean_slugs($data,$article);
+	 *	$this->_clean_slugs($data,$article,["auto_correct" => true]);
+	 */
+	function _clean_slugs(&$data,$edited_object = null,$options = array()){
+		global $ATK14_GLOBAL;
+
+		if(is_array($edited_object)){
+			$options = $edited_object;
+			$edited_object = null;
+		}
+
+		$options += array(
+			"auto_correct" => false,
+		);
+
+		if(!is_array($data)){ return; }
+
+		if(!$edited_object){
+			$object_class_name = String4::ToObject(get_class($this->controller))->gsub('/Controller$/','')->singularize()->toString();  // "StaticPagesController" -> "StaticPage"
+			$edited_object = $object_class_name::GetInstanceById($this->controller->params->getInt("id"));
+		}
+
+		if(!$edited_object){
+			return;
+		}
+
+		foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
+			if(!isset($data["slug_$l"]) || strlen($data["slug_$l"])==0){ continue; }
+			$original_slug = $data["slug_$l"];
+			$slug = $original_slug;
+			$counter = 1;
+			while(1){
+				$counter++;
+				$existing_slug = Slug::FindFirst(array(
+					"conditions" => array(
+						"table_name=:table_name",
+						"record_id!=:record_id",
+						"segment=:segment",
+						"slug=:slug",
+						"lang=:lang"
+					),
+					"bind_ar" => array(
+						":table_name" => $edited_object->getTableName(),
+						":record_id" => $edited_object->getId(),
+						":segment" => $edited_object->getSlugSegment(),
+						":slug" => $slug,
+						":lang" => $l,
+					),
+				));
+				if($existing_slug && $options["auto_correct"] && $counter<=50){
+					$slug = "$original_slug-$counter"; // TODO: preserve max_legth constraint
+					continue;
+				}
+				if($existing_slug){
+					$this->set_error("slug_$l",_("The same slug is used in a different object"));
+				}
+				if($options["auto_correct"]){
+					$data["slug_$l"] = $slug;
+				}
+				break;
+			}
+		}
+	}
+
 	function _clean_catalog_id(&$data){
 		if(!is_array($data) || !isset($data["catalog_id"])){ return; }
 
@@ -253,12 +326,12 @@ class AdminForm extends ApplicationForm{
 		if(preg_match('/EditForm/',get_class($this))){
 
 			if($product && $conflicted_product && $product->getId()!=$conflicted_product->getId()){
-				$this->set_error("catalog_id",_("The same catalog number is used for another product"));
+				$this->set_error("catalog_id",_("The same catalog number is used for another product").' (<a href="'.Atk14Url::BuildLink(["action" => "cards/edit", "id" => $conflicted_product->getCardId()]).'">'._("open in administration").'</a>)');
 			}
 
 		}elseif($conflicted_product){
 
-			$this->set_error("catalog_id",_("The same catalog number is used for another product"));
+			$this->set_error("catalog_id",_("The same catalog number is used for another product").' (<a href="'.Atk14Url::BuildLink(["action" => "cards/edit", "id" => $conflicted_product->getCardId()]).'">'._("open in administration").'</a>)');
 
 		}
 	}

@@ -1,6 +1,15 @@
 <?php
 class EditForm extends WarehouseItemsForm {
 
+	function set_up(){
+		parent::set_up();
+
+		$this->fields["product_id"]->disabled = true;
+		
+		$unit = $this->controller->warehouse_item->getProduct()->getUnit();
+		$this->fields["stockcount"]->label .= " [$unit]";
+	}
+
 	function clean(){
 		list($err,$d) = parent::clean();
 

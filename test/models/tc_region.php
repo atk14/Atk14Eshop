@@ -1,4 +1,8 @@
 <?php
+/**
+ *
+ * @fixture regions
+ */
 class TcRegion extends TcBase {
 
 	function test(){
@@ -51,5 +55,54 @@ class TcRegion extends TcBase {
 		$this->assertEquals("Test_name",$region->getApplicationName());
 		$this->assertEquals("Test_long_name",$region->getApplicationLongName());
 		$this->assertEquals("test@email.com",$region->getEmail());
+	}
+
+	function test_GetCountries(){
+		$default = Region::GetInstanceByCode("DEFAULT");
+		$default->s("invoice_countries",'["CZ"]');
+		Cache::Clear();
+
+		// delivery
+		$countries = Region::GetDeliveryCountriesFromAllRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+		$countries = Region::GetDeliveryCountriesFromActiveRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+
+		// invoice
+		$countries = Region::GetInvoiceCountriesFromAllRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+		$countries = Region::GetInvoiceCountriesFromActiveRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+
+
+		$this->regions["EU"]->s("active",false);
+		Cache::Clear();
+
+		// delivery
+		$countries = Region::GetDeliveryCountriesFromAllRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+		$countries = Region::GetDeliveryCountriesFromActiveRegions();
+		$this->assertEquals(["CZ","SK"],$countries);
+
+		// invoice
+		$countries = Region::GetInvoiceCountriesFromAllRegions();
+		$this->assertEquals(["CZ","SK","DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"],$countries);
+		$countries = Region::GetInvoiceCountriesFromActiveRegions();
+		$this->assertEquals(["CZ","SK"],$countries);
+
+		$this->regions["EU"]->s("invoice_countries",null); // no limit
+		Cache::Clear();
+
+		$countries = Region::GetInvoiceCountriesFromAllRegions();
+		$this->assertEquals(null,$countries);
+
+		$countries = Region::GetInvoiceCountriesFromActiveRegions();
+		$this->assertEquals(["CZ","SK"],$countries);
+
+		$this->regions["CR"]->s("invoice_countries",null); // no limit
+		Cache::Clear();
+
+		$countries = Region::GetInvoiceCountriesFromActiveRegions();
+		$this->assertEquals(null,$countries);
 	}
 }

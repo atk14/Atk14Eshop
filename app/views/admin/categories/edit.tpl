@@ -96,7 +96,7 @@ Do you really want this?{/t}{/capture}
 							{if $child->isFilter()}<em>{t}filter{/t}:</em>{/if}
 							{if $child->isAlias()}<em>{t}link{/t}:</em>{/if}
 							{$child->getName()}
-							{if !$child->isVisible()}<em>({t}invisible{/t})</em>{/if}
+							{if !$child->isVisible(false)}<em>({t}invisible{/t})</em>{/if}
 							{dropdown_menu}
 								{a action="edit" id=$child}{icon glyph="edit"} {t}Edit{/t}{/a}
 								{if $child->isDeletable()}
@@ -140,8 +140,18 @@ Do you really want this?{/t}{/capture}
 				<ul class="list-group list-sortable" data-sortable-url="{link_to action="category_cards/set_rank" category_id=$category}">
 					{foreach $cards as $card}
 						<li class="list-group-item" data-id="{$card->getId()}">
+							<div class="float-left">
 							{render partial="shared/list_thumbnail" image=$card->getImage()}
+							</div>
+							<div class="float-left pr-2">
 							{$card->getName()}
+							<br>
+							<small>
+							{foreach $card->getProducts(["visible" => null]) as $product}
+								{if !$product->isVisible()}<span class="text-muted" title="{t}invisible{/t}">{/if}{$product->getCatalogId()}{if !$product->isVisible()}</span>{/if}{if !$product@last}, {/if}
+							{/foreach}
+							</small>
+							</div>
 							{if !$card->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 							{dropdown_menu}
 								{a action="cards/edit" id=$card}{!"edit"|icon} {t}Edit product{/t}{/a}

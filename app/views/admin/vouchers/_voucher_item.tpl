@@ -1,7 +1,8 @@
 <tr>
-	<td>{$voucher->getId()}</td>
-	<td>{$voucher->getRegions()|join:", "}</td>
-	<td>{$voucher->getVoucherCode()}</td>
+	<td>{highlight_search_query}{$voucher->getId()}{/highlight_search_query}</td>
+	<td>{", "|join:$voucher->getRegions()}</td>
+	<td>{if $voucher->isGiftVoucher()}{!"gift"|icon}{/if}</td>
+	<td>{{highlight_search_query}}{$voucher->getVoucherCode()}{/highlight_search_query}</td>
 	<td>
 		{if $voucher->getDiscountPercent()}
 			{!$voucher->getDiscountPercent()}%<br>
@@ -10,7 +11,10 @@
 			{!$voucher->getDiscountAmount()|display_price}<br>
 		{/if}
 		{if $voucher->freeShipping()}
-			{t}doprava zdarma{/t}
+			{t}doprava zdarma{/t}<br>
+		{/if}
+		{if $voucher->getDescription()}
+			<em>{$voucher->getDescription()|truncate:100}</em>
 		{/if}
 	</td>
 	<td>{render partial="shared/active_state" object=$voucher}</td>

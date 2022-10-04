@@ -1,30 +1,70 @@
 <?php
 /**
+ *
  * @fixture cards
  * @fixture technical_specification_keys
+ * @fixture technical_specifications
  */
 class TcTechnicalSpecification extends TcBase {
 
 	function test(){
-		$ts = TechnicalSpecification::CreateNewRecord(array(
-			"card_id" => $this->cards["coffee"],
-			"technical_specification_key_id" => $this->technical_specification_keys["aroma"],
-			"content" => "Strong",
-			"content_localized_cs" => "Silná",
-		));
+		$ts = $this->technical_specifications["coffee__aroma"];
 
-		$this->assertEquals("Strong",$ts->getContent());
-		$this->assertEquals("Strong",$ts->getContent("en"));
-		$this->assertEquals("Silná",$ts->getContent("cs"));
-		
 		$lang = "en";
 		Atk14Locale::Initialize($lang);
 
 		$this->assertEquals("Strong",$ts->getContent());
+		$this->assertEquals("Strong",$ts->getContent("en"));
+		$this->assertEquals("Silná",$ts->getContent("cs"));
+		$this->assertEquals("Strong","$ts");
 
 		$lang = "cs";
 		Atk14Locale::Initialize($lang);
 
 		$this->assertEquals("Silná",$ts->getContent());
+		$this->assertEquals("Strong",$ts->getContent("en"));
+		$this->assertEquals("Silná",$ts->getContent("cs"));
+		$this->assertEquals("Silná","$ts");
+
+		$this->assertEquals("Silná",$ts->getRawContent());
+		$this->assertEquals("Strong",$ts->getRawContent("en"));
+		$this->assertEquals("Strong",$ts->getRawContent("en"));
+
+		//
+
+		$ts = $this->technical_specifications["coffee__decaffeinated"];
+
+		$this->assertEquals("No",$ts->getContent("en"));
+		$this->assertEquals("Ne",$ts->getContent("cs"));
+		$this->assertTrue(false === $ts->getRawContent());
+	}
+
+	function test_autoparsing_raw_value(){
+		// ### Type: Integer
+
+		// auto-parsing integer value succeeded
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["book"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "12",
+		));
+		$this->assertEquals('{"integer":12}',$ts->getContentJson());
+
+		// auto-parsing integer value failed
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["fridge"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "Its' too heavy",
+		));
+		$this->assertNull($ts->getContentJson());
+
+		// auto-parsing integer value not desired
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["peanuts"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "12",
+			"content_json" => null,
+		));
+		$this->assertNull($ts->getContentJson());
 	}
 }

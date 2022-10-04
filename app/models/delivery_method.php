@@ -13,6 +13,14 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return array("label","title","description","email_description");
 	}
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function isActive() {
 		return $this->getActive();
 	}
@@ -46,6 +54,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return $this->_setRank($rank);
 	}
 
+	function getRequiredCustomerGroup(){
+		return Cache::Get("CustomerGroup",$this->getRequiredCustomerGroupId());
+	}
+
 	function setPaymentMethods($payment_methods) {
 		return ShippingCombination::SetPaymentMethodsForDeliveryMethod($this,$payment_methods);
 	}
@@ -65,6 +77,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	function getPersonalPickupOnStore() {
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
+	}
+
+	function getDeliveryService() {
+		return Cache::Get("DeliveryService",$this->getDeliveryServiceId());
 	}
 
 	/**
@@ -97,7 +113,8 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 				UNION
 				(SELECT id FROM orders WHERE delivery_method_id=:delivery_method LIMIT 1)
 			)q
-		",[":delivery_method" => $this]);
+		",[":delivery_method" => $this]) &&
+		!Campaign::FindFirst("required_delivery_method_id",$this);
 	}
 
 	function getCode($country = null){
@@ -107,16 +124,28 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return $this->g("code");
 	}
 
+	function getVatRate($country = null){
+		if($specification = $this->getCountrySpecification($country)){
+			return $specification->getVatRate();
+		}
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent($country = null){
+		if($specification = $this->getCountrySpecification($country)){
+			return $specification->getVatPercent();
+		}
+		return $this->getVatRate()->getVatPercent();
+	}
+
 	/**
 	 *
 	 *	$price = $dm->getPrice(); // vychozi cena
 	 *	$price = $dm->getPrice("SK"); // cena muze byt odlisna od ceny vychozi
 	 */
 	function getPrice($country = null){
-		if($specification = $this->getCountrySpecification($country)){
-			return $specification->getPrice();
-		}
-		return $this->g("price");
+		$price_incl_vat = $this->getPriceInclVat($country);
+		return ApplicationHelpers::DelVat($price_incl_vat,$this->getVatPercent($country));
 	}
 
 	/**
@@ -131,19 +160,62 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return $this->g("price_incl_vat");
 	}
 
-	function getLowestPriceInclVat(){
-		$price = $this->getPriceInclVat();
-		$spec_price = $this->dbmole->selectFloat("SELECT MIN(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method",[":delivery_method" => $this]);
-		if(isset($spec_price) && $spec_price<$price){
-			return $spec_price;
-		}
-		return $price;
+	/**
+	 *
+	 *	$lowest_price = $dm->getLowestPrice();
+	 *	$lowest_price = $dm->getLowestPrice(["CZ","SK"]);
+	 */
+	function getLowestPrice($countries = null){
+		return $this->_getLowestOrHighestPrice(false,"MIN",$countries);
 	}
 
-	function getHighestPriceInclVat(){
-		$price = $this->getPriceInclVat();
-		$spec_price = $this->dbmole->selectFloat("SELECT MAX(price_incl_vat) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method",[":delivery_method" => $this]);
-		if(isset($spec_price) && $spec_price>$price){
+	/**
+	 *
+	 *	$lowest_price = $dm->getLowestPriceInclVat();
+	 *	$lowest_price = $dm->getLowestPriceInclVat(["CZ","SK"]);
+	 */
+	function getLowestPriceInclVat($countries = null){
+		return $this->_getLowestOrHighestPrice(true,"MIN",$countries);
+	}
+
+	/**
+	 *
+	 *	$highest_price = $dm->getHighestPrice();
+	 *	$highest_price = $dm->getHighestPrice(["CZ","SK"]);
+	 */
+	function getHighestPrice($countries = null){
+		return $this->_getLowestOrHighestPrice(false,"MAX",$countries);
+	}
+
+	/**
+	 *
+	 *	$highest_price = $dm->getHighestPriceInclVat();
+	 *	$highest_price = $dm->getHighestPriceInclVat(["CZ","SK"]);
+	 */
+	function getHighestPriceInclVat($countries = null){
+		return $this->_getLowestOrHighestPrice(true,"MAX",$countries);
+	}
+
+	protected function _getLowestOrHighestPrice($incl_vat,$MAX,$countries){
+		$field = $incl_vat ? "price_incl_vat" : "100.0 * (price_incl_vat / (100.0 + (SELECT vat_percent FROM vat_rates WHERE id=delivery_method_country_specifications.vat_rate_id)))";
+		$price = $incl_vat ? $this->getPriceInclVat() : $this->getPrice();
+		$bind_ar = [":delivery_method" => $this];
+		$countries_sql = "";
+		if($countries){
+			$countries_sql = " AND country IN :countries";
+			$bind_ar[":countries"] = $countries;
+		}
+		$spec_price = $this->dbmole->selectFloat("SELECT $MAX($field) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+		if(!$incl_vat && !is_null($spec_price)){
+			$spec_price = round($spec_price,INTERNAL_PRICE_DECIMALS);
+		}
+		if(!is_null($spec_price) && $countries){
+			$cnt = $this->dbmole->selectInt("SELECT COUNT(*) FROM delivery_method_country_specifications WHERE delivery_method_id=:delivery_method$countries_sql",$bind_ar);
+			if($cnt == sizeof($countries)){
+				return $spec_price;
+			}
+		}
+		if(!is_null($spec_price) && (($MAX=="MAX" && $spec_price>$price) || ($MAX=="MIN" &&  $spec_price<$price))){
 			return $spec_price;
 		}
 		return $price;
@@ -170,5 +242,25 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	 */
 	function getRequiredTag(){
 		return Cache::Get("Tag",$this->getRequiredTagId());
+	}
+
+	function getDesignatedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "delivery_method_designated_for_tags",
+		]);
+	}
+
+	function getDesignatedForTags(){
+		return $this->getDesignatedForTagsLister()->getRecords();
+	}
+
+	function getExcludedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "delivery_method_excluded_for_tags",
+		]);
+	}
+		
+	function getExcludedForTags(){
+		return $this->getExcludedForTagsLister()->getRecords();
 	}
 }

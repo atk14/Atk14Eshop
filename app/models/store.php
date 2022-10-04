@@ -68,7 +68,7 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 
 		$address = parent::getAddress($lang);
 		if($address){
-			return $address;
+			return trim($address);
 		}
 
 		Atk14Require::Helper("modifier.to_country_name");
@@ -88,7 +88,7 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 			$ary[] = smarty_modifier_to_country_name($this->g("address_country"));
 		}
 
-		$ary = array_map(function($item){ return trim($item); },$ary);
+		$ary = array_map(function($item){ return trim((string)$item); },$ary);
 		$ary = array_filter($ary);
 		return join($options["connector"],$ary);
 	}
@@ -101,6 +101,10 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 		$lat = $this->g("location_lat")."N"; // TODO: zaporne je S
 		$lng = $this->g("location_lng")."E"; // TODO: zaporne je W
 		return "$lat, $lng";
+	}
+
+	function toString(){
+		return (string)$this->getName();
 	}
 
 	function isIndexable(){

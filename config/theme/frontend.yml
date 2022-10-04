@@ -1,0 +1,7 @@
+# Configures styling properties accessible within document instead of external css
+# All the values are accessible in frontend templates as variables, e.g. <meta name="theme-color" style="{$browser_theme_color}">
+
+# Browser theme color - apple and android browsers will use this color to colorize browser UI
+# Usually the best choice is to use primary or brand color found in style guide or in public/styles/_bootstrap_variables.scss
+# Some values may not work (for example "red" in Safari) if they are too similar to colors used in browser UI 
+browser_theme_color: "#30BCED"

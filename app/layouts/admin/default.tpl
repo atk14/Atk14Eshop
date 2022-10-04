@@ -64,7 +64,7 @@
 		
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
+	<body class="body_{$controller}_{$action}{if $request->getCookieVar("dark_mode")} dark-mode{/if}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
 		<div class="body-wrap">
 			{render partial="shared/layout/header"}
 		
@@ -73,7 +73,7 @@
 			{/if}
 			<div class="body{if $section_navigation} has-nav-section{/if}">
 					{if $section_navigation}
-						<nav class="nav-section">
+						<nav class="nav-section d-print-none">
 							{render partial="shared/layout/section_navigation"}
 						</nav>
 					{/if}

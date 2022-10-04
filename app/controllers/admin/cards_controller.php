@@ -15,11 +15,17 @@ class CardsController extends AdminController{
 	function index(){
 		$this->page_title = _("List of Products");
 
-		$q = ($d = $this->form->validate($this->params)) ? $d["search"] : "";
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
 		$conditions = array("deleted='f'");
 
+		if(isset($d["visible"])){
+			$conditions[] = "visible=:visible";
+			$bind_ar[":visible"] = !!$d["visible"];
+		}
+
+		$q = $d["search"];
 		$q_up = Translate::Upper($q);
 
 		if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",array(
@@ -61,6 +67,7 @@ class CardsController extends AdminController{
 		$this->sorting->add("name", array("order_by" => Translation::BuildOrderSqlForTranslatableField("cards", "name")));
 		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
 		$this->sorting->add("has_variants");
+		$this->sorting->add("visible","visible DESC, created_at DESC","visible ASC, created_at DESC");
 
 		$this->tpl_data["finder"] = Card::Finder(array(
 			"conditions" => $conditions,
@@ -74,6 +81,13 @@ class CardsController extends AdminController{
 		$this->page_title = _("Adding a product");
 
 		$this->_save_return_uri();
+
+		if($this->request->get()){
+			// there may be a parameter in the URL
+			$this->form->set_initial([
+				"category" => $this->params->getString("category"),
+			]);
+		}
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 
@@ -271,7 +285,18 @@ class CardsController extends AdminController{
 			}
 
 			$d["card_id"] = $this->card;
-			TechnicalSpecification::CreateNewRecord($d);
+			$ts = TechnicalSpecification::CreateNewRecord($d);
+
+			if($ts->getKey()->getType()->getTransformator() && is_null($ts->getContentJson())){
+				$this->flash->warning(_("Please fill in all required fields"));
+				$this->_redirect_to(array(
+					"controller" => "technical_specifications",
+					"action" => "edit",
+					"id" => $ts,
+					"return_uri" => $this->_link_to(array("action" => "cards/edit", "id" => $this->card))."#technical_specifications",
+				));
+				return;
+			}
 
 			if(!$this->request->xhr()){
 				$this->_redirect_to(array(
@@ -324,7 +349,7 @@ class CardsController extends AdminController{
 	function _before_filter() {
 		if (in_array($this->action, array("edit","destroy","enable_variants","disable_variants","add_to_category","add_technical_specification","remove_from_category","append_external_source","remove_external_source", "set_category_rank"))) {
 			$card = $this->_find("card");
-			if($card->isDeleted()){
+			if($card && $card->isDeleted()){
 				return $this->_execute_action("error404");
 			}
 		}

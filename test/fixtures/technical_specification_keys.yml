@@ -1,4 +1,35 @@
 aroma:
   key: aroma
   key_localized_en: Aroma
-  key_localized_cz: Vůně
+  key_localized_cs: Vůně
+
+acidity:
+  key: acidity
+  key_localized_en: Acidity
+  key_localized_cs: Kyselost
+
+width:
+  key: width
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("integer")->getId() ?>"
+  key_localized_en: Width
+  key_localized_cs: Šířka
+
+height:
+  key: height
+  key_localized_en: Height
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("integer")->getId() ?>"
+  key_localized_cs: Výška
+
+weight:
+  key: weight
+  key_localized_en: Weight
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("integer")->getId() ?>"
+  key_localized_cs: Hmotnost
+
+decaffeinated:
+  key: "decaffeinated"
+  code: "decaffeinated"
+  technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("boolean")->getId() ?>"
+  key_localized_en: "Decaffeinated"
+  key_localized_cs: "Bez kofeinu" 
+

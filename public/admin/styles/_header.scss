@@ -10,3 +10,12 @@ ol.breadcrumb {
 		font-weight: bold;
 	}
 }
+
+li.nav-item.quick-add-menu {
+	& a.nav-link {
+		.fa, .fas {
+			color: $green;
+			font-size: 1.125rem;
+		}
+	}
+}

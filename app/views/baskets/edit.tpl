@@ -1,6 +1,10 @@
 {render partial="shared/checkout_navigation"}
-{capture assign=page_title}{t}Košík{/t}{/capture}
-{render partial="shared/layout/content_header" title=$page_title}
+
+<div class="basket-edit-header-wrapper">
+	{capture assign=page_title}{t}Košík{/t}{/capture}
+	{render partial="shared/layout/content_header" title=$page_title}
+	{render partial="regions/set_region_form" form=$set_region_form}
+</div>
 
 {assign currency $basket->getCurrency()}
 {assign basket_vouchers $basket->getBasketVouchers()}

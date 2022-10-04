@@ -34,15 +34,19 @@ class FilterForCards extends Filter {
 		parent::__construct('cards', $options);
 		$this->addCondition("cards.visible AND NOT cards.deleted");
 		$this->addBind(':user_id', $user);
-		//$this->productJoin = $this->addJoin("visible_products(:user_id) products")->where("products.card_id = cards.id")->joinBy('left join');
-		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND NOT products.visible")->joinBy('left join');
+		//$this->productJoin = $this->addJoin("visible_products(:user_id) products")->where("products.card_id = cards.id")->setJoinBy('left join');
+		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND NOT products.visible")->setJoinBy('left join');
 
 		//Add filter sections
 		if($options['add_sections']) {
-			$category = $options['category']?:Category::RootCategory();
-			$sections = $category->getAvailableFilters();
-			foreach($sections as $section) {
-				new FilterCategorySection($this, $section->getFilterName(), $section);
+			// In case that products (cards) are displayed by a brand and not by a category,
+			// filters can be taken from the root category, if such category exists.
+			$category = $options["category"] ? $options["category"] : Category::RootCategory();
+			if($category){
+				$sections = $category->getAvailableFilters(["visible" => true]);
+				foreach($sections as $section) {
+					new FilterCategorySection($this, $section->getFilterName(), $section);
+				}
 			}
 
 			//Add filter technical specification
@@ -62,7 +66,7 @@ class FilterForCards extends Filter {
 			$rate = (float) $currency->getRate();
 			new FilterRangeSection($this, 'p', [
 				'field' => "price/$rate",
-				'join' => $j=$this->productJoin->join("user_basic_prices(:user_id) ubp")->where("products.id = ubp.product_id")->joinBy('LEFT JOIN'),
+				'join' => $j=$this->productJoin->join("user_basic_prices(:user_id) ubp")->where("products.id = ubp.product_id")->setJoinBy('LEFT JOIN'),
 				'form_label' => sprintf(_('Cena za metr či kus (%s)'), $currency->getSymbol() ),
 				'form_widget_options' =>
 						['step' => $rate > 10 ? 0.1 : 1,

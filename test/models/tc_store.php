@@ -15,6 +15,9 @@ class TcStore extends TcBase {
 
 		$this->assertEquals("Street, 111 00 City",$store->getAddress(["connector" => ", "]));
 		$this->assertEquals("Testing store, Street, 111 00 City",$store->getAddress(["connector" => ", ", "with_name" => true]));
+
+		$store->s("address_en","\n\nTESTING STORE as Street in City\n\n");
+		$this->assertEquals("TESTING STORE as Street in City",$store->getAddress());
 	}
 
 	function test_isDeletable(){

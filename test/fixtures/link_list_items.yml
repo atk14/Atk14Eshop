@@ -1,20 +1,52 @@
+test_list__main_page:
+  link_list_id: "<?= $link_lists["test_list"]->getId() ?>"
+  title_en: "Main page"
+  title_cs: "Hlavní stránka"
+  url: "/"
+
+test_list__testing_page:
+  link_list_id: "<?= $link_lists["test_list"]->getId() ?>"
+  title_en: "Testing page"
+  title_cs: "Testovací stránka"
+  url: "<?= Atk14Url::BuildLink(array("action" => "pages/detail", "id" => $pages["testing_page"]->getId())) ?>"
+
+test_list__invisible:
+  link_list_id: "<?= $link_lists["test_list"]->getId() ?>"
+  title_en: "Invisible link"
+  title_cs: "Neviditelný odkaz"
+  url: "/"
+  visible: false
+
+test_list__main_menu:
+  code: "main_menu_code"
+  link_list_id: "<?= $link_lists["test_list"]->getId() ?>"
+  title_en: "Link to main menu"
+  title_cs: "Odkaz na hlavní nabídku"
+  url: "#"
+  visible: false
+
 main_menu__homepage:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  title_en: "Home"
+  title_cs: "Domů"
   url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $pages["homepage"]]) ?>"
 
 main_menu__testing_page:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  title_en: "Testing page"
+  title_cs: "Testovací stránka"
   url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $pages["testing_page"]]) ?>"
+
+main_menu__external:
+  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
+  title_en: "ATK14 Framework"
+  title_cs: "ATK14 Framework"
+  url: "https://www.atk14.net/"
 
 main_menu__catalog:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
   url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "categories/detail", "path" => "catalog"]) ?>"
 
-main_menu__external:
-  link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
-  url: "https://www.atk14.net/"
-
 main_menu__brands:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
   url: "<?= Atk14Url::BuildLink(["namespace" => "", "action" => "brands/index"]) ?>"
-  

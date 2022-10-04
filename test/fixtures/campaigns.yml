@@ -1,0 +1,33 @@
+registration_discount:
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true]) ?>"
+  name_en: "7% discount over 1000 CZK for registration"
+  name_cs: "Sleva 7% nad 1000 Kč za registraci"
+  required_customer_group_id: "<?= CustomerGroup::GetInstanceByCode("registered")->getId() ?>"
+  minimal_items_price_incl_vat: 1000
+  discount_percent: 7.0
+
+free_shipping:
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true, $regions["SK"]->getCode() => true]) ?>"
+  name_en: "Free shipping"
+  name_cs: "Doprava zdarma"
+  required_customer_group_id: NULL
+  minimal_items_price_incl_vat: 2000
+  free_shipping: true
+
+free_shipping_for_oversized_products:
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true, $regions["SK"]->getCode() => true]) ?>"
+  name_en: "Free shipping for oversized products"
+  name_cs: "Doprava zdarma pro nadrozměrné produkty"
+  required_customer_group_id: NULL
+  minimal_items_price_incl_vat: 20000
+  free_shipping: true
+
+gift:
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true, $regions["SK"]->getCode() => true]) ?>"
+  name_en: ""
+  name_cs: ""
+  required_customer_group_id: NULL
+  minimal_items_price_incl_vat: 2000
+  gift_product_id: "<?= $products["fidorka"]->getId() ?>"
+  gift_amount: 1
+  gift_multiply: true

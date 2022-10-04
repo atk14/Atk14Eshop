@@ -1,7 +1,7 @@
 ATK14 Eshop
 ============
 
-[![Build Status](https://travis-ci.org/atk14/Atk14Eshop.svg?branch=master)](https://travis-ci.org/atk14/Atk14Eshop)
+[![Build Status](https://travis-ci.com/atk14/Atk14Eshop.svg?branch=master)](https://travis-ci.com/atk14/Atk14Eshop)
 
 _ATK14 Eshop_ is an skeleton suitable for eshops. It is built on top of _ATK14 Catalog_.
 

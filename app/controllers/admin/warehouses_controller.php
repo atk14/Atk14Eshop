@@ -3,7 +3,7 @@ class WarehousesController extends AdminController {
 
 	function index(){
 		$this->page_title = _("Warehouses");
-		$this->tpl_data["warehouses"] = Warehouse::FindAll();
+		$this->tpl_data["warehouses"] = Warehouse::FindAll(["use_cache" => true]);
 	}
 
 	function create_new(){

@@ -4,8 +4,6 @@
  *
  * Napsano tak, ze v choices jsou objekty
  *
- *
- *
  * 	$this->add_field("agreement",new ChoiceField(array(
  * 		"label" => "Do you agree?",
  * 		"widget" => new SelectWithImages(array(
@@ -18,14 +16,13 @@
  * 	)));
  *
  */
-Atk14Require::Helper("modifier.display_price");
 class SelectWithImages extends RadioSelect
 {
 	var $input_type = "radio";
 
 	function __construct($options = array()){
 		$options += array(
-			"image_geometry" => "x100",
+			"image_geometry" => "100x100x#ffffff",
 			"price_fetcher" => null,
 			"show_prices" => false,
 			"show_sales" => false,
@@ -49,7 +46,7 @@ class SelectWithImages extends RadioSelect
 		$data_api_url = "";
 		//$ch && ($data_api_url = Atk14Url::BuildLink(array("namespace" => "api", "controller" => "cards", "action" => "detail", "id" => $ch->object->getCard())));
 		//return "<ul class=\"radios\" data-api_detail_url=\"".$data_api_url."\">\n".implode("\n", $output)."\n</ul>";
-		return "<ul class=\"list list--radios\">\n".implode("\n", $output)."\n</ul>";
+		return "<ul class=\"list list--radios list--radios--lg\">\n".implode("\n", $output)."\n</ul>";
 	}
 }
 
@@ -88,10 +85,6 @@ class RadioInputWithImage {
 			$final_attrs['checked'] = 'checked';
 		}
 
-		# pokud je napojena dopravni sluzba, potrebujeme zvolit pobocku
-		$final_attrs["data-branch_needed"] = !is_null($this->object->dm) && $this->object->dm->hasKey("delivery_service_id") && !is_null($this->object->dm->getDeliveryServiceId());
-		
-		#$final_attrs["data-can_be_ordered"] = $this->object->canBeOrdered() ? "true" : "false";
 		return '<input'.flatatt($final_attrs).' />';
 	}
 
@@ -115,10 +108,10 @@ class RadioInputWithImage {
 
 	function hint() {
 		Atk14Require::Helper("modifier.markdown");
-		$hint = $this->object->getHint();
+		$hint_title = (string)$this->object->getHintTitle();
+		$hint = (string)$this->object->getHint();
 		$hint = smarty_modifier_markdown($hint);
-		if(!$hint) { return ''; };
-		$hint_title = $this->object->getHintTitle();
+		if(!strlen($hint_title) && !strlen($hint)) { return ''; };
 		if($hint_title){
 			$hint_title = '<span class="v-hint-title">'.$hint_title.'</span>';
 		}
@@ -132,24 +125,6 @@ class RadioInputWithImage {
 		return "<span class=\"v-price\">$price</span>";
 	}
 
-	function branchAddress() {
-		if (is_null($this->options["controller"])) {
-			return "";
-		}
-		$basket = $this->options["controller"]->basket;
-		$current_dm = $this->object->dm;
-		$basket_dm = $basket->getDeliveryMethod();
-
-		$branch = null;
-
-		if ($current_dm && $basket_dm && !is_null($current_dm->getDeliveryServiceId()) && ($current_dm->getDeliveryServiceId()===$basket_dm->getDeliveryServiceId())) {
-			$branch = $basket->getDeliveryServiceBranch();
-		}
-
-		$out = smarty_function_render(array("partial" => "delivery_service_branch_field", "branch" => $branch, "delivery_method" => $current_dm), $this->options["controller"]->_get_smarty());
-		return $out;
-	}
-
 	function render() {
 		$price = $this->price() ? " ".$this->price() : "";
 		$attr = [
@@ -157,6 +132,9 @@ class RadioInputWithImage {
 			"for" => $this->attrs['id'].'_'.$this->index,
 			"class" => "form-check-label",
 		];
-		return '<div class="form-check">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>'.$this->branchAddress();
+		if( $this->image() ) {
+			$form_check_class = " form-check--has-image";
+		}
+		return '<div class="form-check' . $form_check_class . '">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>';
 	}
 }

@@ -3,11 +3,12 @@
  *
  * @fixture products
  * @fixture pricelist_items
+ * @fixture users
+ * @fixture currencies
  */
 class TcPriceFinder extends TcBase {
 
 	function test(){
-
 		$pf = PriceFinder::GetInstance();
 		$price = $pf->getPrice($this->products["mint_tea"]);
 		$this->assertNotNull($price);
@@ -26,6 +27,22 @@ class TcPriceFinder extends TcBase {
 		$this->assertEquals("{$yesterday} 00:00:00", $price->discountedFrom());
 		$this->assertEquals("{$tomorrow} 00:00:00", $price->discountedTo());
 		$this->assertEquals(10, $price->getDiscountPercent());
+	}
 
+	function test_GetCurrentInstance(){
+		$pf = PriceFinder::GetCurrentInstance();
+		$user = $pf->getUser();
+		$currency = $pf->getCurrency();
+		$this->assertTrue($user->isAnonymous());
+		$this->assertEquals(DEFAULT_CURRENCY,$currency->getCode());
+		
+		PriceFinder::SetCurrentInstance(PriceFinder::GetInstance($this->users["rambo"],$this->currencies["bitcoin"]));
+		
+		$pf = PriceFinder::GetCurrentInstance();
+		$user = $pf->getUser();
+		$currency = $pf->getCurrency();
+		$this->assertFalse($user->isAnonymous());
+		$this->assertEquals($this->users["rambo"]->getId(),$user->getId());
+		$this->assertEquals("BTC",$currency->getCode());
 	}
 }

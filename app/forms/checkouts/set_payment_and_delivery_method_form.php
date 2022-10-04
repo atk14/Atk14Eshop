@@ -27,11 +27,6 @@ class SetPaymentAndDeliveryMethodForm extends CheckoutsForm {
 			$this->set_error(_("Illegal combination of shipping and payment"));
 		}
 
-		$delivery_method = null;
-		if (isset($d["delivery_method_id"])) {
-			$delivery_method = DeliveryMethod::FindFirst("id", $d["delivery_method_id"]);
-		}
-
 		return array($err,$d);
 	}
 }

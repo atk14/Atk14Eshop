@@ -1,4 +1,4 @@
-{assign var=related_cards value=$card->getRelatedCards()}
+{assign var=related_cards value=$card->getViewableRelatedCards()}
 
 {if $related_cards}
 	<section class="linked-cards linked-cards--related-cards">

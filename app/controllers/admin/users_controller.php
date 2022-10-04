@@ -4,6 +4,31 @@ class UsersController extends AdminController{
 	function index(){
 		$this->page_title = _("Users list");
 
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = array();
+		$conditions[] = "NOT deleted";
+
+		if($d["search"]){
+			$_fields = array();
+			$_fields[] = "id";
+			$_fields[] = "login";
+			foreach(array(
+				"firstname",
+				"lastname",
+				"email",
+			) as $_f){
+				$_fields[] = "COALESCE($_f,'')";
+			}
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",Translate::Lower($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
+
+			$this->sorting->add("default","id||''=:search DESC, LOWER(login) LIKE :search||'%' DESC, LOWER(COALESCE(email,'')) LIKE :search||'%' DESC, created_at DESC"); // default ordering is tuned in searching
+			$bind_ar[":search"] = Translate::Lower($d["search"]);
+		}
+
 		$this->sorting->add("created_at",array("reverse" => "true"));
 		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
 		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
@@ -11,15 +36,12 @@ class UsersController extends AdminController{
 		$this->sorting->add("id");
 		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
 		$this->sorting->add("email","COALESCE(LOWER(email),'')");
-
-		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
-
-		$conditions = $bind_ar = array();
-
-		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||login||' '||COALESCE(firstname,'')||' '||COALESCE(lastname,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
-			$bind_ar[":search"] = $d["search"];
-		}
+		$this->sorting->add("role","
+			is_admin DESC,
+			active DESC,
+			COALESCE(password,'')='',
+			LOWER(login) ASC
+		");
 
 		$this->tpl_data["finder"] = User::Finder(array(
 			"conditions" => $conditions,
@@ -32,10 +54,17 @@ class UsersController extends AdminController{
 	function create_new(){
 		$this->page_title = _("Create a new user");
 
+		$this->form->set_initial("customer_groups",[
+			CustomerGroup::GetInstanceByCode("registered"),
+		]);
+
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			User::CreateNewRecord($d);
+			$customer_groups = $d["customer_groups"];
+			unset($d["customer_groups"]);
+			$user = User::CreateNewRecord($d);
+			$user->setManuallyAssignableCustomerGroups($customer_groups);
 			$this->flash->success(_("The user has been created successfully"));
 			$this->_redirect_back();
 		}
@@ -59,6 +88,7 @@ class UsersController extends AdminController{
 				"active",
 			]);
 		}
+		$this->form->set_initial("customer_groups",$this->user->getCustomerGroups());
 
 		$this->_save_return_uri();
 
@@ -68,8 +98,12 @@ class UsersController extends AdminController{
 				return $this->_redirect_back();
 			}
 
+			$customer_groups = $d["customer_groups"];
+			unset($d["customer_groups"]);
+
 			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
+			$this->user->setManuallyAssignableCustomerGroups($customer_groups);
 			$this->flash->success(_("The user entry has been updated"));
 			$this->_redirect_back();
 		}
@@ -137,7 +171,10 @@ class UsersController extends AdminController{
 
 	function _before_filter(){
 		if(in_array($this->action,array("edit","detail","edit_password","destroy","login_as_user"))){
-			$this->_find("user");
+			$user = $this->_find("user");
+			if($user && $user->isDeleted()){
+				return $this->_execute_action("error404");
+			}
 		}
 	}
 }

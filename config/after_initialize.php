@@ -1,7 +1,7 @@
 <?php
 try {
 
-	$params = SystemParameter::GetAllInstances();
+	@$params = SystemParameter::GetAllInstances();
 
 	foreach([
 		"orders.order_no_offset" => "ORDER_NO_OFFSET",
@@ -16,7 +16,7 @@ try {
 	$default_vat_rate = null;
 	$vat_payer = isset($params["merchant.vat_payer"]) ? $params["merchant.vat_payer"]->getContent() : null; // true, false, null
 	if($vat_payer){
-		$default_vat_rate = VatRate::FindFirst(); // it's Rankable
+		@$default_vat_rate = VatRate::FindFirst(); // it's Rankable
 	}
 	definedef("DEFAULT_VAT_RATE",$default_vat_rate ? $default_vat_rate->getCode() : null);
 

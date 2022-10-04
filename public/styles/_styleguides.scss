@@ -68,3 +68,17 @@
 	}
 	
 }
+
+.body_markdown_manual_index, .body_markdown_manual_detail, .body_styleguides_index, .body_styleguides_detail {
+	h1 {
+		margin-bottom: $grid-gutter-width/2;
+	}
+}
+
+.body_styleguides_index, .body_styleguides_detail {
+	.md_book_content  {
+		& > h2 {
+			border-bottom: 1px solid $border-color;
+		}
+	}
+}

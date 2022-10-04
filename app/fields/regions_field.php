@@ -8,7 +8,7 @@ class RegionsField extends MultipleChoiceField {
 	 */
 	function __construct($options=array())
 	{
-		$all_regions = Region::GetInstances();
+		$all_regions = Region::GetAllInstances();
 
 		$choices = [];
 		foreach($all_regions as $r){

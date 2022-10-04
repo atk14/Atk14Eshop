@@ -1,0 +1,1 @@
+../../vendor/atk14/cookie-consent/src/test/models/tc_cookie_consent.php

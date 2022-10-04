@@ -1,0 +1,4 @@
+anonymous:
+  basket_id: "<?= $baskets["anonymous"]->getId() ?>"
+  product_id: "<?= $products["mint_tea"]->getId() ?>"
+  amount: 1

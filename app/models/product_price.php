@@ -145,6 +145,16 @@ class ProductPrice {
 		return $this->getPriceBeforeDiscount(true);
   }
 
+	/**
+	 *
+	 * @return ProductPriceBeforeDiscount
+	 */
+	function getProductPriceBeforeDiscount(){
+		if($this->discounted()){
+			return new ProductPriceBeforeDiscount($this);
+		}
+	}
+
   //
 
   /**
@@ -237,7 +247,7 @@ class ProductPrice {
 	function _roundUnitPrice($price){
 		if(is_null($price)){ return null; }
 
-		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision();
+		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision($this->getCurrency());
 		return round($price,$precision);
 	}
 

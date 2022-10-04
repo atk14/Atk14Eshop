@@ -25,7 +25,8 @@ class FilterCategorySection extends FilterSection {
 			'order' => 'rank',
 			'form_label' => $category->getName(),
 			'label_method' => 'getName',
-			'label_class' => 'Category'
+			'label_class' => 'Category',
+			'order_after_distinct' => false,
 		]);
 	}
 }

@@ -159,7 +159,15 @@ form {
 	}
 	input, select {
 		&.active-filter {
-			border-color: black;
+			border-color: $primary;
+			border-width: 2px;
 		}
+	}
+}
+
+// color picker style enhancements
+.pickr {
+	.pcr-button {
+		border: 1px solid $input-border-color;
 	}
 }

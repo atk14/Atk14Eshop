@@ -1,15 +1,28 @@
 <?php
-class TechnicalSpecificationKey extends ApplicationModel implements Translatable {
+class TechnicalSpecificationKey extends ApplicationModel implements Translatable, Rankable {
+
+	protected static $CacheKeys;
+
+	use TraitGetInstanceByCode;
 
 	public static function GetTranslatableFields(){ return array("key_localized"); }
 
 	public static function GetInstanceByKey($key){
 		if(!strlen($key)){ return null; }
 
-		($out = self::FindFirst("key=:key",array(":key" => $key))) ||
-		($out = self::FindFirst("LOWER(key)=LOWER(:key)",array(":key" => $key)));
+		if(is_null(self::$CacheKeys)){
+			$dbmole = self::GetDbmole();
+			self::$CacheKeys = $dbmole->selectIntoAssociativeArray("SELECT key,id FROM technical_specification_keys");
+		}
 
-		return $out;
+		if(isset(self::$CacheKeys[$key])){
+			return Cache::Get("TechnicalSpecificationKey",self::$CacheKeys[$key]);
+		}
+		foreach(self::$CacheKeys as $k => $id){
+			if(Translate::Lower($k)===Translate::Lower($key)){
+				return Cache::Get("TechnicalSpecificationKey",$id);
+			}
+		}
 	}
 
 	/**
@@ -19,10 +32,17 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 	public static function GetOrCreateKey($key){
 		if(!strlen($key)){ return null; }
 
-		($out = self::GetInstanceByKey($key)) ||
-		($out = self::CreateNewRecord(array("key" => $key)));
-
+		if($out = self::GetInstanceByKey($key)){
+			return $out;
+		}
+		
+		$out = self::CreateNewRecord(array("key" => $key));
+		static::$CacheKeys = null;
 		return $out;
+	}
+
+	function setRank($rank){
+		return $this->_setRank($rank);
 	}
 
 	function getKey($lang = null){
@@ -37,6 +57,33 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 		}
 
 		return $this->g("key");
+	}
+
+	function getTechnicalSpecificationKeyType(){
+		return Cache::Get("TechnicalSpecificationKeyType",$this->getTechnicalSpecificationKeyTypeId());
+	}
+
+	// Alias
+	function getType(){
+		return $this->getTechnicalSpecificationKeyType();
+	}
+
+	function isDeletable(){
+		if(strlen($this->getCode())>0){
+			return false;
+		}
+		if($this->getTechnicalSpecificationKeyType()->getCode()!=="text"){
+			return false;
+		}
+		$count = $this->dbmole->selectInt("
+			SELECT COUNT(*) FROM
+				technical_specifications, cards
+			WHERE
+				technical_specifications.technical_specification_key_id=:key AND
+				cards.id=technical_specifications.card_id AND
+				NOT cards.deleted
+		",[":key" => $this]);
+		return $count === 0;
 	}
 
 	function toString(){

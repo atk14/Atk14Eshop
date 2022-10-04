@@ -2,7 +2,9 @@ catalog:
   id: 1001
   code: "catalog"
   name_en: Catalog
-  name_cs: Katalog 
+  name_cs: Katalog
+  slug_en: catalog
+  slug_cs: katalog
 
 color:
   id: 1002
@@ -46,6 +48,26 @@ usage_indoor:
   parent_category_id: 1005
   name_en: Indoor
 
+odour:
+  id: 1030
+  parent_category_id: 1001
+  name_en: Odour
+  name_cs: Zápach
+  is_filter: true
+  visible: false
+
+odour_fine:
+  id: 1031
+  parent_category_id: 1030
+  name_en: File
+  name_cs: Jemný
+
+odour_intensive:
+  id: 1032
+  parent_category_id: 1030
+  name_en: Intensive
+  name_cs: Intenzivní
+
 food_drinks:
   id: 1008
   code: "food_drinks"
@@ -63,7 +85,15 @@ cold_drinks:
   parent_category_id: 1008
   name_en: Cold drinks
 
+other_drinks:
+  id: 1020
+  parent_category_id: 1008
+  name_en: Other drinks
 
+coffeine_drinks:
+  id: 1021
+  parent_category_id: 1008
+  name_en: Coffeine drinks
 
 
 shoes:
@@ -101,6 +131,14 @@ kids_shoes__boys:
   name_en: "Boys"
   name_cs: "Chlapci"
 
+
+hidden:
+  id: 1022
+  code: "hidden"
+  parent_category_id: 1001
+  name_en: "Hidden category"
+  name_cs: "Skrytá kategorie"
+  visible: false
 
 
 kids:

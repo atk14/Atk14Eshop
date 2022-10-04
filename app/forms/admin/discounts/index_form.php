@@ -2,6 +2,7 @@
 class IndexForm extends ApplicationForm {
 
 	function set_up() {
+		$this->add_search_field();
 		$this->add_field("holder", new ChoiceField([
 			"label" => _("Show only"),
 			"choices" => [

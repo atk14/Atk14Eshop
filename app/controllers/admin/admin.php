@@ -54,6 +54,9 @@ class AdminController extends ApplicationBaseController{
 			array(_("404 Redirections"),			"error_redirections"),
 			array(_("Order statuses"),				"order_statuses"),
 			array(_("Selling regions"),				"regions"),
+			array(_("Customer groups"),				"customer_groups"),
+			array(_("Bank accounts"),					"bank_accounts"),
+			array(_("Cookie consent"),				"cookie_consents,cookie_consent_categories,cookie_consent_statistics"),
 			array(_("System preferences"),		"system_parameters"),
 		) as $item){
 			$_label = $item[0];
@@ -271,6 +274,13 @@ class AdminController extends ApplicationBaseController{
 			"has_attachments" => false,
 			"set_initial_closure" => null, // function($form,$object){...}
 			"update_closure" => null, // function($object,$d)
+			"skip_update_when_no_data_changes" => false,
+			"skip_is_editable_check" => false,
+
+			"flash_on_update_closure" => null, // function($flash){ $flash->success("Changes have been saved!"); }
+			"flash_on_no_data_changes_closure" => null, // function($flash->notice("Nothing needs to be saved."); )
+
+			"show_flash_notice_when_no_data_changes" => true,
 		);
 
 		$options += array(
@@ -282,7 +292,7 @@ class AdminController extends ApplicationBaseController{
 			return;
 		}
 
-		if(method_exists($object,"isEditable") && !$object->isEditable()){
+		if(!$options["skip_is_editable_check"] && method_exists($object,"isEditable") && !$object->isEditable()){
 			return $this->_execute_action("error404");
 		}
 
@@ -308,19 +318,50 @@ class AdminController extends ApplicationBaseController{
 		$options["save_return_uri"] && $this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($options["update_closure"]){
-				$fn = $options["update_closure"];
-				$fn($object,$d);
-			}else{
-				$object->s($d);
+			$skip_update = false;
+
+			if($options["skip_update_when_no_data_changes"]){
+				$deobjectivice = function($ary){
+					return array_map(function($item){
+						if(is_object($item)){
+							$item = method_exists($item,"getId") ? $item->getId() : (string)$item;
+						}
+						return $item;
+					},$ary);
+				};
+				if($deobjectivice($d)==$deobjectivice($this->form->get_initial())){
+					$skip_update = true;
+
+					if(is_callable($options["flash_on_no_data_changes_closure"])){
+						$fn = $options["flash_on_no_data_changes_closure"];
+						$fn($this->flash);
+					}else{
+						$this->flash->notice(_("Ve formuláři nebylo nic změněno"));
+					}
+				}
 			}
 
-			if($this->form->has_errors()){
-				// chyba muze byt nastavena v $options["update_closure"]
-				return;
+			if(!$skip_update){
+				if($options["update_closure"]){
+					$fn = $options["update_closure"];
+					$fn($object,$d);
+				}else{
+					$object->s($d);
+				}
+
+				if($this->form->has_errors()){
+					// chyba muze byt nastavena v $options["update_closure"]
+					return;
+				}
+
+				if(is_callable($options["flash_on_update_closure"])){
+					$fn = $options["flash_on_update_closure"];
+					$fn($this->flash);
+				}else{
+					$this->flash->success($options["flash_message"]);
+				}
 			}
 
-			$this->flash->success($options["flash_message"]);
 			if($options["redirect_to"]){
 				if(is_callable($options["redirect_to"])){
 					$fn = $options["redirect_to"];
@@ -397,6 +438,10 @@ class AdminController extends ApplicationBaseController{
 			}
 		}
 
+		if(!$object){
+			return $this->_execute_action("error404");
+		}
+
 		if(method_exists($object,"isDeletable") && !$object->isDeletable()){
 			return $this->_execute_action("error404");
 		}
@@ -405,9 +450,6 @@ class AdminController extends ApplicationBaseController{
 			$fn = $options["destroy_closure"];
 			$record = $fn($object);
 		}else{
-			if(!$object){
-				return $this->_execute_action("error404");
-			}
 			$object->destroy();
 		}
 
@@ -418,6 +460,18 @@ class AdminController extends ApplicationBaseController{
 		if(!$this->request->xhr()){
 			$this->flash->success(_("The entry has been deleted"));
 			$this->_redirect_to($options["redirect_to"]);
+		}
+	}
+
+	function _add_page_to_breadcrumbs($page){
+		if(!$page){ return; }
+		$pages = [$page];
+		while($parent = $page->getParentPage()){
+			$pages[] = $parent;
+			$page = $parent;
+		}
+		foreach(array_reverse($pages) as $p){
+			$this->breadcrumbs[] = [$p->getTitle(),$this->_link_to(["action" => "pages/edit", "id" => $p])];
 		}
 	}
 

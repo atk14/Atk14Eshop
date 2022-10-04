@@ -3,14 +3,20 @@
 <ul class="list-group list-group-flush list-sortable" data-sortable-url="{link_to action="set_rank"}">
 	{foreach $roots as $root}
 		<li class="list-group-item" data-id="{$root->getId()}">
-			<div class="d-flex justify-content-between align-items-center">
-				<div>
+			<div class="item__properties">
+				<div class="item__title">
 					{$root->getName()}
-					{if !$root->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
+					{if !$root->isVisible()}<em class="text-muted">({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 				</div>
-				<div>
+				{if $root->getCode()}
+					<div class="item__code">
+						{$root->getCode()}
+					</div>
+				{/if}
+				<div class="item__controls">
 					{dropdown_menu}
-					{a action="detail" id=$root}{!"folder-open"|icon} {t}Detail{/t}{/a}
+					{a action="detail" id=$root}{!"project-diagram"|icon} {t}Detail{/t}{/a}
+					{a action="categories/edit" id=$root}{!"edit"|icon} {t}Edit{/t}{/a}
 					{if $root->isDeletable()}
 							{capture assign="confirm"}{t 1=$root->getName()|h escape=no}You are about to delete the catalog tree %1.
 		Are you sure?{/t}{/capture}

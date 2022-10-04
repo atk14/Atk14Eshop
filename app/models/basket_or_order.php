@@ -52,6 +52,10 @@ class BasketOrOrder extends ApplicationModel {
 		return Cache::Get("Currency",$this->getCurrencyId());
 	}
 
+	function getRegion(){
+		return Cache::Get("Region",$this->getRegionId());
+	}
+
 	/**
 	 * Cena za polozky
 	 */
@@ -91,6 +95,30 @@ class BasketOrOrder extends ApplicationModel {
 		return $this->getItemsPriceBeforeDiscount(true);
 	}
 
+	function getAveragedItemsVatPercent(){
+		$used_vat_rates = [];
+		foreach($this->getItems() as $item){
+			$vat_percent = $item->getVatPercent();
+			if(in_array($vat_percent,$used_vat_rates)){ continue; }
+			$used_vat_rates[] = $vat_percent;
+		}
+
+		if(sizeof($used_vat_rates)==0){
+			return null;
+		}
+
+		if(sizeof($used_vat_rates)==1){
+			return $used_vat_rates[0];
+		}
+
+		// TODO: needs to be more precise
+		$price = $this->getItemsPrice();
+		$price_incl_vat = $this->getItemsPriceInclVat();
+		if(!$price){ return null; }
+		$out = ($price_incl_vat - $price) / ($price / 100.0);
+		return round($out,2);
+	}
+
 	function getDeliveryFirstname(){
 		return $this->_getDelivery("firstname");
 	}
@@ -104,7 +132,7 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 	function getDeliveryAddressStreet2(){
-		if(strlen($this->g("delivery_address_street"))){
+		if(strlen((string)$this->g("delivery_address_street"))){
 			return $this->g("delivery_address_street2");
 		}
 		return $this->g("address_street2");
@@ -135,10 +163,20 @@ class BasketOrOrder extends ApplicationModel {
 
 	function _getDelivery($key){
 		$out = $this->g("delivery_$key");
-		if(!strlen($out)){
+		if(!strlen((string)$out)){
 			$out = $this->g("$key");
 		}
 		return $out;
+	}
+
+	function getDeliveryMethodData() {
+		return json_decode($this->g("delivery_method_data"),true);
+	}
+
+	function getDeliveryPlace() {
+		if ($data = $this->getDeliveryMethodData()) {
+			return $data["delivery_address"]["place"];
+		}
 	}
 
 	/**
@@ -179,7 +217,10 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 
-	function getShippingFee(){
+	function getShippingFee($incl_vat = false){
+		if($incl_vat){
+			return $this->getShippingFeeInclVat();
+		}
 		$delivery_fee = $this->getDeliveryFee();
 		if(is_null($delivery_fee)){
 			return null;
@@ -214,10 +255,10 @@ class BasketOrOrder extends ApplicationModel {
 			if (!is_null($options["discount_percent"]) && ($options["discount_percent"]===false) && $v->getDiscountPercent()) {
 				continue;
 			}
-			if (!is_null($options["discount_amount"]) && ($options["discount_amount"]===false) && $v->getVoucher()->getDiscountAmount()) {
+			if (!is_null($options["discount_amount"]) && ($options["discount_amount"]===false) && $v->getVoucher()->getDiscountAmount($incl_vat)) {
 				continue;
 			}
-			$out += $v->getDiscountAmount();
+			$out += $v->getDiscountAmount($incl_vat);
 		}
 		return $out;
 	}
@@ -248,5 +289,14 @@ class BasketOrOrder extends ApplicationModel {
 			];
 		}
 		return md5(serialize($ary));
+	}
+
+	function _delVat($price,$vat_percent){
+		if(is_null($price)){ return null; }
+
+		$vat_percent = (float)$vat_percent;
+		$out = ($price / (100.0 + $vat_percent)) * 100.0;
+		$out = round($out,INTERNAL_PRICE_DECIMALS);
+		return $out;
 	}
 }

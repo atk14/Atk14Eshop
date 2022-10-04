@@ -1,9 +1,24 @@
+{assign currencies $region->getCurrencies()}
+{assign delivery_countries $region->getDeliveryCountries()}
+
 <li class="list-group-item" data-id="{$region->getId()}">
-		<div class="d-flex justify-content-between align-items-center">
-			<div>
+		<div class="item__properties">
+			<div class="item__title">
+				{render partial="shared/active_state" object=$region}
 				{$region->getName()}
 			</div>
+			<div class="item__code">
+				{$region->getCode()}
+			</div>
 			<div>
+				<small>{t}Delivery to{/t}:</small><br>
+				{$delivery_countries|to_sentence}
+			</div>
+			<div>
+				<small>{if sizeof($currencies)==1}{t}Currency{/t}:{else}{t}Currencies{/t}:{/if}</small><br>
+				{$currencies|to_sentence}
+			</div>
+			<div class="item__controls">
 				{dropdown_menu}
 					{a action="edit" id=$region}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 

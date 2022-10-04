@@ -1,0 +1,25 @@
+coffee__aroma:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  technical_specification_key_id: "<?= $technical_specification_keys["aroma"]->getId() ?>"
+  content: "Strong"
+  content_localized_cs: "Silná"
+
+coffee__weight:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  technical_specification_key_id: "<?= $technical_specification_keys["weight"]->getId() ?>"
+  content: "200g"
+  content_json: '{"integer":200}'
+
+coffee__acidity:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  technical_specification_key_id: "<?= $technical_specification_keys["acidity"]->getId() ?>"
+  content: "Low"
+  content_localized_cs: "Nízká"
+
+coffee__decaffeinated:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  technical_specification_key_id: "<?= $technical_specification_keys["decaffeinated"]->getId() ?>"
+  content: "No"
+  content_json: '{"boolean":false}'
+  content_localized_en: "No"
+  content_localized_cs: "Ne"

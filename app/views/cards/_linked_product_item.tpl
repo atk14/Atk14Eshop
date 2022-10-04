@@ -1,6 +1,6 @@
 {assign starting_price $price_finder->getStartingPrice($c)}
 {assign creators CardCreator::GetMainCreatorsForCard($c)}
-{a action="cards/detail" id=$c _class="card"}
+{a action="cards/detail" id=$c _class="card card--sm"}
 	{if $c->getImage()}
 		{!$c->getImage()|pupiq_img:"300x225xcrop":"class='card-img-top'"}
 	{else}

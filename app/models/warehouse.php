@@ -1,6 +1,8 @@
 <?php
 class Warehouse extends ApplicationModel implements Translatable, Rankable {
 
+	use TraitCodebook;
+
 	static function GetTranslatableFields(){ return array("name"); }
 
 	function setRank($rank){
@@ -50,5 +52,13 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 			END $$;
 		";
 		$this->dbmole->doQuery($sql, $bind_ar);
+	}
+
+	function toString(){
+		return (string)$this->getName();
+	}
+
+	function isDeletable(){
+		return true;
 	}
 }

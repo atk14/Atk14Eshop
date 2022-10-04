@@ -16,5 +16,5 @@ CREATE TABLE payment_gateways (
 	CONSTRAINT fk_paymentgateways_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO payment_gateways VALUES (1,'GP webpay','gp_webpay');
-INSERT INTO payment_gateways VALUES (2,'ComGate','comgate');
+INSERT INTO payment_gateways (id,name,code) VALUES (1,'GP webpay','gp_webpay');
+INSERT INTO payment_gateways (id,name,code) VALUES (2,'ComGate','comgate');

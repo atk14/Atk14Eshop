@@ -36,6 +36,7 @@
 
 				UTILS.leaving_unsaved_page_checker.init();
 
+				// eslint-disable-next-line no-unused-vars
 				var filterableNav = new UTILS.filterableList( {
 					searchInput: 	$( "#nav-filter__input" ),
 					clearButton: 	$( "#nav-filter__clear" ),
@@ -58,6 +59,32 @@
 				$ ( "#js-scroll-to-top" ).on( "click", function( e ){
 					e.preventDefault();
 					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
+				} );
+
+				UTILS.async_file_upload.init();
+
+				// Admin menu toggle on small devices
+				$( ".nav-section__toggle" ).on( "click", function( e ) {
+					e.preventDefault();
+					$( this ).closest( ".nav-section" ).toggleClass( "expanded" );
+				} );
+
+				// Dark mode toggle 
+				$( "#js--darkmode-switch" ).on( "click", function(){
+					var mode;
+					if( $(this).prop( "checked" ) ) {
+						$( "body" ).addClass( "dark-mode" );
+						mode = "dark";
+						document.cookie = "dark_mode=1;path=/";
+					} else {
+						$( "body" ).removeClass( "dark-mode" );
+						mode = "light";
+						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+					}
+
+					// darkModeChange event is triggered on dark mode de/activation
+					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
+					document.dispatchEvent(evt);
 				} );
 			}
 
@@ -111,6 +138,19 @@
 			}
 		},
 
+		category_trees: {
+			detail: function() {
+				$( ".js-toggle-all-trees" ).on( "click", function() {
+					if( $( this ).hasClass( "collapsed" ) ){
+						$( ".list--tree.collapse" ).collapse( "show" );
+					} else {
+						$( ".list--tree.collapse" ).collapse( "hide" );
+					}
+					$( this ).toggleClass( [ "collapsed", "expanded" ] )
+				} );
+			}
+		},
+
 		utils: {
 
 			initializeMarkdonEditors: function() {
@@ -126,7 +166,8 @@
 								type: "POST",
 								url: "/api/" + lang + "/markdown/transform/",
 								data: {
-									source: content
+									source: content,
+									base_href: $( el ).data( "base_href" )
 								},
 								success: function( output ) {
 									callback( output );
@@ -437,10 +478,14 @@
 	 * See: http://goo.gl/z9dmd
 	 */
 	ADMIN.INITIALIZER = {
-		exec: function( controller, action ) {
+		exec: function( namespace, controller, action ) {
 			var ns = ADMIN,
 				c = controller,
 				a = action;
+
+			if( namespace && namespace.length > 0 && ns[ namespace ] ) {
+				ns = ns[ namespace ];
+			}
 
 			if ( a === undefined ) {
 				a = "init";
@@ -453,12 +498,13 @@
 
 		init: function() {
 			var body = document.body,
+			namespace = body.getAttribute( "data-namespace" ),
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			ADMIN.INITIALIZER.exec( "common" );
-			ADMIN.INITIALIZER.exec( controller );
-			ADMIN.INITIALIZER.exec( controller, action );
+			ADMIN.INITIALIZER.exec( namespace, "common" );
+			ADMIN.INITIALIZER.exec( namespace, controller );
+			ADMIN.INITIALIZER.exec( namespace, controller, action );
 		}
 	};
 

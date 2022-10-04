@@ -1,0 +1,10 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="600" style="fill:url(#a);fill-rule:nonzero"/>
+  <path d="M399.994 334.1v-54.625h21.85v87.4c0 2.959-1.081 5.519-3.243 7.682-2.163 2.162-4.723 3.243-7.682 3.243h-87.4c-2.959 0-5.519-1.081-7.682-3.243-2.162-2.163-3.243-4.723-3.243-7.682v-87.4h21.85V334.1h65.55Zm107.543-82.62c1.366 2.503 1.878 5.064 1.536 7.681-.341 2.618-1.536 4.837-3.584 6.658-2.049 1.821-4.439 2.731-7.17 2.731h-196.65c-2.731 0-5.121-.91-7.17-2.731-2.048-1.821-3.243-4.04-3.584-6.658-.342-2.617.284-5.178 1.877-7.681l29.02-43.7c2.048-3.187 5.007-4.78 8.877-4.78h138.61c3.87 0 6.829 1.593 8.877 4.78l29.361 43.7Zm-41.993 120.858v-92.863h21.85v92.863c0 1.593-.512 2.901-1.536 3.926-1.025 1.024-2.333 1.536-3.927 1.536h-10.925c-1.593 0-2.901-.512-3.926-1.536-1.024-1.025-1.536-2.333-1.536-3.926Z" style="fill:#bbb;fill-rule:nonzero"/>
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="rotate(-60 633.013 103.59) scale(692.82)">
+      <stop offset="0" style="stop-color:#d4d4d4;stop-opacity:1"/>
+      <stop offset="1" style="stop-color:#f4f4f4;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+</svg>

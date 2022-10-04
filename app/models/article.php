@@ -2,10 +2,28 @@
 class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\Indexable {
 
 	use TraitTags;
-
-	static function GetTranslatableFields() { return array("title", "teaser", "body");}
+	
+	static function GetTranslatableFields() { return array("title", "teaser", "body", "page_title", "page_description");}
 
 	function getSlugPattern($lang){ return $this->g("title_$lang"); }
+
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
+		if(strlen($out)){ return $out; }
+		return $this->getTitle($lang);
+	}
+
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
+		if(strlen($out)){ return $out; }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
+	}
+
 
 	function isPublished(){
 		return strtotime($this->getPublishedAt())<time();
@@ -55,6 +73,8 @@ class Article extends ApplicationModel implements Translatable, iSlug, \Textmit\
 		$fd = new \Textmit\FulltextData($this,$lang);
 
 		$fd->addText($this->getTitle($lang),"a");
+
+		$fd->addHtml(smarty_modifier_markdown($this->getTeaser($lang)));
 
 		$fd->addHtml(smarty_modifier_markdown($this->getBody($lang)));
 

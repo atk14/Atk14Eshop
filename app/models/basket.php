@@ -73,14 +73,15 @@ class Basket extends BasketOrOrder {
 		return $basket;
 	}
 
-	static function GetDummyBasket($region = null){
+	static function GetDummyBasket($region = null,$user = null){
 		if(!$region){ $region = Region::GetDefaultRegion(); }
 		$basket = Cache::Get("Basket",self::ID_DUMMY);
 
 		$out = clone($basket);
 		$out->setValuesVirtually([
 			"region_id" => $region->getId(),
-			"currency_id" => $region->getDefaultCurrency()->getId()
+			"currency_id" => $region->getDefaultCurrency()->getId(),
+			"user_id" => $user ? $user->getId() : null,
 		]);
 
 		return $out;
@@ -241,6 +242,21 @@ class Basket extends BasketOrOrder {
 		return $this->getProductAmount($product)>0;
 	}
 
+	/**
+	 *
+	 *	$basket->contains($product); // true or false
+	 *	$basket->contains($card); // true or false
+	 */
+	function contains($product_or_card){
+		if(is_a($product_or_card,"Card")){
+			foreach($product_or_card->getProducts() as $prod){
+				if($this->containsProduct($prod)){ return true; }
+			}
+			return false;
+		}
+		return $this->containsProduct($product_or_card);
+	}
+
 	function getDeliveryMethod(){
 		return Cache::Get("DeliveryMethod",$this->getDeliveryMethodId());
 	}
@@ -248,30 +264,29 @@ class Basket extends BasketOrOrder {
 	/**
 	 * Vraci cenu v dane mene
 	 */
-	function getDeliveryFee($incl_vat = false){
-		if($incl_vat){
-			return $this->getDeliveryFeeInclVat();
-		}
-		if($this->freeShipping()){ return 0.0; }
+	function getDeliveryFee($incl_vat = false,$options = []){
+		$options += [
+			"check_for_free_shipping_campaign_or_voucher" => true,
+		];
+		if($options["check_for_free_shipping_campaign_or_voucher"] && $this->freeShipping()){ return 0.0; }
 		if($delivery = $this->getDeliveryMethod()){
+			$currency = $this->getCurrency();
 			$country = $this->_getDeliveryCountry();
-			$fee = $delivery->getPrice($country);
-			if(is_null($fee)){ return null; }
-			return $fee / $this->getCurrency()->getRate();
+			if(is_null($country) && $delivery->getLowestPriceInclVat()!=$delivery->getHighestPriceInclVat()){
+				return null;
+			}
+			$price = $incl_vat ? $delivery->getPriceInclVat($country) : $delivery->getPrice($country);
+			if(is_null($price)){ return null; }
+			$price = $price / $currency->getRate();
+			return $currency->roundPrice($price);
 		}
 	}
 
 	/**
 	 * Vraci cenu v dane mene
 	 */
-	function getDeliveryFeeInclVat(){
-		if($this->freeShipping()){ return 0.0; }
-		if($delivery = $this->getDeliveryMethod()){
-			$country = $this->_getDeliveryCountry();
-			$fee = $delivery->getPriceInclVat($country);
-			if(is_null($fee)){ return null; }
-			return $fee / $this->getCurrency()->getRate();
-		}
+	function getDeliveryFeeInclVat($options = []){
+		return $this->getDeliveryFee(true,$options);
 	}
 
 	/**
@@ -298,32 +313,67 @@ class Basket extends BasketOrOrder {
 	/**
 	 * Vraci cenu v dane mene
 	 */
-	function getPaymentFee($incl_vat = false){
+	function getPaymentFee($incl_vat = false, $options = []){
 		if($incl_vat){
-			return $this->getPaymentFeeInclVat();
+			return $this->getPaymentFeeInclVat($options);
 		}
-		if($this->freeShipping()){ return 0.0; }
+		$options += [
+			"check_for_free_shipping_campaign_or_voucher" => true,
+		];
+		if($options["check_for_free_shipping_campaign_or_voucher"] && $this->freeShipping()){ return 0.0; }
 		if($payment = $this->getPaymentMethod()){
-			return $payment->getPrice() / $this->getCurrency()->getRate();
+			$currency = $this->getCurrency();
+			$price = $payment->getPrice() / $currency->getRate();
+			return $currency->roundPrice($price);
 		}
 	}
 
 	/**
 	 * Vraci cenu v dane mene
 	 */
-	function getPaymentFeeInclVat(){
-		if($this->freeShipping()){ return 0.0; }
+	function getPaymentFeeInclVat($options = []){
+		$options += [
+			"check_for_free_shipping_campaign_or_voucher" => true,
+		];
+		if($options["check_for_free_shipping_campaign_or_voucher"] && $this->freeShipping()){ return 0.0; }
 		if($payment = $this->getPaymentMethod()){
-			return $payment->getPriceInclVat() / $this->getCurrency()->getRate();
+			$currency = $this->getCurrency();
+			$price = $payment->getPriceInclVat() / $currency->getRate();
+			return $currency->roundPrice($price);
 		}
 	}
 
 	/**
 	 * Je vyloucena platba dobirkou?
 	 *
-	 * It will be implemented in the future
+	 * Pokud nakupni kosik obsahuje darkovy poukaz, nelze platit dobirkou
 	 */
 	function cashOnDeliveryEnabled(){
+		if(0<$this->dbmole->selectInt("
+			SELECT COUNT(*) FROM
+				basket_items,
+				products,
+				category_cards,
+				categories
+			WHERE
+				basket_items.basket_id=:basket AND
+				products.id=basket_items.product_id AND
+				category_cards.card_id=products.card_id AND
+				categories.id=category_cards.category_id AND
+				categories.code=:code
+		",[":basket" => $this, ":code" => "gift_vouchers"])){
+			return false;
+		}
+
+		$digital_product = Tag::GetInstanceByCode("digital_product");
+		foreach($this->getItems() as $item){
+			$product = $item->getProduct();
+			$card = $product->getCard();
+			if($card->containsTag($digital_product)){
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -381,8 +431,22 @@ class Basket extends BasketOrOrder {
 			return 0.0;
 		}
 
+		/*
+		foreach($this->getBasketCampaigns() as $bs){
+			if(!$bs->freeShipping()){ continue; }
+			$required_price = $bs->getMinimalItemsPriceInclVat();
+			$current_price = $this->getItemsPriceInclVat();
+			$add_more = $required_price - $current_price;
+			if($add_more<0.0){
+				return 0.0;
+			}
+			return $add_more;
+		}
+		return;
+		*/
+
 		$region = $this->getRegion();
-		$user = $this->getUser();
+		($user = $this->getUser()) || ($user = User::GetAnonymousUser());
 		$current_price = $this->getItemsPriceInclVat();
 
 		$conditions = [
@@ -391,23 +455,26 @@ class Basket extends BasketOrOrder {
 			"(regions->>:region_code)::BOOLEAN",
 			"valid_from IS NULL OR valid_from<=:now",
 			"valid_to IS NULL OR valid_to>=:now",
+			"required_customer_group_id IS NULL OR required_customer_group_id IN :required_customer_groups",
+			"required_delivery_method_id IS NULL OR required_delivery_method_id=:required_delivery_method",
+			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method"
 		];
-		if(!$user){
-			$conditions[] = "NOT user_registration_required";
-		}
-
 		$bind_ar = [
 			":region_code" => $region->getCode(),
 			":now" => now(),
+			":required_customer_groups" => $user->getCustomerGroups(),
+			":required_delivery_method" => $this->getDeliveryMethod(),
+			":required_payment_method" => $this->getPaymentMethod(),
 		];
 
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"order_by" => "minimal_items_price_incl_vat",
 		]);
-
-		if($campaign){
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$campaign = $campaigns[0];
 			$currency = $this->getCurrency();
 			$required_price = $campaign->getMinimalItemsPriceInclVat() / $currency->getRate();
 
@@ -415,7 +482,7 @@ class Basket extends BasketOrOrder {
 			if($add_more<0.0){
 				return 0.0;
 			}
-			return $add_more;
+			return $currency->roundPrice($add_more);
 		}
 	}
 
@@ -478,7 +545,7 @@ class Basket extends BasketOrOrder {
 		$out = [];
 
 		$currency = $this->getCurrency();
-		$user = $this->getUser();
+		($user = $this->getUser()) || ($user = User::GetAnonymousUser());
 		$region = $this->getRegion();
 		$delivery_method = $considered_delivery_method ? $considered_delivery_method : $this->getDeliveryMethod();
 		$items_price_incl_vat = $this->getItemsPriceInclVat() * $currency->getRate();
@@ -486,53 +553,93 @@ class Basket extends BasketOrOrder {
 
 		// Zakladni podminky
 		$conditions = $bind_ar = [];
-		$conditions[] = "(regions->>:region_code)::BOOLEAN";
+		$conditions = [
+			"(regions->>:region_code)::BOOLEAN",
+			"active",
+			"valid_from IS NULL OR valid_from<:now",
+			"valid_to IS NULL OR valid_to>:now",
+			"required_customer_group_id IS NULL OR required_customer_group_id IN :required_customer_groups",
+			"required_delivery_method_id IS NULL OR required_delivery_method_id=:required_delivery_method",
+			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method",
+			"minimal_items_price_incl_vat<=:items_price_incl_vat",
+		];
 		$bind_ar[":region_code"] = $region->getCode(); 
-		$conditions[] = "active";
-		$conditions[] = "valid_from IS NULL OR valid_from<:now";
-		$conditions[] = "valid_to IS NULL OR valid_to>:now";
 		$bind_ar[":now"] = $now;
-		if(!$user){
-			$conditions[] = "NOT user_registration_required";
-		}
+		$bind_ar[":required_customer_groups"] = $user->getCustomerGroups();
+		$bind_ar[":required_delivery_method"] = $this->getDeliveryMethod();
+		$bind_ar[":required_payment_method"] = $this->getPaymentMethod();
+		$bind_ar[":items_price_incl_vat"] = $items_price_incl_vat;
 		if($delivery_method){
 			$conditions[] = "delivery_method_id IS NULL OR delivery_method_id=:delivery_method";
 			$bind_ar[":delivery_method"] = $delivery_method;
 		}else{
 			$conditions[] = "delivery_method_id IS NULL";
 		}
-		$conditions[] = "minimal_items_price_incl_vat<=:items_price_incl_vat";
-		$bind_ar[":items_price_incl_vat"] = $items_price_incl_vat;
 
-		// Napred hledame kampan s nejvyhodnejsi procentrni slevou
+		// Napred hledame darky
+		$_conditions = $conditions;
+		$_bind_ar = $bind_ar;
+		$_conditions[] = "gift_product_id IS NOT NULL";
+		$campaigns = Campaign::FindAll([
+			"conditions" => $_conditions,
+			"bind_ar" => $_bind_ar,
+		],[
+			"use_cache" => true,
+		]);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
+		}
+
+		// Pak hledame kampan s nejvyhodnejsi procentrni slevou
 		$_conditions = $conditions;
 		$_bind_ar = $bind_ar;
 		$_conditions[] = "discount_percent>0.0";
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $_conditions,
 			"bind_ar" => $_bind_ar,
 			"order_by" => "discount_percent DESC", // nejvyssi sleva jako prvni
 		],[
 			"use_cache" => true,
 		]);
-		if($campaign){
-			$out[] = new BasketCampaign($this,$campaign);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
 		}
 
 		// Ted kampan s dopravou zdarma
 		$_conditions = $conditions;
 		$_bind_ar = $bind_ar;
 		$_conditions[] = "free_shipping";
-		$campaign = Campaign::FindFirst([
+		$campaigns = Campaign::FindAll([
 			"conditions" => $_conditions,
 			"bind_ar" => $_bind_ar,
 		],[
 			"use_cache" => true,
 		]);
-		if($campaign){
-			$out[] = new BasketCampaign($this,$campaign);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
 		}
 
+		return $out;
+	}
+
+	protected function _filterOutInappropriateCampaigns($campaigns){
+		$out = [];
+		foreach($campaigns as $campaign){
+			foreach($campaign->getDesignatedForTags() as $t){
+				if(!$this->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+			foreach($campaign->getExcludedForTags() as $t){
+				if($this->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+			$out[] = $campaign;
+		}
 		return $out;
 	}
 
@@ -677,7 +784,6 @@ class Basket extends BasketOrOrder {
 		$delivery_method_ids = array_map(function($o){ return $o->getId(); },$delivery_methods);
 		$payment_method_ids = array_map(function($o){ return $o->getId(); },$payment_methods);
 
-
 		if(
 			($delivery_method && !in_array($delivery_method->getId(),$delivery_method_ids)) ||
 			($payment_method && !in_array($payment_method->getId(),$payment_method_ids)) ||
@@ -756,8 +862,14 @@ class Basket extends BasketOrOrder {
 			"mailer" => null,
 		];
 
+		$currency = $this->getCurrency();
+
 		$without_vat = !!$options["without_vat"];
 		$incl_vat = !$without_vat;
+		$decimals = $without_vat ? $currency->getDecimals() : INTERNAL_PRICE_DECIMALS;
+		$delivery_method = $this->getDeliveryMethod();
+		$delivery_country = $this->_getDeliveryCountry();
+		$payment_method = $this->getPaymentMethod();
 
 		$values = $this->toArray();
 
@@ -786,11 +898,21 @@ class Basket extends BasketOrOrder {
 		$payment_gateway = $payment_method->getPaymentGateway();
 
 		$values["delivery_method_data"] = $this->g("delivery_method_data");
-		$values["delivery_fee"] = $this->getDeliveryFee();
-		$values["delivery_fee_incl_vat"] = $this->getDeliveryFee($incl_vat);
 
-		$values["payment_fee"] = $this->getPaymentFee();
-		$values["payment_fee_incl_vat"] = $this->getPaymentFee($incl_vat);
+		$delivery_fee_incl_vat = $this->getDeliveryFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
+		$delivery_fee_vat_percent = $incl_vat ? $delivery_method->getVatPercent($delivery_country) : 0.0;
+		$delivery_fee = $this->_delVat($delivery_fee_incl_vat,$delivery_fee_vat_percent);
+		$values["delivery_fee_incl_vat"] = $delivery_fee_incl_vat;
+		$values["delivery_fee_vat_percent"] = $delivery_fee_vat_percent;
+
+		$payment_fee_incl_vat = $this->getPaymentFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
+		$payment_fee_vat_percent = $incl_vat ? $payment_method->getVatPercent() : 0.0;
+		$payment_fee = $this->_delVat($payment_fee_incl_vat,$payment_fee_vat_percent);
+		$values["payment_fee_incl_vat"] = $payment_fee_incl_vat;
+		$values["payment_fee_vat_percent"] = $payment_fee_vat_percent;
+
+		$free_shipping = $this->freeShipping(); // false, true
+		$shipping_fee_incl_vat = $delivery_fee_incl_vat; // Pozor! Zjednoduseni. Tady se neuvazuje poplatek za platbu. Ten byva obvykle 0. A nize by to delalo problem se stanovenim sazby DPH, kdyby byly sazby za dopravu a platbu jine.
 
 		$values["price_to_pay"] = $price_to_pay = $this->getPriceToPay($incl_vat,$price_to_pay_without_rounding);
 
@@ -806,13 +928,21 @@ class Basket extends BasketOrOrder {
 
 		foreach($this->getItems() as $item){
 			$p_price = $item->getProductPrice();
+			$vat_percent = $incl_vat ? $item->getVatPercent() : 0.0;
+			$unit_price_incl_vat = $p_price->getUnitPrice($incl_vat); // pekne zaokrouhlena cena na 2 (resp. 4 u cm) des. mista
+			$unit_price = $this->_delVat($unit_price_incl_vat,$vat_percent); // toto bude zaokrouhleno na INTERNAL_PRICE_DECIMALS mist
+			$unit_price_before_discount_incl_vat = $p_price->getUnitPriceBeforeDiscount($incl_vat); // pekne zaokrouhleno
+			$unit_price_before_discount = $this->_delVat($unit_price_before_discount_incl_vat,$vat_percent); // zaokrouhleno na INTERNAL_PRICE_DECIMALS mist
+
 			OrderItem::CreateNewRecord([
 				"order_id" => $order,
 				"product_id" => $item->getProductId(),
 				"amount" => $item->getAmount(),
-				"unit_price_incl_vat" => $p_price->getRawUnitPriceInclVat(),
-				"unit_price_before_discount_incl_vat" => $p_price->getRawUnitPriceBeforeDiscountInclVat(),
-				"vat_percent" => $incl_vat ? $item->getVatPercent() : 0.0,
+				//"unit_price" => $unit_price,
+				"unit_price_incl_vat" => $unit_price_incl_vat,
+				//"unit_price_before_discount" => $unit_price_before_discount,
+				"unit_price_before_discount_incl_vat" => $unit_price_before_discount_incl_vat,
+				"vat_percent" => $vat_percent,
 				# zda byla poskytnuta sleva v kampani nebo pri pouziti poukazu (vouchers)
 				# napr. u zlevneneho zbozi se neposkytuje
 				"campaign_discount_applied" => (($this->getCampaignsDiscountAmount()>0) || ($this->getVouchersDiscountAmount(null, ["free_shipping" => false, "discount_amount" => false])>0)) && !$item->discounted(),
@@ -834,7 +964,6 @@ class Basket extends BasketOrOrder {
 		}
 
 		// Pridani polozky "Zaokrouhlení"
-		$currency = $this->getCurrency();
 		$delta = $price_to_pay - $price_to_pay_without_rounding;
 		$delta = $currency->roundPrice($delta);
 		if(abs($delta)>=$currency->getLowestPrice()){
@@ -850,25 +979,96 @@ class Basket extends BasketOrOrder {
 				"amount" => $amount,
 				"unit_price_incl_vat" => $delta_price,
 				"vat_percent" => $delta_vat_percent,
+				"rank" => 9999, // chceme, aby to bylo za prip. darkama, viz nize
 			]);
 		}
 
+		$free_shipping_treated = false;
+
 		// Vouchery
 		foreach($this->getBasketVouchers() as $b_voucher){
+			$voucher_obj = $b_voucher->getVoucher();
+			$discount_amount = $b_voucher->getDiscountAmount($incl_vat); // tady castka za pripadnou dopravu zdarma neni
+
+			if($voucher_obj->freeShipping() && $free_shipping && !$free_shipping_treated && $shipping_fee_incl_vat!==0.0){
+				OrderVoucher::CreateNewRecord([
+					"order_id" => $order,
+					"voucher_id" => $b_voucher->getVoucherId(),
+					"discount_amount" => $shipping_fee_incl_vat,
+					"free_shipping" => true,
+					"vat_percent" => $delivery_fee_vat_percent,
+				]);
+				$free_shipping_treated = true;
+
+				if($discount_amount===0.0){
+					// uz neni treba ukladat stejny voucher s nulovou slevou
+					continue;
+				}
+			}
+
 			OrderVoucher::CreateNewRecord([
 				"order_id" => $order,
 				"voucher_id" => $b_voucher->getVoucherId(),
-				"discount_amount" => $b_voucher->getDiscountAmount($incl_vat),
+				"discount_amount" => $discount_amount,
+				"vat_percent" => $voucher_obj->getVatPercent(), // Koupeny slev. kupon ma DPH 21%, jiny slevovy kupon tady ma NULL.
 			]);
 		}
 
 		// Kampane
 		foreach($this->getBasketCampaigns() as $b_campaign){
+			$campaign_obj = $b_campaign->getCampaign();
+			$discount_amount = $b_campaign->getDiscountAmount($incl_vat); // tady castka za pripadnou dopravu zdarma neni
+			$gift_product = $b_campaign->getGiftProduct();
+
+			// gift
+			if($gift_product){
+				$gift_product_vat_percent = $incl_vat ? $gift_product->getVatPercent() : 0.0;
+				$gift_order_item = OrderItem::CreateNewRecord([
+					"order_id" => $order,
+					"product_id" => $gift_product,
+					"amount" => $b_campaign->getGiftAmount(),
+					"unit_price_incl_vat" => 0.0,
+					"vat_percent" => $gift_product_vat_percent,
+					"rank" => 9999, // chceme, aby to bylo za prip. darkama, viz nize
+				]);
+				OrderCampaign::CreateNewRecord([
+					"order_id" => $order,
+					"campaign_id" => $b_campaign->getCampaignId(),
+					"discount_amount" => 0.0,
+					"free_shipping" => false,
+					"vat_percent" => $gift_product_vat_percent,
+					"gift_order_item_id" => $gift_order_item,
+				]);
+				continue;
+			}
+
+			if($campaign_obj->freeShipping() && $free_shipping && !$free_shipping_treated && $shipping_fee_incl_vat!==0.0){
+				OrderCampaign::CreateNewRecord([
+					"order_id" => $order,
+					"campaign_id" => $b_campaign->getCampaignId(),
+					"discount_amount" => $shipping_fee_incl_vat,
+					"free_shipping" => true,
+					"vat_percent" => $delivery_fee_vat_percent,
+				]);
+				$free_shipping_treated = true;
+
+				if($discount_amount===0.0){
+					// uz neni treba ukladat stejnou kampan s nulovou slevou
+					continue;
+				}
+			}
+
 			OrderCampaign::CreateNewRecord([
 				"order_id" => $order,
 				"campaign_id" => $b_campaign->getCampaignId(),
-				"discount_amount" => $b_campaign->getDiscountAmount($incl_vat),
+				"discount_amount" => $discount_amount,
+				"vat_percent" => null,
 			]);
+		}
+
+		// Toto je pro pripad, ze by Basket a Order pocitaly price_to_pay jinak...
+		if($order->recalculatePriceToPay()){
+			trigger_error(sprintf("Basket::createOrder(): price_to_pay mismatch on Order#%s; corrected: %s -> %s",$order->getId(),$price_to_pay,$order->getPriceToPay()));
 		}
 
 		// Vytvoreni platebni transakce
@@ -888,6 +1088,7 @@ class Basket extends BasketOrOrder {
 		// Next automatic status
 		$next_status = OrderStatus::DetermineNextAutomaticStatus($order);
 		if($next_status){
+			$next_status->notificationEnabled() && $options["send_notification"] && sleep(1); // Sleep for 1 sec to ensure the payment request email is to be sent later than order creation notification
 			$order->setNewOrderStatus([
 				"order_status_id" => $next_status->getId(),
 				"order_status_set_at" => now(),
@@ -906,6 +1107,15 @@ class Basket extends BasketOrOrder {
 		return $order;
 	}
 
+	function _delVat($price,$vat_percent){
+		if(is_null($price)){ return null; }
+
+		$vat_percent = (float)$vat_percent;
+		$out = ($price / (100.0 + $vat_percent)) * 100.0;
+		$out = round($out,INTERNAL_PRICE_DECIMALS);
+		return $out;
+	}
+
 	/**
 	 * Slouceni dvou kosiku
 	 *
@@ -917,7 +1127,8 @@ class Basket extends BasketOrOrder {
 		$update_ar = array();
 		foreach(array(
 			"payment_method_id",
-			"delivery_method_id"
+			"delivery_method_id",
+			"delivery_method_data",
 		) as $f){
 			$v = $basket->g($f);
 			if(!is_null($v)){
@@ -981,6 +1192,16 @@ class Basket extends BasketOrOrder {
 		return true;
 	}
 
+	function containsProductWithTag($tag){
+		foreach($this->getBasketItems() as $item){
+			$product = $item->getProduct();
+			if($product->containsTag($tag)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 *
 	 *	$basket1->addProduct("1111/11111111",2);
@@ -1029,11 +1250,70 @@ class Basket extends BasketOrOrder {
 
 	protected function _getDeliveryCountry(){
 		$country = $this->g("delivery_address_country");
-		return is_null($country) ? $this->g("address_country") : $country;
+		$country = is_null($country) ? $this->g("address_country") : $country;
+		if(is_null($country)){
+			$region = $this->getRegion();
+			$countries = $region->getDeliveryCountries();
+			if(sizeof($countries)==1){
+				// There is no way to deliver order to another country
+				$country = $countries[0];
+			}
+		}
+		return $country;
 	}
 
-	function getDeliveryMethodData() {
-		return json_decode($this->g("delivery_method_data"),true);
+	function getDeliveryMethodData($options = []) {
+		if(!is_array($options)){
+			$options = ["as_json" => $options];
+		}
+		$options += [
+			"as_json" => false,
+		];
+
+		$json = $this->g("delivery_method_data");
+		if(!$json){ return null; }
+
+		$data = json_decode($json,true);
+		if(!$data){ return null; }
+
+		$d_method = $this->getDeliveryMethod();
+		if(!$d_method){ return null; }
+
+		if($data["delivery_service_id"]!==$d_method->getDeliveryServiceId()){ return null; }
+
+		return $options["as_json"] ? $json : $data;
+	}
+
+	/**
+	 * Vrati nastavenou pobocku dorucovaci sluzby
+	 *
+	 * @return DeliveryServiceBranch
+	 */
+	function getDeliveryServiceBranch() {
+		$method_data = $this->getDeliveryMethodData();
+		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
+			return null;
+		}
+		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+	}
+
+	function getDeliveryPointAddress() {
+		$delivery_address = null;
+		$data = $this->getDeliveryMethodData();
+		if (isset($data["delivery_address"])) {
+			$delivery_address = $data["delivery_address"];
+			foreach(["street","city","zip","country"] as $k) {
+				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
+				unset($delivery_address[$k]);
+			}
+			$delivery_address["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
+			unset($delivery_address["company"]);
+		}
+		return $delivery_address;
+	}
+
+	function getDeliveryServiceBranchAddress() {
+		return $this->getDeliveryPointAddress();
 	}
 
 	/**
@@ -1041,6 +1321,37 @@ class Basket extends BasketOrOrder {
 	 *
 	 */
 	function deliveryToDeliveryPointSelected() {
-		return false; //TODO
+		$d_method = $this->getDeliveryMethod();
+		return $d_method && $d_method->getDeliveryService();
+	}
+
+	/**
+	 * Are prices without VAT important for the given user (i.e. this basket)?
+	 */
+	function displayPricesWithoutVat(){
+		global $ATK14_GLOBAL;
+
+		if(!SystemParameter::ContentOn("merchant.vat_payer")){
+			return false;
+		}
+
+		if(!is_null($ATK14_GLOBAL->getConfig("display_prices_without_vat"))){
+			// This is mainly for development purposes!
+			//
+			//	File local_config/display_prices_without_vat.php may contain
+			//	return true; // true or false
+			return $ATK14_GLOBAL->getConfig("display_prices_without_vat");
+		}
+
+		// Here is a place for your implementation...
+
+		return false;
+	}
+
+	/**
+	 * Opposite method to displayPricesWithoutVat()
+	 */
+	function displayPricesInclVat(){
+		return !$this->displayPricesWithoutVat();
 	}
 }

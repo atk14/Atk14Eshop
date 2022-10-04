@@ -24,7 +24,7 @@
 		}
 
 		$( window ).on( "popstate",
-				( function( ) { this.doPaging( window.document.location.href ); } ).bind( this )
+				( function( ) { this.doPaging( window.document.location.href, undefined, { noScroll: true } ); } ).bind( this )
 		);
 
 	};
@@ -193,7 +193,15 @@
 		if ( data.pageSize ) {
 			this.pageSize = data.pageSize;
 		}
+
+		var $items = $( data.items );
 		var $masonry = this.$list.closest( ".masonry" );
+		var origOffset = $( window ).scrollTop();
+		var $body = $( "body" );
+		var origOverflowAnchor = $body.css( "overflow-anchor" );
+
+		$body.css( "overflow-anchor", "none" );
+
 		if ( data.offset !== this.offset + this.count ||
 			   data.count + this.count > this.sectionSize ||
 				 data.forceReplace
@@ -204,12 +212,12 @@
 				$masonry.find( ".masonry__item" ).addClass( "d-none" );
 				$masonry.colcade(
 					"prepend",
-					$( data.items ).filter( ".masonry__item" )
+					$items.filter( ".masonry__item" )
 				);
 				$masonry.find( ".masonry__item.d-none" ).remove();
 				$masonry.find( "input[type='number']" ).stepper();
 			} else {
-				this.$list.html( data.items );
+				this.$list.html( $items );
 			}
 
 			this.offset = data.offset;
@@ -232,14 +240,21 @@
 				$masonry.find( ".masonry__item" ).addClass( "custom-marker" );
 				this.$list.closest( ".masonry" ).colcade(
 					"append",
-					$( data.items ).filter( ".masonry__item" )
+					$items.filter( ".masonry__item" )
 				);
 				$masonry.find( ".masonry__item:not(.custom-marker) input[type='number']" ).stepper();
 				$masonry.find( ".masonry__item" ).removeClass( "custom-marker" );
 			} else {
-				this.$list.append( data.items );
+				$items.hide().appendTo( this.$list ).fadeIn( "slow" );
 			}
+
 			this.count += data.count;
+
+			// This is a fallback when setting the overflow-anchor doesn't help.
+			// There is a small delay to make sure that the Colcade finished its job.
+			setTimeout( function() {
+				$( "html,body" ).scrollTop( origOffset );
+			}, 10 ); // very soon
 
 			if ( options.addToHistory ) {
 				window.history.replaceState(
@@ -258,6 +273,8 @@
 				this.addToUrl( this.url, { offset: this.offset - pSize, limit: pSize } ) : "" );
 		this.updateNextButton();
 		this.updateRemains();
+
+		$body.css( "overflow-anchor", origOverflowAnchor );
 
 		/**
 		 * Pustime si callback, pokud jsme si ho s daty poslali
@@ -286,11 +303,13 @@
 		return false;
 	};
 
-	ATK14COMMON.Pager.prototype.doPaging = function( href, button ) {
+	ATK14COMMON.Pager.prototype.doPaging = function( href, button, updatePagerOptions ) {
+			updatePagerOptions = updatePagerOptions || {};
+			updatePagerOptions.addToHistory = button;
 			$.ajax( {
 				url:     this.addToUrl( href, { "pager": 1 } ),
 				success: ( function( data ) {
-							this.updatePager( data, { addToHistory: button } );
+							this.updatePager( data, updatePagerOptions );
 							} ).bind( this ),
 				complete: function( ) {
 					if ( button && button.restoreText ) {

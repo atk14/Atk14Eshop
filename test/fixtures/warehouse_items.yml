@@ -13,7 +13,37 @@ mint_tea:
   warehouse_id: 1
   stockcount: 22
 
+external__mint_tea:
+  product_id: "<?= $products["mint_tea"]->getId() ?>"
+  warehouse_id: "<?= $warehouses["external"]->getId() ?>"
+  stockcount: 11
+
 herbal_tea:
   product_id: "<?= $products["herbal_tea"]->getId() ?>"
   warehouse_id: 1
   stockcount: 0
+
+on_the_way__herbal_tea:
+  product_id: "<?= $products["herbal_tea"]->getId() ?>"
+  warehouse_id: "<?= $warehouses["on_the_way"]->getId() ?>"
+  stockcount: 10
+
+latka_s_mnozstevnima_slevama:
+  product_id: "<?= $products["latka_s_mnozstevnima_slevama"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: "40000" # 40m
+
+wooden_button:
+  product_id: "<?= $products["wooden_button"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 100
+
+kostkovana_latka:
+  product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: 202
+
+jehla:
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  warehouse_id: 1
+  stockcount: -23

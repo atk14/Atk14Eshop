@@ -27,6 +27,7 @@ function smarty_block_modal($params,$content,$template,&$repeat){
 		"open_on_load" => false,
 		"vertically_centered" => false,
 		"animation" => true,
+		"close_button" => true,
 	);
 
 	$smarty = atk14_get_smarty_from_template($template);
@@ -48,6 +49,7 @@ function smarty_block_modal($params,$content,$template,&$repeat){
 	$smarty->assign("open_on_load",$params["open_on_load"]);
 	$smarty->assign("vertically_centered",$params["vertically_centered"]);
 	$smarty->assign("animation",$params["animation"]);
+	$smarty->assign("close_button",$params["close_button"]);
 
 	$out = $smarty->fetch("shared/helpers/modal/".(USING_BOOTSTRAP4 ? "_bootstrap4.tpl" : "_bootstrap3.tpl"));
 

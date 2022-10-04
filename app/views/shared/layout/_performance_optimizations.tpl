@@ -6,7 +6,6 @@
 
 {preload_link_tag file="$public/dist/styles/vendor.min.css" as="style"}
 {preload_link_tag file="$public/dist/styles/application.min.css" as="style"}
-{preload_link_tag file="$public/dist/styles/default-skin/default-skin.css" as="style"}
 
 {preload_link_tag file="$public/dist/scripts/vendor.min.js" as="script"}
 {preload_link_tag file="$public/dist/scripts/application.min.js" as="script"}
@@ -19,7 +18,7 @@
 	{elseif $ppq_img_hostname}
 		{assign ppq_hostname $ppq_img_hostname}
 	{/if}
-	{if $ppq_hostname}
+	{if $ppq_hostname && $ppq_hostname!==$request->getHttpHost()}
 		<link rel="preconnect" href="//{$ppq_hostname}">
 	{/if}
 {/if}

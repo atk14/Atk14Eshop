@@ -1,3 +1,9 @@
+{assign currency $basket->getCurrency()}
+{assign basket_vouchers $basket->getBasketVouchers()}
+{assign basket_campaigns $basket->getBasketCampaigns()}
+{assign vouchers_anchor_set 0}
+{assign incl_vat $basket->displayPricesInclVat()}
+
 <div id="js--edit_form_content">
 
 	{render partial="error_messages"}
@@ -11,9 +17,12 @@
 					<th class="table-products__image"><span class="sr-only">{t}Obrázek{/t}</span></th>
 					<th class="table-products__title">{t}Produkt{/t}<span class="d-block d-lg-none">{t}Kód{/t}</span></th>
 					<th class="table-products__id"><span class="d-none d-lg-inline">{t}Kód{/t}</span></th>
-					<th class="table-products__unit-price">{t}Jedn. cena{/t}</th>
+					<th class="table-products__unit-price">{if $incl_vat}{t}Jedn. cena{/t}{else}{t}Jedn. cena bez DPH{/t}{/if}</th>
+					{if !$incl_vat}
+					<th class="table-products__vat-percent">{t escape=no}%&nbsp;DPH{/t}</th>
+					{/if}
 					<th class="table-products__amount">{t}Množství{/t}</th>
-					<th class="table-products__price">{t}Celkem{/t}</th>
+					<th class="table-products__price">{if $incl_vat}{t}Celkem{/t}{else}{t}Celkem bez DPH{/t}{/if}</th>
 					<th class="table-products__actions"><span class="sr-only">Actions</span></th>
 				</tr>
 			</thead>

@@ -44,11 +44,26 @@ class DefaultRouter extends Atk14Router{
 
 		$this->addRoute("/robots.txt","main/robots_txt");
 
+		// Sign Up
+		$this->addRoute("/sign-up/","en/users/create_new");
+		$this->addRoute("/registrace/","cs/users/create_new");
+
+		// Sign In
+		$this->addRoute("/sign-in/","en/logins/create_new");
+		$this->addRoute("/prihlaseni/","cs/logins/create_new");
+
+		// Sign Out
+		$this->addRoute("/sign-out/","en/logins/destroy");
+		$this->addRoute("/odhlaseni/","cs/logins/destroy");
+
 		// Shorter password recovery links are nicer in emails:
 		//   generic route: http://example.com/en/password_recoveries/recovery/?token=123.xyz
 		//      nice route: http://example.cz/recovery/123.xyz
 		$this->addRoute("/recovery/<token>","en/password_recoveries/recovery");
 		$this->addRoute("/obnova/<token>","cs/password_recoveries/recovery");
+		//
+		$this->addRoute("/password-recovery/","en/password_recoveries/create_new");
+		$this->addRoute("/obnova-hesla/","cs/password_recoveries/create_new");
 
 		// Nice URIs for attachments
 		$this->addRoute("/attachment/<token>/<filename>","$this->default_lang/attachments/detail");
@@ -57,6 +72,9 @@ class DefaultRouter extends Atk14Router{
 
 		$this->addRoute("/search/","en/searches/index");
 		$this->addRoute("/vyhledavani/","cs/searches/index");
+
+		// Qr kody
+		$this->addRoute("/qr-code/<lang>/<order_token>.png","payment_qr_codes/detail");
 
 		// Generic routes follow.
 		// Keep them on the end of the list.

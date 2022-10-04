@@ -5,7 +5,6 @@ class Order extends BasketOrOrder {
 
 	static function CreateNewRecord($values,$options = []){
 		global $ATK14_GLOBAL;
-
 		$values += [
 			"id" => Order::GetNextId(),
 			"region_id" => Region::GetDefaultRegion()->getId(),
@@ -24,7 +23,8 @@ class Order extends BasketOrOrder {
 		}
 
 		$values += [
-			"language" => $region->getDefaultLanguage(),
+			//"language" => $region->getDefaultLanguage(),
+			"language" => $ATK14_GLOBAL->getLang(),
 		];
 
 		$out = parent::CreateNewRecord($values,$options);
@@ -71,15 +71,52 @@ class Order extends BasketOrOrder {
 	}
 
 	function getPaymentFee($incl_vat = false){
-		return $incl_vat ? $this->g("payment_fee_incl_vat") : $this->g("payment_fee");
+		$fee = $this->getPaymentFeeInclVat();
+		if(!$incl_vat){
+			$fee = $this->_delVat($fee,$this->getPaymentFeeVatPercent());
+		}
+		return $fee;
 	}
 
+	/**
+	 * Returns the most recent payment transaction of the order
+	 */
 	function getPaymentTransaction(){
-		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "id DESC"]);
+		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "payment_status_id=(SELECT id FROM payment_statuses WHERE code='paid') DESC, rank DESC"]);
+	}
+
+	function getPaymentTransactionStartUrl(){
+		if(!$this->getPaymentTransaction()){
+			return;
+		}
+		return Atk14Url::BuildLink([
+			"namespace" => "",
+			"action" => "payment_transactions/start",
+			"order_token" => $this->getToken(["extra_salt" => "payment_transaction_start", "hash_length" => 10]),
+		],[
+			"with_hostname" => true,
+			"ssl" => REDIRECT_TO_SSL_AUTOMATICALLY,
+		]);
 	}
 
 	function getDeliveryFee($incl_vat = false){
-		return $incl_vat ? $this->g("delivery_fee_incl_vat") : $this->g("delivery_fee");
+		$fee = $this->getDeliveryFeeInclVat();
+		if(!$incl_vat){
+			$fee = $this->_delVat($fee,$this->getDeliveryFeeVatPercent());
+		}
+		return $fee;
+	}
+
+	/**
+	 *
+	 *	$order->increasePricePaid(10.0);
+	 * 	$order->increasePricePaid(22.2);
+	 *	echo $order->getPricePaid(); // 33.2
+	 */
+	function increasePricePaid($price){
+		$price = (float)$price;
+		$this->dbmole->doQuery("UPDATE orders SET price_paid=COALESCE(price_paid,0.0)+:price WHERE id=:order",[":price" => $price,":order" => $this]);
+		$this->_readValues();
 	}
 
 	function getPhone(){
@@ -404,10 +441,10 @@ class Order extends BasketOrOrder {
 
 		$warehouse = Warehouse::GetDefaultInstance4Eshop();
 		if($warehouse && $orig_status->getId()!=$new_status->getId()){
-			if(!$orig_status->reduceStockount() && $new_status->reduceStockount()){
+			if(!$orig_status->reduceStockcount() && $new_status->reduceStockcount()){
 				$this->_updateWarehouseItems($warehouse,-1);
 			}
-			if($orig_status->reduceStockount() && !$new_status->reduceStockount()){
+			if($orig_status->reduceStockcount() && !$new_status->reduceStockcount()){
 				$this->_updateWarehouseItems($warehouse,1);
 			}
 		}
@@ -539,11 +576,11 @@ class Order extends BasketOrOrder {
 	}
 
 	function getVouchers() {
-		return OrderVoucher::FindAll("order_id",$this);
+		return OrderVoucher::FindAll("order_id",$this,["use_cache" => true]);
 	}
 
 	function getCampaigns() {
-		return OrderCampaign::FindAll("order_id",$this);
+		return OrderCampaign::FindAll("order_id",$this,["use_cache" => true]);
 	}
 
 	function getUpdatedByUser(){
@@ -605,7 +642,7 @@ class Order extends BasketOrOrder {
 				"order_id" => $this->getId(),
 				"product_id" => $delta_product,
 				"amount" => $delta > 0.0 ? 1 : -1,
-				"unit_price" => $delta_price_with_no_vat,
+				"unit_price_incl_vat" => $delta_price,
 				"vat_percent" => $delta_vat_percent,
 			];
 
@@ -614,7 +651,7 @@ class Order extends BasketOrOrder {
 			}else{
 				if(
 					$current_delta_item->g("amount")!=$delta_values["amount"] ||
-					$current_delta_item->g("unit_price")!=$delta_values["unit_price"] ||
+					$current_delta_item->getUnitPriceInclVat()!=$delta_values["unit_price_incl_vat"] ||
 					$current_delta_item->g("vat_percent")!=$delta_values["vat_percent"]
 				){
 					$current_delta_item->s($delta_values);
@@ -635,8 +672,21 @@ class Order extends BasketOrOrder {
 		return false;
 	}
 
-	function getDeliveryMethodData() {
-		return json_decode($this->g("delivery_method_data"),true);
+	function getDeliveryMethodData($options = []){
+		if(!is_array($options)){
+			$options = ["as_json" => $options];
+		}
+		$options += [
+			"as_json" => false,
+		];
+
+		$json = $this->g("delivery_method_data");
+		if(!$json){ return null; }
+
+		$data = json_decode($json,true);
+		if(!$data){ return null; }
+
+		return $options["as_json"] ? $json : $data;
 	}
 
 	function getTrackingUrl() {
@@ -659,6 +709,21 @@ class Order extends BasketOrOrder {
 		return !!DigitalContent::GetInstancesByOrder($this);
 	}
 
+	function getBankAccount(){
+		$region = $this->getRegion();
+		$currency = $this->getCurrency();
+		foreach(BankAccount::FindAll([
+			"conditions" => "active AND (regions->>:region)::BOOLEAN",
+			"bind_ar" => [":region" => $region->getCode()],
+		]) as $ba){
+			if(in_array($currency->getCode(),json_decode($ba->g("currencies"),true))){
+				return $ba;
+			}
+		}
+
+		// Fallback
+		return BankAccount::GetInstanceByCode("default");
+	}
 
 	/**
 	 * Pruchod vsemi zaznamy csv
@@ -721,7 +786,7 @@ class Order extends BasketOrOrder {
 		return [$imported, $not_imported_messages];
 	}
 
-	protected function _set_tracking_info($tracking_no, $params=array(), &$imported_ar, &$not_imported_ar) {
+	protected function _set_tracking_info($tracking_no, $params, &$imported_ar, &$not_imported_ar) {
 		$service_tracking_number_regexp = [
 			"cp" => "^[A-Z]{2}[0-9]{9,}[A-Z]?$",
 			"ppl" => "^[0-9]{11,}$",

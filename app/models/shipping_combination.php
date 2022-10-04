@@ -72,6 +72,12 @@ class ShippingCombination extends ApplicationModel {
       return null;
     }
 
+		!is_object($delivery_method_id) && ($delivery_method_id = DeliveryMethod::GetInstanceById($delivery_method_id));
+		# check if DeliveryMethod is connected to a DeliveryService and if it is usable in that case.
+		if (($delivery_service=$delivery_method_id->getDeliveryService()) && !$delivery_service->canBeUsed()) {
+			return false;
+		}
+
 		$dbmole = self::GetDbMole();
 		$q = "
 			SELECT
@@ -104,6 +110,7 @@ class ShippingCombination extends ApplicationModel {
 		];
 
 		$region = $basket->getRegion();
+		($user = $basket->getUser()) || ($user = User::GetAnonymousUser());
 
 		$conditions = $bind_ar = [];
 		$conditions[] = "active";
@@ -136,16 +143,44 @@ class ShippingCombination extends ApplicationModel {
 		}
 
 		$delivery_methods = [];
+		$exclusive_delivery_methods = [];
 		foreach(DeliveryMethod::FindAll([
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 		]) as $o){
+			if(!is_null($o->g("required_customer_group_id")) && !$user->isInCustomerGroup($o->g("required_customer_group_id"))){
+				continue;
+			}
+
+			# kontrola, ze dorucovaci sluzba pouzita pro tuto metodu muze byt pouzita
+			# napriklad je zadany api klic (zatim jen toto)
+			if (($ds = $o->getDeliveryService()) && !$ds->canBeUsed()) {
+				continue;
+			}
+
+			foreach($o->getDesignatedForTags() as $t){
+				if(!$basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
+			foreach($o->getExcludedForTags() as $t){
+				if($basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
 			if($tag_required = $o->getRequiredTag()){
 				if(!$basket->hasEveryProductTag($tag_required)){
 					continue;
 				}
+				$exclusive_delivery_methods[] = $o;
 			}
 			$delivery_methods[] = $o;
+		}
+
+		if($exclusive_delivery_methods){
+			$delivery_methods = $exclusive_delivery_methods;
 		}
 
 		if(!$delivery_methods){
@@ -177,7 +212,32 @@ class ShippingCombination extends ApplicationModel {
 		$conditions[] = "id IN (SELECT payment_method_id FROM shipping_combinations WHERE delivery_method_id IN :delivery_methods)";
 		$bind_ar[":delivery_methods"] = $delivery_methods;
 
-		$payment_methods = PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]);
+		$payment_methods = [];
+		foreach(PaymentMethod::FindAll(["conditions" => $conditions, "bind_ar" => $bind_ar]) as $o){
+			if(!is_null($o->g("required_customer_group_id")) && !$user->isInCustomerGroup($o->g("required_customer_group_id"))){
+				continue;
+			}
+			$payment_methods[] = $o;
+		}
+
+		if(!$payment_methods){
+			return [[],[]];
+		}
+
+		$delivery_methods = DeliveryMethod::FindAll([
+			"conditions" => [
+				"id IN :delivery_methods",
+				"id IN (SELECT delivery_method_id FROM shipping_combinations WHERE payment_method_id IN :payment_methods)"
+			],
+			"bind_ar" => [
+				":delivery_methods" => $delivery_methods,
+				":payment_methods" => $payment_methods,
+			]
+		]);
+
+		if(!$delivery_methods){
+			return [[],[]];
+		}
 
 		return [$delivery_methods,$payment_methods];
 	}

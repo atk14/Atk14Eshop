@@ -1,0 +1,36 @@
+// Special popover classes (set by customClass option on popover)
+.popover {
+  &--danger {
+    color: white;
+    background-color: $danger;
+    .popover-body {
+      color: white;
+    }
+    &.bs-popover-top > .arrow {
+      &::after {
+        border-top-color: $danger;
+      }
+    }
+    &.bs-popover-bottom > .arrow {
+      &::after {
+        border-bottom-color: $danger;
+      }
+    }
+    &.bs-popover-left > .arrow {
+      &::after {
+        border-left-color: $danger;
+      }
+    }
+    &.bs-popover-right > .arrow {
+      &::after {
+        border-right-color: $danger;
+      }
+    }
+  }
+
+  &--bold {
+    .popover-body {
+      font-weight: bold;
+    }
+  }
+}

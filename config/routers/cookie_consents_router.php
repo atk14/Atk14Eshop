@@ -1,0 +1,1 @@
+../../vendor/atk14/cookie-consent/src/config/routers/cookie_consents_router.php

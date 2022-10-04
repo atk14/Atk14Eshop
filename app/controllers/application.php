@@ -17,7 +17,7 @@ class ApplicationController extends ApplicationBaseController{
 			return parent::error404();
 		}
 
-		$this->page_title = $page->getTitle();
+		$this->page_title = $page->getPageTitle();
 		$this->page_description = $page->getPageDescription();
 		$this->_add_page_to_breadcrumbs($page);
 		$this->response->setStatusCode(404);
@@ -81,6 +81,13 @@ class ApplicationController extends ApplicationBaseController{
 	function _application_before_filter() {
 		// Here, the $this->lazy_loader can be filled up with something
 
+		$this->lazy_loader["secondary_menu_mobile"] = function(){
+			if(($out = LinkList::GetInstanceByCode("secondary_menu_mobile")) && !$out->isEmpty()){
+				return $out;
+			}
+			return LinkList::GetInstanceByCode("secondary_menu");
+		};
+
 		parent::_application_before_filter();
 		# adding various meta tags into head
 		$this->head_tags_14->addHttpEquiv("content-language", $this->lang);
@@ -92,15 +99,29 @@ class ApplicationController extends ApplicationBaseController{
 		# adding link tags into head
 #		$this->head_tags_14->addLinkTag("preconnect", ["href" => "//i.pupiq.net"]);
 #		$this->head_tags_14->addLinkTag("preconnect", ["href" => "https://fonts.gstatic.com/"]);
+
+		// If the current language is not supported by the current selling region,
+		// here is a redirection to the default language.
+		if($this->request->get() && !$this->request->xhr() && !preg_match('/^error/',$this->action)){
+			$current_region = $this->_get_current_region();
+			$languages = $current_region->getLanguages();
+			$languages = array_map(function($lang){ return $lang->getId(); },$languages); // ["en","cs"]
+			if(!in_array($this->lang,$languages)){
+				$params = $this->params->toArray();
+				$params["lang"] = $languages[0];
+				return $this->_redirect_to($params);
+			}
+		}
 	}
 
 	// Navigace u vytvareni objednavky
 	function _prepare_checkout_navigation(){
 		$navi = new Menu14();
 		$navi[] = [_("Basket"),"baskets/edit"];
-		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method"]];
+		$navi[] = [_("Shipping and payment"),["checkouts/set_payment_and_delivery_method","delivery_service_branches/set_branch"]];
 		$navi[] = [_("Delivery data"),["checkouts/user_identification","checkouts/set_billing_and_delivery_data"]];
-		$navi[] = [_("Summary"),["checkouts/summary","checkouts/finish"]];
+		$navi[] = [_("Summary"),["checkouts/summary"]];
+		$navi[] = [_("Order finished"),["checkouts/finish","orders/finish"]];
 
 		$active_item_passed = false;
 		foreach($navi as $item){

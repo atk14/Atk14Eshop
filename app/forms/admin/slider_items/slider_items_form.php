@@ -4,6 +4,13 @@ class SliderItemsForm extends AdminForm {
 	function set_up(){
 		$this->add_field("image_url", new PupiqImageField([
 			"label" => _("Obrázek"),
+			"help_text" => _("Ořezává se automaticky na poměr stran 3:1.")
+		]));
+
+		$this->add_field("small_image_url", new PupiqImageField([
+			"label" => _("Malý obrázek"),
+			"required" => false,
+			"help_text" => _("Zobrazí se na malých displejích pouze pokud není vyplněn žádný text (ořezává se na poměr stran 1:1,15 a 1:1).")
 		]));
 
 		$this->add_translatable_field("title", new CharField([

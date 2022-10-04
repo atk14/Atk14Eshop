@@ -14,7 +14,7 @@ table.table {
 		tr {
 			th {
 				font-weight: 400;
-				font-size: 0.75rem;
+				font-size: $font-size-sm;
 				line-height: 1.1;
 				vertical-align: top;
 			}
@@ -34,6 +34,7 @@ table.table {
 		font-size: 0.75rem;
 		font-weight: normal;
 		color: $body-color;
+		line-height: 1.2;
 	}
 }
 
@@ -96,4 +97,225 @@ tr.table-dark {
 			display: none;
 		}
 	}
+}
+
+// Table with list of products
+table.table--products {
+	.product__title {
+		font-size: 1.25rem;
+		margin-bottom: 0;
+	}
+	.product__number {
+		font-size: $font-size-sm;
+		margin-bottom: 0;
+	}
+	.product__price {
+		text-align: right;
+	}
+	form {
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-start;
+		//flex-wrap: wrap;
+		margin-bottom: 0;
+		& > * {
+			margin-left: 1em;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+		.btn {
+			white-space: nowrap;
+		}
+	}
+	@include media-breakpoint-only(md){
+		form {
+			display: block;
+			text-align: left;
+			& > * {
+				margin-left: 0;
+				margin-top: 0.5em;
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+	@include media-breakpoint-down(sm){
+		border-top: 1px solid $border-color;
+		thead {
+			display: none;
+		}
+		&, tr, td, th, tbody, tfoot {
+			display: block;
+		}
+		tbody tr {
+			/*display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;*/
+			border-bottom: 1px solid $border-color;
+			
+			display: grid;
+			grid-template-columns: 90px auto auto;
+			grid-template-areas: "number header price"
+													"form   form   form";
+			
+			td {
+				border: none;
+				
+				.table-hint-xs {
+					display: block;
+					flex-grow: 4;
+					min-height: 2em*1.2;
+				}
+				
+				&.product {
+					&__number {
+						grid-area: number;
+						flex-grow: 0;
+						flex-basis: 90px;
+						padding-left: 0;
+					}
+					&__header {
+						grid-area: header;
+						flex-basis: auto;
+						flex-grow: 99;
+						
+					}
+					&__price {
+						grid-area: price;
+						flex-basis: 100%;
+						flex-grow: 99;
+						padding-right: 0;
+					}
+					&__form {
+						padding-right: 0;
+						padding-left: 0;
+						grid-area: form;
+						flex-basis: 100%;
+					}
+				}
+			}
+		}
+		
+	}
+	@include media-breakpoint-down(xs){
+		tbody tr {
+			grid-template-columns: 90px 1fr;
+			grid-template-areas: "number header"
+													"price  price"
+													"form   form";
+			td {
+				&.product {
+					&__price {
+						padding-bottom: 0;
+						padding-top: 0;
+						.table-hint-xs {
+							display: none;
+						}
+					}
+				}
+			}
+			
+			form {
+				flex-wrap: wrap;
+			}
+			
+		}
+	}
+	
+	@media(max-width: 460px) {
+		tbody tr {
+			td {
+				
+				&.product {
+					&__header {
+						padding-right: 0;
+					}
+				}
+				
+				form {
+					//display: block;
+					//text-align: right;
+					justify-content: flex-end;
+					& > * {
+						flex-basis: 100%;
+						margin-left: 0;
+						margin-top: 0.5em;
+						&:first-child {
+							margin-top: 0;
+						}
+					}
+					.quantity-widget {
+						//justify-content: flex-end;
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+table.table--products.table--products-simple {
+	tbody {
+		tr {
+			td.table-products__image {
+				width: 80px;
+			}
+			td.td.table-products__title {
+				
+			}
+			td.table-products__stockcount {
+				font-size: $font-size-sm;
+			}
+			td.table-products__price {
+				font-weight: $font-weight-bold;
+			}
+			@include media-breakpoint-up(md) {
+				td:last-child, th:last-child {
+					text-align: right;
+					.list--icons {
+						li {
+							justify-content: end;
+						}
+					}
+				}
+			}
+			@include media-breakpoint-down(sm) {
+				grid-template-areas: "image title title"
+														"image stock price"
+														"image actions actions";
+				td.table-products__image {
+					grid-area: image;
+				}
+				td.table-products__title {
+					grid-area: title;
+				}
+				td.table-products__stockcount {
+					grid-area: stock;
+				}
+				td.table-products__price {
+					grid-area: price;
+					text-align: right;
+				}
+				td.table-products__item-actions {
+					grid-area: actions;
+				}
+			}
+			@media(max-width:400px) {
+				display: block !important;
+				td.table-products__price {
+					text-align: left;
+				}
+			}
+		}
+	}
+	/*tbody {
+		tr {
+			display: block;
+			td {
+				display: block;
+			}
+		}
+	}*/
 }

@@ -1,7 +1,9 @@
 <li class="list-group-item" data-id="{$product_type->getId()}">
-	<div class="d-flex justify-content-between align-items-center">
-		{$product_type->getName()}
-		<div>
+	<div class="item__properties">
+		<div class="item__title">
+			{$product_type->getName()}
+		</div>
+		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$product_type}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 

@@ -3,18 +3,60 @@ rambo:
   firstname: "John"
   lastname: "Rambo"
   password: "secret"
+  email: "john@rambo.com"
+  gender_id: 1
+  address_street: Street
+  address_city: City
+  address_zip: 11122
+  address_country: CZ
+  phone: "+420606123456"
 
 rambo_tester:
   login: "rambo.tester"
   firstname: "John Tester"
   lastname: "Rambo"
   password: "Secret123"
+  email: "tester@rambo.com"
 
 rocky:
   login: "rocky"
   firstname: "Rocky"
   lastname: "Balboa"
   password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret
+  email: "rocky@balboa.com"
+
+john_doe:
+  login: "john@doe.com"
+  firstname: "John"
+  lastname: "Doe"
+  password: "Samantha111"
+  email: "john@doe.com"
+  gender_id: 1
+  address_street: Street
+  address_city: City
+  address_zip: 11122
+  address_country: CZ
+  phone: "+420606123456"
+
+samantha_doe:
+  login: "samantha@doe.com"
+  firstname: "Samantha"
+  lastname: "Doe"
+  password: "John123"
+  email: "samantha@doe.com"
+  gender_id: 2
+  address_street: Street
+  address_city: City
+  address_zip: 11122
+  address_country: CZ
+  phone: "+420606123456"
+
+inactive_user:
+  login: "inactive.user"
+  firstname: "Ivor"
+  lastname: "Inactivator"
+  email: "ivor@inactivator.com"
+  active: false
 
 kveta:
   login: "kveta@seznam.cz"

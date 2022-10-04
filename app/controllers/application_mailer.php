@@ -85,6 +85,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$region = $region ? $region : $this->current_region;
 		$this->current_region = $region;
 		$this->tpl_data["region"] = $region;
+		$this->tpl_data["default_domain"] = $region->getDefaultDomain();
 		$this->from = $region->getEmail();
 		$this->from_name = $region->getApplicationName();
 
@@ -156,6 +157,15 @@ class ApplicationMailer extends Atk14Mailer {
 			$this->bcc .= $this->bcc ? ", " : "";
 			$this->bcc .= $order_status->getBccEmail();
 		}
+
+		if(PAYMENT_QR_CODES_ENABLED && in_array($order_status->getCode(),["waiting_for_bank_transfer","repeated_payment_request"])){
+			$generator = PaymentQrCodeGenerator::GetInstanceForOrder($order);
+			if($generator){
+				$png = $generator->renderPng(["size" => 200]);
+				$this->add_html_image($png,"qrcode","qr_code_".$order->getOrderNo().".png","image/png");
+				$this->tpl_data["display_qr_code"] = true;
+			}
+		}
 	}
 
 	/**
@@ -189,5 +199,14 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->to = $email;
 		$this->subject = _("Request for information");
 		$this->tpl_data["text"] = $text;
+	}
+
+	function send_watchdog_notification($watched_product){
+		$lang = $watched_product->getLanguage();
+		$this->prev_lang = Atk14Locale::Initialize($lang);
+
+		$this->to = $watched_product->getEmail();
+		$this->tpl_data["product"] = $product = $watched_product->getProduct();
+		$this->subject = sprintf(_("Naskladnění produktu: %s"), "$product");
 	}
 }

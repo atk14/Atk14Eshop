@@ -8,3 +8,6 @@ cd $(dirname $0)
 cd ..
 
 ./scripts/robot_runner refresh_mv_card_categories_robot.php
+./scripts/robot_runner watchdog_notifier
+./scripts/robot_runner payment_status_checker
+./scripts/robot_runner automatic_order_status_updater

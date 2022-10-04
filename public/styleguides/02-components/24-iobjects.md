@@ -19,7 +19,7 @@ iObjects are objects placed usually within text content of article, page, produc
 [/example]
 
 ## Gallery iObject
-There is Gallery component inside.
+There is Gallery component inside. It may contain various types of [gallery component](/styleguides/components%3Aimage-galleries/) (except Product Galleries).
 
 [example]
 <div class="iobject iobject--gallery">
@@ -133,6 +133,35 @@ By default, markup expects movie aspect ratio to be 16:9.
 </div>
 [/example]
 
+
+## Audio iObject
+
+Audio iObject uses default browser styling of controls so it may look different across browsers. This iObject is intended for self-hosted audio files.  
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<audio controls>
+		<source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+	</audio>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is how horse sounds.</div>
+  </div>
+</div>
+[/example]
+
+For audio embedded from sites like SoundCloud, simply use their own embed code.
+(not yet supported by ATK14Eshop)
+
+[example]
+<div class="iobject iobject--audio">
+	<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/809320675&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/wereus" title="wereus" target="_blank" style="color: #cccccc; text-decoration: none;">wereus</a> · <a href="https://soundcloud.com/wereus/lockdown" title="Lockdown" target="_blank" style="color: #cccccc; text-decoration: none;">Lockdown</a></div>
+	<div class="iobject__caption">
+    <div class="iobject__title">This is just generic iframe embed.</div>
+  </div>
+</div>
+[/example]
+
 ## File iObject
 [example]
 <div class="iobject iobject--file">
@@ -173,58 +202,316 @@ By default, markup expects movie aspect ratio to be 16:9.
 Creates link to product with image, basic description and price.
 
 [example]
-<a href="#" class="iobject iobject--card_promotion">
-	<div class="iobject__image">
-		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/ad2/2dad2/535x402/TNe2Uk_800x800xc_b54b0c65ed158351.jpg" alt="Mončičák hnědý" width="800" height="800">
-		<div class="iobject__flags">
+
+<div class="iobject iobject--card_promotion">
+	<a href="/produkt/brasna-na-fotak/" class="iobject__content">
+
+		<div class="iobject__image">
+			<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_800x800xc_b90061d2b99471d3.jpg" alt="Brašna na foťák" width="800" height="800">
+			<div class="iobject__flags">
+				<div class="product__flag product__flag--sale product__flag--sm">
+					<span class="product__flag__title">Sleva</span> <span class="product__flag__number">15&nbsp;%</span>
+				</div>
+			</div>
 		</div>
+
+		<div class="iobject__body">
+
+			<div>
+				<h4 class="iobject__title">
+					Brašna na foťák
+				</h4>
+
+				<div class="iobject__description">
+					<p>Kvalitní kožená brašna.</p>
+				</div>
+			</div>
+
+			<div class="iobject__footer">
+				<div class="card-price">
+					<span class="price--before-discount"><span class="currency_main"><span class="currency_main__price">23,14</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">bez DPH</span></span>
+					<div class="price--primary"><span class="currency_main"><span class="currency_main__price">19,67</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">bez DPH</span></div>
+					<div class="price--incl-vat"><span class="currency_main"><span class="currency_main__price">23,80</span>&nbsp;<span class="currency_main__currency">EUR</span><span class="currency_main__ordering-unit"></span></span> <span class="vat_label">vč. DPH</span></div>
+				</div>
+
+				<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+			</div>
+
+		</div>
+
+	</a>
+</div>
+[/example]
+
+## Contact Card iObject
+
+Simple contact card. When using more than one Contact Card iObjects together, they should be wrapped in Contact card group iObject (see below).
+
+[example]
+<div class="iobject--contact">
+	<div class="iobject__image">
+		<img src="http://i.pupiq.net/i/6a/6a/91f/2f91f/1000x1249/pJ2r1i_100x100xc_ecbfd7b2fd239518.jpg" alt="Ellen Ripley" width="100" height="100">
 	</div>
 	<div class="iobject__body">
-		<div>
-			<h4 class="iobject__title">
-				Mončičák hnědý
-			</h4>
-			<div class="iobject__description">
-				<p>Plyšová hračka pro děti i dospělé.</p>
+		<h4 class="iobject__title">
+			Ellen Ripley <span>warrant officer</span>
+		</h4>
+		<div class="iobject__description">
+			<p>Beginning her career as a&nbsp;warrant officer with Weyland‑Yutani's&nbsp;commercial freight operations, she was assigned to the USCSS Nostromo in 2122.</p>
+			<ul class="list--icons">
+				<li>
+					<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+					<span class="list--icons__value"><a href="mailto:ripley@weyland-yutani.com">ripley@weyland‑yutani.com</a></span>
+				</li>
+				<li>
+					<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+					<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+				</li>
+				<li>
+					<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+					<span class="list--icons__value"><a href="https://avp.fandom.com/wiki/Ellen_Ripley">avp.fandom.com/wiki/Ellen_Ripley</a></span>
+				</li>
+			</ul>
+
+		</div>
+		<div class="iobject__body-bottom">
+			<div>
+				<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046" class="qr-code-link">
+					<ul class="list--icons mb-0">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+							<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
+						</li>
+					</ul>
+				</a>
+				<div class="collapse" id="person_qr_5f57a6054b046">
+					<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+				</div>
+			</div>
+			<div class="text-right align-self-start">
+				<a href="#" class="btn btn-sm btn-outline-primary">Více… <i class="fas fa-chevron-right"></i></a>
 			</div>
 		</div>
-		<span class="iobject__footer">
-			<div class="card-price">
-				<span class="currency_main"><span class="price">200,00</span>&nbsp;Kč</span>
-			</div>
-			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
-		</span>
 	</div>
-</a>
+</div>
+[/example]
 
-<p>Another example with discounted price</p>
+## Contact Card Group iObject
 
-<a href="/produkt/brasna-na-fotak/" class="iobject iobject--card_promotion">
-	<div class="iobject__image">
-		<img class="img-fluid" src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_800x800xc_b90061d2b99471d3.jpg" alt="Brašna na foťák" width="800" height="800">
-		<div class="iobject__flags">
-			<div class="product__flag product__flag--sale product__flag--sm">
-				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">15&nbsp;%</span>
+Contact card group is responsive wrapper for multiple Contact Card iObjects.
+
+[example]
+<div class="iobject--contact-group">
+
+	<div class="iobject__heading">Seznam více osob</div>
+
+	<div class="iobject__cards">
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/912/2f912/204x229/f2vTD5_100x100xc_a8fa2904097863f9.jpg" alt="Fantomas" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					Fantomas <span>Globální superzločinec</span>
+				</h4>
+				<div class="iobject__description">
+					<p>Ano, jsem to já, Fantomas. Mou pravou tvář nikdy nepoznáš.</p>
+
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fab fa-facebook"></span></span>
+							<span class="list--icons__value"><a href="https://facebook.com/">facebook.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fab fa-twitter"></span></span>
+							<span class="list--icons__value"><a href="https://twitter.com/">twitter.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:fantomas@fantomas.com">fantomas@fantomas.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-mobile-alt"></span></span>
+							<span class="list--icons__value"><a href="tel:+420123456789">+420&nbsp;123&nbsp;456&nbsp;789</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6052ad34" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6052ad34" class="qr-code-link">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6052ad34">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="iobject__body">
-		<div>
-			<h4 class="iobject__title">
-				Brašna na foťák
-			</h4>
 
-			<div class="iobject__description">
-				<p>Kvalitní kožená brašna.</p>
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/91e/2f91e/2000x1125/zTUyiW_100x100xc_67da62e4693f925d.jpg" alt="The Slečna" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					The Slečna <span></span>
+				</h4>
+				<div class="iobject__description">
+
+
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:slecna@email.email">slecna@email.email</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a60538abd" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a60538abd" class="qr-code-link">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a60538abd">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
 			</div>
 		</div>
-		<span class="iobject__footer">
-			<div class="card-price">
-				<span class="card-price--before-discount"><span class="currency_main"><span class="price">700,00</span>&nbsp;Kč</span></span>
-				<span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span>
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="/public/dist/images/styleguides-demo-face.jpg" alt="Mrs. Paní" width="100" height="100">
 			</div>
-			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
-		</span>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					Charlie Root <span>Evil Admin</span>
+				</h4>
+				<div class="iobject__description">
+					<p>Quinoa pabst four loko, pour‑over bespoke truffaut tumblr forage.</p>
+
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fab fa-facebook"></span></span>
+							<span class="list--icons__value"><a href="https://facebook.com/">facebook.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:email@email.email">email@email.email</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-mobile-alt"></span></span>
+							<span class="list--icons__value"><a href="tel:+420123456789">+420&nbsp;123&nbsp;456&nbsp;789</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+							<span class="list--icons__value"><a href="https://tkk.cz/">tkk.cz</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6053ff53" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6053ff53" class="qr-code-link">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6053ff53">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="iobject--contact">
+			<div class="iobject__image">
+				<img src="http://i.pupiq.net/i/6a/6a/91f/2f91f/1000x1249/pJ2r1i_100x100xc_ecbfd7b2fd239518.jpg" alt="Ellen Ripley" width="100" height="100">
+			</div>
+			<div class="iobject__body">
+				<h4 class="iobject__title">
+					Ellen Ripley <span>warrant officer</span>
+				</h4>
+				<div class="iobject__description">
+					<p>Beginning her career as a&nbsp;warrant officer with Weyland‑Yutani's&nbsp;commercial freight operations, she was assigned to the USCSS Nostromo in 2122.</p>
+					<ul class="list--icons">
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-envelope"></span></span>
+							<span class="list--icons__value"><a href="mailto:ripley@weyland-yutani.com">ripley@weyland‑yutani.com</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><i class="fas fa-mobile-alt"></i></span>
+							<span class="list--icons__value"><a href="#">+420 123 456 789</a></span>
+						</li>
+						<li>
+							<span class="list--icons__icon"><span class="fas fa-globe"></span></span>
+							<span class="list--icons__value"><a href="https://avp.fandom.com/wiki/Ellen_Ripley">avp.fandom.com/wiki/Ellen_Ripley</a></span>
+						</li>
+					</ul>
+
+				</div>
+				<div class="iobject__body-bottom">
+					<div>
+						<a href="#person_qr_5f57a6054b046" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046"  class="qr-code-link">
+							<ul class="list--icons mb-0">
+								<li>
+									<span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>
+									<span class="list--icons__value">QR code <span class="icon-down"><i class="fas fa-chevron-down"></i></span></span>
+								</li>
+							</ul>
+						</a>
+						<div class="collapse" id="person_qr_5f57a6054b046">
+							<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
+						</div>
+					</div>
+					<div class="text-right align-self-start">
+						<a href="#" class="btn btn-sm btn-outline-primary">Více… <i class="fas fa-chevron-right"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
-</a>
+</div>
+[/example]
+
+## Making iObjects span full width of a page
+
+iObjects (or any other HTML elements) that are direct children of <code>.article__body</code> or <code>.page__body</code> elements may be make full width simply by adding <code>fullwidth</code> class.
+
+[example]
+<div class="iobject iobject--picture fullwidth">
+	<figure>
+		<a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333">
+			<img class="iobject--picture__img img-fluid" src="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg" width="1100" height="733" class="img-responsive" alt="Obrázek vložený do textu" srcset="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_600x399_2e393aa27e479f82.jpg 600w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_800x533_881624f39158db46.jpg 800w, http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_1100x733_5a6bf349ab8d1fc2.jpg 1100w" sizes="100vw">
+		</a>
+		<figcaption class="iobject__caption">
+			<div class="iobject__title"><a class="iobject--picture__link" href="http://i.pupiq.net/i/6f/6f/ab5/2dab5/2000x1333/VmExjD_2000x1333_8169f34e013586fc.jpg" title="Obrázek vložený do textu" data-size="2000x1333"><span class="fas fa-search-plus"></span></a> <span class="iobject__title__separator">|</span> Obrázek vložený do textu</div>
+		</figcaption>
+	</figure>
+</div>
 [/example]

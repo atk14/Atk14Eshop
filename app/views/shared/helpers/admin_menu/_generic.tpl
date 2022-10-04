@@ -2,7 +2,7 @@
 
 {if $only_edit}
 
-	{a namespace="admin" controller=$admin_controller action="edit" id=$object}{!"edit"|icon} {$edit_title}{/a}
+	{a namespace="admin" controller=$admin_controller action="edit" id=$object}{!"edit"|icon} <span class="admin-menu__edit-title">{$edit_title}</span>{/a}
 
 {else}
 

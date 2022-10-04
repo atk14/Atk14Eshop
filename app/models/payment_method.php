@@ -11,6 +11,14 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	 */
 	static function GetTranslatableFields(){ return array("label","title","description"); }
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function isActive() {
 		return $this->getActive();
 	}
@@ -21,6 +29,10 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 
 	function setRank($rank){
 		return $this->_setRank($rank);
+	}
+
+	function getRequiredCustomerGroup(){
+		return Cache::Get("CustomerGroup",$this->getRequiredCustomerGroupId());
 	}
 
 	function setDeliveryMethods($delivery_methods) {
@@ -63,6 +75,19 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 				UNION
 				(SELECT id FROM orders WHERE payment_method_id=:payment_method LIMIT 1)
 			)q
-		",[":payment_method" => $this]);
+		",[":payment_method" => $this]) &&
+		!Campaign::FindFirst("required_payment_method_id",$this);
+	}
+
+	function getVatRate(){
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent(){
+		return $this->getVatRate()->getVatPercent();
+	}
+
+	function getPrice(){
+		return ApplicationHelpers::DelVat($this->getPriceInclVat(),$this->getVatPercent());
 	}
 }

@@ -1,0 +1,8 @@
+// extends bootstrap tooltips
+
+.tooltip {
+	a {
+		color: $tooltip-color;
+		text-decoration: underline;
+	}
+}

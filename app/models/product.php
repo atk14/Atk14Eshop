@@ -217,8 +217,8 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 * Nikdy nevrati null!
 	 * Vrati nejake vysoke cislo, pokud neni pocet omezen
 	 */
-	function getCalculatedMaximumQuantityToOrder(){
-		$max = $this->getMaximumQuantityToOrder();
+	function getCalculatedMaximumQuantityToOrder($options = []){
+		$max = $this->getMaximumQuantityToOrder($options);
 
 		if(is_null($max)){
 			$max = 999999;
@@ -271,8 +271,12 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 * * vracena hodnota NERESPEKTUJE nejmensiho delitele, k tomu je funkce getCalculatedMaximumQuantityToOrder()
 	 *
 	 */
-	function getMaximumQuantityToOrder(){
-		if(!$this->getConsiderStockcount()){
+	function getMaximumQuantityToOrder($options = []){
+		$options += [
+			"real_quantity" => false, // true - do not care of consider_stockcount
+		];
+
+		if(!$this->getConsiderStockcount() && !$options["real_quantity"]){
 			// Skladova zasoba se v tomto pripade pri stanoveni max. mnozstvi neuvazuje
 			return null;
 		}
@@ -349,8 +353,21 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		return $CACHE[$key]["reserve"];
 	}
 
-	static $Stockcounts;
-	function getStockcount(){
+	static protected $Stockcounts;
+
+	/**
+	 *
+	 *	$stockcount_1 = $product->getStockcount();
+	 *	$stockcount_2 = $product->getStockcount($warehouse);
+	 *	$stockcount_3 = $product->getStockcount([$warehouse1,$warehouse2]);
+	 */
+	function getStockcount($warehouses = null){
+		if(!is_null($warehouses)){
+			$warehouses = is_array($warehouses) ? $warehouses : [$warehouses];
+			$warehouses = array_filter($warehouses);
+			if(!$warehouses){ return 0; } // []
+			return $this->dbmole->selectInt("SELECT COALESCE(SUM(stockcount),0) FROM warehouse_items WHERE product_id=:product AND warehouse_id IN :warehouses",[":product" => $this, ":warehouses" => $warehouses]);
+		}
 		if(!self::$Stockcounts) {
 			self::$Stockcounts = new CacheSomething(function($ids) {
 				return Product::GetDbMole()->selectIntoAssociativeArray("SELECT warehouse_items.product_id, SUM(warehouse_items.stockcount) FROM warehouses,warehouse_items WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id IN :ids GROUP BY warehouse_items.product_id", [':ids' => $ids]);

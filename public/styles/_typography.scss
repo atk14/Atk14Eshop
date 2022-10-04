@@ -5,3 +5,51 @@
 .nowrap {
 	white-space: nowrap;
 }
+
+mark {
+	padding: 0;
+	background-color: rgba($yellow,0.2);
+	color: inherit;
+}
+
+// icon at the heading beginning woould have slight more space before text
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+	.fas, .far, .fab {
+		color: #888;
+		&:first-child {
+			margin-right: 0.25em;
+		}
+	}
+}
+
+// Small link with icon
+.link--small {
+	display: inline-flex;
+	align-items: center;
+	color: inherit;
+	margin-right: 1em;
+	&:last-child {
+		margin-right: 0;
+	}
+	.fas, .far, .link__icon {
+		margin: 0 0.5em;
+		&:first-child {
+			margin-right: 0.5em;
+			margin-left: 0;
+		}
+		color: $link-color;
+	}
+	.link__text {
+		font-size: $font-size-sm;
+		color: inherit;
+	}
+	&:hover {
+		text-decoration: none !important;
+	}
+	
+}
+a.link--small:hover {
+	.link__text {
+		text-decoration: underline;
+	}
+}

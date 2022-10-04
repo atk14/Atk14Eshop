@@ -4,7 +4,7 @@
 
 {if !$finder->isEmpty()}
 
-	<table class="table">
+	<table class="table table-sm">
 		<thead>
 			<tr class="table-dark">
 				<th>#</th>

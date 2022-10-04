@@ -1,0 +1,3 @@
+card1_related_card_1:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  related_card_id: "<?= $cards["tea"]->getId() ?>"

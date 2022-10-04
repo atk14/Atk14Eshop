@@ -5,6 +5,7 @@
  * @fixture products
  * @fixture tags
  * @fixture pricelist_items
+ * @fixture warehouses
  * @fixture warehouse_items
  */
 class TcProduct extends TcBase {
@@ -130,5 +131,55 @@ class TcProduct extends TcBase {
 		//green_tea has no price
 		$green_tea = $this->products["green_tea"];
 		$this->assertEquals(false,$green_tea->canBeOrdered());
+	}
+
+	function test_getStockcount(){
+		$mint_tea = $this->products["mint_tea"];
+		$herbal_tea = $this->products["herbal_tea"];
+
+		$default = Warehouse::GetInstanceByCode("default");
+		$on_the_way = Warehouse::GetInstanceByCode("on_the_way");
+		$external = Warehouse::GetInstanceByCode("external");
+
+		$this->assertEquals(33,$mint_tea->getStockcount());
+		$this->assertEquals(33,$mint_tea->getStockcount([$default,$external]));
+		$this->assertEquals(22,$mint_tea->getStockcount($default));
+		$this->assertEquals(22,$mint_tea->getStockcount([$default]));
+		$this->assertEquals(0,$mint_tea->getStockcount($on_the_way));
+		$this->assertEquals(0,$mint_tea->getStockcount([$on_the_way]));
+		$this->assertEquals(11,$mint_tea->getStockcount([$external,$on_the_way]));
+
+		$this->assertEquals(0,$herbal_tea->getStockcount());
+		$this->assertEquals(10,$herbal_tea->getStockcount($on_the_way));
+		$this->assertEquals(10,$herbal_tea->getStockcount([$on_the_way]));
+	}
+
+	function test_getMaximumQuantityToOrder(){
+		$cm = Unit::FindByUnit("cm");
+		$cm->s("quantity_step",10);
+
+		// pcs
+		$mint_tea = $this->products["mint_tea"];
+		$this->assertEquals(33.0,$mint_tea->getMaximumQuantityToOrder());
+		$this->assertEquals(33.0,$mint_tea->getCalculatedMaximumQuantityToOrder());
+		// real_quantity
+		$this->assertEquals(33.0,$mint_tea->getMaximumQuantityToOrder(["real_quantity" => true]));
+		$this->assertEquals(33.0,$mint_tea->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]));
+
+		// cm
+		$kostkovana_latka = $this->products["kostkovana_latka"];
+		$this->assertEquals(202.0,$kostkovana_latka->getMaximumQuantityToOrder());
+		$this->assertEquals(200.0,$kostkovana_latka->getCalculatedMaximumQuantityToOrder());
+		// real_quantity
+		$this->assertEquals(202.0,$kostkovana_latka->getMaximumQuantityToOrder(["real_quantity" => true]));
+		$this->assertEquals(200.0,$kostkovana_latka->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]));
+
+		// pcs, not considering stockount
+		$jehla = $this->products["jehla"];
+		$this->assertEquals(null,$jehla->getMaximumQuantityToOrder());
+		$this->assertEquals(999999.0,$jehla->getCalculatedMaximumQuantityToOrder());
+		// real_quantity
+		$this->assertEquals(0.0,$jehla->getMaximumQuantityToOrder(["real_quantity" => true]));
+		$this->assertEquals(0.0,$jehla->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]));
 	}
 }

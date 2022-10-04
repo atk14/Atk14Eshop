@@ -1,0 +1,3 @@
+card1_consumable1:
+  card_id: "<?= $cards["coffee"]->getId() ?>"
+  consumable_id: "<?= $cards["tea"]->getId() ?>"

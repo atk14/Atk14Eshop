@@ -12,6 +12,7 @@ class UsersForm extends ApplicationForm{
 		$this->_add_company_fields(["enable_vat_id_validation" => false]);
 		$this->_add_address_fields([
 			"add_note" => false,
+			"allowed_countries" => Region::GetInvoiceCountriesFromActiveRegions(),
 		]);
 
 		$this->_add_phone();
@@ -42,7 +43,7 @@ class UsersForm extends ApplicationForm{
 		if(
 			isset($d["password"]) &&
 			isset($d["password_repeat"]) &&
-			$d["password"]!=$d["password_repeat"]
+			$d["password"]!==$d["password_repeat"]
 		){
 			$this->set_error("password_repeat",_("Password doesn't match"));
 		}

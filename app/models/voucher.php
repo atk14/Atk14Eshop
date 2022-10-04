@@ -110,5 +110,22 @@ class Voucher extends ApplicationModel implements Translatable {
 		return $this->g("free_shipping");
 	}
 
+	function getVatRate(){
+		return Cache::Get("VatRate",$this->getVatRateId());
+	}
+
+	function getVatPercent(){
+		if($vat_rate = $this->getVatRate()){
+			return $vat_rate->getVatPercent();
+		}
+	}
+
+	/**
+	 * Je toto darkovy (drive zakoupeny) slevovy kupon?
+	 */
+	function isGiftVoucher(){
+		return $this->g("gift_voucher");
+	}
+
 	function toString(){ return $this->getVoucherCode(); }
 }

@@ -41,6 +41,7 @@ Add modifier class with file type extension like <code>fileicon-zip</code>. Many
 
 [example]
 <p style="font-size: 2rem;">
+	<span class="fileicon fileicon-folder"></span>
 	<span class="fileicon fileicon-epub"></span>
 	<span class="fileicon fileicon-pdf"></span>
 	<span class="fileicon fileicon-docx"></span>
@@ -59,6 +60,7 @@ Add <code>fileicon-color</code> class and many common file type icons will be co
 
 [example]
 <p style="font-size: 2rem;">
+	<span class="fileicon fileicon-epub fileicon-folder"></span>
 	<span class="fileicon fileicon-epub fileicon-color"></span>
 	<span class="fileicon fileicon-pdf fileicon-color"></span>
 	<span class="fileicon fileicon-docx fileicon-color"></span>

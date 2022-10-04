@@ -9,7 +9,7 @@
 		{!$category_recommended_cards->getDescription()|markdown}
 	{/if}
 	
-	{render partial="shared/card_list" cards=$category_recommended_cards->getCards() title=""}
+	{render partial="shared/card_list" cards=$category_recommended_cards->getVisibleCards() title=""}
 {/if}
 
 <article class="main-article">
@@ -25,7 +25,9 @@
 			</div>
 				<div class="col-12 col-md-5 col-lg-6">
 					<a href="/prodejny/showroom-praha/" class="banner banner--image-text--halfwidth">
-						<img src="/public/dist/images/hp-shop-banner.jpg" class="banner__image img-fluid" alt="">
+						<div class="banner__image">
+							<img src="/public/dist/images/hp-shop-banner.jpg" class="img-fluid" alt="">
+						</div>
 						<div class="banner__text">{t escape=no}Navštivte naši novou prodejnu{/t}</div>
 					</a>
 				</div>
@@ -51,15 +53,14 @@
 					{if $article->getImageUrl()}
 						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
 					{else}
-						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top">
+						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
 					{/if}
 					<div class="card-body">
 						<h2 class="card-title">{$article->getTitle()}</h2>
-						<div class="card-text">{$article->getTeaser()|markdown|strip_tags}</div>
+						<div class="card-text">{$article->getTeaser()|markdown|strip_html}</div>
 					</div>
 				{/a}
 			{/foreach}
 		</div>
 	</section>
 {/if}
-

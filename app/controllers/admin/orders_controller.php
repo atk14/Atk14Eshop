@@ -39,7 +39,7 @@ class OrdersController extends AdminController {
 
 		if(trim($d['catalog_id'])) {
 			$conditions[] = "id IN (select order_id from order_items WHERE product_id IN
-				(SELECT id FROM products WHERE catalog_id LIKE :catalog_id OR ean LIKE :catalog_id))";
+				(SELECT id FROM products WHERE catalog_id LIKE :catalog_id))";
 			$bind_ar[':catalog_id'] = "%".trim($d['catalog_id'])."%";
 		}
 
@@ -70,7 +70,8 @@ class OrdersController extends AdminController {
 				"address_note",
 				"phone",
 				"note",
-				"(SELECT string_agg(voucher_code, ' ') FROM vouchers v , order_vouchers ov WHERE ov.voucher_id=v.id AND ov.order_id= orders.id)"
+				"(SELECT string_agg(voucher_code, ' ') FROM vouchers v , order_vouchers ov WHERE ov.voucher_id=v.id AND ov.order_id= orders.id)",
+				"(SELECT login FROM users WHERE id=orders.user_id)",
 			) as $f){
 				$_ar[] = "COALESCE($f,'')";
 			}
@@ -85,7 +86,7 @@ class OrdersController extends AdminController {
 		}
 
 		$this->sorting->add("created_at",array("reverse" => true));
-		$this->sorting->add("updated_at",array("reverse" => true));
+		$this->sorting->add("updated_at","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) DESC","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) ASC");
 		$this->sorting->add("order_no");
 
 		$this->tpl_data["finder"] = Order::Finder(array(

@@ -1,0 +1,3 @@
+free_shipping:
+  campaign_id: "<?= $campaigns["free_shipping"]->getId() ?>"
+  tag_id: "<?= $tags["oversized_product"]->getId() ?>"

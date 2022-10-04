@@ -38,17 +38,22 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 
 	function getRawUnitPrice($incl_vat = false){
 		$price = $this->_getRawUnitPriceInclVat();
-		$price = $this->_removeVat($price,$incl_vat);
+		$price = $this->_delVat($price,!$incl_vat);
 		return $price;
 	}
 
 	function getRawUnitPriceInclVat(){
 		return $this->_getRawUnitPriceInclVat();
+		//return $this->getRawUnitPrice(true);
 	}
 
 	function getUnitPrice($incl_vat = false){
+		if($incl_vat){
+			return $this->getUnitPriceInclVat();
+		}
 		$price = $this->getRawUnitPriceInclVat();
-		$price = $this->_removeVat($price,$incl_vat);
+		$price = $this->_roundUnitPrice($price);
+		$price = $this->_delVat($price);
 		$price = $this->_roundUnitPrice($price);
 		return $price;
 	}
@@ -58,7 +63,7 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 		if(is_null($price)){
 			$price = $this->_getRawUnitPriceInclVat();
 		}
-		$price = $this->_removeVat($price,$incl_vat);
+		$price = $this->_delVat($price,!$incl_vat);
 		return $price;
 	}
 
@@ -67,7 +72,20 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	}
 
 	function getUnitPriceBeforeDiscount($incl_vat = false){
-		$price = $this->getRawUnitPriceBeforeDiscount($incl_vat);
+		if($incl_vat){
+			return $this->getUnitPriceBeforeDiscountInclVat();
+		}
+		$price = $this->getRawUnitPriceBeforeDiscount(false);
+		$price = $this->_addVat($price);
+		$price = $this->_roundUnitPrice($price);
+		$price = $this->_delVat($price);
+		$price = $this->_roundUnitPrice($price);
+		return $price;
+	}
+
+	function getUnitPriceBeforeDiscountInclVat(){
+		$price = $this->getRawUnitPriceBeforeDiscount(false);
+		$price = $this->_addVat($price);
 		$price = $this->_roundUnitPrice($price);
 		return $price;
 	}
@@ -92,12 +110,13 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	 * !! Dochazi zde k zaokrouhleni typicky na 2 des mista.
 	 */
 	function getPrice($incl_vat = false){
-		$unit_price = $this->getUnitPrice($incl_vat);
-		if(!is_null($unit_price)){
-			$price = $unit_price * $this->getAmount();
-			$price = $this->_roundItemPrice($price);
+		$price = $this->getPriceInclVat();
+		if($incl_vat){
 			return $price;
 		}
+		$price = $this->_delVat($price);
+		$price = $this->_roundItemPrice($price);
+		return $price;
 	}
 
 	/**
@@ -115,11 +134,17 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	}
 
 	function getUnitPriceInclVat(){
-		return $this->getUnitPrice(true);
+		$price = $this->getRawUnitPrice(false);
+		$price = $this->_addVat($price);
+		$price = $this->_roundUnitPrice($price);
+		return $price;
 	}
 
 	function getPriceInclVat(){
-		return $this->getPrice(true);
+		$unit_price = $this->getUnitPriceInclVat();
+		$price = $this->getUnitPriceInclVat() * $this->getAmount();
+		$price = $this->_roundItemPrice($price);
+		return $price;
 	}
 
 	function getPriceBeforeDiscountInclVat(){
@@ -158,9 +183,14 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 		return $this->getOrder()->getCurrency();
 	}
 
-	protected function _removeVat($price,$keep_vat = true){
-		if(is_null($price) || $keep_vat){ return $price; }
-		return $price - (($price / (100.0 + $this->getVatPercent())) * $this->getVatPercent());
+	protected function _addVat($price,$add_vat = true){
+		if(is_null($price) || !$add_vat){ return $price; }
+		return $price * (1.0 + $this->getVatPercent() / 100.0);
+	}
+
+	protected function _delVat($price,$del_vat = true){
+		if(is_null($price) || !$del_vat){ return $price; }
+		return ($price / (100.0 + $this->getVatPercent())) * 100.0;
 	}
 
 	protected function _roundItemPrice($price,$round_for_real = true){
@@ -171,7 +201,8 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	}
 
 	protected function _roundUnitPrice($price){
-		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision();
+		$currency = $this->getCurrency();
+		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision($currency);
 		return round($price,$precision);
 	}
 

@@ -16,7 +16,7 @@ class ProductsForm extends AdminForm {
 		$this->add_translatable_field("name", new CharField(array(
 			"label" => _("Product name"),
 			"required" => false,
-			"help_text" => _("Fill in only when product name differs from it's card name"),
+			"help_text" => _("There is no usually needed to fill this field.")." "._("Fill in only when product name differs from it's card name"),
 		)));
 		$this->add_translatable_field("description", new MarkdownField(array(
 			"label" => _("Description"),

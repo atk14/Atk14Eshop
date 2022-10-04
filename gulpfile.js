@@ -1,40 +1,53 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
 var rename = require( "gulp-rename" );
+var babel = require( "gulp-babel");
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/swiper/css/swiper.css",
+	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
-	"node_modules/cookieconsent/build/cookieconsent.min.css"
+	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
+	"node_modules/cookieconsent/build/cookieconsent.min.css",
+	"node_modules/nouislider/dist/nouislider.min.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
-	"node_modules/swiper/js/swiper.js",
-	"node_modules/photoswipe/dist/photoswipe.js",
-	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
+	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
-	"node_modules/bootbox/src/bootbox.js"
+	"node_modules/bootbox/dist/bootbox.all.min.js",
+	"node_modules/nouislider/dist/nouislider.min.js"
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
+	"public/scripts/utils/swiper.js",
 	"public/scripts/pager.js",
 	"public/scripts/filter.js",
-	"public/scripts/utils/photoswipe.js",
+	"public/scripts/nouislider.js",
 	"public/scripts/utils/basket_shipping_rules.js",
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/scripts/utils/handle_suggestions.js",
+	"public/scripts/delivery_service_branch_select.js",
+	"public/scripts/delivery_service_widgets.js",
+	"public/scripts/utils/search_suggestion.js",
+	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/application.js"
 ];
+
+var applicationESModules = [
+	"public/scripts/modules/application_es6.js"
+]
 
 // CSS
 gulp.task( "styles", function() {
@@ -83,6 +96,16 @@ gulp.task( "scripts", function() {
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
+
+	// ES6 modules need different processing
+	gulp.src( applicationESModules )
+		.pipe( $.sourcemaps.init() )
+		.pipe( babel() )
+		.pipe( $.uglify() )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
+		.pipe( browserSync.stream() );
 } );
 
 // Lint & Code style
@@ -105,8 +128,10 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/**/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
-	gulp.src( "node_modules/photoswipe/dist/default-skin/*" )
-		.pipe( gulp.dest( "public/dist/styles/default-skin/" ) );
+	gulp.src( "node_modules/photoswipe/dist/photoswipe.esm.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
+	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )
@@ -116,7 +141,11 @@ gulp.task( "copy", function() {
 			// Some corrections in language flags
 			var renameTr = {
 				"cz": "cs",
-				"gb": "en"
+				"gb": "en",
+				"rs": "sr", // sr: Srpski
+				"si": "sl", // sl: Slovenščina
+				"ee": "et", // et: eesti
+				"kz": "kk" // kk: Қазақ
 			};
 			Object.keys( renameTr ).forEach( function( key ) {
 				gulp.src( "public/dist/images/languages/" + key + ".svg" )
@@ -124,6 +153,13 @@ gulp.task( "copy", function() {
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
 		} );
+
+	// The following alternative place for fontawesome files was added
+	// after the vendor script node_modules/jquery-ui-bundle/jquery-ui.js has beed added.
+	// See changeset 85cee100.
+	// TODO: to be investigated & solved & removed...
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/@fortawesome/fontawesome-free/webfonts/" ) );
 } );
 
 // Clean

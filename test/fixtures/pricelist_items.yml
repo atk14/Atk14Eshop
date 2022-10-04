@@ -14,3 +14,118 @@ herbal_tea:
   pricelist_id: 1
   product_id: "<?=$products["herbal_tea"]->getId()?>"
   price: 29.90
+
+mix_birds:
+  pricelist_id: 1
+  product_id: "<?= $products["mix_birds"]->getId() ?>"
+  price: 96.8
+
+mix_summer:
+  pricelist_id: 1
+  product_id: "<?= $products["mix_summer"]->getId() ?>"
+  price: 145.2
+
+wooden_button:
+  pricelist_id: 1
+  product_id: "<?= $products["wooden_button"]->getId() ?>"
+  price: 24.20
+
+# latka ma ceny za 1 cm
+kostkovana_latka:
+  pricelist_id: 1
+  product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
+  price: 2.42
+
+bavlna_zelena:
+  pricelist_id: 1
+  product_id: "<?= $products["bavlna_zelena"]->getId() ?>"
+  price: "1.4934" # cena s DPH za 1cm
+
+popelin_s_oveckami:
+  pricelist_id: 1
+  product_id: "<?= $products["popelin_s_oveckami"]->getId() ?>"
+  price: "1.4900" # cena s DPH za 1cm
+
+zaviraci_spendlik:
+  pricelist_id: 1
+  product_id: "<?= $products["zaviraci_spendlik"]->getId() ?>"
+  price: "12.65" # cena s DPH za 1ks
+
+spendlik:
+  pricelist_id: 1
+  product_id: "<?= $products["spendlik"]->getId() ?>"
+  minimum_quantity: 0
+  price: "1.30" # 1.30 za kus s DPH
+
+# U jehly testujeme i mnozstevni slevy
+
+# Tato cena by se nemela zakaznikum vubec nabizet,
+# protoze nize je zaznam rovnez s minimum_quantity=0, ale s nizsi cenou.
+jehla_0:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 0
+  price: "1.50" # za 1 kus s DPH
+
+# Toto by se melo babizet
+jehla_0b:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 0
+  price: "1.30" # za 1 kus s DPH
+
+# Toto se taky nesmi nabizet
+jehla_0c:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 0
+  price: "1.40" # za 1 kus s DPH
+
+# Od 100 jehlau je tu nizsi cena!
+jehla_100:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 100
+  price: "1.20" # za 1 kus s DPH
+
+# Vyssi cena pro 100 - nemela by se nabizet
+jehla_100b:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 100
+  price: "1.21"
+
+# Od 200 jehlau je tu zase nizsi cena!
+jehla_200:
+  pricelist_id: 1
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  minimum_quantity: 200
+  price: "1.10" # za 1 kus s DPH
+
+latka_s_mnozstevnima_slevama_0:
+  pricelist_id: 1
+  product_id: "<?= $products["latka_s_mnozstevnima_slevama"]->getId() ?>"
+  minimum_quantity: 0
+  price: "1.21" # 121 za metr
+
+latka_s_mnozstevnima_slevama_2:
+  pricelist_id: 1
+  product_id: "<?= $products["latka_s_mnozstevnima_slevama"]->getId() ?>"
+  minimum_quantity: "200" # 2m
+  price: "1.1495" # 114.95 za metr
+
+latka_s_mnozstevnima_slevama_5:
+  pricelist_id: 1
+  product_id: "<?= $products["latka_s_mnozstevnima_slevama"]->getId() ?>"
+  minimum_quantity: "500" # 5m
+  price: "1.089" # 108.9 za metr
+
+fridge:
+  pricelist_id: 1
+  product_id: "<?= $products["fridge"]->getId() ?>"
+  price: "11999"
+
+book:
+  pricelist_id: 1
+  product_id: "<?= $products["book"]->getId() ?>"
+  price: 279

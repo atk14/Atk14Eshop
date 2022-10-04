@@ -1,0 +1,28 @@
+/* Extending some Bootstrap navs */
+
+.nav {
+	/* Items looking similarr to tags */
+	&-tags {
+		@extend .nav-pills;
+		.nav-item {
+			a {
+				color: inherit;
+				padding: 0.125em 0.75em;
+				border-radius: 2rem;
+				background-color: $gray-200;
+				margin-right: 0.5em;
+				margin-bottom: 0.5em;
+				font-weight: 600;
+				font-size: $font-size-sm;
+				line-height: 1.5;
+				&:hover, &:focus {
+					background-color: $gray-300;
+				}
+				&.active {
+					background-color: $secondary !important;
+					color: white;
+				}
+			}
+		}
+	}
+}

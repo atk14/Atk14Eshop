@@ -1,0 +1,7 @@
+zasilkovna:
+  code: zasilkovna
+  name: "Zásilkovna"
+
+posta:
+  code: posta
+  name: "Pošta"

@@ -18,11 +18,12 @@ ul.list--categories, ul.list--tree-parent {
 // Draw tree branches in nested lists
 ul.list--tree {
 	
-	$lineWidth: 3px;
+	$lineWidth: 2px;
 	$lineColor: $gray-300;
-	$lineRadius: 12px;
+	$lineRadius: 8px;
 	$bulletWidth: 20px;
-	$itemPaddingY: 0.15em;
+	$itemPaddingY: 0.25em;
+	$itemPaddingLeft: 0.5em;
 	
 	list-style: none;
 	padding: 0;
@@ -30,7 +31,7 @@ ul.list--tree {
 	
 	li {
 		position: relative;
-		padding: $itemPaddingY 0 $itemPaddingY*4 0.5em;
+		padding: $itemPaddingY 0 $itemPaddingY $itemPaddingLeft;
 		margin: 0;
 		
 		&:before {
@@ -63,6 +64,38 @@ ul.list--tree {
 	
 	h1, h2, h3, h4, p {
 		margin-bottom: 0;
+	}
+	
+	&-collapsible {
+		.js-collapse-toggle {
+			position: absolute;
+			top: $itemPaddingY;
+			left: $itemPaddingLeft;
+			display: inline-block;
+			min-width: 3ch;
+			cursor: pointer;
+			&:hover {
+				color: $body-color;	
+			}
+			.js-icon--collapsed {
+				display: inline-block;
+			}
+			.js-icon--expanded {
+				display: none;
+			}
+			&[aria-expanded="true"] {
+				.js-icon--collapsed {
+					display: none;
+				}
+				.js-icon--expanded {
+					display: inline-block;
+				}
+			}
+		}
+		li {
+			padding-left: calc( #{$itemPaddingLeft} + 3ch );
+			position: relative;
+		}
 	}
 	
 }
@@ -168,3 +201,29 @@ ul.list--categories {
 		}
 	}
 }
+
+
+.js-toggle-all-trees {
+	&:focus {
+		box-shadow: none;
+	}
+	.btn__text {
+		&--collapsed {
+			display: inline;
+		}
+		&--expanded {
+			display: none;
+		}
+	}
+	&.expanded {
+		.btn__text {
+			&--collapsed {
+				display: none;
+			}
+			&--expanded {
+				display: inline;
+			}
+		}
+	}
+}
+

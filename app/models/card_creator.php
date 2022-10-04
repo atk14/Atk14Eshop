@@ -1,8 +1,23 @@
 <?php
 class CardCreator extends ApplicationModel implements Rankable {
 
-	static function GetCreatorsForCard($card){
-		return self::FindAll("card_id",$card);
+	static function GetCreatorsForCard($card,$role = null){
+		$out = self::FindAll("card_id",$card,["use_cache" => true]);
+		if($role){
+			$out = array_filter($out,function($cc) use($role){ return $cc->getCreatorRoleId()==$role->getId(); });
+			$out = array_values($out);
+		}
+		return $out;
+	}
+
+	static function GetCreatorRolesForCard($card){
+		$out = [];
+		foreach(self::GetCreatorsForCard($card) as $card_creator){
+			$role = $card_creator->getCreatorRole();
+			$id = $role->getId();
+			$out[$id] = $role;
+		}
+		return array_values($out);
 	}
 
 	static $MainCreators;
