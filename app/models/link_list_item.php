@@ -6,6 +6,8 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 	}
 	use TraitRegions;
 
+	use TraitGetInstanceByCode;
+
 	static function GetTranslatableFields() {
 		return array("title","url_localized");
 	}
