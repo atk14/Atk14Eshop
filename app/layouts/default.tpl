@@ -31,6 +31,7 @@
 
 		<meta charset="utf-8">
 	
+		{head_tags_14}
 		{render partial="shared/layout/performance_optimizations"}
 		{render partial="shared/trackers/google/tag_manager_head"}
 		{render partial="shared/trackers/google/analytics"}
@@ -49,7 +50,6 @@
 		<meta name="theme-color" content="{$browser_theme_color}">
 		{/if}
 
-		{meta14}
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
 		{/if}

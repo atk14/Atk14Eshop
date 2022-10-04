@@ -1,5 +1,5 @@
 <?php
-function smarty_function_meta14($params, $template) {
+function smarty_function_head_tags_14($params, $template) {
 	$smarty = atk14_get_smarty_from_template($template);
 	$header = $smarty->getTemplateVars("head_tags_14");
 	if(!$header) {
@@ -9,7 +9,7 @@ function smarty_function_meta14($params, $template) {
 	$out = [];
 	DEVELOPMENT && ($out[] = "<!-- Head tags from helper - START -->\n");
 	# name, property, http-equiv
-	foreach($header->getItems() as $type => $i) {
+	foreach($header->getMetaTags() as $type => $i) {
 		# type name like google-site-verification in <meta name>, og:title in <meta property>
 		foreach($i as $key => $elements) {
 			# single type meta - make it an array so we can loop it

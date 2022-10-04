@@ -3,7 +3,9 @@
 /**
  * Support pro <head> tagy.
  *
- * meta tag <meta>
+ * # meta tags <meta>
+ *
+ * ## Basic method
  * ```
  * $tags->addMetaTag("keywords", "Eshop, skelet, Atk14");
  * $tags->addMetaTag("google-site-verification", "googlekey1");
@@ -14,28 +16,67 @@
  * <meta name="google-site-verification" content="googlekey1">
  * ```
  *
+ * ## Shortcut methods
+ *
  * ```
  * $tags->addHttpEquiv("content-language", "en");
  * ```
- * equals
+ * equals to
  * ```
  * $tags->addMetaTag("content-language", "en", self::META_TYPE_HTTP_EQUIV);
  * ```
- * outputs:
+ * outputs
+ * ```
  * <meta http-equiv="content-language" content="en">
+ * ```
+ *
+ * ```
+ * $tags->setCharsetMeta("utf-8");
+ * ```
+ * outputs
+ * <meta charset="utf-8">
  * ```
  * ```
  *
- * link tag <link>
+ * Unofficial type 'property'
+ * ```
+ * $tags->addProperty("og:url", $this->request->getUrl());
+ * ```
+ *
+ * # link tags <link>
+ *
+ * ## Basic method
+ *
  * ```
  * $tags->addLinkTag("stylesheet", ["href" => "https://atk14eshop.com/stylesheets/main.css"]);
  * ```
+ *
+ *
+ * ## Shortcut methods
+ *
+ * There are some shortcuts for canonical, preconnect ...
+ * More to be added.
+ *
+ * ```
+ * $tags->setCanonical("https://atk14eshop.net/product/neverending-story/");
+ * ```
+ * is the same as
+ * ```
+ * $tags->addLinkTag("canonical", ["href" => "https://atk14eshop.net/product/neverending-story/"]);
+ * ```
+ * outputs
+ * ```
+ * <link rel="canonical" href="https://atk14eshop.net/product/neverending-story/">
+ * ```
+ *
+ * ```
+ * $tags->addPreconnect("https://images.atk14eshop.net");
  */
 
 class HeadTags14 {
 
-	protected $items = [];
-	protected $links = [];
+	protected $meta_items = [];
+	protected $link_items = [];
 
 	const META_TYPE_CHARSET = "charset";
 	const META_TYPE_HTTP_EQUIV = "http-equiv";
@@ -61,13 +102,13 @@ class HeadTags14 {
 	 * ```
 	 */
 	function setMetaTag($key, $content, $type=self::META_TYPE_NAME) {
-		if (!array_key_exists($type, $this->items)) {
-			$this->items[$type] = [];
+		if (!array_key_exists($type, $this->meta_items)) {
+			$this->meta_items[$type] = [];
 		}
-		if (!array_key_exists($key, $this->items[$type])) {
-			$this->items[$type][$key] = [];
+		if (!array_key_exists($key, $this->meta_items[$type])) {
+			$this->meta_items[$type][$key] = [];
 		}
-		$this->items[$type][$key] = new MetaTag14($type, $key, $content);
+		$this->meta_items[$type][$key] = new MetaTag14($type, $key, $content);
 	}
 
 	/**
@@ -87,16 +128,16 @@ class HeadTags14 {
 	 * @param string $content
 	 */
 	function addMetaTag($attribute_value, $content, $type=self::META_TYPE_NAME) {
-		if (!array_key_exists($type, $this->items)) {
-			$this->items[$type] = [];
+		if (!array_key_exists($type, $this->meta_items)) {
+			$this->meta_items[$type] = [];
 		}
-		if (!array_key_exists($attribute_value, $this->items[$type])) {
-			$this->items[$type][$attribute_value] = [];
+		if (!array_key_exists($attribute_value, $this->meta_items[$type])) {
+			$this->meta_items[$type][$attribute_value] = [];
 		}
-		if ($this->items[$type][$attribute_value] && !is_array($this->items[$type][$key])) {
-			settype($this->items[$type][$attribute_value], "array");
+		if ($this->meta_items[$type][$attribute_value] && !is_array($this->meta_items[$type][$attribute_value])) {
+			settype($this->meta_items[$type][$attribute_value], "array");
 		}
-		$this->items[$type][$attribute_value][] = new MetaTag14($type, $key, $content);
+		$this->meta_items[$type][$attribute_value][] = new MetaTag14($type, $attribute_value, $content);
 	}
 
 	/**
@@ -136,8 +177,8 @@ class HeadTags14 {
 		return $this->setMetaTag($charset, null, self::META_TYPE_CHARSET);
 	}
 
-	function getItems() {
-		return $this->items;
+	function getMetaTags() {
+		return $this->meta_items;
 	}
 
 	/**
@@ -152,24 +193,57 @@ class HeadTags14 {
 	 * ```
 	 */
 	function addLinkTag($rel, $attributes) {
-		if (!array_key_exists($rel, $this->links)) {
-			$this->links[$rel] = [];
+		if (!array_key_exists($rel, $this->link_items)) {
+			$this->link_items[$rel] = [];
 		}
-		if (!is_array($this->links[$rel])) {
-			settype($this->links[$rel], "array");
+		if (!is_array($this->link_items[$rel])) {
+			settype($this->link_items[$rel], "array");
 		}
-		$this->links[$rel][] = new LinkTag14($rel, $attributes);
+		$this->link_items[$rel][] = new LinkTag14($rel, $attributes);
 	}
 
 	function getLinkTags() {
-		return $this->links;
+		return $this->link_items;
 	}
 
 	/**
 	 * Special set methods to set important link tags.
 	 */
 	function setCanonical($canonical_url) {
-		$this->links["canonical"] = [new LinkTag14("canonical", ["href" => $canonical_url])];
+		$this->link_items["canonical"] = [new LinkTag14("canonical", ["href" => $canonical_url])];
+	}
+
+	/**
+	 * Add preconnect link element.
+	 */
+	function setPreconnect($preconnect_host) {
+		return $this->addLinkTag("preconnect", ["href" => $preconnect_host]);
+	}
+
+	/**
+	 * Alias to setPreconnect() method.
+	 *
+	 * In case of preconnect, addPreconnect or setPreconnect is the same as there can be more preconnect link elements present.
+	 */
+	function addPreconnect($preconnect_host) {
+		return $this->setPreconnect($preconnect_host);
+	}
+
+	/**
+	 * Add preload link element.
+	 */
+	function setPreload($preload_url, $attributes=[]) {
+		$attributes["href"] = $preload_url;
+		return $this->addLinkTag("preload", $attributes);
+	}
+
+	/**
+	 * Alias to setPreload() method.
+	 *
+	 * In case of preload, addPreload or setPreload is the same as there can be more preload link elements present.
+	 */
+	function addPreload($preconnect_url, $attributes=[]) {
+		return $this->setPreload($preconnect_url, $attributes);
 	}
 }
 
@@ -206,6 +280,11 @@ class LinkTag14 extends Element14 {
 		$_attrs = [];
 		$_attrs[] = sprintf('rel="%s"', $this->rel_type);
 		foreach($this->getData() as $key => $value) {
+			# attribute without value
+			if (is_numeric($key)) {
+				$_attrs[] = $value;
+				continue;
+			}
 			$_attrs[] = sprintf('%s="%s"', $key, $value);
 		}
 		return sprintf('<link %s>', join(" ", $_attrs));
