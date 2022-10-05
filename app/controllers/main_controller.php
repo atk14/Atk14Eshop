@@ -35,7 +35,7 @@ class MainController extends ApplicationController{
 		]);
 
 		if ($page && !$page->isIndexable()) {
-			$this->head_tags_14->setMeta("robots", "noindex,noarchive");
+			$this->head_tags->setMeta("robots", "noindex,noarchive");
 		}
 
 		global $ATK14_GLOBAL;
@@ -44,7 +44,7 @@ class MainController extends ApplicationController{
 			$_supported_langs = array_combine($_supported_langs, $_supported_langs);
 			$_supported_langs["x-default"] = $ATK14_GLOBAL->getDefaultLang();
 			foreach($_supported_langs as $hreflang => $lang) {
-				$this->head_tags_14->addLinkTag("alternate", ["hreflang" => $hreflang, "href" => Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "lang" => $lang], ["with_hostname" => true])]);
+				$this->head_tags->addLinkTag("alternate", ["hreflang" => $hreflang, "href" => Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "lang" => $lang], ["with_hostname" => true])]);
 			}
 		}
 	}

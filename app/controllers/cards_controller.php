@@ -36,7 +36,7 @@ class CardsController extends ApplicationController{
 			}
 		}
 		$this->tpl_data["gallery_variant"] = $gallery_variant;
-		$this->head_tags_14->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $this->card], ["with_hostname" => true]));
+		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $this->card], ["with_hostname" => true]));
 	}
 
 	function _before_filter(){

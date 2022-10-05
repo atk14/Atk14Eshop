@@ -73,7 +73,7 @@
  * $tags->addPreconnect("https://images.atk14eshop.net");
  */
 
-class HeadTags14 {
+class HeadTags {
 
 	protected $meta_items = [];
 	protected $link_items = [];

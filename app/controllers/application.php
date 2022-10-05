@@ -102,59 +102,6 @@ class ApplicationController extends ApplicationBaseController{
 				return $this->_redirect_to($params);
 			}
 		}
-		$this->_setup_head_tags();
-	}
-
-	/**
-	 * adding various meta tags into head
-	 *
-	 */
-	protected function _setup_head_tags() {
-		if (defined("PUPIQ_API_KEY")) {
-			# force loading class which defines constants
-			new Pupiq;
-			if (defined("PUPIQ_PROXY_HOSTNAME")) {
-				$ppq_proxy = PUPIQ_PROXY_HOSTNAME;
-			}
-			if (defined("PUPIQ_IMG_HOSTNAME")) {
-				$ppq_img_hostname = PUPIQ_IMG_HOSTNAME;
-			}
-
-			if (isset($ppq_proxy) && $ppq_proxy) {
-				$ppq_hostname = $ppq_proxy;
-			} elseif(isset($ppq_img_hostname) && $ppq_img_hostname) {
-				$ppq_hostname = $ppq_img_hostname;
-			}
-
-			if (isset($ppq_hostname) && $ppq_hostname!==$this->request->getHttpHost()) {
-				$this->head_tags_14->addLinkTag("preconnect", ["href" => "//$ppq_hostname"]);
-			}
-		}
-		$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
-		$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
-		if ($analytics_tracking_id) {
-			$this->head_tags_14->addPreconnect("https://www.google-analytics.com");
-		}
-		if ($analytics_tracking_id || $gtm_container_id) {
-			$this->head_tags_14->addPreconnect("https://www.googletagmanager.com");
-		}
-		return;
-		# @note next tags are set in templates for now
-		# meta tags
-		$this->head_tags_14->addHttpEquiv("content-language", $this->lang);
-		$this->head_tags_14->setProperty("og:title", ATK14_APPLICATION_NAME);
-		$this->head_tags_14->setProperty("og:type","website");
-		$this->head_tags_14->addProperty("og:url", $this->request->getUrl());
-		$this->head_tags_14->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
-		$this->head_tags_14->setCharsetMeta(DEFAULT_CHARSET);
-
-		# link tags
-		# adding preconnect using alternative shortcut method
-		$this->head_tags_14->addPreconnect("https://fonts.gstatic.com/");
-
-		$this->head_tags_14->addLinkTag("preload", ["href" => "/public/dist/webfonts/fa-solid-900.woff2", "as" => "font", "type" => "font/woff2"]);
-		# adding preload using shortcut method
-		$this->head_tags_14->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
 	}
 
 	// Navigace u vytvareni objednavky
