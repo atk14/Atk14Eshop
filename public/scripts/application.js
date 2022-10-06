@@ -426,12 +426,12 @@
 			},
 
 			set_payment_and_delivery_method: function() {
-				UTILS.shipping_rules.checkDependent( {
+/*				UTILS.shipping_rules.checkDependent( {
 					determinantName: "delivery_method_id",
 					determinedName: "payment_method_id",
 					rules: $( "#form_checkouts_set_payment_and_delivery_method" ).data( "rules" )
 				} );
-
+*/
 				$( "#form_checkouts_set_payment_and_delivery_method :checked" )
 					.parents( "li" ).each( function() {
 					$( this ).last().addClass( "checked" );
