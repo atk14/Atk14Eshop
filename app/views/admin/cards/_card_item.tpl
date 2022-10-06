@@ -8,6 +8,7 @@
 		<br><em>({!"eye-slash"|icon} {t}invisible{/t})</em>
 		{/if}
 	</td>
+	<td class="item-visible">{$card->isVisible()|display_bool}</td>
 	<td class="item-hasvariants">{$card->hasVariants()|display_bool}</td>
 	<td class="item-tags">{highlight_search_query}{render partial="shared/tags" tags=$card->getTags()}{/highlight_search_query}</td>
 	<td class="item-created">{$card->getCreatedAt()|format_datetime}</td>

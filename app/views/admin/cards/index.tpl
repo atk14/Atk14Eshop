@@ -14,6 +14,7 @@
 				<th></th>
 				<th>{t}Catalog number{/t}</th>
 				{sortable key=name}<th class="item-title">{t}Name{/t}</th>{/sortable}
+				{sortable key=visible}<th class="item-visible">{t}Visible?{/t}</th>{/sortable}
 				{sortable key=has_variants}<th class="item-hasvariants">{t}Has variants?{/t}</th>{/sortable}
 				<th class="item-tags">{t}Tags{/t}</th>
 				{sortable key=created_at}<th class="item-created">{t}Created at{/t}</th>{/sortable}
