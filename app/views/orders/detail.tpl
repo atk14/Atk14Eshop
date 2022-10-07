@@ -15,4 +15,3 @@
 
 {render partial="shared/order_detail" user=$order->getUser()}
 
-{render partial="shared/noindex_meta_tags"}
