@@ -86,6 +86,40 @@ class HeadTags {
 	function __construct() {
 	}
 
+	function __toString() {
+		$out = [];
+		DEVELOPMENT && ($out[] = "<!-- HeadTags class output - START -->\n");
+		# name, property, http-equiv
+		foreach($this->getMetaTags() as $type => $i) {
+			# type name like google-site-verification in <meta name>, og:title in <meta property>
+			foreach($i as $key => $elements) {
+				# single type meta - make it an array so we can loop it
+				if (!is_array($elements)) {
+					$elements = [$elements];
+				}
+
+				foreach($elements as $element) {
+					$out[] = (string)$element;
+				}
+			}
+		}
+
+		foreach($this->getLinkTags() as $link_type => $links) {
+			if (!is_array($links)) {
+				$links = [$links];
+			}
+			foreach($links as $link) {
+				$out[] = (string)$link;
+			}
+		}
+
+		DEVELOPMENT && ($out[] = "\n<!-- HeadTags class output - END -->\n");
+
+		$out = join("\n", $out);
+		DEVELOPMENT && trigger_error($out);
+		return $out;
+	}
+
 	/**
 	 * Sets basic single type meta tag
 	 *

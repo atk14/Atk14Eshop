@@ -23,6 +23,13 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	/**
+	 * Collector for meta and link tags belonging to head.
+	 *
+	 * @var HeadTags
+	 */
+	var $head_tags;
+
+	/**
 	 * @var LazyLoader
 	 */
 	var $lazy_loader;
