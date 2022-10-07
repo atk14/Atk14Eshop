@@ -10,4 +10,3 @@
 	<li>{a action="colors"}Manipulace s barvami{/a}</li>
 </ul>
 
-{render partial="shared/noindex_meta_tags"}

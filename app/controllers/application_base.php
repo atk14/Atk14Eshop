@@ -23,6 +23,13 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	/**
+	 * Collector for meta and link tags belonging to head.
+	 *
+	 * @var HeadTags
+	 */
+	var $head_tags;
+
+	/**
 	 * @var LazyLoader
 	 */
 	var $lazy_loader;
@@ -103,6 +110,9 @@ class ApplicationBaseController extends Atk14Controller{
 
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
+		}
+		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
+			$this->tpl_data["head_tags"] = $this->head_tags;
 		}
 
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
@@ -197,6 +207,8 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
+		$this->head_tags = new HeadTags();
+		$this->_setup_head_tags();
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
@@ -568,6 +580,58 @@ class ApplicationBaseController extends Atk14Controller{
 		$form->set_action($this->_link_to(["namespace" => "", "action" => "baskets/edit"]));
 		$form->set_up_for_basket($basket);
 		return $form;
+	}
+
+	/**
+	 * adding various meta tags into head
+	 *
+	 */
+	protected function _setup_head_tags() {
+		if (defined("PUPIQ_API_KEY")) {
+			# force loading class which defines constants
+			new Pupiq;
+			if (defined("PUPIQ_PROXY_HOSTNAME")) {
+				$ppq_proxy = PUPIQ_PROXY_HOSTNAME;
+			}
+			if (defined("PUPIQ_IMG_HOSTNAME")) {
+				$ppq_img_hostname = PUPIQ_IMG_HOSTNAME;
+			}
+
+			if (isset($ppq_proxy) && $ppq_proxy) {
+				$ppq_hostname = $ppq_proxy;
+			} elseif(isset($ppq_img_hostname) && $ppq_img_hostname) {
+				$ppq_hostname = $ppq_img_hostname;
+			}
+
+			if (isset($ppq_hostname) && $ppq_hostname!==$this->request->getHttpHost()) {
+				$this->head_tags->addLinkTag("preconnect", ["href" => "//$ppq_hostname"]);
+			}
+		}
+		$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
+		$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
+		if ($analytics_tracking_id) {
+			$this->head_tags->addPreconnect("https://www.google-analytics.com");
+		}
+		if ($analytics_tracking_id || $gtm_container_id) {
+			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
+		}
+		return;
+		# @note next tags are set in templates for now
+		# meta tags
+		$this->head_tags->addHttpEquiv("content-language", $this->lang);
+		$this->head_tags->setProperty("og:title", ATK14_APPLICATION_NAME);
+		$this->head_tags->setProperty("og:type","website");
+		$this->head_tags->addProperty("og:url", $this->request->getUrl());
+		$this->head_tags->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
+		$this->head_tags->setCharsetMeta(DEFAULT_CHARSET);
+
+		# link tags
+		# adding preconnect using alternative shortcut method
+		$this->head_tags->addPreconnect("https://fonts.gstatic.com/");
+
+		$this->head_tags->addLinkTag("preload", ["href" => "/public/dist/webfonts/fa-solid-900.woff2", "as" => "font", "type" => "font/woff2"]);
+		# adding preload using shortcut method
+		$this->head_tags->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
 	}
 
 	/**

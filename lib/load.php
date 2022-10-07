@@ -25,5 +25,6 @@ if(
 require_once(__DIR__ . "/functions.php");
 require_once(__DIR__ . "/markdown.php");
 class_autoload(__DIR__ . '/ajax_pager/');
+class_autoload(__DIR__ . '/head_tags/src');
 
 require_once(__DIR__."/delivery_services/src/load.php");
