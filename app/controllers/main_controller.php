@@ -36,6 +36,7 @@ class MainController extends ApplicationController{
 
 		if ($page && !$page->isIndexable()) {
 			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
 
 		global $ATK14_GLOBAL;

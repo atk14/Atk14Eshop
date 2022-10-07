@@ -27,7 +27,8 @@ class DigitalContentsController extends ApplicationController {
 		$this->tpl_data["digital_contents"] = $digital_contents;
 		$this->tpl_data["digital_contents_by_products"] = $digital_contents_by_products;
 
-		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+		$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
+		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}
 
 	function download(){

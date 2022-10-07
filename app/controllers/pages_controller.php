@@ -15,6 +15,7 @@ class PagesController extends ApplicationController {
 
 		if (!$this->page->isIndexable()) {
 			$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
 	}
 
