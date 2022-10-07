@@ -14,7 +14,7 @@ class PagesController extends ApplicationController {
 		$this->_add_page_to_breadcrumbs($this->page);
 
 		if (!$this->page->isIndexable()) {
-			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+			$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
 		}
 	}
 
