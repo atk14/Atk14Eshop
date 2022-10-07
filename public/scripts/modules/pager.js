@@ -73,9 +73,6 @@ Pager.init = function() {
 			$e.ajaxPager.reinit();
 		} else {
 			$e.ajaxPager = new Pager( $e );
-	    console.log( $e.ajaxPager.getText( "remain", 2, 3 ) );
-	    console.log( $e.ajaxPager.getText( "remain", 2, 3 ) );
-    console.log( $e.ajaxPager.getText( "remain", 5, 30 ) );
 		}
 	} );
 };
@@ -85,7 +82,6 @@ Pager.prototype.updateCount = function() {
 };
 
 Pager.prototype.getText = function( text ) {
-	console.log( arguments );
 	var add = [ text ] ;
 	var replace = [] ;
 	var char = "s".charCodeAt( 0 );
@@ -103,7 +99,6 @@ Pager.prototype.getText = function( text ) {
 		char++;
 	}
 
-	console.log( add, replace );
 	var gname;
 	for ( i = add.length ; i > 0 ; i-- ) {
 		gname = add.join( "/" );
@@ -286,9 +281,7 @@ Pager.prototype.updatePager = function( data, options ) {
 Pager.prototype.updateRemains = function() {
 	var remain = this.total - this.offset - this.count;
 	var text;
-	console.log( this.total );
 	text = this.getText( "remain", remain, this.total );
-	console.log( text );
 	this.remains.html( text );
 };
 
