@@ -23,3 +23,13 @@ if ( pagers.length ) {
 		pager.init();
 	} );
 }
+
+var searchFields = $( ".js--search" );
+var suggestArea = $( ".js--suggesting" );
+if ( searchFields.length && suggestArea.length ) {
+	import( "./search_suggestion.js" ).then(
+		( { default: suggestion }) => {
+			new suggestion( "js--search", "js--suggesting" );
+		}
+	);
+}
