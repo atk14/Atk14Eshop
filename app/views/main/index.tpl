@@ -64,7 +64,3 @@
 		</div>
 	</section>
 {/if}
-	
-{if $page  && !$page->isIndexable()}
-	{render partial="shared/noindex_meta_tags"}
-{/if}

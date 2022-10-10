@@ -20,4 +20,3 @@
 
 {/if}
 
-{render partial="shared/noindex_meta_tags"}

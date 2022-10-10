@@ -60,6 +60,3 @@
 	</section>
 {/if}
 
-{if !$page->isIndexable()}
-	{render partial="shared/noindex_meta_tags"}
-{/if}
