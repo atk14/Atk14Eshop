@@ -14,10 +14,8 @@ window.UTILS.initSwiper = function() {
 		var sliderId = $container.data( "slider_id" );
 		var breakpoint = $container.data( "breakpoint" );
 		var centeredSlides = $container.data( "centered_slides" );
-		var thumbsFor = $container.data( "thumbsfor" );
 		var thumbs = $container.data( "thumbs" );
 		var spaceBetween = $container.data( "spacebetween" );
-		console.log( "thumbsFor", thumbsFor );
 
 		if( typeof( autoplay ) === "number" ){
 			autoplay = {
