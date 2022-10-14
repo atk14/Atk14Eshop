@@ -607,12 +607,21 @@ class ApplicationBaseController extends Atk14Controller{
 				$this->head_tags->addLinkTag("preconnect", ["href" => "//$ppq_hostname"]);
 			}
 		}
-		$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
-		$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
-		if ($analytics_tracking_id) {
+		if (class_exists("SystemParameter")) {
+			$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
+			$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
+		} else {
+			if (defined("GOOGLE_ANALYTICS_TRACKING_ID")) {
+				$analytics_tracking_id = GOOGLE_ANALYTICS_TRACKING_ID;
+			}
+			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
+				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
+			}
+		}
+		if (isset($analytics_tracking_id)) {
 			$this->head_tags->addPreconnect("https://www.google-analytics.com");
 		}
-		if ($analytics_tracking_id || $gtm_container_id) {
+		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
 		return;
