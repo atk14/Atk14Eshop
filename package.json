@@ -60,7 +60,7 @@
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
     "moment": "^2.29.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "nouislider": "^15.5.1",
     "unobfuscatejs": "^1.0.2",
     "respond.js": "^1.4.2",
