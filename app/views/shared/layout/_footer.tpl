@@ -36,7 +36,7 @@
 	<div class="footer__smallprint">
 		<div class="container-fluid">
 			<p>&copy;&nbsp;2019&nbsp;&ndash;&nbsp;{"Y"|date} {"app.name"|system_parameter}</p>
-			<p>Created by <a href="https://www.snapps.eu/"><strong>sna<em>pp</em>s!</strong></a></p>
+			<p>Created by <a href="https://www.snapps.eu/" rel="nofollow noopener"><strong>sna<em>pp</em>s!</strong></a></p>
 		</div>
 	</div>
 	
