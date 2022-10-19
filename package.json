@@ -71,6 +71,7 @@
     "favicons": "^6.0.0",
     "swiper": "^8.3.2",
     "@babel/core": "^7.17.12",
-    "photoswipe": "^5.3.2"
+    "photoswipe": "^5.3.2",
+    "sticky-sidebar-v2": "^1.1.1"
   }
 }

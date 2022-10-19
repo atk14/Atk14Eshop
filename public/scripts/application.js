@@ -207,6 +207,19 @@
 
 				// Init NoUiSlider
 
+				// Scroll Sidebar
+				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
+				if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
+					// eslint-disable-next-line no-undef,no-unused-vars
+					var sidebar = new StickySidebar( ".nav-section", {
+						topSpacing: 10,
+						bottomSpacing: 10,
+						containerSelector: ".has-nav-section",
+						innerWrapperSelector: "#sidebar_menu",
+						minWidth: 1199,
+					});
+				}
+
 			}
 
 		},
