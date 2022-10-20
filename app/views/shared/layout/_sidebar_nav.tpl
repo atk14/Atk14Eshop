@@ -5,7 +5,7 @@
 {if $controller=="categories" && $action=="detail"}
 	{assign current_node $tree->getNodeByFullPath($params.path)}
 {/if}
-{if $controller=="cards" && $card}
+{if $controller=="cards" && $card && $card->getPrimaryCategory()}
 	{assign current_node $tree->getNodeByFullPath($card->getPrimaryCategory()->getPath())}
 {/if}
 
