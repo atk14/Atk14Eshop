@@ -1,19 +1,19 @@
-{assign current_category ""}
-{if $controller=="categories" && $action=="detail"}
-	{assign current_category $category}
-{/if}
-{if $controller=="cards" && $card}
-	{assign current_category $card->getPrimaryCategory()}
-{/if}
-
 {assign root Category::GetInstanceByCode("catalog")}
 {assign tree CategoryTree::GetInstance($root,["visible" => true, "is_filter" => false])}
+
+{assign current_node ""}
+{if $controller=="categories" && $action=="detail"}
+	{assign current_node $tree->getNodeByFullPath($params.path)}
+{/if}
+{if $controller=="cards" && $card}
+	{assign current_node $tree->getNodeByFullPath($card->getPrimaryCategory()->getPath())}
+{/if}
 
 <ul class="nav nav--sidebar" id="sidebar_menu">
 
 	{foreach $tree as $node}
 		{assign category $node->getCategory()}
-		{assign active $current_category && $current_category->isDescendantOf($category)}
+		{assign active $current_node && $current_node->isDescendantOf($node)}
 
 		{if $node->hasChilds()}
 			<li class="nav-item nav-item--has-submenu">

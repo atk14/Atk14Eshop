@@ -2,7 +2,7 @@
 
 {foreach $tree as $node}
 	{assign category $node->getCategory()}
-	{assign active $current_category && $current_category->isDescendantOf($category)}
+	{assign active $current_node && $current_node->isDescendantOf($node)}
 
 			{if $node->hasChilds()}
 			<li class="nav-item nav-item--has-submenu">
