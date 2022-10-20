@@ -296,4 +296,62 @@ class TcCategoryTree extends TcBase {
 		]);
 		$this->assertEquals(1, $tree->getChildCategoriesCount());
 	}
+
+	function test_getNodeByPath(){
+		$root = Category::GetInstanceByPath("catalog/food-drinks");
+		$tree = CategoryTree::GetInstance($root);
+
+		$node = $tree->getNodeByPath("catalog/food-drinks/hot-drinks");
+		$this->assertNull($node);
+
+		$node = $tree->getNodeByPath("hot-drinks");
+		$this->assertNotNull($node);
+		$this->assertEquals("catalog/food-drinks/hot-drinks",$node->getPath());
+
+		// --
+
+		$root = Category::GetInstanceByPath("catalog");
+		$tree = CategoryTree::GetInstance($root);
+
+		$node = $tree->getNodeByPath("catalog");
+		$this->assertNull($node); // ???
+	}
+
+	function test_getNodeByFullPath(){
+		$root = Category::GetInstanceByPath("catalog/food-drinks");
+		$tree = CategoryTree::GetInstance($root);
+
+		$node = $tree->getNodeByFullPath("catalog/food-drinks/hot-drinks");
+		$this->assertNotNull($node);
+		$this->assertEquals("catalog/food-drinks/hot-drinks",$node->getPath());
+
+		$node = $tree->getNodeByFullPath("catalog");
+		$this->assertNull($node); // not in $tree
+	}
+
+	function test_getParentNode(){
+		$root = Category::GetInstanceByPath("catalog/food-drinks");
+		$tree = CategoryTree::GetInstance($root);
+
+		$node = $tree->getNodeByPath("hot-drinks");
+
+		$parent = $node->getParentNode();
+		$this->assertEquals("catalog/food-drinks",$parent->getPath());
+
+		$parent = $parent->getParentNode();
+		$this->assertNull($parent); // this parent is not in the $tree
+	}
+
+	function test_isDescendantOf(){
+		$root = Category::GetInstanceByPath("catalog");
+		$tree = CategoryTree::GetInstance($root);
+
+		$food_drinks = $tree->getNodeByPath("food-drinks");
+		$hot_drinks = $tree->getNodeByPath("food-drinks/hot-drinks");
+		$shoes = $tree->getNodeByPath("shoes");
+
+		$this->assertTrue($hot_drinks->isDescendantOf($food_drinks));
+		$this->assertTrue($hot_drinks->isDescendantOf($hot_drinks));
+		$this->assertFalse($shoes->isDescendantOf($food_drinks));
+	}
 }
