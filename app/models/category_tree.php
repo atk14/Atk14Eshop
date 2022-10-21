@@ -73,6 +73,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 		$real_id = $this->id;
 		return isset($this->tree->childs[$real_id]) && $this->tree->childs[$real_id];
 	}
+
 	function getChildCategories() {
 		$this->fetch();
 		$out=array();
@@ -170,6 +171,8 @@ class CategoryNode implements IteratorAggregate, Countable {
 	}
 
 	function getNodeByPath($path) {
+		if(!$path){ return; }
+
 		if(!is_array($path)) {
 			$path = explode('/', $path);
 		}
@@ -188,9 +191,46 @@ class CategoryNode implements IteratorAggregate, Countable {
 		return $n;
 	}
 
+	function getNodeByFullPath($path) {
+		if(!$path){ return; }
+
+		if(!is_array($path)) {
+			$path = explode('/', $path);
+		}
+
+		$_path = $path;
+		while($_path){
+			$node = $this->getNodeByPath($_path);
+			if($node && $node->getPath()===join("/",$path)){
+				return $node;
+			}
+			array_shift($_path);
+		}
+	}
+
+	function isDescendantOf($root_node){
+		if($root_node->getId()==$this->getId()){ return true; }
+		if($parent = $this->getParentNode()){
+			return $parent->isDescendantOf($root_node);
+		}
+		return false;
+	}
+
+	function getParentNode(){
+		return $this->parent;	
+	}
+
 	function _getNodeByPath(&$path) {
 		if(!$path) { return $this; };
 				return null;
+	}
+
+	function toArray(){
+		return array(
+			"id" => $this->getId(),
+			"path" => $this->getPath(),
+			"category" => $this->getCategory()->toArray(),
+		);
 	}
 }
 
