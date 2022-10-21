@@ -9,6 +9,7 @@
 {assign root Category::GetInstanceByCode("catalog")}
 {assign tree CategoryTree::GetInstance($root,["visible" => true, "is_filter" => false])}
 
+<button class="sidebar-toggle js-sidebar-toggle"><span class="sidebar-toggle__text-hidden">{t}Zobrazit kategorie{/t}</span><span class="sidebar-toggle__text-shown">{t}Skrýt kategorie{/t}</span><span class="sidebar-toggle__icon">{!"chevron-down"|icon}</span></button>
 <ul class="nav nav--sidebar" id="sidebar_menu">
 
 	{foreach $tree as $node}

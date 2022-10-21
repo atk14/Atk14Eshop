@@ -218,6 +218,9 @@
 						innerWrapperSelector: "#sidebar_menu",
 						minWidth: 1199,
 					});
+					$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
+						$( ".nav-section" ).toggleClass( "show-sm" );
+					} );
 				}
 
 			}

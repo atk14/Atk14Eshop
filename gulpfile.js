@@ -25,7 +25,7 @@ var vendorScripts = [
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
 	"node_modules/bootbox/dist/bootbox.all.min.js",
 	"node_modules/nouislider/dist/nouislider.min.js",
-	// "node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
+	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
 ];
 
 var applicationScripts = [
