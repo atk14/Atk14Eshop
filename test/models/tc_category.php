@@ -391,4 +391,12 @@ class TcCategory extends TcBase {
 		$this->assertEquals(1,sizeof($filters));
 		$this->assertEquals("Odour",$filters[0]->getName());
 	}
+
+	function test_MainRootCategory(){
+		$main_root = Category::MainRootCategory();
+		$this->assertTrue($main_root->isMainRootCategory());
+
+		$shoes = $this->categories["shoes"];
+		$this->assertFalse($shoes->isMainRootCategory());
+	}
 }

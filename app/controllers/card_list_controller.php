@@ -10,7 +10,7 @@ abstract class CardListController extends ApplicationController {
 		}
 
 		if(!$path) {
-			$category = Category::FindByCode("catalog");
+			$category = Category::MainRootCategory();
 			if(!$category) {
 				$this->_error404();
 				return false;

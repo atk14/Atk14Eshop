@@ -1022,8 +1022,15 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			}
 	}
 
-	static function RootCategory() {
-		return static::FindByCode('catalog');
+	static function MainRootCategory() {
+		return static::GetInstanceByCode("catalog");
+	}
+
+	function isMainRootCategory(){
+		if($main_root = static::MainRootCategory()){
+			return $main_root->getId()===$this->getId();
+		}
+		return false;
 	}
 
 	function getFilterName() {

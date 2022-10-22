@@ -17,7 +17,7 @@
 	<div class="card-body">
 		<h4 class="card-title">
 			{highlight_keywords keywords=$params.q tag="<mark>"}
-				{if $parent_category && $parent_category->getCode()!=="catalog"}
+				{if $parent_category && !$parent_category->isMainRootCategory()}
 					<a href="{$parent_category|link_to_category}">{$parent_category->getLongName()}</a> /
 				{/if}
 				<a href="{$category|link_to_category}">{$category->getLongName()}</a>
