@@ -19,11 +19,6 @@ abstract class CardListController extends ApplicationController {
 			return false;
 		}
 
-		// vytiskneme do <head></head> element <link rel="canonical">
-		if($path!=($_path = $category->getPath())){
-				$this->tpl_data["canonical_path"] = $_path;
-		}
-
 		$parent_categories = Category::GetInstancesOnPath($path);
 		$this->catalog = reset( $parent_categories );
 		$this->tpl_data["category"] = $category = $this->category =
