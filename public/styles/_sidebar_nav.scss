@@ -149,9 +149,9 @@
 		}
 	}
 
-	@include media-breakpoint-down(sm) {
-		margin-left: $grid-gutter-width/2;
-		margin-right: $grid-gutter-width/2;
+	@include media-breakpoint-down($sidebar-collapse-breakpoint) {
+		//margin-left: $grid-gutter-width/2;
+		//margin-right: $grid-gutter-width/2;
 		margin-bottom: $grid-gutter-width/2;
 		.sidebar-toggle {
 			width: 100%;
@@ -159,7 +159,7 @@
 			justify-content: space-between;
 			align-items: center;
 			padding: 0.5rem;
-			border: none;
+			border: 1px solid $border-color;
 			background-color: white;
 			&__text {
 				&-hidden {

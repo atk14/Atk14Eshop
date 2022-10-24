@@ -15,9 +15,9 @@
 
 .has-nav-section {
 	.nav-section {
-		display: none;
+		//display: none;
 	}
-	@include media-breakpoint-up(xl){
+	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)){
 		display: grid;
 		padding-left: 0;
 		grid-template-columns: 230px minmax(0,1fr);
@@ -49,11 +49,11 @@
 	}
 	
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down($sidebar-collapse-breakpoint){
 		.nav-section {
-			border-bottom: 1px solid $gray-300;
-			padding-bottom: $grid-gutter-width/2;
-			margin-bottom: $grid-gutter-width/2;
+			//border-bottom: 1px solid $gray-300;
+			//padding-bottom: $grid-gutter-width/2;
+			//margin-bottom: $grid-gutter-width/2;
 		}
 	}
 }
