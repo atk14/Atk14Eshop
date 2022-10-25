@@ -216,7 +216,7 @@
 						bottomSpacing: 10,
 						containerSelector: ".has-nav-section",
 						innerWrapperSelector: "#sidebar_menu",
-						minWidth: 1199,
+						minWidth: 767,
 					});
 					$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 						$( ".nav-section" ).toggleClass( "show-sm" );

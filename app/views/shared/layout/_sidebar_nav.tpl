@@ -10,7 +10,7 @@
 {/if}
 
 <button class="sidebar-toggle js-sidebar-toggle"><span class="sidebar-toggle__text-hidden">{t}Zobrazit kategorie{/t}</span><span class="sidebar-toggle__text-shown">{t}Skrýt kategorie{/t}</span><span class="sidebar-toggle__icon">{!"chevron-down"|icon}</span></button>
-<ul class="nav nav--sidebar" id="sidebar_menu">
+<ul class="nav nav--sidebar nav--sidebar--borders-sm" id="sidebar_menu">
 	{foreach $tree as $node}
 		{assign category $node->getCategory()}
 		{assign active $current_node && $current_node->isDescendantOf($node)}

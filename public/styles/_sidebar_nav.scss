@@ -179,7 +179,13 @@
 			display: none;
 			width: 100%;
 			max-width: 100%;
-			
+			border-top: none !important;
+			li.nav-item:first-child {
+				border-top: none;
+			}
+			&--borders-sm {
+				border: 1px solid $border-color;
+			}
 		}
 
 		&.show-sm {
