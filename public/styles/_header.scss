@@ -1,5 +1,4 @@
-// When top navbar become hamburger and main menu gets replaced with mobile main menu 
-$navbar_breakpoint_lower: sm;
+// navbar breakpoint settings moved to _application_variables.scss
 $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 
 @mixin navbar-color-variations($navbar-color) {
@@ -87,17 +86,18 @@ ol.breadcrumb {
 	max-width: $max-page-width;
 	padding: 0;
 	margin: auto;
-	margin-bottom: $grid-gutter-width;
+	background-color: white;
 	width: 100%;
 	transition: top 0.5s;
 	z-index: 99;
+	&--fullwidth {
+		max-width: 100%;
+	}
 	h1, .h1 {
 		font-size: 1.5rem;
 		font-weight: bold;
 	}
-	@include media-breakpoint-down($navbar_breakpoint_lower){
-		margin-bottom: $grid-gutter-width/2;
-	}
+	
 	
 	// Top navbar, also mobile menu
 	.navbar-top {

@@ -19,5 +19,9 @@ $breadcrumb-padding-x:		 0;
 $fa-font-family: "Font Awesome 6 Free";
 $fa-brands-font-family: "Font Awesome 6 Brands";
 
+// Header breakpoints settings
+// When top navbar become hamburger and main menu gets replaced with mobile main menu 
+$navbar_breakpoint_lower: sm;
+
 // Sidebar nav
 $sidebar-collapse-breakpoint: sm;

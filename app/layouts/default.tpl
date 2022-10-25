@@ -81,8 +81,8 @@
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
-		<div class="body" id="page-body">
-			{render partial="shared/layout/header"}
+		{render partial="shared/layout/header"}
+		<div class="body" id="page-body">			
 			{placeholder for="out_of_container"}
 			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 				{assign use_sidebar_menu true}
