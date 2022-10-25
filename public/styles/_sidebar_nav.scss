@@ -180,9 +180,11 @@
 			width: 100%;
 			max-width: 100%;
 			border-top: none !important;
+			// remove redundant top borders
 			li.nav-item:first-child {
 				border-top: none;
 			}
+			// use this class to make border around dropdown 
 			&--borders-sm {
 				border: 1px solid $border-color;
 			}
