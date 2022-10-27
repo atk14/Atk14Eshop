@@ -82,11 +82,11 @@
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
 		{render partial="shared/layout/header"}
+		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
+			{assign use_sidebar_menu true}
+		{/if}
+		<div class="body--upper">{placeholder for="out_of_container"}</div>
 		<div class="body" id="page-body">			
-			{placeholder for="out_of_container"}
-			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
-				{assign use_sidebar_menu true}
-			{/if}
 			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}

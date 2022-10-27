@@ -7,6 +7,15 @@
 		padding-top: $grid-gutter-width/2;
 	}
 }
+.body--upper {
+	background-color: white;
+	max-width: $max-page-width;
+	margin: auto;
+	padding-top: $grid-gutter-width;
+	&:empty {
+		display: none;
+	}
+}
 .container-fluid {
 	max-width: $max-page-width;
 	margin: auto;
