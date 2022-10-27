@@ -86,7 +86,8 @@
 			{assign use_sidebar_menu true}
 		{/if}
 		<div class="body--upper">{placeholder for="out_of_container"}</div>
-		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section has-nav-section--wide{/if}" id="page-body">
+		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
+			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
 			{if $section_navigation}
 				<nav class="nav-section">
 					{render partial="shared/layout/section_navigation"}
@@ -107,6 +108,7 @@
 					{placeholder}
 				</div>
 			</div>
+			{if $section_navigation || $use_sidebar_menu}</div>{/if}
 		</div>
 		{render partial="shared/layout/footer"}
 

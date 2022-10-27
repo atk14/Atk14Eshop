@@ -214,7 +214,7 @@
 					var sidebar = new StickySidebar( ".nav-section", {
 						topSpacing: 10,
 						bottomSpacing: 10,
-						containerSelector: ".has-nav-section",
+						containerSelector: ".body__sticky-container",
 						innerWrapperSelector: "#sidebar_menu",
 						minWidth: 767,
 					});

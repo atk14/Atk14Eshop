@@ -2,6 +2,8 @@
 	background-color: white;
 	max-width: $max-page-width;
 	margin: auto;
+}
+.body, .body__sticky__container {
 	padding-top: $grid-gutter-width;
 	padding-bottom: $grid-gutter-width*2;
 	@include media-breakpoint-down($navbar_breakpoint_lower){
@@ -28,31 +30,42 @@
 // Applies CSS Grid for layout w/sidebar
 
 .body.has-nav-section {
-	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
-		display: grid;
-		// minmax function is needed for Swiper to calculate width correctly
-		grid-template-columns: $sidebar-width minmax(0,1fr);
-		align-items: start;
-		.nav-section {
-			grid-column: 1/2;
+	.body__sticky-container {
+		
+		@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
+			display: grid;
+			// minmax function is needed for Swiper to calculate width correctly
+			grid-template-columns: $sidebar-width minmax(0,1fr);
+			align-items: start;
+			.nav-section {
+				grid-column: 1/2;
+			}
+			& > *:not(.nav-section) {
+				grid-column: 2/3;
+				height: 100%;
+			}
 		}
-		& > *:not(.nav-section) {
-			grid-column: 2/3;
-			height: 100%;
-		}
+
 	}
 }
 
 .body.has-nav-section.has-nav-section--wide {
-	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
-		grid-template-columns: 1fr $max-page-width 1fr;
-		width: 100%;
-		max-width: 100%;
-	}
-	@media(max-width: $max-page-width + 2 * $sidebar-width ) {
-		grid-template-columns: 1fr $max-page-width;
-	}
-	@media(max-width: $max-page-width + $sidebar-width ) {
-		grid-template-columns: $sidebar-width minmax(0,1fr);
+		@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
+			width: 100%;
+			max-width: 100%;
+			.body__sticky-container {
+				grid-template-columns: 1fr $max-page-width 1fr;
+			}
+		}
+		@media(max-width: $max-page-width + 2 * $sidebar-width ) {
+			.body__sticky-container {
+				grid-template-columns: 1fr $max-page-width;
+			}
+		}
+		@media(max-width: $max-page-width + $sidebar-width ) {
+			.body__sticky-container {
+				grid-template-columns: $sidebar-width minmax(0,1fr);
+			}
+		}
 	}
 }
