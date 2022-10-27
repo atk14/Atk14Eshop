@@ -86,21 +86,20 @@
 			{assign use_sidebar_menu true}
 		{/if}
 		<div class="body--upper">{placeholder for="out_of_container"}</div>
-		<div class="body" id="page-body">			
-			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
+		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section has-nav-section--wide{/if}" id="page-body">
+			{if $section_navigation}
+				<nav class="nav-section">
+					{render partial="shared/layout/section_navigation"}
+				</nav>
+			{elseif $use_sidebar_menu}
+				<nav class="nav-section">
+					{render partial="shared/layout/sidebar_nav"}
+				</nav>
+			{/if}
+			<div class="container-fluid">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
-				{/if}
-
-				{if $section_navigation}
-					<nav class="nav-section">
-						{render partial="shared/layout/section_navigation"}
-					</nav>
-				{elseif $use_sidebar_menu}
-					<nav class="nav-section">
-						{render partial="shared/layout/sidebar_nav"}
-					</nav>
 				{/if}
 
 				<div class="content-main">
@@ -108,9 +107,8 @@
 					{placeholder}
 				</div>
 			</div>
-
-			{render partial="shared/layout/footer"}
 		</div>
+		{render partial="shared/layout/footer"}
 
 		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">

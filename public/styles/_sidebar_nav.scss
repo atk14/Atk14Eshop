@@ -11,6 +11,10 @@
 		
 		flex-direction: column;
 		border-bottom: 1px solid $border-color;
+
+		max-width: $sidebar-width-lg;
+
+		
 		
 		& > .nav-item {
 			border-top: 1px solid $border-color;
@@ -90,8 +94,9 @@
 				
 				
 			}
-		
-			
+			@media(max-width: $max-page-width + $sidebar-width * 2 )and(min-width:768px) {
+				font-size: 0.9rem;
+			}	
 		}
 		
 		
@@ -150,8 +155,8 @@
 	}
 
 	@include media-breakpoint-down($sidebar-collapse-breakpoint) {
-		//margin-left: $grid-gutter-width/2;
-		//margin-right: $grid-gutter-width/2;
+		margin-left: $grid-gutter-width;
+		margin-right: $grid-gutter-width;
 		margin-bottom: $grid-gutter-width/2;
 		.sidebar-toggle {
 			width: 100%;
@@ -208,6 +213,11 @@
 				}
 			}
 		}
+	}
+
+	@include media-breakpoint-down(xs) {
+		margin-left: $grid-gutter-width/2;
+		margin-right: $grid-gutter-width/2;
 	}
 
 }

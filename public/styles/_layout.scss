@@ -3,6 +3,7 @@
 	max-width: $max-page-width;
 	margin: auto;
 	padding-top: $grid-gutter-width;
+	padding-bottom: $grid-gutter-width*2;
 	@include media-breakpoint-down($navbar_breakpoint_lower){
 		padding-top: $grid-gutter-width/2;
 	}
@@ -26,55 +27,32 @@
 
 // Applies CSS Grid for layout w/sidebar
 
-.has-nav-section {
-	.nav-section {
-		//display: none;
-	}
-	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)){
+.body.has-nav-section {
+	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
 		display: grid;
-		padding-left: 0;
-		grid-template-columns: 230px minmax(0,1fr);
-		grid-template-rows: auto 1fr;
-		grid-template-areas: 'sidebar breadcrumb' 'sidebar mainbody';
-		//grid-gap: $grid-gutter-width/2;
-		
+		// minmax function is needed for Swiper to calculate width correctly
+		grid-template-columns: $sidebar-width minmax(0,1fr);
+		align-items: start;
+		.nav-section {
+			grid-column: 1/2;
+		}
 		& > *:not(.nav-section) {
-			padding-left: $grid-gutter-width;
-			align-self: start;
-		}
-		
-		.nav-section {
-			display: block;
-			grid-area: sidebar;
-			//border-right: 1px solid $border-color;
-			//padding-right: $grid-gutter-width/2;
-			align-self: start;
-		}
-		
-		.nav--breadcrumb {
-			grid-area: breadcrumb;
-			align-self: start;
-		}
-		
-		.content-main {
-			grid-area: mainbody;
-		}
-	}
-	
-	
-	@include media-breakpoint-down($sidebar-collapse-breakpoint){
-		.nav-section {
-			//border-bottom: 1px solid $gray-300;
-			//padding-bottom: $grid-gutter-width/2;
-			//margin-bottom: $grid-gutter-width/2;
+			grid-column: 2/3;
+			height: 100%;
 		}
 	}
 }
 
-footer {
-	margin-top: $grid-gutter-width*2;
-}
-
-header {
-	//background-color: white;
+.body.has-nav-section.has-nav-section--wide {
+	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
+		grid-template-columns: 1fr $max-page-width 1fr;
+		width: 100%;
+		max-width: 100%;
+	}
+	@media(max-width: $max-page-width + 2 * $sidebar-width ) {
+		grid-template-columns: 1fr $max-page-width;
+	}
+	@media(max-width: $max-page-width + $sidebar-width ) {
+		grid-template-columns: $sidebar-width minmax(0,1fr);
+	}
 }
