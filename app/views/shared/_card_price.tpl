@@ -27,6 +27,9 @@
 				{assign price $price_finder->getPrice($product)}
 				<li>
 					<small>{$product->getLabel()}</small>
+					{if $price->getOriginalProductPrice()}
+						<span class="price--before-discount">{!$price->getOriginalProductPrice()|display_price:$dp_options}</span>
+					{/if}
 					<div class="price--primary">{!$price|display_price:$dp_options}</div>
 					{if !$incl_vat}
 						<div class="price--incl-vat">{!$price|display_price:$dp_incl_vat_options}</div>
@@ -63,8 +66,8 @@
 		{if $default_price_label}
 			<small>{$default_price_label}</small><br>
 		{/if}
-		{if $starting_price->discounted()}
-			<span class="price--before-discount">{!$starting_price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
+		{if $starting_price && $starting_price->getOriginalProductPrice()}
+			<span class="price--before-discount">{!$starting_price->getOriginalProductPrice()|display_price:$dp_options}</span>
 		{/if}
 
 		<div class="price--primary">{!$starting_price|display_price:$dp_options}</div>

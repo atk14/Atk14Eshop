@@ -156,6 +156,11 @@ $price-font-size-xs: 0.75rem;
 						font-size: $price-font-size-sm;
 					}
 				}
+				.price--before-discount {
+					.currency_main {
+						font-size: $price-font-size-xs;
+					}
+				}
 			}
 		}
 	}

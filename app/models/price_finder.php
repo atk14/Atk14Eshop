@@ -95,7 +95,7 @@ class PriceFinder {
 
 		$data = $this->_getPriceData($product);
 
-		$price = new ProductPrice($data,$amount,$this->currency,$this->current_date);
+		$price = new ProductPrice($data,$amount,$this->currency,$this->current_date,$this);
 		if($options["return_null_when_price_does_not_exist"] && !$price->priceExists()){
 			return null;
 		}
@@ -120,12 +120,12 @@ class PriceFinder {
 			$data["prices"] = $prices;
 		}
 
-		$price = new ProductPrice($data,$amount,$this->currency,$this->current_date);
+		$price = new ProductPrice($data,$amount,$this->currency,$this->current_date,$this);
 		if($price->priceExists()){
 			$_price = $this->getPrice($product,$amount,$options);
 			if($price->getUnitPrice()<=$_price->getUnitPrice()){
 				$data["prices"] = [];
-				$price = new ProductPrice($data,$amount,$this->currency,$this->current_date); // Base price not exists
+				$price = new ProductPrice($data,$amount,$this->currency,$this->current_date,$this); // Base price not exists
 			}
 		}
 

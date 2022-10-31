@@ -12,10 +12,13 @@ class TcPriceFinder extends TcBase {
 		$pf = PriceFinder::GetInstance();
 		$price = $pf->getPrice($this->products["mint_tea"]);
 		$this->assertNotNull($price);
+		$this->assertEquals(20.0,$price->getPrice());
 		$this->assertFalse($price->discounted());
 		$this->assertNull($price->discountedFrom());
 		$this->assertNull($price->discountedTo());
 		$this->assertEquals(0.0, $price->getDiscountPercent());
+		$opp = $price->getOriginalProductPrice();
+		$this->assertNull($opp);
 
 		$yesterday = Date::Yesterday();
 		$tomorrow = Date::Tomorrow();
@@ -23,10 +26,14 @@ class TcPriceFinder extends TcBase {
 		Cache::Clear();
 		$price = $pf->getPrice($this->products["black_tea"]);
 		$this->assertNotNull($price);
+		$this->assertEquals(17.1,$price->getPrice());
 		$this->assertTrue($price->discounted());
 		$this->assertEquals("{$yesterday} 00:00:00", $price->discountedFrom());
 		$this->assertEquals("{$tomorrow} 00:00:00", $price->discountedTo());
 		$this->assertEquals(10, $price->getDiscountPercent());
+		$opp = $price->getOriginalProductPrice();
+		$this->assertNotNull($opp);
+		$this->assertEquals(19.0,$opp->getPrice());
 	}
 
 	function test_GetCurrentInstance(){
