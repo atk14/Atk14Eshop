@@ -6,7 +6,8 @@ abstract class CardListController extends ApplicationController {
 	function _setup_category(&$options) {
 		$path = $this->params->getString("path");
 		if(!($category = Category::GetInstanceByPath($path)) || !$category->isVisible() || $category->isFilter() || (($p = $category->getParentCategory()) && $p->isFilter())){
-			return $this->_execute_action("error404");
+			$this->_execute_action("error404");
+			return null;
 		}
 
 		if(!$path) {
