@@ -46,14 +46,16 @@ $price-font-size-xs: 0.75rem;
 		// price before discount
 		&--before-discount {
 			display: block;
-			.currency_main {
+			.currency_main, .vat_label {
 				color: $body-color;
-				text-decoration: line-through;
-				font-weight: 600;
 				color: $gray-500;
-				font-size: $price-font-size-normal;
 				&__price {
 				}
+			}
+			.currency_main {
+				text-decoration: line-through;
+				font-weight: 600;
+				font-size: $price-font-size-normal;
 			}
 		}
 
@@ -97,13 +99,14 @@ $price-font-size-xs: 0.75rem;
 
 		.price--before-discount {
 			display: block;
-			display: block;
 			margin-bottom: 0.25rem;
-			.currency_main {
-				font-size: $price-font-size-lg;
-				font-weight: 600;
-				text-decoration: line-through;
+			.currency_main, .vat_label {
 				color: $gray-500;
+			}
+			.currency_main {
+				text-decoration: line-through;
+				font-weight: 600;
+				font-size: $price-font-size-lg;
 			}
 		}
 
@@ -157,7 +160,8 @@ $price-font-size-xs: 0.75rem;
 					}
 				}
 				.price--before-discount {
-					.currency_main {
+					.currency_main, .vat_label {
+						text-decoration: line-through;
 						font-size: $price-font-size-xs;
 					}
 				}
