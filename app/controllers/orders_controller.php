@@ -26,7 +26,7 @@ class OrdersController extends ApplicationController {
 			":spec_key" => $spec_key,
 			":order" => $order,
 		]);
-		$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
+		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}
 
