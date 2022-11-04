@@ -21,16 +21,6 @@ class MainController extends ApplicationController{
 			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
 
-		global $ATK14_GLOBAL;
-		$_supported_langs = $ATK14_GLOBAL->getSupportedLangs();
-		if (sizeof($_supported_langs)>1) {
-			$_supported_langs = array_combine($_supported_langs, $_supported_langs);
-			$_supported_langs["x-default"] = $ATK14_GLOBAL->getDefaultLang();
-			foreach($_supported_langs as $hreflang => $lang) {
-				$this->head_tags->addLinkTag("alternate", ["hreflang" => $hreflang, "href" => Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "lang" => $lang], ["with_hostname" => true])]);
-			}
-		}
-
 		$this->tpl_data["slider"] = Slider::FindByCode("homepage");
 
 		$category_recommended_cards = Category::FindByCode("recommended_cards_homepage");
