@@ -20,7 +20,6 @@ class MainController extends ApplicationController{
 			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
-		$this->head_tags->setCanonical(Atk14Url::BuildLink(["action" => "main/index"], ["with_hostname" => true]));
 
 		global $ATK14_GLOBAL;
 		$_supported_langs = $ATK14_GLOBAL->getSupportedLangs();
@@ -49,6 +48,7 @@ class MainController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"limit" => 4,
 		]);
+		$this->head_tags->setCanonical($this->_build_canonical_url("main/index"));
 	}
 
 	function robots_txt(){
