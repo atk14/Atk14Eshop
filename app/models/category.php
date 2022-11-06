@@ -47,6 +47,13 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	 * ```
 	 */
 	static function GetInstancesOnPath($path, &$lang = null, $start = null, $options = []) {
+		$options += array(
+			"dealias" => true,
+		);
+
+		$dealias = $options["dealias"];
+		unset($options["dealias"]);
+
 		$orig_lang = $lang;
 
 		$path = (string)$path;
@@ -65,7 +72,7 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 				$lang = $orig_lang; // nenechame nastaveny $lang na nejakou necekanou hodnotu
 				return null;
 			}
-			$c = $c->realMe();
+			$dealias && ($c = $c->realMe());
 			$cpath .= "/$slug";
 			$out[substr($cpath,1)] = $c;
 			$parent_category_id = $c->getId();
