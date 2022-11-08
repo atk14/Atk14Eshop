@@ -1,4 +1,21 @@
+body {
+	// styles to keep footer at the bottom on pages with very short content
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	min-height: 100vh;
+	& > * {
+		width: 100%;
+		flex-grow: 0;
+		&.body {
+			flex-grow: 100;
+		}
+	}
+}
+
+
 .body {
+	// Main content container
 	background-color: white;
 	max-width: $max-page-width;
 	margin: auto;
@@ -11,8 +28,9 @@
 	}
 }
 .body--upper {
+	// Before main container, used for content without .container-fluid
 	background-color: white;
-	max-width: $max-page-width;
+	max-width: $max-page-width; // remove to make content full width 
 	margin: auto;
 	padding-top: $grid-gutter-width;
 	&:empty {
@@ -20,6 +38,7 @@
 	}
 }
 .container-fluid {
+	// extending Bootstrap .container-fluid
 	max-width: $max-page-width;
 	margin: auto;
 	@include media-breakpoint-up( sm ){
@@ -28,13 +47,12 @@
 }
 
 // Applies CSS Grid for layout w/sidebar
-
 .body.has-nav-section {
 	.body__sticky-container {
 		
 		@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
 			display: grid;
-			// minmax function is needed for Swiper to calculate width correctly
+			// minmax function is needed for Swiper to calculate its width correctly
 			grid-template-columns: $sidebar-width minmax(0,1fr);
 			align-items: start;
 			.nav-section {
@@ -49,6 +67,7 @@
 	}
 }
 
+// Sidebar on the left edge of viewport
 .body.has-nav-section.has-nav-section--wide {
 	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
 		width: 100%;
