@@ -3,6 +3,11 @@ class TcMain extends TcBase{
 	function test_index(){
 		$this->client->get("main/index");
 		$this->assertEquals(200,$this->client->getStatusCode());
+
+		$this->assertContains('<meta property="og:description" content="Yet another application running on ATK14 Framework">', $this->client->getContent());
+		$this->assertContains('<meta property="og:title" content="Welcome! | ATK14 Eshop">', $this->client->getContent());
+		$this->assertContains('<meta property="og:type" content="website">', $this->client->getContent());
+		$this->assertContains('<meta property="og:url" content="http://atk14eshop.localhost/">', $this->client->getContent());
 	}
 
 	function test_error404(){

@@ -111,6 +111,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+		$this->_setup_head_tags_in_after_filter();
 		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
 			$this->tpl_data["head_tags"] = $this->head_tags;
 		}
@@ -629,10 +630,6 @@ class ApplicationBaseController extends Atk14Controller{
 		# @note next tags are set in templates for now
 		# meta tags
 		$this->head_tags->addHttpEquiv("content-language", $this->lang);
-		$this->head_tags->setProperty("og:title", ATK14_APPLICATION_NAME);
-		$this->head_tags->setProperty("og:type","website");
-		$this->head_tags->addProperty("og:url", $this->request->getUrl());
-		$this->head_tags->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
 		$this->head_tags->setCharsetMeta(DEFAULT_CHARSET);
 
 		# link tags
@@ -642,6 +639,34 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->head_tags->addLinkTag("preload", ["href" => "/public/dist/webfonts/fa-solid-900.woff2", "as" => "font", "type" => "font/woff2"]);
 		# adding preload using shortcut method
 		$this->head_tags->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
+	}
+
+	protected function _setup_head_tags_in_after_filter() {
+		$this->_head_tags_for_open_graph();
+	}
+
+	protected function _head_tags_for_open_graph() {
+		$this->head_tags->addProperty("og:url", $this->request->getUrl());
+		$this->head_tags->setProperty("og:title", $this->_getOGTitle());
+		$this->head_tags->setProperty("og:description", $this->_getOGDescription());
+		$this->head_tags->setProperty("og:type", $this->_getOGType());
+		$this->head_tags->addProperty("og:image", $this->_getOGImage());
+	}
+
+	protected function _getOGImage() {
+		return \HeadTags\Support\OpenGraph::GetImage($this);
+	}
+
+	protected function _getOGDescription() {
+		return \HeadTags\Support\OpenGraph::GetDescription($this);
+	}
+
+	protected function _getOGTitle() {
+		return \HeadTags\Support\OpenGraph::GetTitle($this);
+	}
+
+	protected function _getOGType() {
+		return \HeadTags\Support\OpenGraph::GetType($this);
 	}
 
 	/**

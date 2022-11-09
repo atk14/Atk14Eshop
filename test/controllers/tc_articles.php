@@ -15,5 +15,14 @@ class TcArticles extends TcBase {
 		$this->assertContains(">Interesting Article</h1>",$this->client->getContent());
 		$this->assertContains("<title>Page title",$this->client->getContent());
 		$this->assertContains('<meta name="description" content="Page description">',$this->client->getContent());
+
+		$this->_assertOGProperties();
+	}
+
+	protected function _assertOGProperties() {
+		$this->assertContains('<meta property="og:description" content="Interesting teaser">', $this->client->getContent());
+		$this->assertContains('<meta property="og:title" content="Interesting Article">', $this->client->getContent());
+		$this->assertContains('<meta property="og:type" content="article">', $this->client->getContent());
+		$this->assertContains('<meta property="og:url" content="http://atk14eshop.localhost/articles/interesting-article/">', $this->client->getContent());
 	}
 }
