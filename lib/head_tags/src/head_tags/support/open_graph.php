@@ -1,4 +1,9 @@
 <?php
+/**
+ * More info at https://developers.facebook.com/docs/sharing/webmasters#markup.
+ *
+ * @todo support more types
+ */
 namespace HeadTags\Support;
 
 class OpenGraph {
