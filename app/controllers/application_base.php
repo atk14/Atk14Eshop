@@ -651,6 +651,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->head_tags->setProperty("og:description", $this->_getOGDescription());
 		$this->head_tags->setProperty("og:type", $this->_getOGType());
 		$this->head_tags->addProperty("og:image", $this->_getOGImage());
+		$this->head_tags->addProperty("og:site_name", ATK14_APPLICATION_NAME);
 	}
 
 	protected function _getOGImage() {
