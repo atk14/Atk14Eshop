@@ -111,7 +111,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
-		$this->_setup_head_tags_in_after_filter();
+		$this->_setup_head_tags_in_before_render();
 		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
 			$this->tpl_data["head_tags"] = $this->head_tags;
 		}
@@ -641,7 +641,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->head_tags->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
 	}
 
-	protected function _setup_head_tags_in_after_filter() {
+	protected function _setup_head_tags_in_before_render() {
 		$this->_head_tags_for_open_graph();
 	}
 
