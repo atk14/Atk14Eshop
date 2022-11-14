@@ -23,6 +23,6 @@ class TcArticles extends TcBase {
 		$this->assertContains('<meta property="og:description" content="Interesting teaser">', $this->client->getContent());
 		$this->assertContains('<meta property="og:title" content="Interesting Article">', $this->client->getContent());
 		$this->assertContains('<meta property="og:type" content="article">', $this->client->getContent());
-		$this->assertContains('<meta property="og:url" content="http://atk14eshop.localhost/articles/interesting-article/">', $this->client->getContent());
+		$this->assertContains(sprintf('<meta property="og:url" content="http://%s/articles/interesting-article/">', ATK14_HTTP_HOST), $this->client->getContent());
 	}
 }

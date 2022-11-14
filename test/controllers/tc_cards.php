@@ -46,6 +46,6 @@ class TcCards extends TcBase {
 		$this->assertContains('<meta property="og:description">', $this->client->getContent());
 		$this->assertContains('<meta property="og:title" content="Coffee">', $this->client->getContent());
 		$this->assertContains('<meta property="og:type" content="article">', $this->client->getContent());
-		$this->assertContains('<meta property="og:url" content="http://atk14eshop.localhost/drink/coffee/">', $this->client->getContent());
+		$this->assertContains(sprintf('<meta property="og:url" content="http://%s/drink/coffee/">', ATK14_HTTP_HOST), $this->client->getContent());
 	}
 }
