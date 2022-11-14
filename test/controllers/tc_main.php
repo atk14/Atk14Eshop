@@ -5,7 +5,7 @@ class TcMain extends TcBase{
 		$this->assertEquals(200,$this->client->getStatusCode());
 
 		$this->assertContains(sprintf('<meta property="og:description" content="%s">', ATK14_APPLICATION_DESCRIPTION), $this->client->getContent());
-		$this->assertContains('<meta property="og:title" content="Welcome! | ATK14 Eshop">', $this->client->getContent());
+		$this->assertContains(sprintf('<meta property="og:title" content="Welcome! | %s">', ATK14_APPLICATION_NAME), $this->client->getContent());
 		$this->assertContains('<meta property="og:type" content="website">', $this->client->getContent());
 		$this->assertContains(sprintf('<meta property="og:url" content="http://%s/">', ATK14_HTTP_HOST), $this->client->getContent());
 	}
