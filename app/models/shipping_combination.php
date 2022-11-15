@@ -68,9 +68,9 @@ class ShippingCombination extends ApplicationModel {
 	}
 
 	static function IsAllowed($delivery_method_id, $payment_method_id) {
-    if(is_null($delivery_method_id) || is_null($payment_method_id)){
-      return null;
-    }
+		if(is_null($delivery_method_id) || is_null($payment_method_id)){
+			return null;
+		}
 
 		!is_object($delivery_method_id) && ($delivery_method_id = DeliveryMethod::GetInstanceById($delivery_method_id));
 		# check if DeliveryMethod is connected to a DeliveryService and if it is usable in that case.
@@ -91,7 +91,7 @@ class ShippingCombination extends ApplicationModel {
 				pm.active AND
 				delivery_method_id=:delivery_method_id AND
 				payment_method_id=:payment_method_id
-";
+		";
 		return $dbmole->selectBool($q, array(":delivery_method_id" => $delivery_method_id, ":payment_method_id" => $payment_method_id));
 	}
 
