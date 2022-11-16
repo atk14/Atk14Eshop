@@ -542,6 +542,27 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return $fd;
 	}
 
+	function containsTag($tag,$options = []){
+		$options += [
+			"consider_parents" => false,
+		];
+
+		if($this->getTagsLister()->contains($tag)){
+			return true;
+		}
+		if($options["consider_parents"]){
+			$c = $this;
+			while($c){
+				if($c->getTagsLister()->contains($tag)){
+					return true;
+				}
+				$c = $c->getParentCategory();
+			}
+		}
+		return false;
+	}
+	function hasTag($tag,$options = []) { return $this->containsTag($tag,$options); }
+
 	/**
 	 * Vytvori SQL podminku pro karty, ze nalezi do dane kategorie (a podkategorii).
 	 * Predpocita si ji v temporary SQL tabulce, takze vic dotazu na stejnou vec
