@@ -13,3 +13,6 @@ spring:
 
 oversized_product:
   tag: "oversized product"
+
+sale:
+  tag: sale

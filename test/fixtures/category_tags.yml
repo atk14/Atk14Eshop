@@ -1,0 +1,3 @@
+food_drinks__sale:
+  category_id: "<?= $categories["food_drinks"]->getId() ?>"
+  tag_id: "<?= $tags["sale"]->getId() ?>"
