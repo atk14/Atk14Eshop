@@ -230,9 +230,16 @@ class ProductPrice {
 	}
 
 	function _getPriceItem(){
+		if(!$this->data["prices"]){
+			return;
+		}
+		if(sizeof($this->data["prices"])==1 && $this->data["prices"][0]["minimum_quantity"]<=1){
+			return $this->data["prices"][0];
+		}
+
 		$product = $this->getProduct();
 		$amount = $this->amount;
-		$minimum_quantity_to_order = $product->getMinimumQuantityToOrder();
+		$minimum_quantity_to_order = $product->getMinimumQuantityToOrder(); // this can be time consuming
 
 		if(!$product->quantityDiscountsEnabled()){
 			$amount = $minimum_quantity_to_order;
