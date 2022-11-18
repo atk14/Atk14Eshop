@@ -7,6 +7,7 @@
  * @fixture shipping_combinations
  * @fixture products
  * @fixture card_tags
+ * @fixture tags
  */
 class TcShippingCombination extends TcBase {
 
@@ -78,5 +79,24 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(sizeof($delivery_methods)>0);
 		$labels = array_map(function($dm){ return $dm->getLabel(); },$delivery_methods);
 		$this->assertTrue(!in_array("Digital product download",$labels));
+	}
+
+	function test_excluded_tags(){
+		$fun = $this->tags["fun"];
+		$dpd = $this->delivery_methods["dpd"];
+		$peanuts = $this->products["peanuts"];
+		$peanuts->getCard()->getTagsLister()->add($fun);
+		$dpd->getExcludedForTagsLister()->add($fun);
+
+		$basket = Basket::CreateNewRecord([]);
+
+		list($delivery_methods_empty,$payment_methods_empty) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$basket->setProductAmount($peanuts,1);
+		$this->assertFalse($basket->isEmpty());
+
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+
+		$this->assertTrue(sizeof($delivery_methods_empty)>sizeof($delivery_methods));
 	}
 }
