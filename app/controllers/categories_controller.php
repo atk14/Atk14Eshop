@@ -18,7 +18,7 @@ class CategoriesController extends CardListController{
 
 	function detail(){
 		$this->_detail();
-		if($this->tpl_data["category"]){
+		if(isset($this->tpl_data["category"])){
 			$this->head_tags->setCanonical($this->_link_to(["path" => $this->tpl_data["category"]->getPath()], ["with_hostname" => true]));
 		}
 	}
