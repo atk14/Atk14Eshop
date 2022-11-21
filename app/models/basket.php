@@ -1187,7 +1187,7 @@ class Basket extends BasketOrOrder {
 		if($this->isEmpty()){ return false; }
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
-			if(!$product->containsTag($tag)){ return false; }
+			if(!$product->containsTag($tag,["consider_categories" => true])){ return false; }
 		}
 		return true;
 	}
@@ -1195,9 +1195,7 @@ class Basket extends BasketOrOrder {
 	function containsProductWithTag($tag){
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
-			if($product->containsTag($tag)){
-				return true;
-			}
+			if($product->containsTag($tag,["consider_categories" => true])){ return true; }
 		}
 		return false;
 	}

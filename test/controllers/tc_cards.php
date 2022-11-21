@@ -16,6 +16,8 @@ class TcCards extends TcBase {
 		$this->assertContains($card->getName(),$client->getContent());
 		$this->assertNotContains("We apologize, but the sale is already over.",$client->getContent());
 
+		$this->_assertOGProperties();
+
 		// Invisible product
 		$card->s("visible",false);
 		$client->get("cards/detail",["id" => $card]);
@@ -37,5 +39,13 @@ class TcCards extends TcBase {
 		$this->assertEquals(404,$client->getStatusCode());
 		$this->assertNotContains($card->getName(),$client->getContent());
 		$this->assertNotContains("We apologize, but the sale is already over.",$client->getContent());
+
+	}
+
+	protected function _assertOGProperties() {
+		$this->assertContains('<meta property="og:description">', $this->client->getContent());
+		$this->assertContains('<meta property="og:title" content="Coffee">', $this->client->getContent());
+		$this->assertContains('<meta property="og:type" content="article">', $this->client->getContent());
+		$this->assertContains(sprintf('<meta property="og:url" content="http://%s/drink/coffee/">', ATK14_HTTP_HOST), $this->client->getContent());
 	}
 }

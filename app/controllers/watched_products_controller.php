@@ -37,7 +37,7 @@ class WatchedProductsController extends ApplicationController {
 
 		$this->_save_return_uri();
 
-		$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
+		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 		$this->head_tags->setMetaTag("googlebot", "noindex");
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["product_id"] = $product;

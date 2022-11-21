@@ -111,6 +111,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+		$this->_setup_head_tags_in_before_render();
 		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
 			$this->tpl_data["head_tags"] = $this->head_tags;
 		}
@@ -133,7 +134,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$item = array(
 				"lang" => $l,
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
-				"switch_url" => $this->_link_to($params)
+				"switch_url" => $this->_link_to($params,["with_hostname" => true]),
 			);
 			$all_languages[] = $item;
 			if($this->lang==$l){
@@ -624,14 +625,11 @@ class ApplicationBaseController extends Atk14Controller{
 		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
+		$this->_setup_hreflang_for_head_tags();
 		return;
 		# @note next tags are set in templates for now
 		# meta tags
 		$this->head_tags->addHttpEquiv("content-language", $this->lang);
-		$this->head_tags->setProperty("og:title", ATK14_APPLICATION_NAME);
-		$this->head_tags->setProperty("og:type","website");
-		$this->head_tags->addProperty("og:url", $this->request->getUrl());
-		$this->head_tags->addProperty("og:image", SystemParameter::ContentOn("app.social.default_image"));
 		$this->head_tags->setCharsetMeta(DEFAULT_CHARSET);
 
 		# link tags
@@ -641,6 +639,35 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->head_tags->addLinkTag("preload", ["href" => "/public/dist/webfonts/fa-solid-900.woff2", "as" => "font", "type" => "font/woff2"]);
 		# adding preload using shortcut method
 		$this->head_tags->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
+	}
+
+	protected function _setup_head_tags_in_before_render() {
+		$this->_head_tags_for_open_graph();
+	}
+
+	protected function _head_tags_for_open_graph() {
+		$this->head_tags->addProperty("og:url", $this->request->getUrl());
+		$this->head_tags->setProperty("og:title", $this->_getOGTitle());
+		$this->head_tags->setProperty("og:description", $this->_getOGDescription());
+		$this->head_tags->setProperty("og:type", $this->_getOGType());
+		$this->head_tags->addProperty("og:image", $this->_getOGImage());
+		$this->head_tags->addProperty("og:site_name", ATK14_APPLICATION_NAME);
+	}
+
+	protected function _getOGImage() {
+		return \HeadTags\Support\OpenGraph::GetImage($this);
+	}
+
+	protected function _getOGDescription() {
+		return \HeadTags\Support\OpenGraph::GetDescription($this);
+	}
+
+	protected function _getOGTitle() {
+		return \HeadTags\Support\OpenGraph::GetTitle($this);
+	}
+
+	protected function _getOGType() {
+		return \HeadTags\Support\OpenGraph::GetType($this);
 	}
 
 	/**
@@ -673,5 +700,61 @@ class ApplicationBaseController extends Atk14Controller{
 		)){
 			$this->template_name = "application/$this->action";
 		}
+	}
+
+	/**
+	 *
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url();
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url("index");
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url(["action" => "pages/detail", "id" => $this->page]);
+	 */
+	function _build_canonical_url($action_or_params = "",$params = []){
+		if(!$action_or_params){
+			$action_or_params = $this->action;
+		}
+		if(is_array($action_or_params)){
+			$params = $action_or_params;
+		}else{
+			$params["action"] = $action_or_params;
+		}
+		return $this->_link_to($params,["with_hostname" => true]);
+	}
+
+	protected function _setup_hreflang_for_head_tags() {
+		global $ATK14_GLOBAL;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+
+		$current_language = null;
+
+		$langs = [];
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+		# do not setup hreflang when only one locale
+		if (!(sizeof($locales)>1)) {
+			return;
+		}
+		foreach($locales as $lang => $locale) {
+			$params["lang"] = $lang;
+			$_url = $this->_link_to($params,["with_hostname" => true]);
+			# first hreflang with just a language code
+			$langs[] = [
+				"lang" => $lang,
+				"url" => $_url,
+			];
+			list($locale_lang,$encoding) = preg_split("/\./", $locale["LANG"].".");
+			# second hreflang for language-country code
+			$langs[] = [
+				"lang" => strtr($locale_lang, "_", "-"),
+				"url" => $_url,
+			];
+		}
+
+		foreach($langs as $lang) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["url"]]);
+			if ($ATK14_GLOBAL->getDefaultLang() == $lang["lang"]) {
+				$current_language = $lang;
+			}
+		}
+		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
 	}
 }

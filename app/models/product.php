@@ -112,11 +112,24 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 		}
 	}
 
-	function containsTag($tag){
+	function containsTag($tag,$options = []){
+		$options += [
+			"consider_categories" => false,
+		];
+
 		$card = $this->getCard();
 		if($card->containsTag($tag)){ return true; }
 		if($card->hasVariants()){
-			return $this->getTagsLister()->contains($tag);
+			if($this->getTagsLister()->contains($tag)){
+				return true;
+			}
+		}
+		if($options["consider_categories"]){
+			foreach($card->getCategories() as $category){
+				if($category->containsTag($tag,["consider_parents" => true])){
+					return true;
+				}
+			}
 		}
 		return false;
 	}

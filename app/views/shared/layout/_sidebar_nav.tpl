@@ -1,4 +1,4 @@
-{assign root Category::GetInstanceByCode("catalog")}
+{assign root Category::MainRootCategory()}
 {assign tree CategoryTree::GetInstance($root,["visible" => true, "is_filter" => false])}
 
 {assign current_node ""}
