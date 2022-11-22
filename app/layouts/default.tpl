@@ -120,6 +120,7 @@
 		{render partial="shared/cookie_consent/banner"}
 		
 		{render partial="shared/basket_info_float_container"}
+		{render partial="shared/basket_overview_popup"}
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
