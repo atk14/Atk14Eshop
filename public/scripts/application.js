@@ -154,9 +154,9 @@
 						var floatBasket = $( ".js--basket_info_float-container" );
 						changes.forEach( function( change ) {
 							if ( change.isIntersecting ) {
-								floatBasket.removeClass( "show" );
+								floatBasket.removeClass( "visible" );
 							} else {
-								floatBasket.addClass( "show" );
+								floatBasket.addClass( "visible" );
 							}
 						});
 					}

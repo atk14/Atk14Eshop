@@ -1,4 +1,4 @@
-<div class="basket-overview-popup basket-overview-popup--loaded top">
+<div class="basket-overview-popup dropdown-menu dropdown-menu-right js--basket-overview-popup">
   <div class="basket-overview-popup__content">
     {render partial="shared/basket_overview_popup_content"}
   </div>

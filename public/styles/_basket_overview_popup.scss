@@ -1,24 +1,28 @@
 .basket-overview-popup {
-  position: fixed;
-  display: flex;
+  position: absolute !important;
+  //display: flex;
   flex-direction: column;
-  right: 100px;
-  top: 100px;
-  z-index: $zindex-popover;
-  background-color: $body-bg;
+  background-color: $body-bg !important;
   border: 1px solid $border-color;
   width: 300px;
   box-shadow: $popover-box-shadow;
   border-radius: $border-radius;
   min-height: 100px;
   transition: height 0.2s;
-  &.side {
+  padding: 0;
+  @include media-breakpoint-down(sm){
+    right: $grid-gutter-width/4;
+  }
+  .show > & {
+    display: flex;
+  }
+  .dropright & {
     border-right: 4px solid $brand;
   }
-  &.top {
+  .dropdown & {
     border-top: 4px solid $brand;
   }
-  &--loading {
+  &[data-status="loading"] {
     display: flex;
     .basket-overview-popup__content, .basket-overview-popup__empty, .basket-overview-popup__footer {
       display: none;
@@ -111,6 +115,7 @@
     padding: $grid-gutter-width/4;
     .btn {
       width: 100%;
+      color: white !important;
       .fas, .far {
         &:first-child {
           margin-right: 0.5ch;

@@ -42,6 +42,7 @@ var applicationScripts = [
 	"public/scripts/delivery_service_widgets.js",
 	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/utils/cookie_consent.js",
+	"public/scripts/utils/basket_overview_dropdown.js",
 	"public/scripts/application.js"
 ];
 

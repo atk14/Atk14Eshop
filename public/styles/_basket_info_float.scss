@@ -7,7 +7,7 @@
 
   @media( min-width: $max-page-width + 200px ) {
     display: block;
-    &.show {
+    &.visible {
       //display: block;
       right: 0;
       opacity: 1;
@@ -58,6 +58,11 @@
           display: none;
         }
       }
+    }
+
+    &.show > a.js--basket_info_float {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
 
   }
