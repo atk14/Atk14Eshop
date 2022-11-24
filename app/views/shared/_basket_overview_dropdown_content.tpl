@@ -1,5 +1,5 @@
 {if !$basket->isEmpty()}
-  <div class="basket-overview-popup__items">
+  <div class="basket-overview-dropdown__items">
     <table>
       <tbody>
         {for $foo=1 to 8}
@@ -21,12 +21,12 @@
       </tbody>
     </table>
   </div>
-  <div class="basket-overview-popup__total">
-    <span class="basket-overview-popup__total__title">{t}Celkem{/t}</span>
-    <span class="basket-overview-popup__total__price">1 235 Kč</span>
+  <div class="basket-overview-dropdown__total">
+    <span class="basket-overview-dropdown__total__title">{t}Celkem{/t}</span>
+    <span class="basket-overview-dropdown__total__price">1 235 Kč</span>
   </div>
 {else}
-  <div class="basket-overview-popup__empty">
+  <div class="basket-overview-dropdown__empty">
     {t}The shopping basket is empty.{/t}
   </div>
 {/if}

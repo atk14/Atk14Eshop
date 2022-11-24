@@ -9,5 +9,5 @@
   <div class="cart__price">{!$basket->getItemsPrice($incl_vat)|display_price:"$currency,summary"}</div>
   {/if}
 </a>
-{render partial="shared/basket_overview_popup"}
+{render partial="shared/basket_overview_dropdown"}
 
