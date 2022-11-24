@@ -17,8 +17,6 @@ window.UTILS.initBasketOverviewDropdown = function() {
       console.log( "basket not empty" );
       $this.basketDropdownInner.attr( "data-status", "loaded" );
     }
-    // pokud nastane chyba
-    // $this.basketDropdownInner.attr( "data-status", "error" );
   }
 
   this.loadBasketContent = function( e ){

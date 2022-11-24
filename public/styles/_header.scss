@@ -121,7 +121,7 @@ ol.breadcrumb {
 					}
 				}
 				@include media-breakpoint-down(sm){
-				.dropdown-menu:not(.basket-overview-popup) {
+				.dropdown-menu:not(.basket-overview-dropdown) {
 					background-color: inherit;
 					border: none;
 					padding-top: 0;
@@ -212,7 +212,7 @@ ol.breadcrumb {
 						}
 					}
 				}
-				.dropdown-menu:not(.basket-overview-popup) {
+				.dropdown-menu:not(.basket-overview-dropdown) {
 					position: absolute !important;
 					background-color: rgba(black,0.8) !important;
 				}

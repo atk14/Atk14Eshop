@@ -4,12 +4,18 @@
   
   background-color: $body-bg !important;
   border: 1px solid $border-color;
-  width: 300px;
+  width: 360px;
   box-shadow: $popover-box-shadow;
   border-radius: $border-radius;
   //min-height: 100px;
   transition: height 0.2s;
   padding: 0;
+
+  @media(max-width:400px) {
+    width: calc(100vw - #{$grid-gutter-width/2});
+  }
+
+
   &__inner {
     display: flex;
     flex-direction: column;
@@ -66,7 +72,7 @@
   &__content {
     .basket-overview-dropdown__items {
       font-size: $font-size-sm;
-      max-height: 200px;
+      max-height: calc(100vh - 240px);
       overflow-y: auto;
       table {
         width: 100%;
@@ -94,6 +100,7 @@
             }
             &__name {
               font-weight: $font-weight-bold;
+              line-height: 1.1;
             }
             &__quantity {
               text-align: right;
@@ -109,6 +116,7 @@
       }
     }
     .basket-overview-dropdown__total {
+      position: relative;
       padding: $grid-gutter-width/4;
       padding-bottom: 0;
       border-top: 1px solid $border-color;
@@ -120,6 +128,17 @@
       }
       &__price {
         text-align: right;
+      }
+      &:after {
+        $gradientSize: 12px;
+        position: absolute;
+        content: " ";
+        top: 0 - $gradientSize;
+        left: 0;
+        width: 100%;
+        height: $gradientSize;
+        background: linear-gradient(0deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%);
+        pointer-events: none;
       }
     }
   }

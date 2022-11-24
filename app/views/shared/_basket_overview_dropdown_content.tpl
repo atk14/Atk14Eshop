@@ -2,28 +2,30 @@
   <div class="basket-overview-dropdown__items">
     <table>
       <tbody>
-        {for $foo=1 to 8}
+        {foreach $basket->getItems() as $item}
+          {assign product $item->getProduct()}
           <tr class="item">
             <td class="item__image">
-              <img src="https://placekitten.com/50/50" width="50" height="50" alt="">
+              {!$product->getImage()|pupiq_img:"50x50x#ffffff"}
             </td>
             <td class="item__name">
-              Product name
+              {$product->getName()}
             </td>
             <td class="item__quantity">
-              2&nbsp;ks
+              {$item->getAmount()} {t}ks{/t}
             </td>
             <td class="item__price">
-              358&nbsp;Kč
-            </td>
+              {!$item->getUnitPrice($incl_vat)|display_price:$currency}
+            </td>   
           </tr>
-        {/for}
+        {/foreach}
       </tbody>
     </table>
+    {*$basket->getItems()|print_r*}
   </div>
   <div class="basket-overview-dropdown__total">
     <span class="basket-overview-dropdown__total__title">{t}Celkem{/t}</span>
-    <span class="basket-overview-dropdown__total__price">1 235 Kč</span>
+    <span class="basket-overview-dropdown__total__price">{!$basket->getItemsPrice($incl_vat)|display_price:"$currency,summary"}</span>
   </div>
 {else}
   <div class="basket-overview-dropdown__empty">
