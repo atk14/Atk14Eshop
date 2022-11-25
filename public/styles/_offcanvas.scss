@@ -37,7 +37,26 @@
   }
   overflow-x: hidden;
   overflow-y: auto;
-  width: 330px;		
+  width: 330px;
+
+  @media(max-width: 350px) {
+    width: calc(100vw - 20px);
+  }
+
+  &-header {
+    padding: $grid-gutter-width/4;
+    background-color: $brand;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > * {
+      color: inherit;
+    }
+  }
+  &-title {
+    margin: 0;
+  }
 }
 
 .bs-offcanvas-left {
@@ -48,4 +67,8 @@
 .bs-offcanvas-right {
   right: 0;
   margin-right: -330px;
+}
+
+body.offcanvas-visible {
+  overflow: hidden;
 }

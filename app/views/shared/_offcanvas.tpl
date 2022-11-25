@@ -1,7 +1,7 @@
-<div id="bs-offcanvas-right" class="bs-offcanvas bs-offcanvas-right bg-light">
-	<header class="bs-offcanvas-header p-3 bg-danger overflow-auto">
-    	<button type="button" class="bs-offcanvas-close float-left close" aria-label="Close" aria-expanded="false"><span aria-hidden="true" class="text-light">&times;</span></button>
-        <h4 class="d-inline-block text-light mb-0 float-right">OffCanvas Header</h4>
+<div id="offcanvas-basket" class="bs-offcanvas bs-offcanvas-right bg-light">
+	<header class="bs-offcanvas-header p-3">
+    	<button type="button" class="bs-offcanvas-close close" aria-label="Close" aria-expanded="false"><span aria-hidden="true" class="text-light">&times;</span></button>
+      <h4 class="bs-offcanvas-title">{t}Basket{/t}</h4>
     </header>
     <div class="bs-offcanvas-content px-3 pt-5">
     	<div class="list-group mb-5">

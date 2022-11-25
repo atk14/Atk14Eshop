@@ -12,19 +12,18 @@ window.UTILS.initOffCanvas = function() {
 
   var $ = window.jQuery;
 
-  const offCanvasShowEvent = new Event( "bs-offcanvas-show" );
-  const offCanvasHideEvent = new Event( "bs-offcanvas-hide" );
+  var offCanvasShowEvent = new Event( "bs-offcanvas-show" );
+  var offCanvasHideEvent = new Event( "bs-offcanvas-hide" );
 
-  console.log( "offcanvas init" );
 	var bsOverlay = $( ".bs-offcanvas-overlay" );
 	$( "[data-toggle='offcanvas']" ).on( "click", function() {
-    console.log( offCanvasShowEvent );
 		var ctrl = $(this), 
 		elm = ctrl.is( "button" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
 		$( elm ).addClass( "mr-0" );
 		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
 		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
     $( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
+    $( "body" ).addClass( "offcanvas-visible" );
 		if( bsOverlay.length ) {
 			bsOverlay.addClass( "show" );
     }
@@ -42,6 +41,7 @@ window.UTILS.initOffCanvas = function() {
 		}
 		elm.removeClass( "mr-0" );
     elm.get( 0 ).dispatchEvent( offCanvasHideEvent );
+    $( "body" ).removeClass( "offcanvas-visible" );
 		$( ".bs-offcanvas-close", elm ).attr( "aria-expanded", "false" );
 		if( bsOverlay.length ) {
 			bsOverlay.removeClass( "show" )
