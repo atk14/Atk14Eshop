@@ -1,0 +1,51 @@
+/*
+  Bootstrap offcanvas overlay
+  based on 
+  https://github.com/as-tx/bootstrap-off-canvas-sidebar/blob/master/accessibility-demo.html
+  https://fellowtuts.com/html-css/off-canvas-menu-sidebar-overlay/
+  https://as-tx.github.io/bootstrap-off-canvas-sidebar/offset-overlay-full-demo.html
+*/
+.bs-canvas-overlay {
+  opacity: 0;
+  z-index: -1;
+  position: fixed;
+  overflow: hidden;
+  background-color: rgba(black,0.2);
+}
+
+.bs-canvas-overlay.show {
+  opacity: 0.85;
+  z-index: 1100;
+  width: 100vw;
+  height: 100vh;  
+}
+
+.bs-canvas-overlay, .bs-canvas {
+  transition: all .4s ease-out;
+  -webkit-transition: all .4s ease-out;
+  -moz-transition: all .4s ease-out;
+  -ms-transition: all .4s ease-out;
+}
+
+.bs-canvas {
+  top: 0;
+  z-index: 1110;
+  position: fixed;
+  height: 100vh;
+  @supports(height: 100dvh) {
+    height: 100dvh;
+  }
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 330px;		
+}
+
+.bs-canvas-left {
+  left: 0;
+  margin-left: -330px;
+}
+
+.bs-canvas-right {
+  right: 0;
+  margin-right: -330px;
+}
