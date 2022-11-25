@@ -1,9 +1,9 @@
-<div id="bs-canvas-right" class="bs-canvas bs-canvas-right bg-light">
-	<header class="bs-canvas-header p-3 bg-danger overflow-auto">
-    	<button type="button" class="bs-canvas-close float-left close" aria-label="Close" aria-expanded="false"><span aria-hidden="true" class="text-light">&times;</span></button>
-        <h4 class="d-inline-block text-light mb-0 float-right">Canvas Header</h4>
+<div id="bs-offcanvas-right" class="bs-offcanvas bs-offcanvas-right bg-light">
+	<header class="bs-offcanvas-header p-3 bg-danger overflow-auto">
+    	<button type="button" class="bs-offcanvas-close float-left close" aria-label="Close" aria-expanded="false"><span aria-hidden="true" class="text-light">&times;</span></button>
+        <h4 class="d-inline-block text-light mb-0 float-right">OffCanvas Header</h4>
     </header>
-    <div class="bs-canvas-content px-3 py-5">
+    <div class="bs-offcanvas-content px-3 pt-5">
     	<div class="list-group mb-5">
           	<a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
           	<a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>

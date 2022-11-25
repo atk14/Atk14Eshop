@@ -9,32 +9,40 @@ window.UTILS = window.UTILS || { };
 */
 
 window.UTILS.initOffCanvas = function() {
+
   var $ = window.jQuery;
+
+  const offCanvasShowEvent = new Event( "bs-offcanvas-show" );
+  const offCanvasHideEvent = new Event( "bs-offcanvas-hide" );
+
   console.log( "offcanvas init" );
-	var bsOverlay = $( ".bs-canvas-overlay" );
-	$( "[data-toggle='canvas']" ).on( "click", function() {
+	var bsOverlay = $( ".bs-offcanvas-overlay" );
+	$( "[data-toggle='offcanvas']" ).on( "click", function() {
+    console.log( offCanvasShowEvent );
 		var ctrl = $(this), 
 		elm = ctrl.is( "button" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
 		$( elm ).addClass( "mr-0" );
-		$( elm + " .bs-canvas-close" ).attr( "aria-expanded", "true" );
+		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
 		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
+    $( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
 		if( bsOverlay.length ) {
 			bsOverlay.addClass( "show" );
     }
 		return false;
 	} );
 	
-	$( ".bs-canvas-close, .bs-canvas-overlay" ).on( "click", function() {
+	$( ".bs-offcanvas-close, .bs-offcanvas-overlay" ).on( "click", function() {
 		var elm;
-		if( $( this ).hasClass( "bs-canvas-close" ) ) {
-			elm = $( this ).closest( ".bs-canvas" );
+		if( $( this ).hasClass( "bs-offcanvas-close" ) ) {
+			elm = $( this ).closest( ".bs-offcanvas" );
 			$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "false" );
 		} else {
-			elm = $( ".bs-canvas" );
-			$( "[data-toggle='canvas']" ).attr( "aria-expanded", "false" );	
+			elm = $( ".bs-offcanvas" );
+			$( "[data-toggle='offcanvas']" ).attr( "aria-expanded", "false" );	
 		}
 		elm.removeClass( "mr-0" );
-		$( ".bs-canvas-close", elm ).attr( "aria-expanded", "false" );
+    elm.get( 0 ).dispatchEvent( offCanvasHideEvent );
+		$( ".bs-offcanvas-close", elm ).attr( "aria-expanded", "false" );
 		if( bsOverlay.length ) {
 			bsOverlay.removeClass( "show" )
     };

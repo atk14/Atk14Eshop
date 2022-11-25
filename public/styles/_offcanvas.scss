@@ -5,31 +5,31 @@
   https://fellowtuts.com/html-css/off-canvas-menu-sidebar-overlay/
   https://as-tx.github.io/bootstrap-off-canvas-sidebar/offset-overlay-full-demo.html
 */
-.bs-canvas-overlay {
+.bs-offcanvas-overlay {
   opacity: 0;
   z-index: -1;
   position: fixed;
   overflow: hidden;
-  background-color: rgba(black,0.2);
-}
-
-.bs-canvas-overlay.show {
-  opacity: 0.85;
-  z-index: 1100;
+  background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
   width: 100vw;
   height: 100vh;  
 }
 
-.bs-canvas-overlay, .bs-canvas {
+.bs-offcanvas-overlay.show {
+  z-index: $zindex-modal-backdrop;
+  opacity: 1;
+}
+
+.bs-offcanvas-overlay, .bs-offcanvas {
   transition: all .4s ease-out;
   -webkit-transition: all .4s ease-out;
   -moz-transition: all .4s ease-out;
   -ms-transition: all .4s ease-out;
 }
 
-.bs-canvas {
+.bs-offcanvas {
   top: 0;
-  z-index: 1110;
+  z-index: $zindex-modal;
   position: fixed;
   height: 100vh;
   @supports(height: 100dvh) {
@@ -40,12 +40,12 @@
   width: 330px;		
 }
 
-.bs-canvas-left {
+.bs-offcanvas-left {
   left: 0;
   margin-left: -330px;
 }
 
-.bs-canvas-right {
+.bs-offcanvas-right {
   right: 0;
   margin-right: -330px;
 }
