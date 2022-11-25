@@ -1,6 +1,10 @@
 <?php
 class BasketsController extends ApplicationController {
 
+	function detail(){
+		
+	}
+
 	function edit(){
 		$basket = $this->_get_basket();
 		$this->_prepare_basket_edit_form($basket,$this->form);
