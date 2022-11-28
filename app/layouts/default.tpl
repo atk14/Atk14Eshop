@@ -80,6 +80,7 @@
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
+		<div class="bs-offcanvas-overlay"></div>
 		<div class="body" id="page-body">
 			{render partial="shared/layout/header"}
 			{placeholder for="out_of_container"}
@@ -104,12 +105,18 @@
 
 				<div class="content-main">
 					{render partial="shared/layout/flash_message"}
+					<div class="border p-2">
+						<button class="btn btn-danger" type="button" data-toggle="offcanvas" data-target="#offcanvas-basket" aria-expanded="false" aria-controls="offcanvas-basket">&#9776;</button> Offcanvas demo
+					</div>
 					{placeholder}
 				</div>
 			</div>
 
 			{render partial="shared/layout/footer"}
 		</div>
+
+		{render partial="shared/offcanvas_basket"}
+		
 
 		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">
