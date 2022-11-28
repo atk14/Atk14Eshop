@@ -28,6 +28,9 @@
 }
 
 .bs-offcanvas {
+
+  $offcanvas-header-bg: $brand;
+
   top: 0;
   z-index: $zindex-modal;
   position: fixed;
@@ -45,13 +48,21 @@
 
   &-header {
     padding: $grid-gutter-width/4;
-    background-color: $brand;
-    color: white;
+    background-color: $offcanvas-header-bg;
+    color: color-yiq( $offcanvas-header-bg, $body-color, white );
     display: flex;
     justify-content: space-between;
     align-items: center;
     & > * {
       color: inherit;
+    }
+  }
+  &-close {
+    opacity: .75;
+    text-shadow: none;
+    &:hover {
+      color: inherit;
+      opacity: 1 !important;
     }
   }
   &-title {

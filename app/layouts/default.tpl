@@ -115,7 +115,7 @@
 			{render partial="shared/layout/footer"}
 		</div>
 
-		{render partial="shared/offcanvas"}
+		{render partial="shared/offcanvas_basket"}
 		
 
 		<div class="search-suggestions js--suggesting">
