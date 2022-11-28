@@ -1,0 +1,80 @@
+#offcanvas-basket {
+  .bs-offcanvas-content {
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    .basket-content {
+
+      &[data-status="loading"] {
+        display: none;
+      }
+      &[data-status="loaded"] {
+        flex-grow: 100;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+      }
+      &[data-status="error"] {
+        display: none;
+      }
+
+      &__empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      &__items {
+        flex-grow: 100;
+        overflow-y: auto;
+      }
+
+      &__total {
+        padding: $form-grid-gutter-width;
+        padding-bottom: 0;
+        border-top: 1px solid $border-color;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .description {
+          padding-right: 1ch;
+        }
+        .price {
+          font-weight: bold;
+        }
+      }
+    }
+    .basket-loading, .basket-error {
+      display: none;
+    }
+    .basket-content[data-status="loading"] ~ .basket-loading {
+      flex-grow: 100;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      p {
+        margin-top: 1em;
+      }
+    }
+    .basket-content[data-status="error"] ~ .basket-error {
+      flex-grow: 100;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: $danger;
+      padding: $grid-gutter-width/2;
+    }
+    .basket-link {
+      flex-grow: 0;
+      padding: $grid-gutter-width/4;
+      .btn {
+        display: block;
+      }
+    }
+  }
+}

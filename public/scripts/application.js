@@ -207,6 +207,12 @@
 
 				// Init NoUiSlider
 
+				// Init offvanvas component
+				window.UTILS.initOffCanvas();
+
+				// Init offcanvas basket preview
+				window.UTILS.offcanvasBasket();
+
 			}
 
 		},

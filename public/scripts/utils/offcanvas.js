@@ -18,7 +18,6 @@ window.UTILS.initOffCanvas = function() {
 	var bsOverlay = $( ".bs-offcanvas-overlay" );
 	$( "[data-toggle='offcanvas']" ).on( "click", function() {
 		var ctrl = $(this), 
-		//elm = ctrl.is( "button" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
 		elm = ctrl.data( "target" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
 		$( elm ).addClass( "mr-0" );
 		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
@@ -51,4 +50,27 @@ window.UTILS.initOffCanvas = function() {
 	} );
 };
 
-window.UTILS.initOffCanvas();
+window.UTILS.offcanvasBasket = function() {
+	var $ = window.jQuery;
+	var $this = this;
+	this.element = $( "#offcanvas-basket .bs-offcanvas-content .basket-content" )
+
+	this.loadBasket = function() {
+		$this.element.html( "" );
+		$this.element.attr( "data-status", "loading" );
+		$this.element.load( "/cs/baskets/detail", function( response, status, jqXHR ) {
+			switch( status ) {
+				case "success" :
+					$this.element.attr( "data-status", "loaded" );
+					break;
+				case "error" :
+					$this.element.attr( "data-status", "error" );
+					$this.element.parent().find( ".js--basket-error" ).html( "Error " +  jqXHR.status + ": " + jqXHR.statusText );
+					break;
+			}
+		} );
+	};
+
+	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+
+};
