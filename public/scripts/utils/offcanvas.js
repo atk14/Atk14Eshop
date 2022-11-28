@@ -18,7 +18,8 @@ window.UTILS.initOffCanvas = function() {
 	var bsOverlay = $( ".bs-offcanvas-overlay" );
 	$( "[data-toggle='offcanvas']" ).on( "click", function() {
 		var ctrl = $(this), 
-		elm = ctrl.is( "button" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
+		//elm = ctrl.is( "button" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
+		elm = ctrl.data( "target" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
 		$( elm ).addClass( "mr-0" );
 		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
 		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
