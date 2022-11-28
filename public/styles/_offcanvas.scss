@@ -30,6 +30,7 @@
 .bs-offcanvas {
 
   $offcanvas-header-bg: $brand;
+  $offcanvas-header-height: 3rem;
 
   top: 0;
   z-index: $zindex-modal;
@@ -38,8 +39,6 @@
   @supports(height: 100dvh) {
     height: 100dvh;
   }
-  overflow-x: hidden;
-  overflow-y: auto;
   width: 330px;
 
   @media(max-width: 350px) {
@@ -48,11 +47,13 @@
 
   &-header {
     padding: $grid-gutter-width/4;
+    height: $offcanvas-header-height;
     background-color: $offcanvas-header-bg;
     color: color-yiq( $offcanvas-header-bg, $body-color, white );
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     & > * {
       color: inherit;
     }
@@ -67,6 +68,14 @@
   }
   &-title {
     margin: 0;
+  }
+  &-content {
+    height: calc(100vh - #{$offcanvas-header-height});
+    @supports(height: 100dvh) {
+      height: calc(100dvh - #{$offcanvas-header-height});
+    }
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 

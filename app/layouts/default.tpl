@@ -106,7 +106,7 @@
 				<div class="content-main">
 					{render partial="shared/layout/flash_message"}
 					<div class="border p-2">
-						<button class="btn btn-danger" type="button" data-toggle="offcanvas" data-target="#offcanvas-basket" aria-expanded="false" aria-controls="offcanvas-basket">&#9776;</button>
+						<button class="btn btn-danger" type="button" data-toggle="offcanvas" data-target="#offcanvas-basket" aria-expanded="false" aria-controls="offcanvas-basket">&#9776;</button> Offcanvas demo
 					</div>
 					{placeholder}
 				</div>
