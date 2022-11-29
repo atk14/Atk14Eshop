@@ -1,4 +1,17 @@
 #offcanvas-basket {
+  --item-h-padding: #{$grid-gutter-width/8};
+  --item-v-padding: #{$grid-gutter-width/8};
+  --sidebar-padding: #{$grid-gutter-width/4};
+
+  @include media-breakpoint-up(xl) {
+    --item-h-padding: #{$grid-gutter-width/4};
+    --item-v-padding: #{$grid-gutter-width/4};
+    --sidebar-padding: #{$grid-gutter-width/2};
+  }
+
+
+
+
   .bs-offcanvas-content {
     overflow: visible;
     display: flex;
@@ -32,6 +45,7 @@
 
       &__total {
         padding: $form-grid-gutter-width;
+        padding: var(--sidebar-padding);
         padding-bottom: 0;
         border-top: 1px solid $border-color;
         display: flex;
@@ -84,6 +98,7 @@
     .basket-link {
       flex-grow: 0;
       padding: $grid-gutter-width/4;
+      padding: var(--sidebar-padding);
       .btn {
         display: block;
         .fas,.far {
@@ -100,15 +115,18 @@
   }
 
   .table--offcanvas-basket {
+    width: 100%;
     .item {
       border-bottom: 1px solid $border-color;
       font-size: $font-size-sm;
       line-height: 1.1;
       td {
         padding: $grid-gutter-width/8;
+        padding: var(--item-v-padding) var(--item-h-padding);
       }
       &__image {
         padding-left: $grid-gutter-width/4 !important;
+        padding-left: var(--sidebar-padding) !important;
       }
       &__name {
         font-weight: $font-weight-bold;
@@ -128,6 +146,7 @@
         text-align: right;
         font-weight: $font-weight-bold;
         padding-right: $grid-gutter-width/4 !important;
+        padding-right: var(--sidebar-padding) !important;
       }
     }
   }

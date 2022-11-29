@@ -29,6 +29,10 @@
 
 .bs-offcanvas {
 
+  $offcanvas-width: 330px;
+  $offcanvas-width-xl: 420px;
+  $offcanvas-width-xxs: calc(100vw - 20px);
+
   $offcanvas-header-bg: $brand;
   $offcanvas-header-height: 3rem;
 
@@ -39,10 +43,12 @@
   @supports(height: 100dvh) {
     height: 100dvh;
   }
-  width: 330px;
-
+  width: $offcanvas-width;
+  @include media-breakpoint-up(xl){
+    width: $offcanvas-width-xl
+  }
   @media(max-width: 350px) {
-    width: calc(100vw - 20px);
+    width: $offcanvas-width-xxs;
   }
 
   &-header {
@@ -86,17 +92,25 @@
     overflow-x: hidden;
     overflow-y: auto;
   }
+
+  &.bs-offcanvas-left {
+    left: 0;
+    margin-left: 0 - $offcanvas-width;
+    @include media-breakpoint-up(xl){
+      margin-left: 0 - $offcanvas-width-xl;
+    }
+  }
+  
+  &.bs-offcanvas-right {
+    right: 0;
+    margin-right: 0 - $offcanvas-width;
+    @include media-breakpoint-up(xl){
+      margin-right: 0 - $offcanvas-width-xl;
+    }
+  }
 }
 
-.bs-offcanvas-left {
-  left: 0;
-  margin-left: -330px;
-}
 
-.bs-offcanvas-right {
-  right: 0;
-  margin-right: -330px;
-}
 
 body.offcanvas-visible {
   overflow: hidden;
