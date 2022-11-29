@@ -79,11 +79,13 @@ window.UTILS.OffcanvasBasket = function() {
 	// Load basket content from server
 	this.loadBasket = function() {
 		$this.element.html( "" );
+		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
 		$this.element.load( "/cs/baskets/detail", function( response, status, jqXHR ) {
 			switch( status ) {
 				case "success" :
 					$this.element.attr( "data-status", "loaded" );
+					$this.updateCountDisplay( $this.getCountDisplay() );
 					break;
 				case "error" :
 					$this.element.attr( "data-status", "error" );
@@ -97,12 +99,35 @@ window.UTILS.OffcanvasBasket = function() {
 	// window.basketOffcanvas.showCustomBasket( "this is <strong>custom html content</strong>", 3000 );
 	this.showCustomBasket = function ( content, timeout ) {
 		$this.element.html( content );
+		$this.updateCountDisplay( $this.getCountDisplay() );
 		$this.element.attr( "data-status", "loaded" );
 		window.offCanvas.showOffCanvas( "#offcanvas-basket", false );
 		if( timeout ) {
 			setTimeout( function() { window.offCanvas.hideOffCanvas( "#offcanvas-basket" ); }, timeout );
 		}
-	}
+	};
+
+	this.getCountDisplay = function() {
+		var countElem = $this.element.find( "*[data-items-count]" );
+		if( countElem.length ) {
+			var count = countElem.attr( "data-items-count" );
+			return count;
+		} else {
+			return null;
+		}
+	};
+
+	this.updateCountDisplay = function ( count ) {
+		console.log( "updateCountDisplay", count );
+		var n;
+		if( count ) {
+			n = count;
+		} else {
+			n = "";
+		}
+		$( "#offcanvas-basket" ).find( ".js--cart-num-items" ).text( n );
+		console.log( "n", n )
+	};
 
 	// Set handler for basket show event
 	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );

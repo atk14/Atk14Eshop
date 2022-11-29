@@ -68,6 +68,15 @@
   }
   &-title {
     margin: 0;
+    .fas,.far {
+      color: inherit;
+      &:first-child {
+        margin-right: 1ch;
+      }
+      &:last-child {
+        margin-left: 1ch;
+      }
+    }
   }
   &-content {
     height: calc(100vh - #{$offcanvas-header-height});
