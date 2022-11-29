@@ -208,10 +208,10 @@
 				// Init NoUiSlider
 
 				// Init offvanvas component
-				window.UTILS.initOffCanvas();
+				window.offCanvas = new window.UTILS.BSOffCanvas();
 
 				// Init offcanvas basket preview
-				window.UTILS.offcanvasBasket();
+				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
 
 			}
 
