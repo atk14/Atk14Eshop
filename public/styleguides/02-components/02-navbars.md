@@ -244,7 +244,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 				</ul>
 
-				<ul class="navbar-nav js--basket_info">
+				<ul class="navbar-nav basket_info">
 
 					<li class="nav-item">
 
@@ -401,7 +401,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 				</ul>
 
-				<ul class="navbar-nav js--basket_info">
+				<ul class="navbar-nav basket_info">
 
 					<li class="nav-item">
 
@@ -556,7 +556,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 				</ul>
 
-				<ul class="navbar-nav js--basket_info">
+				<ul class="navbar-nav basket_info">
 
 					<li class="nav-item">
 

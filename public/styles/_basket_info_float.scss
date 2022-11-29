@@ -43,6 +43,10 @@
         font-size: 1.25em;
       }
 
+      .cart__name {
+        display: none !important;
+      }
+
       .cart-num-items {
         /*position: absolute;
         top: $grid-gutter-width/8;

@@ -107,6 +107,7 @@ window.UTILS.OffcanvasBasket = function() {
 		}
 	};
 
+	// Get items count from html attr
 	this.getCountDisplay = function() {
 		var countElem = $this.element.find( "*[data-items-count]" );
 		if( countElem.length ) {
@@ -117,8 +118,8 @@ window.UTILS.OffcanvasBasket = function() {
 		}
 	};
 
+	// Update items count
 	this.updateCountDisplay = function ( count ) {
-		console.log( "updateCountDisplay", count );
 		var n;
 		if( count ) {
 			n = count;
@@ -126,7 +127,6 @@ window.UTILS.OffcanvasBasket = function() {
 			n = "";
 		}
 		$( "#offcanvas-basket" ).find( ".js--cart-num-items" ).text( n );
-		console.log( "n", n )
 	};
 
 	// Set handler for basket show event

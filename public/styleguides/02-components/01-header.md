@@ -48,7 +48,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 
 				</ul>
 
-				<ul class="navbar-nav js--basket_info">
+				<ul class="navbar-nav basket_info">
 
 					<li class="nav-item">
 
@@ -265,7 +265,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 					<button type="submit" class="btn btn-primary" title="Hledat"><span class="fas fa-search"></span></button>
 				</form>
 				<div class="mainbar__cartinfo">
-					<ul class="nav navbar-nav js--basket_info">
+					<ul class="nav navbar-nav basket_info">
 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<span class="fas fa-shopping-cart"></span><span class="d-none d-sm-inline"> Košík</span>
