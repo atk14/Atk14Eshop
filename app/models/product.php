@@ -38,7 +38,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 		$name = parent::getName($lang);
 
-		if(strlen($name)>0){
+		if(strlen((string)$name)>0){
 			return $name;
 		}
 

@@ -11,7 +11,7 @@ Full-width large search bar with shopping cart info. Use Bootstrap responsive ut
 				<input name="q" type="text" class="form-control form-control-lg" placeholder="Hledat" size="10">
 				<button type="submit" class="btn btn-lg btn-primary" title="Hledat"><span class="fas fa-search"></span></button>
 			</form>
-			<div class="js--basket_info d-none d-md-block searchbar__basket--outline">
+			<div class="basket_info d-none d-md-block searchbar__basket--outline">
 				<a href="/cs/baskets/edit/">
 					<span class="fas fa-shopping-cart"></span> Košík <span class="cart-num-items">1</span>
 				</a>
@@ -34,7 +34,7 @@ Additional content may be added to search bar:
 				<input name="q" type="text" class="form-control form-control-lg" placeholder="Hledat" size="10">
 				<button type="submit" class="btn btn-lg btn-primary" title="Hledat"><span class="fas fa-search"></span></button>
 			</form>
-			<div class="js--basket_info d-none d-md-block searchbar__basket--outline">
+			<div class="basket_info d-none d-md-block searchbar__basket--outline">
 				<a href="/cs/baskets/edit/">
 					<span class="fas fa-shopping-cart"></span> Košík <span class="cart-num-items">1</span>
 				</a>

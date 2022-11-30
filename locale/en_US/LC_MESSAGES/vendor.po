@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-28 12:52+0200\n"
+"POT-Creation-Date: 2022-11-30 12:16+0100\n"
 "PO-Revision-Date: 2022-04-25 16:30+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -43,6 +43,10 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
 
+#: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
+msgid "Remove file"
+msgstr ""
+
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"
 msgstr "Filter"
@@ -59,11 +63,11 @@ msgstr "Yes"
 msgid "Ne"
 msgstr "No"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:209
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
 msgid "from"
 msgstr "from"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:217
 msgid "to"
 msgstr "to"
 
@@ -267,15 +271,15 @@ msgstr "Plain text body"
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:7
+#: ../vendor/atk14/phone-field/src/phone_field.php:10
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:18
+#: ../vendor/atk14/phone-field/src/phone_field.php:21
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:19
+#: ../vendor/atk14/phone-field/src/phone_field.php:22
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
