@@ -1,7 +1,7 @@
 <div id="offcanvas-basket" class="bs-offcanvas bs-offcanvas-right bg-light">
 	<header class="bs-offcanvas-header bs-offcanvas-header--fixed-top">
 		<button type="button" class="bs-offcanvas-close close" aria-label="Close" aria-expanded="false">{!"xmark"|icon}</button>
-		<h4 class="bs-offcanvas-title">{!"shopping-cart"|icon} {t}Basket{/t} <span class="cart-num-items js--cart-num-items">0</span></h4>
+		<h4 class="bs-offcanvas-title"><a href={link_to action="baskets/edit"}">{!"shopping-cart"|icon} {t}Basket{/t} <span class="cart-num-items js--cart-num-items">0</span></a></h4>
 	</header>
 	<div class="bs-offcanvas-content">
 		<div class="basket-content">
@@ -14,10 +14,10 @@
 			<p>{t}Loading{/t}</p>			
 		</div>
 		<div class="basket-error js--basket-error">
-			Error pyco
+			Error
 		</div>
 		<div class="basket-link">
-			<a href="{link_to action="baskets/edit"}" class="btn btn-primary">{!"shopping-cart"|icon} {t}Basket{/t} {!"angle-right"|icon}</a>
+			<a href="{link_to action="baskets/edit"}" class="btn btn-primary">{t}Checkout{/t} {!"angle-right"|icon}</a>
 		</div>
 	</div>    
 </div>

@@ -2,7 +2,9 @@
 class BasketsController extends ApplicationController {
 
 	function detail(){
-		
+		if(!DEVELOPMENT && !$this->request->xhr()){
+			$this->_redirect_to("edit");
+		}
 	}
 
 	function edit(){
