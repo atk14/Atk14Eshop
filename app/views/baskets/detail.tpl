@@ -30,7 +30,7 @@
 	</div>
 	<div class="basket-content__total">
 		<div class="description">{t}Total price{/t}:</div>
-		<div class="price">{!$basket->getItemsPrice($incl_vat)|display_price:$currency}</div>
+		<div class="price">{!$basket->getItemsPrice($incl_vat)|display_price:"$currency,summary"}</div>
 	</div>	
 
 {/if}
