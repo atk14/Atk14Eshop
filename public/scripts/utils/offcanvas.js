@@ -11,6 +11,7 @@ window.UTILS = window.UTILS || { };
 window.UTILS.BSOffCanvas = function() {
 
   var $ = window.jQuery;
+	var $this = this;
 
   var offCanvasShowEvent = new Event( "bs-offcanvas-show" );
   var offCanvasHideEvent = new Event( "bs-offcanvas-hide" );
@@ -69,6 +70,27 @@ window.UTILS.BSOffCanvas = function() {
 	this.hideOffCanvas = function( elm ) {
 		$( elm + " .bs-offcanvas-close" ).trigger( "click" );
 	}
+
+	// Fix for browsers not supporting dvh units
+	// To be removed in future
+	this.fixViewportHeight = function() {
+		if( typeof CSS === "object" && typeof CSS.supports === "function" &&	!CSS.supports( "height", "100dvh" ) ) {
+			$this.recalcHeight();
+			window.addEventListener( "resize", $this.recalcHeight );
+		}
+	}
+
+	this.recalcHeight = function() {
+		var offcanvas = $( ".bs-offcanvas" );
+		var viewportHeight = window.innerHeight;
+		if( offcanvas.height() !== viewportHeight ){
+			offcanvas.css( "height", viewportHeight + "px" )
+		} else {
+			offcanvas.attr( "style", "" );
+		}
+	}
+
+	this.fixViewportHeight();
 };
 
 window.UTILS.OffcanvasBasket = function() {
