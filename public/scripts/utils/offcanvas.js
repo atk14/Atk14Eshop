@@ -75,10 +75,14 @@ window.UTILS.OffcanvasBasket = function() {
 	var $ = window.jQuery;
 	var $this = this;
 	this.element = $( "#offcanvas-basket .bs-offcanvas-content .basket-content" );
+	this.timeoutID = undefined;
 
 	// Load basket content from server
 	this.loadBasket = function() {
 		$this.element.html( "" );
+		if( $this.timeoutID ) {
+			clearTimeout( $this.timeoutID );
+		}
 		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
 		$this.element.load( "/cs/baskets/detail", function( response, status, jqXHR ) {
@@ -103,7 +107,7 @@ window.UTILS.OffcanvasBasket = function() {
 		$this.element.attr( "data-status", "loaded" );
 		window.offCanvas.showOffCanvas( "#offcanvas-basket", false );
 		if( timeout ) {
-			setTimeout( function() { window.offCanvas.hideOffCanvas( "#offcanvas-basket" ); }, timeout );
+			$this.timeoutID = setTimeout( function() { window.offCanvas.hideOffCanvas( "#offcanvas-basket" ); }, timeout );
 		}
 	};
 
