@@ -96,6 +96,7 @@ window.UTILS.BSOffCanvas = function() {
 window.UTILS.OffcanvasBasket = function() {
 	var $ = window.jQuery;
 	var $this = this;
+	var lang = $( "html" ).attr( "lang" );
 	this.element = $( "#offcanvas-basket .bs-offcanvas-content .basket-content" );
 	this.timeoutID = undefined;
 
@@ -107,7 +108,7 @@ window.UTILS.OffcanvasBasket = function() {
 		}
 		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
-		$this.element.load( "/cs/baskets/detail", function( response, status, jqXHR ) {
+		$this.element.load( "/" + lang + "/baskets/detail", function( response, status, jqXHR ) {
 			switch( status ) {
 				case "success" :
 					$this.element.attr( "data-status", "loaded" );
