@@ -10,7 +10,9 @@
   }
 
 
-
+  .bs-offcanvas-header {
+    padding: var(--sidebar-padding);
+  }
 
   .bs-offcanvas-content {
     overflow: visible;
@@ -152,7 +154,7 @@
   }
 
   .cart-num-items {
-    margin-left: 1ch;
+    margin-left: 1.5ch;
     &:empty {
       display: none;
     }

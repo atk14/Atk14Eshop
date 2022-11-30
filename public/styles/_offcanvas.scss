@@ -83,6 +83,9 @@
         margin-left: 1ch;
       }
     }
+    a {
+      color: inherit;
+    }
   }
   &-content {
     height: calc(100vh - #{$offcanvas-header-height});
