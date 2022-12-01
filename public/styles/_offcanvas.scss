@@ -45,10 +45,20 @@
   }
   width: $offcanvas-width;
   @include media-breakpoint-up(xl){
-    width: $offcanvas-width-xl
+    width: $offcanvas-width-xl;
   }
   @media(max-width: 350px) {
     width: $offcanvas-width-xxs;
+  }
+
+  &--fullwidth {
+    width: 100%;
+    @include media-breakpoint-up(xl){
+      width: 100%;
+    }
+    @media(max-width: 350px) {
+      width: 100%;
+    }
   }
 
   &-header {
@@ -101,6 +111,15 @@
     margin-left: 0 - $offcanvas-width;
     @include media-breakpoint-up(xl){
       margin-left: 0 - $offcanvas-width-xl;
+      &.bs-offcanvas--fullwidth {
+        margin-left: -100%;
+      }
+    }
+    &.bs-offcanvas--fullwidth {
+      margin-left: -100%;
+    }
+    &.show {
+      margin-left: 0 !important;
     }
   }
   
@@ -109,6 +128,15 @@
     margin-right: 0 - $offcanvas-width;
     @include media-breakpoint-up(xl){
       margin-right: 0 - $offcanvas-width-xl;
+      &.bs-offcanvas--fullwidth {
+        margin-right: -100%;
+      }
+    }
+    &.bs-offcanvas--fullwidth {
+      margin-right: -100%;
+    }
+    &.show {
+      margin-right: 0 !important;
     }
   }
 }
