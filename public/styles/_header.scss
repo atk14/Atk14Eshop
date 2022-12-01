@@ -806,7 +806,9 @@ ol.breadcrumb {
 	padding: 0 $size/4;
 	font-size: 0.875rem;
 	font-weight: bold;
-	animation: cart-indicator-animation;
-	animation-duration: 0.5s;
-	animation-iteration-count: 1;
+	&--changed {
+		animation: cart-indicator-animation;
+		animation-duration: 0.5s;
+		animation-iteration-count: 1;
+	}
 }

@@ -8,4 +8,4 @@ $modal.appendTo("body");
 
 $("#product_added_modal").modal("show");
 
-$( ".js--basket_info_content" ).replaceWith({jstring}{render partial="shared/basket_info_content"}{/jstring});
+$( ".js--basket_info_content" ).replaceWith({jstring}{render partial="shared/basket_info_content" was_changed=true}{/jstring});
