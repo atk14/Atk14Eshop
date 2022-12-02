@@ -21,10 +21,7 @@
 }
 
 .bs-offcanvas-overlay, .bs-offcanvas {
-  transition: all .4s ease-out;
-  -webkit-transition: all .4s ease-out;
-  -moz-transition: all .4s ease-out;
-  -ms-transition: all .4s ease-out;
+  transition: all .25s ease-out;
 }
 
 .bs-offcanvas {
@@ -104,6 +101,10 @@
     }*/
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  &.show {
+    box-shadow: $modal-content-box-shadow-sm-up;
   }
 
   &.bs-offcanvas-left {

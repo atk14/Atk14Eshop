@@ -111,7 +111,9 @@ window.UTILS.OffcanvasBasket = function() {
 			switch( status ) {
 				case "success" :
 					$this.element.attr( "data-status", "loaded" );
-					$this.updateCountDisplay( $this.getCountDisplay() );
+					var itemsCount = $this.getCountDisplay();
+					console.log( "itemsCount", itemsCount );
+					$this.updateCountDisplay( itemsCount );
 					break;
 				case "error" :
 					$this.element.attr( "data-status", "error" );
@@ -125,7 +127,9 @@ window.UTILS.OffcanvasBasket = function() {
 	// window.basketOffcanvas.showCustomBasket( "this is <strong>custom html content</strong>", 3000 );
 	this.showCustomBasket = function ( content, timeout ) {
 		$this.element.html( content );
-		$this.updateCountDisplay( $this.getCountDisplay() );
+		var itemsCount = $this.getCountDisplay();
+		console.log( "itemsCount", itemsCount );
+		$this.updateCountDisplay( itemsCount );
 		$this.element.attr( "data-status", "loaded" );
 		window.offCanvas.showOffCanvas( "#offcanvas-basket", false );
 		if( timeout ) {
@@ -149,8 +153,10 @@ window.UTILS.OffcanvasBasket = function() {
 		var n;
 		if( count ) {
 			n = count;
+			$( "#offcanvas-basket" ).find( ".basket-content" ).removeClass( "basket-content--empty" );
 		} else {
 			n = "";
+			$( "#offcanvas-basket" ).find( ".basket-content" ).addClass( "basket-content--empty" );
 		}
 		$( "#offcanvas-basket" ).find( ".js--cart-num-items" ).text( n );
 	};

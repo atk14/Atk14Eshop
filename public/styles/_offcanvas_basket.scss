@@ -73,9 +73,11 @@
         }
       }
     }
+    
     .basket-loading, .basket-error {
       display: none;
     }
+
     .basket-content[data-status="loading"] ~ .basket-loading {
       flex-grow: 100;
       display: flex;
@@ -87,6 +89,7 @@
         margin-top: 1em;
       }
     }
+
     .basket-content[data-status="error"] ~ .basket-error {
       flex-grow: 100;
       display: flex;
@@ -97,6 +100,7 @@
       color: $danger;
       padding: $grid-gutter-width/2;
     }
+
     .basket-link {
       flex-grow: 0;
       padding: $grid-gutter-width/4;
@@ -114,6 +118,11 @@
         }
       }
     }
+
+    .basket-content[data-status="loading"] ~ .basket-link, .basket-content--empty ~ .basket-link {
+      display: none;
+    }
+
   }
 
   .table--offcanvas-basket {
