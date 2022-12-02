@@ -16,7 +16,7 @@
 				<tr class="item">
 					<td class="item__image">
 						<a href="{$product|link_to_product}">
-							<img {!$product->getImage()|img_attrs:"50x50x#ffffff"}></td>
+							<img {!$product->getImage()|img_attrs:"80x80x#ffffff"}></td>
 						</a>
 					<td class="item__name">
 						<a href="{$product|link_to_product}">{$product->getName()}</a>
