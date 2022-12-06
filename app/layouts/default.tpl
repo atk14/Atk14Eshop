@@ -81,26 +81,26 @@
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
 		<div class="bs-offcanvas-overlay"></div>
-		<div class="body" id="page-body">
-			{render partial="shared/layout/header"}
-			{placeholder for="out_of_container"}
-			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
-				{assign use_sidebar_menu true}
+		{render partial="shared/layout/header"}
+		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
+			{assign use_sidebar_menu true}
+		{/if}
+		<div class="body--upper">{placeholder for="out_of_container"}</div>
+		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
+			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
+			{if $section_navigation}
+				<nav class="nav-section">
+					{render partial="shared/layout/section_navigation"}
+				</nav>
+			{elseif $use_sidebar_menu}
+				<nav class="nav-section">
+					{render partial="shared/layout/sidebar_nav"}
+				</nav>
 			{/if}
-			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
+			<div class="container-fluid">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
-				{/if}
-
-				{if $section_navigation}
-					<nav class="nav-section">
-						{render partial="shared/layout/section_navigation"}
-					</nav>
-				{elseif $use_sidebar_menu}
-					<nav class="nav-section">
-						{render partial="shared/layout/sidebar_nav"}
-					</nav>
 				{/if}
 
 				<div class="content-main">
@@ -108,9 +108,9 @@
 					{placeholder}
 				</div>
 			</div>
-
-			{render partial="shared/layout/footer"}
+			{if $section_navigation || $use_sidebar_menu}</div>{/if}
 		</div>
+		{render partial="shared/layout/footer"}
 
 		{render partial="shared/offcanvas_basket"}
 		

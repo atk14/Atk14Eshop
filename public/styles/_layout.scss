@@ -1,9 +1,44 @@
+body {
+	// styles to keep footer at the bottom on pages with very short content
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	min-height: 100vh;
+	& > * {
+		width: 100%;
+		flex-grow: 0;
+		&.body {
+			flex-grow: 100;
+		}
+	}
+}
+
+
 .body {
+	// Main content container
 	background-color: white;
 	max-width: $max-page-width;
 	margin: auto;
 }
+.body, .body__sticky__container {
+	padding-top: $grid-gutter-width;
+	padding-bottom: $grid-gutter-width*2;
+	@include media-breakpoint-down($navbar_breakpoint_lower){
+		padding-top: $grid-gutter-width/2;
+	}
+}
+.body--upper {
+	// Before main container, used for content without .container-fluid
+	background-color: white;
+	max-width: $max-page-width; // remove to make content full width 
+	margin: auto;
+	padding-top: $grid-gutter-width;
+	&:empty {
+		display: none;
+	}
+}
 .container-fluid {
+	// extending Bootstrap .container-fluid
 	max-width: $max-page-width;
 	margin: auto;
 	@include media-breakpoint-up( sm ){
@@ -12,56 +47,43 @@
 }
 
 // Applies CSS Grid for layout w/sidebar
+.body.has-nav-section {
+	.body__sticky-container {
+		
+		@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
+			display: grid;
+			// minmax function is needed for Swiper to calculate its width correctly
+			grid-template-columns: $sidebar-width minmax(0,1fr);
+			align-items: start;
+			.nav-section {
+				grid-column: 1/2;
+			}
+			& > *:not(.nav-section) {
+				grid-column: 2/3;
+				height: 100%;
+			}
+		}
 
-.has-nav-section {
-	.nav-section {
-		display: none;
-	}
-	@include media-breakpoint-up(xl){
-		display: grid;
-		padding-left: 0;
-		grid-template-columns: 230px minmax(0,1fr);
-		grid-template-rows: auto 1fr;
-		grid-template-areas: 'sidebar breadcrumb' 'sidebar mainbody';
-		//grid-gap: $grid-gutter-width/2;
-		
-		& > *:not(.nav-section) {
-			padding-left: $grid-gutter-width;
-			align-self: start;
-		}
-		
-		.nav-section {
-			display: block;
-			grid-area: sidebar;
-			//border-right: 1px solid $border-color;
-			//padding-right: $grid-gutter-width/2;
-			align-self: start;
-		}
-		
-		.nav--breadcrumb {
-			grid-area: breadcrumb;
-			align-self: start;
-		}
-		
-		.content-main {
-			grid-area: mainbody;
-		}
-	}
-	
-	
-	@include media-breakpoint-down(sm){
-		.nav-section {
-			border-bottom: 1px solid $gray-300;
-			padding-bottom: $grid-gutter-width/2;
-			margin-bottom: $grid-gutter-width/2;
-		}
 	}
 }
 
-footer {
-	margin-top: $grid-gutter-width*2;
-}
-
-header {
-	background-color: white;
+// Sidebar on the left edge of viewport
+.body.has-nav-section.has-nav-section--wide {
+	@include media-breakpoint-up(breakpoint-next($sidebar-collapse-breakpoint)) {
+		width: 100%;
+		max-width: 100%;
+		.body__sticky-container {
+			grid-template-columns: 1fr $max-page-width 1fr;
+		}
+	}
+	@media(max-width: $max-page-width + 2 * $sidebar-width ) {
+		.body__sticky-container {
+			grid-template-columns: 1fr $max-page-width;
+		}
+	}
+	@media(max-width: $max-page-width + $sidebar-width ) {
+		.body__sticky-container {
+			grid-template-columns: $sidebar-width minmax(0,1fr);
+		}
+	}
 }

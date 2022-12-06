@@ -21,17 +21,15 @@
 }
 
 .bs-offcanvas-overlay, .bs-offcanvas {
-  transition: all .4s ease-out;
-  -webkit-transition: all .4s ease-out;
-  -moz-transition: all .4s ease-out;
-  -ms-transition: all .4s ease-out;
+  transition: all .25s ease-out;
 }
 
 .bs-offcanvas {
 
   $offcanvas-width: 330px;
-  $offcanvas-width-xl: 420px;
+  $offcanvas-width-lg: 420px;
   $offcanvas-width-xxs: calc(100vw - 20px);
+  $largeSizingBreakpoint: md;
 
   $offcanvas-header-bg: $brand;
   $offcanvas-header-height: 3rem;
@@ -44,11 +42,21 @@
     height: 100dvh;
   }
   width: $offcanvas-width;
-  @include media-breakpoint-up(xl){
-    width: $offcanvas-width-xl
+  @include media-breakpoint-up($largeSizingBreakpoint){
+    width: $offcanvas-width-lg;
   }
   @media(max-width: 350px) {
     width: $offcanvas-width-xxs;
+  }
+
+  &--fullwidth {
+    width: 100%;
+    @include media-breakpoint-up($largeSizingBreakpoint){
+      width: 100%;
+    }
+    @media(max-width: 350px) {
+      width: 100%;
+    }
   }
 
   &-header {
@@ -96,19 +104,41 @@
     overflow-y: auto;
   }
 
+  &.show {
+    box-shadow: $modal-content-box-shadow-sm-up;
+  }
+
   &.bs-offcanvas-left {
     left: 0;
     margin-left: 0 - $offcanvas-width;
-    @include media-breakpoint-up(xl){
-      margin-left: 0 - $offcanvas-width-xl;
+    @include media-breakpoint-up($largeSizingBreakpoint){
+      margin-left: 0 - $offcanvas-width-lg;
+      &.bs-offcanvas--fullwidth {
+        margin-left: -100%;
+      }
+    }
+    &.bs-offcanvas--fullwidth {
+      margin-left: -100%;
+    }
+    &.show {
+      margin-left: 0 !important;
     }
   }
   
   &.bs-offcanvas-right {
     right: 0;
     margin-right: 0 - $offcanvas-width;
-    @include media-breakpoint-up(xl){
-      margin-right: 0 - $offcanvas-width-xl;
+    @include media-breakpoint-up($largeSizingBreakpoint){
+      margin-right: 0 - $offcanvas-width-lg;
+      &.bs-offcanvas--fullwidth {
+        margin-right: -100%;
+      }
+    }
+    &.bs-offcanvas--fullwidth {
+      margin-right: -100%;
+    }
+    &.show {
+      margin-right: 0 !important;
     }
   }
 }

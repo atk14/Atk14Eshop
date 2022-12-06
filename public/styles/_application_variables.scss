@@ -18,3 +18,13 @@ $breadcrumb-padding-x:		 0;
 // And replace "Font Awesome 5 Brands" with $fa-brands-font-family
 $fa-font-family: "Font Awesome 6 Free";
 $fa-brands-font-family: "Font Awesome 6 Brands";
+
+// Header breakpoints settings
+// When top navbar become hamburger and main menu gets replaced with mobile main menu 
+$navbar_breakpoint_lower: sm;
+
+// Sidebar nav
+$sidebar-width: 230px;
+$sidebar-width-lg: 250px;
+// when sidebar collapses to expandable button
+$sidebar-collapse-breakpoint: sm;

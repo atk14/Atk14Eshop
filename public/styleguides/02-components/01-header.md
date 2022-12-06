@@ -5,7 +5,7 @@ Page header usually consists of Top Navbar (separate variants for desktop and mo
 
 ## Complete header
 
-Complete header with desktop and mobile navbars, mainbar and with optional large search bar
+Complete header with desktop and mobile navbars, mainbar and with optional large search bar. To make header spanning full width of viewport, add class <code>.header-main--fullwidth</code> to <code>header.header-main</code> element.
 
 (Note: some recent changes in header markup not yet shown in this guide.)
 
