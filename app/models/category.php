@@ -547,6 +547,8 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 			"consider_parents" => false,
 		];
 
+		$tag = $this->_cleanTag($tag);
+
 		if($this->getTagsLister()->contains($tag)){
 			return true;
 		}
