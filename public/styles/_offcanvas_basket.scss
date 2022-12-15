@@ -48,6 +48,28 @@
         overflow-y: auto;
       }
 
+      &__text {
+        padding: $form-grid-gutter-width;
+        padding: var(--sidebar-padding);
+        border-bottom: 1px solid $border-color;
+        line-height: 1.25;
+        p:last-child {
+          margin-bottom: 0;
+        }
+        position: relative;
+        &::after {
+          $gradientHeight: 12px;
+          position: absolute;
+          bottom: 0 - $gradientHeight;
+          height: $gradientHeight;
+          width: 100%;
+          left: 0;
+          display: block;
+          content: " ";
+          background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%); 
+        }
+      }
+
       &__total {
         padding: $form-grid-gutter-width;
         padding: var(--sidebar-padding);
