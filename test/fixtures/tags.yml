@@ -15,4 +15,5 @@ oversized_product:
   tag: "oversized product"
 
 sale:
+  code: sale
   tag: sale

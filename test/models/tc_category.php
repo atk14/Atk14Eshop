@@ -428,6 +428,18 @@ class TcCategory extends TcBase {
 		$this->assertFalse($hot_drinks->containsTag($sale,["consider_parents" => false]));
 		$this->assertTrue($hot_drinks->containsTag($sale,["consider_parents" => true]));
 
+		// using code
+		$this->assertTrue($food_drinks->containsTag("sale"));
+		$this->assertFalse($hot_drinks->containsTag("sale"));
+		$this->assertFalse($hot_drinks->containsTag("sale",["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->containsTag("sale",["consider_parents" => true]));
+
+		// using id
+		$this->assertTrue($food_drinks->containsTag($sale->getId()));
+		$this->assertFalse($hot_drinks->containsTag($sale->getId()));
+		$this->assertFalse($hot_drinks->containsTag($sale->getId(),["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->containsTag($sale->getId(),["consider_parents" => true]));
+
 		// alias hasTag
 		$this->assertTrue($food_drinks->hasTag($sale));
 		$this->assertFalse($hot_drinks->hasTag($sale));
