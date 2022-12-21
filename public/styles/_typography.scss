@@ -53,3 +53,33 @@ a.link--small:hover {
 		text-decoration: underline;
 	}
 }
+
+blockquote {
+	$accent-color: $primary;
+	position: relative;
+	margin: 2em 0 4em 0.65em;
+	&:last-child {
+		margin-bottom: 3em !important;
+	}
+	padding-left: 1em;
+	border-left: 4px solid rgba($accent-color,.25);
+	&::before, &::after {
+		position: absolute;
+		font-family: $fa-font-family;
+		font-weight: 700;
+		color: $accent-color;
+		font-size: 1.25em;
+		left: -0.6em;
+	}
+	&::before {
+		content: "\f10e";
+		top: -1.35em;
+	}
+	&::after {
+		content: "\f10d";
+		bottom: -1.35em;
+	}
+	p:last-child {
+		margin-bottom: 0 !important;
+	}
+}

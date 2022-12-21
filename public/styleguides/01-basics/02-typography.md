@@ -17,3 +17,27 @@ Headings appearance may vary across various components and contexts.
 
 
 <hr>
+
+## Blockquotes
+
+[example]
+<blockquote>
+  <p>I Don’t Tip Because Society Says I Have To.<br />
+  <em>Mr. Pink</em></p>
+</blockquote>
+
+<blockquote>
+  <p>Yeah, but Mr. Brown, that's a little too close to Mr. Shit.<br />
+  <em>Mr. Brown</em></p>
+</blockquote>
+
+<blockquote>
+  <p>Mr. Pink sounds like Mr. Pussy. How 'bout if I'm Mr. Purple? That sounds good to me. I'll be Mr. Purple.<br />
+  <em>Mr. Pink</em></p>
+</blockquote>
+
+<blockquote>
+  <p>Hey! NOBODY'S trading with ANYBODY. This ain't a goddamn, fucking city council meeting, you know? Now listen up, Mr. Pink. There's two ways you can go on this job: my way or the highway. Now what's it gonna be, Mr. Pink?<br />
+  <em>Joe</em></p>
+</blockquote>
+[/example]
