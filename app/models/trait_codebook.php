@@ -18,7 +18,7 @@ trait TraitCodebook {
 		static::$ByCodes = [];
 		static::$ByIds = [];
 		foreach($all as $a) {
-			if(strlen($a->getCode())){
+			if(strlen((string)$a->getCode())){
 				static::$ByCodes[$a->getCode()] = $a->getId();
 			}
 			static::$ByIds[$a->getId()] = $a->getId();
