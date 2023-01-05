@@ -117,6 +117,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 		return count($this->tree->childs[$real_id]);
 	}
 
+	#[\ReturnTypeWillChange]
 	function count() {
 		return $this->getChildCategoriesCount();
 	}
@@ -134,6 +135,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 		return $this->getCategory()->getPath();
 	}
 
+	#[\ReturnTypeWillChange]
 	function getIterator() {
 		if(!$this->iterator) {
 			$this->fetch();
