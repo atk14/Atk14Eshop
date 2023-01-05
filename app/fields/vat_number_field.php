@@ -54,6 +54,7 @@ class VatNumberField extends CharField {
 	}
 
 	function clean($value){
+		$value = (string)$value;
 		$value = trim($value);
 		$value = strtoupper($value); // "cz12345678" -> "CZ12345678"
 
@@ -61,7 +62,7 @@ class VatNumberField extends CharField {
 
 		list($err,$value) = parent::clean($value);
 
-		if(!strlen($value)){
+		if(!strlen((string)$value)){
 			if(is_null($err)){
 				$value = new VatNumber(["vat_number" => "", "is_valid_for_cross_border_transactions_within_eu" => null]);
 			}
