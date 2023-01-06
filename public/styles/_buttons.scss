@@ -8,3 +8,22 @@
 	font-size: $font-size-sm;
 	padding: .125rem .25rem;
 }
+
+@mixin btnMultiLine( $fontSize: $btn-font-size, $paddY: $btn-padding-y, $lineHeight: 1.1, $defaultLineHeight: $btn-line-height, $borderW: $btn-border-width ){
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	$minHeight: $fontSize * $defaultLineHeight + $paddY * 2;
+	line-height: $lineHeight;
+	min-height: calc(#{$minHeight} + 2 * #{$borderW} );
+}
+
+.btn.btn:not(.btn-lg, .btn-sm, .btn-xs) {
+	@include btnMultiLine();
+}
+.btn.btn-lg {
+	@include btnMultiLine($btn-font-size-lg, $btn-padding-y-lg, 1.1, $btn-line-height-lg);
+}
+.btn.btn-sm {
+	@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height-sm);
+}

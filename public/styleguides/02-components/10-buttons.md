@@ -30,7 +30,36 @@ Buttons are based on standard Bootstrap buttons. Use <code>a</code>, <code>butto
 
 ## Button sizing
 [example]
+<button type="button" class="btn btn-primary btn-xs">X-Small</button>
 <button type="button" class="btn btn-primary btn-sm">Small</button>
 <button type="button" class="btn btn-primary">Normal</button>
 <button type="button" class="btn btn-primary btn-lg">Large</button>
+[/example]
+
+## Buttons with multiple lines of text
+[example]
+<button type="button" class="btn btn-primary btn-test">Normal<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-primary btn-test">Normal</button>
+<button type="button" class="btn btn-primary">Normal</button>
+<hr>
+<button type="button" class="btn btn-lg btn-primary btn-test">Large<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-lg btn-primary btn-test">Large</button>
+<button type="button" class="btn btn-lg btn-primary">Large</button>
+<hr>
+<button type="button" class="btn btn-sm btn-primary btn-test">Small<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-sm btn-primary btn-test">Small</button>
+<button type="button" class="btn btn-sm btn-primary">Small</button>
+[/example]
+[example]
+<button type="button" class="btn btn-outline-primary btn-test">Normal<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-outline-primary btn-test">Normal</button>
+<button type="button" class="btn btn-outline-primary">Normal</button>
+<hr>
+<button type="button" class="btn btn-lg btn-outline-primary btn-test">Large<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-lg btn-outline-primary btn-test">Large</button>
+<button type="button" class="btn btn-lg btn-outline-primary">Large</button>
+<hr>
+<button type="button" class="btn btn-sm btn-outline-primary btn-test">Small<br><small>Some additional text</small></button>
+<button type="button" class="btn btn-sm btn-outline-primary btn-test">Small</button>
+<button type="button" class="btn btn-sm btn-outline-primary">Small</button>
 [/example]
