@@ -37,29 +37,16 @@ Buttons are based on standard Bootstrap buttons. Use <code>a</code>, <code>butto
 [/example]
 
 ## Buttons with multiple lines of text
+
+Class <code>.btn--multiline</code> enhances button appearance in case of multiple lines of text. For best results it is highly recommended to wrap each line of text in its own HTML element such as <code>span</code>. Works both for standard and outline buttons in normal, -sm and -lg sizes. With sigle line of text buttons appear the same as ordinary buttons and have the same outer dimensions.
+
 [example]
-<button type="button" class="btn btn-primary btn-test">Normal<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-primary btn-test">Normal</button>
-<button type="button" class="btn btn-primary">Normal</button>
+<button type="button" class="btn btn--multiline btn-primary"><span>Normal</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-primary"><span>Normal</span></button>
 <hr>
-<button type="button" class="btn btn-lg btn-primary btn-test">Large<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-lg btn-primary btn-test">Large</button>
-<button type="button" class="btn btn-lg btn-primary">Large</button>
+<button type="button" class="btn btn--multiline btn-lg btn-info"><span>Large</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-lg btn-info"><span>Large</span></button>
 <hr>
-<button type="button" class="btn btn-sm btn-primary btn-test">Small<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-sm btn-primary btn-test">Small</button>
-<button type="button" class="btn btn-sm btn-primary">Small</button>
-[/example]
-[example]
-<button type="button" class="btn btn-outline-primary btn-test">Normal<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-outline-primary btn-test">Normal</button>
-<button type="button" class="btn btn-outline-primary">Normal</button>
-<hr>
-<button type="button" class="btn btn-lg btn-outline-primary btn-test">Large<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-lg btn-outline-primary btn-test">Large</button>
-<button type="button" class="btn btn-lg btn-outline-primary">Large</button>
-<hr>
-<button type="button" class="btn btn-sm btn-outline-primary btn-test">Small<br><small>Some additional text</small></button>
-<button type="button" class="btn btn-sm btn-outline-primary btn-test">Small</button>
-<button type="button" class="btn btn-sm btn-outline-primary">Small</button>
+<button type="button" class="btn btn--multiline btn-sm btn-outline-danger"><span>Small</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-sm btn-outline-danger"><span>Small</span></button>
 [/example]
