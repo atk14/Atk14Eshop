@@ -109,7 +109,7 @@
       padding: $grid-gutter-width/4;
       padding: var(--sidebar-padding);
       .btn {
-        display: flex;
+        display: block;
         .fas,.far {
           color: inherit;
           &:first-child {

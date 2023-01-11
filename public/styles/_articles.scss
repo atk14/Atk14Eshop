@@ -6,7 +6,7 @@
 article {
 	.article__body, .page__body, .styleguide-example__output {
 		width: 100%;
-		& > *:not(fullwidth) {
+		& > *:not(.fullwidth) {
 			max-width: $max-content-width;
 		}
 		& > *.fullwidth {
