@@ -14,6 +14,11 @@
 				<span class="product__flag__title">{t}Discount{/t}</span> <span class="product__flag__number">{$starting_price->getDiscountPercent()|round}&nbsp;%</span>
 			</div>
 		{/if}
+		{if $favourite_products_accessor->isFavouriteCard($card)}
+			<div class="product__flag product__flag--favourite product__flag--lg">
+				<span class="product__flag__title" title="{t}Your favourite product{/t}">{!"heart"|icon}</span>
+			</div>
+		{/if}
 	</div>
 
 	{if $card->getTags()}
