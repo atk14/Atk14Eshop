@@ -1,5 +1,12 @@
 <li class="search-suggestions-list__item search-suggestions-list__item--{$object_type}{if $class} {$class}{/if}">
 	<a href="{$url}" class="suggestion" tabindex="10">
+
+	{if $flags}
+		<span class="suggestion__flags">
+			{!$flags}
+		</span>
+	{/if}
+
 	{if $image_url}
 		<div class="suggestion__image">
 			{assign w $image_url|img_width}
