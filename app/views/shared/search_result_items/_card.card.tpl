@@ -26,6 +26,7 @@
 		<div class="card__label">
 			{$card->getProductType()|capitalize} {* e.g. Product, Book...*}
 		</div>
+		{render partial="shared/card_icons"}
 	</div>
 	<div class="card-body">
 		<h4 class="card-title">{a action="cards/detail" id=$card}{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getName()}{/highlight_keywords}{/a}</h4>

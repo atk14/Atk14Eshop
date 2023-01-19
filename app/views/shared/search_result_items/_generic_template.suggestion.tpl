@@ -6,18 +6,22 @@
 			{!$flags}
 		</span>
 	{/if}
-
-	{if $image_url}
-		<div class="suggestion__image">
-			{assign w $image_url|img_width}
-			{assign h $image_url|img_height}
-			{if $w/$h>1.2 && $w/$h<1.6}
-				{!$image_url|pupiq_img:"80x60xcrop,format=png"}
-			{else}
-				{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
-			{/if}
-		</div>
-	{/if}
+	<div class="suggestion__image">
+		{if $image_url}
+				{assign w $image_url|img_width}
+				{assign h $image_url|img_height}
+				{if $w/$h>1.2 && $w/$h<1.6}
+					{!$image_url|pupiq_img:"80x60xcrop,format=png"}
+				{else}
+					{!$image_url|pupiq_img:"80x60xtransparent,format=png"}
+				{/if}
+		{/if}
+		{if $icons}
+			<span class="suggestion__icons">
+				{!$icons}
+			</span>
+		{/if}
+</div>
 
 	{if $type}
 	<span class="suggestion__type">

@@ -11,7 +11,7 @@
 
 {capture assign=class}search-suggestions-list__item--card--id-{$card->getId()}{if $basket->contains($card)} search-suggestions-list__item--card--in-basket{/if}{/capture}
 
-{capture assign=flags}{if $favourite_products_accessor->isFavouriteCard($card)}<span title="{t}Your favourite product{/t}">{!"heart"|icon}</span>{/if}{/capture}
+{capture assign=icons}{if $favourite_products_accessor->isFavouriteCard($card)}<span class="card-icon card-icon--favourite" title="{t}Your favourite product{/t}">{!"heart"|icon}</span>{/if}{/capture}
 
 {render partial="shared/search_result_items/generic_template.suggestion"
 	image_url=$card->getImage()
