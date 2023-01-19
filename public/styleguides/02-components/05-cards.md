@@ -1,23 +1,31 @@
 Cards
 =====
 
-Cards are based on Bootstrap Card component. Make sure that card images have the same aspect ratio on all cards. Card element may be <code>div</code>, <code>a</code> or <code>li</code> element type.  
+Cards are based on Bootstrap Card component. Make sure that card images have the same aspect ratio on all cards. Card element may be <code>div</code>, <code>a</code> or <code>li</code> element type.
+
+It is recommended to wrap card image in <code>.card__image</code> element for easier placement of absolutely positioned icons, flags, tags etc.
+
 Max-width inline styles in examples are for illustration purposes only. In live use cards are sized by <code>card-deck--sized-[n]</code> classes
 
 ## Basic product card with optional tag and discount flag
 
 [example]
 <a class="card" href="#" style="max-width:300px;">
-	<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
-	<div class="card__flags">
-		
-		<div class="product__flag product__flag--sale product__flag--lg">
-				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">50&nbsp;%</span>
+	<div class="card__image">
+		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+		<div class="card__flags">
+			
+			<div class="product__flag product__flag--sale product__flag--lg">
+					<span class="product__flag__title">Sleva</span> <span class="product__flag__number">50&nbsp;%</span>
+			</div>
+			
 		</div>
-		
-	</div>
-	<div class="card__tags">
-		<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		<div class="card__tags">
+			<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		</div>
+		<div class="card__icons">
+      <span class="card-icon card-icon--favourite" title="Your favourite product"><span class="fas fa-heart"></span></span>
+ 		</div>
 	</div>
 	<div class="card-body">
 		<h4 class="card-title">Foto film</h4>
@@ -44,16 +52,21 @@ More compact version is created by adding <code>.card--sm</code> modifier class.
 
 [example]
 <a class="card card--sm" href="#" style="max-width:200px;">
-	<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
-	<div class="card__flags">
-		
-		<div class="product__flag product__flag--sale product__flag--sm">
-				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">50&nbsp;%</span>
+	<div class="card__image">
+		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+		<div class="card__flags">
+			
+			<div class="product__flag product__flag--sale product__flag--sm">
+					<span class="product__flag__title">Sleva</span> <span class="product__flag__number">50&nbsp;%</span>
+			</div>
+			
 		</div>
-		
-	</div>
-	<div class="card__tags">
-		<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		<div class="card__tags">
+			<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		</div>
+		<div class="card__icons">
+      <span class="card-icon card-icon--favourite" title="Your favourite product"><span class="fas fa-heart"></span></span>
+ 		</div>
 	</div>
 	<div class="card-body">
 		<h4 class="card-title">Foto film</h4>
@@ -105,7 +118,9 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 
 [example]
 <div class="card" style="max-width:300px;">
-	<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
+	<div class="card__image">
+		<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
+	</div>
 	<div class="card-body">
 		<h4 class="card-title">Elegantní lékárna</h4>
 		<address>Vinohradská 222<br>
@@ -128,8 +143,10 @@ Created by adding <code>card--horizontal</code> class. If you use it with tags o
 		120 00 Praha 2
 		Česká republika
 	</div>
-	<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
-	<div class="card__flags"><span class="badge badge-success">Právě otevřeno</span></div>
+	<div class="card__image">
+		<a href="#"><img class="card-img-top" src="http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_400x300xc_a58d61dc4d4f4811.jpg" alt="" width="400" height="300"></a>
+		<div class="card__flags"><span class="badge badge-success">Právě otevřeno</span></div>
+	</div>
 	<div class="card-body">
 		<h4 class="card-title">Elegantní lékárna</h4>
 		<address>Vinohradská 222<br>
@@ -171,35 +188,45 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 <div class="card-deck card-deck--micro">
 
 	<a class="card card--micro" href="#">
-		<img title="Spirit" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card__image">
+			<img title="Spirit" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">Spirit</h5>
 		</div>
 	</a>
 
 	<a class="card card--micro" href="#">
-		<img title="Construction Time Again" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card__image">
+			<img title="Construction Time Again" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">Construction Time Again</h5>
 		</div>
 	</a>
 
 	<a class="card card--micro" href="#">
-		<img title="A Broken Frame - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card__image">
+			<img title="A Broken Frame - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">A Broken Frame - download</h5>
 		</div>
 	</a>
 
 	<a class="card card--micro" href="#">
-		<img title="Black Celebration - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card__image">
+			<img title="Black Celebration - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">Black Celebration - download</h5>
 		</div>
 	</a>
 
 	<a class="card card--micro" href="#">
-		<img title="Violator - Remixes Deluxe Edition" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		<div class="card__image">
+			<img title="Violator - Remixes Deluxe Edition" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">Violator - Remixes Deluxe Edition</h5>
 		</div>
@@ -227,8 +254,33 @@ Available classes for 2, 3, 4 or 6 cards per row:
 [example]
 <div class="card-deck card-deck--sized-3">
 	<a class="card" href="#">
-		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
-		<div class="card__flags">
+		<div class="card__image">
+			<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+			<div class="card__flags">
+			</div>
+		</div>
+		<div class="card-body">
+			<h4 class="card-title">Foto film</h4>
+			<div class="card-text">
+				<p>Negativní film, černobílý, panchromatický, citlivost ASA 400</p>
+			</div>
+		</div>
+		<div class="card-footer">
+			<div class="card-price">
+				<div class="price--primary">
+					<span class="currency_main">
+						<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
+					</span>
+				</div>
+			</div>
+			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
+		</div>
+	</a>
+	<a class="card" href="#">
+		<div class="card__image">
+			<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+			<div class="card__flags">
+			</div>
 		</div>
 		<div class="card-body">
 			<h4 class="card-title">Foto film</h4>
@@ -248,29 +300,10 @@ Available classes for 2, 3, 4 or 6 cards per row:
 		</div>
 	</a>
 	<a class="card" href="#">
-		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
-		<div class="card__flags">
-		</div>
-		<div class="card-body">
-			<h4 class="card-title">Foto film</h4>
-			<div class="card-text">
-				<p>Negativní film.</p>
+		<div class="card__image">
+			<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
+			<div class="card__flags">
 			</div>
-		</div>
-		<div class="card-footer">
-			<div class="card-price">
-				<div class="price--primary">
-					<span class="currency_main">
-						<span class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span>
-					</span>
-				</div>
-			</div>
-			<span class="card-footer-icon"><span class="fas fa-chevron-right"></span></span>
-		</div>
-	</a>
-	<a class="card" href="#">
-		<img src="https://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" class="card-img-top" alt="Foto film" width="400" height="300">
-		<div class="card__flags">
 		</div>
 		<div class="card-body">
 			<h4 class="card-title">Foto film</h4>
