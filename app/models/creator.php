@@ -37,7 +37,7 @@ class Creator extends ApplicationModel implements Translatable {
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
-		if(strlen($name = $this->g("name_localized_$lang"))){
+		if(strlen($name = (string)$this->g("name_localized_$lang"))){
 			return $name;
 		}
 
