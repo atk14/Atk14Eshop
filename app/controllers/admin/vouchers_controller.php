@@ -18,7 +18,7 @@ class VouchersController extends AdminController {
 			}
 		}
 
-		$this->sorting->add("created_at",["reverse" => true]);
+		$this->sorting->add("created_at DESC, id DESC");
 		$this->sorting->add("voucher_code");
 		$this->sorting->add("discount","discount_percent ASC, discount_amount ASC, voucher_code ASC","discount_percent DESC, discount_amount DESC, voucher_code ASC");
 		$this->sorting->add("active","active DESC, voucher_code ASC","active ASC, voucher_code ASC");

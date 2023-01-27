@@ -152,6 +152,15 @@ $card-border-style: 1px dashed $border-color;
 		right: $grid-gutter-width/2;
 		top: $grid-gutter-width/2;
 	}
+
+	.card__icons {
+		// to be placed inside .card__image
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		display: block;
+		padding: 0.35em 0.5em;
+	}
 	
 	.card__label {
 		// to be placed inside .card__image

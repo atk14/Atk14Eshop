@@ -76,3 +76,27 @@
 		}
 	}
 }
+
+.card-icon {
+	$iconSize: 24px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: $iconSize;
+	height: $iconSize;
+	border-radius: 50%;
+	background-color: black;
+	line-height: 1;
+	margin: 0 $iconSize/4;
+	font-size: $iconSize/2;
+	color: white;
+	&:last-child {
+		margin-right: 0;
+	}
+	&:first-child {
+		margin-left: 0;
+	}
+	&--favourite {
+		background-color: $danger;
+	}
+}

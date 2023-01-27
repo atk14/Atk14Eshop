@@ -1,5 +1,5 @@
-Tags, flags and sticker
-=======================
+Tags, flags, stickers, card icons
+=================================
 
 ## Tags
 Tags use Bootsrap badge component wrapped in <code>tags</code> class container which ensures correct positioning and sizing in various contexts. Tags use standard Bootstrap badge component.
@@ -51,4 +51,12 @@ Sticker is big round icon consisting of icons and text. Color variations may be 
 	<h4 class="sticker__title">Pets</h4>
 	<div class="sticker__text">welcome</div>
 </div>
+[/example]
+
+## Card icons
+Icons used mainly on cards. They are rounded shape.
+[example]
+<span class="card-icon card-icon--favourite" title="Your favourite product"><span class="fas fa-heart"></span></span>
+<span class="card-icon"><i class="fa-solid fa-fish"></i></span>
+<span class="card-icon bg-success"><i class="fa-solid fa-frog"></i></span>
 [/example]
