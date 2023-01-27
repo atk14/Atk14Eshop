@@ -3,228 +3,240 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 12:21+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-01-27 16:14+0100\n"
+"PO-Revision-Date: 2023-01-27 16:32+0100\n"
+"Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
+"Language-Team: \n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
-msgstr ""
+msgstr "Nahrávání dočasných souborů není povoleno"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
 #, php-format
 msgid "The file exceeds the maximum file size, which is %s"
-msgstr ""
+msgstr "Soubor překračuje maximální velikost, která je %s"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
 msgid "Error 1"
-msgstr ""
+msgstr "Chyba 1"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:70
 msgid "Error 2"
-msgstr ""
+msgstr "Chyba 2"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
 msgid "The file has been already deleted on the server, please upload it again"
-msgstr ""
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
 msgid "The file was not fully uploaded, please upload it again"
-msgstr ""
+msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr ""
+msgstr "Odstranit soubor"
 
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"
-msgstr ""
+msgstr "Filtrovat"
 
 #: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:21
 msgid "Vše"
-msgstr ""
+msgstr "Vše"
 
 #: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:22
 msgid "Ano"
-msgstr ""
+msgstr "Ano"
 
 #: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:23
 msgid "Ne"
-msgstr ""
+msgstr "Ne"
 
 #: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
 msgid "from"
-msgstr ""
+msgstr "od"
 
 #: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:217
 msgid "to"
-msgstr ""
+msgstr "do"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
-msgstr ""
+msgstr "Zadejte prosím platné identifikační číslo společnosti"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
 msgid "Enter the company number as eight digits"
-msgstr ""
+msgstr "Zadejte osmimístné číslo společnosti"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:29
 msgid "Enter the company number as seven digits"
-msgstr ""
+msgstr "Zadejte sedmimístné číslo společnosti"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:30
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:31
 msgid "Enter the company number as nine digits"
-msgstr ""
+msgstr "Zadejte číslo společnosti jako devět číslic"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
 msgid "Enter the company number as LV and eleven digits"
-msgstr ""
+msgstr "Zadejte číslo společnosti jako LV a jedenáct číslic"
+
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:33
+msgid "Enter the company number as ten digits"
+msgstr "Zadejte číslo společnosti jako deset číslic"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_categories_controller.php:5
 msgid "Kategorie souhlasu používání cookies"
-msgstr ""
+msgstr "Kategorie souhlasu používání cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_categories_controller.php:15
 msgid "Editace kategorie pro nastavení cookies"
-msgstr ""
+msgstr "Editace kategorie pro nastavení cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consents_controller.php:11
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:5
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:6
 msgid "Nastavení cookies"
-msgstr ""
+msgstr "Nastavení cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_statistics_controller.php:6
 msgid "Statistika klikání na souhlas s použitím cookies"
-msgstr ""
+msgstr "Statistika klikání na souhlas s použitím cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/admin/cookie_consent_statistics_controller.php:7
 msgid "Statistika klikání"
-msgstr ""
+msgstr "Statistika klikání"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:33
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:63
 msgid "Nastavení cookies bylo uloženo"
-msgstr ""
+msgstr "Nastavení cookies bylo uloženo"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:49
 msgid "Používání všech cookies bylo přijato"
-msgstr ""
+msgstr "Používání všech cookies bylo přijato"
 
 #: ../vendor/atk14/cookie-consent/src/app/controllers/cookie_consents_controller.php:56
 msgid "Používání cookies bylo zamítnuto"
-msgstr ""
+msgstr "Používání cookies bylo zamítnuto"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:6
 msgid "Kód sekce"
-msgstr ""
+msgstr "Kód sekce"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:16
 msgid "Title"
-msgstr ""
+msgstr "Název"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:21
 msgid "Je to nezbytná sekce?"
-msgstr ""
+msgstr "Je to nezbytná sekce?"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:26
 msgid "Aktivní?"
-msgstr ""
+msgstr "Aktivní?"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:32
 msgid "Regulární výraz pro detekci cookies"
-msgstr ""
+msgstr "Regulární výraz pro detekci cookies"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:45
 msgid "Číslo verze"
-msgstr ""
+msgstr "Číslo verze"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:50
 msgid ""
 "Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
 "použitím cookies v této kategorii."
 msgstr ""
+"Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
+"použitím cookies v této kategorii."
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 msgid "Popis"
-msgstr ""
+msgstr "Popis"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:12
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:21
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:26
 msgid "Formátování Markdown"
-msgstr ""
+msgstr "Formátování Markdown"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:6
 msgid "Titulek cookie lišty"
-msgstr ""
+msgstr "Titulek cookie lišty"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:11
 msgid "Text cookie lišty"
-msgstr ""
+msgstr "Text cookie lišty"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:16
 msgid "Titulek dialogu"
-msgstr ""
+msgstr "Titulek dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:20
 msgid "Úvodní text dialogu"
-msgstr ""
+msgstr "Úvodní text dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/app/forms/admin/cookie_consents/edit_form.php:25
 msgid "Text v patičce dialogu"
-msgstr ""
+msgstr "Text v patičce dialogu"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:4
 msgid "Nastavení"
-msgstr ""
+msgstr "Nastavení"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:5
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:7
 msgid "Souhlas můžete odmítnout %1 zde </a>"
-msgstr ""
+msgstr "Souhlas můžete odmítnout %1 zde </a>"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:8
 msgid "Souhlasím s použitím všech cookies"
-msgstr ""
+msgstr "Souhlasím s použitím všech cookies"
 
 #: ../vendor/atk14/cookie-consent/src/gettext_messages.php:9
 msgid "Souhlasím s použitím vybraných cookies"
-msgstr ""
+msgstr "Souhlasím s použitím vybraných cookies"
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:24
 msgid ""
 "Ensure this number has at most %max% digits (it has %digits% including "
 "allowed decimal places)."
 msgstr ""
+"Zajistěte, aby toto číslo mělo nejvýše %max% číslic (má %digits% včetně "
+"povolených desetinných míst)."
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:25
 msgid ""
-"Ensure this number has at most %max% digits in integer-part (it has %integers"
-"%)."
+"Ensure this number has at most %max% digits in integer-part (it has "
+"%integers%)."
 msgstr ""
+"Zajistěte, aby toto číslo mělo v celočíselné části nejvýše %max% číslic (má "
+"%integers%)."
 
 #: ../vendor/atk14/decimal-field/src/app/fields/decimal_field.php:26
 msgid ""
-"Ensure this number has at most %max% decimal places (it has %decimal_places"
-"%)."
+"Ensure this number has at most %max% decimal places (it has "
+"%decimal_places%)."
 msgstr ""
+"Zajistěte, aby toto číslo mělo nejvýše %max% desetinných míst (má "
+"%decimal_places%)."
 
 #: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:8
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
@@ -232,122 +244,128 @@ msgid ""
 "Please try to solve the test. It is important for us to be sure that we are "
 "communicating with a human."
 msgstr ""
+"Pokuste se test vyřešit. Je pro nás důležité mít jistotu, že komunikujeme s "
+"člověkem."
 
 #: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:9
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:12
 msgid "The test was not successful. Please try it again."
-msgstr ""
+msgstr "Test nebyl úspěšný. Zkuste to prosím znovu."
 
 #: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:10
 msgid ""
 "We are experiencing some technical issue during the communication with an "
 "captcha API. Please try it later."
 msgstr ""
+"Při komunikaci s rozhraním captcha API se vyskytl technický problém. Zkuste "
+"to prosím později."
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:44
 msgid "Headers"
-msgstr ""
+msgstr "Hlavičky"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:55
 msgid "HTML body"
-msgstr ""
+msgstr "HTML tělo"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:61
 msgid "Plain text body"
-msgstr ""
+msgstr "Textové tělo"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:71
 msgid "No mail has been sent"
-msgstr ""
+msgstr "Nebyl odeslán žádný e-mail"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:10
 msgid "Enter phone number in format %sample_phone_number%"
-msgstr ""
+msgstr "Zadejte telefonní číslo ve formátu %sample_phone_number%"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:21
 msgid "Enter valid phone number (%sample_phone_number%)"
-msgstr ""
+msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:22
 msgid "Enter phone number"
-msgstr ""
+msgstr "Zadejte telefonní číslo"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
 msgid "remove"
-msgstr ""
+msgstr "odstranit"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:42
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
 msgid "Download attachment"
-msgstr ""
+msgstr "Stáhnout přílohu"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:46
 msgid "Display image"
-msgstr ""
+msgstr "Zobrazit obrázek"
 
 #: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:113
 msgid "Unknown error"
-msgstr ""
+msgstr "Neznámá chyba"
 
 #: ../vendor/atk14/range-field/src/app/fields/range_field.php:18
 msgid "Minimum of the range is required"
-msgstr ""
+msgstr "Je požadováno minimum rozsahu"
 
 #: ../vendor/atk14/range-field/src/app/fields/range_field.php:19
 msgid "Maximum of the range is required"
-msgstr ""
+msgstr "Je požadováno maximum rozsahu"
 
 #: ../vendor/atk14/range-field/src/app/fields/range_field.php:20
 msgid "Value is out of range of allowed values"
-msgstr ""
+msgstr "Hodnota je mimo rozsah povolených hodnot"
 
 #: ../vendor/atk14/range-field/src/app/fields/range_field.php:21
 msgid "Invalid input for range field"
-msgstr ""
+msgstr "Neplatný vstup pro rozsahové pole"
 
 #: ../vendor/atk14/range-field/src/app/fields/range_field.php:22
 msgid "This range field accepts only numeric values"
-msgstr ""
+msgstr "Toto rozsahové pole přijímá pouze číselné hodnoty"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:49
 msgid "od"
-msgstr ""
+msgstr "od"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:51
 msgid "do"
-msgstr ""
+msgstr "do"
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
 msgid ""
 "We are experiencing some technical issue during the communication with "
 "Google. Please try it later."
 msgstr ""
+"Při komunikaci s Googlem došlo k technickému problému. Zkuste to prosím "
+"později."
 
 #: ../vendor/atk14/slug-field/src/slug_field.php:6
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: ../vendor/atk14/slug-field/src/slug_field.php:8
 msgid "funny-green-mug"
-msgstr ""
+msgstr "legracni-zeleny-hrnek"
 
 #: ../vendor/atk14/slug-field/src/slug_field.php:12
 msgid "Write something like black-cat-white-cat"
-msgstr ""
+msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #: ../vendor/atk14/url-field/src/url_field.php:13
 msgid "This doesn't look like an URL"
-msgstr ""
+msgstr "Toto nevypadá jako URL"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:47
-#: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:23
+#: ../vendor/atk14/zip-field/test/tc_zip_field.php:40
 msgid "Please enter a valid zip code"
-msgstr ""
+msgstr "Zadejte prosím platné PSČ"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:86
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:87
-#: ../vendor/atk14/zip-field/test/tc_zip_field.php:60
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:26
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:27
+#: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
 msgid "Enter the ZIP code as NNN NN"
-msgstr ""
+msgstr "Zadejte PSČ ve formátu NNN NN"
