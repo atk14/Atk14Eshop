@@ -7,6 +7,9 @@
  * @fixture pricelist_items
  * @fixture warehouses
  * @fixture warehouse_items
+ * @fixture categories
+ * @fixture category_cards
+ * @fixture category_tags
  */
 class TcProduct extends TcBase {
 
@@ -83,6 +86,7 @@ class TcProduct extends TcBase {
 
 	function test_containsTag(){
 		$tag = $this->tags["fun"];
+		$sale = $this->tags["sale"];
 
 		$tea_card = $this->cards["tea"];
 		$book_card = $this->cards["book"];
@@ -114,6 +118,12 @@ class TcProduct extends TcBase {
 		$this->assertEquals(true,$black_tea->containsTag($tag));
 		$this->assertEquals(true,$green_tea->containsTag($tag));
 		$this->assertEquals(true,$book->containsTag($tag));
+
+		//
+
+		$this->assertEquals(false,$black_tea->containsTag($sale));
+		$this->assertEquals(false,$black_tea->containsTag($sale,["consider_categories" => false]));
+		$this->assertEquals(true,$black_tea->containsTag($sale,["consider_categories" => true]));
 	}
 
 	function test_canBeOrdered(){

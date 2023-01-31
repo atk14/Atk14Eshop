@@ -68,11 +68,11 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
-		if(strlen($content = $this->g("content_localized_$lang"))){
+		if(strlen($content = (string)$this->g("content_localized_$lang"))){
 			return $content;
 		}
 
-		if(strlen($content = $this->g("content"))){
+		if(strlen($content = (string)$this->g("content"))){
 			return $content;
 		}
 	
@@ -103,11 +103,11 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			return $transformator->decodeValue($json);
 		}
 
-		if(strlen($content = $this->g("content_localized_$lang"))){
+		if(strlen($content = (string)$this->g("content_localized_$lang"))){
 			return $content;
 		}
 
-		if(strlen($content = $this->g("content"))){
+		if(strlen($content = (string)$this->g("content"))){
 			return $content;
 		}
 	}

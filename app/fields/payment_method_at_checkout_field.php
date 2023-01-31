@@ -46,17 +46,24 @@ class PaymentMethodChoice {
   }
 
 	function getPrice() {
-			if ($this->options["display_prices"]!==true) {
-				return null;
-			}
-			$rate = $this->options['currency_rate'];
-			$price = $this->pm->getPriceInclVat() / $rate;
-			if($price==0.0 || $this->options["free_shipping"]){
-				$price = 0;
-			}else{
-				$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
-			}
-			return $price;
+		if ($this->options["display_prices"]!==true) {
+			return null;
+		}
+
+		$basket = $this->options["basket"];
+		$currency = $basket ? $basket->getCurrency() : null;
+		$incl_vat = $basket->displayPricesInclVat();
+
+		$rate = $this->options['currency_rate'];
+		$price = $incl_vat ? $this->pm->getPriceInclVat() : $this->pm->getPrice();
+		$price = $price / $rate;
+		if($price==0.0 || $this->options["free_shipping"]){
+			$price = 0;
+		}else{
+			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
+			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
+		}
+		return $price;
 	}
 
 	function getImage() {

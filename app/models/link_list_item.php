@@ -6,6 +6,8 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 	}
 	use TraitRegions;
 
+	use TraitGetInstanceByCode;
+
 	static function GetTranslatableFields() {
 		return array("title","url_localized");
 	}
@@ -119,7 +121,6 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		}
 
 		$options += [
-			"with_hostname" => false,
 			"lang" => null,
 		];
 

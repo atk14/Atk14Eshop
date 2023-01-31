@@ -21,3 +21,13 @@ free_shipping_for_oversized_products:
   required_customer_group_id: NULL
   minimal_items_price_incl_vat: 20000
   free_shipping: true
+
+gift:
+  regions: "<?= json_encode(["DEFAULT" => true, $regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true, $regions["SK"]->getCode() => true]) ?>"
+  name_en: ""
+  name_cs: ""
+  required_customer_group_id: NULL
+  minimal_items_price_incl_vat: 2000
+  gift_product_id: "<?= $products["fidorka"]->getId() ?>"
+  gift_amount: 1
+  gift_multiply: true

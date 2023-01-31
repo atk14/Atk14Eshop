@@ -16,6 +16,11 @@ class MainController extends ApplicationController{
 			$this->page_description = $page->getPageDescription();
 		}
 
+		if ($page && !$page->isIndexable()) {
+			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
+		}
+
 		$this->tpl_data["slider"] = Slider::FindByCode("homepage");
 
 		$category_recommended_cards = Category::FindByCode("recommended_cards_homepage");
@@ -33,6 +38,7 @@ class MainController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"limit" => 4,
 		]);
+		$this->head_tags->setCanonical($this->_build_canonical_url("main/index"));
 	}
 
 	function robots_txt(){

@@ -30,4 +30,18 @@ class ApplicationMigration extends Atk14Migration{
 		Atk14Require::Helper("modifier.link_to_category");
 		return smarty_modifier_link_to_category($code);
 	}
+
+	/**
+	 *
+	 *	$this->_appendNextOrderStatuses("ready_for_pickup",["delivered","returned","cancelled"]);
+	 */
+	function _appendNextOrderStatuses($code,$next_codes){
+		$os = OrderStatus::GetInstanceByCode($code);
+		$lister = $os->getAllowedNextOrderStatusesLister();
+		foreach($next_codes as $next_code){
+			$next_os = OrderStatus::GetInstanceByCode($next_code);
+			if($lister->contains($next_os)){ continue; }
+			$lister->append($next_os);
+		}
+	}
 }

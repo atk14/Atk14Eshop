@@ -53,7 +53,6 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 
 	$options += array(
 		"summary" => false,
-		"decimals" => $current_currency->getDecimals(),
 		"show_decimals" => true,
 		// also the following options are available
 		// "show_decimals_on_czk" => true,
@@ -61,7 +60,8 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		// ...
 		"without_vat" => false,
 		"show_vat_label" => false,
-		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"..
+		"currency" => $current_currency->getSymbol(), // "Kč", "EUR"...
+		"show_currency" => true,
 		"mark_decimals" => false,
 		"show_zero" => true,
 		"format" => "html", // "html" n. "plain"
@@ -69,6 +69,15 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		"ordering_unit" => null,
 	);
 	$currency = $options["currency"];
+	if(is_object($currency)){
+		$current_currency = $currency;
+		$currency = $currency->getSymbol();
+	}
+
+	$options += array(
+		"decimals" => $current_currency->getDecimals(),
+	);
+
 	$currency_lower = strtolower($current_currency->getCode());
 
 	if(!$options["show_decimals"] || (isset($options["show_decimals_on_$currency_lower"]) && !$options["show_decimals_on_$currency_lower"])){
@@ -112,7 +121,8 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		$vat_label = " <span class=\"vat_label\">$vat_label</span>";
 	}
 
-	$out = sprintf("<span class=\"currency_main\"><span class=\"currency_main__price\">%s</span>&nbsp;<span class=\"currency_main__currency\">${currency}</span><span class=\"currency_main__ordering-unit\">${ordering_unit}</span></span>${vat_label}",$formatted_price);
+	$currency_str = $options["show_currency"] ? "&nbsp;<span class=\"currency_main__currency\">${currency}</span>" : "";
+	$out = sprintf("<span class=\"currency_main\"><span class=\"currency_main__price\">%s</span>$currency_str<span class=\"currency_main__ordering-unit\">${ordering_unit}</span></span>${vat_label}",$formatted_price);
 
 	if($options["format"]=="plain"){
 		$out = strip_tags($out);

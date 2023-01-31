@@ -6,22 +6,18 @@ abstract class CardListController extends ApplicationController {
 	function _setup_category(&$options) {
 		$path = $this->params->getString("path");
 		if(!($category = Category::GetInstanceByPath($path)) || !$category->isVisible() || $category->isFilter() || (($p = $category->getParentCategory()) && $p->isFilter())){
-			return $this->_execute_action("error404");
+			$this->_execute_action("error404");
+			return null;
 		}
 
 		if(!$path) {
-			$category = Category::FindByCode("catalog");
+			$category = Category::MainRootCategory();
 			if(!$category) {
 				$this->_error404();
 				return false;
 			}
 			$this->_redirect_to(['path' => $category->getPath()]);
 			return false;
-		}
-
-		// vytiskneme do <head></head> element <link rel="canonical">
-		if($path!=($_path = $category->getPath())){
-				$this->tpl_data["canonical_path"] = $_path;
 		}
 
 		$parent_categories = Category::GetInstancesOnPath($path);

@@ -47,6 +47,7 @@ class LinkList extends ApplicationModel implements Translatable, Rankable {
 	function getVisibleLinkListItems($region = null){
 		$items = $this->getLinkListItems($region);
 		$items = array_filter($items,function($item){ return $item->isVisible(); });
+		$items = array_values($items);
 		return $items;
 	}
 

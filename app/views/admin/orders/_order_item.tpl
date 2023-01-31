@@ -15,7 +15,7 @@
 	<td class="text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
 	<td>
 		{render partial="shared/order_status"}
-		<br><em>({$order->getOrderStatusSetAt()|humanize_date})</em>
+		<br><em>({$order->getOrderStatusSetAt()|humanize_date}{if $order->getOrderStatusSetByUser()}, {$order->getOrderStatusSetByUser()}{/if})</em>
 	</td>
 	<td>
 		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="badge badge-warning">{!"question"|icon}</span>{/if}

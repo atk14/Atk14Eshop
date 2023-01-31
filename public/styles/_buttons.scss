@@ -8,3 +8,40 @@
 	font-size: $font-size-sm;
 	padding: .125rem .25rem;
 }
+
+@mixin btnMultiLine( $fontSize: $btn-font-size, $paddY: $btn-padding-y, $lineHeight: 1.1, $defaultLineHeight: $btn-line-height, $borderW: $btn-border-width ){
+	display: inline-flex;
+	//flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	$minHeight: $fontSize * $defaultLineHeight + $paddY * 2;
+	line-height: $lineHeight;
+	min-height: calc(#{$minHeight} + 2 * #{$borderW} );
+	// horiz. margins for icons 
+	.fa {
+		&s, &r, &b, &-solid, &-regular, &-brand {
+			outline: 1px solid olive;
+			margin-left: 1ch;
+			margin-right: 1ch;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.btn.btn--multiline {
+	&.btn:not(.btn-lg, .btn-sm, .btn-xs) {
+		@include btnMultiLine();
+	}
+	&.btn-lg {
+		@include btnMultiLine($btn-font-size-lg, $btn-padding-y-lg, 1.1, $btn-line-height-lg);
+	}
+	&.btn-sm {
+		@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height-sm);
+	}
+}

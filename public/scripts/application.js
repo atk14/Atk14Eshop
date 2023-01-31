@@ -207,6 +207,27 @@
 
 				// Init NoUiSlider
 
+				// Scroll Sidebar
+				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
+				if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
+					// eslint-disable-next-line no-undef,no-unused-vars
+					var sidebar = new StickySidebar( ".nav-section", {
+						topSpacing: 10,
+						bottomSpacing: 10,
+						containerSelector: ".body__sticky-container",
+						innerWrapperSelector: "#sidebar_menu",
+						minWidth: 767,
+					});
+					$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
+						$( ".nav-section" ).toggleClass( "show-sm" );
+					} );
+				}
+				// Init offvanvas component
+				window.offCanvas = new window.UTILS.BSOffCanvas();
+
+				// Init offcanvas basket preview
+				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
+
 			}
 
 		},
@@ -412,7 +433,7 @@
 				} );
 
 				// Auto submission of the set-region form
-				$("#form_baskets_set_region select").on( "change",  function() {
+				$("#form_regions_set_region select").on( "change",  function() {
 					$( document.body ).addClass( "loading" );
 					$(this).parent( "form" ).submit();
 				} );
@@ -447,6 +468,12 @@
 							.removeClass( "checked" );
 						$( this ).parents( "li" ).last().addClass( "checked" );
 					}
+				} );
+
+				// Auto submission of the set-region form
+				$("#form_regions_set_region select").on( "change",  function() {
+					$( document.body ).addClass( "loading" );
+					$(this).parent( "form" ).submit();
 				} );
 			},
 

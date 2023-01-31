@@ -1,6 +1,12 @@
 <?php
 class BasketsController extends ApplicationController {
 
+	function detail(){
+		if(!DEVELOPMENT && !$this->request->xhr()){
+			$this->_redirect_to("edit");
+		}
+	}
+
 	function edit(){
 		$basket = $this->_get_basket();
 		$this->_prepare_basket_edit_form($basket,$this->form);

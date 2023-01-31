@@ -7,6 +7,7 @@ class ProductPrice {
 	protected $amount;
 	protected $currency;
 	protected $current_date;
+	protected $price_finder;
 
 	/**
 	 * $pp = new ProductPrice([
@@ -19,11 +20,12 @@ class ProductPrice {
 	 *	]
 	 * ],10,Currency::GetDefaultCurrency());
 	 */
-	function __construct($data,$amount,$currency,$current_date){
+	function __construct($data,$amount,$currency,$current_date,$price_finder){
 		$this->data = $data;
 		$this->amount = $amount;
 		$this->currency = $currency;
 		$this->current_date = $current_date;
+		$this->price_finder = $price_finder;
 	}
 
 	function discountedFrom() {
@@ -155,6 +157,24 @@ class ProductPrice {
 		}
 	}
 
+	function getBaseProductPrice(){
+		return $this->price_finder->getBasePrice($this->getProduct(),$this->getAmount(),["return_null_when_price_does_not_exist" => true]);
+	}
+
+	/**
+	 * Returns either base price or price before discount
+	 *
+	 * Returns null when no price is in the play
+	 *
+	 * @return ProductPrice
+	 */
+	function getOriginalProductPrice(){
+		($out = $this->getBaseProductPrice()) ||
+		($out = $this->getProductPriceBeforeDiscount());
+
+		return $out;
+	}
+
   //
 
   /**
@@ -210,9 +230,16 @@ class ProductPrice {
 	}
 
 	function _getPriceItem(){
+		if(!$this->data["prices"]){
+			return;
+		}
+		if(sizeof($this->data["prices"])==1 && $this->data["prices"][0]["minimum_quantity"]<=1){
+			return $this->data["prices"][0];
+		}
+
 		$product = $this->getProduct();
 		$amount = $this->amount;
-		$minimum_quantity_to_order = $product->getMinimumQuantityToOrder();
+		$minimum_quantity_to_order = $product->getMinimumQuantityToOrder(); // this can be time consuming
 
 		if(!$product->quantityDiscountsEnabled()){
 			$amount = $minimum_quantity_to_order;

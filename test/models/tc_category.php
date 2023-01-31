@@ -3,6 +3,8 @@
  *
  * @fixture categories
  * @fixture cards
+ * @fixture tags
+ * @fixture category_tags
  */
 class TcCategory extends TcBase {
 
@@ -279,6 +281,22 @@ class TcCategory extends TcBase {
 		$lang = null;
 		$cats = Category::GetInstancesOnPath("shoes/kids/nonsence",$lang,$catalog);
 		$this->assertNull($cats);
+
+		// Alias category
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("kids/shoes",$lang,null);
+		$cats = array_values($cats);
+		$this->assertEquals($this->categories["kids"]->getId(),$cats[0]->getId());
+		$this->assertEquals($this->categories["kids_shoes"]->getId(),$cats[1]->getId());
+
+		// Alias category with option dealias=false
+
+		$lang = null;
+		$cats = Category::GetInstancesOnPath("kids/shoes",$lang,null,array("dealias" => false));
+		$cats = array_values($cats);
+		$this->assertEquals($this->categories["kids"]->getId(),$cats[0]->getId());
+		$this->assertEquals($this->categories["kids__kids_shoes"]->getId(),$cats[1]->getId());
 	}
 
 	function test_GetInstanceByNamePath(){
@@ -390,5 +408,42 @@ class TcCategory extends TcBase {
 		$filters = $catalog->getAvailableFilters(["visible" => false]);
 		$this->assertEquals(1,sizeof($filters));
 		$this->assertEquals("Odour",$filters[0]->getName());
+	}
+
+	function test_MainRootCategory(){
+		$main_root = Category::MainRootCategory();
+		$this->assertTrue($main_root->isMainRootCategory());
+
+		$shoes = $this->categories["shoes"];
+		$this->assertFalse($shoes->isMainRootCategory());
+	}
+
+	function test_containsTag(){
+		$sale = $this->tags["sale"];
+		$food_drinks = $this->categories["food_drinks"];
+		$hot_drinks = $this->categories["hot_drinks"];
+
+		$this->assertTrue($food_drinks->containsTag($sale));
+		$this->assertFalse($hot_drinks->containsTag($sale));
+		$this->assertFalse($hot_drinks->containsTag($sale,["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->containsTag($sale,["consider_parents" => true]));
+
+		// using code
+		$this->assertTrue($food_drinks->containsTag("sale"));
+		$this->assertFalse($hot_drinks->containsTag("sale"));
+		$this->assertFalse($hot_drinks->containsTag("sale",["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->containsTag("sale",["consider_parents" => true]));
+
+		// using id
+		$this->assertTrue($food_drinks->containsTag($sale->getId()));
+		$this->assertFalse($hot_drinks->containsTag($sale->getId()));
+		$this->assertFalse($hot_drinks->containsTag($sale->getId(),["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->containsTag($sale->getId(),["consider_parents" => true]));
+
+		// alias hasTag
+		$this->assertTrue($food_drinks->hasTag($sale));
+		$this->assertFalse($hot_drinks->hasTag($sale));
+		$this->assertFalse($hot_drinks->hasTag($sale,["consider_parents" => false]));
+		$this->assertTrue($hot_drinks->hasTag($sale,["consider_parents" => true]));
 	}
 }

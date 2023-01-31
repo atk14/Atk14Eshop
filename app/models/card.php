@@ -55,16 +55,16 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 	function getPageTitle($lang = null){
 		$out = parent::getPageTitle($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		$product_type = $this->getProductType();
 		return $product_type->generatePageTitleForProduct($this);
 	}
 
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		$out = $this->getTeaser($lang);
-		if(strlen($out)){
+		if(strlen((string)$out)){
 			$out = Markdown($out);
 			$out = String4::ToObject($out)->stripHtml()->toString();
 			return $out;

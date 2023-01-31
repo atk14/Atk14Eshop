@@ -3,7 +3,7 @@
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
         "atk14/templates-panel": "^1.0",
-        "atk14/pupiq-client": "^1.13",
+        "atk14/pupiq-client": "^1.14.5",
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.1",
         "atk14/drink-markdown": "^0.8",
@@ -20,7 +20,7 @@
         "atk14/textmit-client": "dev-master",
         "atk14/decimal-field": "^1.0",
         "atk14/localized-decimal-field": "^1.0",
-        "atk14/zip-field": "^0.1.0",
+        "atk14/zip-field": "^0.2",
         "chrisjean/php-ico": "^1.0",
         "atk14/slug-field": "^1.1",
         "atk14/hcaptcha-field": "^0.1.0",
@@ -38,6 +38,7 @@
         "atk14/csv-writer": "^1.1",
         "atk14/sql-builder": "^3.0.2",
         "atk14/category-filter": "^1.0",
-        "atk14/cookie-consent": "dev-master"
+        "atk14/cookie-consent": "dev-master",
+        "mysutka/datalayer_generator": "^0.9"
     }
 }

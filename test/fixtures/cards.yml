@@ -100,3 +100,8 @@ strih_v_pdf_formatu:
 fridge:
   name_en: "School bus"
   name_cs: "Školní autobus"
+
+fidorka:
+  name_en: "Fidorka"
+  name_cs: "Fidorka"
+  visible: false

@@ -30,7 +30,23 @@ Buttons are based on standard Bootstrap buttons. Use <code>a</code>, <code>butto
 
 ## Button sizing
 [example]
+<button type="button" class="btn btn-primary btn-xs">X-Small</button>
 <button type="button" class="btn btn-primary btn-sm">Small</button>
 <button type="button" class="btn btn-primary">Normal</button>
 <button type="button" class="btn btn-primary btn-lg">Large</button>
+[/example]
+
+## Buttons with multiple lines of text
+
+Class <code>.btn--multiline</code> enhances button appearance in case of multiple lines of text. For best results it is highly recommended to wrap each line of text in its own HTML element such as <code>span</code>. Works both for standard and outline buttons in normal, -sm and -lg sizes. With sigle line of text buttons appear the same as ordinary buttons and have the same outer dimensions.
+
+[example]
+<button type="button" class="btn btn--multiline btn-primary"><span>Normal</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-primary"><span>Normal</span></button>
+<hr>
+<button type="button" class="btn btn--multiline btn-lg btn-info"><span>Large</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-lg btn-info"><span>Large</span></button>
+<hr>
+<button type="button" class="btn btn--multiline btn-sm btn-outline-danger"><span>Small</span><small>Some additional text</small></button>
+<button type="button" class="btn btn--multiline btn-sm btn-outline-danger"><span>Small</span></button>
 [/example]

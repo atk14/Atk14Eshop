@@ -14,10 +14,8 @@ window.UTILS.initSwiper = function() {
 		var sliderId = $container.data( "slider_id" );
 		var breakpoint = $container.data( "breakpoint" );
 		var centeredSlides = $container.data( "centered_slides" );
-		var thumbsFor = $container.data( "thumbsfor" );
 		var thumbs = $container.data( "thumbs" );
 		var spaceBetween = $container.data( "spacebetween" );
-		console.log( "thumbsFor", thumbsFor );
 
 		if( typeof( autoplay ) === "number" ){
 			autoplay = {
@@ -65,7 +63,26 @@ window.UTILS.initSwiper = function() {
 				};
 			}
 		} else {
-			if( slidesPerView > 1 ){
+			if ( slidesPerView === 6 ){
+				initObject.breakpoints = {
+					1100: {
+						slidesPerView: 6,
+						slidesPerGroup: 6,
+					},
+					600: {
+						slidesPerView: 4,
+						slidesPerGroup: 4,
+					},
+					400: {
+						slidesPerView: 3,
+						slidesPerGroup: 3,
+					},
+					10: {
+						slidesPerView: 2,
+						slidesPerGroup: 2,
+					}
+				};
+			} else if ( slidesPerView > 1 ){
 				initObject.breakpoints = {
 					976: {
 						slidesPerView: 2,

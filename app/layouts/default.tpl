@@ -23,7 +23,7 @@
  * $DEVELOPMENT
  *}
 <!DOCTYPE html>
-<html lang="{$lang}" class="no-js">
+<html lang="{$lang}" prefix="og: http://ogp.me/ns#" class="no-js" >
 
 	<head>
 
@@ -31,6 +31,7 @@
 
 		<meta charset="utf-8">
 	
+		{!$head_tags}
 		{render partial="shared/layout/performance_optimizations"}
 		{render partial="shared/trackers/google/tag_manager_head"}
 		{render partial="shared/trackers/google/analytics"}
@@ -72,7 +73,6 @@
 		{!"app.trackers.google.site_verification.html_tag"|system_parameter}
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
-		{render partial="shared/social_meta"}
 		{enhanced_conversion_data}
 		{facebook_pixel}
 	</head>
@@ -80,26 +80,27 @@
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
-		<div class="body" id="page-body">
-			{render partial="shared/layout/header"}
-			{placeholder for="out_of_container"}
-			{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
-				{assign use_sidebar_menu true}
+		<div class="bs-offcanvas-overlay"></div>
+		{render partial="shared/layout/header"}
+		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
+			{assign use_sidebar_menu true}
+		{/if}
+		<div class="body--upper">{placeholder for="out_of_container"}</div>
+		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
+			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
+			{if $section_navigation}
+				<nav class="nav-section">
+					{render partial="shared/layout/section_navigation"}
+				</nav>
+			{elseif $use_sidebar_menu}
+				<nav class="nav-section">
+					{render partial="shared/layout/sidebar_nav"}
+				</nav>
 			{/if}
-			<div class="container-fluid{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}">
+			<div class="container-fluid">
 
 				{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 					{render partial="shared/breadcrumbs"}
-				{/if}
-
-				{if $section_navigation}
-					<nav class="nav-section">
-						{render partial="shared/layout/section_navigation"}
-					</nav>
-				{elseif $use_sidebar_menu}
-					<nav class="nav-section">
-						{render partial="shared/layout/sidebar_nav"}
-					</nav>
 				{/if}
 
 				<div class="content-main">
@@ -107,9 +108,12 @@
 					{placeholder}
 				</div>
 			</div>
-
-			{render partial="shared/layout/footer"}
+			{if $section_navigation || $use_sidebar_menu}</div>{/if}
 		</div>
+		{render partial="shared/layout/footer"}
+
+		{render partial="shared/offcanvas_basket"}
+		
 
 		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">

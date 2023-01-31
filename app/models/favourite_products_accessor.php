@@ -91,7 +91,7 @@ class FavouriteProductsAccessor {
 			return "";
 		}
 		$session_salt = $this->session->g("favourite_products_salt");
-		if(strlen($session_salt)==0){
+		if(strlen((string)$session_salt)==0){
 			$session_salt = null;
 		}
 		if(!$session_salt && $create_if_not_exists){

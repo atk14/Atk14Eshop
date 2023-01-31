@@ -4,6 +4,7 @@ $link.tooltip("hide");
 $link.replaceWith($new_link);
 $new_link.tooltip( {
 	trigger: "manual",
+	container: "html",
 	html: true
 } );
 $new_link.tooltip("show");

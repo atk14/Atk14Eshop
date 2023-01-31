@@ -7,8 +7,14 @@ class OrderStatusField extends ChoiceField {
 			"" => sprintf("-- %s --", _("stav objednávky")),
 		];
 		foreach(OrderStatus::FindAll() as $os){
+			$icon = "";
 			$label = $os->getName();
-			$choices[$os->getId()] = $label;
+			if($os->isFinishingSuccessfully() || $os->finishedSuccessfully()){
+				$icon = "✅ ";
+			}elseif($os->isFinishingUnsuccessfully() || $os->finishedUnsuccessfully()){
+				$icon = "❌ ";
+			}
+			$choices[$os->getId()] = $icon.$label;
 		}
 		$options["choices"] = $choices;
 

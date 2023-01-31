@@ -23,6 +23,13 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	/**
+	 * Collector for meta and link tags belonging to head.
+	 *
+	 * @var HeadTags
+	 */
+	var $head_tags;
+
+	/**
 	 * @var LazyLoader
 	 */
 	var $lazy_loader;
@@ -104,6 +111,10 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+		$this->_setup_head_tags_in_before_render();
+		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
+			$this->tpl_data["head_tags"] = $this->head_tags;
+		}
 
 		$this->tpl_data["basket"] = $basket = $this->_get_basket();
 		$this->tpl_data["current_region"] = $current_region = $basket->getRegion();
@@ -123,7 +134,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$item = array(
 				"lang" => $l,
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
-				"switch_url" => $this->_link_to($params)
+				"switch_url" => $this->_link_to($params,["with_hostname" => true]),
 			);
 			$all_languages[] = $item;
 			if($this->lang==$l){
@@ -177,14 +188,14 @@ class ApplicationBaseController extends Atk14Controller{
 
 		if(
 			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
-			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
+			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && constant("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
 		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$scheme = $this->request->getScheme();
+			$scheme = (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")) ? "https" : $this->request->getScheme();
 			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
 			return $this->_redirect_to_ssl();
 		}
 
@@ -197,6 +208,8 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
+		$this->head_tags = new HeadTags();
+		$this->_setup_head_tags();
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
@@ -571,6 +584,93 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	/**
+	 * adding various meta tags into head
+	 *
+	 */
+	protected function _setup_head_tags() {
+		if (defined("PUPIQ_API_KEY")) {
+			# force loading class which defines constants
+			new Pupiq;
+			if (defined("PUPIQ_PROXY_HOSTNAME")) {
+				$ppq_proxy = PUPIQ_PROXY_HOSTNAME;
+			}
+			if (defined("PUPIQ_IMG_HOSTNAME")) {
+				$ppq_img_hostname = PUPIQ_IMG_HOSTNAME;
+			}
+
+			if (isset($ppq_proxy) && $ppq_proxy) {
+				$ppq_hostname = $ppq_proxy;
+			} elseif(isset($ppq_img_hostname) && $ppq_img_hostname) {
+				$ppq_hostname = $ppq_img_hostname;
+			}
+
+			if (isset($ppq_hostname) && $ppq_hostname!==$this->request->getHttpHost()) {
+				$this->head_tags->addLinkTag("preconnect", ["href" => "//$ppq_hostname"]);
+			}
+		}
+		if (class_exists("SystemParameter")) {
+			$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
+			$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
+		} else {
+			if (defined("GOOGLE_ANALYTICS_TRACKING_ID")) {
+				$analytics_tracking_id = GOOGLE_ANALYTICS_TRACKING_ID;
+			}
+			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
+				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
+			}
+		}
+		if (isset($analytics_tracking_id)) {
+			$this->head_tags->addPreconnect("https://www.google-analytics.com");
+		}
+		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
+			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
+		}
+		$this->_setup_hreflang_for_head_tags();
+		return;
+		# @note next tags are set in templates for now
+		# meta tags
+		$this->head_tags->addHttpEquiv("content-language", $this->lang);
+		$this->head_tags->setCharsetMeta(DEFAULT_CHARSET);
+
+		# link tags
+		# adding preconnect using alternative shortcut method
+		$this->head_tags->addPreconnect("https://fonts.gstatic.com/");
+
+		$this->head_tags->addLinkTag("preload", ["href" => "/public/dist/webfonts/fa-solid-900.woff2", "as" => "font", "type" => "font/woff2"]);
+		# adding preload using shortcut method
+		$this->head_tags->addPreload("/public/dist/webfonts/fa-regular-400.woff2", ["as" => "font", "type" => "font/woff2", "crossorigin"]);
+	}
+
+	protected function _setup_head_tags_in_before_render() {
+		$this->_head_tags_for_open_graph();
+	}
+
+	protected function _head_tags_for_open_graph() {
+		$this->head_tags->addProperty("og:url", $this->request->getUrl());
+		$this->head_tags->setProperty("og:title", $this->_getOGTitle());
+		$this->head_tags->setProperty("og:description", $this->_getOGDescription());
+		$this->head_tags->setProperty("og:type", $this->_getOGType());
+		$this->head_tags->addProperty("og:image", $this->_getOGImage());
+		$this->head_tags->addProperty("og:site_name", ATK14_APPLICATION_NAME);
+	}
+
+	protected function _getOGImage() {
+		return \HeadTags\Support\OpenGraph::GetImage($this);
+	}
+
+	protected function _getOGDescription() {
+		return \HeadTags\Support\OpenGraph::GetDescription($this);
+	}
+
+	protected function _getOGTitle() {
+		return \HeadTags\Support\OpenGraph::GetTitle($this);
+	}
+
+	protected function _getOGType() {
+		return \HeadTags\Support\OpenGraph::GetType($this);
+	}
+
+	/**
 	 * Prepares a object for the current action
 	 *
 	 * It's used in generic methods
@@ -600,5 +700,61 @@ class ApplicationBaseController extends Atk14Controller{
 		)){
 			$this->template_name = "application/$this->action";
 		}
+	}
+
+	/**
+	 *
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url();
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url("index");
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url(["action" => "pages/detail", "id" => $this->page]);
+	 */
+	function _build_canonical_url($action_or_params = "",$params = []){
+		if(!$action_or_params){
+			$action_or_params = $this->action;
+		}
+		if(is_array($action_or_params)){
+			$params = $action_or_params;
+		}else{
+			$params["action"] = $action_or_params;
+		}
+		return $this->_link_to($params,["with_hostname" => true]);
+	}
+
+	protected function _setup_hreflang_for_head_tags() {
+		global $ATK14_GLOBAL;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+
+		$current_language = null;
+
+		$langs = [];
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+		# do not setup hreflang when only one locale
+		if (!(sizeof($locales)>1)) {
+			return;
+		}
+		foreach($locales as $lang => $locale) {
+			$params["lang"] = $lang;
+			$_url = $this->_link_to($params,["with_hostname" => true]);
+			# first hreflang with just a language code
+			$langs[] = [
+				"lang" => $lang,
+				"url" => $_url,
+			];
+			list($locale_lang,$encoding) = preg_split("/\./", $locale["LANG"].".");
+			# second hreflang for language-country code
+			$langs[] = [
+				"lang" => strtr($locale_lang, "_", "-"),
+				"url" => $_url,
+			];
+		}
+
+		foreach($langs as $lang) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["url"]]);
+			if ($ATK14_GLOBAL->getDefaultLang() == $lang["lang"]) {
+				$current_language = $lang;
+			}
+		}
+		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
 	}
 }

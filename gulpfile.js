@@ -27,7 +27,8 @@ var vendorScripts = [
 	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
 	"node_modules/bootbox/dist/bootbox.all.min.js",
-	"node_modules/nouislider/dist/nouislider.min.js"
+	"node_modules/nouislider/dist/nouislider.min.js",
+	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
 ];
 
 var applicationScripts = [
@@ -45,6 +46,7 @@ var applicationScripts = [
 	"public/scripts/delivery_service_widgets.js",
 	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/utils/cookie_consent.js",
+	"public/scripts/utils/offcanvas.js",
 	"public/scripts/application.js"
 ];
 
@@ -109,7 +111,6 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
-
 } );
 
 // Lint & Code style

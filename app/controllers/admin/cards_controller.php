@@ -15,11 +15,17 @@ class CardsController extends AdminController{
 	function index(){
 		$this->page_title = _("List of Products");
 
-		$q = ($d = $this->form->validate($this->params)) ? $d["search"] : "";
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
 		$conditions = array("deleted='f'");
 
+		if(isset($d["visible"])){
+			$conditions[] = "visible=:visible";
+			$bind_ar[":visible"] = !!$d["visible"];
+		}
+
+		$q = $d["search"];
 		$q_up = Translate::Upper($q);
 
 		if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",array(
@@ -61,6 +67,7 @@ class CardsController extends AdminController{
 		$this->sorting->add("name", array("order_by" => Translation::BuildOrderSqlForTranslatableField("cards", "name")));
 		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
 		$this->sorting->add("has_variants");
+		$this->sorting->add("visible","visible DESC, created_at DESC","visible ASC, created_at DESC");
 
 		$this->tpl_data["finder"] = Card::Finder(array(
 			"conditions" => $conditions,

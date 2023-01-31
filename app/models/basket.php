@@ -576,7 +576,22 @@ class Basket extends BasketOrOrder {
 			$conditions[] = "delivery_method_id IS NULL";
 		}
 
-		// Napred hledame kampan s nejvyhodnejsi procentrni slevou
+		// Napred hledame darky
+		$_conditions = $conditions;
+		$_bind_ar = $bind_ar;
+		$_conditions[] = "gift_product_id IS NOT NULL";
+		$campaigns = Campaign::FindAll([
+			"conditions" => $_conditions,
+			"bind_ar" => $_bind_ar,
+		],[
+			"use_cache" => true,
+		]);
+		$campaigns = $this->_filterOutInappropriateCampaigns($campaigns);
+		if($campaigns){
+			$out[] = new BasketCampaign($this,$campaigns[0]);
+		}
+
+		// Pak hledame kampan s nejvyhodnejsi procentrni slevou
 		$_conditions = $conditions;
 		$_bind_ar = $bind_ar;
 		$_conditions[] = "discount_percent>0.0";
@@ -964,6 +979,7 @@ class Basket extends BasketOrOrder {
 				"amount" => $amount,
 				"unit_price_incl_vat" => $delta_price,
 				"vat_percent" => $delta_vat_percent,
+				"rank" => 9999, // chceme, aby to bylo za prip. darkama, viz nize
 			]);
 		}
 
@@ -1002,6 +1018,29 @@ class Basket extends BasketOrOrder {
 		foreach($this->getBasketCampaigns() as $b_campaign){
 			$campaign_obj = $b_campaign->getCampaign();
 			$discount_amount = $b_campaign->getDiscountAmount($incl_vat); // tady castka za pripadnou dopravu zdarma neni
+			$gift_product = $b_campaign->getGiftProduct();
+
+			// gift
+			if($gift_product){
+				$gift_product_vat_percent = $incl_vat ? $gift_product->getVatPercent() : 0.0;
+				$gift_order_item = OrderItem::CreateNewRecord([
+					"order_id" => $order,
+					"product_id" => $gift_product,
+					"amount" => $b_campaign->getGiftAmount(),
+					"unit_price_incl_vat" => 0.0,
+					"vat_percent" => $gift_product_vat_percent,
+					"rank" => 9999, // chceme, aby to bylo za prip. darkama, viz nize
+				]);
+				OrderCampaign::CreateNewRecord([
+					"order_id" => $order,
+					"campaign_id" => $b_campaign->getCampaignId(),
+					"discount_amount" => 0.0,
+					"free_shipping" => false,
+					"vat_percent" => $gift_product_vat_percent,
+					"gift_order_item_id" => $gift_order_item,
+				]);
+				continue;
+			}
 
 			if($campaign_obj->freeShipping() && $free_shipping && !$free_shipping_treated && $shipping_fee_incl_vat!==0.0){
 				OrderCampaign::CreateNewRecord([
@@ -1148,7 +1187,7 @@ class Basket extends BasketOrOrder {
 		if($this->isEmpty()){ return false; }
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
-			if(!$product->containsTag($tag)){ return false; }
+			if(!$product->containsTag($tag,["consider_categories" => true])){ return false; }
 		}
 		return true;
 	}
@@ -1156,9 +1195,7 @@ class Basket extends BasketOrOrder {
 	function containsProductWithTag($tag){
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
-			if($product->containsTag($tag)){
-				return true;
-			}
+			if($product->containsTag($tag,["consider_categories" => true])){ return true; }
 		}
 		return false;
 	}
