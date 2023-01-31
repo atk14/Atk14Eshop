@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 12:16+0100\n"
-"PO-Revision-Date: 2022-06-01 09:48+0200\n"
+"POT-Creation-Date: 2023-01-27 16:14+0100\n"
+"PO-Revision-Date: 2023-01-27 16:36+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -156,7 +156,7 @@ msgid "sleva %1%"
 msgstr "sleva %1%"
 
 msgid "dárek k objednávce: %1 &times; %2"
-msgstr ""
+msgstr "dárek k objednávce: %1 &times; %2"
 
 msgid "Upravit"
 msgstr "Upravit"
@@ -687,7 +687,7 @@ msgid "Create new customer group"
 msgstr "Vytvořit novou zákaznickou skupinu"
 
 msgid "Výchozí cena s DPH"
-msgstr ""
+msgstr "Výchozí cena s DPH"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:51
 msgid "cena neurčena"
@@ -809,6 +809,9 @@ msgstr "Přidat fotografii"
 msgid "Upravit obrázky fotogalerie"
 msgstr "Upravit obrázky fotogalerie"
 
+msgid "Download original image"
+msgstr "Stáhnout původní obrázek"
+
 msgid "bez titulku nebo popisu"
 msgstr "bez titulku nebo popisu"
 
@@ -834,7 +837,7 @@ msgid "There is no link in the list."
 msgstr "V seznamu není žádný odkaz."
 
 msgid "This item has an administrable submenu:"
-msgstr ""
+msgstr "Tato položka má administrovatelnou podnabídku:"
 
 msgid "Edit links"
 msgstr "Editovat odkazy"
@@ -843,7 +846,7 @@ msgid "Create new link list"
 msgstr "Vytvořit nový odkaz"
 
 msgid "This is a submenu for:"
-msgstr ""
+msgstr "Toto je podnabídka pro:"
 
 msgid "Link list"
 msgstr "Seznam odkazů"
@@ -886,7 +889,7 @@ msgstr "E-mail"
 
 #: ../app/forms/admin/newsletter_subscribers/index_form.php:14
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 msgid "Subscribed since"
 msgstr "Přihlášen od"
@@ -1150,7 +1153,7 @@ msgid "bcc"
 msgstr "bcc"
 
 msgid "After %1 days it will automatically go into the state:"
-msgstr ""
+msgstr "Po %1 dnech se automaticky přepne do stavu:"
 
 msgid "Slevové kupóny nebyly zadány"
 msgstr "Slevové kupóny nebyly zadány"
@@ -1475,16 +1478,16 @@ msgid "Sazba DPH"
 msgstr "Sazba DPH"
 
 msgid "Quick add"
-msgstr ""
+msgstr "Rychlé přidání"
 
 msgid "Add new:"
-msgstr ""
+msgstr "Přidat nový:"
 
 msgid "Article"
-msgstr ""
+msgstr "Článek"
 
 msgid "Page"
-msgstr ""
+msgstr "Stránka"
 
 #: ../app/forms/admin/card_promotions/card_promotions_form.php:8
 #: ../app/forms/admin/category_cards/create_new_form.php:6
@@ -1654,7 +1657,7 @@ msgid "Is admin?"
 msgstr "Je administrátor?"
 
 msgid "deleted user"
-msgstr ""
+msgstr "smazaný uživatel"
 
 msgid "inactive user"
 msgstr "neaktivní uživatel"
@@ -1669,7 +1672,7 @@ msgid "regular user"
 msgstr "běžný uživatel"
 
 msgid "deleted"
-msgstr ""
+msgstr "smazaný"
 
 msgid "Add a VAT rate"
 msgstr "Přidat sazbu DPH"
@@ -3197,42 +3200,45 @@ msgstr "všechny způsoby"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:70
 msgid "Dárek k objednávce"
-msgstr ""
+msgstr "Dárek k objednávce"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:73
 msgid "Začněte psát název produktu"
-msgstr ""
+msgstr "Začněte psát název produktu"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:76
 msgid "Počet dárků"
-msgstr ""
+msgstr "Počet dárků"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:82
 msgid "Zvyšovat počet dárků podle hodnoty objednávky?"
-msgstr ""
+msgstr "Zvyšovat počet dárků podle hodnoty objednávky?"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:95
 msgid ""
 "V jedné kampani lze nastavit buďto procentní slevu, dopravu zdarma nebo "
 "dárkový produkt"
 msgstr ""
+"V jedné kampani lze nastavit buďto procentní slevu, dopravu zdarma nebo "
+"dárkový produkt"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:98
 msgid ""
 "Je nutné nastavit buďto procentní slevu, dopravu zdarma nebo dárkový produkt"
 msgstr ""
+"Je nutné nastavit buďto procentní slevu, dopravu zdarma nebo dárkový produkt"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:105
 msgid "Stanovte počet dárků"
-msgstr ""
+msgstr "Stanovte počet dárků"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:109
 msgid "Toto pole musí zůstat prázdné"
-msgstr ""
+msgstr "Toto pole musí zůstat prázdné"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:112
 msgid "Tato možnost nemůže být aktivní"
-msgstr ""
+msgstr "Tato možnost nemůže být aktivní"
 
 #: ../app/forms/admin/card_cloning/create_new_form.php:22
 msgid "Should the new product be visible?"
@@ -3438,19 +3444,19 @@ msgstr "Hledat"
 
 #: ../app/forms/admin/cards/index_form.php:10
 msgid "Visible"
-msgstr ""
+msgstr "Viditelné"
 
 #: ../app/forms/admin/cards/index_form.php:12
 msgid "visibility"
-msgstr ""
+msgstr "viditelnost"
 
 #: ../app/forms/admin/cards/index_form.php:13
 msgid "only visible products"
-msgstr ""
+msgstr "pouze viditelné produkty"
 
 #: ../app/forms/admin/cards/index_form.php:14
 msgid "only invisible products"
-msgstr ""
+msgstr "pouze neviditelné produkty"
 
 #: ../app/forms/admin/categories/categories_form.php:17
 msgid "Long name"
@@ -3862,6 +3868,10 @@ msgstr "Posuvník tmavší a větší"
 msgid "Slider with thumbnails"
 msgstr "Posuvník s náhledy"
 
+#: ../app/forms/admin/galleries/galleries_form.php:13
+msgid "Logo slider"
+msgstr "Posuvník pro loga"
+
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"
 msgstr "Nahrát fotografii"
@@ -3936,7 +3946,7 @@ msgstr "O nás"
 
 #: ../app/forms/admin/newsletter_subscribers/index_form.php:9
 msgid "language"
-msgstr ""
+msgstr "jazyk"
 
 #: ../app/forms/admin/order_campaigns/order_campaigns_form.php:17
 #: ../app/forms/admin/order_vouchers/order_vouchers_form.php:17
@@ -4169,11 +4179,11 @@ msgstr "Karta"
 
 #: ../app/forms/admin/pictures/pictures_form.php:17
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #: ../app/forms/admin/pictures/pictures_form.php:18
 msgid "Alternate text for the image, if the image cannot be displayed."
-msgstr ""
+msgstr "Alternativní text pro obrázek, pokud obrázek nelze zobrazit."
 
 #: ../app/forms/admin/pricelist_items/create_new_form.php:8
 #: ../app/forms/admin/pricelist_items/edit_form.php:13
@@ -4895,8 +4905,8 @@ msgstr "Uplatňuje se v e-shopu?"
 #~ "This is a virtual category, which is actually pointing to <a href=\"%1\">/"
 #~ "%2/</a>"
 #~ msgstr ""
-#~ "Jedná se o virtuální kategorii, která ve skutečnosti ukazuje na <a href="
-#~ "\"%1\">/%2/</a>"
+#~ "Jedná se o virtuální kategorii, která ve skutečnosti ukazuje na <a "
+#~ "href=\"%1\">/%2/</a>"
 
 #~ msgid "alias"
 #~ msgstr "alias"
@@ -5461,8 +5471,8 @@ msgstr "Uplatňuje se v e-shopu?"
 #~ msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 
 #~ msgid ""
-#~ "You have been successfully registered and now you are logged in as <em>"
-#~ "%s</em>"
+#~ "You have been successfully registered and now you are logged in as "
+#~ "<em>%s</em>"
 #~ msgstr ""
 #~ "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
@@ -5683,13 +5693,13 @@ msgstr "Uplatňuje se v e-shopu?"
 
 #~ msgid "Ensure this image is at most %max% pixels wide (it is %width%)."
 #~ msgstr ""
-#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký %width"
-#~ "%)."
+#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký "
+#~ "%width%)."
 
 #~ msgid "Ensure this image is at most %max% pixels high (it is %height%)."
 #~ msgstr ""
-#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height"
-#~ "%)."
+#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký "
+#~ "%height%)."
 
 #~ msgid "Ensure this image is at least %min% pixels wide (it is %width%)."
 #~ msgstr "Obrázek musí mít alespoň %min% bodů na šířku (nyní má %width%). "
