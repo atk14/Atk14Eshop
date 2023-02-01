@@ -180,9 +180,9 @@ class Order extends BasketOrOrder {
 
 	function hasCompanyDataSet() {
 		return !!(
-			trim($this->getCompany()).
-			trim($this->getCompanyNumber()).
-			trim($this->getTaxNumber())
+			trim((string)$this->getCompany()).
+			trim((string)$this->getCompanyNumber()).
+			trim((string)$this->getTaxNumber())
 		);
 	}
 
@@ -698,9 +698,9 @@ class Order extends BasketOrOrder {
 
 	function getAllNotes() {
 		$notesAr = [
-			trim($this->getNote()),
-			($dan = trim($this->getDeliveryAddressNote())) ? sprintf(_("Poznámka k doručovací adrese: %s"), $dan) : null,
-			($an = trim($this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
+			trim((string)$this->getNote()),
+			($dan = trim((string)$this->getDeliveryAddressNote())) ? sprintf(_("Poznámka k doručovací adrese: %s"), $dan) : null,
+			($an = trim((string)$this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
 		];
 		return array_filter($notesAr);
 	}
