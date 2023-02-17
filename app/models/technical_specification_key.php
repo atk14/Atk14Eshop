@@ -52,7 +52,7 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
-		if(strlen($key = $this->g("key_localized_$lang"))){
+		if(strlen($key = (string)$this->g("key_localized_$lang"))){
 			return $key;
 		}
 
