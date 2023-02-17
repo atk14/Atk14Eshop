@@ -37,8 +37,8 @@
         "atk14/csv-reader": "^1.1",
         "atk14/csv-writer": "^1.1",
         "atk14/sql-builder": "^3.2|^4.1",
-        "atk14/category-filter": "^1.0",
-        "atk14/cookie-consent": "dev-master",
+        "atk14/category-filter": "^1.0|^2.0",
+        "atk14/cookie-consent": "^1.0",
         "mysutka/datalayer_generator": "^0.9"
     }
 }
