@@ -32,4 +32,12 @@ trait TraitObjectStatus {
 	function finishedUnsuccessfully(){
 		return $this->g("finished_unsuccessfully");
 	}
+
+	function isFinishingSuccessfully(){
+		return $this->hasKey("finishing_successfully") ? $this->g("finishing_successfully") : false;
+	}
+
+	function isFinishingUnsuccessfully(){
+		return $this->hasKey("finishing_unsuccessfully") ? $this->g("finishing_unsuccessfully") : false;
+	}
 }
