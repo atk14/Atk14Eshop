@@ -491,7 +491,7 @@ class Basket extends BasketOrOrder {
 	 */
 	function hasAddressSet(){
 		foreach(self::GetAddressFields() as $k => $req){
-			if($req && strlen($this->g("$k"))==0){ return false; }
+			if($req && strlen((string)$this->g("$k"))==0){ return false; }
 		}
 		return true;
 	}
@@ -501,7 +501,7 @@ class Basket extends BasketOrOrder {
 	 */
 	function hasDeliveryAddressSet(){
 		foreach(self::GetAddressFields(["prefix" => "delivery_"]) as $k => $req){
-			if($req && strlen($this->g("$k"))==0){ return false; }
+			if($req && strlen((string)$this->g("$k"))==0){ return false; }
 		}
 		return true;
 	}
