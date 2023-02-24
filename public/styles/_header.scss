@@ -812,3 +812,122 @@ ol.breadcrumb {
 		animation-iteration-count: 1;
 	}
 }
+
+.header-favourites {
+	outline: 1px dashed black;
+	display: flex;
+	position: relative;
+	align-items: center;
+	&__icon {
+		position: relative;
+		.fas, .far {
+			font-size: 2rem;
+			color: $primary;
+		}
+		&__text {
+			position: absolute;
+			width: 100%;
+			height: auto;
+			left: 0;
+			top: 0.5rem;
+			display: block;
+			text-align: center;
+			align-items: center;
+			font-size: $font-size-sm;
+			font-size: 0.825rem;
+			color: white;
+			line-height: 1;
+			font-weight: bolder;
+		}
+		&--empty {
+			.fas, .far {
+				color: $gray-600;
+			}
+		}
+	}
+	&--just-added {
+		.header-favourites__icon {
+			animation-name: header-fav;
+			animation-duration: 0.25s;
+			animation-iteration-count: 1;
+			transform: scale(1);
+			@keyframes header-fav {
+				0%   {transform: scale(5); opacity: 0.25;}
+				100% {transform: scale(1); opacity: 1;}
+			}
+		}
+	}
+}
+
+/*
+.header-favourites {
+	display: flex;
+	position: relative;
+	padding: 1rem;
+	align-items: center;
+	font-size: @font-size-smaller;
+	
+	&::after {
+		content: "|";
+		position: absolute;
+		left: 100%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+	}
+	&__icon {
+		position: relative;
+		//transition: transform 0.35s;
+		.glyphicon {
+			font-size: 1.82rem;
+			color: @brand-pink;
+		}
+		&__text {
+			position: absolute;
+			width: 100%;
+			height: auto;
+			left: 0;
+			top: 0.52rem;
+			display: block;
+			text-align: center;
+			align-items: center;
+			font-size: @font-size-smallest;
+			color: white;
+			line-height: 1;
+			font-weight: bolder;
+		}
+		&--empty {
+			.glyphicon {
+				color: @gray-dark;
+			}
+		}
+	}
+
+	&--just-added {
+		.header-favourites__icon {
+			animation-name: header-fav;
+			animation-duration: 0.25s;
+			animation-iteration-count: 1;
+			transform: scale(1);
+			@keyframes header-fav {
+				0%   {transform: scale(5); opacity: 0.25;}
+				100% {transform: scale(1); opacity: 1;}
+			}
+		}
+	}
+
+	&:hover {
+		background-color: @brand-pink;
+		
+		.header-favourites__icon {
+			transform: scale(1.25);
+			//transition: transform 0.15s;
+			.glyphicon {
+				color: white;
+			}
+			&__text {
+				color: @brand-pink;
+			}
+		}
+	}
+}
+*/
