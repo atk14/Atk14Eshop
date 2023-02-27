@@ -43,7 +43,7 @@ class FavouriteProductsAccessor {
 	}
 
 	function mergeFavouriteProductsAccessor($favourite_products_accessor){
-		foreach($favourite_products_accessor->getFavouriteProducts() as $fp){
+		foreach(array_reverse($favourite_products_accessor->getFavouriteProducts()) as $fp){
 			$this->addProduct($fp->getProduct());
 		}
 	}
