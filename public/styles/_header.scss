@@ -217,7 +217,6 @@ ol.breadcrumb {
 					background-color: rgba(black,0.8) !important;
 				}
 			}
-			
 			.cart__price {
 				@media(max-width:374px){
 					display: none !important;
@@ -810,5 +809,83 @@ ol.breadcrumb {
 		animation: cart-indicator-animation;
 		animation-duration: 0.5s;
 		animation-iteration-count: 1;
+	}
+}
+
+.header-favourites {
+	display: flex;
+	position: relative;
+	align-items: center;
+	&__icon {
+		position: relative;
+		.fas, .far {
+			font-size: 2rem;
+			color: $primary;
+		}
+		&__text {
+			position: absolute;
+			width: 100%;
+			height: auto;
+			left: 0;
+			top: 0.5rem;
+			display: block;
+			text-align: center;
+			align-items: center;
+			font-size: $font-size-sm;
+			font-size: 0.825rem;
+			color: white;
+			line-height: 1;
+			font-weight: bolder;
+		}
+		&--empty {
+			.fas, .far {
+				color: $gray-600;
+			}
+		}
+	}
+	&--just-added {
+		.header-favourites__icon {
+			animation-name: header-fav;
+			animation-duration: 0.25s;
+			animation-iteration-count: 1;
+			transform: scale(1);
+			@keyframes header-fav {
+				0%   {transform: scale(5); opacity: 0.25;}
+				100% {transform: scale(1); opacity: 1;}
+			}
+		}
+	}
+
+	// header favourites in mobile main bar
+	.navbar-top--mobile & {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+		align-self: stretch;
+		.header-favourites__icon {
+			.fas, .far {
+				font-size: 1.5rem;
+			}
+			&__text {
+				display: none; // font would be too small
+				font-size: 0.75rem;
+				top: 0.35rem;
+			}
+			&--empty {
+				.fas, .far {
+					color: white;
+				}
+			}
+		}
+		&:hover {
+			background-color: $primary;
+			.header-favourites__icon {
+				.fas, .far {
+					color: white;
+				}
+				&__text {
+					color: $primary;
+				}
+			}
+		}
 	}
 }
