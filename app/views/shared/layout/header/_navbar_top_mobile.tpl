@@ -63,6 +63,7 @@
 			</ul>
 			{/if}
 			{render partial="shared/layout/header/user_menu"}
+			{render partial="shared/layout/header/header_favourites"}
 			{!$basket_info}
 		</div>
 		
