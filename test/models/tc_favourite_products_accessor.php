@@ -61,9 +61,9 @@ class TcFavouriteProductsAccessor extends TcBase {
 
 		$fav_products = $fpa_user->getFavouriteProducts();
 		$this->assertEquals(3,sizeof($fav_products));
-		$this->assertEquals($fav_products[0]->getProductId(),$this->products["book"]->getId());
+		$this->assertEquals($fav_products[0]->getProductId(),$this->products["mint_tea"]->getId());
 		$this->assertEquals($fav_products[1]->getProductId(),$this->products["wooden_button"]->getId());
-		$this->assertEquals($fav_products[2]->getProductId(),$this->products["mint_tea"]->getId());
+		$this->assertEquals($fav_products[2]->getProductId(),$this->products["book"]->getId());
 
 		$this->assertEquals(2,sizeof($fpa_another->getFavouriteProducts()));
 		$fpa_another->destroy();
