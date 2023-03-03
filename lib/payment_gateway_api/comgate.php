@@ -1,13 +1,21 @@
 <?php
 namespace PaymentGatewayApi;
 
-defined("COMGATE_MERCHANT_ID") || define("COMGATE_MERCHANT_ID","123456");
-defined("COMGATE_MERCHANT") || define("COMGATE_MERCHANT","www.example.com test");
-defined("COMGATE_SECRET") || define("COMGATE_SECRET","kdo3DSKEOFerlpocewfdkoerjpgfpojregj");
-defined("COMGATE_BASE_URL") || define("COMGATE_BASE_URL","https://payments.comgate.cz/v1.0/");
-defined("COMGATE_TESTING") || define("COMGATE_TESTING",true);
+definedef("COMGATE_TESTING",false); // true (testing gateway), false
+definedef("COMGATE_MERCHANT_ID",""); // "123456"
+definedef("COMGATE_MERCHANT",""); // "www.example.com test"
+definedef("COMGATE_SECRET",""); // "kdo3DSKEOFerlpocewfdkoerjpgfpojregj"
+definedef("COMGATE_BASE_URL","https://payments.comgate.cz/v1.0/");
 
 class Comgate extends PaymentGatewayApi {
+
+
+	static function IsProperlyConfigured(){
+		foreach(["COMGATE_MERCHANT_ID","COMGATE_MERCHANT","COMGATE_SECRET","COMGATE_BASE_URL"] as $c_name){
+			if(!strlen(constant($c_name))){ return false; }
+		}
+		return true;
+	}
 
 	function testingApi(){
 		return COMGATE_TESTING;

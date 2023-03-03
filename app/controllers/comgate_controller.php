@@ -46,6 +46,8 @@ class ComgateController extends PaymentGatewaysBaseController {
 
 	function finish_transaction(){
 		if($pt = PaymentTransaction::FindById($this->session->g("current_payment_transaction_id"))){
+			$comgate = new PaymentGatewayApi\Comgate();
+			$comgate->updateStatus($pt);
 			$this->_redirect_to([
 				"action" => "payment_transactions/finish",
 				"token" => $pt->getToken(),
