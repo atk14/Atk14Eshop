@@ -45,7 +45,27 @@ class ComgateController extends PaymentGatewaysBaseController {
 	}
 
 	function finish_transaction(){
-		if($pt = PaymentTransaction::FindById($this->session->g("current_payment_transaction_id"))){
+		$pt = null;
+
+		// Catching up payment_transaction from URL
+	 	// https://www.example.com/en/comgate/finish_transaction/?id=XTR2-XH4A-OILJ&refId=6
+	  // Where id is payment_transactions.payment_transaction_id and refId is payment_transactions.id.
+		if($this->params->defined("id") && $this->params->defined("refId")){
+			$payment_transaction_id = $this->params->getString("id");
+			$id = $this->params->getInt("refId");
+			$pt = PaymentTransaction::FindById($id);
+			if(!$pt || $pt->getPaymentTransactionId()!==$payment_transaction_id){
+				$this->_execute_action("error404");
+				return;
+			}
+		}
+
+		// Getting payment_transaction from session
+		if(is_null($pt)){
+			$pt = PaymentTransaction::FindById($this->session->g("current_payment_transaction_id"));
+		}
+
+		if($pt){
 			$comgate = new PaymentGatewayApi\Comgate();
 			$comgate->updateStatus($pt);
 			$this->_redirect_to([
