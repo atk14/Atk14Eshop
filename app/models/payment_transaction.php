@@ -35,8 +35,11 @@ class PaymentTransaction extends ApplicationModel {
 		return Cache::Get("PaymentTransaction",$transaction_id);
 	}
 
-	function getPaymentTransactionUrl(){
-		if($this->g("payment_transaction_url")){
+	function getPaymentTransactionUrl($options = []){
+		$options += [
+			"prefer_external_url" => true,
+		];
+		if($options["prefer_external_url"] && $this->g("payment_transaction_url")){
 			return $this->g("payment_transaction_url");
 		}
 		return $this->getOrder()->getPaymentTransactionStartUrl();
