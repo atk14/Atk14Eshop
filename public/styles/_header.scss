@@ -196,7 +196,12 @@ ol.breadcrumb {
 			
 			
 			ul.navbar-nav {
+				align-items: stretch;
+				align-self: stretch;
 				li.nav-item {
+					flex-grow: 2;
+					display: flex;
+					align-items: stretch;
 					.nav-link {
 						$mob-nav-link-padding-y: ( $mob-nav-height - (16px * 0.9) * $line-height-base ) / 2;
 						padding:  $mob-nav-link-padding-y 0.5rem !important;
@@ -223,6 +228,19 @@ ol.breadcrumb {
 				}
 			}
 			
+			// Uncomment if mobile top navbar should wrap on very narrow viewports
+			/*
+			@media(max-width:374px){
+				flex-wrap: wrap;
+				.navbar-brand {
+					flex-basis: calc(100vw - 100px);
+				}
+				ul.navbar-nav li.nav-item a.nav-link, a.nav-link {
+					padding: 0.75rem 1rem !important;
+				}
+			}
+			*/
+
 		}
 
 		// Polozky zobrazene jen pri desktop view	
@@ -672,6 +690,18 @@ ol.breadcrumb {
 				width: auto;
 				height: 75px;
 			}
+			// Uncomment to shrink logo on medium viewport
+			// Adjust values as needed
+			/*
+			@media(max-width: 860px)and(min-width: map-get($grid-breakpoints, $navbar_breakpoint_upper)){
+				max-width: 160px;
+				width: 160px;
+				img {
+					height: auto;
+					max-width: 100%;
+				}
+			}
+			*/
 		}
 	}
 	
@@ -693,7 +723,6 @@ ol.breadcrumb {
 		}
 		.mainbar__controls {
 			order: 2;
-			//outline: 1px dotted purple;
 			display: grid;
 			grid-template-columns: auto;
 			grid-template-rows: 1fr auto 1fr;
@@ -710,6 +739,15 @@ ol.breadcrumb {
 				align-self: center;
 				align-self: end;
 				grid-row: 2/3;
+				// Uncomment to shrink search field on medium viewport.
+				// Adjust numbers as needed.
+				/*
+				@media(max-width:820px){
+					input.form-control[type="text"] {
+						max-width: 210px;
+					}
+				}
+				*/
 			}
 			.mainbar__bottom {
 				align-self: end;
