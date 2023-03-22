@@ -129,3 +129,12 @@ fidorka:
   card_id: "<?= $cards["fidorka"]->getId() ?>"
   catalog_id: "FIDORKA_GIFT"
   vat_rate_id: "<?= $vat_rates["twenty_one"]->getId() ?>"
+
+product_in_deleted_card:
+  card_id: "<?=$cards["deleted_card"]->getId()?>"
+  catalog_id: "product_in_deleted_card"
+
+deleted_product:
+  card_id: "<?=$cards["card_for_deleted_product"]->getId()?>"
+  catalog_id: "deleted_product"
+  deleted: TRUE

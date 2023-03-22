@@ -713,6 +713,33 @@ class TcBasket extends TcBase {
 	function test_canOrderBeCreated(){
 		Atk14Locale::Initialize(); // TODO: it is not clear why this is needed, certainly it should be handled on another place
 
+		// empty basket
+
+		$basket = $this->_prepareEmptyBasket();
+
+		$this->assertEquals(false,$basket->canOrderBeCreated($messages));
+		$this->assertContains("Shopping basket is empty","$messages[0]");
+
+		// deleted product
+
+		$basket = $this->_prepareEmptyBasket();
+
+		$basket->addProduct($this->products["deleted_product"],1);
+
+		$this->assertEquals(false,$basket->canOrderBeCreated($messages));
+		$this->assertContains("byl vyřazen z nabídky","$messages[0]");
+
+		 // deleted card
+
+		$basket = $this->_prepareEmptyBasket();
+
+		$basket->addProduct($this->products["product_in_deleted_card"],1);
+
+		$this->assertEquals(false,$basket->canOrderBeCreated($messages));
+		$this->assertContains("byl vyřazen z nabídky","$messages[0]");
+
+		//
+
 		$kveta = $this->users["kveta"];
 		$czechoslovakia = $this->regions["czechoslovakia"];
 		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);

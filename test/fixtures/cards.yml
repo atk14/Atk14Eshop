@@ -105,3 +105,13 @@ fidorka:
   name_en: "Fidorka"
   name_cs: "Fidorka"
   visible: false
+
+deleted_card:
+  name_cs: "Smazaný produkt"
+  name_en: "Deleted product"
+  deleted: true
+
+card_for_deleted_product:
+  name_cs: "Smazaný produkt"
+  name_en: "Deleted product"
+  deleted: false

@@ -693,6 +693,18 @@ class Basket extends BasketOrOrder {
 
 		foreach($this->getItems() as $item){
 			$product = $item->getProduct();
+			$card = $product->getCard();
+
+			if($product->isDeleted() || !$product->isVisible() || $card->isDeleted() || !$card->isVisible()){
+				$messages[] = new BasketErrorMessage(
+					sprintf(_("Produkt <em>%s (%s)</em> byl vyřazen z nabídky"),h($product->getName()),h($product->getCatalogId())),
+					[
+						"correction_text" => _("odebrat z košíku"),
+						"correction_url" => $this->_buildLink(["action" => "basket_items/destroy", "id" => $item->getId()]),
+					]
+				);
+				continue;
+			}
 
 			$price = $item->getProductPrice();
 			if(!$price->priceExists()){
