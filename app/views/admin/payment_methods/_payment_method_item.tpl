@@ -19,6 +19,11 @@
 		</div>
 
 		<div>
+			<small>{t}Platební brána{/t}</small><br>
+			{$payment_method->getPaymentGateway()|default:$mdash}
+		</div>
+
+		<div>
 			<small>{t}Cena s DPH{/t}</small><br>
 			{$payment_method->getPriceInclVat()|display_price:"format=plain"}
 		</div>
