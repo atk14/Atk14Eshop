@@ -12,7 +12,11 @@ class PayU extends PaymentGatewayApi {
 
 	protected $set_new_new_transaction_to_started_state = false;
 
-	static function IsProperlyConfigured(){
+	function prepareForOrder($order){
+
+	}
+
+	function isProperlyConfigured(){
 		foreach(["PAYU_CURRENCY","PAYU_POS_ID","PAYU_KEY1","PAYU_KEY2","PAYU_POS_AUTH_KEY"] as $c_name){
 			if(!strlen(constant($c_name))){ return false; }
 		}
@@ -35,13 +39,17 @@ class PayU extends PaymentGatewayApi {
 		]);
 	}
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+		$data = null;
+
 		$order = $payment_transaction->getOrder();
 		$status = $this->_getPaymentStatus($payment_transaction,$err_code,$err_message);
 		if(!$status){
 			$this->logger->warn(sprintf("payment status cannot be checked for PaymentTransaction#%s (Order#%s, order_no=%s): %s (%s)",$payment_transaction->getId(),$order->getId(),$order->getOrderNo(),$err_message,$err_code));
 			return;
 		}
+
+		$data = $status->toArray();
 
 		$tr = [
 			"pending" => [

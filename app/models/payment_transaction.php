@@ -68,6 +68,14 @@ class PaymentTransaction extends ApplicationModel {
 		return Cache::Get("Currency",$this->getCurrencyId());
 	}
 
+	function getPaymentGatewayApi(){
+		$payment_gateway = $this->getPaymentGateway();
+		$order = $this->getOrder();
+		$api = $payment_gateway->getPaymentGatewayApi();
+		$api->prepareForOrder($order);
+		return $api;
+	}
+
 	/**
 	 *
 	 * !! Pozor !! Meni to stav objednavky
@@ -129,6 +137,16 @@ class PaymentTransaction extends ApplicationModel {
 			return true;
 		}
 		return in_array($payment_status->getCode(),["pending","cancelled"]);
+	}
+
+	function paid(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="paid";
+	}
+
+	function pending(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="pending";
 	}
 
 	function copyIntoNewTransaction(){
