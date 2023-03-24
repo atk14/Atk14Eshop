@@ -16,7 +16,8 @@
 		'ad_storage': 'denied',
 		'analytics_storage': 'denied',
 		'functionality_storage': 'denied',
-		'personalization_storage': 'denied'
+		'personalization_storage': 'denied',
+		'wait_for_update': 500
 	});
 	gtag('set', 'ads_data_redaction', true);
 {/literal}
