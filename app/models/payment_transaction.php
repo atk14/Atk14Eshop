@@ -164,7 +164,7 @@ class PaymentTransaction extends ApplicationModel {
 			$values[$f] = $this->g($f);
 		}
 
-		$values["rank"] = $this->g("rank") + 1;
+		$values["rank"] = $this->dbmole->selectInt("SELECT COALESCE(MAX(rank),0)+1 FROM payment_transactions WHERE order_id=:order",[":order" => $this->getOrder()]);
 
 		return self::CreateNewRecord($values);
 	}
