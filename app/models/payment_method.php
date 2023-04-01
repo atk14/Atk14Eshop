@@ -52,6 +52,15 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 		return Cache::Get("PaymentGateway",$this->getPaymentGatewayId());
 	}
 
+	function getPaymentGatewayConfig(){
+		$out = $this->g("payment_gateway_config");
+		if(!$out){
+			return [];
+		}
+		$out = json_decode($out,true);
+		return $out;
+	}
+
 	function isBankTransfer(){
 		return $this->g("bank_transfer");
 	}

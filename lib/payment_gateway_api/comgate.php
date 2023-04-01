@@ -116,7 +116,7 @@ class Comgate extends PaymentGatewayApi {
 		myAssert(strlen($trans_id)>0);
 
 		$data = $this->_getStatus($payment_transaction);
-		myAssert($data["code"]==="0");
+		myAssert($data["code"]==="0","'$data[code]' is not '0' (data: ".trim(print_r($data,true)).")");
 		myAssert($data["message"]==="OK");
 		myAssert($data["transId"]===$trans_id);
 

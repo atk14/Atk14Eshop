@@ -1,24 +1,58 @@
 <?php
 namespace PaymentGatewayApi;
 
-// Testovaci karta pro testovaci prostredi: 4056070000000008, Expiry: 12/2020, CVC2: 200
+definedef("GP_WEBPAY_MERCHANT_NUMBER",""); // "124567890"
+definedef("GP_WEBPAY_PROVIDER_CODE",""); // "0100", "0880"
+definedef("GP_WEBPAY_PAYMENT_METHOD","CRD"); // "CRD" (card), "APM-BTR"...
+definedef("GP_WEBPAY_TESTING",true);
+definedef("GP_WEBPAY_PRIVATE_KEY",__DIR__ . "/../../config/gpwebpay-pvk.key");
+definedef("GP_WEBPAY_PRIVATE_KEY_PASSWORD","secret");
 
-defined("GP_WEBPAY_MERCHANT_NUMBER") || define("GP_WEBPAY_MERCHANT_NUMBER","9661234567");
-defined("GP_WEBPAY_PROVIDER_CODE") || define("GP_WEBPAY_PROVIDER_CODE","0100"); // Kód poskytovatele, 0100 -> Komercni banka
-defined("GP_WEBPAY_URL") || define("GP_WEBPAY_URL","https://test.3dsecure.gpwebpay.com/pgw/order.do"); // testing: https://test.3dsecure.gpwebpay.com/pgw/order.do; production: https://3dsecure.gpwebpay.com/pgw/order.do
-defined("GP_WEBPAY_WS_URL") || define("GP_WEBPAY_WS_URL","https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService"); // testing: https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService; production: https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService
-//define("GP_WEBPAY_WS_URL","https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService"); // testing: https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService; production: https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService
-//define("GP_WEBPAY_PRIVATE_KEY",__DIR__ . "/../../doc/platebni_brany/GPWebPay/gpwebpay-pvk.key");
-
-defined("GP_WEBPAY_PRIVATE_KEY") || define("GP_WEBPAY_PRIVATE_KEY",__DIR__ . "/../../config/gpwebpay-pvk.test.key");
-defined("GP_WEBPAY_PRIVATE_KEY_PASSWORD") || define("GP_WEBPAY_PRIVATE_KEY_PASSWORD","secret");
-
-defined("GP_WEBPAY_TESTING") || define("GP_WEBPAY_TESTING",true);
+//definedef("GP_WEBPAY_WS_URL","https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService"); // testing: https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService; production: https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService
 
 class GpWebpay extends PaymentGatewayApi {
 
+	protected $GP_WEBPAY_MERCHANT_NUMBER;
+	protected $GP_WEBPAY_PROVIDER_CODE;
+	protected $GP_WEBPAY_PAYMENT_METHOD;
+	protected $GP_WEBPAY_TESTING;
+	protected $GP_WEBPAY_PRIVATE_KEY;
+	protected $GP_WEBPAY_PRIVATE_KEY_PASSWORD;
+
+	function __construct($options = []){
+		$this->GP_WEBPAY_MERCHANT_NUMBER = GP_WEBPAY_MERCHANT_NUMBER;
+		$this->GP_WEBPAY_PROVIDER_CODE = GP_WEBPAY_PROVIDER_CODE;
+		$this->GP_WEBPAY_PAYMENT_METHOD = GP_WEBPAY_PAYMENT_METHOD;
+		$this->GP_WEBPAY_TESTING = GP_WEBPAY_TESTING;
+		$this->GP_WEBPAY_PRIVATE_KEY = GP_WEBPAY_PRIVATE_KEY;
+		$this->GP_WEBPAY_PRIVATE_KEY_PASSWORD = GP_WEBPAY_PRIVATE_KEY_PASSWORD;
+
+		parent::__construct($options);
+	}
+
+	function prepareForOrder($order){
+		$payment_method = $order->getPaymentMethod();
+		
+		$config = $payment_method->getPaymentGatewayConfig();
+		foreach([
+			"merchant_number" => "GP_WEBPAY_MERCHANT_NUMBER",
+			"provider_code" => "GP_WEBPAY_PROVIDER_CODE",
+			"payment_method" => "GP_WEBPAY_PAYMENT_METHOD",
+			"testing" => "GP_WEBPAY_TESTING"
+		] as $k => $v){
+			if(array_key_exists($k,$config)){ $this->$v = $config[$k]; }
+		}
+	}
+
+	function isProperlyConfigured(){
+		foreach(["GP_WEBPAY_MERCHANT_NUMBER","GP_WEBPAY_PROVIDER_CODE","GP_WEBPAY_PRIVATE_KEY","GP_WEBPAY_PRIVATE_KEY_PASSWORD"] as $c_name){
+			if(!strlen($this->$c_name)){ return false; }
+		}
+		return true;
+	}
+
 	function testingApi(){
-		return GP_WEBPAY_TESTING;
+		return $this->GP_WEBPAY_TESTING;
 	}
 
 	function _getStartTransactionUrl(&$payment_transaction,&$transaction_id){
@@ -33,7 +67,15 @@ class GpWebpay extends PaymentGatewayApi {
 			"$currency"=="CZK" ? \AdamStipak\Webpay\PaymentRequest::CZK : \AdamStipak\Webpay\PaymentRequest::EUR, // $currency
 			1, // $depositFlag: 0 = není požadována okamžitá úhrada; 1 = je požadována úhrada
 			\Atk14Url::BuildLink(["namespace" => "", "action" => "gp_webpay/finish_transaction", "token" => $payment_transaction->getToken()],["with_hostname" => true]), // $url
-			$order->getOrderNo() // $merOrderNumber: Číslo platby. Zobrazí se na výpisu z banky. V případě, že není zadáno, použije se hodnota ORDERNUMBER.
+			$order->getOrderNo(), // $merOrderNumber: Číslo platby. Zobrazí se na výpisu z banky. V případě, že není zadáno, použije se hodnota ORDERNUMBER.
+
+			null, // $md
+			null, // $addInfo
+
+			$this->GP_WEBPAY_PAYMENT_METHOD
+			//"APM-BTR" // $paymentMethod
+			//\AdamStipak\Webpay\PaymentRequest::PAYMENT_CARD // $paymentMethod, "CRD", toto funguje!
+			//\AdamStipak\Webpay\PaymentRequest::PLATBA_24 // $paymentMethod
 		);
 
 		return $api->createPaymentRequestUrl($request);
@@ -82,7 +124,7 @@ class GpWebpay extends PaymentGatewayApi {
 	//		exit;
 	//	}
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
 		$data = $this->_getStatus($payment_transaction);
 		if(is_null($data)){
 			return;
@@ -113,8 +155,8 @@ class GpWebpay extends PaymentGatewayApi {
 
 		$params = [
 			"messageId" => $payment_transaction->getId()."x".uniqid().uniqid(),
-			"provider" => GP_WEBPAY_PROVIDER_CODE,
-			"merchantNumber" => GP_WEBPAY_MERCHANT_NUMBER,
+			"provider" => $this->GP_WEBPAY_PROVIDER_CODE,
+			"merchantNumber" => $this->GP_WEBPAY_MERCHANT_NUMBER,
 			"paymentNumber" => $payment_transaction->getId(),
 		];
 		$params["signature"] = $signer->sign($params);
@@ -139,7 +181,7 @@ class GpWebpay extends PaymentGatewayApi {
 		$xml[] = '</soapenv:Envelope>';
 			
 		$xml = join("\n",$xml);
-		$url = GP_WEBPAY_WS_URL;
+		$url = $this->_getGpWebpayWsUrl();
 
 		$uf = new \UrlFetcher($url);
 		$uf->post($xml,["content_type" => "text/xml"]);
@@ -193,9 +235,9 @@ class GpWebpay extends PaymentGatewayApi {
 
 	protected function _getSigner(){
 		$signer = new \AdamStipak\Webpay\Signer(
-			GP_WEBPAY_PRIVATE_KEY,						// Path of private key.
-			GP_WEBPAY_PRIVATE_KEY_PASSWORD,		// Password for private key.
-			GP_WEBPAY_PRIVATE_KEY							// Path of public key. Wtf? Ale ja public key nemam! :)
+			$this->GP_WEBPAY_PRIVATE_KEY,						// Path of private key.
+			$this->GP_WEBPAY_PRIVATE_KEY_PASSWORD,		// Password for private key.
+			$this->GP_WEBPAY_PRIVATE_KEY							// Path of public key. Wtf? Ale ja public key nemam! :)
 		);
 		return $signer;
 	}
@@ -203,10 +245,20 @@ class GpWebpay extends PaymentGatewayApi {
 	protected function _getApi(){
 		$signer = $this->_getSigner();
 		$api = new \AdamStipak\Webpay\Api(
-			GP_WEBPAY_MERCHANT_NUMBER,		// Merchant number.
-			GP_WEBPAY_URL,								// URL of webpay.
+			$this->GP_WEBPAY_MERCHANT_NUMBER,		// Merchant number.
+			$this->_getGpWebpayUrl(),						// URL of webpay.
 			$signer												// instance of \AdamStipak\Webpay\Signer.
 		);
 		return $api;
+	}
+
+	function _getGpWebpayUrl(){
+		// previously it was constant GP_WEBPAY_URL
+		return $this->testingApi() ? "https://test.3dsecure.gpwebpay.com/pgw/order.do" : "https://3dsecure.gpwebpay.com/pgw/order.do";
+	}
+
+	function _getGpWebpayWsUrl(){
+		// previously it was constant GP_WEBPAY_WS_URL
+		return $this->testingApi() ? "https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService" : "https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService";
 	}
 }
