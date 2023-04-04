@@ -38,6 +38,9 @@
 				</td>
 				<td class="table-products__item-actions">
 					{render partial="shared/favourite_product_icon" product=$product}
+					<div>
+						{$product->getId()}
+					</div>
 				</td>
 			</tr>
 		{/foreach}

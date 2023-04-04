@@ -259,6 +259,9 @@ table.table--products {
 table.table--products.table--products-simple {
 	tbody {
 		tr {
+			> * {
+				border: 1px dotted gray;
+			}
 			td.table-products__image {
 				width: 80px;
 			}
