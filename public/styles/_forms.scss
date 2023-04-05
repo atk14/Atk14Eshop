@@ -239,6 +239,19 @@ form#form_checkouts_summary .form-group--id_confirmation {
 			font-weight: 600;
 		}
 	}
+	&--sm {
+		button.btn {
+			min-width: 35px;
+			padding-top: $btn-padding-y-sm;
+			padding-bottom: $btn-padding-y-sm;
+			font-size: $btn-font-size-sm;
+			line-height: $btn-line-height-sm;
+		}
+		input.form-control-number {
+			@extend .form-control-sm;
+			width: 6ch;
+		}
+	}
 }
 
 form#form_checkouts_set_payment_and_delivery_method {

@@ -11,7 +11,7 @@
 		<p>{t heart_icon=$heart_icon escape=no}To add product to your favourites, click on %1 icon on product page.{/t}</p>
 {else}
 
-	<table class="table table--products table--products-simple">
+	<table class="table table--products table--products-simple table--fullheight-hack">
 		<tbody>
 		{foreach $favourite_products as $fp}
 			{assign product $fp->getProduct()}
@@ -37,10 +37,17 @@
 					{render partial="shared/product_price" product=$product fallback_message=$fallback_message}
 				</td>
 				<td class="table-products__item-actions">
-					{render partial="shared/favourite_product_icon" product=$product}
-					<div>
-						{$product->getId()}
-					</div>
+						<div class="d-flex flex-column justify-content-between h-100">
+							<div>{render partial="shared/favourite_product_icon" product=$product}</div>
+							<div>
+								{* form podobny jako u detailu produktu, lisi se 2x pridanim "sm" k css tride *}
+								<form method="post" action="/en/baskets/add_product/" class="form_remote" data-remote="true">
+									<div class="quantity-widget quantity-widget--sm js-spinner js-stepper"><button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Reduce the ordered quantity">-</button><input step="1" min="1" max="22" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" id="id_amount_24" type="number" name="amount" value="1"><button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Increase the ordered quantity">+</button>&nbsp;pcs</div>
+									<button type="submit" class="btn btn-sm btn-primary add-to-cart-submit">Add to cart  <span class="fas fa-cart-plus"></span></button>
+									<input type="hidden" name="product_id" value="24">
+								</form>
+							</div>
+						</div>
 				</td>
 			</tr>
 		{/foreach}

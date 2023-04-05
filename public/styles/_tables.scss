@@ -322,3 +322,13 @@ table.table--products.table--products-simple {
 		}
 	}*/
 }
+
+/* hack pro fullheight prvek v td. */
+table.table--fullheight-hack {
+	@include media-breakpoint-up(md){
+		height: 1px;
+		td {
+			height: 100%;
+		}
+	}
+}
