@@ -11,7 +11,7 @@
 		<p>{t heart_icon=$heart_icon escape=no}To add product to your favourites, click on %1 icon on product page.{/t}</p>
 {else}
 
-	<table class="table table--products table--products-simple table--fullheight-hack">
+	<table class="table table--products table--products-simple table--products-favourites table--fullheight-hack">
 		<tbody>
 		{foreach $favourite_products as $fp}
 			{assign product $fp->getProduct()}

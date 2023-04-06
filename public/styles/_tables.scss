@@ -260,7 +260,7 @@ table.table--products.table--products-simple {
 	tbody {
 		tr {
 			> * {
-				border: 1px dotted gray;
+				// border: 1px dotted gray;
 			}
 			td.table-products__image {
 				width: 80px;
@@ -313,6 +313,25 @@ table.table--products.table--products-simple {
 			}
 		}
 	}
+	&.table--products-favourites {
+		.table-products__item-actions {
+			@include media-breakpoint-down(md){
+				.fav_status {				
+					margin-bottom: 0.5rem;
+				}
+				form {
+					justify-content: flex-start;
+				}
+			}
+			@include media-breakpoint-only(md){
+				form {
+					.add-to-cart-submit {
+						min-width: 116px;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* hack for fullheight element in td.
@@ -326,7 +345,7 @@ table.table--products.table--products-simple {
 
 */
 table.table--fullheight-hack {
-	@include media-breakpoint-up(md){
+	@include media-breakpoint-up(lg){
 		height: 1px;
 		td {
 			height: 100%;
