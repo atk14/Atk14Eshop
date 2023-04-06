@@ -258,10 +258,18 @@ Useful for building shipping methods or payment methods selectors.
 [/example]
 
 ### Quantity widget
-Widget for setting quantity of items. You must provide JavaScript for handling button clicks.
+Widget for setting quantity of items. You must provide JavaScript for handling button clicks. Also available in smaller variation by adding <code>quantity-widget--sm</code> class.
 
 [example]
 <div class="quantity-widget js-spinner js-stepper">
+	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button>
+	<input step="1" min="0" max="999999" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" data-initial="4" tabindex="100" type="number" name="i47" id="id_i47" value="4">
+	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
+</div>
+
+<br>
+
+<div class="quantity-widget quantity-widget--sm js-spinner js-stepper">
 	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button>
 	<input step="1" min="0" max="999999" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" data-initial="4" tabindex="100" type="number" name="i47" id="id_i47" value="4">
 	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
