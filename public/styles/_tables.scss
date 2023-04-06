@@ -313,17 +313,18 @@ table.table--products.table--products-simple {
 			}
 		}
 	}
-	/*tbody {
-		tr {
-			display: block;
-			td {
-				display: block;
-			}
-		}
-	}*/
 }
 
-/* hack pro fullheight prvek v td. */
+/* hack for fullheight element in td.
+   !!! WARNING !!! it MUST be DISABLED when table has other display mode than display: table; !!!
+   (many tables have display: grid; on smaller viewports)
+
+   .-.
+  (0.0)
+'=.|m|.='
+.='`"``=.
+
+*/
 table.table--fullheight-hack {
 	@include media-breakpoint-up(md){
 		height: 1px;
