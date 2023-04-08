@@ -74,7 +74,7 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	 */
 	function isOnlineMethod(){
 		// Even the bank transfer can be processed through a payment gateway
-		return !is_null($this->getPaymentGatewayId()) && !$this->isBankTransfer();
+		return !is_null($this->getPaymentGateway()) && !$this->isBankTransfer();
 	}
 
 	function isDeletable(){

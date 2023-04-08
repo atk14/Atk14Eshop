@@ -94,10 +94,26 @@ class PaymentQrCodeGenerator {
 		$options += array(
 			"size" => "400",
 		);
-		$renderer = new \BaconQrCode\Renderer\Image\Png();
-		$renderer->setWidth($options["size"]);
-		$renderer->setHeight($options["size"]);
+
+		// bacon/bacon-qr-code ^1.0
+		if(class_exists("\BaconQrCode\Renderer\Image\Png")){
+			$renderer = new \BaconQrCode\Renderer\Image\Png();
+			$renderer->setWidth($options["size"]);
+			$renderer->setHeight($options["size"]);
+			$writer = new \BaconQrCode\Writer($renderer);
+			return $writer->writeString($this->getSpayd(["size" => $options["size"]]));
+		}
+
+		// bacon/bacon-qr-code ^2.0
+		$renderer = new \BaconQrCode\Renderer\ImageRenderer(
+			new BaconQrCode\Renderer\RendererStyle\RendererStyle($options["size"]),
+			new BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+		);
 		$writer = new \BaconQrCode\Writer($renderer);
-		return $writer->writeString($this->getSpayd(["size" => $options["size"]]));
+		$file = Files::GetTempFilename().".png";
+		$writer->writeFile($this->getSpayd(["size" => $options["size"]]), $file);
+		$out = Files::GetFileContent($file);
+		Files::Unlink($file);
+		return $out;
 	}
 }
