@@ -1,6 +1,7 @@
 php:
   extensions:
   - "readline"
+  - "imagick"
   constants:
   - "CRYPT_BLOWFISH" # required by package yarri/my-blowfish
   expressions:
