@@ -29,7 +29,6 @@ jobs:
       dist: focal
 
 before_install:
-  - sudo apt-get install php-imagick
   - sudo locale-gen en_US.UTF-8
   - sudo locale-gen cs_CZ.UTF-8
   - sudo update-locale
@@ -39,6 +38,9 @@ before_install:
   - ./scripts/check_system || echo "FIX SYSTEM REQUIREMENTS!"
 
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install libmagickwand-dev php-pear
+  - printf "\n" | pecl install imagick
   - travis_retry composer install --dev --no-interaction --prefer-dist
   - echo "y" | ATK14_ENV=test ./scripts/create_database
   - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
