@@ -318,6 +318,7 @@ table.table--products.table--products-simple {
 			@include media-breakpoint-down(md){
 				.fav_status {				
 					margin-bottom: 0.5rem;
+					text-align: left;
 				}
 				form {
 					justify-content: flex-start;
