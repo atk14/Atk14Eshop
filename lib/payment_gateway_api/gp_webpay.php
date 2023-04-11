@@ -5,7 +5,7 @@ definedef("GP_WEBPAY_MERCHANT_NUMBER",""); // "124567890"
 definedef("GP_WEBPAY_PROVIDER_CODE",""); // "0100", "0880"
 definedef("GP_WEBPAY_PAYMENT_METHOD","CRD"); // "CRD" (card), "APM-BTR"...
 definedef("GP_WEBPAY_TESTING",true);
-definedef("GP_WEBPAY_PRIVATE_KEY",__DIR__ . "/../../config/gpwebpay-pvk.key");
+definedef("GP_WEBPAY_PRIVATE_KEY",__DIR__ . "/../../config/gpwebpay-pvk.key"); // It can contain %merchant_number%", e.g. /../../config/gpwebpay-pvk.%merchant_number%.key"
 definedef("GP_WEBPAY_PRIVATE_KEY_PASSWORD","secret");
 
 //definedef("GP_WEBPAY_WS_URL","https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService"); // testing: https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService; production: https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService
@@ -234,10 +234,12 @@ class GpWebpay extends PaymentGatewayApi {
 	}
 
 	protected function _getSigner(){
+		$private_key_filename = $this->GP_WEBPAY_PRIVATE_KEY;
+		$private_key_filename = str_replace("%merchant_number%",$this->GP_WEBPAY_MERCHANT_NUMBER,$private_key_filename);
 		$signer = new \AdamStipak\Webpay\Signer(
-			$this->GP_WEBPAY_PRIVATE_KEY,						// Path of private key.
+			$private_key_filename,										// Path of private key.
 			$this->GP_WEBPAY_PRIVATE_KEY_PASSWORD,		// Password for private key.
-			$this->GP_WEBPAY_PRIVATE_KEY							// Path of public key. Wtf? Ale ja public key nemam! :)
+			$private_key_filename											// Path of public key. Wtf? Ale ja public key nemam! :)
 		);
 		return $signer;
 	}
