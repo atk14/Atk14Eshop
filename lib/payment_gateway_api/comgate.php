@@ -73,7 +73,7 @@ class Comgate extends PaymentGatewayApi {
 			"payerName" => trim($order->getFirstname()." ".$order->getLastname()),
 			"method" => $this->payment_method,
 			"email" => $order->getEmail(),
-			"phone" => $order->getPhone() ? $order->getPhone() : $order->getPhoneMobile(),
+			"phone" => $order->getPhone(),
 			"lang" => $order->getLanguage(),
 			"country" => $order->getDeliveryAddressCountry() ? $order->getDeliveryAddressCountry() : $order->getAddressCountry(), // Tady davame zamerne zemi doruceni!
 			"prepareOnly" => "true",
