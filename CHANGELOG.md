@@ -1,5 +1,5 @@
 # Change Log
-All notable changes to Atk14Catalog will be documented in this file.
+All notable changes to Atk14Eshop will be documented in this file.
 
 ## [1.9] - 2023-04-15
 
