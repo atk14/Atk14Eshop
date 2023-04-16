@@ -170,6 +170,9 @@ class BasketsController extends ApplicationController {
 				return $this->_execute_action("error404");
 			}
 		}
+
+		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}
 
 	function _just_find_product(){
