@@ -1,6 +1,8 @@
 <?php
 class ProductType extends ApplicationModel implements Translatable, iSlug, Rankable {
 
+	use TraitGetInstanceByCode;
+
 	static function GetTranslatableFields() { return array("name", "page_title_pattern");}
 
 	function getSlugPattern($lang){
