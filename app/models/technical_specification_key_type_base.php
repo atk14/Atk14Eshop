@@ -27,6 +27,7 @@ class TechnicalSpecificationKeyType_Base {
 	/**
 	 *
 	 *	$val = $integer_type->decodeValue('{"integer":12}'); // 12
+	 *	$val = $integer_type->decodeValue('{"bool":true}'); // true
 	 */
 	function decodeValue($encoded_json){
 		if($encoded_json && ($ar = json_decode($encoded_json,true))){
@@ -39,15 +40,35 @@ class TechnicalSpecificationKeyType_Base {
 
 	/**
 	 *
+	 *	$val = $integer_type->decodeValueAsString('{"integer":12}'); // "12"
+	 *	$val = $integer_type->decodeValueAsString('{"bool":true}'); // "Yes"
+	 */
+	function decodeValueAsString($encoded_json){
+		$value = $this->decodeValue($encoded_json);
+		if(is_array($value)){
+			return join(", ",$value);
+		}
+		if(is_bool($value)){
+			return $value ? _("Yes") : _("No");
+		}
+		return (string)$value;
+	}
+
+	/**
+	 *
 	 *	$val = $integer_type->encodeValue(12); // '{"integer":12}'
 	 */
-	function encodeValue($value){
-		if(isset($value)){
+	function encodeValue($str_value){
+		if(isset($str_value)){
 			$type = $this->_type; // "integer", "boolean", "care_instructions"...
 			$internal_type = $this->_internal_type; // "integer", "boolean", "array"
-			settype($value,$internal_type);
-			return json_encode(["$type" => $value]);
+			settype($str_value,$internal_type);
+			return json_encode(["$type" => $str_value]);
 		}
+	}
+
+	function shouldBeContentValuePreserved($str_value){
+		return true;
 	}
 
 	function parseValue($str_value){

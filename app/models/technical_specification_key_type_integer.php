@@ -20,4 +20,9 @@ class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyTyp
 			return $int;
 		}
 	}
+
+	function shouldBeContentValuePreserved($str_value){
+		$parsed_value = $this->parseValue($str_value);
+		return "$parsed_value" !== "$str_value";
+	}
 }

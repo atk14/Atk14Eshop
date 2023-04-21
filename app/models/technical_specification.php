@@ -17,6 +17,9 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 				$raw_conent = $transformator->parseValue((string)$values["content"]);
 				if(!is_null($raw_conent)){
 					$values["content_json"] = $transformator->encodeValue($raw_conent);
+					if(!$transformator->shouldBeContentValuePreserved((string)$values["content"])){
+						$values["content"] = null;
+					}
 				}
 			}
 		}
@@ -76,16 +79,8 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			return $content;
 		}
 	
-		// TODO: Tady je snaha o sestaveni hodnoty z content_json... Je to takove cele nesikovne, ale mozna to bude stacit
 		if(($json = $this->g("content_json")) && ($transformator = $this->getKey()->getType()->getTransformator())){
-			$value = $transformator->decodeValue($json);
-			if(is_array($value)){
-				return join(", ",$value);
-			}
-			if(is_bool($value)){
-				return $value ? _("Ano") : _("Ne");
-			}
-			return (string)$value;
+			return $transformator->decodeValueAsString($json);
 		}
 	}
 
