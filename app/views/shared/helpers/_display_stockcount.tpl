@@ -16,7 +16,11 @@
 
 {elseif $stockcount>$unit->getStockcountDisplayLimit()}
 
-	<span class="text-success">{t stockcount=$unit->getStockcountDisplayLimit()|number_format:$stockcount_precision:",":"" unit=$unit->getUnitLocalized()}In stock > %1 %2{/t}</span>
+	{if $unit->getStockcountDisplayLimit()>1}
+		<span class="text-success">{t stockcount=$unit->getStockcountDisplayLimit()|number_format:$stockcount_precision:",":"" unit=$unit->getUnitLocalized()}In stock > %1 %2{/t}</span>
+	{else}
+		<span class="text-success">{t}In stock{/t}</span>
+	{/if}
 
 {else}
 
