@@ -28,7 +28,7 @@ weight:
 
 decaffeinated:
   key: "decaffeinated"
-  code: "decaffeinated"
+  code: "decaffeinated_code"
   technical_specification_key_type_id: "<?= TechnicalSpecificationKeyType::GetInstanceByCode("boolean")->getId() ?>"
   key_localized_en: "Decaffeinated"
   key_localized_cs: "Bez kofeinu" 

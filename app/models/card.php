@@ -624,9 +624,10 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	/**
 	 * Returns the first occurrence of TechnicalSpecification with the given key
 	 *
-	 *	echo $card->getTechnicalSpecification("weight");
+	 *	echo $card->getTechnicalSpecification("weight"); // code
+	 *	echo $card->getTechnicalSpecification("Weight"); // key
 	 *	echo $card->getTechnicalSpecification(123);
-	 *	echo $card->getTechnicalSpecification($tech_spec_key);
+	 *	echo $card->getTechnicalSpecification($tech_spec_key); // TechnicalSpecificationKey
 	 *
 	 * @return TechnicalSpecification
 	 */
@@ -635,10 +636,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		if(is_numeric($key) && ($obj = Cache::Get("TechnicalSpecificationKey",$key))){
 			$key = $obj;
-		}
-		if(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByKey($key))){
+		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByCode($key))){
+			$key = $obj;
+		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByKey($key))){
 			$key = $obj;
 		}
+
 		if(!is_object($key)){
 			return null;
 		}
