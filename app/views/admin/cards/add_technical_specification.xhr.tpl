@@ -9,6 +9,7 @@
 	ADMIN.utils.handleSortables();
 	ADMIN.utils.handleSuggestions();
 
-	$( "#id_technical_specification_key_id" ).focus();
-
 {/if}
+
+// there can be one or two text input fields in the form
+$("#technical_specifications").find("input[type=text]").first().focus();
