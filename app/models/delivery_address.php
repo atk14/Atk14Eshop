@@ -83,7 +83,7 @@ class DeliveryAddress extends ApplicationModel {
 
 			$cr_values[$key] = $value;
 
-			if(strlen($value)==0){
+			if(strlen((string)$value)==0){
 				$conditions[] = "$key='' OR $key IS NULL";
 			}else{
 				$conditions[] = "$key=:$key";
