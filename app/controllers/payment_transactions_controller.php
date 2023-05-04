@@ -9,6 +9,10 @@ class PaymentTransactionsController extends ApplicationController {
 			return;
 		}
 
+		if($payment_transaction->cancelled() && $payment_transaction->isRepeatable()){
+			$payment_transaction = $payment_transaction->copyIntoNewTransaction();
+		}
+
 		// Ulozeni id transakce pro navrat do payment_transactions/finish.
 		// Toto se hodi pro pripad, kdy brana do navratove adresy nevklada zadny identifikator.
 		$this->session->s("current_payment_transaction_id",$payment_transaction->getId());
@@ -36,7 +40,8 @@ class PaymentTransactionsController extends ApplicationController {
 			return;
 		}
 
-		$order = $this->payment_transaction->getOrder();
+		// Informace o selhani platbu ted uz tiskneme v orders/finish
+		$order = $pt->getOrder();
 		$this->_redirect_to([
 			"action" => "orders/finish",
 			"token" => $order->getToken(),
@@ -56,6 +61,7 @@ class PaymentTransactionsController extends ApplicationController {
 		}elseif($this->session->defined("current_payment_transaction_id")){
 			$pt = PaymentTransaction::GetInstanceById($this->session->g("current_payment_transaction_id"));
 		}
+
 		$this->payment_transaction = $this->tpl_data["payment_transaction"] = $pt;
 	}
 }

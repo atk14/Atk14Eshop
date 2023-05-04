@@ -100,14 +100,6 @@ class Comgate extends PaymentGatewayApi {
 
 		$transaction_id = $data["transId"];
 		return $data["redirect"];
-
-		$payment_transaction->s([
-			"payment_transaction_started_at" => now(),
-			"payment_transaction_started_from_addr" => $this->request->getRemoteAddr(),
-			"payment_transaction_id" => $data["transId"],
-			"payment_transaction_url" => $data["redirect"],
-			"testing_payment" => $this->COMGATE_TESTING,
-		]);
 	}
 
 

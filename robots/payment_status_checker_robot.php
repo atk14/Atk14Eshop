@@ -31,7 +31,11 @@ class PaymentStatusCheckerRobot extends ApplicationRobot {
 		$this->logger->info("payment transactions to check: ".sizeof($payment_transactions));
 
 		foreach($payment_transactions as $payment_transaction){
-			$this->logger->info("about to check status of $payment_transaction");
+			$current_status = $payment_transaction->getPaymentStatus() ? $payment_transaction->getPaymentStatus()->getCode() : "NULL";
+			$order = $payment_transaction->getOrder();
+			$order_no = $order->getOrderNo();
+			$order_id = $order->getId();
+			$this->logger->info("about to check status of $payment_transaction (current status: $current_status, Order#$order_id, order_no=$order_no)");
 			$this->logger->flush();
 			$gateway = $payment_transaction->getPaymentGateway();
 			$code = $gateway->getCode();

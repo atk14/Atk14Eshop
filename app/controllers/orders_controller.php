@@ -36,10 +36,14 @@ class OrdersController extends ApplicationController {
 		$this->page_title = _("Objednávka byla dokončena");
 
 		// Objednavka tady byt muze, ale taky nemusi...
-		$this->tpl_data["order"] = $order = Order::GetInstanceByToken($this->params->getString("token"));
-		if($order && $order->getOrderStatus()->getCode()==="waiting_for_online_payment"){
-			$this->tpl_data["payment_transaction_start_url"] = $order->getPaymentTransactionStartUrl();
+		$order = Order::GetInstanceByToken($this->params->getString("token"));
+		if(!$order){
+			return;
 		}
+
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["payment_transaction"] = $order->getPaymentTransaction();
+
 		$this->_collectTransactionDataLayer($order);
 	}
 
