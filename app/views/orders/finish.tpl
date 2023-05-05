@@ -22,7 +22,20 @@
 		<meta http-equiv="refresh" content="4;url={$order->getPaymentTransactionStartUrl()}" />
 	{/content}
 
-{elseif $payment_transaction && $payment_transaction->pending()}
+{elseif $payment_transaction && $payment_transaction->started() && ($payment_transaction->pending() || !$payment_transaction->getPaymentStatus())}
+
+	{capture assign=page_title}{t}Čekáme na dokončení platby{/t}{/capture}
+	{capture assign=teaser}{/capture}
+
+	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
+
+	<p>
+		{t url=$order->getPaymentTransactionStartUrl() escape=no}Pro vstup do platební transakce <a href="%1">klikněte zde</a>.{/t}
+	</p>
+
+	<p>{t}Pokud se Vám nedaří dokončit online platbu, uhraďte objednávku bankovním převodem.{/t}</p>
+
+	{render partial=bank_transfer_data}
 
 {elseif $payment_transaction && $payment_transaction->cancelled()}
 	
@@ -31,7 +44,7 @@
 
 	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
 
-	<p>{t url=$order->getPaymentTransactionStartUrl() escape=no}Pro opakování online platby <a href="%1">klikně zde</a>. V případě přetrvávajících potíží můžete objednávku uhradit bankovním převodem.{/t}</p>
+	<p>{t url=$order->getPaymentTransactionStartUrl() escape=no}Pro opakování online platby <a href="%1">klikně zde</a>.{/t} {t}V případě přetrvávajících potíží můžete objednávku uhradit bankovním převodem.{/t}</p>
 	
 	<h4>{t}Platební údaje pro uhrazení objednávky bankovním převodem{/t}</h4>
 	{render partial=bank_transfer_data}

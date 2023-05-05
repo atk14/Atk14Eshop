@@ -50,7 +50,9 @@ class PaymentTransactionsController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$order = null;
 		$pt = null;
+
 		if($this->params->defined("order_token")){
 			$order = Order::GetInstanceByToken($this->params->getString("order_token"),["extra_salt" => "payment_transaction_start", "hash_length" => 10]);
 			if($order){
@@ -60,6 +62,18 @@ class PaymentTransactionsController extends ApplicationController {
 			$pt = PaymentTransaction::GetInstanceByToken($this->params->getString("token"));
 		}elseif($this->session->defined("current_payment_transaction_id")){
 			$pt = PaymentTransaction::GetInstanceById($this->session->g("current_payment_transaction_id"));
+		}
+
+		if($pt && !$order){
+			$order = $pt->getOrder();
+			$pt_recent = $order->getPaymentTransaction(); // the most recent payment transaction
+			if($pt->getId()!==$pt_recent->getId()){
+				$params = $this->params->toArray();
+				$params["token"] = $pt_recent->getToken();
+				$params["action"] = $this->action;
+				$this->_redirect_to($params); // redirecting to the most recent payment transaction
+				return;
+			}
 		}
 
 		$this->payment_transaction = $this->tpl_data["payment_transaction"] = $pt;

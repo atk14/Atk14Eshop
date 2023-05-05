@@ -1,29 +1,27 @@
 {if $order}
-	{assign currency $order->getcurrency()}
-	{assign bank_account $order->getbankaccount()}
+	{assign currency $order->getCurrency()}
+	{assign bank_account $order->getBankAccount()}
 
-	{capture assign=bank_transfer_data}
-		<strong>{t}částka k úhradě:{/t}</strong> {!$order->getpricetopay()|display_price:"$currency,summary"}
+	<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
+	<br>
+	<strong>{t}Variabilní symbol:{/t}</strong> {$order->getOrderNo()}
+	<br>
+	<strong>{t}Číslo účtu:{/t}</strong> {$bank_account->getAccountNumber()}
+	{if $bank_account->getIban()}
 		<br>
-		<strong>{t}variabilní symbol:{/t}</strong> {$order->getorderno()}
+		<strong>IBAN:</strong> {$bank_account->getIban()}
+	{/if}
+	{if $bank_account->getSwiftBic()}
 		<br>
-		<strong>{t}číslo účtu:{/t}</strong> {$bank_account->getaccountnumber()}
-		{if $bank_account->getiban()}
-			<br>
-			<strong>iban:</strong> {$bank_account->getiban()}
-		{/if}
-		{if $bank_account->getswiftbic()}
-			<br>
-			<strong>swift:</strong> {$bank_account->getswiftbic()}
-		{/if}
-		{if $bank_account->getholdername()}
-			<br>
-			<strong>{t}majitel účtu:{/t}</strong> {$bank_account->getholdername()}
-		{/if}
-		
-		{if constant("payment_qr_codes_enabled")}
-			<br>
-			<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->gettoken(["extra_salt" => "qrpayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
-		{/if}
-	{/capture}
+		<strong>SWIFT:</strong> {$bank_account->getSwiftBic()}
+	{/if}
+	{if $bank_account->getHolderName()}
+		<br>
+		<strong>{t}Majitel účtu:{/t}</strong> {$bank_account->getHolderName()}
+	{/if}
+	
+	{if constant("PAYMENT_QR_CODES_ENABLED")}
+		<br>
+		<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
+	{/if}
 {/if}
