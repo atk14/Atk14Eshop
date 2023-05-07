@@ -131,12 +131,40 @@ class PaymentTransaction extends ApplicationModel {
 	}
 
 	function isRepeatable(){
+		$max_retries_allowed = 10;
+		$allowed_order_statuses = [
+			"new",
+			"waiting_for_online_payment",
+			"payment_failed"
+		];
+		$allowed_payment_statuses = [
+			"pending",
+			"cancelled",
+		];
+
 		$payment_status = $this->getPaymentStatus();
+		$order = $this->getOrder();
+		$order_status = $order->getOrderStatus();
+		$attempts_count = $this->dbmole->selectInt("SELECT COUNT(*) FROM payment_transactions WHERE order_id=:order AND payment_gateway_id=:payment_gateway",[
+			":order" => $order,
+			":payment_gateway" => $this->getPaymentGateway(),
+		]);
+		
+		if($attempts_count>$max_retries_allowed){
+			return false;
+		}
+		if(!in_array($order_status->getCode(),$allowed_order_statuses)){
+			return false;
+		}
+		if($order->isPaid()){
+			return false;
+		}
 		if(is_null($payment_status)){
-			// platebni transakce jeste ani nezacala
+			// the payment transaction has not yet started
 			return true;
 		}
-		return in_array($payment_status->getCode(),["pending","cancelled"]);
+
+		return in_array($payment_status->getCode(),$allowed_payment_statuses);
 	}
 
 	function paid(){
@@ -147,6 +175,11 @@ class PaymentTransaction extends ApplicationModel {
 	function pending(){
 		$payment_status = $this->getPaymentStatus();
 		return $payment_status && $payment_status->getCode()==="pending";
+	}
+
+	function cancelled(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="cancelled";
 	}
 
 	function copyIntoNewTransaction(){

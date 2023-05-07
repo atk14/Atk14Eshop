@@ -61,10 +61,18 @@ class GpWebpay extends PaymentGatewayApi {
 
 		$api = $this->_getApi();
 
+		$currency_tr = [
+			"CZK" => \AdamStipak\Webpay\PaymentRequest::CZK,
+			"EUR" => \AdamStipak\Webpay\PaymentRequest::EUR,
+		];
+		myAssert(isset($currency_tr["$currency"]),"currency code $currency must be known");
+
+		$paymentNumber = ($payment_transaction->getId() * 100) + rand(0,99); // This reduces the likelihood of generating the same payment number from two or more installations of the application.
+
 		$request = new \AdamStipak\Webpay\PaymentRequest(
-			$payment_transaction->getId(), // $orderNumber: Číslo platby. Číslo musí být v každém požadavku od obchodníka unikátní.
+			$paymentNumber, // $orderNumber: Číslo platby. Číslo musí být v každém požadavku od obchodníka unikátní.
 			$payment_transaction->getPriceToPay(), // $amount
-			"$currency"=="CZK" ? \AdamStipak\Webpay\PaymentRequest::CZK : \AdamStipak\Webpay\PaymentRequest::EUR, // $currency
+			$currency_tr["$currency"], // $currency
 			1, // $depositFlag: 0 = není požadována okamžitá úhrada; 1 = je požadována úhrada
 			\Atk14Url::BuildLink(["namespace" => "", "action" => "gp_webpay/finish_transaction", "token" => $payment_transaction->getToken()],["with_hostname" => true]), // $url
 			$order->getOrderNo(), // $merOrderNumber: Číslo platby. Zobrazí se na výpisu z banky. V případě, že není zadáno, použije se hodnota ORDERNUMBER.
@@ -73,20 +81,11 @@ class GpWebpay extends PaymentGatewayApi {
 			null, // $addInfo
 
 			$this->GP_WEBPAY_PAYMENT_METHOD
-			//"APM-BTR" // $paymentMethod
-			//\AdamStipak\Webpay\PaymentRequest::PAYMENT_CARD // $paymentMethod, "CRD", toto funguje!
-			//\AdamStipak\Webpay\PaymentRequest::PLATBA_24 // $paymentMethod
 		);
 
-		return $api->createPaymentRequestUrl($request);
+		$transaction_id = (string)$paymentNumber;
 
-		//$payment_transaction->s([
-		//	"payment_transaction_started_at" => now(),
-		//	"payment_transaction_started_from_addr" => $this->request->getRemoteAddr(),
-		//	"payment_transaction_id" => null,
-		//	"payment_transaction_url" => $url,
-		//	"testing_payment" => GP_WEBPAY_TESTING,
-		//]);
+		return $api->createPaymentRequestUrl($request);
 	}
 
 	// Neuspesny pokus
@@ -153,11 +152,13 @@ class GpWebpay extends PaymentGatewayApi {
 	function _getStatus($payment_transaction){
 		$signer = $this->_getSigner();
 
+		$paymentNumber = $payment_transaction->getPaymentTransactionId() ? $payment_transaction->getPaymentTransactionId() : $payment_transaction->getId();
+
 		$params = [
 			"messageId" => $payment_transaction->getId()."x".uniqid().uniqid(),
 			"provider" => $this->GP_WEBPAY_PROVIDER_CODE,
 			"merchantNumber" => $this->GP_WEBPAY_MERCHANT_NUMBER,
-			"paymentNumber" => $payment_transaction->getId(),
+			"paymentNumber" => $paymentNumber,
 		];
 		$params["signature"] = $signer->sign($params);
 
@@ -167,15 +168,15 @@ class GpWebpay extends PaymentGatewayApi {
 		$xml[] = '<soapenv:Header/>';
 		$xml[] = '<soapenv:Body>';
 
-		$xml[] = '<v1:getPaymentStatus>';
-		$xml[] = '<v1:paymentStatusRequest>';
+		$xml[] = '<v1:getPaymentDetail>';
+		$xml[] = '<v1:paymentDetailRequest>';
 
 		foreach($params as $k => $v){
 			$xml[] = "<type:$k>".\XMole::ToXml($v)."</type:$k>";
 		}
 
-		$xml[] = '</v1:paymentStatusRequest>';
-		$xml[] = '</v1:getPaymentStatus>';
+		$xml[] = '</v1:paymentDetailRequest>';
+		$xml[] = '</v1:getPaymentDetail>';
 
 		$xml[] = '</soapenv:Body>';
 		$xml[] = '</soapenv:Envelope>';
@@ -203,21 +204,27 @@ class GpWebpay extends PaymentGatewayApi {
 		 *	<?xml version="1.0" encoding="UTF-8"?>
 		 *	<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
 		 *		<soapenv:Body>
-		 *			<ns4:getPaymentStatusResponse xmlns:ns4="http://gpe.cz/pay/pay-ws/proc/v1" xmlns:ns2="http://gpe.cz/pay/pay-ws/core/type" xmlns="http://gpe.cz/gpwebpay/additionalInfo/response" xmlns:ns3="http://gpe.cz/pay/pay-ws/proc/v1/type" xmlns:ns5="http://gpe.cz/gpwebpay/additionalInfo/response/v1">
-		 *				<ns4:paymentStatusResponse>
-		 *					<ns3:messageId>9x5a33c9f2c844e5a33c9f2c848a</ns3:messageId>
-		 *					<ns3:state>7</ns3:state>
-		 *					<ns3:status>CAPTURED</ns3:status>
-		 *					<ns3:subStatus>PENDING_CAPTURE_SETTLEMENT</ns3:subStatus>
-		 *					<ns3:signature>D+8N/O0+yCYAjMu9w3D1IzsMMOUBAyiAMI9srRA+OR9xBkNwmAOp53SJ+Kn7FNiQpO0/WVEp8hxovzhOn9ppG6LuQEbI0syKGKa6Y8Ub+s+g9g9Klqzroey3tHsZS+4CULc/aX2Jak5tNDfCQObpK9Xi+zdyujK9VSRGAyXmQXfR7PlGYEEDneMi2oXZo1JxMP/8NOW1bWzeVZ/luD+xvEesQy4pzoGhIXFOHLMDNcPZ4X8HYva0b+V5GIwVhHEJAXgJ67VOztHAv8CZYeFQkVMqt5HrCZndcUFxCfGUZwhhoGv9AMtx2t2Iiy71ssMzlarZ0Bvv+ogCFp3dHzzj9Q==</ns3:signature>
-		 *				</ns4:paymentStatusResponse>
-		 *			</ns4:getPaymentStatusResponse>
+		 *			<ns4:getPaymentDetailResponse xmlns:ns4="http://gpe.cz/pay/pay-ws/proc/v1" xmlns="http://gpe.cz/gpwebpay/additionalInfo/response" xmlns:ns5="http://gpe.cz/gpwebpay/additionalInfo/response/v1" xmlns:ns2="http://gpe.cz/pay/pay-ws/core/type" xmlns:ns3="http://gpe.cz/pay/pay-ws/proc/v1/type">
+		 *				<ns4:paymentDetailResponse>
+		 *					<ns3:messageId>203723x64511678143906451167814391</ns3:messageId>
+		 *					<ns3:state>1</ns3:state>
+		 *					<ns3:status>PENDING_AUTHORIZATION</ns3:status>
+		 *					<ns3:subStatus>PGW_PAGE</ns3:subStatus>
+		 *					<ns3:paymentMethod>PGW</ns3:paymentMethod>
+		 *					<ns3:paymentAmount>1178</ns3:paymentAmount>
+		 *					<ns3:approveAmount>0</ns3:approveAmount>
+		 *					<ns3:captureAmount>0</ns3:captureAmount>
+		 *					<ns3:refundAmount>0</ns3:refundAmount>
+		 *					<ns3:paymentTime>2023-05-02 15:55:22</ns3:paymentTime>
+		 *					<ns3:signature>rF92F7E6TPOnQ/2MSTFDtXxtnE9CfINh8Z13LUHoUBjyRQPKQkWNh9+F0+hefETRzh/IX+kmU2SjVnljXFX5WAsg8ayEhrtI3/3GmvYL7qHWnlqiyzJUrTBzUBJRPBgyXqGFOW5qXuYgPF0VvkXbeH1AlkuWLg/XrMqfYsYoeIHkS283zTlXqsZrHKYheUipi61VHsreoI0cOF6eHa/cIpa+5M1vJ4D4whqrqPL/t90+oLHZgfuBqbQgao81ugzFFDhzpT7/CKgxJYUUmIF1t/vo33E+SBe8GowVCOahpRqLonbOF7o5ylrGl3JoNd1arOm4EaV0Cd56JOPZPYiQlI==</ns3:signature>
+		 *				</ns4:paymentDetailResponse>
+		 *			</ns4:getPaymentDetailResponse>
 		 *		</soapenv:Body>
 		 *	</soapenv:Envelope>
 		 */
 
 
-		$branch = $xmole->get_first_matching_branch('/soapenv:Envelope/soapenv:Body/ns4:getPaymentStatusResponse/ns4:paymentStatusResponse');
+		$branch = $xmole->get_first_matching_branch('/soapenv:Envelope/soapenv:Body/ns4:getPaymentDetailResponse/ns4:paymentDetailResponse');
 		myAssert($branch);
 
 		$status_ar = [];
@@ -229,6 +236,14 @@ class GpWebpay extends PaymentGatewayApi {
 			$status_ar[$key] = $value;
 		}
 		myAssert($status_ar);
+
+		myAssert(isset($status_ar["paymentAmount"]),"paymentAmount must be found in the payment detail response");
+		$expected_payment_amount = $payment_transaction->getPriceToPay();
+		$received_payment_amount = round($status_ar["paymentAmount"] / 100.0,INTERNAL_PRICE_DECIMALS);
+		if($expected_payment_amount!==$received_payment_amount){
+			$this->logger->warn("PaymentGatewayApi\\GpWebpay: Expectation failed: expected_payment_amount===received_payment_amount ($expected_payment_amount===$received_payment_amount)");
+			return;
+		}
 
 		return $status_ar;
 	}
