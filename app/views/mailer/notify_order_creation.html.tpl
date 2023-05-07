@@ -118,4 +118,11 @@
 	{t}Vaše poznámka k objednávce:{/t} {!$order->getNote()|h|nl2br}
 {/if}
 
+{if $order->getPaymentMethod()->isOnlineMethod()}
+	{capture assign=order_finish_url}{link_to action="orders/finish" token=$order->getToken() _with_hostname=true}{/capture}
+	<br/><br/>
+	{t}Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:{/t}
+	<a href="{$order_finish_url}" style="{$link_style}"><span style="{$link_style}">{$order_finish_url}</span></a>
+{/if}
+
 {render partial="order_status_check_notice.html"}

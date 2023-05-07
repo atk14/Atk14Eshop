@@ -35,14 +35,28 @@ class OrdersController extends ApplicationController {
 
 		$this->page_title = _("Objednávka byla dokončena");
 
-		// Objednavka tady byt muze, ale taky nemusi...
-		$order = Order::GetInstanceByToken($this->params->getString("token"));
-		if(!$order){
-			return;
+		// The order object can not be set
+		$order = null;
+		if($this->params->defined("token")){
+			$order = Order::GetInstanceByToken($this->params->getString("token"));
+			if(!$order){
+				$this->_execute_action("error404");
+				return;
+			}
+			$allowed_order_statuses = [
+				"waiting_for_bank_transfer",
+				"waiting_for_online_payment",
+				"payment_accepted",
+				"payment_failed",
+			];
+			// For other statuses, we do not want to disclose any information about the order
+			if(!in_array($order->getOrderStatus()->getCode(),$allowed_order_statuses)){
+				$order = null;	
+			}
 		}
 
 		$this->tpl_data["order"] = $order;
-		$this->tpl_data["payment_transaction"] = $order->getPaymentTransaction();
+		$this->tpl_data["payment_transaction"] = $order ? $order->getPaymentTransaction() : null;
 
 		$this->_collectTransactionDataLayer($order);
 	}

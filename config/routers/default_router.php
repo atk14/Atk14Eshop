@@ -73,6 +73,9 @@ class DefaultRouter extends Atk14Router{
 		$this->addRoute("/search/","en/searches/index");
 		$this->addRoute("/vyhledavani/","cs/searches/index");
 
+		$this->addRoute("/order/<token>/","en/orders/finish");
+		$this->addRoute("/objednavka/<token>/","cs/orders/finish");
+
 		// Qr kody
 		$this->addRoute("/qr-code/<lang>/<order_token>.png","payment_qr_codes/detail");
 

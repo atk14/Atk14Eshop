@@ -1,6 +1,15 @@
-{if $order}
-	{assign currency $order->getCurrency()}
-	{assign bank_account $order->getBankAccount()}
+{assign currency $order->getCurrency()}
+{assign bank_account $order->getBankAccount()}
+
+{if $bank_account}
+
+	{if $leading_text}
+		<p>{$leading_text}</p>
+	{/if}
+
+	{if $title}
+		<h4>{$title}</h4>
+	{/if}
 
 	<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
 	<br>
@@ -24,4 +33,5 @@
 		<br>
 		<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
 	{/if}
+
 {/if}
