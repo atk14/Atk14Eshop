@@ -364,6 +364,7 @@ class Order extends BasketOrOrder {
 		global $ATK14_GLOBAL;
 		$options += [
 			"mailer" => null,
+			"disable_notification" => false,
 		];
 
 		if (is_string($new_status_values)) {
@@ -434,7 +435,7 @@ class Order extends BasketOrOrder {
 		}
 
 		$order_status = $this->getOrderStatus();
-		if($order_status && $order_status->notificationEnabled() && $order_status->getId()!=$orig_status->getId()){
+		if(!$options["disable_notification"] && $order_status && $order_status->notificationEnabled() && $order_status->getId()!=$orig_status->getId()){
 			$mailer = $options["mailer"] ? $options["mailer"] : Atk14MailerProxy::GetInstance();
 			$lang = $this->getLanguage();
 			$prev_lang = Atk14Locale::Initialize($lang);
