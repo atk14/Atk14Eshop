@@ -119,7 +119,7 @@
 {/if}
 
 {if $order->getPaymentMethod()->isOnlineMethod()}
-	{capture assign=order_finish_url}{link_to action="orders/finish" token=$order->getToken() _with_hostname=true}{/capture}
+	{capture assign=order_finish_url}{link_to namespace="" action="orders/finish" token=$order->getToken() _with_hostname=true _ssl=REDIRECT_TO_SSL_AUTOMATICALLY}{/capture}
 	<br/><br/>
 	{t}Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:{/t}
 	<a href="{$order_finish_url}" style="{$link_style}"><span style="{$link_style}">{$order_finish_url}</span></a>
