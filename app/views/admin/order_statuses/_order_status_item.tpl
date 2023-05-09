@@ -19,7 +19,11 @@
 	<div>
 		{if $next_automatic_order_status}
 			<small>
-				{t days=$order_status->getNextAutomaticOrderStatusAfterDays()}After %1 days it will automatically go into the state:{/t}<br>
+				{if $order_status->getNextAutomaticOrderStatusAfterDays()==1}
+					{t}After one day it will automatically go into the state:{/t}<br>
+				{else}
+					{t days=$order_status->getNextAutomaticOrderStatusAfterDays()}After %1 days it will automatically go into the state:{/t}<br>
+				{/if}
 				{render partial="shared/order_status" order_status=$next_automatic_order_status}
 			</small>
 		{/if}
