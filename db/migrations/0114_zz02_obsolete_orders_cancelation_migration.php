@@ -1,5 +1,5 @@
 <?php
-class Zz05ObsoleteOrdersCancelationMigration extends ApplicationMigration {
+class Zz02ObsoleteOrdersCancelationMigration extends ApplicationMigration {
 
 	function up(){
 		$robot = User::GetRobot();
