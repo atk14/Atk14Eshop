@@ -87,7 +87,7 @@ definedef("SIDEBAR_MENU_ENABLED",false);
 
 definedef("TECHNICAL_SPECIFICATION_KEY_CREATION_ENABLED",true);
 
-definedef("OFFER_BANK_TRANSFER_IF_ONLINE_TRANSACTION_FAILS",false);
+definedef("OFFER_BANK_TRANSFER_IF_ONLINE_TRANSACTION_FAILS",true);
 
 // The SessionStorer's check cookie is disabled here.
 // A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
