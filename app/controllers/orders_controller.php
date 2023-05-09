@@ -44,6 +44,7 @@ class OrdersController extends ApplicationController {
 				return;
 			}
 			$allowed_order_statuses = [
+				"new",
 				"waiting_for_bank_transfer",
 				"repeated_payment_request",
 				"waiting_for_online_payment",
