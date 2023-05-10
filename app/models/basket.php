@@ -1213,6 +1213,30 @@ class Basket extends BasketOrOrder {
 	}
 
 	function containsProductWithTag($tag){
+		static $CATEGORIES_PREFETCHED = [];
+
+		// We should prefetch all categories in all paths.
+		// It helps Product::containsProductWithTag($tag,["consider_categories" => true]) to be faster.
+		$checksum = $this->getChecksum(["consider_products_amount" => false]);
+		if(!isset($CATEGORIES_PREFETCHED[$checksum])){
+			foreach($this->getItems() as $item){
+				$card = $item->getProduct()->getCard();
+				$categories = $card->getCategories();
+				while($categories){
+					foreach($categories as $c){
+						Cache::Prepare("Category",$c->getParentCategoryId());
+					}
+					$_categories = [];
+					foreach($categories as $c){
+						$p = $c->getParentCategory();
+						if($p){ $_categories[] = $p; }
+					}
+					$categories = $_categories;
+				}
+			}
+			$CATEGORIES_PREFETCHED[$checksum] = true;
+		}
+
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
 			if($product->containsTag($tag,["consider_categories" => true])){ return true; }
