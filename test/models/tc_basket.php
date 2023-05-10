@@ -338,6 +338,19 @@ class TcBasket extends TcBase {
 		$this->assertNotEquals($checksum_empty,$checksum_1);
 		$this->assertNotEquals($checksum_empty,$checksum_2);
 		$this->assertNotEquals($checksum_1,$checksum_2);
+
+		//
+
+		$basket1 = Basket::CreateNewRecord([]);
+		$basket2 = Basket::CreateNewRecord([]);
+
+		$this->assertEquals($basket1->getChecksum(),$basket2->getChecksum());
+
+		$basket1->addProduct($black_tea,1);
+		$basket2->addProduct($black_tea,2);
+
+		$this->assertNotEquals($basket1->getChecksum(),$basket2->getChecksum());
+		$this->assertEquals($basket1->getChecksum(["consider_products_amount" => false]),$basket2->getChecksum(["consider_products_amount" => false]));
 	}
 
 	function test_createOrder(){

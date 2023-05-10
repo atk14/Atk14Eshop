@@ -674,10 +674,18 @@ class Basket extends BasketOrOrder {
 	 * Pouziva se pri vytvareni objednavky.
 	 * Chceme mit totiz jistotu, ze uzivatel vytvari objednavku podle toho, co vidi v sumarizaci kosiku.
 	 */
-	function getChecksum(){
+	function getChecksum($options = []){
+		$options += [
+			"consider_products_amount" => true,
+		];
+
 		$ary = [];
 		foreach($this->getItems() as $item){
-			$ary[] = [$item->getProductId(),$item->getAmount()];
+			if($options["consider_products_amount"]){
+				$ary[] = [$item->getProductId(),$item->getAmount()];
+			}else{
+				$ary[] = [$item->getProductId()];
+			}
 		}
 
 		return md5(serialize($ary));
