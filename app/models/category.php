@@ -543,25 +543,56 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	}
 
 	function containsTag($tag,$options = []){
+		static $CACHE = [];
+
 		$options += [
 			"consider_parents" => false,
 		];
 
-		$tag = $this->_cleanTag($tag);
+		$consider_parents = $options["consider_parents"];
 
-		if($this->getTagsLister()->contains($tag)){
+		$tag = $this->_cleanTag($tag);
+		if(!$tag){ return false; }
+
+		$cache_key = join(",",[$this->getId(),$tag->getId(),$consider_parents ? 1 : 0]);
+		$direct_cache_key = join(",",[$this->getId(),$tag->getId(),0]);
+
+		if(isset($CACHE[$cache_key])){ return $CACHE[$cache_key]; }
+
+		if(isset($CACHE[$direct_cache_key]) && ($CACHE[$direct_cache_key] || !$consider_parents)){
+			$CACHE[$cache_key] = $CACHE[$direct_cache_key];
+			return $CACHE[$direct_cache_key];
+		}
+
+		if(!isset($CACHE[$direct_cache_key])){
+			$CACHE[$direct_cache_key] = $this->getTagsLister()->contains($tag);
+		}
+
+		if($CACHE[$direct_cache_key]){
+			$CACHE[$cache_key] = true;
 			return true;
 		}
-		if($options["consider_parents"]){
-			$c = $this;
+
+		if($consider_parents){
+			$c = $this->getParentCategory();
 			while($c){
-				if($c->getTagsLister()->contains($tag)){
+				$direct_cache_key = join(",",[$c->getId(),$tag->getId(),0]);
+				if(!isset($CACHE[$direct_cache_key])){
+					$CACHE[$direct_cache_key] = $c->getTagsLister()->contains($tag);
+				}
+				if($CACHE[$direct_cache_key]){
+					$CACHE[$cache_key] = true;
 					return true;
 				}
 				$c = $c->getParentCategory();
 			}
 		}
-		return false;
+
+		if(!isset($CACHE[$cache_key])){
+			$CACHE[$cache_key] = false;
+		}
+
+		return $CACHE[$cache_key];
 	}
 	function hasTag($tag,$options = []) { return $this->containsTag($tag,$options); }
 
