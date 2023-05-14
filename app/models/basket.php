@@ -1222,17 +1222,7 @@ class Basket extends BasketOrOrder {
 			foreach($this->getItems() as $item){
 				$card = $item->getProduct()->getCard();
 				$categories = $card->getCategories();
-				while($categories){
-					foreach($categories as $c){
-						Cache::Prepare("Category",$c->getParentCategoryId());
-					}
-					$_categories = [];
-					foreach($categories as $c){
-						$p = $c->getParentCategory();
-						if($p){ $_categories[] = $p; }
-					}
-					$categories = $_categories;
-				}
+				Category::PrecacheParentsForCategories($categories);
 			}
 			$CATEGORIES_PREFETCHED[$checksum] = true;
 		}

@@ -32,6 +32,33 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return Category::FindAll("parent_category_id",$parent_category,$options);
 	}
 
+	/**
+	 * Prefetches all parents for the given category into the cache
+	 */
+	static function PrecacheParentsForCategory($category){
+		static $parents;
+		if(is_null($category)){ return; }
+		if(is_null($parents)){
+			$dbmole = self::GetDbMole();
+			$parents = $dbmole->selectIntoAssociativeArray("SELECT id,parent_category_id FROM categories");
+		}
+		$id = TableRecord::ObjToId($category);
+		Cache::Prepare("Category",$id);
+		while(isset($parents[$id])){
+			Cache::Prepare("Category",$parents[$id]);
+			$id = $parents[$id];
+		}
+	}
+
+	/**
+	 * Prefetches all parents for all the given categories into the cache
+	 */
+	static function PrecacheParentsForCategories($categories){
+		foreach($categories as $category){
+			self::PrecacheParentsForCategory($category);
+		}
+	}
+
 	function realMeId() { return $this->getPointingToCategoryId()?:$this->getId();}
 	function realMe() { return $this->getPointingToCategoryId()?$this->getPointingToCategory():$this;}
 
