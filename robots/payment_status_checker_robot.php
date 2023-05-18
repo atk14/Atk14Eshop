@@ -11,7 +11,7 @@ class PaymentStatusCheckerRobot extends ApplicationRobot {
 		$conditions = [
 			"payment_transaction_started_at IS NOT NULL",
 			"payment_transaction_started_at<NOW() - INTERVAL '5 minutes'", // nekontroluji se uplne nove platebni transakce - ocekava se, ze stav zaplaceni oznami plat. brana push zpravou
-			"payment_transaction_started_at>NOW() - INTERVAL '12 hours'", // pouze 12 hodin se kontroluji nezaplacene platby - pak uz to je na rucnim zpracovani...
+			"payment_transaction_started_at>NOW() - INTERVAL '24 hours'", // pouze 1 den se kontroluji nezaplacene platby - pak uz to je na rucnim zpracovani...
 			"payment_status_id=:pending_status OR payment_status_id IS NULL",
 		];
 

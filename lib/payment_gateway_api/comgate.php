@@ -103,7 +103,7 @@ class Comgate extends PaymentGatewayApi {
 	}
 
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
 		$trans_id = $payment_transaction->getPaymentTransactionId(); // "FJLA-EASH-QVZS"
 		myAssert(strlen($trans_id)>0);
 
@@ -114,6 +114,8 @@ class Comgate extends PaymentGatewayApi {
 
 		$status = $data["status"];
 		myAssert(strlen($status)>0);
+
+		$internal_status = $status;
 
 		$tr = [
 			"PAID" => "paid",

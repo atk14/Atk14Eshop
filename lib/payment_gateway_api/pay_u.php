@@ -39,7 +39,7 @@ class PayU extends PaymentGatewayApi {
 		]);
 	}
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
 		$data = null;
 
 		$order = $payment_transaction->getOrder();
@@ -48,6 +48,8 @@ class PayU extends PaymentGatewayApi {
 			$this->logger->warn(sprintf("payment status cannot be checked for PaymentTransaction#%s (Order#%s, order_no=%s): %s (%s)",$payment_transaction->getId(),$order->getId(),$order->getOrderNo(),$err_message,$err_code));
 			return;
 		}
+
+		$internal_status = sprintf("%s (%s)",$status->getStatus(),$status->getStatusDescription());
 
 		$data = $status->toArray();
 

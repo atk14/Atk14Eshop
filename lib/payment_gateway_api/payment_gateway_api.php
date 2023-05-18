@@ -56,13 +56,13 @@ class PaymentGatewayApi {
 		$payment_transaction->s($values);
 	}
 
-	final function getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+	final function getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
 		$data = null;
 
 		$this->prepareForOrder($payment_transaction->getOrder());
 		myAssert($this->isProperlyConfigured(),sprintf("%s is not properly configured",get_class($this)));
 
-		$code = $this->_getCurrentPaymentStatusCode($payment_transaction,$data);
+		$code = $this->_getCurrentPaymentStatusCode($payment_transaction,$data,$internal_status);
 		return $code;
 	}
 
@@ -70,9 +70,13 @@ class PaymentGatewayApi {
 		$this->prepareForOrder($payment_transaction->getOrder());
 		myAssert($this->isProperlyConfigured(),sprintf("%s is not properly configured",get_class($this)));
 
-		$code = $this->_getCurrentPaymentStatusCode($payment_transaction);
+		$code = $this->_getCurrentPaymentStatusCode($payment_transaction,$data,$internal_status);
 		if(is_null($code)){
 			return;
+		}
+
+		if(strlen((string)$internal_status)){
+			$this->logger->info(sprintf("internal status of PaymentTransaction#%s: %s",$payment_transaction->getId(),$internal_status));
 		}
 
 		$status = \PaymentStatus::FindByCode($code);
@@ -83,12 +87,22 @@ class PaymentGatewayApi {
 			$order = $payment_transaction->getOrder();
 			$current_order_status = $order->getOrderStatus();
 
-			$this->logger->info(sprintf("order_no %s, payment_transaction_id %s: payment status updated: %s -> %s",$order->getOrderNo(),$payment_transaction->getId(),$current_status ? $current_status->getCode() : "NULL",$status->getCode()));
+			$this->logger->info(strtr(
+				"set new payment status on PaymentTransaction#%id%: %current_status% -> %new_status% (Order#%order_id%, order_no=%order_no%), status data dump: %data_dump%",[
+					"%id%" => $payment_transaction->getId(),
+					"%current_status%" => $current_status ? $current_status->getCode() : "NULL",
+					"%new_status%" => $status->getCode(),
+					"%order_id%" => $order->getId(),
+					"%order_no%" => $order->getOrderNo(),
+					"%data_dump%" => var_export($data,true),
+				]
+			));
+
 			$payment_transaction->setNewPaymentStatus($status);
 
 			$order_status = $order->getOrderStatus();
 			if($current_order_status->getId()!=$order_status->getId()){
-				$this->logger->info(sprintf("order_no %s, order status updated: %s -> %s",$order->getOrderNo(),$current_order_status->getCode(),$order_status->getCode()));
+				$this->logger->info(sprintf("order status updated on Order#%s: %s -> %s (order_no=%s) due to change status on PaymentTransaction#%s",$order->getId(),$current_order_status->getCode(),$order_status->getCode(),$order->getOrderNo(),$payment_transaction->getId()));
 			}
 
 		}else{
@@ -104,9 +118,9 @@ class PaymentGatewayApi {
 	 *
 	 *	$code = $this->_getCurrentPaymentStatusCode($payment_transaction); // "pending", "paid", "cancelled", null
 	 */
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
 		$class = get_class($this);
-		throw new \Exception("Method $class::_getCurrentPaymentStatusCode(&\$payment_transaction,&\$data = null) needs to be defined");
+		throw new \Exception("Method $class::_getCurrentPaymentStatusCode(&\$payment_transaction,&\$data = null,&\$internal_status = null) needs to be defined");
 	}
 
 	/**

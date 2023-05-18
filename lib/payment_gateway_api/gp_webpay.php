@@ -123,18 +123,34 @@ class GpWebpay extends PaymentGatewayApi {
 	//		exit;
 	//	}
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
+		$internal_status = null;
 		$data = $this->_getStatus($payment_transaction);
 		if(is_null($data)){
 			return;
 		}
 
 		$status = $data["status"];
-		myAssert(strlen($status)>0);
+		myAssert(strlen((string)$status)>0);
+
+		$substatus = $data["subStatus"];
+		myAssert(strlen((string)$substatus)>0);
+
+		$internal_status = "$status/$substatus";
 
 		$tr = [
 			"PENDING_AUTHORIZATION" => "pending", 	// Nově založená objednávka příchozí libovolným kanálem, kterou je stále možné úspěšně dokončit. U PUSH plateb je to do konce platnosti nebo vyčerpání pokusů, u ostatních plateb do konce platnosti session.
-			"UNPAID" => "cancelled", 								// Každá objednávka, která nebyla z libovolného důvodu úspěšně autorizována. Od technických příčin, přes zamítnutí na úrovni MPI (3D ověření), FDS (Fraud detection system) či AC (Autorizační centrum) až po opuštění platby nebo návratu do eShopu bez dokončení. 
+
+			"UNPAID" => "pending", 									// Všechno s UNPAID stavem považujeme za pending, pokud to nemá nějaký jasný substatus
+			"UNPAID/CANCELED" => "cancelled",				// Toto je bezpecne cancelled
+			"UNPAID/DECLINED" => "cancelled",				// Toto je taky bezpecne cancelled
+			"UNPAID/TECHNICAL_PROBLEM" => "pending", // Technická chyba znemožňující dokončení platby - pockame, jestli to nekdo neopravi
+			"UNPAID/FRAUD" => "pending",						// Potenciální podvod - pockame, jak se to vyresi
+			// Nasl. stavy nastavaji, ale nejsou v dokumentaci...
+			"UNPAID/PGW_PAGE" => "pending",
+			"UNPAID/3DS_REDIRECT" => "pending",
+			"UNPAID/3DS_SUBMIT" => "pending",
+
 			"PENDING_CAPTURE" => "pending", 				// Autorizovaná/schválená platba, došlo úspěšně k blokaci finančních prostředků na účtu nakupujícího. Nebyl dosud vytvořen žádný požadavek na stržení blokované částky (capture).
 			"REVERSED" => "cancelled", 							// Stornovaná platba – buď manuálně (přes GUI nebo WS) obchodníkem nebo systémem při vypršení doby pro provedení stržení částky (capture) ze stavu PENDING_CAPTURE.
 			"CAPTURED" => "paid",										// K objednávce existuje plný deposit bez ohledu na to, zda byl již zpracován nebo na to čeká a lze tudíž ještě zrušit.
@@ -142,9 +158,18 @@ class GpWebpay extends PaymentGatewayApi {
 			"PARTIAL_PAYMENT" => "pending",					// Částečně uhrazená platba – nebyla stržena celá blokovaná částka nebo byly částečně vráceny peníze zpět držiteli platební karty.
 			"REFUNDED" => "cancelled",							// Kompletně vrácená platba – veškeré stržené peníze byly vráceny držiteli platební karty, bez ohledu, zda byla stržena celková blokovaná částka.
 		];
-		myAssert(isset($tr[$status]),"unknown status: $status");
+		myAssert(isset($tr[$status]) || isset($tr["$status/$substatus"]),"unknown status/substatus: $status/$substatus");
 
-		$code = $tr[$status];
+		if(isset($tr["$status/$substatus"])){
+			$code = $tr["$status/$substatus"];
+		}else{
+			$code = $tr[$status];
+		}
+
+		// Casovy test - prilis stara transakce ve stavu pending je oznacena za cancelled
+		if($code==="pending" && $status==="UNPAID" && $payment_transaction->getPaymentTransactionStartedAt() && strtotime($payment_transaction->getPaymentTransactionStartedAt())<(time() - 2 * 60 * 60)){
+			$code = "cancelled";
+		}
 
 		return $code;
 	}
