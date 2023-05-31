@@ -9,7 +9,7 @@
 {assign currency $order->getCurrency()}
 {assign vouchers $order->getVouchers()}
 {assign campaigns $order->getCampaigns()}
-{assign object_class $order|get_class}
+{assign object_class get_class($order)}
 {assign is_basket $object_class=="Basket"}
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
 {assign incl_vat $basket->displayPricesInclVat()}
