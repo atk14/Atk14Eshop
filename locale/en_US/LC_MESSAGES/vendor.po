@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-27 16:14+0100\n"
+"POT-Creation-Date: 2023-06-01 16:14+0200\n"
 "PO-Revision-Date: 2023-01-27 16:51+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -308,33 +308,33 @@ msgstr "Display image"
 msgid "Unknown error"
 msgstr "Unknown error"
 
-#: ../vendor/atk14/range-field/src/app/fields/range_field.php:18
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:23
 msgid "Minimum of the range is required"
 msgstr "Minimum of the range is required"
 
-#: ../vendor/atk14/range-field/src/app/fields/range_field.php:19
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:24
 msgid "Maximum of the range is required"
 msgstr "Maximum of the range is required"
 
-#: ../vendor/atk14/range-field/src/app/fields/range_field.php:20
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:25
 msgid "Value is out of range of allowed values"
 msgstr "Value is out of range of allowed values"
 
-#: ../vendor/atk14/range-field/src/app/fields/range_field.php:21
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:26
 msgid "Invalid input for range field"
 msgstr "Invalid input for range field"
 
-#: ../vendor/atk14/range-field/src/app/fields/range_field.php:22
+#: ../vendor/atk14/range-field/src/app/fields/range_field.php:27
 msgid "This range field accepts only numeric values"
 msgstr "This range field accepts only numeric values"
 
-#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:49
-msgid "od"
-msgstr "from"
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:55
+msgid "<!-- range --> from"
+msgstr ""
 
-#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:51
-msgid "do"
-msgstr "to"
+#: ../vendor/atk14/range-field/src/app/widgets/range_input.php:59
+msgid "<!-- range --> to"
+msgstr ""
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
 msgid ""
@@ -370,6 +370,12 @@ msgstr "Please enter a valid zip code"
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Enter the ZIP code as NNN NN"
+
+#~ msgid "od"
+#~ msgstr "from"
+
+#~ msgid "do"
+#~ msgstr "to"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Enter valid phone number (+420.605123456)"

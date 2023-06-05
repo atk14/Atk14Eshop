@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-27 16:14+0100\n"
-"PO-Revision-Date: 2023-06-01 12:33+0200\n"
+"POT-Creation-Date: 2023-06-01 16:14+0200\n"
+"PO-Revision-Date: 2023-06-01 16:19+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -243,6 +243,9 @@ msgstr "This product is not in offer"
 
 msgid "Běžná cena:"
 msgstr "Common price:"
+
+msgid "Ušetříte:"
+msgstr "You'll save:"
 
 msgid "Catalog number: %1"
 msgstr "Catalog number: %1"
@@ -509,6 +512,11 @@ msgstr "Billing address"
 msgid "Vaše poznámka k objednávce:"
 msgstr "Your order note:"
 
+msgid ""
+"Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
+msgstr ""
+"If your browser crashed before completing your payment, proceed to this URL:"
+
 msgid "Vaše objednávka č.%1"
 msgstr "Your order No. %1"
 
@@ -570,8 +578,8 @@ msgstr "Payment for order No. %1 has been successfully accepted."
 msgid "Platba za objednávku s označením %1 selhala."
 msgstr "Payment for order No. %1 failed."
 
-msgid "Pro opakování platby přejděte na adresu %1"
-msgstr "To repeat the payment, go to %1"
+msgid "Instrukce pro opakování platby najdete na adrese %1"
+msgstr "For instructions on how to repeat your payment, please visit %1"
 
 msgid "Začali jsme zpracovávat Vaší objednávku %1."
 msgstr "We have started processing your order %1."
@@ -702,12 +710,6 @@ msgstr "Payment status: %1"
 msgid "Stáhnout digitální produkty"
 msgstr "Download digital products"
 
-msgid "Děkujeme"
-msgstr "Thank you"
-
-msgid "…za Váš nákup, vraťte se brzy :)"
-msgstr "… for your purchase, come back soon :)"
-
 msgid "Objednávka byla zaplacena"
 msgstr "The order has been paid"
 
@@ -723,18 +725,45 @@ msgstr "You will be redirected to the payment gateway in a moment."
 msgid "V případě, že k přesměrování nedojde, <a href=\"%1\">klikněte zde</a>."
 msgstr "If the redirect does not occur, <a href=\"%1\">click here</a>."
 
+msgid "Čekáme na dokončení platby"
+msgstr "Waiting for payment to be completed"
+
+msgid "Pro vstup do platební transakce <a href=\"%1\">klikněte zde</a>."
+msgstr "To enter the payment transaction <a href=\"%1\">click here</a>."
+
+msgid ""
+"Pokud se Vám nedaří dokončit online platbu, uhraďte objednávku bankovním "
+"převodem."
+msgstr ""
+"If you are unable to complete your online payment, please pay your order by "
+"bank transfer."
+
 msgid "Platba nebyla uskutečněna"
 msgstr "Payment has not been made"
 
+msgid "Pro opakování online platby <a href=\"%1\">klikně zde</a>."
+msgstr "To repeat your online payment <a href=\"%1\">click here</a>."
+
 msgid ""
-"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+"V případě přetrvávajících potíží můžete objednávku uhradit bankovním "
+"převodem."
 msgstr ""
-"To repeat your online payment <a href=\"%1\">click here</a>. In case of "
-"persistent problems, you can pay your order by bank transfer."
+"In case of persistent problems, you can pay the order by bank transfer."
+
+msgid "Opakování online platby již není možné."
+msgstr "Repeat the online payment is no longer possible."
+
+msgid "Objednávku však můžete uhradit bankovním převodem."
+msgstr "However, you can pay for your order by bank transfer."
 
 msgid "Platební údaje pro uhrazení objednávky bankovním převodem"
 msgstr "Details for payment of the order by bank transfer"
+
+msgid "Děkujeme"
+msgstr "Thank you"
+
+msgid "…za Váš nákup, vraťte se brzy :)"
+msgstr "… for your purchase, come back soon :)"
 
 msgid "Platební údaje pro uhrazení objednávky"
 msgstr "Payment details for order payment"
@@ -1181,12 +1210,12 @@ msgstr "Pages"
 msgid "Product categories"
 msgstr "Product categories"
 
-#: ../app/controllers/brands_controller.php:18
+#: ../app/controllers/brands_controller.php:20
 msgid "Brands"
 msgstr "Brands"
 
 #: ../app/controllers/stores_controller.php:6
-#: ../app/controllers/stores_controller.php:14
+#: ../app/controllers/stores_controller.php:15
 msgid "Stores"
 msgstr "Stores"
 
@@ -1501,7 +1530,7 @@ msgstr "Discount coupon has been added"
 #: ../app/controllers/baskets_controller.php:89
 #: ../app/controllers/baskets_controller.php:103
 #: ../app/controllers/baskets_controller.php:115
-#: ../app/controllers/orders_controller.php:98
+#: ../app/controllers/orders_controller.php:118
 msgid "Shopping basket"
 msgstr "Shopping basket"
 
@@ -1711,7 +1740,7 @@ msgstr "Your password has been updated successfully"
 msgid "Password recovery"
 msgstr "Password recovery"
 
-#: ../app/controllers/payment_transactions_controller.php:27
+#: ../app/controllers/payment_transactions_controller.php:31
 msgid "Platební operace byla dokončena"
 msgstr "The payment transaction has been completed"
 
@@ -1804,12 +1833,10 @@ msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
 
 #: ../app/fields/boolean_with_select_field.php:7
-#: ../app/models/technical_specification.php:86
 msgid "Ano"
 msgstr "Yes"
 
 #: ../app/fields/boolean_with_select_field.php:8
-#: ../app/models/technical_specification.php:86
 msgid "Ne"
 msgstr "No"
 
@@ -1958,6 +1985,10 @@ msgstr "Only letters, numbers, dots and dashes are allowed"
 msgid "There is no such record"
 msgstr "There is no such record"
 
+#: ../app/fields/object_status_field.php:8
+msgid "status"
+msgstr "status"
+
 #: ../app/fields/oembed_video_field.php:7
 msgid ""
 "Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
@@ -1983,7 +2014,7 @@ msgstr "The file type at this URL is not a video"
 msgid "Zadaný počet musí být dělitelný číslem %d"
 msgstr "The entered number has to be divisible by number %d"
 
-#: ../app/fields/order_status_field.php:7
+#: ../app/fields/order_status_field.php:6
 msgid "stav objednávky"
 msgstr "order status"
 
@@ -2350,11 +2381,17 @@ msgstr "Control"
 msgid "Aktivovat hlídacího psa"
 msgstr "Activate the watchdog"
 
+#: ../app/helpers/block.drink_shortcode__person.php:17
+msgid "More"
+msgstr "More"
+
 #: ../app/helpers/modifier.display_bool.php:13
+#: ../app/models/technical_specification_key_type_base.php:52
 msgid "Yes"
 msgstr "Yes"
 
 #: ../app/helpers/modifier.display_bool.php:14
+#: ../app/models/technical_specification_key_type_base.php:52
 msgid "No"
 msgstr "No"
 
@@ -2408,92 +2445,98 @@ msgstr "Free shipping"
 msgid "Dárkový poukaz"
 msgstr "Gift voucher"
 
-#: ../app/models/basket.php:690
+#: ../app/models/basket.php:698
 msgid "Košík je prázdný"
 msgstr "Shopping basket is empty"
 
-#: ../app/models/basket.php:700
+#: ../app/models/basket.php:708
+#, php-format
+msgid "Produkt <em>%s (%s)</em> byl vyřazen z nabídky"
+msgstr "The product <em>%s (%s)</em> has been removed from our offer"
+
+#: ../app/models/basket.php:710 ../app/models/basket.php:722
+#: ../app/models/basket.php:737
+msgid "odebrat z košíku"
+msgstr "remove from basket"
+
+#: ../app/models/basket.php:720
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Product <em>%s (%s)</em> has been removed from our price list"
 
-#: ../app/models/basket.php:702 ../app/models/basket.php:717
-msgid "odebrat z košíku"
-msgstr "remove from basket"
-
-#: ../app/models/basket.php:715
+#: ../app/models/basket.php:735
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Product <em>%s (%s)</em> is out of stock"
 
-#: ../app/models/basket.php:725
+#: ../app/models/basket.php:745
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Product <em>%s (%s)</em> can be ordered in the maximum number of: %s"
 
-#: ../app/models/basket.php:727 ../app/models/basket.php:737
-#: ../app/models/basket.php:748
+#: ../app/models/basket.php:747 ../app/models/basket.php:757
+#: ../app/models/basket.php:768
 #, php-format
 msgid "změnit množství na %s"
 msgstr "change number to %s"
 
-#: ../app/models/basket.php:735
+#: ../app/models/basket.php:755
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Product <em>%s (%s)</em> can be ordered in the minimum number of: %s"
 
-#: ../app/models/basket.php:746
+#: ../app/models/basket.php:766
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Number of products <em>%s (%s)</em> must be a multiple of number %s"
 
-#: ../app/models/basket.php:760
+#: ../app/models/basket.php:780
 #, php-format
 msgid "odstranit voucher"
 msgstr "remove voucher"
 
-#: ../app/models/basket.php:768
+#: ../app/models/basket.php:788
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "The total price cannot have a negative value. Add something little to the "
 "basket :)"
 
-#: ../app/models/basket.php:769 ../app/models/basket.php:775
+#: ../app/models/basket.php:789 ../app/models/basket.php:795
 #, php-format
 msgid "přejít do katalogu"
 msgstr "go to catalogue"
 
-#: ../app/models/basket.php:774
+#: ../app/models/basket.php:794
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "The total price must be at least %s. Add something little to the basket :)"
 
-#: ../app/models/basket.php:804
+#: ../app/models/basket.php:824
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Shipping method <em>%s</em> cannot be selected"
 
-#: ../app/models/basket.php:805 ../app/models/basket.php:812
+#: ../app/models/basket.php:825 ../app/models/basket.php:832
 msgid "vyberte jinou metodu"
 msgstr "choose another method"
 
-#: ../app/models/basket.php:811
+#: ../app/models/basket.php:831
 #, php-format
 msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr "Payment method <em>%s</em> cannot be selected"
 
-#: ../app/models/basket.php:819
+#: ../app/models/basket.php:839
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr "Delivery address has not been selected for the shipping method '%s'"
 
-#: ../app/models/basket.php:823
+#: ../app/models/basket.php:843
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "The order cannot be delivered to the given delivery address"
 
-#: ../app/models/basket.php:824
+#: ../app/models/basket.php:844
 msgid "upravte doručovací adresu"
 msgstr "edit delivery address"
 
@@ -2506,34 +2549,34 @@ msgstr "CZK"
 msgid "opening hours: %s"
 msgstr "opening hours: %s"
 
-#: ../app/models/order.php:702
+#: ../app/models/order.php:706
 #, php-format
 msgid "Poznámka k doručovací adrese: %s"
 msgstr "Delivery address note: %s"
 
-#: ../app/models/order.php:703
+#: ../app/models/order.php:707
 #, php-format
 msgid "Poznámka k fakturační adrese: %s"
 msgstr "Billing address note: %s"
 
-#: ../app/models/order.php:763
+#: ../app/models/order.php:767
 msgid "Chybí číslo objednávky"
 msgstr "Order number is missing"
 
-#: ../app/models/order.php:773
+#: ../app/models/order.php:777
 msgid "Objednávka nebyla nalezena v systému"
 msgstr "Order cannot be found in the system"
 
-#: ../app/models/order.php:807
+#: ../app/models/order.php:811
 msgid "Chybí číslo zásilky"
 msgstr "Order number is missing"
 
-#: ../app/models/order.php:817
+#: ../app/models/order.php:821
 #, php-format
 msgid "Hodnota %s nevypadá jako číslo zásilky"
 msgstr "The %s value does not look like a tracking number"
 
-#: ../app/models/order.php:833
+#: ../app/models/order.php:837
 msgid "Zásilka již byla importovaná"
 msgstr "The shipment has been already imported"
 
@@ -2558,10 +2601,12 @@ msgid "Přepínač"
 msgstr "Switch"
 
 #: ../app/models/technical_specification_key_type_boolean.php:19
+#: ../app/models/technical_specification_key_type_boolean.php:43
 msgid "yes"
 msgstr "yes"
 
 #: ../app/models/technical_specification_key_type_boolean.php:28
+#: ../app/models/technical_specification_key_type_boolean.php:51
 msgid "no"
 msgstr "no"
 
@@ -2707,7 +2752,7 @@ msgstr "Enter the name of the municipality or postal code"
 msgid "Pobočka nebyla nalezena"
 msgstr "Branch not found"
 
-#: ../lib/payment_gateway_api/comgate.php:34
+#: ../lib/payment_gateway_api/comgate.php:70
 #, php-format
 msgid "Objednávka č. %s na %s"
 msgstr "Order No. %s to %s"
@@ -2748,7 +2793,7 @@ msgstr "payment accepted"
 msgid "nesprávný status - prosím, kontaktujte nás"
 msgstr "incorrect status - please contact us"
 
-#: ../lib/payment_gateway_api/pay_u.php:93
+#: ../lib/payment_gateway_api/pay_u.php:103
 #, php-format
 msgid "Objednávka č. %s v e-shopu %s"
 msgstr "Order No. %s in eshop %s"
@@ -2757,6 +2802,16 @@ msgstr "Order No. %s in eshop %s"
 #, php-format
 msgid "obj. %s"
 msgstr "ord. No. %s"
+
+#~ msgid "Pro opakování platby přejděte na adresu %1"
+#~ msgstr "To repeat the payment, go to %1"
+
+#~ msgid ""
+#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+#~ msgstr ""
+#~ "To repeat your online payment <a href=\"%1\">click here</a>. In case of "
+#~ "persistent problems, you can pay your order by bank transfer."
 
 #~ msgid ""
 #~ "This is not a visible page! It's not available to the public audience."
