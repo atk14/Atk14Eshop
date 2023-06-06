@@ -29,9 +29,9 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 
 		$existing = $this->dbmole->selectIntoAssociativeArray("SELECT product_id,price FROM pricelist_items WHERE pricelist_id=:this",[":this" => $this]);
 		foreach($prices as $product_id => $price){
-			$price = number_format($price,6,'.','');
+			$price = !is_null($price) ? number_format($price,6,'.','') : null;
 			$existing_price = isset($existing[$product_id]) ? number_format($existing[$product_id],6,'.','') : null;
-			if(!isset($existing_price)){
+			if(!is_null($price) && is_null($existing_price)){
 				PricelistItem::CreateNewRecord([
 					"pricelist_id" => $this,
 					"product_id" => $product_id,
@@ -39,9 +39,13 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 				]);
 				continue;
 			}
-			if($existing_price!==$price){
+			if(!is_null($price) && $existing_price!==$price){
 				$pi = PricelistItem::FindFirst("pricelist_id",$this,"product_id",$product_id);
 				$pi->s("price",$price);
+			}
+			if(is_null($price) && !is_null($existing_price)){
+				$pi = PricelistItem::FindFirst("pricelist_id",$this,"product_id",$product_id);
+				$pi->destroy();
 			}
 			unset($existing[$product_id]);
 		}
@@ -51,9 +55,14 @@ class Pricelist extends ApplicationModel implements Translatable, Rankable {
 		}
 	}
 
-	function setPrice($product_id, $price) {
+	function setPrice($product_id, $price){
 		$product_id = TableRecord::ObjToId($product_id);
 		return $this->setPrices([$product_id => $price], ["delete_missing_prices" => false]);
+	}
+
+	function delPrice($product_id){
+		$product_id = TableRecord::ObjToId($product_id);
+		return $this->setPrices([$product_id => null], ["delete_missing_prices" => false]);
 	}
 
 	function getCurrency(){
