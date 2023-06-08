@@ -38,6 +38,8 @@
 		{render partial="shared/attachments" object=$card}
 
 		{foreach $card->getCardSections() as $section}
+			{admin_menu for=$section align="left" only_edit=1 edit_title="{t}Edit section{/t}"}
+
 			{remove_if_contains_no_text}
 			<section class="section--product-info section--{$section->getTypeCode()}">
 				{if $section->getName()}
