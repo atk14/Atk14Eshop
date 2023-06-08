@@ -22,18 +22,32 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 		return $instance;
 	}
 
+	function getProductStockcount($product){
+		$stockcount = $this->dbmole->selectInt("SELECT stockcount FROM warehouse_items WHERE warehouse_id=:warehouse AND product_id=:product",[":warehouse" => $this, ":product" => $product]);
+		if(is_null($stockcount)){ $stockcount = 0; }
+		return $stockcount;
+	}
+
 	/**
 	 *
 	 *	$warehouse->addProduct($product,100);
 	 *	$warehouse->addProduct($product,-10);
 	 */
 	function addProduct($product,$stockcount){
-		if($product->getCode()=="price_rounding"){
+		$product = is_object($product) ? $product->getId() : $product;
+		if(is_null($product)){ return; }
+		$product = (int)$product;
+
+		$stockcount = (int)$stockcount;
+
+		if($stockcount===0){
 			return;
 		}
-		//if($product->considerStockcount()){
-		//	return;
-		//}
+
+		$price_rounding = Product::GetInstanceByCode("price_rounding");
+		if($price_rounding && $product===$price_rounding->getId()){
+			return;
+		}
 
 		$bind_ar = [
 			":warehouse_id" => $this,
