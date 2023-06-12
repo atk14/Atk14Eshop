@@ -1,6 +1,7 @@
 .product-info {
 	//@include cart-border-normal(top);
 	margin-bottom: $grid-gutter-width*2;
+	$productInfoLineHeight: 1.5;
 	
 	section {
 		&.section--product-info {
@@ -10,7 +11,9 @@
 			padding: $grid-gutter-width /4 0;
 			.section__title {
 				font-size: 1rem;
-				margin-bottom: 1rem;
+				//margin-bottom: 1rem;
+				margin-bottom: 0;
+				line-height: $productInfoLineHeight;
 				&:empty {
 					display: none;
 				}
@@ -22,6 +25,9 @@
 				ul:not([class]), ol:not([class]) {
 					padding-left: 1rem;
 				}
+			}
+			&, p {
+				line-height: $productInfoLineHeight;
 			}
 		}
 		
@@ -51,6 +57,24 @@
 						}
 						th {
 							color: black;
+						}
+					}
+				}
+				&:first-child {
+					table.table.table-sm {
+						tr {
+							th {
+								font-size: inherit;
+							}
+						}
+					}
+				}
+				&:nth-child(2){
+					table.table.table-sm {
+						tr:first-child {
+							td, th {
+								padding-top: 14px;
+							}
 						}
 					}
 				}
@@ -161,6 +185,10 @@
 				}*/
 			}
 		}
+	}	
+	.iobject {
+		margin-top: $grid-gutter-width/2;
+		margin-bottom: $grid-gutter-width/2;
 	}
 }
 
