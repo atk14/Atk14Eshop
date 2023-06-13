@@ -65,17 +65,18 @@
 						tr {
 							th {
 								font-size: inherit;
+								line-height: inherit;
 							}
 						}
 					}
 				}
 				&:nth-child(2){
 					table.table.table-sm {
-						tr:first-child {
+						/*tr:first-child {
 							td, th {
 								padding-top: 14px;
 							}
-						}
+						}*/
 					}
 				}
 			}
