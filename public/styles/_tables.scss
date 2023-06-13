@@ -24,6 +24,9 @@ table.table {
 		tr {
 			th {
 				font-size: 0.75rem;
+				$ratio: ( $font-size-base / ( $font-size-base * 0 + 1 ) ) / 0.75 * $line-height-base;
+				@debug "r a ti o #{$ratio}";
+				line-height: $ratio;
 			}
 		}
 	}
