@@ -42,9 +42,9 @@
 
 			{remove_if_contains_no_text}
 			<section class="section--product-info section--{$section->getTypeCode()}">
-				{if $section->getName()}
-				<h3 class="section__title">{$section->getName()}</h3>
-				{/if}
+				{*if $section->getName()*}
+				<h3 class="section__title">{$section->getName()} </h3>
+				{*/if*}
 				<div class="section__body">
 					{!$section->getBody()|markdown}
 
