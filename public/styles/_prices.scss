@@ -100,13 +100,14 @@ $price-font-size-xs: 0.75rem;
 		.price--before-discount {
 			display: block;
 			margin-bottom: 0.25rem;
+			color: $gray-500;
 			.currency_main, .vat_label {
 				color: $gray-500;
 			}
 			.currency_main {
 				text-decoration: line-through;
 				font-weight: 600;
-				font-size: $price-font-size-lg;
+				//font-size: $price-font-size-lg;
 			}
 		}
 

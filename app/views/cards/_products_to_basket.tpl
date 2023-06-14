@@ -36,18 +36,17 @@
 							{if $price->discounted()}
 								<span class="price--before-discount">{!$price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 							{/if}
+							{if $base_price && !$price->discounted()}
+								<span class="price--before-discount"> {* tady byla trida price--recommended *}
+									{t escape=no}Běžně <!-- běžná cena -->{/t} {!$base_price|display_price:$dp_options}
+									{* {t}Ušetříte:{/t} <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span> *}
+								</span>
+							{/if}
 							{if $incl_vat}
 								<span class="price--primary">{!$price|display_price:"$dp_options,show_vat_label"}</span>
 							{else}
 								<span class="price--primary">{!$price|display_price:"$dp_options"}</span>
 								<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
-							{/if}
-							
-							{if $base_price}
-								<span class="price--recommended">
-									{t}Běžná cena:{/t} {!$base_price|display_price:$dp_options}
-									{t}Ušetříte:{/t} <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span>
-								</span>
 							{/if}
 						</div>
 					</div>
