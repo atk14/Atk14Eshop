@@ -3,9 +3,9 @@ namespace PaymentGatewayApi;
 
 // A usable key is 10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o:
 definedef("TESTING_PAYMENT_GATEWAY_API_KEY","");
-definedef("TESTING_PAYMENT_GATEWAY_API_URL","http://test-payment-gateway.localhost/api/");
+definedef("TESTING_PAYMENT_GATEWAY_API_URL","https://test-payment-gateway.gibona.com/api/");
 
-class TestingPaymentGateway extends PaymentGatewayApi {
+class TestPaymentGateway extends PaymentGatewayApi {
 
 	function prepareForOrder($order){
 	}

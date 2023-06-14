@@ -1,1 +1,1 @@
-INSERT INTO payment_gateways (id,code,name) VALUES (101,'testing_payment_gateway','Testing Payment Gateway');
+INSERT INTO payment_gateways (id,code,name) VALUES (101,'test_payment_gateway','Test Payment Gateway');

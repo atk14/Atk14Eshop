@@ -2,7 +2,7 @@
 class Zz02AddingTestingPaymentMethodMigration extends ApplicationMigration {
 
 	function up(){
-		$gateway = PaymentGateway::GetInstanceByCode("testing_payment_gateway");
+		$gateway = PaymentGateway::GetInstanceByCode("test_payment_gateway");
 		myAssert($gateway);
 		
 		$pm = PaymentMethod::CreateNewRecord([
