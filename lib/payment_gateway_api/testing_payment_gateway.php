@@ -1,7 +1,8 @@
 <?php
 namespace PaymentGatewayApi;
 
-definedef("TESTING_PAYMENT_GATEWAY_API_KEY",""); // e.g. "123.abcdef..."
+// A usable key is 10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o:
+definedef("TESTING_PAYMENT_GATEWAY_API_KEY","");
 definedef("TESTING_PAYMENT_GATEWAY_API_URL","http://test-payment-gateway.localhost/api/");
 
 class TestingPaymentGateway extends PaymentGatewayApi {
@@ -10,6 +11,10 @@ class TestingPaymentGateway extends PaymentGatewayApi {
 	}
 
 	function isProperlyConfigured(){
+		foreach(["TESTING_PAYMENT_GATEWAY_API_KEY","TESTING_PAYMENT_GATEWAY_API_KEY"] as $c_name){
+			if(!strlen((string)constant($c_name))){ return false; }
+		}
+		return true;
 	}
 
 	function testingApi(){
@@ -31,7 +36,45 @@ class TestingPaymentGateway extends PaymentGatewayApi {
 			"order_no" => $order->getOrderNo(),
 			"eshop_name" => $region->getApplicationName(),
 
-			"return_url" => Atk14Url::BuildLink(["namespace" => "", "controller" => "test_payment_gateway", "action" => "finish_transaction"]),
+			"return_url" => \Atk14Url::BuildLink(["namespace" => "", "controller" => "test_payment_gateway", "action" => "finish_transaction"],["with_hostname" => true]),
 		];
+
+		$adf = new \ApiDataFetcher(TESTING_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
+		$data = $adf->post("payment_transactions/create_new",$params);
+
+		myAssert(strlen($data["transaction_id"])>0);
+		myAssert(strlen($data["url"])>0);
+
+		$transaction_id = $data["transaction_id"];
+		return $data["url"];
+	}
+
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
+		$transaction_id = $payment_transaction->getPaymentTransactionId(); // "RREG-EFRV-TAGA"
+		myAssert(strlen($transaction_id)>0);
+
+		$params = [
+			"api_key" => TESTING_PAYMENT_GATEWAY_API_KEY,
+			"transaction_id" => $transaction_id,
+		];
+
+		$adf = new \ApiDataFetcher(TESTING_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
+		$data = $adf->get("payment_transactions/detail",$params);
+
+		$status = $data["payment_status"];
+		myAssert(strlen($status)>0);
+
+		$internal_status = $status;
+
+		$tr = [
+			"paid" => "paid",
+			"cancelled" => "cancelled",
+			"pending" => "pending",
+		];
+		myAssert(isset($tr[$status]),"unknown status: $status");
+
+		$code = $tr[$status];
+
+		return $code;
 	}
 }
