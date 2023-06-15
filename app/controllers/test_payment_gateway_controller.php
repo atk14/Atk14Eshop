@@ -9,7 +9,7 @@ class TestPaymentGatewayController extends PaymentGatewaysBaseController {
 		$pt = null;
 		if($this->params->defined("transaction_id")){
 			$transaction_id = $this->params->getString("transaction_id");
-			$pt = PaymentTransaction::FindFirst("transaction_id",$transaction_id,"payment_gateway_id",$gateway);
+			$pt = PaymentTransaction::FindFirst("payment_transaction_id",$transaction_id,"payment_gateway_id",$gateway,["order_by" => "created_at DESC, id DESC"]);
 		}else{
 			$pt = PaymentTransaction::FindById($this->session->g("current_payment_transaction_id"));
 		}
