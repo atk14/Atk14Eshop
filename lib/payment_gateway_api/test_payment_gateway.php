@@ -2,8 +2,8 @@
 namespace PaymentGatewayApi;
 
 // A usable key is 10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o:
-definedef("TESTING_PAYMENT_GATEWAY_API_KEY","");
-definedef("TESTING_PAYMENT_GATEWAY_API_URL","https://test-payment-gateway.gibona.com/api/");
+definedef("TEST_PAYMENT_GATEWAY_API_KEY","");
+definedef("TEST_PAYMENT_GATEWAY_API_URL","https://test-payment-gateway.gibona.com/api/");
 
 class TestPaymentGateway extends PaymentGatewayApi {
 
@@ -11,7 +11,7 @@ class TestPaymentGateway extends PaymentGatewayApi {
 	}
 
 	function isProperlyConfigured(){
-		foreach(["TESTING_PAYMENT_GATEWAY_API_KEY","TESTING_PAYMENT_GATEWAY_API_KEY"] as $c_name){
+		foreach(["TEST_PAYMENT_GATEWAY_API_KEY","TEST_PAYMENT_GATEWAY_API_KEY"] as $c_name){
 			if(!strlen((string)constant($c_name))){ return false; }
 		}
 		return true;
@@ -31,7 +31,7 @@ class TestPaymentGateway extends PaymentGatewayApi {
 			"price" => $payment_transaction->getPriceToPay(),
 			"currency" => (string)$currency, // "CZK", "EUR"
 			"language" => $order->getLanguage(),
-			"api_key" => TESTING_PAYMENT_GATEWAY_API_KEY,
+			"api_key" => TEST_PAYMENT_GATEWAY_API_KEY,
 
 			"order_no" => $order->getOrderNo(),
 			"eshop_name" => $region->getApplicationName(),
@@ -39,7 +39,7 @@ class TestPaymentGateway extends PaymentGatewayApi {
 			"return_url" => \Atk14Url::BuildLink(["namespace" => "", "controller" => "test_payment_gateway", "action" => "finish_transaction"],["with_hostname" => true]),
 		];
 
-		$adf = new \ApiDataFetcher(TESTING_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
+		$adf = new \ApiDataFetcher(TEST_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
 		$data = $adf->post("payment_transactions/create_new",$params);
 
 		myAssert(strlen($data["transaction_id"])>0);
@@ -54,11 +54,11 @@ class TestPaymentGateway extends PaymentGatewayApi {
 		myAssert(strlen($transaction_id)>0);
 
 		$params = [
-			"api_key" => TESTING_PAYMENT_GATEWAY_API_KEY,
+			"api_key" => TEST_PAYMENT_GATEWAY_API_KEY,
 			"transaction_id" => $transaction_id,
 		];
 
-		$adf = new \ApiDataFetcher(TESTING_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
+		$adf = new \ApiDataFetcher(TEST_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
 		$data = $adf->get("payment_transactions/detail",$params);
 
 		$status = $data["payment_status"];
