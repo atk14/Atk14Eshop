@@ -59,7 +59,13 @@ class TestPaymentGateway extends PaymentGatewayApi {
 		];
 
 		$adf = new \ApiDataFetcher(TEST_PAYMENT_GATEWAY_API_URL,["lang" => "en"]);
-		$data = $adf->get("payment_transactions/detail",$params);
+		$data = $adf->get("payment_transactions/detail",$params,["acceptable_error_codes" => [404]]);
+
+		if($adf->getStatusCode()==404){
+			// There is no such transaction
+			$data = null;
+			return;
+		}
 
 		$status = $data["payment_status"];
 		myAssert(strlen($status)>0);
