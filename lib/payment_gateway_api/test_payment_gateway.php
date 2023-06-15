@@ -64,6 +64,8 @@ class TestPaymentGateway extends PaymentGatewayApi {
 		$status = $data["payment_status"];
 		myAssert(strlen($status)>0);
 
+		myAssert((string)$data["order_no"]===(string)$payment_transaction->getOrder()->getOrderNo());
+
 		$internal_status = $status;
 
 		$tr = [
