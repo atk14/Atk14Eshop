@@ -155,6 +155,9 @@
 						<li>
 							{t}Platební transakce{/t}
 							<ul>
+								{if $payment_transaction->testingPayment()}
+								<li><span class="text-danger">{!"circle-exclamation"|icon} {t}Toto je testovací transakce{/t}</span></li>
+								{/if}
 								<li>{t}Platební brána:{/t} {$payment_transaction->getPaymentGateway()}</li>
 								<li>{t}Transakční ID:{/t} {$payment_transaction->getPaymentTransactionId()|default:"?"}</li>
 								<li>{t}Stav platby:{/t} {$payment_transaction->getPaymentStatus()|default:"?"}</li>
