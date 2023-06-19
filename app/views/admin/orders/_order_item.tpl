@@ -1,6 +1,7 @@
 {assign currency $order->getCurrency()}
 {assign delivery_method $order->getDeliveryMethod()}
 {assign payment_method $order->getPaymentMethod()}
+{assign payment_transaction $order->getPaymentTransaction()}
 {assign responsible_user $order->getResponsibleUser()}
 {assign order_status $order->getOrderStatus()}
 <tr>
@@ -16,6 +17,10 @@
 	<td>
 		{render partial="shared/order_status"}
 		<br><em>({$order->getOrderStatusSetAt()|humanize_date}{if $order->getOrderStatusSetByUser()}, {$order->getOrderStatusSetByUser()}{/if})</em>
+		{if $payment_transaction && $payment_transaction->testingPayment()}
+			<br>
+			<small><span class="text-warning">{!"circle-exclamation"|icon}</span> {t escape=no}<em>Testovací</em> platební transakce{/t}</small>
+		{/if}
 	</td>
 	<td>
 		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="badge badge-warning">{!"question"|icon}</span>{/if}
