@@ -153,7 +153,11 @@
 					<li>{t}Poplatek s DPH:{/t} {!$order->getPaymentFeeInclVat()|display_price:"$currency,summary"}</li>
 					{if $payment_transaction}
 						<li>
-							{t}Platební transakce{/t}
+							{if $payment_transaction->testingPayment()}
+								 <span class="text-warning">{!"circle-exclamation"|icon}</span> {t escape=no}<em>Testovací</em> platební transakce{/t}
+							{else}
+								{t}Platební transakce{/t}
+							{/if}
 							<ul>
 								<li>{t}Platební brána:{/t} {$payment_transaction->getPaymentGateway()}</li>
 								<li>{t}Transakční ID:{/t} {$payment_transaction->getPaymentTransactionId()|default:"?"}</li>

@@ -1,6 +1,7 @@
 .product-info {
 	//@include cart-border-normal(top);
 	margin-bottom: $grid-gutter-width*2;
+	$productInfoLineHeight: 1.5;
 	
 	section {
 		&.section--product-info {
@@ -10,7 +11,9 @@
 			padding: $grid-gutter-width /4 0;
 			.section__title {
 				font-size: 1rem;
-				margin-bottom: 1rem;
+				//margin-bottom: 1rem;
+				margin-bottom: 0;
+				line-height: $productInfoLineHeight;
 				&:empty {
 					display: none;
 				}
@@ -22,6 +25,9 @@
 				ul:not([class]), ol:not([class]) {
 					padding-left: 1rem;
 				}
+			}
+			&, p {
+				line-height: $productInfoLineHeight;
 			}
 		}
 		
@@ -52,6 +58,25 @@
 						th {
 							color: black;
 						}
+					}
+				}
+				&:first-child {
+					table.table.table-sm {
+						tr {
+							th {
+								font-size: inherit;
+								line-height: inherit;
+							}
+						}
+					}
+				}
+				&:nth-child(2){
+					table.table.table-sm {
+						/*tr:first-child {
+							td, th {
+								padding-top: 14px;
+							}
+						}*/
 					}
 				}
 			}
@@ -147,20 +172,47 @@
 		@include media-breakpoint-only(md) {
 			&.section--attachments, &.section--product-info {
 				display: block;
-				.section__body {
-					padding-left: $grid-gutter-width;
+			}
+			table.table.table-sm {
+				tr {
+					border-color: $border-color;
+					&:last-child {
+						border-bottom: none;
+					}
+					td, th {
+						padding-top: $grid-gutter-width/8 !important;border: none !important;
+						padding-bottom: $grid-gutter-width/8 !important;
+					}
 				}
+			}
+			.section__title + .section__body table.table.table-sm {
+				margin-top: $grid-gutter-width/8 !important;
 			}
 		}
 		@include media-breakpoint-only(xs) {
 			&.section--attachments, &.section--product-info {
 				display: block;
-				padding-bottom: $grid-gutter-width;
-				/*.section__body {
-					margin-bottom: $grid-gutter-width;
-				}*/
+			}
+			table.table.table-sm {
+				tr {
+					border-color: $border-color;
+					&:last-child {
+						border-bottom: none;
+					}
+					td, th {
+						padding-top: $grid-gutter-width/8 !important;border: none !important;
+						padding-bottom: $grid-gutter-width/8 !important;
+					}
+				}
+			}
+			.section__title + .section__body table.table.table-sm {
+				margin-top: $grid-gutter-width/8 !important;
 			}
 		}
+	}	
+	.iobject {
+		margin-top: $grid-gutter-width/2;
+		margin-bottom: $grid-gutter-width/2;
 	}
 }
 

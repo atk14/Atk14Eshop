@@ -1,7 +1,7 @@
 {trim}
 {assign show_branch_id $show_branch_id|default:true}
 
-{*assign object_class $order|get_class*}
+{*assign object_class get_class($order)*}
 
 	{assign var=delivery_method_data value=$order->getDeliveryMethodData()}
 	{if $delivery_method_data}

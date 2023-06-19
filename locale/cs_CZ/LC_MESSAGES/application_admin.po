@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-27 16:14+0100\n"
-"PO-Revision-Date: 2023-01-27 16:36+0100\n"
+"POT-Creation-Date: 2023-06-01 16:14+0200\n"
+"PO-Revision-Date: 2023-06-01 16:16+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1152,6 +1152,9 @@ msgstr "notifikování zakázáno"
 msgid "bcc"
 msgstr "bcc"
 
+msgid "After one day it will automatically go into the state:"
+msgstr "Po jednom dni automaticky přejde do stavu:"
+
 msgid "After %1 days it will automatically go into the state:"
 msgstr "Po %1 dnech se automaticky přepne do stavu:"
 
@@ -1210,6 +1213,10 @@ msgstr "Obnoveno z adresy"
 
 msgid "Nová možnost platby"
 msgstr "Nová možnost platby"
+
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:29
+msgid "Platební brána"
+msgstr "Platební brána"
 
 #: ../app/forms/admin/categories/categories_form.php:35
 #: ../app/forms/admin/collections/collections_form.php:13
@@ -3318,15 +3325,16 @@ msgstr "Označení produktu %s"
 msgid "Zachovávaný produkt"
 msgstr "Zachovávaný produkt"
 
-#: ../app/forms/admin/cards/add_technical_specification_form.php:6
+#: ../app/forms/admin/cards/add_technical_specification_form.php:7
+#: ../app/forms/admin/cards/add_technical_specification_form.php:11
 msgid "Specification name"
 msgstr "Název specifikace"
 
-#: ../app/forms/admin/cards/add_technical_specification_form.php:10
+#: ../app/forms/admin/cards/add_technical_specification_form.php:16
 msgid "Value"
 msgstr "Hodnota"
 
-#: ../app/forms/admin/cards/add_technical_specification_form.php:13
+#: ../app/forms/admin/cards/add_technical_specification_form.php:19
 msgid "Add new specification"
 msgstr "Přidat novou specifikaci"
 
@@ -4130,10 +4138,6 @@ msgstr "Jedná se o bankovní převod?"
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:24
 msgid "Jedná se o dobírku?"
 msgstr "Jedná se o dobírku?"
-
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:29
-msgid "Platební brána"
-msgstr "Platební brána"
 
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:33
 msgid "nenapojeno na žádnou bránu"

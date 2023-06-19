@@ -54,4 +54,41 @@ class TcCurrency extends TcBase {
 		$this->assertEquals(1.2346,$czk->roundUnitPrice(1.23456,$cm,PHP_ROUND_HALF_UP));
 		$this->assertEquals(1.2345,$czk->roundUnitPrice(1.23455,$cm,PHP_ROUND_HALF_DOWN));
 	}
+
+	function test_getConversionRate(){
+		$czk = Currency::FindByCode("CZK");
+		$eur = Currency::GetInstanceByCode("EUR");
+		$tomorrow = Date::Tomorrow()->toString();
+
+		CurrencyRate::CreateNewRecord([
+			"currency_id" => $czk,
+			"rate" => 1,
+		]);
+
+		CurrencyRate::CreateNewRecord([
+			"currency_id" => $eur,
+			"rate" => 25,
+		]);
+
+		CurrencyRate::CreateNewRecord([
+			"currency_id" => $eur,
+			"rate" => 24,
+			"rate_date" => "$tomorrow 12:00:00",
+		]);
+
+		$this->assertEquals(1.0,$czk->getConversionRate());
+		$this->assertEquals(25.0,$eur->getConversionRate());
+
+		$this->assertEquals(1.0,$czk->getConversionRate($czk));
+		$this->assertEquals(1.0,$eur->getConversionRate($eur));
+
+		$this->assertEquals(0.04,$czk->getConversionRate($eur));
+		$this->assertEquals(25.0,$eur->getConversionRate($czk));
+
+		$this->assertEquals(25.0,$eur->getConversionRate($czk,"$tomorrow 11:00:00"));
+		$this->assertEquals(0.04,$czk->getConversionRate($eur,"$tomorrow 11:00:00"));
+
+		$this->assertEquals(24.0,$eur->getConversionRate($czk,"$tomorrow 12:00:00"));
+		$this->assertEquals(0.041667,round($czk->getConversionRate($eur,"$tomorrow 12:00:00"),6));
+	}
 }

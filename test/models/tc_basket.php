@@ -740,7 +740,7 @@ class TcBasket extends TcBase {
 		$basket->addProduct($this->products["deleted_product"],1);
 
 		$this->assertEquals(false,$basket->canOrderBeCreated($messages));
-		$this->assertContains("byl vyřazen z nabídky","$messages[0]");
+		$this->assertContains("has been removed from our offer","$messages[0]");
 
 		 // deleted card
 
@@ -749,7 +749,7 @@ class TcBasket extends TcBase {
 		$basket->addProduct($this->products["product_in_deleted_card"],1);
 
 		$this->assertEquals(false,$basket->canOrderBeCreated($messages));
-		$this->assertContains("byl vyřazen z nabídky","$messages[0]");
+		$this->assertContains("has been removed from our offer","$messages[0]");
 
 		//
 

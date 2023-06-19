@@ -162,7 +162,7 @@ class Comgate extends PaymentGatewayApi {
 		$status_code = $uf->getStatusCode();
 		if(!preg_match('/^2\d\d$/',$status_code)){
 			// TODO: Zalogovat chybu
-			throw new \Exception(sprintf("%s: Invalid status code (%s) on %s %s",get_class($this),$status_code,$method,$url));
+			throw new \Exception(sprintf("%s: Invalid status code (%s) on %s %s (error message: %s)",get_class($this),$status_code,$method,$url,$uf->getErrorMessage()));
 		}
 
 		$data = $uf->getContent();

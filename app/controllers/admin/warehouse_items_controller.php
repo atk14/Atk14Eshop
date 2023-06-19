@@ -20,11 +20,12 @@ class WarehouseItemsController extends AdminController {
 		$_std_sorting = "$_catalog_id";
 
 		if($d["search"] && ($conds = FullTextSearchQueryLike::GetQuery("UPPER($_catalog_id||' '||COALESCE($_name,''))",Translate::Upper($d["search"]),$bind_ar))){
-			$this->sorting->add("UPPER($_catalog_id)=UPPER(:search) DESC, UPPER($_catalog_id) LIKE UPPER(:search)||'%' DESC, $_catalog_id, $_std_sorting");
+			$this->sorting->add("UPPER($_catalog_id)=UPPER(:search) DESC, UPPER($_catalog_id) LIKE UPPER(:search)||'%' DESC, stockcount!=0 DESC, $_catalog_id, $_std_sorting");
 			$bind_ar[":search"] = $d["search"];
 			$conditions[] = $conds;
 		}
 
+		$this->sorting->add("default","stockcount!=0 DESC, $_catalog_id ASC, $_std_sorting","stockcount!=0 DESC, $_catalog_id DESC, $_std_sorting");
 		$this->sorting->add("catalog_id","$_catalog_id ASC, $_std_sorting","$_catalog_id DESC, $_std_sorting");
 		$this->sorting->add("stockcount","stockcount, $_catalog_id, $_std_sorting","stockcount DESC, $_catalog_id DESC, $_std_sorting");
 		$this->sorting->add("name","$_name, $_catalog_id, $_std_sorting","$_name DESC, $_catalog_id DESC, $_std_sorting");

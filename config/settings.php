@@ -89,6 +89,9 @@ definedef("TECHNICAL_SPECIFICATION_KEY_CREATION_ENABLED",true);
 
 definedef("OFFER_BANK_TRANSFER_IF_ONLINE_TRANSACTION_FAILS",true);
 
+// To enable the "Online payment via testing payment gateway" payment method, a proper API Key for the Testing Payment Gateway must be defined
+// definedef("TEST_PAYMENT_GATEWAY_API_KEY","10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o");
+
 // The SessionStorer's check cookie is disabled here.
 // A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
 definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
