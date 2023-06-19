@@ -1,7 +1,7 @@
 <?php
 namespace PaymentGatewayApi;
 
-// A usable key is 10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o:
+// A usable key is 10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o
 definedef("TEST_PAYMENT_GATEWAY_API_KEY","");
 definedef("TEST_PAYMENT_GATEWAY_API_URL","https://test-payment-gateway.gibona.com/api/");
 
