@@ -23,7 +23,7 @@
 		</div>
 	{else}
 		{if $item->getUrl()}
-			<a href="{$item->getUrl()}">
+			<a href="{$item->getUrl()}" aria-label="{$item->getTitle()}">
 		{/if}
 			<img src="{$item->getImageUrl()|img_url:$geometry_lg}" class="d-none d-md-block img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
 			{if $item->getSmallImageUrl()}

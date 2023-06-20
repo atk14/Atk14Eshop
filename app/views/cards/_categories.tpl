@@ -1,6 +1,6 @@
 {if $categories && sizeof($categories)>=1}
 	<section class="section--product-info section--categories">
-		<h4 class="section__title">{t}Product locations{/t}</h4>
+		<h2 class="section__title">{t}Product locations{/t}</h2>
 		<div class="section__body">
 			<ul>
 			{foreach $categories as $category}

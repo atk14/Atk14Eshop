@@ -15,7 +15,7 @@
 				{assign price $item->getProductPrice()}
 				<tr class="item">
 					<td class="item__image">
-						<a href="{$product|link_to_product}">
+						<a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">
 							<img {!$product->getImage()|img_attrs:"80x80x#ffffff"}></td>
 						</a>
 					<td class="item__name">

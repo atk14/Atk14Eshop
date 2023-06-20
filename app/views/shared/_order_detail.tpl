@@ -56,7 +56,7 @@
 					<td class="table-products__amount"></td>
 					<td class="table-products__price">{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{else}
-					<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
+					<td class="table-products__image"><a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
 					<td class="table-products__title">
 						<a href="{$product|link_to_product}">{$product->getName()}</a>
 						{if $product->getCard()->containsTag($tag_digital_product)}

@@ -14,6 +14,7 @@ class OrderQuantityInput extends NumberInput {
 			"xxx" => null,
 			//"style" => "width: 6em;"
 			"class" => "form-control form-control-number order-quantity-input js-order-quantity-input",
+			"aria-label" => _("Množství")
 		];
 
 		foreach($options["attrs"] as $k => $v){

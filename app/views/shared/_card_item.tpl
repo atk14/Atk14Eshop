@@ -6,7 +6,7 @@
 		{if $card->getImage()}
 			<img {!$card->getImage()|img_attrs:"400x300x#ffffff"} class="card-img-top" alt="{$card->getName()}">
 		{else}
-			<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="" class="card-img-top default-image">
+			<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" title="{t}no image{/t}" alt="{t}no image{/t}" class="card-img-top default-image">
 		{/if}
 
 		<div class="card__flags">

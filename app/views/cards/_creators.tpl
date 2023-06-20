@@ -20,7 +20,7 @@
 {if $roles}
 	{if $roles|count > 1 && $authors_complex_layout == true}
 		<section class="section--product-info section--creators">
-			<h3 class="section__title">{t}Creators{/t}</h3>
+			<h2 class="section__title">{t}Creators{/t}</h2>
 			<div class="section__body">
 				<table class="table table-sm">
 					{foreach $roles as $role}
@@ -50,13 +50,13 @@
 		{foreach $roles as $role}
 			{assign creators CardCreator::GetCreatorsForCard($card,$role)}
 			<section class="section--product-info section--creators">
-				<h3 class="section__title">
+				<h2 class="section__title">
 					{if sizeof($creators)>1}
 						{$role->getPluralName()}
 					{else}
 						{$role->getName()}
 					{/if}
-				</h3>
+				</h2>
 				<div class="section__body">
 					{foreach $creators as $creator}
 						{assign page $creator->getPage()}
