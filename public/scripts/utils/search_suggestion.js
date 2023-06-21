@@ -13,6 +13,7 @@ window.UTILS = window.UTILS || { };
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
 	var $suggArea = $( "." + suggestingAreaClassName );
 	var $field = $( "." + fieldClassName );
+	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var $currentSearchField;
 
 	if ( $suggArea.length === 0 ) {
@@ -54,6 +55,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 				$suggArea.fadeOut();
 				window.UTILS._search_suggestion.suggestingAreaVisible = false;
 
+				// Restore tabindex for search form elements to 0
+				$field.attr( "tabindex", 0 );
+				$submitBtn.attr( "tabindex", 0);
+
 				// Logging
 				// console.log( "fadeOut" );
 			}
@@ -73,6 +78,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 				// Show suggestions if hidden
 				$suggArea.fadeIn();
 				window.UTILS._search_suggestion.suggestingAreaVisible = true;
+
+				// Set temporary tabindex for search form elements
+				$field.attr( "tabindex", 10 );
+				$submitBtn.attr( "tabindex", 11);
 
 				// Logging
 				// console.log( "fadeIn" );

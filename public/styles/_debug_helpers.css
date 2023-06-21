@@ -31,5 +31,5 @@ $show_heading_tag_names: false;
     &:is(h6):after {
       content: "H5";
     }
-}
+  }
 }

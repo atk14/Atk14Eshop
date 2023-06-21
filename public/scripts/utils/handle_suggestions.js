@@ -15,6 +15,14 @@ window.UTILS.handleSuggestions = function() {
 				$.getJSON( url, { q: term }, function( data ) {
 					response( data );
 				} );
+			},
+			close: function( evt, ui ) {
+				console.log( "close EVT", evt );
+				console.log( "close  UI", ui );
+			},
+			open: function( evt, ui ) {
+				console.log( "open EVT", evt );
+				console.log( "open  UI", ui );
 			}
 		} );
 	} );
