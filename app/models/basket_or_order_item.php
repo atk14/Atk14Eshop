@@ -201,6 +201,9 @@ class BasketOrOrderItem extends ApplicationModel implements Rankable {
 	}
 
 	protected function _roundUnitPrice($price){
+		if(is_null($price)){
+			return null;
+		}
 		$currency = $this->getCurrency();
 		$precision = $this->getProduct()->getUnit()->getUnitPriceRoundingPrecision($currency);
 		return round($price,$precision);
