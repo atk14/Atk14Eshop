@@ -33,9 +33,10 @@ class GoPay extends PaymentGatewayApi {
 				"type" => "ACCOUNT",
 				"goid" => GO_PAY_GOID,
 			],
-			"amount" => $payment_transaction->getPriceToPay() * 100, // je to v centech
+			"amount" => $payment_transaction->getPriceToPay() * 100.0, // it is in cents
 			"currency" => $order->getCurrency()->getCode(), // "CZK"
 			"order_number" => $order->getOrderNo(),
+			//"order_description" => "",
 			"lang" => strtoupper($order->getLanguage()), // "CS"
 			"callback" => [
 				"return_url" => \Atk14Url::BuildLink(["namespace" => "", "controller" => "go_pay", "action" => "finish_transaction"],["with_hostname" => true]),
@@ -44,11 +45,13 @@ class GoPay extends PaymentGatewayApi {
 		];
 
 		$json = json_encode($params);
-		echo $json;
-		
+
 		$data = $api->postRawData("payments/payment",$json,[],["mime_type" => "application/json"]);
-		var_dump($data);
-		exit;
+		myAssert(isset($data["id"]) && is_numeric($data["id"]),"data does not contain numeric id: ".print_r($data,true));
+		myAssert(isset($data["gw_url"]) && is_string($data["gw_url"]),"data does not contain gw_url: ".print_r($data,true));
+
+		$transaction_id = $data["id"];
+		return $data["gw_url"];
 	}
 
 	function _getApi(){
@@ -58,7 +61,7 @@ class GoPay extends PaymentGatewayApi {
 		$adf = new \ApiDataFetcher($api_url,$options);
 		$access_token = $this->_getAccessToken($adf);
 
-		$options["additional_headers"][] = "Authorization: Beared $access_token";
+		$options["additional_headers"][] = "Authorization: Bearer $access_token";
 		$adf = new \ApiDataFetcher($api_url,$options);
 
 		return $adf;
