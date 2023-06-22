@@ -33,10 +33,12 @@ class GoPay extends PaymentGatewayApi {
 				"type" => "ACCOUNT",
 				"goid" => GO_PAY_GOID,
 			],
+			"payer" => [
+				"email" => $order->getEmail(),
+			],
 			"amount" => $payment_transaction->getPriceToPay() * 100.0, // it is in cents
 			"currency" => $order->getCurrency()->getCode(), // "CZK"
 			"order_number" => $order->getOrderNo(),
-			//"order_description" => "",
 			"lang" => strtoupper($order->getLanguage()), // "CS"
 			"callback" => [
 				"return_url" => \Atk14Url::BuildLink(["namespace" => "", "controller" => "go_pay", "action" => "finish_transaction"],["with_hostname" => true]),
@@ -52,6 +54,39 @@ class GoPay extends PaymentGatewayApi {
 
 		$transaction_id = $data["id"];
 		return $data["gw_url"];
+	}
+
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
+		$transaction_id = $payment_transaction->getPaymentTransactionId(); // "123456"
+		myAssert(strlen($transaction_id)>0);
+
+		$tr = [
+			"CREATED" => "pending", //Platba vytvořena
+			"PAID" => "paid", //Platba uhrazena
+			"CANCELED" => "cancelled", //Platba zamítnuta
+			"PAYMENT_METHOD_CHOSEN" => "pending", //Platební metoda potvrzena
+			"TIMEOUTED" => "cancelled", //Platbě vypršela životnost
+			"AUTHORIZED" => "pending", //Platba předautorizována
+			"REFUNDED" => "cancelled", //Platba vrácena
+			"PARTIALLY_REFUNDED" => "cancelled", //Platba částečně vrácena
+		];
+
+		$api = $this->_getApi();
+
+		$data = $api->get("payments/payment/$transaction_id");
+
+		myAssert(isset($data["state"]) && is_string($data["state"]),"there is no stringy value state in the data: ".print_r($data,true));
+		$order_no = $payment_transaction->getOrder()->getOrderNo();
+		myAssert($data["order_number"]===$order_no,"order_number is not $order_no: ".print_r($data,true));
+
+		$status = $data["state"];
+		myAssert(isset($tr[$status]),"unknown internal status $status");
+
+		$internal_status = $status;
+
+		$code = $tr[$status];
+
+		return $code;
 	}
 
 	function _getApi(){
