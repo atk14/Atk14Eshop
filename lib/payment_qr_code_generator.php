@@ -23,8 +23,8 @@ class PaymentQrCodeGenerator {
 			"amount" => $order->getPriceToPay(),
 			"variable_symbol" => $order->getOrderNo(),
 			"account_number" => $bank_account->getAccountNumber(),
-			"iban" => preg_replace('/\s+/','',$bank_account->getIban()),
-			"swift" => preg_replace('/\s+/','',$bank_account->getSwiftBic()),
+			"iban" => preg_replace('/\s+/','',(string)$bank_account->getIban()),
+			"swift" => preg_replace('/\s+/','',(string)$bank_account->getSwiftBic()),
 			"currency" => $currency->getCode(),
 			"message" => $message,
 		]);
