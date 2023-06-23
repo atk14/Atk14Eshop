@@ -5,7 +5,7 @@
 
 	{admin_menu for=$link_list align=left}
 	{if $link_list->getTitle()}
-		<h5>{$link_list->getTitle()}</h5>
+		<div class="h5 footer__links-heading">{$link_list->getTitle()}</div>
 	{/if}
 
 	<ul class="list-unstyled">

@@ -17,6 +17,6 @@
 {/trim}{/capture}
 
 {if $links}
-	<h5>{t}Social networks{/t}</h5>
+	<div class="h5 footer__links-heading">{t}Social networks{/t}</div>
 	{!$links}
 {/if}

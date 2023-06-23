@@ -1,7 +1,7 @@
 <div id="offcanvas-basket" class="bs-offcanvas bs-offcanvas-right bg-light">
 	<header class="bs-offcanvas-header bs-offcanvas-header--fixed-top">
 		<button type="button" class="bs-offcanvas-close close" aria-label="Close" aria-expanded="false">{!"xmark"|icon}</button>
-		<h4 class="bs-offcanvas-title"><a href="{link_to action="baskets/edit"}" rel="nofollow">{!"shopping-cart"|icon}{t}Basket{/t}<span class="cart-num-items js--cart-num-items">0</span></a></h4>
+		<div class="h4 bs-offcanvas-title"><a href="{link_to action="baskets/edit"}" rel="nofollow">{!"shopping-cart"|icon}{t}Basket{/t}<span class="cart-num-items js--cart-num-items">0</span></a></div>
 	</header>
 	<div class="bs-offcanvas-content">
 		<div class="basket-content">

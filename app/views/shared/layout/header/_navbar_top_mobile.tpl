@@ -44,7 +44,7 @@
 
 		<div class="nav__mobile-items d-md-none">
 			{if $menu_collapse}
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown" aria-controls="navTopMobileNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown" aria-controls="navTopMobileNavDropdown" aria-expanded="false" aria-label="{t}Toggle navigation{/t}">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars">{!"bars"|icon}</span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close">{!"times"|icon}</span>
 				</button>
@@ -59,7 +59,7 @@
 			</div>
 			{if !$show_search_in_mobile && !$use_large_search_bar}
 			<ul class="navbar-nav">
-				<li class="nav-item"><a href="" class="nav-link js--search-toggle">{!"search"|icon}</a></li>
+				<li class="nav-item"><a href="" class="nav-link js--search-toggle" aria-label="{t}Search{/t}">{!"search"|icon}</a></li>
 			</ul>
 			{/if}
 			{render partial="shared/layout/header/user_menu"}
@@ -69,8 +69,8 @@
 		
 		{if !$use_large_search_bar}
 		<form class="form-inline search-form-mobile {if $show_search_in_mobile} show{/if}" action="{link_to namespace="" action="searches/index"}" id="js--mobile_search_field">
-			<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" tabindex="10">
-			<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}" tabindex="11">{!"search"|icon}</button>
+			<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" aria-label="{t}Hledat{/t}" autocomplete="off">
+			<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 		</form>
 		{/if}
 	

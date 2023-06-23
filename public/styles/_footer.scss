@@ -11,8 +11,9 @@ footer {
 		}
 	}
 	line-height: 1.25;
-	h2, h3, h4, h5 {
+	h2, h3, h4, h5, .h2, .h3, .h4, .h5, .footer__links-heading {
 		margin-bottom: 1em;
+		color: inherit;
 		&:not(:first-child){
 			margin-top: 1.5em;
 		}
