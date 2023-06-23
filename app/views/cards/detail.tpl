@@ -22,7 +22,6 @@
 		{/if}
 		
 		<div class="product-info">
-		{render partial="categories"}
 		{render partial="creators"}
 
 		{remove_if_contains_no_text}
@@ -65,6 +64,7 @@
 			</section>
 			{/remove_if_contains_no_text}
 		{/foreach}
+		{render partial="categories"}
 		</div>	
 	</div>
 	<div class="col-12 col-md-5 col-xl-6 order-1 order-md-2 product__images">
