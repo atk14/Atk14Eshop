@@ -94,6 +94,23 @@ class ApplicationForm extends Atk14Form{
 		return $field;
 	}
 
+	function add_sign_up_for_newsletter_field($name = "", $options = array()){
+		if(is_array($name)){
+			$options = $name;
+			$name = "";
+		}
+		$name = $name=="" ? "sign_up_for_newsletter" : $name;
+		$options += array(
+			"label" => _("Sign up for newsletter"),
+			"required" => false,
+			"initial" => false,
+			"disabled" => defined("SIGN_UP_FOR_NEWSLETTER_ENABLED") && !constant("SIGN_UP_FOR_NEWSLETTER_ENABLED"),
+		);
+
+		$field = $this->add_field($name,new BooleanField($options));
+		return $field;
+	}
+
 	/**
 	 * $this->_add_address_fields();
 	 */
