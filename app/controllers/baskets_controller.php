@@ -13,6 +13,7 @@ class BasketsController extends ApplicationController {
 
 		$this->tpl_data["can_order_be_created"] = $basket->canOrderBeCreated($error_messages);
 		$this->tpl_data["error_messages"] = $error_messages;
+		$this->tpl_data["show_voucher_input"] = 1===$this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM vouchers LIMIT 1)q");
 
 		if($this->session->g("voucher_initial")){
 			$this->form->set_initial("voucher",$this->session->g("voucher_initial"));
