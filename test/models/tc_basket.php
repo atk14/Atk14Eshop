@@ -186,6 +186,15 @@ class TcBasket extends TcBase {
 
 		$this->assertEquals($this->vouchers["percentage_discount"]->getId(),$vouchers[0]->getVoucherId());
 		$this->assertEquals($this->vouchers["free_shipping"]->getId(),$vouchers[1]->getVoucherId());
+
+		// --
+
+		$basket1 = Basket::CreateNewRecord([]);
+		$basket2 = Basket::CreateNewRecord(["note" => "Original note"]);
+
+		$basket2->mergeBasket($basket1);
+
+		$this->assertEquals("Original note",$basket2->getNote());
 	}
 
 	function test_getCampaigns(){
