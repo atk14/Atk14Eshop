@@ -1149,6 +1149,7 @@ class Basket extends BasketOrOrder {
 			"payment_method_id",
 			"delivery_method_id",
 			"delivery_method_data",
+			"note",
 		) as $f){
 			$v = $basket->g($f);
 			if(!is_null($v)){

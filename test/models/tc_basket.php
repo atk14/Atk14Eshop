@@ -169,7 +169,7 @@ class TcBasket extends TcBase {
 	}
 
 	function test_merge(){
-		$basket1 = Basket::CreateNewRecord([]);
+		$basket1 = Basket::CreateNewRecord(["note" => "Please deliver quickly"]);
 		$basket2 = Basket::CreateNewRecord([]);
 
 		$basket1->getVouchersLister()->add($this->vouchers["free_shipping"]);
@@ -178,6 +178,8 @@ class TcBasket extends TcBase {
 		$basket2->getVouchersLister()->add($this->vouchers["percentage_discount"]);
 
 		$basket2->mergeBasket($basket1);
+
+		$this->assertEquals("Please deliver quickly",$basket2->getNote());
 
 		$vouchers = $basket2->getVouchers();
 		$this->assertEquals(2,sizeof($vouchers));
