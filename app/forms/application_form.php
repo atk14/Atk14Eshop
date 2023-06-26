@@ -115,6 +115,19 @@ class ApplicationForm extends Atk14Form{
 		return $field;
 	}
 
+	function _add_gender_id_field($options = array()){
+		$options += [
+			"label" => _("Oslovení"),
+			"required" => true,
+			"disabled" => false,
+		];
+		if(defined("CONSIDER_GENDER_ID_FIELD") && !constant("CONSIDER_GENDER_ID_FIELD")){
+			$options["disabled"] = true;
+		}
+
+		$this->add_field("gender_id", new GenderField($options));
+	}
+
 	/**
 	 * $this->_add_address_fields();
 	 */
