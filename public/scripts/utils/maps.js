@@ -13,9 +13,10 @@ window.UTILS.initSimpleMap = function( mapElemId ) {
 
 	var $ = window.jQuery; 
 
-	var lat = $( "#" + mapElemId ).data( "lat" );
-	var lng = $( "#" + mapElemId ).data( "lng" );
-	var initZoom = $( "#" + mapElemId ).data( "zoom" );
+	var lat =				$( "#" + mapElemId ).data( "lat" );
+	var lng = 			$( "#" + mapElemId ).data( "lng" );
+	var initZoom = 	$( "#" + mapElemId ).data( "zoom" );
+	var title =			$( "#" + mapElemId ).data( "title" );
 	var markerSrc = "/public/dist/images/map-marker-red.svg";
 
 	var stred = SMap.Coords.fromWGS84( lng, lat );
@@ -37,7 +38,8 @@ window.UTILS.initSimpleMap = function( mapElemId ) {
 
 	var options = {
 		url: markerSrc,
-		anchor: { left: 15, bottom: 0 }
+		anchor: { left: 15, bottom: 0 },
+		title: title
 	};
 	var marker = new SMap.Marker( stred, "myMarker", options );
 	layer.addMarker( marker );
@@ -147,7 +149,8 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 
 		var markerOptions = {
 			url: markerSrc,
-			anchor: { left: 15, bottom: 0 }
+			anchor: { left: 15, bottom: 0 },
+			title: storeData[ i ].title,
 		};
 
 		// Offset - posun anchoru markeru u markeru se stejnou polohou

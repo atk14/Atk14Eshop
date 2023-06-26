@@ -3,12 +3,12 @@
 	<div class="d-none js-search-data">
 		{$store->getName()} {!$store->getAddress()} {to_ascii}{$store->getName()} {!$store->getAddress()}{/to_ascii}
 	</div>
-	{a action="detail" id=$store}{!$store->getImageUrl()|pupiq_img:"!400x300":"class='card-img-top'"}{/a}
+	{a action="detail" id=$store _aria-label=$store->getName()}{!$store->getImageUrl()|pupiq_img:"!400x300":"class='card-img-top'"}{/a}
 	{if $store->isOpen()}
 		<div class="card__flags"><span class="badge badge-success">{t}Právě otevřeno{/t}</span></div>
 	{/if}
 	<div class="card-body">
-		<h4 class="card-title">{$store->getName()}</h4>
+		<h2 class="card-title">{$store->getName()}</h2>
 		<address>{!$store->getAddress()|h|nl2br|replace:'<br />':'<br>'}</address>
 		<div class="card-text">{$store->getTeaser()}</div>
 	</div>

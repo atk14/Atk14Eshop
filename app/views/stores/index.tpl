@@ -47,9 +47,9 @@ var storeLocatorData = [
 
 	{if $stores|count > 5}
 		<form class="form-inline stores-filter" id="stores-filter" autocomplete="off">
-			<input class="form-control" id="stores-filter__input" placeholder="{t}Search stores{/t}">
-			<button class="btn btn-link d-none" id="stores-filter__clear" tabindex="-1" type="reset">{!"times"|icon}</button>
-			<button class="btn btn-link" id="stores-filter__submit" tabindex="-1" type="submit">{!"search"|icon}</button>
+			<input class="form-control" id="stores-filter__input" placeholder="{t}Search stores{/t}" aria-label="{t}Search stores{/t}">
+			<button class="btn btn-link d-none" id="stores-filter__clear" tabindex="-1" type="reset" aria-label="{t}Reset search{/t}">{!"times"|icon}</button>
+			<button class="btn btn-link" id="stores-filter__submit" tabindex="-1" type="submit" aria-label="{t}Search stores{/t}">{!"search"|icon}</button>
 		</form>
 	{/if}
 
