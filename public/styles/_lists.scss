@@ -220,9 +220,15 @@ ol.timeline {
 					margin-left: $grid-gutter-width/4;
 					font-weight: 600;
 					padding-top: $textPaddingTop;
+					text-align: end;
 					//align-self: flex-start;
 					&.for-free {
 						color: $success;
+					}
+					.v-price--long {
+						display: inline-block;
+						font-size: $font-size-sm;
+						line-height: 1.2;
 					}
 				}
 
@@ -264,6 +270,8 @@ ol.timeline {
 					}
 					.v-price {
 						padding-top: $textPaddingTopXS;
+						&--long {
+						}
 					}
 					.label__text {
 						min-height: $minHeightXS;

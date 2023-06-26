@@ -99,7 +99,7 @@ class DeliveryMethodChoice {
 			$lowest = str_replace(" ",html_entity_decode("&nbsp;"),$lowest);
 			$highest = smarty_modifier_display_price($highest_price,["format" => "plain", "currency" => $currency]);
 			$highest = str_replace(" ",html_entity_decode("&nbsp;"),$highest);
-			$price = sprintf(_("od %s do %s dle země doručení"),$lowest,$highest);
+			$price = "<span class=\"v-price--long\">" . sprintf(_("od %s do %s dle země doručení") . "</span>",$lowest,$highest);
 		}else{
 			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
 			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
