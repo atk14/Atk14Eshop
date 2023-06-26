@@ -57,7 +57,7 @@
 	</div>
 	{if $store->getLocationLat() && $store->getLocationLng()}
 	<div class="store-detail__location col-12 col-md-6">
-		<div class="store-detail__map" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16"></div>
+		<div class="store-detail__map" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16" data-title="{$store->getName()}"></div>
 		<p>
 			<a class="" href="{link_to_map service="seznam" lat=$store->getLocationLat() lng=$store->getLocationLng()}">{!"map"|icon:"regular"} {t}Velká mapa{/t}</a>
 		</p>
