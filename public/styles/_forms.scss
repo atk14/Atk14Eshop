@@ -254,7 +254,7 @@ form#form_checkouts_set_payment_and_delivery_method {
 	}
 }
 
-form#form_checkouts_set_billing_and_delivery_data {
+form#form_checkouts_set_billing_and_delivery_data:not(.form-horizontal) {
 	.form__body {
 		
 		@include media-breakpoint-up(md){
@@ -282,6 +282,13 @@ form#form_checkouts_set_billing_and_delivery_data {
 		
 	}
 }
+form#form_checkouts_set_billing_and_delivery_data {
+	@include media-breakpoint-down(sm) {
+		.form-group {
+			padding: 0;
+		}
+	}
+}
 
 
 .form__confirmation {
@@ -303,5 +310,11 @@ form#form_checkouts_set_billing_and_delivery_data {
 		&:last-child {
 			padding-bottom: 0;
 		}
+	}
+}
+
+.form__footer {
+	.form-group {
+		border: none !important;
 	}
 }

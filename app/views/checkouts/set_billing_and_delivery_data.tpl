@@ -22,7 +22,7 @@
 
 {/if}
 
-{form _class="form" _novalidate="novalidate"}
+{form _class="form form-horizontal" _novalidate="novalidate"}
 	{render partial="shared/form_error"}
 
 	{if $delivery_point_selected}
