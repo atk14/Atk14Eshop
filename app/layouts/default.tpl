@@ -80,12 +80,13 @@
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
+		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
 		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 			{assign use_sidebar_menu true}
 		{/if}
-		<div class="body--upper">{placeholder for="out_of_container"}</div>
+		<div class="body--upper" >{placeholder for="out_of_container"}</div>
 		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
 			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
 			{if $section_navigation}
@@ -103,7 +104,7 @@
 					{render partial="shared/breadcrumbs"}
 				{/if}
 
-				<div class="content-main">
+				<div class="content-main" id="content-main">
 					{render partial="shared/layout/flash_message"}
 					{placeholder}
 				</div>
