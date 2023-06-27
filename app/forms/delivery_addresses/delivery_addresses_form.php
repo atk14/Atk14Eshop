@@ -7,6 +7,7 @@ class DeliveryAddressesForm extends ApplicationForm {
 
 		$this->_add_address_fields([
 			"allowed_countries" => Region::GetDeliveryCountriesFromActiveRegions(),
+			"add_address_state" => ALLOW_STATE_IN_ADDRESS,
 		]);
 		$this->_add_phone();
 	}
@@ -15,6 +16,10 @@ class DeliveryAddressesForm extends ApplicationForm {
 		list($err,$d) = parent::clean();
 
 		$keys = is_array($d) ? array_keys($d) : [];
+
+		if(!$this->has_errors() && !ALLOW_STATE_IN_ADDRESS){
+			$d["address_state"] = null;
+		}
 
 		return [$err,$d];
 	}

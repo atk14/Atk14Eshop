@@ -171,7 +171,7 @@ class ApplicationForm extends Atk14Form{
 			"required" => true,
 			"add_note" => true,
 			"add_address_street2" => false,
-			"add_address_state" => true,
+			"add_address_state" => ALLOW_STATE_IN_ADDRESS,
 			"allowed_countries" => null, // null, ["CZ","SK"]; null means all countries - if you play with this, have only_allowed_countries_for_delivery and only_allowed_countries_for_invoice set to false!
 			"only_allowed_countries_for_delivery" => false,
 			"only_allowed_countries_for_invoice" => false,

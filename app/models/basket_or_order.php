@@ -5,6 +5,7 @@ class BasketOrOrder extends ApplicationModel {
 		$options += [
 			"company_data" => false,
 			"address_street2" => true,
+			"address_state" => true,
 			"phone" => false,
 			"note" => false,
 			"prefix" => "", // "", "delivery_"
@@ -43,6 +44,10 @@ class BasketOrOrder extends ApplicationModel {
 
 		if(!$options["address_street2"]){
 			unset($fields["{$prefix}address_street2"]);
+		}
+
+		if(!$options["address_state"]){
+			unset($fields["{$prefix}address_state"]);
 		}
 
 		return $fields;

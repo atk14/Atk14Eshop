@@ -40,6 +40,11 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 
 			$address_fields = Basket::GetAddressFields(["company_data" => true, "address_street2" => false]);
 
+			if(!ALLOW_STATE_IN_ADDRESS){
+				$d["delivery_address_state"] = null;
+				$d["address_state"] = null;
+			}
+
 			foreach($address_fields as $key => $required){
 				if("$d[$key]"===""){
 					if($required){

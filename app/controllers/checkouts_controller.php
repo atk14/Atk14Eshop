@@ -66,6 +66,7 @@ class CheckoutsController extends ApplicationController {
 				"address_street" => $this->logged_user->getAddressStreet(),
 				"address_city" => $this->logged_user->getAddressCity(),
 				"address_zip" => $this->logged_user->getAddressZip(),
+				"address_state" => $this->logged_user->getAddressState(),
 				"address_country" => $this->logged_user->getAddressCountry(),
 			]);
 			// fine-tuning of the delivery_company field
@@ -75,7 +76,7 @@ class CheckoutsController extends ApplicationController {
 		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 
 		// Policka fakturacni adresy jsou povinna pouze nekdy...
-		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false]);
+		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false, "address_state" => ALLOW_STATE_IN_ADDRESS]);
 		if($fill_in_invoice_address || $this->request->get()){
 			foreach($INVOICE_ADDRESS_FIELDS as $k => $required){
 				$this->form->fields["$k"]->required = $required;
