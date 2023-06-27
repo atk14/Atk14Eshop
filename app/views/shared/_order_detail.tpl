@@ -220,6 +220,9 @@
 					{$order->getAddressStreet2()}<br>
 				{/if}
 				{$order->getAddressZip()} {$order->getAddressCity()}<br>
+				{if $order->getAddressState()|strlen}
+					{$order->getAddressState()}<br>
+				{/if}
 				{$order->getAddressCountry()|to_country_name}<br>
 				{if $order->getCompanyNumber() || $order->getVatId()}
 					{t}IČ:{/t} {$order->getCompanyNumber()}<br>

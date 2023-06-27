@@ -17,12 +17,12 @@
 
 	<fieldset>
 		<legend>{t}Fakturační adresa{/t}</legend>
-		{render partial="shared/form_field" fields="company,company_number,vat_id,address_street,address_street2,address_city,address_zip,address_country,address_note"}
+		{render partial="shared/form_field" fields="company,company_number,vat_id,address_street,address_street2,address_city,address_state,address_zip,address_country,address_note"}
 	</fieldset>
 
 	<fieldset>
 		<legend>{t}Doručovací adresa{/t}</legend>
-		{render partial="shared/form_field" fields="delivery_firstname,delivery_lastname,delivery_company,delivery_address_street,delivery_address_street2,delivery_address_city,delivery_address_zip,delivery_address_country,delivery_address_note,delivery_phone"}
+		{render partial="shared/form_field" fields="delivery_firstname,delivery_lastname,delivery_company,delivery_address_street,delivery_address_street2,delivery_address_city,delivery_address_state,delivery_address_zip,delivery_address_country,delivery_address_note,delivery_phone"}
 	</fieldset>
 
 	<fieldset>
