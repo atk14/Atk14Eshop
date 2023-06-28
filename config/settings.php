@@ -51,6 +51,8 @@ definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
 
 definedef("CONSIDER_GENDER_ID_FIELD",true);
 
+definedef("ALLOW_STATE_IN_ADDRESS",false);
+
 // == hCaptcha ==
 // If these two constant are properly defined (see https://github.com/atk14/HcaptchaField#installation),
 // the hcaptcha field is being automatically added into the contact form...

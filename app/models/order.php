@@ -213,6 +213,10 @@ class Order extends BasketOrOrder {
 		return $this->getAddressCity();
 	}
 
+	function getInvoiceState() {
+		return $this->getAddressState();
+	}
+
 	function getInvoiceZip() {
 		return $this->getAddressZip();
 	}

@@ -1193,6 +1193,10 @@ class Basket extends BasketOrOrder {
 		return $this->hasAddressSet() ? $this->g("address_city") : $this->g("delivery_address_city");
 	}
 
+	function getAddressState(){
+		return $this->hasAddressSet() ? $this->g("address_state") : $this->g("delivery_address_state");
+	}
+
 	function getAddressZip(){
 		return $this->hasAddressSet() ? $this->g("address_zip") : $this->g("delivery_address_zip");
 	}
