@@ -86,7 +86,7 @@
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 			{assign use_sidebar_menu true}
 		{/if}
-		<div class="body--upper" >{placeholder for="out_of_container"}</div>
+		<div class="body--upper">{placeholder for="out_of_container"}</div>
 		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
 			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
 			{if $section_navigation}
