@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-01 16:14+0200\n"
-"PO-Revision-Date: 2023-06-01 16:19+0200\n"
+"PO-Revision-Date: 2023-06-28 12:38+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -1028,7 +1028,7 @@ msgstr "phone number"
 
 #: ../app/forms/application_form.php:238
 msgid "IČ"
-msgstr "ID"
+msgstr "Company ID"
 
 #: ../app/forms/application_form.php:250
 msgid "DIČ"
@@ -1133,7 +1133,7 @@ msgid "Fakturační údaje:"
 msgstr "Billing information:"
 
 msgid "IČ:"
-msgstr "ID:"
+msgstr "Company ID:"
 
 msgid "DIČ:"
 msgstr "VAT No.:"
@@ -2178,11 +2178,11 @@ msgstr "Company"
 
 #: ../app/forms/application_form.php:242
 msgid "Zadejte platné IČ"
-msgstr "Enter valid ID"
+msgstr "Enter valid company ID"
 
 #: ../app/forms/application_form.php:245 ../app/forms/application_form.php:246
 msgid "IČ by mělo mít 8 číslic"
-msgstr "ID should have 8 digits"
+msgstr "Company ID should have 8 digits"
 
 #: ../app/forms/application_form.php:270
 msgid "Telefon"
@@ -2363,7 +2363,7 @@ msgstr "Password (repeat)"
 
 #: ../app/forms/users/users_form.php:39
 msgid "IČ zadávejte pouze v případě, že je vyplněn název společnosti"
-msgstr "Enter ID only in case when the company name is entered"
+msgstr "Enter company ID only in case when the company name is entered"
 
 #: ../app/forms/users/users_form.php:48
 msgid "Password doesn't match"
