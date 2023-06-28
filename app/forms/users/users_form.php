@@ -2,7 +2,9 @@
 class UsersForm extends ApplicationForm{
 
 	function _add_basic_account_fields(){
-		$this->_add_gender_id_field();
+		if(CONSIDER_GENDER_ID_FIELD){
+			$this->_add_gender_id_field();
+		}
 
 		$this->_add_firstname_lastname();
 		$this->_add_email();
