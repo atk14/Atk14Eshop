@@ -157,7 +157,7 @@ class DigitalContent extends ApplicationModel implements Translatable, Rankable 
 
 	function getTitle($lang = null){
 		$title = parent::getTitle($lang);
-		if(strlen($title)){ return $title; }
+		if(strlen((string)$title)){ return $title; }
 		return $this->getFilename();
 	}
 
