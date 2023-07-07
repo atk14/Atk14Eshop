@@ -1,9 +1,9 @@
-$("#product_added_modal").remove();
+$("#basket_modal_dialog").remove();
 
-var $modal = $({jstring}{modal id=product_added_modal title="{t}Select variant{/t}"}
+var $modal = $({jstring}{modal id=basket_modal_dialog title="{t}Select variant{/t}"}
 	{render partial="select_variant"}
 {/modal}{/jstring});
 
 $modal.appendTo("body");
 
-$("#product_added_modal").modal("show");
+$("#basket_modal_dialog").modal("show");

@@ -4,11 +4,11 @@ Shopping Cart Modals
 ## Basic "Added to cart" Modal Dialog
 
 [example]
-<div class="modal fade show" id="product_added_modal" tabindex="-1" role="dialog" aria-labelledby="product_added_modalLabel" style="padding-right: 12px; display: block; position: static;" aria-modal="true">
+<div class="modal fade show" id="basket_modal_dialog" tabindex="-1" role="dialog" aria-labelledby="basket_modal_dialogLabel" style="padding-right: 12px; display: block; position: static;" aria-modal="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="product_added_modalLabel">Produkt byl přidán do košíku</h5>
+				<h5 class="modal-title" id="basket_modal_dialogLabel">Produkt byl přidán do košíku</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="zavřít">
 					<span aria-hidden="true">×</span>
 				</button>
@@ -33,11 +33,11 @@ Shopping Cart Modals
 ## "Add Same Product" Confirmation Modal Dialog
 
 [example]
-<div class="modal fade show" id="product_added_modal" tabindex="-1" role="dialog" aria-labelledby="product_added_modalLabel" style="padding-right: 12px; display: block; position: static;" aria-modal="true">
+<div class="modal fade show" id="basket_modal_dialog" tabindex="-1" role="dialog" aria-labelledby="basket_modal_dialogLabel" style="padding-right: 12px; display: block; position: static;" aria-modal="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="product_added_modalLabel">Produkt byl přidán do košíku</h5>
+				<h5 class="modal-title" id="basket_modal_dialogLabel">Produkt byl přidán do košíku</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="zavřít">
 					<span aria-hidden="true">×</span>
 				</button>
