@@ -1,4 +1,5 @@
 $("#basket_modal_dialog").remove();
+$(".modal-backdrop").remove();
 
 var $modal = $({jstring}{modal id=basket_modal_dialog title="{t}Produkt byl přidán do košíku{/t}"}
 	{render partial="product_added"}
