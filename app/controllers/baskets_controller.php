@@ -108,6 +108,45 @@ class BasketsController extends ApplicationController {
 		$this->_add_product();
 	}
 
+	function add_card(){
+		$card = $this->tpl_data["card"] = $this->_just_find("card","card_id");
+		if(!$card){
+			return $this->_execute_action("error404");
+		}
+
+		$product = null;
+
+		if($this->params->defined("product_id") && strlen($this->params->getString("product_id"))){
+			$product = $this->_just_find("product","product_id");
+			if(!$product || $product->getCardId()!==$card->getId()){
+				return $this->_execute_action("error404");
+			}
+		}
+
+		if(!$product && !$card->hasVariants()){
+			$product = $card->getFirstProduct();
+			if(!$product || !$product->isVisible() || $product->isDeleted()){
+				return $this->_execute_action("error404");
+			}
+		}
+
+		if($product){
+			$this->product = $this->tpl_data["product"] = $product;
+			$this->_add_product();
+			$this->template_name = "add_product";
+			return;
+		}
+
+		if($card->hasVariants()){
+			$this->form = $this->_get_form("select_variant");
+			$this->form->prepare_for_card($card);
+			$this->template_name = "select_variant";
+			return;
+		}
+
+		$product = $card->getFirstProduct();
+	}
+
 	function set_product_amount(){
 		$this->_add_product(["rewrite_amount" => true]);
 	}

@@ -41,3 +41,9 @@
 	</div>
 
 {/trim}</a>
+
+{if $card->canBeOrdered()}
+	{a_remote action="baskets/add_card" card_id=$card _method=post}{t}Add to basket{/t}{/a_remote}
+{else}
+	<span class="text-muted">{t}Add to basket{/t}</span>
+{/if}
