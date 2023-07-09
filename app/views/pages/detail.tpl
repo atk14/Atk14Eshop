@@ -51,7 +51,7 @@
 					{/if}
 					<div class="card-body">
 						<h5>{$child_page->getTitle()}</h5>
-						<p>{$child_page->getTeaser()}</p>
+						<p>{$child_page->getTeaser()|markdown|strip_html|truncate:300}</p>
 					</div>
 				{/a}
 			{/foreach}
