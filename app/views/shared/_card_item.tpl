@@ -1,5 +1,6 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign creators CardCreator::GetMainCreatorsForCard($card)}
+{assign view_order_button PRODUCT_CAN_BE_ORDERED_FROM_CARD_LIST}
 
 <a href="{link_to action="cards/detail" id=$card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">{trim}
 	<div class="card__image">
