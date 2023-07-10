@@ -2,7 +2,7 @@
  *	{render partial="shared/card_price" card=$card}
  *
  *	{render partial="shared/card_price" card=$card default_price_label=""}
- *	{render partial="shared/card_price" card=$card default_price_label="Your price"}
+ *	{render partial="shared/card_price" card=$card default_price_label="Your price" class="card-price--sm"}
  *}
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign distinct_prices $price_finder->getDistinctPrices($card)}
@@ -19,7 +19,7 @@
 	{assign default_price_label $product_type}
 {/if}
 
-<div class="card-price">
+<div class="card-price{if $class} {$class}{/if}">
 {if $starting_price}
 	{if sizeof($distinct_prices)>=2 && sizeof($distinct_prices)<=3 && sizeof($products)<=3}
 		<ul class="list-unstyled">

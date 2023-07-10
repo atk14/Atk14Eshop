@@ -1,8 +1,7 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign creators CardCreator::GetMainCreatorsForCard($card)}
-
-<a href="{link_to action="cards/detail" id=$card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">{trim}
-	<div class="card__image">
+<div class="card card--hoverable card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">{trim}
+	<a class="card__image" href="{link_to action="cards/detail" id=$card}">
 		{if $card->getImage()}
 			<img {!$card->getImage()|img_attrs:"400x300x#ffffff"} class="card-img-top" alt="{$card->getName()}">
 		{else}
@@ -22,9 +21,9 @@
 			</div>
 		{/if}
 		{render partial="shared/card_icons"}
-	</div>
+	</a>
 	<div class="card-body">
-		<h4 class="card-title">{$card->getName()}</h4>
+		<a class="card-title h4" href="{link_to action="cards/detail" id=$card}">{$card->getName()}</a>
 		{if $creators}
 			{foreach $creators as $creator}
 				<div class="card-author">{$creator}</div>
@@ -35,9 +34,11 @@
 
 	<div class="card-footer">
 		{if $starting_price}
-			{render partial="shared/card_price" card=$card}
-			<span class="card-footer__icon">{!"shopping-cart"|icon} {!"chevron-right"|icon}</span>
+			{render partial="shared/card_price" card=$card class="card-price--sm"}
+			{if $card->canBeOrdered()}
+				{a_remote action="baskets/add_card" card_id=$card _method=post _class="btn btn-outline-primary btn-xsm"}{!"shopping-cart"|icon} {t}Add to basket{/t}{/a_remote}
+			{/if}
 		{/if}
 	</div>
 
-{/trim}</a>
+{/trim}</div>

@@ -103,7 +103,7 @@ $card-border-style: 1px dashed $border-color;
 		border-top: none;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: end;
 		flex-wrap: wrap;
 		padding-top: 0;
 		line-height: 1.1;
@@ -343,7 +343,7 @@ ul.card-column, ol.card-column {
 }
 
 // Whole card as a single ling
-a.card {
+a.card, .card--hoverable {
 	transition: all 0.5s;
 	.card-body {
 		color: $body-color;
@@ -352,6 +352,11 @@ a.card {
 		transition: all 0.1s;
 		text-decoration: none;
 		background-color: $gray-100;
+		
+	}
+}
+a.card {
+	&:hover {
 		.card-title {
 			color: $link-color;
 		}
