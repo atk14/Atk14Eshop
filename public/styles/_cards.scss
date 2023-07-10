@@ -65,6 +65,7 @@ $card-border-style: 1px dashed $border-color;
 	.card-title {
 		font-size: 1rem;
 		flex-grow: 8;
+		display: block;
 	}
 	
 	.card-body {

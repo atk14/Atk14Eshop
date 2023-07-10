@@ -2,8 +2,7 @@
  * {render partial="shared/card_list" cards=$collection->getCards() title="{t}Products in the collection{/t}"}
  * {render partial="shared/card_list" cards=$collection->getCards() title=""}
  *}
-{*assign "item_template" "shared/card_item"*}
-{assign "item_template" "shared/card_item_add_to_basket"}
+
 {if is_null($title)}
 	{assign title "{t}List of Products{/t}"}
 {/if}
@@ -15,7 +14,7 @@
 		{/if}
 		<div class="card-deck card-deck--sized-4">
 		{foreach $cards as $card}
-			{render partial=$item_template card=$card}
+			{render partial="shared/card_item" card=$card}
 		{/foreach}
 		</div>
 	</section>
