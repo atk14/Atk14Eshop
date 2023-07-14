@@ -32,6 +32,7 @@ class CardsController extends AdminController{
 				"id",
 				"COALESCE((SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='name' AND lang=:lang),'')",
 				"COALESCE((SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='teaser' AND lang=:lang),'')",
+				"COALESCE((SELECT STRING_AGG(name,' ') FROM creators WHERE id IN (SELECT creator_id FROM card_creators WHERE card_id=cards.id)),'')", // searching by creators
 			)).")",$q_up,$bind_ar)
 		){
 			$bind_ar[":lang"] = $this->lang;
