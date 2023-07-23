@@ -220,7 +220,9 @@ class GpWebpay extends PaymentGatewayApi {
 			return;
 		}
 
-		myAssert($uf->found(),"Invalid HTTP status code: ".$uf->getStatusCode());
+		if(!$uf->found()){
+			throw new \Exception($this->_compileUrlFetcherErrorMessage($uf));
+		}
 		$xmole = new \XMole();
 		$stat = $xmole->parse($content);
 		myAssert($stat,"Failed to parse XML (".$xmole->get_error_message()."): ".$content);

@@ -133,4 +133,31 @@ class PaymentGatewayApi {
 		$class = get_class($this);
 		throw new \Exception("Method $class::_getStartTransactionUrl(&\$payment_transaction,&\$transaction_id) needs to be defined");
 	}
+
+	/**
+	 *
+	 *	if(!$uf->found()){
+	 *		throw new \Exception($this->_compileUrlFetcherErrorMessage($uf));
+	 *	}
+	 */
+	protected function _compileUrlFetcherErrorMessage($url_fetcher){
+		$class = get_class($this);
+		$status_code = $url_fetcher->getStatusCode();
+		$method = $url_fetcher->getRequestMethod();
+		$url = $url_fetcher->getUrl();
+		$error_message = $url_fetcher->getErrorMessage();
+
+		$out = [];
+		$out[] = "$class:";
+		if($status_code){
+			$out[] = "Invalid status code ($status_code)";
+		}else{
+			$out[] = "error occurred";
+		}
+		$out[] = "on $method $url";
+		if($error_message){
+			$out[] = "(error_message: $error_message)";
+		}
+		return join(" ",$out);
+	}
 }
