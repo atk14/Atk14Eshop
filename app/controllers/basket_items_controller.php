@@ -23,7 +23,9 @@ class BasketItemsController extends ApplicationController {
 
 		$this->basket_item->destroy();
 		
-		$this->_redirect_to("baskets/edit");
+		if(!$this->request->xhr()){
+			$this->_redirect_to("baskets/edit");
+		}
 	}
 
 	function _before_filter(){
