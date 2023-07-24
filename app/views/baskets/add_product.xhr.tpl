@@ -1,4 +1,5 @@
 $("#product_added_modal").remove();
+$(".modal-backdrop").remove();
 
 var $modal = $({jstring}{modal id=product_added_modal title="{t}Produkt byl přidán do košíku{/t}"}
 	{render partial="product_added"}
