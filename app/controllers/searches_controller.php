@@ -47,6 +47,11 @@ class SearchesController extends ApplicationController {
 			foreach($ary as $o){ $objects[] = $o; }
 		}
 		$this->tpl_data["objects"] = $objects;
+
+		if($finder->isEmpty()){
+			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
+		}
 	}
 
 	function _before_filter(){
