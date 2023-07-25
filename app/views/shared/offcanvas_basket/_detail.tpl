@@ -1,0 +1,41 @@
+{if $basket->isEmpty()}
+	<div class="basket-content__empty">
+		{t}The shopping basket is empty.{/t}
+	</div>
+{else}
+
+	{assign incl_vat $basket->displayPricesInclVat()}
+	{assign currency $basket->getCurrency()}
+	<div class="basket-content__items" data-items-count="{$basket->getItems()|count}">
+		<table class="table--offcanvas-basket">
+			<tbody>
+				{foreach $basket->getItems() as $item}
+				{assign product $item->getProduct()}
+				{assign unit $product->getUnit()}
+				{assign price $item->getProductPrice()}
+				<tr class="item">
+					<td class="item__image">
+						<a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">
+							<img {!$product->getImage()|img_attrs:"80x80x#ffffff"}></td>
+						</a>
+					<td class="item__name">
+						<a href="{$product|link_to_product}">{$product->getName()}</a>
+					</td>
+					<td class="item__quantity">
+						{a_remote namespace="" action="basket_items/decrease_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}-{/a_remote}
+						{$item->getAmount()} {$unit}
+						{a_remote namespace="" action="basket_items/increase_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}+{/a_remote}
+					</td>
+					<td class="item__price">{render partial="shared/offcanvas_basket/price" price=$price}</td>
+					<td>{a_remote namespace="" action="basket_items/destroy" id=$item _method=post _confirm="{t}Opravdu chcete tuto položku odebrat z košíku?{/t}"}{!"remove"|icon}{/a_remote}</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="basket-content__total">
+		<div class="description">{t}Total price{/t}:</div>
+		<div class="price">{!$basket->getItemsPrice($incl_vat)|display_price:"$currency,summary"}</div>
+	</div>	
+
+{/if}

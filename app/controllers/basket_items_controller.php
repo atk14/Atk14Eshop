@@ -16,6 +16,36 @@ class BasketItemsController extends ApplicationController {
 		$this->_redirect_to("baskets/edit");
 	}
 
+	function increase_amount(){
+		if(!$this->request->post()){
+			return $this->_execute_action("error404");
+		}
+
+		$product = $this->basket_item->getProduct();
+		$amount = $this->basket_item->getAmount();
+		$step = $product->getOrderQuantityStep();
+		$this->basket->setProductAmount($product,$amount+$step);
+
+		if(!$this->request->xhr()){
+			$this->_redirect_to("baskets/edit");
+		}
+	}
+
+	function decrease_amount(){
+		if(!$this->request->post()){
+			return $this->_execute_action("error404");
+		}
+
+		$product = $this->basket_item->getProduct();
+		$amount = $this->basket_item->getAmount();
+		$step = $product->getOrderQuantityStep();
+		$this->basket->setProductAmount($product,$amount-$step);
+
+		if(!$this->request->xhr()){
+			$this->_redirect_to("baskets/edit");
+		}
+	}
+
 	function destroy(){
 		if(!$this->request->post()){
 			return $this->_execute_action("error404");

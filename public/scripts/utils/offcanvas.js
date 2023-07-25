@@ -124,6 +124,11 @@ window.UTILS.OffcanvasBasket = function() {
 		} );
 	};
 
+	// Replaces the offcanvas basket with the given HTML content
+	this.redrawBasket = function( content ) {
+		$this.element.html( content );
+	}
+
 	// Show basket with custom content
 	// window.basketOffcanvas.showCustomBasket( "this is <strong>custom html content</strong>", 3000 );
 	this.showCustomBasket = function ( content, timeout ) {

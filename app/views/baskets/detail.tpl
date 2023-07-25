@@ -1,40 +1,5 @@
-{if $basket->isEmpty()}
-	<div class="basket-content__empty">
-		{t}The shopping basket is empty.{/t}
-	</div>
-{else}
+{render partial="shared/offcanvas_basket/detail"}
 
-	{assign incl_vat $basket->displayPricesInclVat()}
-	{assign currency $basket->getCurrency()}
-	<div class="basket-content__items" data-items-count="{$basket->getItems()|count}">
-		<table class="table--offcanvas-basket">
-			<tbody>
-				{foreach $basket->getItems() as $item}
-				{assign product $item->getProduct()}
-				{assign unit $product->getUnit()}
-				{assign price $item->getProductPrice()}
-				<tr class="item">
-					<td class="item__image">
-						<a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">
-							<img {!$product->getImage()|img_attrs:"80x80x#ffffff"}></td>
-						</a>
-					<td class="item__name">
-						<a href="{$product|link_to_product}">{$product->getName()}</a>
-					</td>
-					<td class="item__quantity">{$item->getAmount()} {$unit}</td>
-					<td class="item__price">{render partial="price" price=$price}</td>
-					<td>{a_remote namespace="" action="basket_items/destroy" id=$item _method=post _confirm="{t}Opravdu chcete tuto položku odebrat z košíku?{/t}"}{!"remove"|icon}{/a_remote}</td>
-				</tr>
-				{/foreach}
-			</tbody>
-		</table>
-	</div>
-	<div class="basket-content__total">
-		<div class="description">{t}Total price{/t}:</div>
-		<div class="price">{!$basket->getItemsPrice($incl_vat)|display_price:"$currency,summary"}</div>
-	</div>	
-
-{/if}
 <script>
 	$( ".js--basket_info_content" ).replaceWith({jstring}{render partial="shared/basket_info_content"}{/jstring});
 </script>
