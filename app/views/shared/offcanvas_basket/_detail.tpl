@@ -22,9 +22,20 @@
 						<a href="{$product|link_to_product}">{$product->getName()}</a>
 					</td>
 					<td class="item__quantity">
-						{a_remote namespace="" action="basket_items/decrease_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}-{/a_remote}
+						{if $item->canAmountBeDecreased()}
+							{a_remote namespace="" action="basket_items/decrease_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}-{/a_remote}
+						{else}
+							<button class="btn btn-sm btn-outline-secondary" disabled>-</button>
+						{/if}
+
 						{$item->getAmount()} {$unit}
-						{a_remote namespace="" action="basket_items/increase_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}+{/a_remote}
+
+						{if $item->canAmountBeIncreased()}
+							{a_remote namespace="" action="basket_items/increase_amount" id=$item _method=post _class="btn btn-sm btn-outline-secondary"}+{/a_remote}
+						{else}
+							<button class="btn btn-sm btn-outline-secondary" disabled>+</button>
+						{/if}
+
 					</td>
 					<td class="item__price">{render partial="shared/offcanvas_basket/price" price=$price}</td>
 					<td>{a_remote namespace="" action="basket_items/destroy" id=$item _method=post _confirm="{t}Opravdu chcete tuto položku odebrat z košíku?{/t}"}{!"remove"|icon}{/a_remote}</td>
