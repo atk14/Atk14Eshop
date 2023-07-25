@@ -21,10 +21,12 @@ class BasketItemsController extends ApplicationController {
 			return $this->_execute_action("error404");
 		}
 
-		$product = $this->basket_item->getProduct();
-		$amount = $this->basket_item->getAmount();
-		$step = $product->getOrderQuantityStep();
-		$this->basket->setProductAmount($product,$amount+$step);
+		if($this->basket_item->canAmountBeIncreased()){
+			$product = $this->basket_item->getProduct();
+			$amount = $this->basket_item->getAmount();
+			$step = $product->getOrderQuantityStep();
+			$this->basket->setProductAmount($product,$amount+$step);
+		}
 
 		if(!$this->request->xhr()){
 			$this->_redirect_to("baskets/edit");
@@ -36,10 +38,12 @@ class BasketItemsController extends ApplicationController {
 			return $this->_execute_action("error404");
 		}
 
-		$product = $this->basket_item->getProduct();
-		$amount = $this->basket_item->getAmount();
-		$step = $product->getOrderQuantityStep();
-		$this->basket->setProductAmount($product,$amount-$step);
+		if($this->basket_item->canAmountBeDecreased()){
+			$product = $this->basket_item->getProduct();
+			$amount = $this->basket_item->getAmount();
+			$step = $product->getOrderQuantityStep();
+			$this->basket->setProductAmount($product,$amount-$step);
+		}
 
 		if(!$this->request->xhr()){
 			$this->_redirect_to("baskets/edit");
