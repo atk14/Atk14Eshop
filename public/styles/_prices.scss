@@ -77,7 +77,13 @@ $price-font-size-xs: 0.75rem;
 		}
 	}
 
-	
+	&--sm {
+		.price--primary {
+			.currency_main {
+				font-size: $font-size-base;
+			}
+		}
+	}	
 
 }
 

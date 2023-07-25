@@ -4,6 +4,15 @@
 		color: white;
 	}
 }
+.btn-xsm {
+	font-size: 0.75rem;
+	padding: 0.2rem 0.5rem;
+	.far, .fas {
+		&:first-child {
+			margin-right: 0.5ch;
+		}
+	}
+}
 .btn-xs {
 	font-size: $font-size-sm;
 	padding: .125rem .25rem;
