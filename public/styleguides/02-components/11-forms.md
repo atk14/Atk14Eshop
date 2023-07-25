@@ -277,7 +277,7 @@ Widget for setting quantity of items. You must provide JavaScript for handling b
 	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-outline-secondary" title="Sniž objednané množství">-</button>
 	<span class="quantity-widget__number">4 ks</span>
 	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-outline-secondary" title="Zvyš objednané množství">+</button>
-</div> <button class="btn btn-outline-dark btn-sm">fuckme</button>
+</div>
 [/example]
 
 ### Colored checkboxes and radios

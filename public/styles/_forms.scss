@@ -240,6 +240,9 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		}
 	}
 	&--sm {
+		> * {
+			flex-shrink: 0;
+		}
 		$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height-sm + (divide($input-btn-border-width, 16px) * 1rem * 2);
 		button.btn {
 			//min-width: 24px;
@@ -247,7 +250,7 @@ form#form_checkouts_summary .form-group--id_confirmation {
 			aspect-ratio: 1;
 			height: $controlHeight;
 			min-width: 0;
-			width: auto;
+			width: $controlHeight;
 			display: inline-flex;
 			justify-content: center;
 			align-items: center;
