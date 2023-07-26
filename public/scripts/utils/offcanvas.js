@@ -124,9 +124,11 @@ window.UTILS.OffcanvasBasket = function() {
 		} );
 	};
 
-	// Replaces the offcanvas basket with the given HTML content
+	// Replaces the offcanvas basket with the given HTML content and restores its scroll position
 	this.redrawBasket = function( content ) {
+		var pos = $( "#offcanvas-basket .basket-content__items" ).scrollTop();
 		$this.element.html( content );
+		$( "#offcanvas-basket .basket-content__items" ).scrollTop( pos );
 	}
 
 	// Show basket with custom content
