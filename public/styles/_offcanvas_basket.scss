@@ -166,6 +166,13 @@
         padding-right: $grid-gutter-width/4 !important;
         padding-right: var(--sidebar-padding) !important;
       }
+      &__actions {
+        padding-left: 0 !important;
+        a {
+          display: inline-block;
+          padding: 0.5rem;
+        }
+      }
     }
 
     // Small amounts of items have bigger images on big viewports
@@ -202,6 +209,64 @@
     @media(min-width: $minSizingBreakpoint) and (min-height: 920px) {
       .item {
         @include sizeThumbnailsByCount( 8 );
+      }
+    }
+
+    @media(max-width:460px) {
+      display: block;
+      width: 100%;
+      tbody {
+        display: block;
+      }
+      tr.item {
+        display: grid;
+        background-color: rgba (deeppink,.25);
+        grid-template-columns: 65px 1fr 1fr 40px;
+        grid-template-rows: auto 1fr;
+        td {
+          display: block;
+          &.item__ {
+            &image {
+              grid-column: 1/2;
+              grid-row: 1/3;
+            }
+            &name {
+              grid-column: 2/4;
+              grid-row: 1/2;
+              align-self: center;
+            }
+            &quantity {
+              grid-column: 2/3;
+              grid-row: 2/3;
+            }
+            &price {
+              grid-column: 3/4;
+              grid-row: 2/3;
+              align-self: center;
+            }
+            &actions {
+              grid-column: -1/-2;
+              grid-row: 2/3;
+              justify-self: center;
+              align-self: center;
+            }
+          }
+        }
+      }
+    }
+    @media(max-width: 374px){
+      tr.item {
+        td.item__{
+          &quantity {
+            //grid-column: 1/3;
+          }
+          &price {
+            grid-column: 3/-1;
+          }
+          &actions {
+            grid-row: 1/2;
+          }
+        }
       }
     }
   }

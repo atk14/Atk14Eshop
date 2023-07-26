@@ -37,7 +37,7 @@
 						</div>
 					</td>
 					<td class="item__price">{render partial="shared/offcanvas_basket/price" price=$price}</td>
-					<td>{a_remote namespace="" action="basket_items/destroy" id=$item _method=post _confirm="{t}Opravdu chcete tuto položku odebrat z košíku?{/t}"}{!"remove"|icon}{/a_remote}</td>
+					<td class="item__actions">{a_remote namespace="" action="basket_items/destroy" id=$item _method=post _confirm="{t}Opravdu chcete tuto položku odebrat z košíku?{/t}"}{!"remove"|icon}{/a_remote}</td>
 				</tr>
 				{/foreach}
 			</tbody>
