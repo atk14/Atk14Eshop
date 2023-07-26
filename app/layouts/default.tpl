@@ -113,8 +113,9 @@
 		</div>
 		{render partial="shared/layout/footer"}
 
+		{if $controller!="baskets" && $controller!="checkouts"}
 		{render partial="shared/offcanvas_basket"}
-		
+		{/if}
 
 		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">

@@ -20,17 +20,22 @@ window.UTILS.BSOffCanvas = function() {
 
 	// Show offcanvas on click 
 	$( "[data-toggle='offcanvas']" ).on( "click", function( e ) {
-		e.preventDefault();
+		
 		var ctrl = $(this), 
 		elm = ctrl.data( "target" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
-		$( elm ).addClass( "show" );
-		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
-		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
-    $( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
-    $( "body" ).addClass( "offcanvas-visible" );
-		if( bsOverlay.length ) {
-			bsOverlay.addClass( "show" );
-    }
+
+		if( $( elm ).length ) {
+			e.preventDefault();
+			$( elm ).addClass( "show" );
+			$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
+			console.log( "hello" );
+			$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
+			$( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
+			$( "body" ).addClass( "offcanvas-visible" );
+			if( bsOverlay.length ) {
+				bsOverlay.addClass( "show" );
+			}
+		} 
 	} );
 	
 	// Hide offcanvas on click on close button or overlay
