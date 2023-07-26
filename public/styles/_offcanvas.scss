@@ -26,9 +26,9 @@
 
 .bs-offcanvas {
 
-  $offcanvas-width: 330px;
-  $offcanvas-width-lg: 420px;
-  $offcanvas-width-xxs: calc(100vw - 20px);
+  $offcanvas-width: 500px;//330px;
+  $offcanvas-width-lg: 500px;//420px;
+  $offcanvas-width-xs: calc(100vw - 20px);
   $largeSizingBreakpoint: md;
 
   $offcanvas-header-bg: $brand;
@@ -45,8 +45,8 @@
   @include media-breakpoint-up($largeSizingBreakpoint){
     width: $offcanvas-width-lg;
   }
-  @media(max-width: 350px) {
-    width: $offcanvas-width-xxs;
+  @media(max-width: 560px) {
+    width: $offcanvas-width-xs;
   }
 
   &--fullwidth {

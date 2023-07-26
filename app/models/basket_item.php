@@ -46,4 +46,22 @@ class BasketItem extends BasketOrOrderItem {
 		$basket = $this->getBasket();
 		$basket->setProductAmount($this->getProduct(),$amount);
 	}
+
+	function canAmountBeIncreased(){
+		$product = $this->getProduct();
+		$amount = $this->getAmount();
+		$step = $product->getOrderQuantityStep();
+		$basket = $this->getBasket();
+		$price_finder = $basket->getPriceFinder();
+
+		return $product->canBeOrdered(["amount" => $amount + $step, "price_finder" => $price_finder]);
+	}
+
+	function canAmountBeDecreased(){
+		$product = $this->getProduct();
+		$amount = $this->getAmount();
+		$step = $product->getOrderQuantityStep();
+
+		return ($amount - $step) >= $product->getCalculatedMinimumQuantityToOrder();
+	}
 }

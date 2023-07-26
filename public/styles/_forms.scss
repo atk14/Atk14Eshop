@@ -206,13 +206,13 @@ form#form_checkouts_summary .form-group--id_confirmation {
 	display: flex;
 	align-items: center;
 	line-height: 1;
-	button.btn {
+	button.btn, a.btn {
 		min-width: 36px;
 		font-size: 1.25rem;
 		line-height: 1;
 		padding-top: 8px;
 		padding-bottom: 8px;
-		color: white;
+		//color: white;
 		border-radius: 0;
 		font-weight: 600;
 		&:focus {
@@ -237,6 +237,35 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		display: none;
 		.js-quantity-total-price {
 			font-weight: 600;
+		}
+	}
+	&--sm {
+		> * {
+			flex-shrink: 0;
+		}
+		$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height-sm + (divide($input-btn-border-width, 16px) * 1rem * 2);
+		button.btn, a.btn {
+			//min-width: 24px;
+			font-size: $font-size-base;
+			aspect-ratio: 1;
+			height: $controlHeight;
+			min-width: 0;
+			width: $controlHeight;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			line-height: 1;
+		}
+		input.form-control-number, .quantity-widget__number {
+			font-size: $font-size-sm;
+			min-width: 6ch;
+			padding: 0 4px;
+			height: $controlHeight;
+		}
+		.quantity-widget__number {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 }

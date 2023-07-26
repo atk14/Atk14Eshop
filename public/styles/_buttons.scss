@@ -54,3 +54,7 @@
 		@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height-sm);
 	}
 }
+
+.btn[class*="btn-outline"]:disabled {
+	opacity: 0.4;
+}
