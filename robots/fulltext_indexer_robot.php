@@ -3,6 +3,9 @@ class FulltextIndexerRobot extends ApplicationRobot {
 
 	function run(){
 		$this->textmit = new \Textmit\Client();
+		$adf = $this->textmit->getApiDataFetcher();
+		$adf->setSocketTimeout(30.0);
+
 		$this->now = $now = date("Y-m-d H:i:s");
 
 		$this->logger->info("using stage: ".$this->textmit->getStage());
