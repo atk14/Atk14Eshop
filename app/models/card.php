@@ -845,7 +845,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			]);
 		}
 
-		foreach($this->getTechnicalSpecifications() as $ts){
+		foreach($this->getTechnicalSpecifications(["visible" => true]) as $ts){
 			$fd->merge($ts->getFulltextData($lang),[
 				"a" => "b",
 				"b" => "c",
