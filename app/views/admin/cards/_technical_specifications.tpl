@@ -15,6 +15,9 @@
 		{foreach $tech_specs as $ts}
 			<li class="list-group-item" data-id="{$ts->getId()}">
 				<strong>{$ts->getKey()->g("key")}:</strong> {!$ts->getContent()|truncate:50|h}
+				{if !$ts->getKey()->isVisible()}
+					<em class="text-muted">({!"eye-slash"|icon} {t}invisible{/t})</em></em>
+				{/if}
 
 				{if $ts->getKey()->getType()->getTransformator() && !$ts->g("content_json")}
 					<span class="badge badge-danger" title="{t}missing the internal value{/t}">&nbsp;{!"exclamation"|icon}&nbsp;</span>

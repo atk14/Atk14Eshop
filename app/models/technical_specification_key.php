@@ -59,6 +59,8 @@ class TechnicalSpecificationKey extends ApplicationModel implements Translatable
 		return $this->g("key");
 	}
 
+	function isVisible(){ return $this->getVisible(); }
+
 	function getTechnicalSpecificationKeyType(){
 		return Cache::Get("TechnicalSpecificationKeyType",$this->getTechnicalSpecificationKeyTypeId());
 	}

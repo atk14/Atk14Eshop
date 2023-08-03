@@ -9,6 +9,8 @@ class TechnicalSpecificationKeysForm extends AdminForm {
 
 		$this->add_code_field();
 
+		$this->add_visible_field();
+
 		$this->add_field("technical_specification_key_type_id", new TechnicalSpecificationKeyTypeField(array(
 			"label" => _("Key type"),
 			"initial" => TechnicalSpecificationKey::GetInstanceByCode("text"),
