@@ -227,7 +227,7 @@ class ApplicationForm extends Atk14Form{
 			$allowed_countries = $current_region->getInvoiceCountries() ? $current_region->getInvoiceCountries() : null; // null means no limit
 		}
 		$initial = null;
-		if(($required && $allowed_countries) || ($allowed_countries && sizeof($allowed_countries)==1)){
+		if(($required && $allowed_countries && sizeof($allowed_countries)==1) || ($allowed_countries && sizeof($allowed_countries)==1)){
 			$initial = $allowed_countries[0];
 		}
 		$this->add_field("{$prefix}address_country",new CountryField(array(
