@@ -85,7 +85,7 @@ class OrdersController extends AdminController {
 			}
 		}
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->_initialize_prepared_sorting("created_at");
 		$this->sorting->add("updated_at","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) DESC","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) ASC");
 		$this->sorting->add("order_no");
 
