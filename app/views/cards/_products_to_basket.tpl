@@ -107,6 +107,9 @@
 						<div class="secondary-controls">
 							<div class="secondary-controls__item">
 								{render partial="shared/favourite_product_icon" product=$product}
+								{if $basket->contains($product)}
+									<span id="js--in_basket_notice_{$product->getId()}">{!"cart-shopping"|icon} {t}Máte v košíku{/t}</span>
+								{/if}
 							</div>
 							{if !$product->canBeOrdered($price_finder) && WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<div class="secondary-controls__item">

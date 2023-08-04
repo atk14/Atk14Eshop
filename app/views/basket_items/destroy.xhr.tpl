@@ -6,3 +6,5 @@
 $( ".card--id-" + {$basket_item->getProduct()->getCardId()} ).removeClass( "card--in-basket" );
 
 {/if}
+
+$( "#js--in_basket_notice_{$basket_item->getProductId()}" ).fadeOut( "slow" );
