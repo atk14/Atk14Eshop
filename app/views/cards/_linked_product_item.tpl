@@ -1,6 +1,11 @@
 {assign starting_price $price_finder->getStartingPrice($c)}
 {assign creators CardCreator::GetMainCreatorsForCard($c)}
-{a action="cards/detail" id=$c _class="card card--sm"}
+{if $basket->contains($c)}
+	{assign var="card_class" "card card--sm card--in-basket card--id-{$c->getId()}"}
+{else}
+	{assign var="card_class" "card card--sm"}
+{/if}
+{a action="cards/detail" id=$c _class="$card_class"}
 	<div class="card__image">
 		{if $c->getImage()}
 			{!$c->getImage()|pupiq_img:"300x225xcrop":"class='card-img-top'"}

@@ -228,6 +228,11 @@
 				// Init offcanvas basket preview
 				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
 
+				// Add-to-cart animation on cards button
+				$( ".js--card-add-to-cart-btn" ).on( "click", function() {
+					$( this ).closest( ".card" ).addClass( "card--in-basket" );
+				} );
+
 			}
 
 		},

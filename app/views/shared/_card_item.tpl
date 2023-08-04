@@ -52,7 +52,7 @@
 			{render partial="shared/card_price" card=$card class=$price_css}
 			{if $view_order_button}
 				{if $card->canBeOrdered()}
-					{a_remote action="baskets/add_card" card_id=$card _method=post _class="btn btn-outline-primary btn-xsm"}{!"shopping-cart"|icon} {t}Add to basket{/t}{/a_remote}
+					{a_remote action="baskets/add_card" card_id=$card _method=post _class="btn btn-outline-primary btn-xsm js--card-add-to-cart-btn"}{!"shopping-cart"|icon} {t}Add to basket{/t}{/a_remote}
 				{/if}
 			{else}
 				<span class="card-footer__icon">{!"shopping-cart"|icon} {!"chevron-right"|icon}</span>

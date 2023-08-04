@@ -55,6 +55,8 @@ class BasketItemsController extends ApplicationController {
 			return $this->_execute_action("error404");
 		}
 
+		$this->tpl_data["basket_item"] = $this->basket_item;
+
 		$this->basket_item->destroy();
 		
 		if(!$this->request->xhr()){
