@@ -237,7 +237,7 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => $disabled,
 			"allowed_countries" => $allowed_countries,
 			"include_empty_choice" => !$required || !is_array($allowed_countries) || sizeof($allowed_countries)>1,
-			"empty_choice_text" => "-- "._("země")." --",
+			"empty_choice_text" => "-- "._("select country")." --",
 		)));
 
 		$options["add_note"] && $this->add_field("{$prefix}address_note", new CharField(array(
