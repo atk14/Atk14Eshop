@@ -289,12 +289,10 @@ class ApplicationForm extends Atk14Form{
 	}
 
 	function _add_phone($options = []){
-		$sample_phone = "+420 605 123 456";
-		$default_country_code = "+420";
+		$default_country_code = "CZ";
 
 		if(isset($this->controller) && isset($this->controller->current_region) && $this->controller->current_region->getCode()=="SK"){
-			$sample_phone = "+421 905 123 456";
-			$default_country_code = "+421";
+			$default_country_code = "SK";
 		}
 
 		$options += [
@@ -302,7 +300,6 @@ class ApplicationForm extends Atk14Form{
 			"prefix" => "",
 
 			"label" => _("Telefon"),
-			"help_text" => sprintf(_("Telefonní číslo zadejte ve formátu %s"),$sample_phone),
 			"required" => true,
 			"default_country_code" => $default_country_code,
 		];
