@@ -154,13 +154,22 @@ class PriceFinder {
 	/**
 	 * Searches for the lowest price of a product on this card
 	 *
-	 *	$price = $price_finder->getStartingPrice($card);
+	 *	$product_price = $price_finder->getStartingPrice($card);
+	 *
+	 * @return ProductPrice
 	 */
 	function getStartingPrice($card){
 		list($starting_price,$starting_base_price) = $this->_getStartingPrice($card);
 		return $starting_price;
 	}
 
+	/**
+	 * Searches for the lowest base price of a product on this card
+	 *
+	 *	$product_price = $price_finder->getStartingBasePrice($card);
+	 *
+	 * @return ProductPrice
+	 */
 	function getStartingBasePrice($card){
 		list($starting_price,$starting_base_price) = $this->_getStartingPrice($card);
 		return $starting_base_price;
