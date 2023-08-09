@@ -3,7 +3,7 @@ class CardPromotion extends Iobject {
 	
 	function getTitle(){
 		$title = parent::getTitle();
-		if(strlen($title)){
+		if(strlen((string)$title)){
 			return $title;
 		}
 		$card = $this->getCard();
