@@ -21,7 +21,7 @@ class TcCards extends TcBase {
 		// Invisible product
 		$card->s("visible",false);
 		$client->get("cards/detail",["id" => $card]);
-		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals(404,$client->getStatusCode());
 		$this->assertContains($card->getName(),$client->getContent());
 		$this->assertContains("We apologize, but the sale is already over.",$client->getContent());
 
