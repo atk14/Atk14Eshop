@@ -149,7 +149,7 @@
 
 				// Floating cart info show/hide 
 				// Using IntersectionObserver rather than watching scroll
-				if ( "IntersectionObserver" in window && document.getElementsByClassName( "js--basket_info_float-container" ).length > 0 ) {
+				if ( "IntersectionObserver" in window && document.getElementsByClassName( "js--basket_info_float-container" ).length > 0 && document.getElementsByClassName( "js--mainbar__cartinfo" ).length > 0) {
 					function floatBasketInfo( changes ){
 						var floatBasket = $( ".js--basket_info_float-container" );
 						changes.forEach( function( change ) {
