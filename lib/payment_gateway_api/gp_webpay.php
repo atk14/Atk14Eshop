@@ -166,10 +166,11 @@ class GpWebpay extends PaymentGatewayApi {
 			$code = $tr[$status];
 		}
 
+		// !!! Toto zlobi !!!
 		// Casovy test - prilis stara transakce ve stavu pending je oznacena za cancelled
-		if($code==="pending" && $status==="UNPAID" && $payment_transaction->getPaymentTransactionStartedAt() && strtotime($payment_transaction->getPaymentTransactionStartedAt())<(time() - 23 * 60 * 60)){
-			$code = "cancelled";
-		}
+		//if($code==="pending" && $status==="UNPAID" && $payment_transaction->getPaymentTransactionStartedAt() && strtotime($payment_transaction->getPaymentTransactionStartedAt())<(time() - 23 * 60 * 60)){
+		//	$code = "cancelled";
+		//}
 
 		return $code;
 	}
