@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-01 16:14+0200\n"
-"PO-Revision-Date: 2023-01-27 16:51+0100\n"
+"POT-Creation-Date: 2023-08-23 17:12+0200\n"
+"PO-Revision-Date: 2023-08-23 17:18+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -277,15 +277,15 @@ msgstr "Plain text body"
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:10
+#: ../vendor/atk14/phone-field/src/phone_field.php:52
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:21
+#: ../vendor/atk14/phone-field/src/phone_field.php:76
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:22
+#: ../vendor/atk14/phone-field/src/phone_field.php:77
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
@@ -330,11 +330,11 @@ msgstr "This range field accepts only numeric values"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:55
 msgid "<!-- range --> from"
-msgstr ""
+msgstr "<!-- range --> from"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:59
 msgid "<!-- range --> to"
-msgstr ""
+msgstr "<!-- range --> to"
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
 msgid ""
@@ -360,16 +360,36 @@ msgstr "Write something like black-cat-white-cat"
 msgid "This doesn't look like an URL"
 msgstr "This doesn't look like an URL"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:23
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:28
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:40
 msgid "Please enter a valid zip code"
 msgstr "Please enter a valid zip code"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:26
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:27
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:31
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:32
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Enter the ZIP code as NNN NN"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:137
+msgid "enter four digits"
+msgstr "enter four digits"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:143
+msgid "enter five digits"
+msgstr "enter five digits"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:149
+msgid "Enter six digits"
+msgstr "Enter six digits"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:155
+msgid "Enter seven digits"
+msgstr "Enter seven digits"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:291
+msgid "Enter five digits"
+msgstr "Enter five digits"
 
 #~ msgid "od"
 #~ msgstr "from"

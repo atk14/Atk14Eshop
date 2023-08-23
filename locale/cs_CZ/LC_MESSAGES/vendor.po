@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-01 16:14+0200\n"
-"PO-Revision-Date: 2023-01-27 16:32+0100\n"
+"POT-Creation-Date: 2023-08-23 17:12+0200\n"
+"PO-Revision-Date: 2023-08-23 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -276,15 +276,15 @@ msgstr "Textové tělo"
 msgid "No mail has been sent"
 msgstr "Nebyl odeslán žádný e-mail"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:10
+#: ../vendor/atk14/phone-field/src/phone_field.php:52
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Zadejte telefonní číslo ve formátu %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:21
+#: ../vendor/atk14/phone-field/src/phone_field.php:76
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:22
+#: ../vendor/atk14/phone-field/src/phone_field.php:77
 msgid "Enter phone number"
 msgstr "Zadejte telefonní číslo"
 
@@ -329,11 +329,11 @@ msgstr "Toto rozsahové pole přijímá pouze číselné hodnoty"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:55
 msgid "<!-- range --> from"
-msgstr ""
+msgstr "od"
 
 #: ../vendor/atk14/range-field/src/app/widgets/range_input.php:59
 msgid "<!-- range --> to"
-msgstr ""
+msgstr "do"
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
 msgid ""
@@ -359,16 +359,36 @@ msgstr "Napište něco jako cerna-kocka-bily-kocour"
 msgid "This doesn't look like an URL"
 msgstr "Toto nevypadá jako URL"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:23
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:28
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:40
 msgid "Please enter a valid zip code"
 msgstr "Zadejte prosím platné PSČ"
 
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:26
-#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:27
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:31
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:32
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
 msgid "Enter the ZIP code as NNN NN"
 msgstr "Zadejte PSČ ve formátu NNN NN"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:137
+msgid "enter four digits"
+msgstr "zadejte čtyři číslice"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:143
+msgid "enter five digits"
+msgstr "zadejte pět číslic"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:149
+msgid "Enter six digits"
+msgstr "Zadejte šest číslic"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:155
+msgid "Enter seven digits"
+msgstr "Zadejte sedm číslic"
+
+#: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:291
+msgid "Enter five digits"
+msgstr "Zadejte pět číslic"
 
 #~ msgid "od"
 #~ msgstr "od"

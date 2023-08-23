@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-01 16:14+0200\n"
+"POT-Creation-Date: 2023-08-23 17:12+0200\n"
 "PO-Revision-Date: 2023-06-01 16:16+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -343,7 +343,7 @@ msgstr "Přidat produkt"
 msgid "No product has been found."
 msgstr "Žádný produkt nebyl nalezen."
 
-#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/controllers/admin/warehouse_items_controller.php:108
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
 #: ../app/forms/admin/cards/cards_form.php:26
 #: ../app/forms/admin/orders/index_form.php:69
@@ -1037,6 +1037,9 @@ msgstr "Není vyplněno"
 msgid "Platební metoda"
 msgstr "Platební metoda"
 
+msgid "<em>Testovací</em> platební transakce"
+msgstr ""
+
 msgid "Platební transakce"
 msgstr "Platební transakce"
 
@@ -1241,7 +1244,7 @@ msgstr "Stáhněte si originál"
 msgid "Založit novou cenu"
 msgstr "Založit novou cenu"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/controllers/admin/warehouse_items_controller.php:108
 #: ../app/forms/admin/products/products_form.php:17
 msgid "Product name"
 msgstr "Název produktu"
@@ -1741,7 +1744,7 @@ msgstr "Importovat z CSV"
 msgid "Edit warehouse details"
 msgstr "Upravit údaje skladu"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/controllers/admin/warehouse_items_controller.php:108
 #: ../app/forms/admin/cards/cards_form.php:123
 #: ../app/forms/admin/products/create_new_form.php:19
 #: ../app/forms/admin/warehouse_items/warehouse_items_form.php:10
@@ -2006,7 +2009,7 @@ msgid "Editing attachment #%s"
 msgstr "Úprava přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/cards_controller.php:224
+#: ../app/controllers/admin/cards_controller.php:225
 #: ../app/controllers/admin/categories_controller.php:34
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:59
@@ -2091,41 +2094,41 @@ msgstr "Produkty byly úspěšně sloučeny"
 msgid "List of Products"
 msgstr "Seznam produktů"
 
-#: ../app/controllers/admin/cards_controller.php:81
+#: ../app/controllers/admin/cards_controller.php:82
 msgid "Adding a product"
 msgstr "Přidat produkt"
 
-#: ../app/controllers/admin/cards_controller.php:148
+#: ../app/controllers/admin/cards_controller.php:149
 msgid "The product has been created. Now you can add some extra data to it."
 msgstr "Produkt byl vytvořen. Nyní k němu můžete přidat další údaje."
 
-#: ../app/controllers/admin/cards_controller.php:154
+#: ../app/controllers/admin/cards_controller.php:155
 #, php-format
 msgid "Editing product %s"
 msgstr "Editace produktu %s"
 
-#: ../app/controllers/admin/cards_controller.php:242
+#: ../app/controllers/admin/cards_controller.php:243
 msgid "Variants mode has been activated"
 msgstr "Variantní režim byl aktivován"
 
-#: ../app/controllers/admin/cards_controller.php:260
+#: ../app/controllers/admin/cards_controller.php:261
 msgid "Variants mode has been deactivated"
 msgstr "Variantní režim byl deaktivován"
 
-#: ../app/controllers/admin/cards_controller.php:283
+#: ../app/controllers/admin/cards_controller.php:284
 #: ../app/controllers/admin/technical_specifications_controller.php:20
 msgid "The product already has this specification"
 msgstr "Tento produkt už má tuto specifikaci"
 
-#: ../app/controllers/admin/cards_controller.php:291
+#: ../app/controllers/admin/cards_controller.php:292
 msgid "Please fill in all required fields"
 msgstr "Vyplňte prosím všechna povinná pole"
 
-#: ../app/controllers/admin/cards_controller.php:326
+#: ../app/controllers/admin/cards_controller.php:327
 msgid "Připojení odkazu k produktu"
 msgstr "Připojení odkazu k produktu"
 
-#: ../app/controllers/admin/cards_controller.php:344
+#: ../app/controllers/admin/cards_controller.php:345
 msgid "Odkaz odpojen"
 msgstr "Odkaz odpojen"
 
@@ -2852,58 +2855,58 @@ msgstr "Editace slevového poukazu"
 msgid "Products in warehouse %s"
 msgstr "Produkty v skladu %s"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:42
+#: ../app/controllers/admin/warehouse_items_controller.php:43
 msgid "New warehouse entry"
 msgstr "Nový skladový záznam"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:52
+#: ../app/controllers/admin/warehouse_items_controller.php:53
 msgid "Edit warehouse entry"
 msgstr "Editace skladového záznamu"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:62
+#: ../app/controllers/admin/warehouse_items_controller.php:63
 #, php-format
 msgid "Export entries from warehouse %s"
 msgstr "Exportovat položky ze skladu %s"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:107
+#: ../app/controllers/admin/warehouse_items_controller.php:108
 #: ../app/forms/admin/admin_form.php:192
 msgid "Unit"
 msgstr "Jednotka"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:113
+#: ../app/controllers/admin/warehouse_items_controller.php:114
 #, php-format
 msgid "Import entries from CSV into warehouse %s"
 msgstr "Importovat položky z CSV do skladu %s"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:121
+#: ../app/controllers/admin/warehouse_items_controller.php:122
 msgid "There must be at least 2 columns in the CSV data"
 msgstr "V datech CSV musí být alespoň 2 sloupce"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:138
+#: ../app/controllers/admin/warehouse_items_controller.php:139
 #, php-format
 msgid "Line %s: the second value must be a numeric value"
 msgstr "Řádek %s: druhá hodnota musí být číselná hodnota"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:144
+#: ../app/controllers/admin/warehouse_items_controller.php:145
 #, php-format
 msgid "Line %s: product %s was not found"
 msgstr "Řádek %s: produkt %s nebyl nalezen"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:190
+#: ../app/controllers/admin/warehouse_items_controller.php:191
 msgid "The import was completed successfully"
 msgstr "Import byl úspěšně dokončen"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:191
+#: ../app/controllers/admin/warehouse_items_controller.php:192
 #, php-format
 msgid "entries imported: %s"
 msgstr "položek naimportováno: %s"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:192
+#: ../app/controllers/admin/warehouse_items_controller.php:193
 #, php-format
 msgid "entries unchanged: %s"
 msgstr "položek nezměněno: %s"
 
-#: ../app/controllers/admin/warehouse_items_controller.php:193
+#: ../app/controllers/admin/warehouse_items_controller.php:194
 #, php-format
 msgid "entries deleted: %s"
 msgstr "položek smazáno: %s"
@@ -4502,15 +4505,15 @@ msgstr "Barva"
 msgid "Key"
 msgstr "Klíč"
 
-#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:13
+#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:15
 msgid "Key type"
 msgstr "Typ klíče"
 
-#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:15
+#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:17
 msgid "The key type cannot be changed at this place"
 msgstr "Typ klíče nelze na tomto místě změnit"
 
-#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:21
+#: ../app/forms/admin/technical_specification_keys/technical_specification_keys_form.php:23
 msgid "Lokalizovaný název"
 msgstr "Lokalizovaný název"
 
