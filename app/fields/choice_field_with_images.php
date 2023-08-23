@@ -8,6 +8,8 @@ class ChoiceFieldWithImages extends ChoiceField {
 			"display_prices" => true,
 			"display_empty_offer" => false,
 			"basket" => null,
+			"required" => true,
+			"initial" => null,
 		];
 
 		$basket = $options["basket"];
@@ -26,6 +28,12 @@ class ChoiceFieldWithImages extends ChoiceField {
 			$choices = [ null => $options['display_empty_offer'] ] + $choices;
 		}
 		$options["choices"] = $choices;
+
+		if(sizeof($choices)==1 && !$options["required"]){
+			$keys = array_keys($choices);
+			$options["initial"] = $keys[0];
+		}
+
 		parent::__construct($options);
 	}
 }

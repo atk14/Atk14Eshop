@@ -3,7 +3,9 @@ class CheckoutsController extends ApplicationController {
 
 	function set_payment_and_delivery_method(){
 		$this->page_title = _("Shipping and payment");
-		$this->form->set_initial($this->basket);
+		if(!is_null($this->basket->getDeliveryMethodId()) || !is_null($this->basket->getPaymentMethodId())){
+			$this->form->set_initial($this->basket);
+		}
 		$this->form->set_attr("data-rules", ShippingCombination::GetRules(array("format" => "json")));
 
 		if(sizeof($this->_get_allowed_regions())>1){
