@@ -53,7 +53,9 @@ class CheckoutsController extends ApplicationController {
 		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || $delivery_point_selected;
 		$this->tpl_data["fill_in_invoice_address"] = $fill_in_invoice_address;
 
-		$this->form->set_initial($this->basket);
+		$initial = $this->basket->toArray();
+		$initial = array_filter($initial,function($item){ return !is_null($item); });
+		$this->form->set_initial($initial);
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
