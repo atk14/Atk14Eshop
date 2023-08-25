@@ -763,7 +763,7 @@ class Basket extends BasketOrOrder {
 
 			if($amount%$step!==0){
 				$new_quantity = ceil($amount / $step) * $step;
-				$messages[] = new BasketErrorMessage(sprintf(_("Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"),h($product->getName()),h($product->getCatalogId()),$min_quantity,$amount),
+				$messages[] = new BasketErrorMessage(sprintf(_("Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"),h($product->getName()),h($product->getCatalogId()),$step),
 					[
 						"correction_text" => sprintf(_("změnit množství na %s"),$new_quantity),
 						"correction_url" => $this->_buildLink(["action" => "basket_items/edit", "id" => $item->getId(), "amount" => $new_quantity]),
