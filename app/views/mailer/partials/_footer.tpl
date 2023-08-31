@@ -16,10 +16,10 @@
 												{/if}
             					</p>
             					<p style="Margin:0;Margin-bottom:10px;color:{$footer_color};font-family:{$font_stack};font-size:16px;font-weight:400;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left">
-            						E-mail: <br/><a href="mailto:{"app.contact.email"|system_parameter}" style="Margin:0;color:{$footer_link_color};font-family:{$font_stack};font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">{"app.contact.email"|system_parameter}</a>
+            						{t}E-mail{/t}: <br/><a href="mailto:{"app.contact.email"|system_parameter}" style="Margin:0;color:{$footer_link_color};font-family:{$font_stack};font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">{"app.contact.email"|system_parameter}</a>
             					</p>
             					<p style="Margin:0;Margin-bottom:10px;color:{$footer_color};font-family:{$font_stack};font-size:16px;font-weight:400;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left">
-            						Tel.: <br/><a href="tel:{"app.contact.phone"|system_parameter|replace:".":""}" style="Margin:0;color:{$footer_link_color};font-family:{$font_stack};font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">{"app.contact.phone"|system_parameter|display_phone}</a>
+            						{t}Tel.{/t}: <br/><a href="tel:{"app.contact.phone"|system_parameter|replace:".":""}" style="Margin:0;color:{$footer_link_color};font-family:{$font_stack};font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">{"app.contact.phone"|system_parameter|display_phone}</a>
             					</p>
             				</address>
             			</th></tr></table></th>
