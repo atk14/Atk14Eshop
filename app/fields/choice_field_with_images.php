@@ -29,7 +29,7 @@ class ChoiceFieldWithImages extends ChoiceField {
 		}
 		$options["choices"] = $choices;
 
-		if(sizeof($choices)==1 && !$options["required"]){
+		if(sizeof($choices)==1 && $options["required"]){
 			$keys = array_keys($choices);
 			$options["initial"] = $keys[0];
 		}
