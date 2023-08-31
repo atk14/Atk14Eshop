@@ -77,7 +77,7 @@
 					<li>Listicle health goth keffiyeh fanny pack raclette godard chambray tumblr put a bird on it meditation selfies authentic biodiesel.</li>
 				</ul>	
 			</div>
-			<span class="label__price label__price--for-free">Zdarma</span>
+			<span class="label__price label__price--free">Zdarma</span>
 		</label>
 	</div>
 </li>
@@ -95,7 +95,7 @@
 					<li>Listicle health goth keffiyeh fanny pack raclette godard chambray tumblr put a bird on it meditation selfies authentic biodiesel.</li>
 				</ul>	
 			</div>
-			<span class="label__price label__price--for-free">Zdarma</span>
+			<span class="label__price label__price--free">Zdarma</span>
 		</label>
 	</div>
 </li>

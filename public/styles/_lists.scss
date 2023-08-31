@@ -205,7 +205,6 @@ ol.timeline {
 						font-weight: 600;
 						min-height: $minHeight;
 						line-height: 1.2;
-					}
 				}
 				.label__description {
 					font-size: 0.875rem;
@@ -351,7 +350,7 @@ ol.timeline {
 			
 			
 
-			@media(max-width:450px){}
+	@media(max-width:450px){}
 		}
 		&:last-child {
 			margin-bottom: 0;
