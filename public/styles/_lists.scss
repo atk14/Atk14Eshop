@@ -183,7 +183,7 @@ ol.timeline {
 				position: relative;
 				padding: $itemVPadding $itemHPadding;
 				padding-left: $itemHPadding * 2 + $inputSize;
-				.v-image {
+				.v-image { // DEPRECATED
 					display: block;
 					flex-basis: 50px;
 					max-width: 50px;
@@ -193,7 +193,33 @@ ol.timeline {
 						height: auto;
 					}
 				}
-				.v-description {
+				.label__image {
+					display: block;
+					max-width: 50px;
+					img {
+						width: 50px;
+						height: auto;
+					}
+				}
+				.label__name {
+						font-weight: 600;
+						min-height: $minHeight;
+						line-height: 1.2;
+					}
+				}
+				.label__description {
+					font-size: 0.875rem;
+					margin-top: 0.5em;
+					table.table {
+						td, th {
+							padding: 0.25rem;
+						}
+					}
+					*:last-child {
+						margin-bottom: 0;
+					}
+				}
+				.v-description { // DEPRECATED
 					flex-grow: 10;
 					.v-name {
 						font-weight: 600;
@@ -216,7 +242,7 @@ ol.timeline {
 						}
 					}
 				}
-				.v-price {
+				.v-price { // DEPRECATED
 					margin-left: $grid-gutter-width/4;
 					font-weight: 600;
 					padding-top: $textPaddingTop;
@@ -231,6 +257,19 @@ ol.timeline {
 						line-height: 1.2;
 					}
 				}
+				.label__price {
+					font-weight: 600;
+					text-align: end;
+					//align-self: flex-start;
+					&--free {
+						color: $success;
+					}
+					&--long {
+						display: inline-block;
+						font-size: $font-size-sm;
+						line-height: 1.2;
+					}
+				}
 
 				// simpler variation when label contains just one span
 				.label__text {
@@ -239,6 +278,37 @@ ol.timeline {
 					flex-direction: column;
 					justify-content: center;
 					line-height: 1.2;
+				}
+			}
+			&.form-check--with-image {
+				label {
+					background-color: rgba(hotpink, 0.02);
+					display: grid;
+					grid-template-columns: 50px 1fr auto;
+					gap: 10px;
+					align-items: center;
+					.label__image {
+						grid-column: 1 / 2;
+					}
+					.label__name {
+						grid-column: 1 / -2;
+					}
+					.label__image + .label__name {
+						grid-column: 2 / -2;
+					}
+					.label__price {
+						grid-column: -2 / -1;
+						padding: 0;
+						margin: 0;
+					}
+					.label__description {
+						grid-row: 2 / 3;
+						grid-column: 1 /-2;
+					}
+					.label__image ~ .label__description {
+						grid-row: 2 / 3;
+						grid-column: 2 /-2;
+					}
 				}
 			}
 
@@ -453,3 +523,4 @@ ul.list--active-filters {
 		}
 	}
 }
+
