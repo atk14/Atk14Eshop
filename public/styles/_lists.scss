@@ -183,16 +183,7 @@ ol.timeline {
 				position: relative;
 				padding: $itemVPadding $itemHPadding;
 				padding-left: $itemHPadding * 2 + $inputSize;
-				.v-image { // DEPRECATED
-					display: block;
-					flex-basis: 50px;
-					max-width: 50px;
-					margin-right: $grid-gutter-width/4;
-					img {
-						width: 50px;
-						height: auto;
-					}
-				}
+				
 				.label__image {
 					display: block;
 					max-width: 50px;
@@ -203,8 +194,8 @@ ol.timeline {
 				}
 				.label__name {
 						font-weight: 600;
-						min-height: $minHeight;
 						line-height: 1.2;
+
 				}
 				.label__description {
 					font-size: 0.875rem;
@@ -217,43 +208,8 @@ ol.timeline {
 					*:last-child {
 						margin-bottom: 0;
 					}
-				}
-				.v-description { // DEPRECATED
-					flex-grow: 10;
-					.v-name {
-						font-weight: 600;
-						min-height: $minHeight;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-						line-height: 1.2;
-					}
-					.v-hint {
-						font-size: 0.875rem;
-						margin-top: 0.5em;
-						table.table {
-							td, th {
-								padding: 0.25rem;
-							}
-						}
-						*:last-child {
-							margin-bottom: 0;
-						}
-					}
-				}
-				.v-price { // DEPRECATED
-					margin-left: $grid-gutter-width/4;
-					font-weight: 600;
-					padding-top: $textPaddingTop;
-					text-align: end;
-					//align-self: flex-start;
-					&.for-free {
-						color: $success;
-					}
-					.v-price--long {
-						display: inline-block;
-						font-size: $font-size-sm;
-						line-height: 1.2;
+					&__title {
+						font-weight: $font-weight-bold;
 					}
 				}
 				.label__price {
@@ -283,7 +239,8 @@ ol.timeline {
 				label {
 					background-color: rgba(hotpink, 0.02);
 					display: grid;
-					grid-template-columns: 50px 1fr auto;
+					grid-template-columns: $minHeight 1fr auto;
+					grid-template-rows: minmax( $minHeight, max-content) auto;
 					gap: 10px;
 					align-items: center;
 					.label__image {
@@ -308,6 +265,28 @@ ol.timeline {
 						grid-row: 2 / 3;
 						grid-column: 2 /-2;
 					}
+					@include media-breakpoint-down(sm) {
+						background-color: rgba(blue,0.03);
+						.label__description, .label__image ~ .label__description {
+							grid-row: 2 / 3;
+							grid-column: 1 / -1;
+						}
+					}
+					@include media-breakpoint-down(xs) {
+						min-height: $minHeightXS;// + 2 * $itemVPadding;
+						grid-template-columns: $minHeightXS 1fr auto;
+						grid-template-rows: minmax( $minHeightXS, max-content) auto;
+						.label__name {
+							font-size: 1rem;
+							line-height: 1.1;
+						}
+						.label__image {
+							img {
+								width: $minHeightXS;
+								max-width: $minHeightXS;
+							}
+						}
+					}
 				}
 			}
 
@@ -324,7 +303,8 @@ ol.timeline {
 				}
 
 				label {
-					min-height: $minHeightXS + 2 * $itemVPadding;
+					min-height: $minHeightXS;// + 2 * $itemVPadding;
+					
 					.v-image {
 						flex-basis: 30px;
 						max-width: 30px;
@@ -414,7 +394,7 @@ ul.list--active-filters {
 }
 
 // prosty UL/OL list bez jakekoliv tridy uvnitr clanku nebo .list--simple
-.article__body ul:not([class]), .page__body ul:not([class]), ul.list--simple, ul.list--ul {
+.article__body ul:not([class]), .page__body ul:not([class]), ul.list--simple, ul.list--ul, .form-check--with-image ul {
 	padding-left: 1.25em;
 	list-style: none;
 	margin-bottom: $grid-gutter-width;

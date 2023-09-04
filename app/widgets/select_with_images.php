@@ -96,14 +96,14 @@ class RadioInputWithImage {
 				$image = $image->getUrl();
 			}
 			$p = new Pupiq($image,$api_key);
-			return sprintf('<span class="v-image"><img src="%s" alt=""></span>',$p->getUrl($this->options["image_geometry"]));
+			return sprintf('<span class="label__image"><img src="%s" alt=""></span>',$p->getUrl($this->options["image_geometry"]));
 		} else {
 			return '';
 		}
 	}
 
 	function caption() {
-		return '<span class="v-name">'.forms_htmlspecialchars($this->object->getLabel()).'</span>';
+		return forms_htmlspecialchars($this->object->getLabel());
 	}
 
 	function hint() {
@@ -113,16 +113,16 @@ class RadioInputWithImage {
 		$hint = smarty_modifier_markdown($hint);
 		if(!strlen($hint_title) && !strlen($hint)) { return ''; };
 		if($hint_title){
-			$hint_title = '<span class="v-hint-title">'.$hint_title.'</span>';
+			$hint_title = '<span class="label__description__title">'.$hint_title.'</span>';
 		}
-		return '<div class="v-hint">'.$hint_title.$hint.'</div>';
+		return '<div class="label__description">'.$hint_title.$hint.'</div>';
 	}
 
 	function price() {
 		$price = $this->object->getPrice();
 		if($price === null) { return ''; };
-		if($price === 0) { return '<span class="v-price for-free">'._('Zdarma') . '</span>'; };
-		return "<span class=\"v-price\">$price</span>";
+		if($price === 0) { return '<span class="label__price label__price--free">'._('Zdarma') . '</span>'; };
+		return "<span class=\"label__price\">$price</span>";
 	}
 
 	function render() {
@@ -135,6 +135,6 @@ class RadioInputWithImage {
 		if( $this->image() ) {
 			$form_check_class = " form-check--has-image";
 		}
-		return '<div class="form-check' . $form_check_class . '">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="v-description">' . $this->caption() . $this->hint() . '</span>' . $price . '</label></div>';
+		return '<div class="form-check form-check--with-image' . $form_check_class . '">'.$this->tag().'<label'.flatatt($attr).'>'.$this->image() . '<span class="label__name">' . $this->caption() . '</span>' . $this->hint() . $price . '</label></div>';
 	}
 }
