@@ -183,49 +183,43 @@ ol.timeline {
 				position: relative;
 				padding: $itemVPadding $itemHPadding;
 				padding-left: $itemHPadding * 2 + $inputSize;
-				.v-image {
+				
+				.label__image {
 					display: block;
-					flex-basis: 50px;
 					max-width: 50px;
-					margin-right: $grid-gutter-width/4;
 					img {
 						width: 50px;
 						height: auto;
 					}
 				}
-				.v-description {
-					flex-grow: 10;
-					.v-name {
+				.label__name {
 						font-weight: 600;
-						min-height: $minHeight;
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
 						line-height: 1.2;
+
+				}
+				.label__description {
+					font-size: 0.875rem;
+					margin-top: 0.5em;
+					table.table {
+						td, th {
+							padding: 0.25rem;
+						}
 					}
-					.v-hint {
-						font-size: 0.875rem;
-						margin-top: 0.5em;
-						table.table {
-							td, th {
-								padding: 0.25rem;
-							}
-						}
-						*:last-child {
-							margin-bottom: 0;
-						}
+					*:last-child {
+						margin-bottom: 0;
+					}
+					&__title {
+						font-weight: $font-weight-bold;
 					}
 				}
-				.v-price {
-					margin-left: $grid-gutter-width/4;
+				.label__price {
 					font-weight: 600;
-					padding-top: $textPaddingTop;
 					text-align: end;
-					//align-self: flex-start;
-					&.for-free {
+					//color: black;
+					&--free {
 						color: $success;
 					}
-					.v-price--long {
+					&--long {
 						display: inline-block;
 						font-size: $font-size-sm;
 						line-height: 1.2;
@@ -239,6 +233,69 @@ ol.timeline {
 					flex-direction: column;
 					justify-content: center;
 					line-height: 1.2;
+				}
+			}
+			&.form-check--with-image {
+				label {
+					display: grid;
+					grid-template-columns: $minHeight 1fr auto;
+					grid-template-rows: minmax( $minHeight, max-content) auto;
+					gap: 10px;
+					align-items: center;
+					.label__image {
+						grid-column: 1 / 2;
+					}
+					.label__name {
+						grid-column: 1 / -2;
+					}
+					.label__image + .label__name {
+						grid-column: 2 / -2;
+					}
+					.label__price {
+						grid-column: -2 / -1;
+						padding: 0;
+						margin: 0;
+					}
+					.label__description {
+						grid-row: 2 / 3;
+						grid-column: 1 /-2;
+					}
+					.label__image ~ .label__description {
+						grid-row: 2 / 3;
+						grid-column: 2 /-2;
+					}
+					@include media-breakpoint-down(sm) {
+						.label__description, .label__image ~ .label__description {
+							grid-row: 2 / 3;
+							grid-column: 1 / -1;
+						}
+					}
+					@include media-breakpoint-down(xs) {
+						min-height: $minHeightXS;// + 2 * $itemVPadding;
+						grid-template-columns: $minHeightXS 1fr auto;
+						grid-template-rows: minmax( $minHeightXS, max-content) auto minmax( 0, max-content);
+						.label__name {
+							font-size: 0.9rem;
+							line-height: 1.1;
+							grid-column: 1 / -1;
+						}
+						.label__image + .label__name {
+							grid-column: 2 / -1;
+						}
+						.label__image {
+							img {
+								width: $minHeightXS;
+								max-width: $minHeightXS;
+							}
+						}
+						.label__price {
+							grid-column: 1 / -1;
+							grid-row: 2 / 3;
+						}
+						.label__description {
+							grid-row: 3 / 4 !important;
+						}
+					}
 				}
 			}
 
@@ -255,7 +312,10 @@ ol.timeline {
 				}
 
 				label {
-					min-height: $minHeightXS + 2 * $itemVPadding;
+					min-height: $minHeightXS;// + 2 * $itemVPadding;
+					padding-top: $itemVPadding;
+					padding-bottom: $itemVPadding;
+					
 					.v-image {
 						flex-basis: 30px;
 						max-width: 30px;
@@ -281,7 +341,7 @@ ol.timeline {
 			
 			
 
-			@media(max-width:450px){}
+	@media(max-width:450px){}
 		}
 		&:last-child {
 			margin-bottom: 0;
@@ -345,7 +405,7 @@ ul.list--active-filters {
 }
 
 // prosty UL/OL list bez jakekoliv tridy uvnitr clanku nebo .list--simple
-.article__body ul:not([class]), .page__body ul:not([class]), ul.list--simple, ul.list--ul {
+.article__body ul:not([class]), .page__body ul:not([class]), ul.list--simple, ul.list--ul, .form-check--with-image ul {
 	padding-left: 1.25em;
 	list-style: none;
 	margin-bottom: $grid-gutter-width;
@@ -453,3 +513,4 @@ ul.list--active-filters {
 		}
 	}
 }
+
