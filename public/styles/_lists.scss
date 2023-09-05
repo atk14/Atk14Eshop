@@ -215,7 +215,7 @@ ol.timeline {
 				.label__price {
 					font-weight: 600;
 					text-align: end;
-					//align-self: flex-start;
+					//color: black;
 					&--free {
 						color: $success;
 					}
@@ -237,7 +237,6 @@ ol.timeline {
 			}
 			&.form-check--with-image {
 				label {
-					background-color: rgba(hotpink, 0.02);
 					display: grid;
 					grid-template-columns: $minHeight 1fr auto;
 					grid-template-rows: minmax( $minHeight, max-content) auto;
@@ -266,7 +265,6 @@ ol.timeline {
 						grid-column: 2 /-2;
 					}
 					@include media-breakpoint-down(sm) {
-						background-color: rgba(blue,0.03);
 						.label__description, .label__image ~ .label__description {
 							grid-row: 2 / 3;
 							grid-column: 1 / -1;
@@ -275,16 +273,27 @@ ol.timeline {
 					@include media-breakpoint-down(xs) {
 						min-height: $minHeightXS;// + 2 * $itemVPadding;
 						grid-template-columns: $minHeightXS 1fr auto;
-						grid-template-rows: minmax( $minHeightXS, max-content) auto;
+						grid-template-rows: minmax( $minHeightXS, max-content) auto minmax( 0, max-content);
 						.label__name {
 							font-size: 1rem;
 							line-height: 1.1;
+							grid-column: 1 / -1;
+						}
+						.label__image + .label__name {
+							grid-column: 2 / -1;
 						}
 						.label__image {
 							img {
 								width: $minHeightXS;
 								max-width: $minHeightXS;
 							}
+						}
+						.label__price {
+							grid-column: 1 / -1;
+							grid-row: 2 / 3;
+						}
+						.label__description {
+							grid-row: 3 / 4 !important;
 						}
 					}
 				}
@@ -304,6 +313,8 @@ ol.timeline {
 
 				label {
 					min-height: $minHeightXS;// + 2 * $itemVPadding;
+					padding-top: $itemVPadding;
+					padding-bottom: $itemVPadding;
 					
 					.v-image {
 						flex-basis: 30px;
