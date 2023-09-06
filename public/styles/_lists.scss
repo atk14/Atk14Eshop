@@ -238,12 +238,13 @@ ol.timeline {
 			&.form-check--with-image {
 				label {
 					display: grid;
-					grid-template-columns: $minHeight 1fr auto;
+					grid-template-columns: $minHeight 1fr minmax(0, 120px);
 					grid-template-rows: minmax( $minHeight, max-content) auto;
 					gap: 10px;
 					align-items: center;
 					.label__image {
 						grid-column: 1 / 2;
+						align-self: start;
 					}
 					.label__name {
 						grid-column: 1 / -2;
@@ -255,14 +256,16 @@ ol.timeline {
 						grid-column: -2 / -1;
 						padding: 0;
 						margin: 0;
+						line-height: 1.1;
+						font-size: $font-size-sm;
 					}
 					.label__description {
 						grid-row: 2 / 3;
-						grid-column: 1 /-2;
+						grid-column: 1 /-1;
 					}
 					.label__image ~ .label__description {
 						grid-row: 2 / 3;
-						grid-column: 2 /-2;
+						grid-column: 2 /-1;
 					}
 					@include media-breakpoint-down(sm) {
 						.label__description, .label__image ~ .label__description {
