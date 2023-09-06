@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-23 17:12+0200\n"
-"PO-Revision-Date: 2023-08-24 10:37+0200\n"
+"POT-Creation-Date: 2023-09-06 16:03+0200\n"
+"PO-Revision-Date: 2023-09-06 16:04+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -672,6 +672,13 @@ msgstr "QR code to load the payment into the banking application:"
 
 msgid "QR kód"
 msgstr "QR code"
+
+#: ../app/forms/watched_products/create_new_form.php:6
+msgid "E-mail"
+msgstr "Email"
+
+msgid "Tel."
+msgstr "Tel."
 
 msgid "Sledujte nás na&nbsp;Facebooku:"
 msgstr "Follow us on&nbsp;Facebook:"
@@ -1598,33 +1605,33 @@ msgstr "List of Categories"
 msgid "Categories"
 msgstr "Categories"
 
-#: ../app/controllers/checkouts_controller.php:29
+#: ../app/controllers/checkouts_controller.php:31
 msgid "Přihlášení uživatele"
 msgstr "User login"
 
-#: ../app/controllers/checkouts_controller.php:41
+#: ../app/controllers/checkouts_controller.php:43
 msgid "Doručovací údaje"
 msgstr "Delivery information"
 
-#: ../app/controllers/checkouts_controller.php:74
+#: ../app/controllers/checkouts_controller.php:78
 msgid "Název doručovacího místa"
 msgstr "The name of the delivery point"
 
-#: ../app/controllers/checkouts_controller.php:111
+#: ../app/controllers/checkouts_controller.php:115
 msgid "Odstraňte prosím nedostatky, které brání dokončení objednávky"
 msgstr "Please, remove defects preventing the order from being completed"
 
-#: ../app/controllers/checkouts_controller.php:116
+#: ../app/controllers/checkouts_controller.php:120
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"
 msgstr ""
 "The total price must not have a negative value. Add something more to the "
 "basket! :)"
 
-#: ../app/controllers/checkouts_controller.php:120
+#: ../app/controllers/checkouts_controller.php:124
 msgid "Rekapitulace objednávky"
 msgstr "Order summary"
 
-#: ../app/controllers/checkouts_controller.php:127
+#: ../app/controllers/checkouts_controller.php:131
 msgid ""
 "Změnil se obsah nákupního košíku. Prohlédněte si rekapitulaci ještě jednou a "
 "dokončete objednávku."
@@ -1632,7 +1639,7 @@ msgstr ""
 "The content of the shopping basket has changed. View the summary one more "
 "time and complete the order."
 
-#: ../app/controllers/checkouts_controller.php:185
+#: ../app/controllers/checkouts_controller.php:189
 #: ../app/controllers/delivery_service_branches_controller.php:43
 #: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:43
 msgid "Nákupní košík"
@@ -1983,10 +1990,9 @@ msgstr "There is no such delivery method"
 msgid "Choose pickup place for selected delivery method"
 msgstr "Choose pickup place for selected delivery method"
 
-#: ../app/fields/delivery_method_at_checkout_field.php:102
-#, php-format
-msgid "od %s do %s dle země doručení"
-msgstr "from %s till %s according to the country of delivery"
+#: ../app/fields/delivery_method_at_checkout_field.php:103
+msgid "dle země doručení"
+msgstr "according to the country of delivery"
 
 #: ../app/fields/delivery_method_field.php:13
 #: ../app/fields/payment_method_field.php:13
@@ -2430,10 +2436,6 @@ msgstr "Enter company ID only in case when the company name is entered"
 msgid "Password doesn't match"
 msgstr "Password doesn't match"
 
-#: ../app/forms/watched_products/create_new_form.php:6
-msgid "E-mail"
-msgstr "Email"
-
 #: ../app/forms/watched_products/create_new_form.php:15
 msgid "Kontrola"
 msgstr "Control"
@@ -2863,6 +2865,10 @@ msgstr "Order No. %s in eshop %s"
 #, php-format
 msgid "obj. %s"
 msgstr "ord. No. %s"
+
+#, php-format
+#~ msgid "od %s do %s dle země doručení"
+#~ msgstr "from %s till %s according to the country of delivery"
 
 #~ msgid "Běžná cena:"
 #~ msgstr "Common price:"
