@@ -3,6 +3,7 @@ Disallow: /admin/*
 Disallow: /api/*
 Disallow: /recovery/*
 Disallow: /obnova/*
+Disallow: /*/favourite_products/create_new/*
 Disallow: /*/baskets/add_card/*
 {* According to https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links#nofollow *}
 Disallow: {link_to controller="baskets" action="edit" _with_hostname=true}
