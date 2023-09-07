@@ -76,7 +76,7 @@
 
 								{!$product|add_to_basket_field}
 
-								<button type="submit" class="btn btn-primary add-to-cart-submit">{t}Add to cart{/t}  {!"cart-plus"|icon}</button>
+								<button type="submit" class="btn btn-primary add-to-cart-submit">{t}Add to basket{/t}  {!"cart-plus"|icon}</button>
 
 								<input type="hidden" name="product_id" value="{$product->getId()}">
 							</form>
