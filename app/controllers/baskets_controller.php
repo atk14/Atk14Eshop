@@ -114,6 +114,13 @@ class BasketsController extends ApplicationController {
 			return $this->_execute_action("error404");
 		}
 
+		if(!$this->request->post()){
+			return $this->_redirect_to([
+				"action" => "cards/detail",
+				"id" => $card,
+			]);
+		}
+
 		$product = null;
 
 		if($this->params->defined("product_id") && strlen($this->params->getString("product_id"))){
