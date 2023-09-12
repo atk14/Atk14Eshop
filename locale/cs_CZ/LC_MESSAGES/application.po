@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-06 16:03+0200\n"
-"PO-Revision-Date: 2023-09-06 16:05+0200\n"
+"POT-Creation-Date: 2023-09-12 17:50+0200\n"
+"PO-Revision-Date: 2022-04-25 17:20+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid "Nahoru"
 msgstr "Nahoru"
@@ -99,7 +99,7 @@ msgstr "V této chvíli nejsou žádné novinky."
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
 
-#: ../app/controllers/baskets_controller.php:156
+#: ../app/controllers/baskets_controller.php:163
 msgid "Produkt byl přidán do košíku"
 msgstr "Produkt byl přidán do košíku"
 
@@ -268,9 +268,6 @@ msgstr "Ušetříte:"
 
 msgid "Catalog number: %1"
 msgstr "Katalogové číslo: %1"
-
-msgid "Add to cart"
-msgstr "Přidat do košíku"
 
 msgid "Informovat o naskladnění"
 msgstr "Informovat o naskladnění"
@@ -1578,7 +1575,7 @@ msgstr "Slevový kupón byl přidán"
 
 #: ../app/controllers/baskets_controller.php:90
 #: ../app/controllers/baskets_controller.php:104
-#: ../app/controllers/baskets_controller.php:155
+#: ../app/controllers/baskets_controller.php:162
 #: ../app/controllers/orders_controller.php:118
 msgid "Shopping basket"
 msgstr "Nákupní košík"
@@ -1878,11 +1875,11 @@ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
-#: ../app/fields/boolean_with_select_field.php:7
+#: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
 msgstr "Ano"
 
-#: ../app/fields/boolean_with_select_field.php:8
+#: ../app/fields/boolean_with_select_field.php:12
 msgid "Ne"
 msgstr "Ne"
 
@@ -2856,6 +2853,46 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "Pro opakování platby přejděte na adresu %1"
+
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+
+msgid "Checkout"
+msgstr "Pokladna"
+
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
+
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
+
+msgid "aktivovat hlídacího psa"
+msgstr "aktivovat hlídacího psa"
+
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
+
+msgid "searching ..."
+msgstr "hledání ..."
+
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
+
+msgid "Tvůrce"
+msgstr "Tvůrce"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nic nebylo nelezeno."
+
+#~ msgid "Add to cart"
+#~ msgstr "Přidat do košíku"
+
 #, php-format
 #~ msgid "od %s do %s dle země doručení"
 #~ msgstr "od %s do %s dle země doručení"
@@ -2869,19 +2906,6 @@ msgstr "obj. %s"
 #, php-format
 #~ msgid "Telefonní číslo zadejte ve formátu %s"
 #~ msgstr "Telefonní číslo zadejte ve formátu %s"
-
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "Pro opakování platby přejděte na adresu %1"
-
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-
-#~ msgid "Checkout"
-#~ msgstr "Pokladna"
 
 #~ msgid ""
 #~ "This is not a visible page! It's not available to the public audience."
@@ -2904,30 +2928,6 @@ msgstr "obj. %s"
 
 #~ msgid "Shipping and payment method"
 #~ msgstr "Způsob dopravy a platby"
-
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>cena od</small><br>%1"
-
-#~ msgid "naskladnění sleduje hlídací pes"
-#~ msgstr "naskladnění sleduje hlídací pes"
-
-#~ msgid "aktivovat hlídacího psa"
-#~ msgstr "aktivovat hlídacího psa"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "Zobrazit detaily"
-
-#~ msgid "searching ..."
-#~ msgstr "hledání ..."
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "cena od<br>%1"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Tvůrce"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nic nebylo nelezeno."
 
 #~ msgid ""
 #~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."

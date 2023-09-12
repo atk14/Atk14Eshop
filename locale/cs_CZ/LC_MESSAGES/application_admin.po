@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-23 17:12+0200\n"
-"PO-Revision-Date: 2023-08-29 13:34+0200\n"
+"PO-Revision-Date: 2023-08-29 13:40+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -664,7 +664,7 @@ msgid ""
 "\tAre you sure about that?"
 msgstr ""
 "Chystáte se trvale smazat roli tvůrce %1\n"
-"\\ẗJste si jistý/á?"
+"\tJste si jistý/á?"
 
 msgid "Add a new creator role"
 msgstr "Přidat novou roli tvůrce"
@@ -889,7 +889,7 @@ msgstr "E-mail"
 
 #: ../app/forms/admin/newsletter_subscribers/index_form.php:14
 msgid "Language"
-msgstr "Jazyk"
+msgstr ""
 
 msgid "Subscribed since"
 msgstr "Přihlášen od"
@@ -1544,7 +1544,7 @@ msgid ""
 "\tAre you sure about that?"
 msgstr ""
 "Chystáte se trvale smazat obrázkový posuvník %1\n"
-"\\ẗJste si jistý/á?"
+"\tJste si jistý/á?"
 
 msgid "Add a store"
 msgstr "Přidat prodejnu"
@@ -1774,7 +1774,7 @@ msgid ""
 "\t\tAre you sure about that?"
 msgstr ""
 "Chystáte se trvale smazat sklad %1\n"
-"\t\\ẗJste si jistý/á?"
+"\t\tJste si jistý/á?"
 
 #: ../app/controllers/admin/accessories_controller.php:9
 msgid "Adding new accessory product"
@@ -1890,7 +1890,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
-msgstr "Prodejní oblasti"
+msgstr "Prodejná oblasti"
 
 #: ../app/controllers/admin/admin.php:57
 #: ../app/forms/admin/users/users_form.php:48
@@ -3957,7 +3957,7 @@ msgstr "O nás"
 
 #: ../app/forms/admin/newsletter_subscribers/index_form.php:9
 msgid "language"
-msgstr "jazyk"
+msgstr ""
 
 #: ../app/forms/admin/order_campaigns/order_campaigns_form.php:17
 #: ../app/forms/admin/order_vouchers/order_vouchers_form.php:17
@@ -4702,6 +4702,21 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+msgid "sales regions"
+msgstr "prodejní oblasti"
+
+msgid "currencies"
+msgstr "měny"
+
+msgid "delivery to"
+msgstr "doručování do"
+
+msgid "currency"
+msgstr "měna"
+
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
 #~ msgid ""
 #~ "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"
 #~ msgstr ""
@@ -4712,21 +4727,6 @@ msgstr "Uplatňuje se v e-shopu?"
 
 #~ msgid "stav objednávky"
 #~ msgstr "stav objednávky"
-
-#~ msgid "sales regions"
-#~ msgstr "prodejní oblasti"
-
-#~ msgid "currencies"
-#~ msgstr "měny"
-
-#~ msgid "delivery to"
-#~ msgstr "doručování do"
-
-#~ msgid "currency"
-#~ msgstr "měna"
-
-#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid "Localized value"
 #~ msgstr "Lokalizovaná hodnota"

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-06 16:03+0200\n"
-"PO-Revision-Date: 2023-09-06 16:04+0200\n"
+"POT-Creation-Date: 2023-09-12 17:50+0200\n"
+"PO-Revision-Date: 2022-04-25 16:28+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid "Nahoru"
 msgstr "Top"
@@ -98,7 +98,7 @@ msgstr "At the moment there are no news."
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Buy for another %1 and get free shipping."
 
-#: ../app/controllers/baskets_controller.php:156
+#: ../app/controllers/baskets_controller.php:163
 msgid "Produkt byl přidán do košíku"
 msgstr "Product has been added to basket"
 
@@ -272,9 +272,6 @@ msgstr "You'll save:"
 
 msgid "Catalog number: %1"
 msgstr "Catalog number: %1"
-
-msgid "Add to cart"
-msgstr "Add to cart"
 
 msgid "Informovat o naskladnění"
 msgstr "Inform about stocking"
@@ -1584,7 +1581,7 @@ msgstr "Discount coupon has been added"
 
 #: ../app/controllers/baskets_controller.php:90
 #: ../app/controllers/baskets_controller.php:104
-#: ../app/controllers/baskets_controller.php:155
+#: ../app/controllers/baskets_controller.php:162
 #: ../app/controllers/orders_controller.php:118
 msgid "Shopping basket"
 msgstr "Shopping basket"
@@ -1887,11 +1884,11 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
 
-#: ../app/fields/boolean_with_select_field.php:7
+#: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
 msgstr "Yes"
 
-#: ../app/fields/boolean_with_select_field.php:8
+#: ../app/fields/boolean_with_select_field.php:12
 msgid "Ne"
 msgstr "No"
 
@@ -2867,28 +2864,114 @@ msgid "obj. %s"
 msgstr "ord. No. %s"
 
 #, php-format
-#~ msgid "od %s do %s dle země doručení"
-#~ msgstr "from %s till %s according to the country of delivery"
+msgid "od %s do %s dle země doručení"
+msgstr "from %s till %s according to the country of delivery"
 
-#~ msgid "Běžná cena:"
-#~ msgstr "Common price:"
+msgid "Běžná cena:"
+msgstr "Common price:"
 
-#~ msgid "země"
-#~ msgstr "country"
+msgid "země"
+msgstr "country"
 
 #, php-format
-#~ msgid "Telefonní číslo zadejte ve formátu %s"
-#~ msgstr "Enter phone number in format %s"
+msgid "Telefonní číslo zadejte ve formátu %s"
+msgstr "Enter phone number in format %s"
 
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "To repeat the payment, go to %1"
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "To repeat the payment, go to %1"
 
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "To repeat your online payment <a href=\"%1\">click here</a>. In case of "
-#~ "persistent problems, you can pay your order by bank transfer."
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"To repeat your online payment <a href=\"%1\">click here</a>. In case of "
+"persistent problems, you can pay your order by bank transfer."
+
+msgid "Shipping and payment method"
+msgstr "Shipping and payment method"
+
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>price from</small><br>%1"
+
+msgid ""
+"K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
+"sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k zajištění "
+"vaší maximální spokojenosti. Používáním tohoto webu souhlasíte s tím, jak "
+"soubory cookies dále používáme."
+msgstr ""
+"We use so-called cookies to run %1 website. Cookies are files helping to "
+"adapt the ewb content, to measure its functionality and to ensure you "
+"maximum satisfaction. By using this web you agree with the way how we user "
+"the cookie files."
+
+msgid "Souhlasím"
+msgstr "I agree"
+
+msgid "Vytvořit novou adresu"
+msgstr "Create new address"
+
+msgid "Poznámka"
+msgstr "Note"
+
+msgid "Např. číslo patra nebo dveří"
+msgstr "E.g. number of floor or door"
+
+msgid "Poznámka k doručovací adrese"
+msgstr "Note to delivery address"
+
+msgid "Poznámka k objednávce"
+msgstr "Note to order"
+
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
+
+msgid "Pochlubte se přátelům s Vaším nákupem."
+msgstr "Share your shopping experience with your friends."
+
+msgid "Sdílet"
+msgstr "Share"
+
+msgid "zvolit pobočku"
+msgstr "choose a branch office"
+
+msgid "Pobočka: %1, %2, %3, %4"
+msgstr "Branch:  %1, %2, %3, %4"
+
+msgid "Zobrazit detaily"
+msgstr "View details"
+
+msgid "Ukázat na mapě"
+msgstr "Show on map"
+
+msgid "searching ..."
+msgstr "searching ..."
+
+msgid "Obchodní podmínky"
+msgstr "Terms and Conditions"
+
+msgid "cena od<br>%1"
+msgstr "price from<br>%1"
+
+msgid "Článek"
+msgstr "Article"
+
+msgid "Kategorie produktů"
+msgstr "Product category"
+
+msgid "Stránka"
+msgstr "Page"
+
+msgid "Tvůrce"
+msgstr "Creator"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nothing was found."
+
+msgid "cena od %1"
+msgstr "price from %1"
+
+#~ msgid "Add to cart"
+#~ msgstr "Add to cart"
 
 #~ msgid ""
 #~ "This is not a visible page! It's not available to the public audience."
@@ -2909,89 +2992,6 @@ msgstr "ord. No. %s"
 
 #~ msgid "Další (šipka doprava)"
 #~ msgstr "Next (right arrow)"
-
-#~ msgid "Shipping and payment method"
-#~ msgstr "Shipping and payment method"
-
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>price from</small><br>%1"
-
-#~ msgid ""
-#~ "K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
-#~ "sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k "
-#~ "zajištění vaší maximální spokojenosti. Používáním tohoto webu souhlasíte "
-#~ "s tím, jak soubory cookies dále používáme."
-#~ msgstr ""
-#~ "We use so-called cookies to run %1 website. Cookies are files helping to "
-#~ "adapt the ewb content, to measure its functionality and to ensure you "
-#~ "maximum satisfaction. By using this web you agree with the way how we "
-#~ "user the cookie files."
-
-#~ msgid "Souhlasím"
-#~ msgstr "I agree"
-
-#~ msgid "Vytvořit novou adresu"
-#~ msgstr "Create new address"
-
-#~ msgid "Poznámka"
-#~ msgstr "Note"
-
-#~ msgid "Např. číslo patra nebo dveří"
-#~ msgstr "E.g. number of floor or door"
-
-#~ msgid "Poznámka k doručovací adrese"
-#~ msgstr "Note to delivery address"
-
-#~ msgid "Poznámka k objednávce"
-#~ msgstr "Note to order"
-
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
-
-#~ msgid "Pochlubte se přátelům s Vaším nákupem."
-#~ msgstr "Share your shopping experience with your friends."
-
-#~ msgid "Sdílet"
-#~ msgstr "Share"
-
-#~ msgid "zvolit pobočku"
-#~ msgstr "choose a branch office"
-
-#~ msgid "Pobočka: %1, %2, %3, %4"
-#~ msgstr "Branch:  %1, %2, %3, %4"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "View details"
-
-#~ msgid "Ukázat na mapě"
-#~ msgstr "Show on map"
-
-#~ msgid "searching ..."
-#~ msgstr "searching ..."
-
-#~ msgid "Obchodní podmínky"
-#~ msgstr "Terms and Conditions"
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "price from<br>%1"
-
-#~ msgid "Článek"
-#~ msgstr "Article"
-
-#~ msgid "Kategorie produktů"
-#~ msgstr "Product category"
-
-#~ msgid "Stránka"
-#~ msgstr "Page"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Creator"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nothing was found."
-
-#~ msgid "cena od %1"
-#~ msgstr "price from %1"
 
 #~ msgid ""
 #~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
