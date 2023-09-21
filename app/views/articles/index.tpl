@@ -9,6 +9,6 @@
 			{render partial=article_item from=$finder->getRecords() item=article}
 		</div>
 	</section>
-	{paginator}
+	{paginator items_total_label="{t}articles total{/t}"}
 
 {/if}
