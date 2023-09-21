@@ -16,7 +16,7 @@
 	Illustrator   John Doe
 	--------------------------------
 *}
-{assign authors_complex_layout 1}
+{assign authors_complex_layout 0}
 {if $roles}
 	{if $roles|count > 1 && $authors_complex_layout == true}
 		<section class="section--product-info section--creators">
