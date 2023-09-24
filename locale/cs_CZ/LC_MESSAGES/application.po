@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-12 17:50+0200\n"
-"PO-Revision-Date: 2022-04-25 17:20+0200\n"
+"POT-Creation-Date: 2023-09-24 11:13+0200\n"
+"PO-Revision-Date: 2023-09-23 12:08+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 msgid "Nahoru"
 msgstr "Nahoru"
@@ -95,6 +95,9 @@ msgstr "Toto není publikovaný článek! Není dostupný veřejnosti."
 
 msgid "At the moment there are no news."
 msgstr "V této chvíli nejsou žádné novinky."
+
+msgid "articles total"
+msgstr ""
 
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
@@ -1536,7 +1539,7 @@ msgstr "Objednávka dokončena"
 #: ../app/controllers/application_rest_api.php:76
 #, php-format
 msgid "Commands in %s"
-msgstr "Přikazy v %s"
+msgstr "Příkazy v %s"
 
 #: ../app/controllers/application_rest_api.php:172
 #, php-format
@@ -2434,7 +2437,7 @@ msgstr "Aktivovat hlídacího psa"
 
 #: ../app/helpers/block.drink_shortcode__person.php:17
 msgid "More"
-msgstr "Více"
+msgstr ""
 
 #: ../app/helpers/modifier.display_bool.php:13
 #: ../app/models/technical_specification_key_type_base.php:52
@@ -2670,7 +2673,7 @@ msgstr "Celé číslo"
 
 #: ../app/models/user.php:213
 msgid "deleted user"
-msgstr "smazaný uživatel"
+msgstr ""
 
 #: ../app/models/user.php:215
 msgid "inactive user"
@@ -2706,7 +2709,7 @@ msgstr "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 
 #: ../app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr "Odstranit soubor"
+msgstr ""
 
 #: ../app/widgets/async_pupiq_attachment_input.php:41
 #: ../app/widgets/pupiq_attachment_input.php:41

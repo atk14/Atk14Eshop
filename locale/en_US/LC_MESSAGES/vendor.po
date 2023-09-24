@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-23 17:12+0200\n"
+"POT-Creation-Date: 2023-09-24 11:13+0200\n"
 "PO-Revision-Date: 2022-04-25 16:30+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr "The file was not fully uploaded, please upload it again"
 
 #: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr "Remove file"
+msgstr ""
 
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"

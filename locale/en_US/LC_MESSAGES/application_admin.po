@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-23 17:12+0200\n"
+"POT-Creation-Date: 2023-09-24 11:13+0200\n"
 "PO-Revision-Date: 2022-04-25 16:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -805,7 +805,7 @@ msgid "Upravit obrázky fotogalerie"
 msgstr "Edit photo gallery images"
 
 msgid "Download original image"
-msgstr "Download original image"
+msgstr ""
 
 msgid "bez titulku nebo popisu"
 msgstr "without title or description"
@@ -832,7 +832,7 @@ msgid "There is no link in the list."
 msgstr "There is no link in the list."
 
 msgid "This item has an administrable submenu:"
-msgstr "This item has an administrable submenu:"
+msgstr ""
 
 msgid "Edit links"
 msgstr "Edit links"
@@ -841,7 +841,7 @@ msgid "Create new link list"
 msgstr "Create new link list"
 
 msgid "This is a submenu for:"
-msgstr "This is a submenu for:"
+msgstr ""
 
 msgid "Link list"
 msgstr "Link list"
@@ -1647,7 +1647,7 @@ msgid "Is admin?"
 msgstr "Is admin?"
 
 msgid "deleted user"
-msgstr "deleted user"
+msgstr ""
 
 msgid "inactive user"
 msgstr "inactive user"
@@ -1662,7 +1662,7 @@ msgid "regular user"
 msgstr "regular user"
 
 msgid "deleted"
-msgstr "deleted"
+msgstr ""
 
 msgid "Add a VAT rate"
 msgstr "Add a VAT rate"
@@ -3421,19 +3421,19 @@ msgstr "Search"
 
 #: ../app/forms/admin/cards/index_form.php:10
 msgid "Visible"
-msgstr "Visible"
+msgstr ""
 
 #: ../app/forms/admin/cards/index_form.php:12
 msgid "visibility"
-msgstr "visibility"
+msgstr ""
 
 #: ../app/forms/admin/cards/index_form.php:13
 msgid "only visible products"
-msgstr "only visible products"
+msgstr ""
 
 #: ../app/forms/admin/cards/index_form.php:14
 msgid "only invisible products"
-msgstr "only invisible products"
+msgstr ""
 
 #: ../app/forms/admin/categories/categories_form.php:17
 msgid "Long name"
@@ -3832,7 +3832,7 @@ msgstr "Slider with thumbnails"
 
 #: ../app/forms/admin/galleries/galleries_form.php:13
 msgid "Logo slider"
-msgstr "Logo slider"
+msgstr ""
 
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"

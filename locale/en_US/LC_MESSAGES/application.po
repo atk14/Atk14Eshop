@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-12 17:50+0200\n"
+"POT-Creation-Date: 2023-09-24 11:13+0200\n"
 "PO-Revision-Date: 2022-04-25 16:28+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -94,6 +94,9 @@ msgstr ""
 
 msgid "At the moment there are no news."
 msgstr "At the moment there are no news."
+
+msgid "articles total"
+msgstr ""
 
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Buy for another %1 and get free shipping."
@@ -2443,7 +2446,7 @@ msgstr "Activate the watchdog"
 
 #: ../app/helpers/block.drink_shortcode__person.php:17
 msgid "More"
-msgstr "More"
+msgstr ""
 
 #: ../app/helpers/modifier.display_bool.php:13
 #: ../app/models/technical_specification_key_type_base.php:52
@@ -2680,7 +2683,7 @@ msgstr "Integer"
 
 #: ../app/models/user.php:213
 msgid "deleted user"
-msgstr "deleted user"
+msgstr ""
 
 #: ../app/models/user.php:215
 msgid "inactive user"
@@ -2716,7 +2719,7 @@ msgstr "Voucher %s can be applied only when the price is higher than %s"
 
 #: ../app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr "Remove file"
+msgstr ""
 
 #: ../app/widgets/async_pupiq_attachment_input.php:41
 #: ../app/widgets/pupiq_attachment_input.php:41
