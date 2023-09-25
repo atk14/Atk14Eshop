@@ -11,7 +11,7 @@ Disallow: /*/baskets/add_card/*
  *
  * @see https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt#url-matching-based-on-path-values
  *}
-Disallow: {link_to controller="baskets" action="index" _with_hostname=true}
-Disallow: {link_to controller="favourite_products" action="index" _with_hostname=true}
-Disallow: {link_to controller="watched_products" action="index" _with_hostname=true}
+Disallow: {link_to controller="baskets" action="index"}
+Disallow: {link_to controller="favourite_products" action="index"}
+Disallow: {link_to controller="watched_products" action="index"}
 Sitemap: {link_to controller="sitemaps" _with_hostname=true}
