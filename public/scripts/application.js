@@ -661,6 +661,17 @@
 
 		},
 
+		orders: {
+			index: function() {
+				$( ".js--card-thumbnails__more" ).on( "click", function( e ) {
+					e.preventDefault();
+					console.log($(this));
+					$( this ).parent().find( ".d-none" ).removeClass( "d-none" );
+					$( this ).remove();
+				} );
+			}
+		},
+
 		// In this json, the actions for namespace "api" can be defined
 		api: {
 			common: {

@@ -1,4 +1,7 @@
 {assign currency $order->getCurrency()}
+{assign max_product_count 4}
+{assign product_count 0}
+{assign is_max_count 0}
 <tr>
 	{highlight_search_query}
 	<td><span class="table-hint-xs">{t}Číslo objednávky{/t}</span> {a action="orders/detail" id=$order}{$order->getOrderNo()}{/a}</td>
@@ -7,17 +10,22 @@
 	<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span> {$order->getCreatedAt()|format_date}</td>
 	<td><span class="table-hint-xs">{t}Stav{/t}</span> {render partial="shared/order_status" order=$order}</td>
 	<td>
-		<div>
+		<div class="card-thumbnails">
 		{foreach $order->getItems() as $item}
 			{assign product $item->getProduct()}
 			{assign image $product->getImage()}
+			{if $image && $product_count==$max_product_count}
+				<a href="#" class="card-thumbnails__more js--card-thumbnails__more" title="{t}Show more{/t}">{!"ellipsis"|icon}</a>
+				{assign is_max_count true}
+			{/if}
 			{if $image}
-				<a href="{$product|link_to_product}">
+				<a href="{$product|link_to_product}" class="{if $is_max_count}d-none"{/if}">
 				{if $item->getAmount()>1}
-				<span class="badge badge-success" style="position: relative; left: 2em; top: -2em;">{$item->getAmount()}&times;</span>
+				<span class="badge badge-pill badge-success">{$item->getAmount()}&times;</span>
 				{/if}
 				<img {!$image|img_attrs:"60x60x#ffffff"} title="{$product->getName()}">
 				</a>
+				{assign product_count $product_count+1}
 			{/if}
 		{/foreach}
 		</div>
