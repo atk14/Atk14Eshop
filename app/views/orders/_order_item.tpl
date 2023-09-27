@@ -1,5 +1,5 @@
 {assign currency $order->getCurrency()}
-{assign max_product_count 4}
+{assign max_product_count 10}
 {assign product_count 0}
 {assign is_max_count 0}
 <tr>
@@ -9,7 +9,7 @@
 	<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span> {!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
 	<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span> {$order->getCreatedAt()|format_date}</td>
 	<td><span class="table-hint-xs">{t}Stav{/t}</span> {render partial="shared/order_status" order=$order}</td>
-	<td>
+	<td class="order__thumbnails">
 		<div class="card-thumbnails">
 		{foreach $order->getItems() as $item}
 			{assign product $item->getProduct()}

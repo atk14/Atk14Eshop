@@ -11,12 +11,12 @@
 
 	{if !$finder->isEmpty()}
 
-		<table class="table">
+		<table class="table table-sm table--responsive-xs table--orders">
 			<thead class="thead--hidden-xs">
 				<tr>
 					<th>{t}Číslo objednávky{/t}</th>
 					<th class="text-sm-right">{t}Cena{/t}</th>
-					{sortable key="created_at"}<th>{t}Datum vytvoření{/t}</th>{/sortable}
+					{sortable key="created_at"}<th class="text-nowrap">{t}Datum vytvoření{/t}</th>{/sortable}
 					<th>{t}Stav{/t}</th>
 					<th></th>
 					{* <th class="text-sm-right">{t}Faktura{/t}</th> *}

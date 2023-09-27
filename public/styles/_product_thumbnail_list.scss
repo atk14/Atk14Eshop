@@ -3,7 +3,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: divide($grid-gutter-width,4);
-  outline: 1px dotted rgba(green,0.2);
   align-items: center;
   & > a {
     display: flex;
