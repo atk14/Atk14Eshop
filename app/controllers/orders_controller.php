@@ -3,7 +3,35 @@ class OrdersController extends ApplicationController {
 
 	function index() {
 		$this->page_title = $this->breadcrumbs[] = _("Archiv objednávek");
-		$this->tpl_data["orders"] = Order::FindAllByUserId($this->logged_user, array("order_by" => "created_at DESC"));
+
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = [];
+		
+		$conditions[] = "user_id=:user";
+		$bind_ar[":user"] = $this->logged_user;
+
+		if($d["search"]){
+			$_fields = array();
+			$_fields[] = "order_no";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(body, ' ') FROM translations t, order_items oi WHERE oi.order_id=orders.id AND t.table_name='products' AND t.key IN ('label','name') AND t.record_id=oi.product_id),'')";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(catalog_id, ' ') FROM products p, order_items oi WHERE oi.order_id=orders.id AND p.id=oi.product_id),'')";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(body, ' ') FROM translations t, order_items oi, products p WHERE oi.order_id=orders.id AND p.id=oi.product_id AND t.table_name='cards' AND t.key IN ('name') AND t.record_id=p.card_id),'')";
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_fields).")",Translate::Upper($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
+		}
+
+		$this->sorting->add("created_at","created_at DESC, id DESC");
+
+		$this->tpl_data["orders_total"] = $this->dbmole->selectInt("SELECT COUNT(*) FROM orders WHERE user_id=:user",[":user" => $this->logged_user]);
+		$this->tpl_data["finder"] = Order::Finder([
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
+			"order_by" => $this->sorting,
+			"offset" => $this->params->getInt("offset")
+		]);
 	}
 
 	function detail(){
