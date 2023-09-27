@@ -60,7 +60,7 @@ tr.table-dark {
 
 // Responsive tables - display all as blocks
 
-@include media-breakpoint-down(xs){
+/*@include media-breakpoint-down(xs){
 	table.table {
 		display: block;
 		thead, tbody {
@@ -100,6 +100,68 @@ tr.table-dark {
 			display: none;
 		}
 	}
+}*/
+
+// Mixin for responsive table to display it as block with stacked cells
+// $breakpoint: max viewport size for stacked table
+@mixin responsiveTable($breakpoint:map-get($grid-breakpoints, "sm")-1px){
+	@debug "BRE A KPO INT > #{$breakpoint}";
+	@media(max-width:$breakpoint){
+	//table.table {
+		display: block;
+		thead, tbody {
+			display: block;
+		}
+		thead {
+			tr {
+				border-bottom: none;
+			}
+		}
+		tr {
+			display: block;
+			border-bottom: 1px solid $gray-600;
+			th, td {
+				display: block;
+				&:empty {
+					display: none;
+				}
+			}
+			th {
+				border-bottom: 1px solid $table-border-color;
+				border-top: none;
+			}
+		}
+		tbody {
+			th {
+				border-bottom: none;
+			}
+		}
+		// Use inside TD to provide information from THEAD when THEAD is hidden on mobile
+		.table-hint-xs {
+			display: block;
+		}
+		
+		// Use when you want to hide thead on mobile
+		.thead--hidden-xs {
+			display: none;
+		}
+	}
+}
+
+table.table, table.table--responsive-xs {
+	@include responsiveTable();
+}
+
+table.table--responsive-sm {
+	@include responsiveTable(map-get($grid-breakpoints, "md")-1px);
+}
+
+table.table--responsive-md {
+	@include responsiveTable(map-get($grid-breakpoints, "lg")-1px);
+}
+
+table.table--responsive-lg {
+	@include responsiveTable(map-get($grid-breakpoints, "xl")-1px);
 }
 
 // Table with list of products
