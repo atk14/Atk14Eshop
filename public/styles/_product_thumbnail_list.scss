@@ -23,6 +23,14 @@
       text-decoration: none;
     }
   }
+  .was-hidden {
+    opacity: 0;
+    &.shown{
+      opacity: 1;
+      animation-name: card-thumbnail-show;
+      animation-duration: 1s;
+    }
+  }
   & > .card-thumbnails__more {
     width: divide($thumbSize,2);
     height: divide($thumbSize,2);
@@ -33,5 +41,13 @@
       text-decoration: none;
       background-color: $primary;
     }
+  }
+}
+@keyframes card-thumbnail-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

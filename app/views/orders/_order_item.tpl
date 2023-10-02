@@ -19,7 +19,7 @@
 				{assign is_max_count true}
 			{/if}
 			{if $image}
-				<a href="{$product|link_to_product}" class="{if $is_max_count}d-none"{/if}">
+				<a href="{$product|link_to_product}" class="{if $is_max_count}d-none was-hidden"{/if}">
 				{if $item->getAmount()>1}
 				<span class="badge badge-pill badge-success">{$item->getAmount()}&times;</span>
 				{/if}

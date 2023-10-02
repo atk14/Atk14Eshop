@@ -663,11 +663,21 @@
 
 		orders: {
 			index: function() {
+
+				// Toggle visibility of remaining hidden card thumbnails
 				$( ".js--card-thumbnails__more" ).on( "click", function( e ) {
 					e.preventDefault();
-					console.log($(this));
-					$( this ).parent().find( ".d-none" ).removeClass( "d-none" );
+
+					// Fix parent td width to prevent layout shifting
+					var parentTableCell = $( this ).closest( "td" );
+					parentTableCell.css( "width", parentTableCell.width() + "px" );
+					$( this ).parent().find( ".d-none" ).removeClass( "d-none" ).addClass("shown");
 					$( this ).remove();
+				} );
+
+				// Reset fixed prant td width on resize
+				$( window ).on( "resize", function() {
+					$( "table.table--orders td.order__thumbnails" ).css( "width", "auto" );
 				} );
 			}
 		},
