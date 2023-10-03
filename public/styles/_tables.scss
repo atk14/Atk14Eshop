@@ -25,7 +25,6 @@ table.table {
 			th {
 				font-size: 0.75rem;
 				$ratio: ( $font-size-base / ( $font-size-base * 0 + 1 ) ) / 0.75 * $line-height-base;
-				@debug "r a ti o #{$ratio}";
 				line-height: $ratio;
 			}
 		}
@@ -58,10 +57,10 @@ tr.table-dark {
 	}
 }
 
-// Responsive tables - display all as blocks
-
-@include media-breakpoint-down(xs){
-	table.table {
+// Mixin for responsive table to display it as block with stacked cells
+// $breakpoint: max viewport size for stacked table
+@mixin responsiveTable($breakpoint:map-get($grid-breakpoints, "sm")-1px){
+	@media(max-width:$breakpoint){
 		display: block;
 		thead, tbody {
 			display: block;
@@ -100,6 +99,24 @@ tr.table-dark {
 			display: none;
 		}
 	}
+}
+
+// Responsive tables - display all as blocks
+
+table.table, table.table--responsive-xs {
+	@include responsiveTable();
+}
+
+table.table--responsive-sm {
+	@include responsiveTable(map-get($grid-breakpoints, "md")-1px);
+}
+
+table.table--responsive-md {
+	@include responsiveTable(map-get($grid-breakpoints, "lg")-1px);
+}
+
+table.table--responsive-lg {
+	@include responsiveTable(map-get($grid-breakpoints, "xl")-1px);
 }
 
 // Table with list of products
@@ -313,12 +330,44 @@ table.table--products.table--products-simple {
 			}
 		}
 	}
-	/*tbody {
-		tr {
-			display: block;
-			td {
-				display: block;
+}
+
+// Orders list table - special layout on md, sm viewports
+
+.table--orders {
+	@include media-breakpoint-between(sm,md) {
+		display: block;
+		border-bottom: 1px solid $gray-600 !important;
+		thead, tbody {
+			tr {
+				display: grid;
+				grid-template-columns: 1fr repeat(3, 2fr);
+				> *:empty:last-child {
+					display: none;
+				}
+				border-top: 1px solid $gray-600;
+
+				td, th {
+					grid-row: 1 / 2;
+					border: none;
+					&:nth-child(1) {
+						grid-column: 1 / 2;
+					}
+					&:nth-child(2) {
+						grid-column: 2 / 3;
+					}
+					&:nth-child(3) {
+						grid-column: 3 / 4;
+					}
+					&:nth-child(4) {
+						grid-column: 4 / 5;
+					}
+				}
+				td.order__thumbnails {
+					grid-column: 1 / -1;
+					grid-row: 2 / 3;
+				}
 			}
 		}
-	}*/
+	}
 }
