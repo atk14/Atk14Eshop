@@ -670,12 +670,12 @@
 
 					// Fix parent td width to prevent layout shifting
 					var parentTableCell = $( this ).closest( "td" );
-					parentTableCell.css( "width", parentTableCell.width() + "px" );
+					parentTableCell.css( "width", ( parentTableCell.width() + 2 * parseFloat( parentTableCell.css("padding") ) ) + "px" );
 					$( this ).parent().find( ".d-none" ).removeClass( "d-none" ).addClass("shown");
 					$( this ).remove();
 				} );
 
-				// Reset fixed prant td width on resize
+				// Reset fixed parent td width on resize
 				$( window ).on( "resize", function() {
 					$( "table.table--orders td.order__thumbnails" ).css( "width", "auto" );
 				} );
