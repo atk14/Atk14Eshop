@@ -7,6 +7,13 @@
 <tr>
 	<td>{highlight_search_query}{a action=detail id=$order}{$order->getOrderNo()}{/a}{/highlight_search_query}</td>
 	<td>{$order->getCreatedAt()|format_datetime}</td>
+	<td>
+		{if !is_null($order->getUserId())}
+			<span title="{t}objednávka registrovaného zakazníka{/t}" class="text-muted">{!"user"|icon}</span>
+		{else}	
+			<span title="{t}objednávka bez registrace{/t}" class="text-muted">{!"user"|icon:"regular"}</span>
+		{/if}
+	</td>
 	{highlight_search_query}
 	<td>{if $order->getInvoiceCompany()}{$order->getInvoiceCompany()}, {/if}{$order->getInvoiceName()}<br>
 	<span style="white-space:nowrap;">{t 1=$order->getEmail() escape=false}%1{/t}</span><br>

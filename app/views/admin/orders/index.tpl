@@ -15,6 +15,7 @@
 		<tr class="table-dark">
 			{sortable key=order_no}<th>{t}Číslo obj.{/t}</th>{/sortable}
 			{sortable key=created_at}<th>{t}Datum vytvoření{/t}</th>{/sortable}
+			<th>{!"user"|icon}</th>
 			<th>{t}Zákazník{/t},
 			{t}E-mail{/t},
 			{t}Telefon{/t}</th>
