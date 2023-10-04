@@ -69,7 +69,7 @@
     "popper.js": "^1.15.0",
     "animate.css": "^3.7.2",
     "favicons": "^6.0.0",
-    "swiper": "^8.4.5",
+    "swiper": "^10.3.1",
     "@babel/core": "^7.17.12",
     "photoswipe": "^5.4.2",
     "sticky-sidebar-v2": "^1.1.1"
