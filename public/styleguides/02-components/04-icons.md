@@ -1,7 +1,8 @@
 Icons
 =====
 
-All 1588 free icons from FontAwesome are available. See [FontAwesome docs](https://fontawesome.com/) for more info on usage. Note for developers: there is also Smarty tag for this like <code>{!"cat"|icon}</code>
+All 2025 free icons from FontAwesome are available. See [FontAwesome docs](https://fontawesome.com/) for more info on usage. Note for developers: there is also Smarty tag for this like <code>{!"cat"|icon}</code>.
+There are some useful styling classes available - see [FontAwesome styling docs](https://fontawesome.com/docs/web/style/styling).
 
 [example]
 <p style="font-size: 2rem">

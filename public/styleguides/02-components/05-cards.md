@@ -7,8 +7,46 @@ It is recommended to wrap card image in <code>.card__image</code> element for ea
 
 Max-width inline styles in examples are for illustration purposes only. In live use cards are sized by <code>card-deck--sized-[n]</code> classes
 
-## Basic product card with optional tag and discount flag
+## Basic product card with optional tag and discount flag (shown in state when is favourite and is in shopping cart)
+[example]
+<div class="card card--hoverable card--id-22 card--in-basket" style="max-width:300px;">
+	<a class="card__image" href="/produkt/foto-film/"> <img
+			src="http://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" width="400"
+			height="300" class="card-img-top" alt="Foto film">
+		<div class="card__flags">
+			<div class="product__flag product__flag--sale product__flag--lg">
+				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">5&nbsp;%</span>
+			</div>
+		</div>
+		<div class="card__tags">
+			<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		</div>
+		<div class="card__icons">
+			<span class="card-icon card-icon--favourite" title="Váš oblíbený produkt"><span
+					class="fas fa-heart"></span></span>
+		</div>
+	</a>
 
+	<div class="card-body">
+		<a class="card-title h4" href="/produkt/foto-film/">Foto film</a>
+		<div class="card-text">Negativní film.</div>
+	</div>
+
+	<div class="card-footer">
+		<div class="card-price card-price--sm">
+			<span class="price--before-discount"><span class="currency_main"><span
+						class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span></span>
+
+			<div class="price--primary"><span class="currency_main"><span class="currency_main__price">38,00</span>&nbsp;<span
+						class="currency_main__currency">Kč</span><span class="currency_main__ordering-unit"></span></span></div>
+		</div>
+		<a data-remote="true" data-method="post"
+			class="btn btn-outline-primary btn-xsm js--card-add-to-cart-btn remote_link post" rel="nofollow"
+			href="/cs/baskets/add_card/?card_id=22"><span class="fas fa-shopping-cart"></span> Přidat do košíku</a>
+	</div>
+</div>
+[/example]
 [example]
 <a class="card" href="#" style="max-width:300px;">
 	<div class="card__image">
@@ -50,6 +88,45 @@ Max-width inline styles in examples are for illustration purposes only. In live 
 
 More compact version is created by adding <code>.card--sm</code> modifier class. There is also smaller variation of flag used.
 
+[example]
+<div class="card card--hoverable card--id-22 card--in-basket card--sm" style="max-width:200px;">
+	<a class="card__image" href="/produkt/foto-film/"> <img
+			src="http://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" width="400"
+			height="300" class="card-img-top" alt="Foto film">
+		<div class="card__flags">
+			<div class="product__flag product__flag--sale product__flag--lg">
+				<span class="product__flag__title">Sleva</span> <span class="product__flag__number">5&nbsp;%</span>
+			</div>
+		</div>
+		<div class="card__tags">
+			<span class="badge tag-item tag--bg-teal"><span class="fas fa-tag"></span> novinka</span>
+		</div>
+		<div class="card__icons">
+			<span class="card-icon card-icon--favourite" title="Váš oblíbený produkt"><span
+					class="fas fa-heart"></span></span>
+		</div>
+	</a>
+
+	<div class="card-body">
+		<a class="card-title h4" href="/produkt/foto-film/">Foto film</a>
+		<div class="card-text">Negativní film.</div>
+	</div>
+
+	<div class="card-footer">
+		<div class="card-price card-price--sm">
+			<span class="price--before-discount"><span class="currency_main"><span
+						class="currency_main__price">40,00</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span></span>
+
+			<div class="price--primary"><span class="currency_main"><span class="currency_main__price">38,00</span>&nbsp;<span
+						class="currency_main__currency">Kč</span><span class="currency_main__ordering-unit"></span></span></div>
+		</div>
+		<a data-remote="true" data-method="post"
+			class="btn btn-outline-primary btn-xsm js--card-add-to-cart-btn remote_link post" rel="nofollow"
+			href="/cs/baskets/add_card/?card_id=22"><span class="fas fa-shopping-cart"></span> Přidat do košíku</a>
+	</div>
+</div>
+[/example]
 [example]
 <a class="card card--sm" href="#" style="max-width:200px;">
 	<div class="card__image">
