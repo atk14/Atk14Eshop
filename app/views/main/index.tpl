@@ -50,13 +50,15 @@
 		<div class="card-deck card-deck--sized-4">
 			{foreach $recent_articles as $article}
 				{a controller=articles action=detail id=$article _class="card"}
+					<div class="card__image">
 					{if $article->getImageUrl()}
 						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
 					{else}
 						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
 					{/if}
+					</div>
 					<div class="card-body">
-						<h2 class="card-title">{$article->getTitle()}</h2>
+						<div class="h2 card-title">{$article->getTitle()}</div>
 						<div class="card-text">{$article->getTeaser()|markdown|strip_html}</div>
 					</div>
 				{/a}
