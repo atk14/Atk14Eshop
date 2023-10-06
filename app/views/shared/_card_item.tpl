@@ -1,7 +1,6 @@
 {assign starting_price $price_finder->getStartingPrice($card)}
 {assign creators CardCreator::GetMainCreatorsForCard($card)}
 {assign var="view_order_button" value=PRODUCT_CAN_BE_ORDERED_FROM_CARD_LIST}
-{assign var="view_order_button" value=false}
 {if $view_order_button}{assign "price_css" "card-price--sm"}{/if}
 
 {* card image with overlay icons and tags *}
