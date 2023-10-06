@@ -227,30 +227,104 @@ Useful for building shipping methods or payment methods selectors.
 <form>
 	<div class="form-group form-group--id_delivery_method_id_0 form-group--required">
 		<label for="id_delivery_method_id_0" class="control-label">Vyberte způsob dopravy </label>
-
 		<ul class="list list--radios list--radios--lg">
 			<li class="list__item" data-id="11">
-				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_0" data-branch_needed="1" type="radio" name="delivery_method_id" value="11" class="form-check-input"><label for="id_delivery_method_id_0" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png" alt=""></span><span class="v-description"><span class="v-name">Česká Pošta - Balík do ruky (platba předem)</span></span> <span class="v-price">90,00 </span></label></div>
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_0"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="11" class="form-check-input"><label
+						for="id_delivery_method_id_0" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png"
+								alt=""></span><span class="label__name">Česká Pošta - Balík do ruky (platba předem)</span>
+						<div class="label__description">
+							<p>I'm baby before they sold out hoodie mukbang, biodiesel YOLO raw denim coloring book palo santo offal
+								cliche pork belly af jianbing leggings cupping. Try-hard subway tile raw denim, schlitz chambray shaman
+								woke four dollar toast. Gorpcore mustache bicycle rights scenester readymade ethical, irony bespoke green
+								juice. Fingerstache tbh letterpress JOMO street art. Church-key vinyl shoreditch plaid.</p>
+						</div> <span class="label__price">90,00&nbsp;Kč</span>
+					</label></div>
 			</li>
 			<li class="list__item" data-id="12">
-				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_1" data-branch_needed="1" type="radio" name="delivery_method_id" value="12" class="form-check-input"><label for="id_delivery_method_id_1" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png" alt=""></span><span class="v-description"><span class="v-name">Česká Pošta - Balík do ruky (dobírka)</span></span> <span class="v-price">120,00 </span></label></div>
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_1"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="12" class="form-check-input"><label
+						for="id_delivery_method_id_1" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/505/30505/264x264/yB8nvW_100x100xffffff_d74d1797ac34f370.png"
+								alt=""></span><span class="label__name">Česká Pošta - Balík do ruky (dobírka)</span> <span
+							class="label__price">120,00&nbsp;Kč</span></label></div>
 			</li>
-			<li class="list__item" data-id="19">
-				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_6" data-branch_needed="1" type="radio" name="delivery_method_id" value="19" class="form-check-input"><label for="id_delivery_method_id_6" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png" alt=""></span><span class="v-description"><span class="v-name">Zásilkovna (platba předem)</span></span> <span class="v-price">65,00 </span></label></div>
+			<li class="list__item" data-id="15">
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_2"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="15" class="form-check-input"><label
+						for="id_delivery_method_id_2" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/4c3/304c3/244x244/OVTx3E_100x100xffffff_c9b7be1166b0d09b.png"
+								alt=""></span><span class="label__name">Česká Pošta - Balíkovna (platba předem)</span> <span
+							class="label__price">55,00&nbsp;Kč</span></label></div>
 				<div class="delivery_service_branch">
-					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=19" class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
-					<span class="branch_address">13000 Praha 3, Biskupcova 1837/4 (Lahůdky u Čtyřky)</span>
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=15"
+							class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address"></span>
+					<div class="clearfix"></div>
 				</div>
 			</li>
-			<li class="list__item checked" data-id="20">
-				<div class="form-check form-check--has-image"><input id="id_delivery_method_id_7" data-branch_needed="1" type="radio" name="delivery_method_id" value="20" class="form-check-input" checked="checked"><label for="id_delivery_method_id_7" class="form-check-label"><span class="v-image"><img src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png" alt=""></span><span class="v-description"><span class="v-name">Zásilkovna (dobírka)</span><div class="v-hint"><p>I'm baby seitan offal austin stumptown cred pour-over lo-fi raclette. Live-edge umami iPhone gastropub, pour-over flannel pug yuccie. Forage vegan flannel, poke kinfolk yuccie vaporware.</p></div></span> <span class="v-price">85,00 </span></label></div>
-				<div class="delivery_service_branch" style="display: block;">
-					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=20" class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
-					<span class="branch_address">13000 Praha 3, Biskupcova 1837/4 (Lahůdky u Čtyřky)</span>
+			<li class="list__item">
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_5"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="18" class="form-check-input"><label
+						for="id_delivery_method_id_5" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/4c4/304c4/237x237/d2qbTL_100x100xffffff_422f7b42f3b751e4.png"
+								alt=""></span><span class="label__name">Česká Pošta - Balík na poštu (dobírka)</span> <span
+							class="label__price">127,00&nbsp;Kč</span></label></div>
+				<div class="delivery_service_branch">
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=18"
+							class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address"></span>
+					<div class="clearfix"></div>
+				</div>
+			</li>
+			<li class="list__item" data-id="19">
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_6"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="19" class="form-check-input"><label
+						for="id_delivery_method_id_6" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png"
+								alt=""></span><span class="label__name">Zásilkovna (platba předem)</span>
+						<div class="label__description"><span class="label__description__title">Test heading</span></div> <span
+							class="label__price">65,00&nbsp;Kč</span>
+					</label></div>
+				<div class="delivery_service_branch">
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=19"
+							class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address"></span>
+					<div class="clearfix"></div>
+				</div>
+			</li>
+			<li class="list__item" data-id="20">
+				<div class="form-check form-check--with-image form-check--has-image"><input id="id_delivery_method_id_7"
+						data-branch_needed="1" type="radio" name="delivery_method_id" value="20" class="form-check-input"><label
+						for="id_delivery_method_id_7" class="form-check-label"><span class="label__image"><img
+								src="http://i.pupiq.net/i/6f/6f/4c5/304c5/800x800/TJbgui_100x100xffffff_877bc8d10f859fbf.png"
+								alt=""></span><span class="label__name">Zásilkovna (dobírka)</span>
+						<div class="label__description">
+							<span class="label__description__title">Test heading</span>
+							<p>I'm baby seitan offal austin stumptown cred pour-over lo-fi raclette. Live-edge umami iPhone gastropub,
+								pour-over flannel pug yuccie. Forage vegan flannel, poke kinfolk yuccie vaporware.</p>
+
+							<ul>
+								<li>Franzen cliche artisan subway tile hella you probably haven't heard of them.</li>
+								<li>Salvia sustainable la croix poke letterpress squid.</li>
+								<li>Listicle health goth keffiyeh fanny pack raclette godard chambray tumblr put a bird on it meditation
+									selfies authentic biodiesel.</li>
+							</ul>
+						</div> <span class="label__price">85,00&nbsp;Kč</span>
+					</label></div>
+				<div class="delivery_service_branch">
+					<span class="branch_button"><a href="/cs/delivery_service_branches/set_branch/?delivery_method_id=20"
+							class="btn btn-outline-secondary btn-xs remote_link" data-remote="true">zvolit výdejní místo</a></span>
+					<span class="branch_address"></span>
+					<div class="clearfix"></div>
 				</div>
 			</li>
 			<li class="list__item" data-id="13">
-				<div class="form-check"><input id="id_delivery_method_id_8" data-branch_needed="1" type="radio" name="delivery_method_id" value="13" class="form-check-input"><label for="id_delivery_method_id_8" class="form-check-label"><span class="v-description"><span class="v-name">Osobní převzetí na prodejně</span></span> <span class="v-price for-free">Zdarma</span></label></div>
+				<div class="form-check form-check--with-image"><input id="id_delivery_method_id_8" data-branch_needed="1"
+						type="radio" name="delivery_method_id" value="13" class="form-check-input"><label
+						for="id_delivery_method_id_8" class="form-check-label"><span class="label__name">Osobní převzetí na
+							prodejně</span> <span class="label__price label__price--free">Zdarma</span></label></div>
 			</li>
 		</ul>
 	</div>
@@ -263,13 +337,13 @@ Widget for setting quantity of items. You must provide JavaScript for handling b
 [example]
 <div class="quantity-widget js-spinner js-stepper">
 	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button>
-	<input step="1" min="0" max="999999" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" data-initial="4" tabindex="100" type="number" name="i47" id="id_i47" value="4">
+	<input step="1" min="1" max="106" class="form-control form-control-number order-quantity-input js-order-quantity-input" aria-label="Množství" required="required" id="id_amount_45" type="number" name="amount" value="4">
 	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
 </div>
 
 <div class="quantity-widget quantity-widget--sm js-spinner js-stepper mt-3">
 	<button tabindex="-1" type="button" data-spinner-button="down" class="btn btn-secondary" title="Sniž objednané množství">-</button>
-	<input step="1" min="0" max="999999" class="form-control form-control-number order-quantity-input js-order-quantity-input" required="required" data-initial="4" tabindex="100" type="number" name="i47" id="id_i47" value="4">
+	<input step="1" min="1" max="106" class="form-control form-control-number order-quantity-input js-order-quantity-input" aria-label="Množství" required="required" id="id_amount_45" type="number" name="amount" value="1">
 	<button tabindex="-1" type="button" data-spinner-button="up" class="btn btn-secondary" title="Zvyš objednané množství">+</button>&nbsp;ks
 </div>
 
