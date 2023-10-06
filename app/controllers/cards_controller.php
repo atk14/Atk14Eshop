@@ -22,6 +22,12 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
 
 		$this->_add_card_to_breadcrumbs($card);
+		$bclist = new StructuredDataBreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true]);
+		$bclist->addListItem($card);
+		$this->structured_data->addItem($bclist);
+		if(!($card->isDeleted() || !$card->isVisible())){
+			$this->structured_data->addItem(new StructuredDataProduct($card, ["price_finder" => $this->price_finder, "basket" => $this->basket]));
+		}
 
 		// Urceni typu obrazkove galerie: normal nebo with_variants
 		// - with_variants: produkt ma varianty, ktere maji alespon 2 sve obrazky

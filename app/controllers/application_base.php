@@ -111,6 +111,10 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+		DEVELOPMENT && trigger_error(print_r($this->structured_data->toArray(),true));
+		if(!isset($this->tpl_data["structured_data"]) && isset($this->structured_data)){
+			$this->tpl_data["structured_data"] = $this->structured_data->toArray();
+		}
 		$this->_setup_head_tags_in_before_render();
 		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
 			$this->tpl_data["head_tags"] = $this->head_tags;
@@ -210,6 +214,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
 		$this->head_tags = new HeadTags();
 		$this->_setup_head_tags();
+		$this->structured_data = new StructuredData();
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());

@@ -75,6 +75,9 @@
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{enhanced_conversion_data}
 		{facebook_pixel}
+		{foreach $structured_data as $data_item}
+		<script type="application/ld+json">{!$data_item|json_encode}</script>
+		{/foreach}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
