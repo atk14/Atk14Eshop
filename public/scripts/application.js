@@ -210,14 +210,16 @@
 				// Scroll Sidebar
 				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
 				if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
-					// eslint-disable-next-line no-undef,no-unused-vars
-					var sidebar = new StickySidebar( ".nav-section", {
-						topSpacing: 10,
-						bottomSpacing: 10,
-						containerSelector: ".body__sticky-container",
-						innerWrapperSelector: "#sidebar_menu",
-						minWidth: 767,
-					});
+					if( $( ".body__sticky-container" ).length ) {
+						// eslint-disable-next-line no-undef,no-unused-vars
+						var sidebar = new StickySidebar( ".nav-section", {
+							topSpacing: 10,
+							bottomSpacing: 10,
+							containerSelector: ".body__sticky-container",
+							innerWrapperSelector: "#sidebar_menu",
+							minWidth: 767,
+						} );
+					}
 					$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 						$( ".nav-section" ).toggleClass( "show-sm" );
 					} );
