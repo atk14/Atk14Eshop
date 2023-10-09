@@ -2,7 +2,7 @@
 	<section class="section--product-info section--categories">
 		<h2 class="section__title">{t}Product locations{/t}</h2>
 		<div class="section__body">
-			<ul>
+			<ul class="list--categories-mini">
 			{foreach $categories as $category}
 				<li>
 					{foreach $category->getPathOfCategories() as $c}

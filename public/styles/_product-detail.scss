@@ -109,24 +109,10 @@
 			}
 		}
 		
-		&.section--categories {
+		/*&.section--categories {
 			.section__body {
-				ul {
-					font-size: 0.875rem;
-					li {
-						padding-left: 1ch;
-						&::marker {
-							//color: $gray-600;
-							font-family: $fa-font-family;
-							font-weight: 400;
-							content: "\f07c";
-							font-size: 0.85em;
-							margin-right: 1ch;
-						}
-					}
-				}
 			}
-		}
+		}*/
 		
 		&.section--attachments {
 			a {
