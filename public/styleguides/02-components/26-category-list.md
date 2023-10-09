@@ -183,3 +183,7 @@ If catagory items contains teasers and/or images, add <code>list--categories--te
 	<li class="list-item--more"><span class="text-muted">a další...</span></li>
 </ul>
 [/example]
+
+## Collapsible sidebar categories navigation
+
+See [Collapsible Tree Vertical Menu Nav component](/styleguides/components%3Alist-tree/)

@@ -61,3 +61,38 @@ Shopping Cart Modals
 	</div>
 </div>
 [/example]
+
+## Modal with prompt to select product variant
+
+[example]
+<div class="modal fade show" id="basket_modal_dialog" tabindex="-1" role="dialog"
+	aria-labelledby="basket_modal_dialogLabel" style="padding-right: 12px; display: block; position: static;" aria-modal="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="basket_modal_dialogLabel">Vyberte variantu</h5> <button type="button" class="close"
+					data-dismiss="modal" aria-label="zavřít">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+					Chystáte se přidat produkt "Power, Corruption &amp; Lies" do košíku.</p>
+				<form action="/cs/baskets/add_card/?card_id=54" method="post" id="form_baskets_select_variant"
+					class="remote_form" data-remote="true">
+					<select name="product_id" class="form-control" id="id_product_id">
+						<option value="" selected="selected">-- Vyberte variantu --</option>
+						<option value="62">CD</option>
+						<option value="61">LP</option>
+						<option value="63">MC</option>
+					</select>
+					<div class="form-group">
+						<span class="button-container"><button type="submit" class="btn btn-primary">Přidat do
+								košíku</button></span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+[/example]

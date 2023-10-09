@@ -89,7 +89,7 @@ Highlight color is easily customised by adding <code>.dropdown-highlight-* </cod
 
 ## Semi-transparent dropdowns
 
-Transparency effect is achieved by adding <code>.dropdown-menu--transparent</code> modifier class. Effect is very subtle to not affect readibility of text. IMPORTANT: This class MUST be used together with <code>.bg-*</code> background utility class, otherwise it would not work. In supported browsers dropdown backdrop is blurred with slightly bigger amount of transparency. At the time of writing, backdrop-blur is not supported by Firefox.
+Transparency effect is achieved by adding <code>.dropdown-menu--transparent</code> modifier class. Effect is very subtle to not affect readibility of text. IMPORTANT: This class MUST be used together with <code>.bg-*</code> background utility class, otherwise it would not work. In supported browsers dropdown backdrop is blurred with slightly bigger amount of transparency.
 
 [example]
 <div style="padding: 1rem; background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%); background-size: 40px 40px; background-position: 0 0, 0 20px, 20px -20px, -20px 0px;">
