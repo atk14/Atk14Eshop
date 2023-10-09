@@ -109,10 +109,13 @@
 			}
 		}
 		
-		/*&.section--categories {
+		&.section--categories {
 			.section__body {
+				ul {
+					font-size: $font-size-sm;
+				}
 			}
-		}*/
+		}
 		
 		&.section--attachments {
 			a {
