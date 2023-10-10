@@ -27,7 +27,7 @@ Markup for this component is derived form Bootstrap 5 Offcanvas Component for fu
 
 ## Offcanvas basket
 
-Offcanvas component actiing as ofcanvas basket. Items list is scrollable when it exceeds available height. After exceeding certain number of items they are displayed in more compact form to avoid too tall list.
+Offcanvas component actiing as ofcanvas basket. Items list is scrollable when it exceeds available height. After exceeding certain number of items they are displayed in more compact form to avoid too tall list. See [Shopping Cart Component](/styleguides/components%3Ashopping-cart-table/).
 
 It is possible to edit items in basket (changing quantity or deleting items - not working in this demo). 
 
@@ -186,7 +186,7 @@ In real usage basket contents and price are loaded asynchronously by JS - theref
 </div>
 [/example]
 
-## Other examples
+## Other examples with different positioning and sizing
 [example]
   <a href="#offcanvas-demo-left" class="btn btn-primary" data-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-left" >Offcanvas on left</a>
   <a href="#offcanvas-demo-fullwidth" class="btn btn-primary" data-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-fullwidth" >Fullwidth offcanvas</a>

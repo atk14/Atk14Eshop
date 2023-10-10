@@ -1,6 +1,8 @@
 Shopping Cart Table
 ===================
 
+## Basic shopping cart tables
+
 Fully featured editable shopping cart table:
 
 [example]
@@ -150,9 +152,9 @@ The same table is used for non-ediatble order overview:
 	</thead>
 	<tbody class="table-products__list">
 		<tr class="table-products__item">
-			<td class="table-products__image"><a href="/produkt/brasna-na-fotak/"><img src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_120x120xffffff_cbdd0820323d5eb4.jpg" alt="" width="120" height="120"></a></td>
+			<td class="table-products__image"><a href="#"><img src="http://i.pupiq.net/i/6f/6f/aca/2daca/2886x2165/Kaog3H_120x120xffffff_cbdd0820323d5eb4.jpg" alt="" width="120" height="120"></a></td>
 			<td class="table-products__title">
-				<a href="/produkt/brasna-na-fotak/">Brašna na foťák</a> <span class="d-block d-lg-none table-products__id"><span class="property__key">Kód</span>BRASNA</span>
+				<a href="#">Brašna na foťák</a> <span class="d-block d-lg-none table-products__id"><span class="property__key">Kód</span>BRASNA</span>
 			</td>
 			<td class="table-products__id"><span class="d-none d-lg-inline">BRASNA</span></td>
 			<td class="table-products__unit-price"><span class="property__key">Jedn. cena</span> <span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span></td>
@@ -160,9 +162,9 @@ The same table is used for non-ediatble order overview:
 			<td class="table-products__price"><span class="property__key">Celkem</span><span class="currency_main"><span class="price">595,00</span>&nbsp;Kč</span></td>
 		</tr>
 		<tr class="table-products__item">
-			<td class="table-products__image"><a href="/produkt/violator-download/"><img src="http://i.pupiq.net/i/6f/6f/bb7/2dbb7/800x800/CRFjDM_120x120xffffff_a5edc907c202f446.jpg" alt="" width="120" height="120"></a></td>
+			<td class="table-products__image"><a href="#"><img src="http://i.pupiq.net/i/6f/6f/bb7/2dbb7/800x800/CRFjDM_120x120xffffff_a5edc907c202f446.jpg" alt="" width="120" height="120"></a></td>
 			<td class="table-products__title">
-				<a href="/produkt/violator-download/">Violator (download)</a> <br><small><span class="badge badge-pill badge-secondary">digitální produkt</span></small>
+				<a href="#">Violator (download)</a> <br><small><span class="badge badge-pill badge-secondary">digitální produkt</span></small>
 				<span class="d-block d-lg-none table-products__id"><span class="property__key">Kód</span>4646DL</span>
 			</td>
 			<td class="table-products__id"><span class="d-none d-lg-inline">4646DL</span></td>
@@ -220,5 +222,120 @@ The same table is used for non-ediatble order overview:
 			</td>
 		</tr>
 	</tfoot>
+</table>
+[/example]
+
+## Compact shopping cart table for use in Offcanvas Basket
+
+This table layout is intended for use in offcanvas cart preview as described in [Offcanvas Component](/styleguides/components%3Aoffcanvas/). After exceeding certain number of items they are displayed in more compact form to avoid too tall list depending on number of items and viewport size. 
+
+[example]
+<table class="table--offcanvas-basket" style="max-width: 500px">
+	<tbody>
+		<tr class="item">
+			<td class="item__image">
+				<a href="#" aria-label="Power, Corruption &amp; Lies, CD - Detail produktu">
+					<img src="http://i.pupiq.net/i/6f/6f/9fe/2f9fe/1000x995/IJn0Vh_80x80xffffff_a5c97d0166301792.jpg"
+						width="80" height="80"></a>
+			</td>
+			<td class="item__name">
+				<a href="#">Power, Corruption &amp; Lies, CD</a>
+			</td>
+			<td class="item__quantity">
+				<div class="quantity-widget quantity-widget--sm">
+					<button class="btn btn-sm btn-outline-secondary" disabled="">-</button>
+					<span class="quantity-widget__number">1 ks</span>
+					<a data-remote="true" data-method="post" class="btn btn-sm btn-outline-secondary remote_link post"
+						href="#">+</a> </div>
+			</td>
+			<td class="item__price"><span class="currency_main"><span
+						class="currency_main__price">540,00</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span>
+			</td>
+			<td class="item__actions"><a data-remote="true"
+					data-confirm="Opravdu chcete odstranit tento produkt z nákupního košíku?" data-method="post"
+					class="confirm remote_link post" href="#"><span
+						class="fas fa-times"></span></a>
+			</td>
+		</tr>
+		<tr class="item">
+			<td class="item__image">
+				<a href="#" aria-label="Ssss - Detail produktu">
+					<img src="http://i.pupiq.net/i/6f/6f/1a5/301a5/600x600/xy1WFz_80x80xffffff_dace0c3a0a2152af.jpg"
+						width="80" height="80"></a>
+			</td>
+			<td class="item__name">
+				<a href="#">Ssss</a>
+			</td>
+			<td class="item__quantity">
+				<div class="quantity-widget quantity-widget--sm">
+					<button class="btn btn-sm btn-outline-secondary" disabled="">-</button>
+					<span class="quantity-widget__number">1 ks</span>
+					<a data-remote="true" data-method="post" class="btn btn-sm btn-outline-secondary remote_link post"
+						href="#">+</a> </div>
+			</td>
+			<td class="item__price"><span class="currency_main"><span
+						class="currency_main__price">560,00</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span>
+			</td>
+			<td class="item__actions"><a data-remote="true"
+					data-confirm="Opravdu chcete odstranit tento produkt z nákupního košíku?" data-method="post"
+					class="confirm remote_link post" href="#"><span
+						class="fas fa-times"></span></a>
+			</td>
+		</tr>
+		<tr class="item">
+			<td class="item__image">
+				<a href="#" aria-label="Cars - Detail produktu">
+					<img src="http://i.pupiq.net/i/6f/6f/a01/2fa01/600x613/60rCku_80x80xffffff_54f8e3ac052f989b.jpg"
+						width="80" height="80"></a>
+			</td>
+			<td class="item__name">
+				<a href="#">Cars</a>
+			</td>
+			<td class="item__quantity">
+				<div class="quantity-widget quantity-widget--sm">
+					<button class="btn btn-sm btn-outline-secondary" disabled="">-</button>
+					<span class="quantity-widget__number">1 ks</span>
+					<a data-remote="true" data-method="post" class="btn btn-sm btn-outline-secondary remote_link post"
+						href="#">+</a> </div>
+			</td>
+			<td class="item__price"><span class="currency_main"><span
+						class="currency_main__price">212,50</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span>
+			</td>
+			<td class="item__actions"><a data-remote="true"
+					data-confirm="Opravdu chcete odstranit tento produkt z nákupního košíku?" data-method="post"
+					class="confirm remote_link post" href="#"><span
+						class="fas fa-times"></span></a>
+			</td>
+		</tr>
+		<tr class="item">
+			<td class="item__image">
+				<a href="#" aria-label="Physics - Detail produktu">
+					<img src="http://i.pupiq.net/i/6f/6f/22e/3322e/1000x1000/Ry4HVN_80x80xffffff_5e57f7508a56af69.webp"
+						width="80" height="80"></a>
+			</td>
+			<td class="item__name">
+				<a href="#">Physics</a>
+			</td>
+			<td class="item__quantity">
+				<div class="quantity-widget quantity-widget--sm">
+					<button class="btn btn-sm btn-outline-secondary" disabled="">-</button>
+					<span class="quantity-widget__number">1 ks</span>
+					<a data-remote="true" data-method="post" class="btn btn-sm btn-outline-secondary remote_link post"
+						href="#">+</a> </div>
+			</td>
+			<td class="item__price"><span class="currency_main"><span
+						class="currency_main__price">160,00</span>&nbsp;<span class="currency_main__currency">Kč</span><span
+						class="currency_main__ordering-unit"></span></span>
+			</td>
+			<td class="item__actions"><a data-remote="true"
+					data-confirm="Opravdu chcete odstranit tento produkt z nákupního košíku?" data-method="post"
+					class="confirm remote_link post" href="#"><span
+						class="fas fa-times"></span></a>
+			</td>
+		</tr>
+	</tbody>
 </table>
 [/example]
