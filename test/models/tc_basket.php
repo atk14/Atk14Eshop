@@ -195,6 +195,35 @@ class TcBasket extends TcBase {
 		$basket2->mergeBasket($basket1);
 
 		$this->assertEquals("Original note",$basket2->getNote());
+
+		// --
+
+		$basket1 = Basket::CreateNewRecord(["note" => "New note"]);
+		$basket2 = Basket::CreateNewRecord(["note" => "Original note"]);
+
+		$basket2->mergeBasket($basket1);
+
+		$this->assertEquals("New note",$basket2->getNote());
+
+		// --
+
+		$basket1 = Basket::CreateNewRecord(["delivery_method_id" => $this->delivery_methods["dpd"]->getId()]);
+		$basket2 = Basket::CreateNewRecord(["delivery_method_id" => $this->delivery_methods["parcel_service"]->getId(), "delivery_method_data" => '{"external_branch_id":"10000","delivery_service_id":3,"delivery_service_code":"fake-service"}']);
+
+		$basket2->mergeBasket($basket1);
+
+		$this->assertEquals($this->delivery_methods["dpd"]->getId(),$basket2->g("delivery_method_id"));
+		$this->assertEquals(null,$basket2->g("delivery_method_data"));
+
+		// --
+
+		$basket1 = Basket::CreateNewRecord(["delivery_method_id" => $this->delivery_methods["parcel_service"]->getId(), "delivery_method_data" => '{"external_branch_id":"10000","delivery_service_id":3,"delivery_service_code":"fake-service"}']);
+		$basket2 = Basket::CreateNewRecord(["delivery_method_id" => $this->delivery_methods["dpd"]->getId()]);
+
+		$basket2->mergeBasket($basket1);
+
+		$this->assertEquals($this->delivery_methods["parcel_service"]->getId(),$basket2->g("delivery_method_id"));
+		$this->assertEquals('{"external_branch_id":"10000","delivery_service_id":3,"delivery_service_code":"fake-service"}',$basket2->g("delivery_method_data"));
 	}
 
 	function test_getCampaigns(){

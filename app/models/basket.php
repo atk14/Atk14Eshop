@@ -1148,13 +1148,17 @@ class Basket extends BasketOrOrder {
 		foreach(array(
 			"payment_method_id",
 			"delivery_method_id",
-			"delivery_method_data",
+			//"delivery_method_data",
 			"note",
 		) as $f){
 			$v = $basket->g($f);
 			if(!is_null($v)){
 				$update_ar[$f] = $v;
 			}
+		}
+
+		if(isset($update_ar["delivery_method_id"])){
+			$update_ar["delivery_method_data"] = $basket->g("delivery_method_data");
 		}
 
 		$update_ar && $this->s($update_ar);
