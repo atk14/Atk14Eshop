@@ -146,6 +146,18 @@ $offcanvasBasketLargeSizingBreakpoint: md;
     border-bottom: 1px solid $border-color;
     font-size: $font-size-sm;
     line-height: 1.1;
+    animation-name: offcanvas-basket-items-animation;
+    animation-iteration-count: 1;
+    $anim-time-base: 0.2s;
+    $anim-max-steps: 5;
+    @for $i from 1 to $anim-max-steps {
+      &:nth-child(#{$i}) {
+        animation-duration: $anim-time-base * $i;
+      }
+    }
+    &:nth-child(#{$anim-max-steps - 1}) ~ * {
+      animation-duration: $anim-time-base * 5;
+    }
     td {
       padding: $grid-gutter-width/8;
       padding: var(--item-v-padding) var(--item-h-padding);
@@ -279,5 +291,14 @@ $offcanvasBasketLargeSizingBreakpoint: md;
         }
       }
     }
+  }
+}
+
+@keyframes offcanvas-basket-items-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

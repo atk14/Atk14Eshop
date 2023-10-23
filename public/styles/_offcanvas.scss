@@ -48,6 +48,7 @@
   @media(max-width: 560px) {
     width: $offcanvas-width-xs;
   }
+  opacity: 0.3;
 
   &--fullwidth {
     width: 100%;
@@ -106,6 +107,7 @@
 
   &.show {
     box-shadow: $modal-content-box-shadow-sm-up;
+    opacity: 1;
   }
 
   &.bs-offcanvas-left {
