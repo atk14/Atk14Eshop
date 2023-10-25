@@ -26,6 +26,9 @@ class Offer extends \StructuredData\BaseElement {
 
 		$out_shipping_details = [];
 		foreach($_shipping_methods as $_sm) {
+			if ($_sm->personalPickup()) {
+				continue;
+			}
 			$out_shipping_details[] = [
 					"@type" => "OfferShippingDetails",
 					"shippingLabel" => $_sm->getLabel(),
