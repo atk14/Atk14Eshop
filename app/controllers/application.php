@@ -78,6 +78,14 @@ class ApplicationController extends ApplicationBaseController{
 		$this->breadcrumbs[] = [sprintf(_("Objednávka %s"),$order->getOrderNo()),$link];
 	}
 
+	function _before_render() {
+		parent::_before_render();
+		DEVELOPMENT && trigger_error(print_r($this->structured_data->toArray(),true));
+		if(!isset($this->tpl_data["structured_data"]) && isset($this->structured_data)){
+			$this->tpl_data["structured_data"] = $this->structured_data->toArray();
+		}
+	}
+
 	function _application_before_filter() {
 		// Here, the $this->lazy_loader can be filled up with something
 
