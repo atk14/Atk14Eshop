@@ -1,8 +1,8 @@
 <?php
 
-namespace StructuredData;
+namespace StructuredData\Element;
 
-class Website extends BaseElement {
+class Website extends \StructuredData\BaseElement {
 
 
   /**

@@ -1,4 +1,6 @@
 <?php
+use StructuredData\Element\BreadcrumbList;
+
 abstract class CardListController extends ApplicationController {
 
 	var $page_size = 24;
@@ -43,7 +45,7 @@ abstract class CardListController extends ApplicationController {
 		if(!is_array($cond)){
 			$cond = $cond ? [$cond] : [];
 		}
-		$this->structured_data->addItem(new StructuredData\BreadcrumbList($this->category));
+		$this->structured_data->addItem(new BreadcrumbList($this->category));
 		return [ $cond, $bind ];
 	}
 

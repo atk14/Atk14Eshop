@@ -1,8 +1,8 @@
 <?php
 
-namespace StructuredData;
+namespace StructuredData\Element;
 
-class BreadcrumbListItem extends BaseElement {
+class BreadcrumbListItem extends \StructuredData\BaseElement {
 
 	function __construct(\ApplicationModel $item) {
 		$this->item = $item;

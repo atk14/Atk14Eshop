@@ -6,7 +6,7 @@ class Collector {
 	protected $items = [];
 
 	function __construct() {
-		$this->addItem(new Website());
+		$this->addItem(new Element\Website());
 	}
 
 	function addItem(BaseElement $item) {

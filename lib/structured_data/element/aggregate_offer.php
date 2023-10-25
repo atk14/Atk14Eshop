@@ -1,8 +1,8 @@
 <?php
 
-namespace StructuredData;
+namespace StructuredData\Element;
 
-class Offer extends BaseElement {
+class AggregateOffer extends \StructuredData\BaseElement {
 
 	function __construct(\Card $item, $options=[]) {
 		$options += [
@@ -18,8 +18,10 @@ class Offer extends BaseElement {
 		$_basket = $this->options["basket"];
 
 		$_price = null;
+		$_distinct_prices = null;
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
+			$_distinct_prices = $_price_finder->getDistinctPrices($this->item);
 		}
 		$_currency = $_basket->getCurrency();
 		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Basket($_basket);
@@ -38,26 +40,28 @@ class Offer extends BaseElement {
 		}
 
 		$stockcount=$this->_getStockcount();
-		$products = $this->item->getProducts();
-		$_product = $products[0];
 		$_availability = "https://schema.org/InStock";
-		if(!$_product->isVisible() || $_product->isDeleted() || !$this->item->isVisible() || $this->item->isDeleted()){
+		if(!$this->item->isVisible() || $this->item->isDeleted()){
 			$_availability = "https://schema.org/Discontinued";
-		} elseif(!$_product->canBeOrdered()){
+		} elseif(!$this->item->canBeOrdered()){
 			$_availability = "https://schema.org/OutOfStock";
-		} elseif (!$_product->considerStockcount()) {
-			if (($stockcount>0) || $_product->containsTag("digital_product") || $this->item->containsTag("digital_product")) {
-				$_availability = "https://schema.org/InStock";
-			} else {
-				$_availability = "https://schema.org/BackOrder";
-			}
+		} elseif ($stockcount>0) {
+			$_availability = "https://schema.org/InStock";
+		} else {
+			$_availability = "https://schema.org/BackOrder";
+		}
+		$_prices = [];
+		foreach($_distinct_prices as $_dp) {
+			$_prices[] = $_dp->getPriceInclVat();
 		}
 		$out = [
-			"@type" => "Offer",
+			"@type" => "AggregateOffer",
 			"itemCondition" => "http://schema.org/NewCondition",
 			"url" => \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]),
 			"availability" => $_availability,
-			"price" => $_price->getUnitPriceInclVat(),
+			"lowPrice" => min($_prices),
+			"highPrice" => max($_prices),
+			"offerCount" => count($this->item->getProducts()),
 			"priceCurrency" => $_currency->getCode(),
 			"seller" => [
 				"@type" => "Thing",

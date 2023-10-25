@@ -1,6 +1,6 @@
 <?php
 
-namespace StructuredData;
+namespace StructuredData\Element;
 
 
 /**
@@ -18,7 +18,7 @@ namespace StructuredData;
  * ```
  *
  */
-class BreadcrumbList extends BaseElement {
+class BreadcrumbList extends \StructuredData\BaseElement {
 
 	function __construct(\ApplicationModel $item=null, $options=[]) {
 		$options += [

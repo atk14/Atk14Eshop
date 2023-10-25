@@ -1,8 +1,9 @@
 <?php
 
-namespace StructuredData;
+namespace StructuredData\Element;
+use StructuredData\Element\Offer;
 
-class Product extends BaseElement {
+class Product extends \StructuredData\BaseElement {
 	function __construct(\Card $item, $options=[]) {
 		$this->options = $options;
 		$this->item = $item;
