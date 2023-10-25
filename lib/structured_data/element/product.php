@@ -32,7 +32,9 @@ class Product extends \StructuredData\BaseElement {
 		} else {
 			$offers = new Offer($this->item, $this->options);
 		}
-		$out["offers"] = $offers->toArray();
+		if ($offers->toArray()) {
+			$out["offers"] = $offers->toArray();
+		}
 		return $out;
 	}
 }

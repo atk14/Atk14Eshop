@@ -21,6 +21,9 @@ class Offer extends \StructuredData\BaseElement {
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
 		}
+		if (is_null($_price)) {
+			return null;
+		}
 		$_currency = $_basket->getCurrency();
 		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Basket($_basket);
 
