@@ -54,6 +54,9 @@ class AggregateOffer extends \StructuredData\BaseElement {
 		foreach($_distinct_prices as $_dp) {
 			$_prices[] = $_dp->getPriceInclVat();
 		}
+		if (!$_prices) {
+			return null;
+		}
 		$out = [
 			"@type" => "AggregateOffer",
 			"itemCondition" => "http://schema.org/NewCondition",
