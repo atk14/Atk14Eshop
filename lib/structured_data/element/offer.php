@@ -21,9 +21,6 @@ class Offer extends \StructuredData\BaseElement {
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
 		}
-		if (is_null($_price)) {
-			return null;
-		}
 		$_currency = $_basket->getCurrency();
 		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Basket($_basket);
 
@@ -63,14 +60,16 @@ class Offer extends \StructuredData\BaseElement {
 			"itemCondition" => "http://schema.org/NewCondition",
 			"url" => \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]),
 			"availability" => $_availability,
-			"price" => $_price->getUnitPriceInclVat(),
-			"priceCurrency" => $_currency->getCode(),
 			"seller" => [
 				"@type" => "Thing",
 				"name" => ATK14_APPLICATION_NAME,
 			],
 			"shippingDetails" => $out_shipping_details,
 		];
+		if ($_price) {
+			$out["price"] = $_price->getUnitPriceInclVat();
+			$out["priceCurrency"] = $_currency->getCode();
+		}
 
 		return $out;
 	}

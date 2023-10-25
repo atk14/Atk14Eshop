@@ -54,24 +54,24 @@ class AggregateOffer extends \StructuredData\BaseElement {
 		foreach($_distinct_prices as $_dp) {
 			$_prices[] = $_dp->getPriceInclVat();
 		}
-		if (!$_prices) {
-			return null;
-		}
+
 		$out = [
 			"@type" => "AggregateOffer",
 			"itemCondition" => "http://schema.org/NewCondition",
 			"url" => \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]),
 			"availability" => $_availability,
-			"lowPrice" => min($_prices),
-			"highPrice" => max($_prices),
 			"offerCount" => count($this->item->getProducts()),
-			"priceCurrency" => $_currency->getCode(),
 			"seller" => [
 				"@type" => "Thing",
 				"name" => ATK14_APPLICATION_NAME,
 			],
 			"shippingDetails" => $out_shipping_details,
 		];
+		if (count($_prices)>1) {
+			$out["lowPrice"] = min($_prices);
+			$out["maxPrice"] = max($_prices);
+			$out["priceCurrency"] = $_currency->getCode();
+		}
 
 		return $out;
 	}
