@@ -20,6 +20,10 @@ class Product extends \StructuredData\BaseElement {
 			"description" => $this->item->getTeaser(),
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
+		if ($_images = $this->item->getImages()) {
+			$_images = array_map(function ($i) { return (string)$i; }, $_images);
+			$out["image"] = $_images;
+		}
 		if ($_brand = $this->item->getBrand()) {
 			$out["brand"] = [
 				"@type" => "Brand",
