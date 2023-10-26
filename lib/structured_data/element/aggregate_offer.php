@@ -69,7 +69,7 @@ class AggregateOffer extends \StructuredData\BaseElement {
 		];
 		if (count($_prices)>1) {
 			$out["lowPrice"] = min($_prices);
-			$out["maxPrice"] = max($_prices);
+			$out["highPrice"] = max($_prices);
 			$out["priceCurrency"] = $_currency->getCode();
 		}
 
