@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /api/*
 Disallow: /recovery/*
 Disallow: /obnova/*
 {* According to https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links#nofollow *}
