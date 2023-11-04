@@ -1,10 +1,11 @@
 <?php
 class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyType_Base {
 
-	function __construct(){
-		parent::__construct([
+	function __construct($options = []){
+		$options += [
 			"label" => _("Celé číslo")
-		]);
+		];
+		parent::__construct($options);
 	}
 
 	function parseValue($str_value){
