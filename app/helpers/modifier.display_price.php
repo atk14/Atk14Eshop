@@ -52,7 +52,7 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 	}
 
 	$options += array(
-		"summary" => false,
+		"summary" => false, // true, false or "auto" automatic detection of "summary" or not "summary"
 		"show_decimals" => true,
 		// also the following options are available
 		// "show_decimals_on_czk" => true,
@@ -84,11 +84,6 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		$options["decimals"] = 0;
 	}
 
-	if($options["summary"]){
-		$options["show_decimals"] = true;
-		$options["decimals"] = $current_currency->getDecimalsSummary();
-	}
-
 	if(is_object($price_or_object)){
 		$product_price = $options["without_vat"] ? $price_or_object->getUnitPrice() : $price_or_object->getUnitPriceInclVat();
 	} else {
@@ -97,6 +92,15 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 
 	if($product_price == 0 && !$options['show_zero'])  {
 		return '';
+	}
+
+	if($options["summary"]==="auto"){
+		$options["summary"] = round($product_price,$current_currency->getDecimals())===round($product_price,$current_currency->getDecimalsSummary());
+	}
+
+	if($options["summary"]){
+		$options["show_decimals"] = true;
+		$options["decimals"] = $current_currency->getDecimalsSummary();
 	}
 
 	if($options["negative"]){
