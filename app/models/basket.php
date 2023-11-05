@@ -398,8 +398,6 @@ class Basket extends BasketOrOrder {
 
 	function getPriceToPay($incl_vat = true, &$price_without_rounding = null){
 
-		$currency = $this->getCurrency();
-
 		$price = $this->getItemsPrice($incl_vat);
 
 		$price += $this->getDeliveryFee($incl_vat);
@@ -409,7 +407,7 @@ class Basket extends BasketOrOrder {
 
 		$price_without_rounding = $price;
 
-		$price = round($price,$currency->getDecimalsSummary());
+		$price = round($price,$this->getCurrentDecimalsSummary());
 		return $price;
 	}
 

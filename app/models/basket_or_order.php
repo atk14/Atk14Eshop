@@ -57,6 +57,19 @@ class BasketOrOrder extends ApplicationModel {
 		return Cache::Get("Currency",$this->getCurrencyId());
 	}
 
+	/**
+	 * Returns decimals to round the summary price
+	 *
+	 * It is safer to call $basket->getCurrentDecimalsSummary() or $order->getCurrentDecimalsSummary()
+	 * instead of $basket->getCurrency()->getDecimalsSummary() $order->getCurrency()->getDecimalsSummary() respectively,
+	 * because in some special cases the results may vary.
+	 */
+	function getCurrentDecimalsSummary(){
+		$currency = $this->getCurrency();
+		$decimals = $currency->getDecimalsSummary();
+		return $decimals;
+	}
+
 	function getRegion(){
 		return Cache::Get("Region",$this->getRegionId());
 	}

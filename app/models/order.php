@@ -627,7 +627,7 @@ class Order extends BasketOrOrder {
 		}
 
 		$price_without_rounding = $price;
-		$price = round($price,$currency->getDecimalsSummary());
+		$price = round($price,$this->getCurrentDecimalsSummary());
 
 		$delta = $price - $price_without_rounding;
 		$delta = $currency->roundPrice($delta);
