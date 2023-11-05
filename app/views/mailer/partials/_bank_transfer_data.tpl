@@ -1,6 +1,6 @@
 {assign bank_account $order->getBankAccount()}
 
-<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
+<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary=auto"}
 <br/><br/>
 <strong>{t}Variabilní symbol:{/t}</strong> {$order->getOrderNo()}
 <br/><br/>

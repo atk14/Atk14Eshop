@@ -6,7 +6,7 @@
 	{highlight_search_query}
 	<td><span class="table-hint-xs">{t}Číslo objednávky{/t}</span> {a action="orders/detail" id=$order}{$order->getOrderNo()}{/a}</td>
 	{/highlight_search_query}
-	<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span> {!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
+	<td class="text-sm-right"><span class="table-hint-xs">{t}Cena{/t}</span> {!$order->getPriceToPay()|display_price:"$currency,summary=auto"}</td>
 	<td><span class="table-hint-xs">{t}Datum vytvoření{/t}</span> {$order->getCreatedAt()|format_date}</td>
 	<td><span class="table-hint-xs">{t}Stav{/t}</span> {render partial="shared/order_status" order=$order}</td>
 	<td class="order__thumbnails">

@@ -183,7 +183,7 @@
 						{/if}
 						<tr>
 							<th class="table-products__pricetopay">{if $incl_vat}{t}Cena celkem{/t}{else}{t}Cena celkem vč. DPH{/t}{/if}</th>
-							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFee())}<sup>*</sup>{/if}</td>
+							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}{if is_null($order->getShippingFee())}<sup>*</sup>{/if}</td>
 						</tr>
 					</tbody>
 				</table>

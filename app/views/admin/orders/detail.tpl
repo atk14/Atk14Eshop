@@ -116,7 +116,7 @@
 					{foreach $order->getVouchers() as $voucher}
 						<li>{t code=$voucher}Dárkový poukaz %1{/t}: -{!$voucher->getDiscountAmount()|display_price:"$currency"}</li>
 					{/foreach}
-					<li><strong>{t}Celková cena k úhradě:{/t} {!$order->getPriceToPay()|display_price:"$currency,summary"}</strong></li>
+					<li><strong>{t}Celková cena k úhradě:{/t} {!$order->getPriceToPay()|display_price:"$currency,summary=auto"}</strong></li>
 					<li>{t}Celkem uhrazeno:{/t} {!$order->getPricePaid()|display_price:"$currency"|default:$mdash}</li>
 				</ul>
 			</td>
@@ -127,8 +127,8 @@
 			<td>
 				<ul>
 					<li>{$order->getDeliveryMethod()}{render partial="shared/order/delivery_method_data"}</li>
-					<li>{t}Poplatek:{/t} {!$order->getDeliveryFee()|display_price:"$currency,summary"}</li>
-					<li>{t}Poplatek s DPH:{/t} {!$order->getDeliveryFeeInclVat()|display_price:"$currency,summary"}</li>
+					<li>{t}Poplatek:{/t} {!$order->getDeliveryFee()|display_price:"$currency"}</li>
+					<li>{t}Poplatek s DPH:{/t} {!$order->getDeliveryFeeInclVat()|display_price:"$currency"}</li>
 					<li>{t}Číslo zásilky pro sledování:{/t}
 						{assign tracking_number $order->getTrackingNumber()}
 						{if $tracking_number}
@@ -149,8 +149,8 @@
 			<td>
 				<ul>
 					<li>{$order->getPaymentMethod()}</li>
-					<li>{t}Poplatek:{/t} {!$order->getPaymentFee()|display_price:"$currency,summary"}</li>
-					<li>{t}Poplatek s DPH:{/t} {!$order->getPaymentFeeInclVat()|display_price:"$currency,summary"}</li>
+					<li>{t}Poplatek:{/t} {!$order->getPaymentFee()|display_price:"$currency"}</li>
+					<li>{t}Poplatek s DPH:{/t} {!$order->getPaymentFeeInclVat()|display_price:"$currency"}</li>
 					{if $payment_transaction}
 						<li>
 							{if $payment_transaction->testingPayment()}

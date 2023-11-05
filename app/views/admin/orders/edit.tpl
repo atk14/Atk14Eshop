@@ -81,7 +81,7 @@
 
 		<tr>
 			<th>{t}Celkem k úhradě{/t}</th>
-			<td align="right"><span class="h4">{!$order->getPriceToPay()|display_price:"$currency,summary"}</span></td>
+			<td align="right"><span class="h4">{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}</span></td>
 		</tr>
 	</tbody>
 </table>

@@ -11,7 +11,7 @@
 		<h4>{$title}</h4>
 	{/if}
 
-	<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary"}
+	<strong>{t}Částka k úhradě:{/t}</strong> {!$order->getPriceToPay()|display_price:"$currency,summary=auto"}
 	<br>
 	<strong>{t}Variabilní symbol:{/t}</strong> {$order->getOrderNo()}
 	<br>

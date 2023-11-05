@@ -20,7 +20,7 @@
 	{t 1=", "|join:$order->getPhones() escape=false}%1{/t}</td>
 	{/highlight_search_query}
 	<td>{!$delivery_method}<hr>{!$payment_method}</td>
-	<td class="text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}</td>
+	<td class="text-right">{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}</td>
 	<td>
 		{render partial="shared/order_status"}
 		<br><em>({$order->getOrderStatusSetAt()|humanize_date}{if $order->getOrderStatusSetByUser()}, {$order->getOrderStatusSetByUser()}{/if})</em>
