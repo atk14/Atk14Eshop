@@ -61,7 +61,7 @@ class Offer extends \StructuredData\BaseElement {
 			"url" => \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]),
 			"availability" => $_availability,
 			"seller" => [
-				"@type" => "Thing",
+				"@type" => "Organization",
 				"name" => ATK14_APPLICATION_NAME,
 			],
 			"shippingDetails" => $out_shipping_details,
