@@ -60,11 +60,11 @@ class BasketOrOrder extends ApplicationModel {
 	/**
 	 * Returns decimals to round the summary price
 	 *
-	 * It is safer to call $basket->getCurrentDecimalsSummary() or $order->getCurrentDecimalsSummary()
+	 * It is safer to call $basket->getCurrencyDecimalsSummary() or $order->getCurrencyDecimalsSummary()
 	 * instead of $basket->getCurrency()->getDecimalsSummary() $order->getCurrency()->getDecimalsSummary() respectively,
 	 * because in some special cases the results may vary.
 	 */
-	function getCurrentDecimalsSummary(){
+	function getCurrencyDecimalsSummary(){
 		$currency = $this->getCurrency();
 		$decimals = $currency->getDecimalsSummary();
 		return $decimals;
