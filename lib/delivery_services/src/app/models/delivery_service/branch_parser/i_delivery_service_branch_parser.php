@@ -9,7 +9,7 @@ interface iDeliveryServiceBranchParser {
 	/**
 	 * Ziskani hodnot z xml elementu, ktery obsahuje informace o pobocce.
 	 */
-	public static function ParseBranch(\SimpleXMLElement $element);
+	public function toArray();
 
 	public function getExternalBranchId();
 	public function getBranchName();
