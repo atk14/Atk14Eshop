@@ -407,7 +407,7 @@ class Basket extends BasketOrOrder {
 
 		$price_without_rounding = $price;
 
-		$price = round($price,$this->getCurrentDecimalsSummary());
+		$price = round($price,$this->getCurrencyDecimalsSummary());
 		return $price;
 	}
 
