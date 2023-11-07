@@ -9,43 +9,43 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
 
 	function getExternalBranchId() {
-		return (string)$this->branch_element->id;
+		return (string)$this->id;
 	}
 
 	function getBranchName() {
-		return (string)$this->branch_element->name;
+		return (string)$this->name;
 	}
 
 	function getPlaceName() {
-		return (string)$this->branch_element->place;
+		return (string)$this->place;
 	}
 
 	function getFullAddress() {
-		return (string)$this->branch_element->name;
+		return (string)$this->name;
 	}
 
 	function getCountryCode() {
-		return \Translate::Upper((string)$this->branch_element->country);
+		return \Translate::Upper((string)$this->country);
 	}
 
 	function getDistrict() {
-		return trim((string)$this->branch_element->district);
+		return trim((string)$this->district);
 	}
 
 	function getZipCode() {
-		return preg_replace("/\s/", "", trim((string)$this->branch_element->zip));
+		return preg_replace("/\s/", "", trim((string)$this->zip));
 	}
 
 	function getCity() {
-		return (string)$this->branch_element->city;
+		return (string)$this->city;
 	}
 
 	function getStreet() {
-		return (string)$this->branch_element->street;
+		return (string)$this->street;
 	}
 
 	function getInformationUrl() {
-		return (string)$this->branch_element->url;
+		return (string)$this->url;
 	}
 
 	function getOpeningHours() {
@@ -62,7 +62,7 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 		];
 
 		foreach($_days as $element_name => $day_name) {
-			$_value = (string)$this->branch_element->openingHours->regular->$element_name;
+			$_value = (string)$this->openingHours->regular->$element_name;
 			$_values = explode(",", $_value);
 			$_hours = [];
 			foreach($_values as $_v) {
@@ -84,31 +84,30 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	}
 
 	function getLatitude() {
-		return (float)$this->branch_element->latitude;
+		return (float)$this->latitude;
 	}
 
 	function getLongitude() {
-		return (float)$this->branch_element->longitude;
+		return (float)$this->longitude;
 	}
 
-	static function ParseBranch(\SimpleXMLElement $element) {
-		$branch_element = new static($element);
+	function toArray() {
 		return [
-			"external_branch_id" => $branch_element->getExternalBranchId(),
-			"name" => $branch_element->getBranchName(),
-			"place" => $branch_element->getPlaceName(),
+			"external_branch_id" => $this->getExternalBranchId(),
+			"name" => $this->getBranchName(),
+			"place" => $this->getPlaceName(),
 
-			"full_address" => $branch_element->getFullAddress(),
-			"country" => $branch_element->getCountryCode(),
-			"district" => $branch_element->getDistrict(),
-			"zip" => $branch_element->getZipCode(),
-			"city" => $branch_element->getCity(),
-			"street" => $branch_element->getStreet(),
+			"full_address" => $this->getFullAddress(),
+			"country" => $this->getCountryCode(),
+			"district" => $this->getDistrict(),
+			"zip" => $this->getZipCode(),
+			"city" => $this->getCity(),
+			"street" => $this->getStreet(),
 
-			"url" => $branch_element->getInformationUrl(),
-			"opening_hours" => json_encode($branch_element->getOpeningHours()),
-			"location_latitude" => $branch_element->getLatitude(),
-			"location_longitude" => $branch_element->getLongitude(),
+			"url" => $this->getInformationUrl(),
+			"opening_hours" => json_encode($this->getOpeningHours()),
+			"location_latitude" => $this->getLatitude(),
+			"location_longitude" => $this->getLongitude(),
 		];
 	}
 

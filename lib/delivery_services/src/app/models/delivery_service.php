@@ -157,20 +157,9 @@ class DeliveryService extends ApplicationModel {
 		return $delivery_service->importData($data);
 	}
 
-	/**
-	 * Nacteni pobocek z XML souboru.
-	 *
-	 * Nepouzivame XMole, nebot je prilis narocny.
-	 * Data z XML nezvladne nacist.
-	 *
-	 */
-	function importData($data, $options=array()) {
-		$options += [
-			"logger" => new logger(),
-		];
-
-		$dbmole = self::GetDbmole();
-		$xml = new SimpleXMLElement($data);
+	protected function _getBranchNodes($data) {
+		$parserClassName = $this->getParserClass();
+		$xml = new $parserClassName($data);
 
 		// Prohledani namespacu a prirazeni prefixu tam, kde je prazdny.
 		// jinak nelze pouzit volani xpath()
@@ -186,15 +175,30 @@ class DeliveryService extends ApplicationModel {
 		}
 
 		$xml->registerXPathNamespace("br", "http://atk14.org/branch");
-
-		$current_branch_ids = $this->dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
-
-		$parserClassName = $this->getParserClass();
-
 		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $parserClassName::GetXMLBranchName());
 
-		foreach($xml->xpath($_branch_element_name) as $branch_row) {
-			$_branchAr = $parserClassName::ParseBranch($branch_row);
+		return $xml->xpath($_branch_element_name);;
+	}
+
+	/**
+	 * Nacteni pobocek z XML souboru.
+	 *
+	 * Nepouzivame XMole, nebot je prilis narocny.
+	 * Data z XML nezvladne nacist.
+	 *
+	 */
+	function importData($data, $options=array()) {
+		$options += [
+			"logger" => new logger(),
+		];
+
+		$dbmole = self::GetDbmole();
+		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
+
+		$nodes = $this->_getBranchNodes($data);
+
+		foreach($nodes as $branch_row) {
+			$_branchAr = $branch_row->toArray();
 
 			$branch = DeliveryServiceBranch::FindFirst("external_branch_id", $_branchAr["external_branch_id"], "delivery_service_id", $this);
 			if ($branch) {
