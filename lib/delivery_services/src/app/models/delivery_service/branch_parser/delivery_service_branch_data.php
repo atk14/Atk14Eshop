@@ -13,8 +13,8 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 		string $namespaceOrPrefix = "",
 		bool $isPrefix = false
 	) {
+		parent::__construct($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
 		$this->tuneNamespaces();
-		return parent::__construct($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
 	}
 
 	function tuneNamespaces() {
@@ -34,9 +34,9 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 		$this->registerXPathNamespace("br", "http://atk14.org/branch");
 	}
 
-	public function getBranchNodes($options=[]) {
+	public function _getBranchNodes($options=[]) {
 		$nsPrefix = isset($this->nsPrefix) ? $this->nsPrefix : "";
-		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $static::GetXMLBranchName());
+		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), static::GetXMLBranchName());
 
 		return $this->xpath($_branch_element_name);;
 	}
