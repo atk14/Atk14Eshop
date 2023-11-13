@@ -183,6 +183,11 @@ class DeliveryService extends ApplicationModel {
 			"logger" => new logger(),
 		];
 
+		if (!DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s. skipping branches import", $this->getName()));
+			return false;
+		}
+
 		$dbmole = self::GetDbmole();
 		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 

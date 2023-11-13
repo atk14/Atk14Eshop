@@ -51,7 +51,6 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		global $ATK14_GLOBAL;
 		$_template_name = sprintf("_widget_%s_%s.tpl", $type, $provider);
 		$filename = $ATK14_GLOBAL->getApplicationPath()."views/".$this->controller."/".$_template_name;
-		trigger_error($filename);
 
 		return (file_exists($filename) && is_file($filename));
 	}

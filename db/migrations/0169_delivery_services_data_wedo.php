@@ -11,7 +11,7 @@ class DeliveryServicesDataWEDO extends ApplicationMigration {
 		$services = [
 			[
 				"code" => "wedo_ulozenka",
-				"name" => "WE|DO",
+				"name" => "WE|DO Uloženka",
 			],
 		];
 
@@ -42,7 +42,7 @@ class DeliveryServicesDataWEDO extends ApplicationMigration {
 			"price_incl_vat" => 85,
 			"regions" => json_encode(["DEFAULT" => true]),
 
-			"delivery_service_id" => DeliveryService::GetInstanceByCode("ulozenka"),
+			"delivery_service_id" => DeliveryService::GetInstanceByCode("wedo_ulozenka"),
 			"active" => $active,
 			"logo" => (string)Pupiq::CreateImage(__DIR__ . "/logos/we-do.png"),
 		]);
