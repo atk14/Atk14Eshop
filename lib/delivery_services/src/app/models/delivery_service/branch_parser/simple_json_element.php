@@ -2,7 +2,7 @@
 
 namespace DeliveryService\BranchParser;
 
-class SimpleJsonElement implements \RecursiveIterator, \ArrayAccess {
+class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 
 	public function __construct(
 		string $data,
@@ -29,7 +29,7 @@ class SimpleJsonElement implements \RecursiveIterator, \ArrayAccess {
 		return $this->_data;
 	}
 
-	function offsetGet($offset) {
+	function offsetGet($offset): mixed {
 		return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
 	}
 
@@ -52,26 +52,32 @@ class SimpleJsonElement implements \RecursiveIterator, \ArrayAccess {
 
 	/** RecursiveIterator Methods */
 
+	/*
 	public function getChildren() {
 		return $this->_data[$this->_position];
 	}
-	public function hasChildren() {
+	public function hasChildren(): bool {
 		return is_array($this->_data[$this->_position]);
 	}
+	 */
+
 	/* Inherited methods */
-	public function current() {
+
+	/*
+	public function current(): mixed {
 		return new static(json_encode($this->_data[$this->_position]));
 	}
-	public function key() {
+	public function key(): mixed {
 		return $this->_position;
 	}
-	public function next() {
+	public function next(): void {
 		$this->_position++;
 	}
-	public function rewind() {
+	public function rewind(): void {
 		$this->_position = 0;
 	}
-	public function valid() {
+	public function valid(): bool {
 		return isset($this->_data[$this->_position]);
 	}
+	 */
 }
