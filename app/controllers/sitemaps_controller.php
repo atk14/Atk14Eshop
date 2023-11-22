@@ -45,7 +45,7 @@ class SitemapsController extends ApplicationController{
 				":now" => now(),
 			),
 			"order_by" => "published_at DESC",
-			"limit" => 20,
+			"limit" => 1000,
 			"use_cache" => true,
 		));
 
