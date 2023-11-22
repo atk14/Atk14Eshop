@@ -9,6 +9,7 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 	/**
 	 * @note can not be used in PHP version < 8
 	 */
+	/*
 	public function __construct(
 		string $data,
 		int $options = 0,
@@ -19,6 +20,7 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 		parent::__construct($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
 		$this->tuneNamespaces();
 	}
+	 */
 
 	public static function GetInstance(
 		string $data,
