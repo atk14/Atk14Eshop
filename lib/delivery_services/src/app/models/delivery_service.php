@@ -193,7 +193,7 @@ class DeliveryService extends ApplicationModel {
 
 		$parserClassName = $this->getParserClass();
 #		$format = $this->_getFeedFormat($options);
-		$feed_parser = new $parserClassName($data);
+		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
 

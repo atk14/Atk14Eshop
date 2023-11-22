@@ -6,6 +6,9 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 
 	var $nsPrefix = "";
 
+	/**
+	 * @note can not be used in PHP version < 8
+	 */
 	public function __construct(
 		string $data,
 		int $options = 0,
@@ -15,6 +18,18 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 	) {
 		parent::__construct($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
 		$this->tuneNamespaces();
+	}
+
+	public static function GetInstance(
+		string $data,
+		int $options = 0,
+		bool $dataIsURL = false,
+		string $namespaceOrPrefix = "",
+		bool $isPrefix = false
+	) {
+		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+		$instance->tuneNamespaces();
+		return $instance;
 	}
 
 	function tuneNamespaces() {
