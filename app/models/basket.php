@@ -1393,4 +1393,11 @@ class Basket extends BasketOrOrder {
 	function displayPricesInclVat(){
 		return !$this->displayPricesWithoutVat();
 	}
+
+	function getDeliveryAddressNote(){
+		if($this->deliveryToDeliveryPointSelected()){
+			return null;
+		}
+		return parent::getDeliveryAddressNote();
+	}
 }
