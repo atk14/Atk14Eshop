@@ -6,8 +6,10 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
-		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("html");
+		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("html",$dialog_provider);
 		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
+
+		$this->tpl_data["dialog_provider"] = $dialog_provider; // "default", "zasilkovna", "cp_balikovna"...
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$dsb = $d["delivery_service_branch_id"];
@@ -24,22 +26,18 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		}
 	}
 
-	function _get_selector_template_name($type) {
-
+	function _get_selector_template_name($type,&$provider = "") {
 		$delivery_service = $this->delivery_method->getDeliveryService();
-		$_provider_template = "default";
-		$_widget_template_name = "widget_{$type}_default";
 
+		$provider = "default";
 		if ($delivery_service) {
-			$_delivery_service_code = (new String4($delivery_service->getCode()))->replace("-","_");
+			$_provider = (new String4($delivery_service->getCode()))->replace("-","_");
+			if ($this->_selector_template_exists($type, $_provider)) {
+				$provider = $_provider;
+			}
 		}
 
-		if (!$this->_selector_template_exists($type, $_delivery_service_code)) {
-			return $this->_build_selector_template_name($type, "default");
-		}
-		$template_name = $this->_build_selector_template_name($type, $_delivery_service_code);
-
-		return $template_name;
+		return $this->_build_selector_template_name($type, $provider);
 	}
 
 	protected function _build_selector_template_name($type, $provider) {
