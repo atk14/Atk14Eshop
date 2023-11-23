@@ -2,6 +2,7 @@
 /**
  *
  * @fixture delivery_service_branches
+ * @fixture delivery_services
  */
 class TcDeliveryServiceBranch extends TcBase {
 
@@ -118,5 +119,34 @@ class TcDeliveryServiceBranch extends TcBase {
 		$nodes = $xml->xpath("//default:branch");
 		$node_0 = $nodes[0];
 		$this->assertFalse($node_0->isActive());
+	}
+
+	function test_parse_nodes() {
+		$xml_string = file_get_contents(__DIR__.'/data/zasilkovna.xml');;
+		$pc = $this->delivery_services["zasilkovna"]->getParserClass();
+		$parser = $pc::GetInstance($xml_string);
+		$nodes = $parser->_getBranchNodes();
+		$this->assertCount(1, $nodes);
+
+		$json_string = file_get_contents(__DIR__.'/data/ulozenka.json');;
+		$pc = $this->delivery_services["wedo_ulozenka"]->getParserClass();
+		$parser = $pc::GetInstance($json_string);
+		$nodes = $parser->_getBranchNodes();
+		$this->assertCount(5, $nodes);
+
+		$xml_string = file_get_contents(__DIR__.'/data/balikovna.xml');;
+		$parser = DeliveryService\BranchParser\CpBalikovna::GetInstance($xml_string);
+		$nodes = $parser->_getBranchNodes();
+		$this->assertCount(1, $nodes);
+
+		$xml_string = file_get_contents(__DIR__.'/data/balik_na_postu.xml');;
+		$parser = DeliveryService\BranchParser\CpBalikNaPostu::GetInstance($xml_string);
+		$nodes = $parser->_getBranchNodes();
+		$this->assertCount(1, $nodes);
+
+		$xml_string = file_get_contents(__DIR__.'/data/gls.xml');;
+		$parser = DeliveryService\BranchParser\Gls::GetInstance($xml_string);
+		$nodes = $parser->_getBranchNodes();
+		$this->assertCount(1, $nodes);
 	}
 }
