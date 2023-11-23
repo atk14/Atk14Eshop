@@ -4,6 +4,10 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://docs.packetery.com/01-pickup-point-selection/04-branch-export-v4.html Documentation of API
+ *
+ */
 class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
@@ -89,6 +93,13 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 
 	function getLongitude() {
 		return (float)$this->longitude;
+	}
+
+	function isActive() {
+		if ((int)$this->status->statusId===5) {
+			return false;
+		}
+		return true;
 	}
 
 	static function GetXMLBranchName() {

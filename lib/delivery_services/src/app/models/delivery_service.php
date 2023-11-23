@@ -123,8 +123,6 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
-		$headers = get_headers($options["branches_url"], true);
-		$format = isset($headers["content-type"]) ? $headers["content-type"] : "xml";
 		$data = @file_get_contents($options["branches_url"]);
 
 		if ($data===false) {
@@ -160,17 +158,6 @@ class DeliveryService extends ApplicationModel {
 		return $delivery_service->importData($data, $options);
 	}
 
-	protected function _getFeedFormat($options=[]) {
-		$options += [
-			"branches_url" => $this->getBranchesDownloadUrl(),
-		];
-		$headers = get_headers($options["branches_url"], true);
-		$format = isset($headers["content-type"]) ? $headers["content-type"] : "application/xml";
-		$format = explode("/", $format);
-
-		return $format[1];
-	}
-
 	/**
 	 * Nacteni pobocek z XML souboru.
 	 *
@@ -192,7 +179,6 @@ class DeliveryService extends ApplicationModel {
 		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
 		$parserClassName = $this->getParserClass();
-#		$format = $this->_getFeedFormat($options);
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
@@ -202,7 +188,6 @@ class DeliveryService extends ApplicationModel {
 
 			$branch = DeliveryServiceBranch::FindFirst("external_branch_id", $_branchAr["external_branch_id"], "delivery_service_id", $this);
 			if ($branch) {
-				$_branchAr["active"] = true;
 				$_updates = $_conditions = $_bindAr = [];
 				# hodnoty budeme menit, jen kdyz budou rozdilne
 				# a potom i nastavime hodnotu updated_at

@@ -4,6 +4,10 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://www.postovnibaliky.cz/mate-eshop/ Documentation of branches xml
+ *
+ */
 class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	static $BRANCHES_DOWNLOAD_URL = "http://napostu.ceskaposta.cz/vystupy/napostu.xml";
@@ -93,7 +97,10 @@ class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServi
 			$_openHoursAr[] = $_ohDay;
 		}
 		return $_openHoursAr;
+	}
 
+	public function isActive() {
+		return ((string)$this->V_PROVOZU==="N");
 	}
 
 	static function GetXMLBranchName() {

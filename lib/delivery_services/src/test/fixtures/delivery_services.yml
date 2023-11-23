@@ -5,3 +5,7 @@ zasilkovna:
 posta:
   code: posta
   name: "Pošta"
+
+wedo_ulozenka:
+  code: wedo_ulozenka
+  name: "WE|DO Uloženka"
