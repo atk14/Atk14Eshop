@@ -6,8 +6,10 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
-		$this->tpl_data["widget_template_html"] = $this->_get_widget_template_name("html");
-		$this->tpl_data["widget_template_js"] = $this->_get_widget_template_name("js");
+		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("html",$dialog_provider);
+		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
+
+		$this->tpl_data["dialog_provider"] = $dialog_provider; // "default", "zasilkovna", "cp_balikovna"...
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$dsb = $d["delivery_service_branch_id"];
@@ -24,15 +26,31 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		}
 	}
 
-	function _get_widget_template_name($type) {
+	function _get_selector_template_name($type,&$provider = "") {
 		$delivery_service = $this->delivery_method->getDeliveryService();
-		$_widget_template_name = "widget_{$type}_default";
 
-		if (!$delivery_service) {
-			return $_widget_template_name;
+		$provider = "default";
+		if ($delivery_service) {
+			$_provider = (new String4($delivery_service->getCode()))->replace("-","_");
+			if ($this->_selector_template_exists($type, $_provider)) {
+				$provider = $_provider;
+			}
 		}
 
-		return sprintf("widget_%s_%s", $type, (new String4($delivery_service->getCode()))->replace("-","_") );
+		return $this->_build_selector_template_name($type, $provider);
+	}
+
+	protected function _build_selector_template_name($type, $provider) {
+		$template_name = sprintf("widget_%s_%s", $type, $provider);
+		return $template_name;
+	}
+
+	protected function _selector_template_exists($type, $provider) {
+		global $ATK14_GLOBAL;
+		$_template_name = sprintf("_widget_%s_%s.tpl", $type, $provider);
+		$filename = $ATK14_GLOBAL->getApplicationPath()."views/".$this->controller."/".$_template_name;
+
+		return (file_exists($filename) && is_file($filename));
 	}
 
 	function _before_filter() {

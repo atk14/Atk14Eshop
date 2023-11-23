@@ -123,7 +123,10 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
+		$headers = get_headers($options["branches_url"], true);
+		$format = isset($headers["content-type"]) ? $headers["content-type"] : "xml";
 		$data = @file_get_contents($options["branches_url"]);
+
 		if ($data===false) {
 			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
 			return false;
@@ -154,30 +157,18 @@ class DeliveryService extends ApplicationModel {
 		}
 
 		$delivery_service = static::FindFirst("code", $code);
-		return $delivery_service->importData($data);
+		return $delivery_service->importData($data, $options);
 	}
 
-	protected function _getBranchNodes($data) {
-		$parserClassName = $this->getParserClass();
-		$xml = new $parserClassName($data);
+	protected function _getFeedFormat($options=[]) {
+		$options += [
+			"branches_url" => $this->getBranchesDownloadUrl(),
+		];
+		$headers = get_headers($options["branches_url"], true);
+		$format = isset($headers["content-type"]) ? $headers["content-type"] : "application/xml";
+		$format = explode("/", $format);
 
-		// Prohledani namespacu a prirazeni prefixu tam, kde je prazdny.
-		// jinak nelze pouzit volani xpath()
-		$nsPrefix = "";
-		foreach($xml->getDocNamespaces() as $strPrefix => $strNamespace) {
-			if (in_array($strPrefix, ["xsi", "xsd"])) {
-				continue;
-			}
-			if(strlen($strPrefix)==0) {
-				$nsPrefix="default"; //Assign an arbitrary namespace prefix.
-			}
-			$xml->registerXPathNamespace($nsPrefix,$strNamespace);
-		}
-
-		$xml->registerXPathNamespace("br", "http://atk14.org/branch");
-		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $parserClassName::GetXMLBranchName());
-
-		return $xml->xpath($_branch_element_name);;
+		return $format[1];
 	}
 
 	/**
@@ -192,10 +183,19 @@ class DeliveryService extends ApplicationModel {
 			"logger" => new logger(),
 		];
 
+		if (!DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s. skipping branches import", $this->getName()));
+			return false;
+		}
+
 		$dbmole = self::GetDbmole();
 		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
-		$nodes = $this->_getBranchNodes($data);
+		$parserClassName = $this->getParserClass();
+#		$format = $this->_getFeedFormat($options);
+		$feed_parser = $parserClassName::GetInstance($data);
+
+		$nodes = $feed_parser->_getBranchNodes($options);
 
 		foreach($nodes as $branch_row) {
 			$_branchAr = $branch_row->toArray();

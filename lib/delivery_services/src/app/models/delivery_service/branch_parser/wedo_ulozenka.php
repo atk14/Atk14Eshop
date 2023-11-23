@@ -4,48 +4,56 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
-class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
+class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
-	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
+	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/1/branches";
 
 	function getExternalBranchId() {
-		return (string)$this->id;
+		return (string)$this["id"];
 	}
 
 	function getBranchName() {
-		return (string)$this->name;
+		return $this["name"];
 	}
 
 	function getPlaceName() {
-		return (string)$this->place;
+		return $this["name"];
 	}
 
 	function getFullAddress() {
-		return (string)$this->name;
+		return $this["street"]." ".$this["house_number"];;
 	}
 
 	function getCountryCode() {
-		return \Translate::Upper((string)$this->country);
+		$_map = [
+			"CZE" => "CZ",
+		];
+		$out = $this["country"];
+		if (isset($_map[$out])) {
+			$out = $_map[$out];
+		}
+
+		return $out;
 	}
 
 	function getDistrict() {
-		return trim((string)$this->district);
+		return $this["district"]["name"];
 	}
 
 	function getZipCode() {
-		return preg_replace("/\s/", "", trim((string)$this->zip));
+		return $this["zip"];
 	}
 
 	function getCity() {
-		return (string)$this->city;
+		return $this["town"];
 	}
 
 	function getStreet() {
-		return (string)$this->street;
+		return $this["street"];
 	}
 
 	function getInformationUrl() {
-		return (string)$this->url;
+		return $this["_links"]["website"]["href"];
 	}
 
 	function getOpeningHours() {
@@ -62,17 +70,13 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 		];
 
 		foreach($_days as $element_name => $day_name) {
-			$_value = (string)$this->openingHours->regular->$element_name;
-			$_values = explode(",", $_value);
+			$_values = $this["opening_hours"]["regular"]["$element_name"]["hours"];
 			$_hours = [];
 			foreach($_values as $_v) {
-				$_v = trim($_v);
-				if (preg_match('/^([0-9]{2}:[0-9]{2}).?([0-9]{2}:[0-9]{2})$/u', $_v, $m)) {
-					$_hours[] = [
-						"open_from" => trim($m[1]),
-						"open_to" => trim($m[2]),
-					];
-				}
+				$_hours[] = [
+					"open_from" => $_v["open"],
+					"open_to" => $_v["close"],
+				];
 			}
 			$_ohDay = [
 				"day_name" => $day_name,
@@ -84,20 +88,21 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	}
 
 	function getLatitude() {
-		return (float)$this->latitude;
+		return (float)$this["gps"]["latitude"];
 	}
 
 	function getLongitude() {
-		return (float)$this->longitude;
+		return (float)$this["gps"]["longitude"];
 	}
 
+
 	static function GetXMLBranchName() {
-		return "branch";
+#		return "branch";
 	}
 
 	static function GetRequirements() {
 		return [
-			"API_KEY" => "delivery_services.zasilkovna.api_key",
+#			"API_KEY" => "delivery_services.zasilkovna.api_key",
 		];
 	}
 }
