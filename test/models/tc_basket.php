@@ -88,6 +88,53 @@ class TcBasket extends TcBase {
 		$basket->destroy();
 	}
 
+	function test_getting_delivery_address_values(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$basket->s([
+			"delivery_address_state" => "Kraj Praha",
+			"delivery_address_city" => "Praha 3",
+		]);
+
+		$this->assertEquals("Kveta",$basket->getDeliveryFirstname());
+		$this->assertEquals("Latkova",$basket->getDeliveryLastname());
+		$this->assertEquals("Ambrozova 9",$basket->getDeliveryAddressStreet());
+		$this->assertEquals("u kina Aero",$basket->getDeliveryAddressStreet2());
+		$this->assertEquals("Praha 3",$basket->getDeliveryAddressCity());
+		$this->assertEquals("Kraj Praha",$basket->getDeliveryAddressState());
+		$this->assertEquals("130 00",$basket->getDeliveryAddressZip());
+		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
+
+		$zasilkovna_1 = $this->delivery_service_branches["zasilkovna_1"];
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
+			"delivery_method_data" => $zasilkovna_1->getDeliveryMethodData()
+		]);
+
+		$this->assertEquals("Kveta",$basket->getDeliveryFirstname());
+		$this->assertEquals("Latkova",$basket->getDeliveryLastname());
+		$this->assertEquals("Zásilková I.",$basket->getDeliveryAddressStreet());
+		$this->assertEquals(null,$basket->getDeliveryAddressStreet2());
+		$this->assertEquals("Praha",$basket->getDeliveryAddressCity());
+		$this->assertEquals(null,$basket->getDeliveryAddressState());
+		$this->assertEquals("123 45",$basket->getDeliveryAddressZip());
+		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
+
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["post_cod"],
+			"delivery_method_data" => null
+		]);
+
+		$this->assertEquals("Kveta",$basket->getDeliveryFirstname());
+		$this->assertEquals("Latkova",$basket->getDeliveryLastname());
+		$this->assertEquals("Ambrozova 9",$basket->getDeliveryAddressStreet());
+		$this->assertEquals("u kina Aero",$basket->getDeliveryAddressStreet2());
+		$this->assertEquals("Praha 3",$basket->getDeliveryAddressCity());
+		$this->assertEquals("Kraj Praha",$basket->getDeliveryAddressState());
+		$this->assertEquals("130 00",$basket->getDeliveryAddressZip());
+		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
+	}
+
 	function test_addProduct(){
 		$mint_tea = $this->products["mint_tea"];
 		$black_tea = $this->products["black_tea"];
