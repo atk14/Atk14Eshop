@@ -75,6 +75,7 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 			"opening_hours" => json_encode($this->getOpeningHours()),
 			"location_latitude" => $this->getLatitude(),
 			"location_longitude" => $this->getLongitude(),
+			"active" => $this->isActive(),
 		];
 	}
 }

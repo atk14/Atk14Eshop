@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><DropoffData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><CtrCode>CZ</CtrCode><Updated>2023-11-07T10:41:07</Updated>
+<Data>
+<DropoffPoint ID="CZ10000-PARCELLOCK07" Name="AlzaBox P10 - Vršovice (Albert)" Address="V Předpolí 279" CtrCode="CZ" ZipCode="10000" CityName="Praha 10" Contact="" ContactPhone="" IsCODHandler="1" IsParcelLocker="1" GeoLat="50.0717" GeoLng="14.4826" >
+<Openings>
+  <Openings Day="Monday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Tuesday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Wednesday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Thursday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Friday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Saturday" OpenHours="00:00-24:00" MidBreak="" />
+  <Openings Day="Sunday" OpenHours="00:00-24:00" MidBreak="" />
+</Openings>
+</DropoffPoint>
+</Data></DropoffData>

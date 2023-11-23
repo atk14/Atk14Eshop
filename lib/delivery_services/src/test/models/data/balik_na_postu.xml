@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zv xmlns="http://www.cpost.cz/schema/aict/zv" xmlns:xsi="http://www.cpost.cz/schema/aict/zv" xsi:schemaLocation="http://www.cpost.cz/schema/aict/zv">
+<row>
+        <PSC>10004</PSC>
+        <NAZ_PROV>Praha 104</NAZ_PROV>
+        <OKRES>Hlavní město Praha</OKRES>
+        <ADRESA>Nákupní 389/3, Štěrboholy, 10004, Praha</ADRESA>
+        <V_PROVOZU>N</V_PROVOZU>
+        <PRODL_DOBA>A</PRODL_DOBA>
+        <BANKOMAT>N</BANKOMAT>
+        <PARKOVISTE>A</PARKOVISTE>
+        <KOMPLET_SERVIS>A</KOMPLET_SERVIS>
+        <VIKEND>A</VIKEND>
+        <LOKALITY_PRODL>N</LOKALITY_PRODL>
+        <VYDEJ_NP_OD/>
+        <UKL_NP_LIMIT>A</UKL_NP_LIMIT>
+        <PSC_NP_NAHR/>
+        <NAZ_NP_NAHR/>
+        <ABC_BOX>N</ABC_BOX>
+        <OTV_DOBA>
+            <den name="Pondělí">
+                <od_do>
+                    <od>09:00</od>
+                    <do>19:00</do>
+                </od_do>
+            </den>
+            <den name="Úterý">
+                <od_do>
+                    <od>09:00</od>
+                    <do>19:00</do>
+                </od_do>
+            </den>
+            <den name="Středa">
+                <od_do>
+                    <od>09:00</od>
+                    <do>19:00</do>
+                </od_do>
+            </den>
+            <den name="Čtvrtek">
+                <od_do>
+                    <od>09:00</od>
+                    <do>19:00</do>
+                </od_do>
+            </den>
+            <den name="Pátek">
+                <od_do>
+                    <od>09:00</od>
+                    <do>19:00</do>
+                </od_do>
+            </den>
+            <den name="Sobota">
+                <od_do>
+                    <od>09:00</od>
+                    <do>18:00</do>
+                </od_do>
+            </den>
+            <den name="Neděle">
+                <od_do>
+                    <od>09:00</od>
+                    <do>18:00</do>
+                </od_do>
+            </den>
+        </OTV_DOBA>
+        <SOUR_X>1045845</SOUR_X>
+        <SOUR_Y>734386.14</SOUR_Y>
+        <SOUR_X_WGS84>14.543227</SOUR_X_WGS84>
+        <SOUR_Y_WGS84>50.072500</SOUR_Y_WGS84>
+    </row>
+</zv>

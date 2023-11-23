@@ -202,7 +202,6 @@ class DeliveryService extends ApplicationModel {
 
 			$branch = DeliveryServiceBranch::FindFirst("external_branch_id", $_branchAr["external_branch_id"], "delivery_service_id", $this);
 			if ($branch) {
-				$_branchAr["active"] = true;
 				$_updates = $_conditions = $_bindAr = [];
 				# hodnoty budeme menit, jen kdyz budou rozdilne
 				# a potom i nastavime hodnotu updated_at

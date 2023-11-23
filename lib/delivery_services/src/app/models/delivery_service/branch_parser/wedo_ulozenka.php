@@ -4,6 +4,10 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://api.ulozenka.cz/v3 Documentation of API of WE|DO services.
+ *
+ */
 class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
 	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/1/branches";
@@ -95,6 +99,9 @@ class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliverySer
 		return (float)$this["gps"]["longitude"];
 	}
 
+	function isActive() {
+		return true;
+	}
 
 	static function GetXMLBranchName() {
 #		return "branch";

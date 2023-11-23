@@ -7,6 +7,10 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://doc.gls-czech.cz/index.php/ownsystems Documentation for branch selector implementation
+ *
+ */
 class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	/**
@@ -111,6 +115,10 @@ class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchPar
 	function getLongitude() {
 		$attributes = $this->attributes();
 		return (string)$attributes["GeoLng"];
+	}
+
+	function isActive() {
+		return true;
 	}
 
 
