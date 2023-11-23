@@ -21,7 +21,7 @@ class TcDeliveryServiceBranches extends TcBase {
 		$this->assertArrayHasKey("opening_hours", $sug);
 
 		$this->assertEquals("12000", $sug["value"]);
-		$this->assertEquals("12000, Moravská 1530/9, Vinohrady, 12000, Praha - Praha 2", $sug["label"]);
+		$this->assertEquals("<mark>120</mark> 00 Praha, Moravská 1530/9 - Praha 2", $sug["label"]);
 		$this->assertEquals("", $sug["opening_hours"]);
 
 		# hledani podle 'place' nebo 'name'
@@ -39,7 +39,7 @@ class TcDeliveryServiceBranches extends TcBase {
 		$this->assertArrayHasKey("opening_hours", $sug);
 
 		$this->assertEquals("13000", $sug["value"]);
-		$this->assertEquals("13000, Olšanská 38/9, Žižkov, 13000, Praha - Praha 3", $sug["label"]);
+		$this->assertEquals("1<mark>3</mark>0 00 <mark>Praha</mark>, Olšanská <mark>3</mark>8/9 - <mark>Praha</mark> <mark>3</mark>", $sug["label"]);
 		$this->assertEquals("", $sug["opening_hours"]);
 
 	}
