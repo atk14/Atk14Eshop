@@ -3,6 +3,7 @@ class BasketOrOrder extends ApplicationModel {
 
 	static function GetAddressFields($options = []){
 		$options += [
+			"name" => true,
 			"company_data" => false,
 			"address_street2" => true,
 			"address_state" => true,
@@ -36,6 +37,11 @@ class BasketOrOrder extends ApplicationModel {
 			$fields += [
 				"{$prefix}phone" => false,
 			];
+		}
+
+		if(!$options["name"]){
+			unset($fields["{$prefix}firstname"]);
+			unset($fields["{$prefix}lastname"]);
 		}
 
 		if($options["note"]){

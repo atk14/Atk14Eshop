@@ -42,7 +42,8 @@ class CheckoutsController extends ApplicationController {
 
 		$this->page_title = _("Doručovací údaje");
 
-		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = $this->basket->deliveryToDeliveryPointSelected();
+		$delivery_point = $this->basket->getDeliveryServiceBranch();
+		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = !!$delivery_point;
 
 		$delivery_countries_allowed = $this->basket->getDeliveryCountriesAllowed();
 
@@ -60,7 +61,7 @@ class CheckoutsController extends ApplicationController {
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
 		if ($delivery_point_selected) {
-			$this->form->set_initial($this->basket->getDeliveryPointAddress());
+			$this->form->set_initial($delivery_point->getDeliveryAddressAr());
 			$this->logged_user && $this->form->set_initial([
 				"firstname" => $this->logged_user->getFirstname(),
 				"lastname" => $this->logged_user->getLastname(),
@@ -97,6 +98,15 @@ class CheckoutsController extends ApplicationController {
 
 		if($this->request->post() && ($d = $this->form->validate($params))){
 			$d["vat_id_valid_for_cross_border_transactions_within_eu"] = $d["vat_id"]->isValidForCrossBorderTransactionsWithinEu();
+
+			if($delivery_point_selected){
+				// dorucovaci adresu v tomto pripade nechceme do kosiku ukladat a
+				// klidne tam nechame to, co tam je
+				foreach(array_keys($delivery_point->getDeliveryAddressAr()) as $k){
+					unset($d[$k]);
+				}
+			}
+
 			$this->basket->s($d);
 			$this->_redirect_to("summary");
 		}

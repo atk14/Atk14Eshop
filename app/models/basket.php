@@ -20,7 +20,7 @@ class Basket extends BasketOrOrder {
 
 		return parent::CreateNewRecord($values,$options);
 	}
-	
+
 	/**
 	 *
 	 *	$basket = Basket::CreateNewRecord4UserAndRegion();
@@ -120,7 +120,7 @@ class Basket extends BasketOrOrder {
 			$update_ar["payment_method_id"] = null;
 		}
 		if($this->g("delivery_address_country") && !in_array($this->g("delivery_address_country"),$allowed_countries)){
-			$update_ar["delivery_address_country"] = null; 
+			$update_ar["delivery_address_country"] = null;
 		}
 		if(!in_array($this->getCurrency()->getCode(),$allowed_currencies)){
 			$update_ar["currency_id"] = $region->getDefaultCurrency()->getId();
@@ -527,7 +527,7 @@ class Basket extends BasketOrOrder {
 
 	/**
 	 * Alias pro getBasketCampaigns()
-	 * 
+	 *
 	 * !! Pozor !! Toto nevraci Campaigns[], ale BasketCampaign[]
 	 */
 	function getCampaigns(){
@@ -561,7 +561,7 @@ class Basket extends BasketOrOrder {
 			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method",
 			"minimal_items_price_incl_vat<=:items_price_incl_vat",
 		];
-		$bind_ar[":region_code"] = $region->getCode(); 
+		$bind_ar[":region_code"] = $region->getCode();
 		$bind_ar[":now"] = $now;
 		$bind_ar[":required_customer_groups"] = $user->getCustomerGroups();
 		$bind_ar[":required_delivery_method"] = $this->getDeliveryMethod();
@@ -649,7 +649,7 @@ class Basket extends BasketOrOrder {
 	function freeShipping($considered_delivery_method = null){
 
 		if(is_null($considered_delivery_method)){ $considered_delivery_method = $this->getDeliveryMethod(); }
-		
+
 		foreach($this->getBasketCampaigns($considered_delivery_method) as $bc){
 			if($bc->freeShipping()){
 				return true;
@@ -668,7 +668,7 @@ class Basket extends BasketOrOrder {
 
 	/**
 	 * Zmena obsahu kosiku zmenu jeho checksum
-	 * 
+	 *
 	 * Pouziva se pri vytvareni objednavky.
 	 * Chceme mit totiz jistotu, ze uzivatel vytvari objednavku podle toho, co vidi v sumarizaci kosiku.
 	 */
@@ -906,7 +906,16 @@ class Basket extends BasketOrOrder {
 
 		// Toto zajisti, ze pokud neni nastavena fakturacni adresa, pouzije se dorucovaci.
 		// Osetreno to je to v jednotlivych funkcich getAddressStreet(), getAddressCity().
+		// Naopak u dorucovaci adresy metody getDeliveryAddress*() mohou nacitat hodnoty z vybraneho mista odberu.
 		$address_fields = array_keys(Basket::GetAddressFields());
+		foreach(array_keys(Basket::GetAddressFields(["note" => true, "prefix" => "delivery_"])) as $_k){
+			$address_fields[] = $_k;
+		}
+		foreach($address_fields as $key){
+			$method = String4::ToObject($key)->camelize()->prepend("get")->toString(); // "address_zip" -> "getAddressZip"
+			$values[$key] = $this->$method();
+		}
+
 		foreach($address_fields as $key){
 			$method = String4::ToObject($key)->camelize()->prepend("get")->toString(); // "address_zip" -> "getAddressZip"
 			$values[$key] = $this->$method();
@@ -1113,7 +1122,6 @@ class Basket extends BasketOrOrder {
 				"order_status_set_by_user_id" => null,
 			]);
 		}
-		
 
 		# v ApplicationModel se automaticky vyplni prihlaseny uzivatel,
 		# kdyz dojde ke zmene stavu diky predchozimu kodu.
@@ -1336,25 +1344,6 @@ class Basket extends BasketOrOrder {
 		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
 	}
 
-	function getDeliveryPointAddress() {
-		$delivery_address = null;
-		$data = $this->getDeliveryMethodData();
-		if (isset($data["delivery_address"])) {
-			$delivery_address = $data["delivery_address"];
-			foreach(["street","city","zip","country"] as $k) {
-				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
-				unset($delivery_address[$k]);
-			}
-			$delivery_address["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
-			unset($delivery_address["company"]);
-		}
-		return $delivery_address;
-	}
-
-	function getDeliveryServiceBranchAddress() {
-		return $this->getDeliveryPointAddress();
-	}
-
 	/**
 	 * Bylo vybrano doruceni do dorucovaciho mista?
 	 *
@@ -1394,10 +1383,20 @@ class Basket extends BasketOrOrder {
 		return !$this->displayPricesWithoutVat();
 	}
 
-	function getDeliveryAddressNote(){
-		if($this->deliveryToDeliveryPointSelected()){
-			return null;
+	function getDeliveryCompany(){ return $this->_getDeliveryAddress("delivery_company"); }
+	function getDeliveryAddressStreet(){ return $this->_getDeliveryAddress("delivery_address_street"); }
+	function getDeliveryAddressStreet2(){ return $this->_getDeliveryAddress("delivery_address_street2"); }
+	function getDeliveryAddressCity(){ return $this->_getDeliveryAddress("delivery_address_city"); }
+	function getDeliveryAddressState(){ return $this->_getDeliveryAddress("delivery_address_state"); }
+	function getDeliveryAddressZip(){ return $this->_getDeliveryAddress("delivery_address_zip"); }
+	function getDeliveryAddressCountry(){ return $this->_getDeliveryAddress("delivery_address_country"); }
+	function getDeliveryAddressNote(){ return $this->_getDeliveryAddress("delivery_address_note"); }
+
+	protected function _getDeliveryAddress($key){
+		if($delivery_service_brand = $this->getDeliveryServiceBranch()){
+			$delivery_address = $delivery_service_brand->getDeliveryAddressAr();
+			return $delivery_address[$key];
 		}
-		return parent::getDeliveryAddressNote();
+		return $this->g($key);
 	}
 }

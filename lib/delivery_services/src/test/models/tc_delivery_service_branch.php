@@ -23,6 +23,26 @@ class TcDeliveryServiceBranch extends TcBase {
 		$this->assertEquals($data,json_decode($json,true));
 	}
 
+	function test_getDeliveryAddressAr(){
+		$posta_12000 = $this->delivery_service_branches["posta_12000"];
+
+		$this->assertEquals([
+			"delivery_company" => "Praha 2",
+			"delivery_address_street" => "Moravská 1530/9",
+			"delivery_address_street2" => null,
+			"delivery_address_city" => "Praha",
+			"delivery_address_state" => null,
+			"delivery_address_zip" => "120 00",
+			"delivery_address_country" => "CZ",
+			"delivery_address_note" => null,
+		],$posta_12000->getDeliveryAddressAr());
+	}
+
+	function test_getAddressStr(){
+		$posta_12000 = $this->delivery_service_branches["posta_12000"];
+		$this->assertEquals("120 00 Praha, Moravská 1530/9 - Praha 2",$posta_12000->getAddressStr());
+	}
+
 	function test_branch_data_gls() {
 		$xml_string = '<?xml version="1.0" encoding="UTF-8"?><DropoffData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><CtrCode>CZ</CtrCode><Updated>2023-11-07T10:41:07</Updated>
 <Data>

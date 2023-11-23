@@ -1018,6 +1018,44 @@ class TcBasket extends TcBase {
 		$this->assertEquals(10.0,$basket->getAveragedItemsVatPercent());
 	}
 
+	function test_GetAddressFields(){
+		$this->assertEquals([
+			"firstname" => true,
+			"lastname" => true,
+			"company" => false,
+			"address_street" => true,
+			"address_street2" => false,
+			"address_city" => true,
+			"address_state" => false,
+			"address_zip" => true,
+			"address_country" => true,
+		],Basket::GetAddressFields());
+
+		$this->assertEquals([
+			"company" => false,
+			"address_street" => true,
+			"address_street2" => false,
+			"address_city" => true,
+			"address_state" => false,
+			"address_zip" => true,
+			"address_country" => true,
+			"company_number" => false,
+			"vat_id" => false,
+			"address_note" => false,
+		],Basket::GetAddressFields(["company_data" => true, "note" => true, "name" => false, "street2" => false, "state" => false]));
+
+		$this->assertEquals([
+			"delivery_company" => false,
+			"delivery_address_street" => true,
+			"delivery_address_street2" => false,
+			"delivery_address_city" => true,
+			"delivery_address_state" => false,
+			"delivery_address_zip" => true,
+			"delivery_address_country" => true,
+			"delivery_address_note" => false,
+		],Basket::GetAddressFields(["name" => false, "note" => true, "prefix" => "delivery_"]));
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());

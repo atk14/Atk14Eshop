@@ -1,5 +1,6 @@
 <?php
 namespace DeliveryService\BranchParser;
+
 require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
@@ -17,11 +18,15 @@ class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliverySer
 	}
 
 	function getPlaceName() {
-		return $this["name"];
+		$place = trim($this["name"]);
+		if(preg_match('/\(([^\(\)]+)\)$/',$place,$matches)){ // "Praha, K Šeberáku 180/1 (MarexTrade s.r.o.)" -> "MarexTrade s.r.o."
+			$place = trim($matches[1]);
+		}
+		return $place;
 	}
 
 	function getFullAddress() {
-		return $this["street"]." ".$this["house_number"];;
+		return $this->getStreet().", ".$this->getCity();
 	}
 
 	function getCountryCode() {
@@ -49,7 +54,7 @@ class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliverySer
 	}
 
 	function getStreet() {
-		return $this["street"];
+		return trim($this["street"]." ".$this["house_number"]);
 	}
 
 	function getInformationUrl() {

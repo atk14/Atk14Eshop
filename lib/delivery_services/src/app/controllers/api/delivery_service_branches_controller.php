@@ -11,13 +11,19 @@ class DeliveryServiceBranchesController extends ApiController {
 				return;
 			}
 
+			$kh = new \Yarri\KeywordsHighlighter([
+				"opening_tag" => "<mark>",
+				"closing_tag" => "</mark>",
+			]);
+
 			$this->api_data = array();
 			foreach($delivery_service->findBranches($d["q"], array("countries" => $this->current_region->getDeliveryCountries())) as $_office) {
 				$obj_dump = $_office->toArray();
-				# label pro naseptavadlo, ktery chceme vzdy ve stejnem formatu a udaje chceme mit v urcitem poradi
+				$label = $_office->getAddressStr();
+				$label = $kh->highlight($label,$d["q"]);
 				$ar = [
 					"value" => $obj_dump["external_branch_id"],
-					"label" => sprintf("%s, %s - %s", $obj_dump["zip"], $obj_dump["full_address"], $obj_dump["place"]),
+					"label" => $label,
 					"opening_hours" => $obj_dump["opening_hours"],
 				];
 				$this->api_data[] = $ar;
