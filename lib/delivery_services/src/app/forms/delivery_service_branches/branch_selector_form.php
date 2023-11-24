@@ -8,11 +8,13 @@
 class BranchSelectorForm extends ApplicationForm {
 	function set_up() {
 
-		$this->add_field("delivery_service_widget", new DeliveryServiceBranchField(array(
+		//$f = $this->add_field("delivery_service_widget", new DeliveryServiceBranchField(array(
+		$f = $this->add_field("delivery_service_widget", new CharField(array(
 			"label" => _("Výdejní místo"),
 			"required" => true,
 			"help_text" => _("Zadejte psč, město nebo název provozovny"),
 			"delivery_service_id" => $this->controller->delivery_method->getDeliveryService(),
 		)));
+		$f->widget->attrs["class"] .= " js--delivery_branch_search_input";
 	}
 }

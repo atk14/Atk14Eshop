@@ -1,6 +1,17 @@
 <?php
 class DeliveryServiceBranchesController extends ApplicationController {
 
+	function index() {
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$this->tpl_data["delivery_service_branches"] = $this->delivery_service->findBranches($d["q"],["countries" => $this->current_region->getDeliveryCountries()]);
+
+		if($this->params->getString("format")==="snippet"){
+			$this->render_layout = false;
+			$this->template_name = "index.snippet";
+		}
+	}
+
 	function set_branch() {
 		$this->tpl_data["branch_selector_form"] = $this->_get_form("branch_selector_form");
 
@@ -10,6 +21,8 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
 
 		$this->tpl_data["dialog_provider"] = $dialog_provider; // "default", "zasilkovna", "cp_balikovna"...
+
+		$this->tpl_data["search_form"] = $this->_get_search_form();
 
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
 			$dsb = $d["delivery_service_branch_id"];
@@ -24,6 +37,15 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 			return $this->_redirect_back();
 		}
+	}
+
+	function _get_search_form(){
+		$form = $this->_get_form("index");
+		$form->set_action($this->_link_to([
+			"action" => "index",
+			"delivery_method_id" => $this->delivery_method,
+		])); 
+		return $form;
 	}
 
 	function _get_selector_template_name($type,&$provider = "") {
@@ -50,6 +72,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		$_template_name = sprintf("_widget_%s_%s.tpl", $type, $provider);
 		$filename = $ATK14_GLOBAL->getApplicationPath()."views/".$this->controller."/".$_template_name;
 
+		return false;
 		return (file_exists($filename) && is_file($filename));
 	}
 
@@ -58,6 +81,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		if($dm && !$dm->getDeliveryService()){
 			return $this->_execute_action("error404");
 		}
+		$this->delivery_service = $dm->getDeliveryService();
 		$this->breadcrumbs[] = _("Nákupní košík");
 		$this->_prepare_checkout_navigation();
 	}
