@@ -8,7 +8,8 @@ class IndexForm extends ApplicationForm {
 			"max_length" => 200,
 			"required" => false,
 		)));
-		$f->widget->attrs["class"] .= "js--delivery_branch_search_input";
+		$f->widget->attrs["class"] = "text form-control js--delivery_branch_search_input";
+		$f->widget->attrs["autocomplete"] = "off";
 
 		$this->set_button_text(_("Hledat"));
 	}

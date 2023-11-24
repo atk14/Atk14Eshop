@@ -2,9 +2,14 @@
 class DeliveryServiceBranchesController extends ApplicationController {
 
 	function index() {
+		$this->form->set_hidden_field("delivery_method_id",$this->delivery_method);
+
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
-		$this->tpl_data["delivery_service_branches"] = $this->delivery_service->findBranches($d["q"],["countries" => $this->current_region->getDeliveryCountries()]);
+		$this->tpl_data["delivery_service_branches"] = $this->delivery_service->findBranches($d["q"],[
+			"countries" => $this->current_region->getDeliveryCountries(),
+			"limit" => 20,
+		]);
 
 		if($this->params->getString("format")==="snippet"){
 			$this->render_layout = false;
@@ -17,8 +22,8 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
-		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("html",$dialog_provider);
-		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
+		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("widget",$dialog_provider);
+		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("script");
 
 		$this->tpl_data["dialog_provider"] = $dialog_provider; // "default", "zasilkovna", "cp_balikovna"...
 
@@ -62,23 +67,21 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		return $this->_build_selector_template_name($type, $provider);
 	}
 
-	protected function _build_selector_template_name($type, $provider) {
-		$template_name = sprintf("widget_%s_%s", $type, $provider);
+	protected function _build_selector_template_name($type, $provider, &$filename = "") {
+		global $ATK14_GLOBAL;
+		$template_name = $this->controller."/dialogs/$provider/$type";
+		$filename = $ATK14_GLOBAL->getApplicationPath()."views/".$this->controller."/dialogs/$provider/_$type.tpl";
 		return $template_name;
 	}
 
 	protected function _selector_template_exists($type, $provider) {
-		global $ATK14_GLOBAL;
-		$_template_name = sprintf("_widget_%s_%s.tpl", $type, $provider);
-		$filename = $ATK14_GLOBAL->getApplicationPath()."views/".$this->controller."/".$_template_name;
-
-		return false;
+		$this->_build_selector_template_name($type, $provider, $filename);
 		return (file_exists($filename) && is_file($filename));
 	}
 
 	function _before_filter() {
 		$dm = $this->_find("delivery_method","delivery_method_id");
-		if($dm && !$dm->getDeliveryService()){
+		if(!$dm || !$dm->isActive() || !$dm->getDeliveryService()){
 			return $this->_execute_action("error404");
 		}
 		$this->delivery_service = $dm->getDeliveryService();

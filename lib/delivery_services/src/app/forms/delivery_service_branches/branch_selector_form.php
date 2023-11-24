@@ -15,6 +15,5 @@ class BranchSelectorForm extends ApplicationForm {
 			"help_text" => _("Zadejte psč, město nebo název provozovny"),
 			"delivery_service_id" => $this->controller->delivery_method->getDeliveryService(),
 		)));
-		$f->widget->attrs["class"] .= " js--delivery_branch_search_input";
 	}
 }

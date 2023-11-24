@@ -3,6 +3,5 @@
 
 {if $request->xhr()}
 <div class="js--delivery_branch_suggesting_area">
-   js--delivery_branch_suggesting_area
 </div>
 {/if}

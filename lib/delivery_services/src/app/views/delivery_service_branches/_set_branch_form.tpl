@@ -9,7 +9,7 @@
 
 {if $delivery_service}
 	{render partial="shared/form_error"}
-	{render partial=$widget_template_html}
+	{render partial="$widget_template_html"}
 {else}
 	{render partial="shared/form_field" field=$branch_selector_form->get_field("delivery_service_widget")}
 	{render partial="shared/form"}
@@ -18,7 +18,7 @@
 <script>
 document.addEventListener( "DOMContentLoaded", function() {
 {if $delivery_service}
-	{render partial=$widget_template_js}
+	{render partial="$widget_template_js"}
 {/if}
 } );
 </script>

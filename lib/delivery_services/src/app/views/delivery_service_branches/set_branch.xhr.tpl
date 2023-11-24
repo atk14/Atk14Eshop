@@ -18,10 +18,4 @@ var $modal = $({jstring}{modal id=delivery_service_branch_select title=$modal_ti
 $modal.appendTo("body");
 $("#delivery_service_branch_select").modal("show");
 
-{if $delivery_service}
-	{render partial=$widget_template_js}
-{/if}
-
-{if $dialog_provider=="default"}
-window.UTILS.searchSuggestion( "js--delivery_branch_search_input", "js--delivery_branch_suggesting_area" );
-{/if}
+{render partial="$widget_template_js"}
