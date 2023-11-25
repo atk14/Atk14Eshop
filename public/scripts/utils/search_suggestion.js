@@ -11,12 +11,13 @@ window.UTILS = window.UTILS || { };
  *
  */
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
-	var $suggArea = $( "." + suggestingAreaClassName );
+	var stateIndex = fieldClassName;
+	var $suggestingArea = $( "." + suggestingAreaClassName );
 	var $field = $( "." + fieldClassName );
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var $currentSearchField;
 
-	if ( $suggArea.length === 0 ) {
+	if ( $suggestingArea.length === 0 ) {
 		console.log(
 			"searchSuggestion: Warning! No suggesting area found with class " +
 			suggestingAreaClassName
@@ -24,137 +25,64 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		return;
 	}
 
-	$suggArea.hide();
+	window.UTILS._search_suggestion.states[ stateIndex ] = {
+		fieldClassName: fieldClassName,
+		suggestingArea: $suggestingArea,
+		field: $field,
+		currentSearchField: $currentSearchField,
+		submitBtn: $submitBtn,
+
+		suggestingAreaVisible: false,
+		suggestingCache: {},
+		suggestingAreaNeedsToBePositioned: true,
+		suggestingAreaOriginalContent: $suggestingArea.html()
+	};
+
+	$suggestingArea.hide();
 
 	$field.on( "keyup focus", function() {
-		window.UTILS._search_suggestion.suggest( $( this ), $suggArea );
+		window.UTILS._search_suggestion.suggest( $( this ), $suggestingArea, stateIndex );
 	} );
 
-	$( "body" ).on( "click keyup", function( e ) {
-		var $activeElement = $( e.target );
-		var searchFieldIsActiveAndEmpty =
-			$activeElement.hasClass( fieldClassName ) &&
-			$activeElement.val().length === 0;
+	if ( !window.UTILS._search_suggestion.initialized ) {
 
-		if ( $activeElement.hasClass( fieldClassName ) ) {
-			$currentSearchField = $activeElement;
-		}
+		window.UTILS._search_suggestion.initialize();
+		window.UTILS._search_suggestion.initialized = true;
 
-		if (
-			!$currentSearchField ||
-			!$currentSearchField.is( ":visible" ) ||
-			searchFieldIsActiveAndEmpty || (
-				!$activeElement.hasClass( fieldClassName ) &&
-				!$activeElement.hasClass( suggestingAreaClassName ) &&
-				$activeElement.closest( "." + suggestingAreaClassName ).length === 0
-			)
-		) {
-
-			// Event outside suggestion area or search field: Hide suggestion area if visible
-			if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
-				$suggArea.fadeOut();
-				window.UTILS._search_suggestion.suggestingAreaVisible = false;
-
-				// Restore tabindex for search form elements to 0
-				$field.attr( "tabindex", 0 );
-				$submitBtn.attr( "tabindex", 0);
-
-				// Logging
-				// console.log( "fadeOut" );
-			}
-		} else {
-
-			// Event inside search field or sugg. area
-			if ( $activeElement.hasClass( fieldClassName ) ) {
-
-				// Event inside search field
-				window.UTILS._search_suggestion.positionSuggestingArea(
-					$activeElement,
-					$suggArea
-				);
-			}
-			if ( !window.UTILS._search_suggestion.suggestingAreaVisible ) {
-
-				// Show suggestions if hidden
-				$suggArea.fadeIn();
-				window.UTILS._search_suggestion.suggestingAreaVisible = true;
-
-				// Set temporary tabindex for search form elements
-				$field.attr( "tabindex", 10 );
-				$submitBtn.attr( "tabindex", 11);
-
-				// Logging
-				// console.log( "fadeIn" );
-			}
-		}
-	} );
-
-	$( "body" ).on( "touchstart", function( e ) {
-		if (
-			$currentSearchField &&
-			$currentSearchField.is( ":focus" ) &&
-			!$( e.target ).hasClass( fieldClassName ) // Clicked on the field itself?
-		) {
-			$currentSearchField.blur();
-		}
-	} );
-
-	$( window ).on( "resize", function() {
-		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = true;
-
-		// Hide suggestions if corresponding searchfield is not visible anymore
-		// Warning: we are checking offset top value to be greater than zero
-		// if searchfiled would be positioned on top of the screen there would be problem
-		if ( $currentSearchField ) {
-			if (	$currentSearchField.css( "display" ) === "none" ||
-				$currentSearchField.offset().top < 1 ) {
-				$suggArea.fadeOut();
-				window.UTILS._search_suggestion.suggestingAreaVisible = false;
-			}
-		}
-
-		if ( window.UTILS._search_suggestion.suggestingAreaVisible ) {
-
-			// We need to delay a bit to wait for  possible transformations on the page
-			setTimeout(
-				window.UTILS._search_suggestion.positionSuggestingArea(
-					$currentSearchField,
-					$suggArea
-				),
-				5000
-			);
-		}
-	} );
+	}
 };
 
+/**
+ * Here are the private things for the searchSuggestion plugin
+ */
 window.UTILS._search_suggestion = {
 
-	suggestingAreaVisible: false,
-	suggestingCache: {},
-	suggestingAreaNeedsToBePositioned: true,
-	suggestingAreaOriginalContent: undefined,
+	inialized: false,
 
-	suggest: function( $field, $suggestingArea ) {
+	states: {},
+
+	suggest: function( $field, $suggestingArea, stateIndex ) {
 		var $form = $field.closest( "form" );
 		var url = $form.attr( "action" );
 		var search = $field.val();
 		var fieldName = $field.attr( "name" );
 		var data = {};
 
-		if ( window.UTILS._search_suggestion.suggestingAreaOriginalContent === undefined ) {
-			window.UTILS._search_suggestion.suggestingAreaOriginalContent = $suggestingArea.html();
-		}
+		//if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaOriginalContent === undefined ) {
+		//	window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaOriginalContent =
+		//		$suggestingArea.html();
+		//}
 
 		var searchFn = function( search ) {
 			if ( search === "" ) {
 				$suggestingArea.html(
-					window.UTILS._search_suggestion.suggestingAreaOriginalContent
+					window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaOriginalContent
 				);
 				return;
 			}
 
-			if ( window.UTILS._search_suggestion.suggestingCache[ search ] ) {
-				$suggestingArea.html( window.UTILS._search_suggestion.suggestingCache[ search ] );
+			if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] ) {
+				$suggestingArea.html( window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] );
 
 				// Logging
 				// console.log( "replaced from cache" );
@@ -176,7 +104,7 @@ window.UTILS._search_suggestion = {
 				success: function( snippet ) {
 					$suggestingArea.data( "suggesting", "" );
 
-					window.UTILS._search_suggestion.suggestingCache[ search ] = snippet;
+					window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] = snippet;
 
 					// It is expected that result for just one character is super fast
 					if (
@@ -212,10 +140,10 @@ window.UTILS._search_suggestion = {
 		searchFn( search );
 	},
 
-	positionSuggestingArea: function( searchField, suggArea ) {
+	positionSuggestingArea: function( searchField, suggArea, stateIndex ) {
 
 		// In the mobile layout the search input changes its location
-		//if ( !window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned ) {
+		//if ( !window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaNeedsToBePositioned ) {
 		//	return;
 		//}
 
@@ -238,6 +166,129 @@ window.UTILS._search_suggestion = {
 		// console.log( searchField );
 		// console.log( fieldOffset , rightPos );
 
-		window.UTILS._search_suggestion.suggestingAreaNeedsToBePositioned = false;
+		window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaNeedsToBePositioned = false;
+	},
+
+	initialize: function() {
+		$( "body" ).on( "click keyup", function( e ) {
+			var $activeElement = $( e.target );
+			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
+				var state = window.UTILS._search_suggestion.states[ stateIndex ];
+				var fieldClassName = state.fieldClassName;
+				var $currentSearchField = state.currentSearchField;
+				var suggestingAreaClassName = state.suggestingAreaClassName;
+				var $suggestingArea = state.suggestingArea;
+				var $field = state.field;
+				var $submitBtn = state.submitBtn;
+
+				var searchFieldIsActiveAndEmpty =
+					$activeElement.hasClass( fieldClassName ) &&
+					$activeElement.val().length === 0;
+
+				if ( $activeElement.hasClass( fieldClassName ) ) {
+					$currentSearchField = $activeElement;
+				}
+
+				if (
+					!$currentSearchField ||
+					!$currentSearchField.is( ":visible" ) ||
+					searchFieldIsActiveAndEmpty || (
+						!$activeElement.hasClass( fieldClassName ) &&
+						!$activeElement.hasClass( suggestingAreaClassName ) &&
+						$activeElement.closest( "." + suggestingAreaClassName ).length === 0
+					)
+				) {
+
+					// Event outside suggestion area or search field: Hide suggestion area if visible
+					if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible ) {
+						$suggestingArea.fadeOut();
+						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = false;
+
+						// Restore tabindex for search form elements to 0
+						$field.attr( "tabindex", 0 );
+						$submitBtn.attr( "tabindex", 0);
+
+						// Logging
+						// console.log( "fadeOut" );
+					}
+				} else {
+
+					// Event inside search field or sugg. area
+					if ( $activeElement.hasClass( fieldClassName ) ) {
+
+						// Event inside search field
+						window.UTILS._search_suggestion.positionSuggestingArea(
+							$activeElement,
+							$suggestingArea,
+							stateIndex
+						);
+					}
+					if ( !window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible ) {
+
+						// Show suggestions if hidden
+						$suggestingArea.fadeIn();
+						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = true;
+
+						// Set temporary tabindex for search form elements
+						$field.attr( "tabindex", 10 );
+						$submitBtn.attr( "tabindex", 11);
+
+						// Logging
+						// console.log( "fadeIn" );
+					}
+				}
+			} );
+		} );
+
+		$( "body" ).on( "touchstart", function( e ) {
+			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
+				var state = window.UTILS._search_suggestion.states[ stateIndex ];
+				var $currentSearchField = state.currentSearchField;
+				var fieldClassName = state.fieldClassName;
+
+				if (
+					$currentSearchField &&
+					$currentSearchField.is( ":focus" ) &&
+					!$( e.target ).hasClass( fieldClassName ) // Clicked on the field itself?
+				) {
+					$currentSearchField.blur();
+				}
+			} );
+		} );
+
+		$( window ).on( "resize", function() {
+			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
+				var state = window.UTILS._search_suggestion.states[ stateIndex ];
+				var $currentSearchField = state.currentSearchField;
+				var $suggestingArea = state.suggestingArea;
+				var $currentSearchField = state.currentSearchField;
+
+				window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaNeedsToBePositioned = true;
+
+				// Hide suggestions if corresponding searchfield is not visible anymore
+				// Warning: we are checking offset top value to be greater than zero
+				// if searchfiled would be positioned on top of the screen there would be problem
+				if ( $currentSearchField ) {
+					if (	$currentSearchField.css( "display" ) === "none" ||
+						$currentSearchField.offset().top < 1 ) {
+						$suggestingArea.fadeOut();
+						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = false;
+					}
+				}
+
+				if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible ) {
+
+					// We need to delay a bit to wait for  possible transformations on the page
+					setTimeout(
+						window.UTILS._search_suggestion.positionSuggestingArea(
+							$currentSearchField,
+							$suggestingArea,
+							stateIndex
+						),
+						5000
+					);
+				}
+			} );
+		} );
 	}
 };
