@@ -8,14 +8,19 @@ window.UTILS = window.UTILS || { };
  * with the parameter format=snippet.
  *
  * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area" );
+ * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area", { hide_suggesting_area: false } );
  *
  */
-window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName ) {
+window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName, options ) {
 	var stateIndex = fieldClassName;
 	var $suggestingArea = $( "." + suggestingAreaClassName );
 	var $field = $( "." + fieldClassName );
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var $currentSearchField;
+
+	options = $.extend( {}, { hide_suggesting_area: true }, options || {} );
+	console.log( fieldClassName );
+	console.log( options );
 
 	if ( $suggestingArea.length === 0 ) {
 		console.log(
@@ -31,6 +36,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		field: $field,
 		currentSearchField: $currentSearchField,
 		submitBtn: $submitBtn,
+		options: options,
 
 		suggestingAreaVisible: false,
 		suggestingCache: {},
@@ -38,7 +44,8 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		suggestingAreaOriginalContent: $suggestingArea.html()
 	};
 
-	$suggestingArea.hide();
+	//$suggestingArea.hide();
+	window.UTILS._search_suggestion.hideSuggestingArea( stateIndex );
 
 	$field.on( "keyup focus", function() {
 		window.UTILS._search_suggestion.suggest( $( this ), $suggestingArea, stateIndex );
@@ -201,7 +208,7 @@ window.UTILS._search_suggestion = {
 
 					// Event outside suggestion area or search field: Hide suggestion area if visible
 					if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible ) {
-						$suggestingArea.fadeOut();
+						window.UTILS._search_suggestion.hideSuggestingArea( stateIndex );
 						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = false;
 
 						// Restore tabindex for search form elements to 0
@@ -226,7 +233,7 @@ window.UTILS._search_suggestion = {
 					if ( !window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible ) {
 
 						// Show suggestions if hidden
-						$suggestingArea.fadeIn();
+						window.UTILS._search_suggestion.showSuggestingArea( stateIndex );
 						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = true;
 
 						// Set temporary tabindex for search form elements
@@ -271,7 +278,7 @@ window.UTILS._search_suggestion = {
 				if ( $currentSearchField ) {
 					if (	$currentSearchField.css( "display" ) === "none" ||
 						$currentSearchField.offset().top < 1 ) {
-						$suggestingArea.fadeOut();
+						window.UTILS._search_suggestion.hideSuggestingArea( stateIndex );
 						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = false;
 					}
 				}
@@ -290,5 +297,21 @@ window.UTILS._search_suggestion = {
 				}
 			} );
 		} );
+	},
+
+	showSuggestingArea: function( stateIndex ) {
+		var options = window.UTILS._search_suggestion.states[ stateIndex ].options;
+		var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
+		if ( options.hide_suggesting_area ) {
+			$suggestingArea.fadeIn();
+		}
+	},
+
+	hideSuggestingArea: function( stateIndex ) {
+		var options = window.UTILS._search_suggestion.states[ stateIndex ].options;
+		var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
+		if ( options.hide_suggesting_area ) {
+			$suggestingArea.fadeOut();
+		}
 	}
 };
