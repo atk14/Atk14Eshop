@@ -7,7 +7,7 @@
 	<ul>
 		{foreach $delivery_service_branches as $delivery_service_branch}
 			<li>
-				{highlight_search_query param_name=q}
+				{highlight_search_query param_name=delivery_branch_search_q}
 					{$delivery_service_branch->getAddressStr()}
 				{/highlight_search_query}
 

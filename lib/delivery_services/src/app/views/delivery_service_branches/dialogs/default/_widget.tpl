@@ -1,7 +1,9 @@
-{render partial="shared/form" form=$search_form}
-{render partial="shared/form"}
+{form form=$search_form}
+	<fieldset>
+		{!$search_form|field:"q"}
+	</fieldset>
+{/form}
 
-{if $request->xhr()}
 <div class="js--delivery_branch_suggesting_area">
+	&nbsp;
 </div>
-{/if}

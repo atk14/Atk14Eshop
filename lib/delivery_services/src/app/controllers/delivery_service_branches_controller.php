@@ -8,7 +8,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		$this->tpl_data["delivery_service_branches"] = $this->delivery_service->findBranches($d["q"],[
 			"countries" => $this->current_region->getDeliveryCountries(),
-			"limit" => 20,
+			"limit" => 40,
 		]);
 
 		if($this->params->getString("format")==="snippet"){
@@ -23,7 +23,7 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
 		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("widget",$dialog_provider);
-		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("script");
+		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
 
 		$this->tpl_data["dialog_provider"] = $dialog_provider; // "default", "zasilkovna", "cp_balikovna"...
 
