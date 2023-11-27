@@ -5,20 +5,12 @@
 	* Stisk enter je obslouzen js, ktery prenese id pobocky do formulare nize, ktery je po odeslani na serveru validovan.
 	*}
 
-{assign delivery_service $delivery_method->getDeliveryService()}
 
-{if $delivery_service}
-	{render partial="shared/form_error"}
-	{render partial=$widget_template_html}
-{else}
-	{render partial="shared/form_field" field=$branch_selector_form->get_field("delivery_service_widget")}
-	{render partial="shared/form"}
-{/if}
+{render partial="shared/form_error"}
+{render partial="$widget_template_html"}
 
 <script>
 document.addEventListener( "DOMContentLoaded", function() {
-{if $delivery_service}
-	{render partial=$widget_template_js}
-{/if}
+	{render partial="$widget_template_js"}
 } );
 </script>

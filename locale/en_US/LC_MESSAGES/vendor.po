@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 11:13+0200\n"
-"PO-Revision-Date: 2022-04-25 16:30+0200\n"
+"POT-Creation-Date: 2023-11-27 15:21+0100\n"
+"PO-Revision-Date: 2023-11-27 15:26+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
@@ -45,7 +45,7 @@ msgstr "The file was not fully uploaded, please upload it again"
 
 #: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr ""
+msgstr "Remove file"
 
 #: ../vendor/atk14/category-filter/src/app/forms/filter_form.php:8
 msgid "Filtrovat"
@@ -391,11 +391,11 @@ msgstr "Enter seven digits"
 msgid "Enter five digits"
 msgstr "Enter five digits"
 
-msgid "od"
-msgstr "from"
+#~ msgid "od"
+#~ msgstr "from"
 
-msgid "do"
-msgstr "to"
+#~ msgid "do"
+#~ msgstr "to"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Enter valid phone number (+420.605123456)"

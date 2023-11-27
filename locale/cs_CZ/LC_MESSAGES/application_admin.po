@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 11:13+0200\n"
+"POT-Creation-Date: 2023-11-27 15:21+0100\n"
 "PO-Revision-Date: 2022-04-25 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -528,11 +528,11 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:105
+#: ../app/controllers/admin/admin.php:111
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:106
+#: ../app/controllers/admin/admin.php:112
 msgid "link"
 msgstr "odkaz"
 
@@ -1130,6 +1130,12 @@ msgstr "Datum posl. změny"
 
 msgid "Zodp.&nbsp;osoba"
 msgstr "Zodp.&nbsp;osoba"
+
+msgid "objednávka registrovaného zakazníka"
+msgstr ""
+
+msgid "objednávka bez registrace"
+msgstr ""
 
 msgid "%1"
 msgstr "%1"
@@ -1910,56 +1916,56 @@ msgstr "Souhlas se soubory cookie"
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:92
+#: ../app/controllers/admin/admin.php:98
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:119
+#: ../app/controllers/admin/admin.php:125
 #: ../app/controllers/admin/orders_controller.php:103
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/admin.php:123
+#: ../app/controllers/admin/admin.php:129
 #: ../app/controllers/admin/orders_controller.php:134
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/admin.php:169
+#: ../app/controllers/admin/admin.php:175
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:204
+#: ../app/controllers/admin/admin.php:210
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:218
+#: ../app/controllers/admin/admin.php:224
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:270
+#: ../app/controllers/admin/admin.php:276
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:305
+#: ../app/controllers/admin/admin.php:311
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:339
+#: ../app/controllers/admin/admin.php:345
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:461
+#: ../app/controllers/admin/admin.php:467
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:480
+#: ../app/controllers/admin/admin.php:486
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -4702,20 +4708,20 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
-msgid "sales regions"
-msgstr "prodejní oblasti"
+#~ msgid "sales regions"
+#~ msgstr "prodejní oblasti"
 
-msgid "currencies"
-msgstr "měny"
+#~ msgid "currencies"
+#~ msgstr "měny"
 
-msgid "delivery to"
-msgstr "doručování do"
+#~ msgid "delivery to"
+#~ msgstr "doručování do"
 
-msgid "currency"
-msgstr "měna"
+#~ msgid "currency"
+#~ msgstr "měna"
 
-msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid ""
 #~ "V jedné kampani lze nastavit buďto procentní slevu nebo dopravu zdarma"

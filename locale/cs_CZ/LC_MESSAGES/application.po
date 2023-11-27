@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 11:13+0200\n"
-"PO-Revision-Date: 2023-09-23 12:08+0200\n"
+"POT-Creation-Date: 2023-11-27 15:21+0100\n"
+"PO-Revision-Date: 2023-11-27 15:29+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -67,7 +67,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:81
+#: ../app/controllers/password_recoveries_controller.php:84
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -97,7 +97,7 @@ msgid "At the moment there are no news."
 msgstr "V této chvíli nejsou žádné novinky."
 
 msgid "articles total"
-msgstr ""
+msgstr "článků celkem"
 
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
@@ -406,6 +406,18 @@ msgstr "Přidat novou adresu"
 
 msgid "Výběr místa pro vyzvednutí zásilky"
 msgstr "Výběr místa pro vyzvednutí zásilky"
+
+msgid "Začněte psát PSČ, adresu nebo název místa"
+msgstr "Začněte psát PSČ, adresu nebo název místa"
+
+msgid "Žádné podací místo nebylo nalezeno"
+msgstr "Žádné podací místo nebylo nalezeno"
+
+msgid "vybrat výdejní místo"
+msgstr "vybrat výdejní místo"
+
+msgid "podrobnosti"
+msgstr "podrobnosti"
 
 #: ../app/controllers/digital_contents_controller.php:22
 msgid "Digitální produkty"
@@ -798,6 +810,9 @@ msgstr "Platební údaje pro uhrazení objednávky"
 msgid "Historie a detaily mých objednávek"
 msgstr "Historie a detaily mých objednávek"
 
+msgid "Zatím jste nevytvořili žádnou objednávku"
+msgstr "Zatím jste nevytvořili žádnou objednávku"
+
 msgid "Číslo objednávky"
 msgstr "Číslo objednávky"
 
@@ -813,8 +828,14 @@ msgstr "Stav"
 msgid "Faktura"
 msgstr "Faktura"
 
-msgid "Zatím jste nevytvořili žádnou objednávku"
-msgstr "Zatím jste nevytvořili žádnou objednávku"
+msgid "objednávek celkem"
+msgstr "objednávek celkem"
+
+msgid "Nebyla nalezena žádná objednávka"
+msgstr "Nebyla nalezena žádná objednávka"
+
+msgid "Show more"
+msgstr "Zobrazit více"
 
 msgid "Subpages"
 msgstr "Podstránky"
@@ -845,6 +866,8 @@ msgstr "Změnit oblast"
 msgid "Vyhledávání"
 msgstr "Vyhledávání"
 
+#: ../app/forms/delivery_service_branches/index_form.php:15
+#: ../lib/delivery_services/src/app/forms/delivery_service_branches/index_form.php:15
 msgid "Hledat"
 msgstr "Hledat"
 
@@ -860,7 +883,7 @@ msgstr "Zobrazit všechny výsledky"
 msgid "Attachments"
 msgstr "Přílohy"
 
-#: ../app/controllers/application.php:110
+#: ../app/controllers/application.php:117
 msgid "Basket"
 msgstr "Košík"
 
@@ -1288,41 +1311,53 @@ msgstr "Nabízíme skvělé restful API"
 msgid "Recent articles"
 msgstr "Nejnovější články"
 
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
+msgid "Articles"
+msgstr "Články"
+
 msgid "Opening hours"
 msgstr "Otevírací hodiny"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:72
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:55
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:76
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:72
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:59
 msgid "Pondělí"
 msgstr "Pondělí"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:73
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:56
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:77
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:73
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:60
 msgid "Úterý"
 msgstr "Úterý"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:74
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:57
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:78
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:74
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:61
 msgid "Středa"
 msgstr "Středa"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:75
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:58
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:79
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:75
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:62
 msgid "Čtvrtek"
 msgstr "Čtvrtek"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:76
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:59
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:80
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:76
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:63
 msgid "Pátek"
 msgstr "Pátek"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:77
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:60
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:81
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:77
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:64
 msgid "Sobota"
 msgstr "Sobota"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:78
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:61
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:82
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:78
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:65
 msgid "Neděle"
 msgstr "Neděle"
 
@@ -1428,11 +1463,6 @@ msgstr "naskladnění oznámeno"
 msgid "zatím nenaskladněno"
 msgstr "zatím nenaskladněno"
 
-#: ../app/controllers/api/delivery_service_branches_controller.php:10
-#: ../lib/delivery_services/src/app/controllers/api/delivery_service_branches_controller.php:10
-msgid "Object not found"
-msgstr "Objekt nebyl nalezen"
-
 #: ../app/controllers/api/logins_controller.php:33
 msgid "Bad password"
 msgstr "Špatné heslo"
@@ -1489,7 +1519,7 @@ msgstr "Objednávka %d"
 
 #: ../app/controllers/application_mailer.php:154
 #: ../app/controllers/application.php:78
-#: ../app/controllers/orders_controller.php:18
+#: ../app/controllers/orders_controller.php:46
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
@@ -1519,20 +1549,20 @@ msgstr "Profil uživatele"
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:111
+#: ../app/controllers/application.php:118
 #: ../app/controllers/checkouts_controller.php:5
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:112
+#: ../app/controllers/application.php:119
 msgid "Delivery data"
 msgstr "Doručovací data"
 
-#: ../app/controllers/application.php:113
+#: ../app/controllers/application.php:120
 msgid "Summary"
 msgstr "Souhrn"
 
-#: ../app/controllers/application.php:114
+#: ../app/controllers/application.php:121
 msgid "Order finished"
 msgstr "Objednávka dokončena"
 
@@ -1558,11 +1588,6 @@ msgstr "Nemáte přístup k požadovanému zdroji"
 msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
-#: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
-msgid "Articles"
-msgstr "Články"
-
 #: ../app/controllers/articles_controller.php:15
 #, php-format
 msgid "Articles tagged with <em>%s</em>"
@@ -1579,7 +1604,7 @@ msgstr "Slevový kupón byl přidán"
 #: ../app/controllers/baskets_controller.php:90
 #: ../app/controllers/baskets_controller.php:104
 #: ../app/controllers/baskets_controller.php:162
-#: ../app/controllers/orders_controller.php:118
+#: ../app/controllers/orders_controller.php:146
 msgid "Shopping basket"
 msgstr "Nákupní košík"
 
@@ -1607,23 +1632,23 @@ msgstr "Přihlášení uživatele"
 msgid "Doručovací údaje"
 msgstr "Doručovací údaje"
 
-#: ../app/controllers/checkouts_controller.php:78
+#: ../app/controllers/checkouts_controller.php:79
 msgid "Název doručovacího místa"
 msgstr "Název doručovacího místa"
 
-#: ../app/controllers/checkouts_controller.php:115
+#: ../app/controllers/checkouts_controller.php:125
 msgid "Odstraňte prosím nedostatky, které brání dokončení objednávky"
 msgstr "Odstraňte prosím nedostatky, které brání dokončení objednávky"
 
-#: ../app/controllers/checkouts_controller.php:120
+#: ../app/controllers/checkouts_controller.php:130
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"
 msgstr "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"
 
-#: ../app/controllers/checkouts_controller.php:124
+#: ../app/controllers/checkouts_controller.php:134
 msgid "Rekapitulace objednávky"
 msgstr "Rekapitulace objednávky"
 
-#: ../app/controllers/checkouts_controller.php:131
+#: ../app/controllers/checkouts_controller.php:141
 msgid ""
 "Změnil se obsah nákupního košíku. Prohlédněte si rekapitulaci ještě jednou a "
 "dokončete objednávku."
@@ -1631,9 +1656,9 @@ msgstr ""
 "Změnil se obsah nákupního košíku. Prohlédněte si rekapitulaci ještě jednou a "
 "dokončete objednávku."
 
-#: ../app/controllers/checkouts_controller.php:189
-#: ../app/controllers/delivery_service_branches_controller.php:43
-#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:43
+#: ../app/controllers/checkouts_controller.php:199
+#: ../app/controllers/delivery_service_branches_controller.php:88
+#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:88
 msgid "Nákupní košík"
 msgstr "Nákupní košík"
 
@@ -1695,14 +1720,14 @@ msgstr "Doručovací adresa byla smazána"
 msgid "Doručovací adresy"
 msgstr "Doručovací adresy"
 
-#: ../app/controllers/delivery_service_branches_controller.php:8
-#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:8
+#: ../app/controllers/delivery_service_branches_controller.php:24
+#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:24
 #, php-format
 msgid "%s - výběr výdejního místa"
 msgstr "%s - výběr výdejního místa"
 
-#: ../app/controllers/delivery_service_branches_controller.php:15
-#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:15
+#: ../app/controllers/delivery_service_branches_controller.php:35
+#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:35
 msgid "Nepřípustná země pro doručení"
 msgstr "Nepřípustná země pro doručení"
 
@@ -1755,22 +1780,22 @@ msgstr "Vítejte!"
 msgid "Archiv objednávek"
 msgstr "Archiv objednávek"
 
-#: ../app/controllers/orders_controller.php:36
+#: ../app/controllers/orders_controller.php:64
 msgid "Objednávka byla dokončena"
 msgstr "Objednávka byla dokončena"
 
-#: ../app/controllers/password_recoveries_controller.php:10
+#: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
 msgstr "Tady není uživatel s tímto loginem nebo e-mailem"
 
-#: ../app/controllers/password_recoveries_controller.php:14
+#: ../app/controllers/password_recoveries_controller.php:17
 msgid ""
 "This user account has been deactivated. Password recovery process can not be "
 "started."
 msgstr ""
 "Tento uživatelský účet byl deaktivován. Nelze zahájit proces obnovení hesla."
 
-#: ../app/controllers/password_recoveries_controller.php:18
+#: ../app/controllers/password_recoveries_controller.php:21
 msgid ""
 "Password recovery can not be initiated for this user. Email address is not "
 "set."
@@ -1778,12 +1803,12 @@ msgstr ""
 "Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
 "nastavena."
 
-#: ../app/controllers/password_recoveries_controller.php:65
+#: ../app/controllers/password_recoveries_controller.php:68
 #: ../app/controllers/users_controller.php:94
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:82
+#: ../app/controllers/password_recoveries_controller.php:85
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -2155,10 +2180,8 @@ msgid "Enter five digits"
 msgstr "Zadejte pět číslic"
 
 #: ../app/forms/api/categories_suggestions/index_form.php:5
-#: ../app/forms/api/delivery_service_branches/index_form.php:9
 #: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
-#: ../lib/delivery_services/src/app/forms/api/delivery_service_branches/index_form.php:9
 msgid "Search term"
 msgstr "Hledat výraz"
 
@@ -2338,15 +2361,10 @@ msgstr "Uložit adresu"
 msgid "Uložit změny"
 msgstr "Uložit změny"
 
-#: ../app/forms/delivery_service_branches/branch_selector_form.php:12
-#: ../lib/delivery_services/src/app/forms/delivery_service_branches/branch_selector_form.php:12
-msgid "Výdejní místo"
-msgstr "Výdejní místo"
-
-#: ../app/forms/delivery_service_branches/branch_selector_form.php:14
-#: ../lib/delivery_services/src/app/forms/delivery_service_branches/branch_selector_form.php:14
-msgid "Zadejte psč, město nebo název provozovny"
-msgstr "Zadejte psč, město nebo název provozovny"
+#: ../app/forms/delivery_service_branches/index_form.php:8
+#: ../lib/delivery_services/src/app/forms/delivery_service_branches/index_form.php:8
+msgid "Vyhledat výdejní místo"
+msgstr "Vyhledat výdejní místo"
 
 #: ../app/forms/delivery_service_branches/set_branch_form.php:6
 #: ../lib/delivery_services/src/app/forms/delivery_service_branches/set_branch_form.php:6
@@ -2358,13 +2376,13 @@ msgstr "Pobočka"
 msgid "Zadejte PSČ, adresu nebo název místa"
 msgstr "Zadejte PSČ, adresu nebo název místa"
 
-#: ../app/forms/delivery_service_branches/set_branch_form.php:12
-#: ../lib/delivery_services/src/app/forms/delivery_service_branches/set_branch_form.php:12
+#: ../app/forms/delivery_service_branches/set_branch_form.php:11
+#: ../lib/delivery_services/src/app/forms/delivery_service_branches/set_branch_form.php:11
 msgid "Vybrat výdejní místo"
 msgstr "Vybrat výdejní místo"
 
-#: ../app/forms/delivery_service_branches/set_branch_form.php:20
-#: ../lib/delivery_services/src/app/forms/delivery_service_branches/set_branch_form.php:20
+#: ../app/forms/delivery_service_branches/set_branch_form.php:19
+#: ../lib/delivery_services/src/app/forms/delivery_service_branches/set_branch_form.php:19
 msgid "Neplatná pobočka"
 msgstr "Neplatná pobočka"
 
@@ -2437,7 +2455,7 @@ msgstr "Aktivovat hlídacího psa"
 
 #: ../app/helpers/block.drink_shortcode__person.php:17
 msgid "More"
-msgstr ""
+msgstr "Více"
 
 #: ../app/helpers/modifier.display_bool.php:13
 #: ../app/models/technical_specification_key_type_base.php:52
@@ -2449,11 +2467,11 @@ msgstr "Ano"
 msgid "No"
 msgstr "Ne"
 
-#: ../app/helpers/modifier.display_price.php:120
+#: ../app/helpers/modifier.display_price.php:124
 msgid "excl. VAT"
 msgstr "bez DPH"
 
-#: ../app/helpers/modifier.display_price.php:120
+#: ../app/helpers/modifier.display_price.php:124
 msgid "incl. VAT"
 msgstr "vč. DPH"
 
@@ -2499,97 +2517,97 @@ msgstr "Doprava zdarma"
 msgid "Dárkový poukaz"
 msgstr "Dárkový poukaz"
 
-#: ../app/models/basket.php:698
+#: ../app/models/basket.php:696
 msgid "Košík je prázdný"
 msgstr "Košík je prázdný"
 
-#: ../app/models/basket.php:708
+#: ../app/models/basket.php:706
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z nabídky"
 msgstr "Produkt <em>%s (%s)</em> byl vyřazen z nabídky"
 
-#: ../app/models/basket.php:710 ../app/models/basket.php:722
-#: ../app/models/basket.php:737
+#: ../app/models/basket.php:708 ../app/models/basket.php:720
+#: ../app/models/basket.php:735
 msgid "odebrat z košíku"
 msgstr "odebrat z košíku"
 
-#: ../app/models/basket.php:720
+#: ../app/models/basket.php:718
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 
-#: ../app/models/basket.php:735
+#: ../app/models/basket.php:733
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Produkt <em>%s (%s)</em> není skladem"
 
-#: ../app/models/basket.php:745
+#: ../app/models/basket.php:743
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 
-#: ../app/models/basket.php:747 ../app/models/basket.php:757
-#: ../app/models/basket.php:768
+#: ../app/models/basket.php:745 ../app/models/basket.php:755
+#: ../app/models/basket.php:766
 #, php-format
 msgid "změnit množství na %s"
 msgstr "změnit množství na %s"
 
-#: ../app/models/basket.php:755
+#: ../app/models/basket.php:753
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 
-#: ../app/models/basket.php:766
+#: ../app/models/basket.php:764
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 
-#: ../app/models/basket.php:780
+#: ../app/models/basket.php:778
 #, php-format
 msgid "odstranit voucher"
 msgstr "odstranit voucher"
 
-#: ../app/models/basket.php:788
+#: ../app/models/basket.php:786
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:789 ../app/models/basket.php:795
+#: ../app/models/basket.php:787 ../app/models/basket.php:793
 #, php-format
 msgid "přejít do katalogu"
 msgstr "přejít do katalogu"
 
-#: ../app/models/basket.php:794
+#: ../app/models/basket.php:792
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 
-#: ../app/models/basket.php:824
+#: ../app/models/basket.php:822
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Doručovací metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:825 ../app/models/basket.php:832
+#: ../app/models/basket.php:823 ../app/models/basket.php:830
 msgid "vyberte jinou metodu"
 msgstr "vyberte jinou metodu"
 
-#: ../app/models/basket.php:831
+#: ../app/models/basket.php:829
 #, php-format
 msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr "Platební metoda <em>%s</em> nemůže být vybrána"
 
-#: ../app/models/basket.php:839
+#: ../app/models/basket.php:837
 #, php-format
 msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 
-#: ../app/models/basket.php:843
+#: ../app/models/basket.php:841
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "Objednávku nelze doručit na danou doručovací adresu"
 
-#: ../app/models/basket.php:844
+#: ../app/models/basket.php:842
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
@@ -2673,7 +2691,7 @@ msgstr "Celé číslo"
 
 #: ../app/models/user.php:213
 msgid "deleted user"
-msgstr ""
+msgstr "smazat uživatele"
 
 #: ../app/models/user.php:215
 msgid "inactive user"
@@ -2709,7 +2727,7 @@ msgstr "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 
 #: ../app/widgets/async_file_input.php:20
 msgid "Remove file"
-msgstr ""
+msgstr "Odstranit soubor"
 
 #: ../app/widgets/async_pupiq_attachment_input.php:41
 #: ../app/widgets/pupiq_attachment_input.php:41
@@ -2796,14 +2814,13 @@ msgstr "produkty"
 msgid "Načítám..."
 msgstr "Načítám..."
 
-#: ../lib/delivery_services/src/app/fields/delivery_service_branch_field.php:10
+#: ../lib/delivery_services/src/app/fields/delivery_service_branch_field.php:8
 msgid "Zadejte název obce nebo PSČ"
 msgstr "Zadejte název obce nebo PSČ"
 
-#: ../lib/delivery_services/src/app/fields/delivery_service_branch_field.php:33
-#: ../test/controllers/tc_checkouts.php:68
-msgid "Pobočka nebyla nalezena"
-msgstr "Pobočka nebyla nalezena"
+#: ../lib/delivery_services/src/app/fields/delivery_service_branch_field.php:34
+msgid "Výdejní místo nebylo nalezeno"
+msgstr "Výdejní místo nebylo nalezeno"
 
 #: ../lib/payment_gateway_api/comgate.php:70
 #, php-format
@@ -2856,42 +2873,55 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
-msgid "Pro opakování platby přejděte na adresu %1"
-msgstr "Pro opakování platby přejděte na adresu %1"
+#: ../test/controllers/tc_checkouts.php:68
+msgid "Pobočka nebyla nalezena"
+msgstr "Pobočka nebyla nalezena"
 
-msgid ""
-"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-msgstr ""
-"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+#~ msgid "Object not found"
+#~ msgstr "Objekt nebyl nalezen"
 
-msgid "Checkout"
-msgstr "Pokladna"
+#~ msgid "Výdejní místo"
+#~ msgstr "Výdejní místo"
 
-msgid "<small>cena od</small><br>%1"
-msgstr "<small>cena od</small><br>%1"
+#~ msgid "Zadejte psč, město nebo název provozovny"
+#~ msgstr "Zadejte psč, město nebo název provozovny"
 
-msgid "naskladnění sleduje hlídací pes"
-msgstr "naskladnění sleduje hlídací pes"
+#~ msgid "Pro opakování platby přejděte na adresu %1"
+#~ msgstr "Pro opakování platby přejděte na adresu %1"
 
-msgid "aktivovat hlídacího psa"
-msgstr "aktivovat hlídacího psa"
+#~ msgid ""
+#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+#~ msgstr ""
+#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
 
-msgid "Zobrazit detaily"
-msgstr "Zobrazit detaily"
+#~ msgid "Checkout"
+#~ msgstr "Pokladna"
 
-msgid "searching ..."
-msgstr "hledání ..."
+#~ msgid "<small>cena od</small><br>%1"
+#~ msgstr "<small>cena od</small><br>%1"
 
-msgid "cena od<br>%1"
-msgstr "cena od<br>%1"
+#~ msgid "naskladnění sleduje hlídací pes"
+#~ msgstr "naskladnění sleduje hlídací pes"
 
-msgid "Tvůrce"
-msgstr "Tvůrce"
+#~ msgid "aktivovat hlídacího psa"
+#~ msgstr "aktivovat hlídacího psa"
 
-msgid "Nic nebylo nelezeno."
-msgstr "Nic nebylo nelezeno."
+#~ msgid "Zobrazit detaily"
+#~ msgstr "Zobrazit detaily"
+
+#~ msgid "searching ..."
+#~ msgstr "hledání ..."
+
+#~ msgid "cena od<br>%1"
+#~ msgstr "cena od<br>%1"
+
+#~ msgid "Tvůrce"
+#~ msgstr "Tvůrce"
+
+#~ msgid "Nic nebylo nelezeno."
+#~ msgstr "Nic nebylo nelezeno."
 
 #~ msgid "Add to cart"
 #~ msgstr "Přidat do košíku"

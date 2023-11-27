@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 11:13+0200\n"
+"POT-Creation-Date: 2023-11-27 15:21+0100\n"
 "PO-Revision-Date: 2022-04-25 16:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -523,11 +523,11 @@ msgstr "Subcategories"
 msgid "filter options"
 msgstr "filter options"
 
-#: ../app/controllers/admin/admin.php:105
+#: ../app/controllers/admin/admin.php:111
 msgid "filter"
 msgstr "filter"
 
-#: ../app/controllers/admin/admin.php:106
+#: ../app/controllers/admin/admin.php:112
 msgid "link"
 msgstr "link"
 
@@ -1124,6 +1124,12 @@ msgid "Datum posl. změny"
 msgstr ""
 
 msgid "Zodp.&nbsp;osoba"
+msgstr ""
+
+msgid "objednávka registrovaného zakazníka"
+msgstr ""
+
+msgid "objednávka bez registrace"
 msgstr ""
 
 msgid "%1"
@@ -1888,56 +1894,56 @@ msgstr "Cookie consent"
 msgid "System preferences"
 msgstr "System preferences"
 
-#: ../app/controllers/admin/admin.php:92
+#: ../app/controllers/admin/admin.php:98
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:119
+#: ../app/controllers/admin/admin.php:125
 #: ../app/controllers/admin/orders_controller.php:103
 #, php-format
 msgid "Objednávka %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:123
+#: ../app/controllers/admin/admin.php:129
 #: ../app/controllers/admin/orders_controller.php:134
 #, php-format
 msgid "Editace objednávky %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:169
+#: ../app/controllers/admin/admin.php:175
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "List of objects of type %s"
 
-#: ../app/controllers/admin/admin.php:204
+#: ../app/controllers/admin/admin.php:210
 msgid "The record has been created"
 msgstr "The record has been created"
 
-#: ../app/controllers/admin/admin.php:218
+#: ../app/controllers/admin/admin.php:224
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Create an object of type %s"
 
-#: ../app/controllers/admin/admin.php:270
+#: ../app/controllers/admin/admin.php:276
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:305
+#: ../app/controllers/admin/admin.php:311
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:339
+#: ../app/controllers/admin/admin.php:345
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:461
+#: ../app/controllers/admin/admin.php:467
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:480
+#: ../app/controllers/admin/admin.php:486
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -4639,15 +4645,15 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Edit stockount in warehouse %1"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Edit stockount in warehouse %1"
 
-msgid ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #~ msgid "Localized value"
 #~ msgstr "Localized value"
