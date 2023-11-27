@@ -10,17 +10,17 @@ window.UTILS = window.UTILS || { };
  * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area" );
  * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area", { hiding_suggesting_area: false } );
  *
+ * Links in the snippet should have tabindex="10".
  */
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName, options ) {
 	var stateIndex = fieldClassName;
 	var $suggestingArea = $( "." + suggestingAreaClassName );
 	var $field = $( "." + fieldClassName );
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
-	var $currentSearchField;
 
-	options = $.extend( {}, { hiding_suggesting_area: true }, options || {} );
-	console.log( fieldClassName );
-	console.log( options );
+	options = $.extend( { hiding_suggesting_area: true }, options || {} );
+	// console.log( fieldClassName );
+	// console.log( options );
 
 	if ( $suggestingArea.length === 0 ) {
 		console.log(
@@ -32,9 +32,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 
 	window.UTILS._search_suggestion.states[ stateIndex ] = {
 		fieldClassName: fieldClassName,
+		suggestingAreaClassName: suggestingAreaClassName,
 		suggestingArea: $suggestingArea,
 		field: $field,
-		currentSearchField: $currentSearchField,
+		currentSearchField: null,
 		submitBtn: $submitBtn,
 		options: options,
 
@@ -194,6 +195,7 @@ window.UTILS._search_suggestion = {
 
 				if ( $activeElement.hasClass( fieldClassName ) ) {
 					$currentSearchField = $activeElement;
+					state.currentSearchField = $currentSearchField;
 				}
 
 				if (
@@ -216,7 +218,7 @@ window.UTILS._search_suggestion = {
 						$submitBtn.attr( "tabindex", 0);
 
 						// Logging
-						// console.log( "fadeOut" );
+						// console.log( stateIndex + ": fadeOut (1)" );
 					}
 				} else {
 
@@ -241,7 +243,7 @@ window.UTILS._search_suggestion = {
 						$submitBtn.attr( "tabindex", 11);
 
 						// Logging
-						// console.log( "fadeIn" );
+						// console.log( stateIndex + ": fadeIn (1)" );
 					}
 				}
 			} );
@@ -268,7 +270,6 @@ window.UTILS._search_suggestion = {
 				var state = window.UTILS._search_suggestion.states[ stateIndex ];
 				var $currentSearchField = state.currentSearchField;
 				var $suggestingArea = state.suggestingArea;
-				var $currentSearchField = state.currentSearchField;
 
 				window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaNeedsToBePositioned = true;
 
