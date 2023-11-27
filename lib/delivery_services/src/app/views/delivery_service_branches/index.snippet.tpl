@@ -1,6 +1,6 @@
 {if !$delivery_service_branches}
 
-	{t}Žádné podací místo nebylo nalezeno{/t}
+	{t}Žádné výdejní místo nebylo nalezeno{/t}
 
 {else}
 
