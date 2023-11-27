@@ -8,7 +8,7 @@ window.UTILS = window.UTILS || { };
  * with the parameter format=snippet.
  *
  * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area" );
- * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area", { hide_suggesting_area: false } );
+ * 	window.UTILS.searchSuggestion( "js--search-input", "js--suggesting-area", { hiding_suggesting_area: false } );
  *
  */
 window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassName, options ) {
@@ -18,7 +18,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var $currentSearchField;
 
-	options = $.extend( {}, { hide_suggesting_area: true }, options || {} );
+	options = $.extend( {}, { hiding_suggesting_area: true }, options || {} );
 	console.log( fieldClassName );
 	console.log( options );
 
@@ -302,7 +302,7 @@ window.UTILS._search_suggestion = {
 	showSuggestingArea: function( stateIndex ) {
 		var options = window.UTILS._search_suggestion.states[ stateIndex ].options;
 		var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
-		if ( options.hide_suggesting_area ) {
+		if ( options.hiding_suggesting_area ) {
 			$suggestingArea.fadeIn();
 		}
 	},
@@ -310,7 +310,7 @@ window.UTILS._search_suggestion = {
 	hideSuggestingArea: function( stateIndex ) {
 		var options = window.UTILS._search_suggestion.states[ stateIndex ].options;
 		var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
-		if ( options.hide_suggesting_area ) {
+		if ( options.hiding_suggesting_area ) {
 			$suggestingArea.fadeOut();
 		}
 	}

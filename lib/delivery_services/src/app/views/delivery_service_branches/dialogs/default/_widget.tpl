@@ -5,5 +5,5 @@
 {/form}
 
 <div class="js--delivery_branch_suggesting_area">
-	&nbsp;
+	<em>{t}Začněte psát PSČ, adresu nebo název místa{/t}</em>
 </div>
