@@ -12,9 +12,9 @@
 				{/highlight_search_query}
 
 				<div class="pb-2">
-					{a action="set_branch" delivery_method_id=$delivery_method delivery_service_branch_id=$delivery_service_branch->getExternalBranchId() _method=post _class="btn btn-xs btn-primary"}
+					<a href="{link_to action="set_branch" delivery_method_id=$delivery_method delivery_service_branch_id=$delivery_service_branch->getExternalBranchId()}" data-method="post" class="btn btn-xs btn-primary" tabindex="10">
 						{t}vybrat výdejní místo{/t}
-					{/a}
+					</a>
 					{if $delivery_service_branch->getUrl()}
 						<a href="{$delivery_service_branch->getUrl()}" target="_blank" class="btn btn-xs btn-outline-secondary">{t}podrobnosti{/t}</a>
 					{/if}
