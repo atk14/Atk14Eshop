@@ -2,12 +2,11 @@
 class SetBranchForm extends ApplicationForm {
 
 	function set_up() {
-		$this->add_field("delivery_service_branch_id", new DeliveryServiceBranchField(array(
+		$this->add_field("delivery_service_branch_id", new DeliveryServiceBranchField($this->controller->delivery_method->getDeliveryService(),[
 			"label" => _("Pobočka"),
 			"help_text" => _("Zadejte PSČ, adresu nebo název místa"),
-			"delivery_service_id" => $this->controller->delivery_method->getDeliveryService(),
 			"widget" => new HiddenInput()
-		)));
+		]));
 
 		$this->set_button_text(_("Vybrat výdejní místo"));
 	}
@@ -20,6 +19,6 @@ class SetBranchForm extends ApplicationForm {
 				$this->set_error("delivery_service_branch_id", _("Neplatná pobočka"));
 			}
 		}
-		return array($err,$d);
+		return [$err,$d];
 	}
 }
