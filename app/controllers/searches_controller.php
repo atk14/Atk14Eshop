@@ -52,6 +52,11 @@ class SearchesController extends ApplicationController {
 			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
+
+		if(DEVELOPMENT && class_exists("Tracy\Debugger")){
+			$bar = Tracy\Debugger::getBar();
+			$bar->addPanel(new ApiDataFetcherPanel($texmit->getApiDataFetcher(),["title" => "Textmit"]));
+		}
 	}
 
 	function _before_filter(){
