@@ -35,7 +35,7 @@ class FilterForCards extends Filter {
 		$this->addCondition("cards.visible AND NOT cards.deleted");
 		$this->addBind(':user_id', $user);
 		//$this->productJoin = $this->addJoin("visible_products(:user_id) products")->where("products.card_id = cards.id")->setJoinBy('left join');
-		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND NOT products.visible")->setJoinBy('left join');
+		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND products.visible")->setJoinBy('left join');
 
 		//Add filter sections
 		if($options['add_sections']) {
