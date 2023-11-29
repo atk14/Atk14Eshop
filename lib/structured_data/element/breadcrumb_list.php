@@ -37,10 +37,10 @@ class BreadcrumbList extends \StructuredData\BaseElement {
 		$options += [
 			"add_parent_elements" => false,
 		];
-		if ($options["add_parent_elements"] && ($item instanceof Category)) {
+		if ($options["add_parent_elements"] && ($item instanceof \Category)) {
 			$_items = \Category::GetInstancesOnPath($item->getPath());
 			foreach($_items as $_i) {
-				$this->list_items[] = $item;
+				$this->list_items[] = $_i;
 			}
 			return;
 		}
@@ -58,7 +58,7 @@ class BreadcrumbList extends \StructuredData\BaseElement {
 			$out["itemListElement"][] = [
 				"@type" => "ListItem",
 				"position" => $_position++,
-				"name" => "Úvod",
+				"name" => _("Home"),
 				"item" => [
 					"@type" => "Thing",
 					"@id" => \Atk14Url::BuildLink(["action" => "main/index"], ["with_hostname" => true]),

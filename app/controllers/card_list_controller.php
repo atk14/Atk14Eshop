@@ -45,7 +45,7 @@ abstract class CardListController extends ApplicationController {
 		if(!is_array($cond)){
 			$cond = $cond ? [$cond] : [];
 		}
-		$this->structured_data->addItem(new BreadcrumbList($this->category));
+		$this->structured_data->addItem(new BreadcrumbList($this->category, ["add_parent_elements" => true, "add_index" => false]));
 		return [ $cond, $bind ];
 	}
 

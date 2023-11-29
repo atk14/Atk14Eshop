@@ -25,7 +25,7 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
 
 		$this->_add_card_to_breadcrumbs($card);
-		$bclist = new BreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true]);
+		$bclist = new BreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true, "add_index" => false]);
 		$bclist->addListItem($card);
 		$this->structured_data->addItem($bclist);
 		if(!($card->isDeleted() || !$card->isVisible())){

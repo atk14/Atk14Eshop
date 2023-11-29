@@ -1,4 +1,8 @@
 <?php
+/**
+ * @note This class should not be used. It's intended for shopping aggregators.
+ * Until we have separate url for each catalog id, we (mis)use the AggregateOffer property.
+ */
 
 namespace StructuredData\Element;
 
@@ -67,7 +71,7 @@ class AggregateOffer extends \StructuredData\BaseElement {
 			],
 			"shippingDetails" => $out_shipping_details,
 		];
-		if (count($_prices)>1) {
+		if (count($_prices)>0) {
 			$out["lowPrice"] = min($_prices);
 			$out["highPrice"] = max($_prices);
 			$out["priceCurrency"] = $_currency->getCode();
