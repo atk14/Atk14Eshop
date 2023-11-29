@@ -9,10 +9,11 @@ class Website extends \StructuredData\BaseElement {
    */
 	function toArray() {
 		$_siteUrl = \Atk14Url::BuildLink(["action" => "main/index"], ["with_hostname" => true]);
-		$_searchUrl = \Atk14Url::BuildLink(["action" => "search/search"], ["with_hostname" => true])."?q={search_term_string}";
+		$_searchUrl = \Atk14Url::BuildLink(["action" => "searches/index"], ["with_hostname" => true])."?q={search_term_string}";
 		$out = [
 			'@context' => 'http://schema.org/',
 			"@type" => "WebSite",
+			"name" => ATK14_APPLICATION_NAME,
 			"url" => $_siteUrl,
 			"potentialAction" => [
 				"@type" => "SearchAction",
@@ -20,11 +21,7 @@ class Website extends \StructuredData\BaseElement {
 					"@type" => "EntryPoint",
 					"urlTemplate" => $_searchUrl,
 				],
-				"query-input" => [
-					"@type" => "PropertyValueSpecification",
-					"valueRequired" => "http://schema.org/True",
-					"valueName" => "search_term_string",
-				],
+				"query-input" => "required name=search_term_string",
 			],
 		];
 		return $out;

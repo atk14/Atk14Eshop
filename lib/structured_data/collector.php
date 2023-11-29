@@ -5,8 +5,13 @@ class Collector {
 
 	protected $items = [];
 
-	function __construct() {
-		$this->addItem(new Element\Website());
+	function __construct(\Atk14Controller $controller, $options=[]) {
+		$options += [
+		];
+		$_is_homepage = (($controller->controller==="main") && ($controller->action==="index"));
+		if ($_is_homepage) {
+			$this->addItem(new Element\Website());
+		}
 	}
 
 	function addItem(BaseElement $item) {

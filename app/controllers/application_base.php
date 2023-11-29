@@ -210,7 +210,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
 		$this->head_tags = new HeadTags();
 		$this->_setup_head_tags();
-		$this->structured_data = new StructuredData\Collector();
+		$this->structured_data = new StructuredData\Collector($this);
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
