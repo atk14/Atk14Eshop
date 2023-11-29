@@ -167,8 +167,11 @@ abstract class CardListController extends ApplicationController {
 				$this->_setup_child_categories($options);
 		}
 
+		$params = $this->params->toArray();
+		$params = array_filter(array_intersect_key($params, array_flip($options['params'])));
+
 		$this->form->set_up_filter($filter, $this->params, [
-				#'action' => $this->_link_to([ 'path' => $path ]),
+				'action' => $this->_link_to($params),
 				'update_choices' => !$pager->isXhr()
 		]);
 		$this->finder = $this->tpl_data['finder'] = $finder = new FilterFinder($this->form->filter, [
