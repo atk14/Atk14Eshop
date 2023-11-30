@@ -1,4 +1,4 @@
-{if $form && $form->get_tab_fields()}
+{if $form && $form->get_fields()}
 	{form_remote}
 		<div id="filter" class="pfilter">
 			<div class="pfilter__header">
