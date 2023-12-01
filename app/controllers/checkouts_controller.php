@@ -16,6 +16,7 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->s($d);
 			$this->_redirect_to("user_identification");
 		}
+		$this->datalayer->push(new CustomProductDetail($card, ["event" => "detail", "price_finder" => $this->price_finder]));
 	}
 
 	function user_identification(){

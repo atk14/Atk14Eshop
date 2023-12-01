@@ -97,6 +97,8 @@ class OrdersController extends ApplicationController {
 		}
 		if ($this->session->defined("track_order") && ($this->session->g("track_order")===true)) {
 			$this->tpl_data["track_order"] = true;
+			$this->datalayer->push(new Purchase($order, ["event" => "purchase"]));
+			/* stary typ kodu pro GA, zrusime ve skeletu.
 			$currency = $order->getCurrency();
 			$pAr = array();
 			foreach($order->getOrderItems() as $oi) {
@@ -124,6 +126,7 @@ class OrdersController extends ApplicationController {
 				"transactionProducts" => $pAr,
 			);
 			$this->tpl_data["dataLayer"] = $dataLayer;
+			 */
 		}
 		$this->session->clear("track_order");
 	}

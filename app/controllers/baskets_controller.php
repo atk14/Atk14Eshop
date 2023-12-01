@@ -106,6 +106,8 @@ class BasketsController extends ApplicationController {
 
 	function add_product(){
 		$this->_add_product();
+		$amount = $this->params->getInt("amount") ? $this->params->getInt("amount") : $this->form->fields["amount"]->initial;
+		$this->datalayer->push(new Add($this->product, ["price_finder" => $this->price_finder, "amount" => $amount]));
 	}
 
 	function add_card(){

@@ -27,3 +27,5 @@ require_once(__DIR__ . "/head_tags/load.php");
 
 class_autoload(__DIR__ . '/ajax_pager/');
 require_once(__DIR__."/delivery_services/src/load.php");
+
+class_autoload(__DIR__ . "/datalayer/");

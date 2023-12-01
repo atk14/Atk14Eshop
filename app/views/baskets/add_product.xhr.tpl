@@ -1,3 +1,4 @@
+{gtm_datalayer}
 $("#basket_modal_dialog").remove();
 $(".modal-backdrop").remove();
 

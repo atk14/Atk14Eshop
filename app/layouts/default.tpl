@@ -26,8 +26,9 @@
 <html lang="{$lang}" prefix="og: http://ogp.me/ns#" class="no-js" >
 
 	<head>
-
 		{cookie_consent_datalayer_command}
+
+		{gtm_datalayer}
 
 		<meta charset="utf-8">
 	
