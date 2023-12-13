@@ -32,7 +32,7 @@
 		<h4 class="card-title">{a action="cards/detail" id=$card}{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getName()}{/highlight_keywords}{/a}</h4>
 		{if $main_creators}
 			<div class="card-author">
-				{highlight_keywords keywords=$params.q tag="<mark>"}{$main_creators|to_sentence}</div>{/highlight_keywords}
+				{highlight_keywords keywords=$params.q tag="<mark>"}{$main_creators|to_sentence:", "}</div>{/highlight_keywords}
 		{/if}
 		<div class="card-text">{highlight_keywords keywords=$params.q tag="<mark>"}{$card->getTeaser()|markdown|strip_html|truncate:300}{/highlight_keywords}</div>
 	</div>
