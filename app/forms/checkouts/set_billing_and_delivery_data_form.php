@@ -2,13 +2,12 @@
 class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 
 	function set_up(){
-
-		$delivery_point_selected = $this->controller->basket->deliveryToDeliveryPointSelected();
+		$delivery_address_editable_by_user = $this->controller->basket->deliveryAddressEditableByUser();
 
 		// dorucovaci adresa
 		$this->_add_firstname_lastname(["prefix" => "delivery_", "required" => true]);
-		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false, "disabled" => $delivery_point_selected]);
-		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => true, "disabled" => $delivery_point_selected]);
+		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false, "disabled" => !$delivery_address_editable_by_user]);
+		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => true, "disabled" => !$delivery_address_editable_by_user]);
 		$this->_add_phone(["prefix" => "delivery_"]);
 
 		// fakturacni adresa
@@ -22,8 +21,8 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 			//"help_text" => _("nepovinné"),
 			"required" => false,
 
-			"initial" => $delivery_point_selected,
-			"disabled" => $delivery_point_selected,
+			"initial" => !$delivery_address_editable_by_user,
+			"disabled" => !$delivery_address_editable_by_user,
 		]));
 
 		$this->set_button_text(_("Pokračovat"));

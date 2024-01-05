@@ -1,7 +1,6 @@
 {*
  * Detail objednavky nebo kosiku
  *}
-
 {if !isset($show_note)}
 	{assign show_note true}
 {/if}

@@ -43,25 +43,39 @@ class CheckoutsController extends ApplicationController {
 		$this->page_title = _("Doručovací údaje");
 
 		$delivery_point = $this->basket->getDeliveryServiceBranch();
-		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = !!$delivery_point;
+		$this->tpl_data["delivery_address_editable_by_user"] = $delivery_address_editable_by_user = $this->basket->deliveryAddressEditableByUser();
 
 		$delivery_countries_allowed = $this->basket->getDeliveryCountriesAllowed();
 
-		if($this->logged_user && !$delivery_point_selected){
+		if($this->logged_user && $delivery_address_editable_by_user){
 			$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUser($this->logged_user,$delivery_countries_allowed);
 		}
 
-		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || $delivery_point_selected;
+		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || !$delivery_address_editable_by_user;
 		$this->tpl_data["fill_in_invoice_address"] = $fill_in_invoice_address;
 
 		$initial = $this->basket->toArray();
-		$initial = array_filter($initial,function($item){ return !is_null($item); });
+		//$initial = array_filter($initial,function($item){ return !is_null($item); });
 		$this->form->set_initial($initial);
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
-		if ($delivery_point_selected) {
-			$this->form->set_initial($delivery_point->getDeliveryAddressAr());
+		if(!$delivery_address_editable_by_user){
+			$this->form->set_initial([
+				//"delivery_firstname" => $this->basket->getDeliveryFirstname(),
+				//"delivery_lastname" => $this->basket->getDeliveryLastname(),
+				//"delivery_phone" => $this->basket->getDeliveryPhone(),
+
+				"delivery_company" => $this->basket->getDeliveryCompany(),
+				"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
+				"delivery_address_street2" => $this->basket->getDeliveryAddressStreet2(),
+				"delivery_address_city" => $this->basket->getDeliveryAddressCity(),
+				"delivery_address_state" => $this->basket->getDeliveryAddressState(),
+				"delivery_address_zip" => $this->basket->getDeliveryAddressZip(),
+				"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
+				"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
+			]);
+			/*
 			$this->logged_user && $this->form->set_initial([
 				"firstname" => $this->logged_user->getFirstname(),
 				"lastname" => $this->logged_user->getLastname(),
@@ -69,14 +83,21 @@ class CheckoutsController extends ApplicationController {
 				"company_number" => $this->logged_user->getCompanyNumber(),
 				"vat_id" => $this->logged_user->getVatId(),
 				"address_street" => $this->logged_user->getAddressStreet(),
+				"address_street2" => $this->logged_user->getAddressStreet2(),
 				"address_city" => $this->logged_user->getAddressCity(),
 				"address_zip" => $this->logged_user->getAddressZip(),
 				"address_state" => $this->logged_user->getAddressState(),
 				"address_country" => $this->logged_user->getAddressCountry(),
 			]);
+			*/
 			// fine-tuning of the delivery_company field
 			$this->form->fields["delivery_company"]->required = true;
-			$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
+			$d_method = $this->basket->getDeliveryMethod();
+			if($this->basket->deliveryToDeliveryPointSelected()){
+				$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
+			}elseif($this->basket->getDeliveryMethod()->getPersonalPickupOnStore()){
+				$this->form->fields["delivery_company"]->label = _("Název prodejny");
+			}
 		}
 		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 
@@ -99,10 +120,10 @@ class CheckoutsController extends ApplicationController {
 		if($this->request->post() && ($d = $this->form->validate($params))){
 			$d["vat_id_valid_for_cross_border_transactions_within_eu"] = $d["vat_id"]->isValidForCrossBorderTransactionsWithinEu();
 
-			if($delivery_point_selected){
+			if(!$delivery_address_editable_by_user){
 				// dorucovaci adresu v tomto pripade nechceme do kosiku ukladat a
 				// klidne tam nechame to, co tam je
-				foreach(array_keys($delivery_point->getDeliveryAddressAr()) as $k){
+				foreach(array_keys(Basket::GetAddressFields(["name" => false, "phone" => false, "note" => true, "prefix" => "delivery_"])) as $k){
 					unset($d[$k]);
 				}
 			}

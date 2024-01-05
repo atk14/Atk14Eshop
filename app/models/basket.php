@@ -498,7 +498,14 @@ class Basket extends BasketOrOrder {
 	 * Ma kosik nastavenou dorucovaci adresu?
 	 */
 	function hasDeliveryAddressSet(){
-		foreach(self::GetAddressFields(["prefix" => "delivery_"]) as $k => $req){
+		$fields = self::GetAddressFields(["prefix" => "delivery_"]);
+		if(!$this->deliveryAddressEditableByUser()){
+			$fields = [
+				"delivery_firstname" => true,
+				"delivery_lastname" => true,
+			];
+		}
+		foreach($fields as $k => $req){
 			$method = String4::ToObject($k)->camelize()->prepend("get")->toString(); // "delivery_address_zip" -> "getDeliveryAddressZip"
 			if($req && strlen((string)$this->$method())==0){ return false; }
 		}
@@ -1349,9 +1356,23 @@ class Basket extends BasketOrOrder {
 	 * Bylo vybrano doruceni do dorucovaciho mista?
 	 *
 	 */
-	function deliveryToDeliveryPointSelected() {
+	function deliveryToDeliveryPointSelected(){
 		$d_method = $this->getDeliveryMethod();
 		return $d_method && $d_method->getDeliveryService();
+	}
+
+	/**
+	 * Is in-store pickup selected?
+	 */
+	function personalPickupOnStoreSelected(){
+		$d_method = $this->getDeliveryMethod();
+		return $d_method && $d_method->getPersonalPickupOnStore();
+	}
+
+	function deliveryAddressEditableByUser(){
+		return
+			!$this->deliveryToDeliveryPointSelected() &&
+			!$this->personalPickupOnStoreSelected();
 	}
 
 	/**
@@ -1397,6 +1418,18 @@ class Basket extends BasketOrOrder {
 		if($delivery_service_brand = $this->getDeliveryServiceBranch()){
 			$delivery_address = $delivery_service_brand->getDeliveryAddressAr();
 			return $delivery_address[$key];
+		}
+		$delivery_method = $this->getDeliveryMethod();
+		$store = $delivery_method ? $delivery_method->getPersonalPickupOnStore() : null;
+		if($store){
+			$_key = String4::ToObject($key)->gsub('/^delivery_/','')->toString();
+			if($_key === "company"){
+				return $store->getName();
+			}
+			if($_key === "address_note"){
+				return null;
+			}
+			return $store->g($_key);
 		}
 		return $this->g($key);
 	}

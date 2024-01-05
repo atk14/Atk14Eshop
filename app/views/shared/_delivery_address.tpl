@@ -23,7 +23,10 @@
 		{$object_with_delivery_address->getDeliveryAddressState()}<br>
 	{/if}
 	{$object_with_delivery_address->getDeliveryAddressCountry()|to_country_name}<br>
-	{$object_with_delivery_address->getDeliveryPhone()|display_phone|default:$mobject_with_delivery_addresssh}
+	{if $object_with_delivery_address->getEmail()}
+		{$object_with_delivery_address->getEmail()}<br>
+	{/if}
+	{$object_with_delivery_address->getDeliveryPhone()|display_phone|default:$mdash}
 	{if $object_with_delivery_address->getDeliveryAddressNote()}
 		<br>
 		<small>{t}upozornění:{/t} {$object_with_delivery_address->getDeliveryAddressNote()}</small>
@@ -44,7 +47,7 @@
 		{$delivery_address->getAddressState()}<br>
 	{/if}
 	{$delivery_address->getAddressCountry()|to_country_name}<br>
-	{$delivery_address->getPhone()|display_phone|default:$mdelivery_addresssh}
+	{$delivery_address->getPhone()|display_phone|default:$mdash}
 	{if $delivery_address->getAddressNote()}
 		<br>
 		<small>{t}upozornění:{/t} {$delivery_address->getAddressNote()}</small>

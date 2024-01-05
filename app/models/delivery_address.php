@@ -53,7 +53,10 @@ class DeliveryAddress extends ApplicationModel {
 
 		$delivery_method = $order->getDeliveryMethod();
 		# nebudeme ukladat adresu, pokud je zvolena dorucovaci metoda se zvolenou pobockou
-		if (!is_null($delivery_method->getDeliveryService())) {
+		if(!is_null($delivery_method->getDeliveryService())){
+			return null;
+		}
+		if(!is_null($delivery_method->getPersonalPickupOnStore())){
 			return null;
 		}
 		$conditions = $bind_ar = [];
