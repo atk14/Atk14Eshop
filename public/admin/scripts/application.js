@@ -303,7 +303,9 @@
 					$sortable.each( function( i, el ){
 						$(el).css("border", "1mm solid red");
 						console.log(el);
-						new Sortable( el );
+						new Sortable( el, {
+							handle: ".handle"
+						} );
 					} );
 				}
 				/*
