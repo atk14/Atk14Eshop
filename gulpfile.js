@@ -17,7 +17,7 @@ var vendorStyles = [
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
-	"node_modules/jquery-ui-bundle/jquery-ui.js",
+	//"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
