@@ -684,6 +684,12 @@
 			}
 		},
 
+		tests: {
+			async_file_upload: function() {
+				UTILS.async_file_upload.init();
+			}
+		},
+
 		// In this json, the actions for namespace "api" can be defined
 		api: {
 			common: {

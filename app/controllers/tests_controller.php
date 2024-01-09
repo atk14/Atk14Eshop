@@ -66,6 +66,16 @@ class TestsController extends ApplicationController {
 		$this->response->write($content);
 	}
 
+	function async_file_upload(){
+		$this->page_title = "Asynchronous file upload";
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$this->tpl_data["uploaded"] = true;
+			$this->tpl_data["file"] = $d["file"];
+			$this->tpl_data["file_md5_checksum"] = md5_file($d["file"]->getTmpFilename());
+		}
+	}
+
 	function _dump_email(){
 		$this->render_template = false;
 		$this->response->write(sprintf('From: "%s" &lt;%s&gt;<br>',$this->mailer->from_name,$this->mailer->from));

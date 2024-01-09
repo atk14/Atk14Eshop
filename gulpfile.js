@@ -18,6 +18,7 @@ var vendorStyles = [
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
+	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
@@ -44,6 +45,7 @@ var applicationScripts = [
 	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/utils/offcanvas.js",
+	"public/scripts/utils/async_file_upload.js",
 	"public/scripts/application.js"
 ];
 
