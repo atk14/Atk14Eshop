@@ -12,16 +12,18 @@ class SearchesController extends ApplicationController {
 			$this->template_name = "snippet";
 		}
 
-		if(!strlen($d["q"])){
+		$q = String4::ToObject($d["q"])->trim()->gsub('/\s+/',' ');
+
+		if(!$q->length()){
 			return;
 		}
 
-		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$d["q"]);
+		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$q);
 
 		$texmit = new \Textmit\Client();
 
 		$options = array(
-			"prefix_search" => true,
+			"prefix_search" => $q->length()>2, // prefix_search is slow for short strings
 			//"type" => "article",
 			//"meta_data" => "",
 			"language" => $this->lang,
@@ -34,7 +36,7 @@ class SearchesController extends ApplicationController {
 			$options["limit"] = 10;
 		}
 
-		$finder = $this->tpl_data["finder"] = $texmit->search($d["q"],$options);
+		$finder = $this->tpl_data["finder"] = $texmit->search($q->toString(),$options);
 		//print_r($finder);
 
 		$objects = $finder->getRecords();
