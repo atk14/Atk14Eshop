@@ -114,10 +114,9 @@ window.UTILS._search_suggestion = {
 
 					window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] = snippet;
 
-					// It is expected that result for just one character is super fast
 					if (
 						search === $suggestingArea.data( "suggesting-for" ) ||
-						search.length === 1
+						search.length >= $suggestingArea.data( "suggesting-for" ).length
 					) {
 						$suggestingArea.html( snippet );
 
@@ -139,9 +138,24 @@ window.UTILS._search_suggestion = {
 		}
 
 		// Search for the first character to improve responsivity
+		/*
+		// However, this causes large sites to slow down
 		if ( search.length > 1 && !$suggestingArea.data( "suggesting-for" ) ) {
 			$suggestingArea.data( "suggesting-for", search.substr( 0, 1 ) );
 			searchFn( search.substr( 0, 1 ) );
+		}
+		*/
+
+		// Slowing down the responsiveness of short queries, which in turn slow down the search itself
+		if ( search.length <= 3 ) {
+			$suggestingArea.data( "suggesting-for", search );
+			setTimeout(
+				function() {
+					searchFn( $suggestingArea.data( "suggesting-for" ) + "" );
+				} ,
+				500
+			);
+			return;
 		}
 
 		$suggestingArea.data( "suggesting-for", search );
