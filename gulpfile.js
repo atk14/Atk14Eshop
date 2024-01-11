@@ -10,7 +10,7 @@ var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
+	// "node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
 	"node_modules/nouislider/dist/nouislider.min.css"
 ];
