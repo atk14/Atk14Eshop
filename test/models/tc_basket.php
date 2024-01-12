@@ -135,6 +135,64 @@ class TcBasket extends TcBase {
 		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
 	}
 
+	function test_getting_address_values(){
+		$basket = Basket::CreateNewRecord4UserAndRegion(User::GetAnonymousUser(),$this->regions["czechoslovakia"]);
+
+		$this->assertFalse($basket->hasAddressSet());
+		$this->assertFalse($basket->hasDeliveryAddressSet());
+
+		$this->assertEquals(null,$basket->getFirstname());
+		$this->assertEquals(null,$basket->getLastname());
+		$this->assertEquals(null,$basket->getAddressStreet());
+		$this->assertEquals(null,$basket->getAddressStreet2());
+		$this->assertEquals(null,$basket->getAddressCity());
+		$this->assertEquals(null,$basket->getAddressState());
+		$this->assertEquals(null,$basket->getAddressZip());
+		$this->assertEquals(null,$basket->getAddressCountry());
+		
+		$basket->s([
+			"delivery_firstname" => "Bobina",
+			"delivery_lastname" => "Drozdová",
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
+			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(),
+		]);
+		$this->assertEquals(true,$basket->hasDeliveryAddressSet());
+
+		$this->assertFalse($basket->hasAddressSet());
+		$this->assertTrue($basket->hasDeliveryAddressSet());
+
+		$this->assertEquals("Bobina",$basket->getFirstname());
+		$this->assertEquals("Drozdová",$basket->getLastname());
+		$this->assertEquals(null,$basket->getAddressStreet());
+		$this->assertEquals(null,$basket->getAddressStreet2());
+		$this->assertEquals(null,$basket->getAddressCity());
+		$this->assertEquals(null,$basket->getAddressState());
+		$this->assertEquals(null,$basket->getAddressZip());
+		$this->assertEquals(null,$basket->getAddressCountry());
+
+		$basket->s([
+			"delivery_address_street" => "Ambrozova 9",
+			"delivery_address_street2" => "u kina Aero",
+			"delivery_address_state" => "Kraj Praha",
+			"delivery_address_city" => "Praha 3",
+			"delivery_address_zip" => "130 00",
+			"delivery_address_country" => "CZ",
+			"delivery_method_id" => $this->delivery_methods["dpd_test"],
+		]);
+
+		$this->assertFalse($basket->hasAddressSet());
+		$this->assertTrue($basket->hasDeliveryAddressSet());
+
+		$this->assertEquals("Bobina",$basket->getFirstname());
+		$this->assertEquals("Drozdová",$basket->getLastname());
+		$this->assertEquals("Ambrozova 9",$basket->getAddressStreet());
+		$this->assertEquals("u kina Aero",$basket->getAddressStreet2());
+		$this->assertEquals("Kraj Praha",$basket->getAddressState());
+		$this->assertEquals("Praha 3",$basket->getAddressCity());
+		$this->assertEquals("130 00",$basket->getAddressZip());
+		$this->assertEquals("CZ",$basket->getAddressCountry());
+	}
+
 	function test_addProduct(){
 		$mint_tea = $this->products["mint_tea"];
 		$black_tea = $this->products["black_tea"];
@@ -1101,6 +1159,40 @@ class TcBasket extends TcBase {
 			"delivery_address_country" => true,
 			"delivery_address_note" => false,
 		],Basket::GetAddressFields(["name" => false, "note" => true, "prefix" => "delivery_"]));
+	}
+
+	function test_hasDeliveryAddressSet(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+		$this->assertEquals(true,$basket->hasDeliveryAddressSet());
+
+		$basket = Basket::CreateNewRecord4UserAndRegion(User::GetAnonymousUser(),$this->regions["czechoslovakia"]);
+		$this->assertEquals(false,$basket->hasDeliveryAddressSet());
+
+		$basket->s([
+			"delivery_firstname" => "Bobina",
+			"delivery_lastname" => "Drozdová",
+			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
+			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(),
+		]);
+		$this->assertEquals(true,$basket->hasDeliveryAddressSet());
+
+		$basket->s([
+			"delivery_method_id" => $this->delivery_methods["dpd_test"],
+		]);
+		$this->assertEquals(false,$basket->hasDeliveryAddressSet());
+
+		$basket->s([
+			"delivery_address_street" => "Ambryho 9",
+			"delivery_address_city" => "Praha 3",
+			//"delivery_address_zip" => "130 00",
+			"delivery_address_country" => "CZ",
+		]);
+		$this->assertEquals(false,$basket->hasDeliveryAddressSet()); // zip is missing
+
+		$basket->s([
+			"delivery_address_zip" => "130 00",
+		]);
+		$this->assertEquals(true,$basket->hasDeliveryAddressSet());
 	}
 
 	function _check_proper_price_rounding_on_items($items){

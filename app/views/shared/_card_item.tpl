@@ -41,7 +41,7 @@
 		{/if}
 		{if $creators}
 			{foreach $creators as $creator}
-				<div class="card-author">{$creator}</div>
+				<div class="card-author">{$creator}{if !$creator@last}, {/if}</div>
 			{/foreach}
 		{/if}
 		<div class="card-text">{$card->getTeaser()|markdown|strip_html|truncate:300}</div>

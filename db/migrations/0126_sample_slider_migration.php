@@ -2,7 +2,7 @@
 class SampleSliderMigration extends ApplicationMigration {
 
 	function up(){
-		// Slided on homepage
+		// Slider on homepage
 		$slider = Slider::CreateNewRecord(array(
 			"code" => "homepage",
 			"name" => "Homepage"

@@ -3,7 +3,7 @@
 	{assign teaser $category->getTeaser()|markdown}
 {/if}
 {capture assign=title}
-	{$category->getLongName()} <small>({$finder->getRecordsCount()})</small>
+	{$category->getLongName()} {* <small>({$finder->getRecordsCount()})</small> *}
 {/capture}
 {assign image $category->getImageUrl()|img_url:"600x600"}
 {if !$teaser|trim|strlen}

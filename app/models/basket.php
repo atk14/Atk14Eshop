@@ -499,7 +499,8 @@ class Basket extends BasketOrOrder {
 	 */
 	function hasDeliveryAddressSet(){
 		foreach(self::GetAddressFields(["prefix" => "delivery_"]) as $k => $req){
-			if($req && strlen((string)$this->g("$k"))==0){ return false; }
+			$method = String4::ToObject($k)->camelize()->prepend("get")->toString(); // "delivery_address_zip" -> "getDeliveryAddressZip"
+			if($req && strlen((string)$this->$method())==0){ return false; }
 		}
 		return true;
 	}
