@@ -16,7 +16,7 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->s($d);
 			$this->_redirect_to("user_identification");
 		}
-		$this->datalayer->push(new CustomProductDetail($card, ["event" => "detail", "price_finder" => $this->price_finder]));
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\BeginCheckout($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function user_identification(){
@@ -111,6 +111,8 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->s($d);
 			$this->_redirect_to("summary");
 		}
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddShippingInfo($this->basket, ["items" => $this->basket->getBasketItems()]));
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddPaymentInfo($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function summary(){

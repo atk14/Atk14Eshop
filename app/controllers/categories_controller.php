@@ -24,7 +24,7 @@ class CategoriesController extends CardListController{
 			$this->head_tags->setCanonical($this->_link_to(["path" => $this->tpl_data["category"]->getPath()], ["with_hostname" => true]));
 		}
 		if(isset($this->finder)){
-			$this->datalayer->push(new CustomImpressions($this->finder->getRecords(), ["event" => "productList", "price_finder" => $this->price_finder]));
+			$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewItemList(null, ["items" => $this->finder->getRecords()], ["price_finder" => $this->price_finder]));
 		}
 	}
 }

@@ -96,7 +96,7 @@ class ApplicationController extends ApplicationBaseController{
 		};
 
 		parent::_application_before_filter();
-		$this->datalayer = DatalayerGenerator\Datalayer::GetInstance($this, [
+		$this->datalayer = DatalayerGenerator\Collector::GetInstance($this, [
 			"product_class_name" => new CustomProduct,
 			"impression_class_name" => new CustomImpression,
 		]);

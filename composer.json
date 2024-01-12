@@ -39,7 +39,7 @@
         "atk14/sql-builder": "^3.2|^4.1",
         "atk14/category-filter": "^2.4",
         "atk14/cookie-consent": "^1.0",
-        "mysutka/datalayer_generator": "^0.9",
+        "mysutka/datalayer_generator": "dev-feature/ga4_support",
         "adamstipak/webpay-php": "^1.1"
     }
 }
