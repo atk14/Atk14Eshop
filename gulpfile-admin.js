@@ -8,7 +8,8 @@ var vendorStyles = [
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/animate.css/animate.css"
+	"node_modules/animate.css/animate.css",
+	"node_modules/autocompleter/autocomplete.css",
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -26,7 +27,8 @@ var vendorScripts = [
 	"node_modules/moment/locale/cs.js",
 	"node_modules/chart.js/dist/chart.js",
 	"node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.js",
-	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"
+	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
+	"node_modules/autocompleter/autocomplete.js",
 ];
 
 var applicationScripts = [

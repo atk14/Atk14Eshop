@@ -333,7 +333,7 @@
 
 			// Suggests anything according by an url
 			handleSuggestions: function() {
-				$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
+				/*$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
 					$( this ).autocomplete( {
 						source: function( request, response ) {
 							var $el = this.element,
@@ -346,7 +346,39 @@
 							} );
 						}
 					} );
-				} );
+				} );*/
+				var inputs = $( "[data-suggesting='yes']" );
+				inputs.each(function(i,el){
+					var $el = $(el);
+					var url = $el.data( "suggesting_url" );
+					$el.css("outline", "1px solid red");
+					var url = $el.data( "suggesting_url" )
+					
+					autocomplete({
+						input: el,
+						fetch: function(text, update) {
+								text = text.toLowerCase();
+								console.log("text", text);
+								console.log("url", url);
+								
+								$.getJSON( url, { q: text }, function( data ) {
+									update( data );
+								} );
+						},
+						render: function(item, currentValue) {
+							var div = document.createElement('div');
+							div.textContent = item;
+							return div;
+						},
+						onSelect: function(item, input) {
+								console.log( "item", item );
+								console.log( "input", input );
+								input.value = item;
+						},
+						preventSubmit: 2,
+						disableAutoSelect: true,
+					});
+				});
 			},
 
 			categoriesSuggest: function( selector ) {
