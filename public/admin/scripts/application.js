@@ -333,44 +333,31 @@
 
 			// Suggests anything according by an url
 			handleSuggestions: function() {
-				/*$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
-					$( this ).autocomplete( {
-						source: function( request, response ) {
-							var $el = this.element,
-								url = $el.data( "suggesting_url" ),
-								term;
-							term = request.term;
-
-							$.getJSON( url, { q: term }, function( data ) {
-								response( data );
-							} );
-						}
-					} );
-				} );*/
 				var inputs = $( "[data-suggesting='yes']" );
-				inputs.each(function(i,el){
-					var $el = $(el),
-							url = $el.data( "suggesting_url" ); // for debug
+				inputs.each( function( i, el ){
+					var $input = $( el ),
+							url = $input.data( "suggesting_url" );
 					
-					$el.css("outline", "1px solid red");
+					$input.css( "outline", "1px solid red" );// for debug
 					
+					// eslint-disable-next-line no-undef
 					autocomplete({
 						input: el,
-						fetch: function(text, update) {
+						fetch: function( text, update ) {
 								text = text.toLowerCase();
-								console.log("text", text);
-								console.log("url", url);
+								console.log( "text", text );
+								console.log( "url", url );
 								
 								$.getJSON( url, { q: text }, function( data ) {
 									update( data );
 								} );
 						},
-						render: function(item, currentValue) {
-							var div = document.createElement('div');
+						render: function( item ) {
+							var div = document.createElement( "div" );
 							div.textContent = item;
 							return div;
 						},
-						onSelect: function(item, input) {
+						onSelect: function( item, input ) {
 								input.value = item;
 						},
 						preventSubmit: 2,
@@ -381,16 +368,48 @@
 			},
 
 			categoriesSuggest: function( selector ) {
-				var $input = $( selector ),
-					url = $input.data( "suggesting_url" ),
-					cache = {},
-					term;
+				$( selector ).each( function( i, el ){
+	
+					var $input = $( el ),
+						url = $input.data( "suggesting_url" ),
+						cache = {},
+						term;
 
-				if ( !$input.length ) {
-					return;
-				}
+					$input.css( "outline", "1px solid lime" );
 
-				$input.autocomplete( {
+					// TODO: Cache
+					
+					// eslint-disable-next-line no-undef
+					autocomplete({
+						input: el,
+						fetch: function( text, update ) {
+								text = text.toLowerCase();
+								console.log( "text", text );
+								console.log( "url", url );
+								
+								$.getJSON( url, { q: text }, function( data ) {
+									update( data );
+								} );
+						},
+						render: function( item ) {
+							var div = document.createElement( "div" );
+							div.textContent = item;
+							return div;
+						},
+						onSelect: function( item, input ) {
+								input.value = item;
+						},
+						preventSubmit: 2,
+						disableAutoSelect: true,
+						debounceWaitMs: 100,
+						minLen: 1,
+					});
+				
+
+				
+				} );
+
+				/*$input.autocomplete( {
 					minLength: 1,
 					source: function( request, response ) {
 						term = request.term;
@@ -418,7 +437,7 @@
 						this.value = ui.item.value;
 						return false;
 					}
-				} );
+				} );*/
 			},
 
 			// Suggests tags
