@@ -349,10 +349,10 @@
 				} );*/
 				var inputs = $( "[data-suggesting='yes']" );
 				inputs.each(function(i,el){
-					var $el = $(el);
-					var url = $el.data( "suggesting_url" );
+					var $el = $(el),
+							url = $el.data( "suggesting_url" ); // for debug
+					
 					$el.css("outline", "1px solid red");
-					var url = $el.data( "suggesting_url" )
 					
 					autocomplete({
 						input: el,
@@ -371,12 +371,11 @@
 							return div;
 						},
 						onSelect: function(item, input) {
-								console.log( "item", item );
-								console.log( "input", input );
 								input.value = item;
 						},
 						preventSubmit: 2,
 						disableAutoSelect: true,
+						debounceWaitMs: 100,
 					});
 				});
 			},
