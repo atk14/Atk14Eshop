@@ -9,7 +9,6 @@ var vendorStyles = [
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/animate.css/animate.css",
-	"node_modules/autocompleter/autocomplete.css",
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
