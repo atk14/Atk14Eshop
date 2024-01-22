@@ -376,20 +376,26 @@
 						term;
 
 					$input.css( "outline", "1px solid lime" );
-
-					// TODO: Cache
 					
 					// eslint-disable-next-line no-undef
 					autocomplete({
 						input: el,
 						fetch: function( text, update ) {
-								text = text.toLowerCase();
-								console.log( "text", text );
-								console.log( "url", url );
-								
-								$.getJSON( url, { q: text }, function( data ) {
+							term = text.toLowerCase();
+							console.log( "term", term );
+							console.log( "url", url );
+
+							if ( term in cache ) {
+								update( cache[ term ] );
+								console.log( "cache", cache );
+								console.log( "cache term", cache [term])
+							} else {
+								$.getJSON( url, { q: term }, function( data ) {
+									console.log("server", data);
+									cache[ term ] = data;
 									update( data );
 								} );
+							}
 						},
 						render: function( item ) {
 							var div = document.createElement( "div" );
@@ -402,42 +408,9 @@
 						preventSubmit: 2,
 						disableAutoSelect: true,
 						debounceWaitMs: 100,
-						minLen: 1,
+						minLength: 1,
 					});
-				
-
-				
 				} );
-
-				/*$input.autocomplete( {
-					minLength: 1,
-					source: function( request, response ) {
-						term = request.term;
-
-						if ( term in cache ) {
-							response( cache[ term ] );
-						} else {
-							$.getJSON( url + term, function( data ) {
-								cache[ term ] = data;
-								response( data );
-							} );
-						}
-					},
-					search: function() {
-						term = this.value;
-
-						if ( term.length < 1 ) {
-							return false;
-						}
-					},
-					focus: function() {
-						return false;
-					},
-					select: function( event, ui ) {
-						this.value = ui.item.value;
-						return false;
-					}
-				} );*/
 			},
 
 			// Suggests tags
