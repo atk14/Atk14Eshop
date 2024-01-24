@@ -8,96 +8,174 @@ window.UTILS.async_file_upload.init = function() {
       lang = $( "html" ).attr( "lang" ),
       url = "/api/" + lang + "/temporary_file_uploads/create_new/?format=json";
 
-  var onInputChange = function( e ) {
-    console.log( "CHANGE" );
-    console.log( e.target.value );
-    console.log( e.target.files );
-    startUpload( e.target.files );
-  };
+  // Uploader class
+  var Uploader = function( element ) {
+    this.element = element;
+    var $this = this;
 
-  var onFilesDrop = function( e ) {
-    e.preventDefault();
-    console.log( "DROP" );
-    let dt = e.dataTransfer
-    let files = dt.files
-    e.target.closest( "div" ).querySelector( "input" ).files = files;
+    this.onInputChange = function( e ) {
+      console.log( "CHANGE" );
+      $this.startUpload( e.target.files );
+    };
 
-    //handleFiles(files)
-    console.log(files);
-    startUpload( files );
-  };
+    this.onFilesDrop = function( e ) {
+      e.preventDefault();
+      console.log( "DROP" );
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      if( files.length > 1 ) {
+        alert( "Only one file at time may be uploaded" );
+        return;
+      }
+      // Copy files list into file input elem (unless files were dropped directly to input)
+      if( !e.target.classList.contains( "form-control-file" ) ) {
+        e.target.querySelector( "input" ).files = files;
+      }
+      $this.startUpload( files );
+    };
 
-  var updateProgress = function( progress ){
-    console.log( "progress", progress );
-  }
+    // upload to server
+    this.startUpload = function( files ) {
+      console.log( "--******START*****************--" );
+      let formData = new FormData();
 
-  var startUpload = function( files ) {
-    console.log( "--******START*****************--" );
-    
-    let formData = new FormData()
+      formData.append( "file", files[0] );
+      
+      var xhr = new XMLHttpRequest();
+      xhr.open( "POST", url, true );
 
-    formData.append('file', files[0]);
+      xhr.upload.addEventListener( "progress", function ( e ) {
+        $this.updateProgress( (e.loaded * 100.0 / e.total) || 100 );
+      } );
 
-    /*fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-    .then(( r ) => { 
-      console.log( "UPLOADED", r );
-     })
-    .catch(( error ) => { 
-      console.log( "ERROR", error );
-     });*/
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open( "POST", url, true );
+      xhr.addEventListener( "readystatechange", function () {
+        if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400 ) {
+          console.log( "DONE" );
+          console.log( xhr.response );
+          $this.onSuccess( xhr.response );
+        } else if( xhr.readyState === 4 ) {
+          console.log( "ERROR", xhr.readyState );
+          console.log( xhr.response );
+          $this.onError( xhr.response );
+        }
+      } );
+      
+      $this.removeUIHandlers();
+      
+      $this.element.innerHTML += $this.element.dataset.template_loading;
 
-    // Add following event listener
-    xhr.upload.addEventListener("progress", function (e) {
-      updateProgress( (e.loaded * 100.0 / e.total) || 100 );
-    })
+      xhr.send( formData );
+    };
 
-    xhr.addEventListener('readystatechange', function (e) {
-          if (xhr.readyState == 4 && (xhr.status == 201 || xhr.status == 200)) {
-            console.log( "DONE" );
-            console.log( xhr.response );
-          } else if (xhr.readyState == 4 && xhr.status != 200 && xhr.status != 201) {
-            console.log( "ERROR" );
-            console.log( xhr.response );
-          }
-     })
-   
-    xhr.send(formData)
-  };
+    this.onSuccess = function( response ) {
+      let template = $this.element.dataset.template_done;
+      response = JSON.parse( response );
+      template = template
+        .replace( "%filename%", $this.escapeHtml( response.filename ) )
+				.replace( "%fileext%", $this.escapeHtml( response.filename.split( "." ).pop().toLowerCase() ) )
+				.replace( "%filesize_localized%", $this.escapeHtml( response.filesize_localized ) )
+				.replace( "%token%", $this.escapeHtml( response.token ) )
+				.replace( "%name%", $this.escapeHtml( $this.element.dataset.name ) )
+				.replace( "%destroy_url%", $this.escapeHtml( response.destroy_url ) );
+      $this.element.innerHTML = template;
+      $this.element.querySelector( ".js--remove" ).addEventListener( "click", $this.removeButtonHandler );
+    };
 
-  var highlight = function( e ) {
-    e.target.style.backgroundColor = "yellow";
-  };
+    this.onError = function( response ) {
+      let template = $this.element.dataset.template_error;
+      let errMsg = "Error occurred";
+      response = JSON.parse( response );
 
-  var unhighlight = function( e ) {
-    e.target.style.backgroundColor = "transparent";
-  };
+      if( response && response[0] ) {
+        errMsg = response[ 0 ];
+      }
+			template = template
+				.replace( "%error_message%", $this.escapeHtml( errMsg ) );
 
+      $this.element.innerHTML = template;
+			$this.element.querySelector( ".js--confirm" ).addEventListener( "click",  $this.confirmButtonHandler );
 
+    }
+
+    this.highlight = function( e ) {
+      e.preventDefault();
+      $this.element.style.backgroundColor = "yellow";
+    };
   
+    this.unhighlight = function() {
+      $this.element.style.backgroundColor = "transparent";
+    };
+
+    this.updateProgress = function( progress ) {
+      console.log( "progress", progress );
+      $this.element.querySelector( ".progress-bar" ).style.width = progress + "%";
+    };
+
+    this.escapeHtml = function( unsafe ) {
+			return unsafe
+				.replace( /&/g, "&amp;" )
+				.replace( /</g, "&lt;" )
+				.replace( />/g, "&gt;" )
+				.replace( /"/g, "&quot;" )
+				.replace( /'/g, "&#039;" );
+		};
+
+    // click on button displayed after error
+    this.confirmButtonHandler = function() {
+      $this.element.querySelector( ".js--confirm" ).removeEventListener( "click",  $this.confirmButtonHandler );
+      $this.element.innerHTML = $this.element.dataset.input;
+      $this.addUIHandlers();
+    }
+
+    // click on remove button
+
+    this.removeButtonHandler = async function( e ) {
+      let url = $this.element.querySelector( ".js--remove" ).dataset.destroy_url;
+      const response = await fetch( url, { method: "POST" } );
+      //const rr = await response.json();
+      $this.element.querySelector( ".js--remove" ).removeEventListener( "click", $this.removeButtonHandler );
+      $this.element.innerHTML = $this.element.dataset.input;
+      $this.addUIHandlers();
+    };
+
+    // remove UI drag+drop and file selection handlers
+    this.removeUIHandlers = function() {
+      this.element.querySelector( "input" ).addEventListener( "change", this.onInputChange );
+      ;["dragenter", "dragover"].forEach( eventName => {
+        this.element.removeEventListener(eventName, this.highlight, false);
+      } );
+      
+      ;["dragleave", "drop"].forEach( eventName => {
+        this.element.removeEventListener(eventName, this.unhighlight, false);
+      } );
+
+      this.element.removeEventListener( "drop", this.onFilesDrop );
+    };
+
+    this.element.style.border = "2px dotted gray";
+    this.element.style.height = "100px";
+
+    // add UI drag+drop and file selection handlers
+    this.addUIHandlers = function() {
+      $this.element.querySelector( "input" ).addEventListener( "change", $this.onInputChange );
+
+      ;["dragenter", "dragover"].forEach( eventName => {
+        $this.element.addEventListener( eventName, $this.highlight, false );
+      } );
+      
+      ;["dragleave", "drop"].forEach( eventName => {
+        $this.element.addEventListener( eventName, $this.unhighlight, false );
+      } );
+
+      $this.element.addEventListener( "drop", $this.onFilesDrop );
+    }
+
+    this.addUIHandlers();
+
+  };  
 
   [...inputs].forEach(function( el ){
-    console.log( "div", el );
-    el.style.border = "2px dotted gray";
-    el.style.padding = "40px 0";
-    var input = el.querySelector( "input" );
-    console.log( "input", input );
-    input.setAttribute( "multiple", "");
-
-    ;["dragenter", "dragover"].forEach(eventName => {
-      el.addEventListener(eventName, highlight, false)
-    })
-    
-    ;["dragleave", "drop"].forEach(eventName => {
-      el.addEventListener(eventName, unhighlight, false)
-    })
-
-    el.addEventListener( "drop", onFilesDrop );
-    input.addEventListener( "change", onInputChange );
+    new Uploader( el );
   } );
+
 };

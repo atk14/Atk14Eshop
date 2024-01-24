@@ -12,3 +12,4 @@
 {/if}
 
 {render partial="shared/form"}
+{render partial="shared/form"}
