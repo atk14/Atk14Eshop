@@ -85,6 +85,12 @@ class Voucher extends ApplicationModel implements Translatable {
 		return true;
 	}
 
+	function isApplicableForRegion($region){
+		$rc = $region->getCode();
+		$regions = $this->getRegions();
+		$regions_codes = array_map(function($region){ return $region->getCode(); },$regions);
+		return in_array($rc,$regions_codes);
+	}
 
 	function hasBeenUsed(){
 		return 0<$this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM order_vouchers WHERE voucher_id=:voucher LIMIT 1)q",[":voucher" => $this]);
@@ -128,4 +134,29 @@ class Voucher extends ApplicationModel implements Translatable {
 	}
 
 	function toString(){ return $this->getVoucherCode(); }
+
+	/**
+	 *
+	 *	$voucher->getUrl();
+	 *	$voucher->getUrl($region);
+	 *	$voucher->getUrl($region,"pdf");
+	 */
+	function getUrl($region = null, $format = null){
+		if(!$region){ $region = Region::GetDefaultRegion(); }
+
+		$params = [
+			"namespace" => "",
+			"action" => "vouchers/detail",
+			"token" => $this->getToken("voucher_detail"),
+			"id" => $this->getId(), // id je tady navic kvuli pekne URL
+			"region_id" => $region->getId(),
+			"lang" => $region->getDefaultLanguage(),
+		];
+
+		if($format){
+			$params["format"] = $format;
+		}
+
+		return Atk14Url::BuildLink($params,["with_hostname" => DEVELOPMENT ? true : $region->getDefaultDomain()]);
+	}
 }
