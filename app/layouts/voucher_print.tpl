@@ -32,6 +32,8 @@
 
 		<meta name="description" content="{$page_description}">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
 
 		{render partial="shared/layout/favicons"}
 

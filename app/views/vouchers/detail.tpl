@@ -42,7 +42,8 @@
 
 <div class="voucher voucher--{$voucher_color_theme} voucher--{$lang} voucher--{$voucher_type}">
 
-	<img src="/public/dist/images/vouchers/voucher-bg--{$voucher_color_theme}.png" alt="" class="voucher__bg">
+	{*<img src="/public/dist/images/vouchers/voucher-bg--{$voucher_color_theme}.png" alt="" class="voucher__bg">*}
+	<img src="/public/dist/images/vouchers/voucher_bg_180x90.jpg" alt="" class="voucher__bg">
 	<!--img src="/public/dist/images/vouchers/template1.png" alt="" class="voucher__draft"/-->
 	<img src="/public/dist/images/vouchers/voucher__line.svg" alt="" class="voucher__vawe">
 
