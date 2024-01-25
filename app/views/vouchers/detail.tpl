@@ -47,7 +47,7 @@
 	<img src="/public/dist/images/vouchers/voucher__line.svg" alt="" class="voucher__vawe">
 
 	<div class="voucher__logo">
-		{render partial="shared/logo-universal.svg"}
+		{* render partial="shared/logo-universal.svg" *}
 	</div>
 
 	<div class="voucher__title">
