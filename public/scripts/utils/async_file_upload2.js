@@ -14,13 +14,11 @@ window.UTILS.async_file_upload.init = function() {
     var $this = this;
 
     this.onInputChange = function( e ) {
-      console.log( "CHANGE" );
       $this.startUpload( e.target.files );
     };
 
     this.onFilesDrop = function( e ) {
       e.preventDefault();
-      console.log( "DROP" );
       let dt = e.dataTransfer;
       let files = dt.files;
       if( files.length > 1 ) {
@@ -36,7 +34,6 @@ window.UTILS.async_file_upload.init = function() {
 
     // upload to server
     this.startUpload = function( files ) {
-      console.log( "--******START*****************--" );
       let formData = new FormData();
 
       formData.append( "file", files[0] );
@@ -50,19 +47,15 @@ window.UTILS.async_file_upload.init = function() {
 
       xhr.addEventListener( "readystatechange", function () {
         if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400 ) {
-          console.log( "DONE" );
-          console.log( xhr.response );
           $this.onSuccess( xhr.response );
         } else if( xhr.readyState === 4 ) {
-          console.log( "ERROR", xhr.readyState );
-          console.log( xhr.response );
           $this.onError( xhr.response );
         }
       } );
       
       $this.removeUIHandlers();
       
-      $this.element.innerHTML += $this.element.dataset.template_loading;
+      $this.element.innerHTML = $this.element.dataset.template_loading;
 
       xhr.send( formData );
     };
@@ -99,15 +92,14 @@ window.UTILS.async_file_upload.init = function() {
 
     this.highlight = function( e ) {
       e.preventDefault();
-      $this.element.style.backgroundColor = "yellow";
+      $this.element.classList.add( "droparea-highlight" );
     };
   
     this.unhighlight = function() {
-      $this.element.style.backgroundColor = "transparent";
+      $this.element.classList.remove( "droparea-highlight" );
     };
 
     this.updateProgress = function( progress ) {
-      console.log( "progress", progress );
       $this.element.querySelector( ".progress-bar" ).style.width = progress + "%";
     };
 
@@ -129,10 +121,9 @@ window.UTILS.async_file_upload.init = function() {
 
     // click on remove button
 
-    this.removeButtonHandler = async function( e ) {
+    this.removeButtonHandler = async function() {
       let url = $this.element.querySelector( ".js--remove" ).dataset.destroy_url;
-      const response = await fetch( url, { method: "POST" } );
-      //const rr = await response.json();
+      await fetch( url, { method: "POST" } );
       $this.element.querySelector( ".js--remove" ).removeEventListener( "click", $this.removeButtonHandler );
       $this.element.innerHTML = $this.element.dataset.input;
       $this.addUIHandlers();
@@ -151,9 +142,6 @@ window.UTILS.async_file_upload.init = function() {
 
       this.element.removeEventListener( "drop", this.onFilesDrop );
     };
-
-    this.element.style.border = "2px dotted gray";
-    this.element.style.height = "100px";
 
     // add UI drag+drop and file selection handlers
     this.addUIHandlers = function() {
