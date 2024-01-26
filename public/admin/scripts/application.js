@@ -14,7 +14,7 @@
 				ADMIN.utils.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
-				ADMIN.utils.handleXhrImageUpload();
+				//ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
 				ADMIN.utils.handleCategoriesSuggestions();
 				UTILS.AsyncImageUploader.init();
