@@ -37,18 +37,10 @@ $voucherHeight: 90mm;
 
       &__logo {
         position: absolute;
-        left: 5.6mm;
-        top: 9mm;
-        width: 32mm;
+        left: 7mm;
+        top: 7mm;
+        width: 16mm;
         height: 7mm;
-      }
-
-      &__vawe {
-        position: absolute;
-        left: 6.5mm;
-        top: 38.5mm;
-        width: 57.7mm;
-        height: auto;
       }
 
       &__title {
@@ -119,14 +111,13 @@ $voucherHeight: 90mm;
 
       &__amount {
         position: absolute;
-        top: 20mm;
+        top: 22mm;
         left: 120mm;
         width: 50.3mm;
-        height: auto;
+        min-height: 2cm;
         display: flex;
         flex-direction: column;
-        //outline: 1px dotted blue;
-        //justify-content: center;
+        justify-content: center;
         align-items: center;
         &-main {
           font-size: 23pt;
