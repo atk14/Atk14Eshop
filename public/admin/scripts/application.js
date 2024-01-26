@@ -17,6 +17,7 @@
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
 				ADMIN.utils.handleCategoriesSuggestions();
+				UTILS.AsyncImageUploader.init();
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
