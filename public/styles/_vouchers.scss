@@ -9,14 +9,14 @@ $voucherHeight: 90mm;
 }
 @media all {
   body.body_vouchers_detail {
-    //font-family: inherit; //"Source Sans Pro OTF WOF2","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: white;
     margin: 0;
     .voucher {
       display: block;
       position: relative;
       width: $voucherWidth;
       height: $voucherHeight;
-      outline: 1px solid #eee;
+      outline: 1px solid #ddd;
       margin: auto;
 
       img.voucher__bg {
@@ -62,7 +62,7 @@ $voucherHeight: 90mm;
         color: black;
       }
       &__subtitle-1 {
-        left: 7.5mm;
+        left: 7mm;
       }    
       &__subtitle-2 {
         left: 41mm;
@@ -155,57 +155,28 @@ $voucherHeight: 90mm;
       }
 
       // odlisnosti u typu voucheru a jazyk. verzi
+      /*
       &--discount {
         &.voucher--cs {
-          .voucher__subtitle-1 {
-            left: 5.7mm;
-          }
-          .voucher__subtitle-2 {
-            left: 38mm;
-          }
         }
         &.voucher--sk {
-          .voucher__subtitle-1 {
-            left: 7.15mm;
-          }
-          .voucher__subtitle-2 {
-            left: 37mm;
-          }
         }
       }
 
       &--gift {
         &.voucher--en {
-          .voucher__subtitle-1 {
-            left: 18.5mm;
-          }
         }
         &.voucher--sk {
-          .voucher__subtitle-1 {
-            left: 11mm;
-          }
-          .voucher__subtitle-2 {
-            left: 44mm;
-          }
-          .voucher__title {
-            left: 4.5mm;
-          }
         }
       }
 
       &--generic {
         &.voucher--sk {
-          .voucher__subtitle-1 {
-            left: 11mm;
-          }
-        }
       }
 
       &--en {
-        .voucher__help {
-          top: 57.5mm;
-        }
       }
+      */
 
     }
 

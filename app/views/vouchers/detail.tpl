@@ -11,29 +11,16 @@
 {/if}
 {assign show_voucher_data 0}
 
-{*
-	subtitle texty dva samostatne nebo spojene do jednoho podle toho, jak vychazi	dolni dotahy pismen v nadpisu	
-*}
 
 {if $voucher->isGiftVoucher()} {* voucher na penize *}
 	{assign voucher_type "gift"}
 	{capture assign="main_title"}{t}Dárkový poukaz{/t}{/capture}
 	{capture assign="amount_notice"}{t escape="no"}VČETNĚ POŠTOVNÉHO{/t}{/capture}
-	{if $lang=="en"}
-		{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
-	{else}
-		{capture assign="subtitle_1"}{t escape="no"}Na veškerý sortiment{/t}{/capture}
-		{capture assign="subtitle_2"}{t dom=$domain escape="no"}e-shopu <strong>%1</strong>{/t}{/capture}
-	{/if}
+	{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
 {elseif $voucher->getDiscountPercent()} {* voucher na slevu *}
 	{assign voucher_type "discount"}
 	{capture assign="main_title"}{t escape="no"}Slevový poukaz{/t}{/capture}
-	{if $lang=="en"}
-		{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
-	{else}
-		{capture assign="subtitle_1"}{t escape="no"}Na veškerý sortiment{/t}{/capture}
-		{capture assign="subtitle_2"}{t dom=$domain escape="no"}e-shopu <strong>%1</strong>{/t}{/capture}	
-	{/if}
+	{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
 {else}
 	{assign voucher_type "generic"} {* voucher na cokoliv jineho *}
 	{capture assign="main_title"}{t escape="no"}Voucher{/t}{/capture}
