@@ -9,6 +9,17 @@ window.UTILS.AsyncImageUploader = class {
 	progress;
 	list;
 	input;
+  uploads = [];
+
+  /*fileUpload = class {
+    xhr;
+    file;
+
+    constructor( file ) {
+      console.log( "consctruct fileUPpload", file.name );
+      this.file = file;
+    }
+  }*/
 
   constructor( form ) {
     this.form = form;
@@ -46,17 +57,56 @@ window.UTILS.AsyncImageUploader = class {
     this.startUpload( files );
   }
 
-  onFilesSelect( e ) {
+  onFilesSelect() {
     console.log( "selected filees" );
     this.startUpload( this.input.files );
   }
 
   startUpload( files ) {
     console.log( "Start upload" );
-    [...files].forEach(function( file ){
+    [...files].forEach( this.uploadFile.bind( this ) );
+    /*[...files].forEach(function( file ){
       console.log( file );
-    } );
+      this.uploadFile( file )
+    } );*/
     // Upload goes here...
+    console.log( "uploads", this.uploads );
+  }
+
+  uploadFile( file ) {
+    console.log( "UPLOAD ME", file );
+    //this.uploads.push( new this.fileUpload( file, this ) );
+    let formData = new FormData();
+    formData.append( "file", file, file.name );
+    let xhr = new XMLHttpRequest();
+    this.uploads.push( xhr );
+    //xhr.test = "ahoj" + file.name;
+    xhr.open( "POST", this.url, true );
+    xhr.responseType = "json";
+    xhr.upload.addEventListener( "progress", function ( e ) {
+      //$this.updateProgress( (e.loaded * 100.0 / e.total) || 100 );
+      console.log( "progress", (e.loaded * 100.0 / e.total) || 100 );
+    } );
+
+    xhr.addEventListener( "readystatechange", function () {
+      if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400 ) {
+        //$this.onSuccess( xhr.response );
+        console.log( "complate" );
+      } else if( xhr.readyState === 4 ) {
+        //$this.onError( xhr.response );
+        console.log( "error" );
+      }
+    } );
+    console.log("XHR", xhr)
+    //xhr.send( formData );
+    //xhr.setRequestHeader('X-File-Name', file.name);
+    //xhr.setRequestHeader('X-File-Size', file.size);
+    xhr.setRequestHeader( 'Content-Type', file.type);
+    xhr.setRequestHeader( 'Accept', 'application/json, text/javascript, text/plain, */*' );
+    xhr.setRequestHeader( 'Content-Disposition', 'attachment; filename=' + encodeURIComponent( file.name ) );
+    xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
+    
+    xhr.send(file);
   }
 
   highlight( e ) {
