@@ -1,0 +1,203 @@
+$voucherWidth: 180mm;
+$voucherHeight: 90mm;
+
+
+@mixin print-white-text {
+  // workaround for firefox printing white text as black in pdf
+  color: transparent;
+  text-shadow: 0 0 0px #fff;
+}
+@media all {
+  body.body_vouchers_detail {
+    background-color: white;
+    margin: 0;
+    .voucher {
+      display: block;
+      position: relative;
+      width: $voucherWidth;
+      height: $voucherHeight;
+      outline: 1px solid #ddd;
+      margin: auto;
+
+      img.voucher__bg {
+        width: $voucherWidth;
+        height: $voucherHeight;
+      }
+      img.voucher__draft {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $voucherWidth;
+        height: $voucherHeight;
+        opacity: 0.2;
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &__logo {
+        position: absolute;
+        left: 7mm;
+        top: 7mm;
+        width: 16mm;
+        height: 7mm;
+      }
+
+      &__title {
+        position: absolute;
+        left: 6.7mm;
+        top: 23mm;
+        font-size: 22.5pt;
+        color: #353c52;
+        font-weight: bold;
+        //font-family: "pacifico";
+        //color: white;
+        //@include print-white-text;
+      }
+
+      &__subtitle-1, &__subtitle-2 {
+        position: absolute;
+        top: 33.75mm;
+        font-size: 7pt;
+        color: black;
+      }
+      &__subtitle-1 {
+        left: 7mm;
+      }    
+      &__subtitle-2 {
+        left: 41mm;
+      }
+
+      &__code, &__expiration {
+        position: absolute;
+        top: 67.6mm;
+        width: 28mm;
+        height: 10mm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 11pt;
+        line-height: 1;
+        color: black;
+        //color: white;
+        //@include print-white-text;
+      }
+      &__label-code, &__label-expiration {
+        position: absolute;
+        top: 76mm;
+        width: 28mm;
+        height: 3mm;
+        text-align: center;
+        font-size: 7pt;
+      }
+      &__code, &__label-code {
+        left: 6mm;
+      }
+      &__expiration, &__label-expiration {
+        left: 49mm;
+      }
+
+      &__help {
+        position: absolute;
+        top: 83mm;
+        left: 12mm;
+        width: 100mm;
+        //color: white;
+        //@include print-white-text;
+        font-size: 6.5pt;
+        line-height: 1.05;
+        text-indent: -1ch; // odsazeni hvezdicky
+      }
+
+      &__amount {
+        position: absolute;
+        top: 22mm;
+        left: 120mm;
+        width: 50.3mm;
+        min-height: 2cm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &-main {
+          font-size: 23pt;
+          color: #007ea6;
+          line-height: 1;
+          font-weight: 900;
+          letter-spacing: -0.03em;
+          .currency_main, .discount_main {
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            .price, .discount_number {
+              font-size: 45pt;
+              letter-spacing: -0.05em;
+            }
+          }
+        }
+        &-notice {
+          font-weight: 300;
+          color: black;
+          font-size: 6pt;
+          margin-top: 1mm;
+          padding-left: 0.25em;
+          text-align: center;
+          &:empty {
+            display: none;
+          }
+        }
+      }
+
+      &--generic {
+        .voucher__amount-main {
+          text-align: center;
+        }
+      }
+
+      // odlisnosti u typu voucheru a jazyk. verzi
+      /*
+      &--discount {
+        &.voucher--cs {
+        }
+        &.voucher--sk {
+        }
+      }
+
+      &--gift {
+        &.voucher--en {
+        }
+        &.voucher--sk {
+        }
+      }
+
+      &--generic {
+        &.voucher--sk {
+      }
+
+      &--en {
+      }
+      */
+
+    }
+
+    /* zoom for debug */
+    .xxvoucher {
+      transform-origin: top center;
+      transform: scale(2);
+    }
+
+
+    table {
+      font-size: 0.85rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      td, th {
+        padding: 0.25em 0.5em;
+        border: none;
+      }
+      tr:nth-child(2n+1) {
+        background-color: #eee;
+      }
+    }
+  }
+}

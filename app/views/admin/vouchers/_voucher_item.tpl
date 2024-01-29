@@ -30,6 +30,7 @@
 	<td>
 		{dropdown_menu}
 			{a action="edit" id=$voucher}{!"edit"|icon} {t}Upravit{/t}{/a}
+			<a href="{$voucher->getUrl()}">{!"eye-open"|icon} {t}Zobrazit náhled{/t}</a>
 			{if $voucher->isDeletable()}
 				{a_destroy id=$voucher}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}
 			{/if}

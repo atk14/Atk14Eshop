@@ -79,6 +79,10 @@ class DefaultRouter extends Atk14Router{
 		// Qr kody
 		$this->addRoute("/qr-code/<lang>/<order_token>.png","payment_qr_codes/detail");
 
+		// Vouchers
+		$this->addRoute("/<lang>/vouchers/<region_id>/<token>/voucher_<id>.pdf","vouchers/detail",["format" => "pdf"]);
+		$this->addRoute("/<lang>/vouchers/<region_id>/<token>/voucher_<id>.html","vouchers/detail");
+
 		// Generic routes follow.
 		// Keep them on the end of the list.
 
