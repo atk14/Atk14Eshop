@@ -1,4 +1,9 @@
-console.log( "hello me" );
+/*
+ * Async multiple images uploader
+ * Usage:
+ * window.UTILS.AsyncImageUploader.init();
+*/
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.AsyncImageUploader = class {
@@ -10,16 +15,6 @@ window.UTILS.AsyncImageUploader = class {
 	list;
 	input;
   uploads = [];
-
-  /*fileUpload = class {
-    xhr;
-    file;
-
-    constructor( file ) {
-      console.log( "consctruct fileUPpload", file.name );
-      this.file = file;
-    }
-  }*/
 
   constructor( form ) {
     this.form = form;
@@ -35,6 +30,7 @@ window.UTILS.AsyncImageUploader = class {
     this.addUIhandlers();
   }
 
+  // Sets handlers for UI interactions - file select, drag + drop
   addUIhandlers() {
     ;["dragenter", "dragover"].forEach( eventName => {
       this.dropZone.addEventListener( eventName, this.highlight.bind( this ), false );
@@ -49,58 +45,57 @@ window.UTILS.AsyncImageUploader = class {
     this.input.addEventListener( "change", this.onFilesSelect.bind( this) );
   }
 
+  // Files from drag + drop
   onFilesDrop( e ){
     e.preventDefault();
-    console.log( "dropped filees" );
+    console.log( "dropped files" );
     let dt = e.dataTransfer;
     let files = dt.files;
     this.startUpload( files );
   }
 
+  // Files selected by file input
   onFilesSelect() {
-    console.log( "selected filees" );
+    console.log( "selected files" );
     this.startUpload( this.input.files );
   }
 
+  // Process dropped/selected files
   startUpload( files ) {
-    console.log( "Start upload" );
-    [...files].forEach( this.uploadFile.bind( this ) );
-    /*[...files].forEach(function( file ){
-      console.log( file );
-      this.uploadFile( file )
-    } );*/
-    // Upload goes here...
-    console.log( "uploads", this.uploads );
+    if( files ){
+      console.log( "Start upload" );
+      [...files].forEach( this.uploadFile.bind( this ) );
+    } else {
+      console.log( "No files to upload" );
+    }
   }
 
+  // Initiates upload
   uploadFile( file ) {
-    console.log( "UPLOAD ME", file );
-
     let xhr = new XMLHttpRequest();
+    // Add xhr to uploads list
     this.uploads.push( xhr );
-    //xhr.test = "ahoj" + file.name;
+
+    // Setup xhr request
     xhr.open( "POST", this.url, true );
     xhr.responseType = "json";
-
     xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
-
     xhr.addEventListener( "readystatechange", this.onReadyStateChange.bind( this ) );
-    
-    console.log("XHR", xhr)
-    
-    xhr.setRequestHeader( 'Content-Type', file.type);
-    xhr.setRequestHeader( 'Accept', 'application/json, text/javascript, text/plain, */*' );
-    xhr.setRequestHeader( 'Content-Disposition', 'attachment; filename=' + encodeURIComponent( file.name ) );
-    xhr.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
+    xhr.setRequestHeader( "Content-Type", file.type);
+    xhr.setRequestHeader( "Accept", "application/json, text/javascript, text/plain, */*" );
+    xhr.setRequestHeader( "Content-Disposition", "attachment; filename=" + encodeURIComponent( file.name ) );
+    xhr.setRequestHeader( "X-Requested-With", "XMLHttpRequest" );
     
     xhr.send(file);
   }
 
+  // Updates progressbar
   onUploadProgress( e ) {
     let loaded = 0;
     let total = 0;
     e.target.bytesLoaded = e.loaded;
     e.target.bytesTotal = e.total;
+    // Sums progress from all current uploads in uploads list
     for( let i = 0; i < this.uploads.length; i++) {
       loaded += this.uploads[ i ].upload.bytesLoaded;
       total += this.uploads[ i ].upload.bytesTotal;
@@ -108,49 +103,78 @@ window.UTILS.AsyncImageUploader = class {
     this.progress.style.width = loaded * 100 / total + "%";
   }
 
+  // Upload status change
   onReadyStateChange( e ) {
-    if ( e.target.readyState === 4 && e.target.status >= 200 && e.target.status < 400 ) {
-      //$this.onSuccess( xhr.response );
-      console.log( "complate" );
-      console.log( e.target.response.image_gallery_item );
-      console.log( e.target );
-      let glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
-      " title='sorting'></span>";
-     // let h = new DOMParser().parseFromString( e.target.response.image_gallery_item, "text/html" );
-      this.list.insertAdjacentHTML( "beforeend", e.target.response.image_gallery_item );
-      //this.list.append( e.target.response.image_gallery_item );
-      this.checkComplete();
-    } else if( e.target.readyState === 4 ) {
-      //$this.onError( xhr.response );
-      console.log( "error" );
+    console.log( "onReadyStateChange" );
+    if ( e.target.response ) {
+      if ( e.target.readyState === 4 && e.target.status >= 200 && e.target.status < 400 ) {
+        // upload success
+        console.log( "upload complete" );
+        
+        this.onUploadSuccess( e.target.response.image_gallery_item )
+        // let h = new DOMParser().parseFromString( e.target.response.image_gallery_item, "text/html" );
+        
+        //this.list.append( e.target.response.image_gallery_item );
+      } else if( e.target.readyState === 4 ) {
+        // upload error;
+        console.log( "error", e.target.response );
+      }
+    } else {
+      // unspecifies error no e.target.response 
+      console.log( "unspecified error" );
+    }
+    this.checkComplete();
+  }
+
+  // Shows thumbnail and info about uploaded file
+  onUploadSuccess( listItem ){
+    // Show list item with thumbnail
+    this.list.insertAdjacentHTML( "beforeend", listItem );
+    // Add drag handle
+    let dragHandle = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
+        " title='sorting'></span>";
+    let itemsWithoutHandles = document.querySelectorAll( ".drop-zone .list-group-item:not(:has(.handle))" );
+    for( let i = 0; i < itemsWithoutHandles.length; i++ ){
+      itemsWithoutHandles[ i ].insertAdjacentHTML( "afterbegin", dragHandle );
     }
   }
 
+  // Checks if all uploads are complete to reset progressbar and uploads list 
   checkComplete() {
-    console.log( "-------------------");
     let completedUploads = 0;
     for( let i = 0; i < this.uploads.length; i++) {
-      console.log(this.uploads[i].readyState, this.uploads[i].status );
       if( this.uploads[i].readyState === 4 && this.uploads[i].status >= 200 && this.uploads[i].status < 400 ) {
         completedUploads ++;
       }
     }
-    console.log( "-------------------", completedUploads );
     if( this.uploads.length === completedUploads ) {
+      // reset progress bar
+      this.progress.classList.add( "progress-bar--noanim" );
       this.progress.style.width = "0%";
+      this.progress.classList.remove( "progress-bar--noanim" );
+      // reset uploads list
       this.uploads = [];
     }
   }
 
+  // Highlights dropzone
   highlight( e ) {
     e.preventDefault();
-    this.dropZone.classList.add( "drop-zone-highlight" );
+    if( e.dataTransfer.items[ 0 ].kind === "file" ) {
+      this.dropZone.classList.add( "drop-zone-highlight" );
+    }
   }
 
-  unhighlight() {
-    this.dropZone.classList.remove( "drop-zone-highlight" );
+  // Unhighlights dropzone
+  unhighlight( e ) {
+    if( e.dataTransfer.items[ 0 ].kind === "file" ) {
+      this.dropZone.classList.remove( "drop-zone-highlight" );
+    }
   }
 
+  // Init - call this to start 
+  // This is static method - do NOT use new window.UTILS.AsyncImageUploader(), just call
+  // window.UTILS.AsyncImageUploader.init();
   static init() {
     let elems = document.querySelectorAll( ".js--xhr_upload_image_form" );
     console.log( "AsyncImageUploader.init", elems.length );
