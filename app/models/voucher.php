@@ -14,6 +14,7 @@ class Voucher extends ApplicationModel implements Translatable {
 
 	static function CreateNewRecord($values, $options = []){
 		$values += [
+			"regions" => Region::GetDefaultValueForRegionsColumn(),
 			"voucher_code" => null,
 		];
 		if(is_null($values["voucher_code"])){
