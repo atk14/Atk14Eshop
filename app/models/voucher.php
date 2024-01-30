@@ -12,12 +12,15 @@ class Voucher extends ApplicationModel implements Translatable {
 		]);
 	}
 
-	static function PrepareVoucherCode(){
-		$length = 10;
+	static function PrepareVoucherCode($options = []){
+		$options += [
+			"length" => 12,
+		];
+		$length = $options["length"];
 		$counter = 0;
 		while(1){
 			//$voucher_code = String4::RandomPassword($length)->upper()->toString();
-			$voucher_code = rand(1,9).sprintf('%09d',rand(0,999999999)); // kod voucher ma byt 10 cislic
+			$voucher_code = rand(1,9).sprintf('%0'.($length-1).'d',rand(0,str_repeat("9",$length-1))); // kod voucher ma byt 10 cislic
 			if(!Voucher::FindFirst("voucher_code",$voucher_code)){
 				return $voucher_code;
 			}
