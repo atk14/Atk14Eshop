@@ -27,7 +27,11 @@
 	{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
 {/if}
 
-<div class="voucher voucher--{$voucher_color_theme} voucher--{$lang} voucher--{$voucher_type}">
+{if is_numeric($voucher->getVoucherCode())}
+	{assign has_barcode 1}
+{/if}
+
+<div class="voucher voucher--{$voucher_color_theme} voucher--{$lang} voucher--{$voucher_type}{if $has_barcode} voucher--barcode{/if}">
 
 	{*<img src="/public/dist/images/vouchers/voucher-bg--{$voucher_color_theme}.png" alt="" class="voucher__bg">*}
 	<img src="/public/dist/images/vouchers/voucher_bg_180x90.jpg" alt="" class="voucher__bg">
