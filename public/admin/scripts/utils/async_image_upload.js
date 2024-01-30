@@ -25,8 +25,6 @@ window.UTILS.AsyncImageUploader = class {
     this.list = this.wrap.querySelector( ".list-group-images" );
     this.input = this.form.querySelector( "input" );
     this.input.dataset.url = this.url;
-    console.log( "dropZone", this.dropZone );
-    console.log( "form", this.form );
     this.addUIhandlers();
   }
 
@@ -48,7 +46,6 @@ window.UTILS.AsyncImageUploader = class {
   // Files from drag + drop
   onFilesDrop( e ){
     e.preventDefault();
-    console.log( "dropped files" );
     let dt = e.dataTransfer;
     let files = dt.files;
     this.startUpload( files );
@@ -56,17 +53,13 @@ window.UTILS.AsyncImageUploader = class {
 
   // Files selected by file input
   onFilesSelect() {
-    console.log( "selected files" );
     this.startUpload( this.input.files );
   }
 
   // Process dropped/selected files
   startUpload( files ) {
     if( files ){
-      console.log( "Start upload" );
       [...files].forEach( this.uploadFile.bind( this ) );
-    } else {
-      console.log( "No files to upload" );
     }
   }
 
@@ -105,23 +98,18 @@ window.UTILS.AsyncImageUploader = class {
 
   // Upload status change
   onReadyStateChange( e ) {
-    console.log( "onReadyStateChange" );
     if ( e.target.response ) {
       if ( e.target.readyState === 4 && e.target.status >= 200 && e.target.status < 400 ) {
         // upload success
-        console.log( "upload complete" );
-        
-        this.onUploadSuccess( e.target.response.image_gallery_item )
-        // let h = new DOMParser().parseFromString( e.target.response.image_gallery_item, "text/html" );
-        
-        //this.list.append( e.target.response.image_gallery_item );
+        this.onUploadSuccess( e.target.response.image_gallery_item );
       } else if( e.target.readyState === 4 ) {
         // upload error;
-        console.log( "error", e.target.response );
+        this.onUploadError( e.target.response.error_message );
       }
     } else {
       // unspecifies error no e.target.response 
-      console.log( "unspecified error" );
+      console.log( "unspecified error", e );
+      //this.onUploadError( "Upload error" );
     }
     this.checkComplete();
   }
@@ -139,15 +127,28 @@ window.UTILS.AsyncImageUploader = class {
     }
   }
 
+  // Display error message
+  onUploadError( errorMessage ) {
+    let errorAlert = document.createElement( "div" );
+    errorAlert.classList.add( "alert" );
+    errorAlert.classList.add( "alert-danger" );
+    errorAlert.classList.add( "alert-dismissible" );
+    errorAlert.classList.add( "fade" );
+    errorAlert.classList.add( "show" );
+    let closeBtn = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+    errorAlert.insertAdjacentHTML( "afterbegin", errorMessage + closeBtn );
+    this.form.appendChild( errorAlert );
+  }
+
   // Checks if all uploads are complete to reset progressbar and uploads list 
   checkComplete() {
     let completedUploads = 0;
     for( let i = 0; i < this.uploads.length; i++) {
-      if( this.uploads[i].readyState === 4 && this.uploads[i].status >= 200 && this.uploads[i].status < 400 ) {
+      if( this.uploads[i].readyState === 4 && this.uploads[i].status >= 200 ) {
         completedUploads ++;
       }
     }
-    if( this.uploads.length === completedUploads ) {
+    if( this.uploads.length === completedUploads || this.uploads.length === 0 ) {
       // reset progress bar
       this.progress.classList.add( "progress-bar--noanim" );
       this.progress.style.width = "0%";
@@ -177,7 +178,6 @@ window.UTILS.AsyncImageUploader = class {
   // window.UTILS.AsyncImageUploader.init();
   static init() {
     let elems = document.querySelectorAll( ".js--xhr_upload_image_form" );
-    console.log( "AsyncImageUploader.init", elems.length );
     [...elems].forEach(function( el ){
       new window.UTILS.AsyncImageUploader( el );
     } );
