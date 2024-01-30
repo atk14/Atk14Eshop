@@ -12,6 +12,16 @@ class Voucher extends ApplicationModel implements Translatable {
 		]);
 	}
 
+	static function CreateNewRecord($values, $options = []){
+		$values += [
+			"voucher_code" => null,
+		];
+		if(is_null($values["voucher_code"])){
+			$values["voucher_code"] = self::PrepareVoucherCode();
+		}
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	static function PrepareVoucherCode($options = []){
 		$options += [
 			"length" => 12,
