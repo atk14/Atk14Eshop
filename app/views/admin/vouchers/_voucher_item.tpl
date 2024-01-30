@@ -28,12 +28,6 @@
 	<td>{$voucher->getCreatedAt()|format_datetime}</td>
 	<td>{$voucher->getCreatedByUser()}</td>
 	<td>
-		{dropdown_menu}
-			{a action="edit" id=$voucher}{!"edit"|icon} {t}Upravit{/t}{/a}
-			<a href="{$voucher->getUrl()}">{!"eye-open"|icon} {t}Zobrazit náhled{/t}</a>
-			{if $voucher->isDeletable()}
-				{a_destroy id=$voucher}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}
-			{/if}
-		{/dropdown_menu}
+		{render partial="dropdown_menu"}
 	</td>
 </tr>
