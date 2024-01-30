@@ -65,11 +65,11 @@
 
 	<div class="voucher__help">{t}*Pro uplatnění poukazu zadejte kód při vytvoření objednávky.{/t}</div>
 
-	<div class="voucher__barcode">
-		{if is_numeric($voucher->getVoucherCode())}
+	{if is_numeric($voucher->getVoucherCode())}
+		<div class="voucher__barcode">
 			<img src="{barcode content=$voucher->getVoucherCode() w=3 h=30}" alt="">
-		{/if}
-	</div>
+		</div>
+	{/if}
 	
 	<div class="voucher__amount">
 		<div>
