@@ -155,6 +155,27 @@ $voucherHeight: 90mm;
       }
 
       // odlisnosti u typu voucheru a jazyk. verzi
+      &--barcode {
+        .voucher__code, .voucher__expiration {
+          top: 64mm;
+        }
+        .voucher__label-code, .voucher__label-expiration {
+          top: 71.5mm;
+        }
+        .voucher__barcode {
+          position: absolute;
+          display: block;
+          left: 6.7mm;
+          top: 77mm;//76.75mm;
+          height: 7.94mm;
+          width: auto;
+        }
+        .voucher__help {
+          left: auto;
+          right: 6.7mm;
+          text-align: right;
+        }
+      }
       /*
       &--discount {
         &.voucher--cs {
