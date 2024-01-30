@@ -193,4 +193,33 @@
 
 {render partial="shared/basket_or_order_items" object=$order}
 
+{if $ordered_vouchers}
+	
+	<h4>{t}Objednané poukazy{/t}</h4>
+
+	<table class="table">
+		<thead>
+			<th>{t}Kód{/t}</th>
+			<th>{t}Hodnota{/t}</th>
+			<th>{t}Platnost do{/t}</th>
+			<th></th>
+		</thead>
+		<tbody>
+			{foreach $ordered_vouchers as $voucher}
+				<tr>
+					<td>{$voucher}</th>
+					<td>{!$voucher->getDiscountAmount()|display_price}</th>
+					<td>{$voucher->getValidTo()|format_datetime|default:$mdash}</td>
+					<td>
+						{dropdown_menu}
+							{a action="vouchers/edit" id=$voucher}{!"edit"|icon} {t}Edit{/t}{/a}
+						{/dropdown_menu}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+{/if}
+
 {render partial="action_buttons"}
