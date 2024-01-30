@@ -64,6 +64,12 @@
 	<div class="voucher__label-expiration">{t}platnost do{/t}</div>
 
 	<div class="voucher__help">{t}*Pro uplatnění poukazu zadejte kód při vytvoření objednávky.{/t}</div>
+
+	<div class="voucher__barcode">
+		{if is_numeric($voucher->getVoucherCode())}
+			<img src="{barcode content=$voucher->getVoucherCode() w=3 h=30}" alt="">
+		{/if}
+	</div>
 	
 	<div class="voucher__amount">
 		<div>
@@ -84,8 +90,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 {if $show_voucher_data}
 <table>
