@@ -1,4 +1,11 @@
 <?php
+/**
+ *
+ * @fixture vouchers
+ * @fixture users
+ * @fixture regions
+ * @fixture products
+ */
 class TcVoucher extends TcBase {
 
 	function test_CreateNewRecord(){
@@ -25,5 +32,22 @@ class TcVoucher extends TcBase {
 		$this->assertEquals(12,strlen($code4));
 
 		$this->assertNotEquals($code3,$code4);
+	}
+
+	function test_isApplicable(){
+		$voucher = $this->vouchers["free_shipping"];
+		$inactive_voucher = $this->vouchers["inactive_voucher"];
+
+		$basket = $this->_prepareEmptyBasket();
+
+		$this->assertFalse($voucher->isApplicable($basket,$err_msg));
+		$this->assertEquals("The voucher cannot be applied in empty basket",$err_msg);
+
+		$basket->setProductAmount($this->products["green_tea"],1);
+
+		$this->assertTrue($voucher->isApplicable($basket,$err_msg));
+
+		$this->assertFalse($inactive_voucher->isApplicable($basket,$err_msg));
+		$this->assertContains("cannot be applied",$err_msg);
 	}
 }

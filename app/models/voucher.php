@@ -57,6 +57,14 @@ class Voucher extends ApplicationModel implements Translatable {
 			return false;
 		}
 
+		if($order_item = $this->getOriginatorOrderItem()){
+			$order = $order_item->getOrder();
+			if(!$order->canBeFulfilled()){
+				$error_msg = _("Objednávka, ve které byl tento dárkový poukaz objednán, nebyla doposud uhrazena");
+				return false;
+			}
+		}
+
 		if($basket->isEmpty()){
 			$error_msg = _("Voucher nemůže být použit v prázdném košíku");
 			return false;
@@ -144,6 +152,10 @@ class Voucher extends ApplicationModel implements Translatable {
 	 */
 	function isGiftVoucher(){
 		return $this->g("gift_voucher");
+	}
+
+	function getOriginatorOrderItem(){
+		return Cache::Get("OrderItem",$this->getOriginatorOrderItemId());
 	}
 
 	function toString(){ return $this->getVoucherCode(); }
