@@ -221,6 +221,7 @@
 					<td>{$voucher->getValidTo()|format_datetime|default:$mdash}</td>
 					<td>
 						{dropdown_menu}
+							<a href="{$voucher->getUrl()}">{!"eye-open"|icon} {t}Zobrazit náhled{/t}</a>
 							{a action="vouchers/edit" id=$voucher}{!"edit"|icon} {t}Edit{/t}{/a}
 						{/dropdown_menu}
 					</td>
