@@ -523,10 +523,7 @@
 							}
 							if ( data[ name ] !== undefined ) {
 								this.value = data[ name ];
-								$input.css( "color", backgroundColor );
-								$input.animate( {
-									color: origColor
-								} );
+								this.animate( [{ color: backgroundColor }, { color: origColor }], { duration: 400, iterations: 1 } );
 							}
 					} );
 				} );

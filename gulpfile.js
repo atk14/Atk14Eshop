@@ -10,15 +10,19 @@ var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
+	// "node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
 	"node_modules/nouislider/dist/nouislider.min.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
+<<<<<<< HEAD
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
+=======
+	//"node_modules/jquery-ui-bundle/jquery-ui.js",
+>>>>>>> develop
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",

@@ -70,7 +70,7 @@ class VouchersForm extends AdminForm {
 		$this->add_validity_fields();
 	}
 
-	function tune_for_gift_voucher(){
+	function tune_for_gift_voucher($order_item = null){
 		global $ATK14_GLOBAL;
 
 		$this->disable_fields([
@@ -86,6 +86,17 @@ class VouchersForm extends AdminForm {
 		$this->fields["vat_rate_id"]->disabled = false;
 		$this->fields["vat_rate_id"]->required = true;
 		$this->fields["vat_rate_id"]->initial = VatRate::GetInstanceByCode("default"); // 21%
+
+		if($order_item){
+			$this->set_initial([
+				"discount_amount" => $order_item->getUnitPriceInclVat(),
+				"vat_rate_id" => VatRate::FindFirst("vat_percent",$order_item->getVatPercent()),
+			]);
+		}else{
+			$this->set_initial([
+				"discount_amount" => null, // must be set by the administrator
+			]);
+		}
 	}
 
 	function clean(){
