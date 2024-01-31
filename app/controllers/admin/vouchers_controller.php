@@ -9,7 +9,12 @@ class VouchersController extends AdminController {
 		$conditions = $bind_ar = [];
 
 		if($d["search"]){
-			$ar = explode(',','id::VARCHAR,voucher_code,discount_amount::VARCHAR,regions::VARCHAR');
+			$ar = [
+				"id::VARCHAR",
+				"voucher_code",
+				"discount_amount::VARCHAR",
+				"regions::VARCHAR",
+			];
 			$fields = "UPPER(COALESCE(".join(",'')||' '||COALESCE(",$ar).",''))";
 			if($conds = FullTextSearchQueryLike::GetQuery($fields,Translate::Upper($d["search"]),$bind_ar)){
 				$this->sorting->add("search","voucher_code LIKE UPPER(:search)||'%' DESC");
