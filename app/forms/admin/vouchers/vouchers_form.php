@@ -92,6 +92,10 @@ class VouchersForm extends AdminForm {
 				"discount_amount" => $order_item->getUnitPriceInclVat(),
 				"vat_rate_id" => VatRate::FindFirst("vat_percent",$order_item->getVatPercent()),
 			]);
+		}else{
+			$this->set_initial([
+				"discount_amount" => null, // must be set by the administrator
+			]);
 		}
 	}
 
