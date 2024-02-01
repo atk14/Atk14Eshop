@@ -12,7 +12,7 @@
   border-radius: $dropdown-border-radius;
   box-shadow: $dropdown-box-shadow;
   > div {
-    padding: $dropdown-padding-y;
+    padding: divide( $dropdown-padding-y, 4 ) $input-padding-x;
     &.selected, &:hover:not(.group) {
       background-color: $gray-200;
       color: $dropdown-link-hover-color;
