@@ -76,7 +76,6 @@ class DeliveryMethodChoice {
 		}
 
 		$basket = $this->options["basket"];
-		$currency = $basket->getCurrency();
 		$incl_vat = $basket->displayPricesInclVat();
 		$delivery_countries = $basket->getDeliveryCountriesAllowed();
 
