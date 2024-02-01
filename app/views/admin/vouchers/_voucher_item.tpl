@@ -1,8 +1,9 @@
 <tr>
+	{highlight_search_query}
 	<td>{highlight_search_query}{$voucher->getId()}{/highlight_search_query}</td>
 	<td>{", "|join:$voucher->getRegions()}</td>
 	<td>{if $voucher->isGiftVoucher()}{!"gift"|icon}{/if}</td>
-	<td>{{highlight_search_query}}{$voucher->getVoucherCode()}{/highlight_search_query}</td>
+	<td>{$voucher->getVoucherCode()}</td>
 	<td>
 		{if $voucher->getDiscountPercent()}
 			{!$voucher->getDiscountPercent()}%<br>
@@ -17,6 +18,7 @@
 			<em>{$voucher->getDescription()|truncate:100}</em>
 		{/if}
 	</td>
+	{/highlight_search_query}
 	<td>{render partial="shared/active_state" object=$voucher}</td>
 	<td>{$voucher->hasBeenUsed()|display_bool}
 			{if $voucher->hasBeenUsed()}
@@ -28,11 +30,6 @@
 	<td>{$voucher->getCreatedAt()|format_datetime}</td>
 	<td>{$voucher->getCreatedByUser()}</td>
 	<td>
-		{dropdown_menu}
-			{a action="edit" id=$voucher}{!"edit"|icon} {t}Upravit{/t}{/a}
-			{if $voucher->isDeletable()}
-				{a_destroy id=$voucher}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}
-			{/if}
-		{/dropdown_menu}
+		{render partial="dropdown_menu"}
 	</td>
 </tr>

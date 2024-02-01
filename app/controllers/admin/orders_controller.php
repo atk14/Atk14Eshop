@@ -120,6 +120,12 @@ class OrdersController extends AdminController {
 		if($has_digital_contents){
 			$this->tpl_data["digital_contents_url"] = $order->canBeFulfilled() ? $this->_link_to(["namespace" => "", "action" => "digital_contents/index", "order_token" => $order->getToken(DigitalContent::GetOrderTokenOptions())],["with_hostname" => $order->getRegion()->getDefaultDomain(), "ssl" => PRODUCTION]) : null;
 		}
+
+		$this->tpl_data["ordered_vouchers"] = Voucher::FindAll([
+			"conditions" => "originator_order_item_id IN (SELECT id FROM order_items WHERE order_id=:order)",
+			"bind_ar" => [":order" => $order],
+			"order_by" => "id ASC",
+		]);
 	}
 
 	function edit(){

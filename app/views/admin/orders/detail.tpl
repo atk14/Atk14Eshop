@@ -193,4 +193,43 @@
 
 {render partial="shared/basket_or_order_items" object=$order}
 
+{if $ordered_vouchers}
+	
+	<h4>{t}Objednané poukazy{/t}</h4>
+
+	<table class="table">
+		<thead>
+			<th>{t}Kód{/t}</th>
+			<th>{t}Hodnota{/t}</th>
+			<th>{t}Je aktivní?{/t}</th>
+			<th>{t}Byl použit?{/t}</th>
+			<th>{t}Platnost do{/t}</th>
+			<th></th>
+		</thead>
+		<tbody>
+			{foreach $ordered_vouchers as $voucher}
+				<tr>
+					<td>{$voucher}</th>
+					<td>{!$voucher->getDiscountAmount()|display_price}</th>
+					<td>{render partial="shared/active_state" object=$voucher}</td>
+					<td>
+						{$voucher->hasBeenUsed()|display_bool}
+						{if $voucher->hasBeenUsed()}
+							<span title="{t}Najít objednávky s tímto kupónem{/t}">{a action="orders/index" search=$voucher->getVoucherCode()}{!"external-link-alt"|icon} {/a}</span>
+						{/if}
+					</td>
+					<td>{$voucher->getValidTo()|format_datetime|default:$mdash}</td>
+					<td>
+						{dropdown_menu}
+							<a href="{$voucher->getUrl()}">{!"eye-open"|icon} {t}Zobrazit náhled{/t}</a>
+							{a action="vouchers/edit" id=$voucher}{!"edit"|icon} {t}Edit{/t}{/a}
+						{/dropdown_menu}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+{/if}
+
 {render partial="action_buttons"}
