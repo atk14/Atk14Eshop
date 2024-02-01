@@ -12,12 +12,29 @@ class Voucher extends ApplicationModel implements Translatable {
 		]);
 	}
 
-	static function PrepareVoucherCode(){
-		$length = 10;
+	static function CreateNewRecord($values, $options = []){
+		$values += [
+			"regions" => Region::GetDefaultValueForRegionsColumn(),
+			"voucher_code" => null,
+		];
+		if(is_null($values["voucher_code"])){
+			$values["voucher_code"] = self::PrepareVoucherCode();
+		}
+		return parent::CreateNewRecord($values,$options);
+	}
+
+	static function PrepareVoucherCode($options = []){
+		$options += [
+			"length" => 12,
+		];
+		$length = $options["length"];
 		$counter = 0;
 		while(1){
 			//$voucher_code = String4::RandomPassword($length)->upper()->toString();
-			$voucher_code = rand(1,9).sprintf('%09d',rand(0,999999999)); // kod voucher ma byt 10 cislic
+			$vc_ar = [];
+			$vc_ar[] = rand(1,9);
+			$vc_ar[] = sprintf('%0'.($length-1).'d',rand(0,str_repeat("9",$length-1)));
+			$voucher_code = join("",$vc_ar);
 			if(!Voucher::FindFirst("voucher_code",$voucher_code)){
 				return $voucher_code;
 			}
@@ -42,6 +59,14 @@ class Voucher extends ApplicationModel implements Translatable {
 		if(!$this->isActive()){
 			$error_msg = sprintf(_("Voucher %s nelze použít"),$this->getVoucherCode());
 			return false;
+		}
+
+		if($order_item = $this->getOriginatorOrderItem()){
+			$order = $order_item->getOrder();
+			if(!$order->canBeFulfilled()){
+				$error_msg = _("Objednávka, ve které byl tento dárkový poukaz objednán, nebyla doposud uhrazena");
+				return false;
+			}
 		}
 
 		if($basket->isEmpty()){
@@ -85,6 +110,12 @@ class Voucher extends ApplicationModel implements Translatable {
 		return true;
 	}
 
+	function isApplicableForRegion($region){
+		$rc = $region->getCode();
+		$regions = $this->getRegions();
+		$regions_codes = array_map(function($region){ return $region->getCode(); },$regions);
+		return in_array($rc,$regions_codes);
+	}
 
 	function hasBeenUsed(){
 		return 0<$this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM order_vouchers WHERE voucher_id=:voucher LIMIT 1)q",[":voucher" => $this]);
@@ -127,5 +158,34 @@ class Voucher extends ApplicationModel implements Translatable {
 		return $this->g("gift_voucher");
 	}
 
+	function getOriginatorOrderItem(){
+		return Cache::Get("OrderItem",$this->getOriginatorOrderItemId());
+	}
+
 	function toString(){ return $this->getVoucherCode(); }
+
+	/**
+	 *
+	 *	$voucher->getUrl();
+	 *	$voucher->getUrl($region);
+	 *	$voucher->getUrl($region,"pdf");
+	 */
+	function getUrl($region = null, $format = null){
+		if(!$region){ $region = Region::GetDefaultRegion(); }
+
+		$params = [
+			"namespace" => "",
+			"action" => "vouchers/detail",
+			"token" => $this->getToken("voucher_detail"),
+			"id" => $this->getId(), // id je tady navic kvuli pekne URL
+			"region_id" => $region->getId(),
+			"lang" => $region->getDefaultLanguage(),
+		];
+
+		if($format){
+			$params["format"] = $format;
+		}
+
+		return Atk14Url::BuildLink($params,["with_hostname" => DEVELOPMENT ? true : $region->getDefaultDomain()]);
+	}
 }
