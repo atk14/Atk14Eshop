@@ -45,7 +45,7 @@ var applicationScripts = [
 	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/utils/offcanvas.js",
 	//"public/scripts/utils/async_file_upload.js",
-	"public/scripts/utils/async_file_upload3.js",
+	"public/scripts/utils/async_file_upload_v2.js",
 	"public/scripts/application.js"
 ];
 

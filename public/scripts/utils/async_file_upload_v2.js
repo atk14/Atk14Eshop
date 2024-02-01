@@ -1,5 +1,6 @@
 /*
  * Async file uploader
+ * No dependencies.
  * Usage:
  * window.UTILS.async_file_upload.init();
 */
@@ -21,7 +22,6 @@ window.UTILS.async_file_upload.Uploader = class {
   input;
 
   constructor( element ) {
-    console.log( "new Uploader(", element, ")" );
     this.element = element;
     this.input = element.querySelector( "input" );
     this.url = "/api/" + this.lang + "/temporary_file_uploads/create_new/?format=json";
@@ -79,10 +79,8 @@ window.UTILS.async_file_upload.Uploader = class {
   onReadyStateChange( e ) {
     let xhr = e.target;
     if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400 ) {
-      console.log( "S U cc E Ss");
       this.onUploadSuccess( xhr.response );
     } else if( xhr.readyState === 4 ) {
-      console.log( "f A i :L");
       this.onUploadError( xhr.response );
     }
   }
@@ -162,7 +160,13 @@ window.UTILS.async_file_upload.Uploader = class {
 
   // click on remove button
   async removeButtonHandler() {
-    let url = this.element.querySelector( ".js--remove" ).dataset.destroy_url.replace( "localhost:8000", "localhost:3000" );
+    let url = this.element.querySelector( ".js--remove" ).dataset.destroy_url;
+
+    // Workaround for proper function when testing with gulp serve
+    if( window.location.href.includes( "http://localhost:3000" ) && url.includes( "http://localhost:8000" )) {
+      url = url.replace( "localhost:8000", "localhost:3000" );
+    }
+
     await fetch( url, { method: "POST" } );
     this.element.querySelector( ".js--remove" ).removeEventListener( "click", this.removeButtonHandler.bind( this ) );
     this.element.innerHTML = this.element.dataset.input;
