@@ -28,7 +28,9 @@
 	<head>
 		{cookie_consent_datalayer_command}
 
-		{gtm_datalayer}
+		{if SystemParameter::ContentOn("app.trackers.google.tag_manager.use_datalayer")}
+			{gtm_datalayer}
+		{/if}
 
 		<meta charset="utf-8">
 	
