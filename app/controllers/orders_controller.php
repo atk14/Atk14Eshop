@@ -97,33 +97,7 @@ class OrdersController extends ApplicationController {
 		}
 		if ($this->session->defined("track_order") && ($this->session->g("track_order")===true)) {
 			$this->tpl_data["track_order"] = true;
-			$currency = $order->getCurrency();
-			$pAr = array();
-			foreach($order->getOrderItems() as $oi) {
-				$p = $oi->getProduct();
-				$unit = $p->getUnit();
-				$amount = $oi->getAmount();
-				$unit_price_incl_vat = $oi->getUnitPriceInclVat();
-				$pAr[] = array(
-					"id" => $p->getId(),
-					"name" => $p->getName(),
-					"sku" => $p->getCatalogId(),
-					"price" => round($unit_price_incl_vat, $currency->getDecimals()),
-					"quantity" => $amount,
-				);
-			}
-			$price = $this->_getPriceToPay($order,false);
-			$price_vat = $this->_getPriceToPay($order,true);
-			$vat = $price_vat - $price;
-			$dataLayer = array(
-				"transactionId" => $order->getOrderNo(),
-				"transactionTotal" => round($price_vat, $currency->getDecimalsSummary()),
-				"transactionTax" => round($vat, $currency->getDecimalsSummary()),
-				"transactionShipping" => $order->getPaymentFeeInclVat() + $order->getDeliveryFeeInclVat(),
-				"transactionCurrency" => $order->getCurrency()->toString(),
-				"transactionProducts" => $pAr,
-			);
-			$this->tpl_data["dataLayer"] = $dataLayer;
+			$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\Purchase($order, ["items" => $order->getOrderItems()]));
 		}
 		$this->session->clear("track_order");
 	}
