@@ -363,44 +363,6 @@
 				});
 			},
 
-			categoriesSuggest: function( selector ) {
-				$( selector ).each( function( i, el ){
-	
-					var $input = $( el ),
-						url = $input.data( "suggesting_url" ),
-						cache = {},
-						term;
-					
-					// eslint-disable-next-line no-undef
-					autocomplete({
-						input: el,
-						fetch: function( text, update ) {
-							term = text.toLowerCase();
-							if ( term in cache ) {
-								update( cache[ term ] );
-							} else {
-								$.getJSON( url, { q: term }, function( data ) {
-									cache[ term ] = data;
-									update( data );
-								} );
-							}
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								input.value = item;
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-						minLength: 1,
-					});
-				} );
-			},
-
 			// Suggests tags
 			handleTagsSuggestions: function() {
 				function split( val ) {
@@ -449,6 +411,44 @@
 								terms.push( item );
 								terms.push( "" );
 								input.value = terms.join( ", " );
+						},
+						preventSubmit: 2,
+						disableAutoSelect: true,
+						debounceWaitMs: 100,
+						minLength: 1,
+					});
+				} );
+			},
+
+			categoriesSuggest: function( selector ) {
+				$( selector ).each( function( i, el ){
+	
+					var $input = $( el ),
+						url = $input.data( "suggesting_url" ),
+						cache = {},
+						term;
+					
+					// eslint-disable-next-line no-undef
+					autocomplete({
+						input: el,
+						fetch: function( text, update ) {
+							term = text.toLowerCase();
+							if ( term in cache ) {
+								update( cache[ term ] );
+							} else {
+								$.getJSON( url, { q: term }, function( data ) {
+									cache[ term ] = data;
+									update( data );
+								} );
+							}
+						},
+						render: function( item ) {
+							var div = document.createElement( "div" );
+							div.textContent = item;
+							return div;
+						},
+						onSelect: function( item, input ) {
+								input.value = item;
 						},
 						preventSubmit: 2,
 						disableAutoSelect: true,
