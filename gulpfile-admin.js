@@ -36,6 +36,7 @@ var applicationScripts = [
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/admin/scripts/utils/admin_suggestions.js",
 	"public/admin/scripts/application.js",
 	"public/admin/scripts/tooltip.js"
 ];

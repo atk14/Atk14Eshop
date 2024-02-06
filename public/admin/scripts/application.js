@@ -11,7 +11,8 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				ADMIN.utils.handleSuggestions();
+				// ADMIN.utils.handleSuggestions();
+				window.UTILS.AdminSuggestions.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
@@ -332,7 +333,7 @@
 			},
 
 			// Suggests anything according by an url
-			handleSuggestions: function() {
+			/*handleSuggestions: function() {
 				var inputs = $( "[data-suggesting='yes']" );
 				inputs.each( function( i, el ){
 					var $input = $( el ),
@@ -361,7 +362,7 @@
 						debounceWaitMs: 100,
 					});
 				});
-			},
+			},*/
 
 			// Suggests tags
 			handleTagsSuggestions: function() {
