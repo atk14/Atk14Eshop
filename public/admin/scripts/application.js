@@ -13,7 +13,8 @@
 				ADMIN.utils.handleSortables();
 				// ADMIN.utils.handleSuggestions();
 				window.UTILS.AdminSuggestions.handleSuggestions();
-				ADMIN.utils.handleTagsSuggestions();
+				//ADMIN.utils.handleTagsSuggestions();
+				window.UTILS.AdminSuggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
@@ -363,63 +364,6 @@
 					});
 				});
 			},*/
-
-			// Suggests tags
-			handleTagsSuggestions: function() {
-				function split( val ) {
-					return val.split( /,\s*/ );
-				}
-				function extractLast( t ) {
-					return split( t ).pop();
-				}
-				$( "[data-tags_suggesting='yes']" ).each( function( i, el ){
-					var $input = $( el ),
-						lang = $( "html" ).attr( "lang" ),
-						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
-						cache = {},
-						term, terms;
-
-						$input.attr( "autocomplete", "off" );
-						
-						// eslint-disable-next-line no-undef
-						autocomplete({
-						input: el,
-						fetch: function( text, update ) {
-							term = extractLast( text.toLowerCase() );
-
-							if ( term.length > 0 ) {
-								
-
-								if ( term in cache ) {
-									update( cache[ term ] );
-								} else {
-									$.getJSON( url, { q: term }, function( data ) {
-										cache[ term ] = data;
-										update( data );
-									} );
-								}
-
-							}
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								terms = split( input.value );
-								terms.pop(); 
-								terms.push( item );
-								terms.push( "" );
-								input.value = terms.join( ", " );
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-						minLength: 1,
-					});
-				} );
-			},
 
 			categoriesSuggest: function( selector ) {
 				$( selector ).each( function( i, el ){
