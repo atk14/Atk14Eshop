@@ -3,6 +3,11 @@ require_once(__DIR__."/application_base.php");
 
 class ApplicationController extends ApplicationBaseController{
 
+	/**
+	 * @var DatalayerGenerator\Collector
+	 */
+	var $datalayer;
+
 	function error404(){
 		if($this->request->xhr()){
 			return parent::error404();
