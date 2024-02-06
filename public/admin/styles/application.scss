@@ -52,9 +52,9 @@ $enable-deprecation-messages: false;
 
 @import "dark_mode";
 
-@import "dropdowns";
-
 @import "autocomplete";
+
+@import "dropdowns";
 
 @import "shared/clearfix";
 @import "shared/loading";

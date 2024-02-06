@@ -22,12 +22,12 @@ var vendorScripts = [
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
 	"node_modules/bootstrap4-notify/bootstrap-notify.js",
+	"node_modules/autocompleter/autocomplete.js",
 	"node_modules/moment/moment.js",
 	"node_modules/moment/locale/cs.js",
 	"node_modules/chart.js/dist/chart.js",
 	"node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.js",
 	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
-	"node_modules/autocompleter/autocomplete.js",
 ];
 
 var applicationScripts = [
