@@ -28,7 +28,6 @@ window.UTILS.AdminSuggestions = class {
                 
       // eslint-disable-next-line no-undef
       autocomplete( {
-        // see https://github.com/kraaden/autocomplete
         input: input,
         fetch: async function( text, update ) {
           text = text.toLowerCase();
@@ -107,6 +106,7 @@ window.UTILS.AdminSuggestions = class {
     } );
   }
 
+  // Helper functions for parsing tags lists
   static split( val ) {
     return val.split( /,\s*/ );
   }
