@@ -11,6 +11,12 @@
  */
 
 class CacheSomething {
+
+	protected $function;
+	protected $cache;
+	protected $model;
+	protected $options;
+
 	function __construct($function, $model = False, $options = []) {
 		$this->function = $function;
 		$this->cache = [ null => null ];
