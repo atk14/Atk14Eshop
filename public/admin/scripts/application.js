@@ -18,7 +18,8 @@
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
-				ADMIN.utils.handleCategoriesSuggestions();
+				//ADMIN.utils.handleCategoriesSuggestions();
+				window.UTILS.AdminSuggestions.handleCategoriesSuggestions();
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
@@ -333,76 +334,6 @@
 				}
 			},
 
-			// Suggests anything according by an url
-			/*handleSuggestions: function() {
-				var inputs = $( "[data-suggesting='yes']" );
-				inputs.each( function( i, el ){
-					var $input = $( el ),
-							url = $input.data( "suggesting_url" );
-										
-					// eslint-disable-next-line no-undef
-					autocomplete({
-						// see https://github.com/kraaden/autocomplete
-						input: el,
-						fetch: function( text, update ) {
-								text = text.toLowerCase();								
-								$.getJSON( url, { q: text }, function( data ) {
-									update( data );
-								} );
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								input.value = item;
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-					});
-				});
-			},*/
-
-			categoriesSuggest: function( selector ) {
-				$( selector ).each( function( i, el ){
-	
-					var $input = $( el ),
-						url = $input.data( "suggesting_url" ),
-						cache = {},
-						term;
-					
-					// eslint-disable-next-line no-undef
-					autocomplete({
-						input: el,
-						fetch: function( text, update ) {
-							term = text.toLowerCase();
-							if ( term in cache ) {
-								update( cache[ term ] );
-							} else {
-								$.getJSON( url, { q: term }, function( data ) {
-									cache[ term ] = data;
-									update( data );
-								} );
-							}
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								input.value = item;
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-						minLength: 1,
-					});
-				} );
-			},
-
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
 				$( ".iobject-copy-code" ).popover();
@@ -417,10 +348,6 @@
 					document.body.removeChild( el );
 					$( this ).trigger( "focus" );
 				} );
-			},
-
-			handleCategoriesSuggestions: function() {
-				ADMIN.utils.categoriesSuggest( "[data-suggesting_categories='yes']" );
 			},
 		}
 	};
