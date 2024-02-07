@@ -20,6 +20,8 @@ namespace StructuredData\Element;
  */
 class BreadcrumbList extends \StructuredData\BaseElement {
 
+	protected $list_items = [];
+
 	function __construct(\ApplicationModel $item=null, $options=[]) {
 		$options += [
 			"add_index" => true,
