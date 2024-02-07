@@ -38,6 +38,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 
 	protected $tree;
 	protected $id;
+	protected $data;
 	protected $fetched;
 	protected $parent;
 	protected $iterator;
