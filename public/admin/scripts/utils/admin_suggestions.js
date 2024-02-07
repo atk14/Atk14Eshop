@@ -1,5 +1,5 @@
 /* AdminSuggestions class
- * handles adim autocomplete for tags, categories and general inputs
+ * handles admin autocomplete for tags, categories and general inputs
  * Usage:
  * 
  * General suggestions:
@@ -9,7 +9,7 @@
  * window.UTILS.AdminSuggestions.handleTagsSuggestions();
  * 
  * Category suggestions:
- * 
+ * window.UTILS.AdminSuggestions.handleCategoriesSuggestions();
  * 
  * Dependencies: autocompleter https://github.com/kraaden/autocomplete
  */
