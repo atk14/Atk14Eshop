@@ -26,7 +26,6 @@ class GoPay extends PaymentGatewayApi {
 		$api = $this->_getApi();
 
 		$order = $payment_transaction->getOrder();
-		$return_url = 
 		
 		$params = [
 			"target" => [

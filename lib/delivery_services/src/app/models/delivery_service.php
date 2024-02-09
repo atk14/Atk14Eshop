@@ -6,6 +6,11 @@ class DeliveryService extends ApplicationModel {
 	use TraitGetInstanceByCode;
 
 	/**
+	 * Parser class for processing a feed with service's branches.
+	 */
+	protected $parser_class = null;
+
+	/**
 	 * Vrati seznam pobocek pro dorucovaci sluzbu.
 	 */
 	function getDeliveryServiceBranches() {
@@ -192,14 +197,14 @@ class DeliveryService extends ApplicationModel {
 				# hodnoty budeme menit, jen kdyz budou rozdilne
 				# a potom i nastavime hodnotu updated_at
 				foreach($_branchAr as $k => $v) {
-					$_updates[] = "${k}=:${k}";
+					$_updates[] = "{$k}=:{$k}";
 					# pozor na policko s json daty
 					if ($k=="opening_hours") {
-						$_conditions[] = "${k}::jsonb!=:${k}::jsonb";
+						$_conditions[] = "{$k}::jsonb!=:{$k}::jsonb";
 					} else {
-						$_conditions[] = "${k}!=:${k}";
+						$_conditions[] = "{$k}!=:{$k}";
 					}
-					$_bindAr[":${k}"] = $v;
+					$_bindAr[":{$k}"] = $v;
 				}
 				$_updates[] = "updated_at='".now()."'";
 				$_conditions = ["(".join(" OR ", $_conditions).")"];
@@ -208,7 +213,7 @@ class DeliveryService extends ApplicationModel {
 				$_conditions = join(" AND ", $_conditions);
 				$_updates = join( ", ", $_updates);
 
-				$q = "UPDATE delivery_service_branches SET ${_updates} WHERE ${_conditions}";
+				$q = "UPDATE delivery_service_branches SET {$_updates} WHERE {$_conditions}";
 				$dbmole->doQuery($q, $_bindAr);
 				$options["logger"] && $options["logger"]->info(sprintf("update branch %s", $_branchAr["external_branch_id"]));
 				unset($current_branch_ids[$branch->getId()]);

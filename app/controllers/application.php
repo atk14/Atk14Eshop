@@ -3,6 +3,11 @@ require_once(__DIR__."/application_base.php");
 
 class ApplicationController extends ApplicationBaseController{
 
+	/**
+	 * @var DatalayerGenerator\Collector
+	 */
+	var $datalayer;
+
 	function error404(){
 		if($this->request->xhr()){
 			return parent::error404();
@@ -96,6 +101,11 @@ class ApplicationController extends ApplicationBaseController{
 		};
 
 		parent::_application_before_filter();
+		$this->datalayer = DatalayerGenerator\Collector::GetInstance($this, [
+			"product_class_name" => new CustomProduct,
+			"impression_class_name" => new CustomImpression,
+		]);
+
 
 		// If the current language is not supported by the current selling region,
 		// here is a redirection to the default language.

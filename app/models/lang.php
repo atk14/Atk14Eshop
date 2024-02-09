@@ -6,6 +6,9 @@
  */
 class Lang {
 
+	protected $lang;
+	protected $data;
+
 	/**
 	 *
 	 * $lang = new Lang("cs", ["LANG" => "cs_CZ.UTF-8", "name" => "česky"]);

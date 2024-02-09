@@ -9,7 +9,12 @@ class VouchersController extends AdminController {
 		$conditions = $bind_ar = [];
 
 		if($d["search"]){
-			$ar = explode(',','id::VARCHAR,voucher_code,discount_amount::VARCHAR,regions::VARCHAR');
+			$ar = [
+				"id::VARCHAR",
+				"voucher_code",
+				"discount_amount::VARCHAR",
+				"regions::VARCHAR",
+			];
 			$fields = "UPPER(COALESCE(".join(",'')||' '||COALESCE(",$ar).",''))";
 			if($conds = FullTextSearchQueryLike::GetQuery($fields,Translate::Upper($d["search"]),$bind_ar)){
 				$this->sorting->add("search","voucher_code LIKE UPPER(:search)||'%' DESC");
@@ -39,6 +44,8 @@ class VouchersController extends AdminController {
 		$this->_walk([
 			"save_return_uri",
 			"get_voucher_type",
+			"get_order",
+			"get_order_item",
 			"get_data",
 			"save",
 		]);
@@ -54,10 +61,38 @@ class VouchersController extends AdminController {
 		}
 	}
 
+	function create_new__get_order(){
+		if($this->returned_by["get_voucher_type"]!=="gift_card" || $this->params->defined("skip")){
+			return ["order" => null];
+		}
+
+		$this->page_title .= " - "._("dárkový poukaz");
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			return ["order" => $d["order"]];
+		}
+	}
+
+	function create_new__get_order_item(){
+		$order = $this->returned_by["get_order"]["order"];
+		if(!$order){
+			return ["order_item" => null];
+		}
+
+		$this->page_title .= " - "._("dárkový poukaz");
+
+		$this->form->tune_for_order($order);
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			return ["order_item" => $d["order_item"]];
+		}
+	}
+
 	function create_new__get_data(){
+		$order_item = $this->returned_by["get_order_item"]["order_item"];
 		if($this->returned_by["get_voucher_type"]=="gift_card"){
 			$this->page_title .= " - "._("dárkový poukaz");
-			$this->form->tune_for_gift_voucher();
+			$this->form->tune_for_gift_voucher($order_item);
 		}else{
 			$this->page_title .= " - "._("slevový poukaz");
 		}
@@ -70,6 +105,7 @@ class VouchersController extends AdminController {
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["gift_voucher"] = $this->returned_by["get_voucher_type"]=="gift_card";
+			$d["originator_order_item_id"] = $order_item ? $order_item->getId() : null;
 			return $d;
 		}
 	}

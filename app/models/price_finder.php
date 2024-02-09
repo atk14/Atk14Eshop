@@ -9,6 +9,7 @@ class PriceFinder {
 	protected $pricelist;
 	protected $base_pricelist;
 	protected $dbmole;
+	protected $priceData;
 
 	static $PriceFinders = [];
 	static protected $CurrentInstance = null;

@@ -11,11 +11,11 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				ADMIN.utils.handleSuggestions();
-				ADMIN.utils.handleTagsSuggestions();
+				window.UTILS.Suggestions.handleSuggestions();
+				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleCopyIobjectCode();
-				ADMIN.utils.handleCategoriesSuggestions();
+				window.UTILS.Suggestions.handleCategoriesSuggestions();
 				UTILS.AsyncImageUploader.init();
 
 				// Form hints.
@@ -265,121 +265,6 @@
 						} );
 					} );
 				}
-			},
-
-			// Suggests anything according by an url
-			handleSuggestions: function() {
-				$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
-					$( this ).autocomplete( {
-						source: function( request, response ) {
-							var $el = this.element,
-								url = $el.data( "suggesting_url" ),
-								term;
-							term = request.term;
-
-							$.getJSON( url, { q: term }, function( data ) {
-								response( data );
-							} );
-						}
-					} );
-				} );
-			},
-
-			categoriesSuggest: function( selector ) {
-				var $input = $( selector ),
-					url = $input.data( "suggesting_url" ),
-					cache = {},
-					term;
-
-				if ( !$input.length ) {
-					return;
-				}
-
-				$input.autocomplete( {
-					minLength: 1,
-					source: function( request, response ) {
-						term = request.term;
-
-						if ( term in cache ) {
-							response( cache[ term ] );
-						} else {
-							$.getJSON( url + term, function( data ) {
-								cache[ term ] = data;
-								response( data );
-							} );
-						}
-					},
-					search: function() {
-						term = this.value;
-
-						if ( term.length < 1 ) {
-							return false;
-						}
-					},
-					focus: function() {
-						return false;
-					},
-					select: function( event, ui ) {
-						this.value = ui.item.value;
-						return false;
-					}
-				} );
-			},
-
-			// Suggests tags
-			handleTagsSuggestions: function() {
-				$( document ).on( "keyup.autocomplete", "[data-tags_suggesting='yes']", function() {
-					var $input = $( this ),
-						lang = $( "html" ).attr( "lang" ),
-						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
-						cache = {},
-						term, terms;
-
-					function split( val ) {
-						return val.split( /,\s*/ );
-					}
-					function extractLast( t ) {
-						return split( t ).pop();
-					}
-
-					if ( !$input.length ) {
-						return;
-					}
-
-					$input.autocomplete( {
-						minLength: 1,
-						source: function( request, response ) {
-							term = extractLast( request.term );
-
-							if ( term in cache ) {
-								response( cache[ term ] );
-							} else {
-								$.getJSON( url + term, function( data ) {
-									cache[ term ] = data;
-									response( data );
-								} );
-							}
-						},
-						search: function() {
-							term = extractLast( this.value );
-
-							if ( term.length < 1 ) {
-								return false;
-							}
-						},
-						focus: function() {
-							return false;
-						},
-						select: function( event, ui ) {
-							terms = split( this.value );
-							terms.pop();
-							terms.push( ui.item.value );
-							terms.push( "" );
-							this.value = terms.join( " , " );
-							return false;
-						}
-					} );
-				} );
 			},
 
 			// Copy iobject to clipboard

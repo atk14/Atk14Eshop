@@ -74,6 +74,17 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		return self::_MergeCountries($regions,"getInvoiceCountries");
 	}
 
+	/**
+	 * @return string
+	 */
+	static function GetDefaultValueForRegionsColumn(){
+		$out = [];
+		foreach(self::GetAllInstances() as $region){
+			$out[$region->getCode()] = true;
+		}
+		return json_encode($out);
+	}
+
 	static protected function _MergeCountries($regions,$method){
 		$all_allowed_countries = [];
 		foreach($regions as $region){

@@ -8,7 +8,7 @@ var vendorStyles = [
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/animate.css/animate.css"
+	"node_modules/animate.css/animate.css",
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -16,28 +16,32 @@ var vendorScripts = [
 	"node_modules/sortablejs/Sortable.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/ace-builds/src/ace.js",
+	"node_modules/ace-builds/src/mode-markdown.js",
+	"node_modules/ace-builds/src/theme-tomorrow.js",
 	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
 	"node_modules/bootstrap4-notify/bootstrap-notify.js",
+	"node_modules/autocompleter/autocomplete.js",
 	"node_modules/moment/moment.js",
 	"node_modules/moment/locale/cs.js",
 	"node_modules/chart.js/dist/chart.js",
 	"node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.js",
-	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js"
+	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
 ];
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
+	"public/scripts/utils/suggestions.js",
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/scripts/utils/filterable_list.js",
+	"public/admin/scripts/tooltip.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/admin/scripts/application.js",
-	"public/admin/scripts/tooltip.js"
 ];
 
 // CSS

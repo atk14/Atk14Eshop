@@ -5,7 +5,7 @@
     "node": true,
 		"commonjs": true,
 		"jquery": true,
-    "es6": true
+		"es6": true
   },
   "globals": {},
   "rules": {
@@ -30,6 +30,6 @@
     "no-unused-vars": 1
   },
   "parserOptions": {
-    "ecmaVerison": 8
+    "ecmaVersion": 8
   }
 }

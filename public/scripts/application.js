@@ -75,7 +75,6 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
-				UTILS.handleSuggestions();
 
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {
@@ -523,10 +522,7 @@
 							}
 							if ( data[ name ] !== undefined ) {
 								this.value = data[ name ];
-								$input.css( "color", backgroundColor );
-								$input.animate( {
-									color: origColor
-								} );
+								this.animate( [{ color: backgroundColor }, { color: origColor }], { duration: 400, iterations: 1 } );
 							}
 					} );
 				} );

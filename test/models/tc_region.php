@@ -105,4 +105,8 @@ class TcRegion extends TcBase {
 		$countries = Region::GetInvoiceCountriesFromActiveRegions();
 		$this->assertEquals(null,$countries);
 	}
+
+	function test_GetDefaultValueForRegionsColumn(){
+		$this->assertEquals('{"DEFAULT":true,"CZECHOSLOVAKIA":true,"CR":true,"SK":true,"EU":true}',Region::GetDefaultValueForRegionsColumn());
+	}
 }

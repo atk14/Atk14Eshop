@@ -55,3 +55,7 @@ supervelikonoce:
   voucher_code: SUPERVELIKONOCE
   discount_amount: 130
 
+inactive_voucher:
+  regions: "<?= json_encode([$regions["czechoslovakia"]->getCode() => true, $regions["CR"]->getCode() => true]) ?>"
+  free_shipping: true
+  active: false
