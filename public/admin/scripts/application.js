@@ -14,9 +14,9 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.Suggestions.handleCategoriesSuggestions();
-				UTILS.AsyncImageUploader.init();
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {

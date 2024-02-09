@@ -36,11 +36,11 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/suggestions.js",
+	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/tooltip.js",
-	"public/admin/scripts/utils/async_image_upload.js",
 	"public/admin/scripts/application.js",
 ];
 
