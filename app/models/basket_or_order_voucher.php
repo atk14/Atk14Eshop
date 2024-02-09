@@ -25,7 +25,7 @@ class BasketOrOrderVoucher extends ApplicationModel implements Rankable {
 
 	function getDescription(){
 		$description = $this->getVoucher()->getDescription();
-		if(strlen($description)){
+		if(strlen((string)$description)){
 			return $description;
 		}
 		if($this->getDiscountPercent()>0.0 || $this->getDiscountAmount()){

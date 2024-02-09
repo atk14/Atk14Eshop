@@ -76,7 +76,6 @@ class DeliveryMethodChoice {
 		}
 
 		$basket = $this->options["basket"];
-		$currency = $basket->getCurrency();
 		$incl_vat = $basket->displayPricesInclVat();
 		$delivery_countries = $basket->getDeliveryCountriesAllowed();
 
@@ -95,20 +94,34 @@ class DeliveryMethodChoice {
 		if($price == 0.0 || $basket->freeShipping($this->dm)){
 			$price = 0;
 		}elseif($lowest_price!=$highest_price){
-			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain", "currency" => $currency, "show_currency" => false]);
-			$lowest = str_replace(" ",html_entity_decode("&nbsp;"),$lowest);
-			$highest = smarty_modifier_display_price($highest_price,["format" => "plain", "currency" => $currency]);
-			$highest = str_replace(" ",html_entity_decode("&nbsp;"),$highest);
+			$lowest = $this->_display_price($lowest_price);
+			$highest = $this->_display_price($highest_price);
 			//$price = "<span class=\"v-price--long\">" . sprintf(_("od %s do %s dle země doručení") . "</span>",$lowest,$highest);
-			$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			//$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			$price = "<span class=\"v-price--long\">" . sprintf("cena od %s",$lowest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
 		}else{
-			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
-			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
+			$price = $this->_display_price($price);
 		}
 		return $price;
 	}
 
 	function getImage() {
 		return $this->dm->getLogo();
+	}
+
+	function _display_price($price,$options = []){
+		$basket = $this->options["basket"];
+		$currency = $basket->getCurrency();
+
+		$options += [
+			"format" => "plain",
+			"currency" => $currency,
+			"show_decimals" => ($price !== (float)round($price)),
+			"show_currency" => true,
+		];
+
+		$price = smarty_modifier_display_price($price,$options);
+		$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
+		return $price;
 	}
 }

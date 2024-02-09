@@ -125,8 +125,8 @@ function smarty_modifier_display_price($price_or_object, $options = array()){
 		$vat_label = " <span class=\"vat_label\">$vat_label</span>";
 	}
 
-	$currency_str = $options["show_currency"] ? "&nbsp;<span class=\"currency_main__currency\">${currency}</span>" : "";
-	$out = sprintf("<span class=\"currency_main\"><span class=\"currency_main__price\">%s</span>$currency_str<span class=\"currency_main__ordering-unit\">${ordering_unit}</span></span>${vat_label}",$formatted_price);
+	$currency_str = $options["show_currency"] ? "&nbsp;<span class=\"currency_main__currency\">{$currency}</span>" : "";
+	$out = sprintf("<span class=\"currency_main\"><span class=\"currency_main__price\">%s</span>$currency_str<span class=\"currency_main__ordering-unit\">{$ordering_unit}</span></span>{$vat_label}",$formatted_price);
 
 	if($options["format"]=="plain"){
 		$out = strip_tags($out);
