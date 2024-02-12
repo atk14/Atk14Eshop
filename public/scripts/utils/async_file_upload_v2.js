@@ -20,6 +20,12 @@ window.UTILS.async_file_upload.Uploader = class {
   lang = document.querySelector( "html" ).getAttribute( "lang" );
   url;
   input;
+  chunkSize = 1024 * 1024;
+  file;
+  fileSize;
+  fileName;
+  start = 0;
+  chunkCounter = 0;
 
   constructor( element ) {
     this.element = element;
@@ -54,6 +60,51 @@ window.UTILS.async_file_upload.Uploader = class {
     if( !files ) {
       return;
     }
+    this.file = files[0];
+    this.fileSize = this.file.size;
+    this.fileName = this.file.name;
+
+    /*while ( this.start < file.size) {
+      //let range = "bytes " + this.start + "-" + ( this.start + this.chunkSize ) + "/" + file.size; 
+      this.uploadChunk(file.slice( this.start, this.start + this.chunkSize ), this.start, this.start + this.chunkSize );
+      //console.log( "Range", this.start, this.start + this.chunkSize );
+      this.start += this.chunkSize;
+    }*/
+
+    /*let slices = [];
+    let total = 0;
+    while ( this.start < file.size) {
+      let blob = file.slice( this.start, this.start + this.chunkSize );
+      slices.push( {
+        blob: blob,
+        start: this.start,
+        end: this.start + this.chunkSize
+      } );
+      this.start += this.chunkSize;
+      total = this.start;
+    }
+
+    console.log( "fsize", file.size );
+    console.log( "total", total );
+    console.log( "slices", slices );
+
+    slices.forEach( ( slice )=>{
+      this.uploadChunk( slice.blob, slice.start, slice.end, total )
+    } );*/
+
+
+    /////////////////////////////////// https://api.video/blog/tutorials/uploading-large-files-with-javascript/
+
+
+    let numberofChunks = Math.ceil( this.file.size / this.chunkSize );
+
+    for( let i = 0; i < numberofChunks; i ++ ) {
+      let start = this.chunkSize * i;
+      let end = Math.min( start + this.chunkSize , this.file.size );
+      let chunk = this.file.slice( start, end );
+      this.uploadChunk( chunk, start, end );
+    }
+    /*
     let formData = new FormData();
     formData.append( "file", files[0] );
     
@@ -66,7 +117,53 @@ window.UTILS.async_file_upload.Uploader = class {
     this.removeUIHandlers();    
     this.element.innerHTML = this.element.dataset.template_loading;
 
-    xhr.send( formData );
+    xhr.send( formData );*/
+  }
+
+  /*createChunk( start, end ) {
+    chunkCounter++;
+		console.log("created chunk: ", chunkCounter);
+    chunkEnd = Math.min(start + chunkSize , file.size );
+		const chunk = file.slice( start, chunkEnd );
+
+    if( chunkEnd < this.file.size ) {
+      this.createChunk
+    }
+  }*/
+
+  uploadChunk( chunk, start, end ) {
+    console.log( "Upload chunk", chunk );
+    
+    // https://accreditly.io/articles/uploading-large-files-with-chunking-in-javascript
+    /*const formData = new FormData();
+    formData.append( "file", chunk );*/
+
+    let range = "bytes " + start + "-" + end + "/" + this.file.size;
+    console.log( "Range", range ); 
+
+    // Make a request to the server
+    /*fetch( this.url, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        "Content-Range": range
+      }
+    });*/
+    let xhr = new XMLHttpRequest();
+    // Add xhr to uploads list
+
+    // Setup xhr request
+    xhr.open( "POST", this.url, true );
+    xhr.responseType = "json";
+    //xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
+    //xhr.addEventListener( "readystatechange", this.onReadyStateChange.bind( this ) );
+    //xhr.setRequestHeader( "Content-Type", file.type );
+    xhr.setRequestHeader( "Content-Range", range );
+    xhr.setRequestHeader( "Accept", "application/json, text/javascript, text/plain, */*" );
+    xhr.setRequestHeader( "Content-Disposition", "attachment; filename=" + encodeURIComponent( this.fileName ) );
+    xhr.setRequestHeader( "X-Requested-With", "XMLHttpRequest" );
+    
+    xhr.send(chunk);
   }
 
   // Updates progressbar
