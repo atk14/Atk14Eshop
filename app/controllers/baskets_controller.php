@@ -94,6 +94,7 @@ class BasketsController extends ApplicationController {
 		if(sizeof($this->_get_allowed_regions())>1){
 			$this->tpl_data["set_region_form"] = $this->_get_form("regions/set_region");
 		}
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewCart($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function empty_basket(){
@@ -106,6 +107,8 @@ class BasketsController extends ApplicationController {
 
 	function add_product(){
 		$this->_add_product();
+		$amount = $this->params->getInt("amount") ? $this->params->getInt("amount") : $this->form->fields["amount"]->initial;
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddToCart($this->product, ["quantity" => $amount, "items" => [$this->product]], ["price_finder" => $this->price_finder]));
 	}
 
 	function add_card(){

@@ -49,6 +49,15 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $favourite_products_accessor;
 
+	/**
+	 * @var Atk14Session
+	 */
+	var $permanentSession;
+
+	/**
+	 * @var StructuredData\Collector
+	 */
+	var $structured_data;
 
 	function error404(){
 		if($this->_redirected_on_error404()){

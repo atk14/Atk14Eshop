@@ -75,7 +75,6 @@
 						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
 						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
 				} );
-				UTILS.handleSuggestions();
 
 				// Mobile search show/hide toggle
 				$( ".js--search-toggle" ).on( "click", function( e ) {

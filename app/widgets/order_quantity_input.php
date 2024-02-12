@@ -1,6 +1,8 @@
 <?php
 class OrderQuantityInput extends NumberInput {
 
+	protected $unit = null;
+
 	function __construct($options = []){
 		$options += [
 			"unit" => "pcs",
