@@ -22,10 +22,10 @@ window.UTILS.async_file_upload.Uploader = class {
   input;
   chunkSize = 1024 * 1024;
   file;
-  fileSize;
-  fileName;
-  start = 0;
-  chunkCounter = 0;
+  start;
+  numberofChunks;
+  bytesLoaded;
+  chunkedUpload;
 
   constructor( element ) {
     this.element = element;
@@ -61,115 +61,78 @@ window.UTILS.async_file_upload.Uploader = class {
       return;
     }
     this.file = files[0];
-    this.fileSize = this.file.size;
-    this.fileName = this.file.name;
 
-    /*while ( this.start < file.size) {
-      //let range = "bytes " + this.start + "-" + ( this.start + this.chunkSize ) + "/" + file.size; 
-      this.uploadChunk(file.slice( this.start, this.start + this.chunkSize ), this.start, this.start + this.chunkSize );
-      //console.log( "Range", this.start, this.start + this.chunkSize );
-      this.start += this.chunkSize;
-    }*/
+    if( this.file.size > 1024 * 1024 * 2 ){
+      // chunked upload
+      this.chunkedUpload = true;
+      this.start = 0;
+      this.bytesLoaded = 0;
+      this.numberofChunks = Math.ceil( this.file.size / this.chunkSize );
+      // create the first chunk
+      this.createChunk( this.start );
+    } else {
+      // classic upload for smaler files
+      this.chunkedUpload = false;
+      let formData = new FormData();
+      formData.append( "file", files[0] );
+      
+      let xhr = new XMLHttpRequest();
+      xhr.open( "POST", this.url, true );
+      xhr.responseType = "json";
 
-    /*let slices = [];
-    let total = 0;
-    while ( this.start < file.size) {
-      let blob = file.slice( this.start, this.start + this.chunkSize );
-      slices.push( {
-        blob: blob,
-        start: this.start,
-        end: this.start + this.chunkSize
-      } );
-      this.start += this.chunkSize;
-      total = this.start;
+      xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
+      xhr.addEventListener( "readystatechange", this.onReadyStateChange.bind( this) );
+      
+      xhr.send( formData );
     }
 
-    console.log( "fsize", file.size );
-    console.log( "total", total );
-    console.log( "slices", slices );
-
-    slices.forEach( ( slice )=>{
-      this.uploadChunk( slice.blob, slice.start, slice.end, total )
-    } );*/
-
-
-    /////////////////////////////////// https://api.video/blog/tutorials/uploading-large-files-with-javascript/
-
-
-    let numberofChunks = Math.ceil( this.file.size / this.chunkSize );
-
-    for( let i = 0; i < numberofChunks; i ++ ) {
-      let start = this.chunkSize * i;
-      let end = Math.min( start + this.chunkSize , this.file.size );
-      let chunk = this.file.slice( start, end );
-      this.uploadChunk( chunk, start, end );
-    }
-    /*
-    let formData = new FormData();
-    formData.append( "file", files[0] );
-    
-    let xhr = new XMLHttpRequest();
-    xhr.open( "POST", this.url, true );
-
-    xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
-    xhr.addEventListener( "readystatechange", this.onReadyStateChange.bind( this) );
-    
     this.removeUIHandlers();    
     this.element.innerHTML = this.element.dataset.template_loading;
 
-    xhr.send( formData );*/
   }
 
-  /*createChunk( start, end ) {
-    chunkCounter++;
-		console.log("created chunk: ", chunkCounter);
-    chunkEnd = Math.min(start + chunkSize , file.size );
-		const chunk = file.slice( start, chunkEnd );
+  
 
-    if( chunkEnd < this.file.size ) {
-      this.createChunk
-    }
-  }*/
+  createChunk( start ) {
+    // https://api.video/blog/tutorials/uploading-large-files-with-javascript/
+    // https://accreditly.io/articles/uploading-large-files-with-chunking-in-javascript
+    let end = Math.min( start + this.chunkSize , this.file.size );
+    let chunk = this.file.slice( start, end );
+    this.uploadChunk( chunk, start, end );
+  }
 
   uploadChunk( chunk, start, end ) {
-    console.log( "Upload chunk", chunk );
-    
-    // https://accreditly.io/articles/uploading-large-files-with-chunking-in-javascript
-    /*const formData = new FormData();
-    formData.append( "file", chunk );*/
-
-    let range = "bytes " + start + "-" + end + "/" + this.file.size;
+    // build Content-Range request header for XHR    
+    let range = "bytes " + start + "-" + ( end - 1 ) + "/" + this.file.size;
     console.log( "Range", range ); 
 
-    // Make a request to the server
-    /*fetch( this.url, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        "Content-Range": range
-      }
-    });*/
-    let xhr = new XMLHttpRequest();
-    // Add xhr to uploads list
-
     // Setup xhr request
+    let xhr = new XMLHttpRequest();
     xhr.open( "POST", this.url, true );
     xhr.responseType = "json";
-    //xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
-    //xhr.addEventListener( "readystatechange", this.onReadyStateChange.bind( this ) );
-    //xhr.setRequestHeader( "Content-Type", file.type );
+    xhr.upload.addEventListener( "progress", this.onUploadProgress.bind( this ) );
+    xhr.addEventListener( "readystatechange", this.onChunkReadyStateChange.bind( this ) );
     xhr.setRequestHeader( "Content-Range", range );
+    xhr.setRequestHeader( "Content-Type", this.file.type );
     xhr.setRequestHeader( "Accept", "application/json, text/javascript, text/plain, */*" );
-    xhr.setRequestHeader( "Content-Disposition", "attachment; filename=" + encodeURIComponent( this.fileName ) );
+    xhr.setRequestHeader( "Content-Disposition", "attachment; filename=" + "\"" + encodeURIComponent( this.file.name ) + "\"" );
     xhr.setRequestHeader( "X-Requested-With", "XMLHttpRequest" );
     
-    xhr.send(chunk);
+    xhr.send( chunk );
   }
 
   // Updates progressbar
   onUploadProgress( e ) {
-    let progress = ( e.loaded * 100.0 / e.total ) || 100;
-    this.element.querySelector( ".progress-bar" ).style.width = progress + "%";
+    var progress;
+    if( this.chunkedUpload ) {
+      progress = ( ( this.bytesLoaded + e.loaded ) * 100 / this.file.size );
+    } else {
+      progress = ( e.loaded * 100.0 / e.total ) || 100;
+    }
+    console.log( e.loaded, e.total, progress );
+    if( this.element.querySelector( ".progress-bar" ) ){
+      this.element.querySelector( ".progress-bar" ).style.width = progress + "%";
+    }
   }
 
   // Upload status change
@@ -182,10 +145,30 @@ window.UTILS.async_file_upload.Uploader = class {
     }
   }
 
+  onChunkReadyStateChange( e ) {
+    let xhr = e.target;
+    if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400 ) {
+      // move start point for the next chunk
+      this.start += this.chunkSize;
+      console.log( "Chunk starting at " + this.start + " uploaded" );
+      console.log( e.target );
+      if( this.start < this.file.size ) {
+        // if this was not the last chunk create and start uploading the next chunk
+        this.bytesLoaded += this.chunkSize;
+        this.createChunk( this.start );
+      } else {
+        console.log( "CHUNKED UPLOAD COMPLETE", xhr.response );
+        this.onUploadSuccess( xhr.response );
+      }
+    } else if( xhr.readyState === 4 ) {
+      this.onUploadError( xhr.response );
+    }
+  }
+
   // Shows info about uploaded file
   onUploadSuccess( response ){
     let template = this.element.dataset.template_done;
-    response = JSON.parse( response );
+    //response = JSON.parse( response );
     template = template
       .replace( "%filename%", this.escapeHtml( response.filename ) )
       .replace( "%fileext%", this.escapeHtml( response.filename.split( "." ).pop().toLowerCase() ) )
@@ -201,7 +184,6 @@ window.UTILS.async_file_upload.Uploader = class {
   onUploadError( response ) {
     let template = this.element.dataset.template_error;
     let errMsg = "Error occurred";
-    response = JSON.parse( response );
 
     if( response && response[0] ) {
       errMsg = response[ 0 ];
