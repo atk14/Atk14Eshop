@@ -16,6 +16,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	static function CreateNewRecord($values,$options = []){
 		$values += array(
 			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+			"regions" => Region::GetDefaultValueForRegionsColumn(), 
 		);
 
 		return parent::CreateNewRecord($values,$options);
