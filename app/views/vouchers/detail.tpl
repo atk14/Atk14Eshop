@@ -27,9 +27,7 @@
 	{capture assign="subtitle_1"}{t dom=$domain escape="no"}Na veškerý sortiment e-shopu <strong>%1</strong>{/t}{/capture}
 {/if}
 
-{if is_numeric($voucher->getVoucherCode())}
-	{assign has_barcode 1}
-{/if}
+{assign has_barcode 1}
 
 <div class="voucher voucher--{$voucher_color_theme} voucher--{$lang} voucher--{$voucher_type}{if $has_barcode} voucher--barcode{/if}">
 
@@ -69,9 +67,9 @@
 
 	<div class="voucher__help">{t}*Pro uplatnění poukazu zadejte kód při vytvoření objednávky.{/t}</div>
 
-	{if is_numeric($voucher->getVoucherCode())}
+	{if $has_barcode}
 		<div class="voucher__barcode">
-			<img src="{barcode content=$voucher->getVoucherCode() w=3 h=30}" alt="">
+			<img src="{barcode content=$voucher->getVoucherCode() w=2 h=30 type=C128}" alt="">
 		</div>
 	{/if}
 	
