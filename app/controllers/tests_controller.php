@@ -73,6 +73,9 @@ class TestsController extends ApplicationController {
 			$this->tpl_data["uploaded"] = true;
 			$this->tpl_data["file"] = $d["file"];
 			$this->tpl_data["file_md5_checksum"] = md5_file($d["file"]->getTmpFilename());
+
+			$this->tpl_data["file2"] = $d["file2"];
+			$this->tpl_data["file2_md5_checksum"] = $d["file2"] ? md5_file($d["file2"]->getTmpFilename()) : "";
 		}
 	}
 

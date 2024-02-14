@@ -104,6 +104,10 @@ definedef("PRODUCT_CAN_BE_ORDERED_FROM_CARD_LIST",false);
 // A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
 definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
 
+if(DEVELOPMENT){
+	definedef("TEMPORARY_FILE_UPLOADS_MAX_FILESIZE",1024 * 10124 * 5); // 5MB
+}
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 
