@@ -100,4 +100,24 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	function getPrice(){
 		return ApplicationHelpers::DelVat($this->getPriceInclVat(),$this->getVatPercent());
 	}
+
+	function getDesignatedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "payment_method_designated_for_tags",
+		]);
+	}
+
+	function getDesignatedForTags(){
+		return $this->getDesignatedForTagsLister()->getRecords();
+	}
+
+	function getExcludedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "payment_method_excluded_for_tags",
+		]);
+	}
+		
+	function getExcludedForTags(){
+		return $this->getExcludedForTagsLister()->getRecords();
+	}
 }

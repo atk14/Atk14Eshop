@@ -9,6 +9,16 @@ class PaymentMethodsController extends AdminController {
 	function create_new() {
 		$this->_create_new(array(
 			"page_title" => "Vytvořit novou možnost platby",
+			"create_closure" => function($d){
+				$designated_for_tags = $d["designated_for_tags"];
+				unset($d["designated_for_tags"]);
+				$excluded_for_tags = $d["excluded_for_tags"];
+				unset($d["excluded_for_tags"]);
+				$pm = DeliveryMethod::CreateNewRecord($d);
+				$pm->getDesignatedForTagsLister()->setRecords($designated_for_tags);
+				$pm->getExcludedForTagsLister()->setRecords($excluded_for_tags);
+				return $pm;
+			}
 		));
 	}
 
@@ -19,6 +29,21 @@ class PaymentMethodsController extends AdminController {
 		}
 		$this->_edit([
 			"page_title" => _("Editace možnosti platby"),
+			"set_initial_closure" => function($form,$pm){
+				$form->set_initial($pm);
+				$form->set_initial("designated_for_tags",$pm->getDesignatedForTags());
+				$form->set_initial("excluded_for_tags",$pm->getExcludedForTags());
+			},
+			"update_closure" => function($pm,$d){
+				$designated_for_tags = $d["designated_for_tags"];
+				unset($d["designated_for_tags"]);
+				$excluded_for_tags = $d["excluded_for_tags"];
+				unset($d["excluded_for_tags"]);
+				$pm->s($d);
+				$pm->getDesignatedForTagsLister()->setRecords($designated_for_tags);
+				$pm->getExcludedForTagsLister()->setRecords($excluded_for_tags);
+				return $pm;
+			}
 		]);
 	}
 
@@ -57,5 +82,4 @@ class PaymentMethodsController extends AdminController {
 			$this->_find("payment_method");
 		}
 	}
-
 }

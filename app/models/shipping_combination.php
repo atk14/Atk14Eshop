@@ -217,6 +217,19 @@ class ShippingCombination extends ApplicationModel {
 			if(!is_null($o->g("required_customer_group_id")) && !$user->isInCustomerGroup($o->g("required_customer_group_id"))){
 				continue;
 			}
+
+			foreach($o->getDesignatedForTags() as $t){
+				if(!$basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
+			foreach($o->getExcludedForTags() as $t){
+				if($basket->containsProductWithTag($t)){
+					continue 2;
+				}
+			}
+
 			$payment_methods[] = $o;
 		}
 

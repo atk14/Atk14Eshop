@@ -29,6 +29,17 @@
 		</div>
 
 		<div>
+			{if $payment_method->getDesignatedForTags()}
+				<small>{t}Určeno pro štítky{/t}</small><br>
+				{$payment_method->getDesignatedForTags()|to_sentence}<br>
+			{/if}
+			{if $payment_method->getExcludedForTags()}
+				<small>{t}Vyloučeno pro štítky{/t}</small><br>
+				{$payment_method->getExcludedForTags()|to_sentence}<br>
+			{/if}
+		</div>
+
+		<div>
 			{if $payment_method->getRequiredCustomerGroup()}
 				<small>{t}Only for customer group:{/t}</small><br>
 				{$payment_method->getRequiredCustomerGroup()}

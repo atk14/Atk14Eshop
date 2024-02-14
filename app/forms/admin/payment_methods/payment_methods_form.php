@@ -61,6 +61,18 @@ class PaymentMethodsForm extends AdminForm {
 
 		$this->add_vat_rate_id_field();
 
+		$this->add_field("designated_for_tags", new TagsField(array(
+			"label" => _("Určeno pro štítky"),
+			"required" => false,
+			"help_text" => _("Platební metoda bude použita, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
+		$this->add_field("excluded_for_tags", new TagsField(array(
+			"label" => _("Vyloučeno pro štítky"),
+			"required" => false,
+			"help_text" => _("Platební metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude obsahovat jeden z uvedených štítků.")
+		)));
+
 		$this->add_code_field(array(
 			"label" => _("Kód platby"),
 			"help_text" => _("Kód pro export objednávky do XML"),
