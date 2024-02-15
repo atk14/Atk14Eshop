@@ -2,12 +2,13 @@
 	<div class="item__properties">
 
 		<div class="item__title">
+			{render partial="shared/active_state" object=$payment_method}
+
+			#{$payment_method->getId()}
+
 			{if $payment_method->getLogo()}
 				{!$payment_method->getLogo()|pupiq_img:"40x40x#ffffff"}
 			{/if}
-			#{$payment_method->getId()}
-
-			{render partial="shared/active_state" object=$payment_method}
 
 			{$payment_method->getLabel()}
 			<br>

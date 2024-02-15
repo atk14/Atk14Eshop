@@ -2,12 +2,13 @@
 	<div class="item__properties">
 
 		<div class="item__title">
+			{render partial="shared/active_state" object=$delivery_method}
+
+			#{$delivery_method->getId()}
+
 			{if $delivery_method->getLogo()}
 				{!$delivery_method->getLogo()|pupiq_img:"40x40x#ffffff"}
 			{/if}
-			#{$delivery_method->getId()}
-
-			{render partial="shared/active_state" object=$delivery_method}
 
 			{$delivery_method->getLabel()}
 			<br>
