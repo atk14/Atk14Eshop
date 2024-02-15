@@ -70,12 +70,11 @@ class TestsController extends ApplicationController {
 		$this->page_title = "Asynchronous file upload";
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->tpl_data["uploaded"] = true;
-			$this->tpl_data["file"] = $d["file"];
-			$this->tpl_data["file_md5_checksum"] = md5_file($d["file"]->getTmpFilename());
-
-			$this->tpl_data["file2"] = $d["file2"];
-			$this->tpl_data["file2_md5_checksum"] = $d["file2"] ? md5_file($d["file2"]->getTmpFilename()) : "";
+			$files = [];
+			for($i=1;$i<=3;$i++){
+				$files[] = $d["file$i"];
+			}
+			$this->tpl_data["files"] = $files;
 		}
 	}
 
