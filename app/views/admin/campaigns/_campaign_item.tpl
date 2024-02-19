@@ -1,7 +1,7 @@
 <tr>
 	<td>{highlight_search_query}{$campaign->getId()}{/highlight_search_query}</td>
 
-	<td>{", "|join:$campaign->getRegions()}</td>
+	<td>{render partial="shared/region_list" regions=$campaign->getRegions()}</td>
 
 	<td>{highlight_search_query}{$campaign->getName()}{/highlight_search_query}</td>
 

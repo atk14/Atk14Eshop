@@ -16,7 +16,7 @@
 
 		{render partial="shared/active_state" object=$digital_content}
 
-		<em>{$digital_content->getRegions()|to_sentence}</em> / {$digital_content->getTitle()}
+		<em>{render partial="shared/region_list" regions=$digital_content->getRegions()}</em> / {$digital_content->getTitle()}
 		({if $digital_content->getTitle()!=$digital_content->getFilename()}{$digital_content->getFilename()}, {/if}{$digital_content->getFilesize()|format_bytes})
 
 		{dropdown_menu}

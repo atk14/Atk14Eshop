@@ -6,11 +6,11 @@
 			{dropdown_menu clearfix=0}
 				{a action=edit_payment_methods delivery_method_id=$dm}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{/dropdown_menu}
-			<strong><em>{$dm->getRegions()|to_sentence}</em> / {$dm}</strong><br>
+			<strong><em>{render partial="shared/region_list" regions=$dm->getRegions()}</em> / {$dm}</strong><br>
 			{if $dm->getPaymentMethods()}
 			<ul class="list-unstyled">
 				{foreach $dm->getPaymentMethods() as $pm}
-					<li>{render partial="shared/active_state" object=$pm} {$pm} ({$pm->getRegions()|to_sentence})</li>
+					<li>{render partial="shared/active_state" object=$pm} {$pm} ({render partial="shared/region_list" regions=$pm->getRegions()})</li>
 				{/foreach}
 			</ul>
 			{else}
