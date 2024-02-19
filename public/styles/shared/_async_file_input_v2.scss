@@ -8,27 +8,38 @@
 	min-height: $widgetHeight;
 	display: flex;
 	align-items: center;
-  border: $input-border-width solid $input-border-color;
-	border-radius: $input-border-radius;
+  //border: $input-border-width solid transparent; //$input-border-color;
+	//border-radius: $input-border-radius;
 	& > * {
 		flex-basis: 100%;
 	}
 
-  .form-control-file {
-    &::file-selector-button {
-      @extend .btn;
-      @extend .btn-outline-primary;
-    }
-    $btnHeight: $btn-font-size * $btn-line-height + 2 * $btn-padding-y;
-    $fileInputPaddingY: calc( #{divide( $widgetHeight - $btnHeight, 2 )} - 2 * #{$btn-border-width};
-    padding: $fileInputPaddingY $input-padding-x;
-    
-    @debug "BTN HEIGHT xx #{$fileInputPaddingY}"
-  }
+
+	.form-control-file {
+		@extend .form-control;
+		&::file-selector-button {
+			padding: $input-padding-y $input-padding-x;
+			padding: calc(#{$input-padding-y} + #{$input-border-width}) $input-padding-x;
+			margin: (-$input-padding-y) (-$input-padding-x);
+			margin-inline-end: $input-padding-x;
+			color: $input-color;
+			border-color: inherit;
+			border-style: solid;
+			border-width: 0;
+			border-inline-end-width: $input-border-width;
+			transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+			&:hover:not(:disabled):not([readonly])::file-selector-button {
+				background-color: $gray-200;//$form-file-button-hover-bg;
+			}
+			font-size: inherit;
+			line-height: inherit;
+			
+		}
+	}
 	
 	.async-file-input__result {
-		//border: $input-border-width solid $input-border-color;
-		//border-radius: $input-border-radius;
+		border: $input-border-width solid $input-border-color;
+		border-radius: $input-border-radius;
 		padding: $input-padding-y $input-padding-x;
 		display: flex;
 		align-items: center;
@@ -54,11 +65,12 @@
 			color: white;
 			background-color: $danger;
 			border-color: white;
+			border: none;
 		}
 	}
 	
 	& > .progress {
-		margin: 0 $input-padding-x;
+		margin: 0;
 	}
 
   &:has(.error) {
@@ -66,7 +78,7 @@
   }
 
   &.droparea-highlight {
-    outline: 2px solid $primary;
+    outline: 2px solid $input-border-color;
     background-color: $gray-100; //rgba( $primary, 0.125 );
   } 
 }
