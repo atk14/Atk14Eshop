@@ -109,4 +109,19 @@ class TcRegion extends TcBase {
 	function test_GetDefaultValueForRegionsColumn(){
 		$this->assertEquals('{"DEFAULT":true,"CZECHOSLOVAKIA":true,"CR":true,"SK":true,"EU":true}',Region::GetDefaultValueForRegionsColumn());
 	}
+
+	function test_getShortName(){
+		$this->assertEquals("CSK",$this->regions["czechoslovakia"]->getShortName());
+		$this->assertEquals("ČSR",$this->regions["czechoslovakia"]->getShortName("cs"));
+		$this->assertEquals("CSK",$this->regions["czechoslovakia"]->getShortName("en"));
+
+		$this->regions["czechoslovakia"]->s([
+			"short_name_cs" => null,
+			"short_name_en" => null,
+		]);
+
+		$this->assertEquals("Czechoslovakia",$this->regions["czechoslovakia"]->getShortName());
+		$this->assertEquals("Československo",$this->regions["czechoslovakia"]->getShortName("cs"));
+		$this->assertEquals("Czechoslovakia",$this->regions["czechoslovakia"]->getShortName("en"));
+	}
 }

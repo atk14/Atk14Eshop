@@ -2,6 +2,8 @@ czechoslovakia:
   code: CZECHOSLOVAKIA
   name_en: Czechoslovakia
   name_cs: Československo
+  short_name_en: "CSK"
+  short_name_cs: "ČSR"
   currencies: '["CZK"]'
   delivery_countries: '["CZ","SK"]'
   invoice_countries: '["CZ","SK"]'
@@ -30,8 +32,10 @@ SK:
 
 EU:
   code: EU
-  name_en: Europe
-  name_cs: Evropa
+  name_en: European union
+  name_cs: Evropská unie
+  short_name_en: "EU"
+  short_name_cs: "EU"
   currencies: '["EUR"]'
   delivery_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
   invoice_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
