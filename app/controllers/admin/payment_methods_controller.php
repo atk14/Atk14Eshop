@@ -14,7 +14,7 @@ class PaymentMethodsController extends AdminController {
 				unset($d["designated_for_tags"]);
 				$excluded_for_tags = $d["excluded_for_tags"];
 				unset($d["excluded_for_tags"]);
-				$pm = DeliveryMethod::CreateNewRecord($d);
+				$pm = PaymentMethod::CreateNewRecord($d);
 				$pm->getDesignatedForTagsLister()->setRecords($designated_for_tags);
 				$pm->getExcludedForTagsLister()->setRecords($excluded_for_tags);
 				return $pm;
