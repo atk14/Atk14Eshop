@@ -45,28 +45,29 @@ class VouchersController extends ApplicationController {
 		}
 
 		$format = (string)$this->params->getString("format");
-		if(strlen($format) && $format!=="pdf"){
+		if(!in_array($format,["html","pdf"])){
 			return $this->_execute_action("error404");
 		}
 
 		$this->page_title = sprintf(_("Voucher %d"),$voucher->getId());
 
 		if($format==="pdf"){
-			$params = $this->params->toArray();
-			unset($params["format"]);
-			$url = $this->_link_to($params,["with_hostname" => true]);
+			$url = $voucher->getUrl($region,"html");
 			
-			$utp = new UrlToPdf($url,[
-				"page_width" => "13cm",
-				"page_height" => "6.5cm",
-				"margin_top" => "0cm",
-				"margin_right" => "0cm",
-				"margin_bottom" => "0cm",
-				"margin_left" => "0cm",
-				"delay" => 200, // 200 ms, jistotka pro nacteni fontu
-				"page_ranges" => "1",
+			$client = new Pdficate\Client([
+				"page_size" => "A4", // A4, A3, Letter
+				// or
+				// "page_width" => "13cm",
+				// "page_height" => "6.5cm",
+
+				"margin_top" => "2cm",
+				"margin_right" => "2cm",
+				"margin_bottom" => "2cm",
+				"margin_left" => "2cm",
+
+				"delay" => 0, // ms, useful when it is needed to wait for something to load, e.g. external font
 			]);
-			$filename = $utp->process();
+			$filename = $client->printToPdf($url);
 
 			if(!$filename){
 				return $this->_execute_action("error500");
@@ -105,11 +106,15 @@ class VouchersController extends ApplicationController {
 	}
 
 	function _before_filter(){
-		//$pdficate = new Pdficate\Client();
-		if(!(($this->logged_user && $this->logged_user->isAdmin()) || IP::Match($this->request->getRemoteAddr(), [
-				"127.0.0.1",
-				//$pdficate->getServerAddr(),
-			]))){
+		$allowed_ip_addresses = [
+			"127.0.0.1",
+			"::1",
+		];
+		if(class_exists('Pdficate\Client')){
+			$pdficate = new Pdficate\Client();
+			$allowed_ip_addresses[] = $pdficate->getServerAddr();
+		}
+		if(!(($this->logged_user && $this->logged_user->isAdmin()) || IP::Match($this->request->getRemoteAddr(),$allowed_ip_addresses))){
 			return $this->_execute_action("error403");
 		}
 	}

@@ -170,7 +170,7 @@ class Voucher extends ApplicationModel implements Translatable {
 	 *	$voucher->getUrl($region);
 	 *	$voucher->getUrl($region,"pdf");
 	 */
-	function getUrl($region = null, $format = null){
+	function getUrl($region = null, $format = "html"){
 		if(!$region){ $region = Region::GetDefaultRegion(); }
 
 		$params = [
@@ -179,12 +179,9 @@ class Voucher extends ApplicationModel implements Translatable {
 			"token" => $this->getToken("voucher_detail"),
 			"id" => $this->getId(), // id je tady navic kvuli pekne URL
 			"region_id" => $region->getId(),
+			"format" => $format,
 			"lang" => $region->getDefaultLanguage(),
 		];
-
-		if($format){
-			$params["format"] = $format;
-		}
 
 		return Atk14Url::BuildLink($params,["with_hostname" => DEVELOPMENT ? true : $region->getDefaultDomain()]);
 	}
