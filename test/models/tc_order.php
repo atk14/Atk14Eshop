@@ -104,6 +104,26 @@ class TcOrder extends TcBase {
 		$order->setNewOrderStatus("payment_accepted");
 		$this->assertEquals(true,$order->canBeFulfilled());
 
+		$order->setNewOrderStatus("shipped");
+		$this->assertEquals(true,$order->canBeFulfilled());
+
+		$order->setNewOrderStatus("cancelled");
+		$this->assertEquals(false,$order->canBeFulfilled());
+
+		// cash on delivery
+	
+		$order = $this->orders["test_cash_on_delivery"];
+		$this->assertEquals(false,$order->canBeFulfilled());
+
+		$order->setNewOrderStatus("shipped");
+		$this->assertEquals(false,$order->canBeFulfilled());
+
+		$order->setNewOrderStatus("delivered");
+		$this->assertEquals(true,$order->canBeFulfilled());
+
+		$order->setNewOrderStatus("finished_successfully");
+		$this->assertEquals(true,$order->canBeFulfilled());
+
 		$order->setNewOrderStatus("cancelled");
 		$this->assertEquals(false,$order->canBeFulfilled());
 	}

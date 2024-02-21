@@ -551,7 +551,14 @@ class Order extends BasketOrOrder {
 	 */
 	function canBeFulfilled(){
 		$current_status = $this->getCurrentStatus();
-		if($current_status->finishedSuccessfully() || $current_status->isFinishingSuccessfully()){
+		$payment_method = $this->getPaymentMethod();
+		if(!$payment_method->isCashOnDelivery() && $current_status->finishedSuccessfully()){
+			return true;
+		}
+		if($payment_method->isCashOnDelivery() && (in_array($current_status->getCode(),[
+			"delivered",
+			"finished_successfully"
+		]))){
 			return true;
 		}
 		if($current_status->finishedUnsuccessfully() || $current_status->isFinishingUnsuccessfully()){
