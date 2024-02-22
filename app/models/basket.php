@@ -845,6 +845,14 @@ class Basket extends BasketOrOrder {
 			]);
 		}
 
+		if(($delivery_service_branch = $this->getDeliveryServiceBranch()) && !$delivery_service_branch->isActive()){
+			$messages[] = new BasketErrorMessage(_("Vybrané výdejní místo pro doručení objednávky již není aktivní"),[
+				"correction_text" => _("vyberte jiné výdejní místo"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+				"request_method" => "GET",
+			]);
+		}
+
 		if($messages){
 			return false;
 		}
@@ -1394,8 +1402,8 @@ class Basket extends BasketOrOrder {
 	function getDeliveryAddressNote(){ return $this->_getDeliveryAddress("delivery_address_note"); }
 
 	protected function _getDeliveryAddress($key){
-		if($delivery_service_brand = $this->getDeliveryServiceBranch()){
-			$delivery_address = $delivery_service_brand->getDeliveryAddressAr();
+		if($delivery_service_branch = $this->getDeliveryServiceBranch()){
+			$delivery_address = $delivery_service_branch->getDeliveryAddressAr();
 			return $delivery_address[$key];
 		}
 		return $this->g($key);

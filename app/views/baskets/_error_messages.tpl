@@ -8,7 +8,7 @@
 			<li>
 				{!$error_message}
 				{if $error_message->getCorrectionText()}
-					&rarr; <a href="{$error_message->getCorrectionUrl()}" data-method="post">{$error_message->getCorrectionText()}</a>
+					&rarr; <a href="{$error_message->getCorrectionUrl()}"{if $error_message->getRequestMethod()=="POST"} data-method="post"{/if}>{$error_message->getCorrectionText()}</a>
 				{/if}
 			</li>
 		{/foreach}

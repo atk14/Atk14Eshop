@@ -70,4 +70,8 @@ class DeliveryServiceBranch extends ApplicationModel {
 
 		return $out;
 	}
+
+	function isActive(){
+		return $this->g("active");
+	}
 }
