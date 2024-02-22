@@ -15,6 +15,7 @@ class TcVouchers extends TcBase {
 			"token" => $voucher->getToken("voucher_detail"),
 			"id" => $voucher->getId(),
 			"region_id" => $region,
+			"format" => "html",
 		]);
 		$this->assertEquals(403,$this->client->getStatusCode());
 
@@ -30,6 +31,7 @@ class TcVouchers extends TcBase {
 			"token" => $voucher->getToken("voucher_detail"),
 			"id" => $voucher->getId(),
 			"region_id" => $region,
+			"format" => "html",
 		]);
 		$this->assertEquals(200,$this->client->getStatusCode());
 
