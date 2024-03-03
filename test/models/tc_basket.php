@@ -210,8 +210,8 @@ class TcBasket extends TcBase {
 		$this->assertFalse($basket->hasAddressSet());
 		$this->assertTrue($basket->hasDeliveryAddressSet());
 
-		$this->assertEquals(null,$basket->getFirstname());
-		$this->assertEquals(null,$basket->getLastname());
+		$this->assertEquals("Bobina",$basket->getFirstname());
+		$this->assertEquals("Drozdová",$basket->getLastname());
 		$this->assertEquals(null,$basket->getAddressStreet());
 		$this->assertEquals(null,$basket->getAddressStreet2());
 		$this->assertEquals(null,$basket->getAddressCity());

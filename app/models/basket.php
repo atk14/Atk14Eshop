@@ -1227,7 +1227,7 @@ class Basket extends BasketOrOrder {
 		if($this->hasAddressSet()){
 			return $this->g($key);
 		}
-		if($this->deliveryAddressEditableByUser()){
+		if($this->deliveryAddressEditableByUser() || in_array($key,["firstname","lastname"])){
 			return $this->g("delivery_$key");
 		}
 		$user = $this->getUser();
