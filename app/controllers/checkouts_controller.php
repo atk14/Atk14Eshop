@@ -54,40 +54,35 @@ class CheckoutsController extends ApplicationController {
 		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || !$delivery_address_editable_by_user;
 		$this->tpl_data["fill_in_invoice_address"] = $fill_in_invoice_address;
 
-		$initial = $this->basket->toArray();
-		//$initial = array_filter($initial,function($item){ return !is_null($item); });
-		$this->form->set_initial($initial);
+		$this->form->set_initial($this->basket);
 		$this->form->set_initial([
-				"firstname" => $this->basket->getFirstname(),
-				"lastname" => $this->basket->getLastname(),
-				"company" => $this->basket->getCompany(),
-				"address_street" => $this->basket->getAddressStreet(),
-				"address_street2" => $this->basket->getAddressStreet2(),
-				"address_city" => $this->basket->getAddressCity(),
-				"address_state" => $this->basket->getAddressState(),
-				"address_zip" => $this->basket->getAddressZip(),
-				"address_country" => $this->basket->getAddressCountry(),
-				"company_number" => $this->basket->getCompanyNumber(),
-				"vat_id" => $this->basket->getVatId(),
+			"firstname" => $this->basket->getFirstname(),
+			"lastname" => $this->basket->getLastname(),
+			"company" => $this->basket->getCompany(),
+			"address_street" => $this->basket->getAddressStreet(),
+			"address_street2" => $this->basket->getAddressStreet2(),
+			"address_city" => $this->basket->getAddressCity(),
+			"address_state" => $this->basket->getAddressState(),
+			"address_zip" => $this->basket->getAddressZip(),
+			"address_country" => $this->basket->getAddressCountry(),
+			"company_number" => $this->basket->getCompanyNumber(),
+			"vat_id" => $this->basket->getVatId(),
+
+			"delivery_company" => $this->basket->getDeliveryCompany(),
+			"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
+			"delivery_address_street2" => $this->basket->getDeliveryAddressStreet2(),
+			"delivery_address_city" => $this->basket->getDeliveryAddressCity(),
+			"delivery_address_state" => $this->basket->getDeliveryAddressState(),
+			"delivery_address_zip" => $this->basket->getDeliveryAddressZip(),
+			"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
+			"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
 		]);
+		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
+
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
 		if(!$delivery_address_editable_by_user){
-			$this->form->set_initial([
-				//"delivery_firstname" => $this->basket->getDeliveryFirstname(),
-				//"delivery_lastname" => $this->basket->getDeliveryLastname(),
-				//"delivery_phone" => $this->basket->getDeliveryPhone(),
-
-				"delivery_company" => $this->basket->getDeliveryCompany(),
-				"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
-				"delivery_address_street2" => $this->basket->getDeliveryAddressStreet2(),
-				"delivery_address_city" => $this->basket->getDeliveryAddressCity(),
-				"delivery_address_state" => $this->basket->getDeliveryAddressState(),
-				"delivery_address_zip" => $this->basket->getDeliveryAddressZip(),
-				"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
-				"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
-			]);
 			// fine-tuning of the delivery_company field
 			$this->form->fields["delivery_company"]->required = true;
 			$d_method = $this->basket->getDeliveryMethod();
@@ -97,7 +92,6 @@ class CheckoutsController extends ApplicationController {
 				$this->form->fields["delivery_company"]->label = _("Název prodejny");
 			}
 		}
-		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 
 		// Policka fakturacni adresy jsou povinna pouze nekdy...
 		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false, "address_state" => ALLOW_STATE_IN_ADDRESS]);

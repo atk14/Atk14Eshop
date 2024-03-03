@@ -196,6 +196,12 @@ class TcBasket extends TcBase {
 		$basket->s([
 			"delivery_firstname" => "Bobina",
 			"delivery_lastname" => "Drozdová",
+			"delivery_address_street" => "Ambrozova 9",
+			"delivery_address_street2" => "u kina Aero",
+			"delivery_address_state" => "Kraj Praha",
+			"delivery_address_city" => "Praha 3",
+			"delivery_address_zip" => "130 00",
+			"delivery_address_country" => "CZ",
 			"delivery_method_id" => $this->delivery_methods["zasilkovna"],
 			"delivery_method_data" => $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData(),
 		]);
@@ -204,8 +210,8 @@ class TcBasket extends TcBase {
 		$this->assertFalse($basket->hasAddressSet());
 		$this->assertTrue($basket->hasDeliveryAddressSet());
 
-		$this->assertEquals("Bobina",$basket->getFirstname());
-		$this->assertEquals("Drozdová",$basket->getLastname());
+		$this->assertEquals(null,$basket->getFirstname());
+		$this->assertEquals(null,$basket->getLastname());
 		$this->assertEquals(null,$basket->getAddressStreet());
 		$this->assertEquals(null,$basket->getAddressStreet2());
 		$this->assertEquals(null,$basket->getAddressCity());
@@ -213,13 +219,16 @@ class TcBasket extends TcBase {
 		$this->assertEquals(null,$basket->getAddressZip());
 		$this->assertEquals(null,$basket->getAddressCountry());
 
+		$this->assertEquals("Bobina",$basket->getDeliveryFirstname());
+		$this->assertEquals("Drozdová",$basket->getDeliveryLastname());
+		$this->assertEquals("Zásilková I.",$basket->getDeliveryAddressStreet());
+		$this->assertEquals(null,$basket->getDeliveryAddressStreet2());
+		$this->assertEquals(null,$basket->getDeliveryAddressState());
+		$this->assertEquals("Praha",$basket->getDeliveryAddressCity());
+		$this->assertEquals("123 45",$basket->getDeliveryAddressZip());
+		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
+
 		$basket->s([
-			"delivery_address_street" => "Ambrozova 9",
-			"delivery_address_street2" => "u kina Aero",
-			"delivery_address_state" => "Kraj Praha",
-			"delivery_address_city" => "Praha 3",
-			"delivery_address_zip" => "130 00",
-			"delivery_address_country" => "CZ",
 			"delivery_method_id" => $this->delivery_methods["dpd_test"],
 		]);
 
@@ -234,6 +243,15 @@ class TcBasket extends TcBase {
 		$this->assertEquals("Praha 3",$basket->getAddressCity());
 		$this->assertEquals("130 00",$basket->getAddressZip());
 		$this->assertEquals("CZ",$basket->getAddressCountry());
+
+		$this->assertEquals("Bobina",$basket->getDeliveryFirstname());
+		$this->assertEquals("Drozdová",$basket->getDeliveryLastname());
+		$this->assertEquals("Ambrozova 9",$basket->getDeliveryAddressStreet());
+		$this->assertEquals("u kina Aero",$basket->getDeliveryAddressStreet2());
+		$this->assertEquals("Kraj Praha",$basket->getDeliveryAddressState());
+		$this->assertEquals("Praha 3",$basket->getDeliveryAddressCity());
+		$this->assertEquals("130 00",$basket->getDeliveryAddressZip());
+		$this->assertEquals("CZ",$basket->getDeliveryAddressCountry());
 	}
 
 	function test_addProduct(){
