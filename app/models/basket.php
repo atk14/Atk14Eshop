@@ -1188,39 +1188,53 @@ class Basket extends BasketOrOrder {
 	}
 
 	function getFirstname(){
-		return $this->hasAddressSet() ? $this->g("firstname") : $this->g("delivery_firstname");
+		return $this->_getAddressOrDelivery("firstname");
 	}
 
 	function getLastname(){
-		return $this->hasAddressSet() ? $this->g("lastname") : $this->g("delivery_lastname");
+		return $this->_getAddressOrDelivery("lastname");
 	}
 
 	function getCompany(){
-		return $this->hasAddressSet() ? $this->g("company") : $this->g("delivery_company");
+		return $this->_getAddressOrDelivery("company");
 	}
 
 	function getAddressStreet(){
-		return $this->hasAddressSet() ? $this->g("address_street") : $this->g("delivery_address_street");
+		return $this->_getAddressOrDelivery("address_street");
 	}
 
 	function getAddressStreet2(){
-		return $this->hasAddressSet() ? $this->g("address_street2") : $this->g("delivery_address_street2");
+		return $this->_getAddressOrDelivery("address_street2");
 	}
 
 	function getAddressCity(){
-		return $this->hasAddressSet() ? $this->g("address_city") : $this->g("delivery_address_city");
+		return $this->_getAddressOrDelivery("address_city");
 	}
 
 	function getAddressState(){
-		return $this->hasAddressSet() ? $this->g("address_state") : $this->g("delivery_address_state");
+		return $this->_getAddressOrDelivery("address_state");
 	}
 
 	function getAddressZip(){
-		return $this->hasAddressSet() ? $this->g("address_zip") : $this->g("delivery_address_zip");
+		return $this->_getAddressOrDelivery("address_zip");
 	}
 
 	function getAddressCountry(){
-		return $this->hasAddressSet() ? $this->g("address_country") : $this->g("delivery_address_country");
+		return $this->_getAddressOrDelivery("address_country");
+	}
+
+	function _getAddressOrDelivery($key){
+		if($this->hasAddressSet()){
+			return $this->g($key);
+		}
+		if($this->deliveryAddressEditableByUser()){
+			return $this->g("delivery_$key");
+		}
+		$user = $this->getUser();
+		if($user && !$user->isAnonymous()){
+			$method = String4::ToObject("get_$key")->camelize(["lower" => true])->toString(); // address_city -> getAddressCity
+			return $user->$method();
+		}
 	}
 
 	/**

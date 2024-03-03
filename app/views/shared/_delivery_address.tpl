@@ -14,7 +14,9 @@
 	{if $object_with_delivery_address->getDeliveryCompany()}
 		{$object_with_delivery_address->getDeliveryCompany()}<br>
 	{/if}
-	{$object_with_delivery_address->getDeliveryAddressStreet()}<br>
+	{if $object_with_delivery_address->getDeliveryAddressStreet()}
+		{$object_with_delivery_address->getDeliveryAddressStreet()}<br>
+	{/if}
 	{if $object_with_delivery_address->getDeliveryAddressStreet2()}
 		{$object_with_delivery_address->getDeliveryAddressStreet2()}<br>
 	{/if}
@@ -38,7 +40,9 @@
 	{if $delivery_address->getCompany()}
 		{$delivery_address->getCompany()}<br>
 	{/if}
-	{$delivery_address->getAddressStreet()}<br>
+	{if $delivery_address->getAddressStreet()}
+		{$delivery_address->getAddressStreet()}<br>
+	{/if}
 	{if $delivery_address->getAddressStreet2()}
 		{$delivery_address->getAddressStreet2()}<br>
 	{/if}

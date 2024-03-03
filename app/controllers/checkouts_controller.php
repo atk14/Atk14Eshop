@@ -57,6 +57,19 @@ class CheckoutsController extends ApplicationController {
 		$initial = $this->basket->toArray();
 		//$initial = array_filter($initial,function($item){ return !is_null($item); });
 		$this->form->set_initial($initial);
+		$this->form->set_initial([
+				"firstname" => $this->basket->getFirstname(),
+				"lastname" => $this->basket->getLastname(),
+				"company" => $this->basket->getCompany(),
+				"address_street" => $this->basket->getAddressStreet(),
+				"address_street2" => $this->basket->getAddressStreet2(),
+				"address_city" => $this->basket->getAddressCity(),
+				"address_state" => $this->basket->getAddressState(),
+				"address_zip" => $this->basket->getAddressZip(),
+				"address_country" => $this->basket->getAddressCountry(),
+				"company_number" => $this->basket->getCompanyNumber(),
+				"vat_id" => $this->basket->getVatId(),
+		]);
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
@@ -75,21 +88,6 @@ class CheckoutsController extends ApplicationController {
 				"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
 				"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
 			]);
-			/*
-			$this->logged_user && $this->form->set_initial([
-				"firstname" => $this->logged_user->getFirstname(),
-				"lastname" => $this->logged_user->getLastname(),
-				"company" => $this->logged_user->getCompany(),
-				"company_number" => $this->logged_user->getCompanyNumber(),
-				"vat_id" => $this->logged_user->getVatId(),
-				"address_street" => $this->logged_user->getAddressStreet(),
-				"address_street2" => $this->logged_user->getAddressStreet2(),
-				"address_city" => $this->logged_user->getAddressCity(),
-				"address_zip" => $this->logged_user->getAddressZip(),
-				"address_state" => $this->logged_user->getAddressState(),
-				"address_country" => $this->logged_user->getAddressCountry(),
-			]);
-			*/
 			// fine-tuning of the delivery_company field
 			$this->form->fields["delivery_company"]->required = true;
 			$d_method = $this->basket->getDeliveryMethod();
