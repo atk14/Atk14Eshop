@@ -60,6 +60,7 @@
 </table>
 
 <div class="form__footer form__footer--simple">
+	{a action="orders/index" _class="btn btn-default"}{t}My orders{/t}{/a}
 	{a action="edit" _class="btn btn-default"}{t}Change your account data{/t}{/a}
 	{a action="edit_password" _class="btn btn-default"}{t}Change your password{/t}{/a}
 	{a action="delivery_addresses/index" _class="btn btn-default"}{t}Delivery addresses{/t}{/a}
