@@ -498,7 +498,14 @@ class Basket extends BasketOrOrder {
 	 * Ma kosik nastavenou dorucovaci adresu?
 	 */
 	function hasDeliveryAddressSet(){
-		foreach(self::GetAddressFields(["prefix" => "delivery_"]) as $k => $req){
+		$fields = self::GetAddressFields(["prefix" => "delivery_"]);
+		if(!$this->deliveryAddressEditableByUser()){
+			$fields = [
+				"delivery_firstname" => true,
+				"delivery_lastname" => true,
+			];
+		}
+		foreach($fields as $k => $req){
 			$method = String4::ToObject($k)->camelize()->prepend("get")->toString(); // "delivery_address_zip" -> "getDeliveryAddressZip"
 			if($req && strlen((string)$this->$method())==0){ return false; }
 		}
@@ -1189,39 +1196,53 @@ class Basket extends BasketOrOrder {
 	}
 
 	function getFirstname(){
-		return $this->hasAddressSet() ? $this->g("firstname") : $this->g("delivery_firstname");
+		return $this->_getAddressOrDelivery("firstname");
 	}
 
 	function getLastname(){
-		return $this->hasAddressSet() ? $this->g("lastname") : $this->g("delivery_lastname");
+		return $this->_getAddressOrDelivery("lastname");
 	}
 
 	function getCompany(){
-		return $this->hasAddressSet() ? $this->g("company") : $this->g("delivery_company");
+		return $this->_getAddressOrDelivery("company");
 	}
 
 	function getAddressStreet(){
-		return $this->hasAddressSet() ? $this->g("address_street") : $this->g("delivery_address_street");
+		return $this->_getAddressOrDelivery("address_street");
 	}
 
 	function getAddressStreet2(){
-		return $this->hasAddressSet() ? $this->g("address_street2") : $this->g("delivery_address_street2");
+		return $this->_getAddressOrDelivery("address_street2");
 	}
 
 	function getAddressCity(){
-		return $this->hasAddressSet() ? $this->g("address_city") : $this->g("delivery_address_city");
+		return $this->_getAddressOrDelivery("address_city");
 	}
 
 	function getAddressState(){
-		return $this->hasAddressSet() ? $this->g("address_state") : $this->g("delivery_address_state");
+		return $this->_getAddressOrDelivery("address_state");
 	}
 
 	function getAddressZip(){
-		return $this->hasAddressSet() ? $this->g("address_zip") : $this->g("delivery_address_zip");
+		return $this->_getAddressOrDelivery("address_zip");
 	}
 
 	function getAddressCountry(){
-		return $this->hasAddressSet() ? $this->g("address_country") : $this->g("delivery_address_country");
+		return $this->_getAddressOrDelivery("address_country");
+	}
+
+	function _getAddressOrDelivery($key){
+		if($this->hasAddressSet()){
+			return $this->g($key);
+		}
+		if($this->deliveryAddressEditableByUser() || in_array($key,["firstname","lastname"])){
+			return $this->g("delivery_$key");
+		}
+		$user = $this->getUser();
+		if($user && !$user->isAnonymous() && !$this->deliveryAddressEditableByUser()){
+			$method = String4::ToObject("get_$key")->camelize(["lower" => true])->toString(); // address_city -> getAddressCity
+			return $user->$method();
+		}
 	}
 
 	/**
@@ -1357,9 +1378,23 @@ class Basket extends BasketOrOrder {
 	 * Bylo vybrano doruceni do dorucovaciho mista?
 	 *
 	 */
-	function deliveryToDeliveryPointSelected() {
+	function deliveryToDeliveryPointSelected(){
 		$d_method = $this->getDeliveryMethod();
 		return $d_method && $d_method->getDeliveryService();
+	}
+
+	/**
+	 * Is in-store pickup selected?
+	 */
+	function personalPickupOnStoreSelected(){
+		$d_method = $this->getDeliveryMethod();
+		return $d_method && $d_method->getPersonalPickupOnStore();
+	}
+
+	function deliveryAddressEditableByUser(){
+		return
+			!$this->deliveryToDeliveryPointSelected() &&
+			!$this->personalPickupOnStoreSelected();
 	}
 
 	/**
@@ -1405,6 +1440,18 @@ class Basket extends BasketOrOrder {
 		if($delivery_service_branch = $this->getDeliveryServiceBranch()){
 			$delivery_address = $delivery_service_branch->getDeliveryAddressAr();
 			return $delivery_address[$key];
+		}
+		$delivery_method = $this->getDeliveryMethod();
+		$store = $delivery_method ? $delivery_method->getPersonalPickupOnStore() : null;
+		if($store){
+			$_key = String4::ToObject($key)->gsub('/^delivery_/','')->toString();
+			if($_key === "company"){
+				return $store->getName();
+			}
+			if($_key === "address_note"){
+				return null;
+			}
+			return $store->g($_key);
 		}
 		return $this->g($key);
 	}

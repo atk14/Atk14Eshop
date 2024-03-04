@@ -25,10 +25,10 @@
 {form _class="form form-horizontal" _novalidate="novalidate"}
 	{render partial="shared/form_error"}
 
-	{if $delivery_point_selected}
+	{if !$delivery_address_editable_by_user}
 		{render partial="invoice_data"}
 
-		{render partial="delivery_address" delivery_point_selected=$delivery_point_selected}
+		{render partial="delivery_address" delivery_address_editable_by_user=$delivery_address_editable_by_user}
 		{*render partial="billing_and_delivery_data_form__delivery_point_selected"*}
 	{else}
 		{render partial="delivery_address"}

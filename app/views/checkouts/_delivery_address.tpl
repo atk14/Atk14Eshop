@@ -1,4 +1,4 @@
-{if $delivery_point_selected}
+{if !$delivery_address_editable_by_user}
 
 <div class="form__body">
 	<h3 class="form__legend">{t}Kontaktní údaje pro vyzvednutí zásilky{/t}</h3>
@@ -6,7 +6,13 @@
 </div>
 
 <div class="form__body">
-	<h3 class="form__legend">{t}Adresa výdejního místa{/t}</h3>
+	<h3 class="form__legend">
+		{if $basket->personalPickupOnStoreSelected()}
+			{t}Adresa pro osobní převzetí{/t}
+		{else}
+			{t}Adresa výdejního místa{/t}
+		{/if}
+	</h3>
 	{* tady chybi delivery_address_note - je to disablovane policko a je matouci *}
 	{render partial="shared/form_field" fields="delivery_company,delivery_address_street,delivery_address_city"}
 	{if ALLOW_STATE_IN_ADDRESS}
