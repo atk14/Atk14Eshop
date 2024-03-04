@@ -1231,7 +1231,7 @@ class Basket extends BasketOrOrder {
 			return $this->g("delivery_$key");
 		}
 		$user = $this->getUser();
-		if($user && !$user->isAnonymous()){
+		if($user && !$user->isAnonymous() && !$this->deliveryAddressEditableByUser()){
 			$method = String4::ToObject("get_$key")->camelize(["lower" => true])->toString(); // address_city -> getAddressCity
 			return $user->$method();
 		}
