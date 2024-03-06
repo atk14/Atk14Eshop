@@ -52,6 +52,9 @@ $enable-deprecation-messages: false;
 
 @import "dark_mode";
 
+@import "tag_chooser";
+@import "notifications";
+
 @import "dropdowns";
 
 @import "shared/clearfix";
