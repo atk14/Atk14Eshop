@@ -2,6 +2,10 @@
 
 window.UTILS = window.UTILS || { };
 
+/** Color conversion from RGBa to hex, alpha is discarded
+ * Usage:
+ * window.UTILS.rgba2hex( "rgb(255,0,255, 0.5)" ); // returns "ff00ff"
+ */
 window.UTILS.rgba2hex = function( orig ) {
 	var a,
 	rgb = orig.replace(/\s/g, "").match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
@@ -23,6 +27,10 @@ window.UTILS.rgba2hex = function( orig ) {
 	return hex;
 };
 
+/** Color conversion from RGB to hex
+ * Usage:
+ * window.UTILS.rgb2hex( "rgb(255,0,255)" ); // returns "ff00ff"
+ */
 window.UTILS.rgb2hex = function( orig ) {
 	var
 	rgb = orig.replace(/\s/g, "").match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
@@ -107,4 +115,57 @@ window.UTILS.unobfuscateEmails = function() {
 // Links with the "blank" class are pointing to new window
 window.UTILS.linksTargetBlank = function() {
 	$( "a.blank" ).attr( "target", "_blank" );
+}
+
+// Expanding/collapsing FAQ items
+window.UTILS.initFAQ = function() {
+	$( "dl.faq dt, ul.faq .faq__q, ol.faq .faq__q" ).on( "click", function( e ) {
+		var qtitle =$( e.target );
+		var qcontent = qtitle.next()
+		qtitle.toggleClass( "expanded" );
+		if ( qtitle.hasClass( "expanded" ) ) {
+			qcontent.slideDown( "fast" );
+		} else {
+			qcontent.slideUp( "fast" );
+		}
+	} );
+}
+
+// Set proper scale for product card image scaling on hover
+window.UTILS.setCardHoverScale = function() {
+	// find card image
+	var cardImage = $( ".section--list-products .card .card-img-top" );
+	if( cardImage.length > 0 ) {
+		// access to values stored in css variables
+		var r = document.querySelector( ":root " );
+		var rs = getComputedStyle( r );
+		// get card image actual width (CAUTION: assumes all cards are the same width)
+		var cardW = $( ".section--list-products .card .card-img-top" ).width();
+		// read desired hover width from css
+		var imgW = rs.getPropertyValue( "--card_hover_width" );
+		var hoverScale = imgW / cardW;
+		//console.log( {cardW}, {imgW}, {hoverScale} );
+		// set desired scale value to css variable
+		r.style.setProperty( "--card_hover_scale", hoverScale );
+	}
+};
+
+// Sticky Scroll Sidebar
+// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
+window.UTILS.initStickySidebar = function() {
+	if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
+		if( $( ".body__sticky-container" ).length ) {
+			// eslint-disable-next-line no-undef,no-unused-vars
+			var sidebar = new StickySidebar( ".nav-section", {
+				topSpacing: 10,
+				bottomSpacing: 10,
+				containerSelector: ".body__sticky-container",
+				innerWrapperSelector: "#sidebar_menu",
+				minWidth: 767,
+			} );
+		}
+		$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
+			$( ".nav-section" ).toggleClass( "show-sm" );
+		} );
+	}
 }

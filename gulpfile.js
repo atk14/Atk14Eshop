@@ -44,6 +44,9 @@ var applicationScripts = [
 	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/utils/offcanvas.js",
+	"public/scripts/utils/styleguides.js",
+	"public/scripts/utils/floating_cart.js",
+	//"public/scripts/utils/scroll_hide_header.js",
 	"public/scripts/application.js"
 ];
 
