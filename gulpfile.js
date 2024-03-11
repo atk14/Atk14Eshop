@@ -48,6 +48,7 @@ var applicationScripts = [
 	"public/scripts/utils/floating_cart.js",
 	"public/scripts/utils/navbar.js",
 	"public/scripts/utils/numeric_stepper.js",
+	"public/scripts/utils/card_detail.js",
 	//"public/scripts/utils/scroll_hide_header.js",
 	"public/scripts/application.js"
 ];
