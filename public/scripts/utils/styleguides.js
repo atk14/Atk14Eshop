@@ -13,26 +13,6 @@ window.UTILS.initStyleguides = function() {
     swatch.find( ".color-swatch__value" ).text( "#" + UTILS.rgb2hex( color ).toUpperCase() );
   } );
   
-  // Tlacitka +/- mnozstvi pri pridani do kosiku
-  var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
-  qtyButtons.on( "click", function( e ) {
-    e.preventDefault();
-    var qtyWidget = $( this ).closest( ".js-stepper" );
-    var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-    var oldValue = parseInt( qtyInput.val() );
-    var qtyMin = parseInt( qtyInput.attr( "min" ) );
-    var qtyMax = parseInt( qtyInput.attr( "max" ) );
-    var qtyStep = parseInt( qtyInput.attr( "step" ) );
-    var newValue;
-    if( $( this ).attr( "data-spinner-button" ) === "up" ){
-      newValue = Math.min( qtyMax, oldValue + qtyStep );
-    } else {
-      newValue = Math.max( qtyMin, oldValue - qtyStep );
-    }
-    qtyInput.val( newValue );
-    qtyInput.trigger( "change" );
-  } );
-  
   // Maps
   if( $( "#allstores_map").length > 0 ) {
     UTILS.initMultiMap( "allstores_map" );

@@ -57,6 +57,11 @@
 					$( this ).closest( ".card" ).addClass( "card--in-basket" );
 				} );
 
+				// Tlacitka +/- mnozstvi u stepper inputu
+				if( document.querySelector( "[data-spinner-button]" ) ) {
+					new UTILS.numericStepperHandler();
+				}
+
 			}
 
 		},
@@ -110,26 +115,6 @@
 			// Action-specific code
 			detail: function() {
 
-				// Tlacitka +/- mnozstvi pri pridani do kosiku
-				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
-				qtyButtons.on( "click", function( e ) {
-					e.preventDefault();
-					var qtyWidget = $( this ).closest( ".js-stepper" );
-					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-					var oldValue = parseInt( qtyInput.val() );
-					var qtyMin = parseInt( qtyInput.attr( "min" ) );
-					var qtyMax = parseInt( qtyInput.attr( "max" ) );
-					var qtyStep = parseInt( qtyInput.attr( "step" ) );
-					var newValue;
-					if( $( this ).attr( "data-spinner-button" ) === "up" ){
-						newValue = Math.min( qtyMax, oldValue + qtyStep );
-					} else {
-						newValue = Math.max( qtyMin, oldValue - qtyStep );
-					}
-					qtyInput.val( newValue );
-					qtyInput.trigger( "change" );
-				} );
-
 				// Update celkove ceny pri zmene mnozstvi
 				var qtyInput = $( ".js-quantity-widget .js-quantity-input" );
 				qtyInput.on( "change", function() {
@@ -170,25 +155,6 @@
 			edit: function() {
 				var $basketForm = $( "#form_baskets_edit" );
 				var autoRefreshinterval = 1000; // 1 sec
-
-				// Tlacitka +/- editace mnozstvi
-				$basketForm.on( "click", ".js-stepper button[data-spinner-button]", function( e ) {
-					e.preventDefault();
-					var qtyWidget = $( this ).closest( ".js-stepper" );
-					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-					var oldValue = parseInt( qtyInput.val() );
-					var qtyMin = parseInt( qtyInput.attr( "min" ) );
-					var qtyMax = parseInt( qtyInput.attr( "max" ) );
-					var qtyStep = parseInt( qtyInput.attr( "step" ) );
-					var newValue;
-					if( $( this ).attr( "data-spinner-button" ) === "up" ){
-						newValue = Math.min( qtyMax, oldValue + qtyStep );
-					} else {
-						newValue = Math.max( qtyMin, oldValue - qtyStep );
-					}
-					qtyInput.val( newValue );
-					qtyInput.trigger( "change" );
-				} );
 
 				// Odstranit polozku
 				/*$( ".js--basket-destroy" ).click( function( e ) {
