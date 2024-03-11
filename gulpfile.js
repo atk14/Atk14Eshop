@@ -46,6 +46,7 @@ var applicationScripts = [
 	"public/scripts/utils/offcanvas.js",
 	"public/scripts/utils/styleguides.js",
 	"public/scripts/utils/floating_cart.js",
+	"public/scripts/utils/navbar.js",
 	//"public/scripts/utils/scroll_hide_header.js",
 	"public/scripts/application.js"
 ];
