@@ -264,10 +264,13 @@
 
 			// Admin menu toggle on small devices
 			adminMenuToggler: function() {
-				document.querySelector( ".nav-section__toggle" ).addEventListener( "click", function( e ) {
-					e.preventDefault();
-					this.closest( ".nav-section" ).classList.toggle( "expanded" );
-				} );
+				let toggler = document.querySelector( ".nav-section__toggle" );
+				if( toggler ) {
+					toggler.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						this.closest( ".nav-section" ).classList.toggle( "expanded" );
+					} );
+				};
 			},
 
 			// Dark mode toggle 
