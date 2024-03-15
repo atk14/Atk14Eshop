@@ -253,12 +253,15 @@
 
 				window.dispatchEvent( new Event( "scroll" ) );
 
-				document.querySelector( "#js-scroll-to-top" ).addEventListener( "click", function( e ) {
-					e.preventDefault();
-					let els = document.querySelectorAll( "html,body" );
-					console.log( "els", els );
-					window.scroll( { top: 0, left: 0, behavior: "smooth" } );
-				} );
+				let scrollTopBtn = document.querySelector( "#js-scroll-to-top" );
+				if( scrollTopBtn ){
+					scrollTopBtn.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						let els = document.querySelectorAll( "html,body" );
+						console.log( "els", els );
+						window.scroll( { top: 0, left: 0, behavior: "smooth" } );
+					} );
+				}
 				
 			},
 
