@@ -8,6 +8,7 @@ function smarty_function_display_stockcount($params,$template){
 	$params += array(
 		"product" => null,
 		"card" => null,
+		"display_nothing_if_can_be_ordered" => false,
 	);
 
 	if($params["card"]){
@@ -30,6 +31,10 @@ function smarty_function_display_stockcount($params,$template){
 		// we need to find the right product for the template
 		if(!$product->canBeOrdered()){ $product = $_product; }
 		if(!$_product->considerStockcount()){ $product = $_product; }
+	}
+
+	if($params["display_nothing_if_can_be_ordered"] && $product->canBeOrdered()){
+		return;
 	}
 
 	$stockcount = $max / $unit->getDisplayUnitMultiplier();
