@@ -89,7 +89,7 @@ class FilterForCards extends Filter {
 				$order = "cards.id";
 		}
 		if($options['order']) {
-			$options['order'] += ", $order";
+			$options['order'] .= ", $order";
 		} else {
 			$options['order'] = $order;
 		}
