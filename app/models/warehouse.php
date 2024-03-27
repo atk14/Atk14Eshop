@@ -22,6 +22,10 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 		return $instance;
 	}
 
+	function applicableToEshop(){
+		return $this->g("applicable_to_eshop");
+	}
+
 	function getProductStockcount($product){
 		$stockcount = $this->dbmole->selectInt("SELECT stockcount FROM warehouse_items WHERE warehouse_id=:warehouse AND product_id=:product",[":warehouse" => $this, ":product" => $product]);
 		if(is_null($stockcount)){ $stockcount = 0; }

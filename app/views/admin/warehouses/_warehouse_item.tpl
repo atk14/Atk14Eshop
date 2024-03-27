@@ -3,6 +3,14 @@
 			<div class="item__title">
 				{$warehouse->getName()}
 			</div>
+			<div class="item__properties">
+				{if $warehouse->applicableToEshop()}
+					<small title="{t}applicable to eshop{/t}" class="text-center">{!"check"|icon}&nbsp;{t}eshop{/t}</small>
+				{/if}
+			</div>
+			<span class="item__code">
+				{if $warehouse->getCode()|strlen}<small>{$warehouse->getCode()}</small>{/if}
+			</span>
 			<div class="item__controls">
 				{dropdown_menu}
 					{a action="warehouse_items/index" warehouse_id=$warehouse}{!"list"|icon} {t}Warehouse status{/t}{/a}
