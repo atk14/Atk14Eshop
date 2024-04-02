@@ -845,7 +845,12 @@ class Basket extends BasketOrOrder {
 			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
 		}
 
-		if($delivery_method && $this->getDeliveryAddressCountry() && !in_array($this->getDeliveryAddressCountry(),$this->getDeliveryCountriesAllowed())){
+		if(
+			$delivery_method &&
+			!$this->personalPickupOnStoreSelected() && // tady pripadne umoznime os. vyzvednuti na prodejne, i je prodejna v nepodporovane zemi
+			$this->getDeliveryAddressCountry() &&
+			!in_array($this->getDeliveryAddressCountry(),$this->getDeliveryCountriesAllowed())
+		){
 			$messages[] = new BasketErrorMessage(_("Objednávku nelze doručit na danou doručovací adresu"),[
 				"correction_text" => _("upravte doručovací adresu"),
 				"correction_url" => $this->_buildLink(["action" => "checkouts/set_billing_and_delivery_data"]),

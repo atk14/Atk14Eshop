@@ -26,6 +26,15 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 		]));
 
 		$this->set_button_text(_("Pokračovat"));
+
+		if(!$delivery_address_editable_by_user && ($delivery_address_country = $this->controller->basket->getDeliveryAddressCountry())){
+			$choices = $this->fields["delivery_address_country"]->get_choices();
+			if(!isset($choices[$delivery_address_country])){
+				$countries = CountryListLoader::Get();
+				$choices[$delivery_address_country] = isset($countries[$delivery_address_country]) ? $countries[$delivery_address_country] : $delivery_address_country;
+				$this->fields["delivery_address_country"]->set_choices($choices);
+			}
+		}
 	}
 
 	function clean(){
