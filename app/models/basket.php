@@ -849,6 +849,7 @@ class Basket extends BasketOrOrder {
 			$messages[] = new BasketErrorMessage(_("Objednávku nelze doručit na danou doručovací adresu"),[
 				"correction_text" => _("upravte doručovací adresu"),
 				"correction_url" => $this->_buildLink(["action" => "checkouts/set_billing_and_delivery_data"]),
+				"request_method" => "GET",
 			]);
 		}
 
