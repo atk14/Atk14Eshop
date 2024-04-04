@@ -5,7 +5,9 @@
 			</div>
 			<div class="item__properties">
 				{if $warehouse->applicableToEshop()}
-					<small title="{t}applicable to eshop{/t}" class="text-center">{!"check"|icon}&nbsp;{t}eshop{/t}</small>
+					<small class="text-center"><span title="{t}applicable to eshop{/t}" class="badge badge-success">{!"check"|icon}&nbsp;{t}eshop{/t}</span></small>
+				{else}
+					<small class="text-center"><span title="{t}not applicable to eshop{/t}" class="badge badge-secondary" style="opacity: 0.5;">{!"remove"|icon}&nbsp;{t}eshop{/t}</span></small>
 				{/if}
 			</div>
 			<span class="item__code">
