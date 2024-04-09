@@ -128,7 +128,8 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
-		$data = @file_get_contents($options["branches_url"]);
+
+		$data = $delivery_service->_fetchFeed($options["branches_url"]);
 
 		if ($data===false) {
 			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
@@ -138,6 +139,12 @@ class DeliveryService extends ApplicationModel {
 			$error_message = "empty file";
 			return false;
 		}
+		return $data;
+	}
+
+	protected function _fetchFeed($feed_url) {
+		$className = $this->getParserClass();
+		$data = $className::FetchFeed($feed_url);
 		return $data;
 	}
 
