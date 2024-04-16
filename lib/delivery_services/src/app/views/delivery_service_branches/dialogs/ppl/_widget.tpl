@@ -1,3 +1,2 @@
-<link rel="stylesheet" href="https://www.ppl.cz/sources/map/main.css">
-<div id="ppl-parcelshop-map" data-language="cs" data-country="cz"></div>
+<div id="ppl-parcelshop-map" data-language="cs" data-country="cz" data-mode="default"></div>
 {render partial="shared/form"}
