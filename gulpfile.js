@@ -12,7 +12,8 @@ var vendorStyles = [
 	"node_modules/photoswipe/dist/photoswipe.css",
 	// "node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
-	"node_modules/nouislider/dist/nouislider.min.css"
+	"node_modules/nouislider/dist/nouislider.min.css",
+	"node_modules/leaflet/dist/leaflet.css"
 ];
 
 var vendorScripts = [
@@ -25,6 +26,7 @@ var vendorScripts = [
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
 	"node_modules/bootbox/dist/bootbox.all.min.js",
 	"node_modules/nouislider/dist/nouislider.min.js",
+	"node_modules/leaflet/dist/leaflet.js",
 	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
 ];
 
@@ -35,6 +37,7 @@ var applicationScripts = [
 	"public/scripts/filter.js",
 	"public/scripts/nouislider.js",
 	"public/scripts/utils/basket_shipping_rules.js",
+	"public/scripts/utils/maps_old.js",
 	"public/scripts/utils/maps.js",
 	"public/scripts/utils/edit_basket_form.js",
 	"public/scripts/utils/filterable_list.js",
