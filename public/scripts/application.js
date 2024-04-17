@@ -320,6 +320,7 @@
 
 				// Mapa
 				UTILS.initSimpleMap( "store-map" );
+				new UTILS.SimpleMap(document.querySelector( ".map_v2"));
 			}
 
 		},
