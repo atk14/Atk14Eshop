@@ -14,9 +14,14 @@ window.UTILS = window.UTILS || { };
  * General map options
  */
 window.UTILS.mapOptions = {
+
+  // Tile provider API URL
   mapProvider: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-  //mapProvider: "https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=piwmUmdXn2chgPubCSiOQ_5sOFIJaVDq6tohD6MPKz4",
+
+  // Tile attribution as tile provider requires
   mapAttribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
+
+  // Marker icon
   icon: L.icon( {
     iconUrl: "/public/dist/images/map-marker-red.svg",
     iconSize: [30, 42],
