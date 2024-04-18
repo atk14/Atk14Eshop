@@ -304,6 +304,8 @@
 			index: function() {
 				UTILS.initMultiMap( "allstores_map" );
 
+				new UTILS.MultiMap( document.querySelector( ".stores_v2" ) )
+
 				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
