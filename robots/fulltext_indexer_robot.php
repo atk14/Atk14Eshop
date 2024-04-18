@@ -83,6 +83,13 @@ class FulltextIndexerRobot extends ApplicationRobot {
 
 	function _indexObject($object){
 		global $ATK14_GLOBAL;
+		static $counter = 0;
+
+		$counter++;
+
+		if($counter % 1000){
+			Cache::Clear();
+		}
 
 		$obj_str = get_class($object)."#".$object->getId();
 
