@@ -14,7 +14,13 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetInstances(){
-		trigger_error("Method Region::GetInstances() is deprecated, use Region::GetAllInstances()");
+		$file = $line = "???";
+		$ar = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT,1);
+		if($ar){
+			$file = $ar[0]["file"];
+			$line = $ar[0]["line"];
+		}
+		trigger_error(sprintf("Method Region::GetInstances() is deprecated, use Region::GetAllInstances() in %s on line %d",$file,$line));
 		return self::GetAllInstances();
 	}
 
