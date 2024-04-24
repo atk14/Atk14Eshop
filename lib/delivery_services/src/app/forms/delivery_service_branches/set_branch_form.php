@@ -9,6 +9,7 @@ class SetBranchForm extends ApplicationForm {
 		]));
 
 		$this->set_button_text(_("Vybrat výdejní místo"));
+		$this->set_attr("class",USING_BOOTSTRAP3 ? "hidden" : "d-none");
 	}
 
 	function clean() {
