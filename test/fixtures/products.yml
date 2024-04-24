@@ -1,3 +1,9 @@
+arabica:
+  catalog_id: ARABICA
+  card_id: "<?php echo $cards["coffee"]->getId() ?>"
+  name_cs: Arabica
+  name_en: Arabica
+
 mint_tea:
   catalog_id: TEA_MINT
   card_id: "<?php echo $cards["tea"]->getId() ?>"

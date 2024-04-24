@@ -11,6 +11,7 @@
  * @fixture delivery_service_branches
  * @fixture payment_methods
  * @fixture shipping_combinations
+ * @fixture users
  */
 class TcCheckouts extends TcBase {
 
@@ -151,7 +152,6 @@ class TcCheckouts extends TcBase {
 	function test_remember_pickup_point_on_login_user() {
 		global $ATK14_GLOBAL;
 
-		return;
 		$lang = $ATK14_GLOBAL->getDefaultLang();
 		$client = $this->client;
 		$this->_setup_basket();
@@ -172,7 +172,7 @@ class TcCheckouts extends TcBase {
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
 
-		$client->post("logins/create_new", [
+		$controller = $client->post("logins/create_new", [
 			"login" => "rambo",
 			"password" => "secret",
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
