@@ -1,4 +1,4 @@
-<iframe id="atk14-widget-gls" title="{t}Výběr místa pro vyzvednutí zásilky{/t}" src="https://maps.gls-czech.cz/?tdetail=3&lng=cs"></iframe>
+<iframe id="atk14-widget-gls" title="{t}Výběr místa pro vyzvednutí zásilky{/t}" src="https://maps.gls-czech.cz/?tdetail=3&lng={$lang}"></iframe>
 <div class="container-fluid branch-detail">
 
 <div id="atk14-widget-branch" class="row">
