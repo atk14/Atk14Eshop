@@ -19,11 +19,11 @@ class Ppl extends DeliveryServiceBranchStdClassData implements iDeliveryServiceB
 	}
 
 	function getBranchName() {
-		return $this->_data->Name;
+		return $this->_data->Name2; // e.g. "PPL Parcelshop 106", "AlzaBox 104"
 	}
 
 	function getPlaceName() {
-		return $this->_data->Name2;
+		return $this->_data->Name; // e.g. "Top drogerie Michal Zrubec"
 	}
 
 	function getFullAddress() {
