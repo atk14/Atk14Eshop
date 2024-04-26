@@ -40,6 +40,7 @@ class TcCheckouts extends TcBase {
 
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEmpty($controller->form->get_errors());
+		$this->assertEmpty($controller->flash->error());
 		$this->assertEquals("/{$lang}/checkouts/set_payment_and_delivery_method/", ($client->getLocation()));
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(), [
@@ -65,6 +66,7 @@ class TcCheckouts extends TcBase {
 
 		$this->assertEquals(303, $client->getStatusCode()); // i pri chybe dochazi k presmerovani zpet
 		$this->assertNotEmpty($controller->form->get_errors());
+		$this->assertNotEmpty($controller->flash->error());
 		$this->assertArrayHasKey("delivery_service_branch_id", $controller->form->errors);
 		$this->assertEquals("Dispensing point not found", array_shift($controller->form->errors["delivery_service_branch_id"]));
 	}
