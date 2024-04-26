@@ -97,12 +97,10 @@ window.UTILS.MultiMap = class {
   constructor( mapElement ) {
     this.mapContainer = mapElement;
     console.log("new MultiMap", this.mapContainer );
-    console.log( "stores", storeLocatorData );
     //this.storeCardsContainer = this.mapContainer.querySelector( ".js-stores-cards" );
     //this.storeCards = this.storeCardsContainer.querySelectorAll( ".js-store-item" );
     this.enableClusters = this.mapContainer.dataset.enable_clusters;
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
-    console.log( this );
 
     
     
@@ -119,7 +117,10 @@ window.UTILS.MultiMap = class {
       center: tempCenter,
       zoom: 10,
       layers: [ this.baseMapLayer, this.markerLayer ],
-  });
+    });
+
+    const markerGroup = new L.featureGroup( this.markers ); 
+    this.map.fitBounds( markerGroup.getBounds() );
   }
 
   /**
@@ -139,9 +140,7 @@ window.UTILS.MultiMap = class {
           this.storeData[ i ].markerOffset++;
         }
       }
-      console.log("offset", this.storeData[i].markerOffset);
     }
-    console.log( "------ offsets", this.storeData );
   }
 
   /**
