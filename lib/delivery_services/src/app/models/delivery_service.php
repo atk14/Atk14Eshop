@@ -128,7 +128,8 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
-		$data = @file_get_contents($options["branches_url"]);
+
+		$data = $delivery_service->_fetchFeed($options["branches_url"]);
 
 		if ($data===false) {
 			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
@@ -138,6 +139,12 @@ class DeliveryService extends ApplicationModel {
 			$error_message = "empty file";
 			return false;
 		}
+		return $data;
+	}
+
+	protected function _fetchFeed($feed_url) {
+		$className = $this->getParserClass();
+		$data = $className::FetchFeed($feed_url);
 		return $data;
 	}
 
@@ -246,7 +253,7 @@ class DeliveryService extends ApplicationModel {
 	function getBranchesDownloadUrl() {
 		$className = $this->getParserClass();
 		$url = $className::$BRANCHES_DOWNLOAD_URL;
-		if (preg_match("/({API_KEY})/", $url)) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
 				$url = preg_replace("/({API_KEY})/", $_sys_param, $url);
@@ -263,7 +270,7 @@ class DeliveryService extends ApplicationModel {
 	 */
 	function canBeUsed() {
 		$download_url = $this->getBranchesDownloadUrl();
-		if (preg_match("/({API_KEY})/", $download_url)) {
+		if (preg_match("/({API_KEY})/", (string)$download_url)) {
 			return false;
 		}
 		return true;

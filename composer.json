@@ -42,6 +42,7 @@
         "mysutka/datalayer_generator": "^1.0",
         "adamstipak/webpay-php": "^1.1",
         "atk14/ip-matcher": "^1.0",
-        "tecnickcom/tcpdf": "^6.6"
+        "tecnickcom/tcpdf": "^6.6",
+        "salamek/ppl-my-api": "^2.7|^2.2"
     }
 }
