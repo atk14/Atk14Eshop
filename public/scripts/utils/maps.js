@@ -30,12 +30,6 @@ window.UTILS.mapOptions = {
     iconAnchor: [15, 42],
     popupAnchor: [0, -40],
   },
-  icon: L.icon( {
-    iconUrl: "/public/dist/images/map-marker-red.svg",
-    iconSize: [30, 42],
-    iconAnchor: [15, 42],
-    popupAnchor: [0, -40],
-  } ),
 };
 
 
@@ -74,7 +68,11 @@ window.UTILS.SimpleMap = class {
       this.marker.bindPopup( this.title );
     }
   }
-}
+};
+
+window.UTILS.customMapIcon = L.Icon.extend( {
+  options: window.UTILS.mapOptions.iconOptions
+} );
 
 /**
  * Multiple locations map
@@ -94,7 +92,7 @@ window.UTILS.MultiMap = class {
   //storeCards;
   enableClusters = false;
   clusterDistance;
-  //customIcon = L.Icon.extend( window.UTILS.mapOptions.iconOptions );
+  proximityOffset = 20;
 
   constructor( mapElement ) {
     this.mapContainer = mapElement;
@@ -110,15 +108,13 @@ window.UTILS.MultiMap = class {
     
     this.baseMapLayer = L.tileLayer( window.UTILS.mapOptions.mapProvider, { 
       attribution: window.UTILS.mapOptions.mapAttribution 
-    } );//.addTo( this.map );
+    } );
 
     this.calculateMarkerOffsets();
     this.createMarkers();
 
     // Create map
-    //const tempCenter = [ 14.4234447, 50.0736203 ];
     const tempCenter = [ 50.0736203, 14.4234447 ];
-    //this.map = this.map = L.map( this.mapContainer ).setView( tempCenter, 10 );
     this.map = L.map( this.mapContainer, {
       center: tempCenter,
       zoom: 10,
@@ -155,35 +151,24 @@ window.UTILS.MultiMap = class {
     for ( let i = 0; i < this.storeData.length; i++ ) {
       let store  = this.storeData[ i ]
       let id = store.id;
-      // clone default marker options, alter x offset if 
-      //let markerIcon = this.icon;
-      
-      /*let markerIconOptions = { ...this.iconOptions };
-      console.log("icon", markerIconOptions.iconAnchor);
-      if( store.markerOffset !== 0 ) {
-        markerIconOptions.iconAnchor[ 0 ] = 50; //markerIconOptions.iconAnchor[ 0 ] + markerIconOptions.iconAnchor[ 0 ] * store.markerOffset * 2;
-      }
-      console.log("icon", markerIconOptions.iconAnchor);
-      console.log("----------------");
+      let icon = L.icon( this.iconOptions )
 
-      let marker = L.marker( [ store.lat, store.lng ], { icon: L.icon( markerIconOptions ), opacity:0.5 } ).bindPopup( store.title + " / " + markerIconOptions.iconAnchor);*/
-      //let marker = L.marker( [ store.lat, store.lng ], { icon: this.( store.markerOffset ), opacity:0.5 } ).bindPopup( store.title );
-      let marker = L.marker( [ store.lat, store.lng ], { icon: L.icon( this.iconOptions ), opacity:0.5 } ).bindPopup( store.title + " / " );
-      //console.log( "ICON", marker.icon );
+      // Make icon with X offset if needed
+      if( store.markerOffset !== 0 ) {
+        let iconAnchorX = this.iconOptions.iconAnchor [0];
+        let iconAnchorY = this.iconOptions.iconAnchor [1];
+        let popupAnchorX = this.iconOptions.popupAnchor [0];
+        let popupAnchorY = this.iconOptions.popupAnchor [1];
+
+        icon = new window.UTILS.customMapIcon( { 
+          iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],
+          popupAnchor: [ popupAnchorX - ( store.markerOffset * this.proximityOffset ), popupAnchorY ],
+        } );
+      }
+
+      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
       this.markers.push( marker );
     }
     this.markerLayer = L.layerGroup( this.markers );
   }
-
-  createMarkerIcon( offsetX ) {
-    let customIcon = L.Icon.extend( this.iconOptions );
-    let markerIconOptions = { ...this.iconOptions };
-    markerIconOptions.iconAnchor[ 0 ] = markerIconOptions.iconAnchor[ 0 ] + offsetX * 20;
-    let icon = new customIcon({
-      iconAnchor: markerIconOptions.iconAnchor
-    });
-    return icon;
-  }
-
-
-}
+};
