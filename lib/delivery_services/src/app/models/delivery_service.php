@@ -177,12 +177,13 @@ class DeliveryService extends ApplicationModel {
 	 * Data z XML nezvladne nacist.
 	 *
 	 */
-	function importData($data, $options=array()) {
+	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
+			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
 		];
 
-		if (!DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
 			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s. skipping branches import", $this->getName()));
 			return false;
 		}
