@@ -84,7 +84,7 @@ window.UTILS.MultiMap = class {
   icon = window.UTILS.mapOptions.icon;
   storeData = storeLocatorData;
   markers = new Array();
-  markerLayer;
+  markerGroup;
   cards = new Array();
   positions = new Array();
   baseMapLayer;
@@ -116,11 +116,11 @@ window.UTILS.MultiMap = class {
     this.map = L.map( this.mapContainer, {
       center: tempCenter,
       zoom: 10,
-      layers: [ this.baseMapLayer, this.markerLayer ],
+      layers: [ this.baseMapLayer, this.markerGroup ],
     });
 
-    const markerGroup = new L.featureGroup( this.markers ); 
-    this.map.fitBounds( markerGroup.getBounds() );
+    // Zoom to show all markers
+    this.map.fitBounds( this.markerGroup.getBounds() );
   }
 
   /**
@@ -168,6 +168,7 @@ window.UTILS.MultiMap = class {
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
       this.markers.push( marker );
     }
-    this.markerLayer = L.layerGroup( this.markers );
+    
+    this.markerGroup = new L.featureGroup( this.markers );
   }
 };
