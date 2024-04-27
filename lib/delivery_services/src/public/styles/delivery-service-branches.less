@@ -1,0 +1,156 @@
+@border-color: black;
+
+.delivery_service_branch {
+	padding-left: 2* @space-xl;
+	background: white;
+	//margin-top: @space-xs;
+
+	display: none;
+	padding: @space-base/2 @space-lg;
+	border-top: 1px solid @gray-lighter;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+
+	.branch_button, .branch_address {
+		margin-top: @space-base/2;
+		margin-bottom: @space-base/2;
+	}
+	
+	.branch_button {
+		margin-left: auto;
+
+		white-space: nowrap;
+		//margin-bottom: 0.75rem;
+		text-align: right;
+		padding-left: 0.75rem;
+		display: block;
+		//float: right;
+		
+		.btn-xs {
+			padding: 5px 10px;
+		}
+	}
+	.branch_address {
+		//font-weight: @font-weight-bold;
+		color: @gray-base;
+
+		display: block;
+		font-size: @font-size-small;
+		//padding-bottom: 0.75rem;
+	}	
+	
+	@include media-breakpoint-only(md){
+		padding-left: 0.75rem;
+		.branch_button {
+			float: none;
+		}
+	}
+	@include media-breakpoint-down(xs){
+		padding-left: 0.75rem;
+	}
+	@media(max-width:420px){
+		.branch_button {
+			float: none;
+		}
+	}
+}
+
+// branch address with set branch link
+#form_checkouts_set_payment_and_delivery_method ul.list--radios li.checked .delivery_service_branch {
+	display: flex;
+}
+
+// fix jQueryUI naseptavace v modalu. Naseptane vysledky zustavaly v pozadi
+.ui-widget.ui-widget-content {
+	z-index: @zindex-modal;
+}
+
+#atk14-widget-gls {
+	height: 600px;
+	width: 100%;
+	margin-bottom: -7px;
+}
+
+#atk14-widget-cp-balikovna {
+	height: 600px;
+	width: 100%;
+}
+
+#atk14-widget-zasilkovna {
+	height: 600px;
+}
+
+.ppl-parcelshop-map {
+	height: 700px;
+}
+
+.modal--pickup_point > .modal-dialog {
+	max-width: 1000px;
+}
+
+.modal--pickup_point {
+
+	.modal-dialog {
+		width: 100%;
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.modal-body {
+		padding: 0;
+	}
+	iframe {
+		border: none !important;
+	}
+	.branch-detail {
+		&.container-fluid {
+			padding: 0 @grid-gutter-width/2;
+		}
+		#atk14-widget-branch {
+			padding: @grid-gutter-width/4 0;
+
+			.branch-text {
+				@include media-breakpoint-up(sm) {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+				}
+				.branch-address {
+				}
+				.branch-name {
+					font-weight: @font-weight-bold;
+				}
+				form {
+					margin-bottom: 0;
+					fieldset {
+						margin-bottom: 0;
+					}
+				}
+			}
+			
+			.branch-image {
+				max-width: 100%;
+				height: auto;
+				max-height: 150px;
+			}
+		}
+	}
+}
+
+// detail pobocky v modalu pod mapou
+#atk14-widget-branch {
+	display: flex;
+	flex-wrap: wrap;
+	.branch-text {
+		flex-grow: 20;
+		margin-bottom: 1rem;
+		margin-right: 0.75rem;
+		& + .col-12 {
+			margin-bottom: 1rem;
+			margin-top: 0.5rem;
+		}
+	}
+
+}
