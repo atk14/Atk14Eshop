@@ -83,8 +83,9 @@ window.UTILS.MultiMap = class {
   iconOptions = window.UTILS.mapOptions.iconOptions;
   icon = window.UTILS.mapOptions.icon;
   storeData = storeLocatorData;
-  markers = new Array();
+  //markers = new Array();
   markerGroup;
+  clusteredLayer;
   cards = new Array();
   positions = new Array();
   baseMapLayer;
@@ -99,7 +100,7 @@ window.UTILS.MultiMap = class {
     console.log("new MultiMap", this.mapContainer );
     //this.storeCardsContainer = this.mapContainer.querySelector( ".js-stores-cards" );
     //this.storeCards = this.storeCardsContainer.querySelectorAll( ".js-store-item" );
-    this.enableClusters = this.mapContainer.dataset.enable_clusters;
+    this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
 
     
@@ -108,8 +109,21 @@ window.UTILS.MultiMap = class {
       attribution: window.UTILS.mapOptions.mapAttribution 
     } );
 
-    this.calculateMarkerOffsets();
+    console.log( "clusters", this.enableClusters, typeof(this.enableClusters) );
+    console.log( "spiderify", this.spiderify, typeof(this.spiderify) );
+    if( this.enableClusters ) {
+      console.log("yers");
+      this.markerGroup = L.markerClusterGroup( {
+        showCoverageOnHover: false,
+      } );
+    } else {
+      console.log("nieet");
+      this.markerGroup = new L.featureGroup();
+      this.calculateMarkerOffsets();
+    }
+
     this.createMarkers();
+
 
     // Create map
     const tempCenter = [ 50.0736203, 14.4234447 ];
@@ -153,7 +167,8 @@ window.UTILS.MultiMap = class {
       let icon = L.icon( this.iconOptions )
 
       // Make icon with X offset if needed
-      if( store.markerOffset !== 0 ) {
+      if( !this.enableClusters && store.markerOffset !== 0 ) {
+        console.log( "has offset" );
         let iconAnchorX = this.iconOptions.iconAnchor [0];
         let iconAnchorY = this.iconOptions.iconAnchor [1];
         let popupAnchorX = this.iconOptions.popupAnchor [0];
@@ -166,9 +181,8 @@ window.UTILS.MultiMap = class {
       }
 
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
-      this.markers.push( marker );
+      //this.markers.push( marker );
+      this.markerGroup.addLayer( marker );
     }
-    
-    this.markerGroup = new L.featureGroup( this.markers );
   }
 };
