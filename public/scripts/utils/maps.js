@@ -116,6 +116,7 @@ window.UTILS.MultiMap = class {
       this.markerGroup = L.markerClusterGroup( {
         showCoverageOnHover: false,
         maxClusterRadius: this.clusterDistance,
+        iconCreateFunction: this.customClusterIcon,
       } );
     } else {
       console.log("nieet");
@@ -186,4 +187,9 @@ window.UTILS.MultiMap = class {
       this.markerGroup.addLayer( marker );
     }
   }
+
+  customClusterIcon( cluster ) {
+    return L.divIcon({ html: cluster.getChildCount(), className: "map-cluster", iconSize: L.point(40, 40) });
+  }
+
 };

@@ -58,6 +58,7 @@
 	margin-bottom: $grid-gutter-width;
 	position: relative;
 	.cluster {
+		// this is obsolete for old Mapy.cz API
 		div {
 			border: none !important;
 			// recommended: bg color same as map marker image color
@@ -180,4 +181,20 @@
 		}
 	}
 	
+}
+
+.map-cluster {
+	// Note that $clusterSize must correspond with javascript iconSize property in customClusterIcon() function!
+	$clusterSize: 40px;
+	width: $clusterSize;
+	height: $clusterSize;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e70000;
+	background-clip: padding-box;
+	border-radius: divide( $clusterSize, 2 );
+	font-size: 1rem;
+	font-weight: $font-weight-bold;
+	color: white;
 }

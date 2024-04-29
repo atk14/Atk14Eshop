@@ -14,8 +14,8 @@ var vendorStyles = [
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
 	"node_modules/nouislider/dist/nouislider.min.css",
 	"node_modules/leaflet/dist/leaflet.css",
-	"node_modules/leaflet.markercluster/dist/MarkerCluster.css",
-	"node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
+	"node_modules/leaflet.markercluster/dist/MarkerCluster.css"
+	//"node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
 ];
 
 var vendorScripts = [
