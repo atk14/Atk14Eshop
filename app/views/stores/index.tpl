@@ -45,7 +45,7 @@ var storeLocatorData = [
 		</div>
 	</div>
 
-	<div class="stores-index__map stores_v2" data-enable_clusters="true" data-cluster_distance="40"></div>
+	<div class="stores-index__map stores_v2" data-enable_clusters="true" data-cluster_distance="80"></div>
 
 	{if $stores|count > 5}
 		<form class="form-inline stores-filter" id="stores-filter" autocomplete="off">

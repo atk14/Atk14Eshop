@@ -92,7 +92,7 @@ window.UTILS.MultiMap = class {
   //storeCardsContainer;
   //storeCards;
   enableClusters = false;
-  clusterDistance;
+  clusterDistance = 80;
   proximityOffset = 20;
 
   constructor( mapElement ) {
@@ -115,6 +115,7 @@ window.UTILS.MultiMap = class {
       console.log("yers");
       this.markerGroup = L.markerClusterGroup( {
         showCoverageOnHover: false,
+        maxClusterRadius: this.clusterDistance,
       } );
     } else {
       console.log("nieet");
