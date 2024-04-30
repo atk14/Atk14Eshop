@@ -184,12 +184,13 @@ class DeliveryService extends ApplicationModel {
 		];
 
 		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
-			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s. skipping branches import", $this->getName()));
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
 			return false;
 		}
 
-		$dbmole = self::GetDbmole();
-		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
+		$delivery_service_code = $this->getCode();
+		$dbmole = $this->dbmole;
+		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
 		$parserClassName = $this->getParserClass();
 		$feed_parser = $parserClassName::GetInstance($data);
@@ -214,7 +215,8 @@ class DeliveryService extends ApplicationModel {
 					}
 					$_bindAr[":{$k}"] = $v;
 				}
-				$_updates[] = "updated_at='".now()."'";
+				$_updates[] = "updated_at=:now";
+				$_bindAr[":now"] = now();
 				$_conditions = ["(".join(" OR ", $_conditions).")"];
 				$_conditions[] = "id=:id";
 				$_bindAr[":id"] = $branch;
@@ -223,18 +225,25 @@ class DeliveryService extends ApplicationModel {
 
 				$q = "UPDATE delivery_service_branches SET {$_updates} WHERE {$_conditions}";
 				$dbmole->doQuery($q, $_bindAr);
-				$options["logger"] && $options["logger"]->info(sprintf("update branch %s", $_branchAr["external_branch_id"]));
+				if($dbmole->getAffectedRows()){
+					$options["logger"] && $options["logger"]->info(sprintf("update branch %s @ %s [DeliveryServiceBranch#%s]", $_branchAr["external_branch_id"],$delivery_service_code,$branch->getId()));
+				}
 				unset($current_branch_ids[$branch->getId()]);
 			} else {
 				$_branchAr["delivery_service_id"] = $this;
 				DeliveryServiceBranch::CreateNewRecord($_branchAr);
+				$options["logger"] && $options["logger"]->info(sprintf("create branch %s @ %s", $_branchAr["external_branch_id"],$delivery_service_code));
 			}
 		}
 
 		# deactivate branches not in xml
-		foreach($current_branch_ids as $_branch_id => $_external_id) {
-			$options["logger"] && $options["logger"]->info("deactivate branch $_external_id [id: {$_branch_id}]");
-			$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f' WHERE id=:id", array(":id" => $_branch_id));
+		foreach($current_branch_ids as $_branch_id => $_ar) {
+			$_external_id = $_ar["external_branch_id"];
+			$_active = $_ar["active"]==="1";
+			if($_active){
+				$options["logger"] && $options["logger"]->info("deactivate branch $_external_id @ $delivery_service_code [DeliveryServiceBranch#{$_branch_id}]");
+				$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f', updated_at=:now WHERE id=:id", array(":id" => $_branch_id, ":now" => now()));
+			}
 		}
 
 		return true;
