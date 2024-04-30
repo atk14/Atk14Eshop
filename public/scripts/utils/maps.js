@@ -182,7 +182,8 @@ window.UTILS.MultiMap = class {
         } );
       }
 
-      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
+      //let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
+      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
       //this.markers.push( marker );
       this.markerGroup.addLayer( marker );
     }
@@ -190,6 +191,32 @@ window.UTILS.MultiMap = class {
 
   customClusterIcon( cluster ) {
     return L.divIcon({ html: cluster.getChildCount(), className: "map-cluster", iconSize: L.point(40, 40) });
+  }
+
+  createPopupMarkup(store) {
+    let image;
+    let flags;
+    const address = decodeURIComponent( store.address );
+    if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
+			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
+		}
+    if( store.image ) {
+      image = `<img src="${store.image}" alt="${store.title}">`;
+    }
+    let template = `
+    <div class="map-info-popup">
+      <div class="map-info-popup__header">
+      ${image}${flags}
+      </div>
+      <div class="map-info-popup__body">
+        <p class="map-info-popup__title">${store.title}</p>
+        <address>${address}</address>
+        <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
+      </div>
+    </div>
+    `;
+
+    return template;
   }
 
 };
