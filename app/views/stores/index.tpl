@@ -29,7 +29,8 @@ var storeLocatorData = [
 			{javascript_tag}
 				{!$jsdata}
 			{/javascript_tag}
-
+			{* use line below for testing with 1000 markers dataset*}
+			{*render partial="xlarge_dataset_test"*}
 	
 	{*
 		Map container: 
