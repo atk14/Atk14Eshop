@@ -51,6 +51,7 @@ window.UTILS.SimpleMap = class {
   map;
   marker;
   iconOptions = window.UTILS.mapOptions.iconOptions;
+  baseMapLayer;
 
   constructor( mapElement) {
     this.mapElement = mapElement;
@@ -59,10 +60,15 @@ window.UTILS.SimpleMap = class {
     this.lng = mapElement.dataset.lng;
     this.zoom = mapElement.dataset.zoom;
     this.title = mapElement.dataset.title;
-    this.map = L.map( this.mapElement ).setView( [this.lat, this.lng], this.zoom );
-    L.tileLayer( window.UTILS.mapOptions.mapProvider, { 
+    this.baseMapLayer = L.tileLayer( window.UTILS.mapOptions.mapProvider, { 
       attribution: window.UTILS.mapOptions.mapAttribution 
-    } ).addTo( this.map );
+    } );
+    this.map = L.map( this.mapElement, {
+      center: [this.lat, this.lng],
+      zoom: this.zoom,
+      gestureHandling: true,
+      layers: [ this.baseMapLayer ],
+    } );    
     this.marker = L.marker( [this.lat, this.lng], { icon: L.icon( this.iconOptions ) } ).addTo( this.map );
     if( this.title ) {
       this.marker.bindPopup( this.title );
@@ -70,6 +76,9 @@ window.UTILS.SimpleMap = class {
   }
 };
 
+/**
+ * Function for creating custom map icons
+ */
 window.UTILS.customMapIcon = L.Icon.extend( {
   options: window.UTILS.mapOptions.iconOptions
 } );
@@ -133,6 +142,7 @@ window.UTILS.MultiMap = class {
       center: tempCenter,
       zoom: 10,
       layers: [ this.baseMapLayer, this.markerGroup ],
+      gestureHandling: true,
     });
 
     // Zoom to show all markers
@@ -193,6 +203,9 @@ window.UTILS.MultiMap = class {
     return L.divIcon({ html: cluster.getChildCount(), className: "map-cluster", iconSize: L.point(40, 40) });
   }
 
+  /*
+    Create HTML markup for marker popup
+  */
   createPopupMarkup(store) {
     let image = "";
     let flags = "";

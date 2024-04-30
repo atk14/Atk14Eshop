@@ -14,7 +14,8 @@ var vendorStyles = [
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
 	"node_modules/nouislider/dist/nouislider.min.css",
 	"node_modules/leaflet/dist/leaflet.css",
-	"node_modules/leaflet.markercluster/dist/MarkerCluster.css"
+	"node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
 	//"node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
 ];
 
@@ -30,6 +31,7 @@ var vendorScripts = [
 	"node_modules/nouislider/dist/nouislider.min.js",
 	"node_modules/leaflet/dist/leaflet.js",
 	"node_modules/leaflet.markercluster/dist/leaflet.markercluster.js",
+	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.js",
 	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
 ];
 

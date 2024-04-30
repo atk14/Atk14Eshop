@@ -235,7 +235,7 @@ $popupCardHeight: 140px;
 }
 
 // Styles for map popup
-.leaflet-popup-content-wrapper {
+.leaflet-popup-content-wrapper:has(.map-info-popup) {
 	background-color: $mapPopupBg;
 	border-radius: 0;
 	padding: 0;
