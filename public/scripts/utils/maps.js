@@ -194,9 +194,9 @@ window.UTILS.MultiMap = class {
   }
 
   createPopupMarkup(store) {
-    let image;
-    let flags;
-    const address = decodeURIComponent( store.address );
+    let image = "";
+    let flags = "";
+    const address = decodeURIComponent( store.address );console.log(store.isOpen, typeof(store.isOpen));
     if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
 			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
 		}
