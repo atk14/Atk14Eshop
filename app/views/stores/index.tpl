@@ -29,7 +29,7 @@ var storeLocatorData = [
 			{javascript_tag}
 				{!$jsdata}
 			{/javascript_tag}
-			{* use line below for testing with 1000 markers dataset*}
+			{* uncomment line below for testing map with 1000 markers dataset*}
 			{*render partial="xlarge_dataset_test"*}
 	
 	{*

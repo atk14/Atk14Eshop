@@ -92,23 +92,21 @@ window.UTILS.MultiMap = class {
   iconOptions = window.UTILS.mapOptions.iconOptions;
   icon = window.UTILS.mapOptions.icon;
   storeData = storeLocatorData;
-  //markers = new Array();
   markerGroup;
   clusteredLayer;
   cards = new Array();
   positions = new Array();
   baseMapLayer;
-  //storeCardsContainer;
-  //storeCards;
   enableClusters = false;
   clusterDistance = 80;
   proximityOffset = 20;
+  cardListSelector = ".js-stores-cards";
+  cardListItemSelector = ".js-store-item";
+  cardListMapButtonSelector = ".js-store-mapbtn";
 
   constructor( mapElement ) {
     this.mapContainer = mapElement;
     console.log("new MultiMap", this.mapContainer );
-    //this.storeCardsContainer = this.mapContainer.querySelector( ".js-stores-cards" );
-    //this.storeCards = this.storeCardsContainer.querySelectorAll( ".js-store-item" );
     this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
 
@@ -147,6 +145,10 @@ window.UTILS.MultiMap = class {
 
     // Zoom to show all markers
     this.map.fitBounds( this.markerGroup.getBounds() );
+
+    // Connect list of points with map
+    this.createCardListHandlers();
+
   }
 
   /**
@@ -194,6 +196,8 @@ window.UTILS.MultiMap = class {
 
       //let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
+      marker.storeId = store.id;
+      console.log( {marker} );
       //this.markers.push( marker );
       this.markerGroup.addLayer( marker );
     }
@@ -223,13 +227,47 @@ window.UTILS.MultiMap = class {
       </div>
       <div class="map-info-popup__body">
         <p class="map-info-popup__title">${store.title}</p>
-        <address>${address}</address>
+        <address>${address}</address>-${store.id}-
         <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
       </div>
     </div>
     `;
 
     return template;
+  }
+
+  createCardListHandlers() {
+    const cardContainer = document.querySelector( this.cardListSelector );
+    const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
+    [...cards].forEach( function( elem ){
+      elem.querySelector( this.cardListMapButtonSelector ).addEventListener( "click", this.showPopupByStoreId.bind( this ) );
+    }.bind( this ) );
+  }
+
+  showPopupByStoreId( e ) {
+    console.log( "CICLK ON LIST", e.currentTarget.dataset.storeid );
+    const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
+    /**/
+    if( this.enableClusters ){
+      //let visibleItem = this.markerGroup.getVisibleParent( marker );
+      this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
+    } else {
+      const  pos = [ marker.getLatLng() ];
+      const markerBounds = L.latLngBounds( pos );
+      this.map.fitBounds( markerBounds );
+      //marker.openPopup();
+    }
+    marker.openPopup();
+  }
+
+  getMarkerByStoreId( storeId ) {
+    let marker;
+    this.markerGroup.eachLayer( function ( layer ) {
+      if( layer.storeId.toString() === storeId.toString() ) {
+        marker = layer;
+      }
+    } );
+    return marker;
   }
 
 };
