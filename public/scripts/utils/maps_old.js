@@ -225,7 +225,7 @@ window.UTILS.initMultiMap = function( mapElemId ) {
 			//scroll na mapu
 			mapa.setCenterZoom( marker.getCoords(), 14 );
 			mapa.setCenter( marker.getCoords() );
-			$( "html, body" ).animate( { scrollTop: mapContainer.offset().top }, 500 );
+			//$( "html, body" ).animate( { scrollTop: mapContainer.offset().top }, 500 );
 			
 		}
 	} );

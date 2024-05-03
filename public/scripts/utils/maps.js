@@ -236,6 +236,9 @@ window.UTILS.MultiMap = class {
     return template;
   }
 
+  /**
+   * Create click handlers on stores list to show store on map
+   */
   createCardListHandlers() {
     const cardContainer = document.querySelector( this.cardListSelector );
     const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
@@ -244,22 +247,31 @@ window.UTILS.MultiMap = class {
     }.bind( this ) );
   }
 
+  /**
+   * Show info popup by store ID
+   * @param {*} e 
+   */
   showPopupByStoreId( e ) {
+    e.preventDefault;
     console.log( "CICLK ON LIST", e.currentTarget.dataset.storeid );
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
-    /**/
+
     if( this.enableClusters ){
-      //let visibleItem = this.markerGroup.getVisibleParent( marker );
       this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
     } else {
       const  pos = [ marker.getLatLng() ];
       const markerBounds = L.latLngBounds( pos );
       this.map.fitBounds( markerBounds );
-      //marker.openPopup();
     }
+    
     marker.openPopup();
+    
+    this.mapContainer.scrollIntoView( { behavior: "smooth" } );
   }
 
+  /**
+   * Find marker by store ID
+   */
   getMarkerByStoreId( storeId ) {
     let marker;
     this.markerGroup.eachLayer( function ( layer ) {
