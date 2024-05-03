@@ -15,10 +15,10 @@ window.UTILS.initStyleguides = function() {
   
   // Maps
   if( $( "#allstores_map").length > 0 ) {
-    UTILS.initMultiMap( "allstores_map" );
+    new UTILS.MultiMap( document.querySelector( "#allstores_map" ) );
   }
   if( $( "#store-map").length > 0 ) {
-    UTILS.initSimpleMap( "store-map" );
+    new UTILS.simpleMap( "#store-map" );
   }
 
   // List tree collapse all/expand all toggle

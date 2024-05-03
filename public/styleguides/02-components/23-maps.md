@@ -1,13 +1,7 @@
 Maps
 ====
 
-Mapy.cz API is used for displaying maps.
-
-Mapy.cz loader must be called to load API:
-<p><code>
-&lt;script src="https://api.mapy.cz/loader.js"&gt;&lt;/script&gt;<br>
-&lt;script&gt;Loader.load()&lt;/script&gt;
-</code></p>
+Maps are displayed using Leaflet.js library. It supports various tile providers including Mapy.cz or OpenStreetMap.org. Note that most tile providers require map attribution with link and some have additional requirements such as displaying their logo etc.
 
 ## Simple map
 
@@ -124,6 +118,3 @@ Card displayed on map inside <code>.smap</code> container after clicking on mark
 	
 </div>
 [/example]
-
-<script src="https://api.mapy.cz/loader.js"></script>
-<script>Loader.load()</script>

@@ -91,7 +91,7 @@ window.UTILS.MultiMap = class {
   map; // map instance
   iconOptions = window.UTILS.mapOptions.iconOptions;
   icon = window.UTILS.mapOptions.icon;
-  storeData = storeLocatorData;
+  storeData = window.storeLocatorData;
   markerGroup;
   clusteredLayer;
   cards = new Array();
@@ -103,12 +103,15 @@ window.UTILS.MultiMap = class {
   cardListSelector = ".js-stores-cards";
   cardListItemSelector = ".js-store-item";
   cardListMapButtonSelector = ".js-store-mapbtn";
+  preloaderSelector = ".preloader";
+  preloader;
 
   constructor( mapElement ) {
     this.mapContainer = mapElement;
     console.log("new MultiMap", this.mapContainer );
     this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
+    this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
 
     
     
@@ -133,6 +136,8 @@ window.UTILS.MultiMap = class {
 
     this.createMarkers();
 
+    this.baseMapLayer.addEventListener( "loading", function(){ this.preloaderVisible = true }.bind( this ) );
+    this.baseMapLayer.addEventListener( "load", function(){ this.preloaderVisible = false }.bind( this ) );
 
     // Create map
     const tempCenter = [ 50.0736203, 14.4234447 ];
@@ -176,9 +181,8 @@ window.UTILS.MultiMap = class {
    */
   createMarkers() {
     for ( let i = 0; i < this.storeData.length; i++ ) {
-      let store  = this.storeData[ i ]
-      let id = store.id;
-      let icon = L.icon( this.iconOptions )
+      let store  = this.storeData[ i ];
+      let icon = L.icon( this.iconOptions );
 
       // Make icon with X offset if needed
       if( !this.enableClusters && store.markerOffset !== 0 ) {
@@ -194,11 +198,9 @@ window.UTILS.MultiMap = class {
         } );
       }
 
-      //let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( store.title + " :] " );
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
       marker.storeId = store.id;
       console.log( {marker} );
-      //this.markers.push( marker );
       this.markerGroup.addLayer( marker );
     }
   }
@@ -252,7 +254,7 @@ window.UTILS.MultiMap = class {
    * @param {*} e 
    */
   showPopupByStoreId( e ) {
-    e.preventDefault;
+    e.preventDefault();
     console.log( "CICLK ON LIST", e.currentTarget.dataset.storeid );
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
@@ -263,7 +265,7 @@ window.UTILS.MultiMap = class {
       const markerBounds = L.latLngBounds( pos );
       this.map.fitBounds( markerBounds );
     }
-    
+
     marker.openPopup();
     
     this.mapContainer.scrollIntoView( { behavior: "smooth" } );
@@ -281,5 +283,17 @@ window.UTILS.MultiMap = class {
     } );
     return marker;
   }
+
+  /**
+   * controls preloader visibility
+   */
+  set preloaderVisible( visibility ){
+    if ( visibility ) {
+      this.preloader.style.display = "flex";
+    } else {
+      this.preloader.style.display = "none";
+    }
+  }
+
 
 };
