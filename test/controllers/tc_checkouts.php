@@ -41,7 +41,7 @@ class TcCheckouts extends TcBase {
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEmpty($controller->form->get_errors());
 		$this->assertEmpty($controller->flash->error());
-		$this->assertEquals("/{$lang}/checkouts/set_payment_and_delivery_method/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/set_payment_and_delivery_method/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(), [
 			"delivery_method" => $this->delivery_methods["zasilkovna"],
@@ -118,7 +118,7 @@ class TcCheckouts extends TcBase {
 		]);
 
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$client->post("users/create_new", [
 			"login" => "bread.pit",
@@ -136,11 +136,11 @@ class TcCheckouts extends TcBase {
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
 		]);
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$controller = $client->get("checkouts/user_identification");
 		$this->assertEquals(302, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(),[
 			"delivery_method" => $this->delivery_methods["zasilkovna"],
@@ -172,7 +172,7 @@ class TcCheckouts extends TcBase {
 		]);
 
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$controller = $client->post("logins/create_new", [
 			"login" => "rambo",
@@ -180,11 +180,11 @@ class TcCheckouts extends TcBase {
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
 		]);
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$controller = $client->get("checkouts/user_identification");
 		$this->assertEquals(302, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(),[
 			"delivery_method" => $this->delivery_methods["zasilkovna"],
