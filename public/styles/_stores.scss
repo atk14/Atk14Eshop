@@ -192,6 +192,8 @@ $popupCardHeight: 140px;
 			border-radius: 0;
 		}
 	}
+
+	
 	
 	@include media-breakpoint-down(xs){
 		//flex-wrap: wrap;
@@ -211,7 +213,6 @@ $popupCardHeight: 140px;
 			}
 		}
 	}
-	
 }
 
 
@@ -252,4 +253,56 @@ $popupCardHeight: 140px;
 }
 .leaflet-popup-tip {
 	background-color: $mapPopupBg;
+}
+
+.leaflet-container {
+	// little less color
+	.leaflet-pane.leaflet-tile-pane {
+		filter: grayscale(0.25);
+	}
+	// dark map - looks cool but less usable
+	&.dark {
+		.leaflet-pane.leaflet-tile-pane {
+			filter: invert(1) grayscale(0.9);
+		}
+	}
+	&.grayscale {
+		.leaflet-pane.leaflet-tile-pane {
+			filter: grayscale(1);
+		}
+	}
+
+	// Styles for Leaflet maps controls
+	.leaflet-control-zoom {
+		$btnSize: 40px;
+		border: none;
+		& > a {
+			//margin-bottom: 10px;
+			margin-bottom: 1px;
+			border: none;
+			width: $btnSize;
+			height: $btnSize;
+			line-height: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: rgba(black,0.85);
+			color: white;
+			outline: 1px solid rgba(white,0.35);
+			span {
+				line-height: 1;
+			}
+			&:hover {
+				color: white;
+				background-color: $primary;
+				text-decoration: none;
+			}
+		}
+	}
+
+	@media(max-width:600px) {
+		.leaflet-control-zoom {
+			display: none;
+		}
+	}
 }

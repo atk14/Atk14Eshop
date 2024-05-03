@@ -17,9 +17,8 @@ window.UTILS.initStyleguides = function() {
   if( $( "#allstores_map").length > 0 ) {
     new UTILS.MultiMap( document.querySelector( "#allstores_map" ) );
   }
-  if( $( "#store-map").length > 0 ) {
-    new UTILS.simpleMap( "#store-map" );
-  }
+
+  [ ...document.querySelectorAll( ".store-detail__map" ) ].forEach( function( el ) { new UTILS.SimpleMap( el ); } )  ;
 
   // List tree collapse all/expand all toggle
   $( ".js-toggle-all-trees" ).on( "click", function() {

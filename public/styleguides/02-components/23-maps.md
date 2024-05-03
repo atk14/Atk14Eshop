@@ -118,3 +118,18 @@ Card displayed on map inside <code>.smap</code> container after clicking on mark
 	
 </div>
 [/example]
+
+## Optional map styles
+
+### Dark
+Simply add class <code>dark</code> or <code>grayscale</code> to map container. Check if tile provider allows such styling.
+
+[example]
+<div class="store-detail__map dark" data-lat="40.7134344" data-lng="-74.0046681" data-zoom="14"></div>
+[/example]
+
+[example]
+<div class="store-detail__map grayscale" data-lat="52.5145033" data-lng="13.3500369" data-zoom="14"></div>
+[/example]
+
+

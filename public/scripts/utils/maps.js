@@ -55,11 +55,11 @@ window.UTILS.SimpleMap = class {
 
   constructor( mapElement) {
     this.mapElement = mapElement;
-    console.log("new SimpleMap", this.mapElement);
-    this.lat = mapElement.dataset.lat;
-    this.lng = mapElement.dataset.lng;
-    this.zoom = mapElement.dataset.zoom;
-    this.title = mapElement.dataset.title;
+    //console.log("new SimpleMap", this.mapElement);
+    this.lat = this.mapElement.dataset.lat;
+    this.lng = this.mapElement.dataset.lng;
+    this.zoom = this.mapElement.dataset.zoom;
+    this.title = this.mapElement.dataset.title;
     this.baseMapLayer = L.tileLayer( window.UTILS.mapOptions.mapProvider, { 
       attribution: window.UTILS.mapOptions.mapAttribution 
     } );
@@ -108,28 +108,27 @@ window.UTILS.MultiMap = class {
 
   constructor( mapElement ) {
     this.mapContainer = mapElement;
-    console.log("new MultiMap", this.mapContainer );
+    // console.log("new MultiMap", this.mapContainer );
     this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
-    this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
+    if ( this.mapContainer.querySelector( this.preloaderSelector ) ) {
+      this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
+    }
 
     
-    
+    // initialize base map tiles layer
     this.baseMapLayer = L.tileLayer( window.UTILS.mapOptions.mapProvider, { 
       attribution: window.UTILS.mapOptions.mapAttribution 
     } );
 
-    console.log( "clusters", this.enableClusters, typeof(this.enableClusters) );
-    console.log( "spiderify", this.spiderify, typeof(this.spiderify) );
+    // initialize layer for markers
     if( this.enableClusters ) {
-      console.log("yers");
       this.markerGroup = L.markerClusterGroup( {
         showCoverageOnHover: false,
         maxClusterRadius: this.clusterDistance,
         iconCreateFunction: this.customClusterIcon,
       } );
     } else {
-      console.log("nieet");
       this.markerGroup = new L.featureGroup();
       this.calculateMarkerOffsets();
     }
@@ -186,7 +185,6 @@ window.UTILS.MultiMap = class {
 
       // Make icon with X offset if needed
       if( !this.enableClusters && store.markerOffset !== 0 ) {
-        console.log( "has offset" );
         let iconAnchorX = this.iconOptions.iconAnchor [0];
         let iconAnchorY = this.iconOptions.iconAnchor [1];
         let popupAnchorX = this.iconOptions.popupAnchor [0];
@@ -200,7 +198,6 @@ window.UTILS.MultiMap = class {
 
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
       marker.storeId = store.id;
-      console.log( {marker} );
       this.markerGroup.addLayer( marker );
     }
   }
@@ -215,7 +212,7 @@ window.UTILS.MultiMap = class {
   createPopupMarkup(store) {
     let image = "";
     let flags = "";
-    const address = decodeURIComponent( store.address );console.log(store.isOpen, typeof(store.isOpen));
+    const address = decodeURIComponent( store.address );
     if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
 			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
 		}
@@ -229,7 +226,7 @@ window.UTILS.MultiMap = class {
       </div>
       <div class="map-info-popup__body">
         <p class="map-info-popup__title">${store.title}</p>
-        <address>${address}</address>-${store.id}-
+        <address>${address}</address>
         <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
       </div>
     </div>
@@ -242,6 +239,9 @@ window.UTILS.MultiMap = class {
    * Create click handlers on stores list to show store on map
    */
   createCardListHandlers() {
+    if( !document.querySelector( this.cardListSelector ) ) {
+      return;
+    }
     const cardContainer = document.querySelector( this.cardListSelector );
     const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
     [...cards].forEach( function( elem ){
@@ -255,7 +255,6 @@ window.UTILS.MultiMap = class {
    */
   showPopupByStoreId( e ) {
     e.preventDefault();
-    console.log( "CICLK ON LIST", e.currentTarget.dataset.storeid );
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
     if( this.enableClusters ){
@@ -288,10 +287,12 @@ window.UTILS.MultiMap = class {
    * controls preloader visibility
    */
   set preloaderVisible( visibility ){
-    if ( visibility ) {
-      this.preloader.style.display = "flex";
-    } else {
-      this.preloader.style.display = "none";
+    if( this.preloader ) {
+      if ( visibility ) {
+        this.preloader.style.display = "flex";
+      } else {
+        this.preloader.style.display = "none";
+      }
     }
   }
 
