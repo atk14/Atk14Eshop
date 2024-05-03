@@ -11,7 +11,7 @@ use DeliveryService\BranchParser;
  */
 class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
-	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/1/branches";
+	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/11/branches";
 
 	function getExternalBranchId() {
 		return (string)$this["id"];
