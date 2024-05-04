@@ -1,4 +1,4 @@
-{assign enable_paginator_in_ajax_pager 1}
+{assign enable_paginator_in_ajax_pager 0}
 
 {if $enable_paginator_in_ajax_pager}
 
