@@ -171,13 +171,17 @@
 			remain = undefined;
 		} else if ( this.count + this.pageSize > this.sectionSize ) {
 			text = "next_page";
-			url = this.addToUrl( this.url, { offset: this.offset + this.count,
-			                                 limit: this.newPageSize() } );
+			url = this.addToUrl( this.url, {
+				offset: this.offset + this.count,
+				limit: this.newPageSize()
+			} );
 			remain = undefined;
 			this.$buttons.next.addClass("next-page").removeClass("next-items");
 		} else {
 			text = "next";
-			url = this.addToUrl( this.url, { offset: this.offset + this.count } );
+			url = this.addToUrl( this.url, {
+				offset: this.offset + this.count
+			} );
 			remain = Math.min( remain, this.pageSize );
 			this.$buttons.next.addClass("next-items").removeClass("next-page");
 		}
@@ -199,6 +203,10 @@
 		var origOffset = $( window ).scrollTop();
 		var $body = $( "body" );
 		var origOverflowAnchor = $body.css( "overflow-anchor" );
+
+		if ( data.paginator ) {
+			$( "#js--ajax_pager__paginator" ).replaceWith( data.paginator );
+		}
 
 		$body.css( "overflow-anchor", "none" );
 
