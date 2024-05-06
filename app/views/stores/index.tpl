@@ -6,6 +6,7 @@
 
 {else}
 
+{render partial="map_tiles_provider"}
 
 {capture assign="jsdata"}
 var storeLocatorData = [

@@ -56,6 +56,7 @@
 		{!$store->getDescription()|markdown}
 	</div>
 	{if $store->getLocationLat() && $store->getLocationLng()}
+	{render partial="map_tiles_provider"}
 	<div class="store-detail__location col-12 col-md-6">
 		<div class="store-detail__map map_v2" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16" data-title="{$store->getName()}"></div>
 		<p>
