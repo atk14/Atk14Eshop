@@ -43,6 +43,8 @@
 
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
+
+				new UTILS.geoPaste();
 			}
 
 		},

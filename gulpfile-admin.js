@@ -42,6 +42,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/dashboard_charts.js",
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/tooltip.js",
+	"public/admin/scripts/utils/geopaste.js",
 	"public/admin/scripts/application.js",
 ];
 
