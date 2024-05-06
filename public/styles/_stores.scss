@@ -58,6 +58,7 @@
 	margin-bottom: $grid-gutter-width;
 	position: relative;
 	.cluster {
+		// this is obsolete for old Mapy.cz API
 		div {
 			border: none !important;
 			// recommended: bg color same as map marker image color
@@ -82,6 +83,17 @@
 		}
 		color: $gray-600;
 	}
+
+	// little less color
+	.leaflet-pane.leaflet-tile-pane {
+		filter: grayscale(0.25);
+	}
+	// dark map - looks cool but less usable
+	&.dark {
+		.leaflet-pane.leaflet-tile-pane {
+			filter: invert(1) grayscale(0.9);
+		}
+	}
 }
 
 .stores-filter {
@@ -102,42 +114,50 @@
 }
 
 // Karta na mape
+
+$mapPopupBg: white;
+$mapClusterBg: #e70000;
+$popupCardWidth: 355px;
+$popupCardWidthXS: 260px;
+$popupCardHeight: 140px;
+
 .map-info-popup, .smap .card {
-	$cardHeight: 140px;
 	display: flex; // 140 180 35
 	flex-direction: row;
 	padding: 0 !important;
-	width: 355px;
-	min-height: $cardHeight;
+	width: $popupCardWidth;
+	min-height: $popupCardHeight;
 	border-radius: 0 !important;
-	background-color: white;
 	box-shadow: 2px 2px 20px 0px rgba(0,0,0,0.6) !important;
 	border: none !important;
 	margin-bottom: 16px;
-	.card-header {
+	.card-header, .map-info-popup__header {
 		display: block;
-		flex-basis: $cardHeight;
-		min-width: $cardHeight;
+		flex-basis: $popupCardHeight;
+		min-width: $popupCardHeight;
 		padding: 0;
 		img {
 			max-width: 100%;
 			height: auto;
 		}
 	}
-	.card-body {
+	.card-body, .map-info-popup__body {
 		flex-basis: 215px;
-		min-height: $cardHeight;
+		min-height: $popupCardHeight;
 		padding: 0.5rem;// 0.6rem 0.75rem 0.6rem;
 		padding-right: 25px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: flex-start;
-		.card-title {
+		.card-title, .map-info-popup__title {
 			font-size: 0.8785rem;
 			font-weight: 600;
 			margin-bottom: 0.5rem;
 			text-transform: none;
+		}
+		p {
+			margin: 0 0 1em 0;
 		}
 		address {
 			margin: 0;
@@ -147,9 +167,10 @@
 		}
 		.btn {
 			width: auto;
+			color: white;
 		}
 	}
-	.card-footer {
+	.card-footer, .map-info-popup__ {
 		display: none;
 	}
 	
@@ -164,20 +185,124 @@
 	.flags {
 		position: absolute;
 		left: 0; top: 0;
-		max-width: $cardHeight;
+		max-width: $popupCardHeight;
 		display: block;
 		.badge {
 			display: inline-block;
 			border-radius: 0;
 		}
 	}
+
+	
 	
 	@include media-breakpoint-down(xs){
 		//flex-wrap: wrap;
-		width: 300px;
-		.card-body {
-			flex-basis: 160px;
+		width: $popupCardWidthXS;
+		height: auto;
+		display: block;
+		margin-bottom: 0;
+		.card-header, .map-info-popup__header {
+			display: flex;
+			padding: 10px 10px 0 10px;
+			> img {
+				width: 80px; height: auto;
+				margin-right: 10px;
+			}
+			.flags {
+				position: static;
+			}
 		}
 	}
-	
+}
+
+
+
+
+// Styles for map clusters
+.map-cluster {
+	// Note that $clusterSize must correspond with javascript iconSize property in customClusterIcon() function!
+	$clusterSize: 40px;
+	width: $clusterSize;
+	height: $clusterSize;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $mapClusterBg;
+	background-clip: padding-box;
+	border-radius: divide( $clusterSize, 2 );
+	font-size: 1rem;
+	font-weight: $font-weight-bold;
+	color: white;
+}
+
+// Styles for map popup
+.leaflet-popup-content-wrapper:has(.map-info-popup) {
+	background-color: $mapPopupBg;
+	border-radius: 0;
+	padding: 0;
+	width: $popupCardWidth;
+	height: $popupCardHeight;
+	.leaflet-popup-content {
+		padding: 0;
+		margin: 0;
+	}
+	@include media-breakpoint-down(xs){
+		width: $popupCardWidthXS;
+		height: auto;
+	}
+}
+.leaflet-popup-tip {
+	background-color: $mapPopupBg;
+}
+
+.leaflet-container {
+	// little less color
+	.leaflet-pane.leaflet-tile-pane {
+		filter: grayscale(0.25);
+	}
+	// dark map - looks cool but less usable
+	&.dark {
+		.leaflet-pane.leaflet-tile-pane {
+			filter: invert(1) grayscale(0.9);
+		}
+	}
+	&.grayscale {
+		.leaflet-pane.leaflet-tile-pane {
+			filter: grayscale(1);
+		}
+	}
+
+	// Styles for Leaflet maps controls
+	.leaflet-control-zoom {
+		$btnSize: 40px;
+		border: none;
+		& > a {
+			//margin-bottom: 10px;
+			margin-bottom: 1px;
+			border: none;
+			width: $btnSize;
+			height: $btnSize;
+			line-height: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: rgba(black,0.85);
+			color: white;
+			outline: 1px solid rgba(white,0.35);
+			span {
+				line-height: 1;
+			}
+			&:hover {
+				color: white;
+				background-color: $primary;
+				text-decoration: none;
+			}
+		}
+	}
+
+	@media(max-width:600px) {
+		.leaflet-control-zoom {
+			display: none;
+		}
+	}
 }

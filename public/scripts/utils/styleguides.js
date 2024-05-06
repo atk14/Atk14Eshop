@@ -15,11 +15,10 @@ window.UTILS.initStyleguides = function() {
   
   // Maps
   if( $( "#allstores_map").length > 0 ) {
-    UTILS.initMultiMap( "allstores_map" );
+    new UTILS.MultiMap( document.querySelector( "#allstores_map" ) );
   }
-  if( $( "#store-map").length > 0 ) {
-    UTILS.initSimpleMap( "store-map" );
-  }
+
+  [ ...document.querySelectorAll( ".store-detail__map" ) ].forEach( function( el ) { new UTILS.SimpleMap( el ); } )  ;
 
   // List tree collapse all/expand all toggle
   $( ".js-toggle-all-trees" ).on( "click", function() {
