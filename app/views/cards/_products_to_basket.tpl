@@ -94,7 +94,7 @@
 
 							{if $price && $price->priceExists() && !WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<p>
-									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary" _rel="nofollow"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a}
+									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a}
 								</p>
 							{else}
 								<p><em>{t}This product is sold out{/t}</em></p>

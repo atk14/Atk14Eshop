@@ -11,6 +11,7 @@
  * @fixture delivery_service_branches
  * @fixture payment_methods
  * @fixture shipping_combinations
+ * @fixture users
  */
 class TcCheckouts extends TcBase {
 
@@ -39,7 +40,8 @@ class TcCheckouts extends TcBase {
 
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEmpty($controller->form->get_errors());
-		$this->assertEquals("/{$lang}/checkouts/set_payment_and_delivery_method/", ($client->getLocation()));
+		$this->assertEmpty($controller->flash->error());
+		$this->assertEquals("/{$lang}/checkouts/set_payment_and_delivery_method/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(), [
 			"delivery_method" => $this->delivery_methods["zasilkovna"],
@@ -62,8 +64,9 @@ class TcCheckouts extends TcBase {
 			"_return_uri_" => Atk14Url::BuildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
 		]);
 
-		$this->assertEquals(200, $client->getStatusCode());
+		$this->assertEquals(303, $client->getStatusCode()); // i pri chybe dochazi k presmerovani zpet
 		$this->assertNotEmpty($controller->form->get_errors());
+		$this->assertNotEmpty($controller->flash->error());
 		$this->assertArrayHasKey("delivery_service_branch_id", $controller->form->errors);
 		$this->assertEquals("Dispensing point not found", array_shift($controller->form->errors["delivery_service_branch_id"]));
 	}
@@ -115,7 +118,7 @@ class TcCheckouts extends TcBase {
 		]);
 
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$client->post("users/create_new", [
 			"login" => "bread.pit",
@@ -133,11 +136,11 @@ class TcCheckouts extends TcBase {
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
 		]);
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$controller = $client->get("checkouts/user_identification");
 		$this->assertEquals(302, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(),[
 			"delivery_method" => $this->delivery_methods["zasilkovna"],
@@ -151,7 +154,6 @@ class TcCheckouts extends TcBase {
 	function test_remember_pickup_point_on_login_user() {
 		global $ATK14_GLOBAL;
 
-		return;
 		$lang = $ATK14_GLOBAL->getDefaultLang();
 		$client = $this->client;
 		$this->_setup_basket();
@@ -170,19 +172,19 @@ class TcCheckouts extends TcBase {
 		]);
 
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
-		$client->post("logins/create_new", [
+		$controller = $client->post("logins/create_new", [
 			"login" => "rambo",
 			"password" => "secret",
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
 		]);
 		$this->assertEquals(303, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/user_identification/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
 		$controller = $client->get("checkouts/user_identification");
 		$this->assertEquals(302, $client->getStatusCode());
-		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", ($client->getLocation()));
+		$this->assertEquals("/{$lang}/checkouts/set_billing_and_delivery_data/", $client->getLocation());
 
 		$this->_check_delivery_method_data($controller->basket->getDeliveryMethodData(),[
 			"delivery_method" => $this->delivery_methods["zasilkovna"],

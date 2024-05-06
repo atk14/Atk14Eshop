@@ -15,6 +15,8 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 	function run() {
 		global $argv;
 
+		ini_set("memory_limit","600M");
+
 		array_shift($argv);
 		array_shift($argv);
 
@@ -23,8 +25,11 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 			$required[] = $code;
 		}
 
+		$force_import = false;
+
 		if ($required) {
 			$service_codes = $required;
+			$force_import = true;
 		} else {
 			$service_codes = $this->dbmole->selectIntoArray("SELECT code FROM delivery_services");
 		}
@@ -38,7 +43,7 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 
 			$this->logger->info(sprintf("going to import branches for DeliveryService#%s, code=%s",$ds->getId(),$ds->getCode()));
 			$this->logger->flush();
-			DeliveryService::UpdateBranches($ds->getCode(),["logger" => $this->logger]);
+			DeliveryService::UpdateBranches($ds->getCode(),["logger" => $this->logger, "force_import" => $force_import]);
 		}
 	}
 }

@@ -112,7 +112,8 @@ class OrdersController extends AdminController {
 			$country = new Country($countryCode);
 			if($country->isEuCountry() && !$country->isCzechRepublic()){
 				$this->tpl_data["show_cross_border_transactions_within_eu_info"] = true;
-				$this->tpl_data["vat_id_validation_url"] = "http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=".urlencode($countryCode)."&number=".urlencode($vatNumber)."&traderName=&traderStreet=&traderPostalCode=&traderCity=&requesterMemberStateCode=&requesterNumber=&action=check&check=Verify";
+				// $this->tpl_data["vat_id_validation_url"] = "http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=".urlencode($countryCode)."&number=".urlencode($vatNumber)."&traderName=&traderStreet=&traderPostalCode=&traderCity=&requesterMemberStateCode=&requesterNumber=&action=check&check=Verify";
+				$this->tpl_data["vat_id_validation_url"] = sprintf("https://ec.europa.eu/taxation_customs/vies/rest-api/ms/%s/vat/%s",urlencode($countryCode),urlencode($vatNumber));
 			}
 		}
 

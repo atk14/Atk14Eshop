@@ -946,7 +946,7 @@ class Basket extends BasketOrOrder {
 		$payment_method = $this->getPaymentMethod();
 		$payment_gateway = $payment_method->getPaymentGateway();
 
-		$values["delivery_method_data"] = $this->g("delivery_method_data");
+		$values["delivery_method_data"] = $this->getDeliveryMethodData(["as_json" => true]);
 
 		$delivery_fee_incl_vat = $this->getDeliveryFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
 		$delivery_fee_vat_percent = $incl_vat ? $delivery_method->getVatPercent($delivery_country) : 0.0;

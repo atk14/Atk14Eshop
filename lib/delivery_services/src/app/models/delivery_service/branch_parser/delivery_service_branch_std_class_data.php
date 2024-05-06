@@ -2,17 +2,32 @@
 
 namespace DeliveryService\BranchParser;
 
-class DeliveryServiceJsonBranchData extends SimpleJsonElement {
+class SimpleStdClassElement extends \StdClass {
+	public function __construct(
+		$data,
+		int $options = 0
+	) {
+		$this->_data = $data;
+	}
+}
+class DeliveryServiceBranchStdClassData extends SimpleStdClassElement {
 
 	public static function GetInstance(
-		string $data,
+		$data,
 		int $options = 0,
 		bool $dataIsURL = false,
 		string $namespaceOrPrefix = "",
 		bool $isPrefix = false
 	) {
 		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+		$instance->_data = $data;
 		return $instance;
+	}
+
+	public function _getBranchNodes($options=[]) {
+		return array_map(function($e) {
+			return new static($e);
+		}, $this->_data);
 	}
 
 	function toArray() {
@@ -34,11 +49,6 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 			"location_longitude" => $this->getLongitude(),
 			"active" => $this->isActive(),
 		];
-	}
-
-	static function FetchFeed($feed_url) {
-		$data = @file_get_contents($feed_url);
-		return $data;
 	}
 }
 
