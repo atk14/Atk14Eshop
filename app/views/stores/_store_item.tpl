@@ -1,4 +1,3 @@
-{*a action="detail" id=$store _class="card card--store js-store-item" _data-storeid=$store->getID()*}
 <div class="card card--store js-store-item" data-storeid="{$store->getID()}">
 	<div class="d-none js-search-data">
 		{$store->getName()} {!$store->getAddress()} {to_ascii}{$store->getName()} {!$store->getAddress()}{/to_ascii}
@@ -19,5 +18,4 @@
 		<a href="#allstores_map" class="btn btn-sm btn-outline-primary js-store-mapbtn" data-storeid="{$store->getID()}"><span class="card-footer__icon">{!"map"|icon}</span> <span>{t escape=no}Ukázat na&nbsp;mapě{/t}</span></a>
 		{/if}
 	</div>
-{*/a*}
 </div>

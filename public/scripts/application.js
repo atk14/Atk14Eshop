@@ -302,8 +302,10 @@
 
 			// Action-specific code
 			index: function() {
-				UTILS.initMultiMap( "allstores_map" );
 
+				// Init map
+				new UTILS.MultiMap( document.querySelector( ".stores_v2" ) );
+				
 				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
@@ -318,8 +320,8 @@
 			// Action-specific code
 			detail: function() {
 
-				// Mapa
-				UTILS.initSimpleMap( "store-map" );
+				// Init map
+				new UTILS.SimpleMap( document.querySelector( ".map_v2" ) );
 			}
 
 		},

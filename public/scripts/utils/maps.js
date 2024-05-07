@@ -1,289 +1,373 @@
+/**
+ * Classes for display of maps using Leaflet library.
+ * Various tile providers may be used, most notable are Mapy.cz and Openstreetmaps.org
+ * 
+ * window.UTILS.simpleMap: simple class to display single location with marker
+ * 
+ * window.UTILS.multiMap: class to display multiple clustered markers with popups
+ * 
+ * Dependencies: Leaflet - https://leafletjs.com/
+ * 
+ */
+
 window.UTILS = window.UTILS || { };
 
-window.UTILS.initSimpleMap = function( mapElemId ) {
+/**
+ * General map options
+ */
+window.UTILS.mapHelpers = class {
 
-	// Init simple map with marker
-	// Parameter mapElemId is id of map HTML element (without #)
-	// HTML element has attributes id, data-lat, data-lng, data-zoom
-	// <div id="mymap" data-lat="50.0770708" data-lng="14.4862577" data-zoom="16">
+  // Tile provider API URL
+  static get mapProvider() {
+    let tileURL = null;
+    let APIKey = "";
+    if( window.mapTilesAPIkey ) {
+      // Get tile API key which should be writen in page source
+      APIKey = window.mapTilesAPIkey;
+    }
+    switch( this.getTileProvider() ) {
+      case "mapycz":
+        tileURL = `https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=${APIKey}`;
+        break;
+      case "osm":
+      default:
+        tileURL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    }
+    return tileURL;
+  };
 
-	// Declare some global vars so eslint won`t insult you
-	/* global SMap */
-	/* global JAK */
+  // Tile attribution as tile provider requires
+  static get mapAttribution() {
+    let attribution = null;
+    switch( this.getTileProvider() ) {
+      case "mapycz":
+        attribution = "<a href=\"https://api.mapy.cz/copyright\" target=\"_blank\">&copy; Seznam.cz a.s. a další</a>";
+        break;
+      case "osm":
+      default:
+        attribution = "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors";
+    }
+    return attribution;
+  }
 
-	var $ = window.jQuery; 
+  // Marker icon options
+  static iconOptions = {
+    iconUrl: "/public/dist/images/map-marker-red.svg",
+    iconSize: [30, 42],
+    iconAnchor: [15, 42],
+    popupAnchor: [0, -40],
+  };
 
-	var lat =				$( "#" + mapElemId ).data( "lat" );
-	var lng = 			$( "#" + mapElemId ).data( "lng" );
-	var initZoom = 	$( "#" + mapElemId ).data( "zoom" );
-	var title =			$( "#" + mapElemId ).data( "title" );
-	var markerSrc = "/public/dist/images/map-marker-red.svg";
+  // Get tile provider which should be writen in page source
+  static getTileProvider() {
+    if( window.mapTilesProvider ){
+      return window.mapTilesProvider;
+    } else {
+      return "osm";
+    }
+  }
 
-	var stred = SMap.Coords.fromWGS84( lng, lat );
-	var mapa = new SMap( JAK.gel( mapElemId ), stred, initZoom );
-	mapa.addDefaultLayer( SMap.DEF_BASE ).enable();
-
-	var mouse = new SMap.Control.Mouse( SMap.MOUSE_ZOOM + SMap.MOUSE_PAN );
-	mapa.addControl( mouse );
-
-	var zoom = new SMap.Control.Zoom();
-	mapa.addControl( zoom );
-
-	var sync = new SMap.Control.Sync();
-	mapa.addControl( sync );
-
-	var layer = new SMap.Layer.Marker();
-	mapa.addLayer( layer );
-	layer.enable();
-
-	var options = {
-		url: markerSrc,
-		anchor: { left: 15, bottom: 0 },
-		title: title
-	};
-	var marker = new SMap.Marker( stred, "myMarker", options );
-	layer.addMarker( marker );
+  // Get tile provider logo required by tile provider
+  static addTileProviderLogo( map ) {
+    if( this.getTileProvider() === "mapycz" ) {
+      const LogoControl = L.Control.extend({
+        options: {
+          position: "bottomleft",
+        },
+      
+        // eslint-disable-next-line no-unused-vars
+        onAdd: function ( map ) {
+          const container = L.DomUtil.create( "div" );
+          const link = L.DomUtil.create( "a", "", container );
+      
+          link.setAttribute( "href", "http://mapy.cz/" );
+          link.setAttribute( "target", "_blank" );
+          link.innerHTML = "<img src=\"https://api.mapy.cz/img/api/logo.svg\">";
+          L.DomEvent.disableClickPropagation( link );
+      
+          return container;
+        },
+      });
+      new LogoControl().addTo( map );
+    }
+  }
 };
 
-window.UTILS.initMultiMap = function( mapElemId ) {
-	// Init map with multiple markers
-	// Parameter mapElemId is id of map HTML element (without #)
 
-	// Declare some global vars so eslint won`t insult you
-	/* global SMap */
-	/* global JAK */
-	/* global storeLocatorData */
-	/* global storeLocatorBounds */
+/**
+ * Simple map with marker
+ * Marker position, default zoom and optional title are set as data attributes.
+ * Usage:
+ * HTML:
+ * <div class="my_map" id="store-map" data-lat="50.0770708" data-lng="14.4862577" data-zoom="16" data-title="Elegantní lékárna"></div>
+ * JS:
+ * window.UTILS.new SimpleMap( document.querySelector( ".my_map" ) );
+ */
+window.UTILS.SimpleMap = class {
+  mapElement;
+  lat;
+  lng;
+  zoom;
+  title;
+  map;
+  marker;
+  iconOptions = window.UTILS.mapHelpers.iconOptions;
+  baseMapLayer;
 
-	var $ = window.jQuery;
-	// console.log( "initMultiMap", mapElemId );
-	
-	var markerSrc = "/public/dist/images/map-marker-red.svg";
-	var storeData = storeLocatorData;
-	var markers = new Array();
-	var cards = new Array();
-	var positions = new Array();
-	var storeCardsContainer = $( ".js-stores-cards" );
-	var storeCards = $( ".js-stores-cards .js-store-item");
-	var mapContainer = $( "#" + mapElemId );
-	var enableClusters = mapContainer.data( "enable_clusters" );
-	var clusterDistance = mapContainer.data( "cluster_distance" );
-	var centerZoom;
+  constructor( mapElement) {
+    this.mapElement = mapElement;
+    this.lat = this.mapElement.dataset.lat;
+    this.lng = this.mapElement.dataset.lng;
+    this.zoom = this.mapElement.dataset.zoom;
+    this.title = this.mapElement.dataset.title;
 
-	// Init mapy
-	var stred = SMap.Coords.fromWGS84( 14.4234447, 50.0736203 );
-	var mapa = new SMap( JAK.gel( mapElemId ), stred, 10 );
-	mapa.addDefaultLayer( SMap.DEF_BASE ).enable();
+    // Create basemap tile layer
+    this.baseMapLayer = L.tileLayer( window.UTILS.mapHelpers.mapProvider, { 
+      attribution: window.UTILS.mapHelpers.mapAttribution 
+    } );
 
-	var mouse = new SMap.Control.Mouse( SMap.MOUSE_ZOOM + SMap.MOUSE_PAN );
-	mapa.addControl( mouse );
+    // Create map
+    this.map = L.map( this.mapElement, {
+      center: [this.lat, this.lng],
+      zoom: this.zoom,
+      gestureHandling: true,
+      layers: [ this.baseMapLayer ],
+    } );
 
-	var zoom = new SMap.Control.Zoom();
-	mapa.addControl( zoom );
+    // Add marker
+    this.marker = L.marker( [this.lat, this.lng], { icon: L.icon( this.iconOptions ) } ).addTo( this.map );
+    if( this.title ) {
+      this.marker.bindPopup( this.title );
+    }
 
-	var sync = new SMap.Control.Sync();
-	mapa.addControl( sync );
+    // Add provider logo if required
+    window.UTILS.mapHelpers.addTileProviderLogo( this.map );
+  }
+};
 
-	var markerLayer = new SMap.Layer.Marker();
-	mapa.addLayer( markerLayer );
-	markerLayer.enable();
-	
-	var onMapLoaded = function(){
+/**
+ * Function for creating custom map icons
+ */
+window.UTILS.customMapIcon = L.Icon.extend( {
+  options: window.UTILS.mapHelpers.iconOptions
+} );
 
-		// Tiles are loaded - remove listener and preloader
-		signalLoaded.removeListener( loadListenerId );
-		var preloader = document.getElementById( "stores-index__maploader" );
-		if( preloader ){
-			preloader.remove();
+/**
+ * Multiple locations map
+ */
+window.UTILS.MultiMap = class {
+  mapContainer; // main html container for map
+  map; // map instance
+  iconOptions = window.UTILS.mapHelpers.iconOptions;
+  icon = window.UTILS.mapHelpers.icon;
+  storeData = window.storeLocatorData;
+  markerGroup;
+  clusteredLayer;
+  cards = new Array();
+  positions = new Array();
+  baseMapLayer;
+  enableClusters = false;
+  clusterDistance = 80;
+  proximityOffset = 20;
+  cardListSelector = ".js-stores-cards";
+  cardListItemSelector = ".js-store-item";
+  cardListMapButtonSelector = ".js-store-mapbtn";
+  preloaderSelector = ".preloader";
+  preloader;
+
+  constructor( mapElement ) {
+    this.mapContainer = mapElement;
+    // console.log("new MultiMap", this.mapContainer );
+    this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
+    this.clusterDistance = this.mapContainer.dataset.cluster_distance;
+    if ( this.mapContainer.querySelector( this.preloaderSelector ) ) {
+      this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
+    }
+
+    // initialize base map tiles layer
+    this.baseMapLayer = L.tileLayer( window.UTILS.mapHelpers.mapProvider, { 
+      attribution: window.UTILS.mapHelpers.mapAttribution 
+    } );
+
+    // initialize layer for markers
+    if( this.enableClusters ) {
+      this.markerGroup = L.markerClusterGroup( {
+        showCoverageOnHover: false,
+        maxClusterRadius: this.clusterDistance,
+        iconCreateFunction: this.customClusterIcon,
+      } );
+    } else {
+      this.markerGroup = new L.featureGroup();
+      this.calculateMarkerOffsets();
+    }
+
+    // Create markers
+    this.createMarkers();
+
+    // Show / hide preloader
+    this.baseMapLayer.addEventListener( "loading", function(){ this.preloaderVisible = true }.bind( this ) );
+    this.baseMapLayer.addEventListener( "load", function(){ this.preloaderVisible = false }.bind( this ) );
+
+    // Create map
+    const tempCenter = [ 50.0736203, 14.4234447 ];
+    this.map = L.map( this.mapContainer, {
+      center: tempCenter,
+      zoom: 10,
+      layers: [ this.baseMapLayer, this.markerGroup ],
+      gestureHandling: true,
+    });
+
+    // Add provider logo if required
+    window.UTILS.mapHelpers.addTileProviderLogo( this.map );
+
+    // Zoom to show all markers
+    this.map.fitBounds( this.markerGroup.getBounds() );
+
+    // Connect list of points with map
+    this.createCardListHandlers();
+
+  }
+
+  /**
+   * If there are more markers in the same location,
+   * let`s calculate x offset so they don`t overlap
+   * (3 decimals precision)
+   */
+  calculateMarkerOffsets() {
+    for ( let i = 0; i < this.storeData.length; i++ ) {
+      let iLat = Number( Math.round( this.storeData[ i ].lat + "e3" ) + "e-3" );
+      let iLng = Number( Math.round( this.storeData[ i ].lng + "e3" ) + "e-3" );
+      this.storeData[ i ].markerOffset = 0;
+      for ( let j = 0; j < i; j++ ) {
+        let jLat = Number( Math.round( this.storeData[ j ].lat + "e3" ) + "e-3" );
+        let jLng = Number( Math.round( this.storeData[ j ].lng + "e3" ) + "e-3" );
+        if ( iLat === jLat && iLng === jLng ) {
+          this.storeData[ i ].markerOffset++;
+        }
+      }
+    }
+  }
+
+  /**
+   * Create and place markers
+   */
+  createMarkers() {
+    for ( let i = 0; i < this.storeData.length; i++ ) {
+      let store  = this.storeData[ i ];
+      let icon = L.icon( this.iconOptions );
+
+      // Make icon with X offset if needed
+      if( !this.enableClusters && store.markerOffset !== 0 ) {
+        let iconAnchorX = this.iconOptions.iconAnchor [0];
+        let iconAnchorY = this.iconOptions.iconAnchor [1];
+        let popupAnchorX = this.iconOptions.popupAnchor [0];
+        let popupAnchorY = this.iconOptions.popupAnchor [1];
+
+        icon = new window.UTILS.customMapIcon( { 
+          iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],
+          popupAnchor: [ popupAnchorX - ( store.markerOffset * this.proximityOffset ), popupAnchorY ],
+        } );
+      }
+
+      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
+      marker.storeId = store.id;
+      this.markerGroup.addLayer( marker );
+    }
+  }
+
+  customClusterIcon( cluster ) {
+    return L.divIcon({ html: cluster.getChildCount(), className: "map-cluster", iconSize: L.point(40, 40) });
+  }
+
+  /*
+    Create HTML markup for marker popup
+  */
+  createPopupMarkup(store) {
+    let image = "";
+    let flags = "";
+    const address = decodeURIComponent( store.address );
+    if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
+			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
 		}
-	}
-	
-	// Listen to when tiles are loaded
-	var signalLoaded = mapa.getSignals();
-	var loadListenerId = signalLoaded.addListener( window, "tileset-load", onMapLoaded );
+    if( store.image ) {
+      image = `<img src="${store.image}" alt="${store.title}">`;
+    }
+    let template = `
+    <div class="map-info-popup">
+      <div class="map-info-popup__header">
+      ${image}${flags}
+      </div>
+      <div class="map-info-popup__body">
+        <p class="map-info-popup__title">${store.title}</p>
+        <address>${address}</address>
+        <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
+      </div>
+    </div>
+    `;
 
-	// Urcit posun markeru, pokud je na stejnem miste, jako nejaky jiny
-	// (stejnost na 3 desetinna mista)
-	for ( var i = 0; i < storeData.length; i++ ) {
-		var iLat = Number( Math.round( storeData[ i ].lat + "e3" ) + "e-3" );
-		var iLng = Number( Math.round( storeData[ i ].lng + "e3" ) + "e-3" );
-		storeData[ i ].markerOffset = 0;
-		for ( var j = 0; j < i; j++ ) {
-			var jLat = Number( Math.round( storeData[ j ].lat + "e3" ) + "e-3" );
-			var jLng = Number( Math.round( storeData[ j ].lng + "e3" ) + "e-3" );
-			if ( iLat === jLat && iLng === jLng ) {
-				storeData[ i ].markerOffset++;
-			}
-		}
-	}
+    return template;
+  }
 
-	// Rozmistit markery
-	for ( var i = 0; i < storeData.length; i++ ) {
-		var id = storeData[ i ].id;
+  /**
+   * Create click handlers on stores list to show store on map
+   */
+  createCardListHandlers() {
+    if( !document.querySelector( this.cardListSelector ) ) {
+      return;
+    }
+    const cardContainer = document.querySelector( this.cardListSelector );
+    const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
+    [...cards].forEach( function( elem ){
+      elem.querySelector( this.cardListMapButtonSelector ).addEventListener( "click", this.showPopupByStoreId.bind( this ) );
+    }.bind( this ) );
+  }
 
-		// Obsah karty ("vizitka") v mape
-		var cardHeader = "<img src=\"" + storeData[ i ].image;
-		cardHeader += ( "\" alt=\"" + storeData[ i ].title + "\">" );
-		
-		if( storeData[ i ].isOpen !== false && typeof( storeData[ i ].isOpen ) === "string" ){
-			cardHeader += "<div class=\"flags\"><span class=\"badge badge-success\">" + storeData[ i ].isOpen + "</span></span>";
-		}
+  /**
+   * Show info popup by store ID
+   * @param {*} e 
+   */
+  showPopupByStoreId( e ) {
+    e.preventDefault();
+    const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
-		var cardBody = "<div><p class=\"card-title\">" + storeData[ i ].title + "</p>";
-		cardBody += "<address>" + decodeURIComponent( storeData[ i ].address ) + "</address></div>";
-		cardBody += "<a href=\"" + storeData[ i ].detailURL;
-		cardBody += "\" class=\"btn btn-sm btn-primary\">";
-		cardBody += "Prodejna <span class=\"fas fa-arrow-right\"></span></a>";
+    if( this.enableClusters ){
+      this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
+    } else {
+      const  pos = [ marker.getLatLng() ];
+      const markerBounds = L.latLngBounds( pos );
+      this.map.fitBounds( markerBounds );
+    }
 
-		var cardFooter = "";
+    marker.openPopup();
+    
+    this.mapContainer.scrollIntoView( { behavior: "smooth" } );
+  }
 
-		// Vytvoreni karty / vizitky
-		var card = new SMap.Card( 355 );
-		//card.setSize( 355, 143 );
-		card.setSize( 355, 200 );
-		card.getHeader().innerHTML = cardHeader;
-		card.getBody().innerHTML = cardBody;
-		card.getFooter().innerHTML = cardFooter;
-		card.getBody().style.height = "140px";
-		cards.push( card );
+  /**
+   * Find marker by store ID
+   */
+  getMarkerByStoreId( storeId ) {
+    let marker;
+    this.markerGroup.eachLayer( function ( layer ) {
+      if( layer.storeId.toString() === storeId.toString() ) {
+        marker = layer;
+      }
+    } );
+    return marker;
+  }
 
-		var markerOptions = {
-			url: markerSrc,
-			anchor: { left: 15, bottom: 0 },
-			title: storeData[ i ].title,
-		};
+  /**
+   * controls preloader visibility
+   */
+  set preloaderVisible( visibility ){
+    if( this.preloader ) {
+      if ( visibility ) {
+        this.preloader.style.display = "flex";
+      } else {
+        this.preloader.style.display = "none";
+      }
+    }
+  }
 
-		// Offset - posun anchoru markeru u markeru se stejnou polohou
-		if ( storeData[ i ].markerOffset > 0 ) {
-			var markerOptions = {
-				url: markerSrc,
-				anchor: { left: -8 * ( storeData[ i ].markerOffset ), bottom: 0 }
-			};
-		}
 
-		// Vytvoreni markeru a pripojeni vizitky
-		var pos = SMap.Coords.fromWGS84( storeData[ i ].lng, storeData[ i ].lat );
-		positions.push( pos );
-		markers.push( new SMap.Marker( pos, "storeMarker_" + id, markerOptions ) );
-		markers[ i ].decorate( SMap.Marker.Feature.Card, card );
-	}
-
-	// Add markers to map
-	markerLayer.addMarker( markers );
-
-	// Klik na marker
-	mapa.getSignals().addListener( this, "marker-click", function( e ) {
-		var marker = e.target;
-
-		try {
-	
-			var id = marker.getId();
-			var numId = parseInt( id.split( "_" )[ 1 ] );
-
-			// Checknout velikost viewportu a nastavit velikost karty
-			var screenWidth = $( window ).width();
-
-			// Neumime se dostat k jedne karte, tak musime u vsech
-			for ( var i = 0; i < cards.length; i++ ) {
-				if ( screenWidth < 400 ) {
-					cards[ i ].setSize( 300, 167 );
-				} else {
-					cards[ i ].setSize( 355, 143 );
-				}
-			}
-
-			// Obarvit aktivni kartu v seznamu pod mapou
-			storeCards.removeClass( "active" );
-			storeCardsContainer.find( ".js-store-item[data-storeid=" + numId + "]" ).addClass( "active" );
-		}
-		catch ( err ) {
-	
-			// Check if we clicked on cluster
-			if( marker._clusterOptions ){
-
-				// Close open card in tha map and deactivate list item
-				var cardCloser = mapContainer.find( " .card .close" );
-				cardCloser.trigger( "click" );
-				storeCards.removeClass( "active" );
-			} 
-		}
-	} );
-
-	// Klik na kartu pod mapou - triggerujeme klik na prislusny marker na mape
-	storeCards.find( ".js-store-mapbtn" ).on( "click", function( e ) {
-		e.preventDefault();
-		var id = $( this ).data( "storeid" );
-		var marker = null;
-		for ( var i = 0; i < markers.length; i++ ) {
-			var mid = markers[ i ].getId();
-			if ( "storeMarker_" + id === mid ) {
-				marker = markers[ i ];
-			}
-		}
-		if( marker ){
-			marker.click();
-			//scroll na mapu
-			mapa.setCenterZoom( marker.getCoords(), 14 );
-			mapa.setCenter( marker.getCoords() );
-			$( "html, body" ).animate( { scrollTop: mapContainer.offset().top }, 500 );
-			
-		}
-	} );
-
-	// Zavreni karty / vizitky - odbarvit aktivni kartu
-	mapa.getSignals().addListener( this, "card-close-click", function() {
-		$( ".store-item" ).removeClass( "active" );
-	} );
-	
-	
-	if( typeof storeLocatorBounds !== "undefined" ) {
-
-		// If map bounds in storeLocatorBounds are defined, we use them to calculate center and zoom
-		var bounds = new Array();
-		for ( var i = 0; i < storeLocatorBounds.length; i++ ) {
-			bounds.push( SMap.Coords.fromWGS84( storeLocatorBounds[ i ].lng, storeLocatorBounds[ i ].lat ) );
-		};
-		centerZoom = mapa.computeCenterZoom( bounds );
-	} else {
-
-		// Calculate map center zoom from markers. Fails when there are more than tens of markers
-		centerZoom = mapa.computeCenterZoom( positions );
-	}
-
-	mapa.setCenterZoom( centerZoom[ 0 ], centerZoom[ 1 ] );
-
-	// Clustering
-	if( enableClusters ) {
-
-		// We want clusters to have all the same size
-		// https://napoveda.seznam.cz/forum/threads/71496/1  http://jsfiddle.net/592sxtco/6/ 
-		var radius = function() { return 18; }
-
-		var MyCluster = function( id ) {
-			SMap.Marker.Cluster.call( this, id, { radius:radius } );
-			// this._dom.content.style.backgroundColor = "red";
-			// this._dom.circle.style.borderRadius = 0;
-		};
-		MyCluster.prototype = Object.create( SMap.Marker.Cluster.prototype );
-
-		// set clustering mode depending on zoom
-		// https://napoveda.seznam.cz/forum/threads/65610/1#aid-109404
-		var isCloseView = function ( zoom ) {
-			return zoom >= 17
-		}
-
-		var setClustering = function setClustering( closeView ) {
-			markerLayer.setClusterer( closeView ? null : new SMap.Marker.Clusterer( mapa, clusterDistance, MyCluster ) );
-		}
-		var lastZoom = mapa.getZoom();
-		setClustering( isCloseView( lastZoom ) );
-		mapa.getSignals().addListener( window, "map-redraw", function ( e ) {
-			var zoom = e.target.getZoom();
-			if ( zoom !== lastZoom && isCloseView( zoom ) !== isCloseView( lastZoom ) ) { // closeView treshold crossed
-				setClustering( isCloseView( zoom ) );
-			}
-			lastZoom = zoom;
-		})
-	}
-	
 };

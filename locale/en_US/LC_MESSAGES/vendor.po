@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 15:21+0100\n"
+"POT-Creation-Date: 2024-05-07 11:41+0200\n"
 "PO-Revision-Date: 2023-11-27 15:26+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -63,13 +63,33 @@ msgstr "Yes"
 msgid "Ne"
 msgstr "No"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:213
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:220
 msgid "from"
 msgstr "from"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:217
+#: ../vendor/atk14/category-filter/src/lib/filter_range_section.php:224
 msgid "to"
 msgstr "to"
+
+#: ../vendor/atk14/category-filter/test/tc_usage.php:88
+msgid "skladem"
+msgstr ""
+
+#: ../vendor/atk14/category-filter/test/tc_usage.php:89
+msgid "zobrazit i nedostupné tituly"
+msgstr ""
+
+#: ../vendor/atk14/category-filter/test/tc_usage.php:121
+msgid "červená"
+msgstr ""
+
+#: ../vendor/atk14/category-filter/test/tc_usage.php:122
+msgid "modrá"
+msgstr ""
+
+#: ../vendor/atk14/category-filter/test/tc_usage.php:123
+msgid "green"
+msgstr ""
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
@@ -277,15 +297,15 @@ msgstr "Plain text body"
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:52
+#: ../vendor/atk14/phone-field/src/phone_field.php:54
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:76
+#: ../vendor/atk14/phone-field/src/phone_field.php:78
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:77
+#: ../vendor/atk14/phone-field/src/phone_field.php:79
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
