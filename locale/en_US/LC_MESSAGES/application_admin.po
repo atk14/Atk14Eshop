@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:41+0200\n"
+"POT-Creation-Date: 2024-05-07 11:56+0200\n"
 "PO-Revision-Date: 2022-04-25 16:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -4342,7 +4342,6 @@ msgid "Latitude"
 msgstr "Latitude"
 
 #: ../app/forms/admin/stores/stores_form.php:55
-#: ../app/forms/admin/stores/stores_form.php:62
 msgid ""
 "Enter latitude (e.g. 50.0876229) or paste coordinates (e.g. 50.7326181N, "
 "14.9850481E)"
@@ -4351,6 +4350,12 @@ msgstr ""
 #: ../app/forms/admin/stores/stores_form.php:59
 msgid "Longitude"
 msgstr "Longitude"
+
+#: ../app/forms/admin/stores/stores_form.php:62
+msgid ""
+"Enter longitude (e.g. 14.4639075) or paste coordinates (e.g. 50.7326181N, "
+"14.9850481E)"
+msgstr ""
 
 #: ../app/forms/admin/stores/stores_form.php:66
 msgid "Address"

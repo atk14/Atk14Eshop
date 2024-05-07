@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:41+0200\n"
-"PO-Revision-Date: 2024-05-07 11:48+0200\n"
+"POT-Creation-Date: 2024-05-07 11:56+0200\n"
+"PO-Revision-Date: 2024-05-07 11:59+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -4399,17 +4399,24 @@ msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
 #: ../app/forms/admin/stores/stores_form.php:55
-#: ../app/forms/admin/stores/stores_form.php:62
 msgid ""
 "Enter latitude (e.g. 50.0876229) or paste coordinates (e.g. 50.7326181N, "
 "14.9850481E)"
 msgstr ""
-"Zadejte zeměpisnou délku (např.  50.0876229 nebo vložte souřadnice ze "
+"Zadejte zeměpisnou šířku (např.  50.0876229 nebo vložte souřadnice ze "
 "schránky (např. 50.7326181N, 14.9850481E)"
 
 #: ../app/forms/admin/stores/stores_form.php:59
 msgid "Longitude"
 msgstr "Zeměpisná délka"
+
+#: ../app/forms/admin/stores/stores_form.php:62
+msgid ""
+"Enter longitude (e.g. 14.4639075) or paste coordinates (e.g. 50.7326181N, "
+"14.9850481E)"
+msgstr ""
+"Zadejte zeměpisnou délku (např.  14.4639075 nebo vložte souřadnice ze "
+"schránky (např. 50.7326181N, 14.9850481E)"
 
 #: ../app/forms/admin/stores/stores_form.php:66
 msgid "Address"
