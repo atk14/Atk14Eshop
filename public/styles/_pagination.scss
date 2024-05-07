@@ -8,6 +8,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 		list-style: none;
 		padding: 0;
 		display: flex;
+		flex-wrap: wrap;
 		font-weight: 600;
 		//justify-content: center;
 		margin-bottom: $grid-gutter-width;
