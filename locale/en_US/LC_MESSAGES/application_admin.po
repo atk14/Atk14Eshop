@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 15:21+0100\n"
+"POT-Creation-Date: 2024-05-07 11:56+0200\n"
 "PO-Revision-Date: 2022-04-25 16:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -136,11 +136,13 @@ msgstr ""
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:41
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:68
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:65
 msgid "Určeno pro štítky"
 msgstr ""
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:47
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:74
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:71
 msgid "Vyloučeno pro štítky"
 msgstr ""
 
@@ -231,6 +233,7 @@ msgstr "Variants on product card <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr ""
 
+#: ../app/controllers/admin/admin.php:115
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "invisible"
@@ -481,6 +484,9 @@ msgstr "Add a new subcategory"
 #: ../app/controllers/admin/categories_controller.php:136
 msgid "filter option"
 msgstr "filter option"
+
+msgid "Not visible"
+msgstr ""
 
 msgid "Move the category"
 msgstr "Move the category"
@@ -942,10 +948,11 @@ msgstr ""
 msgid "Opravdu chcete smazat tuto kampaň?"
 msgstr ""
 
+#: ../app/forms/admin/vouchers/create_new/get_order_form.php:6
 msgid "Číslo objednávky"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:146
+#: ../app/controllers/admin/orders_controller.php:153
 msgid "Zodpovědná osoba"
 msgstr ""
 
@@ -1059,6 +1066,28 @@ msgstr ""
 msgid "Odkaz pro stažení digitálních produktů ještě není připraven."
 msgstr ""
 
+msgid "Objednané poukazy"
+msgstr ""
+
+#: ../app/forms/admin/vouchers/vouchers_form.php:8
+msgid "Kód"
+msgstr "Code"
+
+msgid "Hodnota"
+msgstr "Value"
+
+msgid "Byl použit?"
+msgstr ""
+
+msgid "Platnost do"
+msgstr ""
+
+msgid "Najít objednávky s tímto kupónem"
+msgstr ""
+
+msgid "Zobrazit náhled"
+msgstr ""
+
 msgid "Nastavit do stavu '%1'"
 msgstr ""
 
@@ -1165,10 +1194,6 @@ msgstr "After %1 days it will automatically go into the state:"
 msgid "Slevové kupóny nebyly zadány"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:8
-msgid "Kód"
-msgstr "Code"
-
 msgid "Opravdu chcete smazat tento slevový kupón?"
 msgstr ""
 
@@ -1226,7 +1251,7 @@ msgstr ""
 #: ../app/forms/admin/collections/collections_form.php:13
 #: ../app/forms/admin/images/images_form.php:16
 #: ../app/forms/admin/products/products_form.php:22
-#: ../app/forms/admin/stores/stores_form.php:95
+#: ../app/forms/admin/stores/stores_form.php:97
 msgid "Description"
 msgstr "Description"
 
@@ -1694,6 +1719,21 @@ msgstr "Preview image"
 msgid "Není nastaven"
 msgstr "Not set"
 
+msgid "Vyberte odpovídající položku objednávky."
+msgstr ""
+
+msgid "Zadejte číslo objednávky, ve které byl dárkový kupónu objednán."
+msgstr ""
+
+#: ../app/forms/admin/videos/create_new/get_url_form.php:6
+#: ../app/forms/admin/vouchers/create_new/get_order_item_form.php:10
+#: ../app/forms/admin/vouchers/create_new/get_voucher_type_form.php:14
+msgid "Pokračovat"
+msgstr "Continue"
+
+msgid "Přeskočit - nespojovat kupón s objednávkou"
+msgstr ""
+
 msgid ""
 "Administrace slevových kupónů ve formě dárkového nebo slevového poukazu. "
 "Sleva na základě kódu se uplatní na jakýkoliv produkt v e-shopu. Nelze "
@@ -1706,16 +1746,7 @@ msgstr ""
 msgid "Regions"
 msgstr "Regions"
 
-msgid "Hodnota"
-msgstr "Value"
-
-msgid "Byl použit?"
-msgstr ""
-
 msgid "Kupón vytvořil/a"
-msgstr ""
-
-msgid "Najít objednávky s tímto kupónem"
 msgstr ""
 
 #: ../app/forms/admin/warehouse_items/export_form.php:20
@@ -1743,6 +1774,15 @@ msgstr "Delete entry"
 
 msgid "Add a warehouse"
 msgstr "Add a warehouse"
+
+msgid "applicable to eshop"
+msgstr ""
+
+msgid "eshop"
+msgstr ""
+
+msgid "not applicable to eshop"
+msgstr ""
 
 msgid "Warehouse status"
 msgstr "Warehouse status"
@@ -1899,51 +1939,51 @@ msgstr "System preferences"
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:125
+#: ../app/controllers/admin/admin.php:134
 #: ../app/controllers/admin/orders_controller.php:103
 #, php-format
 msgid "Objednávka %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:129
-#: ../app/controllers/admin/orders_controller.php:134
+#: ../app/controllers/admin/admin.php:138
+#: ../app/controllers/admin/orders_controller.php:141
 #, php-format
 msgid "Editace objednávky %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:175
+#: ../app/controllers/admin/admin.php:184
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "List of objects of type %s"
 
-#: ../app/controllers/admin/admin.php:210
+#: ../app/controllers/admin/admin.php:219
 msgid "The record has been created"
 msgstr "The record has been created"
 
-#: ../app/controllers/admin/admin.php:224
+#: ../app/controllers/admin/admin.php:233
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Create an object of type %s"
 
-#: ../app/controllers/admin/admin.php:276
+#: ../app/controllers/admin/admin.php:285
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:311
+#: ../app/controllers/admin/admin.php:320
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:345
+#: ../app/controllers/admin/admin.php:354
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:467
+#: ../app/controllers/admin/admin.php:476
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:486
+#: ../app/controllers/admin/admin.php:495
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -1996,7 +2036,7 @@ msgstr "Editing attachment #%s"
 #: ../app/controllers/admin/cards_controller.php:225
 #: ../app/controllers/admin/categories_controller.php:34
 #: ../app/controllers/admin/collections_controller.php:27
-#: ../app/controllers/admin/images_controller.php:59
+#: ../app/controllers/admin/images_controller.php:68
 #: ../app/controllers/admin/products_controller.php:59
 #: ../app/controllers/admin/slugs_controller.php:19
 msgid "Changes have been saved"
@@ -2411,12 +2451,12 @@ msgstr "Adding an image into the photo gallery"
 msgid "Image has been created"
 msgstr "Image has been created"
 
-#: ../app/controllers/admin/images_controller.php:47
+#: ../app/controllers/admin/images_controller.php:56
 #, php-format
 msgid "Editing of the Image #%s"
 msgstr "Editing of the Image #%s"
 
-#: ../app/controllers/admin/images_controller.php:72
+#: ../app/controllers/admin/images_controller.php:81
 msgid "The image has been deleted"
 msgstr "The image has been deleted"
 
@@ -2499,19 +2539,19 @@ msgstr ""
 msgid "Seznam objednávek"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:151
+#: ../app/controllers/admin/orders_controller.php:158
 msgid "Zodpovědná osoba nastavena"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:160
+#: ../app/controllers/admin/orders_controller.php:167
 msgid "Import čísel pro sledování zásilek"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:189
+#: ../app/controllers/admin/orders_controller.php:196
 msgid "Chybná data v souboru"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:196
+#: ../app/controllers/admin/orders_controller.php:203
 msgid "Zásilky byly naimportovány"
 msgstr ""
 
@@ -2556,7 +2596,7 @@ msgstr "The page has been updated successfully"
 msgid "Způsoby platby"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:18
+#: ../app/controllers/admin/payment_methods_controller.php:28
 msgid ""
 "This method cannot be enabled, because the relevant payment gateway is not "
 "configured yet."
@@ -2564,20 +2604,20 @@ msgstr ""
 "This method cannot be enabled, because the relevant payment gateway is not "
 "configured yet."
 
-#: ../app/controllers/admin/payment_methods_controller.php:18
+#: ../app/controllers/admin/payment_methods_controller.php:28
 msgid "Contact the eshop administrator to configure the payment gateway."
 msgstr "Contact the eshop administrator to configure the payment gateway."
 
-#: ../app/controllers/admin/payment_methods_controller.php:21
+#: ../app/controllers/admin/payment_methods_controller.php:31
 msgid "Editace možnosti platby"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:30
+#: ../app/controllers/admin/payment_methods_controller.php:55
 #, php-format
 msgid "Možnost platby '%s' zapnuta"
 msgstr ""
 
-#: ../app/controllers/admin/payment_methods_controller.php:41
+#: ../app/controllers/admin/payment_methods_controller.php:66
 #, php-format
 msgid "Možnost platby '%s' vypnuta"
 msgstr ""
@@ -2815,22 +2855,24 @@ msgstr "New video"
 msgid "Vložili jste úspěšně video"
 msgstr "You have successfully inserted a video"
 
-#: ../app/controllers/admin/vouchers_controller.php:37
+#: ../app/controllers/admin/vouchers_controller.php:42
 msgid "Nový slevový kupón"
 msgstr ""
 
-#: ../app/controllers/admin/vouchers_controller.php:59
-#: ../app/controllers/admin/vouchers_controller.php:86
+#: ../app/controllers/admin/vouchers_controller.php:69
+#: ../app/controllers/admin/vouchers_controller.php:82
+#: ../app/controllers/admin/vouchers_controller.php:94
+#: ../app/controllers/admin/vouchers_controller.php:122
 msgid "dárkový poukaz"
 msgstr ""
 
-#: ../app/controllers/admin/vouchers_controller.php:62
-#: ../app/controllers/admin/vouchers_controller.php:88
+#: ../app/controllers/admin/vouchers_controller.php:97
+#: ../app/controllers/admin/vouchers_controller.php:124
 #: ../app/forms/admin/vouchers/create_new/get_voucher_type_form.php:10
 msgid "slevový poukaz"
 msgstr ""
 
-#: ../app/controllers/admin/vouchers_controller.php:83
+#: ../app/controllers/admin/vouchers_controller.php:119
 msgid "Editace slevového poukazu"
 msgstr ""
 
@@ -2973,7 +3015,7 @@ msgstr "open in administration"
 #: ../app/forms/admin/collections/collections_form.php:17
 #: ../app/forms/admin/creators/creators_form.php:15
 #: ../app/forms/admin/images/images_form.php:6
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:34
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:35
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
@@ -3117,7 +3159,7 @@ msgstr "Pages of the manufacturer"
 
 #: ../app/forms/admin/brands/brands_form.php:22
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:95
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:70
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:82
 msgid "Logo"
 msgstr "Logo"
 
@@ -3588,11 +3630,6 @@ msgstr ""
 msgid "Another creator already has this name"
 msgstr "Another creator already has this name"
 
-#: ../app/forms/admin/creators/creators_form.php:38
-#, php-format
-msgid "This page is the profile page for another creator (%s)"
-msgstr "This page is the profile page for another creator (%s)"
-
 #: ../app/forms/admin/currencies/currencies_form.php:10
 msgid "Conversion rate"
 msgstr "Conversion rate"
@@ -3632,7 +3669,7 @@ msgid "Specifická cena s DPH [%s]"
 msgstr ""
 
 #: ../app/forms/admin/delivery_method_country_specifications/delivery_method_country_specifications_form.php:19
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:66
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:78
 msgid "Kód pro export objednávky do XML"
 msgstr ""
 
@@ -3868,11 +3905,11 @@ msgstr "Appearance"
 msgid "Zobrazovat v oblasti"
 msgstr ""
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:15
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:16
 msgid "URL / path"
 msgstr "URL / path"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:16
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:17
 msgid ""
 "An internal link should be set as an URI (e.g. /about-us/). An external link "
 "has to be set in the full format (e.g. https://example.com/file.pdf)."
@@ -3880,19 +3917,19 @@ msgstr ""
 "An internal link should be set as an URI (e.g. /about-us/). An external link "
 "has to be set in the full format (e.g. https://example.com/file.pdf)."
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:21
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:22
 msgid "Specific URL for the given language"
 msgstr "Specific URL for the given language"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:24
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:25
 msgid "If necessary, a specific URL can be specified for the given language."
 msgstr "If necessary, a specific URL can be specified for the given language."
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:28
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:29
 msgid "CSS class"
 msgstr "CSS class"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:36
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:37
 msgid "In some cases the link looks better with an image."
 msgstr "In some cases the link looks better with an image."
 
@@ -4117,11 +4154,23 @@ msgstr ""
 msgid "Cena s DPH [%s]"
 msgstr ""
 
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:65
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:67
+msgid ""
+"Platební metoda bude použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
+msgstr ""
+
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:73
+msgid ""
+"Platební metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
+"obsahovat jeden z uvedených štítků."
+msgstr ""
+
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:77
 msgid "Kód platby"
 msgstr ""
 
-#: ../app/forms/admin/payment_methods/payment_methods_form.php:88
+#: ../app/forms/admin/payment_methods/payment_methods_form.php:100
 msgid ""
 "Zatrhněte, zda se jedná buďto o bankovní převod nebo o dobírku, nebo vyberte "
 "platební bránu. Hodnoty nelze kombinovat."
@@ -4292,61 +4341,73 @@ msgstr ""
 msgid "Latitude"
 msgstr "Latitude"
 
-#: ../app/forms/admin/stores/stores_form.php:58
+#: ../app/forms/admin/stores/stores_form.php:55
+msgid ""
+"Enter latitude (e.g. 50.0876229) or paste coordinates (e.g. 50.7326181N, "
+"14.9850481E)"
+msgstr ""
+
+#: ../app/forms/admin/stores/stores_form.php:59
 msgid "Longitude"
 msgstr "Longitude"
 
-#: ../app/forms/admin/stores/stores_form.php:64
+#: ../app/forms/admin/stores/stores_form.php:62
+msgid ""
+"Enter longitude (e.g. 14.4639075) or paste coordinates (e.g. 50.7326181N, "
+"14.9850481E)"
+msgstr ""
+
+#: ../app/forms/admin/stores/stores_form.php:66
 msgid "Address"
 msgstr "Address"
 
-#: ../app/forms/admin/stores/stores_form.php:69
+#: ../app/forms/admin/stores/stores_form.php:71
 msgid "Monday"
 msgstr "Monday"
 
-#: ../app/forms/admin/stores/stores_form.php:70
+#: ../app/forms/admin/stores/stores_form.php:72
 msgid "Tuesday"
 msgstr "Tuesday"
 
-#: ../app/forms/admin/stores/stores_form.php:71
+#: ../app/forms/admin/stores/stores_form.php:73
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: ../app/forms/admin/stores/stores_form.php:72
+#: ../app/forms/admin/stores/stores_form.php:74
 msgid "Thursday"
 msgstr "Thursday"
 
-#: ../app/forms/admin/stores/stores_form.php:73
+#: ../app/forms/admin/stores/stores_form.php:75
 msgid "Friday"
 msgstr "Friday"
 
-#: ../app/forms/admin/stores/stores_form.php:74
+#: ../app/forms/admin/stores/stores_form.php:76
 msgid "Saturday"
 msgstr "Saturday"
 
-#: ../app/forms/admin/stores/stores_form.php:75
+#: ../app/forms/admin/stores/stores_form.php:77
 msgid "Sunday"
 msgstr "Sunday"
 
-#: ../app/forms/admin/stores/stores_form.php:78
+#: ../app/forms/admin/stores/stores_form.php:80
 #, php-format
 msgid "Otevřeno v %s od"
 msgstr ""
 
-#: ../app/forms/admin/stores/stores_form.php:83
+#: ../app/forms/admin/stores/stores_form.php:85
 #, php-format
 msgid "Otevřeno v %s do"
 msgstr ""
 
-#: ../app/forms/admin/stores/stores_form.php:90
+#: ../app/forms/admin/stores/stores_form.php:92
 msgid "Opening hours"
 msgstr "Opening hours"
 
-#: ../app/forms/admin/stores/stores_form.php:105
+#: ../app/forms/admin/stores/stores_form.php:107
 msgid "Is visible in the public list on web?"
 msgstr "Is visible in the public list on web?"
 
-#: ../app/forms/admin/stores/stores_form.php:114
+#: ../app/forms/admin/stores/stores_form.php:116
 msgid "Either fill out Latitude and Longitude or leave them blank."
 msgstr "Either fill out Latitude and Longitude or leave them blank."
 
@@ -4507,11 +4568,6 @@ msgstr "The same login is already used for another user"
 msgid "VAT percent"
 msgstr "VAT percent"
 
-#: ../app/forms/admin/videos/create_new/get_url_form.php:6
-#: ../app/forms/admin/vouchers/create_new/get_voucher_type_form.php:14
-msgid "Pokračovat"
-msgstr "Continue"
-
 #: ../app/forms/admin/videos/videos_form.php:9
 msgid "Automatické spuštění videa"
 msgstr "Auto-start video"
@@ -4523,6 +4579,10 @@ msgstr "Play again when finished"
 #: ../app/forms/admin/vouchers/create_new/get_data_form.php:8
 #: ../app/forms/admin/vouchers/edit_form.php:8
 msgid "Stejný kód má jiný slevový kupón"
+msgstr ""
+
+#: ../app/forms/admin/vouchers/create_new/get_order_item_form.php:6
+msgid "Položka objednávky"
 msgstr ""
 
 #: ../app/forms/admin/vouchers/create_new/get_voucher_type_form.php:6
@@ -4582,17 +4642,17 @@ msgstr ""
 msgid "Neaktivní slevový poukaz nebude možné použít"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:103
+#: ../app/forms/admin/vouchers/vouchers_form.php:114
 msgid ""
 "Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu, "
 "dopravu zdarma nebo volný popis"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:113
+#: ../app/forms/admin/vouchers/vouchers_form.php:124
 msgid "Platnost od a Platnost do musí být rozdílne datumy"
 msgstr ""
 
-#: ../app/forms/admin/vouchers/vouchers_form.php:117
+#: ../app/forms/admin/vouchers/vouchers_form.php:128
 msgid "Platnost od musí být starší datum než Platnost do"
 msgstr ""
 
@@ -4644,6 +4704,10 @@ msgstr "Import"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
+
+#, php-format
+#~ msgid "This page is the profile page for another creator (%s)"
+#~ msgstr "This page is the profile page for another creator (%s)"
 
 #~ msgid "Edit stockount in warehouse %1"
 #~ msgstr "Edit stockount in warehouse %1"

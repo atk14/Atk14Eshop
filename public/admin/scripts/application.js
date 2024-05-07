@@ -43,6 +43,11 @@
 
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
+
+				// advanced geocoordinates paste
+				if( document.querySelector( "#id_location_lat" ) && document.querySelector( "#id_location_lng" ) ){
+					new UTILS.geoPaste();
+				}
 			}
 
 		},
