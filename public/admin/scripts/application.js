@@ -44,7 +44,10 @@
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
 
-				new UTILS.geoPaste();
+				// advanced geocoordinates paste
+				if( document.querySelector( "#id_location_lat" ) && document.querySelector( "#id_location_lng" ) ){
+					new UTILS.geoPaste();
+				}
 			}
 
 		},
