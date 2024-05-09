@@ -6,7 +6,7 @@
 			{dropdown_menu clearfix=0}
 				{a action=edit_payment_methods delivery_method_id=$dm}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{/dropdown_menu}
-			<strong><em>{render partial="shared/region_list" regions=$dm->getRegions()}</em> / {$dm}</strong><br>
+			<strong>{$dm} ({render partial="shared/region_list" regions=$dm->getRegions()})</strong><br>
 			{if $dm->getPaymentMethods()}
 			<ul class="list-unstyled">
 				{foreach $dm->getPaymentMethods() as $pm}

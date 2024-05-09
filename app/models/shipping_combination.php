@@ -14,7 +14,19 @@ class ShippingCombination extends ApplicationModel {
 
 	static function GetPaymentMethodIdsForDeliveryMethod($delivery_method) {
 		$dbmole = self::GetDbMole();
-		return $dbmole->selectIntoArray("SELECT payment_method_id FROM shipping_combinations WHERE delivery_method_id=:delivery_method_id", array(":delivery_method_id" => $delivery_method));
+		return $dbmole->selectIntoArray("
+			SELECT
+				shipping_combinations.payment_method_id
+			FROM
+				shipping_combinations,
+				payment_methods
+			WHERE
+				shipping_combinations.delivery_method_id=:delivery_method_id AND
+				payment_methods.id=shipping_combinations.payment_method_id
+			ORDER BY
+				payment_methods.rank,
+				payment_methods.id	
+		", array(":delivery_method_id" => $delivery_method));
 	}
 
 	static function GetPaymentMethodsForDeliveryMethod($delivery_method) {
