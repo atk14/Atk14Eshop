@@ -30,7 +30,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	 * Popis dorucovaci metody pro emailovou notifikaci
 	 */
 	function getEmailDescription(){
-		$out = parent::getEmailDescription();
+		$out = (string)parent::getEmailDescription();
 		if(strlen($out)){ return $out; }
 		//
 		//$out = $this->getDescription();
