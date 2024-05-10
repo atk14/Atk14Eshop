@@ -128,7 +128,7 @@ class TcCheckouts extends TcBase {
 			"email" => "bread.pit@pitmail.com",
 			"address_street" => "21, Jump Street",
 			"address_city" => "Florida",
-			"address_zip" => "90210",
+			"address_zip" => "13000",
 			"address_country" => "CZ", // "US" is not allowed invoice country in the region
 			"phone" => "+420555000555",
 			"password" => "simple.password",
