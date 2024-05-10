@@ -56,7 +56,15 @@ class SelectWithImages extends RadioSelect
  *
  */
 class RadioInputWithImage {
+
 	var $input_type = "radio";
+	var $object;
+	var $key;
+	var $name;
+	var $value;
+	var $attrs;
+	var $index;
+	var $options;
 
 	function __construct($name, $value, $attrs, $key, $choice, $index) {
 		$this->object = $choice;
