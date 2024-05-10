@@ -120,7 +120,7 @@ class TcCheckouts extends TcBase {
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
-		$client->post("users/create_new", [
+		$controller = $client->post("users/create_new", [
 			"login" => "bread.pit",
 			"gender_id" => Gender::FindFirst(),
 			"firstname" => "Bread",
@@ -135,6 +135,7 @@ class TcCheckouts extends TcBase {
 			"password_repeat" => "simple.password",
 			"return_uri" => Atk14Url::BuildLink(["action" => "checkouts/user_identification"]),
 		]);
+		$this->assertEquals([],array_flatten($controller->form->get_errors()));
 		$this->assertEquals(303, $client->getStatusCode());
 		$this->assertEquals("/{$lang}/checkouts/user_identification/", $client->getLocation());
 
