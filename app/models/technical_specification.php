@@ -24,6 +24,10 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			}
 		}
 
+		if(Card::$TechnicalSpecificationList){
+			Card::$TechnicalSpecificationList->flushCache();
+		}
+
 		return parent::CreateNewRecord($values,$options);
 	}
 
@@ -56,8 +60,12 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 		return $this->_setRank($rank,array("card_id" => $this->g("card_id")));
 	}
 
-	function getKey(){
+	function getTechnicalSpecificationKey(){
 		return Cache::Get("TechnicalSpecificationKey",$this->getTechnicalSpecificationKeyId());
+	}
+
+	function getKey(){
+		return $this->getTechnicalSpecificationKey();
 	}
 
 	/**
