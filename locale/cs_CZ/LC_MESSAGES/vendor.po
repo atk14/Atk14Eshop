@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:41+0200\n"
-"PO-Revision-Date: 2023-11-27 15:29+0100\n"
+"POT-Creation-Date: 2024-05-13 14:10+0200\n"
+"PO-Revision-Date: 2024-05-13 14:19+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -72,23 +72,23 @@ msgstr "do"
 
 #: ../vendor/atk14/category-filter/test/tc_usage.php:88
 msgid "skladem"
-msgstr ""
+msgstr "skladem"
 
 #: ../vendor/atk14/category-filter/test/tc_usage.php:89
 msgid "zobrazit i nedostupné tituly"
-msgstr ""
+msgstr "zobrazit i nedostupné tituly"
 
 #: ../vendor/atk14/category-filter/test/tc_usage.php:121
 msgid "červená"
-msgstr ""
+msgstr "červená"
 
 #: ../vendor/atk14/category-filter/test/tc_usage.php:122
 msgid "modrá"
-msgstr ""
+msgstr "modrá"
 
 #: ../vendor/atk14/category-filter/test/tc_usage.php:123
 msgid "green"
-msgstr ""
+msgstr "green"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:24
 msgid "Please enter a valid company registration number"
@@ -387,8 +387,8 @@ msgstr "Zadejte prosím platné PSČ"
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:31
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:32
 #: ../vendor/atk14/zip-field/test/tc_zip_field.php:50
-msgid "Enter the ZIP code as NNN NN"
-msgstr "Zadejte PSČ ve formátu NNN NN"
+msgid "Enter a valid ZIP code as NNN NN"
+msgstr "Zadejte platné PSČ ve tvaru NNN NN"
 
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:137
 msgid "enter four digits"
@@ -409,6 +409,9 @@ msgstr "Zadejte sedm číslic"
 #: ../vendor/atk14/zip-field/src/app/fields/zip_field.php:291
 msgid "Enter five digits"
 msgstr "Zadejte pět číslic"
+
+#~ msgid "Enter the ZIP code as NNN NN"
+#~ msgstr "Zadejte PSČ ve formátu NNN NN"
 
 #~ msgid "od"
 #~ msgstr "od"

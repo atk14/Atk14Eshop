@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:41+0200\n"
-"PO-Revision-Date: 2023-11-27 15:26+0100\n"
+"POT-Creation-Date: 2024-05-13 14:10+0200\n"
+"PO-Revision-Date: 2024-05-13 14:17+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -169,7 +169,7 @@ msgstr "The order cannot be completed"
 msgid "Doprava"
 msgstr "Shipping"
 
-#: ../app/widgets/select_with_images.php:124
+#: ../app/widgets/select_with_images.php:132
 msgid "Zdarma"
 msgstr "Free of charge"
 
@@ -300,83 +300,11 @@ msgstr "Products"
 msgid "No product has been found."
 msgstr "No product has been found."
 
-msgid "Products in the collection %1"
-msgstr "Products in the collection %1"
-
-msgid ""
-"If you have any question, contact us through the following form. We will "
-"reply to you as soon as we can."
-msgstr ""
-"If you have any question, contact us through the following form. We will "
-"reply to you as soon as we can."
-
-msgid "The message has been sent to us. We will reply as soon as we can."
-msgstr "The message has been sent to us. We will reply as soon as we can."
-
-msgid "Aktuální nastavení"
-msgstr "Current settings"
-
-msgid "Obsah cookie se souhlasem"
-msgstr "Cookie content with consent"
-
-msgid "Souhlasím s použitím vybraných cookies"
-msgstr "I agree to the use of selected cookies"
-
-msgid "Souhlasím s použitím všech cookies"
-msgstr "I agree to the use of all cookies"
-
-#: ../app/controllers/cookie_consents_controller.php:5
-msgid "Nastavení cookies"
-msgstr "Cookies settings"
-
-msgid "Nemáte uloženou žádnou doručovací adresu"
-msgstr "You have no delivery address saved"
-
-msgid "vytvořte novou"
-msgstr "create new"
-
-msgid "Přidat novou adresu"
-msgstr "Add a new address"
-
-msgid "Výběr místa pro vyzvednutí zásilky"
-msgstr "Choosing where to pick up your shipment"
-
-msgid "Začněte psát PSČ, adresu nebo název místa"
-msgstr "Start typing a postcode, address or place name"
-
-msgid "Žádné výdejní místo nebylo nalezeno"
-msgstr ""
-
-msgid "vybrat výdejní místo"
-msgstr "select dispensing point"
-
-msgid "podrobnosti"
-msgstr "details"
-
-#: ../app/controllers/digital_contents_controller.php:22
-msgid "Digitální produkty"
-msgstr "Digital products"
-
-msgid "soubor %1"
-msgstr "file %1"
-
-msgid "Stáhnout"
-msgstr "Download"
-
-msgid "You haven`t added any items to your favourites yet."
-msgstr "You haven`t added any items to your favourites yet."
-
-msgid "To add product to your favourites, click on %1 icon on product page."
-msgstr "To add product to your favourites, click on %1 icon on product page."
-
-msgid "cena není stanovena"
-msgstr "the price is not set"
-
 msgid "Kontaktní údaje pro vyzvednutí zásilky"
 msgstr "Contact details for picking up your shipment"
 
 msgid "Adresa pro osobní převzetí"
-msgstr ""
+msgstr "Address for personal pick-up"
 
 msgid "Adresa výdejního místa"
 msgstr "Address of the dispensing point"
@@ -444,6 +372,78 @@ msgstr "Purchase without registration"
 
 msgid "Pokračovat bez registrace"
 msgstr "Continue without registration"
+
+msgid "Products in the collection %1"
+msgstr "Products in the collection %1"
+
+msgid ""
+"If you have any question, contact us through the following form. We will "
+"reply to you as soon as we can."
+msgstr ""
+"If you have any question, contact us through the following form. We will "
+"reply to you as soon as we can."
+
+msgid "The message has been sent to us. We will reply as soon as we can."
+msgstr "The message has been sent to us. We will reply as soon as we can."
+
+msgid "Aktuální nastavení"
+msgstr "Current settings"
+
+msgid "Obsah cookie se souhlasem"
+msgstr "Cookie content with consent"
+
+msgid "Souhlasím s použitím vybraných cookies"
+msgstr "I agree to the use of selected cookies"
+
+msgid "Souhlasím s použitím všech cookies"
+msgstr "I agree to the use of all cookies"
+
+#: ../app/controllers/cookie_consents_controller.php:5
+msgid "Nastavení cookies"
+msgstr "Cookies settings"
+
+msgid "Nemáte uloženou žádnou doručovací adresu"
+msgstr "You have no delivery address saved"
+
+msgid "vytvořte novou"
+msgstr "create new"
+
+msgid "Přidat novou adresu"
+msgstr "Add a new address"
+
+msgid "Výběr místa pro vyzvednutí zásilky"
+msgstr "Choosing where to pick up your shipment"
+
+msgid "Začněte psát PSČ, adresu nebo název místa"
+msgstr "Start typing a postcode, address or place name"
+
+msgid "Žádné výdejní místo nebylo nalezeno"
+msgstr "No dispensing point found"
+
+msgid "vybrat výdejní místo"
+msgstr "select dispensing point"
+
+msgid "podrobnosti"
+msgstr "details"
+
+#: ../app/controllers/digital_contents_controller.php:22
+msgid "Digitální produkty"
+msgstr "Digital products"
+
+msgid "soubor %1"
+msgstr "file %1"
+
+msgid "Stáhnout"
+msgstr "Download"
+
+msgid "You haven`t added any items to your favourites yet."
+msgstr "You haven`t added any items to your favourites yet."
+
+msgid "To add product to your favourites, click on %1 icon on product page."
+msgstr "To add product to your favourites, click on %1 icon on product page."
+
+msgid "cena není stanovena"
+msgstr "the price is not set"
 
 msgid "Greetings"
 msgstr "Greetings"
@@ -595,6 +595,15 @@ msgstr "email"
 msgid "name"
 msgstr "name"
 
+msgid ""
+"V případě, že si chcete Vaši objednávku zkontrolovat,<br/>\n"
+"Vaši objednávku naleznete v sekci <a href=\"%1\" style=\"%2\">\"Historie "
+"objednávek\"</a> Vašeho zákaznického účtu."
+msgstr ""
+"In case that you want to check your order,<br/>\n"
+"you can find it in the section <a href=\"%1\" style=\"%2\"> \"Order "
+"history\" </a> of your customer account."
+
 msgid "Vaše objednávka č. %1 byla zrušena."
 msgstr "Your order No. %1 has been cancelled."
 
@@ -660,15 +669,6 @@ msgstr ""
 
 msgid "Zde jsou bankovní údaje pro platbu bankovním převodem:"
 msgstr "Here are the bank details for payment via bank transfer:"
-
-msgid ""
-"V případě, že si chcete Vaši objednávku zkontrolovat,<br/>\n"
-"Vaši objednávku naleznete v sekci <a href=\"%1\" style=\"%2\">\"Historie "
-"objednávek\"</a> Vašeho zákaznického účtu."
-msgstr ""
-"In case that you want to check your order,<br/>\n"
-"you can find it in the section <a href=\"%1\" style=\"%2\"> \"Order "
-"history\" </a> of your customer account."
 
 msgid "Částka k úhradě:"
 msgstr "Amount to be paid:"
@@ -1045,7 +1045,7 @@ msgid "Edit image"
 msgstr "Edit image"
 
 msgid "Edit slider"
-msgstr ""
+msgstr "Edit slider"
 
 msgid "Edit video"
 msgstr "Edit video"
@@ -1467,32 +1467,33 @@ msgid "New password"
 msgstr "New password"
 
 msgid "DOPRAVA ZDARMA"
-msgstr ""
+msgstr "FREE SHIPPING"
 
 msgid "VČETNĚ POŠTOVNÉHO"
-msgstr ""
+msgstr "INCLUDING POSTAGE"
 
 #: ../app/models/basket_or_order_voucher.php:37
 msgid "Dárkový poukaz"
 msgstr "Gift voucher"
 
 msgid "Na veškerý sortiment e-shopu <strong>%1</strong>"
-msgstr ""
+msgstr "For all products in the <strong>%1</strong> e-shop"
 
 msgid "Slevový poukaz"
-msgstr ""
+msgstr "Discount voucher"
 
 msgid "Voucher"
-msgstr ""
+msgstr "Voucher"
 
 msgid "*kód poukazu"
-msgstr ""
+msgstr "*voucher code"
 
 msgid "platnost do"
-msgstr ""
+msgstr "valid until"
 
 msgid "*Pro uplatnění poukazu zadejte kód při vytvoření objednávky."
 msgstr ""
+"*To redeem the voucher, please enter the code when creating your order."
 
 msgid "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
 msgstr ""
@@ -1672,6 +1673,50 @@ msgstr "List of Categories"
 msgid "Categories"
 msgstr "Categories"
 
+#: ../app/controllers/checkouts_controller.php:32
+msgid "Přihlášení uživatele"
+msgstr "User login"
+
+#: ../app/controllers/checkouts_controller.php:44
+msgid "Doručovací údaje"
+msgstr "Delivery information"
+
+#: ../app/controllers/checkouts_controller.php:91
+msgid "Název doručovacího místa"
+msgstr "The name of the delivery point"
+
+#: ../app/controllers/checkouts_controller.php:93
+msgid "Název prodejny"
+msgstr "Name of store"
+
+#: ../app/controllers/checkouts_controller.php:141
+msgid "Odstraňte prosím nedostatky, které brání dokončení objednávky"
+msgstr "Please, remove defects preventing the order from being completed"
+
+#: ../app/controllers/checkouts_controller.php:146
+msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"
+msgstr ""
+"The total price must not have a negative value. Add something more to the "
+"basket! :)"
+
+#: ../app/controllers/checkouts_controller.php:150
+msgid "Rekapitulace objednávky"
+msgstr "Order summary"
+
+#: ../app/controllers/checkouts_controller.php:157
+msgid ""
+"Změnil se obsah nákupního košíku. Prohlédněte si rekapitulaci ještě jednou a "
+"dokončete objednávku."
+msgstr ""
+"The content of the shopping basket has changed. View the summary one more "
+"time and complete the order."
+
+#: ../app/controllers/checkouts_controller.php:215
+#: ../app/controllers/delivery_service_branches_controller.php:101
+#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:101
+msgid "Nákupní košík"
+msgstr "Shopping basket"
+
 #: ../app/controllers/collections_controller.php:4
 msgid "List of Collections"
 msgstr "List of Collections"
@@ -1741,12 +1786,6 @@ msgstr "%s - delivery point selection"
 msgid "Nepřípustná země pro doručení"
 msgstr "Ineligible country for delivery"
 
-#: ../app/controllers/delivery_service_branches_controller.php:101
-#: ../app/controllers/checkouts_controller.php:215
-#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:101
-msgid "Nákupní košík"
-msgstr "Shopping basket"
-
 #: ../app/controllers/digital_contents_controller.php:24
 #, php-format
 msgid "Digitální produkty v objednávce %s"
@@ -1759,44 +1798,6 @@ msgid ""
 "uživatel <em>%s</em>"
 msgstr ""
 "After download digital files of the order please log in as user <em>%s</em>"
-
-#: ../app/controllers/checkouts_controller.php:32
-msgid "Přihlášení uživatele"
-msgstr "User login"
-
-#: ../app/controllers/checkouts_controller.php:44
-msgid "Doručovací údaje"
-msgstr "Delivery information"
-
-#: ../app/controllers/checkouts_controller.php:91
-msgid "Název doručovacího místa"
-msgstr "The name of the delivery point"
-
-#: ../app/controllers/checkouts_controller.php:93
-msgid "Název prodejny"
-msgstr ""
-
-#: ../app/controllers/checkouts_controller.php:141
-msgid "Odstraňte prosím nedostatky, které brání dokončení objednávky"
-msgstr "Please, remove defects preventing the order from being completed"
-
-#: ../app/controllers/checkouts_controller.php:146
-msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco! :)"
-msgstr ""
-"The total price must not have a negative value. Add something more to the "
-"basket! :)"
-
-#: ../app/controllers/checkouts_controller.php:150
-msgid "Rekapitulace objednávky"
-msgstr "Order summary"
-
-#: ../app/controllers/checkouts_controller.php:157
-msgid ""
-"Změnil se obsah nákupního košíku. Prohlédněte si rekapitulaci ještě jednou a "
-"dokončete objednávku."
-msgstr ""
-"The content of the shopping basket has changed. View the summary one more "
-"time and complete the order."
 
 #: ../app/controllers/logins_controller.php:18
 #, php-format
@@ -1931,12 +1932,12 @@ msgstr "This is not your current password"
 
 #: ../app/controllers/vouchers_controller.php:7
 msgid "Vouchers"
-msgstr ""
+msgstr "Vouchers"
 
 #: ../app/controllers/vouchers_controller.php:52
 #, php-format
 msgid "Voucher %d"
-msgstr ""
+msgstr "Voucher %d"
 
 #: ../app/controllers/watched_products_controller.php:5
 msgid "Uložené položky hlídacího psa"
@@ -2155,7 +2156,7 @@ msgstr "The file type at this URL is not a video"
 
 #: ../app/fields/order_field.php:8
 msgid "Taková objednávka neexistuje"
-msgstr ""
+msgstr "There is no such order"
 
 #: ../app/fields/order_quantity_field.php:66
 #, php-format
@@ -2233,8 +2234,8 @@ msgid "Please enter a valid zip code"
 msgstr "Please enter a valid zip code"
 
 #: ../app/fields/zip_field.php:31 ../app/fields/zip_field.php:32
-msgid "Enter the ZIP code as NNN NN"
-msgstr "Enter the ZIP code as NNN NN"
+msgid "Enter a valid ZIP code as NNN NN"
+msgstr "Enter a valid ZIP code as NNN NN"
 
 #: ../app/fields/zip_field.php:137
 msgid "enter four digits"
@@ -2375,6 +2376,47 @@ msgstr "Your order note"
 msgid "Variant"
 msgstr "Variant"
 
+#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:20
+msgid "Chci zadat fakturační údaje"
+msgstr "I want to enter billing details"
+
+#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:28
+msgid "Pokračovat"
+msgstr "Continue"
+
+#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:73
+msgid "Vyplňte všechny důležité údaje fakturační adresy"
+msgstr "Fill all important details for billing address"
+
+#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:8
+msgid "Select shipping method"
+msgstr "Select shipping method"
+
+#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:15
+msgid "Select payment method"
+msgstr "Select payment method"
+
+#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:20
+msgid "Continue"
+msgstr "Continue"
+
+#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:27
+msgid "Illegal combination of shipping and payment"
+msgstr "Illegal combination of shipping and payment"
+
+#: ../app/forms/checkouts/summary_form.php:15
+msgid "Souhlasím s obchodními podmínkami"
+msgstr "I agree with Terms and Conditions"
+
+#: ../app/forms/checkouts/summary_form.php:20
+msgid "Dokončit objednávku"
+msgstr "Complete the order"
+
+#: ../app/forms/checkouts/summary_form.php:27
+msgid "Objednávku nelze dokončit bez odsouhlasení našich obchodních podmínek."
+msgstr ""
+"The order cannot be completed without consent with our Terms and Conditions."
+
 #: ../app/forms/contact_messages/create_new_form.php:20
 #: ../app/forms/information_requests/create_new_form.php:24
 msgid "Text"
@@ -2426,47 +2468,6 @@ msgstr "Invalid branch"
 #: ../app/forms/filter_form.php:8
 msgid "Filtrovat"
 msgstr "Filter"
-
-#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:20
-msgid "Chci zadat fakturační údaje"
-msgstr "I want to enter billing details"
-
-#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:28
-msgid "Pokračovat"
-msgstr "Continue"
-
-#: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:73
-msgid "Vyplňte všechny důležité údaje fakturační adresy"
-msgstr "Fill all important details for billing address"
-
-#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:8
-msgid "Select shipping method"
-msgstr "Select shipping method"
-
-#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:15
-msgid "Select payment method"
-msgstr "Select payment method"
-
-#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:20
-msgid "Continue"
-msgstr "Continue"
-
-#: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:27
-msgid "Illegal combination of shipping and payment"
-msgstr "Illegal combination of shipping and payment"
-
-#: ../app/forms/checkouts/summary_form.php:15
-msgid "Souhlasím s obchodními podmínkami"
-msgstr "I agree with Terms and Conditions"
-
-#: ../app/forms/checkouts/summary_form.php:20
-msgid "Dokončit objednávku"
-msgstr "Complete the order"
-
-#: ../app/forms/checkouts/summary_form.php:27
-msgid "Objednávku nelze dokončit bez odsouhlasení našich obchodních podmínek."
-msgstr ""
-"The order cannot be completed without consent with our Terms and Conditions."
 
 #: ../app/forms/logins/create_new_form.php:8
 msgid "Login name"
@@ -2688,11 +2689,11 @@ msgstr "edit delivery address"
 
 #: ../app/models/basket.php:862
 msgid "Vybrané výdejní místo pro doručení objednávky již není aktivní"
-msgstr ""
+msgstr "The selected dispensing point for order delivery is no longer active"
 
 #: ../app/models/basket.php:863
 msgid "vyberte jiné výdejní místo"
-msgstr ""
+msgstr "select another dispensing point"
 
 #: ../app/models/currency.php:76
 msgid "Kč"
@@ -2793,7 +2794,7 @@ msgstr "Voucher %s cannot be applied"
 msgid ""
 "Objednávka, ve které byl tento dárkový poukaz objednán, nebyla doposud "
 "uhrazena"
-msgstr ""
+msgstr "The order in which this gift voucher was ordered has not yet been paid"
 
 #: ../app/models/voucher.php:73
 msgid "Voucher nemůže být použit v prázdném košíku"
@@ -2953,6 +2954,9 @@ msgstr "Order No. %s in eshop %s"
 #, php-format
 msgid "obj. %s"
 msgstr "ord. No. %s"
+
+#~ msgid "Enter the ZIP code as NNN NN"
+#~ msgstr "Enter the ZIP code as NNN NN"
 
 #~ msgid "Žádné podací místo nebylo nalezeno"
 #~ msgstr "No dispensing point found"
