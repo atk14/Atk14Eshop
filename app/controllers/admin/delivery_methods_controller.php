@@ -45,28 +45,6 @@ class DeliveryMethodsController extends AdminController {
 		]);
 	}
 
-	function enable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->delivery_method->s("active", true);
-		$this->flash->success(sprintf(_("Způsob dopravy '%s' zapnut"), $this->delivery_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
-	function disable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->delivery_method->s("active", false);
-		$this->flash->success(sprintf(_("Způsob dopravy '%s' vypnut"), $this->delivery_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
 	function set_rank(){
 		$this->_set_rank();
 	}

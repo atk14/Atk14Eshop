@@ -47,28 +47,6 @@ class PaymentMethodsController extends AdminController {
 		]);
 	}
 
-	function enable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->payment_method->s("active", true);
-		$this->flash->success(sprintf(_("Možnost platby '%s' zapnuta"), $this->payment_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
-	function disable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->payment_method->s("active", false);
-		$this->flash->success(sprintf(_("Možnost platby '%s' vypnuta"), $this->payment_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
 	function set_rank(){
 		$this->_set_rank();
 	}
