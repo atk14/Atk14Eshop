@@ -39,7 +39,6 @@ class PasswordRecoveriesController extends ApplicationController{
 		}
 	}
 
-
 	function recovery(){
 		if(!$password_recovery = $this->tpl_data["password_recovery"] = PasswordRecovery::GetInstanceByToken($this->params->getString("token"))){
 			$this->_execute_action("invalid_url");
@@ -53,10 +52,10 @@ class PasswordRecoveriesController extends ApplicationController{
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$user = $password_recovery->getUser();
-			$user->s(array(
+			$user->s([
 				"password" => $d["password"],
 				"password_changed_at" => now(),
-			));
+			]);
 
 			$password_recovery->s(array(
 				"recovered_at" => now(),
