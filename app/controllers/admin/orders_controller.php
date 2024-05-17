@@ -18,7 +18,7 @@ class OrdersController extends AdminController {
 			$bind_ar[":date_to"] = $d["date_to"];
 		}
 
-		if ($d["order_status"]) {
+		if($d["order_status"]) {
 			if($d["order_status"]=="in_progress"){
 				$conditions[] = "order_status_id IN (SELECT id FROM order_statuses WHERE NOT (finished_successfully	OR finished_unsuccessfully OR finishing_successfully OR finishing_unsuccessfully))";
 			}else{
@@ -27,23 +27,28 @@ class OrdersController extends AdminController {
 			}
 		}
 
-		if ($d["delivery_method_id"]) {
+		if($d["delivery_method_id"]) {
 			$conditions[] = "delivery_method_id=:delivery_method_id";
 			$bind_ar[":delivery_method_id"] = $d["delivery_method_id"];
 		}
 
-		if ($d["payment_method_id"]) {
+		if($d["payment_method_id"]) {
 			$conditions[] = "payment_method_id=:payment_method_id";
 			$bind_ar[":payment_method_id"] = $d["payment_method_id"];
 		}
 
-		if(trim($d['catalog_id'])) {
-			$conditions[] = "id IN (select order_id from order_items WHERE product_id IN
-				(SELECT id FROM products WHERE catalog_id LIKE :catalog_id))";
-			$bind_ar[':catalog_id'] = "%".trim($d['catalog_id'])."%";
+		if(strlen((string)$d["catalog_id"])) {
+			$conditions[] = "
+				id IN (
+					SELECT order_id from order_items WHERE product_id IN (
+						SELECT id FROM products WHERE UPPER(catalog_id) LIKE UPPER(:catalog_id)
+					)
+				)
+			";
+			$bind_ar[":catalog_id"] = "%".$d["catalog_id"]."%";
 		}
 
-		if ($d["payment_status_id"]) {
+		if($d["payment_status_id"]) {
 			$conditions[] = "id IN (SELECT order_id FROM payment_transactions WHERE payment_status_id=:payment_status_id)";
 			$bind_ar[":payment_status_id"] = $d["payment_status_id"];
 		}
