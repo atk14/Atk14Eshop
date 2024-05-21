@@ -115,6 +115,18 @@ class ApplicationForm extends Atk14Form{
 		return $field;
 	}
 
+	function _add_captcha_field(){
+		if(defined("HCAPTCHA_SITE_KEY") && strlen(constant("HCAPTCHA_SITE_KEY"))>0 && defined("HCAPTCHA_SECRET_KEY") && strlen(constant("HCAPTCHA_SECRET_KEY"))>0){
+			$this->add_field("captcha",new HcaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}elseif(defined("RECAPTCHA_SITE_KEY") && strlen(constant("RECAPTCHA_SITE_KEY"))>0 && defined("RECAPTCHA_SECRET_KEY") && strlen(constant("RECAPTCHA_SECRET_KEY"))>0){
+			$this->add_field("captcha",new RecaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}
+	}
+
 	function _add_gender_id_field($options = array()){
 		$options += [
 			"label" => _("Oslovení"),
