@@ -11,7 +11,8 @@ class ProductTypesForm extends AdminForm {
 		$placeholders = "<ul>";
 		foreach(array(
 			"%product_name%" => _("název produktu"),
-			"%main_creators%" => _("seznam hlavních tvůrců (např. autor knihy)")
+			"%main_creators%" => _("seznam hlavních tvůrců (např. autor knihy)"),
+			"%catalog_id%" => _("kód produktu"),
 		) as $placeholder => $description){
 			$placeholders .= "<li><strong>$placeholder</strong> - $description</li>";
 		}

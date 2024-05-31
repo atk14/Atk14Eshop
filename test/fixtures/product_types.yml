@@ -13,3 +13,11 @@ book:
   page_title_pattern_cs: "%product_name% - %main_creators%"
   slug_en: book
   slug_cs: kniha
+
+spare_part:
+  name_en: spare part
+  name_cs: náhradní díl
+  page_title_pattern_en: "%product_name% - spare part %catalog_id%"
+  page_title_pattern_cs: "%product_name% - náhradní díl %catalog_id%"
+  slug_en: spare_part
+  slug_cs: nahradni-dil

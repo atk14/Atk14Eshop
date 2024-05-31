@@ -44,6 +44,14 @@ class ProductType extends ApplicationModel implements Translatable, iSlug, Ranka
 					->gsub('/^- +/','');
 			}
 		}
+
+		if($title->contains("%catalog_id%")){
+			$product = $card->getFirstProduct();
+			$title = $title->replace("%catalog_id%",$product ? $product->getCatalogId() : "");
+		}
+
+		$title = $title->trim();
+
     return $title->toString();
 	}
 

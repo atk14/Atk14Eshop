@@ -3,6 +3,7 @@
  *
  * @fixture product_types
  * @fixture cards
+ * @fixture products
  * @fixture creators
  * @fixture card_creators
  */
@@ -17,5 +18,9 @@ class TcProductType extends TcBase {
 		$creators = CardCreator::GetCreatorsForCard($book);
 		$creators[0]->destroy();
 		$this->assertEquals("The Book",$type_book->generatePageTitleForProduct($book));
+
+		$type_spare_part = $this->product_types["spare_part"];
+		$this->assertEquals("The Book - spare part BOOK",$type_spare_part->generatePageTitleForProduct($book));
+
 	}
 }
