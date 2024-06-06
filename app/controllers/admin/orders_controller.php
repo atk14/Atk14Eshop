@@ -99,7 +99,6 @@ class OrdersController extends AdminController {
 			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("offset"),
 			"order" => $this->sorting,
-			"offset" => $this->params->getInt("offset"),
 		));
 	}
 
