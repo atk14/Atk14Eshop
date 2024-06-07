@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 11:56+0200\n"
-"PO-Revision-Date: 2024-05-07 11:59+0200\n"
+"PO-Revision-Date: 2024-06-07 17:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -1936,7 +1936,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
-msgstr "Prodejná oblasti"
+msgstr "Prodejní oblasti"
 
 #: ../app/controllers/admin/admin.php:57
 #: ../app/forms/admin/users/users_form.php:48
