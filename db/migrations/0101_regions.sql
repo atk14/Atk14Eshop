@@ -22,6 +22,7 @@ CREATE TABLE regions (
 );
 
 INSERT INTO regions (id,code,domains,languages,currencies,delivery_countries) VALUES (1,'DEFAULT','[]','["cs","en"]','["CZK"]','["CZ"]');
-INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','cs','Výchozí prodejní oblast');
-INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','en','Default sales region');
-
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','cs','Česká republika');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','name','en','Czechia');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','short_name','cs','ČR');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('regions','1','short_name','en','CZ');

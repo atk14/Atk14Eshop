@@ -120,6 +120,18 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		return parent::getName($lang);
 	}
 
+	/**
+	 * Returns either short name or it creates shortcut automatically from name
+	 */
+	function getShortcut($lang = null){
+		$short_name = parent::getShortName($lang);
+		if(strlen((string)$short_name)){
+			return $short_name;
+		}
+		$name = new String4(parent::getName($lang));
+		return $name->truncate(3,["omission" => ""])->upper()->trim()->toString();
+	}
+
 	function getApplicationName(){
 		($out = parent::getApplicationName()) ||
 		($out = SystemParameter::ContentOn("app.name.short")) ||

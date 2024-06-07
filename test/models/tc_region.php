@@ -124,4 +124,21 @@ class TcRegion extends TcBase {
 		$this->assertEquals("Československo",$this->regions["czechoslovakia"]->getShortName("cs"));
 		$this->assertEquals("Czechoslovakia",$this->regions["czechoslovakia"]->getShortName("en"));
 	}
+
+	function test_getShortcut(){
+		$region = Region::CreateNewRecord([
+			"code" => "NEVER",
+			"name_en" => "Neverland",
+			"name_cs" => "Nikdosvět",
+		]);
+		$this->assertEquals("NEV",$region->getShortcut());
+		$this->assertEquals("NIK",$region->getShortcut("cs"));
+
+		$region->s([
+			"short_name_en" => "Neve",
+			"short_name_cs" => "Nikd",
+		]);
+		$this->assertEquals("Neve",$region->getShortcut());
+		$this->assertEquals("Nikd",$region->getShortcut("cs"));
+	}
 }

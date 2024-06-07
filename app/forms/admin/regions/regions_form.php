@@ -7,6 +7,12 @@ class RegionsForm extends AdminForm {
 			"max_length" => 255,
 		]));
 
+		$this->add_translatable_field("short_name", new CharField([
+			"label" => _("Shortcut"),
+			"max_length" => 10,
+			"required" => false,
+		]));
+
 		$this->add_field("active", new BooleanField(array(
 			"label" => _("Is active?"),
 			"initial" => true,

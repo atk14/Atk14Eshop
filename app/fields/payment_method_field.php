@@ -7,6 +7,7 @@ class PaymentMethodField extends ObjectChoiceField {
 			"value_formatter" => function($object){
 				$id = $object->getId();
 				$regions = $object->getRegions();
+				$regions = array_map(function($region){ return $region->getShortcut(); }, $regions);
 				$title = "[".join(", ",$regions)."] ";
 				$title .= $object->getLabel();
 				if(!$object->isActive()){
