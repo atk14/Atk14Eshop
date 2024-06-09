@@ -105,7 +105,7 @@ class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliverySer
 	}
 
 	function isActive() {
-		return true;
+		return $this["active"] === 1;
 	}
 
 	static function GetXMLBranchName() {
