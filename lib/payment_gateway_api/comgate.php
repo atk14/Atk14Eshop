@@ -70,7 +70,7 @@ class Comgate extends PaymentGatewayApi {
 			"label" => sprintf(_("Objednávka č. %s na %s"),$order->getOrderNo(),$region->getApplicationName()),
 			//"refId" => $order->getOrderNo(), // Toto ne, ....
 			"refId" => $payment_transaction->getId(), // ... toto je asi jistejsi volba
-			"payerName" => trim($order->getFirstname()." ".$order->getLastname()),
+			"fullName" => trim($order->getFirstname()." ".$order->getLastname()),
 			"method" => $this->payment_method,
 			"email" => $order->getEmail(),
 			"phone" => $order->getPhone(),
