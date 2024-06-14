@@ -62,6 +62,9 @@
 					new UTILS.numericStepperHandler();
 				}
 
+				// Scroll to top button handler
+				UTILS.scrollToTopBtn();
+
 			}
 
 		},

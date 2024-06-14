@@ -132,6 +132,7 @@
 		{render partial="shared/cookie_consent/banner"}
 		
 		{render partial="shared/basket_info_float_container"}
+		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
