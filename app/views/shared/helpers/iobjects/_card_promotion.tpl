@@ -21,7 +21,7 @@
 				</h4>
 
 				<div class="iobject__description">
-					{!$card->getTeaser()|markdown}
+					{!$card->getTeaser()|markdown|strip_tags}
 				</div>
 			</div>
 			{if $starting_price}
