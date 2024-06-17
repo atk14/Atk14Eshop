@@ -3,6 +3,62 @@ Slider
 
 [Swiper](https://swiperjs.com/) slider used for all sliders on the site. Note <code>id</code> and <code>data-slider_id</code> attributes - they contain code which must be unique for each instance of slider. This enables to have multiple instances of slider on page.
 
+Swiper is controlled by own Javascript. Options are passed by data attributes:
+- <code>data-slides_per_view</code>: Slides per view (default: 1)
+- <code>data-loop</code>: looped slider (default: 1)
+- <code>data-autoplay</code>: Time interval for autoplay in ms (default: 6000)
+- <code>data-custom_config</code>: Reference for optional custom configuration object (see example below)
+
+## Almost minimal slider example (with arrows and pagination)
+
+Arrows and pagination are optional.
+
+[example]
+<div class="swiper" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="test_slider_1" id="swiper_test_slider_1">
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide" style="background-color: yellowgreen;">
+        <h2>Slide 1</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: violet;">
+        <h2>Slide 2</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: peru;">
+        <h2>Slide 3</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: lightblue;">
+        <h2>Slide 4</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: orangered;">
+        <h2>Slide 5</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: pink;">
+        <h2>Slide 6</h2>
+      </div>
+
+
+    </div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev" id="swiper_button_prev_test_slider_1"><span
+        class="sr-only">Předchozí</span></div>
+    <div class="swiper-button-next" id="swiper_button_next_test_slider_1"><span
+        class="sr-only">Následující</span></div>
+    <div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_test_slider_1">
+    </div>
+  </div>
+
+	<!-- some styling for this example /-->
+	<style>
+	#swiper_test_slider_1 .swiper-slide { padding: 60px; display: flex !important; justify-content: center !important; align-items: center !important; min-height: 200px !important;}
+	</style>
+[/example]
+
 ## Basic slider with image and text content
 
 Slides with images and text. Fourth slide in example is image only with no text.
@@ -170,4 +226,74 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 		<div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_bvbvccv"></div>
 	</div>
 </section>
+[/example]
+
+## Custom slider configuration
+
+In some cases desired slider configuration cannot be expressed with basic data attributes. You may create custom config configuration stored in file <code>/public/scripts/utils/swiper_custom_config</code> and reference it by <code>data-custom_config</code> data attribute of Swiper instance markup. For available options see [Swiper docs](https://swiperjs.com/swiper-api#initialize-swiper). Options in this custom configuration will override any other slider configuration.
+
+In this example we have custom configuration named <code>sliderCards</code> defined in <code>/public/scripts/utils/swiper_custom_config</code> - this would configure slider to have two slides displayed at once in viewports wide 980px or more:
+<pre style="background:#eee"><code>
+window.UTILS.customSliderCofiguration = {
+  sliderCards: {
+    breakpoints: {
+      980: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+      },
+      10: {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+      },
+    }
+  }
+};
+</pre></code>
+
+And we added <code>data-custom_config="sliderCards"</code> attribute to <code>.swiper</code> element in HTML:
+
+[example]
+<div class="swiper" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="test_slider_2" id="swiper_test_slider_2" data-custom_config="sliderCards">
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide" style="background-color: yellowgreen;">
+        <h2>Slide 1</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: violet;">
+        <h2>Slide 2</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: peru;">
+        <h2>Slide 3</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: lightblue;">
+        <h2>Slide 4</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: orangered;">
+        <h2>Slide 5</h2>
+      </div>
+
+      <div class="swiper-slide" style="background-color: pink;">
+        <h2>Slide 6</h2>
+      </div>
+
+
+    </div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev" id="swiper_button_prev_test_slider_2"><span
+        class="sr-only">Předchozí</span></div>
+    <div class="swiper-button-next" id="swiper_button_next_test_slider_2"><span
+        class="sr-only">Následující</span></div>
+    <div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_test_slider_2">
+    </div>
+  </div>
+
+	<!-- some styling for this example /-->
+	<style>
+	#swiper_test_slider_2 .swiper-slide { padding: 60px; display: flex !important; justify-content: center !important; align-items: center !important; min-height: 200px !important;}
+	</style>
 [/example]

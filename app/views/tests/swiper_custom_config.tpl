@@ -13,7 +13,7 @@
 </style>
 <section class="section--slider">
 
-  <div class="swiper swiper--images swiper--images--dark" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="test_slider_1" id="swiper_test_slider_1" data-custom_config="sliderCards">
+  <div class="swiper" data-slides_per_view="1" data-loop="1" data-autoplay="6000" data-slider_id="test_slider_1" id="swiper_test_slider_1" data-custom_config="sliderCards">
     <div class="swiper-wrapper">
 
       <div class="swiper-slide" style="background-color: yellowgreen;">
