@@ -81,6 +81,7 @@
 .swiper {
 	//max-width: $maxContainerWidth -($grid-gutter-width*3);
 	//max-width: $maxContainerWidth;
+	min-width: 0;
 
 	&[data-slides_per_view="auto"]:not(.swiper--thumbnails) {
 		.swiper-wrapper {
