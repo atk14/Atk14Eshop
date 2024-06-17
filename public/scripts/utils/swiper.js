@@ -16,6 +16,7 @@ window.UTILS.initSwiper = function() {
 		var centeredSlides = $container.data( "centered_slides" );
 		var thumbs = $container.data( "thumbs" );
 		var spaceBetween = $container.data( "spacebetween" );
+		var customConfig = $container.data( "custom_config" );
 
 		if( typeof( autoplay ) === "number" ){
 			autoplay = {
@@ -53,6 +54,7 @@ window.UTILS.initSwiper = function() {
 			if( !spaceBetween ){
 				initObject.spaceBetween = 10;
 			}
+			initObject.watchOverflow = false;
 
 			// One slide per view on small viewports, auto on screen width > breakpoint
 			if ( typeof( breakpoint ) === "number" ) {
@@ -112,6 +114,14 @@ window.UTILS.initSwiper = function() {
 			initObject.thumbs = { swiper: document.querySelector( thumbs ).swiper };
 		}
 
+		// Apply custom config options if they exist
+		// See utils/swiper_custom_config.js
+		if( customConfig &&  window.UTILS.customSliderCofiguration[ customConfig ]) {
+			let custom = window.UTILS.customSliderCofiguration[ customConfig ];
+			initObject = { ...initObject, ...custom };
+		}
+
+		//console.log(initObject);
 		// eslint-disable-next-line
 		var swiper = new Swiper( container, initObject );
 

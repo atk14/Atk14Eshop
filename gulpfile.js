@@ -58,6 +58,7 @@ var applicationScripts = [
 	"public/scripts/utils/card_detail.js",
 	//"public/scripts/utils/scroll_hide_header.js",
 	"public/scripts/utils/scroll_to_top.js",
+	"public/scripts/utils/swiper_custom_config.js",
 	"public/scripts/application.js"
 ];
 

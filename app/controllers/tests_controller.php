@@ -26,6 +26,10 @@ class TestsController extends ApplicationController {
 	function colors(){
 		$this->page_title = "Color manipulation";
 	}
+	
+	function swiper_custom_config(){
+		$this->page_title = "Swiper custom configuration";
+	}
 
 	function notify_order_creation(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
