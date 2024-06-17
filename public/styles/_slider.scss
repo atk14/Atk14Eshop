@@ -60,7 +60,7 @@
 		& > * {
 			width: auto !important;
 			max-width: 100%;
-			min-width: 100%;
+			min-width: 100% !important;
 		}
 		.swiper--thumbnails {
 			order: 1;
