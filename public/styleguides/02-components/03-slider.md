@@ -61,7 +61,8 @@ Arrows and pagination are optional.
 
 ## Basic slider with image and text content
 
-Slides with images and text. Fourth slide in example is image only with no text.
+Slides with images and text. Fourth slide in example is image only with no text.  
+Note that slider pagination is moved to the left using <code>swiper-pagination--left</code> class (<code>swiper-pagination--right</code> is also available).
 
 [example]
 	
@@ -124,7 +125,7 @@ Slides with images and text. Fourth slide in example is image only with no text.
 		<!-- If we need navigation buttons -->
 		<div class="swiper-button-prev" id="swiper_button_prev_5ecbbd720a916"><span class="sr-only">Předchozí</span></div>
 		<div class="swiper-button-next" id="swiper_button_next_5ecbbd720a916"><span class="sr-only">Následující</span></div>
-		<div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_5ecbbd720a916"></div>
+		<div class="container-fluid--fullwidth swiper-pagination swiper-pagination--left" id="swiper_pagination_5ecbbd720a916"></div>
 	</div>
 	
 </section>
@@ -288,7 +289,7 @@ And we added <code>data-custom_config="sliderCards"</code> attribute to <code>.s
         class="sr-only">Předchozí</span></div>
     <div class="swiper-button-next" id="swiper_button_next_test_slider_2"><span
         class="sr-only">Následující</span></div>
-    <div class="container-fluid--fullwidth swiper-pagination" id="swiper_pagination_test_slider_2">
+    <div class="container-fluid--fullwidth swiper-pagination swiper-pagination--right" id="swiper_pagination_test_slider_2">
     </div>
   </div>
 

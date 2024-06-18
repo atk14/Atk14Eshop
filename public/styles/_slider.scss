@@ -147,7 +147,7 @@
 .swiper-pagination {
 	//margin: auto;
 	//position: relative;
-	width: 50% !important;
+	//width: 50% !important;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -184,6 +184,16 @@
 			outline: none;
 		}
 	}
+
+	// pagination placement
+	@include media-breakpoint-up(md){
+		&--left, &--right {
+			width: 50% !important;
+		}
+		&--right {
+			margin-left: 50%;
+		}
+	}
 	
 	@include media-breakpoint-down(sm) {
 		width: 100% !important;
@@ -191,6 +201,8 @@
 		padding-top: $grid-gutter-width/4;
 	}
 }
+
+
 
 //.swiper {
 	.swiper--images {
@@ -237,8 +249,9 @@
 			background-color: white;
 		}
 		.swiper-pagination {
-			width: 100% !important;
-			position: static !important;
+			width: 100%;
+			position: relative !important;
+			position: relative !important;
 			margin: $grid-gutter-width/4 0;
 			margin: 0;
 		}
