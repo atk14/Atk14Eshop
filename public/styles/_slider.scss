@@ -250,8 +250,8 @@
 		}
 		.swiper-pagination {
 			width: 100%;
-			position: relative !important;
-			position: relative !important;
+			//position: relative !important;
+			position: relative !important; top: 0; left: 0;
 			margin: $grid-gutter-width/4 0;
 			margin: 0;
 		}
