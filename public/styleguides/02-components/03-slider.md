@@ -169,19 +169,19 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 
 			<div class="swiper-slide slider-item-0" style="width: auto">
 				<a href="#" title="Lorem ipsum">
-					<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+					<img src="SVGPlaceholder/500/300" class="ximg-fluid" alt="Lorem ipsum">
 				</a>
 			</div>
 			<div class="swiper-slide slider-item-1" style="width: auto">
 				<a href="#" title="Lorem ipsum">
-					<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+					<img src="SVGPlaceholder/500/300" class="img-fluid" alt="Lorem ipsum">
 				</a>
 			</div>
 			<div class="swiper-slide slider-item-2" style="width: auto">
-				<img src="http://placekitten.com/500/300" class="img-fluid" alt="Lorem ipsum">
+				<img src="SVGPlaceholder/500/300" class="img-fluid" alt="Lorem ipsum">
 			</div>
 			<div class="swiper-slide slider-item-3" style="width: auto">
-				<img src="http://placekitten.com/500/300" class="img-fluid" alt="">
+				<img src="SVGPlaceholder/500/300" class="img-fluid" alt="">
 			</div>
 
 		</div>
@@ -204,19 +204,19 @@ Layout is controlled by data-attributes. Only small subset of Swiper parameters 
 
 			<div class="swiper-slide slider-item-0" style="width: auto">
 				<a href="#" title="Lorem ipsum">
-					<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+					<img src="SVGPlaceholder/1000/600/red" class="img-fluid" alt="Lorem ipsum 1">
 				</a>
 			</div>
 			<div class="swiper-slide slider-item-1" style="width: auto">
 				<a href="#" title="Lorem ipsum">
-					<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+					<img src="SVGPlaceholder/1000/600" class="img-fluid" alt="Lorem ipsum">
 				</a>
 			</div>
 			<div class="swiper-slide slider-item-2" style="width: auto">
-				<img src="http://placekitten.com/1000/600" class="img-fluid" alt="Lorem ipsum">
+				<img src="SVGPlaceholder/1000/600" class="img-fluid" alt="Lorem ipsum">
 			</div>
 			<div class="swiper-slide slider-item-3" style="width: auto">
-				<img src="http://placekitten.com/1000/600" class="img-fluid" alt="">
+				<img src="SVGPlaceholder/1000/600" class="img-fluid" alt="">
 			</div>
 
 		</div>

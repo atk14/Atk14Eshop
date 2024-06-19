@@ -65,6 +65,11 @@
 				// Scroll to top button handler
 				UTILS.scrollToTopBtn();
 
+				// Image placeholders ( for design + development purposes );
+				if( UTILS.SVGPlaceholders ){
+					UTILS.SVGPlaceholders.SVGPlaceholders();
+				}
+
 			}
 
 		},
