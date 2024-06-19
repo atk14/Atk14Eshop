@@ -28,6 +28,9 @@ class BasketVoucher extends BasketOrOrderVoucher {
 		$discount_percent = ApplicationHelpers::GetPercentageDiscountApplicableOnBasket($this);
 		if($discount_percent > 0.0){
 			foreach($basket->getItems() as $item){
+				$product = $item->getProduct();
+				if(!$product->invoiceDiscountAllowed()){ continue; }
+
 				$pp = $item->getProductPrice();
 				if($pp->discounted()){
 					// Procentni slevu nelze uplatnit na jiz slevnene zbozi

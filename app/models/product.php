@@ -448,6 +448,16 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	}
 
 	/**
+	 * Can a campaign or voucher discount be applied on this product?
+	 *
+	 */
+	function invoiceDiscountAllowed(){
+		$card = $this->getCard();
+		$product_type = $card->getProductType();
+		return $product_type->invoiceDiscountAllowed();
+	}
+
+	/**
 	 * Can be this product ordered?
 	 *
 	 *	$produkt->canBeOrdered();
