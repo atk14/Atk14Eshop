@@ -20,12 +20,12 @@ window.UTILS.SVGPlaceholders = class {
    * Just call this method.
    */
   static SVGPlaceholders() {
-    console.log( "start" );
+    // console.log( "start" );
 
     let placeholders = document.querySelectorAll( "img[src^='SVGPlaceholder']" );
 
     [...placeholders].forEach( function( img ) {
-      console.log( img.getAttribute( "src" ) );
+      // console.log( img.getAttribute( "src" ) );
       // Object to store all img parameters
       let imgParams = {};
 
@@ -62,7 +62,7 @@ window.UTILS.SVGPlaceholders = class {
 
       // Replace image src with generated svg image
       img.src = this.createPlaceholder( imgParams );
-      console.log( imgParams );
+      // console.log( imgParams );
     }.bind( this ) );
   }
   
@@ -85,7 +85,7 @@ window.UTILS.SVGPlaceholders = class {
       bgColor: this.generateColor(),
       ...options
     };
-    console.log( { params } );
+    // console.log( { params } );
 
     // additional svg attributes
     let atts = "";
@@ -102,9 +102,9 @@ window.UTILS.SVGPlaceholders = class {
       <rect width="${params.width}" height="${params.height}" fill="${params.bgColor}"></rect>
       <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18px" fill="#fcf7f7">${params.width} × ${params.height}</text>   
     </svg>`;
-    console.log( svg );
+    // console.log( svg );
     let encodedData = this.svgToDataURL( svg );
-    console.log( encodedData );
+    // console.log( encodedData );
     return encodedData;
   }
   /**
@@ -122,10 +122,12 @@ window.UTILS.SVGPlaceholders = class {
    */
   static svgToDataURL( svg ) {
     const encoded = encodeURIComponent( svg )
+      // eslint-disable-next-line
       .replace(/'/g, '%27')
+      // eslint-disable-next-line
       .replace(/"/g, '%22')
   
-    const header = 'data:image/svg+xml,'
+    const header = "data:image/svg+xml,";
     const dataUrl = header + encoded
   
     return dataUrl
