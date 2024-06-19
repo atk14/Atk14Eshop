@@ -64,6 +64,9 @@ class BasketCampaign {
 
 		$out = 0.0;
 		foreach($this->basket->getItems() as $item){
+			$product = $item->getProduct();
+			if(!$product->invoiceDiscountAllowed()){ continue; }
+
 			$p_price = $item->getProductPrice();
 
 			if($p_price->discounted()){
