@@ -123,9 +123,9 @@ window.UTILS.SVGPlaceholders = class {
   static svgToDataURL( svg ) {
     const encoded = encodeURIComponent( svg )
       // eslint-disable-next-line
-      .replace(/'/g, '%27')
+      .replace(/'/g, "%27")
       // eslint-disable-next-line
-      .replace(/"/g, '%22')
+      .replace(/"/g, "%22")
   
     const header = "data:image/svg+xml,";
     const dataUrl = header + encoded
