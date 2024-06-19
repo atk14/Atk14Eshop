@@ -83,11 +83,16 @@
 		{/foreach}
 	</head>
 
+<<<<<<< HEAD
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="true">
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
 		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
 		<div class="bs-offcanvas-overlay"></div>
+=======
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
+		{render partial="shared/layout/flash_message"}
+>>>>>>> atk14catalog/develop
 		{render partial="shared/layout/header"}
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 			{assign use_sidebar_menu true}
@@ -110,8 +115,12 @@
 					{render partial="shared/breadcrumbs"}
 				{/if}
 
+<<<<<<< HEAD
 				<div class="content-main" id="content-main">
 					{render partial="shared/layout/flash_message"}
+=======
+				<div class="content-main">
+>>>>>>> atk14catalog/develop
 					{placeholder}
 				</div>
 			</div>
