@@ -34,9 +34,9 @@ $enable-deprecation-messages: false;
 
 @import "layout";
 
-@import "navs";
+@import "shared/alerts";
 
-@import "alerts";
+@import "navs";
 
 @import "typography";
 
