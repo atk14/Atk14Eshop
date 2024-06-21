@@ -1,3 +1,15 @@
+$breakpoint_xs: map-get($grid-breakpoints, "xs");
+$breakpoint_sm: map-get($grid-breakpoints, "sm");
+$breakpoint_md: map-get($grid-breakpoints, "md");
+$breakpoint_lg: map-get($grid-breakpoints, "lg");
+$breakpoint_xl: map-get($grid-breakpoints, "xl");
+@debug "xs #{$breakpoint_xs}";
+@debug "sm #{$breakpoint_sm}";
+@debug "md #{$breakpoint_md}";
+@debug "lg #{$breakpoint_lg}";
+@debug "xl #{$breakpoint_xl}";
+@debug "-----------------";
+
 body {
 	// styles to keep footer at the bottom on pages with very short content
 	display: flex;
