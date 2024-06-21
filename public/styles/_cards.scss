@@ -391,7 +391,7 @@ a.card {
 
 
 // Controlled widths for card
-.card-deck {
+/*.card-deck {
 	margin-left: 0 - $card-deck-margin;
 	margin-right: 0 - $card-deck-margin;
 	margin-bottom: 0;
@@ -748,7 +748,7 @@ a.card {
 		}
 	}
 }
-
+*/
 .card-grid {
 	@include media-breakpoint-up(sm){
 		display: grid;
@@ -840,4 +840,61 @@ a.card {
 	
 	}
 
+}
+
+/*
+Mixin for creating grid rows of cards
+$numCards: number of cards per row
+$gap( optional ) - gap between cards (used for border calculations when gap == 0), default: $card-deck-margin
+*/
+@mixin cardRow( $numCards, $gap: $card-deck-margin ) {
+	--cards-per-row: #{$numCards};
+	gap: $gap;
+	// set correct borders above first row and before first row if there is zero gap
+	@if $gap==0 {
+		.card:nth-child( #{$numCards}n+1 ) {
+			// the first card in a row
+			border-left: $card-border-style;
+		}
+		@for $i from 1 through $numCards {
+			// cards in the first row
+			.card:nth-child(#{$i}) {
+				border-top: $card-border-style;
+			}
+		}
+	}
+}
+
+// Card sizing system.
+*:has( > .card-deck){
+	outline: px dotted rgba(red,0.1);
+	// specify parent of .card-deck as css container
+	container-name: cards-container;
+	container-type: inline-size;
+	.card-deck {
+		display: grid !important;
+		margin-bottom: $grid-gutter-width;
+
+		// Card sizing depending on width of container
+		@container cards-container ( width > 1000px ) {
+			@include cardRow( 4 );
+		}
+		@container cards-container ( 600px < width <= 1000px ) {
+			@include cardRow( 3 );
+		}
+		@container cards-container ( 400px < width <= 600px ) {
+			@include cardRow( 2, $card-deck-margin-sm );
+		}
+		@container cards-container ( width <= 400px ) {
+			//border: 1mm solid black;
+			@include cardRow( 1, $card-deck-margin-sm );
+		}
+
+		grid-template-columns: repeat( var( --cards-per-row ) , 1fr);
+
+		.card {
+			max-width: 100%;
+			margin: 0;
+		}
+	}
 }
