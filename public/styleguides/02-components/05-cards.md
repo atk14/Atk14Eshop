@@ -292,7 +292,7 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 	<a class="card card--micro" href="#">
 		<div class="card__image">
-			<img title="Spirit" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+			<img title="Spirit" class="card-img-top" src="SVGPlaceholder/100/100" alt="" width="100" height="100">
 		</div>
 		<div class="card-body">
 			<div class="h5 card-title">Spirit</div>
@@ -301,7 +301,7 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 	<a class="card card--micro" href="#">
 		<div class="card__image">
-			<img title="Construction Time Again" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+			<img title="Construction Time Again" class="card-img-top" src="SVGPlaceholder/100/100" alt="" width="100" height="100">
 		</div>
 		<div class="card-body">
 			<div class="h5 card-title">Construction Time Again</div>
@@ -310,7 +310,7 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 	<a class="card card--micro" href="#">
 		<div class="card__image">
-			<img title="A Broken Frame - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+			<img title="A Broken Frame - download" class="card-img-top" src="SVGPlaceholder/100/100" alt="" width="100" height="100">
 		</div>
 		<div class="card-body">
 			<div class="h5 card-title">A Broken Frame - download</div>
@@ -319,7 +319,7 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 	<a class="card card--micro" href="#">
 		<div class="card__image">
-			<img title="Black Celebration - download" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+			<img title="Black Celebration - download" class="card-img-top" src="SVGPlaceholder/100/100" alt="" width="100" height="100">
 		</div>
 		<div class="card-body">
 			<div class="h5 card-title">Black Celebration - download</div>
@@ -328,7 +328,7 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 	<a class="card card--micro" href="#">
 		<div class="card__image">
-			<img title="Violator - Remixes Deluxe Edition" class="card-img-top" src="http://placekitten.com/100/100" alt="" width="100" height="100">
+			<img title="Violator - Remixes Deluxe Edition" class="card-img-top" src="SVGPlaceholder/100/100" alt="" width="100" height="100">
 		</div>
 		<div class="card-body">
 			<div class="h5 card-title">Violator - Remixes Deluxe Edition</div>
