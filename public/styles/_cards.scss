@@ -1,5 +1,5 @@
 // card deck margin for smaller displays or denser layouts
-$card-deck-margin-sm: $card-deck-margin / 2;
+$card-deck-margin-sm: divide($card-deck-margin, 2);
 
 //card border style
 $card-border-style: 1px dashed $border-color;
@@ -390,365 +390,6 @@ a.card {
 }
 
 
-// Controlled widths for card
-/*.card-deck {
-	margin-left: 0 - $card-deck-margin;
-	margin-right: 0 - $card-deck-margin;
-	margin-bottom: 0;
-	.card {
-		flex-shrink: 0;
-		flex-grow: 0;
-	}
-	@include media-breakpoint-down(xs){
-		display: block;
-		margin-left: 0 - $grid-gutter-width / 2;
-		margin-right: 0 - $grid-gutter-width / 2;
-		.card {
-			border-left: 0;
-			border-right: 0;
-			margin-left: 0;
-			margin-right: 0;
-			margin-bottom: 0;
-			&:not(:first-child) {
-				border-top: 0;
-			}
-		}
-		@if $card-deck-margin==0 {
-			///margin-left: 0 - $grid-gutter-width / 2;
-			//margin-right: 0 - $grid-gutter-width / 2;
-			.card {
-				border-top: 0;
-				margin-bottom: 0;
-			}
-		}
-	}
-}
-
-.card-deck--sized-4 {
-	
-	@include media-breakpoint-only(sm){
-		.card {
-			margin-bottom: $card-deck-margin * 2;
-		}
-	}
-	
-	// 2 cols on SM up
-	@include media-breakpoint-between(sm, md){
-		@include card-deck-sizing( 50%, $card-deck-margin-sm );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(2n+2) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(2n+1) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(2n+2) {
-					&:nth-last-child(1) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-	
-	// 3 cols on LG up
-	@include media-breakpoint-only(lg){
-		@include card-deck-sizing( percentage(1/3), $card-deck-margin );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(3n+3) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(3n+1) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(3n+2) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-	
-	// 4 cols on XL up
-	@include media-breakpoint-up(xl){
-		@include card-deck-sizing( 25%, $card-deck-margin );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(4n+4) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(4n+1) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3), &:nth-last-child(4) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(4n+2) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
-						border-bottom: none;
-					}
-				}
-				// 3rd in row, in last row
-				&:nth-child(4n+3) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-}
-
-.card-deck--sized-3 {
-	
-	// 3 cols on MD up, smaller margins
-	@include media-breakpoint-up(md){
-		@include card-deck-sizing( percentage(1/3), $card-deck-margin-sm );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(3n+3) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(3n+1) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(3n+2) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-	
-	// 3 cols on LG up
-	@include media-breakpoint-up(lg){
-		@include card-deck-sizing( percentage(1/3), $card-deck-margin );
-	}
-	
-	// 1 col SM down
-	@include media-breakpoint-only(sm){
-		@include card-deck-sizing( 100%, 0 );
-		.card {
-			margin-bottom: $card-deck-margin * 2;
-		
-			// border handling
-			@if $card-deck-margin==0 {
-				border-right: none;
-				&:last-child {
-					border-bottom: none;
-				}
-			}
-		}
-	}
-}
-
-.card-deck--sized-2 {
-	
-	// 1 col SM down
-	@include media-breakpoint-only(sm){
-		@include card-deck-sizing( 100%, 0 );
-		.card {
-			margin-bottom: $card-deck-margin*2;
-			
-			//border handling
-			@if $card-deck-margin==0 {
-				&:last-child {
-					border-bottom: none;
-				}
-			}
-		}
-	}
-	
-	// 2 cols on MD up, smaller margins
-	@include media-breakpoint-up(md){
-		@include card-deck-sizing( 50%, $card-deck-margin-sm );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(2n+2) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(2n+1) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(2n+2) {
-					&:nth-last-child(1) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-	
-	// 2 cols on LG up
-	@include media-breakpoint-up(lg){
-		@include card-deck-sizing( 50%, $card-deck-margin );
-	}
-}
-
-.card-deck--sized-6 {
-	
-	// 6 cards on LG up
-	@include media-breakpoint-up(lg) {
-		@include card-deck-sizing( percentage(1/6), $card-deck-margin-sm );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(6n+6) {
-					border-right: none;
-				}
-				&:last-child {
-					//border-right: none;
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(6n+1) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3), &:nth-last-child(4), &:nth-last-child(5), &:nth-last-child(6) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(6n+2) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3), &:nth-last-child(4), &:nth-last-child(5) {
-						border-bottom: none;
-					}
-				}
-				// 3rd in row, in last row
-				&:nth-child(6n+3) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3), &:nth-last-child(4) {
-						border-bottom: none;
-					}
-				}
-				// 4th in row, in last row
-				&:nth-child(6n+4) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
-						border-bottom: none;
-					}
-				}
-				// 5th in row, in last row
-				&:nth-child(6n+5) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-	
-	// 3 cards on SM, MD
-	@include media-breakpoint-between(sm,md){
-		@include card-deck-sizing( percentage(1/3), $card-deck-margin-sm );
-		.card {
-			
-			// borders handling
-			@if $card-deck-margin==0 {
-				&:nth-child(3n+3) {
-					border-right: none;
-				}
-				&:last-child {
-					border-bottom: none;
-				}
-				// first in row, in last row
-				&:nth-child(3n+1) {
-					&:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3) {
-						border-bottom: none;
-					}
-				}
-				// second in row, in last row
-				&:nth-child(3n+2) {
-					&:nth-last-child(1), &:nth-last-child(2) {
-						border-bottom: none;
-					}
-				}
-			}
-		}
-	}
-}
-
-.card-deck--micro {
-	border-left: $card-border-style;
-	margin-bottom: $grid-gutter-width/2;
-	@include media-breakpoint-down(xs){
-		margin-left: 0;
-		margin-right: 0;
-		display: flex;
-		flex-wrap: wrap;
-	}
-}
-
-.card-deck--hiddenmargin {
-	margin-left: 0 - $grid-gutter-width/2;
-	margin-right: 0 - $grid-gutter-width/2;
-}
-
-
-.section--list-products, .card-grid {
-	margin-bottom: $grid-gutter-width;
-	//border: 1px solid red;
-	.pagination-container {
-		margin-top: $grid-gutter-width;
-	}
-}
-
-.section--child-pages {
-	margin-top: $grid-gutter-width;
-	.card-deck {
-		margin-top: $grid-gutter-width;
-		.card {
-			background-color: $gray-100;
-			&:hover {
-				background-color: $gray-200;
-			}
-		}
-	}
-}
-*/
 .card-grid {
 	@include media-breakpoint-up(sm){
 		display: grid;
@@ -850,7 +491,7 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 @mixin cardRow( $numCards, $gap: $card-deck-margin ) {
 	--cards-per-row: #{$numCards};
 	gap: $gap;
-	// set correct borders above first row and before first row if there is zero gap
+	// set correct borders above first row and before first row if there is zero gap to avoid double borders
 	@if $gap==0 {
 		.card:nth-child( #{$numCards}n+1 ) {
 			// the first card in a row
@@ -863,36 +504,65 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 			}
 		}
 	}
+	// if there is only 1 card per row, get rid of side borders
+	@if $numCards==1 {
+		.card {
+			border-left: none;
+			border-right: none;
+		}
+	}
 }
 
 // Card sizing system.
 *:has( > .card-deck){
-	outline: px dotted rgba(red,0.1);
 	// specify parent of .card-deck as css container
 	container-name: cards-container;
 	container-type: inline-size;
 	.card-deck {
-		display: grid !important;
+		display: grid;
 		margin-bottom: $grid-gutter-width;
 
 		// Card sizing depending on width of container
 
 		// Default - 4 cards / row
-		@container cards-container ( width > 1000px ) {
+		@container cards-container ( width > 960px ) {
 			@include cardRow( 4 );
 		}
-		@container cards-container ( 600px < width <= 1000px ) {
+		@container cards-container ( 600px < width <= 960px ) {
 			@include cardRow( 3 );
 		}
 		@container cards-container ( 400px < width <= 600px ) {
 			@include cardRow( 2, $card-deck-margin-sm );
 		}
 		@container cards-container ( width <= 400px ) {
-			//border: 1mm solid black;
 			@include cardRow( 1, $card-deck-margin-sm );
 		}
 
+		// 6 cards per row
+		&.card-deck--sized-6 {
+			@container cards-container ( width > 990px ) {
+				@include cardRow( 6 );
+			}
+			@container cards-container ( 720px < width <= 990px ) {
+				@include cardRow( 4 );
+			}
+			@container cards-container ( 550px < width <= 720px ) {
+				@include cardRow( 3 );
+			}
+			@container cards-container ( 350px < width <= 550px ) {
+				@include cardRow( 2, $card-deck-margin-sm );
+			}
+			@container cards-container ( width <= 350px ) {
+				@include cardRow( 1, $card-deck-margin-sm );
+			}
+		}
+
 		grid-template-columns: repeat( var( --cards-per-row ) , 1fr);
+
+		@include media-breakpoint-down(xs) {
+			margin-left: 0 - divide( $grid-gutter-width, 2 );
+			margin-right: 0 - divide( $grid-gutter-width, 2 );
+		}
 
 		.card {
 			max-width: 100%;
@@ -907,7 +577,35 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 			flex-basis: 100px;
 			width: 100px;
 			height: 100px;
+			flex-grow: 0;
 		}
 	}
 
+}
+
+.card-deck--hiddenmargin {
+	margin-left: 0 - $grid-gutter-width/2;
+	margin-right: 0 - $grid-gutter-width/2;
+}
+
+
+.section--list-products, .card-grid {
+	margin-bottom: $grid-gutter-width;
+	//border: 1px solid red;
+	.pagination-container {
+		margin-top: $grid-gutter-width;
+	}
+}
+
+.section--child-pages {
+	margin-top: $grid-gutter-width;
+	.card-deck {
+		margin-top: $grid-gutter-width;
+		.card {
+			background-color: $gray-100;
+			&:hover {
+				background-color: $gray-200;
+			}
+		}
+	}
 }

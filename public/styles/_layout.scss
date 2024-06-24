@@ -3,6 +3,7 @@ $breakpoint_sm: map-get($grid-breakpoints, "sm");
 $breakpoint_md: map-get($grid-breakpoints, "md");
 $breakpoint_lg: map-get($grid-breakpoints, "lg");
 $breakpoint_xl: map-get($grid-breakpoints, "xl");
+@debug "Breakpoints";
 @debug "xs #{$breakpoint_xs}";
 @debug "sm #{$breakpoint_sm}";
 @debug "md #{$breakpoint_md}";
