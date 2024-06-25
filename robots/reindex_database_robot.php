@@ -91,7 +91,7 @@ class ReindexDatabaseRobot extends ApplicationRobot {
 
 				if($retries<=0){
 					$this->logger->info("table $table was NOT reindexed, exiting...");
-					return;
+					exit; // exit and not return! we don't want the robot lock file to be deleted.
 				}
 
 				sleep(5);
