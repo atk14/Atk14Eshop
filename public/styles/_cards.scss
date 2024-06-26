@@ -97,6 +97,11 @@ $card-border-style: 1px dashed $border-color;
 		.btn:first-child:last-child {
 			margin-top: 0;
 		}
+		&:has(.btn:nth-child(2)) {
+			.btn {
+				width: 100%;
+			}
+		}
 		&__stockcount {
 			font-size: $font-size-sm;
 			color: $body-color;
@@ -183,6 +188,8 @@ $card-border-style: 1px dashed $border-color;
 	}
 	
 	&--horizontal {
+		border: none !important;
+		outline: $card-border-style;
 		display: grid;
 		grid-template-columns: 200px 1fr;
 		grid-template-columns: 130px 70px 50px 1fr;
@@ -205,14 +212,21 @@ $card-border-style: 1px dashed $border-color;
 			grid-column: 4 / -1;
 			grid-row: 2 / -1;
 			align-self: end;
-			p:last-child {
-				margin-bottom: 0;
+
+			p{
+				margin-top: 0;
+				&:last-child {
+					margin-bottom: 0;
+				}
 			}
 		}
 		&.card--compact {
-			grid-template-columns: 0 0 150px 1fr;
+			grid-template-columns: 130px 20px 0 1fr;
 			.card-author {
 				font-size: 0.75rem;
+			}
+			.card-body, .card-footer {
+				padding: divide($grid-gutter-width, 4);
 			}
 		}
 		
@@ -230,6 +244,7 @@ $card-border-style: 1px dashed $border-color;
 			}
 			.card-body, .card-footer {
 				grid-column: 2 / -1;
+				padding: divide( $grid-gutter-width, 4 );
 			}
 		}
 		
@@ -464,6 +479,29 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 				}
 			}
 
+			// 3 cards per row
+			&.card-deck--sized-3 {
+				@container cards-container ( width > 720px ) {
+					@include cardRow( 3 );
+				}
+				@container cards-container ( 720px < width <= 990px ) {
+					@include cardRow( 2 );
+				}
+				@container cards-container ( width <= 720px ) {
+					@include cardRow( 1 );
+				}
+			}
+
+			// 2 cards per row
+			&.card-deck--sized-2 {
+				@container cards-container ( width > 660px ) {
+					@include cardRow( 2 );
+				}
+				@container cards-container ( width <= 660px ) {
+					@include cardRow( 1 );
+				}
+			}
+
 			grid-template-columns: repeat( var( --cards-per-row ) , 1fr);
 
 			@include media-breakpoint-down(xs) {
@@ -485,7 +523,6 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 					.card.card--search--creator {
 						grid-column: auto;
 						display: block !important;
-						border: 2mm solid red !important;
 						> * {
 							max-width: 100% !important;
 						}
