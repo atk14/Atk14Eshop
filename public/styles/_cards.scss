@@ -15,6 +15,8 @@ $card-border-style: 1px dashed $border-color;
 	
 	position: relative;
 	
+	container-name: card;
+	container-type: inline-size;
 	// override height attribute
 	// use .card__image in case you need wrapper around image
 	.card-img-top, .card-img-bottom, .card__image {
@@ -183,33 +185,52 @@ $card-border-style: 1px dashed $border-color;
 	&--horizontal {
 		display: grid;
 		grid-template-columns: 200px 1fr;
+		grid-template-columns: 130px 70px 50px 1fr;
 		grid-template-rows: 1fr auto;
 		grid-template-areas: "card-image card-body"
 												"card-image card-footer";
 		.card-img-top, .card__image {
 			// use .card__image in case you need wrapper around image
-			grid-area: card-image;
+			grid-column: 1 / 4;
+			grid-row: 1 / -1;
 		}
 		.card-body {
-			grid-area: card-body;
+			//grid-area: card-body;
+			grid-column: 4 / -1;
+			grid-row: 1 / 2;
 			align-self: stretch;
 		}
 		.card-footer {
-			grid-area: card-footer;
+			//grid-area: card-footer;
+			grid-column: 4 / -1;
+			grid-row: 2 / -1;
 			align-self: end;
+			p:last-child {
+				margin-bottom: 0;
+			}
 		}
 		&.card--compact {
-			grid-template-columns: 150px 1fr;
+			grid-template-columns: 0 0 150px 1fr;
 			.card-author {
 				font-size: 0.75rem;
 			}
 		}
 		
-		@include media-breakpoint-only(md){
-			grid-template-columns: 130px 1fr;
+		@container card ( width < 540px) {
+			.card-img-top, .card__image {
+				grid-column: 1 / 3;
+			}
+			.card-body, .card-footer {
+				grid-column: 3 / -1;
+			}
 		}
-		@include media-breakpoint-only(xs){
-			grid-template-columns: 30% 1fr;
+		@container card ( width < 510px) {
+			.card-img-top, .card__image {
+				grid-column: 1 / 2;
+			}
+			.card-body, .card-footer {
+				grid-column: 2 / -1;
+			}
 		}
 		
 	}
@@ -483,6 +504,11 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 				min-width: 0;
 				//height: 100px;
 				flex-grow: 0;
+				@container ( 360px <= width < 400px) {
+					flex-basis: percentage( 1 / 4);
+					max-width: percentage( 1 / 4);
+				}
+				flex-grow: 0;
 				@container ( 200px <= width < 300px) {
 					flex-basis: percentage( 1 / 3);
 					max-width: percentage( 1 / 3);
@@ -504,7 +530,6 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 .section--list-products, .card-grid {
 	margin-bottom: $grid-gutter-width;
-	//border: 1px solid red;
 	.pagination-container {
 		margin-top: $grid-gutter-width;
 	}
