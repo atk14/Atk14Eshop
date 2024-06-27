@@ -288,6 +288,13 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		];
 		$categories = $this->getCategories($options);
 		if($categories){
+			if($main_root_category = Category::MainRootCategory()){
+				foreach($categories as $category){
+					if($category->isDescendantOf($main_root_category)){
+						return $category;
+					}
+				}
+			}
 			return $categories[0];
 		}
 	}

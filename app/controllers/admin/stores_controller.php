@@ -14,7 +14,7 @@ class StoresController extends AdminController {
 
 	function edit(){
 		$this->_edit(array(
-			"page_title" => _("Edit store"),
+			"page_title" => sprintf(_("Edit store '%s'"),strip_tags($this->store->getName())),
 		));
 	}
 
@@ -28,7 +28,7 @@ class StoresController extends AdminController {
 
 	function _before_filter(){
 		if(in_array($this->action,["edit"])){
-			$this->_find("store"); // ... because we need to disable the code field in EditForm
+			$this->_find("store");
 		}
 	}
 }

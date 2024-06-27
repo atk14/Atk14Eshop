@@ -26,7 +26,7 @@ class DeliveryMethodsController extends AdminController {
 		$this->tpl_data["countries"] = Region::GetDeliveryCountriesFromAllRegions();
 
 		$this->_edit([
-			"page_title" => _("Editace způsobu dopravy"),
+			"page_title" => sprintf(_("Editace způsobu dopravy '%s'"),strip_tags($this->delivery_method)),
 			"set_initial_closure" => function($form,$dm){
 				$form->set_initial($dm);
 				$form->set_initial("designated_for_tags",$dm->getDesignatedForTags());
