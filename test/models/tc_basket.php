@@ -515,7 +515,7 @@ class TcBasket extends TcBase {
 		]);
 		$this->assertFalse($basket->canOrderBeCreated($messages));
 		$this->assertCount(1, $messages);
-		$this->assertEquals("Delivery address has not been selected for the shipping method 'Packeta'", (string)$messages[0]);
+		$this->assertEquals("The dispensing point for order delivery has not been selected", (string)$messages[0]);
 
 		$basket->s("delivery_method_data", $this->delivery_service_branches["zasilkovna_1"]->getDeliveryMethodData());
 		$this->assertTrue($basket->canOrderBeCreated($messages));

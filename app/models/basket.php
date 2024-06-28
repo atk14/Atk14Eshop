@@ -842,7 +842,11 @@ class Basket extends BasketOrOrder {
 
 		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
 		if ($delivery_method && !is_null($delivery_method->getDeliveryServiceId()) && is_null($this->getDeliveryMethodData())) {
-			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
+			$messages[] = new BasketErrorMessage(_("Výdejní místo pro doručení objednávky nebylo vybráno"),[
+				"correction_text" => _("vyberte výdejní místo"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+				"request_method" => "GET",
+			]);
 		}
 
 		if(
