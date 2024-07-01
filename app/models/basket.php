@@ -1377,11 +1377,16 @@ class Basket extends BasketOrOrder {
 	 * @return DeliveryServiceBranch
 	 */
 	function getDeliveryServiceBranch() {
+		static $CACHE = [];
 		$method_data = $this->getDeliveryMethodData();
 		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
 			return null;
 		}
-		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+		$cache_key = $this->getDeliveryMethod()->getDeliveryServiceId()."_".$method_data["external_branch_id"];
+		if(!array_key_exists($cache_key,$CACHE)){
+			$CACHE[$cache_key] = DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+		}
+		return $CACHE[$cache_key];
 	}
 
 	/**
