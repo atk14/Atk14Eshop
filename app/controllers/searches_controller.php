@@ -46,6 +46,14 @@ class SearchesController extends ApplicationController {
 		}
 
 		$finder = $this->tpl_data["finder"] = $texmit->search($q->toString(),$options);
+
+		if(!is_null($offset) && $offset>=$finder->getTotalAmount()){
+			$params = $this->params->toArray();
+		 	unset($params["offset"]);
+			$this->_redirect_to($params);
+			return;
+		}
+
 		//print_r($finder);
 
 		$objects = $finder->getRecords();
