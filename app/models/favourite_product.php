@@ -7,4 +7,8 @@ class FavouriteProduct extends ApplicationModel implements Rankable {
 			"session_token" => $this->g("session_token"),
 		]);
 	}
+
+	function getProduct(){
+		return Cache::Get("Product",$this->getProductId());
+	}
 }
