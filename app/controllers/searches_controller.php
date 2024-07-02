@@ -18,6 +18,14 @@ class SearchesController extends ApplicationController {
 			return;
 		}
 
+		$offset = $this->params->getInt("offset");
+		if(!is_null($offset) && $offset<0){
+			$params = $this->params->toArray();
+		 	unset($params["offset"]);
+			$this->_redirect_to($params);
+			return;
+		}
+
 		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$q);
 
 		$texmit = new \Textmit\Client();
@@ -27,7 +35,7 @@ class SearchesController extends ApplicationController {
 			//"type" => "article",
 			//"meta_data" => "",
 			"language" => $this->lang,
-			"offset" => $this->params->getInt("offset"),
+			"offset" => $offset,
 			"limit" => 20,
 			//"damping_coefficient" => 10000000 // tlumi relevanci se starim datumu daneho dokumentu; cim vyssi cislo, tim mensi tlumeni; def. je 30
 			"boosted_types" => "card", // in sorting, cards should be priritized over other other document types
