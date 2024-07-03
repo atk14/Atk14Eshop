@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-13 14:10+0200\n"
-"PO-Revision-Date: 2024-05-13 14:19+0200\n"
+"POT-Creation-Date: 2024-06-28 16:18+0200\n"
+"PO-Revision-Date: 2024-06-28 16:23+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -67,7 +67,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:84
+#: ../app/controllers/password_recoveries_controller.php:83
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -102,7 +102,7 @@ msgstr "článků celkem"
 msgid "Nakupte ještě za %1 a dostanete dopravu zdarma."
 msgstr "Nakupte ještě za %1 a dostanete dopravu zdarma."
 
-#: ../app/controllers/baskets_controller.php:166
+#: ../app/controllers/baskets_controller.php:167
 msgid "Produkt byl přidán do košíku"
 msgstr "Produkt byl přidán do košíku"
 
@@ -1089,11 +1089,11 @@ msgstr "Kontakt"
 msgid "phone number"
 msgstr "telefonní číslo"
 
-#: ../app/forms/application_form.php:272
+#: ../app/forms/application_form.php:284
 msgid "IČ"
 msgstr "IČ"
 
-#: ../app/forms/application_form.php:284
+#: ../app/forms/application_form.php:296
 msgid "DIČ"
 msgstr "DIČ"
 
@@ -1635,17 +1635,17 @@ msgstr "Omlouváme se, nastala vnitřní chyba"
 msgid "Articles tagged with <em>%s</em>"
 msgstr "Články se štítkem <em>%s</em>"
 
-#: ../app/controllers/baskets_controller.php:43
+#: ../app/controllers/baskets_controller.php:49
 msgid "Takový slevový kupón neexistuje"
 msgstr "Takový slevový kupón neexistuje"
 
-#: ../app/controllers/baskets_controller.php:51
+#: ../app/controllers/baskets_controller.php:57
 msgid "Slevový kupón byl přidán"
 msgstr "Slevový kupón byl přidán"
 
-#: ../app/controllers/baskets_controller.php:90
-#: ../app/controllers/baskets_controller.php:105
-#: ../app/controllers/baskets_controller.php:165
+#: ../app/controllers/baskets_controller.php:91
+#: ../app/controllers/baskets_controller.php:106
+#: ../app/controllers/baskets_controller.php:166
 #: ../app/controllers/orders_controller.php:120
 msgid "Shopping basket"
 msgstr "Nákupní košík"
@@ -1849,12 +1849,12 @@ msgstr ""
 "Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
 "nastavena."
 
-#: ../app/controllers/password_recoveries_controller.php:68
+#: ../app/controllers/password_recoveries_controller.php:67
 #: ../app/controllers/users_controller.php:94
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:85
+#: ../app/controllers/password_recoveries_controller.php:84
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -2065,8 +2065,8 @@ msgstr "Vyberte výdejní místo pro vybraný způsob doručení"
 msgid "dle země doručení"
 msgstr "dle země doručení"
 
-#: ../app/fields/delivery_method_field.php:13
-#: ../app/fields/payment_method_field.php:13
+#: ../app/fields/delivery_method_field.php:14
+#: ../app/fields/payment_method_field.php:14
 msgid "neaktivní"
 msgstr "neaktivní"
 
@@ -2165,15 +2165,15 @@ msgstr "stránka"
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
 
-#: ../app/fields/phone_field.php:54
+#: ../app/fields/phone_field.php:55
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Zadejte telefonní číslo ve formátu %sample_phone_number%"
 
-#: ../app/fields/phone_field.php:78
+#: ../app/fields/phone_field.php:79
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 
-#: ../app/fields/phone_field.php:79
+#: ../app/fields/phone_field.php:80
 msgid "Enter phone number"
 msgstr "Zadejte telefonní číslo"
 
@@ -2282,75 +2282,79 @@ msgstr "Vyhledávací dotaz"
 msgid "Sign up for newsletter"
 msgstr "Přihlásit se k odběru newsletteru"
 
-#: ../app/forms/application_form.php:120
+#: ../app/forms/application_form.php:121 ../app/forms/application_form.php:125
+msgid "Spam protection"
+msgstr "Ochrana proti spamu"
+
+#: ../app/forms/application_form.php:132
 msgid "Oslovení"
 msgstr "Oslovení"
 
-#: ../app/forms/application_form.php:144
+#: ../app/forms/application_form.php:156
 msgid "Firstname"
 msgstr "Jméno"
 
-#: ../app/forms/application_form.php:150
+#: ../app/forms/application_form.php:162
 msgid "Lastname"
 msgstr "Příjmení"
 
-#: ../app/forms/application_form.php:158
+#: ../app/forms/application_form.php:170
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/application_form.php:185
+#: ../app/forms/application_form.php:197
 msgid "Ulice a č.p."
 msgstr "Ulice a č.p."
 
-#: ../app/forms/application_form.php:195
+#: ../app/forms/application_form.php:207
 msgid "Adresa (2. řádek)"
 msgstr "Adresa (2. řádek)"
 
-#: ../app/forms/application_form.php:203
+#: ../app/forms/application_form.php:215
 msgid "City"
 msgstr "Město"
 
-#: ../app/forms/application_form.php:209
+#: ../app/forms/application_form.php:221
 msgid "State / Province / Region"
 msgstr "Stát / Provincie / Kraj"
 
-#: ../app/forms/application_form.php:215
+#: ../app/forms/application_form.php:227
 msgid "PSČ"
 msgstr "PSČ"
 
-#: ../app/forms/application_form.php:234
+#: ../app/forms/application_form.php:246
 msgid "Země"
 msgstr "Země"
 
-#: ../app/forms/application_form.php:240
+#: ../app/forms/application_form.php:252
 msgid "select country"
 msgstr "vyberte zemi"
 
-#: ../app/forms/application_form.php:244
+#: ../app/forms/application_form.php:256
 msgid "Upozornění pro doručovatele"
 msgstr "Upozornění pro doručovatele"
 
-#: ../app/forms/application_form.php:248
+#: ../app/forms/application_form.php:260
 msgid "Např. číslo patra nebo dveří, označení zvonku a podobně"
 msgstr "Např. číslo patra nebo dveří, označení zvonku a podobně"
 
-#: ../app/forms/application_form.php:266
+#: ../app/forms/application_form.php:278
 msgid "Společnost"
 msgstr "Společnost"
 
-#: ../app/forms/application_form.php:276
+#: ../app/forms/application_form.php:288
 msgid "Zadejte platné IČ"
 msgstr "Zadejte platné IČ"
 
-#: ../app/forms/application_form.php:279 ../app/forms/application_form.php:280
+#: ../app/forms/application_form.php:291 ../app/forms/application_form.php:292
 msgid "IČ by mělo mít 8 číslic"
 msgstr "IČ by mělo mít 8 číslic"
 
-#: ../app/forms/application_form.php:302
+#: ../app/forms/application_form.php:314
 msgid "Telefon"
 msgstr "Telefon"
 
-#: ../app/forms/application_form.php:325
+#: ../app/forms/application_form.php:337
 msgid "Země ve fakturační adrese a země v DIČ se musí shodovat"
 msgstr "Země ve fakturační adrese a země v DIČ se musí shodovat"
 
@@ -2412,12 +2416,7 @@ msgstr "Objednávku nelze dokončit bez odsouhlasení našich obchodních podmí
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:26
-#: ../app/forms/contact_messages/create_new_form.php:30
-msgid "Spam protection"
-msgstr "Ochrana proti spamu"
-
-#: ../app/forms/contact_messages/create_new_form.php:36
+#: ../app/forms/contact_messages/create_new_form.php:28
 #: ../app/forms/information_requests/create_new_form.php:29
 msgid "Send message"
 msgstr "Poslat zprávu"
@@ -2664,23 +2663,26 @@ msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr "Platební metoda <em>%s</em> nemůže být vybrána"
 
 #: ../app/models/basket.php:845
-#, php-format
-msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
-msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
+msgid "Výdejní místo pro doručení objednávky nebylo vybráno"
+msgstr "Výdejní místo pro doručení objednávky nebylo vybráno"
 
-#: ../app/models/basket.php:854
+#: ../app/models/basket.php:846
+msgid "vyberte výdejní místo"
+msgstr "vyberte výdejní místo"
+
+#: ../app/models/basket.php:858
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "Objednávku nelze doručit na danou doručovací adresu"
 
-#: ../app/models/basket.php:855
+#: ../app/models/basket.php:859
 msgid "upravte doručovací adresu"
 msgstr "upravte doručovací adresu"
 
-#: ../app/models/basket.php:862
+#: ../app/models/basket.php:866
 msgid "Vybrané výdejní místo pro doručení objednávky již není aktivní"
 msgstr "Vybrané výdejní místo pro doručení objednávky již není aktivní"
 
-#: ../app/models/basket.php:863
+#: ../app/models/basket.php:867
 msgid "vyberte jiné výdejní místo"
 msgstr "vyberte jiné výdejní místo"
 
@@ -2945,6 +2947,10 @@ msgstr "Objednávka č. %s v e-shopu %s"
 #, php-format
 msgid "obj. %s"
 msgstr "obj. %s"
+
+#, php-format
+#~ msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
+#~ msgstr "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
 
 #~ msgid "Enter the ZIP code as NNN NN"
 #~ msgstr "Zadejte PSČ jako NNN NN"

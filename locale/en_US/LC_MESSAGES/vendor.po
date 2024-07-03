@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-13 14:10+0200\n"
+"POT-Creation-Date: 2024-06-28 16:18+0200\n"
 "PO-Revision-Date: 2024-05-13 14:11+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -97,6 +97,7 @@ msgstr "Please enter a valid company registration number"
 
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:34
 msgid "Enter the company number as eight digits"
 msgstr "Enter the company number as eight digits"
 
@@ -297,15 +298,15 @@ msgstr "Plain text body"
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:54
+#: ../vendor/atk14/phone-field/src/phone_field.php:55
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:78
+#: ../vendor/atk14/phone-field/src/phone_field.php:79
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:79
+#: ../vendor/atk14/phone-field/src/phone_field.php:80
 msgid "Enter phone number"
 msgstr "Enter phone number"
 

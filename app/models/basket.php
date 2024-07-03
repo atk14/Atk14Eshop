@@ -842,7 +842,11 @@ class Basket extends BasketOrOrder {
 
 		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
 		if ($delivery_method && !is_null($delivery_method->getDeliveryServiceId()) && is_null($this->getDeliveryMethodData())) {
-			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
+			$messages[] = new BasketErrorMessage(_("Výdejní místo pro doručení objednávky nebylo vybráno"),[
+				"correction_text" => _("vyberte výdejní místo"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+				"request_method" => "GET",
+			]);
 		}
 
 		if(
@@ -1373,11 +1377,16 @@ class Basket extends BasketOrOrder {
 	 * @return DeliveryServiceBranch
 	 */
 	function getDeliveryServiceBranch() {
+		static $CACHE = [];
 		$method_data = $this->getDeliveryMethodData();
 		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
 			return null;
 		}
-		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+		$cache_key = $this->getDeliveryMethod()->getDeliveryServiceId()."_".$method_data["external_branch_id"];
+		if(!array_key_exists($cache_key,$CACHE)){
+			$CACHE[$cache_key] = DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
+		}
+		return $CACHE[$cache_key];
 	}
 
 	/**

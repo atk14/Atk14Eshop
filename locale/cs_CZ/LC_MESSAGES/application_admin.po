@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:56+0200\n"
+"POT-Creation-Date: 2024-06-28 16:18+0200\n"
 "PO-Revision-Date: 2024-06-07 17:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -711,12 +711,6 @@ msgstr "Pouze pro zákaznickou skupinu:"
 msgid "Vybrat možné platební metody"
 msgstr "Vybrat možné platební metody"
 
-msgid "Vypnout"
-msgstr "Vypnout"
-
-msgid "Zapnout"
-msgstr "Zapnout"
-
 msgid "Specifické hodnoty u podporovaných zemí"
 msgstr "Specifické hodnoty u podporovaných zemí"
 
@@ -957,7 +951,7 @@ msgstr "Opravdu chcete smazat tuto kampaň?"
 msgid "Číslo objednávky"
 msgstr "Číslo objednávky"
 
-#: ../app/controllers/admin/orders_controller.php:153
+#: ../app/controllers/admin/orders_controller.php:157
 msgid "Zodpovědná osoba"
 msgstr "Zodpovědná osoba"
 
@@ -1962,13 +1956,13 @@ msgid "Category tree"
 msgstr "Strom kategorií"
 
 #: ../app/controllers/admin/admin.php:134
-#: ../app/controllers/admin/orders_controller.php:103
+#: ../app/controllers/admin/orders_controller.php:107
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
 #: ../app/controllers/admin/admin.php:138
-#: ../app/controllers/admin/orders_controller.php:141
+#: ../app/controllers/admin/orders_controller.php:145
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
@@ -2394,18 +2388,9 @@ msgid "Vytvořit nový způsob dopravy"
 msgstr "Vytvořit nový způsob dopravy"
 
 #: ../app/controllers/admin/delivery_methods_controller.php:29
-msgid "Editace způsobu dopravy"
-msgstr "Editace způsobu dopravy"
-
-#: ../app/controllers/admin/delivery_methods_controller.php:53
 #, php-format
-msgid "Způsob dopravy '%s' zapnut"
-msgstr "Způsob dopravy '%s' zapnut"
-
-#: ../app/controllers/admin/delivery_methods_controller.php:64
-#, php-format
-msgid "Způsob dopravy '%s' vypnut"
-msgstr "Způsob dopravy '%s' vypnut"
+msgid "Editace způsobu dopravy '%s'"
+msgstr ""
 
 #: ../app/controllers/admin/digital_contents_controller.php:5
 #, php-format
@@ -2561,19 +2546,19 @@ msgstr "Byl nastaven úspěšně nový stav objednávky"
 msgid "Seznam objednávek"
 msgstr "Seznam objednávek"
 
-#: ../app/controllers/admin/orders_controller.php:158
+#: ../app/controllers/admin/orders_controller.php:162
 msgid "Zodpovědná osoba nastavena"
 msgstr "Zodpovědná osoba nastavena"
 
-#: ../app/controllers/admin/orders_controller.php:167
+#: ../app/controllers/admin/orders_controller.php:171
 msgid "Import čísel pro sledování zásilek"
 msgstr "Import čísel pro sledování zásilek"
 
-#: ../app/controllers/admin/orders_controller.php:196
+#: ../app/controllers/admin/orders_controller.php:200
 msgid "Chybná data v souboru"
 msgstr "Chybná data v souboru"
 
-#: ../app/controllers/admin/orders_controller.php:203
+#: ../app/controllers/admin/orders_controller.php:207
 msgid "Zásilky byly naimportovány"
 msgstr "Zásilky byly naimportovány"
 
@@ -2615,8 +2600,12 @@ msgid "The page has been updated successfully"
 msgstr "Stránka byla úspěšně aktualizována"
 
 #: ../app/controllers/admin/payment_methods_controller.php:5
-msgid "Způsoby platby"
-msgstr "Způsoby platby"
+msgid "Platební metody"
+msgstr ""
+
+#: ../app/controllers/admin/payment_methods_controller.php:11
+msgid "Vytvořit novou platební metodu"
+msgstr ""
 
 #: ../app/controllers/admin/payment_methods_controller.php:28
 msgid ""
@@ -2631,18 +2620,9 @@ msgid "Contact the eshop administrator to configure the payment gateway."
 msgstr "Pro konfiguraci platební brány se obraťte na správce e-shopu."
 
 #: ../app/controllers/admin/payment_methods_controller.php:31
-msgid "Editace možnosti platby"
-msgstr "Editace možnosti platby"
-
-#: ../app/controllers/admin/payment_methods_controller.php:55
 #, php-format
-msgid "Možnost platby '%s' zapnuta"
-msgstr "Možnost platby '%s' zapnuta"
-
-#: ../app/controllers/admin/payment_methods_controller.php:66
-#, php-format
-msgid "Možnost platby '%s' vypnuta"
-msgstr "Možnost platby '%s' vypnuta"
+msgid "Editace platební metody '%s'"
+msgstr ""
 
 #: ../app/controllers/admin/pricelist_items_controller.php:7
 #, php-format
@@ -2748,8 +2728,9 @@ msgid "New store"
 msgstr "Nová prodejna"
 
 #: ../app/controllers/admin/stores_controller.php:17
-msgid "Edit store"
-msgstr "Editace prodejny"
+#, php-format
+msgid "Edit store '%s'"
+msgstr ""
 
 #: ../app/controllers/admin/system_parameters_controller.php:36
 #, php-format
@@ -2996,7 +2977,7 @@ msgid "Is visible?"
 msgstr "Je viditelné?"
 
 #: ../app/forms/admin/admin_form.php:161
-#: ../app/forms/admin/regions/regions_form.php:11
+#: ../app/forms/admin/regions/regions_form.php:17
 #: ../app/forms/admin/users/users_form.php:53
 msgid "Is active?"
 msgstr "Je aktivní?"
@@ -4300,23 +4281,31 @@ msgstr "název produktu"
 msgid "seznam hlavních tvůrců (např. autor knihy)"
 msgstr "seznam hlavních tvůrců (např. autor knihy)"
 
-#: ../app/forms/admin/product_types/product_types_form.php:21
+#: ../app/forms/admin/product_types/product_types_form.php:15
+msgid "kód produktu"
+msgstr ""
+
+#: ../app/forms/admin/product_types/product_types_form.php:22
 msgid "Vzor pro generování názvu stránky"
 msgstr "Vzor pro generování názvu stránky"
 
-#: ../app/forms/admin/product_types/product_types_form.php:23
+#: ../app/forms/admin/product_types/product_types_form.php:24
 msgid "Lze použít následující zástupné značky:"
 msgstr "Lze použít následující zástupné značky:"
 
-#: ../app/forms/admin/regions/regions_form.php:17
+#: ../app/forms/admin/regions/regions_form.php:11
+msgid "Shortcut"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:23
 msgid "Delivery to countries"
 msgstr "Země doručení"
 
-#: ../app/forms/admin/regions/regions_form.php:23
+#: ../app/forms/admin/regions/regions_form.php:29
 msgid "Supported currencies"
 msgstr "Podporované měny"
 
-#: ../app/forms/admin/regions/regions_form.php:28
+#: ../app/forms/admin/regions/regions_form.php:34
 msgid "Currently, only one currency can be selected."
 msgstr "Momentálně může být vybrána pouze jedna měna."
 
@@ -4328,11 +4317,11 @@ msgstr "Vytvořit také opačnou vazbu?"
 msgid "Vyberte dostupné způsoby dopravy"
 msgstr "Vyberte dostupné způsoby dopravy"
 
-#: ../app/forms/admin/shipping_combinations/edit_payment_methods_form.php:9
+#: ../app/forms/admin/shipping_combinations/edit_payment_methods_form.php:11
 msgid "neaktivní platební metoda"
 msgstr "neaktivní platební metoda"
 
-#: ../app/forms/admin/shipping_combinations/edit_payment_methods_form.php:14
+#: ../app/forms/admin/shipping_combinations/edit_payment_methods_form.php:16
 msgid "Vyberte dostupné způsoby platby"
 msgstr "Vyberte dostupné způsoby platby"
 
@@ -4771,6 +4760,40 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "Vypnout"
+#~ msgstr "Vypnout"
+
+#~ msgid "Zapnout"
+#~ msgstr "Zapnout"
+
+#~ msgid "Editace způsobu dopravy"
+#~ msgstr "Editace způsobu dopravy"
+
+#, php-format
+#~ msgid "Způsob dopravy '%s' zapnut"
+#~ msgstr "Způsob dopravy '%s' zapnut"
+
+#, php-format
+#~ msgid "Způsob dopravy '%s' vypnut"
+#~ msgstr "Způsob dopravy '%s' vypnut"
+
+#~ msgid "Způsoby platby"
+#~ msgstr "Způsoby platby"
+
+#~ msgid "Editace možnosti platby"
+#~ msgstr "Editace možnosti platby"
+
+#, php-format
+#~ msgid "Možnost platby '%s' zapnuta"
+#~ msgstr "Možnost platby '%s' zapnuta"
+
+#, php-format
+#~ msgid "Možnost platby '%s' vypnuta"
+#~ msgstr "Možnost platby '%s' vypnuta"
+
+#~ msgid "Edit store"
+#~ msgstr "Editace prodejny"
 
 #, php-format
 #~ msgid "This page is the profile page for another creator (%s)"
