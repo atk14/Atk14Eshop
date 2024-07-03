@@ -98,7 +98,7 @@ More compact version is created by adding <code>.card--sm</code> modifier class.
 
 [example]
 <div class="d-flex" style="flex-wrap:wrap">
-<div class="card card--hoverable card--id-22 card--in-basket card--sm" style="max-width:200px;">
+<div class="card card--hoverable card--id-22 card--in-basket card--sm" style="width:200px;">
 	<a class="card__image" href="#"> <img
 			src="http://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" width="400"
 			height="300" class="card-img-top" alt="Foto film">
@@ -136,7 +136,7 @@ More compact version is created by adding <code>.card--sm</code> modifier class.
 	</div>
 </div>
 
-<a href="#" class="card card--id-22 card--in-basket card--sm"  style="max-width:200px;">
+<a href="#" class="card card--id-22 card--in-basket card--sm"  style="width:200px;">
 	<div class="card__image"> <img
 			src="http://i.pupiq.net/i/6f/6f/ac6/2dac6/2400x1800/euQFGB_400x300xffffff_14812c5c3175e9b5.jpg" width="400"
 			height="300" class="card-img-top" alt="Foto film">
@@ -198,10 +198,25 @@ More compact version is created by adding <code>.card--sm</code> modifier class.
 [/example]
 
 ## Horizontal card 
-Created by adding <code>card--horizontal</code> class. If you use it with tags or flags, test it thoroughly before production use.
+Created by adding <code>card--horizontal</code> class. If you use it with tags or flags, test it thoroughly before production use. Comes also in slightly more compact form with <code>card--compact</code> class.
 
 [example]	
 <a class="card card--horizontal" href="#" style="max-width:600px">
+	<div class="card__image">
+		<img src="http://i.pupiq.net/i/6f/6f/ad9/2dad9/2000x1333/ed8BI4_400x300xc_c8450b0cd86003da.jpg" width="400"
+			height="300" class="card-img-top" alt="Curabitur et ex fringilla">
+	</div>
+	<div class="card-body">
+		<div class="h2 card-title">Curabitur et ex fringilla</div>
+		<div class="card-teaser">Aenean finibus erat et sollicitudin ultricies</div>
+	</div>
+	<div class="card-footer">
+		<p class="card-meta"> Zaslal <em>Charlie Root</em> dne <time
+				datetime="2020-01-24 13:03:00">24.&nbsp;1.&nbsp;2020</time> </p>
+	</div>
+</a>
+
+<a class="card card--horizontal card--compact mt-4" href="#" style="max-width:600px">
 	<div class="card__image">
 		<img src="http://i.pupiq.net/i/6f/6f/ad9/2dad9/2000x1333/ed8BI4_400x300xc_c8450b0cd86003da.jpg" width="400"
 			height="300" class="card-img-top" alt="Curabitur et ex fringilla">
@@ -347,11 +362,11 @@ Provides small thumbnail cards with fixed width and link to view more items. Use
 
 ## Card deck 
 Based on Bootstrap card deck. To control number of cards per row, there are added modifier classes that control card sizing. Cards are responsive so on smallers display they are displayed with reasonable widths.
+By default there are 4 cards per row on large viewports.
 
-Available classes for 2, 3, 4 or 6 cards per row:  
+Available classes for 2, 3 or 6 cards per row:  
 <code>card-deck--sized-2</code>  
 <code>card-deck--sized-3</code>  
-<code>card-deck--sized-4</code>  
 <code>card-deck--sized-6</code>
 
 [example]

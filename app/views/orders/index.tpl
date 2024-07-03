@@ -11,7 +11,7 @@
 
 	{if !$finder->isEmpty()}
 
-		<table class="table table-sm table--responsive-xs table--orders">
+		<table class="table table-sm table--responsive-xs table-striped table--orders">
 			<thead class="thead--hidden-xs">
 				<tr>
 					<th>{t}Číslo objednávky{/t}</th>

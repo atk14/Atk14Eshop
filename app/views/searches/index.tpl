@@ -15,13 +15,12 @@
 		<p class="nosearchresult">{t}Nic nebylo nalezeno.{/t}</p>
 
 	{else}		
-		<div class="card-grid card-grid--cols-4">
+		<div class="card-deck card-deck--search">
 			{foreach $finder->getItems() as $item}
 				{display_search_result_item item=$item}
 			{/foreach}
 		</div>
 		{paginator}
-	
 	{/if}
 
 {/if}
