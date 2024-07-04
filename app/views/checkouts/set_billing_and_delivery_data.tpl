@@ -11,9 +11,8 @@
 			<div class="card-body js--card-address {*if $addresscounter == 1}card--active{/if*}">
 				{render partial="shared/delivery_address" delivery_address=$da}
 			</div>
-			<div class="card-footer card__actions justify-content-start">
+			<div class="card-footer card__actions">
 				<button class="js--predefined-address card__action btn btn-primary btn-sm" data-json="{$da->toJson()}">{!"check"|icon} <span>{t}Použít{/t}</span></button>
-				&nbsp;
 					{a_destroy action="delivery_addresses/destroy" id=$da->getId() _title="{t}Smazat adresu{/t}" _confirm="{t}Opravdu chcete smazat tuto adresu?{/t}" _class="card__action btn btn-secondary btn-sm"}{!"remove"|icon} <span>{t}Smazat{/t}</span>{/a_destroy}
 			</div>
 		</li>

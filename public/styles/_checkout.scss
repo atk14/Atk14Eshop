@@ -26,6 +26,21 @@
 		animation-duration: 1.25s;
 		animation-iteration-count: 1;
 	}
+	.card-footer {
+		justify-content: space-between;
+		gap: 0.5rem 1rem;
+		.btn {
+			display: block;
+			width: auto !important;
+			margin: 0;
+			flex-basis: calc(50% - 0.5rem);
+			flex-shrink: 2;
+			flex-grow: 2;
+			@container (max-width:240px){
+				flex-basis: 100%;
+			}
+		}
+	}
 }
 
 @keyframes card--address--on-selection {
