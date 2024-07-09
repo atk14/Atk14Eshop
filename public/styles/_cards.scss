@@ -441,7 +441,9 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 .linked-cards,
 .section--articles,
 .card-deck-wrapper,
-.section--child-pages
+.section--child-pages,
+.section--child-categories,
+.creator_works
 //*:has( > .card-deck) // better alternative to replace aove selectors. waiting for even better browser support
 {
 	// modern browsers
@@ -451,7 +453,7 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 		container-type: inline-size;
 		.card-deck {
 			display: grid;
-			margin-bottom: $grid-gutter-width;
+			margin-bottom: $grid-gutter-width; outline: 0.2mm dashed red;
 
 			// Card sizing depending on width of container
 

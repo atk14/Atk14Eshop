@@ -1,5 +1,5 @@
 {render partial="shared/layout/content_header" title=$page_title}
-
+<div class="card-deck-wrapper">
 <div class="card-deck card-deck--sized-4">
 	{foreach $categories as $category}
 	{a action="detail" path=$category->getSlug() _class="card"}
@@ -10,4 +10,5 @@
 		</div>
 	{/a}
 	{/foreach}
+</div>
 </div>
