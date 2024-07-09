@@ -453,7 +453,7 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 		container-type: inline-size;
 		.card-deck {
 			display: grid;
-			margin-bottom: $grid-gutter-width; outline: 0.2mm dashed red;
+			margin-bottom: $grid-gutter-width;
 
 			// Card sizing depending on width of container
 
