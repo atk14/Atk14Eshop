@@ -55,10 +55,10 @@ var storeLocatorData = [
 			<button class="btn btn-link" id="stores-filter__submit" tabindex="-1" type="submit" aria-label="{t}Search stores{/t}">{!"search"|icon}</button>
 		</form>
 	{/if}
-
-	<div class="card-deck card-deck--sized-4 js-stores-cards">
-		{render partial="store_item" from=$stores item=store}
+	<div class="card-deck-wrapper">
+		<div class="card-deck card-deck--sized-4 js-stores-cards">
+			{render partial="store_item" from=$stores item=store}
+		</div>
 	</div>
-
 {/if}
 

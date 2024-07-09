@@ -426,15 +426,24 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 // Card sizing system.
 
-*:has( > .card-deck){
-	// fallback for IE
-	.card-deck {
-		display: flex;
-		flex-wrap: wrap !important;
-		.card {
-			flex-basis: 300px;
-		}		
-	}
+// fallback for historic browsers
+.card-deck {
+	display: flex;
+	flex-wrap: wrap !important;
+	.card {
+		flex-basis: 300px;
+		max-width: 300px;
+	}		
+}
+
+.section--list-products,
+.card-deck-wrapper,
+.linked-cards,
+.section--articles,
+.card-deck-wrapper,
+.section--child-pages
+//*:has( > .card-deck) // better alternative to replace aove selectors. waiting for even better browser support
+{
 	// modern browsers
 	@supports(grid-auto-flow: dense) {
 		// specify parent of .card-deck as css container
