@@ -443,7 +443,8 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 .card-deck-wrapper,
 .section--child-pages,
 .section--child-categories,
-.creator_works
+.creator_works,
+.section--recent-articles
 //*:has( > .card-deck) // better alternative to replace aove selectors. waiting for even better browser support
 {
 	// modern browsers
