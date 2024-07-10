@@ -112,8 +112,8 @@ class ShippingCombination extends ApplicationModel {
 	 *
 	 * Jejich vzajemne kombinace se samozrejme dale rozhoduje podle zaznamu v shipping_combinations.
 	 *
-	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket);
-	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket,["cash_on_delivery_enabled" => false]);
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket,["cash_on_delivery_enabled" => false]);
 	 */
 	static function GetAvailableMethods4Basket($basket,$options = []){
 		$options += [
@@ -265,5 +265,15 @@ class ShippingCombination extends ApplicationModel {
 		}
 
 		return [$delivery_methods,$payment_methods];
+	}
+
+	/**
+	 * Pro dany produkt vybere vsechny myslitelne zpusoby dopravy a platby
+	 *
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($product);
+	 */
+	static function GetAvailableMethods4Product($product,$options = []){
+		// TODO: to be implemented
+		return self::GetAvailableMethods4Basket(Basket::GetDummyBasket(),$options);
 	}
 }
