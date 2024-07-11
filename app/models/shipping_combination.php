@@ -272,8 +272,20 @@ class ShippingCombination extends ApplicationModel {
 	 *
 	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($product);
 	 */
-	static function GetAvailableMethods4Product($product,$options = []){
-		// TODO: to be implemented
-		return self::GetAvailableMethods4Basket(Basket::GetDummyBasket(),$options);
+	static function GetAvailableMethods4Product($product,$basket = null,$options = []){
+		if(is_null($basket)){
+			$basket = Basket::GetDummyBasket();
+		}else{
+			$_basket = Basket::GetDummyBasket($basket->getRegion(),$basket->getUser(),$basket->getCurrency());
+			$basket = $_basket;
+		}
+		$basket = clone($basket);
+		$basket_item = new BasketItem();
+		$basket_item->setValuesVirtually([
+			"product_id" => $product->getId(),
+			"amount" => 1,
+		]);
+		$basket->setBasketItemsVirtually([$basket_item]);
+		return self::GetAvailableMethods4Basket($basket,$options);
 	}
 }

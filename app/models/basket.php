@@ -73,14 +73,14 @@ class Basket extends BasketOrOrder {
 		return $basket;
 	}
 
-	static function GetDummyBasket($region = null,$user = null){
+	static function GetDummyBasket($region = null,$user = null, $currency = null){
 		if(!$region){ $region = Region::GetDefaultRegion(); }
 		$basket = Cache::Get("Basket",self::ID_DUMMY);
 
 		$out = clone($basket);
 		$out->setValuesVirtually([
 			"region_id" => $region->getId(),
-			"currency_id" => $region->getDefaultCurrency()->getId(),
+			"currency_id" => isset($currency) ? TableRecord::ObjToId($currency) : $region->getDefaultCurrency()->getId(),
 			"user_id" => $user ? $user->getId() : null,
 		]);
 
@@ -143,6 +143,11 @@ class Basket extends BasketOrOrder {
 			$this->basket_items = new BasketItems($this);
 		}
 		return $this->basket_items;
+	}
+
+	function setBasketItemsVirtually($basket_items){
+		myAssert($this->isDummy(),"Basket::setBasketItemsVirtually() can only be called on a dummy basket");
+		$this->basket_items = $basket_items;
 	}
 
 	function getItems(){

@@ -1,5 +1,6 @@
 <?php
 class BasketItems extends BasketOrOrderItems {
+
 	var $prereadedProducts = false;
 	var $catalogIds = null;
 	var $parent = null;

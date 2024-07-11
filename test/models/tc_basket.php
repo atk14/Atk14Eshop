@@ -20,6 +20,7 @@
  * @fixture payment_methods
  * @fixture discounts
  * @fixture shipping_combinations
+ * @fixture currencies
  * @fixture currency_rates
  */
 class TcBasket extends TcBase {
@@ -33,11 +34,14 @@ class TcBasket extends TcBase {
 		$this->assertTrue($basket->isDummy());
 		$this->assertEquals($def_region->getId(),$basket->getRegionId());
 		$this->assertNull($basket->getUser());
+		$this->assertEquals($def_region->getDefaultCurrency()->getId(),$basket->getCurrencyId());
 
-		$basket = Basket::GetDummyBasket($eu,$rambo);
+		$bitcoin = $this->currencies["bitcoin"];
+		$basket = Basket::GetDummyBasket($eu,$rambo,$bitcoin);
 		$this->assertTrue($basket->isDummy());
 		$this->assertEquals($eu->getId(),$basket->getRegionId());
 		$this->assertEquals($rambo->getId(),$basket->getUserId());
+		$this->assertEquals($bitcoin->getId(),$basket->getCurrencyId());
 	}
 
 	function test_CreateNewRecord4UserAndRegion(){
@@ -1254,6 +1258,32 @@ class TcBasket extends TcBase {
 			"delivery_address_zip" => "130 00",
 		]);
 		$this->assertEquals(true,$basket->hasDeliveryAddressSet());
+	}
+
+	function test_setBasketItemsVirtually(){
+		$basket = Basket::GetDummyBasket();
+		$basket_item = new BasketItem();
+		$basket_item->setValuesVirtually([
+			"product_id" => $this->products["black_tea"]->getId(),
+			"amount" => 2,
+		]);
+		$basket->setBasketItemsVirtually([$basket_item]);
+		$basket_items = $basket->getBasketItems();
+		$this->assertEquals(1,sizeof($basket_items));
+		$this->assertEquals($this->products["black_tea"]->getId(),$basket_items[0]->getProduct()->getId());
+
+		// Basket::setBasketItemsVirtually() can't be called on a regular (not dummy) basket
+		$kveta = $this->users["kveta"];
+		$czechoslovakia = $this->regions["czechoslovakia"];
+	
+		$basket = Basket::CreateNewRecord4UserAndRegion($kveta,$czechoslovakia);
+		$expcetion_thrown = false;
+		try {
+			$basket->setBasketItemsVirtually([$basket_item]);
+		}catch(Exception $e){
+			$expcetion_thrown = true;
+		}
+		$this->assertEquals(true,$expcetion_thrown);
 	}
 
 	function _check_proper_price_rounding_on_items($items){
