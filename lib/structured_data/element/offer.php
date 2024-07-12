@@ -18,17 +18,17 @@ class Offer extends \StructuredData\BaseElement {
 		$_basket = $this->options["basket"];
 
 		$_price = null;
+		$products = $this->item->getProducts();
+		$_product = array_shift($products);
+
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
 		}
 		$_currency = $_basket->getCurrency();
-		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Basket($_basket);
+		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Product($_product, $_basket);
 
 		$out_shipping_details = [];
 		foreach($_shipping_methods as $_sm) {
-			if ($_sm->personalPickup()) {
-				continue;
-			}
 			$out_shipping_details[] = [
 					"@type" => "OfferShippingDetails",
 					"shippingLabel" => $_sm->getLabel(),
@@ -41,8 +41,6 @@ class Offer extends \StructuredData\BaseElement {
 		}
 
 		$stockcount=$this->_getStockcount();
-		$products = $this->item->getProducts();
-		$_product = $products[0];
 		$_availability = "https://schema.org/InStock";
 		if(!$_product->isVisible() || $_product->isDeleted() || !$this->item->isVisible() || $this->item->isDeleted()){
 			$_availability = "https://schema.org/Discontinued";
