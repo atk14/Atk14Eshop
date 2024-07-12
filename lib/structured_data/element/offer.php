@@ -8,6 +8,11 @@ class Offer extends \StructuredData\BaseElement {
 		$options += [
 			"price_finder" => null,
 			"basket" => null,
+			# array for mapping product tags to shipping labels
+			# tag.code => label for offerShippingDetails.shippingLabel
+			"tags" => [
+				"oversized_product" => "oversized product",
+			],
 		];
 		$this->options = $options;
 		$this->item = $item;
@@ -16,6 +21,7 @@ class Offer extends \StructuredData\BaseElement {
 	function toArray() {
 		$_price_finder = $this->options["price_finder"];
 		$_basket = $this->options["basket"];
+		$_region = $_basket->getRegion();
 
 		$_price = null;
 		$products = $this->item->getProducts();
@@ -29,15 +35,31 @@ class Offer extends \StructuredData\BaseElement {
 
 		$out_shipping_details = [];
 		foreach($_shipping_methods as $_sm) {
-			$out_shipping_details[] = [
-					"@type" => "OfferShippingDetails",
-					"shippingLabel" => $_sm->getLabel(),
+			$shipping_detail = [
+				"@type" => "OfferShippingDetails",
+
+				/**
+				 * Not required for standard deliveries. it is used by Merchant Center.
+				 * for some specific cases it should express type of delivery, not the name of the delivery service
+				 * like oversized, 'free shipping'
+				 * https://support.google.com/merchants/answer/6324504?hl=en&ref_topic=6324338&sjid=10862487511373806307-EU
+				 */
 					"shippingRate" => [
 						"@type" => "MonetaryAmount",
 						"currency" => $_currency->getCode(),
 						"value" => $_sm->getPriceInclVat(),
 					],
+					"shippingDestination" => [
+						"@type" => "DefinedRegion",
+						"addressCountry" => $_region->getDeliveryCountries(),
+					],
 			];
+			foreach($this->options["tags"] as $tag_code => $_label) {
+				if ($this->item->containsTag($tag_code)) {
+					$shipping_detail["shippingLabel"] = $_label;
+				}
+			}
+			$out_shipping_details[] = $shipping_detail;
 		}
 
 		$stockcount=$this->_getStockcount();
