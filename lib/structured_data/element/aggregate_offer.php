@@ -22,13 +22,16 @@ class AggregateOffer extends \StructuredData\BaseElement {
 		$_basket = $this->options["basket"];
 
 		$_price = null;
+		$products = $this->item->getProducts();
+		$_product = array_shift($products);
+
 		$_distinct_prices = null;
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
 			$_distinct_prices = $_price_finder->getDistinctPrices($this->item);
 		}
 		$_currency = $_basket->getCurrency();
-		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Basket($_basket);
+		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Product($_product, $_basket);
 
 		$out_shipping_details = [];
 		foreach($_shipping_methods as $_sm) {
@@ -66,7 +69,7 @@ class AggregateOffer extends \StructuredData\BaseElement {
 			"availability" => $_availability,
 			"offerCount" => count($this->item->getProducts()),
 			"seller" => [
-				"@type" => "Thing",
+				"@type" => "Organization",
 				"name" => ATK14_APPLICATION_NAME,
 			],
 			"shippingDetails" => $out_shipping_details,
