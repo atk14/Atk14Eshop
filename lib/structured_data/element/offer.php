@@ -65,7 +65,7 @@ class Offer extends \StructuredData\BaseElement {
 			"shippingDetails" => $out_shipping_details,
 		];
 		if ($_price) {
-			$out["price"] = $_price->getUnitPriceInclVat();
+			$out["price"] = round($_price->getUnitPriceInclVat(), $_currency->getDecimalsSummary());
 			$out["priceCurrency"] = $_currency->getCode();
 		}
 
