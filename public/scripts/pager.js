@@ -86,7 +86,7 @@
 	};
 
 	ATK14COMMON.Pager.prototype.updateCount = function() {
-			this.count = parseInt( this.$pager.data( "count" ) );
+		this.count = parseInt( this.$pager.data( "count" ) );
 	};
 
 	ATK14COMMON.Pager.prototype.getText = function( text ) {

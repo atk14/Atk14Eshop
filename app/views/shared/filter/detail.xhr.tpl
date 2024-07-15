@@ -63,7 +63,8 @@ if( --form[0].filtering == 0 ) {
 		}
 		var ajaxPager = view.find('.ajax_pager')[0].ajaxPager;
 		$.extend(ajaxPager, {!$finder->getPager()->jsUpdate()});
-		ajaxPager.count = {count($finder->getRecords())};
+		ajaxPager.count = {$finder->getRecords()|count};
+		view.find('.ajax_pager').data( "count", {$finder->getRecords()|count});
 		ajaxPager.reinit();
 	{/if}
 
