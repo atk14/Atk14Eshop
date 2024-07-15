@@ -49,7 +49,8 @@
 
 			if ( this.form ) {
 				this.$form = $( "#" + this.form );
-				if ( !this.$form[ 0 ].pagerInited ) {
+				// console.log( "this.form: " + this.form ); // e.g. "form_categories_card_list_paging"
+				if ( this.$form.length === 1 && !this.$form[ 0 ].pagerInited ) {
 					this.$form.find( "select" ).change( ( function() {
 						this.$form.submit();
 					} ).bind( this ) );

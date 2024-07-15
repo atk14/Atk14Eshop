@@ -13,7 +13,12 @@
 <div class="ajax_pager" data-count={count($finder->getRecords())} data-pager="{$pager->jsData()}" id="{$pager->getName()}">
 {/if}
 	<a id="anchor--{$pager->getName()}-top" class="sr-only">&nbsp;</a>
-	<div class="{$list_class} js--pager-list">
+	<div class="js--empty-list">
+		{if $finder->isEmpty()}
+			{render partial=$finder->getPager()->getEmptyTemplate()} {* e.g. "shared/ajax_pager/empty_list"*}
+		{/if}
+	</div>
+	<div class="{$list_class} js--pager-list js--nonempty-list">
 		{render partial="shared/ajax_pager/ajax_pager_list"}
 	</div>
 	<div class="pagination-container">

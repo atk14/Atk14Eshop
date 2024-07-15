@@ -22,7 +22,7 @@ if( --form[0].filtering == 0 ) {
 			empty.html({jstring}{render partial=$finder->getPager()->getEmptyTemplate()}{/jstring});
 			empty.show();
 			view.find('.js--nonempty-list').hide();
-			view.find('.js--ajax-pager-buttons').hide();
+			view.find('.js--pager-buttons').hide();
 	{else}
 			var $list = view.find('.js--pager-list');
 
