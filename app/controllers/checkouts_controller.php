@@ -168,6 +168,15 @@ class CheckoutsController extends ApplicationController {
 			// Vytvoreni objednavky uz neni notifikovano tady.
 			// Je na to spec. robot. V emailu se totiz posila PDF s prehledem obj. zbozi a jeho vytvoreni muze trvat dlouho.
 			//$this->mailer->notify_order_creation($order);
+
+			// ulozime pouzitou dorucovaci adresu do dorucovacich adres
+			if($da = DeliveryAddress::GetOrCreateRecordByBasket($this->basket)){
+				$da->s([
+					"last_used_at" => now(),
+					"updated_at" => $da->g("updated_at"),
+				]);
+			}
+
 			$this->basket->destroy();
 
 			if($d["sign_up_for_newsletter"]){
@@ -178,14 +187,6 @@ class CheckoutsController extends ApplicationController {
 
 			// Yarri: toto je asi trackovani objednavek v Google Analytics
 			$this->session->s("track_order", true);
-
-			// ulozime pouzitou dorucovaci adresu do dorucovacich adres
-			if($da = DeliveryAddress::GetOrCreateRecordByOrder($order)){
-				$da->s([
-					"last_used_at" => now(),
-					"updated_at" => $da->g("updated_at"),
-				]);
-			}
 
 			$this->_redirect_to([
 				"action" => "finish",

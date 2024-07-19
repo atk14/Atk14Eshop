@@ -45,29 +45,25 @@ class DeliveryAddress extends ApplicationModel {
 		]);
 	}
 
-	static function GetOrCreateRecordByOrder($order){
-		$user_id = $order->getUserId();
-		if(!isset($user_id)){
+	static function GetOrCreateRecordByBasket($basket){
+		$user = $basket->getUser();
+		if(is_null($user) || $user->isAnonymous()){
 			return null;
 		}
 
-		$delivery_method = $order->getDeliveryMethod();
-		# nebudeme ukladat adresu, pokud je zvolena dorucovaci metoda se zvolenou pobockou
-		if(!is_null($delivery_method->getDeliveryService())){
+		if(!$basket->deliveryAddressEditableByUser()){
 			return null;
 		}
-		if(!is_null($delivery_method->getPersonalPickupOnStore())){
-			return null;
-		}
+
 		$conditions = $bind_ar = [];
 
 		$conditions[] = "user_id=:user_id";
-		$bind_ar[":user_id"] = $user_id;
+		$bind_ar[":user_id"] = $user->getId();
 
 		$cr_values = [];
-		$cr_values["user_id"] = $order->getUserId();
+		$cr_values["user_id"] = $user->getId();
 
-		foreach([
+		$keys = [
 			"firstname",
 			"lastname",
 			"company",
@@ -78,11 +74,14 @@ class DeliveryAddress extends ApplicationModel {
 			"address_country",
 			"address_note",
 			"phone",
-		] as $key){
+		];
+		if(ALLOW_STATE_IN_ADDRESS){
+			$keys[] = "address_state";
+		}
+		foreach($keys as $key){
 			$o_key = "delivery_$key";
-			//$o_method = String4::ToObject($o_key)->camelize()->prepend("get")->toString(); // delivery_street -> getDeliveryStreet()
-			//$value = $order->$o_method();
-			$value = $order->g("$o_key");
+			$o_method = String4::ToObject($o_key)->camelize()->prepend("get")->toString(); // delivery_street -> getDeliveryStreet()
+			$value = $basket->$o_method();
 
 			$cr_values[$key] = $value;
 

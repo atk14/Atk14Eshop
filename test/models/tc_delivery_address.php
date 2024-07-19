@@ -4,6 +4,7 @@
  * @fixture delivery_addresses
  * @fixture orders
  * @fixture users
+ * @fixture delivery_methods
  */
 class TcDeliveryAddress extends TcBase {
 
@@ -28,38 +29,38 @@ class TcDeliveryAddress extends TcBase {
 		],array_keys($ary));
 	}
 
-	function test_GetOrCreateRecordByOrder(){
-		$order = $this->orders["test_bank_transfer"];
-
-		$order->s(["delivery_address_street" => "Elm Street 1"]);
+	function test_GetOrCreateRecordByBasket(){
+		$basket = $this->_prepareEmptyBasket();
+		$basket->s(["delivery_address_street" => "Elm Street 1"]);
 		
-		$da = DeliveryAddress::GetOrCreateRecordByOrder($order);
+		$da = DeliveryAddress::GetOrCreateRecordByBasket($basket);
 		$this->assertNull($da); // not created for anonymous user
 
-		$order->s("user_id",$this->users["rambo"]);
+		$basket->s("user_id",$this->users["rambo"]);
 
-		$da2 = DeliveryAddress::GetOrCreateRecordByOrder($order);
+		$da2 = DeliveryAddress::GetOrCreateRecordByBasket($basket);
 		$this->assertNotNull($da2);
 		$this->assertEquals("Elm Street 1",$da2->getAddressStreet());
 
-		$da3 = DeliveryAddress::GetOrCreateRecordByOrder($order);
+		$da3 = DeliveryAddress::GetOrCreateRecordByBasket($basket);
 		$this->assertNotNull($da3);
 		$this->assertEquals($da2->getId(),$da3->getId());
 
-		$order->s("delivery_address_street","Elm Street 2");
+		$basket->s("delivery_address_street","Elm Street 2");
 
-		$da4 = DeliveryAddress::GetOrCreateRecordByOrder($order);
+		$da4 = DeliveryAddress::GetOrCreateRecordByBasket($basket);
 		$this->assertNotNull($da4);
 		$this->assertNotEquals($da2->getId(),$da4->getId());
 		$this->assertEquals("Elm Street 2",$da4->getAddressStreet());
 
 		//
 
-		$order = $this->orders["test"];
+		$basket = $this->_prepareEmptyBasket([
+			"user_id" => $this->users["rocky"],
+			"delivery_method_id" => $this->delivery_methods["personal"],
+		]);
 
-		$order->s("user_id",$this->users["rambo"]);
-
-		$da = DeliveryAddress::GetOrCreateRecordByOrder($order);
+		$da = DeliveryAddress::GetOrCreateRecordByBasket($basket);
 		$this->assertNull($da); // not created for personal delivery
 	}
 }
