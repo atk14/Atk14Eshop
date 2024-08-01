@@ -72,7 +72,11 @@ class Ppl extends DeliveryServiceBranchStdClassData implements iDeliveryServiceB
 			1 => _("Neděle"),
 		];
 
-		foreach($this->_data->WorkHours->MyApiKTMWorkHour as $_element) {
+		$_workhour = $this->_data->WorkHours->MyApiKTMWorkHour;
+		if (!is_array($_workhour)) {
+			$_workhour = [$_workhour];
+		}
+		foreach($_workhour as $_element) {
 			$_day = $_element->Day;
 			$_open_day = $_days[$_day];
 			$_open_hours_from = $_element->From;
