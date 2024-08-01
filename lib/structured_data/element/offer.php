@@ -69,6 +69,8 @@ class Offer extends \StructuredData\BaseElement {
 		$_basket = $this->options["basket"];
 		$_region = $_basket->getRegion();
 		$_currency = $_basket->getCurrency();
+
+		$_rate = \CurrencyRate::GetCurrencyRate($_currency);
 		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Product($product, $_basket);
 
 		$out_shippings = [
@@ -96,6 +98,8 @@ class Offer extends \StructuredData\BaseElement {
 
 		$out_shipping_details = [];
 		foreach(array_filter($out_shippings) as $key => $_sm) {
+			$value = $_sm->getPriceInclVat() / $_rate;
+			$value = round($value, $_currency->getDecimals());
 			$shipping_detail = [
 				"@type" => "OfferShippingDetails",
 
@@ -110,7 +114,7 @@ class Offer extends \StructuredData\BaseElement {
 				"shippingRate" => [
 					"@type" => "MonetaryAmount",
 					"currency" => $_currency->getCode(),
-					"value" => $_sm->getPriceInclVat(),
+					"value" => $value,
 				],
 				"shippingDestination" => [
 					"@type" => "DefinedRegion",
