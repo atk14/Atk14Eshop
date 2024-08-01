@@ -21,45 +21,16 @@ class Offer extends \StructuredData\BaseElement {
 	function toArray() {
 		$_price_finder = $this->options["price_finder"];
 		$_basket = $this->options["basket"];
-		$_region = $_basket->getRegion();
+		$_currency = $_basket->getCurrency();
 
-		$_price = null;
 		$products = $this->item->getProducts();
 		$_product = array_shift($products);
 
+		$out_shipping_details = $this->_getShippingDetails($_product);
+
+		$_price = null;
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
-		}
-		$_currency = $_basket->getCurrency();
-		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Product($_product, $_basket);
-
-		$out_shipping_details = [];
-		foreach($_shipping_methods as $_sm) {
-			$shipping_detail = [
-				"@type" => "OfferShippingDetails",
-
-				/**
-				 * Not required for standard deliveries. it is used by Merchant Center.
-				 * for some specific cases it should express type of delivery, not the name of the delivery service
-				 * like oversized, 'free shipping'
-				 * https://support.google.com/merchants/answer/6324504?hl=en&ref_topic=6324338&sjid=10862487511373806307-EU
-				 */
-					"shippingRate" => [
-						"@type" => "MonetaryAmount",
-						"currency" => $_currency->getCode(),
-						"value" => $_sm->getPriceInclVat(),
-					],
-					"shippingDestination" => [
-						"@type" => "DefinedRegion",
-						"addressCountry" => $_region->getDeliveryCountries(),
-					],
-			];
-			foreach($this->options["tags"] as $tag_code => $_label) {
-				if ($this->item->containsTag($tag_code)) {
-					$shipping_detail["shippingLabel"] = $_label;
-				}
-			}
-			$out_shipping_details[] = $shipping_detail;
 		}
 
 		$stockcount=$this->_getStockcount();
@@ -92,6 +63,72 @@ class Offer extends \StructuredData\BaseElement {
 		}
 
 		return $out;
+	}
+
+	protected function _getShippingDetails($product) {
+		$_basket = $this->options["basket"];
+		$_region = $_basket->getRegion();
+		$_currency = $_basket->getCurrency();
+		list($_shipping_methods, $_payment_methods) = \ShippingCombination::GetAvailableMethods4Product($product, $_basket);
+
+		$out_shippings = [
+			"standard" => null,
+			"personal" => null,
+		];
+		foreach($_shipping_methods as $_sm) {
+			if ($_sm->personalPickup()) {
+				if (
+					is_null($out_shippings["personal"]) || 
+					$_sm->getPriceInclVat() < $out_shippings["personal"]->getPriceInclVat()
+				) {
+					$out_shippings["personal"] = $_sm;
+				}
+			} else {
+				if (
+					is_null($out_shippings["standard"]) || 
+					$_sm->getPriceInclVat() < $out_shippings["standard"]->getPriceInclVat()
+				) {
+					$out_shippings["standard"] = $_sm;
+				}
+			}
+		}
+
+
+		$out_shipping_details = [];
+		foreach(array_filter($out_shippings) as $key => $_sm) {
+			$shipping_detail = [
+				"@type" => "OfferShippingDetails",
+
+				/**
+				 * Not required for standard deliveries. it is used by Merchant Center.
+				 * for some specific cases it should express type of delivery, not the name of the delivery service
+				 * like oversized, 'free shipping'
+				 * https://support.google.com/merchants/answer/6324504?hl=en&ref_topic=6324338&sjid=10862487511373806307-EU
+				 */
+				"shippingLabel" => $key,
+
+				"shippingRate" => [
+					"@type" => "MonetaryAmount",
+					"currency" => $_currency->getCode(),
+					"value" => $_sm->getPriceInclVat(),
+				],
+				"shippingDestination" => [
+					"@type" => "DefinedRegion",
+					"addressCountry" => $_region->getDeliveryCountries(),
+				],
+			];
+			# look up products tags and if specified in options["tags"] give the shipping according label
+			foreach($this->options["tags"] as $tag_code => $_label) {
+				if ($this->item->containsTag($tag_code)) {
+					$shipping_detail["shippingLabel"] = $_label;
+				}
+			}
+			$out_shipping_details[] = $shipping_detail;
+		}
+		if (count($out_shipping_details)===1) {
+			$out_shipping_details = array_shift($out_shipping_details);
+		}
+		return $out_shipping_details;
 	}
 
 	protected function _getStockcount() {
