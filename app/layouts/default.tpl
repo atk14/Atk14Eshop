@@ -84,9 +84,9 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="true">
-		{render partial="shared/layout/flash_message"}
 		{facebook_pixel part="body"}
 		{render partial="shared/trackers/google/tag_manager_body"}
+		{render partial="shared/layout/flash_message"}
 		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
 		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
