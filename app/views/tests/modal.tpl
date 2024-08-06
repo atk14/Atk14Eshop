@@ -2,32 +2,34 @@
 
 <p>Po načtení této stránky by se měl automaticky zobrazit modální dialog.</p>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#opened_on_load_modal">
+<button type="button" class="btn btn-default" data-toggle="modal" data-bs-toggle="modal" data-target="#opened_on_load_modal" data-bs-target="#opened_on_load_modal">
 	Otevřít modal automaticky otevřený po načtení stránky
 </button>
 
 <hr>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#open_by_click_modal">
+<button type="button" class="btn btn-default" data-toggle="modal" data-bs-toggle="modal" data-target="#open_by_click_modal" data-bs-target="#open_by_click_modal">
 	Otevřít modal
 </button>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#open_by_click_modal_no_close_button">
+<button type="button" class="btn btn-default" data-toggle="modal" data-bs-toggle="modal" data-target="#open_by_click_modal_no_close_button" data-bs-target="#open_by_click_modal_no_close_button">
 	Otevřít modal bez zavíracího tlačítka
 </button>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#open_by_click_modal_no_title_no_close_button">
+<button type="button" class="btn btn-default" data-toggle="modal" data-bs-toggle="modal" data-target="#open_by_click_modal_no_title_no_close_button" data-bs-target="#open_by_click_modal_no_title_no_close_button">
 	Otevřít modal bez titulku i zavíracího tlačítka
 </button>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_vertically_centered">
+<button type="button" class="btn btn-default" data-toggle="modal" data-bs-toggle="modal" data-target="#modal_vertically_centered" data-bs-target="#modal_vertically_centered">
 	Otevřít modal verikálně centrovaný
 </button>
 
 <hr>
 
 {a_remote action="remote_modal" _class="btn btn-default"}Remote modal{/a_remote}
+
 {a_remote action="remote_modal_vertically_centered" _class="btn btn-default"}Remote modal verikálně centrovaný{/a_remote}
+
 {a_remote action="remote_bootbox_modal" _class="btn btn-default"}Remote bootbox modal{/a_remote}
 
 {modal id="open_by_click_modal" title="Modal otevřený na klik!"}
