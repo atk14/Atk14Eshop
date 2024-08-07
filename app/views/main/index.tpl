@@ -35,7 +35,6 @@
 	{else}
 		{render partial="shared/layout/content_header" title=$page_title}
 	{/if}
-
 </article>
 
 {assign var="logo_grid_items" LinkList::GetInstanceByCode("hp_logo_grid")}

@@ -62,15 +62,10 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
-		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
+		{stylesheet_link_tag file="$public/dist/styles/vendor.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/application_styles.css"}
 
-		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
-			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
-		<![endif]-->
-
+		
 		{render partial="shared/layout/favicons"}
 		
 		{!"app.trackers.google.site_verification.html_tag"|system_parameter}
@@ -133,12 +128,12 @@
 		
 		{render partial="shared/basket_info_float_container"}
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
+		{if $DEVELOPMENT}<!-- USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}/-->{/if}
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
-		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
-
+		{javascript_script_tag file="$public/dist/scripts/application_es6.min.js" type="module"}
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}

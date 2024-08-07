@@ -32,11 +32,11 @@ $enable-deprecation-messages: false;
 
 @import "list-groups";
 
-@import "list-categories";
-
 @import "forms";
 
 @import "color_radio_checkbox";
+
+@import "list-categories";
 
 @import "nav-login";
 
@@ -51,6 +51,8 @@ $enable-deprecation-messages: false;
 @import "async_image_upload";
 
 @import "dark_mode";
+
+@import "autocomplete";
 
 @import "tag_chooser";
 @import "notifications";
