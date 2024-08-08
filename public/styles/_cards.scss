@@ -401,7 +401,8 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 */
 @mixin cardRow( $numCards, $gap: $card-deck-margin ) {
 	--cards-per-row: #{$numCards};
-	gap: $gap;
+	display: grid;
+	gap: $gap !important;
 	// set correct borders above first row and before first row if there is zero gap to avoid double borders
 	@if $gap==0 {
 		.card:nth-child( #{$numCards}n+1 ) {
@@ -420,6 +421,38 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 		.card {
 			border-left: none;
 			border-right: none;
+		}
+	}
+}
+/*
+	Mixin for creating fallback for old browsers using flexbox and avoiding container queries
+*/
+@mixin cardRowFallback( $numCards, $gap: $card-deck-margin ) {
+	display: flex;
+	gap: $gap;
+	.card {
+		flex-basis: calc( #{percentage( divide( 1, $numCards ))} - #{$card-deck-margin} );
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+	@media(max-width: 960px) {
+		.card {
+			flex-basis: calc( #{percentage( divide( 1, $numCards - 1 ))} - #{$card-deck-margin} );
+		}
+	}
+	@if $numCards > 2 {
+		@media(max-width: 600px) {
+			gap: $card-deck-margin-sm;
+			.card {
+				flex-basis: calc( #{percentage( divide( 1, $numCards - 2 ))} - #{$card-deck-margin} );
+			}
+		}
+	}
+	@if $numCards > 3 {
+		@media(max-width: 400px) {
+			.card {
+				flex-basis: percentage( divide( 1, ( $numCards - 3 ) ));
+			}
 		}
 	}
 }
@@ -459,6 +492,8 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 			// Card sizing depending on width of container
 
 			// Default - 4 cards / row
+			@include cardRowFallback( 4 );
+
 			@container cards-container ( width > 960px ) {
 				@include cardRow( 4 );
 			}
@@ -474,6 +509,7 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 			// 6 cards per row
 			&.card-deck--sized-6 {
+
 				@container cards-container ( width > 990px ) {
 					@include cardRow( 6 );
 				}
@@ -493,6 +529,8 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 			// 3 cards per row
 			&.card-deck--sized-3 {
+				@include cardRowFallback( 3 );
+
 				@container cards-container ( width > 720px ) {
 					@include cardRow( 3 );
 				}
@@ -506,6 +544,8 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 			// 2 cards per row
 			&.card-deck--sized-2 {
+				@include cardRowFallback( 2 );
+
 				@container cards-container ( width > 660px ) {
 					@include cardRow( 2 );
 				}
