@@ -182,7 +182,7 @@
 		flex-basis: 100%;
 		font-size: $font-size-sm;
 		padding: $fileItemPadding;
-		padding-left: $fileItemPadding + $iconWidth;
+		padding-left: calc(#{$fileItemPadding} + #{$iconWidth});
 		p, ul {
 			margin-bottom: 0.5rem;
 			&:last-child {

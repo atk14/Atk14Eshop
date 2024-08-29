@@ -1,6 +1,6 @@
 // card deck margin for smaller displays or denser layouts
-$card-deck-margin-sm: divide($card-deck-margin, 2);
 $card-deck-margin: divide($grid-gutter-width, 4);
+$card-deck-margin-sm: divide($card-deck-margin, 2);
 //card border style
 $card-border-style: 1px dashed $border-color;
 

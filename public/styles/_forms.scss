@@ -317,7 +317,8 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		> * {
 			flex-shrink: 0;
 		}
-		$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height-sm + (divide($input-btn-border-width, 16px) * 1rem * 2);
+		//$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height-sm + (divide($input-btn-border-width, 16px) * 1rem * 2);
+		$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height + (divide(1px, 16px) * 1rem * 2);// TODO fix vypocet BS5
 		button.btn, a.btn {
 			//min-width: 24px;
 			font-size: $font-size-base;

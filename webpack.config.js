@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); // browsersync
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin'); // favicons generation
+//const FaviconsWebpackPlugin = require('favicons-webpack-plugin'); // favicons generation
 const autoprefixer = require('autoprefixer'); // autoprefixer
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // extracts css from js
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // css minimizer
@@ -63,7 +63,7 @@ var config = {
         injectCss: true,
       }
     ),
-    new FaviconsWebpackPlugin( {
+    /*new FaviconsWebpackPlugin( {
       logo: "./public/favicons/favicon.png",
       outputPath: 'favicons',
       inject: false,
@@ -79,7 +79,7 @@ var config = {
           yandex: false
         }
       }
-    } ),
+    } ),*/
     new IgnoreEmitPlugin( ignoredFiles ),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {

@@ -173,7 +173,8 @@ ol.breadcrumb {
 				}
 				// Adjust image height for SVG scaling proplerly
 				img {
-					height: $mob-nav-height - $brand-padding-y * 2;
+					//height: $mob-nav-height - $brand-padding-y * 2;
+					height: $mob-nav-height - 20px;// TODO fix vypocet BS5
 					width: auto;
 				}
 				display: flex;
