@@ -2,8 +2,8 @@
 
 $spacers: map-merge(
   (
-    025g: ($grid-gutter-width / 4),
-    05g:  ($grid-gutter-width / 2),
+    025g: divide($grid-gutter-width, 4),
+    05g:  divide($grid-gutter-width, 2),
     1g:   ($grid-gutter-width),
     2g:   ($grid-gutter-width * 2),
     3g:   ($grid-gutter-width * 3),

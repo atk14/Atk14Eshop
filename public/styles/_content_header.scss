@@ -17,7 +17,7 @@ header.content-header, .content-header {
 		&--portrait {
 			flex-basis: 33%;
 			//flex-basis: 100% - percentage($max-content-width/($max-page-width - (2 * $grid-gutter-width)));
-			flex-basis: 100% - percentage($max-content-width/($max-page-width - 40px)); // TODO fix vypocet BS5
+			flex-basis: 100% - percentage(divide($max-content-width,($max-page-width - 40px))); // TODO fix vypocet BS5
 			flex-grow: 0;
 		}
 		&--logo {
@@ -26,7 +26,7 @@ header.content-header, .content-header {
 			justify-content: flex-end;
 			flex-basis: 33%;
 			//flex-basis: 100% - percentage($max-content-width/($max-page-width - (2 * $grid-gutter-width)));
-			flex-basis: 100% - percentage($max-content-width/($max-page-width - 40px)); // TODO fix vypocet BS5
+			flex-basis: 100% - percentage(divide($max-content-width,($max-page-width - 40px))); // TODO fix vypocet BS5
 			
 			&.content-header__image--portrait {
 				img {

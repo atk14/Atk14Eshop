@@ -36,7 +36,8 @@
 				background-color: rgba(white, 0.5);
 				border: 1px solid $border-color;
 				padding: calc(#{$input-btn-padding-y-lg} + 0.125rem) $input-btn-padding-x-lg;
-				line-height: $input-btn-line-height-lg;
+				//line-height: $input-btn-line-height-lg;
+				line-height: $input-btn-line-height; // BS5
 				transition: background-color 0.25s;
 				&:hover {
 					background-color: $secondary;

@@ -1,15 +1,16 @@
 $offcanvasBasketLargeSizingBreakpoint: md;
+$form-grid-gutter-width: $grid-gutter-width;
 
 #offcanvas-basket, #offcanvas-basket-demo, .table--offcanvas-basket {
   // Setup some CSS variables
-  --item-h-padding: #{$grid-gutter-width/8};
-  --item-v-padding: #{$grid-gutter-width/8};
-  --sidebar-padding: #{$grid-gutter-width/4};
+  --item-h-padding: #{divide($grid-gutter-width,8)};
+  --item-v-padding: #{divide($grid-gutter-width,8)};
+  --sidebar-padding: #{divide($grid-gutter-width,4)};
 
   @include media-breakpoint-up($offcanvasBasketLargeSizingBreakpoint) {
-    --item-h-padding: #{$grid-gutter-width/4};
-    --item-v-padding: #{$grid-gutter-width/4};
-    --sidebar-padding: #{$grid-gutter-width/2};
+    --item-h-padding: #{divide($grid-gutter-width,4)};
+    --item-v-padding: #{divide($grid-gutter-width,4)};
+    --sidebar-padding: #{divide($grid-gutter-width,2)};
   }
 }
 

@@ -1,6 +1,7 @@
 // card deck margin for smaller displays or denser layouts
-$card-deck-margin: divide($grid-gutter-width, 4);
+$card-deck-margin: 0;
 $card-deck-margin-sm: divide($card-deck-margin, 2);
+
 //card border style
 $card-border-style: 1px dashed $border-color;
 
@@ -394,72 +395,20 @@ a.card {
 	}
 }
 
-.card-deck {
-	// brought from Bootstrap 4
-	.card {
-		margin-bottom: $card-deck-margin;
-	}
-	// brought from Bootstrap 4
-	@include media-breakpoint-up(sm) {
-		display: flex;
-		flex-flow: row wrap;
-		margin-right: -$card-deck-margin;
-		margin-left: -$card-deck-margin;
-
-		.card {
-			// Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
-			flex: 1 0 0%;
-			margin-right: $card-deck-margin;
-			margin-bottom: 0; // Override the default
-			margin-left: $card-deck-margin;
-		}
-	}
-
-	margin-left: 0 - $card-deck-margin;
-	margin-right: 0 - $card-deck-margin;
-	margin-bottom: $grid-gutter-width - ($card-deck-margin * 2);
-	&--4 {
-		flex-wrap: wrap;
-		.card {
-			flex-basis: calc(25% - #{$card-deck-margin*2});
-			max-width: calc(25% - #{$card-deck-margin*2});
-			margin-left: $card-deck-margin;
-			margin-right: $card-deck-margin;
-			margin-bottom: $card-deck-margin*2;
-			@include media-breakpoint-down(lg){
-				flex-basis: calc(33.33% - #{$card-deck-margin*2});
-				max-width: calc(33.33% - #{$card-deck-margin*2});
-			}
-			@include media-breakpoint-down(md){
-				flex-basis: calc(50% - #{$card-deck-margin*2});
-				max-width: calc(50% - #{$card-deck-margin*2});
-			}
-			@include media-breakpoint-down(sm){
-				flex-basis: 100%;
-				max-width: 100%;
-				min-height: 50vw;
-			}
-			@include media-breakpoint-up(xl){
-				// if there are only 3 or 6 articles, place only 3 per line...
-				&:nth-child(1):nth-last-child(6), &:nth-child(2):nth-last-child(5), &:nth-child(3):nth-last-child(4), &:nth-child(4):nth-last-child(3), &:nth-child(5):nth-last-child(2), &:nth-child(6):nth-last-child(1), &:nth-child(1):nth-last-child(3), &:nth-child(2):nth-last-child(2), &:nth-child(3):nth-last-child(1) {
-					flex-basis: calc(33.33% - #{$card-deck-margin*2});
-					max-width: calc(33.33% - #{$card-deck-margin*2});
-				}
-			}
-		}
-	}
-}
-
-// Controlled widths for card
-.card-deck--sized {
-	.card {
-		// 2 cols on SM up
-		@include media-breakpoint-up(sm){
-			flex-shrink: 0;
-			flex-grow: 0;
-			flex-basis: calc(50% - #{$card-deck-margin} * 2);
-			min-width: calc(50% - #{$card-deck-margin} * 2);
-			margin-bottom: $card-deck-margin * 2;
+/*
+Mixin for creating grid rows of cards
+$numCards: number of cards per row
+$gap( optional ) - gap between cards (used for border calculations when gap == 0), default: $card-deck-margin
+*/
+@mixin cardRow( $numCards, $gap: $card-deck-margin ) {
+	--cards-per-row: #{$numCards};
+	display: grid;
+	gap: $gap !important;
+	// set correct borders above first row and before first row if there is zero gap to avoid double borders
+	@if $gap==0 {
+		.card:nth-child( #{$numCards}n+1 ) {
+			// the first card in a row
+			border-left: $card-border-style;
 		}
 		@for $i from 1 through $numCards {
 			// cards in the first row
@@ -473,6 +422,38 @@ a.card {
 		.card {
 			border-left: none;
 			border-right: none;
+		}
+	}
+}
+/*
+	Mixin for creating fallback for old browsers using flexbox and avoiding container queries
+*/
+@mixin cardRowFallback( $numCards, $gap: $card-deck-margin ) {
+	display: flex;
+	gap: $gap;
+	.card {
+		flex-basis: calc( #{percentage( divide( 1, $numCards ))} - #{$card-deck-margin} );
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+	@media(max-width: 960px) {
+		.card {
+			flex-basis: calc( #{percentage( divide( 1, $numCards - 1 ))} - #{$card-deck-margin} );
+		}
+	}
+	@if $numCards > 2 {
+		@media(max-width: 600px) {
+			gap: $card-deck-margin-sm;
+			.card {
+				flex-basis: calc( #{percentage( divide( 1, $numCards - 2 ))} - #{$card-deck-margin} );
+			}
+		}
+	}
+	@if $numCards > 3 {
+		@media(max-width: 400px) {
+			.card {
+				flex-basis: percentage( divide( 1, ( $numCards - 3 ) ));
+			}
 		}
 	}
 }
@@ -512,6 +493,8 @@ a.card {
 			// Card sizing depending on width of container
 
 			// Default - 4 cards / row
+			@include cardRowFallback( 4 );
+
 			@container cards-container ( width > 960px ) {
 				@include cardRow( 4 );
 			}
@@ -527,6 +510,7 @@ a.card {
 
 			// 6 cards per row
 			&.card-deck--sized-6 {
+
 				@container cards-container ( width > 990px ) {
 					@include cardRow( 6 );
 				}
@@ -546,6 +530,8 @@ a.card {
 
 			// 3 cards per row
 			&.card-deck--sized-3 {
+				@include cardRowFallback( 3 );
+
 				@container cards-container ( width > 720px ) {
 					@include cardRow( 3 );
 				}
@@ -559,6 +545,8 @@ a.card {
 
 			// 2 cards per row
 			&.card-deck--sized-2 {
+				@include cardRowFallback( 2 );
+
 				@container cards-container ( width > 660px ) {
 					@include cardRow( 2 );
 				}
