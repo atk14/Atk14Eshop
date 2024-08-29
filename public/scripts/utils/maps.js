@@ -12,6 +12,11 @@
 
 window.UTILS = window.UTILS || { };
 
+import L from "leaflet";
+import "leaflet.markercluster";
+// eslint-disable-next-line no-unused-vars
+import { GestureHandling } from "leaflet-gesture-handling";
+
 /**
  * General map options
  */

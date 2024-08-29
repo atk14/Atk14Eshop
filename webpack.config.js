@@ -19,6 +19,8 @@ var application_scripts = [
 	"./public/scripts/utils/floating_cart.js",
 	"./public/scripts/utils/offcanvas.js",
 	"./public/scripts/utils/scroll_to_top.js",
+	"./public/scripts/utils/maps.js",
+	"./public/scripts/utils/filterable_list.js",
 	"./public/scripts/application.js",
 ];
 
@@ -29,7 +31,10 @@ var application_styles = "./public/styles/application.scss";
 var vendorStyles = [
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"./node_modules/swiper/swiper-bundle.css",
-	"./node_modules/photoswipe/dist/photoswipe.css"
+	"./node_modules/photoswipe/dist/photoswipe.css",
+  "./node_modules/leaflet/dist/leaflet.css",
+	"./node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+	"./node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
 ];
 
 // Files to be ignored

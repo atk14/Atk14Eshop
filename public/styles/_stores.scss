@@ -57,18 +57,6 @@
 	min-height: 300px;
 	margin-bottom: $grid-gutter-width;
 	position: relative;
-	.cluster {
-		// this is obsolete for old Mapy.cz API
-		div {
-			border: none !important;
-			// recommended: bg color same as map marker image color
-			background-color: #e70000 !important;
-			color: white !important;
-			img {
-				display: none;
-			}
-		}
-	}
 	.preloader {
 		position: absolute;
 		background-color: $gray-200;
