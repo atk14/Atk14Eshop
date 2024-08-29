@@ -15,6 +15,10 @@ const ESLintPlugin = require('eslint-webpack-plugin'); // linter
 var application_scripts = [
 	"./public/scripts/utils/display_utils.js",
 	"./public/scripts/utils/utils.js",
+	"./public/scripts/utils/navbar.js",
+	"./public/scripts/utils/floating_cart.js",
+	"./public/scripts/utils/offcanvas.js",
+	"./public/scripts/utils/scroll_to_top.js",
 	"./public/scripts/application.js",
 ];
 

@@ -1,5 +1,7 @@
 // This is a place for some tools required in the application
 import { Popover } from "bootstrap"
+//import stickySidebarV2 from 
+import StickySidebar from "sticky-sidebar-v2"
 
 
 window.UTILS = window.UTILS || { };

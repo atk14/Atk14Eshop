@@ -4,8 +4,8 @@
  * Recommended by https://web.dev/lighthouse-performance/
 *}
 
-{preload_link_tag file="$public/dist/styles/vendor.min.css" as="style"}
-{preload_link_tag file="$public/dist/styles/application.min.css" as="style"}
+{preload_link_tag file="$public/dist/styles/vendor.css" as="style"}
+{preload_link_tag file="$public/dist/styles/application_styles.css" as="style"}
 
 {preload_link_tag file="$public/dist/scripts/vendor.min.js" as="script"}
 {preload_link_tag file="$public/dist/scripts/application.min.js" as="script"}
