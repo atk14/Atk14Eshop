@@ -45,8 +45,7 @@ import Sortable from "sortablejs";
 
 				UTILS.leaving_unsaved_page_checker.init();
 
-				// eslint-disable-next-line no-unused-vars
-				var filterableNav = new UTILS.filterableList( {
+				new UTILS.filterableList( {
 					searchInput: 	$( "#nav-filter__input" ),
 					clearButton: 	$( "#nav-filter__clear" ),
 					submitButton: $( "#nav-filter__submit" ),
@@ -75,7 +74,8 @@ import Sortable from "sortablejs";
 		
 		main: {
 			init: function() {
-				UTILS.initDashboardOrdersChart();
+				//UTILS.initDashboardOrdersChart();
+				new UTILS.DashboardOrdersChart();
 			}
 		},
 

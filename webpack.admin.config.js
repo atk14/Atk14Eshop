@@ -22,7 +22,8 @@ var application_scripts = [
 	"./public/scripts/utils/notifications.js",
 	"./public/scripts/utils/filterable_list.js",
 	"./public/admin/scripts/utils/tag_chooser.js",
-	"./public/admin/scripts/utils/dashboard_charts.js",
+	//"./public/admin/scripts/utils/dashboard_charts.js",
+	"./public/admin/scripts/utils/dashboard_charts_v2.js",
 	"./public/admin/scripts/application.js",
 ];
 

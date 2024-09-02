@@ -53,7 +53,7 @@
     "bootstrap-markdown-editor-4": "https://github.com/yarri/bootstrap-markdown-editor.git#1566a6b",
     "browser-sync": "^2.27.9",
     "browser-sync-webpack-plugin": "^2.3.0",
-    "chart.js": "^3.6.0",
+    "chart.js": "^3.6.2",
     "chartjs-adapter-moment": "^1.0.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "copy-webpack-plugin": "^11.0.0",
