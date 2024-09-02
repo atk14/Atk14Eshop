@@ -21,6 +21,9 @@ var application_scripts = [
 	"./public/scripts/utils/scroll_to_top.js",
 	"./public/scripts/utils/maps.js",
 	"./public/scripts/utils/filterable_list.js",
+	"./public/scripts/utils/numeric_stepper.js",
+	"./public/scripts/utils/edit_basket_form.js",
+	"./public/scripts/utils/basket_shipping_rules.js",
 	"./public/scripts/application.js",
 ];
 
