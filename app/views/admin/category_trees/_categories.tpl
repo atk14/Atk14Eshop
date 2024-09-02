@@ -6,7 +6,7 @@
 				{assign var="child_tree_id" value=null}
 				{if $node->getChildCategories()}
 					{assign var="child_tree_id" value="tree_"|cat:uniqid()}
-					<span class="js-collapse-toggle" data-toggle="collapse" data-target="#{$child_tree_id}"><span class="js-icon--collapsed">{!"plus"|icon}</span><span class="js-icon--expanded">{!"minus"|icon}</span></span>
+					<span class="js-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#{$child_tree_id}"><span class="js-icon--collapsed">{!"plus"|icon}</span><span class="js-icon--expanded">{!"minus"|icon}</span></span>
 				{/if}
 				{if $c->isFilter()}<em>{!"filter"|icon} {t}filter{/t}:</em>{/if}
 				{if $c->isPointingToCategory()}<em>{!"share-alt"|icon} {t}link{/t}:</em>{/if}

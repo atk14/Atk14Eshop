@@ -5,7 +5,7 @@
 			{if $title|strlen || $close_button}
 			<div class="modal-header">
 				{if $close_button}
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
 				</button>
 				{/if}
 				{if $title|strlen}

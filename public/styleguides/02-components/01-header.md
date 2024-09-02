@@ -16,7 +16,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 		<div class="container-fluid">
 
 			<div class="nav__mobile-items d-md-none">
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown"
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTopMobileNavDropdown"
 					aria-controls="navTopMobileNavDropdown" aria-expanded="false" aria-label="Přepnout navigaci">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
@@ -31,7 +31,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 				</ul>
 				<ul class="navbar-nav user-menu">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
 							aria-expanded="false" aria-label="admin">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right ">
@@ -57,7 +57,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 
 				<ul class="navbar-nav basket_info">
 					<li class="nav-item">
-						<a href="/cs/baskets/edit/" class="nav-link" rel="nofollow" data-toggle="offcanvas"
+						<a href="/cs/baskets/edit/" class="nav-link" rel="nofollow" data-bs-toggle="offcanvas"
 							data-target="#offcanvas-basket" aria-expanded="false" aria-controls="offcanvas-basket">
 							<div class="js--basket_info_content">
 								<span class="cart__icon"><span class="fas fa-shopping-cart"></span></span><span
@@ -175,7 +175,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 				<div class="menu-separator"></div>
 				<ul class="navbar-nav user-menu">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
 							aria-expanded="false" aria-label="admin">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark">
@@ -247,7 +247,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 				<div class="mainbar__cartinfo js--mainbar__cartinfo">
 					<ul class="nav navbar-nav basket_info">
 						<li class="nav-item">
-							<a href="/cs/baskets/edit/" class="nav-link" rel="nofollow" data-toggle="offcanvas"
+							<a href="/cs/baskets/edit/" class="nav-link" rel="nofollow" data-bs-toggle="offcanvas"
 								data-target="#offcanvas-basket" aria-expanded="false" aria-controls="offcanvas-basket">
 								<div class="js--basket_info_content">
 									<span class="cart__icon"><span class="fas fa-shopping-cart"></span></span><span
@@ -276,7 +276,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 			<div class="collapse navbar-collapse justify-content-center" id="mainNavDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
-						<a href="/obchod/" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+						<a href="/obchod/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
 							aria-haspopup="true" aria-expanded="false">Obchod</a>
 						<div class="dropdown-menu dropdown-menu--dark bg-brand dropdown-menu--transparent">
 							<a href="/obchod/kvetiny/" class="dropdown-item">Květiny</a>
@@ -296,7 +296,7 @@ Complete header with desktop and mobile navbars, mainbar and with optional large
 						<a href="/obchod/retro/" class="nav-link">Retro</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a href="/obchod/hudba/" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+						<a href="/obchod/hudba/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
 							aria-haspopup="true" aria-expanded="false">Hudba</a>
 						<div class="dropdown-menu dropdown-menu--dark bg-brand dropdown-menu--transparent">
 							<a href="/obchod/hudba/techno/" class="dropdown-item">Techno</a>

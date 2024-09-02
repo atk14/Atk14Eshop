@@ -55,16 +55,16 @@ Switching vraiants also swaps main image in product gallery.
 <section class="section--add-to-cart">
 	<ul class="nav nav-tabs" id="variants-nav" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" id="tab-variant-6" data-toggle="tab" href="#tab-variant-content-6" role="tab" aria-controls="tab-variant-content-6" aria-selected="true" data-product_id="6">červená</a>
+			<a class="nav-link active" id="tab-variant-6" data-bs-toggle="tab" href="#tab-variant-content-6" role="tab" aria-controls="tab-variant-content-6" aria-selected="true" data-product_id="6">červená</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-variant-25" data-toggle="tab" href="#tab-variant-content-25" role="tab" aria-controls="tab-variant-content-25" aria-selected="false" data-product_id="25">žlutá</a>
+			<a class="nav-link" id="tab-variant-25" data-bs-toggle="tab" href="#tab-variant-content-25" role="tab" aria-controls="tab-variant-content-25" aria-selected="false" data-product_id="25">žlutá</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-variant-26" data-toggle="tab" href="#tab-variant-content-26" role="tab" aria-controls="tab-variant-content-26" aria-selected="false" data-product_id="26">růžová</a>
+			<a class="nav-link" id="tab-variant-26" data-bs-toggle="tab" href="#tab-variant-content-26" role="tab" aria-controls="tab-variant-content-26" aria-selected="false" data-product_id="26">růžová</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-variant-27" data-toggle="tab" href="#tab-variant-content-27" role="tab" aria-controls="tab-variant-content-27" aria-selected="false" data-product_id="27">oranžová</a>
+			<a class="nav-link" id="tab-variant-27" data-bs-toggle="tab" href="#tab-variant-content-27" role="tab" aria-controls="tab-variant-content-27" aria-selected="false" data-product_id="27">oranžová</a>
 		</li>
 	</ul>
 

@@ -1,6 +1,6 @@
 {assign var=useRandomData 0}
 <div class="dashboard-chart">
-	<div class="btn-group btn-group-toggle mb-4" data-toggle="buttons" id="chartResulutionToggle">
+	<div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons" id="chartResulutionToggle">
 		<label class="btn btn-outline-primary active">
 				<input type="radio" name="chart_resulution" value="days" checked>{t}Dny{/t}
 			</label>

@@ -44,7 +44,7 @@
 
 		<div class="nav__mobile-items d-md-none">
 			{if $menu_collapse}
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown" aria-controls="navTopMobileNavDropdown" aria-expanded="false" aria-label="{t}Toggle navigation{/t}">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTopMobileNavDropdown" aria-controls="navTopMobileNavDropdown" aria-expanded="false" aria-label="{t}Toggle navigation{/t}">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars">{!"bars"|icon}</span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close">{!"times"|icon}</span>
 				</button>

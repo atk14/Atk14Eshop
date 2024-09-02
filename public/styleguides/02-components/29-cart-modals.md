@@ -9,7 +9,7 @@ Shopping Cart Modals
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="basket_modal_dialogLabel">Produkt byl přidán do košíku</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="zavřít">
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="zavřít">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
@@ -21,7 +21,7 @@ Shopping Cart Modals
 					</p>
 				</div>
 				<div class="section__navigation">
-					<button class="btn btn-secondary btn--back" data-dismiss="modal">Vybrat další produkt</button>
+					<button class="btn btn-secondary btn--back" data-bs-dismiss="modal">Vybrat další produkt</button>
 					<a href="#" class="btn btn-primary btn--cta">K pokladně</a>
 				</div>
 			</div>
@@ -38,7 +38,7 @@ Shopping Cart Modals
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="basket_modal_dialogLabel">Produkt byl přidán do košíku</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="zavřít">
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="zavřít">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
@@ -53,7 +53,7 @@ Shopping Cart Modals
 					</p>
 				</div>
 				<div class="section__navigation">
-					<button class="btn btn-secondary btn--back" data-dismiss="modal">Vybrat další produkt</button>
+					<button class="btn btn-secondary btn--back" data-bs-dismiss="modal">Vybrat další produkt</button>
 					<a href="#" class="btn btn-primary btn--cta">K pokladně</a>
 				</div>
 			</div>

@@ -16,10 +16,10 @@ Filter Form
 
 			<ul class="nav nav-tabs" id="filtertabs" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link active" id="f_f42-tab" data-toggle="tab" href="#f_f42" role="tab" rel="nofollow" aria-controls="f_f42" aria-selected="true" data-page="f_f42">Materiál</a>
+					<a class="nav-link active" id="f_f42-tab" data-bs-toggle="tab" href="#f_f42" role="tab" rel="nofollow" aria-controls="f_f42" aria-selected="true" data-page="f_f42">Materiál</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="f_f55-tab" data-toggle="tab" href="#f_f55" role="tab" rel="nofollow" aria-controls="f_f55" aria-selected="false" data-page="f_f55">Barva</a>
+					<a class="nav-link" id="f_f55-tab" data-bs-toggle="tab" href="#f_f55" role="tab" rel="nofollow" aria-controls="f_f55" aria-selected="false" data-page="f_f55">Barva</a>
 				</li>
 			</ul>
 

@@ -7,7 +7,7 @@
 		{* user is logged in *}
 		{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-label="{$logged_user->getLogin()}">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-label="{$logged_user->getLogin()}">
 				{!"user"|icon}<span class="d-none d-sm-inline"> {$logged_user->getLogin()} </span></a>
 			<div class="dropdown-menu dropdown-menu-right {$dropdown_class}">
 				{if $logged_user->isAdmin()}
