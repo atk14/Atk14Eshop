@@ -1,22 +1,21 @@
 {assign var=useRandomData 0}
 <div class="dashboard-chart">
-	<div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons" id="chartResulutionToggle">
-		<label class="btn btn-outline-primary active">
-				<input type="radio" name="chart_resulution" value="days" checked>{t}Dny{/t}
-			</label>
-			<label class="btn btn-outline-primary">
-			<input type="radio" name="chart_resulution" value="months">{t}Měsíce{/t}
-				</label>
-			<label class="btn btn-outline-primary">
-				<input type="radio" name="chart_resulution" value="years">{t}Roky{/t}
-			</label>
-		</div>
+	<div class="btn-group mb-4" id="chartResulutionToggle">
+		<input type="radio" class="btn-check" name="chart_resulution" id="chart_resulution--days" value="days" checked>
+		<label class="btn btn-outline-primary" for="chart_resulution--days">{t}Dny{/t}</label>
 
-		<div class="chart-range">
-			<button class="btn btn-outline-primary" id="chartRange__left">{!"chevron-left"|icon}</button>
-			<div class="chart-range__display" id="chartRange__display">date</div>
-			<button class="btn btn-outline-primary" id="chartRange__right">{!"chevron-right"|icon}</button>
-		</div>
+		<input type="radio" class="btn-check" name="chart_resulution" id="chart_resulution--months" value="months">
+		<label class="btn btn-outline-primary" for="chart_resulution--months">{t}Měsíce{/t}</label>
+
+		<input type="radio" class="btn-check" name="chart_resulution" id="chart_resulution--years" value="years">
+		<label class="btn btn-outline-primary" for="chart_resulution--years">{t}Roky{/t}</label>
+	</div>
+
+	<div class="chart-range">
+		<button class="btn btn-outline-primary" id="chartRange__left">{!"chevron-left"|icon}</button>
+		<div class="chart-range__display" id="chartRange__display">date</div>
+		<button class="btn btn-outline-primary" id="chartRange__right">{!"chevron-right"|icon}</button>
+	</div>
 
 	<div>
 		<div class="chart-wrapper">
