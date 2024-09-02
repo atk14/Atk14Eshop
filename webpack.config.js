@@ -1,4 +1,3 @@
-console.clear();
 const path = require("path");
 const webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); // browsersync
@@ -24,6 +23,7 @@ var application_scripts = [
 	"./public/scripts/utils/numeric_stepper.js",
 	"./public/scripts/utils/edit_basket_form.js",
 	"./public/scripts/utils/basket_shipping_rules.js",
+	"./public/scripts/utils/search_suggestion.js",
 	"./public/scripts/application.js",
 ];
 

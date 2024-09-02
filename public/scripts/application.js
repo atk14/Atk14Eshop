@@ -44,7 +44,7 @@ require( "atk14js" );
 				// Floating cart info show/hide 
 				new UTILS.floatingCart();
 
-				//window.UTILS.searchSuggestion( "js--search", "js--suggesting" ); // BS5
+				window.UTILS.searchSuggestion( "js--search", "js--suggesting" ); // BS5
 
 				// Expanding/collapsing FAQ items
 				UTILS.initFAQ();
