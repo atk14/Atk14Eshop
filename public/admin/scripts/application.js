@@ -312,16 +312,23 @@ import Sortable from "sortablejs";
 			darkModeToggler: function() {
 				document.getElementById( "js--darkmode-switch" ).addEventListener( "click", function() {
 					var body = document.querySelector( "body" );
+					let mode;
 					if( this.checked ){
 						body.classList.add( "dark-mode" );
 						//$( "body" ).attr( "data-bs-theme", "dark" );
 						body.setAttribute( "data-bs-theme", "dark" );						
 						document.cookie = "dark_mode=1;path=/";
+						mode = "dark";
 					} else {
 						body.classList.remove( "dark-mode" );
 						body.setAttribute( "data-bs-theme", "light" );
 						document.cookie = "dark_mode=;path=/";
+						mode = "light";
 					}
+
+					// darkModeChange event is triggered on dark mode de/activation
+					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
+					document.dispatchEvent(evt);
 
 				} );
 			},

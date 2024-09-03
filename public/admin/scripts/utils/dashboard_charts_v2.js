@@ -1,15 +1,128 @@
 import Chart from "chart.js/auto";
+import { color } from "chart.js/helpers";
 import moment from "moment";
+import "moment/min/locales";
+import "chartjs-adapter-moment";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 
 window.UTILS = window.UTILS || { };
 
 window.UTILS.DashboardOrdersChart = class {
+
+	// color = Chart.helpers.color;
+	color = Chart.color;
+	primaryColor = "rgb(38, 124, 217)";
+	ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
+	currentResolution = "days";
+	pageOffset = 0;
+	initialChartData;
+	ordersChartConfig;
+	ordersChart;
+	dailyOrderStats = window.dailyOrderStats;
+	monthlyOrderStats = window.monthlyOrderStats;
+	yearlyOrderStats = window.yearlyOrderStats;
+
+
   constructor() {
     console.log( "hello new DashboardOrdersChart" );
-    Chart.register(ChartDataLabels);
-    new Chart();
+		moment.locale( document.documentElement.lang );
+		Chart.register(ChartDataLabels);
+		this.initialChartData = this.getOrderDataSlice( this.dailyOrderStats, this.currentResolution, 0);
+
+		this.ordersChartConfig = {
+			type: "bar",
+			data: {
+				labels: this.initialChartData.labels,
+				datasets: [{
+					data: this.initialChartData.data,
+					backgroundColor: color( this.primaryColor ).alpha( 0.5 ).rgbString(),
+					borderColor: color( this.primaryColor ).alpha( 0 ).rgbString(),
+					borderWidth: 1
+				}]
+			},
+			options: {
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						displayColors: false,
+						bodyFont: {
+							size: 24,
+							weight: "bold"
+						}
+					},
+					datalabels: {
+						color: this.primaryColor,
+						anchor: "end",
+						offset: -4,
+						align: "end",
+						font: function( context)  {
+							let index = context.dataIndex;
+							let val = context.dataset.data[ index ];
+							if( val > 0 ){
+								return {
+									size: 16,
+									weight: "bold",
+								}
+							}
+						}
+					}
+				},
+				scales: {
+						x: {
+							type: "timeseries",
+							distribution: "series",
+							time: {
+								unit: "day",
+								displayFormats: {
+									day: "LL", // 6. prosince 20121
+									//day: "l", // 6. 12. 2021
+									month: "MMMM YYYY"
+								}
+							},
+							ticks: {
+								autoSkip: true,
+								autoSkipPadding: 0,
+								maxRotation: 0,
+								align: "start",
+							},
+							grid: {
+								display: false,
+								offset: false
+							}
+						},
+						y: {
+							beginAtZero: true,
+							ticks: {
+								// Show whole numbers only at y axe
+								callback: function( value ) {
+									if ( Number.isInteger( value ) ) { return value; }
+								}
+							}
+						}
+				},
+				maintainAspectRatio: false,
+				layout: {
+					padding: {
+						top: 20,
+					}
+				}
+			}
+		}
+
+		// Create chart
+		this.ordersChart = new Chart( this.ordersChartCtx, this.ordersChartConfig );
+		this.toggleResolution( "days" );
+
+		this.creatUIHandlers();
+
+		// scroll chart to the most end when in x-scrollable container
+		document.querySelector( ".chart-wrapper" ).scrollLeft = 1200;
+
+		this.checkChartDarkMode();
+
   }
 
   // Get data for selected resolution and timeframe
@@ -76,4 +189,113 @@ window.UTILS.DashboardOrdersChart = class {
 
 		return output;
 	}
+
+	// Toggle resolution (days/months/years)
+	toggleResolution( resolution ) {
+		this.currentResolution = resolution;
+		let dataArray;
+		let align = "center";
+		let unit;
+		let tooltipFormat;
+		switch ( resolution ){
+			case "days":
+				dataArray = this.dailyOrderStats;
+				tooltipFormat = "LL";
+				unit = "day";
+				align = "start"; 
+				break;
+			case "months":
+				dataArray = this.monthlyOrderStats;
+				tooltipFormat = "MMMM YYYY";
+				unit = "month";
+				break;
+			case "years":
+				dataArray = this.yearlyOrderStats;
+				tooltipFormat = "YYYY";
+				unit = "year";
+				break;
+		}
+		let d = this.getOrderDataSlice( dataArray, resolution, 0);
+		this.ordersChart.data.datasets[0].data = d.data;
+		this.ordersChart.data.labels = d.labels;
+		this.ordersChart.options.scales.x.time.tooltipFormat = tooltipFormat;
+		this.ordersChart.options.scales.x.time.unit = unit;
+		this.ordersChart.options.scales.x.ticks.align = align;
+		this.ordersChart.update();
+	}
+
+	// UI handlers
+	creatUIHandlers() {
+
+		// Move view left/right
+		document.querySelector( "#chartRange__left" ).addEventListener( "click", function() {
+			this.shiftOffset( 1 );
+		}.bind( this ) );
+		
+		document.querySelector( "#chartRange__right" ).addEventListener( "click", function() {
+			this.shiftOffset( -1 );
+		}.bind( this ) );
+		
+		// Resolution change buttons
+		let btns = document.querySelectorAll( "#chartResulutionToggle input" );
+		[...btns].forEach( ( input ) => {
+			input.addEventListener( "click", function( e ) {
+				this.toggleResolution( e.target.value );
+			}.bind( this ) );
+		} );
+
+		// dark mode event listener
+		document.addEventListener( "darkModeChange", this.checkChartDarkMode.bind( this ) );
+
+		// print adjustments
+		window.addEventListener( "beforeprint", function() {
+			this.ordersChart.resize();
+			console.log( "ordersChart beforeprint" );
+		} );
+		window.addEventListener( "afterprint" , function() {
+			this.ordersChart.resize();
+		} );
+	}
+
+
+	// Move view left/right buttons
+	shiftOffset( numPages ) {
+		let dataArray;
+		switch ( this.currentResolution ){
+			case "days":
+				dataArray = this.dailyOrderStats;
+				break;
+			case "months":
+				dataArray = this.monthlyOrderStats;
+				break;
+			case "years":
+				dataArray = this.yearlyOrderStats;
+				break;
+		}
+
+		let d = this.getOrderDataSlice( dataArray, this.currentResolution, this.pageOffset + numPages);
+		this.ordersChart.data.datasets[0].data = d.data;
+		this.ordersChart.data.labels = d.labels;
+
+		this.ordersChart.update();
+	}
+
+	// dark mode switch 
+	checkChartDarkMode() {
+		let color = Chart.defaults.color;
+		let gridColor = Chart.defaults.borderColor;
+		//if( $( "body" ).hasClass( "dark-mode" ) ) {
+		if( document.body.dataset.bsTheme === "dark" ) {
+			color = "#ffffff";
+			gridColor = "#444";
+		} 
+		this.ordersChart.options.scales.x.ticks.color = color;
+		this.ordersChart.options.scales.y.ticks.color = color;
+		this.ordersChart.options.scales.x.grid.borderColor = gridColor;
+		this.ordersChart.options.scales.y.grid.borderColor = gridColor;
+		this.ordersChart.options.scales.x.grid.color = gridColor;
+		this.ordersChart.options.scales.y.grid.color = gridColor;
+		this.ordersChart.update();
+	}
+ 
 };
