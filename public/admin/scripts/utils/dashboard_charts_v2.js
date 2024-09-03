@@ -143,9 +143,7 @@ window.UTILS.DashboardOrdersChart = class {
 				datePeriod = 5;
 				break;
 		}
-		
-		//let pageOffset = offset;
-		
+				
 		// Get start and end datapoint index
 		let startIndex = Math.max( 0, ( dataset.length - 0 ) - ( datePeriod * ( offset + 1 ) ) );
 		let endIndex = Math.min( startIndex + datePeriod, dataset.length - 1 );
@@ -160,7 +158,7 @@ window.UTILS.DashboardOrdersChart = class {
 		}
 		
 		// Display dates
-		$( "#chartRange__display" ).html( startDate + "&mdash;" + endDate );
+		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
 		
 		// Disable range buttons when on end of dataset
 		if ( startIndex < 1 ){
@@ -182,7 +180,7 @@ window.UTILS.DashboardOrdersChart = class {
 		output.data = new Array();
 
 		// prepare output obj with labels and data arrays
-		for( var i = 0; i < slice.length; i++){
+		for( var i = 0; i < slice.length; i++ ) {
 			output.labels.push( slice[i].t );
 			output.data.push( slice[i].y );
 		}
