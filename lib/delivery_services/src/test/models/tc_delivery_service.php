@@ -50,4 +50,21 @@ class TcDeliveryService extends TcBase {
 		SystemParameter::ClearCache();
 		$this->assertTrue($this->delivery_services["zasilkovna"]->canBeUsed());
 	}
+
+	function test_getNameLocalized(){
+		$zasilkovna = DeliveryService::GetInstanceByCode("zasilkovna");
+
+		$lang = "en";
+		$lang_orig = Atk14Locale::Initialize($lang);
+		$this->assertEquals("Packeta",$zasilkovna->getNameLocalized());
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("Zásilkovna",$zasilkovna->getNameLocalized());
+
+		$this->assertEquals("Packeta",$zasilkovna->getNameLocalized("en"));
+		$this->assertEquals("Zásilkovna",$zasilkovna->getNameLocalized("cs"));
+
+		Atk14Locale::Initialize($lang_orig);
+	}
 }

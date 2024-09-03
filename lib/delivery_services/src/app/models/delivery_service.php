@@ -291,4 +291,25 @@ class DeliveryService extends ApplicationModel {
 		$requirements = $className::GetRequirements();
 		return $requirements;
 	}
+ 
+	function getNameLocalized($lang = null){
+		global $ATK14_GLOBAL;
+		if(isset($lang)){
+			$_lang = $lang;
+			$lang_orig = Atk14Locale::Initialize($_lang);
+		}
+		$current_lang = $ATK14_GLOBAL->getLang(); 
+		$tr = [
+			"cp-balik_na_postu" =>	_("Česká Pošta - Balík na poštu"),
+			"cp-balikovna" =>			 	_("Česká Pošta - Balíkovna"),
+			"zasilkovna" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
+			"gls" =>								"GLS",
+			"ppl" =>								"PPL",
+		];
+		if(isset($lang)){
+			Atk14Locale::Initialize($lang_orig);
+		}
+		$code = $this->getCode();
+		return isset($tr[$code]) ? $tr[$code] : $this->getName();
+	}
 }
