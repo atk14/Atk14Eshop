@@ -161,16 +161,18 @@ window.UTILS.DashboardOrdersChart = class {
 		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
 		
 		// Disable range buttons when on end of dataset
+		let btnLeft  = document.querySelector( "#chartRange__left" );
+		let btnRight = document.querySelector( "#chartRange__right" );
 		if ( startIndex < 1 ){
-			$( "#chartRange__left" ).prop( "disabled", true );
+			btnLeft.disabled = true;
 		} else {
-			$( "#chartRange__left" ).prop( "disabled", false );
+			btnLeft.disabled = false;
 		}
 		
 		if ( endIndex >= dataset.length - 1 ){
-			$( "#chartRange__right" ).prop( "disabled", true );
+			btnRight.disabled = true;
 		} else {
-			$( "#chartRange__right" ).prop( "disabled", false );
+			btnRight.disabled = false;
 		}
 		
 		// get slice of dataset (endIndex not included, so there is +1)
@@ -282,8 +284,7 @@ window.UTILS.DashboardOrdersChart = class {
 	checkChartDarkMode() {
 		let color = Chart.defaults.color;
 		let gridColor = Chart.defaults.borderColor;
-		//if( $( "body" ).hasClass( "dark-mode" ) ) {
-		if( document.body.dataset.bsTheme === "dark" ) {
+		if( document.body.dataset.bsTheme === "dark" || document.classList.contains( "dark-mode" ) ) {
 			color = "#ffffff";
 			gridColor = "#444";
 		} 
