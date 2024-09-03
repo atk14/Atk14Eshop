@@ -249,10 +249,10 @@ window.UTILS.DashboardOrdersChart = class {
 		window.addEventListener( "beforeprint", function() {
 			this.ordersChart.resize();
 			console.log( "ordersChart beforeprint" );
-		} );
+		}.bind( this ) );
 		window.addEventListener( "afterprint" , function() {
 			this.ordersChart.resize();
-		} );
+		}.bind( this ) );
 	}
 
 
