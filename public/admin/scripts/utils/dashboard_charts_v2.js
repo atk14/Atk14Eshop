@@ -143,6 +143,8 @@ window.UTILS.DashboardOrdersChart = class {
 				datePeriod = 5;
 				break;
 		}
+
+		this.pageOffset = offset;
 				
 		// Get start and end datapoint index
 		let startIndex = Math.max( 0, ( dataset.length - 0 ) - ( datePeriod * ( offset + 1 ) ) );
