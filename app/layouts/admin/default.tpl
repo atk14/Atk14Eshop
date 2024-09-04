@@ -51,7 +51,7 @@
 		{render partial="shared/layout/favicons"}
 		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.css"}
 		{stylesheet_link_tag file="$public/admin/dist/styles/application_styles.css"}
-		{stylesheet_link_tag file="$public/admin/dist/styles/frontend-styles.min.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/frontend_styles.css"}
 
 		{render partial="shared/layout/favicons"}
 

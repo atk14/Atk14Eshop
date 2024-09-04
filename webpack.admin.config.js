@@ -30,6 +30,9 @@ var application_scripts = [
 // Application styles incl. Bootstrap
 var application_styles = ["./public/admin/styles/application.scss"];
 
+// Selected styles from frontend
+var frontend_styles = [ "./public/admin/styles/shared/frontend-styles.scss" ];
+
 // Other vendor styles
 var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
@@ -49,6 +52,7 @@ var config = {
     application: application_scripts,
     application_styles: application_styles,
     vendor_styles: vendorStyles,
+    frontend_styles: frontend_styles,
   },
   output: {
     //clean: true,
