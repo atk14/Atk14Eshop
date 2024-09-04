@@ -25,7 +25,6 @@ window.UTILS.DashboardOrdersChart = class {
 
 
   constructor() {
-    console.log( "hello new DashboardOrdersChart" );
 		moment.locale( document.documentElement.lang );
 		Chart.register(ChartDataLabels);
 		this.initialChartData = this.getOrderDataSlice( this.dailyOrderStats, this.currentResolution, 0);
@@ -76,10 +75,12 @@ window.UTILS.DashboardOrdersChart = class {
 							distribution: "series",
 							time: {
 								unit: "day",
+								round: "day",
 								displayFormats: {
-									day: "LL", // 6. prosince 20121
+									day: "l", // 6. prosince 20121
 									//day: "l", // 6. 12. 2021
-									month: "MMMM YYYY"
+									month: "MMM YYYY",
+									year: "YYYY"
 								}
 							},
 							ticks: {
@@ -159,7 +160,7 @@ window.UTILS.DashboardOrdersChart = class {
 			endDate = moment( dataset[ endIndex ].t ).format( "LL" );
 		}
 		
-		// Display dates
+		// Display date range above chart
 		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
 		
 		// Disable range buttons when on end of dataset
@@ -224,6 +225,11 @@ window.UTILS.DashboardOrdersChart = class {
 		this.ordersChart.options.scales.x.time.unit = unit;
 		this.ordersChart.options.scales.x.ticks.align = align;
 		this.ordersChart.update();
+
+		// make sure proper resolution button is highhlighted
+		let btn = document.querySelector( "#chartResulutionToggle input[value=\"" + resolution + "\"]" );
+		btn.checked = true;
+
 	}
 
 	// UI handlers
@@ -252,7 +258,6 @@ window.UTILS.DashboardOrdersChart = class {
 		// print adjustments
 		window.addEventListener( "beforeprint", function() {
 			this.ordersChart.resize();
-			console.log( "ordersChart beforeprint" );
 		}.bind( this ) );
 		window.addEventListener( "afterprint" , function() {
 			this.ordersChart.resize();
