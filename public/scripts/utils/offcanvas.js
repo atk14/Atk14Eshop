@@ -1,103 +1,5 @@
 window.UTILS = window.UTILS || { };
 
-/*
-  Bootstrap offcanvas overlay
-  based on 
-  https://github.com/as-tx/bootstrap-off-canvas-sidebar/blob/master/accessibility-demo.html
-  https://fellowtuts.com/html-css/off-canvas-menu-sidebar-overlay/
-  https://as-tx.github.io/bootstrap-off-canvas-sidebar/offset-overlay-full-demo.html
-*/
-
-window.UTILS.BSOffCanvas = function() {
-
-  var $ = window.jQuery;
-	var $this = this;
-
-  var offCanvasShowEvent = new Event( "bs-offcanvas-show" );
-  var offCanvasHideEvent = new Event( "bs-offcanvas-hide" );
-
-	var bsOverlay = $( ".bs-offcanvas-overlay" );
-
-	// Show offcanvas on click 
-	$( "[data-toggle='offcanvas']" ).on( "click", function( e ) {
-		
-		var ctrl = $(this), 
-		elm = ctrl.data( "target" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
-
-		if( $( elm ).length ) {
-			e.preventDefault();
-			$( elm ).addClass( "show" );
-			$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
-			console.log( "hello" );
-			$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
-			$( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
-			$( "body" ).addClass( "offcanvas-visible" );
-			if( bsOverlay.length ) {
-				bsOverlay.addClass( "show" );
-			}
-		} 
-	} );
-	
-	// Hide offcanvas on click on close button or overlay
-	$( ".bs-offcanvas-close, .bs-offcanvas-overlay" ).on( "click", function( e ) {
-		e.preventDefault();
-		var elm;
-		if( $( this ).hasClass( "bs-offcanvas-close" ) ) {
-			elm = $( this ).closest( ".bs-offcanvas" );
-			$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "false" );
-		} else {
-			elm = $( ".bs-offcanvas" );
-			$( "[data-toggle='offcanvas']" ).attr( "aria-expanded", "false" );	
-		}
-		elm.removeClass( "show" );
-    elm.get( 0 ).dispatchEvent( offCanvasHideEvent );
-    $( "body" ).removeClass( "offcanvas-visible" );
-		$( ".bs-offcanvas-close", elm ).attr( "aria-expanded", "false" );
-		if( bsOverlay.length ) {
-			bsOverlay.removeClass( "show" )
-    };		
-	} );
-
-	// Show offcanvas manually. "bs-offcanvas-show" event will be NOT fired.
-	this.showOffCanvas = function ( elm, fireEvent ) {
-		$( elm ).addClass( "show" );
-		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
-		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
-		if( fireEvent === true ){
-    	$( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
-		}
-    $( "body" ).addClass( "offcanvas-visible" );
-		if( bsOverlay.length ) {
-			bsOverlay.addClass( "show" );
-    }
-	};
-
-	this.hideOffCanvas = function( elm ) {
-		$( elm + " .bs-offcanvas-close" ).trigger( "click" );
-	}
-
-	// Fix for browsers not supporting dvh units
-	// To be removed in future
-	this.fixViewportHeight = function() {
-		if( typeof CSS === "object" && typeof CSS.supports === "function" &&	!CSS.supports( "height", "100dvh" ) ) {
-			$this.recalcHeight();
-			window.addEventListener( "resize", $this.recalcHeight );
-		}
-	}
-
-	this.recalcHeight = function() {
-		var offcanvas = $( ".bs-offcanvas" );
-		var viewportHeight = window.innerHeight;
-		if( offcanvas.height() !== viewportHeight ){
-			offcanvas.css( "height", viewportHeight + "px" )
-		} else {
-			offcanvas.attr( "style", "" );
-		}
-	}
-
-	this.fixViewportHeight();
-};
-
 window.UTILS.OffcanvasBasket = function() {
 	var $ = window.jQuery;
 	var $this = this;
@@ -175,6 +77,7 @@ window.UTILS.OffcanvasBasket = function() {
 	};
 
 	// Set handler for basket show event
-	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+	//$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+	document.getElementById( "offcanvas-basket" ).addEventListener( "show.bs.offcanvas", $this.loadBasket );
 
 };

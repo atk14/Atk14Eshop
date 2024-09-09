@@ -59,9 +59,6 @@ require( "atk14js" );
 				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
 				window.UTILS.initStickySidebar();
 
-				// Init offvanvas component
-				window.offCanvas = new window.UTILS.BSOffCanvas();
-
 				// Init offcanvas basket preview
 				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
 

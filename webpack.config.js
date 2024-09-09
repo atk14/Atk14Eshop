@@ -24,6 +24,7 @@ var application_scripts = [
 	"./public/scripts/utils/edit_basket_form.js",
 	"./public/scripts/utils/basket_shipping_rules.js",
 	"./public/scripts/utils/search_suggestion.js",
+	"./public/scripts/utils/card_detail.js",
 	"./public/scripts/application.js",
 ];
 
