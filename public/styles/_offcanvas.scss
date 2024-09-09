@@ -5,7 +5,7 @@
   https://fellowtuts.com/html-css/off-canvas-menu-sidebar-overlay/
   https://as-tx.github.io/bootstrap-off-canvas-sidebar/offset-overlay-full-demo.html
 */
-.bs-offcanvas-overlay {
+/*.bs-offcanvas-overlay {
   opacity: 0;
   z-index: -1;
   position: fixed;
@@ -22,6 +22,31 @@
 
 .bs-offcanvas-overlay, .bs-offcanvas {
   transition: all .25s ease-out;
+}*/
+
+.offcanvas {
+  $offcanvas-width: 500px;//330px;
+  $offcanvas-width-lg: 500px;//420px;
+  $offcanvas-width-xs: calc(100vw - 20px);
+  $largeSizingBreakpoint: md;
+
+  --bs-offcanvas-width: $offcanvas-width;
+  @include media-breakpoint-up($largeSizingBreakpoint){
+    --bs-offcanvas-width: $offcanvas-width-lg;
+  }
+  @media(max-width: 560px) {
+    --bs-offcanvas-width: $offcanvas-width-xs;
+  }
+
+  &--fullwidth {
+    --bs-offcanvas-width: 100%;
+    @include media-breakpoint-up($largeSizingBreakpoint){
+      --bs-offcanvas-width: 100%;
+    }
+    @media(max-width: 350px) {
+      --bs-offcanvas-width: 100%;
+    }
+  }
 }
 
 .bs-offcanvas {
