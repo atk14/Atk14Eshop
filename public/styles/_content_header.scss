@@ -33,7 +33,7 @@ header.content-header, .content-header {
 					max-height: 400px;
 					width: auto;
 				}
-				@include media-breakpoint-down(sm){
+				@include media-breakpoint-down(md){ // bs5 breakpoint down
 					text-align: left;
 					justify-content: flex-start;
 					img {
@@ -115,7 +115,7 @@ header.content-header, .content-header {
 		}
 	}
 	
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){ // bs5 breakpoint down
 		.content-header__image {
 			flex-basis: 40%;
 			display: flex;
@@ -125,7 +125,7 @@ header.content-header, .content-header {
 			flex-basis: 60%;
 		}
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){ // bs5 breakpoint down
 		.content-header__image {
 			margin-bottom: 0;
 		}

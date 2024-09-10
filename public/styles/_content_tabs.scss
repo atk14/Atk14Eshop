@@ -32,7 +32,7 @@
         }
       }
     }
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) { // bs5 breakpoint down
       margin-left: divide($grid-gutter-width, -4);
       margin-right: divide($grid-gutter-width, -4);
       & > li.nav-item {

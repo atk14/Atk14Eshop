@@ -106,7 +106,7 @@ article {
 		}
 	}
 	
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){ // bs5 breakpoint down
 		.pager__item {
 			&__image {
 				flex-basis: 100px;
@@ -117,7 +117,7 @@ article {
 		}
 	}
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){ // bs5 breakpoint down
 		.pager__item {
 			&__image {
 				flex-basis: 60px;
@@ -127,7 +127,7 @@ article {
 			}
 		}
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){ // bs5 breakpoint down
 		display: block;
 		margin-bottom: 0;
 		.pager__item {

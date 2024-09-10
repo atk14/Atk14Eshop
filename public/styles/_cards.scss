@@ -308,7 +308,7 @@ $card-border-style: 1px dashed $border-color;
 				margin-bottom: 0;
 			}
 		}
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){ // bs5 breakpoint down
 			border-right: $card-border-style !important;
 		}
 		
@@ -557,7 +557,7 @@ $gap( optional ) - gap between cards (used for border calculations when gap == 0
 
 			grid-template-columns: repeat( var( --cards-per-row ) , 1fr);
 
-			@include media-breakpoint-down(xs) {
+			@include media-breakpoint-down(sm) { // bs5 breakpoint down
 				margin-left: 0 - divide( $grid-gutter-width, 2 );
 				margin-right: 0 - divide( $grid-gutter-width, 2 );
 			}

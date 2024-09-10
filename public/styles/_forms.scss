@@ -140,7 +140,7 @@ form {
 			color: $headings-color;
 			font-size: 1rem;
 		}
-		@include media-breakpoint-down(sm){
+		@include media-breakpoint-down(md){ // bs5 breakpoint down
 			@include fieldset--non-horizontal;
 		}
 	}
@@ -264,7 +264,7 @@ form#form_checkouts_summary {
 	margin-bottom: 1rem;
 	input {
 		margin-right: 0.5em;
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){ // bs5 breakpoint down
 			margin-bottom: 0.5rem;
 		}
 	}
@@ -383,7 +383,7 @@ form#form_checkouts_set_billing_and_delivery_data:not(.form-horizontal) {
 	}
 }
 form#form_checkouts_set_billing_and_delivery_data {
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) { // bs5 breakpoint down
 		.form-group {
 			padding: 0;
 		}
