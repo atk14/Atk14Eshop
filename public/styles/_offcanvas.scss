@@ -24,6 +24,8 @@
   transition: all .25s ease-out;
 }*/
 
+$offcanvas-header-bg: $brand;
+
 .offcanvas {
   $offcanvas-width: 500px;//330px;
   $offcanvas-width-lg: 500px;//420px;
@@ -45,6 +47,29 @@
     }
     @media(max-width: 350px) {
       --bs-offcanvas-width: 100%;
+    }
+  }
+
+  &-header {
+    //padding: $grid-gutter-width/4;
+    //: $offcanvas-header-height;
+    width: --bs-offcanvas-width;
+    background-color: $offcanvas-header-bg;
+    //color: color-contrast( $offcanvas-header-bg, white, $body-color );
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button.btn-close {
+      margin: 0;
+      opacity: 0.75;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    & > * {
+      color: inherit;
     }
   }
 }
