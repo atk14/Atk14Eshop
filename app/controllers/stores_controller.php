@@ -19,6 +19,12 @@ class StoresController extends ApplicationController {
 		$this->head_tags->setCanonical($this->_build_canonical_url(["action" => "stores/detail", "id" => $this->store]));
 		$this->tpl_data["map_tiles_provider"] = MAP_TILES_PROVIDER;
 		$this->tpl_data["map_tiles_api_key"] = MAP_TILES_API_KEY;
+
+		$today = Date::Today();
+		$monday = $today->getCurrentWeekMonday();
+
+		// az 3 tydny dopredu se zobrazi mimoradne oteviraci hodiny
+		$special_opening_hours = $this->tpl_data["special_opening_hours"] = Cache::Get("SpecialOpeningHour",$this->dbmole->selectIntoAssociativeArray("SELECT date,id FROM special_opening_hours WHERE store_id=:store AND date>=:monday AND date<=:monday::DATE + INTERVAL '21 days' ORDER BY date",[":store" => $this->store, ":monday" => $monday]));
 	}
 
 	function _before_filter(){

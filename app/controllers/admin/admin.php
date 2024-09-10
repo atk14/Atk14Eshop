@@ -40,7 +40,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Campaigns"),						"campaigns"),
 			array(_("Brands"),							"brands"),
 			// array(_("Collections"),					"collections"), // Collections are obsolete in Atk14Eshop
-			array(_("Stores"),							"stores"),
+			array(_("Stores"),							"stores,special_opening_hours"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
 			array(_("Pricelists"),					"pricelists,pricelist_items"),
 			array(_("Discounts"),						"discounts"),
