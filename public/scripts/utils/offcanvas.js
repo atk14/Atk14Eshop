@@ -4,7 +4,7 @@ window.UTILS.OffcanvasBasket = function() {
 	var $ = window.jQuery;
 	var $this = this;
 	var lang = $( "html" ).attr( "lang" );
-	this.element = $( "#offcanvas-basket .bs-offcanvas-content .basket-content" );
+	this.element = $( "#offcanvas-basket .offcanvas-content .basket-content" );
 	this.timeoutID = undefined;
 
 	// Load basket content from server

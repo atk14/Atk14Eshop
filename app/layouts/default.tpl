@@ -83,7 +83,6 @@
 		{render partial="shared/trackers/google/tag_manager_body"}
 		{render partial="shared/layout/flash_message"}
 		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
-		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 			{assign use_sidebar_menu true}

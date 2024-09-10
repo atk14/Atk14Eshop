@@ -17,11 +17,7 @@ $form-grid-gutter-width: $grid-gutter-width;
 // Customising offcanvas compoment for Offcanvas Basket
 #offcanvas-basket, #offcanvas-basket-demo {
 
-  .bs-offcanvas-header {
-    padding: var(--sidebar-padding);
-  }
-
-  .bs-offcanvas-content {
+  .offcanvas-content {
     overflow: visible;
     display: flex;
     flex-direction: column;
