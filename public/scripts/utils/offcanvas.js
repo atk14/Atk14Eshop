@@ -78,6 +78,8 @@ window.UTILS.OffcanvasBasket = function() {
 
 	// Set handler for basket show event
 	//$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
-	document.getElementById( "offcanvas-basket" ).addEventListener( "show.bs.offcanvas", $this.loadBasket );
+	if( document.querySelector( "#offcanvas-basket" ) ) {
+		document.getElementById( "offcanvas-basket" ).addEventListener( "show.bs.offcanvas", $this.loadBasket );
+	}
 
 };
