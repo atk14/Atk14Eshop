@@ -231,35 +231,31 @@ form {
 	}
 }
 
-form#form_checkouts_summary .form-group--id_confirmation {
-	&.form-group--has-error {
-		border: 2px solid $danger;
-		background-color: $danger;
-		border: none;
-		color: white;
-
-		position: relative;
-		&::before {
-			display: block;
-			background-color: $danger;
-			content: " ";
-			display: block;
-			position: absolute;
-			left: -6px;
-			top: -2px;
-			width: calc(100% + 12px);
-			height: calc(100% + 2px);
-			//border: 4px solid $danger;
-		}
-
-		label {
-			color: white;
-		}
-		.feedback.feedback--invalid {
-			background-color: inherit;
-			color: inherit;
-		}
+form#form_checkouts_summary {
+	.form-group--checkbox {
+		//background-color: pink;
+		padding: 2px !important;
+		padding-bottom: 0 !important;
+		margin-bottom: 4px !important;
 	}
+	.form-group--id_confirmation {
+		&.form-group--has-error {
+			//outline: 2px solid $danger;
+			background-color: $danger;
+			border: none;
+			color: white;
+
+			position: relative;
+
+			label {
+				color: white;
+			}
+			.feedback.feedback--invalid {
+				background-color: inherit;
+				color: inherit;
+			}
+		}
+}
 }
 
 // search form
