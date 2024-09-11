@@ -23,7 +23,7 @@ class SpecialOpeningHoursForm extends AdminForm {
 		$this->add_translatable_field("note", new CharField([
 			"label" => _("Poznámka"),
 			"required" => false,
-			"hints" => ["dovolená","inventura","Vánoce"],
+			"hints" => [_("dovolená"),_("inventura"),_("Vánoce")],
 		]));
 	}
 

@@ -24,7 +24,24 @@ class StoresController extends ApplicationController {
 		$monday = $today->getCurrentWeekMonday();
 
 		// az 3 tydny dopredu se zobrazi mimoradne oteviraci hodiny
-		$special_opening_hours = $this->tpl_data["special_opening_hours"] = Cache::Get("SpecialOpeningHour",$this->dbmole->selectIntoAssociativeArray("SELECT date,id FROM special_opening_hours WHERE store_id=:store AND date>=:monday AND date<=:monday::DATE + INTERVAL '21 days' ORDER BY date",[":store" => $this->store, ":monday" => $monday]));
+		$ids = $this->dbmole->selectIntoAssociativeArray("
+			SELECT
+				date AS key,
+				id
+			FROM
+				special_opening_hours
+			WHERE
+				store_id=:store AND
+				date>=:monday AND
+				date<=:monday::DATE + INTERVAL '21 days'
+			ORDER BY
+				date
+			",[
+				":store" => $this->store,
+				":monday" => $monday
+			]
+		);
+		$special_opening_hours = $this->tpl_data["special_opening_hours"] = Cache::Get("SpecialOpeningHour",$ids);
 	}
 
 	function _before_filter(){

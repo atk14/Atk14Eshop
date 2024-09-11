@@ -42,7 +42,10 @@
 											{t}zavřeno{/t}
 										{/if}
 										{if $special_opening_hour->getNote()}
+											<br>
+											<small>
 											<em>({$special_opening_hour->getNote()})</em>
+											</small>
 										{/if}
 										</td>
 								{/foreach}
