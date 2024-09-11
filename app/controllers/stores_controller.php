@@ -23,7 +23,7 @@ class StoresController extends ApplicationController {
 		$today = Date::Today();
 		$monday = $today->getCurrentWeekMonday();
 
-		// az 3 tydny dopredu se zobrazi mimoradne oteviraci hodiny
+		// az 4 tydny dopredu se zobrazi mimoradne oteviraci hodiny
 		$ids = $this->dbmole->selectIntoAssociativeArray("
 			SELECT
 				date AS key,
@@ -33,7 +33,7 @@ class StoresController extends ApplicationController {
 			WHERE
 				store_id=:store AND
 				date>=:monday AND
-				date<=:monday::DATE + INTERVAL '21 days'
+				date<=:monday::DATE + INTERVAL '28 days'
 			ORDER BY
 				date
 			",[
