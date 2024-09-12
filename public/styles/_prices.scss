@@ -156,7 +156,7 @@ $price-font-size-xs: 0.75rem;
 				font-size: $price-font-size-xs;
 				.currency_main {
 					font-size: 1rem;
-					@include media-breakpoint-down(xs){
+					@include media-breakpoint-down(sm){  // bs5 breakpoint down
 						font-size: $font-size-sm;
 					}
 				}

@@ -17,7 +17,7 @@
 			margin: $grid-gutter-width/4 $grid-gutter-width/2;
 		}
 		
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){  // bs5 breakpoint down
 			display: block;
 		}
 		

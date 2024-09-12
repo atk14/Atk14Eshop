@@ -44,7 +44,7 @@
 				}
 			}
 		}
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){  // bs5 breakpoint down
 			display: block;
 			&__meta {
 				border-left: none;

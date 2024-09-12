@@ -11,6 +11,8 @@ $breakpoint_xl: map-get($grid-breakpoints, "xl");
 @debug "xl #{$breakpoint_xl}";
 @debug "-----------------";
 
+$navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
+
 body {
 	// styles to keep footer at the bottom on pages with very short content
 	display: flex;
@@ -36,7 +38,7 @@ body {
 .body, .body__sticky__container {
 	padding-top: $grid-gutter-width;
 	padding-bottom: $grid-gutter-width*2;
-	@include media-breakpoint-down($navbar_breakpoint_lower){
+	@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 		padding-top: $grid-gutter-width/2;
 	}
 }

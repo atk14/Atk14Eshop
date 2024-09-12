@@ -161,7 +161,7 @@ table.table--products {
 			}
 		}
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		border-top: 1px solid $border-color;
 		thead {
 			display: none;
@@ -219,7 +219,7 @@ table.table--products {
 		}
 		
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){  // bs5 breakpoint down
 		tbody tr {
 			grid-template-columns: 90px 1fr;
 			grid-template-areas: "number header"
@@ -301,7 +301,7 @@ table.table--products.table--products-simple {
 					}
 				}
 			}
-			@include media-breakpoint-down(sm) {
+			@include media-breakpoint-down(md) {  // bs5 breakpoint down
 				grid-template-areas: "image title title"
 														"image stock price"
 														"image actions actions";

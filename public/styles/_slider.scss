@@ -18,7 +18,7 @@
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center center;
-			@include media-breakpoint-down(sm){
+			@include media-breakpoint-down(md){  // bs5 breakpoint down
 				height: 300px;
 			}
 		}
@@ -28,14 +28,14 @@
 			padding: divide($grid-gutter-width, 2) $grid-gutter-width;
 		}
 
-		@include media-breakpoint-down(md){
+		@include media-breakpoint-down(lg){  // bs5 breakpoint down
 			flex-direction: column;
 			&__text {
 				flex-basis: 30vw;
 			}
 		}
 
-		@include media-breakpoint-down(sm){
+		@include media-breakpoint-down(md){  // bs5 breakpoint down
 			height: unset;
 			&__text {
 				flex-basis: 45vw;
@@ -127,7 +127,7 @@
 	&:active, &:focus {
 		outline: none;
 	}
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){  // bs5 breakpoint down
 		display: none;
 	}
 }
@@ -195,7 +195,7 @@
 		}
 	}
 	
-	@include media-breakpoint-down(md) {
+	@include media-breakpoint-down(lg) {  // bs5 breakpoint down
 		width: 100% !important;
 		position: static;
 		padding-top: divide($grid-gutter-width, 4);
@@ -258,16 +258,16 @@
 			margin: divide($grid-gutter-width, 4) 0;
 			margin: 0;
 		}
-		@include media-breakpoint-down(md) {
+		@include media-breakpoint-down(lg) {  // bs5 breakpoint down
 			.swiper-pagination {
 				width: 100% !important;
-				@include media-breakpoint-down(md) {
+				@include media-breakpoint-down(lg) {  // bs5 breakpoint down
 					position: absolute;
 					bottom: 5px;
 				}
 			}
 		}
-		@include media-breakpoint-down(sm) {	
+		@include media-breakpoint-down(md) {  // bs5 breakpoint down
 			//margin-left: 0 - divide($grid-gutter-width, 2);
 			//margin-right: 0 - divide($grid-gutter-width, 2);
 			.swiper-pagination {
@@ -312,7 +312,7 @@
 	.swiper-pagination {
 		width: 100% !important;
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		padding: 0;
 		.swiper-slide {
 			padding: divide($grid-gutter-width, 2);

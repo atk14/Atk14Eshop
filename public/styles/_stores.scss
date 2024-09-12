@@ -31,7 +31,7 @@
 		//margin-bottom: $grid-gutter-width;
 	}
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		&__description {
 			order: 1;
 			margin-bottom: $grid-gutter-width;
@@ -183,7 +183,7 @@ $popupCardHeight: 140px;
 
 	
 	
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){  // bs5 breakpoint down
 		//flex-wrap: wrap;
 		width: $popupCardWidthXS;
 		height: auto;
@@ -234,7 +234,7 @@ $popupCardHeight: 140px;
 		padding: 0;
 		margin: 0;
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){  // bs5 breakpoint down
 		width: $popupCardWidthXS;
 		height: auto;
 	}

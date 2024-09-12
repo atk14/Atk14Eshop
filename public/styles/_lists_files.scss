@@ -56,14 +56,14 @@
 			text-decoration: none;
 		}
 
-		@include media-breakpoint-down(sm) {
+		@include media-breakpoint-down(md) {  // bs5 breakpoint down
 			.file__thumbnail, .file__icon {
 				flex-basis: 100px;
 				max-width: 100px;
 			}
 		}
 
-		@include media-breakpoint-down(xs) {
+		@include media-breakpoint-down(sm) {  // bs5 breakpoint down
 			padding: $grid-gutter-width/2 0;
 			flex-wrap: wrap;
 			.file__thumbnail, .file__icon {
@@ -191,7 +191,7 @@
 		}
 	}
 	
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {  // bs5 breakpoint down
 		.file__text {
 			display: block !important;
 			.file__title {
@@ -200,7 +200,7 @@
 		}
 	}
 	
-	@include media-breakpoint-down(xs) {
+	@include media-breakpoint-down(sm) {  // bs5 breakpoint down
 		.list__item {
 			display: block;
 		}

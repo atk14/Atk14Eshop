@@ -24,7 +24,7 @@ form {
   }
 }
 
-@include media-breakpoint-down(lg){
+@include media-breakpoint-down(xl){  // bs5 breakpoint down
   body {
     border: 1cm dotted violet;
   }
