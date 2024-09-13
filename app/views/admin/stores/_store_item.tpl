@@ -16,6 +16,7 @@
 			<div class="item__controls">
 				{dropdown_menu}
 					{a action="edit" id=$store}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
+					{a action="special_opening_hours/index" store_id=$store}{!"list"|icon} {t}Special opening hours{/t}{/a}
 					{if $store->isVisible()}
 					{a namespace="" action="stores/detail" id=$store}{!"eye"|icon} {t}Visit public link{/t}{/a}
 					{/if}
