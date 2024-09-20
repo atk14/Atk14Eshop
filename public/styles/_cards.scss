@@ -338,8 +338,8 @@ $card-border-style: 1px dashed $border-color;
 			align-items: stretch;
 			& > .creator_profile {
 				@extend .card;
-				flex-basis: calc(50% - #{$card-deck-margin}) !important;
-				max-width: calc(50% - #{$card-deck-margin}) !important;
+				flex-basis: 50% !important;
+				max-width: 50%;
 				flex-shrink: 0;
 				border: none !important;
 			}
