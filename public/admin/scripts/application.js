@@ -292,6 +292,7 @@
 						body.classList.remove( "dark-mode" );
 						document.cookie = "dark_mode=;path=/";
 					}
+					document.dispatchEvent( new Event( "darkModeChange" ) );
 
 				} );
 			},
