@@ -18,6 +18,30 @@ class TcStore extends TcBase {
 
 		$store->s("address_en","\n\nTESTING STORE as Street in City\n\n");
 		$this->assertEquals("TESTING STORE as Street in City",$store->getAddress());
+
+		// pouziti SpecialOpeningHour
+
+		$groceries = $this->stores["groceries"];
+
+		$this->assertTrue($groceries->isOpen("2019-01-15 08:30:00"));
+		SpecialOpeningHour::CreateNewRecord([
+			"store_id" => $groceries,
+			"date" => "2019-01-15",
+ 			// zavreno
+			"opening_hours1" => null,
+			"opening_hours2" => null,
+		]);
+		$this->assertFalse($groceries->isOpen("2019-01-15 08:30:00"));
+
+		$this->assertFalse($groceries->isOpen("2019-07-10 09:00:00")); // ve stredu je zavreno
+		SpecialOpeningHour::CreateNewRecord([
+			"store_id" => $groceries,
+			"date" => "2019-07-10",
+ 			// zavreno
+			"opening_hours1" => 8.0,
+			"opening_hours2" => 12.0,
+		]);
+		$this->assertTrue($groceries->isOpen("2019-07-10 09:00:00"));
 	}
 
 	function test_isDeletable(){

@@ -15,25 +15,36 @@ class Store extends ApplicationModel Implements Rankable, Translatable, iSlug, \
 	
 	function isOpen($time = null){
 		if(is_null($time)){ $time = time(); }
-    if(!is_numeric($time)){ $time = strtotime($time); }
+		if(!is_numeric($time)){ $time = strtotime($time); }
 
-
+		$date = date("Y-m-d",$time);
 		$day = strtolower(date("D",$time)); // "mon" .. "sun"
 		$hour = (int)date("G",$time); // 0 .. 23
 		$minute = (int)date("i",$time); // 0 .. 59
-
 		$float_time = $hour + $minute/60.0;
+
+		if($special_opening_hour = SpecialOpeningHour::FindFirst("store_id",$this,"date",$date)){
+			$opening_hours1 = $special_opening_hour->g("opening_hours1");
+			$opening_hours2 = $special_opening_hour->g("opening_hours2");
+			$opening_hours3 = $special_opening_hour->g("opening_hours3");
+			$opening_hours4 = $special_opening_hour->g("opening_hours4");
+		}else{
+			$opening_hours1 = $this->g("opening_hours_{$day}1");
+			$opening_hours2 = $this->g("opening_hours_{$day}2");
+			$opening_hours3 = $this->g("opening_hours_{$day}3");
+			$opening_hours4 = $this->g("opening_hours_{$day}4");
+		}
 
 		$out = false;
 
-		if(!is_null($this->g("opening_hours_{$day}1"))){
-			$out = $float_time>=$this->g("opening_hours_{$day}1") && $float_time<=$this->g("opening_hours_{$day}2");
+		if(!is_null($opening_hours1)){
+			$out = $float_time>=$opening_hours1 && $float_time<=$opening_hours2;
 		}
 
 		if($out){ return $out; }
 
-		if(!is_null($this->g("opening_hours_{$day}3"))){
-			$out = $float_time>=$this->g("opening_hours_{$day}3") && $float_time<=$this->g("opening_hours_{$day}4");
+		if(!is_null($opening_hours3)){
+			$out = $float_time>=$opening_hours3 && $float_time<=$opening_hours4;
 		}
 
 		return $out;

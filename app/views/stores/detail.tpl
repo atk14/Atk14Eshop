@@ -27,6 +27,32 @@
 					{render partial="opening_hours_item" day=sun day_title="{t}Neděle{/t}"}
 				</tbody>
 			</table>
+
+			{if $special_opening_hours}
+				<p><strong><span class="text-danger">{!"warning"|icon:"solid"}</span> {t}Mimořádná otevírací doba{/t}:</strong></p>
+					<table class="table table-sm table-borderless table--opening-hours">
+					<tbody>
+					{foreach $special_opening_hours as $special_opening_hour}
+						<tr>
+							<th>{$special_opening_hour->getDate()|format_date:"j.{$nbsp}n."}</th>
+							<td>
+							{if $special_opening_hour->getOpeningHours2()}
+								{$special_opening_hour->getOpeningHours1()|float_to_hour} {$mdash} {$special_opening_hour->getOpeningHours2()|float_to_hour}
+							{else}
+								{t}zavřeno{/t}
+							{/if}
+							{if $special_opening_hour->getNote()}
+								<br>
+								<small>
+								<em>({$special_opening_hour->getNote()})</em>
+								</small>
+							{/if}
+							</td>
+					{/foreach}
+					</tbody>
+					</table>
+			{/if}
+
 		</div>
 
 		{if $store->getAddress()}
