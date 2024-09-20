@@ -54,8 +54,9 @@
 		
 		main: {
 			init: function() {
-				//UTILS.initDashboardOrdersChart();
-				new UTILS.DashboardOrdersChart();
+				if( document.querySelector( ".dashboard-chart" ) ) {
+					new UTILS.DashboardOrdersChart();
+				}
 			}
 		},
 
