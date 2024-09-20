@@ -54,7 +54,8 @@
 		
 		main: {
 			init: function() {
-				UTILS.initDashboardOrdersChart();
+				//UTILS.initDashboardOrdersChart();
+				new UTILS.DashboardOrdersChart();
 			}
 		},
 
