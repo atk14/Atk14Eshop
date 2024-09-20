@@ -176,6 +176,8 @@ window.UTILS.initStickySidebar = function() {
 				minWidth: 767,
 			} );
 		}
+	}
+	if( $( "nav.nav-section" ).length ) {
 		$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 			$( ".nav-section" ).toggleClass( "show-sm" );
 		} );
