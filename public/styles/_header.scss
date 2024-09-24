@@ -839,7 +839,7 @@ ol.breadcrumb {
 	border-radius: $size/2;
 	background-color: $primary;
 	line-height: 1;
-	color: color-yiq($primary);
+	color: color-contrast($primary);
 	text-align: center;
 	padding: 0 $size/4;
 	font-size: 0.875rem;

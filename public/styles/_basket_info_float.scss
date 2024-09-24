@@ -31,11 +31,13 @@
       border: $cartBorderStyle;
       border-bottom-left-radius: $cartBorderRadius;
       border-top-left-radius: $cartBorderRadius;
-      color: color-yiq( $cartBgColor );
+      //color: color-contrast( $cartBgColor );
+      color: color-contrast($cartBgColor, $color-contrast-dark, $color-contrast-light, 2); // make it preferably lighter
       padding: $grid-gutter-width/8 $grid-gutter-width/4;
       
       &:hover {
-        color: color-yiq( $cartBgColor );
+        //color: color-contrast( $cartBgColor );
+        color: color-contrast($cartBgColor, $color-contrast-dark, $color-contrast-light, 2); // make it preferably lighter
         text-decoration: none;
       }
 
