@@ -46,7 +46,7 @@
 			a.dropdown-item, button.dropdown-item {
 				&:hover, &:focus, &:active, &.active {
 					background-color: $colorValue !important;
-					color: color-yiq($colorValue) !important;
+					//color: color-yiq($colorValue) !important;
 				}
 			}
 		}
