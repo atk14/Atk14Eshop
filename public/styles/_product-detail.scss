@@ -46,6 +46,7 @@
 						td, th {
 							padding-top: $grid-gutter-width /4;
 							padding-bottom: $grid-gutter-width /4;
+							border-color: $border-color;
 							
 							&:first-child {
 								padding-left: 0;
