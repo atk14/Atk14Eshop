@@ -1,7 +1,6 @@
 ( function( window, undefined ) {
 	"use strict";
 
-	var $ = window.jQuery;
 	if ( !window.ATK14COMMON ) {
 		window.ATK14COMMON = {};
 	}
@@ -334,4 +333,4 @@
 		ATK14COMMON.Pager.init();
 	} );
 
-} )( this );
+} )( window );
