@@ -1,6 +1,6 @@
 /* Imports */
 const bootstrap = require ( "bootstrap" );
-//window.$ = window.jQuery = require("jquery");
+//window.$ = window.jQuery = require("jquery");// already included by jquery_loader.js
 require( "unobfuscatejs" );
 //require( "atk14js" );
 
