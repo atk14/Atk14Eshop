@@ -60,6 +60,7 @@ var applicationScripts = [
 	"public/scripts/utils/scroll_to_top.js",
 	"public/scripts/utils/swiper_custom_config.js",
 	"public/scripts/utils/svg_placeholders.js",
+	"public/scripts/utils/window_sync.js",
 	"public/scripts/application.js"
 ];
 
@@ -150,6 +151,8 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
+	gulp.src( "public/scripts/workers/window_sync_worker.js" )
+		.pipe( gulp.dest( "public/dist/scripts" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )

@@ -176,5 +176,10 @@ window.UTILS.OffcanvasBasket = function() {
 
 	// Set handler for basket show event
 	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+	window.addEventListener( "basket_updated", function(){
+		if( document.getElementById( "offcanvas-basket" ).classList.contains( "show" ) ) {
+			$this.loadBasket();
+		} else { console.log( "fuck off" ) };
+	} );
 
 };

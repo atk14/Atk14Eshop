@@ -70,6 +70,9 @@
 					UTILS.SVGPlaceholders.SVGPlaceholders();
 				}
 
+				// sync
+				new UTILS.WindowSync();
+
 			}
 
 		},
