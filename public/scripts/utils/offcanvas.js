@@ -127,6 +127,9 @@ window.UTILS.OffcanvasBasket = function() {
 					break;
 			}
 		} );
+		/*$this.element.load( "/" + lang + "/baskets/get_basket_info", function( response, status, jqXHR ) {
+			console.log( jqXHR )
+		} );*/
 	};
 
 	// Replaces the offcanvas basket with the given HTML content and restores its scroll position

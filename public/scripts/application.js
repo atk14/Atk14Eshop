@@ -72,6 +72,7 @@
 
 				// sync
 				new UTILS.WindowSync();
+				new UTILS.LiveStatusRefresher();
 
 			}
 

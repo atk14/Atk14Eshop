@@ -61,6 +61,7 @@ var applicationScripts = [
 	"public/scripts/utils/swiper_custom_config.js",
 	"public/scripts/utils/svg_placeholders.js",
 	"public/scripts/utils/window_sync.js",
+	"public/scripts/utils/live_status_refresher.js",
 	"public/scripts/application.js"
 ];
 
