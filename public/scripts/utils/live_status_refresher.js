@@ -1,5 +1,11 @@
 /**
+ * Class for live updating basket and favoutrites statuses when they change in another open tab or window.
+ * Works with WindowSync.
+ * Listens to basket_remote_updated and favourites_remote_updated events on window object.
  * 
+ * Usage:
+ * new UTILS.WindowSync();				
+ * new UTILS.LiveStatusRefresher();
  * 
  */
 
@@ -16,6 +22,7 @@ window.UTILS.LiveStatusRefresher = class {
       method: 'GET', headers: reqHeader,
     };
     window.addEventListener( "basket_remote_updated", this.updateBasketInfo.bind( this ) );
+    window.addEventListener( "favourites_remote_updated", this.updateFavouritesInfo.bind( this ) );
   }
   async updateBasketInfo() {
     console.log( "updateBasketInfo" );
@@ -24,7 +31,7 @@ window.UTILS.LiveStatusRefresher = class {
     console.log(content);
     this.render( ".js--basket_info_content", content );
   }
-  updateFavouritesInfo() {
+  async updateFavouritesInfo() {
 
   }
 
