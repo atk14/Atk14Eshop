@@ -127,9 +127,6 @@ window.UTILS.OffcanvasBasket = function() {
 					break;
 			}
 		} );
-		/*$this.element.load( "/" + lang + "/baskets/get_basket_info", function( response, status, jqXHR ) {
-			console.log( jqXHR )
-		} );*/
 	};
 
 	// Replaces the offcanvas basket with the given HTML content and restores its scroll position
@@ -179,8 +176,10 @@ window.UTILS.OffcanvasBasket = function() {
 
 	// Set handler for basket show event
 	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+
+	// Update basket view when basket changed in another window
 	window.addEventListener( "basket_remote_updated", function(){
-		if( document.getElementById( "offcanvas-basket" ).classList.contains( "show" ) ) {
+		if( document.getElementById( "offcanvas-basket" ) && document.getElementById( "offcanvas-basket" ).classList.contains( "show" ) ) {
 			$this.loadBasket();
 		} else { console.log( "fuck off" ) };
 	} );
