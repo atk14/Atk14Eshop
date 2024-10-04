@@ -181,6 +181,14 @@
 					$( document.body ).addClass( "loading" );
 					$(this).parent( "form" ).submit();
 				} );
+
+				// Emit basket update event (because page may be loaded after basket item deletion)
+				window.dispatchEvent( new Event( "basket_updated" ) );
+			},
+
+			empty_basket: function() {
+				// Emit basket update event (because page may be loaded after basket item deletion)
+				window.dispatchEvent( new Event( "basket_updated" ) );
 			}
 		},
 
@@ -364,6 +372,11 @@
 				$( window ).on( "resize", function() {
 					$( "table.table--orders td.order__thumbnails" ).css( "width", "auto" );
 				} );
+			},
+
+			finish: function() {
+				// Emit basket update event
+				window.dispatchEvent( new Event( "basket_updated" ) );
 			}
 		},
 

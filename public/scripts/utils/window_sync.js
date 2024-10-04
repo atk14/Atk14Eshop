@@ -1,23 +1,35 @@
+/**
+ * Class for communication between multiple browser instances (windows, tabs) of this site
+ * Used for syncing basket status, favourites status etc. between open tabs
+ * 
+ * Usage:
+ * new window.UTILS.WindowSync();
+ *  
+ * Listens to events: basket_updated, favourites_updated (when these changed in this window)
+ * Emits events: basket_remote_updated, favourites_remote_updated (when these changed in other window)
+ * 
+ * Useful method:
+ * send( data ): sends any data to all other window instances
+ * 
+ * Uses /public/scripts/workers/window_sync_worker.js for communication between windows
+ * 
+ */
 window.UTILS = window.UTILS || { };
 
 window.UTILS.WindowSync = class {
 
-  sync; // shared worker instance
-  lastMsgId = 0;
+  sync;           // shared worker instance
+  lastMsgId = 0;  // id of last message sent
 
   constructor() {
-    console.log( "hello me" );
-    this.sync = new SharedWorker( "/public/dist/scripts/window_sync_worker.js" );
-    
+    this.sync = new SharedWorker( "/public/dist/scripts/window_sync_worker.js" );    
     this.sync.port.onmessage = this.onSyncMessage.bind( this );
-    console.log( this.sync );
     this.testHandlers();
     this.setWindowEventHandlers();
   }
 
   // Incoming message
   onSyncMessage( e ) {
-    console.log( "it works!", e.data );
     // if message comes from our instance ignore it / return
     if( e.data.msgID === this.lastMsgId ) {
       console.log( "this is our own message" );
@@ -27,7 +39,7 @@ window.UTILS.WindowSync = class {
     // write message to test div
     document.getElementById( "synctest-output" ).append( e.data.data + "\n" );
 
-    // Process known message, ignore unknown messages
+    // Process known messages, ignore unknown messages
     if( e.data.data ){
       let eventName = null;
       // Check for valid messages
@@ -38,6 +50,7 @@ window.UTILS.WindowSync = class {
         case "favourites_updated":
           eventName = "favourites_remote_updated";
           break;
+        // add more actions if needed
       }
       // Trigger appropriate event if message was valid
       if( eventName ) {
