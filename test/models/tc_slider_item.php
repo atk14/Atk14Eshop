@@ -34,7 +34,7 @@ class TcSliderItem extends TcBase {
 		$item->s([
 			"visible" => true,
 			"display_from" => date("Y-m-d H:i:s",$time - 60),
-			"display_to" => date("Y-m-d H:i:s",null),
+			"display_to" => null,
 		]);
 		$this->assertTrue($item->isVisible());
 
