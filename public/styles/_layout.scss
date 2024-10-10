@@ -53,7 +53,7 @@ body {
 .container-fluid {
 	// extending Bootstrap .container-fluid
 	max-width: $max-page-width;
-	margin: auto;
+	margin: 0 auto;
 	@include media-breakpoint-up( sm ){
 		padding: 0 $grid-gutter-width;
 	}
