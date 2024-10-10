@@ -12,7 +12,14 @@
 					{$slider_item->getTitle()|default:$mdash}
 					</div>
 					<span class="item__visibility-properties">
-						{if !$slider_item->isVisible()}<span class="item__visibility">{!"eye-slash"|icon} {t}invisible{/t}</span>{/if}
+						{if !$slider_item->g("visible")}<span class="item__visibility">{!"eye-slash"|icon} {t}invisible{/t}</span>{/if}
+					</span>
+					<span class="item__properties">
+						{if $slider_item->getDisplayFrom() || $slider_item->getDisplayTo()}
+							<small>{t}Displayed{/t}</small>
+							{if $slider_item->getDisplayFrom()}<br>{strip_html}{t from=$slider_item->getDisplayFrom()|format_datetime escape=no}<!-- Displayed --> from %1{/t}{/strip_html}{/if}
+							{if $slider_item->getDisplayTo()}<br>{strip_html}{t to=$slider_item->getDisplayTo()|format_datetime escape=no}<!-- Displayed --> to %1{/t}{/strip_html}{/if}
+						{/if}
 					</span>
 					<div>
 						{dropdown_menu}
