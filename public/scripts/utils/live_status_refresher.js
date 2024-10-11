@@ -14,6 +14,7 @@ window.UTILS = window.UTILS || { };
 window.UTILS.LiveStatusRefresher = class {
   lang;
   reqInitObject;
+  bodyData = document.querySelector( "body" ).dataset;
   constructor() {
     this.lang = document.querySelector( "html" ).getAttribute( "lang" );
     const reqHeader = new Headers();
@@ -30,6 +31,11 @@ window.UTILS.LiveStatusRefresher = class {
     const content = await response.text();
     console.log(content);
     this.render( ".js--basket_info_content", content );
+
+    if( ( this.bodyData.controller === "baskets" && this.bodyData.action === "edit" ) || ( this.bodyData.controller === "checkouts" && this.bodyData.action === "summary" ) ) {
+      // TODO: make this BS5 compatible
+      window.jQuery( "#modal_basket_changed" ).modal();
+    }
   }
   async updateFavouritesInfo() {
     console.log( "updateFavouritesInfo" );
