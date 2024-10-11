@@ -79,6 +79,7 @@ window.UTILS.WindowSync = class {
     form.addEventListener( "submit", function( e ) {
       e.preventDefault();
       this.send( document.getElementById( "synctest-input" ).value );
+      document.getElementById( "synctest-output" ).append( "    " + document.getElementById( "synctest-input" ).value + "\n" );
     }.bind( this ) );
   }
 

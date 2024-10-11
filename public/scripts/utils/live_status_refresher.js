@@ -17,9 +17,9 @@ window.UTILS.LiveStatusRefresher = class {
   constructor() {
     this.lang = document.querySelector( "html" ).getAttribute( "lang" );
     const reqHeader = new Headers();
-    reqHeader.append('X-Requested-With', 'XMLHttpRequest');
+    reqHeader.append( "X-Requested-With", "XMLHttpRequest");
     this.reqInitObject = {
-      method: 'GET', headers: reqHeader,
+      method: "GET", headers: reqHeader,
     };
     window.addEventListener( "basket_remote_updated", this.updateBasketInfo.bind( this ) );
     window.addEventListener( "favourites_remote_updated", this.updateFavouritesInfo.bind( this ) );
@@ -32,7 +32,11 @@ window.UTILS.LiveStatusRefresher = class {
     this.render( ".js--basket_info_content", content );
   }
   async updateFavouritesInfo() {
-
+    console.log( "updateFavouritesInfo" );
+    const response = await fetch( "/" + this.lang + "/favourite_products/get_favourites_info", this.reqInitObject );
+    const content = await response.text();
+    console.log(content);
+    this.render( ".js--header-favourites", content );
   }
 
   render ( selector, content ) {

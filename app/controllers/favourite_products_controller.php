@@ -44,4 +44,8 @@ class FavouriteProductsController extends ApplicationController {
 			$this->_add_user_detail_breadcrumb();
 		}
 	}
+
+	function get_favourites_info() {
+		
+	}
 }
