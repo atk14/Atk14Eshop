@@ -22,8 +22,12 @@ window.UTILS.WindowSync = class {
   lastMsgId = 0;  // id of last message sent
 
   constructor() {
-    this.sync = new SharedWorker( "/public/dist/scripts/window_sync_worker.js" );    
+    this.sync = new SharedWorker( "/public/dist/scripts/window_sync_worker.js" ); 
+    this.sync.port.start();  
     this.sync.port.onmessage = this.onSyncMessage.bind( this );
+    this.sync.port.addEventListener( "error", function( e ) {
+      throw new Error( "WorkerIO Error: could not open SharedWorker", e );
+    }, false);
     this.testHandlers();
     this.setWindowEventHandlers();
   }
@@ -102,5 +106,4 @@ window.UTILS.WindowSync = class {
     console.log( "--------------------" );
     this.send( "favourites_updated" )
   }
-
 };
