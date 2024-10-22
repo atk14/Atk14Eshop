@@ -19,6 +19,9 @@
  **/
 
 class FilterForCards extends Filter {
+
+	var $productJoin;
+
 	function __construct($user, $options = []) {
 		$options += [
 			"conditions" => null,
