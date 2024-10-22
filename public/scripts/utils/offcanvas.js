@@ -82,4 +82,11 @@ window.UTILS.OffcanvasBasket = function() {
 		document.getElementById( "offcanvas-basket" ).addEventListener( "show.bs.offcanvas", $this.loadBasket );
 	}
 
+	// Update basket view when basket changed in another window
+	window.addEventListener( "basket_remote_updated", function(){
+		if( document.getElementById( "offcanvas-basket" ) && document.getElementById( "offcanvas-basket" ).classList.contains( "show" ) ) {
+			$this.loadBasket();
+		} else { console.log( "fuck off" ) };
+	} );
+
 };

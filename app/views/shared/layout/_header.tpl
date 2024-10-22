@@ -74,3 +74,11 @@
 	{/if}
 
 </header>
+<div class="container-fluid">
+	<div class="test border-1">
+		<form action="" id="synctest" class="form-inline">
+			<input type="text" class="form-control mb-2 mr-sm-2" id="synctest-input" placeholder="Msg">   <button type="submit" class="btn btn-primary mb-2">Send</button>
+		</form>
+		<pre id="synctest-output" style="font-size: 10px;"></pre>
+	</div>
+</div>
