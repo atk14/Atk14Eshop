@@ -347,8 +347,8 @@ class ApplicationForm extends Atk14Form{
 			// Transparent re-validation of address_zip or delivery_address_zip in context of address_country, resp. delivery_address_country
 			if($this->revalidate_zip_automatically){
 				if(is_array($d) && isset($d["{$prefix}address_zip"]) && isset($d["{$prefix}address_country"])){
-					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$err)){
-						$this->set_error("{$prefix}address_zip",$err);
+					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$_err)){
+						$this->set_error("{$prefix}address_zip",$_err);
 					}
 				}
 			}
@@ -357,8 +357,8 @@ class ApplicationForm extends Atk14Form{
 			// (actually, delivery_address_country should never occur)
 			if($this->revalidate_company_number_automatically){
 				if(is_array($d) && isset($d["{$prefix}company_number"]) && isset($d["{$prefix}address_country"])){
-					if(!$this->fields["{$prefix}company_number"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}company_number"],$err)){
-						$this->set_error("{$prefix}company_number",$err);
+					if(!$this->fields["{$prefix}company_number"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}company_number"],$_err)){
+						$this->set_error("{$prefix}company_number",$_err);
 					}
 				}
 			}

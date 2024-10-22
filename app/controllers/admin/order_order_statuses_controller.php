@@ -77,7 +77,10 @@ class OrderOrderStatusesController extends AdminController {
 	function create_new__update_status(){
 		$d = $this->form_data["get_data"];
 
-		foreach(["price_paid","tracking_number"] as $field){
+		foreach([
+			"price_paid",
+			"tracking_number",
+		] as $field){
 			if(array_key_exists($field,$d)){
 				$this->order->s($field,$d[$field]);
 			}

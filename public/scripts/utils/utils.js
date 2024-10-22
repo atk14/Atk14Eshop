@@ -177,7 +177,7 @@ window.UTILS.initStickySidebar = function() {
 			} );
 		}
 	}
-	if( $( "nav.nav-section" ).length ) {
+	if( $( ".js-sidebar-toggle" ).length ) {
 		$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 			$( ".nav-section" ).toggleClass( "show-sm" );
 		} );

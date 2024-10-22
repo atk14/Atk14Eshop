@@ -33,6 +33,23 @@ class SliderItemsForm extends AdminForm {
 
 		$this->add_visible_field();
 
+		$this->add_field("display_from", new DateTimeField([
+			"label" => _("Display this picture from date and time"),
+			"hints" => [
+				Atk14Locale::FormatDateTime(now()),
+				Atk14Locale::FormatDateTime(Date::Today()->plusMonth()->getMonthFirstDay()." 00:00"),
+			],
+			"required" => false,
+		]));
+
+		$this->add_field("display_to", new DateTimeField([
+			"label" => _("Display this picture to date and time"),
+			"hints" => [
+				Atk14Locale::FormatDateTime(Date::Today()->getMonthLastDay()." 23:59"),
+			],
+			"required" => false,
+		]));
+
 		/*
 		$this->add_field("text_color", new RgbaField([
 			"label" => _("Barva textu"),

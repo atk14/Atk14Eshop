@@ -39,7 +39,7 @@ var applicationScripts = [
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/tag_chooser.js",
 	"public/scripts/utils/notifications.js",
-	"public/admin/scripts/utils/dashboard_charts.js",
+	"public/admin/scripts/utils/dashboard_charts_v2.js",
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/tooltip.js",
 	"public/admin/scripts/utils/geopaste.js",

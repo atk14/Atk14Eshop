@@ -117,7 +117,8 @@ $enable-deprecation-messages: false;
 
 @import "modals";
 
-@import "cookie_consent";
+//@import "cookie_consent";
+@import "vendor/atk14/cookie-consent/src/public/styles/_cookie_consent.bs5.scss";
 
 @import "digital_contents";
 

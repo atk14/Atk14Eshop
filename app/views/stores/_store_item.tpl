@@ -10,7 +10,7 @@
 	<div class="card-body">
 		<h2 class="card-title">{$store->getName()}</h2>
 		<address>{!$store->getAddress()|h|nl2br|replace:'<br />':'<br>'}</address>
-		<div class="card-text">{$store->getTeaser()}</div>
+		<div class="card-text">{$store->getTeaser()|markdown|strip_html}</div>
 	</div>
 	<div class="card-footer card-footer--buttons">
 		{a action="detail" id=$store _class="btn btn-sm btn-outline-primary"}<span class="card-footer__icon">{!"info-circle"|icon}</span> <span>{t escape=no}Informace o&nbsp;prodejně{/t}</span>{/a}

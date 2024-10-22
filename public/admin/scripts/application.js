@@ -74,8 +74,9 @@ import Sortable from "sortablejs";
 		
 		main: {
 			init: function() {
-				//UTILS.initDashboardOrdersChart();
-				new UTILS.DashboardOrdersChart();
+				if( document.querySelector( ".dashboard-chart" ) ) {
+					new UTILS.DashboardOrdersChart();
+				}
 			}
 		},
 
@@ -325,6 +326,7 @@ import Sortable from "sortablejs";
 						document.cookie = "dark_mode=;path=/";
 						mode = "light";
 					}
+					document.dispatchEvent( new Event( "darkModeChange" ) );
 
 					// darkModeChange event is triggered on dark mode de/activation
 					var evt = new CustomEvent( "darkModeChange", { detail: mode } );

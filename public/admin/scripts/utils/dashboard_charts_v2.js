@@ -35,8 +35,8 @@ window.UTILS.DashboardOrdersChart = class {
 				labels: this.initialChartData.labels,
 				datasets: [{
 					data: this.initialChartData.data,
-					backgroundColor: color( this.primaryColor ).alpha( 0.5 ).rgbString(),
-					borderColor: color( this.primaryColor ).alpha( 0 ).rgbString(),
+					backgroundColor: this.color( this.primaryColor ).alpha( 0.5 ).rgbString(),
+					borderColor: this.color( this.primaryColor ).alpha( 0 ).rgbString(),
 					borderWidth: 1
 				}]
 			},
@@ -291,7 +291,7 @@ window.UTILS.DashboardOrdersChart = class {
 	checkChartDarkMode() {
 		let color = Chart.defaults.color;
 		let gridColor = Chart.defaults.borderColor;
-		if( document.body.dataset.bsTheme === "dark" || document.classList.contains( "dark-mode" ) ) {
+		if( document.body.dataset.bsTheme === "dark" || document.body.classList.contains( "dark-mode" ) ) {
 			color = "#ffffff";
 			gridColor = "#444";
 		} 
