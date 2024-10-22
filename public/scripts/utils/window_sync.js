@@ -9,9 +9,8 @@
  * Emits events: basket_remote_updated, favourites_remote_updated (when these changed in other window)
  * 
  * Useful method:
- * send( data ): sends any data to all other window instances
- * 
- * Uses /public/scripts/workers/window_sync_worker.js for communication between windows
+ * send( data ): sends any data to all other window instances 
+ *
  * 
  */
 window.UTILS = window.UTILS || { };
@@ -22,14 +21,17 @@ window.UTILS.WindowSync = class {
   lastMsgId = 0;  // id of last message sent
 
   constructor() {
-    this.sync = new SharedWorker( "/public/dist/scripts/window_sync_worker.js" ); 
-    this.sync.port.start();  
-    this.sync.port.onmessage = this.onSyncMessage.bind( this );
-    this.sync.port.addEventListener( "error", function( e ) {
-      throw new Error( "WorkerIO Error: could not open SharedWorker", e );
-    }, false);
+    this.sync = new BroadcastChannel( "atk14_radio" );
+    this.sync.onmessage = this.onSyncMessage.bind( this );
+    /*this.sync.addEventListener( "messageerror", function( e ) {
+      throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
+    }, false);*/
+    this.sync.onmessageerror = function( e ) {
+      throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
+    };
     this.testHandlers();
     this.setWindowEventHandlers();
+    console.log( "----------BroadcastChannel", this.sync );
   }
 
   // Incoming message
@@ -72,7 +74,7 @@ window.UTILS.WindowSync = class {
     // Make unique ID
     let msgID = Math.floor(Math.random() * 100).toString() + Date.now();
     // Send
-    this.sync.port.postMessage( { data: data , msgID: msgID } );
+    this.sync.postMessage( { data: data , msgID: msgID } );
     // Remember sent message ID
     this.lastMsgId = msgID;
   }
@@ -91,6 +93,7 @@ window.UTILS.WindowSync = class {
   setWindowEventHandlers() {
     window.addEventListener( "basket_updated", this.onBasketUpdate.bind( this ) );
     window.addEventListener( "favourites_updated", this.onFavoritesUpdate.bind( this ) );
+    window.addEventListener( "beforeunload", this.close.bind( this ) );
   }
 
   // On local basket update
@@ -106,4 +109,11 @@ window.UTILS.WindowSync = class {
     console.log( "--------------------" );
     this.send( "favourites_updated" )
   }
+
+  // Closes connection. Called on page unload.
+  close(){
+    console.log( "CLOSING CONNECTION" );
+    this.sync.close();
+  }
+
 };
