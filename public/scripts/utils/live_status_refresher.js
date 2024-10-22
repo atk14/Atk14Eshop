@@ -12,6 +12,8 @@
  * 
  */
 
+import { Modal } from "bootstrap";
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.LiveStatusRefresher = class {
@@ -45,7 +47,9 @@ window.UTILS.LiveStatusRefresher = class {
     if( ( this.bodyData.controller === "baskets" && this.bodyData.action === "edit" ) || ( this.bodyData.controller === "checkouts" && this.bodyData.action === "summary" ) ) {
       if( window.bootstrapVersion && window.bootstrapVersion === 5 ) {
         // Bootstrap 5
-        new bootstrap.Modal(document.getElementById( "modal_basket_changed" ) );
+        console.log( "Modal", Modal );
+        const basketChangedModal = new Modal(document.getElementById( "modal_basket_changed" ) );
+        basketChangedModal.show();
       } else {
         // Bootstrap legacy
         window.jQuery( "#modal_basket_changed" ).modal();
