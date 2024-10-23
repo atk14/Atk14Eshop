@@ -12,6 +12,8 @@
  * 
  */
 
+
+// If Webpack is used to compile, you may need to uncomment following line to import bootstrap.Modal
 import { Modal } from "bootstrap";
 
 window.UTILS = window.UTILS || { };
@@ -47,8 +49,9 @@ window.UTILS.LiveStatusRefresher = class {
     if( ( this.bodyData.controller === "baskets" && this.bodyData.action === "edit" ) || ( this.bodyData.controller === "checkouts" && this.bodyData.action === "summary" ) ) {
       if( window.bootstrapVersion && window.bootstrapVersion === 5 ) {
         // Bootstrap 5
-        console.log( "Modal", Modal );
+        // eslint-disable-next-line no-undef
         const basketChangedModal = new Modal(document.getElementById( "modal_basket_changed" ) );
+        // eslint-disable-next-line no-undef
         basketChangedModal.show();
       } else {
         // Bootstrap legacy

@@ -23,27 +23,18 @@ window.UTILS.WindowSync = class {
   constructor() {
     this.sync = new BroadcastChannel( "atk14_radio" );
     this.sync.onmessage = this.onSyncMessage.bind( this );
-    /*this.sync.addEventListener( "messageerror", function( e ) {
-      throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
-    }, false);*/
     this.sync.onmessageerror = function( e ) {
       throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
     };
-    this.testHandlers();
     this.setWindowEventHandlers();
-    console.log( "----------BroadcastChannel", this.sync );
   }
 
   // Incoming message
   onSyncMessage( e ) {
     // if message comes from our instance ignore it / return
     if( e.data.msgID === this.lastMsgId ) {
-      console.log( "this is our own message" );
       return;
     }
-
-    // write message to test div
-    document.getElementById( "synctest-output" ).append( e.data.data + "\n" );
 
     // Process known messages, ignore unknown messages
     if( e.data.data ){
@@ -60,7 +51,7 @@ window.UTILS.WindowSync = class {
       }
       // Trigger appropriate event if message was valid
       if( eventName ) {
-        console.log( "WindowSync event:", eventName );
+        //console.log( "WindowSync event:", eventName );
         window.dispatchEvent( new Event( eventName ) );
       } else {
         console.warn( "Invalid WindowSync event:", e.data.data );
@@ -79,16 +70,6 @@ window.UTILS.WindowSync = class {
     this.lastMsgId = msgID;
   }
 
-  // Testing
-  testHandlers() {
-    let form = document.getElementById( "synctest" );
-    form.addEventListener( "submit", function( e ) {
-      e.preventDefault();
-      this.send( document.getElementById( "synctest-input" ).value );
-      document.getElementById( "synctest-output" ).append( "    " + document.getElementById( "synctest-input" ).value + "\n" );
-    }.bind( this ) );
-  }
-
   // Listen for local events (local basket add/remove, local favourites add/remove etc.)
   setWindowEventHandlers() {
     window.addEventListener( "basket_updated", this.onBasketUpdate.bind( this ) );
@@ -98,21 +79,19 @@ window.UTILS.WindowSync = class {
 
   // On local basket update
   onBasketUpdate() {
-    console.log( "BASKET UPDATED EVENT" );
-    console.log( "--------------------" );
+    //console.log( "BASKET UPDATED EVENT" );
     this.send( "basket_updated" )
   }
 
   // On local favorites update
   onFavoritesUpdate() {
-    console.log( "FAVOURITES UPDATED EVENT" );
-    console.log( "--------------------" );
+    //console.log( "FAVOURITES UPDATED EVENT" );
     this.send( "favourites_updated" )
   }
 
   // Closes connection. Called on page unload.
   close(){
-    console.log( "CLOSING CONNECTION" );
+    //console.log( "CLOSING CONNECTION" );
     this.sync.close();
   }
 
