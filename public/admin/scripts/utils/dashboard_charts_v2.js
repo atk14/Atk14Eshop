@@ -35,8 +35,8 @@ window.UTILS.DashboardOrdersChart = class {
 				labels: this.initialChartData.labels,
 				datasets: [{
 					data: this.initialChartData.data,
-					backgroundColor: this.color( this.primaryColor ).alpha( 0.5 ).rgbString(),
-					borderColor: this.color( this.primaryColor ).alpha( 0 ).rgbString(),
+					backgroundColor: color( this.primaryColor ).alpha( 0.5 ).rgbString(),
+					borderColor: color( this.primaryColor ).alpha( 0 ).rgbString(),
 					borderWidth: 1
 				}]
 			},
