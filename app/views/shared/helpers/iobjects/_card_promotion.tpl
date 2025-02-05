@@ -16,9 +16,9 @@
 		</div>
 		<div class="iobject__body">
 			<div>
-				<h4 class="iobject__title">
+				<div class="h4 iobject__title">
 					{$card_promotion->getTitle()}
-				</h4>
+				</div>
 
 				<div class="iobject__description">
 					{!$card->getTeaser()|markdown|strip_tags}

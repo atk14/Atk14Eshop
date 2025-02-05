@@ -20,7 +20,7 @@
 						<img src="{$public}images/camera.svg" width="60" height="60" class="child-category__image" alt="{t}no image{/t}">
 					{/if}
 				<div class="child-category__text">
-					<h4 class="child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small>&nbsp;{!"angle-right"|icon}</h4>
+					<p class="h4 child-category__text__title">{$cc->getName()} <small>({$c->getCardsCount()})</small>&nbsp;{!"angle-right"|icon}</p>
 					{if $cc->getTeaser()}
 						<p class="child-category__text__teaser">{$cc->getTeaser()|markdown|strip_html|truncate:200}</p>
 					{/if}
