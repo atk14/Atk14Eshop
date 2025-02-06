@@ -1,7 +1,11 @@
 {a action=detail id=$article _class="card"}
 	<div class="card__image">
 	{if $article->getImageUrl()}
-		<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+		<picture>{* !!! pozor - pri merge do projektu zkontrolovat velikosti obrazku !!! *}
+			<source srcset="{!$article->getImageUrl()|img_url:"400x300xcrop,format=webp"}" type="image/webp">
+			<source srcset="{!$article->getImageUrl()|img_url:"400x300xcrop"}">
+			<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+		</picture>
 	{else}
 		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
 	{/if}

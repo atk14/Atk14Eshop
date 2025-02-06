@@ -2,7 +2,12 @@
 	<div class="d-none js-search-data">
 		{$store->getName()} {!$store->getAddress()} {to_ascii}{$store->getName()} {!$store->getAddress()}{/to_ascii}
 	</div>
-	{a action="detail" id=$store _class="card__image" _aria-label=$store->getName()}{!$store->getImageUrl()|pupiq_img:"!400x300":"class='card-img-top'"}
+	{a action="detail" id=$store _class="card__image" _aria-label=$store->getName()}
+	<picture>
+		<source srcset="{!$store->getImageUrl()|img_url:"400x300xcrop,format=webp"}" type="image/webp">
+		<source srcset="{!$store->getImageUrl()|img_url:"400x300xcrop"}">
+		{!$store->getImageUrl()|pupiq_img:"!400x300":"class='card-img-top'"}
+	</picture>
 	{if $store->isOpen()}
 		<div class="card__flags"><span class="badge badge-success">{t}Právě otevřeno{/t}</span></div>
 	{/if}
