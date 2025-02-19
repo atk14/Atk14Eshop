@@ -6,7 +6,11 @@
 <div class="swiper-slide slider-item-{$slide_number}">
 	{if $item->getTitle() != "" || $item->getDescription() != ""}
 		<div class="swiper-slide__image">
-			<img src="{$item->getImageUrl()|img_url:$geometry_half}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_half}" height="{$item->getImageUrl()|img_height:$geometry_half}">
+			<picture>
+				<source srcset="{$item->getImageUrl()|img_url:($geometry_half|cat:",format=webp")}" type="image/webp">
+				<source srcset="{$item->getImageUrl()|img_url:$geometry_half}">
+				<img src="{$item->getImageUrl()|img_url:$geometry_half}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_half}" height="{$item->getImageUrl()|img_height:$geometry_half}">
+			</picture>
 		</div>
 		<div class="swiper-slide__text">
 			<div>

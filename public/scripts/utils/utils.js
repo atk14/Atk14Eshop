@@ -171,3 +171,22 @@ window.UTILS.initStickySidebar = function() {
 		} );
 	}
 }
+
+window.UTILS.testImages = function() {
+	let imgs = document.querySelectorAll( "img" );
+	[...imgs].forEach( function( img ) {
+		let ext = img.currentSrc.split( "." ).pop();
+		if( ext === "svg" ) {
+			img.style.border = "1mm solid black";
+		} else if( ext === "webp" ) {
+			img.style.border = "1mm solid hotpink";
+		} else if( ext === "jpg" || ext === "jpeg" ) {
+			img.style.border = "1mm solid blue";
+		} else if( ext === "png" ) {
+			img.style.border = "1mm solid green";
+		} else if( ext === "gif" ) {
+			img.style.border = "1mm solid orange";
+		}
+	} );
+};
+setInterval( window.UTILS.testImages, 1000 );

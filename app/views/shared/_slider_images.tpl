@@ -13,6 +13,7 @@ $centered_slides=true|false					default: undefined
 {if $slider}
 {assign uniqid uniqid()}
 {assign var=geometry value="1000x600"}
+{assign var=geometry_webp value="1000x600,format=webp"}
 <section class="section--slider">
 	
 	<div class="swiper swiper--images" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
@@ -23,7 +24,12 @@ $centered_slides=true|false					default: undefined
 					{if $item->getUrl()}
 						<a href="{$item->getUrl()}" title="{$item->getTitle()}">
 					{/if}
-					<img src="{$item->getImageUrl()|img_url:$geometry}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry}" height="{$item->getImageUrl()|img_height:$geometry}">
+					<picture>
+						<source srcset="{$item->getImageUrl()|img_url:geometry_webp}" type="image/webp">
+						<source srcset="{$item->getImageUrl()|img_url:$geometry}">
+						<img src="{$item->getImageUrl()|img_url:$geometry}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry}" height="{$item->getImageUrl()|img_height:$geometry}">
+					</picture>
+
 					{if $item->getUrl()}
 						</a>
 					{/if}
