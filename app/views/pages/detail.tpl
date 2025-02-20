@@ -50,7 +50,11 @@
 			{foreach $child_pages as $child_page}
 				{a action=detail id=$child_page _class="card"}
 					{if $child_page->getImageUrl()}
-						<img {!$child_page->getImageUrl()|img_attrs:"300x225xcrop"} alt="" class="card-img-top">
+						<picture>
+							<source srcset="{!$child_page->getImageUrl()|img_url:"300x225xcrop,format=webp"}" type="image/webp">
+							<source srcset="{!$child_page->getImageUrl()|img_url:"300x225xcrop"}">
+							<img {!$child_page->getImageUrl()|img_attrs:"300x225xcrop"} alt="" class="card-img-top">
+						</picture>
 					{/if}
 					<div class="card-body">
 						<h5>{$child_page->getTitle()}</h5>
