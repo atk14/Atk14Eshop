@@ -5,10 +5,19 @@
 {assign var=geometry_half value="900x600xcrop"}
 <div class="swiper-slide slider-item-{$slide_number}">
 	{if $item->getTitle() != "" || $item->getDescription() != ""}
+		{* slide with both image and text *}
 		<div class="swiper-slide__image">
 			<picture>
-				<source srcset="{$item->getImageUrl()|img_url:($geometry_half|cat:",format=webp")}" type="image/webp">
-				<source srcset="{$item->getImageUrl()|img_url:$geometry_half}">
+				{if $item->getSmallImageUrl()}
+				<source srcset="{$item->getImageUrl()|img_url:($geometry_half|cat:",format=webp")}" type="image/webp" media="(min-width: 768px)"  width="{$item->getImageUrl()|img_width:$geometry_half}" height="{$item->getImageUrl()|img_height:$geometry_half}">
+				<source srcset="{$item->getImageUrl()|img_url:$geometry_half}" media="(min-width: 768px)" width="{$item->getImageUrl()|img_width:$geometry_half}" height="{$item->getImageUrl()|img_height:$geometry_half}">
+
+				<source srcset="{$item->getSmallImageUrl()|img_url:($geometry_half|cat:",format=webp")}" type="image/webp" width="{$item->getSmallImageUrl()|img_width:$geometry_half}" height="{$item->getSmallImageUrl()|img_height:$geometry_half}">
+				<source srcset="{$item->getSmallImageUrl()|img_url:$geometry_half}" width="{$item->getSmallImageUrl()|img_width:$geometry_half}" height="{$item->getSmallImageUrl()|img_height:$geometry_half}">
+				{else}
+					<source srcset="{$item->getImageUrl()|img_url:($geometry_half|cat:",format=webp")}" type="image/webp">
+					<source srcset="{$item->getImageUrl()|img_url:$geometry_half}">
+				{/if}
 				<img src="{$item->getImageUrl()|img_url:$geometry_half}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_half}" height="{$item->getImageUrl()|img_height:$geometry_half}">
 			</picture>
 		</div>
@@ -26,16 +35,25 @@
 			</div>
 		</div>
 	{else}
+		{* slide with image only, no text *}
 		{if $item->getUrl()}
 			<a href="{$item->getUrl()}" aria-label="{$item->getTitle()}">
 		{/if}
-			<img src="{$item->getImageUrl()|img_url:$geometry_lg}" class="d-none d-md-block img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
-			{if $item->getSmallImageUrl()}
-				<img src="{$item->getSmallImageUrl()|img_url:$geometry_sm_fullheight}" class="d-none d-sm-block d-md-none img-fluid" alt="{$item->getTitle()}" width="{$item->getSmallImageUrl()|img_width:$geometry_sm_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_sm_fullheight}">
-				<img src="{$item->getSmallImageUrl()|img_url:$geometry_xs_fullheight}" class="d-block d-sm-none img-fluid" alt="{$item->getTitle()}" width="{$item->getSmallImageUrl()|img_width:$geometry_xs_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_xs_fullheight}">
-			{else}
-				<img src="{$item->getImageUrl()|img_url:$geometry_sm}" class="d-block d-md-none img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_sm}" height="{$item->getImageUrl()|img_height:$geometry_sm}">
-			{/if}
+			<picture>
+				<source srcset="{$item->getImageUrl()|img_url:($geometry_lg|cat:",format=webp")}" media="(min-width: 768px)" type="image/webp" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
+				<source srcset="{$item->getImageUrl()|img_url:$geometry_lg}" media="(min-width: 768px)" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
+				{if $item->getSmallImageUrl()}
+					<source srcset="{$item->getSmallImageUrl()|img_url:($geometry_sm_fullheight|cat:",format=webp")}" media="(min-width: 576px) and (max-width: 767px)" type="image/webp" width="{$item->getSmallImageUrl()|img_width:$geometry_sm_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_sm_fullheight}">
+					<source srcset="{$item->getSmallImageUrl()|img_url:$geometry_sm_fullheight}" media="(min-width: 576px) and (max-width: 767px)" width="{$item->getSmallImageUrl()|img_width:$geometry_sm_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_sm_fullheight}">
+					
+					<source srcset="{$item->getSmallImageUrl()|img_url:($geometry_xs_fullheight|cat:",format=webp")}" type="image/webp" width="{$item->getSmallImageUrl()|img_width:$geometry_xs_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_xs_fullheight}">
+					<source srcset="{$item->getSmallImageUrl()|img_url:$geometry_xs_fullheight}" width="{$item->getSmallImageUrl()|img_width:$geometry_xs_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_xs_fullheight}">
+				{else}
+					<source srcset="{$item->getImageUrl()|img_url:($geometry_sm|cat:",format=webp")}" type="image/webp" width="{$item->getImageUrl()|img_width:$geometry_sm}" height="{$item->getImageUrl()|img_height:$geometry_sm}">
+					<source srcset="{$item->getImageUrl()|img_url:$geometry_sm}" width="{$item->getImageUrl()|img_width:$geometry_sm}" height="{$item->getImageUrl()|img_height:$geometry_sm}">
+				{/if}
+				<img src="{$item->getImageUrl()|img_url:$geometry_lg}" class="img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
+			</picture>
 		{if $item->getUrl()}
 			</a>
 		{/if}
