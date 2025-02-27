@@ -15,8 +15,6 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 	}
 
 	public function _getBranchNodes($options=[]) {
-#		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $static::GetXMLBranchName());
-
 		return array_map(function($e) {
 			return new static(json_encode($e));
 		}, $this->_data["data"]["destination"]);
