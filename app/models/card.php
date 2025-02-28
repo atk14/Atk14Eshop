@@ -462,7 +462,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
 
 		if($product){
-			if(!$product->isVisible() && strlen($product->getCode())){
+			if(!$product->isVisible() && strlen((string)$product->getCode())){
 				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
 				return false;
 			}
