@@ -16,7 +16,12 @@ Update to use feed version 5.
 
 To use the new class is very simple. Just update the code of Zasilkovna in the delivery_services table:
 
-    UPDATE delivery_services SET code='zasilkovna_v5' WHERE code='zasilkovna'
+    UPDATE delivery_services SET code = 'zasilkovna_v5' WHERE code='zasilkovna';
+
+Then update code of system parameter with API key for Zasilkovna:
+
+    UPDATE system_parameters SET code = 'delivery_services.zasilkovna_v5.api_key' WHERE code = 'delivery_services.zasilkovna.api_key';
+
 
 Then import of branches is done by
 
