@@ -197,6 +197,7 @@ class DeliveryService extends ApplicationModel {
 
 		$nodes = $feed_parser->_getBranchNodes($options);
 
+		$created = $updated = $deactivated = 0;
 		foreach($nodes as $branch_row) {
 			$_branchAr = $branch_row->toArray();
 
@@ -228,11 +229,13 @@ class DeliveryService extends ApplicationModel {
 				if($dbmole->getAffectedRows()){
 					$options["logger"] && $options["logger"]->info(sprintf("update branch %s @ %s [DeliveryServiceBranch#%s]", $_branchAr["external_branch_id"],$delivery_service_code,$branch->getId()));
 				}
+				$updated++;
 				unset($current_branch_ids[$branch->getId()]);
 			} else {
 				$_branchAr["delivery_service_id"] = $this;
 				DeliveryServiceBranch::CreateNewRecord($_branchAr);
 				$options["logger"] && $options["logger"]->info(sprintf("create branch %s @ %s", $_branchAr["external_branch_id"],$delivery_service_code));
+				$created++;
 			}
 		}
 
@@ -243,8 +246,10 @@ class DeliveryService extends ApplicationModel {
 			if($_active){
 				$options["logger"] && $options["logger"]->info("deactivate branch $_external_id @ $delivery_service_code [DeliveryServiceBranch#{$_branch_id}]");
 				$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f', updated_at=:now WHERE id=:id", array(":id" => $_branch_id, ":now" => now()));
+				$deactivated++;
 			}
 		}
+		$options["logger"] && $options["logger"]->info(sprintf("created: %d, updated: %d, deactivated: %d", $created, $updated, $deactivated));
 
 		return true;
 	}
@@ -263,6 +268,17 @@ class DeliveryService extends ApplicationModel {
 	function getBranchesDownloadUrl() {
 		$className = $this->getParserClass();
 		$url = $className::$BRANCHES_DOWNLOAD_URL;
+		if (is_array($url)) {
+			foreach($url as &$_url) {
+				$_url = $this->_replace_tokens_in_url($_url);
+			}
+		} else {
+			$url = $this->_replace_tokens_in_url($url);
+		}
+		return $url;
+	}
+
+	protected function _replace_tokens_in_url($url) {
 		if (preg_match("/({API_KEY})/", (string)$url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
@@ -280,7 +296,20 @@ class DeliveryService extends ApplicationModel {
 	 */
 	function canBeUsed() {
 		$download_url = $this->getBranchesDownloadUrl();
-		if (preg_match("/({API_KEY})/", (string)$download_url)) {
+		if (is_array($download_url)) {
+			foreach($download_url as $url) {
+				if ($this->_canBeUsed($url)===false) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return $this->_canBeUsed($download_url);;
+		}
+	}
+
+	protected function _canBeUsed($url) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			return false;
 		}
 		return true;
@@ -303,6 +332,7 @@ class DeliveryService extends ApplicationModel {
 			"cp-balik_na_postu" =>	_("Česká Pošta - Balík na poštu"),
 			"cp-balikovna" =>			 	_("Česká Pošta - Balíkovna"),
 			"zasilkovna" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
+			"zasilkovna_v5" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
 			"gls" =>								"GLS",
 			"ppl" =>								"PPL",
 		];
