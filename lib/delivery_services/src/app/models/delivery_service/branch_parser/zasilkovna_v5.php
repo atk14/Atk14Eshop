@@ -10,7 +10,6 @@ use DeliveryService\BranchParser;
  */
 class ZasilkovnaV5 extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
-#	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
 	static $BRANCHES_DOWNLOAD_URL = ["https://pickup-point.api.packeta.com/v5/{API_KEY}/branch/json","https://pickup-point.api.packeta.com/v5/{API_KEY}/box/json"];
 
 	public static function GetInstance(
