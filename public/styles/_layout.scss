@@ -105,7 +105,7 @@ body {
 @if $enable_grid_layout {
   @include grid_layout();
 }
-
+/*
 div.body {
 	border: 1mm solid red;
 }
@@ -129,3 +129,4 @@ article {
 		max-width: unset !important;
 	}
 }
+	*/
