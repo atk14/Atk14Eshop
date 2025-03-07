@@ -147,14 +147,28 @@ var config = {
   devtool: "source-map",
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: 'all', // zpracuje všechny importy
+      maxInitialRequests: Infinity,
+      minSize: 0,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
+          priority: 10,
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          priority: 20,
+          enforce: true
         }
-      },
+      }
     },
     minimizer: [
       new TerserPlugin(),
