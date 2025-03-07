@@ -46,5 +46,7 @@ function smarty_function_display_stockcount($params,$template){
 	$template->assign("stockcount",$stockcount);
 	$template->assign("stockcount_precision",$stockcount_precision);
 
-	return trim($template->fetch("shared/helpers/_display_stockcount.tpl"));
+	$smarty = atk14_get_smarty_from_template($template);
+
+	return trim($smarty->fetch("shared/helpers/_display_stockcount.tpl"));
 }

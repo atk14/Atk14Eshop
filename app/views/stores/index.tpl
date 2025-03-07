@@ -10,7 +10,7 @@
 
 {capture assign="jsdata"}
 var storeLocatorData = [
-	{foreach from=$stores item=$store}
+	{foreach $stores as $store}
 	{if $store->getLocationLat() && $store->getLocationLng()}
 	{
 		id: {$store->getID()},

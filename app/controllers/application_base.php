@@ -177,7 +177,11 @@ class ApplicationBaseController extends Atk14Controller{
 			'session_name' => 'permanent'
 		]));
 
-		$this->current_region = $this->_get_current_region();
+		$this->current_region = $this->_get_current_region($redirect_to_http_host);
+		if($redirect_to_http_host){
+			$scheme = (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")) ? "https" : $this->request->getScheme();
+			return $this->_redirect_to("$scheme://".$redirect_to_http_host.$this->request->getUri(),array("moved_permanently" => true));
+		}
 
 		// Nastavime do maileru akt. region
 		$this->mailer->current_region = $this->current_region;
@@ -255,8 +259,13 @@ class ApplicationBaseController extends Atk14Controller{
 		return $regions;
 	}
 
-	function _get_current_region(){
+	function _get_current_region(&$redirect_to_http_host = null){
+		$redirect_to_http_host = null;
+
 		$region = Region::GetRegionByDomain($this->request->getHttpHost());
+		if($region && $region->getDefaultDomain()!==$this->request->getHttpHost()){
+			$redirect_to_http_host = $region->getDefaultDomain();
+		}
 		if(!$region){
 			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}

@@ -36,8 +36,24 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 		];
 	}
 
+	/**
+	 * Nektere sluzby mohou mit vydejni mista rozdelena do vice feedu.
+	 * Napriklad Zasilkovna ve verzi 5.
+	 * Feedy musi mit stejnou strukturu, potom je mozne je spojit.
+	 *
+	 */
 	static function FetchFeed($feed_url) {
-		$data = @file_get_contents($feed_url);
+		if (!is_array($feed_url)) {
+			$feed_url = [$feed_url];
+		}
+		$data = [];
+		foreach($feed_url as $_feed) {
+			$_d = @file_get_contents($_feed);
+			$data[] = json_decode($_d, true);
+		}
+		$data[] = [];
+		$data = array_merge($data[0], $data[1]);
+		$data = json_encode($data);
 		return $data;
 	}
 }

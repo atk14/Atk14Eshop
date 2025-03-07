@@ -45,3 +45,27 @@ zasilkovna_2:
   zip: 12345
   country: CZ
   full_address: "Praha, Zásilková II. (Druhá pražská Zásilkovna)"
+
+zasilkovna_v5_1:
+  delivery_service_id: "<?= $delivery_services["zasilkovna_v5"]->getId(); ?>"
+  external_branch_id: 1
+  name: "Zásilkovna první"
+  place: První pražská Zásilkovna
+  street: Zásilková I.
+  city: Praha
+  district: Hlavní město Praha
+  zip: 12345
+  country: CZ
+  full_address: "Praha, Zásilková I. (První pražská Zásilkovna)"
+
+zasilkovna_v5_2:
+  delivery_service_id: "<?= $delivery_services["zasilkovna_v5"]->getId(); ?>"
+  external_branch_id: 2
+  name: "Zásilkovna druhá"
+  place: Druhá pražská Zásilkovna
+  street: Zásilková II.
+  city: Praha
+  district: Hlavní město Praha
+  zip: 12345
+  country: CZ
+  full_address: "Praha, Zásilková II. (Druhá pražská Zásilkovna)"

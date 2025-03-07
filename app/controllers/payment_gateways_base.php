@@ -35,6 +35,7 @@ class PaymentGatewaysBaseController extends ApplicationController {
 			"raw_post_data:\n".$this->request->getRawPostData()."\n".
 			"params:\n".print_r($this->params->toArray(),true)
 		);
+		$this->logger->flush();
 	}
 
 	function _finish_transaction($options = []){
