@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-//import { GestureHandling } from "leaflet-gesture-handling";
 
 export class MapBase {
   L = null;
@@ -156,4 +155,8 @@ export class SimpleMap extends MapBase {
       // Add provider logo if required
       MapBase.addTileProviderLogo( this.map );
   }
+}
+
+export class MultiMap extends MapBase {
+
 }

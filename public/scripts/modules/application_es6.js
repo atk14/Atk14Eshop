@@ -4,21 +4,8 @@
  */
 import PhotoswipeLoader from "./photoswipeloader.js";
 import SwiperLoader from "./swiperloader.js";
-//import L from  "../../../node_modules/leaflet/dist/leaflet-src.esm.js";
-//console.log( "Leaflet L loaded? ...", L );
-//let mapsModule = import ("./maps.js");
-//import SimpleMaps from "./maps.js";
-// const lm = import ( "../../../node_modules/leaflet/dist/leaflet-src.esm.js" ); // seems working
-// console.log( "Leaflet loaded? ...", lm );
-/*import {SimpleMap, MultiMap, MapHelpers} from "./maps.js";
-console.log( "SimpleMap loaded? ...", SimpleMap );
-console.log( "MultiMap loaded? ...", MultiMap ); 
-console.log( "MapHelpers loaded? ...", MapHelpers ); */
-import { MapBase, SimpleMap } from "./maps.js";
-const t = new SimpleMap( document.querySelector( "#store-map" ) );
-console.log( "MapTest loaded? ...", t );
-console.log( "MapTest loaded? ...", t );
-console.log( "MapBase loaded? ...", MapBase );
+import { MapBase, SimpleMap, MultiMap } from "./maps.js";
+
 
 // Photoswipe
 
@@ -39,11 +26,6 @@ if( document.querySelector( ".swiper" ) ) {
 }
 
 // Maps
-//console.log( "Maps loaded? ...", SimpleMaps );
-/*try {
-  let leaflet = await import( "../../../node_modules/leaflet/dist/leaflet-src.esm.js" );
-  console.log( "Leaflet loaded? ...", leaflet,  leaflet.default, leaflet.L );
-}
-catch( error ) {
-  console.error( "Error loading Leaflet", error);
-}*/
+document.querySelectorAll( ".map_v2" ).forEach( function( mapElement ) {
+  new SimpleMap( mapElement );
+} );
