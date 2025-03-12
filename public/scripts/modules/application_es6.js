@@ -26,6 +26,11 @@ if( document.querySelector( ".swiper" ) ) {
 }
 
 // Maps
+// Simple maps (single marker)
 document.querySelectorAll( ".map_v2" ).forEach( function( mapElement ) {
   new SimpleMap( mapElement );
+} );
+// Multi maps (multiple markers)
+document.querySelectorAll( ".stores_v2" ).forEach( function( mapElement ) {
+  new MultiMap( mapElement );
 } );

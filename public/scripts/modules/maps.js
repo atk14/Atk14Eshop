@@ -15,8 +15,8 @@ export class MapBase {
       this.L = leaflet;
       var L = leaflet;
       window.L = leaflet;
-      //import { GestureHandling } from "leaflet-gesture-handling";
-      await import ("leaflet-gesture-handling");
+      await import ( "leaflet-gesture-handling" );
+      await import ( "leaflet.markercluster" );
       console.log( "Leaflet loaded? ...", leaflet );
       this.librariesLoaded = true;
     }
@@ -112,13 +112,13 @@ export class SimpleMap extends MapBase {
   baseMapLayer;
   constructor( mapElement ) {
     super();
-    if( !this.librariesLoaded ) {
+    if( !MapBase.librariesLoaded ) {
       this.loadLeaflet().then( () => {
-        console.log( "MapTest constructor - loading libraries" );
+        console.log( "SimpleMap constructor - loading libraries" );
         this.createMap( mapElement );
       });
     } else {
-      console.log( "MapTest constructor - libraries already loaded" );
+      console.log( "SimpleMap constructor - libraries already loaded" );
       this.createMap( mapElement );
     }
     
@@ -158,5 +158,233 @@ export class SimpleMap extends MapBase {
 }
 
 export class MultiMap extends MapBase {
+  mapContainer; // main html container for map
+  map; // map instance
+  //icon = MapHelpers.icon;
+  storeData = window.storeLocatorData;
+  markerGroup;
+  clusteredLayer;
+  cards = new Array();
+  positions = new Array();
+  baseMapLayer;
+  enableClusters = false;
+  clusterDistance = 80;
+  proximityOffset = 20;
+  cardListSelector = ".js-stores-cards";
+  cardListItemSelector = ".js-store-item";
+  cardListMapButtonSelector = ".js-store-mapbtn";
+  preloaderSelector = ".preloader";
+  preloader;
+
+  constructor( mapElement ) {
+    super();
+    if( !MapBase.librariesLoaded ) {
+      this.loadLeaflet().then( () => {
+        console.log( "MultiMap constructor - loading libraries" );
+        this.createMap( mapElement );
+      });
+    } else {
+      console.log( "MultiMap constructor - libraries already loaded" );
+      this.createMap( mapElement );
+    }
+    
+    //this.createMap( document.querySelector( "#store-map" ) );
+  }
+
+  createMap( mapElement ) {
+    this.mapContainer = mapElement;
+    console.log("createMap MultiMap", this.mapContainer );
+    this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
+    this.clusterDistance = this.mapContainer.dataset.cluster_distance;
+    if ( this.mapContainer.querySelector( this.preloaderSelector ) ) {
+      this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
+    }
+    let L = window.L;
+
+    // initialize base map tiles layer
+    this.baseMapLayer = L.tileLayer( MapBase.mapProvider, { 
+      attribution: MapBase.mapAttribution 
+    } );
+
+    // initialize layer for markers
+    if( this.enableClusters ) {
+      this.markerGroup = L.markerClusterGroup( {
+        showCoverageOnHover: false,
+        maxClusterRadius: this.clusterDistance,
+        iconCreateFunction: this.customClusterIcon,
+      } );
+    } else {
+      this.markerGroup = new L.featureGroup();
+      this.calculateMarkerOffsets();
+    }
+
+    // Create markers
+    this.createMarkers();
+
+    // Show / hide preloader
+    this.baseMapLayer.addEventListener( "loading", function(){ this.preloaderVisible = true }.bind( this ) );
+    this.baseMapLayer.addEventListener( "load", function(){ this.preloaderVisible = false }.bind( this ) );
+
+    // Create map
+    const tempCenter = [ 50.0736203, 14.4234447 ];
+    this.map = L.map( this.mapContainer, {
+      center: tempCenter,
+      zoom: 10,
+      layers: [ this.baseMapLayer, this.markerGroup ],
+      gestureHandling: true,
+    });
+
+    // Add provider logo if required
+    MapBase.addTileProviderLogo( this.map );
+
+    // Zoom to show all markers
+    this.map.fitBounds( this.markerGroup.getBounds() );
+
+    // Connect list of points with map
+    this.createCardListHandlers();
+
+  }
+
+
+  /**
+   * If there are more markers in the same location,
+   * let`s calculate x offset so they don`t overlap
+   * (3 decimals precision)
+   */
+  calculateMarkerOffsets() {
+    for ( let i = 0; i < this.storeData.length; i++ ) {
+      let iLat = Number( Math.round( this.storeData[ i ].lat + "e3" ) + "e-3" );
+      let iLng = Number( Math.round( this.storeData[ i ].lng + "e3" ) + "e-3" );
+      this.storeData[ i ].markerOffset = 0;
+      for ( let j = 0; j < i; j++ ) {
+        let jLat = Number( Math.round( this.storeData[ j ].lat + "e3" ) + "e-3" );
+        let jLng = Number( Math.round( this.storeData[ j ].lng + "e3" ) + "e-3" );
+        if ( iLat === jLat && iLng === jLng ) {
+          this.storeData[ i ].markerOffset++;
+        }
+      }
+    }
+  }
+
+  /**
+   * Create and place markers
+   */
+  createMarkers() {
+    for ( let i = 0; i < this.storeData.length; i++ ) {
+      let store  = this.storeData[ i ];
+      let icon = L.icon( MapBase.iconOptions );
+
+      // Make icon with X offset if needed
+      if( !this.enableClusters && store.markerOffset !== 0 ) {
+        let iconAnchorX = MapBase.iconOptions.iconAnchor [0];
+        let iconAnchorY = MapBase.iconOptions.iconAnchor [1];
+        let popupAnchorX = MapBase.iconOptions.popupAnchor [0];
+        let popupAnchorY = MapBase.iconOptions.popupAnchor [1];
+
+        /*icon = new window.UTILS.customMapIcon( { 
+          iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],
+          popupAnchor: [ popupAnchorX - ( store.markerOffset * this.proximityOffset ), popupAnchorY ],
+        } );*/
+      }
+
+      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
+      marker.storeId = store.id;
+      this.markerGroup.addLayer( marker );
+    }
+  }
+
+  customClusterIcon( cluster ) {
+    return L.divIcon({ html: cluster.getChildCount(), className: "map-cluster", iconSize: L.point(40, 40) });
+  }
+
+  /*
+    Create HTML markup for marker popup
+  */
+  createPopupMarkup(store) {
+    let image = "";
+    let flags = "";
+    const address = decodeURIComponent( store.address );
+    if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
+      flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
+    }
+    if( store.image ) {
+      image = `<img src="${store.image}" alt="${store.title}">`;
+    }
+    let template = `
+    <div class="map-info-popup">
+      <div class="map-info-popup__header">
+      ${image}${flags}
+      </div>
+      <div class="map-info-popup__body">
+        <p class="map-info-popup__title">${store.title}</p>
+        <address>${address}</address>
+        <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
+      </div>
+    </div>
+    `;
+
+    return template;
+  }
+
+  /**
+   * Create click handlers on stores list to show store on map
+   */
+  createCardListHandlers() {
+    if( !document.querySelector( this.cardListSelector ) ) {
+      return;
+    }
+    const cardContainer = document.querySelector( this.cardListSelector );
+    const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
+    [...cards].forEach( function( elem ){
+      elem.querySelector( this.cardListMapButtonSelector ).addEventListener( "click", this.showPopupByStoreId.bind( this ) );
+    }.bind( this ) );
+  }
+
+  /**
+   * Show info popup by store ID
+   * @param {*} e 
+   */
+  showPopupByStoreId( e ) {
+    e.preventDefault();
+    const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
+
+    if( this.enableClusters ){
+      this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
+    } else {
+      const  pos = [ marker.getLatLng() ];
+      const markerBounds = L.latLngBounds( pos );
+      this.map.fitBounds( markerBounds );
+    }
+
+    marker.openPopup();
+    
+    this.mapContainer.scrollIntoView( { behavior: "smooth" } );
+  }
+
+  /**
+   * Find marker by store ID
+   */
+  getMarkerByStoreId( storeId ) {
+    let marker;
+    this.markerGroup.eachLayer( function ( layer ) {
+      if( layer.storeId.toString() === storeId.toString() ) {
+        marker = layer;
+      }
+    } );
+    return marker;
+  }
+
+  /**
+   * controls preloader visibility
+   */
+  set preloaderVisible( visibility ){
+    if( this.preloader ) {
+      if ( visibility ) {
+        this.preloader.style.display = "flex";
+      } else {
+        this.preloader.style.display = "none";
+      }
+    }
+  }
 
 }
