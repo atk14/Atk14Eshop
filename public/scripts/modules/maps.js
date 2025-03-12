@@ -1,6 +1,8 @@
-/* eslint-disable no-unused-vars */
 
-
+/**
+ * Base class for maps
+ * Contains common methods and properties and mechainsm for loading Leaflet and related libraries
+ */
 export class MapBase {
   L = null;
   static librariesLoaded = false;
@@ -9,14 +11,18 @@ export class MapBase {
     //this.loadLeaflet();
   }
 
-  async loadLeaflet() {
+  /**
+   * Async loading of Leaflet and related libraries
+   * @param {*} withClustering:Boolean = false - load Leaflet with clustering library
+   */
+  async loadLeaflet( withClustering = false ) {
     try {
       let leaflet = await import( "leaflet/dist/leaflet-src.esm.js" );
-      this.L = leaflet;
-      var L = leaflet;
       window.L = leaflet;
       await import ( "leaflet-gesture-handling" );
-      await import ( "leaflet.markercluster" );
+      if( withClustering ) {
+        await import ( "leaflet.markercluster" );
+      }
       console.log( "Leaflet loaded? ...", leaflet );
       this.librariesLoaded = true;
     }
@@ -101,6 +107,16 @@ export class MapBase {
   }
 }
 
+
+/**
+ * Class for creating map with single marker
+ * 
+ * Usage:
+ * HTML:
+ * <div class="store-detail__map map_v2" id="store-map2" data-lat="50.0928469" data-lng="14.3698544" data-zoom="18" data-title="Neuwaldergasse"></div>
+ * JS:
+ * new SimpleMap( document.querySelector( ".map_v2" ) );
+ */
 export class SimpleMap extends MapBase {
   mapElement;
   lat;
@@ -120,9 +136,7 @@ export class SimpleMap extends MapBase {
     } else {
       console.log( "SimpleMap constructor - libraries already loaded" );
       this.createMap( mapElement );
-    }
-    
-    //this.createMap( document.querySelector( "#store-map" ) );
+    }    
   }
   createMap( mapElement ) {
     console.log( "MapTest createMap" );
@@ -157,10 +171,51 @@ export class SimpleMap extends MapBase {
   }
 }
 
+/**
+ * Class for creating map with multiple markers
+ * 
+ * Usage:
+ * HTML:
+ * <script>
+		var storeLocatorData = [
+			{
+		id: 1,
+		image: "http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_140x140xc_2b938a06ee365ab4.jpg",
+		title: "Elegantní lékárna",
+		address: "Vinohradsk%C3%A1%20222%3Cbr%3E%0D%0A120%2000%20Praha%202%3Cbr%3E%0D%0A%C4%8Cesk%C3%A1%20republika",
+		detailURL: "/prodejny/elegantni-lekarna/",
+		lat: 50.0770708,
+		lng: 14.4862577,
+		isOpen: "Otevřeno",
+	},
+			{
+		id: 3,
+		image: "http://i.pupiq.net/i/6f/6f/ac3/2dac3/5472x3648/lcMqx7_140x140xc_0c529b8188c3a32a.jpg",
+		title: "Showroom Praha",
+		address: "Korunn%C3%AD%20970%2F72%3Cbr%3E%0D%0A101%2000%20%20Praha%2010%20%E2%80%93%20Vinohrady",
+		detailURL: "/prodejny/showroom-praha/",
+		lat: 50.0753692,
+		lng: 14.4510819,
+		isOpen: "Otevřeno",
+	},
+		];
+  </script>
+  <div class="stores-index__map stores_v2" data-enable_clusters="true" data-cluster_distance="80">
+		<div class="preloader" id="stores-index__maploader">
+			<div class="spinner-border text-secondary" role="status">
+				<span class="sr-only">Nahrávám mapu&hellip;</span>
+			</div>
+			<div>Nahrávám mapu&hellip;</div>
+		</div>
+	</div>
+  *
+  *
+  * JS:
+  * new MultiMap( document.querySelector( ".stores_v2" ) );
+ */
 export class MultiMap extends MapBase {
   mapContainer; // main html container for map
   map; // map instance
-  //icon = MapHelpers.icon;
   storeData = window.storeLocatorData;
   markerGroup;
   clusteredLayer;
@@ -179,7 +234,7 @@ export class MultiMap extends MapBase {
   constructor( mapElement ) {
     super();
     if( !MapBase.librariesLoaded ) {
-      this.loadLeaflet().then( () => {
+      this.loadLeaflet( true ).then( () => {
         console.log( "MultiMap constructor - loading libraries" );
         this.createMap( mapElement );
       });
@@ -276,10 +331,10 @@ export class MultiMap extends MapBase {
 
       // Make icon with X offset if needed
       if( !this.enableClusters && store.markerOffset !== 0 ) {
-        let iconAnchorX = MapBase.iconOptions.iconAnchor [0];
+        /*let iconAnchorX = MapBase.iconOptions.iconAnchor [0];
         let iconAnchorY = MapBase.iconOptions.iconAnchor [1];
         let popupAnchorX = MapBase.iconOptions.popupAnchor [0];
-        let popupAnchorY = MapBase.iconOptions.popupAnchor [1];
+        let popupAnchorY = MapBase.iconOptions.popupAnchor [1];*/
 
         /*icon = new window.UTILS.customMapIcon( { 
           iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],

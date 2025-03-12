@@ -4,7 +4,7 @@
  */
 import PhotoswipeLoader from "./photoswipeloader.js";
 import SwiperLoader from "./swiperloader.js";
-import { MapBase, SimpleMap, MultiMap } from "./maps.js";
+import { SimpleMap, MultiMap } from "./maps.js";
 
 
 // Photoswipe
