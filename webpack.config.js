@@ -22,7 +22,7 @@ var application_scripts = [
 	"./public/scripts/utils/floating_cart.js",
 	"./public/scripts/utils/offcanvas.js",
 	"./public/scripts/utils/scroll_to_top.js",
-	"./public/scripts/utils/maps.js",
+	// "./public/scripts/utils/maps.js",
 	"./public/scripts/utils/filterable_list.js",
 	"./public/scripts/utils/numeric_stepper.js",
 	"./public/scripts/utils/edit_basket_form.js",

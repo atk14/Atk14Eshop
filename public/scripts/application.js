@@ -334,7 +334,7 @@ require( "unobfuscatejs" );
 			index: function() {
 
 				// Init map
-				new UTILS.MultiMap( document.querySelector( ".stores_v2" ) );
+				//new UTILS.MultiMap( document.querySelector( ".stores_v2" ) );
 				
 				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
@@ -351,7 +351,7 @@ require( "unobfuscatejs" );
 			detail: function() {
 
 				// Init map
-				new UTILS.SimpleMap( document.querySelector( ".map_v2" ) );
+				// new UTILS.SimpleMap( document.querySelector( ".map_v2" ) );
 			}
 
 		},
