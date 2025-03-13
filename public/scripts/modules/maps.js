@@ -1,3 +1,20 @@
+/**
+ * @fileOverview
+ * Module for creating maps with Leaflet library
+ * Contains MapBase class with common methods and properties which is extended 
+ * by SimpleMap and MultiMap classes used for creating maps with single or multiple markers
+ * 
+ * Supports multiple tile providers
+ * Supports clustering of markers
+ * Supports gesture handling for touch interfaces
+ * 
+ * Dependencies:
+ * - leaflet (core library)
+ * - leaflet-gesture-handling
+ * - leaflet.markercluster
+ */
+
+
 
 /**
  * Base class for maps
