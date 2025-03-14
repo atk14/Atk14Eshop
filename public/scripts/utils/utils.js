@@ -1,7 +1,7 @@
 // This is a place for some tools required in the application
 import { Popover } from "bootstrap"
 //import stickySidebarV2 from 
-import StickySidebar from "sticky-sidebar-v2"
+//import StickySidebar from "sticky-sidebar-v2"
 
 
 window.UTILS = window.UTILS || { };
@@ -164,19 +164,7 @@ window.UTILS.setCardHoverScale = function() {
 
 // Sticky Scroll Sidebar
 // To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
-window.UTILS.initStickySidebar = function() {
-	if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
-		if( $( ".body__sticky-container" ).length ) {
-			// eslint-disable-next-line no-undef,no-unused-vars
-			var sidebar = new StickySidebar( ".nav-section", {
-				topSpacing: 10,
-				bottomSpacing: 10,
-				containerSelector: ".body__sticky-container",
-				innerWrapperSelector: "#sidebar_menu",
-				minWidth: 767,
-			} );
-		}
-	}
+window.UTILS.initSidebarToggle = function() {
 	if( $( ".js-sidebar-toggle" ).length ) {
 		$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 			$( ".nav-section" ).toggleClass( "show-sm" );

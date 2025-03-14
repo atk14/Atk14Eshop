@@ -55,9 +55,8 @@ require( "unobfuscatejs" );
 
 				// Init NoUiSlider
 
-				// Sticky Scroll Sidebar
-				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
-				window.UTILS.initStickySidebar();
+				// Sidebar toggle to show/hide sidebar on mobile
+				window.UTILS.initSidebarToggle();
 
 				// Init offcanvas basket preview
 				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
