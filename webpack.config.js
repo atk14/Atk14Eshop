@@ -84,23 +84,7 @@ var config = {
         injectCss: true,
       }
     ),
-    /*new FaviconsWebpackPlugin( {
-      logo: "./public/favicons/favicon.png",
-      outputPath: 'favicons',
-      inject: false,
-      favicons: {
-        icons : {
-          android: { overlayShadow: false, overlayGlow: false },
-          appleIcon: { overlayShadow: false, overlayGlow: false },
-          appleStartup: false,
-          coast: false,
-          favicons: { overlayShadow: false, overlayGlow: false },
-          firefox: false,
-          windows: { overlayShadow: false, overlayGlow: false },
-          yandex: false
-        }
-      }
-    } ),*/
+
     new IgnoreEmitPlugin( ignoredFiles ),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
