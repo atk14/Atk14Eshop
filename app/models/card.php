@@ -656,6 +656,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			);
 		}
 		$out = self::$TechnicalSpecificationList->get($this);
+		$out = array_filter($out); $out = array_values($out); // sometimes a null value seems to be present
 		//$out = TechnicalSpecification::FindAll("card_id",$this);
 
 		if(!is_null($options["visible"])){
