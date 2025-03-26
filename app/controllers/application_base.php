@@ -738,7 +738,12 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$options += [
 			"send_notification" => true,
+			"create_request_if_subscription_exists" => true,
 		];
+
+		if(!$options["create_request_if_subscription_exists"] && NewsletterSubscriber::GetInstancesByEmail($values["email"])){
+			return null;
+		}
 
 		$nsr = NewsletterSubscriptionRequest::CreateNewRecord($values);
 
@@ -749,7 +754,7 @@ class ApplicationBaseController extends Atk14Controller{
 		return $nsr;
 	}
 
-	function _sign_up_for_newsletter($user_or_email,$values = [],$options = []){
+	function _sign_up_for_newsletter($email,$values = [],$options = []){
 		$values += [
 			// "language" => $this->lang,
 			// "subscribed_at_url" => $this->request->getUrl(),
@@ -760,7 +765,7 @@ class ApplicationBaseController extends Atk14Controller{
 		];
 
 		$subscription_just_created = false;
-		$ns = NewsletterSubscriber::SignUp($user_or_email,$values,$subscription_just_created);
+		$ns = NewsletterSubscriber::SignUp($email,$values,$subscription_just_created);
 		if($options["send_notification"] && $subscription_just_created){
 			$this->mailer->notify_newsletter_subscription($ns);
 		}
