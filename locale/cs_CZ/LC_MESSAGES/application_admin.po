@@ -2014,7 +2014,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:56
 msgid "Selling regions"
-msgstr "Prodejná oblasti"
+msgstr "Prodejní oblasti"
 
 #: ../app/controllers/admin/admin.php:57
 #: ../app/forms/admin/users/users_form.php:48
