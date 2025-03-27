@@ -18,10 +18,15 @@ body {
 	align-items: stretch;
 	min-height: 100vh;
 	& > * {
-		width: 100%;
+		//width: 100%;
 		flex-grow: 0;
 		&.body {
 			flex-grow: 100;
+		}
+	}
+	& {
+		> .body--upper, > .body, > .body__sticky__container, > .header-main, > footer.footer {
+			width: 100%;
 		}
 	}
 }
