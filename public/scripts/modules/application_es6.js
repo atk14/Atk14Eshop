@@ -7,7 +7,6 @@ import SwiperLoader from "./swiperloader.js";
 import { SimpleMap, MultiMap } from "./maps.js";
 import { StickySidebarLoader } from "./stickysidebarloader.js";
 
-
 // Photoswipe
 
 // Check if Photoswipe is needed on the page and if so, load it
