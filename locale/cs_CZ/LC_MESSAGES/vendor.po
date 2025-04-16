@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 13:34+0100\n"
+"POT-Creation-Date: 2025-03-28 11:18+0100\n"
 "PO-Revision-Date: 2025-01-28 13:01+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -73,12 +73,12 @@ msgid "Headers"
 msgstr "Hlavičky"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:58
-msgid "HTML body"
-msgstr "HTML text"
-
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:64
 msgid "Plain text body"
 msgstr "Prostý text"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:66
+msgid "HTML body"
+msgstr "HTML text"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:74
 msgid "No mail has been sent"
