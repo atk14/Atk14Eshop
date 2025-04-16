@@ -180,7 +180,7 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->destroy();
 
 			if($d["sign_up_for_newsletter"]){
-				if(1){
+				if(0){
 					// either to create a newsletter subscription request...
 					$this->_create_newsletter_subscription_request($order->getEmail(),[
 						"name" => String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->substr(0,255)->toString(),
