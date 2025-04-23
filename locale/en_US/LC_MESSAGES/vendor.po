@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 14:37+0100\n"
-"PO-Revision-Date: 2025-01-28 13:45+0100\n"
+"POT-Creation-Date: 2025-03-28 11:21+0100\n"
+"PO-Revision-Date: 2025-01-28 12:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -51,15 +51,15 @@ msgstr "Remove file"
 msgid "Filtrovat"
 msgstr "Filter"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:21
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:24
 msgid "Vše"
 msgstr "All"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:22
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:25
 msgid "Ano"
 msgstr "Yes"
 
-#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:23
+#: ../vendor/atk14/category-filter/src/lib/filter_bool_section.php:26
 msgid "Ne"
 msgstr "No"
 
@@ -295,12 +295,12 @@ msgid "Headers"
 msgstr "Headers"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:58
-msgid "HTML body"
-msgstr "HTML body"
-
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:64
 msgid "Plain text body"
 msgstr "Plain text body"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:66
+msgid "HTML body"
+msgstr "HTML body"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:74
 msgid "No mail has been sent"

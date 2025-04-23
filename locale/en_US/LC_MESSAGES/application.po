@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 13:42+0100\n"
-"PO-Revision-Date: 2025-01-28 13:44+0100\n"
+"POT-Creation-Date: 2025-03-28 11:21+0100\n"
+"PO-Revision-Date: 2025-03-28 11:13+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -492,6 +492,29 @@ msgstr "Logged user:"
 msgid "Zakoupené digitální produkty stáhnete na adrese:"
 msgstr "You can download purchased digital products at:"
 
+msgid "Dobrý den,"
+msgstr "Hello,"
+
+msgid "pro zrušení odběru newsletteru navštivte následující odkaz:"
+msgstr "to unsubscribe from the newsletter, please visit the following link:"
+
+msgid "Dobrý den %1,"
+msgstr "Hello %1,"
+
+msgid "děkujeme Vám za registraci k odběru našeho newsletteru."
+msgstr "thank you for signing up for our newsletter."
+
+msgid ""
+"Pokud nadále nechcete dostávat zprávy o našich novinkách, můžete se z odběru "
+"odhlásit na adrese:"
+msgstr "If you no longer wish to receive our news, you can unsubscribe at:"
+
+msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
+msgstr "click on the following link to confirm your subscription:"
+
+msgid "Potvrdit odběr novinek"
+msgstr "Confirm newsletter subscription"
+
 msgid "Vážený zákazníku,"
 msgstr "Dear customer,"
 
@@ -738,8 +761,60 @@ msgstr "Visit our new shop"
 msgid "Aktuality"
 msgstr "News"
 
-msgid "Table of contents"
-msgstr "Table of contents"
+msgid ""
+"Na zadanou e-mailovou adresu byl odeslán odkaz pro odhlášení z odběru "
+"newsletteru. Navštivte prosím tento odkaz."
+msgstr ""
+"A link to unsubscribe from the newsletter has been sent to the email address "
+"provided. Please visit this link."
+
+msgid "Pro odhlášení od zasílání newsletteru zadejte Vaši e-mailovou adresu."
+msgstr "To unsubscribe from the newsletter, enter your email address."
+
+msgid "Odhlášení od zasílání newsletteru bylo úspěšně provedeno."
+msgstr ""
+"The unsubscription from the newsletter has been successfully completed."
+
+msgid ""
+"Na této stránce můžete odhlásit zasílání našeho newsletteru na e-mailovou "
+"adresu <em>%1</em>."
+msgstr ""
+"On this page you can unsubscribe from our newsletter to the email address "
+"<em>%1</em>."
+
+msgid "Toto potvrzení bylo zrušeno."
+msgstr "This confirmation has been cancelled."
+
+msgid "Toto přihlášení k odběru novinek již bylo potvrzeno."
+msgstr "This newsletter subscription has already been confirmed."
+
+msgid "Pro přihlášení se k odběru novinek klikněte na tlačítko."
+msgstr "To subscribe to our newsletter, click on the button."
+
+msgid "Potvrdit přihlášení"
+msgstr "Confirm subscription"
+
+msgid "Zrušit toto potvrzení"
+msgstr "Cancel this confirmation"
+
+msgid "Zkontrolujte si prosím svou e-mailovou schránku."
+msgstr "Please check your email inbox."
+
+msgid ""
+"Právě jsem Vám poslali e-mail, ve kterém je odkaz pro potvrzení odběru "
+"novinek."
+msgstr ""
+"We have just sent you an email with a link to confirm your newsletter "
+"subscription."
+
+msgid "Zadejte svůj e-mail a my Vám pošleme odkaz pro potvrzení."
+msgstr "Enter your email and we will send you a link to confirm."
+
+msgid "přihlásit k odběru novinek jiný e-mail"
+msgstr "subscribe other email address to newsletter"
+
+msgid "přejděte na úvodní stránku"
+msgstr "go to the home page"
 
 msgid "Objednávka vytvořena: %1"
 msgstr "Order created: %1"
@@ -1163,6 +1238,12 @@ msgstr "Previous"
 msgid "Next"
 msgstr "Next"
 
+msgid "Table of contents"
+msgstr "Table of contents"
+
+msgid "Subchapters"
+msgstr "Subchapters"
+
 msgid "Total price"
 msgstr "Total price"
 
@@ -1353,6 +1434,7 @@ msgstr "Opening hours"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:66
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:72
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:59
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:77
 msgid "Pondělí"
 msgstr "Monday"
 
@@ -1360,6 +1442,7 @@ msgstr "Monday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:67
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:73
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:60
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:78
 msgid "Úterý"
 msgstr "Tuesday"
 
@@ -1367,6 +1450,7 @@ msgstr "Tuesday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:68
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:74
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:61
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:79
 msgid "Středa"
 msgstr "Wednesday"
 
@@ -1374,6 +1458,7 @@ msgstr "Wednesday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:69
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:75
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:62
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:80
 msgid "Čtvrtek"
 msgstr "Thursday"
 
@@ -1381,6 +1466,7 @@ msgstr "Thursday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:70
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:76
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:63
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:81
 msgid "Pátek"
 msgstr "Friday"
 
@@ -1388,6 +1474,7 @@ msgstr "Friday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:71
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:77
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:64
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:82
 msgid "Sobota"
 msgstr "Saturday"
 
@@ -1395,6 +1482,7 @@ msgstr "Saturday"
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:72
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:78
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:65
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna_v5.php:83
 msgid "Neděle"
 msgstr "Sunday"
 
@@ -1569,7 +1657,7 @@ msgstr "Page not found"
 msgid "Forbidden"
 msgstr "Forbidden"
 
-#: ../app/controllers/application_base.php:220
+#: ../app/controllers/application_base.php:224
 #: ../lib/structured_data/element/breadcrumb_list.php:68
 msgid "Home"
 msgstr "Home"
@@ -1586,30 +1674,46 @@ msgstr "Reset Your Password"
 msgid "Your password was updated"
 msgstr "Your password was updated"
 
-#: ../app/controllers/application_mailer.php:138
+#: ../app/controllers/application_mailer.php:132
+#: ../app/controllers/newsletter_subscription_requests_controller.php:5
+#: ../app/controllers/newsletter_subscription_requests_controller.php:18
+#: ../app/controllers/newsletter_subscription_requests_controller.php:25
+#: ../app/controllers/newsletter_subscription_requests_controller.php:82
+msgid "Přihlášení k odběru novinek"
+msgstr "Newsletter subscription"
+
+#: ../app/controllers/application_mailer.php:144
+msgid "Potvrzení odhlášení od newsletteru"
+msgstr "Confirmation of newsletter unsubscription"
+
+#: ../app/controllers/application_mailer.php:157
+msgid "Potvrzení odběru novinek"
+msgstr "Newsletter subscription confirmation"
+
+#: ../app/controllers/application_mailer.php:171
 #, php-format
 msgid "Order %d"
 msgstr "Order %d"
 
-#: ../app/controllers/application_mailer.php:158
+#: ../app/controllers/application_mailer.php:191
 #: ../app/controllers/application.php:83
 #: ../app/controllers/orders_controller.php:46
 #, php-format
 msgid "Objednávka %s"
 msgstr "Order %s"
 
-#: ../app/controllers/application_mailer.php:184
+#: ../app/controllers/application_mailer.php:217
 msgid "Message sent from contact page"
 msgstr "Message sent from contact page"
 
-#: ../app/controllers/application_mailer.php:195
-#: ../app/controllers/application_mailer.php:204
+#: ../app/controllers/application_mailer.php:228
+#: ../app/controllers/application_mailer.php:237
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
 msgstr "Request for information"
 
-#: ../app/controllers/application_mailer.php:214
+#: ../app/controllers/application_mailer.php:247
 #, php-format
 msgid "Naskladnění produktu: %s"
 msgstr "Product storage: %s"
@@ -1748,9 +1852,9 @@ msgstr ""
 "The content of the shopping basket has changed. View the summary one more "
 "time and complete the order."
 
-#: ../app/controllers/checkouts_controller.php:216
-#: ../app/controllers/delivery_service_branches_controller.php:101
-#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:101
+#: ../app/controllers/checkouts_controller.php:224
+#: ../app/controllers/delivery_service_branches_controller.php:103
+#: ../lib/delivery_services/src/app/controllers/delivery_service_branches_controller.php:103
 msgid "Nákupní košík"
 msgstr "Shopping basket"
 
@@ -1866,6 +1970,32 @@ msgstr "You've stayed logged in as <em>%s</em>"
 #: ../app/controllers/main_controller.php:11
 msgid "Welcome!"
 msgstr "Welcome!"
+
+#: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:8
+msgid "Na takovou adresu newsletter nezasíláme"
+msgstr "We do not send the newsletter to this email address"
+
+#: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:21
+#: ../app/controllers/newsletter_subscribers_controller.php:26
+#: ../app/controllers/newsletter_subscribers_controller.php:27
+msgid "Odhlášení od newsletteru"
+msgstr "Unsubscribing from the newsletter"
+
+#: ../app/controllers/newsletter_subscribers_controller.php:22
+msgid "Odhlášeno"
+msgstr "Unsubscribed"
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:19
+msgid "Potvrzení odesláno"
+msgstr "Confirmation has been sent"
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:49
+msgid "Přihlášení k odběru novinek bylo úspěšně potvrzeno."
+msgstr "Newsletter subscription has been successfully confirmed."
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:65
+msgid "Přihlášení k odběru novinek bylo zrušeno."
+msgstr "The newsletter subscription has been cancelled."
 
 #: ../app/controllers/orders_controller.php:5
 msgid "Archiv objednávek"
@@ -2063,7 +2193,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:16
-#, no-php-format
+#, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2463,12 +2593,12 @@ msgid "Objednávku nelze dokončit bez odsouhlasení našich obchodních podmín
 msgstr ""
 "The order cannot be completed without consent with our Terms and Conditions."
 
-#: ../app/forms/contact_messages/create_new_form.php:20
+#: ../app/forms/contact_messages/create_new_form.php:22
 #: ../app/forms/information_requests/create_new_form.php:24
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:28
+#: ../app/forms/contact_messages/create_new_form.php:30
 #: ../app/forms/information_requests/create_new_form.php:29
 msgid "Send message"
 msgstr "Send message"
@@ -2519,6 +2649,29 @@ msgstr "Login name"
 #: ../app/forms/users/users_form.php:23
 msgid "Password"
 msgstr "Password"
+
+#: ../app/forms/newsletter_subscribe_deletion_requests/create_new_form.php:6
+#: ../app/forms/newsletter_subscription_requests/create_new_form.php:6
+msgid "E-mailová adresa"
+msgstr "Email address"
+
+#: ../app/forms/newsletter_subscribe_deletion_requests/create_new_form.php:11
+#: ../app/forms/newsletter_subscribers/destroy_form.php:12
+msgid "Odhlásit se"
+msgstr "Sign out"
+
+#: ../app/forms/newsletter_subscribers/destroy_form.php:6
+msgid "Odhlásit se z odběru newsletteru"
+msgstr "Unsubscribe from the newsletter"
+
+#: ../app/forms/newsletter_subscribers/destroy_form.php:9
+msgid "Potvrďte svůj záměr odhlásit se z odběru newsletteru zatrhnutím políčka"
+msgstr ""
+"Confirm your intention to unsubscribe from the newsletter by ticking the box"
+
+#: ../app/forms/newsletter_subscription_requests/create_new_form.php:12
+msgid "Ověřit e-mailovou adresu"
+msgstr "Verify email address"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
@@ -2748,13 +2901,13 @@ msgstr "CZK"
 msgid "opening hours: %s"
 msgstr "opening hours: %s"
 
-#: ../app/models/delivery_service.php:303
-#: ../lib/delivery_services/src/app/models/delivery_service.php:303
+#: ../app/models/delivery_service.php:332
+#: ../lib/delivery_services/src/app/models/delivery_service.php:332
 msgid "Česká Pošta - Balík na poštu"
 msgstr "Czech Post - Parcel to Post"
 
-#: ../app/models/delivery_service.php:304
-#: ../lib/delivery_services/src/app/models/delivery_service.php:304
+#: ../app/models/delivery_service.php:333
+#: ../lib/delivery_services/src/app/models/delivery_service.php:333
 msgid "Česká Pošta - Balíkovna"
 msgstr "Czech Post - Balikovna"
 
