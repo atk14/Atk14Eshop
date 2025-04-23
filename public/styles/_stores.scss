@@ -96,6 +96,10 @@
 	}
 }
 
+.leaflet-container {
+	font-family: inherit;
+}
+
 .stores-filter {
 	margin-bottom: $grid-gutter-width/2;
 	margin-top: 0 - $grid-gutter-width/2;
