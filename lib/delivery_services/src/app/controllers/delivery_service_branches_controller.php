@@ -72,6 +72,8 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		$provider = "default";
 		if ($delivery_service) {
 			$_provider = (new String4($delivery_service->getCode()))->replace("-","_");
+			# zasilkovna_v5 ==> "zasilkovna" - mame jen widget pro kod 'zasilkovna'
+			($_provider->toString() === "zasilkovna_v5") && ($_provider = new String4("zasilkovna"));
 			if ($this->_selector_template_exists($type, $_provider)) {
 				$provider = $_provider;
 			}

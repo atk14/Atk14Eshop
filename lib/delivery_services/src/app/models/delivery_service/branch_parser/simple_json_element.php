@@ -27,11 +27,13 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		return $this->_data;
 	}
 
-	function offsetGet($offset): mixed {
+	#[\ReturnTypeWillChange]
+	function offsetGet($offset) {
 		return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
 	}
 
-	public function offsetSet($offset, $value): void {
+	#[\ReturnTypeWillChange]
+	public function offsetSet($offset, $value) {
 		if (is_null($offset)) {
 			$this->_data[] = $value;
 		} else {
@@ -39,11 +41,13 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		}
 	}
 
-	public function offsetExists($offset): bool {
+	#[\ReturnTypeWillChange]
+	public function offsetExists($offset) {
 		return isset($this->_data[$offset]);
 	}
 
-	public function offsetUnset($offset): void {
+	#[\ReturnTypeWillChange]
+	public function offsetUnset($offset) {
 		unset($this->_data[$offset]);
 	}
 

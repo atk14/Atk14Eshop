@@ -1,5 +1,5 @@
 {assign delivery_service $delivery_method->getDeliveryService()}
-{assign zasilkovna $delivery_service && $delivery_service->getCode()=="zasilkovna"}
+{assign zasilkovna $delivery_service && in_array($delivery_service->getCode(), ["zasilkovna", "zasilkovna_v5"])}
 {if $dialog_provider=="default"}
 	{assign class ""}
 {else}

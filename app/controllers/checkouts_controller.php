@@ -180,9 +180,17 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->destroy();
 
 			if($d["sign_up_for_newsletter"]){
-				NewsletterSubscriber::SignUp($order->getEmail(),array(
-					"name" => trim($order->getFirstname()." ".$order->getLastname()),
-				));
+				if(0){
+					// either to create a newsletter subscription request...
+					$this->_create_newsletter_subscription_request($order->getEmail(),[
+						"name" => String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->substr(0,255)->toString(),
+					],["create_request_if_subscription_exists" => false]);
+				}else{
+					// ... or to sign up directly to newsletter
+					$this->_sign_up_for_newsletter($order->getEmail(),[
+						"name" => String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->substr(0,255)->toString(),
+					]);
+				}
 			}
 
 			// Yarri: toto je asi trackovani objednavek v Google Analytics

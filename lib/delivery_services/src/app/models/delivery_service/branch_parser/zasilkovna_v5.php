@@ -126,7 +126,7 @@ class ZasilkovnaV5 extends DeliveryServiceJsonBranchData implements iDeliverySer
 
 	static function GetRequirements() {
 		return [
-			"API_KEY" => "delivery_services.zasilkovna.api_key",
+			"API_KEY" => "delivery_services.zasilkovna_v5.api_key",
 		];
 	}
 }
