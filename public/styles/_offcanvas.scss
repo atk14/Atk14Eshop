@@ -6,9 +6,10 @@
   $offcanvas-header-bg: $brand;
   $offcanvas-header-height: 3rem;
 
-  --bs-offcanvas-width: $offcanvas-width;
+  --bs-offcanvas-width: #{$offcanvas-width};
+
   @include media-breakpoint-up($largeSizingBreakpoint){
-    --bs-offcanvas-width: $offcanvas-width-lg;
+    --bs-offcanvas-width: #{$offcanvas-width-lg};
   }
   @media(max-width: 560px) {
     width: $offcanvas-width-xs !important;
