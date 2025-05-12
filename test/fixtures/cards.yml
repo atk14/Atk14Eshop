@@ -101,6 +101,10 @@ fridge:
   name_en: "School bus"
   name_cs: "Školní autobus"
 
+stove:
+  name_en: "Stove"
+  name_cs: "Sporák"
+
 fidorka:
   name_en: "Fidorka"
   name_cs: "Fidorka"

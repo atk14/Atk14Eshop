@@ -131,6 +131,10 @@ fridge:
   card_id: "<?= $cards["fridge"]->getId() ?>"
   catalog_id: "fridge"
 
+stove:
+  card_id: "<?= $cards["stove"]->getId() ?>"
+  catalog_id: "stove"
+
 fidorka:
   card_id: "<?= $cards["fidorka"]->getId() ?>"
   catalog_id: "FIDORKA_GIFT"
