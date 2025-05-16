@@ -1,11 +1,17 @@
 <?php
 class DateInput extends TextInput {
-	function __construct($options=array()) {
-		$this->attrs = array(
-			"class" => "text calendar_field",
-		);
-		!isset($options["attrs"]) && ($options["attrs"] = array());
-		$options["attrs"] = forms_array_merge($this->attrs,$options["attrs"]);
-		parent::__construct($options);
+
+	var $input_type = "date";
+
+	function value_from_datadict($data, $name){
+		if(isset($data[$name]) && is_string($data[$name])){
+			$value = trim($data[$name]);
+			if(!preg_match('/^\d{4}-\d{2}-\d{2}$/',$value)){
+				return Atk14Locale::ParseDate($value);
+			}
+		}
+
+		return parent::value_from_datadict($data, $name);
 	}
+
 }
