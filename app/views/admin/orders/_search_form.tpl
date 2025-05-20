@@ -11,19 +11,17 @@
 {form _class="form-filter"}
 	<div class="row">
 		<div class="col-12 col-sm-6 col-md-3">
-			<small>{$nbsp}</small>
 			{!$form|field:"search":"label_to_placeholder"}
 		</div>
 		<div class="col-12 col-sm-6 col-md-3">
-			<small>{$nbsp}</small>
 			{!$form|field:"catalog_id":"label_to_placeholder"}
 		</div>
 		<div class="col-12 col-sm-6 col-md-3">
-			<small>{$form->fields.date_from->label}:</small>
+			<label class="control-label">{$form->fields.date_from->label}:</label>
 			{!$form|field:"date_from"}
 		</div>
 		<div class="col-12 col-sm-6 col-md-3">
-			<small>{$form->fields.date_to->label}:</small>
+			<label class="control-label">{$form->fields.date_to->label}:</label>
 			{!$form|field:"date_to":"label_to_placeholder"}
 		</div>
 	</div>

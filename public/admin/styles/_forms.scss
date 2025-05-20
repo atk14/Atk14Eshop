@@ -223,6 +223,16 @@ form {
 			border-width: 2px;
 		}
 	}
+	.row {
+		align-items: end;
+	}
+	label.control-label {
+		font-size: $font-size-sm;
+		margin-bottom: 0;
+		margin-top: -0.5em;
+		display: block;
+		
+	}
 }
 
 // color picker style enhancements
