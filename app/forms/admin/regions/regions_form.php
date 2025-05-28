@@ -22,7 +22,13 @@ class RegionsForm extends AdminForm {
 		$this->add_field("delivery_countries", new CountriesField([
 			"label" => _("Delivery to countries"),
 			"required" => true,
-			"help_text" => "Comma-separated list of country codes",
+			"help_text" => _("Comma-separated list of country codes."),
+		]));
+
+		$this->add_field("invoice_countries", new CountriesField([
+			"label" => _("Invoice countries"),
+			"required" => false,
+			"help_text" => _("Comma-separated list of country codes eligible for invoicing.")." "._("Empty value means no limit."),
 		]));
 
 		$this->add_field("currencies", new CurrenciesField([
