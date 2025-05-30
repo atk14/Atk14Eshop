@@ -13,10 +13,10 @@ class Zz01AddMoreDeliveryMethods extends ApplicationMigration {
 
 		$cp_balikovna_to_address = DeliveryMethod::CreateNewRecord( [
 			"code" => "cp-balikovna_to_address",
-			"label_en" => "Czech Post - Parcel Delivery to Your Address (payment in advance)",
-			"label_cs" => "Česká Pošta - Balíkovna na adresu (platba předem)",
+			"label_en" => "Balíkovna - Parcel Delivery to Your Address (payment in advance)",
+			"label_cs" => "Balíkovna na adresu (platba předem)",
 
-			"price_incl_vat" => 55,
+			"price_incl_vat" => 105,
 			"regions" => json_encode([$region_code => true]),
 
 			"delivery_service_id" => null,
@@ -26,10 +26,10 @@ class Zz01AddMoreDeliveryMethods extends ApplicationMigration {
 
 		$cp_balikovna_to_address_cod = DeliveryMethod::CreateNewRecord( [
 			"code" => "cp-balikovna_to_address_cod",
-			"label_en" => "Czech Post - Parcel Delivery to Your Address (cash on delivery)",
-			"label_cs" => "Česká Pošta - Balíkovna na adresu (dobírka)",
+			"label_en" => "Balíkovna - Parcel Delivery to Your Address (cash on delivery)",
+			"label_cs" => "Balíkovna na adresu (dobírka)",
 
-			"price_incl_vat" => 75,
+			"price_incl_vat" => 124,
 			"regions" => json_encode([$region_code => true]),
 
 			"delivery_service_id" => null,
