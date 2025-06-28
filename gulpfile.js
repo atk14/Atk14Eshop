@@ -32,7 +32,8 @@ var vendorScripts = [
 	"node_modules/leaflet/dist/leaflet.js",
 	"node_modules/leaflet.markercluster/dist/leaflet.markercluster.js",
 	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.js",
-	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
+	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js", // Enable this if site uses sidebar nav
+	"node_modules/jquery-validation/dist/jquery.validate.js"
 ];
 
 var applicationScripts = [
@@ -62,6 +63,9 @@ var applicationScripts = [
 	"public/scripts/utils/svg_placeholders.js",
 	"public/scripts/utils/window_sync.js",
 	"public/scripts/utils/live_status_refresher.js",
+	"public/scripts/utils/form_validator.js",
+	"public/scripts/utils/flash_message.js",
+	"public/scripts/utils/password_reveal.js",
 	"public/scripts/application.js"
 ];
 
