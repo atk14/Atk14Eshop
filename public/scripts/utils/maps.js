@@ -82,7 +82,8 @@ window.UTILS.mapHelpers = class {
       
           link.setAttribute( "href", "http://mapy.cz/" );
           link.setAttribute( "target", "_blank" );
-          link.innerHTML = "<img src=\"https://api.mapy.cz/img/api/logo.svg\">";
+          link.setAttribute( "title", "Mapy.cz" );
+          link.innerHTML = "<img src=\"https://api.mapy.cz/img/api/logo.svg\" alt=\"\">";
           L.DomEvent.disableClickPropagation( link );
       
           return container;

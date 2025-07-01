@@ -1,9 +1,9 @@
 {a action=detail id=$article _class="card"}
 	<div class="card__image">
 	{if $article->getImageUrl()}
-		<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+		<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}" aria-hidden="true">
 	{else}
-		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
+		<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image" aria-hidden="true">
 	{/if}
 	</div>
 	<div class="card-body">
