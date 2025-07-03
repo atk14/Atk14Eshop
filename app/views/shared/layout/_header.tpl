@@ -28,8 +28,8 @@
 			</div>
 			{if !$use_large_search_bar}
 			<div class="mainbar__middle mainbar__search_cart">
-				<form class="form-inline" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field">
-					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off">
+				<form class="form-inline" action="{link_to namespace="" action="searches/index"}" id="js--main_search_field" role="search">
+					<input name="q" type="text" class="form-control js--search" placeholder="{t}Hledat{/t}" autocomplete="off" aria-label="{t}Hledaný výraz{/t}">
 					<button type="submit" class="btn btn-primary" title="{t}Hledat{/t}">{!"search"|icon}</button>
 				</form>
 				{render partial="shared/layout/header/header_favourites"}
