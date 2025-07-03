@@ -60,7 +60,7 @@
 	}
 	.nav-tabs {
 		.nav-link {
-			&:active, &:focus {
+			&:active, &:focus:not(:focus-visible) {
 				outline: none;
 			}
 		}

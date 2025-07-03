@@ -195,7 +195,7 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		//color: white;
 		border-radius: 0;
 		font-weight: 600;
-		&:focus {
+		&:focus:not(:focus-visible) {
 			outline: none;
 			box-shadow: none !important;
 		}

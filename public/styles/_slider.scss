@@ -124,7 +124,7 @@
 	&:after {
 		display: none;
 	}
-	&:active, &:focus {
+	&:active, &:not(:focus-visible) {
 		outline: none;
 	}
 	@include media-breakpoint-down(xs){
@@ -180,7 +180,7 @@
 				background-color: $primary;
 			}
 		}
-		&:active, &:focus {
+		&:active, &:focus:not(:focus-visible) {
 			outline: none;
 		}
 	}

@@ -46,7 +46,7 @@ Bootstrap`s own pagination scss should NOT be loaded.
 			&.disabled {
 				display: none;
 			}
-			&:focus {
+			&:focus:not(:focus-visible) {
 				box-shadow: none;
 			}
 			
