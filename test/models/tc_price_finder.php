@@ -3,6 +3,7 @@
  *
  * @fixture products
  * @fixture pricelist_items
+ * @fixture user_special_pricelists
  * @fixture users
  * @fixture currencies
  */
@@ -51,5 +52,22 @@ class TcPriceFinder extends TcBase {
 		$this->assertFalse($user->isAnonymous());
 		$this->assertEquals($this->users["rambo"]->getId(),$user->getId());
 		$this->assertEquals("BTC",$currency->getCode());
+	}
+
+	function test_special_pricelists(){
+		$pf_rambo = PriceFinder::GetInstance($this->users["rambo"]);
+		
+		$price = $pf_rambo->getPrice($this->products["book"]);
+		$this->assertEquals(199.0,$price->getPriceInclVat()); // price from the special price list
+
+		$price = $pf_rambo->getPrice($this->products["jehla"],1);
+		$this->assertEquals(1.3,$price->getPriceInclVat()); // not better price in the special price list
+
+		// --
+
+		$pf_anonymous = PriceFinder::GetInstance(User::GetAnonymousUser());
+
+		$price = $pf_anonymous->getPrice($this->products["book"]);
+		$this->assertEquals(279.0,$price->getPriceInclVat());
 	}
 }
