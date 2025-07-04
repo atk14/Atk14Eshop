@@ -8,6 +8,7 @@ class PriceFinder {
 	protected $current_date;
 	protected $pricelist;
 	protected $base_pricelist;
+	protected $special_pricelists;
 	protected $dbmole;
 	protected $priceData;
 
@@ -27,6 +28,7 @@ class PriceFinder {
 		$this->user = $user;
 		$this->pricelist = $user->getPricelist();
 		$this->base_pricelist = $user->getBasePricelist();
+		$this->special_pricelists = $user->getSpecialPricelists();
 		if($this->base_pricelist && $this->base_pricelist->getId()==$this->pricelist->getId()){ $this->base_pricelist = null; }
 		$this->dbmole = Pricelist::GetDbmole();
 		$this->currency = $currency;
@@ -204,8 +206,10 @@ class PriceFinder {
 	}
 
 	function getPriceDataFor($ids, $options) {
-		$pricelists = [$this->pricelist->getId()];
-		if($this->base_pricelist){ $pricelists[] = $this->base_pricelist->getId(); }
+		$pricelists = $this->special_pricelists;
+		$pricelists[] = $this->pricelist->getId();
+		$pricelists[] = $this->base_pricelist;
+		$pricelists = array_filter($pricelists);
 		// TODO: The sorting must respect if one price list contains prices with VAT and the second one doesn't
 		$rows = $this->dbmole->selectRows("SELECT
 					product_id,
