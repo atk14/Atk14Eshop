@@ -129,13 +129,3 @@ book:
   pricelist_id: 1
   product_id: "<?= $products["book"]->getId() ?>"
   price: 279
-
-special_1_book:
-  pricelist_id: "<?= $pricelists["special_1"]->getId() ?>"
-  product_id: "<?= $products["book"]->getId() ?>"
-  price: 199
-
-special_1_jehla:
-  pricelist_id: "<?= $pricelists["special_1"]->getId() ?>"
-  product_id: "<?= $products["jehla"]->getId() ?>"
-  price: 1.5

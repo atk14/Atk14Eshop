@@ -207,16 +207,20 @@ class PriceFinder {
 
 	function getPriceDataFor($ids, $options) {
 		$pricelists = [$this->pricelist];
+		$base_pricelist = null;
 		if($this->base_pricelist && $this->base_pricelist->getId()!==$this->pricelist->getId()){
 			$pricelists[] = $this->base_pricelist;
+			$base_pricelist = $this->base_pricelist;
 		}
+		$special_pricelists = $this->special_pricelists ? $this->special_pricelists : [-999];
 		// TODO: The sorting must respect if one price list contains prices with VAT and the second one doesn't
 		$rows = $this->dbmole->selectRows("
+			SELECT * FROM (
 				SELECT
 					pricelist_items.product_id,
 					MIN(pricelist_items.price) AS price,
 					pricelist_items.minimum_quantity,
-					pricelist_items.pricelist_id,
+					CASE WHEN pricelist_items.pricelist_id=:base_pricelist THEN 'base_price' ELSE 'main_price' END AS price_descr,
 					pricelists.contains_prices_without_vat
 				FROM
 					pricelists,
@@ -224,7 +228,7 @@ class PriceFinder {
 				WHERE
 					pricelist_items.pricelist_id=pricelists.id AND
 					pricelist_items.pricelist_id IN :pricelists AND
-					pricelist_items.product_id IN :product AND
+					pricelist_items.product_id IN :products AND
 					(pricelist_items.valid_from IS NULL OR valid_from<=:now) AND
 					(pricelist_items.valid_to IS NULL OR valid_to>=:now)
 				GROUP BY
@@ -232,15 +236,54 @@ class PriceFinder {
 					pricelist_items.minimum_quantity,
 					pricelist_items.pricelist_id,
 					pricelists.contains_prices_without_vat
-				ORDER BY
-					pricelist_items.product_id,
-					pricelist_items.minimum_quantity,
-					MIN(pricelist_items.price),
-					pricelist_items.pricelist_id=:pricelist_id DESC -- the main price list takes precedence
+				UNION
+				-- special_pricelist_items with price
+				SELECT
+					special_pricelist_items.product_id,
+					special_pricelist_items.price AS price,
+					0 AS minimum_quantity,
+					'special_price' AS pricelist_id,
+					special_pricelists.contains_prices_without_vat
+				FROM
+					special_pricelists,
+					special_pricelist_items
+				WHERE
+					special_pricelist_items.special_pricelist_id=special_pricelists.id AND
+					special_pricelist_items.special_pricelist_id IN :special_pricelists AND
+					special_pricelist_items.product_id IN :products AND
+					special_pricelist_items.price IS NOT NULL
+				UNION
+				-- special_pricelist_items with discount_percent
+				SELECT
+					special_pricelist_items.product_id,
+					pricelist_items.price * (1.0 - (special_pricelist_items.discount_percent / 100.0))  AS price,
+					pricelist_items.minimum_quantity AS minimum_quantity,
+					'special_discount' AS pricelist_id,
+					pricelists.contains_prices_without_vat
+				FROM
+					pricelists,
+					pricelist_items,
+					special_pricelists,
+					special_pricelist_items
+				WHERE
+					pricelists.id=:pricelist AND
+					pricelist_items.pricelist_id=pricelists.id AND
+					pricelist_items.product_id IN :products AND
+					special_pricelist_items.special_pricelist_id=special_pricelists.id AND
+					special_pricelist_items.special_pricelist_id IN :special_pricelists AND
+					special_pricelist_items.product_id=pricelist_items.product_id AND
+					special_pricelist_items.discount_percent IS NOT NULL
+			) ORDER BY
+					product_id,
+					minimum_quantity,
+					price,
+					price_descr='main_price' DESC -- the main price list takes precedence
 			",[
-				":product" => $ids,
+				":products" => $ids,
 				":pricelists" => $pricelists,
-				":pricelist_id" => $this->pricelist->getId(),
+				":special_pricelists" => $special_pricelists,
+				":pricelist" => $this->pricelist->getId(),
+				":base_pricelist" => $base_pricelist,
 				":now" => $this->current_date,
 			]
 		);
@@ -249,7 +292,7 @@ class PriceFinder {
 		foreach($rows as $row) {
 			$product = Cache::Get("Product",$row["product_id"]);
 			$row["price"] = (float)$row["price"];
-			$row["is_base_price"] = $this->base_pricelist && $this->base_pricelist->getId()==$row["pricelist_id"];
+			$row["is_base_price"] = $row["price_descr"] === "base_price";
 
 			if($row["contains_prices_without_vat"]=="t"){
 				$row["price_incl_vat"] = $this->_addVat($row["price"],$product->getVatPercent());

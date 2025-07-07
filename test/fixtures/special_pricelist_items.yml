@@ -1,0 +1,9 @@
+special_1_book:
+  special_pricelist_id: "<?= $pricelists["special_1"]->getId() ?>"
+  product_id: "<?= $products["book"]->getId() ?>"
+  price: 199
+
+special_1_jehla:
+  special_pricelist_id: "<?= $pricelists["special_1"]->getId() ?>"
+  product_id: "<?= $products["jehla"]->getId() ?>"
+  price: 1.5
