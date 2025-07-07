@@ -55,7 +55,9 @@ window.UTILS.BSOffCanvas = function() {
 		$( ".bs-offcanvas-close", elm ).attr( "aria-expanded", "false" );
 		if( bsOverlay.length ) {
 			bsOverlay.removeClass( "show" )
-    };		
+    };
+			$( "#offcanvas-basket" ).removeAttr( "aria-live" );
+			$( "#offcanvas-basket" ).removeAttr( "aria-atomic" );		
 	} );
 
 	// Show offcanvas manually. "bs-offcanvas-show" event will be NOT fired.
@@ -120,6 +122,7 @@ window.UTILS.OffcanvasBasket = function() {
 					var itemsCount = $this.getCountDisplay();
 					console.log( "itemsCount", itemsCount );
 					$this.updateCountDisplay( itemsCount );
+					$this.ariaLive( true );
 					break;
 				case "error" :
 					$this.element.attr( "data-status", "error" );
@@ -128,6 +131,18 @@ window.UTILS.OffcanvasBasket = function() {
 			}
 		} );
 	};
+
+	// Set aria-live and aria-atomic attribute for offcanvas
+	// This is used to announce offcanvas basket content
+	this.ariaLive = function( status ) {
+		if( status ) {
+			$( "#offcanvas-basket" ).attr( "aria-live", "polite" );
+			$( "#offcanvas-basket" ).attr( "aria-atomic", "true" );
+		} else {
+			$( "#offcanvas-basket" ).removeAttr( "aria-live" );
+			$( "#offcanvas-basket" ).removeAttr( "aria-atomic" );
+		}
+	}
 
 	// Replaces the offcanvas basket with the given HTML content and restores its scroll position
 	this.redrawBasket = function( content ) {
