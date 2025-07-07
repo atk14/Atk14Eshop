@@ -34,6 +34,7 @@ class PricelistItemsForm extends AdminForm {
 			"pricelist_id" => $this->controller->pricelist,
 			"product_id" => $d["product_id"],
 			"minimum_quantity" => $d["minimum_quantity"],
+			"price" => $d["price"],
 		]]);
 	}
 }

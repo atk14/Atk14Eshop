@@ -1,5 +1,5 @@
 <?php
-class PricelistItemsForm extends AdminForm {
+class SpecialPricelistItemsForm extends AdminForm {
 
 	function set_up(){
 		$this->add_field("product_id", new ProductField([
@@ -17,6 +17,16 @@ class PricelistItemsForm extends AdminForm {
 		}
 		$this->add_field("price", new PriceField([
 			"label" => $label,
+			"required" => false,
+		]));
+
+		$this->add_field("discount_percent", new LocalizedDecimalField([
+			"label" => _("Procentní sleva"),
+			"max_digits" => 5,
+			"decimal_places" => 2,
+			"min_value" => 0.1,
+			"max_value" => 99.9,
+			"required" => false,
 		]));
 
 		$this->add_field("minimum_quantity", new IntegerField([
@@ -30,10 +40,23 @@ class PricelistItemsForm extends AdminForm {
 	}
 
 	function _get_conflicting_record($d){
-		return PricelistItem::FindFirst(["conditions" => [
-			"pricelist_id" => $this->controller->pricelist,
+		return SpecialPricelistItem::FindFirst(["conditions" => [
+			"special_pricelist_id" => $this->controller->special_pricelist,
 			"product_id" => $d["product_id"],
 			"minimum_quantity" => $d["minimum_quantity"],
 		]]);
+	}
+
+	function clean(){
+		list($err,$d) = parent::clean();
+
+		if($d && array_key_exists("price",$d) && array_key_exists("discount_percent",$d) && (
+			(is_null($d["price"]) && is_null($d["discount_percent"])) ||
+			(!is_null($d["price"]) && !is_null($d["discount_percent"]))
+		)){
+			$this->set_error(_("Zadejte cenu nebo procentní slevu"));
+		}
+
+		return [$err,$d];
 	}
 }

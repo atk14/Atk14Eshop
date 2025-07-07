@@ -119,9 +119,7 @@ class User extends ApplicationModel{
 	}
 
 	function getSpecialPricelistsLister(){
-		return $this->getLister("Pricelists",[
-			"table_name" => "user_special_pricelists",
-		]);
+		return $this->getLister("SpecialPricelists");
 	}
 
 	function getSpecialPricelists(){

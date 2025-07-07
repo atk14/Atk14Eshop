@@ -43,6 +43,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Stores"),							"stores,special_opening_hours"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
 			array(_("Price lists"),					"pricelists,pricelist_items"),
+			array(_("Special price lists"), "special_pricelists,special_pricelist_items"),
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),

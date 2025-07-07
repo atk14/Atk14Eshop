@@ -7,7 +7,7 @@ class UserSpecialPricelist extends ApplicationModel implements Rankable {
 		]);
 	}
 
-	function getPricelist(){
-		return Cache::Get("Pricelist",$this->g("pricelist_id"));
+	function getSpecialPricelist(){
+		return Cache::Get("SpecialPricelist",$this->g("special_pricelist_id"));
 	}
 }

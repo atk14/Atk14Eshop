@@ -206,28 +206,33 @@ class PriceFinder {
 	}
 
 	function getPriceDataFor($ids, $options) {
-		$pricelists = $this->special_pricelists;
-		$pricelists[] = $this->pricelist->getId();
-		$pricelists[] = $this->base_pricelist;
-		$pricelists = array_filter($pricelists);
+		$pricelists = [$this->pricelist];
+		if($this->base_pricelist && $this->base_pricelist->getId()!==$this->pricelist->getId()){
+			$pricelists[] = $this->base_pricelist;
+		}
 		// TODO: The sorting must respect if one price list contains prices with VAT and the second one doesn't
-		$rows = $this->dbmole->selectRows("SELECT
-					product_id,
-					MIN(price) AS price,
-					minimum_quantity,
-					pricelist_id
-				FROM pricelist_items
+		$rows = $this->dbmole->selectRows("
+				SELECT
+					pricelist_items.product_id,
+					MIN(pricelist_items.price) AS price,
+					pricelist_items.minimum_quantity,
+					pricelist_items.pricelist_id
+				FROM
+					pricelist_items
 				WHERE
-					pricelist_id IN :pricelists AND
-					product_id IN :product AND
-					(valid_from IS NULL OR valid_from<=:now) AND
-					(valid_to IS NULL OR valid_to>=:now)
-				GROUP BY product_id,minimum_quantity,pricelist_id
+					pricelist_items.pricelist_id IN :pricelists AND
+					pricelist_items.product_id IN :product AND
+					(pricelist_items.valid_from IS NULL OR valid_from<=:now) AND
+					(pricelist_items.valid_to IS NULL OR valid_to>=:now)
+				GROUP BY
+					pricelist_items.product_id,
+					pricelist_items.minimum_quantity,
+					pricelist_items.pricelist_id
 				ORDER BY
-					product_id,
-					minimum_quantity,
-					MIN(price),
-					pricelist_id=:pricelist_id DESC -- the main price list takes precedence
+					pricelist_items.product_id,
+					pricelist_items.minimum_quantity,
+					MIN(pricelist_items.price),
+					pricelist_items.pricelist_id=:pricelist_id DESC -- the main price list takes precedence
 			",[
 				":product" => $ids,
 				":pricelists" => $pricelists,
@@ -263,9 +268,9 @@ class PriceFinder {
 			$out[$id] = [
 				"product_id" => $id,
 				"vat_percent" => $products[$id] ? $products[$id]->getVatPercent() : null,
-				"discount_percent" => $discount?$discount['discount_percent']:null,
-				"discounted_from" => $discount?$discount['discounted_from']:null,
-				"discounted_to" => $discount?$discount['discounted_to']:null,
+				"discount_percent" => $discount ? $discount["discount_percent"] : null,
+				"discounted_from" => $discount ? $discount["discounted_from"] : null,
+				"discounted_to" => $discount ? $discount["discounted_to"] : null,
 				"prices" => isset($prices[$id]) ? $prices[$id] : []
 			];
 		}

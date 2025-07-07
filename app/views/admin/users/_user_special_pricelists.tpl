@@ -10,14 +10,14 @@
 
 	<ul class="list-group list-sortable list-group--iobjects" data-sortable-url="{link_to action="user_special_pricelists/set_rank"}">
 		{foreach $user_special_pricelists as $user_special_pricelist}
-			{assign pricelist $user_special_pricelist->getPricelist()}
+			{assign special_pricelist $user_special_pricelist->getSpecialPricelist()}
 			<li class="list-group-item" data-id="{$user_special_pricelist->getId()}">
 
 				{dropdown_menu clearfix=false}
-					{a_destroy controller="user_special_pricelists" id=$user_special_pricelist}{!"trash-alt"|icon} {t}Delete{/t}{/a_destroy}
+					{a_destroy controller="user_special_pricelists" id=$user_special_pricelist}{!"remove"|icon} {t}Remove{/t}{/a_destroy}
 				{/dropdown_menu}
 
-				<small>#{$pricelist->getId()}</small> {$pricelist->getName()}
+				<small>#{$special_pricelist->getId()}</small> {$special_pricelist->getName()}
 
 			</li>
 		{/foreach}

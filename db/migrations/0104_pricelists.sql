@@ -20,7 +20,7 @@ CREATE TABLE pricelists (
 
 INSERT INTO pricelists (id,code) VALUES(1,'default');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('pricelists','1','name','cs','Ceník');
-INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('pricelists','1','name','en','Pricelist');
+INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('pricelists','1','name','en','Price list');
 
 INSERT INTO pricelists (id,code) VALUES(2,'base');
 INSERT INTO translations (table_name,record_id,key,lang,body) VALUES('pricelists','2','name','cs','Základní ceny');
