@@ -24,12 +24,8 @@ CREATE TABLE special_pricelist_items (
 	--
 	special_pricelist_id INT NOT NULL,
 	product_id INT NOT NULL,
-	minimum_quantity INT NOT NULL DEFAULT 0,
 	price NUMERIC(20,6),
 	discount_percent NUMERIC(5,2),
-	--
-	valid_from TIMESTAMP,
-	valid_to TIMESTAMP,
 	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
@@ -37,6 +33,7 @@ CREATE TABLE special_pricelist_items (
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP,
 	--
+	CONSTRAINT unq_specialpricelistitems UNIQUE(special_pricelist_id,product_id),
 	CONSTRAINT chk_specialpricelistitems CHECK((price IS NOT NULL AND discount_percent IS NULL) OR (price IS NULL AND discount_percent IS NOT NULL)),
 	--
 	CONSTRAINT fk_specialpricelistitems_special_pricelists FOREIGN KEY (special_pricelist_id) REFERENCES special_pricelists ON DELETE CASCADE,

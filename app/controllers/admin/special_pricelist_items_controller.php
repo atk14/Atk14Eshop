@@ -17,7 +17,7 @@ class SpecialPricelistItemsController extends AdminController {
 
 		$_catalog_id = "(SELECT catalog_id FROM products WHERE products.id=special_pricelist_items.product_id)";
 		$_name = "(SELECT body FROM translations WHERE table_name='cards' AND record_id=(SELECT card_id FROM products WHERE products.id=special_pricelist_items.product_id) AND key='name' AND lang='$this->lang')";
-		$_std_sorting = "$_catalog_id, minimum_quantity, price";
+		$_std_sorting = "$_catalog_id, price";
 		$_price = "price / 100.0 * (100.0 - COALESCE((SELECT vat_percent FROM vat_rates WHERE id=(SELECT vat_rate_id FROM products WHERE id=special_pricelist_items.product_id)),0.0))";
 
 		if($d["search"] && ($conds = FullTextSearchQueryLike::GetQuery("UPPER($_catalog_id||' '||COALESCE($_name,''))",Translate::Upper($d["search"]),$bind_ar))){

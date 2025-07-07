@@ -28,22 +28,12 @@ class SpecialPricelistItemsForm extends AdminForm {
 			"max_value" => 99.9,
 			"required" => false,
 		]));
-
-		$this->add_field("minimum_quantity", new IntegerField([
-			"label" => _("Cena platí od minimálního množství") . ($unit ? " [$unit]" : ""),
-			"initial" => 0,
-			"min_value" => 0,
-			"help_text" => _("Vhodným zadáním několika cen pro jeden produkt lze docílit množstevních slev"),
-		]));
-
-		$this->add_validity_fields();
 	}
 
 	function _get_conflicting_record($d){
 		return SpecialPricelistItem::FindFirst(["conditions" => [
 			"special_pricelist_id" => $this->controller->special_pricelist,
 			"product_id" => $d["product_id"],
-			"minimum_quantity" => $d["minimum_quantity"],
 		]]);
 	}
 
@@ -54,7 +44,7 @@ class SpecialPricelistItemsForm extends AdminForm {
 			(is_null($d["price"]) && is_null($d["discount_percent"])) ||
 			(!is_null($d["price"]) && !is_null($d["discount_percent"]))
 		)){
-			$this->set_error(_("Zadejte cenu nebo procentní slevu"));
+			$this->set_error(_("Zadejte výlučně cenu nebo procentní slevu"));
 		}
 
 		return [$err,$d];

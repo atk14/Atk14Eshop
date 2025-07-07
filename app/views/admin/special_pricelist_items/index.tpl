@@ -15,12 +15,9 @@
 			<th></th>
 			{sortable key="catalog_id"}<th>{t}Catalog number{/t}</th>{/sortable}
 			{sortable key="name"}<th>{t}Product name{/t}</th>{/sortable}
-			{sortable key="minimum_quantity"}<th>{t}Minimum quantity{/t}</th>{/sortable}
 			{sortable key="price"}<th>{t}Price{/t} [{$special_pricelist->getCurrency()}]</th>{/sortable}
 			{sortable key="price_incl_vat"}<th>{t}Price incl. VAT{/t} [{$special_pricelist->getCurrency()}]</th>{/sortable}
 			{sortable key="discount_percent"}<th>{t}Sleva [%]{/t}</th>{/sortable}
-			<th>{t}Valid from{/t}</th>
-			<th>{t}Valid to{/t}</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -33,12 +30,9 @@
 				<td>{render partial="shared/list_thumbnail" image=$product->getImage()}</td>
 				<td>{highlight_search_query}{$product->getCatalogId()}{/highlight_search_query}</td>
 				<td>{highlight_search_query}{$product->getName()}{/highlight_search_query}</td>
-				<td>{$special_pricelist_item->getMinimumQuantity()} {$product->getUnit()}</td>
 				<td>{$special_pricelist_item->getPrice()|display_price:"$currency,format=plain"|default:$mdash}</td>
 				<td>{$special_pricelist_item->getPriceInclVat()|display_price:"$currency,format=plain"|default:$mdash}</td>
 				<td>{$special_pricelist_item->getDiscountPercent()|display_number|default:$mdash}</td>
-				<td>{$special_pricelist_item->getValidFrom()|format_datetime|default:$mdash}</td>
-				<td>{$special_pricelist_item->getValidTo()|format_datetime|default:$mdash}</td>
 				<td>
 					{dropdown_menu}
 						{a action="edit" id=$special_pricelist_item}{!"edit"|icon} {t}Upravit cenu{/t}{/a}

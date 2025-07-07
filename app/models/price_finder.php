@@ -216,10 +216,13 @@ class PriceFinder {
 					pricelist_items.product_id,
 					MIN(pricelist_items.price) AS price,
 					pricelist_items.minimum_quantity,
-					pricelist_items.pricelist_id
+					pricelist_items.pricelist_id,
+					pricelists.contains_prices_without_vat
 				FROM
+					pricelists,
 					pricelist_items
 				WHERE
+					pricelist_items.pricelist_id=pricelists.id AND
 					pricelist_items.pricelist_id IN :pricelists AND
 					pricelist_items.product_id IN :product AND
 					(pricelist_items.valid_from IS NULL OR valid_from<=:now) AND
@@ -227,7 +230,8 @@ class PriceFinder {
 				GROUP BY
 					pricelist_items.product_id,
 					pricelist_items.minimum_quantity,
-					pricelist_items.pricelist_id
+					pricelist_items.pricelist_id,
+					pricelists.contains_prices_without_vat
 				ORDER BY
 					pricelist_items.product_id,
 					pricelist_items.minimum_quantity,
@@ -240,16 +244,14 @@ class PriceFinder {
 				":now" => $this->current_date,
 			]
 		);
-		$products = Cache::Get('Product', array_combine($ids, $ids));
+		$products = Cache::Get("Product", array_combine($ids, $ids));
 		$prices = [];
 		foreach($rows as $row) {
 			$product = Cache::Get("Product",$row["product_id"]);
 			$row["price"] = (float)$row["price"];
 			$row["is_base_price"] = $this->base_pricelist && $this->base_pricelist->getId()==$row["pricelist_id"];
 
-			$pricelist = $row["is_base_price"] ? $this->base_pricelist : $this->pricelist;
-
-			if($pricelist->containsPricesWithoutVat()){
+			if($row["contains_prices_without_vat"]=="t"){
 				$row["price_incl_vat"] = $this->_addVat($row["price"],$product->getVatPercent());
 			}else{
 				$row["price_incl_vat"] = $row["price"];
