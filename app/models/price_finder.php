@@ -273,7 +273,7 @@ class PriceFinder {
 					special_pricelist_items.special_pricelist_id IN :special_pricelists AND
 					special_pricelist_items.product_id=pricelist_items.product_id AND
 					special_pricelist_items.discount_percent IS NOT NULL
-			) ORDER BY
+			)q ORDER BY
 					product_id,
 					minimum_quantity,
 					price,
