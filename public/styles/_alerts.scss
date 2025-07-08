@@ -7,5 +7,14 @@
       color: inherit;
       opacity: 0.75;
     }
+    a, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+      color: inherit !important;
+    }
+    a {
+      text-decoration: underline;
+      /*&:hover {
+        color: darken( $value, 10% );
+      }*/
+    }
   }
 }
