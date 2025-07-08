@@ -1,6 +1,8 @@
 <?php
 class DisableableCheckboxSelectMultiple extends CheckboxSelectMultiple {
 
+	var $disabled_choices;
+
 	function __construct($options = []){
 		$options += [
 			"disabled_choices" => [], // e.g. ["1", "3", "9"]
