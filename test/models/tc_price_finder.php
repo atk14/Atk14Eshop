@@ -4,6 +4,7 @@
  * @fixture products
  * @fixture pricelist_items
  * @fixture user_special_pricelists
+ * @fixture special_pricelist_items
  * @fixture users
  * @fixture currencies
  */
