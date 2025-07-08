@@ -1,5 +1,5 @@
 <?php
-class EditForm extends PricelistItemsForm {
+class EditForm extends SpecialPricelistItemsForm {
 
 	function set_up(){
 		parent::set_up();
@@ -9,7 +9,7 @@ class EditForm extends PricelistItemsForm {
 	function clean(){
 		list($err,$d) = parent::clean();
 
-		if(!$this->has_errors() && ($pi = $this->_get_conflicting_record($d)) && $pi->getId()!=$this->controller->pricelist_item->getId()){
+		if(!$this->has_errors() && ($spi = $this->_get_conflicting_record($d)) && $spi->getId()!=$this->controller->special_pricelist_item->getId()){
 			$this->set_error(_("Stejná kombinace produktu a minimálního množství již existuje"));
 		}
 			

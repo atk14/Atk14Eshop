@@ -1,9 +1,9 @@
 <?php
-class PricelistsController extends AdminController {
+class SpecialPricelistsController extends AdminController {
 
 	function index(){
-		$this->page_title = _("Price lists");
-		$this->tpl_data["pricelists"] = Pricelist::FindAll();
+		$this->page_title = _("Special price lists");
+		$this->tpl_data["special_pricelists"] = SpecialPricelist::FindAll();
 	}
 
 	function create_new(){
