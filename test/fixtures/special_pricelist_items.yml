@@ -7,3 +7,23 @@ special_1_jehla:
   special_pricelist_id: "<?= $special_pricelists["special_1"]->getId() ?>"
   product_id: "<?= $products["jehla"]->getId() ?>"
   price: 1.5
+
+special_1_mint_tea:
+  special_pricelist_id: "<?= $special_pricelists["special_1"]->getId() ?>"
+  product_id: "<?= $products["mint_tea"]->getId() ?>"
+  discount_percent: 50.0
+
+special_1_kostkovana_latka:
+  special_pricelist_id: "<?= $special_pricelists["special_1"]->getId() ?>"
+  product_id: "<?= $products["kostkovana_latka"]->getId() ?>"
+  discount_percent: 70.0
+
+special_2_book:
+  special_pricelist_id: "<?= $special_pricelists["special_2"]->getId() ?>"
+  product_id: "<?= $products["book"]->getId() ?>"
+  price: 150
+
+special_2_mint_tea:
+  special_pricelist_id: "<?= $special_pricelists["special_2"]->getId() ?>"
+  product_id: "<?= $products["mint_tea"]->getId() ?>"
+  discount_percent: 50.0

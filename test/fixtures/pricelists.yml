@@ -1,7 +1,9 @@
 pricelist_1:
   name_en: "Price list 1"
   name_cs: "Cenik 1"
+  contains_prices_without_vat: FALSE
 
 pricelist_2:
   name_en: "Price list 2"
   name_cs: "Cenik 2"
+  contains_prices_without_vat: FALSE

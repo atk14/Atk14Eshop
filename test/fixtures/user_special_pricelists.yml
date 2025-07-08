@@ -1,3 +1,7 @@
 rambo_special_1:
   user_id: "<?= $users["rambo"]->getId() ?>"
   special_pricelist_id: "<?= $special_pricelists["special_1"]->getId() ?>"
+
+rocky_special_1:
+  user_id: "<?= $users["rocky"]->getId() ?>"
+  special_pricelist_id: "<?= $special_pricelists["special_2"]->getId() ?>"
