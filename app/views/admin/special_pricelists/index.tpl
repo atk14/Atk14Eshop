@@ -1,6 +1,10 @@
 <h1>{button_create_new}{t}Add a pricelist{/t}{/button_create_new} {$page_title}</h1>
 
-<p>{t}Speciální ceníky jsou určeny ke správě výhodnějších cen typicky nějaké malé množiny produktů.{/t} {t}Jeden zákazník může mít více speciálních ceníků.{/t}</p>
+<p>
+	{t}Speciální ceníky jsou určeny ke správě výhodnějších cen nějaké typicky malé množiny produktů.{/t}
+	{t}Ceny lze stanovovat buďto konkrétní částkou nebo procentní slevou vůči ceníku daného zákazníka.{/t}
+	{t}Jeden zákazník může mít více speciálních ceníků.{/t}
+</p>
 
 {if $special_pricelists}
 

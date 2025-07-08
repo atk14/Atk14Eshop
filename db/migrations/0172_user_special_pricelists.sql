@@ -53,7 +53,7 @@ CREATE TABLE user_special_pricelists (
 	rank INTEGER DEFAULT 999 NOT NULL,
 	--
 	CONSTRAINT in_userspecialpricelists_users FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE,
-	CONSTRAINT in_userspecialpricelists_specialpricelists FOREIGN KEY (special_pricelist_id) REFERENCES special_pricelists
+	CONSTRAINT in_userspecialpricelists_specialpricelists FOREIGN KEY (special_pricelist_id) REFERENCES special_pricelists ON DELETE CASCADE
 );
 
 CREATE INDEX in_userspecialpricelists_userid ON user_special_pricelists(user_id);

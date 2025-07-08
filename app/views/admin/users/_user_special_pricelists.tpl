@@ -4,7 +4,7 @@
 
 {if !$user_special_pricelists}
 
-	<p>{t}No special price list is attached.{/t}</p>
+	<p>{t}There is no special price list attached to this user.{/t}</p>
 
 {else}
 
