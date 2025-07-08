@@ -91,14 +91,14 @@ $card-border-style: 1px dashed $border-color;
 		padding-top: 0;
 		line-height: 1.1;
 		color: $body-color;
-		.btn {
+		.btn:not(.js--password_reveal) {
 			margin-top: 0.5rem;
 		}
 		.btn:first-child:last-child {
 			margin-top: 0;
 		}
 		&:has(.btn:nth-child(2)) {
-			.btn {
+			.btn:not(.js--password_reveal) {
 				width: 100%;
 			}
 		}
