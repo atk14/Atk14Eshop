@@ -1,7 +1,5 @@
 // Alerts displayed in original theme bg color instead of Bootstrap default light bg.
 
-// This file is used to override Bootstrap's alert styles.
-
 .alert {
   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: inherit !important;
@@ -17,5 +15,14 @@
     --#{$prefix}alert-bg: var(--#{$prefix}#{$state});
     --#{$prefix}alert-border-color: var(--#{$prefix}#{$state});
     --#{$prefix}alert-link-color: var(--#{$prefix}alert-color);
+
+    // Ensure the close button is visible against the alert background
+    $contrast-ratio: contrast-ratio($value, black);
+    @if $contrast-ratio < $min-contrast-ratio {
+      .btn-close {
+        filter: invert(100%);
+      }
+    }
+
   }
 }
