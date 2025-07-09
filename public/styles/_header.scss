@@ -116,7 +116,7 @@ ol.breadcrumb {
 				& > a {
 					//color: white;
 					padding: 0.35rem 1rem;
-					&:focus {
+					&:focus:not(:focus-visible) {
 						outline: none;
 					}
 				}
@@ -132,7 +132,7 @@ ol.breadcrumb {
 					}
 					a {
 						margin-left: $grid-gutter-width/2;
-						&:hover, &:active, &:focus {
+						&:hover, &:active, &:focus:not(:focus-visible) {
 							outline: none;
 						}
 					}
@@ -258,7 +258,7 @@ ol.breadcrumb {
 			border: none;
 			font-size: 1.75rem;
 			text-align: left;
-			&:focus {
+			&:focus:not(:focus-visible) {
 				outline: none;
 			}
 			&__icon {
@@ -325,7 +325,7 @@ ol.breadcrumb {
 				width: 150px;
 				&::placeholder {
 				}
-				&:focus, &:hover {
+				&:focus:not(:focus-visible), &:hover {
 					box-shadow: none;
 				}
 			}
@@ -333,7 +333,7 @@ ol.breadcrumb {
 				border-radius: 0;
 				background-color: transparent;
 				border: none;
-				&:focus {
+				&:focus:not(:focus-visible) {
 					box-shadow: none;
 				}
 			}
@@ -495,7 +495,7 @@ ol.breadcrumb {
 		font-weight: 600;
 		ul.navbar-nav {
 			li.nav-item {
-				a:focus {
+				a:focus:not(:focus-visible) {
 					outline: none;
 				}
 				.dropdown-toggle {
@@ -518,8 +518,10 @@ ol.breadcrumb {
 					//	}
 					//}
 					&:focus, &:active, &:hover {
-						outline: none;
-						box-shadow: none;
+						&:not(:focus-visible) {
+							outline: none;
+							box-shadow: none;
+						}
 						&:after {
 							color: $navbar-dark-hover-color;
 						}

@@ -1313,6 +1313,48 @@ class TcBasket extends TcBase {
 		$this->assertEquals("SK",$basket->_getDeliveryCountry());
 	}
 
+	function test_getDeliveryFeeMultiplier(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+
+		$this->assertEquals(1,$basket->getDeliveryFeeMultiplier());
+
+		$europallet = $this->delivery_methods["europallet"];
+		$oversized_product = $this->tags["oversized_product"];
+		$europallet->s([
+			"required_tag_id" => $oversized_product,
+			"multiply_price" => true,
+		]);
+		$basket->s("delivery_method_id",$europallet);
+
+		$fridge = $this->products["fridge"];
+		$stove = $this->products["stove"];
+		$black_tea = $this->products["black_tea"];
+		// checking products
+		$this->assertEquals(true,$fridge->containsTag($oversized_product));
+		$this->assertEquals(true,$stove->containsTag($oversized_product));
+		$this->assertEquals(false,$black_tea->containsTag($oversized_product));
+
+		$this->assertEquals(1,$basket->getDeliveryFeeMultiplier());
+
+		$basket->setProductAmount($fridge,1);
+
+		$this->assertEquals(1,$basket->getDeliveryFeeMultiplier());
+
+		$basket->setProductAmount($fridge,2);
+		$basket->setProductAmount($black_tea,3);
+
+		$this->assertEquals(2,$basket->getDeliveryFeeMultiplier());
+
+		$basket->setProductAmount($stove,1);
+
+		$this->assertEquals(3,$basket->getDeliveryFeeMultiplier());
+
+		//
+
+		$this->assertEquals(1,$basket->getDeliveryFeeMultiplier($this->delivery_methods["dpd"]));
+		$this->assertEquals(3,$basket->getDeliveryFeeMultiplier($europallet));
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());

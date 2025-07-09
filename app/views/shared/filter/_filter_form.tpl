@@ -4,7 +4,7 @@
 	{if $form->get_fields()}
 		<div id="filter" class="pfilter">
 			<div class="pfilter__header">
-				<h3 class="pfilter__title">{t}Filtrace produktů{/t}</h3>
+				<div class="h3 pfilter__title">{t}Filtrace produktů{/t}</div>
 				{remove_if_contains_no_text}
 					<div class="pfilter__alt-filters js--filter_head">
 					{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}

@@ -83,6 +83,9 @@ require( "unobfuscatejs" );
 				new UTILS.WindowSync();
 				new UTILS.LiveStatusRefresher();
 
+				// password reveal 
+				new UTILS.PasswordReveal();
+
 			}
 
 		},
@@ -383,6 +386,12 @@ require( "unobfuscatejs" );
 			finish: function() {
 				// Emit basket update event
 				window.dispatchEvent( new Event( "basket_updated" ) );
+			}
+		},
+
+		tests: {
+			js_validation: function() {
+				new UTILS.FormValidator();
 			}
 		},
 

@@ -238,6 +238,37 @@ form#form_checkouts_summary {
 		padding-bottom: 0 !important;
 		margin-bottom: 4px !important;
 	}
+}
+
+form#form_checkouts_summary .form-group--id_confirmation {
+	&.form-group--has-error {
+		border: 2px solid $danger;
+		background-color: $danger;
+		border: none;
+		color: white;
+
+		position: relative;
+		&::before {
+			display: block;
+			background-color: $danger;
+			content: " ";
+			display: block;
+			position: absolute;
+			left: -6px;
+			top: -2px;
+			width: calc(100% + 12px);
+			height: calc(100% + 2px);
+			//border: 4px solid $danger;
+		}
+
+		label {
+			color: white;
+		}
+		.feedback.feedback--invalid {
+			background-color: inherit;
+			color: inherit;
+		}
+	}
 	.form-group--id_confirmation {
 		&.form-group--has-error {
 			//outline: 2px solid $danger;
@@ -255,7 +286,7 @@ form#form_checkouts_summary {
 				color: inherit;
 			}
 		}
-}
+	}
 }
 
 // search form
@@ -285,7 +316,7 @@ form#form_checkouts_summary {
 		//color: white;
 		border-radius: 0;
 		font-weight: 600;
-		&:focus {
+		&:focus:not(:focus-visible) {
 			outline: none;
 			box-shadow: none !important;
 		}
@@ -465,5 +496,69 @@ form#form_checkouts_set_billing_and_delivery_data {
 				flex-shrink: 0;
 			}
 		}
+	}
+}
+
+// Override browser auto validation so its result pseudocalsses is not visible
+// this probably is not needed
+form.was-validated {
+	.form-control {
+		&:valid, &:invalid {
+			border-color: $input-border-color !important;
+			background-image: none !important;
+		}
+		&.is-invalid, &.invalid, &.error {
+			border-color: $form-feedback-invalid-color !important;
+			background-image:  $form-feedback-icon-invalid !important;
+		}
+		&.is-valid, &.valid {
+			border-color: $form-feedback-valid-color !important;
+			background-image:  $form-feedback-icon-valid !important;
+		}
+	}
+	
+}
+
+form {
+	// These electors should behave the same as .is-valid, .is-invalid: 
+	// .invalid, .valid, .form-group--is-valid .form-control, .form-group--has-error .form-control
+	.form-control {
+		&.invalid, &.error {
+			@extend .is-invalid;
+			outline: 1px solid $form-feedback-invalid-color;
+		}
+		&.valid {
+			@extend .is-valid;
+		}
+	}
+	.form-group--has-error .form-control {
+		@extend .is-invalid;
+		outline: 1px solid $form-feedback-invalid-color;
+	}
+	.form-group--is-valid .form-control {
+		@extend .is-valid;
+	}
+
+	// radio buttons, checkboxes
+	.form-group--has-error .list--radios, // radios in server validation
+	.list--radios:has(input.error, .is-invalid), // radios js validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+	}
+
+	.form-group--checkbox .form-check:has(input.error, .is-invalid), // checkbox js validation
+	.form-group--checkbox.form-group--has-error .form-check  // checkbox server validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+		padding-right: $input-height-inner !important; // stylelint-disable-line declaration-no-important
+		background-image: escape-svg($form-feedback-icon-invalid);
+		background-repeat: no-repeat;
+		background-position: right $input-height-inner-quarter center;
+		background-size: $input-height-inner-half $input-height-inner-half;
+	}
+	// error feedback
+	.form-group > div.error {
+		color: $form-feedback-invalid-color;
+		margin-top: 0.1rem;
 	}
 }

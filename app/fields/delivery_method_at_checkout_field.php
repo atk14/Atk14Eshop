@@ -96,16 +96,17 @@ class DeliveryMethodChoice {
 		$highest_price = $incl_vat ? $o->getHighestPriceInclVat($delivery_countries) : $o->getHighestPrice($delivery_countries);
 		$highest_price = $highest_price / $rate;
 		$price = $lowest_price;
+		$multiplier = $basket->getDeliveryFeeMultiplier($o);
 		if($price == 0.0 || $basket->freeShipping($this->dm)){
 			$price = 0;
 		}elseif($lowest_price!=$highest_price){
-			$lowest = $this->_display_price($lowest_price);
-			$highest = $this->_display_price($highest_price);
+			$lowest = $this->_display_price($lowest_price,$multiplier);
+			$highest = $this->_display_price($highest_price,$multiplier);
 			//$price = "<span class=\"v-price--long\">" . sprintf(_("od %s do %s dle země doručení") . "</span>",$lowest,$highest);
 			//$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
 			$price = "<span class=\"v-price--long\">" . sprintf(_("cena od %s"),$lowest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
 		}else{
-			$price = $this->_display_price($price);
+			$price = $this->_display_price($price,$multiplier);
 		}
 		return $price;
 	}
@@ -114,7 +115,7 @@ class DeliveryMethodChoice {
 		return $this->dm->getLogo();
 	}
 
-	function _display_price($price,$options = []){
+	function _display_price($price,$multiplier,$options = []){
 		$basket = $this->options["basket"];
 		$currency = $basket->getCurrency();
 
@@ -125,8 +126,13 @@ class DeliveryMethodChoice {
 			"show_currency" => true,
 		];
 
+		$nbsp = html_entity_decode("&nbsp;");
 		$price = smarty_modifier_display_price($price,$options);
-		$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
+		$price = str_replace(" ",$nbsp,$price);
+		if($multiplier>1){
+			$times = html_entity_decode("&times;");
+			$price = "$multiplier{$nbsp}{$times}{$nbsp}$price";
+		}
 		return $price;
 	}
 }

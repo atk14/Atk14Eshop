@@ -332,7 +332,6 @@ class DeliveryService extends ApplicationModel {
 			"cp-balik_na_postu" =>	_("Česká Pošta - Balík na poštu"),
 			"cp-balikovna" =>			 	_("Česká Pošta - Balíkovna"),
 			"zasilkovna" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
-			"zasilkovna_v5" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
 			"gls" =>								"GLS",
 			"ppl" =>								"PPL",
 		];

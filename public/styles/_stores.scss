@@ -92,7 +92,7 @@
 	margin-bottom: $grid-gutter-width/2;
 	margin-top: 0 - $grid-gutter-width/2;
 	input.form-control {
-		&:focus {
+		&:focus:not(:focus-visible) {
 			box-shadow: none;
 		}
 		@include media-breakpoint-only(xs){

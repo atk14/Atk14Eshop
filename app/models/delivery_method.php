@@ -80,6 +80,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
 	}
 
+	function multiplyPrice(){
+		return $this->g("multiply_price");
+	}
+
 	function getDeliveryService() {
 		return Cache::Get("DeliveryService",$this->getDeliveryServiceId());
 	}

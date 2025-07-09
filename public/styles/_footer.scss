@@ -33,6 +33,14 @@ footer {
 	
 	.footer__main {
 		margin-bottom: $grid-gutter-width;
+		ul.list-unstyled {
+			li {
+				a {
+					display: block;
+					padding: 0.25em 0;
+				}
+			}
+		}
 	}
 	
 	.footer__smallprint {

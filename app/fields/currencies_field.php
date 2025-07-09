@@ -1,6 +1,8 @@
 <?php
 class CurrenciesField extends MultipleChoiceField {
 
+	var $json_encode;
+
 	function __construct($options = []){
 		$choices = [];
 		foreach(Currency::FindAll() as $currency){

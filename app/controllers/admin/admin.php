@@ -32,7 +32,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Link lists"),					"link_lists,link_list_items"),
 			array(_("Image sliders"),				"sliders,slider_items"),
 			array(_("Tags"),								"tags"),
-			array(_("Users"),								"users"),
+			array(_("Users"),								"users,user_special_pricelists"),
 			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators,creator_roles,creators,digital_contents"),
 			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
@@ -42,7 +42,8 @@ class AdminController extends ApplicationBaseController{
 			// array(_("Collections"),					"collections"), // Collections are obsolete in Atk14Eshop
 			array(_("Stores"),							"stores,special_opening_hours"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
-			array(_("Pricelists"),					"pricelists,pricelist_items"),
+			array(_("Price lists"),					"pricelists,pricelist_items"),
+			array(_("Special price lists"), "special_pricelists,special_pricelist_items"),
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),
@@ -138,6 +139,12 @@ class AdminController extends ApplicationBaseController{
 			sprintf(_("Editace objednávky %s"),$order->getOrderNo()),
 			$this->_link_to(["action" => "orders/edit", "id" => $order])
 		];
+	}
+
+	function _add_user_to_breadcrumbs($user){
+		if(!$user){ return; }
+
+		$this->breadcrumbs[] = [sprintf(_("Editing user %s"),$user),$this->_link_to(["action" => "users/edit", "id" => $user])];
 	}
 
 	/**

@@ -2,10 +2,6 @@ zasilkovna:
   code: zasilkovna
   name: "Zásilkovna"
 
-zasilkovna_v5:
-  code: zasilkovna_v5
-  name: "Zásilkovna (V5)"
-
 posta:
   code: posta
   name: "Pošta"
