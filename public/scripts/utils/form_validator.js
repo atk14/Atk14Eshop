@@ -13,6 +13,8 @@ window.UTILS = window.UTILS || { };
  * 
  */
 
+require( "jquery-validation" );
+
 window.UTILS.FormValidator = class {
   $ = window.jQuery;
 
