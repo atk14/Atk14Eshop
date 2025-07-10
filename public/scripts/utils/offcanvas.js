@@ -102,4 +102,8 @@ window.UTILS.OffcanvasBasket = function() {
 		};
 	} );
 
+	document.querySelector( "#offcanvas-basket" ).addEventListener( "hide.bs.offcanvas", function() {
+		$this.ariaLive( false );
+	} );
+
 };
