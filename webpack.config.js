@@ -30,6 +30,7 @@ var application_scripts = [
 	"./public/scripts/utils/card_detail.js",
 	"./public/scripts/utils/window_sync.js",
 	"./public/scripts/utils/live_status_refresher.js",
+	"./public/scripts/utils/flash_message.js",
 	"./public/scripts/application.js",
 ];
 

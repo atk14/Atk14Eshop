@@ -43,6 +43,12 @@ For more information see Bootstrap documentation.
 	<strong>Holy guacamole!</strong> You should check in on some of those fields below.
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+	<h4>Another dismissible alert</h4>
+	<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 [/example]
 
 ## Flash Message
@@ -51,9 +57,9 @@ Flash Message is alert which floats atop of page and disappears within seconds. 
 
 ```html
 <div class="flash_messages">
-	<div class="alert  show alert-success"><button type="button" class="close" data-bs-dismiss="alert">×</button>Flash Message Content</em>
+	<div class="alert show alert-success"><button type="button" class="close" data-bs-dismiss="alert">×</button>Flash Message Content
 	</div>
-	<div class="alert  show alert-warning"><button type="button" class="close" data-bs-dismiss="alert">×</button>Flash Message Content</em>
+	<div class="alert show alert-warning"><button type="button" class="close" data-bs-dismiss="alert">×</button>Flash Message Content
 	</div>
 </div>
 ```
