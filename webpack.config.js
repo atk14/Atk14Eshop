@@ -31,6 +31,8 @@ var application_scripts = [
 	"./public/scripts/utils/window_sync.js",
 	"./public/scripts/utils/live_status_refresher.js",
 	"./public/scripts/utils/flash_message.js",
+	"./public/scripts/utils/password_reveal.js",
+	"./public/scripts/utils/form_validator.js",
 	"./public/scripts/application.js",
 ];
 
