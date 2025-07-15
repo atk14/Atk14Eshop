@@ -28,7 +28,7 @@ SK:
   delivery_countries: '["SK"]'
   invoice_countries: '["SK"]'
   languages: '["sk"]'
-  domains: '[]'
+  domains: '["www.example.sk"]'
 
 EU:
   code: EU
@@ -40,4 +40,4 @@ EU:
   delivery_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
   invoice_countries: '["DE","AT","HU","PL","BE","FR","NL","EE","IT","LV","LT","IE","SI","BG","FI","RO","SE","PT","ES","DK","GR"]'
   languages: '["en"]'
-  domains: '[]'
+  domains: '["www.example.eu"]'
