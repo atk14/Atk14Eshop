@@ -13,6 +13,7 @@ Disallow: {link_to controller="baskets" action="index" lang=$lang}
 Disallow: {link_to controller="favourite_products" action="index" lang=$lang}
 Disallow: {link_to controller="watched_products" action="index" lang=$lang}
 Disallow: {link_to controller="cookie_consents" action="index" lang=$lang}
+Disallow: {link_to controller="searches" action="index" lang=$lang}
 {/foreach}
 Disallow: /*offset=*
 Disallow: /*order=*
