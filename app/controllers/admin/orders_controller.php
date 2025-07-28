@@ -84,8 +84,8 @@ class OrdersController extends AdminController {
 			$condition = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_ar).")",$search,$bind_ar);
 
 			if($condition){
-				$conditions[] = $condition;
-				$this->sorting->add("search","order_no LIKE :search||'%' DESC, created_at DESC");
+				$conditions[] = "($condition) OR id::VARCHAR=:search";
+				$this->sorting->add("search","order_no LIKE :search||'%' DESC, id::VARCHAR=:search DESC, created_at DESC");
 				$bind_ar[":search"] = $search;
 			}
 		}
@@ -177,7 +177,7 @@ class OrdersController extends AdminController {
 				$_fields_count = $this->_get_csv_fields_count($d["csv_file"]->getTmpFilename());
 				$additional_header_cp = [];
 				for($i=0;$i<$_fields_count;$i++) {
-					$additional_header_cp[] = "field_${i}";
+					$additional_header_cp[] = "field_$i";
 				}
 				$additional_header_cp[0] = "cislo_zasilky";
 				$additional_header_cp[22] = "var_symbol";
