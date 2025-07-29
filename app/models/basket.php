@@ -1048,7 +1048,7 @@ class Basket extends BasketOrOrder {
 		if(abs($delta)>=$currency->getLowestPrice()){
 			$amount = $delta > 0.0 ? 1 : -1;
 			$delta_product = Product::FindByCode("price_rounding");
-			$delta_vat_percent = $incl_vat ? $delta_product->getVatPercent() : 0.0;
+			$delta_vat_percent = $incl_vat ? $this->_getVatPercentForPriceRounding() : 0.0;
 			$delta_price = abs($delta);
 			//$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
 

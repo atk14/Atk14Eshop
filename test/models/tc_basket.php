@@ -1355,6 +1355,22 @@ class TcBasket extends TcBase {
 		$this->assertEquals(3,$basket->getDeliveryFeeMultiplier($europallet));
 	}
 
+	function test__getVatPercentForPriceRounding(){
+		$basket = Basket::CreateNewRecord4UserAndRegion($this->users["kveta"],$this->regions["czechoslovakia"]);
+		$default_vat_percent = VatRate::GetDefaultVatRate()->getVatPercent();
+
+		$this->assertEquals($default_vat_percent,$basket->_getVatPercentForPriceRounding());
+
+		$basket->setProductAmount($this->products["book"],1); // 10% VAT
+		$this->assertEquals(10.0,$basket->_getVatPercentForPriceRounding());
+
+		$basket->setProductAmount($this->products["strih_v_pdf_formatu"],1); // another product with 10% VAT
+		$this->assertEquals(10.0,$basket->_getVatPercentForPriceRounding());
+
+		$basket->setProductAmount($this->products["mint_tea"],1); // 21% (default_vat_percent)
+		$this->assertEquals(21.0,$basket->_getVatPercentForPriceRounding());
+	}
+
 	function _check_proper_price_rounding_on_items($items){
 		// bavlna_zelena: latky v cm se zaokrouhluji na 4 desetiny - v ceniku je 1.2342
 		$this->assertEquals(1.2342,$items[0]->getUnitPrice());
