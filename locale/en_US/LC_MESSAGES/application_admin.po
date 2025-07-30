@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:21+0100\n"
+"POT-Creation-Date: 2025-07-30 13:55+0200\n"
 "PO-Revision-Date: 2025-01-28 12:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -83,7 +83,7 @@ msgstr "Currently there are no attachments."
 msgid "Sales regions"
 msgstr "Sales regions"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:51
 #: ../app/forms/admin/bank_accounts/bank_accounts_form.php:26
 msgid "Currencies"
 msgstr "Currencies"
@@ -233,7 +233,7 @@ msgstr "Variants on product card <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:115
+#: ../app/controllers/admin/admin.php:116
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "invisible"
@@ -344,7 +344,7 @@ msgstr "No product has been found."
 #: ../app/controllers/admin/warehouse_items_controller.php:108
 #: ../app/forms/admin/card_cloning/create_new_form.php:12
 #: ../app/forms/admin/cards/cards_form.php:26
-#: ../app/forms/admin/orders/index_form.php:69
+#: ../app/forms/admin/orders/index_form.php:63
 #: ../app/forms/admin/products/products_form.php:6
 msgid "Catalog number"
 msgstr "Catalog number"
@@ -360,6 +360,7 @@ msgstr "Catalog number"
 #: ../app/forms/admin/customer_groups/customer_groups_form.php:6
 #: ../app/forms/admin/pricelists/pricelists_form.php:6
 #: ../app/forms/admin/regions/regions_form.php:6
+#: ../app/forms/admin/special_pricelists/special_pricelists_form.php:6
 #: ../app/forms/admin/stores/stores_form.php:6
 #: ../app/forms/admin/vat_rates/vat_rates_form.php:6
 #: ../app/forms/admin/warehouses/warehouses_form.php:6
@@ -529,11 +530,11 @@ msgstr "Subcategories"
 msgid "filter options"
 msgstr "filter options"
 
-#: ../app/controllers/admin/admin.php:111
+#: ../app/controllers/admin/admin.php:112
 msgid "filter"
 msgstr "filter"
 
-#: ../app/controllers/admin/admin.php:112
+#: ../app/controllers/admin/admin.php:113
 msgid "link"
 msgstr "link"
 
@@ -719,7 +720,7 @@ msgid "Cena s DPH"
 msgstr "Price incl. VAT"
 
 #: ../app/forms/admin/delivery_method_country_specifications/delivery_method_country_specifications_form.php:18
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:86
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:92
 msgid "Kód dopravy"
 msgstr "Transport code"
 
@@ -901,7 +902,7 @@ msgstr "Export emails in CSV"
 msgid "Změna stavu objednávky"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:51
+#: ../app/forms/admin/orders/index_form.php:45
 msgid "Stav objednávky"
 msgstr "Order status"
 
@@ -997,6 +998,7 @@ msgid "Doručovací adresa"
 msgstr "Delivery address"
 
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:11
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:11
 msgid "Cena"
 msgstr "Price"
 
@@ -1275,7 +1277,7 @@ msgstr ""
 msgid "IP adresa"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:39
+#: ../app/forms/admin/orders/index_form.php:33
 msgid "Stav platby"
 msgstr ""
 
@@ -1635,6 +1637,27 @@ msgstr ""
 msgid "zavřeno"
 msgstr ""
 
+msgid ""
+"Speciální ceníky jsou určeny ke správě výhodnějších cen nějaké typicky malé "
+"množiny produktů."
+msgstr ""
+
+msgid ""
+"Ceny lze stanovovat buďto konkrétní částkou nebo procentní slevou vůči "
+"ceníku daného zákazníka."
+msgstr ""
+
+msgid "Jeden zákazník může mít více speciálních ceníků."
+msgstr ""
+
+msgid "V této chvíli není založen žádný speciální ceník."
+msgstr ""
+
+msgid ""
+"You are about to permanently delete special pricelist %1\n"
+"\t\tAre you sure about that?"
+msgstr ""
+
 msgid "Special opening hours"
 msgstr ""
 
@@ -1772,6 +1795,17 @@ msgstr "regular user"
 
 msgid "deleted"
 msgstr "deleted"
+
+msgid "Adding a special pricelist"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/special_pricelists_controller.php:5
+msgid "Special price lists"
+msgstr ""
+
+msgid "There is no special price list attached to this user."
+msgstr ""
 
 msgid "Add a VAT rate"
 msgstr "Add a VAT rate"
@@ -1949,119 +1983,125 @@ msgstr "Warehouses"
 
 #: ../app/controllers/admin/admin.php:45
 #: ../app/controllers/admin/pricelists_controller.php:5
-msgid "Pricelists"
-msgstr "Pricelists"
+msgid "Price lists"
+msgstr ""
 
-#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/admin.php:47
 msgid "Discounts"
 msgstr "Discounts"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:48
 msgid "Delivery methods"
 msgstr "Delivery methods"
 
-#: ../app/controllers/admin/admin.php:48
+#: ../app/controllers/admin/admin.php:49
 msgid "Payment methods"
 msgstr "Payment methods"
 
-#: ../app/controllers/admin/admin.php:49
+#: ../app/controllers/admin/admin.php:50
 msgid "Combination of transports and payments"
 msgstr "Combination of transports and payments"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:52
 msgid "VAT rates"
 msgstr "VAT rates"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:53
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Password recoveries"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:54
 msgid "Newsletter subscribers"
 msgstr "Newsletter subscribers"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:55
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "404 Redirections"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:56
 msgid "Order statuses"
 msgstr "Order statuses"
 
-#: ../app/controllers/admin/admin.php:56
+#: ../app/controllers/admin/admin.php:57
 msgid "Selling regions"
 msgstr "Selling regions"
 
-#: ../app/controllers/admin/admin.php:57
+#: ../app/controllers/admin/admin.php:58
 #: ../app/forms/admin/users/users_form.php:48
 msgid "Customer groups"
 msgstr "Customer groups"
 
-#: ../app/controllers/admin/admin.php:58
+#: ../app/controllers/admin/admin.php:59
 msgid "Bank accounts"
 msgstr "Bank accounts"
 
-#: ../app/controllers/admin/admin.php:59
+#: ../app/controllers/admin/admin.php:60
 msgid "Cookie consent"
 msgstr "Cookie consent"
 
-#: ../app/controllers/admin/admin.php:60
+#: ../app/controllers/admin/admin.php:61
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "System preferences"
 
-#: ../app/controllers/admin/admin.php:98
+#: ../app/controllers/admin/admin.php:99
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:134
+#: ../app/controllers/admin/admin.php:135
 #: ../app/controllers/admin/orders_controller.php:107
 #, php-format
 msgid "Objednávka %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:138
+#: ../app/controllers/admin/admin.php:139
 #: ../app/controllers/admin/orders_controller.php:145
 #, php-format
 msgid "Editace objednávky %s"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:184
+#: ../app/controllers/admin/admin.php:147
+#: ../app/controllers/admin/users_controller.php:81
+#, php-format
+msgid "Editing user %s"
+msgstr "Editing user %s"
+
+#: ../app/controllers/admin/admin.php:191
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "List of objects of type %s"
 
-#: ../app/controllers/admin/admin.php:219
+#: ../app/controllers/admin/admin.php:226
 msgid "The record has been created"
 msgstr "The record has been created"
 
-#: ../app/controllers/admin/admin.php:233
+#: ../app/controllers/admin/admin.php:240
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Create an object of type %s"
 
-#: ../app/controllers/admin/admin.php:285
+#: ../app/controllers/admin/admin.php:292
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:320
+#: ../app/controllers/admin/admin.php:327
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:354
+#: ../app/controllers/admin/admin.php:361
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:476
+#: ../app/controllers/admin/admin.php:483
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:495
+#: ../app/controllers/admin/admin.php:502
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -2707,10 +2747,12 @@ msgid "Prices in pricelist %s"
 msgstr "Prices in pricelist %s"
 
 #: ../app/controllers/admin/pricelist_items_controller.php:46
+#: ../app/controllers/admin/special_pricelist_items_controller.php:46
 msgid "Nová cena"
 msgstr ""
 
 #: ../app/controllers/admin/pricelist_items_controller.php:56
+#: ../app/controllers/admin/special_pricelist_items_controller.php:56
 msgid "Editace ceny"
 msgstr ""
 
@@ -2818,6 +2860,11 @@ msgstr ""
 msgid "Mimořádná otevírací doba"
 msgstr ""
 
+#: ../app/controllers/admin/special_pricelist_items_controller.php:7
+#, php-format
+msgid "Prices in special_pricelist %s"
+msgstr ""
+
 #: ../app/controllers/admin/stores_controller.php:5
 msgid "List of stores"
 msgstr "List of stores"
@@ -2906,11 +2953,6 @@ msgstr "The user has been created successfully"
 msgid "Detail uživatele %s"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:81
-#, php-format
-msgid "Editing user %s"
-msgstr "Editing user %s"
-
 #: ../app/controllers/admin/users_controller.php:107
 msgid "The user entry has been updated"
 msgstr "The user entry has been updated"
@@ -2944,6 +2986,11 @@ msgstr "The user entry has been deleted"
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Now you are logged as <em>%s</em>"
+
+#: ../app/controllers/admin/user_special_pricelists_controller.php:8
+#, php-format
+msgid "Adding special pricelist to user %s"
+msgstr ""
 
 #: ../app/controllers/admin/vat_rates_controller.php:5
 msgid "List of VAT rates"
@@ -3260,7 +3307,7 @@ msgid "Pages of the manufacturer"
 msgstr "Pages of the manufacturer"
 
 #: ../app/forms/admin/brands/brands_form.php:22
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:95
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:101
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:82
 msgid "Logo"
 msgstr "Logo"
@@ -3306,6 +3353,7 @@ msgstr ""
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:53
 #: ../app/forms/admin/discounts/discounts_form.php:6
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:24
 msgid "Procentní sleva"
 msgstr ""
 
@@ -3510,6 +3558,7 @@ msgstr "Is product visible?"
 #: ../app/forms/admin/cards/cards_form.php:96
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:15
 #, php-format
 msgid "Cena bez DPH [%s]"
 msgstr ""
@@ -3517,6 +3566,7 @@ msgstr ""
 #: ../app/forms/admin/cards/cards_form.php:96
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:15
 #: ../app/forms/admin/products/create_new_form.php:12
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:15
 #, php-format
 msgid "Koncová cena [%s]"
 msgstr ""
@@ -3862,31 +3912,47 @@ msgid ""
 "obsahovat tento štítek. Ostatní metody nebudou použity."
 msgstr ""
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:87
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:86
+msgid "Násobit cenu dopravy počtem souvisejících produktů v košíku?"
+msgstr ""
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:88
+msgid ""
+"Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+"pro štítek\"."
+msgstr ""
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:93
 msgid "Pro systémové účely. Unikátní kód."
 msgstr ""
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:101
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:107
 msgid "URL pro sledování zásilky"
 msgstr ""
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:103
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:109
 msgid ""
 "Znak '@' v URL bude nahrazen číslem zásilky.<br>Např. 'https://www."
 "postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
 msgstr ""
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:114
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:120
 msgid "Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"
 msgstr ""
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:120
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:126
 msgid "Specify the price incl. VAT"
 msgstr "Specify the price incl. VAT"
 
-#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:123
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:129
 msgid "Specify the price"
 msgstr "Specify the price"
+
+#: ../app/forms/admin/delivery_methods/delivery_methods_form.php:135
+msgid ""
+"Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
+"štítek\" nebo \"Exkluzivně pro štítek\""
+msgstr ""
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:6
 #: ../app/forms/admin/orders/import_tracking_numbers_form.php:15
@@ -3916,6 +3982,7 @@ msgstr ""
 #: ../app/forms/admin/discounts/discounts_form.php:10
 #: ../app/forms/admin/order_items/order_items_form.php:6
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:6
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:6
 msgid "Produkt"
 msgstr ""
 
@@ -4103,7 +4170,7 @@ msgid "Sazba DPH za dopravu"
 msgstr ""
 
 #: ../app/forms/admin/orders/edit_form.php:28
-#: ../app/forms/admin/orders/index_form.php:27
+#: ../app/forms/admin/orders/index_form.php:21
 msgid "Způsob platby"
 msgstr ""
 
@@ -4153,31 +4220,31 @@ msgid "Soubor ve formátu csv s informacemi o podaných zásilkách"
 msgstr ""
 
 #: ../app/forms/admin/orders/index_form.php:11
-#: ../app/forms/admin/orders/index_form.php:19
+#: ../app/forms/admin/orders/index_form.php:16
 msgid "Datum od"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:29
+#: ../app/forms/admin/orders/index_form.php:23
 msgid "způsob platby"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:33
+#: ../app/forms/admin/orders/index_form.php:27
 msgid "stav online platby"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:45
+#: ../app/forms/admin/orders/index_form.php:39
 msgid "Způsob doručení"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:47
+#: ../app/forms/admin/orders/index_form.php:41
 msgid "způsob doručení"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:59
+#: ../app/forms/admin/orders/index_form.php:53
 msgid "všechny rozpracované objednávky"
 msgstr ""
 
-#: ../app/forms/admin/orders/index_form.php:66
+#: ../app/forms/admin/orders/index_form.php:60
 msgid "Objednaný produkt"
 msgstr ""
 
@@ -4305,7 +4372,8 @@ msgstr "Alternate text for the image, if the image cannot be displayed."
 
 #: ../app/forms/admin/pricelist_items/create_new_form.php:8
 #: ../app/forms/admin/pricelist_items/edit_form.php:13
-msgid "Stejná kombinace produktu, ceny a minimálního množství již existuje"
+#: ../app/forms/admin/special_pricelist_items/edit_form.php:13
+msgid "Stejná kombinace produktu a minimálního množství již existuje"
 msgstr ""
 
 #: ../app/forms/admin/pricelist_items/pricelist_items_form.php:23
@@ -4372,11 +4440,27 @@ msgstr ""
 msgid "Delivery to countries"
 msgstr "Delivery to countries"
 
+#: ../app/forms/admin/regions/regions_form.php:25
+msgid "Comma-separated list of country codes."
+msgstr ""
+
 #: ../app/forms/admin/regions/regions_form.php:29
+msgid "Invoice countries"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:31
+msgid "Comma-separated list of country codes eligible for invoicing."
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:31
+msgid "Empty value means no limit."
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:35
 msgid "Supported currencies"
 msgstr "Supported currencies"
 
-#: ../app/forms/admin/regions/regions_form.php:34
+#: ../app/forms/admin/regions/regions_form.php:40
 msgid "Currently, only one currency can be selected."
 msgstr "Currently, only one currency can be selected."
 
@@ -4466,6 +4550,14 @@ msgstr ""
 
 #: ../app/forms/admin/special_opening_hours/special_opening_hours_form.php:40
 msgid "Čas otevření do musí být větší než čas otevření od"
+msgstr ""
+
+#: ../app/forms/admin/special_pricelist_items/create_new_form.php:8
+msgid "Záznam pro tento produkt již v ceníku existuje"
+msgstr ""
+
+#: ../app/forms/admin/special_pricelist_items/special_pricelist_items_form.php:47
+msgid "Zadejte výlučně cenu nebo procentní slevu"
 msgstr ""
 
 #: ../app/forms/admin/stores/stores_form.php:26
@@ -4695,6 +4787,10 @@ msgstr "New password"
 msgid "Set password"
 msgstr "Set password"
 
+#: ../app/forms/admin/user_special_pricelists/create_new_form.php:6
+msgid "Special price list"
+msgstr ""
+
 #: ../app/forms/admin/users/users_form.php:20
 msgid "Firstname"
 msgstr "Firstname"
@@ -4860,25 +4956,28 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-msgid "Vypnout"
-msgstr "Disable"
+#~ msgid "Pricelists"
+#~ msgstr "Pricelists"
 
-msgid "Zapnout"
-msgstr "Enable"
+#~ msgid "Vypnout"
+#~ msgstr "Disable"
+
+#~ msgid "Zapnout"
+#~ msgstr "Enable"
 
 #, php-format
-msgid "This page is the profile page for another creator (%s)"
-msgstr "This page is the profile page for another creator (%s)"
+#~ msgid "This page is the profile page for another creator (%s)"
+#~ msgstr "This page is the profile page for another creator (%s)"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Edit stockount in warehouse %1"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Edit stockount in warehouse %1"
 
-msgid ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #~ msgid "Edit store"
 #~ msgstr "Edit store"

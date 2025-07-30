@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:21+0100\n"
+"POT-Creation-Date: 2025-07-30 13:55+0200\n"
 "PO-Revision-Date: 2025-01-28 12:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -91,30 +91,30 @@ msgstr "blue"
 msgid "green"
 msgstr "green"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
 msgid "Please enter a valid company registration number"
 msgstr "Please enter a valid company registration number"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:30
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:31
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:37
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:38
 msgid "Enter the company number as eight digits"
 msgstr "Enter the company number as eight digits"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:33
 msgid "Enter the company number as seven digits"
 msgstr "Enter the company number as seven digits"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:33
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:34
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:35
 msgid "Enter the company number as nine digits"
 msgstr "Enter the company number as nine digits"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:35
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:36
 msgid "Enter the company number as LV and eleven digits"
 msgstr "Enter the company number as LV and eleven digits"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:36
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:37
 msgid "Enter the company number as ten digits"
 msgstr "Enter the company number as ten digits"
 
@@ -424,14 +424,14 @@ msgstr "Enter seven digits"
 msgid "Enter five digits"
 msgstr "Enter five digits"
 
-msgid "Enter the ZIP code as NNN NN"
-msgstr "Enter the ZIP code as NNN NN"
+#~ msgid "Enter the ZIP code as NNN NN"
+#~ msgstr "Enter the ZIP code as NNN NN"
 
-msgid "od"
-msgstr "from"
+#~ msgid "od"
+#~ msgstr "from"
 
-msgid "do"
-msgstr "to"
+#~ msgid "do"
+#~ msgstr "to"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Enter valid phone number (+420.605123456)"

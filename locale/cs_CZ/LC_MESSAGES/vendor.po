@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:21+0100\n"
+"POT-Creation-Date: 2025-07-30 13:55+0200\n"
 "PO-Revision-Date: 2025-01-28 13:01+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -90,30 +90,30 @@ msgstr "modrá"
 msgid "green"
 msgstr "green"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:27
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:28
 msgid "Please enter a valid company registration number"
 msgstr "Zadejte platné IČ"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:30
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:31
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:37
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:38
 msgid "Enter the company number as eight digits"
 msgstr "Zadejte IČ ve formátu 8 číslic"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:32
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:33
 msgid "Enter the company number as seven digits"
 msgstr "Zadejte IČ ve formátu 7 číslic"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:33
 #: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:34
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:35
 msgid "Enter the company number as nine digits"
 msgstr "Zadejte IČ ve formátu 9 číslic"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:35
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:36
 msgid "Enter the company number as LV and eleven digits"
 msgstr "Zadejte IČ ve formátu LV a 11 číslic"
 
-#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:36
+#: ../vendor/atk14/company-number-field/src/app/fields/company_number_field.php:37
 msgid "Enter the company number as ten digits"
 msgstr "Zadejte číslo společnosti jako deset číslic"
 
@@ -423,11 +423,11 @@ msgstr "Zadejte sedm číslic"
 msgid "Enter five digits"
 msgstr "Zadejte pět číslic"
 
-msgid "od"
-msgstr "od"
+#~ msgid "od"
+#~ msgstr "od"
 
-msgid "do"
-msgstr "do"
+#~ msgid "do"
+#~ msgstr "do"
 
 #~ msgid "Enter the ZIP code as NNN NN"
 #~ msgstr "Zadejte PSČ ve formátu NNN NN"
