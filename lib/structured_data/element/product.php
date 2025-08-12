@@ -23,7 +23,7 @@ class Product extends \StructuredData\BaseElement {
 			"@context" => "https://schema.org",
 			"@type" => "Product",
 			"name" => $this->item->getName(),
-			"description" => $_description["t"],
+			"description" => isset($_description) ? $_description["t"] : "",
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
 		if ($_images = $this->item->getImages()) {
