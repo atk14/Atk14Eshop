@@ -13,11 +13,17 @@ class Product extends \StructuredData\BaseElement {
 		if (!$this->item->getFirstProduct()) {
 			return null;
 		}
+		# Search console has a limit 5000 characters for the length of description field. The length is calculated in JSON format.
+		# So we convert it to json, truncate and convert back to string.
+		$_description = new \String4(json_encode(strip_tags($this->item->getTeaser())));
+		$_description = $_description->truncate(5000, ["separator" => " "]);
+		$_description = sprintf("{\"t\":%s\"}",$_description->toString());
+		$_description = json_decode($_description, true);
 		$out = [
 			"@context" => "https://schema.org",
 			"@type" => "Product",
 			"name" => $this->item->getName(),
-			"description" => strip_tags($this->item->getTeaser()),
+			"description" => $_description["t"],
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
 		if ($_images = $this->item->getImages()) {
