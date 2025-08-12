@@ -17,7 +17,7 @@ class Product extends \StructuredData\BaseElement {
 			"@context" => "https://schema.org",
 			"@type" => "Product",
 			"name" => $this->item->getName(),
-			"description" => $this->item->getTeaser(),
+			"description" => strip_tags($this->item->getTeaser()),
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
 		if ($_images = $this->item->getImages()) {
