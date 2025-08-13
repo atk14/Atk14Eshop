@@ -17,7 +17,7 @@ class Product extends \StructuredData\BaseElement {
 		# So we convert it to json, truncate and convert back to string.
 		$_description = new \String4(json_encode(strip_tags($this->item->getTeaser())));
 		$_description = $_description->truncate(5000, ["separator" => " "]);
-		$_description = sprintf("{\"t\":%s\"}",$_description->toString());
+		$_description = sprintf('{"t":%s}',$_description->toString());
 		$_description = json_decode($_description, true);
 		$out = [
 			"@context" => "https://schema.org",
