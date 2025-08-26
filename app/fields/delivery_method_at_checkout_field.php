@@ -73,6 +73,9 @@ class DeliveryMethodChoice {
 		return $this->dm->getTitle();
 	}
 
+	/**
+	 * Returns null, 0.0 or a html snippet
+	 */
 	function getPrice() {
 		$o = $this->dm;
 		$rate = $this->options['currency_rate'];
@@ -97,14 +100,17 @@ class DeliveryMethodChoice {
 		$highest_price = $highest_price / $rate;
 		$price = $lowest_price;
 		$multiplier = $basket->getDeliveryFeeMultiplier($o);
-		if($price == 0.0 || $basket->freeShipping($this->dm)){
-			$price = 0;
+		if($highest_price == 0.0 || $basket->freeShipping($this->dm)){
+			$price = 0.0;
 		}elseif($lowest_price!=$highest_price){
 			$lowest = $this->_display_price($lowest_price,$multiplier);
 			$highest = $this->_display_price($highest_price,$multiplier);
 			//$price = "<span class=\"v-price--long\">" . sprintf(_("od %s do %s dle země doručení") . "</span>",$lowest,$highest);
-			//$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
-			$price = "<span class=\"v-price--long\">" . sprintf(_("cena od %s"),$lowest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			if($lowest_price == 0.0){
+				$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			}else{
+				$price = "<span class=\"v-price--long\">" . sprintf(_("cena od %s"),$lowest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			}
 		}else{
 			$price = $this->_display_price($price,$multiplier);
 		}
