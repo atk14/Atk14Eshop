@@ -20,15 +20,15 @@ jobs:
     - php: 7.4
       dist: focal
       addons:
-        postgresql: "12"
+        postgresql: "14"
     - php: 8.0
       dist: focal
       addons:
-        postgresql: "12"
+        postgresql: "14"
     - php: 8.1
       dist: focal
       addons:
-        postgresql: "12"
+        postgresql: "14"
     - name: "PHP: 8.2"
       dist: jammy
       language: ruby
