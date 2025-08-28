@@ -1,6 +1,10 @@
 <?php
 class InvoiceFile extends ApplicationModel implements Rankable {
 
+	static function GetInstancesForOrder($order){
+		return self::FindAll("order_id",$order);
+	}
+
 	/**
 	 *
 	 *	$invoice_file = InvoiceFile::CreateNewRecord(["order_id" => 123, "content" => "pdf content", ....]);
