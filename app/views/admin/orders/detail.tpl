@@ -182,7 +182,7 @@
 		<tr id="invoices">
 			<th>{t}Faktury{/t}</th>
 			<td>
-				{assign invoice_files InvoiceFile::FindAll("order_id",$order)}
+				{assign invoice_files InvoiceFile::GetInstancesForOrder($order)}
 				{capture assign=return_uri}{$request->getUri()}#invoices{/capture}
 				{dropdown_menu clearfix=false}
 				{a action="invoice_files/create_new" order_id=$order return_uri=$return_uri}{if $invoice_files}{t}Nahrát další fakturu{/t}{else}{t}Nahrát fakturu{/t}{/if}{/a}
