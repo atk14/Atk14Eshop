@@ -190,6 +190,10 @@ class InvoiceFile extends ApplicationModel implements Rankable {
 		return false;
 	}
 
+	function isDeletable(){
+		return true;
+	}
+
 	function destroy($destroy_for_real = null){
 		$ret = parent::destroy();
 		Files::Unlink($this->getFullPath());

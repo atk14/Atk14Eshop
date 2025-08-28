@@ -178,6 +178,7 @@
 			</td>
 		</tr>
 
+		{if INVOICES_ENABLED}
 		<tr id="invoices">
 			<th>{t}Faktury{/t}</th>
 			<td>
@@ -191,7 +192,9 @@
 						{foreach $invoice_files as $invoice_file}
 							<li>
 								<a href="{$invoice_file->getUrl()}">{$invoice_file->getFilename()}</a> {a action="invoice_files/edit" id=$invoice_file _class="btn btn-outline-primary btn-xs" _title="{t}Upravit fakturu{/t}"}{!"edit"|icon}{/a}
+								{if $invoice_file->isDeletable()}
 								{a_destroy action="invoice_files/destroy" id=$invoice_file _class="btn btn-danger btn-xs" _title="{t}Smazat fakturu{/t}"}{!"remove"|icon}{/a_destroy}
+								{/if}
 							</li>
 						{/foreach}
 					</ul>
@@ -200,6 +203,7 @@
 				{/if}
 			</td>
 		</tr>
+		{/if}
 
 	</tbody>
 </table>
