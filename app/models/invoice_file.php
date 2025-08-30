@@ -1,6 +1,10 @@
 <?php
 class InvoiceFile extends ApplicationModel implements Rankable {
 
+	const TYPE_INVOICE = 1;
+	const TYPE_STORNO = 2;
+	const TYPE_PROFORMA = 3;
+
 	static function GetInstancesForOrder($order){
 		return self::FindAll("order_id",$order);
 	}
@@ -183,15 +187,15 @@ class InvoiceFile extends ApplicationModel implements Rankable {
 	}
 
 	function isRegularInvoice(){
-		return true;
+		return $this->getInvoiceType()===self::TYPE_INVOICE;
 	}
 
 	function isProformaInvoice(){
-		return false;
+		return $this->getInvoiceType()===self::TYPE_PROFORMA;
 	}
 
 	function isStornoInvoice(){
-		return false;
+		return $this->getInvoiceType()===self::TYPE_STORNO;
 	}
 
 	function isDeletable(){

@@ -191,7 +191,8 @@
 					<ul>
 						{foreach $invoice_files as $invoice_file}
 							<li>
-								<a href="{$invoice_file->getUrl()}">{$invoice_file->getFilename()}</a> {a action="invoice_files/edit" id=$invoice_file _class="btn btn-outline-primary btn-xs" _title="{t}Upravit fakturu{/t}"}{!"edit"|icon}{/a}
+								<a href="{$invoice_file->getUrl()}">{$invoice_file->getFilename()}{if $invoice_file->isStornoInvoice()} ({t}storno{/t}){elseif $invoice_file->isProformaInvoice()} ({t}proforma{/t}){/if}</a>
+								{a action="invoice_files/edit" id=$invoice_file return_uri=$return_uri _class="btn btn-outline-primary btn-xs" _title="{t}Upravit fakturu{/t}"}{!"edit"|icon} {t}Edit{/t}{/a}
 								{if $invoice_file->isDeletable()}
 								{a_destroy action="invoice_files/destroy" id=$invoice_file _class="btn btn-danger btn-xs" _title="{t}Smazat fakturu{/t}"}{!"remove"|icon}{/a_destroy}
 								{/if}

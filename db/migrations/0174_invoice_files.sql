@@ -6,6 +6,7 @@ CREATE TABLE invoice_files (
 	order_id INT NOT NULL,
 	secret VARCHAR(255) NOT NULL,
 	--
+	invoice_type INT NOT NULL DEFAULT 1,
 	invoice_no VARCHAR(255),
 	document_date DATE, -- 
 	due_date DATE, -- datum splatnosti

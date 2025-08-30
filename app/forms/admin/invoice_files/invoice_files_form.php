@@ -2,6 +2,12 @@
 class InvoiceFilesForm extends AdminForm {
 
 	function set_up(){
+		$this->add_field("invoice_type", new InvoiceTypeField([
+			"label" => _("Typ dokladu"),
+			"max_length" => 255,
+			"initial" => InvoiceFile::TYPE_INVOICE,
+		]));
+
 		$this->add_field("invoice_no", new CharField([
 			"label" => _("Číslo dokladu"),
 			"max_length" => 255,
