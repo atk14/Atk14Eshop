@@ -1,7 +1,7 @@
 
 // For debug purposes
 
-$show_heading_tag_names: false;
+$show_heading_tag_names: false; // Set to true to show heading tag names in the browser
 
 // Writes tag name after each heading for easy heading hierarachy checking
 @if $show_heading_tag_names == true {

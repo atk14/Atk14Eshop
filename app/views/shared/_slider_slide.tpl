@@ -10,7 +10,7 @@
 		</div>
 		<div class="swiper-slide__text">
 			<div>
-				<h3 class="slide-title">{vlnka}{$item->getTitle()}{/vlnka}</h3>
+				<p class="h3 slide-title">{vlnka}{$item->getTitle()}{/vlnka}</p>
 				{if $item->getDescription()}
 					<p>{vlnka}{!$item->getDescription()|h|nl2br}{/vlnka}</p>
 				{/if}
