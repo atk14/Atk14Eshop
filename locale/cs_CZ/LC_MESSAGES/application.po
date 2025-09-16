@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-30 13:55+0200\n"
-"PO-Revision-Date: 2025-07-30 13:56+0200\n"
+"POT-Creation-Date: 2025-09-16 14:23+0200\n"
+"PO-Revision-Date: 2025-09-16 13:35+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -89,6 +89,9 @@ msgstr "Zaslala <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
+
+msgid "Posted on <time datetime=\"%1\">%2</time>"
+msgstr "Publikováno dne <time datetime=\"%1\">%2</time>"
 
 msgid ""
 "This is not a published article! It's not available to the public audience."
@@ -2195,7 +2198,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, no-php-format
+#, fuzzy, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 
@@ -2240,14 +2243,15 @@ msgstr "Tento způsob dopravy neexistuje"
 msgid "Choose pickup place for selected delivery method"
 msgstr "Vyberte výdejní místo pro vybraný způsob doručení"
 
-#: ../app/fields/delivery_method_at_checkout_field.php:107
+#: ../app/fields/delivery_method_at_checkout_field.php:110
+#: ../app/fields/delivery_method_at_checkout_field.php:112
+msgid "dle země doručení"
+msgstr "dle země doručení"
+
+#: ../app/fields/delivery_method_at_checkout_field.php:112
 #, php-format
 msgid "cena od %s"
 msgstr "cena od %s"
-
-#: ../app/fields/delivery_method_at_checkout_field.php:107
-msgid "dle země doručení"
-msgstr "dle země doručení"
 
 #: ../app/fields/delivery_method_field.php:14
 #: ../app/fields/payment_method_field.php:14
@@ -2395,6 +2399,10 @@ msgstr "Štítek <em>%s</em> neexistuje"
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
+
+#: ../app/fields/user_field.php:7
+msgid "Takový uživatel neexistuje"
+msgstr "Takový uživatel neexistuje"
 
 #: ../app/fields/vat_number_field.php:54
 msgid "DIČ není zadáno správně"
@@ -3198,63 +3206,63 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
+msgid "Enter the ZIP code as NNN NN"
+msgstr "Zadejte PSČ jako NNN NN"
+
+msgid "Žádné podací místo nebylo nalezeno"
+msgstr "Žádné podací místo nebylo nalezeno"
+
+msgid "Pobočka nebyla nalezena"
+msgstr "Pobočka nebyla nalezena"
+
+msgid "Object not found"
+msgstr "Objekt nebyl nalezen"
+
+msgid "Výdejní místo"
+msgstr "Výdejní místo"
+
+msgid "Zadejte psč, město nebo název provozovny"
+msgstr "Zadejte psč, město nebo název provozovny"
+
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "Pro opakování platby přejděte na adresu %1"
+
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+
+msgid "Checkout"
+msgstr "Pokladna"
+
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
+
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
+
+msgid "aktivovat hlídacího psa"
+msgstr "aktivovat hlídacího psa"
+
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
+
+msgid "searching ..."
+msgstr "hledání ..."
+
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
+
+msgid "Tvůrce"
+msgstr "Tvůrce"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nic nebylo nelezeno."
+
 #~ msgid "Potvrdit odběr novinek"
 #~ msgstr "Potvrdit odběr novinek"
-
-#~ msgid "Enter the ZIP code as NNN NN"
-#~ msgstr "Zadejte PSČ jako NNN NN"
-
-#~ msgid "Žádné podací místo nebylo nalezeno"
-#~ msgstr "Žádné podací místo nebylo nalezeno"
-
-#~ msgid "Pobočka nebyla nalezena"
-#~ msgstr "Pobočka nebyla nalezena"
-
-#~ msgid "Object not found"
-#~ msgstr "Objekt nebyl nalezen"
-
-#~ msgid "Výdejní místo"
-#~ msgstr "Výdejní místo"
-
-#~ msgid "Zadejte psč, město nebo název provozovny"
-#~ msgstr "Zadejte psč, město nebo název provozovny"
-
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "Pro opakování platby přejděte na adresu %1"
-
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-
-#~ msgid "Checkout"
-#~ msgstr "Pokladna"
-
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>cena od</small><br>%1"
-
-#~ msgid "naskladnění sleduje hlídací pes"
-#~ msgstr "naskladnění sleduje hlídací pes"
-
-#~ msgid "aktivovat hlídacího psa"
-#~ msgstr "aktivovat hlídacího psa"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "Zobrazit detaily"
-
-#~ msgid "searching ..."
-#~ msgstr "hledání ..."
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "cena od<br>%1"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Tvůrce"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nic nebylo nelezeno."
 
 #, php-format
 #~ msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
@@ -5297,3 +5305,10 @@ msgstr "obj. %s"
 
 #~ msgid "Welcome at ATK14 Mini Skelet!"
 #~ msgstr "Vítejte na ATK14 Mini Skelet!"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again!"
+#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
+
+#~ msgid "The file was not fully uploaded, please upload it again!"
+#~ msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"

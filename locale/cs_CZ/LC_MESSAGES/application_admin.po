@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-30 13:55+0200\n"
-"PO-Revision-Date: 2025-07-30 13:59+0200\n"
+"POT-Creation-Date: 2025-09-16 14:23+0200\n"
+"PO-Revision-Date: 2025-09-16 13:40+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -2054,7 +2054,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:57
 msgid "Selling regions"
-msgstr "Prodejní oblasti"
+msgstr "Prodejná oblasti"
 
 #: ../app/controllers/admin/admin.php:58
 #: ../app/forms/admin/users/users_form.php:48
@@ -2569,6 +2569,11 @@ msgstr "Soubor %s"
 #: ../app/controllers/admin/galleries_controller.php:11
 msgid "Nová fotogalerie"
 msgstr "Nová fotogalerie"
+
+#: ../app/controllers/admin/gallery_items_controller.php:8
+#, php-format
+msgid "Nový obrázek do fotogalerie %s"
+msgstr "Nový obrázek do fotogalerie %s"
 
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format
@@ -5037,26 +5042,26 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+msgid "sales regions"
+msgstr "prodejní oblasti"
+
+msgid "currencies"
+msgstr "měny"
+
+msgid "delivery to"
+msgstr "doručování do"
+
+msgid "currency"
+msgstr "měna"
+
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
 #~ msgid "Pricelists"
 #~ msgstr "Ceníky"
 
 #~ msgid "Stejná kombinace produktu, ceny a minimálního množství již existuje"
 #~ msgstr "Stejná kombinace produktu, ceny a minimálního množství již existuje"
-
-#~ msgid "sales regions"
-#~ msgstr "prodejní oblasti"
-
-#~ msgid "currencies"
-#~ msgstr "měny"
-
-#~ msgid "delivery to"
-#~ msgstr "doručování do"
-
-#~ msgid "currency"
-#~ msgstr "měna"
-
-#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #~ msgid "Vypnout"
 #~ msgstr "Vypnout"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-30 13:55+0200\n"
-"PO-Revision-Date: 2025-07-30 14:01+0200\n"
+"POT-Creation-Date: 2025-09-16 14:23+0200\n"
+"PO-Revision-Date: 2025-09-16 13:35+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -87,6 +87,9 @@ msgstr "Posted by <!-- she --> <em>%1</em> on <time datetime=\"%2\">%3</time>"
 
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
+
+msgid "Posted on <time datetime=\"%1\">%2</time>"
+msgstr "Posted on <time datetime=\"%1\">%2</time>"
 
 msgid ""
 "This is not a published article! It's not available to the public audience."
@@ -2204,7 +2207,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:18
-#, no-php-format
+#, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2249,14 +2252,15 @@ msgstr "There is no such delivery method"
 msgid "Choose pickup place for selected delivery method"
 msgstr "Choose pickup place for selected delivery method"
 
-#: ../app/fields/delivery_method_at_checkout_field.php:107
+#: ../app/fields/delivery_method_at_checkout_field.php:110
+#: ../app/fields/delivery_method_at_checkout_field.php:112
+msgid "dle země doručení"
+msgstr "according to the country of delivery"
+
+#: ../app/fields/delivery_method_at_checkout_field.php:112
 #, php-format
 msgid "cena od %s"
 msgstr "price from %s"
-
-#: ../app/fields/delivery_method_at_checkout_field.php:107
-msgid "dle země doručení"
-msgstr "according to the country of delivery"
 
 #: ../app/fields/delivery_method_field.php:14
 #: ../app/fields/payment_method_field.php:14
@@ -2403,6 +2407,10 @@ msgstr "There is no tag <em>%s</em>"
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Tag <em>%s</em> is there more than once"
+
+#: ../app/fields/user_field.php:7
+msgid "Takový uživatel neexistuje"
+msgstr "No such user exists"
 
 #: ../app/fields/vat_number_field.php:54
 msgid "DIČ není zadáno správně"
@@ -3206,137 +3214,137 @@ msgstr "Order No. %s in eshop %s"
 msgid "obj. %s"
 msgstr "ord. No. %s"
 
+#, php-format
+msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
+msgstr "Delivery address has not been selected for the shipping method '%s'"
+
+msgid "Enter the ZIP code as NNN NN"
+msgstr "Enter the ZIP code as NNN NN"
+
+msgid "Žádné podací místo nebylo nalezeno"
+msgstr "No dispensing point found"
+
+msgid "Pobočka nebyla nalezena"
+msgstr "Branch not found"
+
+msgid "Object not found"
+msgstr "Object not found"
+
+msgid "Výdejní místo"
+msgstr "Delivery point"
+
+msgid "Zadejte psč, město nebo název provozovny"
+msgstr "Enter a zip code, city, or business name"
+
+#, php-format
+msgid "od %s do %s dle země doručení"
+msgstr "from %s till %s according to the country of delivery"
+
+msgid "Běžná cena:"
+msgstr "Common price:"
+
+msgid "země"
+msgstr "country"
+
+#, php-format
+msgid "Telefonní číslo zadejte ve formátu %s"
+msgstr "Enter phone number in format %s"
+
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "To repeat the payment, go to %1"
+
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"To repeat your online payment <a href=\"%1\">click here</a>. In case of "
+"persistent problems, you can pay your order by bank transfer."
+
+msgid "Shipping and payment method"
+msgstr "Shipping and payment method"
+
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>price from</small><br>%1"
+
+msgid ""
+"K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
+"sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k zajištění "
+"vaší maximální spokojenosti. Používáním tohoto webu souhlasíte s tím, jak "
+"soubory cookies dále používáme."
+msgstr ""
+"We use so-called cookies to run %1 website. Cookies are files helping to "
+"adapt the ewb content, to measure its functionality and to ensure you "
+"maximum satisfaction. By using this web you agree with the way how we user "
+"the cookie files."
+
+msgid "Souhlasím"
+msgstr "I agree"
+
+msgid "Vytvořit novou adresu"
+msgstr "Create new address"
+
+msgid "Poznámka"
+msgstr "Note"
+
+msgid "Např. číslo patra nebo dveří"
+msgstr "E.g. number of floor or door"
+
+msgid "Poznámka k doručovací adrese"
+msgstr "Note to delivery address"
+
+msgid "Poznámka k objednávce"
+msgstr "Note to order"
+
+msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
+
+msgid "Pochlubte se přátelům s Vaším nákupem."
+msgstr "Share your shopping experience with your friends."
+
+msgid "Sdílet"
+msgstr "Share"
+
+msgid "zvolit pobočku"
+msgstr "choose a branch office"
+
+msgid "Pobočka: %1, %2, %3, %4"
+msgstr "Branch:  %1, %2, %3, %4"
+
+msgid "Zobrazit detaily"
+msgstr "View details"
+
+msgid "Ukázat na mapě"
+msgstr "Show on map"
+
+msgid "searching ..."
+msgstr "searching ..."
+
+msgid "Obchodní podmínky"
+msgstr "Terms and Conditions"
+
+msgid "cena od<br>%1"
+msgstr "price from<br>%1"
+
+msgid "Článek"
+msgstr "Article"
+
+msgid "Kategorie produktů"
+msgstr "Product category"
+
+msgid "Stránka"
+msgstr "Page"
+
+msgid "Tvůrce"
+msgstr "Creator"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nothing was found."
+
+msgid "cena od %1"
+msgstr "price from %1"
+
 #~ msgid "Potvrdit odběr novinek"
 #~ msgstr "Confirm newsletter subscription"
-
-#, php-format
-#~ msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
-#~ msgstr "Delivery address has not been selected for the shipping method '%s'"
-
-#~ msgid "Enter the ZIP code as NNN NN"
-#~ msgstr "Enter the ZIP code as NNN NN"
-
-#~ msgid "Žádné podací místo nebylo nalezeno"
-#~ msgstr "No dispensing point found"
-
-#~ msgid "Pobočka nebyla nalezena"
-#~ msgstr "Branch not found"
-
-#~ msgid "Object not found"
-#~ msgstr "Object not found"
-
-#~ msgid "Výdejní místo"
-#~ msgstr "Delivery point"
-
-#~ msgid "Zadejte psč, město nebo název provozovny"
-#~ msgstr "Enter a zip code, city, or business name"
-
-#, php-format
-#~ msgid "od %s do %s dle země doručení"
-#~ msgstr "from %s till %s according to the country of delivery"
-
-#~ msgid "Běžná cena:"
-#~ msgstr "Common price:"
-
-#~ msgid "země"
-#~ msgstr "country"
-
-#, php-format
-#~ msgid "Telefonní číslo zadejte ve formátu %s"
-#~ msgstr "Enter phone number in format %s"
-
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "To repeat the payment, go to %1"
-
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "To repeat your online payment <a href=\"%1\">click here</a>. In case of "
-#~ "persistent problems, you can pay your order by bank transfer."
-
-#~ msgid "Shipping and payment method"
-#~ msgstr "Shipping and payment method"
-
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>price from</small><br>%1"
-
-#~ msgid ""
-#~ "K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
-#~ "sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k "
-#~ "zajištění vaší maximální spokojenosti. Používáním tohoto webu souhlasíte "
-#~ "s tím, jak soubory cookies dále používáme."
-#~ msgstr ""
-#~ "We use so-called cookies to run %1 website. Cookies are files helping to "
-#~ "adapt the ewb content, to measure its functionality and to ensure you "
-#~ "maximum satisfaction. By using this web you agree with the way how we "
-#~ "user the cookie files."
-
-#~ msgid "Souhlasím"
-#~ msgstr "I agree"
-
-#~ msgid "Vytvořit novou adresu"
-#~ msgstr "Create new address"
-
-#~ msgid "Poznámka"
-#~ msgstr "Note"
-
-#~ msgid "Např. číslo patra nebo dveří"
-#~ msgstr "E.g. number of floor or door"
-
-#~ msgid "Poznámka k doručovací adrese"
-#~ msgstr "Note to delivery address"
-
-#~ msgid "Poznámka k objednávce"
-#~ msgstr "Note to order"
-
-#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-#~ msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
-
-#~ msgid "Pochlubte se přátelům s Vaším nákupem."
-#~ msgstr "Share your shopping experience with your friends."
-
-#~ msgid "Sdílet"
-#~ msgstr "Share"
-
-#~ msgid "zvolit pobočku"
-#~ msgstr "choose a branch office"
-
-#~ msgid "Pobočka: %1, %2, %3, %4"
-#~ msgstr "Branch:  %1, %2, %3, %4"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "View details"
-
-#~ msgid "Ukázat na mapě"
-#~ msgstr "Show on map"
-
-#~ msgid "searching ..."
-#~ msgstr "searching ..."
-
-#~ msgid "Obchodní podmínky"
-#~ msgstr "Terms and Conditions"
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "price from<br>%1"
-
-#~ msgid "Článek"
-#~ msgstr "Article"
-
-#~ msgid "Kategorie produktů"
-#~ msgstr "Product category"
-
-#~ msgid "Stránka"
-#~ msgstr "Page"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Creator"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nothing was found."
-
-#~ msgid "cena od %1"
-#~ msgstr "price from %1"
 
 #~ msgid "Add to cart"
 #~ msgstr "Add to cart"
@@ -3611,3 +3619,11 @@ msgstr "ord. No. %s"
 
 #~ msgid "Welcome at ATK14 Mini Skelet!"
 #~ msgstr "Welcome at ATK14 Mini Skelet!"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again!"
+#~ msgstr ""
+#~ "The file has been already deleted on the server, please upload it again!"
+
+#~ msgid "The file was not fully uploaded, please upload it again!"
+#~ msgstr "The file was not fully uploaded, please upload it again!"

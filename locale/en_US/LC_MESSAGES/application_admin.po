@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-30 13:55+0200\n"
-"PO-Revision-Date: 2025-01-28 12:22+0100\n"
+"POT-Creation-Date: 2025-09-16 14:23+0200\n"
+"PO-Revision-Date: 2025-09-16 13:41+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -2542,6 +2542,11 @@ msgstr "File %s"
 msgid "Nová fotogalerie"
 msgstr "New photogallery"
 
+#: ../app/controllers/admin/gallery_items_controller.php:8
+#, php-format
+msgid "Nový obrázek do fotogalerie %s"
+msgstr "New image to the photo gallery %s"
+
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format
 msgid "Photo gallery of the object %s#%s, section %s"
@@ -4956,28 +4961,28 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-#~ msgid "Pricelists"
-#~ msgstr "Pricelists"
+msgid "Pricelists"
+msgstr "Pricelists"
 
-#~ msgid "Vypnout"
-#~ msgstr "Disable"
+msgid "Vypnout"
+msgstr "Disable"
 
-#~ msgid "Zapnout"
-#~ msgstr "Enable"
+msgid "Zapnout"
+msgstr "Enable"
 
 #, php-format
-#~ msgid "This page is the profile page for another creator (%s)"
-#~ msgstr "This page is the profile page for another creator (%s)"
+msgid "This page is the profile page for another creator (%s)"
+msgstr "This page is the profile page for another creator (%s)"
 
-#~ msgid "Edit stockount in warehouse %1"
-#~ msgstr "Edit stockount in warehouse %1"
+msgid "Edit stockount in warehouse %1"
+msgstr "Edit stockount in warehouse %1"
 
-#~ msgid ""
-#~ "You are about to permanently delete user %1\n"
-#~ "Are you sure about that?"
-#~ msgstr ""
-#~ "You are about to permanently delete user %1\n"
-#~ "Are you sure about that?"
+msgid ""
+"You are about to permanently delete user %1\n"
+"Are you sure about that?"
+msgstr ""
+"You are about to permanently delete user %1\n"
+"Are you sure about that?"
 
 #~ msgid "Edit store"
 #~ msgstr "Edit store"
