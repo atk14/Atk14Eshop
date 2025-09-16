@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:18+0100\n"
-"PO-Revision-Date: 2025-03-27 17:23+0100\n"
+"POT-Creation-Date: 2025-09-16 13:48+0200\n"
+"PO-Revision-Date: 2025-09-16 13:35+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -79,6 +79,9 @@ msgstr ""
 
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
+
+msgid "Posted on <time datetime=\"%1\">%2</time>"
+msgstr "Publikováno dne <time datetime=\"%1\">%2</time>"
 
 msgid ""
 "This is not a published article! It's not available to the public audience."
@@ -206,9 +209,6 @@ msgstr ""
 
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "pro potvrzení odběru novinek klikněte na následující odkaz:"
-
-msgid "Potvrdit odběr novinek"
-msgstr "Potvrdit odběr novinek"
 
 msgid "Hello %1!"
 msgstr "Dobrý den %1!"
@@ -523,6 +523,9 @@ msgstr "Vytvořit nový záznam"
 
 msgid "Show menu"
 msgstr "Ukázat nabídku"
+
+msgid "Enlarge image"
+msgstr "Zvětšit obrázek"
 
 msgid "zavřít"
 msgstr "zavřít"
@@ -1086,6 +1089,10 @@ msgstr "Štítek <em>%s</em> neexistuje"
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
+
+#: ../app/fields/user_field.php:7
+msgid "Takový uživatel neexistuje"
+msgstr "Takový uživatel neexistuje"
 
 #: ../app/forms/api/categories_suggestions/index_form.php:5
 #: ../app/forms/api/suggestions/index_form.php:5
@@ -3166,6 +3173,9 @@ msgstr "PSČ zadejte ve tvaru 123 45"
 msgid "Request URL:"
 msgstr "Adresa URL požadavku:"
 
+#~ msgid "Potvrdit odběr novinek"
+#~ msgstr "Potvrdit odběr novinek"
+
 #~ msgid ""
 #~ "This is not a visible page! It's not available to the public audience."
 #~ msgstr "Toto není viditelná stránka! Není dostupná veřejnosti."
@@ -4177,3 +4187,10 @@ msgstr "Adresa URL požadavku:"
 
 #~ msgid "Welcome at ATK14 Mini Skelet!"
 #~ msgstr "Vítejte na ATK14 Mini Skelet!"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again!"
+#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
+
+#~ msgid "The file was not fully uploaded, please upload it again!"
+#~ msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
