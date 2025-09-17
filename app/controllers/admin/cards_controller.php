@@ -48,6 +48,7 @@ class CardsController extends AdminController{
 			$conditions[] = '('.join(') OR (',$ft_cond).')';
 			$this->sorting->add("search","
 				cards.id::VARCHAR=:search DESC,
+				cards.id IN (SELECT card_id FROM products WHERE catalog_id LIKE :search||'%') DESC,
 				cards.id::VARCHAR LIKE :search||'%' DESC,
 				UPPER($name) LIKE UPPER(:search||'%') DESC,
 				created_at DESC
