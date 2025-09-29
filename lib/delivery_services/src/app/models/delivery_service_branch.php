@@ -63,7 +63,7 @@ class DeliveryServiceBranch extends ApplicationModel {
 
 		$delivery_address = $data["delivery_address"];
 		foreach(["street","city","zip","country"] as $k) {
-			$out["delivery_address_${k}"] = $delivery_address[$k];
+			$out["delivery_address_{$k}"] = $delivery_address[$k];
 		}
 		//$out["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
 		$out["delivery_company"] = $delivery_address["place"];
