@@ -246,4 +246,23 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["product"] = $product = $watched_product->getProduct();
 		$this->subject = sprintf(_("Naskladnění produktu: %s"), "$product");
 	}
+
+	function notify_invoice_file($invoice_file){
+		$order = $invoice_file->getOrder();
+
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
+		$this->to = $order->getEmail();
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["invoice_file"] = $invoice_file;
+
+		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Vystavení daňového dokladu");
+		if($invoice_file->isProformaInvoice()){
+			$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Proforma faktura");
+		}elseif($invoice_file->isStornoInvoice()){
+			$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Vystavení storno daňového dokladu");
+		}
+
+		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
+	}
 }

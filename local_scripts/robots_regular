@@ -11,3 +11,4 @@ cd ..
 ./scripts/robot_runner watchdog_notifier
 ./scripts/robot_runner payment_status_checker
 ./scripts/robot_runner automatic_order_status_updater
+./scripts/robot_runner invoice_file_notifier

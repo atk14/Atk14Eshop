@@ -108,6 +108,8 @@ definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
 definedef("MAP_TILES_PROVIDER", "osm");
 definedef("MAP_TILES_API_KEY", "");
 
+definedef("INVOICES_ENABLED",false);
+definedef("INVOICES_DIRECTORY",__DIR__ . "/../data/invoices/");
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings

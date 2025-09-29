@@ -178,6 +178,8 @@
 			</td>
 		</tr>
 
+		{render partial="invoices"}
+
 	</tbody>
 </table>
 
