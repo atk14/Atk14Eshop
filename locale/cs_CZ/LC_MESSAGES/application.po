@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 13:48+0200\n"
-"PO-Revision-Date: 2025-09-16 13:35+0200\n"
+"POT-Creation-Date: 2025-10-01 13:16+0200\n"
+"PO-Revision-Date: 2025-10-01 13:10+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -944,12 +944,13 @@ msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
 #: ../app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
 
 #: ../app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
 
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
@@ -1293,7 +1294,7 @@ msgstr "neaktivní uživatel"
 msgid "administrator"
 msgstr "administrátor"
 
-#: ../app/widgets/async_file_input.php:20
+#: ../app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
@@ -3173,6 +3174,13 @@ msgstr "PSČ zadejte ve tvaru 123 45"
 msgid "Request URL:"
 msgstr "Adresa URL požadavku:"
 
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+
 #~ msgid "Potvrdit odběr novinek"
 #~ msgstr "Potvrdit odběr novinek"
 
@@ -4189,8 +4197,11 @@ msgstr "Adresa URL požadavku:"
 #~ msgstr "Vítejte na ATK14 Mini Skelet!"
 
 #~ msgid ""
-#~ "The file has been already deleted on the server, please upload it again!"
-#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
-
-#~ msgid "The file was not fully uploaded, please upload it again!"
-#~ msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
+#~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
+#~ "\">ATK14 Skelet</a> on a heavy diet. All the unnecessary meat has been "
+#~ "cut away and what's left would like to be the very basis of your web "
+#~ "application."
+#~ msgstr ""
+#~ "<em>ATK14 Mini Skelet</em> je <a href=\"https://skelet.atk14.net/\">ATK14 "
+#~ "Skelet</a> na přísné dietě. Veškeré zbytečné maso bylo odstraněno a to, "
+#~ "co zbylo, by mohlo být skutečným základem vaší webové aplikace."
