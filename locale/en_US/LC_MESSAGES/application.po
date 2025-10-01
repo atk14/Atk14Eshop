@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 14:23+0200\n"
-"PO-Revision-Date: 2025-09-16 13:35+0200\n"
+"POT-Creation-Date: 2025-10-01 13:19+0200\n"
+"PO-Revision-Date: 2025-10-01 13:24+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -501,6 +501,48 @@ msgstr "Hello,"
 msgid "pro zrušení odběru newsletteru navštivte následující odkaz:"
 msgstr "to unsubscribe from the newsletter, please visit the following link:"
 
+msgid "Vážený zákazníku,"
+msgstr "Dear customer,"
+
+msgid "Vaše objednávka č.%1"
+msgstr "Your order No. %1"
+
+#: ../app/controllers/application_mailer.php:261
+#: ../app/fields/invoice_type_field.php:9
+msgid "Proforma faktura"
+msgstr "Proforma invoice"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 Vám zasíláme proforma "
+"fakturu."
+msgstr ""
+"We are sending you a proforma invoice for your order in store %1 - marked %2."
+
+#: ../app/controllers/application_mailer.php:263
+msgid "Vystavení storno daňového dokladu"
+msgstr "Issuing a cancellation tax document"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 bylo vystaveno storno "
+"daňového dokladu."
+msgstr ""
+"A tax document cancellation has been issued for your order in store %1 - "
+"marked %2."
+
+#: ../app/controllers/application_mailer.php:259
+msgid "Vystavení daňového dokladu"
+msgstr "Issuing a tax document"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 byl vystaven daňový doklad."
+msgstr "A tax document has been issued for your order in store %1 - marked %2."
+
+msgid "Proforma fakturu najdete v příloze tohoto e-mailu."
+msgstr "You will find the proforma invoice attached to this email."
+
+msgid "Doklad najdete v příloze tohoto e-mailu."
+msgstr "You will find the document attached to this email."
+
 msgid "Dobrý den %1,"
 msgstr "Hello %1,"
 
@@ -514,9 +556,6 @@ msgstr "If you no longer wish to receive our news, you can unsubscribe at:"
 
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "click on the following link to confirm your subscription:"
-
-msgid "Vážený zákazníku,"
-msgstr "Dear customer,"
 
 msgid ""
 "V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili "
@@ -575,9 +614,6 @@ msgid ""
 "Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
 msgstr ""
 "If your browser crashed before completing your payment, proceed to this URL:"
-
-msgid "Vaše objednávka č.%1"
-msgstr "Your order No. %1"
 
 msgid "Hello %1!"
 msgstr "Hello %1!"
@@ -825,6 +861,15 @@ msgstr "Order status:"
 msgid "Stav platby: %1"
 msgstr "Payment status: %1"
 
+msgid "Storno faktura %1"
+msgstr "Cancellation invoice %1"
+
+msgid "Proforma faktura %1"
+msgstr "Proforma invoice %1"
+
+msgid "Faktura %1"
+msgstr "Invoice %1"
+
 msgid "Stáhnout digitální produkty"
 msgstr "Download digital products"
 
@@ -904,6 +949,7 @@ msgstr "Date of creation"
 msgid "Stav"
 msgstr "Status"
 
+#: ../app/fields/invoice_type_field.php:7
 msgid "Faktura"
 msgstr "Invoice"
 
@@ -1702,6 +1748,9 @@ msgid "Order %d"
 msgstr "Order %d"
 
 #: ../app/controllers/application_mailer.php:191
+#: ../app/controllers/application_mailer.php:259
+#: ../app/controllers/application_mailer.php:261
+#: ../app/controllers/application_mailer.php:263
 #: ../app/controllers/application.php:83
 #: ../app/controllers/orders_controller.php:46
 #, php-format
@@ -1946,6 +1995,11 @@ msgid ""
 msgstr ""
 "After download digital files of the order please log in as user <em>%s</em>"
 
+#: ../app/controllers/invoice_files_controller.php:17
+#, php-format
+msgid "Přihlašte se prosím jako uživatel <em>%s</em>"
+msgstr "Please log in as user <em>%s</em>"
+
 #: ../app/controllers/logins_controller.php:26
 #, php-format
 msgid ""
@@ -2141,13 +2195,14 @@ msgid "select administrator"
 msgstr "select administrator"
 
 #: ../app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
 msgstr ""
-"The file has been already deleted on the server, please upload it again"
+"The file has been already deleted on the server, please upload it again!"
 
 #: ../app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "The file was not fully uploaded, please upload it again"
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "The file was not fully uploaded, please upload it again!"
 
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
@@ -2207,7 +2262,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:18
-#, php-format
+#, no-php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2297,6 +2352,10 @@ msgstr "requires: %s"
 #: ../app/fields/hour_field.php:16
 msgid "Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"
 msgstr "This does not look as a record of time. It is supposed to be 12:00"
+
+#: ../app/fields/invoice_type_field.php:8
+msgid "Storno faktura"
+msgstr "Cancellation invoice"
 
 #: ../app/fields/login_field.php:11
 #, php-format
@@ -3078,7 +3137,7 @@ msgstr "Voucher %s cannot be applied"
 msgid "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 msgstr "Voucher %s can be applied only when the price is higher than %s"
 
-#: ../app/widgets/async_file_input.php:20
+#: ../app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Remove file"
 
@@ -3342,6 +3401,14 @@ msgstr "Nothing was found."
 
 msgid "cena od %1"
 msgstr "price from %1"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr ""
+#~ "The file has been already deleted on the server, please upload it again"
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "The file was not fully uploaded, please upload it again"
 
 #~ msgid "Potvrdit odběr novinek"
 #~ msgstr "Confirm newsletter subscription"
@@ -3619,11 +3686,3 @@ msgstr "price from %1"
 
 #~ msgid "Welcome at ATK14 Mini Skelet!"
 #~ msgstr "Welcome at ATK14 Mini Skelet!"
-
-#~ msgid ""
-#~ "The file has been already deleted on the server, please upload it again!"
-#~ msgstr ""
-#~ "The file has been already deleted on the server, please upload it again!"
-
-#~ msgid "The file was not fully uploaded, please upload it again!"
-#~ msgstr "The file was not fully uploaded, please upload it again!"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 14:23+0200\n"
-"PO-Revision-Date: 2025-09-16 13:35+0200\n"
+"POT-Creation-Date: 2025-10-01 13:19+0200\n"
+"PO-Revision-Date: 2025-10-01 13:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -499,6 +499,50 @@ msgstr "Dobrý den,"
 msgid "pro zrušení odběru newsletteru navštivte následující odkaz:"
 msgstr "pro zrušení odběru newsletteru navštivte následující odkaz:"
 
+msgid "Vážený zákazníku,"
+msgstr "Vážený zákazníku,"
+
+msgid "Vaše objednávka č.%1"
+msgstr "Vaše objednávka č.%1"
+
+#: ../app/controllers/application_mailer.php:261
+#: ../app/fields/invoice_type_field.php:9
+msgid "Proforma faktura"
+msgstr "Proforma faktura"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 Vám zasíláme proforma "
+"fakturu."
+msgstr ""
+"K Vaší objednávce v obchodě %1 - s označením %2 Vám zasíláme proforma "
+"fakturu."
+
+#: ../app/controllers/application_mailer.php:263
+msgid "Vystavení storno daňového dokladu"
+msgstr "Vystavení storno daňového dokladu"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 bylo vystaveno storno "
+"daňového dokladu."
+msgstr ""
+"K Vaší objednávce v obchodě %1 - s označením %2 bylo vystaveno storno "
+"daňového dokladu."
+
+#: ../app/controllers/application_mailer.php:259
+msgid "Vystavení daňového dokladu"
+msgstr "Vystavení daňového dokladu"
+
+msgid ""
+"K Vaší objednávce v obchodě %1 - s označením %2 byl vystaven daňový doklad."
+msgstr ""
+"K Vaší objednávce v obchodě %1 - s označením %2 byl vystaven daňový doklad."
+
+msgid "Proforma fakturu najdete v příloze tohoto e-mailu."
+msgstr "Proforma fakturu najdete v příloze tohoto e-mailu."
+
+msgid "Doklad najdete v příloze tohoto e-mailu."
+msgstr "Doklad najdete v příloze tohoto e-mailu."
+
 msgid "Dobrý den %1,"
 msgstr "Dobrý den %1,"
 
@@ -514,9 +558,6 @@ msgstr ""
 
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "pro potvrzení odběru novinek klikněte na následující odkaz:"
-
-msgid "Vážený zákazníku,"
-msgstr "Vážený zákazníku,"
 
 msgid ""
 "V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili "
@@ -575,9 +616,6 @@ msgid ""
 "Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
 msgstr ""
 "Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
-
-msgid "Vaše objednávka č.%1"
-msgstr "Vaše objednávka č.%1"
 
 msgid "Hello %1!"
 msgstr "Dobrý den %1!"
@@ -819,6 +857,15 @@ msgstr "Stav objednávky:"
 msgid "Stav platby: %1"
 msgstr "Stav platby: %1"
 
+msgid "Storno faktura %1"
+msgstr "Storno faktura %1"
+
+msgid "Proforma faktura %1"
+msgstr "Proforma faktura %1"
+
+msgid "Faktura %1"
+msgstr "Faktura %1"
+
 msgid "Stáhnout digitální produkty"
 msgstr "Stáhnout digitální produkty"
 
@@ -899,6 +946,7 @@ msgstr "Datum vytvoření"
 msgid "Stav"
 msgstr "Stav"
 
+#: ../app/fields/invoice_type_field.php:7
 msgid "Faktura"
 msgstr "Faktura"
 
@@ -1696,6 +1744,9 @@ msgid "Order %d"
 msgstr "Objednávka %d"
 
 #: ../app/controllers/application_mailer.php:191
+#: ../app/controllers/application_mailer.php:259
+#: ../app/controllers/application_mailer.php:261
+#: ../app/controllers/application_mailer.php:263
 #: ../app/controllers/application.php:83
 #: ../app/controllers/orders_controller.php:46
 #, php-format
@@ -1939,6 +1990,11 @@ msgstr ""
 "Pro stažení digitálních souborů z objednávky se prosím přihlaste jako "
 "uživatel <em>%s</em>"
 
+#: ../app/controllers/invoice_files_controller.php:17
+#, php-format
+msgid "Přihlašte se prosím jako uživatel <em>%s</em>"
+msgstr "Přihlašte se prosím jako uživatel <em>%s</em>"
+
 #: ../app/controllers/logins_controller.php:26
 #, php-format
 msgid ""
@@ -2133,12 +2189,13 @@ msgid "select administrator"
 msgstr "vyberte administrátora"
 
 #: ../app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
 
 #: ../app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
 
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
@@ -2198,7 +2255,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, php-format
+#, fuzzy, no-php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 
@@ -2288,6 +2345,10 @@ msgstr "vyžaduje: %s"
 #: ../app/fields/hour_field.php:16
 msgid "Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"
 msgstr "Toto nevypadá jako zápis hodin. Je očekáván zápis 12:00"
+
+#: ../app/fields/invoice_type_field.php:8
+msgid "Storno faktura"
+msgstr "Storno faktura"
 
 #: ../app/fields/login_field.php:11
 #, php-format
@@ -3070,7 +3131,7 @@ msgstr "Voucher %s již nelze použít"
 msgid "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 msgstr "Voucher %s lze použít až při minimálním obnosu %s za zboží"
 
-#: ../app/widgets/async_file_input.php:20
+#: ../app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
@@ -3260,6 +3321,13 @@ msgstr "Tvůrce"
 
 msgid "Nic nebylo nelezeno."
 msgstr "Nic nebylo nelezeno."
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #~ msgid "Potvrdit odběr novinek"
 #~ msgstr "Potvrdit odběr novinek"
@@ -5307,8 +5375,11 @@ msgstr "Nic nebylo nelezeno."
 #~ msgstr "Vítejte na ATK14 Mini Skelet!"
 
 #~ msgid ""
-#~ "The file has been already deleted on the server, please upload it again!"
-#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
-
-#~ msgid "The file was not fully uploaded, please upload it again!"
-#~ msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
+#~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
+#~ "\">ATK14 Skelet</a> on a heavy diet. All the unnecessary meat has been "
+#~ "cut away and what's left would like to be the very basis of your web "
+#~ "application."
+#~ msgstr ""
+#~ "<em>ATK14 Mini Skelet</em> je <a href=\"https://skelet.atk14.net/\">ATK14 "
+#~ "Skelet</a> na přísné dietě. Veškeré zbytečné maso bylo odstraněno a to, "
+#~ "co zbylo, by mohlo být skutečným základem vaší webové aplikace."
