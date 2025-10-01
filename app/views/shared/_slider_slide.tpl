@@ -22,15 +22,16 @@
 			</div>
 		</div>
 	{else}
+		{capture assign=banner_default_alt}{t 1=$slide_number+1}Banner %1{/t}{/capture}
 		{if $item->getUrl()}
-			<a href="{$item->getUrl()}" aria-label="{$item->getTitle()}">
+			<a href="{$item->getUrl()}" aria-label="{$item->getTitle()|default:$banner_default_alt}">
 		{/if}
-			<img src="{$item->getImageUrl()|img_url:$geometry_lg}" class="d-none d-md-block img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
+			<img src="{$item->getImageUrl()|img_url:$geometry_lg}" class="d-none d-md-block img-fluid" alt="{$item->getTitle()|default:$banner_default_alt}" width="{$item->getImageUrl()|img_width:$geometry_lg}" height="{$item->getImageUrl()|img_height:$geometry_lg}">
 			{if $item->getSmallImageUrl()}
-				<img src="{$item->getSmallImageUrl()|img_url:$geometry_sm_fullheight}" class="d-none d-sm-block d-md-none img-fluid" alt="{$item->getTitle()}" width="{$item->getSmallImageUrl()|img_width:$geometry_sm_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_sm_fullheight}">
-				<img src="{$item->getSmallImageUrl()|img_url:$geometry_xs_fullheight}" class="d-block d-sm-none img-fluid" alt="{$item->getTitle()}" width="{$item->getSmallImageUrl()|img_width:$geometry_xs_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_xs_fullheight}">
+				<img src="{$item->getSmallImageUrl()|img_url:$geometry_sm_fullheight}" class="d-none d-sm-block d-md-none img-fluid" alt="{$item->getTitle()|default:$banner_default_alt}" width="{$item->getSmallImageUrl()|img_width:$geometry_sm_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_sm_fullheight}">
+				<img src="{$item->getSmallImageUrl()|img_url:$geometry_xs_fullheight}" class="d-block d-sm-none img-fluid" alt="{$item->getTitle()|default:$banner_default_alt}" width="{$item->getSmallImageUrl()|img_width:$geometry_xs_fullheight}" height="{$item->getSmallImageUrl()|img_height:$geometry_xs_fullheight}">
 			{else}
-				<img src="{$item->getImageUrl()|img_url:$geometry_sm}" class="d-block d-md-none img-fluid" alt="{$item->getTitle()}" width="{$item->getImageUrl()|img_width:$geometry_sm}" height="{$item->getImageUrl()|img_height:$geometry_sm}">
+				<img src="{$item->getImageUrl()|img_url:$geometry_sm}" class="d-block d-md-none img-fluid" alt="{$item->getTitle()|default:$banner_default_alt}" width="{$item->getImageUrl()|img_width:$geometry_sm}" height="{$item->getImageUrl()|img_height:$geometry_sm}">
 			{/if}
 		{if $item->getUrl()}
 			</a>
