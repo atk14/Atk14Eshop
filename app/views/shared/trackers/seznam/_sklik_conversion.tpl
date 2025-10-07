@@ -4,10 +4,10 @@
 
 {if $seznam_sklik_id && $track_order}
 <!-- Měřicí kód Sklik.cz -->
-<script type="text/javascript">
+{javascript_tag}
 var seznam_cId = {$seznam_sklik_id};
 var seznam_value = {$order->getPriceToPay()};
-</script>
+{/javascript_tag}
 <script type="text/javascript" src="https://www.seznam.cz/rs/static/rc.js" async></script>
 {/if}
 
