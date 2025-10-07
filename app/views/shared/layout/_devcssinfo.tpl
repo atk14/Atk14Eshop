@@ -16,7 +16,7 @@
 		}
 		devinfocss_update( null );
 	{/javascript_tag}
-	<style scoped="true">
+	{style_tag scoped="true"}
 		#js-devcssinfo {
 			position: fixed;
 			bottom: 10px;
@@ -34,6 +34,6 @@
 			transform: scale(2);
 			transition: transform 0.05s;
 		}
-	</style>
+	{/style_tag}
 </div>
 {/if}
