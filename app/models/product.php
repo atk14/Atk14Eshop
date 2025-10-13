@@ -13,6 +13,8 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	}
 
 	static function GetInstanceByCatalogId($catalog_id){
+		if(is_null($catalog_id)){ return; }
+		$catalog_id = (string)$catalog_id;
 		($product = Product::FindByCatalogId($catalog_id,array("use_cache" => true))) ||
 		($product = Product::FindFirst(array(
 			"conditions" => "deleted='t' AND catalog_id LIKE :catalog_id||'~%'",
@@ -286,6 +288,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 	 */
 	function getMaximumQuantityToOrder($options = []){
 		$options += [
+			"warehouses" => null,
 			"real_quantity" => false, // true - do not care of consider_stockcount
 		];
 
@@ -293,7 +296,7 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 			// Skladova zasoba se v tomto pripade pri stanoveni max. mnozstvi neuvazuje
 			return null;
 		}
-		$stockcount = $this->getStockcount();
+		$stockcount = $this->getStockcount($options["warehouses"]);
 		$hidden_stock_reserva = $this->getHiddenStockReserve();
 		$blocation = $this->getStockcountBlocation();
 
@@ -443,6 +446,16 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 		$unit = $this->getUnit();
 		return $this->getStockcount()>=$unit->getMinimumStockcountForQuantityDiscounts();
+	}
+
+	/**
+	 * Can a campaign or voucher discount be applied on this product?
+	 *
+	 */
+	function invoiceDiscountAllowed(){
+		$card = $this->getCard();
+		$product_type = $card->getProductType();
+		return $product_type->invoiceDiscountAllowed();
 	}
 
 	/**

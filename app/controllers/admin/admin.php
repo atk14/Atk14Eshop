@@ -32,7 +32,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Link lists"),					"link_lists,link_list_items"),
 			array(_("Image sliders"),				"sliders,slider_items"),
 			array(_("Tags"),								"tags"),
-			array(_("Users"),								"users"),
+			array(_("Users"),								"users,user_special_pricelists"),
 			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators,creator_roles,creators,digital_contents"),
 			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
@@ -40,9 +40,10 @@ class AdminController extends ApplicationBaseController{
 			array(_("Campaigns"),						"campaigns"),
 			array(_("Brands"),							"brands"),
 			// array(_("Collections"),					"collections"), // Collections are obsolete in Atk14Eshop
-			array(_("Stores"),							"stores"),
+			array(_("Stores"),							"stores,special_opening_hours"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
-			array(_("Pricelists"),					"pricelists,pricelist_items"),
+			array(_("Price lists"),					"pricelists,pricelist_items"),
+			array(_("Special price lists"), "special_pricelists,special_pricelist_items"),
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),
@@ -85,6 +86,12 @@ class AdminController extends ApplicationBaseController{
 		$this->breadcrumbs[] = array($card->getName(),$this->_link_to(array("action" => "cards/edit", "id" => $card)));
 	}
 
+	function _add_product_to_breadcrumbs($product){
+		if(!$product){ return; }
+		$title = $product->getLabel() ? $product->getLabel() : "$product";
+		$this->breadcrumbs[] = array($title,$this->_link_to(array("action" => "products/edit", "id" => $product)));
+	}
+
 	function _add_category_to_breadcrumbs($category){
 		if(!$category){ return; }
 
@@ -105,6 +112,15 @@ class AdminController extends ApplicationBaseController{
 			if($a->isFilter()){ $name = _("filter").": $name"; }
 			if($a->isAlias()){ $name = _("link").": $name"; }
 
+			$flags = [];
+			if(!$a->isVisible(false)){ $flags[] = _("invisible"); }
+			
+			// here is the place for adding custom flags...
+
+			if($flags){
+				$name .= " (".join(", ",$flags).")";
+			}
+
 			$this->breadcrumbs[] = array(
 				$name,
 				$this->_link_to(array("action" => "categories/edit", "id" => $a))
@@ -123,6 +139,12 @@ class AdminController extends ApplicationBaseController{
 			sprintf(_("Editace objednávky %s"),$order->getOrderNo()),
 			$this->_link_to(["action" => "orders/edit", "id" => $order])
 		];
+	}
+
+	function _add_user_to_breadcrumbs($user){
+		if(!$user){ return; }
+
+		$this->breadcrumbs[] = [sprintf(_("Editing user %s"),$user),$this->_link_to(["action" => "users/edit", "id" => $user])];
 	}
 
 	/**
@@ -537,7 +559,7 @@ class AdminController extends ApplicationBaseController{
 		foreach($keys as $key){
 			switch($key){
 				case "created_at":
-					$this->sorting->add("created_at",array("reverse" => true));
+					$this->sorting->add("created_at","created_at DESC, id DESC","created_at ASC, id ASC");
 					break;
 				case "login":
 				case "name":
@@ -548,7 +570,7 @@ class AdminController extends ApplicationBaseController{
 					$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, id DESC","COALESCE(updated_at,'2000-01-01') ASC, id ASC");
 					break;
 				case "published_at":
-					$this->sorting->add("published_at",array("reverse" => true));
+					$this->sorting->add("published_at","published_at DESC, id DESC","published_at ASC, id ASC");
 					break;
 				case "is_admin":
 					$this->sorting->add("is_admin","is_admin DESC, UPPER(login)","is_admin ASC, UPPER(login)");

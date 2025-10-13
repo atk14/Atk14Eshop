@@ -1,4 +1,5 @@
 $("#remote_modal_id").remove();
+$(".modal-backdrop").remove();
 
 var $modal = $({jstring}{modal id=remote_modal_id vertically_centered=1 title="Remote modal"}
 	<p>Toto je remote modal vertikálně centrovaný.</p>

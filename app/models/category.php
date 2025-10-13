@@ -32,6 +32,33 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return Category::FindAll("parent_category_id",$parent_category,$options);
 	}
 
+	/**
+	 * Prefetches all parents for the given category into the cache
+	 */
+	static function PrecacheParentsForCategory($category){
+		static $parents;
+		if(is_null($category)){ return; }
+		if(is_null($parents)){
+			$dbmole = self::GetDbMole();
+			$parents = $dbmole->selectIntoAssociativeArray("SELECT id,parent_category_id FROM categories");
+		}
+		$id = TableRecord::ObjToId($category);
+		Cache::Prepare("Category",$id);
+		while(isset($parents[$id])){
+			Cache::Prepare("Category",$parents[$id]);
+			$id = $parents[$id];
+		}
+	}
+
+	/**
+	 * Prefetches all parents for all the given categories into the cache
+	 */
+	static function PrecacheParentsForCategories($categories){
+		foreach($categories as $category){
+			self::PrecacheParentsForCategory($category);
+		}
+	}
+
 	function realMeId() { return $this->getPointingToCategoryId()?:$this->getId();}
 	function realMe() { return $this->getPointingToCategoryId()?$this->getPointingToCategory():$this;}
 
@@ -299,7 +326,12 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return join('/',$slugs);
 	}
 
-	function getNamePath($lang = null, $options=array()){
+	function getNamePath($lang = null, $options = array()){
+		if(is_array($lang)){
+			$options = $lang;
+			$lang = null;
+		}
+
 		$options += array(
 			"glue" => "/",
 		);
@@ -325,8 +357,14 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 		return $this->getCardsLister()->getRecords(["preread_data" => false]);
 	}
 
-	function getVisibleCards(){
+	function getVisibleCards($options = []){
+		$options += [
+			"limit" => null,
+		];
 		$cards = array_filter($this->getCards(),function($card){ return $card->isVisible() && !$card->isDeleted(); });
+		if($options["limit"]){
+			$cards = array_slice($cards,0,$options["limit"]);
+		}
 		return array_values($cards);
 	}
 	
@@ -543,25 +581,56 @@ class Category extends ApplicationModel implements Translatable, Rankable, iSlug
 	}
 
 	function containsTag($tag,$options = []){
+		static $CACHE = [];
+
 		$options += [
 			"consider_parents" => false,
 		];
 
-		$tag = $this->_cleanTag($tag);
+		$consider_parents = $options["consider_parents"];
 
-		if($this->getTagsLister()->contains($tag)){
+		$tag = $this->_cleanTag($tag);
+		if(!$tag){ return false; }
+
+		$cache_key = join(",",[$this->getId(),$tag->getId(),$consider_parents ? 1 : 0]);
+		$direct_cache_key = join(",",[$this->getId(),$tag->getId(),0]);
+
+		if(isset($CACHE[$cache_key])){ return $CACHE[$cache_key]; }
+
+		if(isset($CACHE[$direct_cache_key]) && ($CACHE[$direct_cache_key] || !$consider_parents)){
+			$CACHE[$cache_key] = $CACHE[$direct_cache_key];
+			return $CACHE[$direct_cache_key];
+		}
+
+		if(!isset($CACHE[$direct_cache_key])){
+			$CACHE[$direct_cache_key] = $this->getTagsLister()->contains($tag);
+		}
+
+		if($CACHE[$direct_cache_key]){
+			$CACHE[$cache_key] = true;
 			return true;
 		}
-		if($options["consider_parents"]){
-			$c = $this;
+
+		if($consider_parents){
+			$c = $this->getParentCategory();
 			while($c){
-				if($c->getTagsLister()->contains($tag)){
+				$direct_cache_key = join(",",[$c->getId(),$tag->getId(),0]);
+				if(!isset($CACHE[$direct_cache_key])){
+					$CACHE[$direct_cache_key] = $c->getTagsLister()->contains($tag);
+				}
+				if($CACHE[$direct_cache_key]){
+					$CACHE[$cache_key] = true;
 					return true;
 				}
 				$c = $c->getParentCategory();
 			}
 		}
-		return false;
+
+		if(!isset($CACHE[$cache_key])){
+			$CACHE[$cache_key] = false;
+		}
+
+		return $CACHE[$cache_key];
 	}
 	function hasTag($tag,$options = []) { return $this->containsTag($tag,$options); }
 

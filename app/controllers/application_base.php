@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class ApplicationBaseController extends Atk14Controller{
 
 	/**
@@ -49,6 +50,15 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $favourite_products_accessor;
 
+	/**
+	 * @var Atk14Session
+	 */
+	var $permanentSession;
+
+	/**
+	 * @var StructuredData\Collector
+	 */
+	var $structured_data;
 
 	function error404(){
 		if($this->_redirected_on_error404()){
@@ -167,7 +177,11 @@ class ApplicationBaseController extends Atk14Controller{
 			'session_name' => 'permanent'
 		]));
 
-		$this->current_region = $this->_get_current_region();
+		$this->current_region = $this->_get_current_region($redirect_to_http_host);
+		if($redirect_to_http_host){
+			$scheme = (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")) ? "https" : $this->request->getScheme();
+			return $this->_redirect_to("$scheme://".$redirect_to_http_host.$this->request->getUri(),array("moved_permanently" => true));
+		}
 
 		// Nastavime do maileru akt. region
 		$this->mailer->current_region = $this->current_region;
@@ -182,7 +196,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-XSS-Protection","1; mode=block");
 		$this->response->setHeader("Referrer-Policy","same-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
-		//$this->response->setHeader("Content-Security-Policy","default-src 'self' data: 'unsafe-inline' 'unsafe-eval'");
+		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; data 'unsafe-inline' 'unsafe-eval';");
 
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
@@ -195,7 +209,7 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY") && !in_array("$this->namespace/$this->controller",["/remote_tests"])){
 			return $this->_redirect_to_ssl();
 		}
 
@@ -210,6 +224,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));
 		$this->head_tags = new HeadTags();
 		$this->_setup_head_tags();
+		$this->structured_data = new StructuredData\Collector($this);
 
 		$basket = $this->_get_basket();
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
@@ -244,8 +259,13 @@ class ApplicationBaseController extends Atk14Controller{
 		return $regions;
 	}
 
-	function _get_current_region(){
+	function _get_current_region(&$redirect_to_http_host = null){
+		$redirect_to_http_host = null;
+
 		$region = Region::GetRegionByDomain($this->request->getHttpHost());
+		if($region && $region->getDefaultDomain()!==$this->request->getHttpHost()){
+			$redirect_to_http_host = $region->getDefaultDomain();
+		}
 		if(!$region){
 			$region = Cache::Get("Region",$this->permanentSession->g("region_id"));
 		}
@@ -346,9 +366,9 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->session->changeSecretToken(); // prevent from session fixation
 
 		if($options["fake_login"]){
-			$this->logger->info(sprintf("User#%s (%s) just logged in administratively as User#%s (%s) from %s",$this->logged_user->getId(),"$this->logged_user",$user->getId(),"$user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) just logged in administratively as User#%s (%s, %s) from %s",$this->logged_user->getId(),$this->logged_user->getLogin(),"$this->logged_user",$user->getId(),$user->getLogin(),"$user",$this->request->getRemoteAddr()));
 		}else{
-			$this->logger->info(sprintf("User#%s (%s) just logged in from %s",$user->getId(),"$user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) just logged in from %s",$user->getId(),$user->getLogin(),"$user",$this->request->getRemoteAddr()));
 			$user->s(array(
 				"last_signed_in_at" => now(),
 				"last_signed_in_from_addr" => $this->request->getRemoteAddr(),
@@ -371,11 +391,11 @@ class ApplicationBaseController extends Atk14Controller{
 		}elseif($logged_user->getId()!=$really_logged_user->getId()){
 			$stayed_logged_as_user = $really_logged_user;
 			$this->session->clear("fake_logged_user_id");
-			$this->logger->info(sprintf("User#%s (%s) logged out administratively as User#%s (%s) from %s",$really_logged_user->getId(),"$really_logged_user",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) logged out administratively as User#%s (%s, %s) from %s",$really_logged_user->getId(),$really_logged_user->getLogin(),"$really_logged_user",$logged_user->getId(),$logged_user->getLogin(),"$logged_user",$this->request->getRemoteAddr()));
 		}else{
 			$this->session->clear("logged_user_id");
 			$this->session->clear("fake_logged_user_id"); // just for sure
-			$this->logger->info(sprintf("User#%s (%s) logged out from %s",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) logged out from %s",$logged_user->getId(),$logged_user->getLogin(),"$logged_user",$this->request->getRemoteAddr()));
 		}
 	}
 
@@ -700,6 +720,50 @@ class ApplicationBaseController extends Atk14Controller{
 		)){
 			$this->template_name = "application/$this->action";
 		}
+	}
+
+	/**
+	 *
+	 *	$this->_create_newsletter_subscription_request("john.doe@example.com");
+	 *	$this->_create_newsletter_subscription_request("john.doe@example.com",["name" => "John Doe", "vocative" => "Dear John"]);
+	 */
+	function _create_newsletter_subscription_request($email,$values = [],$options = []){
+		$values["email"] = $email;
+
+		$options += [
+			"send_notification" => true,
+			"create_request_if_subscription_exists" => false,
+		];
+
+		if(!$options["create_request_if_subscription_exists"] && NewsletterSubscriber::GetInstancesByEmail($email)){
+			return null;
+		}
+
+		$nsr = NewsletterSubscriptionRequest::CreateNewRecord($values);
+
+		if($options["send_notification"]){
+			$this->mailer->notify_newsletter_subscription_request_creation($nsr);
+		}
+
+		return $nsr;
+	}
+
+	function _sign_up_for_newsletter($email,$values = [],$options = []){
+		$values += [
+			// "language" => $this->lang,
+			// "subscribed_at_url" => $this->request->getUrl(),
+		];
+
+		$options += [
+			"send_notification" => true,
+		];
+
+		$subscription_just_created = false;
+		$ns = NewsletterSubscriber::SignUp($email,$values,$subscription_just_created);
+		if($options["send_notification"] && $subscription_just_created){
+			$this->mailer->notify_newsletter_subscription($ns);
+		}
+		return $ns;
 	}
 
 	/**

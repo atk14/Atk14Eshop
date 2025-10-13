@@ -16,6 +16,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	static function CreateNewRecord($values,$options = []){
 		$values += array(
 			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+			"regions" => Region::GetDefaultValueForRegionsColumn(), 
 		);
 
 		return parent::CreateNewRecord($values,$options);
@@ -29,7 +30,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	 * Popis dorucovaci metody pro emailovou notifikaci
 	 */
 	function getEmailDescription(){
-		$out = parent::getEmailDescription();
+		$out = (string)parent::getEmailDescription();
 		if(strlen($out)){ return $out; }
 		//
 		//$out = $this->getDescription();
@@ -77,6 +78,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	function getPersonalPickupOnStore() {
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
+	}
+
+	function multiplyPrice(){
+		return $this->g("multiply_price");
 	}
 
 	function getDeliveryService() {

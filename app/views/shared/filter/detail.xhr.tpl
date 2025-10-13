@@ -22,7 +22,7 @@ if( --form[0].filtering == 0 ) {
 			empty.html({jstring}{render partial=$finder->getPager()->getEmptyTemplate()}{/jstring});
 			empty.show();
 			view.find('.js--nonempty-list').hide();
-			view.find('.js--ajax-pager-buttons').hide();
+			view.find('.js--pager-buttons').hide();
 	{else}
 			var $list = view.find('.js--pager-list');
 
@@ -48,7 +48,7 @@ if( --form[0].filtering == 0 ) {
 			empty.hide();
 	{/if}
 
-	{if !$finder->getPager()->isXhr()}
+	{if !$finder->getPager()->isXhr() || $finder->getPager()->isXhrOrdered()}
 		{if !$doNotrerenderFilters}
 			form.find('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
 			form.find('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
@@ -63,7 +63,8 @@ if( --form[0].filtering == 0 ) {
 		}
 		var ajaxPager = view.find('.ajax_pager')[0].ajaxPager;
 		$.extend(ajaxPager, {!$finder->getPager()->jsUpdate()});
-		ajaxPager.count = {count($finder->getRecords())};
+		ajaxPager.count = {$finder->getRecords()|count};
+		view.find('.ajax_pager').data( "count", {$finder->getRecords()|count});
 		ajaxPager.reinit();
 	{/if}
 
@@ -86,5 +87,7 @@ if( --form[0].filtering == 0 ) {
 	{if $add_searched_query}
 		ACTIVA.UTIL.add_searched_query({jstring}{$add_searched_query}{/jstring});
 	{/if}
+
+	$( "#paging_form" ).html( {jstring}{render partial="shared/paging_form"}{/jstring} );
 }
 })();

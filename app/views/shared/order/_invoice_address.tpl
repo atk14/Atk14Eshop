@@ -8,6 +8,9 @@
 	{$order->getInvoiceStreet2()}<br>
 {/if}
 {$order->getInvoiceZip()} {$order->getInvoiceCity()}<br>
+{if $order->getInvoiceState()|strlen}
+	{$order->getInvoiceState()}<br>
+{/if}
 {$order->getInvoiceCountry()|to_country_name}
 
 {if $order->getCompanyNumber() || $order->getVatId()}

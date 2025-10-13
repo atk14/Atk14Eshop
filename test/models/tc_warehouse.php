@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @fixture warehouses
+ * @fixture products
+ */
 class TcWarehouse extends TcBase {
 
 	function test_GetDefaultInstance4Eshop(){
@@ -25,5 +30,31 @@ class TcWarehouse extends TcBase {
 		//
 		$w = Warehouse::GetDefaultInstance4Eshop(["flush_cache" => true]);
 		$this->assertEquals($w3->getId(),$w->getId());
+	}
+
+	function test_addProduct(){
+		$warehouse = $this->warehouses["external"];
+		$black_tea = $this->products["black_tea"];
+
+		$this->assertEquals(0,$warehouse->getProductStockcount($black_tea));
+
+		$warehouse->addProduct($black_tea,10);
+		$this->assertEquals(10,$warehouse->getProductStockcount($black_tea));
+
+		$warehouse->addProduct($black_tea->getId(),-2);
+		$this->assertEquals(8,$warehouse->getProductStockcount($black_tea->getId()));
+
+		// price_rounding is ignored in Product::addProduct()
+
+		$price_rounding = Product::GetInstanceByCode("price_rounding");
+		$this->assertTrue(!!$price_rounding);
+
+		$this->assertEquals(0,$warehouse->getProductStockcount($price_rounding));
+
+		$warehouse->addProduct($price_rounding,10);
+		$this->assertEquals(0,$warehouse->getProductStockcount($price_rounding));
+
+		$warehouse->addProduct($price_rounding->getId(),10);
+		$this->assertEquals(0,$warehouse->getProductStockcount($price_rounding->getId()));
 	}
 }

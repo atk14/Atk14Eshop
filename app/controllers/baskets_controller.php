@@ -9,10 +9,17 @@ class BasketsController extends ApplicationController {
 
 	function edit(){
 		$basket = $this->_get_basket();
+
+		if(!$basket || $basket->isEmpty()){
+			$this->_execute_action("empty_basket");
+			return;
+		}
+
 		$this->_prepare_basket_edit_form($basket,$this->form);
 
 		$this->tpl_data["can_order_be_created"] = $basket->canOrderBeCreated($error_messages);
 		$this->tpl_data["error_messages"] = $error_messages;
+		$this->tpl_data["show_voucher_input"] = 1===$this->dbmole->selectInt("SELECT COUNT(*) FROM (SELECT id FROM vouchers LIMIT 1)q");
 
 		if($this->session->g("voucher_initial")){
 			$this->form->set_initial("voucher",$this->session->g("voucher_initial"));
@@ -81,11 +88,6 @@ class BasketsController extends ApplicationController {
 			return;
 		}
 
-		if(!$basket || $basket->isEmpty()){
-			$this->_execute_action("empty_basket");
-			return;
-		}
-
 		$this->page_title = $this->breadcrumbs[] = _("Shopping basket");
 
 		$this->_prepare_checkout_navigation();
@@ -93,6 +95,7 @@ class BasketsController extends ApplicationController {
 		if(sizeof($this->_get_allowed_regions())>1){
 			$this->tpl_data["set_region_form"] = $this->_get_form("regions/set_region");
 		}
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewCart($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function empty_basket(){
@@ -105,6 +108,54 @@ class BasketsController extends ApplicationController {
 
 	function add_product(){
 		$this->_add_product();
+		$amount = $this->params->getInt("amount") ? $this->params->getInt("amount") : $this->form->fields["amount"]->initial;
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddToCart($this->product, ["quantity" => $amount, "items" => [$this->product]], ["price_finder" => $this->price_finder]));
+	}
+
+	function add_card(){
+		$card = $this->tpl_data["card"] = $this->_just_find("card","card_id");
+		if(!$card){
+			return $this->_execute_action("error404");
+		}
+
+		if(!$this->request->post()){
+			return $this->_redirect_to([
+				"action" => "cards/detail",
+				"id" => $card,
+			]);
+		}
+
+		$product = null;
+
+		if($this->params->defined("product_id") && strlen($this->params->getString("product_id"))){
+			$product = $this->_just_find("product","product_id");
+			if(!$product || $product->getCardId()!==$card->getId()){
+				return $this->_execute_action("error404");
+			}
+		}
+
+		if(!$product && !$card->hasVariants()){
+			$product = $card->getFirstProduct();
+			if(!$product || !$product->isVisible() || $product->isDeleted()){
+				return $this->_execute_action("error404");
+			}
+		}
+
+		if($product){
+			$this->product = $this->tpl_data["product"] = $product;
+			$this->_add_product();
+			$this->template_name = "add_product";
+			return;
+		}
+
+		if($card->hasVariants()){
+			$this->form = $this->_get_form("select_variant");
+			$this->form->prepare_for_card($card);
+			$this->template_name = "select_variant";
+			return;
+		}
+
+		$product = $card->getFirstProduct();
 	}
 
 	function set_product_amount(){
@@ -170,6 +221,9 @@ class BasketsController extends ApplicationController {
 				return $this->_execute_action("error404");
 			}
 		}
+
+		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}
 
 	function _just_find_product(){

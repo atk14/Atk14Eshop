@@ -49,4 +49,9 @@
   /*.pswp__bg {
     backdrop-filter: blur(6px);
   }*/
+
+  // Temporary dirty fix for preloader 
+  .pswp__preloader {
+    display: none !important;
+  }
 }

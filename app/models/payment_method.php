@@ -14,6 +14,7 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	static function CreateNewRecord($values,$options = []){
 		$values += array(
 			"vat_rate_id" => VatRate::GetInstanceByCode("default"),
+			"regions" => Region::GetDefaultValueForRegionsColumn(), 
 		);
 
 		return parent::CreateNewRecord($values,$options);
@@ -52,6 +53,15 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 		return Cache::Get("PaymentGateway",$this->getPaymentGatewayId());
 	}
 
+	function getPaymentGatewayConfig(){
+		$out = $this->g("payment_gateway_config");
+		if(!$out){
+			return [];
+		}
+		$out = json_decode($out,true);
+		return $out;
+	}
+
 	function isBankTransfer(){
 		return $this->g("bank_transfer");
 	}
@@ -65,7 +75,7 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 	 */
 	function isOnlineMethod(){
 		// Even the bank transfer can be processed through a payment gateway
-		return !is_null($this->getPaymentGatewayId()) && !$this->isBankTransfer();
+		return !is_null($this->getPaymentGateway()) && !$this->isBankTransfer();
 	}
 
 	function isDeletable(){
@@ -89,5 +99,25 @@ class PaymentMethod extends ApplicationModel implements Rankable, Translatable {
 
 	function getPrice(){
 		return ApplicationHelpers::DelVat($this->getPriceInclVat(),$this->getVatPercent());
+	}
+
+	function getDesignatedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "payment_method_designated_for_tags",
+		]);
+	}
+
+	function getDesignatedForTags(){
+		return $this->getDesignatedForTagsLister()->getRecords();
+	}
+
+	function getExcludedForTagsLister(){
+		return $this->getLister("Tags",[
+			"table_name" => "payment_method_excluded_for_tags",
+		]);
+	}
+		
+	function getExcludedForTags(){
+		return $this->getExcludedForTagsLister()->getRecords();
 	}
 }

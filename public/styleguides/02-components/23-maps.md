@@ -1,13 +1,7 @@
 Maps
 ====
 
-Mapy.cz API is used for displaying maps.
-
-Mapy.cz loader must be called to load API:
-<p><code>
-&lt;script src="https://api.mapy.cz/loader.js"&gt;&lt;/script&gt;<br>
-&lt;script&gt;Loader.load()&lt;/script&gt;
-</code></p>
+Maps are displayed using Leaflet.js library. It supports various tile providers including Mapy.cz or OpenStreetMap.org. Note that most tile providers require map attribution with link and some have additional requirements such as displaying their logo etc.
 
 ## Simple map
 
@@ -29,7 +23,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	var storeLocatorData = [
 			{
 		id: 1,
-		image: "http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_140x140xc_2b938a06ee365ab4.jpg",
+		image: "//i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_140x140xc_2b938a06ee365ab4.jpg",
 		title: "Elegantní lékárna",
 		address: "Vinohradsk%C3%A1%20222%3Cbr%3E%0D%0A120%2000%20Praha%202%3Cbr%3E%0D%0A%C4%8Cesk%C3%A1%20republika",
 		detailURL: "/prodejny/elegantni-lekarna/",
@@ -39,7 +33,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	},
 				{
 		id: 3,
-		image: "http://i.pupiq.net/i/6f/6f/ac3/2dac3/5472x3648/lcMqx7_140x140xc_0c529b8188c3a32a.jpg",
+		image: "//i.pupiq.net/i/6f/6f/ac3/2dac3/5472x3648/lcMqx7_140x140xc_0c529b8188c3a32a.jpg",
 		title: "Showroom Praha",
 		address: "Korunn%C3%AD%20970%2F72%3Cbr%3E%0D%0A101%2000%20%20Praha%2010%20%E2%80%93%20Vinohrady",
 		detailURL: "/prodejny/showroom-praha/",
@@ -49,7 +43,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	},
 				{
 		id: 4,
-		image: "http://i.pupiq.net/i/6f/6f/91e/2e91e/2000x2000/n6xqeH_140x140xc_31ad088525dd9323.jpg",
+		image: "//i.pupiq.net/i/6f/6f/91e/2e91e/2000x2000/n6xqeH_140x140xc_31ad088525dd9323.jpg",
 		title: "Říp",
 		address: "Rovn%C3%A9%3Cbr%3E%0D%0AKrab%C4%8Dice",
 		detailURL: "/prodejny/rip/",
@@ -59,7 +53,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	},
 				{
 		id: 5,
-		image: "http://i.pupiq.net/i/6f/6f/91f/2e91f/2000x1285/apURGF_140x140xc_83e788667c8dea6c.jpg",
+		image: "//i.pupiq.net/i/6f/6f/91f/2e91f/2000x1285/apURGF_140x140xc_83e788667c8dea6c.jpg",
 		title: "Ostrava!!!",
 		address: "Masarykovo%20n%C3%A1m%C4%9Bst%C3%AD%2037%2F20%3Cbr%3E%0D%0AOstrava",
 		detailURL: "/prodejny/ostrava/",
@@ -69,7 +63,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	},
 				{
 		id: 6,
-		image: "http://i.pupiq.net/i/6f/6f/920/2e920/2000x1333/gWlhbr_140x140xc_5158317050b8a8f1.jpg",
+		image: "//i.pupiq.net/i/6f/6f/920/2e920/2000x1333/gWlhbr_140x140xc_5158317050b8a8f1.jpg",
 		title: "Sněžka",
 		address: "Sn%C4%9B%C5%BEka%3Cbr%3E%0D%0APec%20pod%20Sn%C4%9B%C5%BEkou",
 		detailURL: "/prodejny/snezka/",
@@ -79,7 +73,7 @@ Store Locator Map displays multiple markers defined by <code>storeLocatorData</c
 	},
 				{
 		id: 7,
-		image: "http://i.pupiq.net/i/6f/6f/921/2e921/2000x1333/9U7vlt_140x140xc_77bb70fe5a19947e.jpg",
+		image: "//i.pupiq.net/i/6f/6f/921/2e921/2000x1333/9U7vlt_140x140xc_77bb70fe5a19947e.jpg",
 		title: "Brno",
 		address: "n%C3%A1m%C4%9Bst%C3%AD%20Svobody%2074%2F10%3Cbr%3E%0D%0A602%2000%20%20Brno-m%C4%9Bsto",
 		detailURL: "/prodejny/brno/",
@@ -125,5 +119,17 @@ Card displayed on map inside <code>.smap</code> container after clicking on mark
 </div>
 [/example]
 
-<script src="https://api.mapy.cz/loader.js"></script>
-<script>Loader.load()</script>
+## Optional map styles
+
+### Dark
+Simply add class <code>dark</code> or <code>grayscale</code> to map container. Check if tile provider allows such styling.
+
+[example]
+<div class="store-detail__map dark" data-lat="40.7134344" data-lng="-74.0046681" data-zoom="14"></div>
+[/example]
+
+[example]
+<div class="store-detail__map grayscale" data-lat="52.5145033" data-lng="13.3500369" data-zoom="14"></div>
+[/example]
+
+

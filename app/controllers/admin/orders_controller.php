@@ -18,7 +18,7 @@ class OrdersController extends AdminController {
 			$bind_ar[":date_to"] = $d["date_to"];
 		}
 
-		if ($d["order_status"]) {
+		if($d["order_status"]) {
 			if($d["order_status"]=="in_progress"){
 				$conditions[] = "order_status_id IN (SELECT id FROM order_statuses WHERE NOT (finished_successfully	OR finished_unsuccessfully OR finishing_successfully OR finishing_unsuccessfully))";
 			}else{
@@ -27,23 +27,28 @@ class OrdersController extends AdminController {
 			}
 		}
 
-		if ($d["delivery_method_id"]) {
+		if($d["delivery_method_id"]) {
 			$conditions[] = "delivery_method_id=:delivery_method_id";
 			$bind_ar[":delivery_method_id"] = $d["delivery_method_id"];
 		}
 
-		if ($d["payment_method_id"]) {
+		if($d["payment_method_id"]) {
 			$conditions[] = "payment_method_id=:payment_method_id";
 			$bind_ar[":payment_method_id"] = $d["payment_method_id"];
 		}
 
-		if(trim($d['catalog_id'])) {
-			$conditions[] = "id IN (select order_id from order_items WHERE product_id IN
-				(SELECT id FROM products WHERE catalog_id LIKE :catalog_id))";
-			$bind_ar[':catalog_id'] = "%".trim($d['catalog_id'])."%";
+		if(strlen((string)$d["catalog_id"])) {
+			$conditions[] = "
+				id IN (
+					SELECT order_id from order_items WHERE product_id IN (
+						SELECT id FROM products WHERE UPPER(catalog_id) LIKE UPPER(:catalog_id)
+					)
+				)
+			";
+			$bind_ar[":catalog_id"] = "%".$d["catalog_id"]."%";
 		}
 
-		if ($d["payment_status_id"]) {
+		if($d["payment_status_id"]) {
 			$conditions[] = "id IN (SELECT order_id FROM payment_transactions WHERE payment_status_id=:payment_status_id)";
 			$bind_ar[":payment_status_id"] = $d["payment_status_id"];
 		}
@@ -79,13 +84,13 @@ class OrdersController extends AdminController {
 			$condition = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_ar).")",$search,$bind_ar);
 
 			if($condition){
-				$conditions[] = $condition;
-				$this->sorting->add("search","order_no LIKE :search||'%' DESC, created_at DESC");
+				$conditions[] = "($condition) OR id::VARCHAR=:search";
+				$this->sorting->add("search","order_no LIKE :search||'%' DESC, id::VARCHAR=:search DESC, created_at DESC");
 				$bind_ar[":search"] = $search;
 			}
 		}
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->_initialize_prepared_sorting("created_at");
 		$this->sorting->add("updated_at","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) DESC","COALESCE(GREATEST(updated_at,order_status_set_at),order_status_set_at) ASC");
 		$this->sorting->add("order_no");
 
@@ -94,7 +99,6 @@ class OrdersController extends AdminController {
 			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("offset"),
 			"order" => $this->sorting,
-			"offset" => $this->params->getInt("offset"),
 		));
 	}
 
@@ -112,7 +116,8 @@ class OrdersController extends AdminController {
 			$country = new Country($countryCode);
 			if($country->isEuCountry() && !$country->isCzechRepublic()){
 				$this->tpl_data["show_cross_border_transactions_within_eu_info"] = true;
-				$this->tpl_data["vat_id_validation_url"] = "http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=".urlencode($countryCode)."&number=".urlencode($vatNumber)."&traderName=&traderStreet=&traderPostalCode=&traderCity=&requesterMemberStateCode=&requesterNumber=&action=check&check=Verify";
+				// $this->tpl_data["vat_id_validation_url"] = "http://ec.europa.eu/taxation_customs/vies/vatResponse.html?memberStateCode=".urlencode($countryCode)."&number=".urlencode($vatNumber)."&traderName=&traderStreet=&traderPostalCode=&traderCity=&requesterMemberStateCode=&requesterNumber=&action=check&check=Verify";
+				$this->tpl_data["vat_id_validation_url"] = sprintf("https://ec.europa.eu/taxation_customs/vies/rest-api/ms/%s/vat/%s",urlencode($countryCode),urlencode($vatNumber));
 			}
 		}
 
@@ -120,6 +125,12 @@ class OrdersController extends AdminController {
 		if($has_digital_contents){
 			$this->tpl_data["digital_contents_url"] = $order->canBeFulfilled() ? $this->_link_to(["namespace" => "", "action" => "digital_contents/index", "order_token" => $order->getToken(DigitalContent::GetOrderTokenOptions())],["with_hostname" => $order->getRegion()->getDefaultDomain(), "ssl" => PRODUCTION]) : null;
 		}
+
+		$this->tpl_data["ordered_vouchers"] = Voucher::FindAll([
+			"conditions" => "originator_order_item_id IN (SELECT id FROM order_items WHERE order_id=:order)",
+			"bind_ar" => [":order" => $order],
+			"order_by" => "id ASC",
+		]);
 	}
 
 	function edit(){
@@ -166,7 +177,7 @@ class OrdersController extends AdminController {
 				$_fields_count = $this->_get_csv_fields_count($d["csv_file"]->getTmpFilename());
 				$additional_header_cp = [];
 				for($i=0;$i<$_fields_count;$i++) {
-					$additional_header_cp[] = "field_${i}";
+					$additional_header_cp[] = "field_$i";
 				}
 				$additional_header_cp[0] = "cislo_zasilky";
 				$additional_header_cp[22] = "var_symbol";

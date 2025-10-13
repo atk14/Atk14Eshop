@@ -130,91 +130,104 @@ $( ".js-toggle-all-trees" ).on( "click", function() {
 
 ## Collapsible Tree Vertical Menu Nav
 
-Collapsible menu suitable for use on frontend with large category structures. Use <code>.active</code> on <code>a</code> class to hlighlight active link. Expand and collapse is controlled by <code>expander</code> element using Bootstrap Collapse element. Branch with current page should be expanded and active.
+Collapsible menu suitable for use in sidebars on frontend with large category structures. Use <code>.active</code> on <code>a</code> class to hlighlight active link. Expand and collapse is controlled by <code>expander</code> element using Bootstrap Collapse element. Branch with current page should be expanded and active.  
+On small viewports it is displayed in compact expandable form.
 
 [example]
-<ul class="nav nav--sidebar" id="sidebar_menu" style="width: 220px;">
+<nav class="nav-section">
+	<button class="sidebar-toggle js-sidebar-toggle"><span class="sidebar-toggle__text-hidden">Zobrazit
+			kategorie</span><span class="sidebar-toggle__text-shown">Skrýt kategorie</span><span
+			class="sidebar-toggle__icon"><span class="fas fa-chevron-down"></span></span></button>
+	<ul class="nav nav--sidebar nav--sidebar--borders-sm" id="sidebar_menu" style="position: relative;">
 
-	<li class="nav-item nav-item--has-submenu">
-		<a href="#" class="nav-link active">Květiny</a>
+		<li class="nav-item nav-item--has-submenu">
+			<a href="#" class="nav-link">Květiny</a>
+			<span class="expander  collapsed" role="button" id="sidebar_menu_item_35" data-toggle="collapse"
+				data-target="#sidebar_submenu_35" aria-expanded="false" aria-controls="sidebar_submenu_35"
+				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
+			<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_35" aria-labelledby="sidebar_menu_item_35">
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_36">Voňavé</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_37">Pichlavé</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_38">Domácí</a>
+				</li>
+				<li class="nav-item nav-item--has-submenu">
+					<a href="#" class="nav-link collapsed">Divoké</a>
+					<span class="expander  collapsed" role="button" id="sidebar_menu_item_39" data-toggle="collapse"
+						data-target="#sidebar_submenu_39" aria-expanded="false" aria-controls="sidebar_submenu_39"
+						aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
+					<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_39" aria-labelledby="sidebar_menu_item_39">
+						<li class="nav-item">
+							<a href="#" class="nav-link" id="sidebar_menu_item_70">Domácí</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link" id="sidebar_menu_item_71">Exotické</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
 
-		<span class="expander  " role="button" id="sidebar_menu_item_35" data-toggle="collapse" data-target="#sidebar_submenu_35" aria-expanded="true" aria-controls="sidebar_submenu_35">
-			<span class="fas fa-chevron-down"></span>
-		</span>
+		<li class="nav-item">
+			<a href="#" class="nav-link" id="sidebar_menu_item_40">Retro</a>
+		</li>
 
-		<ul class="nav nav--sidebar__submenu collapse show" id="sidebar_submenu_35" aria-labelledby="sidebar_menu_item_35">
+		<li class="nav-item">
+			<a href="#" class="nav-link" id="sidebar_menu_item_41">Krabice, krabičky</a>
+		</li>
 
-			<li class="nav-item">
-				<a href="#" class="nav-link" id="sidebar_menu_item_36">Voňavé</a>
-			</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link" id="sidebar_menu_item_54">Zážitky</a>
+		</li>
 
-			<li class="nav-item">
-				<a href="#" class="nav-link" id="sidebar_menu_item_37">Pichlavé</a>
-			</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link" id="sidebar_menu_item_68">Knihy</a>
+		</li>
 
-			<li class="nav-item">
-				<a href="#" class="nav-link" id="sidebar_menu_item_38">Domácí</a>
-			</li>
+		<li class="nav-item nav-item--has-submenu">
+			<a href="#" class="nav-link active">Hudba</a>
+			<span class="expander  " role="button" id="sidebar_menu_item_69" data-toggle="collapse"
+				data-target="#sidebar_submenu_69" aria-expanded="true" aria-controls="sidebar_submenu_69"
+				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
+			<ul class="nav nav--sidebar__submenu collapse show" id="sidebar_submenu_69"
+				aria-labelledby="sidebar_menu_item_69">
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_72">Techno</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_73">Electro</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_81">Ambient</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_82">EBM</a>
+				</li>
+			</ul>
+		</li>
 
-			<li class="nav-item nav-item--has-submenu">
-				<a href="#" class="nav-link active">Divoké</a>
-				<span class="expander  " role="button" id="sidebar_menu_item_39" data-toggle="collapse" data-target="#sidebar_submenu_39" aria-expanded="true" aria-controls="sidebar_submenu_39">
-					<span class="fas fa-chevron-down"></span>
-				</span>
+		<li class="nav-item nav-item--has-submenu">
+			<a href="#" class="nav-link">Syntezátory</a>
+			<span class="expander  collapsed" role="button" id="sidebar_menu_item_74" data-toggle="collapse"
+				data-target="#sidebar_submenu_74" aria-expanded="false" aria-controls="sidebar_submenu_74"
+				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
+			<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_74" aria-labelledby="sidebar_menu_item_74">
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_85">Analogové</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_86">Modulární</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link" id="sidebar_menu_item_88">Digitální</a>
+				</li>
+			</ul>
+		</li>
 
-				<ul class="nav nav--sidebar__submenu collapse show" id="sidebar_submenu_39" aria-labelledby="sidebar_menu_item_39">
-
-					<li class="nav-item">
-						<a href="#" class="nav-link" id="sidebar_menu_item_70">Domácí</a>
-					</li>
-
-					<li class="nav-item">
-						<a href="#" class="nav-link active" id="sidebar_menu_item_71">Exotické</a>
-					</li>
-
-				</ul>
-
-			</li>
-
-		</ul>
-
-	</li>
-
-	<li class="nav-item">
-		<a href="#" class="nav-link" id="sidebar_menu_item_40">Retro</a>
-	</li>
-
-	<li class="nav-item">
-		<a href="#" class="nav-link" id="sidebar_menu_item_41">Krabice, krabičky</a>
-	</li>
-
-	<li class="nav-item">
-		<a href="#" class="nav-link" id="sidebar_menu_item_54">Zážitky</a>
-	</li>
-
-	<li class="nav-item">
-		<a href="#" class="nav-link" id="sidebar_menu_item_68">Knihy</a>
-	</li>
-
-	<li class="nav-item nav-item--has-submenu">
-		<a href="#" class="nav-link">Hudba</a>
-		<span class="expander  collapsed" role="button" id="sidebar_menu_item_69" data-toggle="collapse" data-target="#sidebar_submenu_69" aria-expanded="false" aria-controls="sidebar_submenu_69">
-			<span class="fas fa-chevron-down"></span>
-		</span>
-
-		<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_69" aria-labelledby="sidebar_menu_item_69">
-
-			<li class="nav-item">
-				<a href="#" class="nav-link" id="sidebar_menu_item_72">Techno</a>
-			</li>
-
-			<li class="nav-item">
-				<a href="#" class="nav-link" id="sidebar_menu_item_73">Electro</a>
-			</li>
-
-		</ul>
-
-	</li>
-
-</ul>
+	</ul>
+</nav>
 [/example]

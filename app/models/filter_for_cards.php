@@ -19,6 +19,9 @@
  **/
 
 class FilterForCards extends Filter {
+
+	var $productJoin;
+
 	function __construct($user, $options = []) {
 		$options += [
 			"conditions" => null,
@@ -35,7 +38,7 @@ class FilterForCards extends Filter {
 		$this->addCondition("cards.visible AND NOT cards.deleted");
 		$this->addBind(':user_id', $user);
 		//$this->productJoin = $this->addJoin("visible_products(:user_id) products")->where("products.card_id = cards.id")->setJoinBy('left join');
-		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND NOT products.visible")->setJoinBy('left join');
+		$this->productJoin = $this->addJoin("products")->where("products.card_id = cards.id AND NOT products.deleted AND products.visible")->setJoinBy('left join');
 
 		//Add filter sections
 		if($options['add_sections']) {
@@ -89,7 +92,7 @@ class FilterForCards extends Filter {
 				$order = "cards.id";
 		}
 		if($options['order']) {
-			$options['order'] += ", $order";
+			$options['order'] .= ", $order";
 		} else {
 			$options['order'] = $order;
 		}

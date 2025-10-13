@@ -11,11 +11,17 @@ class BasketItem extends BasketOrOrderItem {
 
 	protected function _getRawUnitPriceInclVat(){
 		$p_price = $this->getProductPrice();
+		if(!$p_price->priceExists()){
+			return null;
+		}
 		return round($p_price->getRawUnitPriceInclVat(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
 	}
 
 	protected function _getRawUnitPriceBeforeDiscountInclVat(){
 		$p_price = $this->getProductPrice();
+		if(!$p_price->priceExists()){
+			return null;
+		}
 		return round($p_price->getRawUnitPriceBeforeDiscountInclVat(),INTERNAL_PRICE_DECIMALS); // dulezite je to zaokrouhlit na interni pocet des. mist v db, aby se OrderItem::_getRawUnitPrice() chovala stejne
 	}
 
@@ -39,5 +45,23 @@ class BasketItem extends BasketOrOrderItem {
 		if($amount===$this->getAmount()){ return; }
 		$basket = $this->getBasket();
 		$basket->setProductAmount($this->getProduct(),$amount);
+	}
+
+	function canAmountBeIncreased(){
+		$product = $this->getProduct();
+		$amount = $this->getAmount();
+		$step = $product->getOrderQuantityStep();
+		$basket = $this->getBasket();
+		$price_finder = $basket->getPriceFinder();
+
+		return $product->canBeOrdered(["amount" => $amount + $step, "price_finder" => $price_finder]);
+	}
+
+	function canAmountBeDecreased(){
+		$product = $this->getProduct();
+		$amount = $this->getAmount();
+		$step = $product->getOrderQuantityStep();
+
+		return ($amount - $step) >= $product->getCalculatedMinimumQuantityToOrder();
 	}
 }

@@ -1,6 +1,8 @@
 <?php
 class OrderQuantityField extends IntegerField {
 
+	protected $step = null;
+
 	function __construct($product,$options = []){
 		$unit = $product->getUnit();
 

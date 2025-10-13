@@ -7,6 +7,10 @@ class ProductFeedGeneratorRobot extends ApplicationRobot {
 	function run() {
 		global $ATK14_GLOBAL;
 
+		if(!file_exists($ATK14_GLOBAL->getPublicRoot()."/product_feeds")){
+			Files::MkDir($ATK14_GLOBAL->getPublicRoot()."/product_feeds");
+		}
+
 		$reader = null;
 
 		# Create XML product feed for Heureka.cz price comparator

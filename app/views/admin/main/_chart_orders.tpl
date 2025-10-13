@@ -26,11 +26,11 @@
 		</div>
 	<hr>
 
-	<script>
+	{javascript_tag}
 	{render partial="chart_data_array" array_name="yearlyOrderStats" array=$yearly_orders_stats random=$useRandomData}
 	{render partial="chart_data_array" array_name="monthlyOrderStats" array=$monthly_orders_stats random=$useRandomData}
 	{render partial="chart_data_array" array_name="dailyOrderStats" array=$daily_orders_stats random=$useRandomData}
-	</script>
+	{/javascript_tag}
 	{if $useRandomData }
 		<p class="alert alert-info mt-4">{!"exclamation-triangle"|icon} Using random data. To use real data, set variable useRandomData in _chart_orders.tpl to 0.</p>
 	{/if}

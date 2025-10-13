@@ -23,7 +23,7 @@
 		<tbody>
 			{foreach $order_campaigns as $order_campaign}
 				<tr>
-					<td>{$order_campaign->getName()} ({", "|join:$order_campaign->getCampaign()->getRegions()})</td>
+					<td>{$order_campaign->getName()} ({render partial="shared/region_list" regions=$order_campaign->getCampaign()->getRegions()})</td>
 					<td>{!$order_campaign->getDiscountAmount()|display_price:"$currency"}</td>
 					<td>
 						{if $order_campaign->createdAdministratively()}

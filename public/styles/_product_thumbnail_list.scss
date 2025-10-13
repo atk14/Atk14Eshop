@@ -1,0 +1,53 @@
+.card-thumbnails {
+  $thumbSize: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: divide($grid-gutter-width,4);
+  align-items: center;
+  & > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $thumbSize;
+    height: $thumbSize;
+    position: relative;
+    .badge {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+    }
+    &:not(.card-thumbnails__more):hover {
+      outline: 2px solid $border-color;
+      box-shadow: $box-shadow-sm;
+      box-shadow: 0 .125rem .25rem rgba($black, .25);
+      text-decoration: none;
+    }
+  }
+  .was-hidden {
+    opacity: 0;
+    &.shown{
+      opacity: 1;
+      animation-name: card-thumbnail-show;
+      animation-duration: 1s;
+    }
+  }
+  & > .card-thumbnails__more {
+    width: divide($thumbSize,2);
+    height: divide($thumbSize,2);
+    background-color: $secondary;
+    border-radius: 50%;
+    color: white;
+    &:hover {
+      text-decoration: none;
+      background-color: $primary;
+    }
+  }
+}
+@keyframes card-thumbnail-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

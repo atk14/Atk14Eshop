@@ -9,7 +9,7 @@ class CreatorRole extends ApplicationModel implements Translatable, Rankable {
 
 	function getPluralName($lang = null){
 		$plural_name = parent::getPluralName($lang);
-		if(!strlen($plural_name)){
+		if(!strlen((string)$plural_name)){
 			$plural_name = parent::getName($lang);
 		}
 		return $plural_name;

@@ -94,6 +94,52 @@ class ApplicationForm extends Atk14Form{
 		return $field;
 	}
 
+	function add_sign_up_for_newsletter_field($name = "", $options = array()){
+		if(is_array($name)){
+			$options = $name;
+			$name = "";
+		}
+		$name = $name=="" ? "sign_up_for_newsletter" : $name;
+		$options += array(
+			"label" => _("Sign up for newsletter"),
+			"required" => false,
+			"initial" => false,
+			"disabled" => false,
+		);
+		if(defined("SIGN_UP_FOR_NEWSLETTER_ENABLED") && !constant("SIGN_UP_FOR_NEWSLETTER_ENABLED")){
+			$options["initial"] = false;
+			$options["disabled"] = true;
+		}
+
+		$field = $this->add_field($name,new BooleanField($options));
+		return $field;
+	}
+
+	function _add_captcha_field(){
+		if(defined("HCAPTCHA_SITE_KEY") && strlen(constant("HCAPTCHA_SITE_KEY"))>0 && defined("HCAPTCHA_SECRET_KEY") && strlen(constant("HCAPTCHA_SECRET_KEY"))>0){
+			$this->add_field("captcha",new HcaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}elseif(defined("RECAPTCHA_SITE_KEY") && strlen(constant("RECAPTCHA_SITE_KEY"))>0 && defined("RECAPTCHA_SECRET_KEY") && strlen(constant("RECAPTCHA_SECRET_KEY"))>0){
+			$this->add_field("captcha",new RecaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}
+	}
+
+	function _add_gender_id_field($options = array()){
+		$options += [
+			"label" => _("Oslovení"),
+			"required" => true,
+			"disabled" => false,
+		];
+		if(defined("CONSIDER_GENDER_ID_FIELD") && !constant("CONSIDER_GENDER_ID_FIELD")){
+			$options["disabled"] = true;
+		}
+
+		$this->add_field("gender_id", new GenderField($options));
+	}
+
 	/**
 	 * $this->_add_address_fields();
 	 */
@@ -137,7 +183,7 @@ class ApplicationForm extends Atk14Form{
 			"required" => true,
 			"add_note" => true,
 			"add_address_street2" => false,
-			"add_address_state" => true,
+			"add_address_state" => ALLOW_STATE_IN_ADDRESS,
 			"allowed_countries" => null, // null, ["CZ","SK"]; null means all countries - if you play with this, have only_allowed_countries_for_delivery and only_allowed_countries_for_invoice set to false!
 			"only_allowed_countries_for_delivery" => false,
 			"only_allowed_countries_for_invoice" => false,
@@ -193,7 +239,7 @@ class ApplicationForm extends Atk14Form{
 			$allowed_countries = $current_region->getInvoiceCountries() ? $current_region->getInvoiceCountries() : null; // null means no limit
 		}
 		$initial = null;
-		if(($required && $allowed_countries) || ($allowed_countries && sizeof($allowed_countries)==1)){
+		if(($required && $allowed_countries && sizeof($allowed_countries)==1) || ($allowed_countries && sizeof($allowed_countries)==1)){
 			$initial = $allowed_countries[0];
 		}
 		$this->add_field("{$prefix}address_country",new CountryField(array(
@@ -203,7 +249,7 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => $disabled,
 			"allowed_countries" => $allowed_countries,
 			"include_empty_choice" => !$required || !is_array($allowed_countries) || sizeof($allowed_countries)>1,
-			"empty_choice_text" => "-- "._("země")." --",
+			"empty_choice_text" => "-- "._("select country")." --",
 		)));
 
 		$options["add_note"] && $this->add_field("{$prefix}address_note", new CharField(array(
@@ -255,12 +301,10 @@ class ApplicationForm extends Atk14Form{
 	}
 
 	function _add_phone($options = []){
-		$sample_phone = "+420 605 123 456";
-		$default_country_code = "+420";
+		$default_country_code = "CZ";
 
 		if(isset($this->controller) && isset($this->controller->current_region) && $this->controller->current_region->getCode()=="SK"){
-			$sample_phone = "+421 905 123 456";
-			$default_country_code = "+421";
+			$default_country_code = "SK";
 		}
 
 		$options += [
@@ -268,7 +312,6 @@ class ApplicationForm extends Atk14Form{
 			"prefix" => "",
 
 			"label" => _("Telefon"),
-			"help_text" => sprintf(_("Telefonní číslo zadejte ve formátu %s"),$sample_phone),
 			"required" => true,
 			"default_country_code" => $default_country_code,
 		];
@@ -304,8 +347,8 @@ class ApplicationForm extends Atk14Form{
 			// Transparent re-validation of address_zip or delivery_address_zip in context of address_country, resp. delivery_address_country
 			if($this->revalidate_zip_automatically){
 				if(is_array($d) && isset($d["{$prefix}address_zip"]) && isset($d["{$prefix}address_country"])){
-					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$err)){
-						$this->set_error("{$prefix}address_zip",$err);
+					if(!$this->fields["{$prefix}address_zip"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}address_zip"],$_err)){
+						$this->set_error("{$prefix}address_zip",$_err);
 					}
 				}
 			}
@@ -314,8 +357,8 @@ class ApplicationForm extends Atk14Form{
 			// (actually, delivery_address_country should never occur)
 			if($this->revalidate_company_number_automatically){
 				if(is_array($d) && isset($d["{$prefix}company_number"]) && isset($d["{$prefix}address_country"])){
-					if(!$this->fields["{$prefix}company_number"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}company_number"],$err)){
-						$this->set_error("{$prefix}company_number",$err);
+					if(!$this->fields["{$prefix}company_number"]->is_valid_for($d["{$prefix}address_country"],$d["{$prefix}company_number"],$_err)){
+						$this->set_error("{$prefix}company_number",$_err);
 					}
 				}
 			}

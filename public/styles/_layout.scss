@@ -1,3 +1,16 @@
+$breakpoint_xs: map-get($grid-breakpoints, "xs");
+$breakpoint_sm: map-get($grid-breakpoints, "sm");
+$breakpoint_md: map-get($grid-breakpoints, "md");
+$breakpoint_lg: map-get($grid-breakpoints, "lg");
+$breakpoint_xl: map-get($grid-breakpoints, "xl");
+@debug "Breakpoints";
+@debug "xs #{$breakpoint_xs}";
+@debug "sm #{$breakpoint_sm}";
+@debug "md #{$breakpoint_md}";
+@debug "lg #{$breakpoint_lg}";
+@debug "xl #{$breakpoint_xl}";
+@debug "-----------------";
+
 body {
 	// styles to keep footer at the bottom on pages with very short content
 	display: flex;
@@ -5,10 +18,15 @@ body {
 	align-items: stretch;
 	min-height: 100vh;
 	& > * {
-		width: 100%;
+		//width: 100%;
 		flex-grow: 0;
 		&.body {
 			flex-grow: 100;
+		}
+	}
+	& {
+		> .body--upper, > .body, > .body__sticky__container, > .header-main, > footer.footer {
+			width: 100%;
 		}
 	}
 }
@@ -40,7 +58,7 @@ body {
 .container-fluid {
 	// extending Bootstrap .container-fluid
 	max-width: $max-page-width;
-	margin: auto;
+	margin: 0 auto;
 	@include media-breakpoint-up( sm ){
 		padding: 0 $grid-gutter-width;
 	}

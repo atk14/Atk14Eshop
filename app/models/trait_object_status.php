@@ -21,8 +21,17 @@ trait TraitObjectStatus {
 	}
 
 	function notificationEnabled(){
-		// pro toto chybi v db policka
+		if($this->hasKey("notification_enabled")){
+			return $this->g("notification_enabled");
+		}
 		return false;
+	}
+
+	function getBccEmail(){
+		if($this->hasKey("bcc_email")){
+			return $this->g("bcc_email");
+		}
+		return null;
 	}
 
 	function finishedSuccessfully(){
@@ -31,5 +40,13 @@ trait TraitObjectStatus {
 
 	function finishedUnsuccessfully(){
 		return $this->g("finished_unsuccessfully");
+	}
+
+	function isFinishingSuccessfully(){
+		return $this->hasKey("finishing_successfully") ? $this->g("finishing_successfully") : false;
+	}
+
+	function isFinishingUnsuccessfully(){
+		return $this->hasKey("finishing_unsuccessfully") ? $this->g("finishing_unsuccessfully") : false;
 	}
 }

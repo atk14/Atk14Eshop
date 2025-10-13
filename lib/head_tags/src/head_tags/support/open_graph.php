@@ -24,7 +24,12 @@ class OpenGraph {
 			$out = $controller->page_description;
 			break;
 		}
-		return $out;
+		if (is_null($out)) {
+			return null;
+		}
+		$out = new \String4($out);
+		$out = h($out->stripHtml());
+		return (string)$out;
 	}
 
 	static function GetTitle(\Atk14Controller $controller) {

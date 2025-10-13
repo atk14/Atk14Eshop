@@ -1,10 +1,11 @@
 <?php
 class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyType_Base {
 
-	function __construct(){
-		parent::__construct([
+	function __construct($options = []){
+		$options += [
 			"label" => _("Celé číslo")
-		]);
+		];
+		parent::__construct($options);
 	}
 
 	function parseValue($str_value){
@@ -19,5 +20,10 @@ class TechnicalSpecificationKeyType_Integer extends TechnicalSpecificationKeyTyp
 		if("$str_value" === "$int"){
 			return $int;
 		}
+	}
+
+	function shouldBeContentValuePreserved($str_value){
+		$parsed_value = $this->parseValue($str_value);
+		return "$parsed_value" !== "$str_value";
 	}
 }

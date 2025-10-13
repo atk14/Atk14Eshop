@@ -9,7 +9,7 @@ class TcPage extends TcBase {
 		$page = $this->pages["testing_page"];
 
 		$this->assertEquals("Testing Page",$page->getTitle());
-		$this->assertEquals("Welcome at <em>Testing Page</em>",$page->getTeaser());
+		$this->assertEquals("Welcome to <em>Testing Page</em>",$page->getTeaser());
 		$this->assertEquals("Just Testing Page",$page->getPageTitle());
 		$this->assertEquals("This is a testing page",$page->getPageDescription());
 
@@ -19,7 +19,7 @@ class TcPage extends TcBase {
 		]);
 
 		$this->assertEquals("Testing Page",$page->getPageTitle());
-		$this->assertEquals("Welcome at Testing Page",$page->getPageDescription());
+		$this->assertEquals("Welcome to Testing Page",$page->getPageDescription());
 	}
 
 	function test_isIndexable(){
@@ -48,5 +48,22 @@ class TcPage extends TcBase {
 
 		$this->assertTrue($page->isIndexable(false));
 		$this->assertFalse($subpage->isIndexable(false));
+	}
+
+	function test_isVisible(){
+		$page = $this->pages["testing_page"];
+		$subpage = $this->pages["testing_subpage"];
+
+		$this->assertTrue($page->isVisible());
+		$this->assertTrue($subpage->isVisible());
+
+		$page->s("visible",false);
+		Cache::Clear();
+		
+		$this->assertFalse($page->isVisible());
+		$this->assertFalse($subpage->isVisible());
+
+		$this->assertFalse($page->isVisible(false));
+		$this->assertTrue($subpage->isVisible(false));
 	}
 }

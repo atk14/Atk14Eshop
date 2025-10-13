@@ -4,7 +4,7 @@
 {assign main_creators CardCreator::GetMainCreatorsForCard($card)}
 {assign subtitle ""}
 {if $main_creators}
-	{capture assign="subtitle"}{$main_creators|to_sentence}{/capture}
+	{capture assign="subtitle"}{$main_creators|to_sentence:", "}{/capture}
 {else}
 	{capture assign=subtitle}{$card->getTeaser()|markdown|strip_html|truncate:100}{/capture}
 {/if}

@@ -20,17 +20,22 @@ window.UTILS.BSOffCanvas = function() {
 
 	// Show offcanvas on click 
 	$( "[data-toggle='offcanvas']" ).on( "click", function( e ) {
-		e.preventDefault();
+		
 		var ctrl = $(this), 
 		elm = ctrl.data( "target" ) ? ctrl.data( "target" ) : ctrl.attr( "href" );
-		$( elm ).addClass( "show" );
-		$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
-		$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
-    $( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
-    $( "body" ).addClass( "offcanvas-visible" );
-		if( bsOverlay.length ) {
-			bsOverlay.addClass( "show" );
-    }
+
+		if( $( elm ).length ) {
+			e.preventDefault();
+			$( elm ).addClass( "show" );
+			$( elm + " .bs-offcanvas-close" ).attr( "aria-expanded", "true" );
+			console.log( "hello" );
+			$( "[data-target='" + elm + "'], a[href='" + elm + "']" ).attr( "aria-expanded", "true" );
+			$( elm ).get( 0 ).dispatchEvent( offCanvasShowEvent );
+			$( "body" ).addClass( "offcanvas-visible" );
+			if( bsOverlay.length ) {
+				bsOverlay.addClass( "show" );
+			}
+		} 
 	} );
 	
 	// Hide offcanvas on click on close button or overlay
@@ -50,7 +55,9 @@ window.UTILS.BSOffCanvas = function() {
 		$( ".bs-offcanvas-close", elm ).attr( "aria-expanded", "false" );
 		if( bsOverlay.length ) {
 			bsOverlay.removeClass( "show" )
-    };		
+    };
+			$( "#offcanvas-basket" ).removeAttr( "aria-live" );
+			$( "#offcanvas-basket" ).removeAttr( "aria-atomic" );		
 	} );
 
 	// Show offcanvas manually. "bs-offcanvas-show" event will be NOT fired.
@@ -115,6 +122,7 @@ window.UTILS.OffcanvasBasket = function() {
 					var itemsCount = $this.getCountDisplay();
 					console.log( "itemsCount", itemsCount );
 					$this.updateCountDisplay( itemsCount );
+					$this.ariaLive( true );
 					break;
 				case "error" :
 					$this.element.attr( "data-status", "error" );
@@ -123,6 +131,25 @@ window.UTILS.OffcanvasBasket = function() {
 			}
 		} );
 	};
+
+	// Set aria-live and aria-atomic attribute for offcanvas
+	// This is used to announce offcanvas basket content
+	this.ariaLive = function( status ) {
+		if( status ) {
+			$( "#offcanvas-basket" ).attr( "aria-live", "polite" );
+			$( "#offcanvas-basket" ).attr( "aria-atomic", "true" );
+		} else {
+			$( "#offcanvas-basket" ).removeAttr( "aria-live" );
+			$( "#offcanvas-basket" ).removeAttr( "aria-atomic" );
+		}
+	}
+
+	// Replaces the offcanvas basket with the given HTML content and restores its scroll position
+	this.redrawBasket = function( content ) {
+		var pos = $( "#offcanvas-basket .basket-content__items" ).scrollTop();
+		$this.element.html( content );
+		$( "#offcanvas-basket .basket-content__items" ).scrollTop( pos );
+	}
 
 	// Show basket with custom content
 	// window.basketOffcanvas.showCustomBasket( "this is <strong>custom html content</strong>", 3000 );
@@ -164,5 +191,12 @@ window.UTILS.OffcanvasBasket = function() {
 
 	// Set handler for basket show event
 	$( "#offcanvas-basket" ).on( "bs-offcanvas-show", $this.loadBasket );
+
+	// Update basket view when basket changed in another window
+	window.addEventListener( "basket_remote_updated", function(){
+		if( document.getElementById( "offcanvas-basket" ) && document.getElementById( "offcanvas-basket" ).classList.contains( "show" ) ) {
+			$this.loadBasket();
+		};
+	} );
 
 };

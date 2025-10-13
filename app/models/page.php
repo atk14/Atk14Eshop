@@ -18,7 +18,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 
 		$parent_page_id = null;
 		foreach(explode('/',$path) as $slug){
-			if(!$_sp = Page::GetInstanceBySlug($slug,$lang,$parent_page_id)){
+			if(!$_sp = self::GetInstanceBySlug($slug,$lang,$parent_page_id)){
 				$lang = $orig_lang; // we don't want to rewrite $lang unpredictable
 				return null;
 			}
@@ -106,8 +106,14 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug, \T
 		return !$this->hasSubpages();
 	}
 
-	function isVisible(){
-		return $this->getVisible();
+	function isVisible($check_parent_visibility = true){
+		$visible = $this->g("visible");
+		if(!$visible){ return false; }
+		if($check_parent_visibility){
+			$parent = $this->getParentPage();
+			if($parent){ return $parent->isVisible(); }
+		}
+		return true;
 	}
 
 	function isIndexable($check_parents = true){

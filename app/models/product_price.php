@@ -162,15 +162,15 @@ class ProductPrice {
 	}
 
 	/**
-	 * Returns either base price or price before discount
+	 * Returns either price before discount or base price
 	 *
 	 * Returns null when no price is in the play
 	 *
 	 * @return ProductPrice
 	 */
 	function getOriginalProductPrice(){
-		($out = $this->getBaseProductPrice()) ||
-		($out = $this->getProductPriceBeforeDiscount());
+		($out = $this->getProductPriceBeforeDiscount()) ||
+		($out = $this->getBaseProductPrice());
 
 		return $out;
 	}

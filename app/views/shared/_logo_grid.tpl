@@ -21,7 +21,7 @@
 				{assign "img_ratio" $img_w/$img_h}
 				<span class="logo-grid__image">
 					<span class="logo-grid__logo-wrap {if $img_ratio < 1}logo--vertical{else}logo--horizontal{/if}" style="padding: {$basePadding|calculate_logogrid_padding:$img_ratio}%;">
-							<img src="{$item->getImageUrl()|img_url:"400x400"}" alt="{$item->getTitle()}">
+							<img src="{$item->getImageUrl()|img_url:$geometry}" alt="{$item->getTitle()}" width="{$img_w}" height="{$img_h}">
 					</span>
 				</span>
 				{*<code class="logo-grid__debug">

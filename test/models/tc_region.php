@@ -105,4 +105,54 @@ class TcRegion extends TcBase {
 		$countries = Region::GetInvoiceCountriesFromActiveRegions();
 		$this->assertEquals(null,$countries);
 	}
+
+	function test_GetDefaultValueForRegionsColumn(){
+		$this->assertEquals('{"DEFAULT":true,"CZECHOSLOVAKIA":true,"CR":true,"SK":true,"EU":true}',Region::GetDefaultValueForRegionsColumn());
+	}
+
+	function test_getShortName(){
+		$this->assertEquals("CSK",$this->regions["czechoslovakia"]->getShortName());
+		$this->assertEquals("ČSR",$this->regions["czechoslovakia"]->getShortName("cs"));
+		$this->assertEquals("CSK",$this->regions["czechoslovakia"]->getShortName("en"));
+
+		$this->regions["czechoslovakia"]->s([
+			"short_name_cs" => null,
+			"short_name_en" => null,
+		]);
+
+		$this->assertEquals("Czechoslovakia",$this->regions["czechoslovakia"]->getShortName());
+		$this->assertEquals("Československo",$this->regions["czechoslovakia"]->getShortName("cs"));
+		$this->assertEquals("Czechoslovakia",$this->regions["czechoslovakia"]->getShortName("en"));
+	}
+
+	function test_getShortcut(){
+		$region = Region::CreateNewRecord([
+			"code" => "NEVER",
+			"name_en" => "Neverland",
+			"name_cs" => "Nikdosvět",
+		]);
+		$this->assertEquals("NEV",$region->getShortcut());
+		$this->assertEquals("NIK",$region->getShortcut("cs"));
+
+		$region->s([
+			"short_name_en" => "Neve",
+			"short_name_cs" => "Nikd",
+		]);
+		$this->assertEquals("Neve",$region->getShortcut());
+		$this->assertEquals("Nikd",$region->getShortcut("cs"));
+	}
+
+	function test_getDefaultDomain(){
+		$eu = $this->regions["EU"];
+		$this->assertEquals("www.example.eu",$eu->getDefaultDomain());
+		$this->assertEquals("http://www.example.eu/",$eu->getDefaultUrl());
+
+		$sk = $this->regions["SK"];
+		$this->assertEquals("www.example.sk",$sk->getDefaultDomain());
+		$this->assertEquals("http://www.example.sk/",$sk->getDefaultUrl());
+
+		$cr = $this->regions["CR"];
+		$this->assertEquals(ATK14_HTTP_HOST,$cr->getDefaultDomain());
+		$this->assertEquals("http://".ATK14_HTTP_HOST."/",$cr->getDefaultUrl());
+	}
 }

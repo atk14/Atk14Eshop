@@ -36,6 +36,14 @@
 
 class CategoryNode implements IteratorAggregate, Countable {
 
+	protected $tree;
+	protected $id;
+	protected $data;
+	protected $fetched;
+	protected $parent;
+	protected $iterator;
+	protected $level;
+
 	function __construct($tree, $id, $parent = null) {
 		$this->tree = $tree;
 		$this->id = $id;
@@ -238,6 +246,12 @@ class CategoryNode implements IteratorAggregate, Countable {
 
 
 class CategoryTree extends CategoryNode {
+
+	protected $options;
+	protected $parentIds;
+	protected $categories;
+	protected $childs;
+	protected $result;
 
 	/**
 	 * @param mixed integer (id of categories) or Category object or array of such values

@@ -7,6 +7,8 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 
 	function up(){
 
+		// ### Order statuses
+
 		$values_ar = [];
 
 		$values_ar[] = [
@@ -102,6 +104,19 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 		];
 
 		$values_ar[] = [
+			"id" => 14,
+			"code" => "repeated_call_for_pickup_order",
+			"name_en" => "Repeated call for pickup order",
+			"name_cs" => "Opakovaná výzva k vyzvednutí na odběrném místě",
+			"notification_enabled" => true,
+			"blocking_stockcount" => true,
+			"reduce_stockcount" => false,
+			"rank"  => 67,
+			//
+			"finishing_successfully" => true,
+		];
+
+		$values_ar[] = [
 			"id" => 7,
 			"code" => "shipped",
 			"name_en" => "Shipped",
@@ -178,7 +193,9 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 			OrderStatus::CreateNewRecord($values);
 		}
 
-		myAssert(sizeof($existing)==0);
+		myAssert(sizeof($existing)==0,"array() === ".var_export(array_map(function($_os){ return $_os->toArray(); },$existing),true));
+
+		// ### Allowed next statuses
 
 		$this->dbmole->doQuery("DELETE FROM order_status_allowed_next_order_statuses");
 
@@ -187,6 +204,12 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"processing",
 				"payment_accepted",
 				"cancelled"
+			],
+			"waiting_for_online_payment" => [
+				"payment_accepted",
+				"payment_failed",
+				"processing",
+				"cancelled",
 			],
 			"waiting_for_bank_transfer" => [
 				"payment_accepted",
@@ -209,6 +232,7 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"cancelled",
 			],
 			"payment_failed" => [
+				"payment_accepted",
 				"waiting_for_bank_transfer",
 				"waiting_for_online_payment",
 				"processing",
@@ -227,6 +251,12 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 				"cancelled",
 			],
 			"ready_for_pickup" => [
+				"delivered",
+				"repeated_call_for_pickup_order",
+				"returned",
+				"cancelled",
+			],
+			"repeated_call_for_pickup_order" => [
 				"delivered",
 				"returned",
 				"cancelled",
@@ -249,6 +279,34 @@ class FulfillingOrderStatusesMigration extends ApplicationMigration {
 		];
 		foreach($next_order_statuses as $code => $next_codes){
 			$this->_appendNextOrderStatuses($code,$next_codes);
+		}
+
+		// ### Next automatic statuses
+
+		$table = [
+			"waiting_for_bank_transfer" => ["repeated_payment_request", 7],
+			"waiting_for_online_payment" => ["payment_failed", 1],
+			"payment_failed" => ["cancelled", 7],
+			"repeated_payment_request" => ["payment_failed", 7],
+			"repeated_call_for_pickup_order" => ["cancelled", 10],
+		];
+
+		foreach($table as $order_status_code => $next_automatic_order_status_ar){
+			list($next_automatic_order_status_code,$days) = $next_automatic_order_status_ar;
+
+			$order_status = OrderStatus::FindFirst("code",$order_status_code);
+			$next_automatic_order_status = OrderStatus::FindFirst("code",$next_automatic_order_status_code);
+
+			myAssert($order_status,$order_status_code);
+			myAssert($next_automatic_order_status,$next_automatic_order_status_code);
+
+			$order_status->s([
+				"next_automatic_order_status_id" => $next_automatic_order_status,
+				"next_automatic_order_status_after_days" => $days,
+
+				"updated_at" => $order_status->g("updated_at"),
+				"updated_by_user_id" => $order_status->g("updated_by_user_id"),
+			]);
 		}
 	}
 }

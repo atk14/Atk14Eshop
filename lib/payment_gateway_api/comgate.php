@@ -1,22 +1,58 @@
 <?php
 namespace PaymentGatewayApi;
 
-defined("COMGATE_MERCHANT_ID") || define("COMGATE_MERCHANT_ID","123456");
-defined("COMGATE_MERCHANT") || define("COMGATE_MERCHANT","www.example.com test");
-defined("COMGATE_SECRET") || define("COMGATE_SECRET","kdo3DSKEOFerlpocewfdkoerjpgfpojregj");
-defined("COMGATE_BASE_URL") || define("COMGATE_BASE_URL","https://payments.comgate.cz/v1.0/");
-defined("COMGATE_TESTING") || define("COMGATE_TESTING",true);
+definedef("COMGATE_TESTING",false); // true (testing gateway), false
+definedef("COMGATE_MERCHANT_ID",""); // "123456"
+definedef("COMGATE_SECRET",""); // "kdo3DSKEOFerlpocewfdkoerjpgfpojregj"
+definedef("COMGATE_BASE_URL","https://payments.comgate.cz/v1.0/");
+definedef("COMGATE_PROXY",""); // e.g. "tcp://192.168.1.1:8118"
+definedef("COMGATE_PAYMENT_METHOD","ALL"); // "ALL", "CARD_ALL", "BANK_ALL"
 
 class Comgate extends PaymentGatewayApi {
 
+	protected $COMGATE_TESTING;
+	protected $COMGATE_MERCHANT_ID;
+	protected $COMGATE_SECRET;
+	protected $COMGATE_BASE_URL;
+	protected $COMGATE_PROXY;
+
+	protected $http_host;
+
+	protected $payment_method;
+
+	function __construct($options = []){
+
+		$this->COMGATE_TESTING = COMGATE_TESTING;
+		$this->COMGATE_MERCHANT_ID = COMGATE_MERCHANT_ID;
+		$this->COMGATE_SECRET = COMGATE_SECRET;
+		$this->COMGATE_BASE_URL = COMGATE_BASE_URL;
+		$this->COMGATE_PROXY = COMGATE_PROXY;
+
+		$this->http_host = ATK14_HTTP_HOST;
+		$this->payment_method = COMGATE_PAYMENT_METHOD;
+
+		parent::__construct($options);
+	}
+
+	function prepareForOrder($order){
+
+	}
+
+	function isProperlyConfigured(){
+		foreach(["COMGATE_MERCHANT_ID","COMGATE_SECRET","COMGATE_BASE_URL"] as $c_name){
+			if(!strlen($this->$c_name)){ return false; }
+		}
+		return true;
+	}
+
 	function testingApi(){
-		return COMGATE_TESTING;
+		return $this->COMGATE_TESTING;
 	}
 
 	function getMethods(){
 		return $this->_doRequest("post","methods",[
-			"merchant" => COMGATE_MERCHANT_ID,
-			"secret" => COMGATE_SECRET,
+			"merchant" => $this->COMGATE_MERCHANT_ID,
+			"secret" => $this->COMGATE_SECRET,
 			"type" => "json",
 			"lang" => "cs",
 		]);
@@ -34,19 +70,19 @@ class Comgate extends PaymentGatewayApi {
 			"label" => sprintf(_("Objednávka č. %s na %s"),$order->getOrderNo(),$region->getApplicationName()),
 			//"refId" => $order->getOrderNo(), // Toto ne, ....
 			"refId" => $payment_transaction->getId(), // ... toto je asi jistejsi volba
-			"payerName" => trim($order->getFirstname()." ".$order->getLastname()),
-			"method" => "ALL",
+			"fullName" => trim($order->getFirstname()." ".$order->getLastname()),
+			"method" => $this->payment_method,
 			"email" => $order->getEmail(),
-			"phone" => $order->getPhone() ? $order->getPhone() : $order->getPhoneMobile(),
+			"phone" => $order->getPhone(),
 			"lang" => $order->getLanguage(),
 			"country" => $order->getDeliveryAddressCountry() ? $order->getDeliveryAddressCountry() : $order->getAddressCountry(), // Tady davame zamerne zemi doruceni!
 			"prepareOnly" => "true",
-			"test" => COMGATE_TESTING ? "true" : "false",
+			"test" => $this->COMGATE_TESTING ? "true" : "false",
 		];
 
 		$params += [
-			"merchant" => COMGATE_MERCHANT_ID,
-			"secret" => COMGATE_SECRET,
+			"merchant" => $this->COMGATE_MERCHANT_ID,
+			"secret" => $this->COMGATE_SECRET,
 			"type" => "json",
 		];
 
@@ -64,28 +100,22 @@ class Comgate extends PaymentGatewayApi {
 
 		$transaction_id = $data["transId"];
 		return $data["redirect"];
-
-		$payment_transaction->s([
-			"payment_transaction_started_at" => now(),
-			"payment_transaction_started_from_addr" => $this->request->getRemoteAddr(),
-			"payment_transaction_id" => $data["transId"],
-			"payment_transaction_url" => $data["redirect"],
-			"testing_payment" => COMGATE_TESTING,
-		]);
 	}
 
 
-	protected function _getCurrentPaymentStatusCode(&$payment_transaction){
+	protected function _getCurrentPaymentStatusCode(&$payment_transaction,&$data = null,&$internal_status = null){
 		$trans_id = $payment_transaction->getPaymentTransactionId(); // "FJLA-EASH-QVZS"
 		myAssert(strlen($trans_id)>0);
 
 		$data = $this->_getStatus($payment_transaction);
-		myAssert($data["code"]==="0");
+		myAssert($data["code"]==="0","'$data[code]' is not '0' (data: ".trim(print_r($data,true)).")");
 		myAssert($data["message"]==="OK");
 		myAssert($data["transId"]===$trans_id);
 
 		$status = $data["status"];
 		myAssert(strlen($status)>0);
+
+		$internal_status = $status;
 
 		$tr = [
 			"PAID" => "paid",
@@ -103,8 +133,8 @@ class Comgate extends PaymentGatewayApi {
 		$trans_id = $payment_transaction->getPaymentTransactionId();
 		return $this->get("status",[
 			"transId" => $trans_id,
-			"merchant" => COMGATE_MERCHANT_ID,
-			"secret" => COMGATE_SECRET,
+			"merchant" => $this->COMGATE_MERCHANT_ID,
+			"secret" => $this->COMGATE_SECRET,
 			"type" => "json",
 		]);
 	}
@@ -118,12 +148,12 @@ class Comgate extends PaymentGatewayApi {
 	}
 	
 	function _doRequest($method,$command,$params){
-		$url = COMGATE_BASE_URL.$command;
+		$url = $this->COMGATE_BASE_URL.$command;
 		if($method=="get"){
 			$url .= $params ? "?".http_build_query($params) : "";
 		}
 
-		$uf = new \UrlFetcher($url);
+		$uf = new \UrlFetcher($url,["proxy" => $this->COMGATE_PROXY]);
 
 		if($method=="post"){
 			$uf->$method($params);
@@ -131,8 +161,7 @@ class Comgate extends PaymentGatewayApi {
 
 		$status_code = $uf->getStatusCode();
 		if(!preg_match('/^2\d\d$/',$status_code)){
-			// TODO: Zalogovat chybu
-			throw new \Exception(sprintf("%s: Invalid status code (%s) on %s %s",get_class($this),$status_code,$method,$url));
+			throw new \Exception($this->_compileUrlFetcherErrorMessage($uf));
 		}
 
 		$data = $uf->getContent();
@@ -154,6 +183,10 @@ class Comgate extends PaymentGatewayApi {
 				parse_str($data,$_data);
 			}
 			$data = $_data;
+		}
+
+		if(is_array($data) && isset($data["secret"])){
+			$data["secret"] = "undisclosed";
 		}
 
 		return $data;

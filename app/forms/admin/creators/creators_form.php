@@ -32,13 +32,6 @@ class CreatorsForm extends AdminForm {
 			}
 		}
 
-		if(isset($d["page_id"]) && isset($this->controller->creator)){
-			$existing = Creator::FindFirst("page_id",$d["page_id"]);
-			if($existing && $existing->getId()!=$this->controller->creator->getId()){
-				$this->set_error("page_id",sprintf(_("This page is the profile page for another creator (%s)"),h($existing)));
-			}
-		}
-
 		return [$err,$d];
 	}
 }

@@ -13,7 +13,7 @@ class CurrenciesController extends AdminController {
 		$form = $this->form;
 
 		$form->set_initial([
-			"rate" => $this->currency->getRate(),
+			"rate" => $this->currency->_getCurrencyRate(),
 		]);
 
 		$this->_edit([
@@ -21,7 +21,7 @@ class CurrenciesController extends AdminController {
 				if($d==$form->get_initial()){
 					return $currency;
 				}
-				if($currency->getRate()!==$d["rate"]){
+				if($currency->_getCurrencyRate()!==$d["rate"]){
 					CurrencyRate::CreateNewRecord([
 						"currency_id" => $currency,
 						"rate" => $d["rate"],

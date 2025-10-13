@@ -30,4 +30,25 @@ class TechnicalSpecificationKeyType_Boolean extends TechnicalSpecificationKeyTyp
 
 		return null;
 	}
+
+	function shouldBeContentValuePreserved($str_value){
+		$str_value = String4::ToObject($str_value)->trim()->lower()->toString();
+		return !in_array($str_value,[
+			// true
+			"yes",
+			"true",
+			"on",
+			"1",
+			"ano",
+			_("yes"),
+
+			// false
+			"no",
+			"false",
+			"off",
+			"0",
+			"ne",
+			_("no"),
+		]);
+	}
 }

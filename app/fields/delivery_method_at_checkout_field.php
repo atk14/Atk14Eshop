@@ -4,6 +4,8 @@
  */
 class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 
+	public $basket;
+
 	function __construct($options = []){
 		$options += [
 			"basket" => null,
@@ -51,6 +53,9 @@ class DeliveryMethodAtCheckoutField extends ChoiceFieldWithImages {
 
 class DeliveryMethodChoice {
 
+	public $options;
+	public $dm;
+
 	function __construct($dm, $options) {
 		$this->options = $options;
 		$this->dm = $dm;
@@ -68,6 +73,9 @@ class DeliveryMethodChoice {
 		return $this->dm->getTitle();
 	}
 
+	/**
+	 * Returns null, 0.0 or a html snippet
+	 */
 	function getPrice() {
 		$o = $this->dm;
 		$rate = $this->options['currency_rate'];
@@ -76,7 +84,6 @@ class DeliveryMethodChoice {
 		}
 
 		$basket = $this->options["basket"];
-		$currency = $basket->getCurrency();
 		$incl_vat = $basket->displayPricesInclVat();
 		$delivery_countries = $basket->getDeliveryCountriesAllowed();
 
@@ -92,22 +99,46 @@ class DeliveryMethodChoice {
 		$highest_price = $incl_vat ? $o->getHighestPriceInclVat($delivery_countries) : $o->getHighestPrice($delivery_countries);
 		$highest_price = $highest_price / $rate;
 		$price = $lowest_price;
-		if($price == 0.0 || $basket->freeShipping($this->dm)){
-			$price = 0;
+		$multiplier = $basket->getDeliveryFeeMultiplier($o);
+		if($highest_price == 0.0 || $basket->freeShipping($this->dm)){
+			$price = 0.0;
 		}elseif($lowest_price!=$highest_price){
-			$lowest = smarty_modifier_display_price($lowest_price,["format" => "plain", "currency" => $currency, "show_currency" => false]);
-			$lowest = str_replace(" ",html_entity_decode("&nbsp;"),$lowest);
-			$highest = smarty_modifier_display_price($highest_price,["format" => "plain", "currency" => $currency]);
-			$highest = str_replace(" ",html_entity_decode("&nbsp;"),$highest);
-			$price = sprintf(_("od %s do %s dle země doručení"),$lowest,$highest);
+			$lowest = $this->_display_price($lowest_price,$multiplier);
+			$highest = $this->_display_price($highest_price,$multiplier);
+			//$price = "<span class=\"v-price--long\">" . sprintf(_("od %s do %s dle země doručení") . "</span>",$lowest,$highest);
+			if($lowest_price == 0.0){
+				$price = "<span class=\"v-price--long\">" . sprintf("%s &ndash; %s",$lowest,$highest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			}else{
+				$price = "<span class=\"v-price--long\">" . sprintf(_("cena od %s"),$lowest) . "<br><small>"._("dle země doručení")."</small>" . "</span>";
+			}
 		}else{
-			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
-			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);
+			$price = $this->_display_price($price,$multiplier);
 		}
 		return $price;
 	}
 
 	function getImage() {
 		return $this->dm->getLogo();
+	}
+
+	function _display_price($price,$multiplier,$options = []){
+		$basket = $this->options["basket"];
+		$currency = $basket->getCurrency();
+
+		$options += [
+			"format" => "plain",
+			"currency" => $currency,
+			"show_decimals" => ($price !== (float)round($price)),
+			"show_currency" => true,
+		];
+
+		$nbsp = html_entity_decode("&nbsp;");
+		$price = smarty_modifier_display_price($price,$options);
+		$price = str_replace(" ",$nbsp,$price);
+		if($multiplier>1){
+			$times = html_entity_decode("&times;");
+			$price = "$multiplier{$nbsp}{$times}{$nbsp}$price";
+		}
+		return $price;
 	}
 }

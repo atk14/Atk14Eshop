@@ -116,7 +116,7 @@
 					{foreach $order->getVouchers() as $voucher}
 						<li>{t code=$voucher}Dárkový poukaz %1{/t}: -{!$voucher->getDiscountAmount()|display_price:"$currency"}</li>
 					{/foreach}
-					<li><strong>{t}Celková cena k úhradě:{/t} {!$order->getPriceToPay()|display_price:"$currency,summary"}</strong></li>
+					<li><strong>{t}Celková cena k úhradě:{/t} {!$order->getPriceToPay()|display_price:"$currency,summary=auto"}</strong></li>
 					<li>{t}Celkem uhrazeno:{/t} {!$order->getPricePaid()|display_price:"$currency"|default:$mdash}</li>
 				</ul>
 			</td>
@@ -127,8 +127,8 @@
 			<td>
 				<ul>
 					<li>{$order->getDeliveryMethod()}{render partial="shared/order/delivery_method_data"}</li>
-					<li>{t}Poplatek:{/t} {!$order->getDeliveryFee()|display_price:"$currency,summary"}</li>
-					<li>{t}Poplatek s DPH:{/t} {!$order->getDeliveryFeeInclVat()|display_price:"$currency,summary"}</li>
+					<li>{t}Poplatek:{/t} {!$order->getDeliveryFee()|display_price:"$currency"}</li>
+					<li>{t}Poplatek s DPH:{/t} {!$order->getDeliveryFeeInclVat()|display_price:"$currency"}</li>
 					<li>{t}Číslo zásilky pro sledování:{/t}
 						{assign tracking_number $order->getTrackingNumber()}
 						{if $tracking_number}
@@ -149,15 +149,20 @@
 			<td>
 				<ul>
 					<li>{$order->getPaymentMethod()}</li>
-					<li>{t}Poplatek:{/t} {!$order->getPaymentFee()|display_price:"$currency,summary"}</li>
-					<li>{t}Poplatek s DPH:{/t} {!$order->getPaymentFeeInclVat()|display_price:"$currency,summary"}</li>
+					<li>{t}Poplatek:{/t} {!$order->getPaymentFee()|display_price:"$currency"}</li>
+					<li>{t}Poplatek s DPH:{/t} {!$order->getPaymentFeeInclVat()|display_price:"$currency"}</li>
 					{if $payment_transaction}
 						<li>
-							{t}Platební transakce{/t}
+							{if $payment_transaction->testingPayment()}
+								 <span class="text-warning">{!"circle-exclamation"|icon}</span> {t escape=no}<em>Testovací</em> platební transakce{/t}
+							{else}
+								{t}Platební transakce{/t}
+							{/if}
 							<ul>
+								<li>{a action="payment_transactions/detail" id=$payment_transaction}#{$payment_transaction->getId()}{/a}</li>
 								<li>{t}Platební brána:{/t} {$payment_transaction->getPaymentGateway()}</li>
 								<li>{t}Transakční ID:{/t} {$payment_transaction->getPaymentTransactionId()|default:"?"}</li>
-								<li>{t}Stav platby:{/t} {$payment_transaction->getPaymentStatus()|default:"?"}</li>
+								<li>{t}Stav platby:{/t} {render partial="payment_transactions/payment_status" payment_status=$payment_transaction->getPaymentStatus()}</li>
 								<li>{t}Stav platby aktualizován:{/t} {$payment_transaction->getPaymentStatusUpdatedAt()|format_datetime|default:$mdash}</li>
 							</ul>
 						</li>
@@ -172,6 +177,8 @@
 				{!$order->getNote()|h|nl2br}
 			</td>
 		</tr>
+
+		{render partial="invoices"}
 
 	</tbody>
 </table>
@@ -188,5 +195,44 @@
 {/if}
 
 {render partial="shared/basket_or_order_items" object=$order}
+
+{if $ordered_vouchers}
+	
+	<h4>{t}Objednané poukazy{/t}</h4>
+
+	<table class="table">
+		<thead>
+			<th>{t}Kód{/t}</th>
+			<th>{t}Hodnota{/t}</th>
+			<th>{t}Je aktivní?{/t}</th>
+			<th>{t}Byl použit?{/t}</th>
+			<th>{t}Platnost do{/t}</th>
+			<th></th>
+		</thead>
+		<tbody>
+			{foreach $ordered_vouchers as $voucher}
+				<tr>
+					<td>{$voucher}</th>
+					<td>{!$voucher->getDiscountAmount()|display_price}</th>
+					<td>{render partial="shared/active_state" object=$voucher}</td>
+					<td>
+						{$voucher->hasBeenUsed()|display_bool}
+						{if $voucher->hasBeenUsed()}
+							<span title="{t}Najít objednávky s tímto kupónem{/t}">{a action="orders/index" search=$voucher->getVoucherCode()}{!"external-link-alt"|icon} {/a}</span>
+						{/if}
+					</td>
+					<td>{$voucher->getValidTo()|format_datetime|default:$mdash}</td>
+					<td>
+						{dropdown_menu}
+							<a href="{$voucher->getUrl()}">{!"eye-open"|icon} {t}Zobrazit náhled{/t}</a>
+							{a action="vouchers/edit" id=$voucher}{!"edit"|icon} {t}Edit{/t}{/a}
+						{/dropdown_menu}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+{/if}
 
 {render partial="action_buttons"}

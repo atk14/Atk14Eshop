@@ -6,6 +6,11 @@ class DeliveryService extends ApplicationModel {
 	use TraitGetInstanceByCode;
 
 	/**
+	 * Parser class for processing a feed with service's branches.
+	 */
+	protected $parser_class = null;
+
+	/**
 	 * Vrati seznam pobocek pro dorucovaci sluzbu.
 	 */
 	function getDeliveryServiceBranches() {
@@ -123,7 +128,9 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
-		$data = @file_get_contents($options["branches_url"]);
+
+		$data = $delivery_service->_fetchFeed($options["branches_url"]);
+
 		if ($data===false) {
 			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
 			return false;
@@ -132,6 +139,12 @@ class DeliveryService extends ApplicationModel {
 			$error_message = "empty file";
 			return false;
 		}
+		return $data;
+	}
+
+	protected function _fetchFeed($feed_url) {
+		$className = $this->getParserClass();
+		$data = $className::FetchFeed($feed_url);
 		return $data;
 	}
 
@@ -154,7 +167,7 @@ class DeliveryService extends ApplicationModel {
 		}
 
 		$delivery_service = static::FindFirst("code", $code);
-		return $delivery_service->importData($data);
+		return $delivery_service->importData($data, $options);
 	}
 
 	/**
@@ -164,76 +177,79 @@ class DeliveryService extends ApplicationModel {
 	 * Data z XML nezvladne nacist.
 	 *
 	 */
-	function importData($data, $options=array()) {
+	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
+			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
 		];
 
-		$dbmole = self::GetDbmole();
-		$xml = new SimpleXMLElement($data);
-
-		// Prohledani namespacu a prirazeni prefixu tam, kde je prazdny.
-		// jinak nelze pouzit volani xpath()
-		$nsPrefix = "";
-		foreach($xml->getDocNamespaces() as $strPrefix => $strNamespace) {
-			if (in_array($strPrefix, ["xsi", "xsd"])) {
-				continue;
-			}
-			if(strlen($strPrefix)==0) {
-				$nsPrefix="default"; //Assign an arbitrary namespace prefix.
-			}
-			$xml->registerXPathNamespace($nsPrefix,$strNamespace);
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
+			return false;
 		}
 
-		$xml->registerXPathNamespace("br", "http://atk14.org/branch");
-
-		$current_branch_ids = $this->dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
+		$delivery_service_code = $this->getCode();
+		$dbmole = $this->dbmole;
+		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
 
 		$parserClassName = $this->getParserClass();
+		$feed_parser = $parserClassName::GetInstance($data);
 
-		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $parserClassName::GetXMLBranchName());
+		$nodes = $feed_parser->_getBranchNodes($options);
 
-		foreach($xml->xpath($_branch_element_name) as $branch_row) {
-			$_branchAr = $parserClassName::ParseBranch($branch_row);
+		$created = $updated = $deactivated = 0;
+		foreach($nodes as $branch_row) {
+			$_branchAr = $branch_row->toArray();
 
 			$branch = DeliveryServiceBranch::FindFirst("external_branch_id", $_branchAr["external_branch_id"], "delivery_service_id", $this);
 			if ($branch) {
-				$_branchAr["active"] = true;
 				$_updates = $_conditions = $_bindAr = [];
 				# hodnoty budeme menit, jen kdyz budou rozdilne
 				# a potom i nastavime hodnotu updated_at
 				foreach($_branchAr as $k => $v) {
-					$_updates[] = "${k}=:${k}";
+					$_updates[] = "{$k}=:{$k}";
 					# pozor na policko s json daty
 					if ($k=="opening_hours") {
-						$_conditions[] = "${k}::jsonb!=:${k}::jsonb";
+						$_conditions[] = "{$k}::jsonb!=:{$k}::jsonb";
 					} else {
-						$_conditions[] = "${k}!=:${k}";
+						$_conditions[] = "{$k}!=:{$k}";
 					}
-					$_bindAr[":${k}"] = $v;
+					$_bindAr[":{$k}"] = $v;
 				}
-				$_updates[] = "updated_at='".now()."'";
+				$_updates[] = "updated_at=:now";
+				$_bindAr[":now"] = now();
 				$_conditions = ["(".join(" OR ", $_conditions).")"];
 				$_conditions[] = "id=:id";
 				$_bindAr[":id"] = $branch;
 				$_conditions = join(" AND ", $_conditions);
 				$_updates = join( ", ", $_updates);
 
-				$q = "UPDATE delivery_service_branches SET ${_updates} WHERE ${_conditions}";
+				$q = "UPDATE delivery_service_branches SET {$_updates} WHERE {$_conditions}";
 				$dbmole->doQuery($q, $_bindAr);
-				$options["logger"] && $options["logger"]->info(sprintf("update branch %s", $_branchAr["external_branch_id"]));
+				if($dbmole->getAffectedRows()){
+					$options["logger"] && $options["logger"]->info(sprintf("update branch %s @ %s [DeliveryServiceBranch#%s]", $_branchAr["external_branch_id"],$delivery_service_code,$branch->getId()));
+				}
+				$updated++;
 				unset($current_branch_ids[$branch->getId()]);
 			} else {
 				$_branchAr["delivery_service_id"] = $this;
 				DeliveryServiceBranch::CreateNewRecord($_branchAr);
+				$options["logger"] && $options["logger"]->info(sprintf("create branch %s @ %s", $_branchAr["external_branch_id"],$delivery_service_code));
+				$created++;
 			}
 		}
 
 		# deactivate branches not in xml
-		foreach($current_branch_ids as $_branch_id => $_external_id) {
-			$options["logger"] && $options["logger"]->info("deactivate branch $_external_id [id: {$_branch_id}]");
-			$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f' WHERE id=:id", array(":id" => $_branch_id));
+		foreach($current_branch_ids as $_branch_id => $_ar) {
+			$_external_id = $_ar["external_branch_id"];
+			$_active = $_ar["active"]==="1";
+			if($_active){
+				$options["logger"] && $options["logger"]->info("deactivate branch $_external_id @ $delivery_service_code [DeliveryServiceBranch#{$_branch_id}]");
+				$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f', updated_at=:now WHERE id=:id", array(":id" => $_branch_id, ":now" => now()));
+				$deactivated++;
+			}
 		}
+		$options["logger"] && $options["logger"]->info(sprintf("created: %d, updated: %d, deactivated: %d", $created, $updated, $deactivated));
 
 		return true;
 	}
@@ -252,7 +268,18 @@ class DeliveryService extends ApplicationModel {
 	function getBranchesDownloadUrl() {
 		$className = $this->getParserClass();
 		$url = $className::$BRANCHES_DOWNLOAD_URL;
-		if (preg_match("/({API_KEY})/", $url)) {
+		if (is_array($url)) {
+			foreach($url as &$_url) {
+				$_url = $this->_replace_tokens_in_url($_url);
+			}
+		} else {
+			$url = $this->_replace_tokens_in_url($url);
+		}
+		return $url;
+	}
+
+	protected function _replace_tokens_in_url($url) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
 				$url = preg_replace("/({API_KEY})/", $_sys_param, $url);
@@ -269,7 +296,20 @@ class DeliveryService extends ApplicationModel {
 	 */
 	function canBeUsed() {
 		$download_url = $this->getBranchesDownloadUrl();
-		if (preg_match("/({API_KEY})/", $download_url)) {
+		if (is_array($download_url)) {
+			foreach($download_url as $url) {
+				if ($this->_canBeUsed($url)===false) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return $this->_canBeUsed($download_url);;
+		}
+	}
+
+	protected function _canBeUsed($url) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			return false;
 		}
 		return true;
@@ -279,5 +319,26 @@ class DeliveryService extends ApplicationModel {
 		$className = $this->getParserClass();
 		$requirements = $className::GetRequirements();
 		return $requirements;
+	}
+ 
+	function getNameLocalized($lang = null){
+		global $ATK14_GLOBAL;
+		if(isset($lang)){
+			$_lang = $lang;
+			$lang_orig = Atk14Locale::Initialize($_lang);
+		}
+		$current_lang = $ATK14_GLOBAL->getLang(); 
+		$tr = [
+			"cp-balik_na_postu" =>	_("Česká Pošta - Balík na poštu"),
+			"cp-balikovna" =>			 	_("Česká Pošta - Balíkovna"),
+			"zasilkovna" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
+			"gls" =>								"GLS",
+			"ppl" =>								"PPL",
+		];
+		if(isset($lang)){
+			Atk14Locale::Initialize($lang_orig);
+		}
+		$code = $this->getCode();
+		return isset($tr[$code]) ? $tr[$code] : $this->getName();
 	}
 }

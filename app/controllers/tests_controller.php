@@ -26,6 +26,10 @@ class TestsController extends ApplicationController {
 	function colors(){
 		$this->page_title = "Color manipulation";
 	}
+	
+	function swiper_custom_config(){
+		$this->page_title = "Swiper custom configuration";
+	}
 
 	function notify_order_creation(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
@@ -65,6 +69,29 @@ class TestsController extends ApplicationController {
 		$content = ob_get_contents();
 		ob_end_clean();
 		$this->response->write($content);
+	}
+
+	function js_validation(){
+		$this->page_title = _("Form with JS validation");
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$this->tpl_data["cleaned_data"] = $d;
+		}
+	}
+
+	function no_js_validation(){
+		$this->page_title = _("Form without JS validation");
+
+		$this->form = $this->_get_form("JsValidationForm");
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$this->tpl_data["cleaned_data"] = $d;
+		}
+	}
+
+	function check_login_availability(){
+		$this->response->write(User::FindByLogin($this->params->getString("login")) ? "false" : "true");
+		$this->render_template = false;
 	}
 
 	function _dump_email(){

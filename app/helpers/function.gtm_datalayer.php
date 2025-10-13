@@ -1,0 +1,1 @@
+../../vendor/mysutka/datalayer_generator/src/app/helpers/function.gtm_datalayer.php

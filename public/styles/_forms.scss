@@ -137,26 +137,6 @@ form {
 }
 
 
-// Validation states
-form {
-	.form-group {
-		&.form-group--has-error {
-			//border: 2px solid $danger;
-			.form-control {
-				border: 2px solid $danger;
-			}
-			label {
-				color: $danger;
-			}
-		}
-		&.form-group--is-valid {
-			.form-control {
-				border: 1px solid $success;
-			}
-		}
-	}
-}
-
 form#form_checkouts_summary .form-group--id_confirmation {
 	&.form-group--has-error {
 		border: 2px solid $danger;
@@ -206,16 +186,16 @@ form#form_checkouts_summary .form-group--id_confirmation {
 	display: flex;
 	align-items: center;
 	line-height: 1;
-	button.btn {
+	button.btn, a.btn {
 		min-width: 36px;
 		font-size: 1.25rem;
 		line-height: 1;
 		padding-top: 8px;
 		padding-bottom: 8px;
-		color: white;
+		//color: white;
 		border-radius: 0;
 		font-weight: 600;
-		&:focus {
+		&:focus:not(:focus-visible) {
 			outline: none;
 			box-shadow: none !important;
 		}
@@ -239,6 +219,35 @@ form#form_checkouts_summary .form-group--id_confirmation {
 			font-weight: 600;
 		}
 	}
+	&--sm {
+		> * {
+			flex-shrink: 0;
+		}
+		$controlHeight: $input-btn-padding-y-sm * 2 + $input-btn-font-size-sm * $input-btn-line-height-sm + (divide($input-btn-border-width, 16px) * 1rem * 2);
+		button.btn, a.btn {
+			//min-width: 24px;
+			font-size: $font-size-base;
+			aspect-ratio: 1;
+			height: $controlHeight;
+			min-width: 0;
+			width: $controlHeight;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			line-height: 1;
+		}
+		input.form-control-number, .quantity-widget__number {
+			font-size: $font-size-sm;
+			min-width: 6ch;
+			padding: 0 4px;
+			height: $controlHeight;
+		}
+		.quantity-widget__number {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 }
 
 form#form_checkouts_set_payment_and_delivery_method {
@@ -254,7 +263,7 @@ form#form_checkouts_set_payment_and_delivery_method {
 	}
 }
 
-form#form_checkouts_set_billing_and_delivery_data {
+form#form_checkouts_set_billing_and_delivery_data:not(.form-horizontal) {
 	.form__body {
 		
 		@include media-breakpoint-up(md){
@@ -282,6 +291,13 @@ form#form_checkouts_set_billing_and_delivery_data {
 		
 	}
 }
+form#form_checkouts_set_billing_and_delivery_data {
+	@include media-breakpoint-down(sm) {
+		.form-group {
+			padding: 0;
+		}
+	}
+}
 
 
 .form__confirmation {
@@ -303,5 +319,124 @@ form#form_checkouts_set_billing_and_delivery_data {
 		&:last-child {
 			padding-bottom: 0;
 		}
+	}
+}
+
+.form__footer {
+	.form-group {
+		border: none !important;
+	}
+}
+
+#paging_form {
+	margin-top: $grid-gutter-width * -0.5;
+	.cards_sorting {
+		$itemPadding: 0;
+		display: flex;
+		gap: 0 2ch;
+		&__title {
+			padding: $itemPadding;
+			text-wrap: nowrap;
+		}
+		&__options {
+			list-style: none;
+			display: flex;
+			gap: 0 2ch;
+			padding: 0;
+			margin: 0;
+			flex-wrap: wrap;
+			
+			.cards_sorting__item {
+				a {
+					display: block;
+					padding: $itemPadding;
+					text-underline-offset: 0.33em;
+				}
+				&.active {			
+					a {
+						font-weight: 700;
+						text-decoration: underline;
+					}
+				}
+			}
+			
+		}
+		@include media-breakpoint-down(xs) {
+			gap: 0 1.25ch;
+			&__options {
+				gap: 0 1.25ch;
+			}
+		}
+		@media(max-width: 400px) {
+			flex-wrap: wrap;
+			&__title {
+				flex-basis: 100%;
+				flex-shrink: 0;
+			}
+		}
+	}
+}
+
+// Override browser auto validation so its result pseudocalsses is not visible
+// this probably is not needed
+form.was-validated {
+	.form-control {
+		&:valid, &:invalid {
+			border-color: $input-border-color !important;
+			background-image: none !important;
+		}
+		&.is-invalid, &.invalid, &.error {
+			border-color: $form-feedback-invalid-color !important;
+			background-image:  $form-feedback-icon-invalid !important;
+		}
+		&.is-valid, &.valid {
+			border-color: $form-feedback-valid-color !important;
+			background-image:  $form-feedback-icon-valid !important;
+		}
+	}
+	
+}
+
+form {
+	// These electors should behave the same as .is-valid, .is-invalid: 
+	// .invalid, .valid, .form-group--is-valid .form-control, .form-group--has-error .form-control
+	.form-control {
+		&.invalid, &.error {
+			@extend .is-invalid;
+			outline: 1px solid $form-feedback-invalid-color;
+		}
+		&.valid {
+			@extend .is-valid;
+		}
+	}
+	.form-group--has-error .form-control {
+		@extend .is-invalid;
+		outline: 1px solid $form-feedback-invalid-color;
+	}
+	.form-group--is-valid .form-control {
+		@extend .is-valid;
+	}
+
+	// radio buttons, checkboxes
+	.form-group--has-error .list--radios, // radios in server validation
+	.list--radios:has(input.error, .is-invalid), // radios js validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+	}
+
+	.form-group--checkbox .form-check:has(input.error, .is-invalid), // checkbox js validation
+	.form-group--checkbox.form-group--has-error .form-check  // checkbox server validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+		padding-right: $input-height-inner !important; // stylelint-disable-line declaration-no-important
+		background-image: escape-svg($form-feedback-icon-invalid);
+		background-repeat: no-repeat;
+		background-position: right $input-height-inner-quarter center;
+		background-size: $input-height-inner-half $input-height-inner-half;
+	}
+	// error feedback
+	.form-group > div.error {
+		color: $form-feedback-invalid-color;
+		margin-top: 0.1rem;
 	}
 }

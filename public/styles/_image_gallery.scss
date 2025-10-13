@@ -35,7 +35,7 @@
 			transition: filter 0.25s;
 		}
 	}
-	&:focus {
+	&:focus:not(:focus-visible) {
 		outline: none;
 	}
 }
@@ -89,7 +89,7 @@ section.photo-gallery {
 					transition: filter 0.25s;
 				}
 			}
-			&:focus {
+			&:focus:not(:focus-visible) {
 				outline: none;
 			}
 		}

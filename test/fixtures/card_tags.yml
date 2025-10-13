@@ -5,3 +5,7 @@ strih_v_pdf_formatu__digital_product:
 fridge__oversized_product:
   card_id: "<?= $cards["fridge"]->getId() ?>"
   tag_id: "<?= $tags["oversized_product"]->getId() ?>"
+
+stove__oversized_product:
+  card_id: "<?= $cards["stove"]->getId() ?>"
+  tag_id: "<?= $tags["oversized_product"]->getId() ?>"

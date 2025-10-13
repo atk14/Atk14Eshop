@@ -11,12 +11,12 @@
 	"soundcloud" => "soundcloud"
 ] as $network => $icon}
 	{if "app.contact.social.$network"|system_parameter}
-		<a href="{"app.contact.social.$network"|system_parameter}" class="footer__socialicon" rel="nofollow noopener">{!$icon|icon}</a>
+		<a href="{"app.contact.social.$network"|system_parameter}" class="footer__socialicon" rel="nofollow noopener" title="{$network}" aria-label="{$network}">{!$icon|icon}</a>
 	{/if}
 {/foreach}
 {/trim}{/capture}
 
 {if $links}
-	<h5>{t}Social networks{/t}</h5>
+	<div class="h5 footer__links-heading">{t}Social networks{/t}</div>
 	{!$links}
 {/if}

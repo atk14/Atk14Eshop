@@ -19,7 +19,7 @@
 		& > .nav-item {
 			border-top: 1px solid $border-color;
 			display: grid;
-			grid-template-rows: auto auto;
+			grid-template-rows: 1fr auto;
 			grid-template-columns: 1fr 2rem;
 			
 			& > a.nav-link {

@@ -3,6 +3,11 @@ require_once(__DIR__."/application_base.php");
 
 class ApplicationController extends ApplicationBaseController{
 
+	/**
+	 * @var DatalayerGenerator\Collector
+	 */
+	var $datalayer;
+
 	function error404(){
 		if($this->request->xhr()){
 			return parent::error404();
@@ -78,6 +83,13 @@ class ApplicationController extends ApplicationBaseController{
 		$this->breadcrumbs[] = [sprintf(_("Objednávka %s"),$order->getOrderNo()),$link];
 	}
 
+	function _before_render() {
+		parent::_before_render();
+		if(!isset($this->tpl_data["structured_data"]) && isset($this->structured_data)){
+			$this->tpl_data["structured_data"] = $this->structured_data->toArray();
+		}
+	}
+
 	function _application_before_filter() {
 		// Here, the $this->lazy_loader can be filled up with something
 
@@ -89,6 +101,7 @@ class ApplicationController extends ApplicationBaseController{
 		};
 
 		parent::_application_before_filter();
+		$this->datalayer = DatalayerGenerator\Collector::GetInstance($this);
 
 		// If the current language is not supported by the current selling region,
 		// here is a redirection to the default language.

@@ -15,7 +15,7 @@
 		{if $card->hasVariants()}
 			<ul class="nav nav-tabs" id="variants-nav" role="tablist">
 				{foreach $products as $product}
-					<li class="nav-item">
+					<li class="nav-item" role="presentation">
 						<a class="nav-link{if $product@iteration == 1} active{/if}" id="tab-variant-{$product->getId()}" data-toggle="tab" href="#tab-variant-content-{$product->getId()}" role="tab" aria-controls="tab-variant-content-{$product->getId()}" aria-selected="{if $product@iteration == 1}true{else}false{/if}" data-product_id="{$product->getId()}">{$product->getLabel()|default:$product->getCatalogId()}</a>
 					</li>
 				{/foreach}
@@ -36,18 +36,17 @@
 							{if $price->discounted()}
 								<span class="price--before-discount">{!$price->getProductPriceBeforeDiscount()|display_price:$dp_options}</span>
 							{/if}
+							{if $base_price && !$price->discounted()}
+								<span class="price--before-discount"> {* tady byla trida price--recommended *}
+									{t escape=no}Běžně <!-- běžná cena -->{/t} {!$base_price|display_price:$dp_options}
+									{* {t}Ušetříte:{/t} <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span> *}
+								</span>
+							{/if}
 							{if $incl_vat}
 								<span class="price--primary">{!$price|display_price:"$dp_options,show_vat_label"}</span>
 							{else}
 								<span class="price--primary">{!$price|display_price:"$dp_options"}</span>
 								<div class="price--incl-vat">{!$price|display_price:"$currency,show_vat_label"}</div>
-							{/if}
-							
-							{if $base_price}
-								<span class="price--recommended">
-									{t}Běžná cena:{/t} {!$base_price|display_price:$dp_options}
-									Ušetříte: <span class="moneysaved">{!($base_price->getPrice($incl_vat)-$price->getPrice($incl_vat))|display_price:$currency}</span>
-								</span>
 							{/if}
 						</div>
 					</div>
@@ -77,7 +76,7 @@
 
 								{!$product|add_to_basket_field}
 
-								<button type="submit" class="btn btn-primary add-to-cart-submit">{t}Add to cart{/t}  {!"cart-plus"|icon}</button>
+								<button type="submit" class="btn btn-primary add-to-cart-submit">{t}Add to basket{/t}  {!"cart-plus"|icon}</button>
 
 								<input type="hidden" name="product_id" value="{$product->getId()}">
 							</form>
@@ -95,7 +94,7 @@
 
 							{if $price && $price->priceExists() && !WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<p>
-									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary" _rel="nofollow"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a}
+									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a}
 								</p>
 							{else}
 								<p><em>{t}This product is sold out{/t}</em></p>
@@ -108,6 +107,9 @@
 						<div class="secondary-controls">
 							<div class="secondary-controls__item">
 								{render partial="shared/favourite_product_icon" product=$product}
+								{if $basket->contains($product)}
+									<span id="js--in_basket_notice_{$product->getId()}" class="link--small in_basket_notice">{!"cart-shopping"|icon} <span class="link__text">{t}Máte v košíku{/t}</span></span>
+								{/if}
 							</div>
 							{if !$product->canBeOrdered($price_finder) && WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<div class="secondary-controls__item">

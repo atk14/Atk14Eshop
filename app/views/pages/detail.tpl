@@ -9,6 +9,9 @@
 	{assign var="colorbg" false}
 	{if $creator}
 		{assign var="image" $creator->getImageUrl()}
+		{if !$image}
+			{assign var="image" $page->getImageUrl()}
+		{/if}
 		{assign var="colorbg" true}
 	{/if}
 	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
@@ -24,7 +27,7 @@
 {/if}
 
 {if $creator}
-	{render_component controller="creator_cards" action="index" creator_id=$creator->getId()}
+	{render_component controller="creator_cards" action="index" page_id=$page->getId()}
 {/if}
 
 {if $child_pages}
@@ -51,7 +54,7 @@
 					{/if}
 					<div class="card-body">
 						<h5>{$child_page->getTitle()}</h5>
-						<p>{$child_page->getTeaser()}</p>
+						<p>{$child_page->getTeaser()|markdown|strip_html|truncate:300}</p>
 					</div>
 				{/a}
 			{/foreach}

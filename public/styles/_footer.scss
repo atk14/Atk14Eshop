@@ -11,8 +11,9 @@ footer {
 		}
 	}
 	line-height: 1.25;
-	h2, h3, h4, h5 {
+	h2, h3, h4, h5, .h2, .h3, .h4, .h5, .footer__links-heading {
 		margin-bottom: 1em;
+		color: inherit;
 		&:not(:first-child){
 			margin-top: 1.5em;
 		}
@@ -32,6 +33,14 @@ footer {
 	
 	.footer__main {
 		margin-bottom: $grid-gutter-width;
+		ul.list-unstyled {
+			li {
+				a {
+					display: block;
+					padding: 0.25em 0;
+				}
+			}
+		}
 	}
 	
 	.footer__smallprint {

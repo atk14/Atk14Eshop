@@ -57,15 +57,7 @@ class Unit extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getStockcountDisplayLimit(){
-		// TODO: store limits into database
-		$limits = [
-			"pcs" => 10,
-			"cm" => 1000,
-			"g" => 10000,
-		];
-
-		$unit = $this->getUnit();
-		return isset($limits[$unit]) ? $limits[$unit] : 10000;
+		return $this->g("stockcount_display_limit");
 	}
 	
 	/**

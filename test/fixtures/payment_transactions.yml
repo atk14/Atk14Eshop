@@ -1,13 +1,16 @@
 test_credit_card_1:
   order_id: "<?= $orders["test_credit_card"]->getId() ?>"
   payment_gateway_id: "1" # gp_webpay
+  testing_payment: FALSE
   payment_transaction_started_at: "2021-08-20 12:30:00"
+  payment_transaction_url: "https://3dsecure.gpwebpay.com/pgw/order.do?MERCHANTNUMBER=ETC"
   payment_status_id: "1" # pending
   rank: 1
 
 test_credit_card_2:
   order_id: "<?= $orders["test_credit_card"]->getId() ?>"
   payment_gateway_id: "1" # gp_webpay
+  testing_payment: TRUE
   payment_transaction_started_at: "2021-08-20 13:39:00"
   payment_status_id: "1" # pending
   rank: 2

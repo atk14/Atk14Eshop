@@ -84,7 +84,7 @@
 	</tr>
 	<tr style="text-align: right; font-weight: bold;">
 		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;" colspan="4">{t}Celkem k úhradě{/t}</td>
-		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</td>
+		<td style="background-color: {$table_accent_bgcolor}; color:{$table_accent_color}; padding: 0.6em 0.4em;">{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</td>
 	</tr>
 </tbody>
 </table>
@@ -116,6 +116,13 @@
 {if $order->getNote()}
 	<br/>
 	{t}Vaše poznámka k objednávce:{/t} {!$order->getNote()|h|nl2br}
+{/if}
+
+{if $order->getPaymentMethod()->isOnlineMethod()}
+	{capture assign=order_finish_url}{link_to namespace="" action="orders/finish" token=$order->getToken() _with_hostname=true _ssl=REDIRECT_TO_SSL_AUTOMATICALLY}{/capture}
+	<br/><br/>
+	{t}Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:{/t}
+	<a href="{$order_finish_url}" style="{$link_style}"><span style="{$link_style}">{$order_finish_url}</span></a>
 {/if}
 
 {render partial="order_status_check_notice.html"}

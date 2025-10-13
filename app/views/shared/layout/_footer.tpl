@@ -8,7 +8,7 @@
 			{*render partial="shared/layout/footer/link_list" link_list=LinkList::GetInstanceByCode("footer_3")*}
 			<div class="col-12 col-sm-6 col-md-3">
 				{admin_menu for=$eshop edit_title="{t}Upravit údaje provozovny{/t}" only_edit=1}
-				<h5><a href="{"contact"|link_to_page}">{t}Kontakt{/t}</a></h5>
+				<div class="h5 footer__links-heading"><a href="{"contact"|link_to_page}">{t}Kontakt{/t}</a></div>
 				<address>
 					<p>
 						{"app.name.official"|system_parameter}<br>

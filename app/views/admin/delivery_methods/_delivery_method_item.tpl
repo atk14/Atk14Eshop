@@ -2,12 +2,13 @@
 	<div class="item__properties">
 
 		<div class="item__title">
+			{render partial="shared/active_state" object=$delivery_method}
+
+			#{$delivery_method->getId()}
+
 			{if $delivery_method->getLogo()}
 				{!$delivery_method->getLogo()|pupiq_img:"40x40x#ffffff"}
 			{/if}
-			#{$delivery_method->getId()}
-
-			{render partial="shared/active_state" object=$delivery_method}
 
 			{$delivery_method->getLabel()}
 			<br>
@@ -56,11 +57,6 @@
 			{dropdown_menu}
 				{a action=edit id=$delivery_method}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 				{a action="shipping_combinations/edit_payment_methods" delivery_method_id=$delivery_method}{!"list"|icon} {t}Vybrat možné platební metody{/t}{/a}
-				{if $delivery_method->isActive()}
-					{a action=disable id=$delivery_method _method="post"}{!"ban"|icon} {t}Vypnout{/t}{/a}
-				{else}
-					{a action=enable id=$delivery_method _method="post"}{!"check-circle"|icon} {t}Zapnout{/t}{/a}
-				{/if}
 				{if $delivery_method->isDeletable()}
 					{a_destroy id=$delivery_method}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}
 				{/if}

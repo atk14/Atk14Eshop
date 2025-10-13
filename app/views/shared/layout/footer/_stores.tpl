@@ -3,7 +3,7 @@
 
 {foreach array_slice($stores,0,$max_stores) as $store}
 	{admin_menu for=$store edit_title="{t}Upravit údaje prodejny{/t}" only_edit=1}
-	<h5>{a action="stores/detail" id=$store}{$store->getName()}{/a}</h5>
+	<div class="h5 footer__links-heading">{a action="stores/detail" id=$store}{$store->getName()}{/a}</div>
 	<address>
 		{!$store->getAddress()|h|nl2br}<br>
 	</address>

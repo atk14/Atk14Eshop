@@ -104,6 +104,7 @@ class ApplicationMailer extends Atk14Mailer {
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("New registration");
 		$this->tpl_data["message_type"] = "notify_user_registration";
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
@@ -114,6 +115,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["password_recovery"] = $password_recovery;
 
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("Reset Your Password");
 		
 		$this->tpl_data["message_type"] = "notify_password_recovery";
@@ -125,15 +127,50 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["password_recovery"] = $password_recovery;
 
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("Your password was updated");
 		
 		$this->tpl_data["message_type"] = "notify_password_update_in_recovery";
+	}
+
+	function notify_newsletter_subscription($newsletter_subscriber){
+		$this->to = $newsletter_subscriber->getEmail();
+		$this->to_name = $newsletter_subscriber->getName();
+		$this->subject = _("Přihlášení k odběru novinek");
+
+		$this->tpl_data["newsletter_subscriber"] = $newsletter_subscriber;
+		$this->tpl_data["unsubscribe_url"] = $this->_link_to([
+			"namespace" => "",
+			"action" => "newsletter_subscribe_deletion_requests/create_new",
+		],["with_hostname" => true]);
+	}
+
+	function newsletter_unsubsubscribe_confirmation($newsletter_subscriber){
+		$this->to = $newsletter_subscriber->getEmail();
+		$this->to_name = $newsletter_subscriber->getName();
+		$this->subject = _("Potvrzení odhlášení od newsletteru");
+
+		$this->tpl_data["newsletter_subscriber"] = $newsletter_subscriber;
+		$this->tpl_data["unsubscribe_url"] = $this->_link_to([
+			"namespace" => "",
+			"action" => "newsletter_subscribers/destroy",
+			"token" => $newsletter_subscriber->getToken(),
+		],["with_hostname" => true]);
+	}
+
+	function notify_newsletter_subscription_request_creation($newsletter_subscription_request){
+		$this->to = $newsletter_subscription_request->getEmail();
+		$this->to_name = $newsletter_subscription_request->getName();
+		$this->subject = _("Potvrzení odběru novinek");
+
+		$this->tpl_data["newsletter_subscription_request"] = $newsletter_subscription_request;
 	}
 
 	function notify_order_creation($order){
 		$region = $order->getRegion();
 		$this->_initialize_for_region($region);
 		$this->to = $order->getEmail();
+		$this->to_name = trim($order->getFirstname()." ".$order->getLastname());
 		$this->tpl_data["order"] = $order;
 		$this->tpl_data["currency"] = $order->getCurrency();
 		$this->tpl_data["shipping_days"] = SystemParameter::ContentOn("orders.notifications.shipping_days");
@@ -152,7 +189,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$region = $order->getRegion();
 		$this->_initialize_for_region($region);
 		$this->to = $order->getEmail();
-		$this->sms_phone_number = $order->getDeliveryPhone(); // dorucovaci adresa je povinna, fakturacni nikoli
+		$this->to_name = trim($order->getFirstname()." ".$order->getLastname());
 		$this->tpl_data["order"] = $order;
 		$this->tpl_data["order_status"] = $order_status = $order->getOrderStatus();
 		$this->tpl_data["order_status_code"] = $order_status->getCode();
@@ -220,5 +257,24 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->to = $watched_product->getEmail();
 		$this->tpl_data["product"] = $product = $watched_product->getProduct();
 		$this->subject = sprintf(_("Naskladnění produktu: %s"), "$product");
+	}
+
+	function notify_invoice_file($invoice_file){
+		$order = $invoice_file->getOrder();
+
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
+		$this->to = $order->getEmail();
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["invoice_file"] = $invoice_file;
+
+		$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Vystavení daňového dokladu");
+		if($invoice_file->isProformaInvoice()){
+			$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Proforma faktura");
+		}elseif($invoice_file->isStornoInvoice()){
+			$this->subject = sprintf(_("Objednávka %s"),$order->getOrderNo())." - "._("Vystavení storno daňového dokladu");
+		}
+
+		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
 	}
 }

@@ -40,7 +40,7 @@
 				{assign child_cats  $category->getChildCategories(["direct_children_only" => true, "is_filter" => false, "visible" => true, "limit" => $limit+1])}
 				{if $child_cats}
 					{assign limit_exceeded sizeof($child_cats)>$limit}
-					<ul class="xxxxlist-unstyled list--categories-mini">
+					<ul class="list--categories-mini">
 						{foreach $child_cats as $child_cat}
 							
 							{if $limit_exceeded && $child_cat@last}

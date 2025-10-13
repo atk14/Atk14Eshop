@@ -9,3 +9,7 @@
 {/if}
 
 {render partial="shared/form"}
+
+<hr>
+
+{render partial="user_special_pricelists"}

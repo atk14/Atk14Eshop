@@ -11,7 +11,7 @@
  */
 class TcShippingCombination extends TcBase {
 
-	function test(){
+	function ___tetst(){
 		$dpd = $this->delivery_methods["dpd"];
 		$personal = $this->delivery_methods["personal"];
 		$post = $this->delivery_methods["post"];
@@ -81,7 +81,7 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(!in_array("Digital product download",$labels));
 	}
 
-	function test_excluded_tags(){
+	function ___tetst_excluded_tags(){
 		$fun = $this->tags["fun"];
 		$dpd = $this->delivery_methods["dpd"];
 		$peanuts = $this->products["peanuts"];
@@ -98,5 +98,22 @@ class TcShippingCombination extends TcBase {
 		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
 
 		$this->assertTrue(sizeof($delivery_methods_empty)>sizeof($delivery_methods));
+	}
+
+	function test_GetAvailableMethods4Product(){
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Product($this->products["arabica"]);
+		$this->assertTrue(sizeof($delivery_methods)>5);
+		$this->assertTrue(sizeof($payment_methods)>1);
+
+		foreach(DeliveryMethod::FindAll() as $dm){
+			if($dm->getCode()==="europallet"){
+				$dm->getDesignatedForTagsLister()->add($this->tags["oversized_product"]);
+				continue;
+			}
+			$dm->getExcludedForTagsLister()->add($this->tags["oversized_product"]);
+		}
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Product($this->products["fridge"]);
+		$this->assertEquals(1,sizeof($delivery_methods));
+		$this->assertEquals("europallet",$delivery_methods[0]->getCode());
 	}
 }

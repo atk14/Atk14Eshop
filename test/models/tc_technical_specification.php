@@ -67,4 +67,67 @@ class TcTechnicalSpecification extends TcBase {
 		));
 		$this->assertNull($ts->getContentJson());
 	}
+
+	function test_CreateNewRecord(){
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
+
+		// ### Type: Integer
+
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["book"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "12",
+		));
+		$this->assertEquals('{"integer":12}',$ts->getContentJson());
+		$this->assertEquals(null,$ts->g("content")); // in this case, there is no need to store the content
+		$this->assertEquals("12",$ts->getContent());
+
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["wooden_button"],
+			"technical_specification_key_id" => $this->technical_specification_keys["width"],
+			"content" => "1 cm",
+		));
+		$this->assertEquals('{"integer":1}',$ts->getContentJson());
+		$this->assertEquals("1 cm",$ts->g("content")); // in this case, the content must be stored
+		$this->assertEquals("1 cm",$ts->getContent());
+
+		// ### Type: Boolean
+
+		$ts = TechnicalSpecification::CreateNewRecord(array(
+			"card_id" => $this->cards["tea"],
+			"technical_specification_key_id" => $this->technical_specification_keys["decaffeinated"],
+			"content" => "Yes",
+		));
+		$this->assertEquals('{"boolean":true}',$ts->getContentJson());
+		$this->assertEquals(null,$ts->g("content")); // in this case, there is no need to store the content
+		$this->assertEquals("Yes",$ts->getContent());
+	}
+
+	function test_CreateForCard(){
+		$book = $this->cards["book"];
+		$peanuts = $this->cards["peanuts"];
+
+		$this->assertEquals(null,$book->getTechnicalSpecification("pages"));
+		$this->assertEquals(null,$book->getTechnicalSpecification("isbn"));
+		//
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("pages"));
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("isbn"));
+
+		TechnicalSpecification::CreateForCard($book,"pages","222");
+
+		$this->assertEquals("222",$book->getTechnicalSpecification("pages"));
+		$this->assertEquals(null,$book->getTechnicalSpecification("isbn"));
+		//
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("pages"));
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("isbn"));
+
+		TechnicalSpecification::CreateForCard($book,"isbn","11-22-33-44");
+
+		$this->assertEquals("222",(string)$book->getTechnicalSpecification("pages"));
+		$this->assertEquals("11-22-33-44",(string)$book->getTechnicalSpecification("isbn"));
+		//
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("pages"));
+		$this->assertEquals(null,$peanuts->getTechnicalSpecification("isbn"));
+	}
 }

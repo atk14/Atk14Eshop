@@ -171,3 +171,19 @@ If catagory items contains teasers and/or images, add <code>list--categories--te
 	</ul>
 </section>
 [/example]
+
+## Mini category list
+
+[example]
+<ul class="list--categories-mini">
+	<li><a href="/obchod/kvetiny/">Květiny</a></li>
+	<li><a href="/obchod/retro/">Retro</a></li>
+	<li><a href="/obchod/krabice-krabicky/">Krabice, krabičky</a></li>
+	<li><a href="/obchod/zazitky/">Zážitky</a></li>
+	<li class="list-item--more"><span class="text-muted">a další...</span></li>
+</ul>
+[/example]
+
+## Collapsible sidebar categories navigation
+
+See [Collapsible Tree Vertical Menu Nav component](/styleguides/components%3Alist-tree/)

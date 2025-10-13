@@ -25,6 +25,14 @@ class TcDisplayPrice extends TcBase {
 		$this->assertEquals("123.45 EUR",smarty_modifier_display_price(123.45,"EUR,format=plain"));
 		$this->assertEquals("123.45 EUR",smarty_modifier_display_price(123.45,"EUR,summary,format=plain"));
 
+		// auto summary CZK
+		$this->assertEquals("123.45 CZK",smarty_modifier_display_price(123.45,"CZK,summary=auto,format=plain"));
+		$this->assertEquals("125 CZK",smarty_modifier_display_price(125.00,"CZK,summary=auto,format=plain"));
+
+		// auto summary EUR
+		$this->assertEquals("123.45 EUR",smarty_modifier_display_price(123.45,"EUR,summary=auto,format=plain"));
+		$this->assertEquals("125.00 EUR",smarty_modifier_display_price(125.00,"EUR,summary=auto,format=plain"));
+
 		// locale
 		$lang = "cs";
 		Atk14Locale::Initialize($lang);

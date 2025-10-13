@@ -6,12 +6,12 @@ class EditForm extends OrdersForm {
 		$this->_add_firstname_lastname(["required" => true]);
 		$this->_add_email();
 		$this->_add_company_fields();
-		$this->_add_address_fields(["required" => true, "add_note" => true, "add_address_street2" => true]);
+		$this->_add_address_fields(["required" => true, "add_note" => true, "add_address_street2" => true, "add_address_state" => true]);
 
 		// dorucovaci adresa
 		$this->_add_firstname_lastname(["prefix" => "delivery_", "required" => true]);
 		$this->_add_company_fields(["prefix" => "delivery_", "add_company_number" => false, "add_vat_id" => false]);
-		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => false, "add_address_street2" => true]);
+		$this->_add_address_fields(["prefix" => "delivery_", "required" => true, "only_allowed_countries_for_delivery" => false, "add_address_street2" => true, "add_address_state" => true]);
 		$this->_add_phone(["prefix" => "delivery_"]);
 
 		$this->_add_phone(["required" => false]);

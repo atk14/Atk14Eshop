@@ -23,6 +23,10 @@ function smarty_function_display_search_result_item($params,$template){
 	$object = $item ? $item->getObject() : $object;
 	if(!$object){ return; }
 
+	if(method_exists($object,"isDeleted") && $object->isDeleted()){
+		return;
+	}
+
 	$suggestion = $params["suggestion"];
 
 	$class = get_class($object); // "Article"

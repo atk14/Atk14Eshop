@@ -5,7 +5,7 @@
 {if $analytics_tracking_id}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={$analytics_tracking_id.0}"></script>
-<script>
+{javascript_tag}
 {literal}
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -16,7 +16,8 @@
 		'ad_storage': 'denied',
 		'analytics_storage': 'denied',
 		'functionality_storage': 'denied',
-		'personalization_storage': 'denied'
+		'personalization_storage': 'denied',
+		'wait_for_update': 500
 	});
 	gtag('set', 'ads_data_redaction', true);
 {/literal}
@@ -31,6 +32,6 @@
 		} );
 	{/if}
 
-</script>
+{/javascript_tag}
 
 {/if}

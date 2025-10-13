@@ -59,10 +59,11 @@
 				<td class="table-products__item-actions"></td>
 			</tr>
 			
+			{if $show_voucher_input}
 			<tr>
 				<td colspan="{if $incl_vat}7{else}8{/if}" class="table-products__addvoucher">
 					<div class="vouchers"{if isset($vouchers_anchor_set) && !$vouchers_anchor_set} id="vouchers"{/if}>
-						<h4>{t}Slevové kupóny / dárkové poukazy{/t}</h4>
+						<label class="h4" for="id_voucher">{t}Slevové kupóny / dárkové poukazy{/t}</label>
 						<div class="input-group input-group--voucher">
 							{!$form|field:"voucher"}
 							<span class="input-group-btn">
@@ -72,6 +73,8 @@
 					</div>
 				</td>
 			</tr>
+			{/if}
+			
 
 			<tr>
 				<td colspan="{if $incl_vat}7{else}8{/if}">

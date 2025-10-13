@@ -101,7 +101,21 @@ fridge:
   name_en: "School bus"
   name_cs: "Školní autobus"
 
+stove:
+  name_en: "Stove"
+  name_cs: "Sporák"
+
 fidorka:
   name_en: "Fidorka"
   name_cs: "Fidorka"
   visible: false
+
+deleted_card:
+  name_cs: "Smazaný produkt"
+  name_en: "Deleted product"
+  deleted: true
+
+card_for_deleted_product:
+  name_cs: "Smazaný produkt"
+  name_en: "Deleted product"
+  deleted: false

@@ -1,6 +1,8 @@
 <?php
 class CountriesField extends CharField {
 
+	var $json_encode;
+
 	function __construct($options = []){
 		$options += [
 			"json_encode" => true,

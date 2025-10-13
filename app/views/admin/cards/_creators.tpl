@@ -38,7 +38,7 @@
 					<span class="badge badge-secondary">{!"star"|icon:regular} {t}secondary creator{/t}</span>
 				{/if}
 				{if $card_creator->getPage()}
-					<span class="badge badge-secondary">{!"globe"|icon:solid} {t}profile page{/t}</span>
+					<span class="badge badge-secondary">👁 {t}profile page{/t}</span>
 				{/if}
 
 			</li>

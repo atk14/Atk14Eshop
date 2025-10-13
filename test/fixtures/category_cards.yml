@@ -15,6 +15,7 @@ food_drinks__apple_cider:
   rank: 1001
 
 hot_drinks__coffee:
+  id: 1110
   category_id: "<?= $categories["hot_drinks"]->getId() ?>"
   card_id: "<?= $cards["coffee"]->getId() ?>"
   rank: 1

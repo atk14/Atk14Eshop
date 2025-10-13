@@ -1,0 +1,9 @@
+special_1:
+  name_en: "Special price list 1"
+  name_cs: "Speciální cenik 1"
+  contains_prices_without_vat: FALSE
+
+special_2:
+  name_en: "Special price list 2"
+  name_cs: "Speciální cenik 2"
+  contains_prices_without_vat: TRUE

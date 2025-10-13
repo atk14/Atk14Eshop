@@ -1,6 +1,8 @@
 <?php
 class OrderQuantityInput extends NumberInput {
 
+	protected $unit = null;
+
 	function __construct($options = []){
 		$options += [
 			"unit" => "pcs",
@@ -14,6 +16,7 @@ class OrderQuantityInput extends NumberInput {
 			"xxx" => null,
 			//"style" => "width: 6em;"
 			"class" => "form-control form-control-number order-quantity-input js-order-quantity-input",
+			"aria-label" => _("Množství")
 		];
 
 		foreach($options["attrs"] as $k => $v){

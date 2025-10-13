@@ -47,6 +47,12 @@ definedef("WEBP_FORMAT_SUPPORTED",true);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
+definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
+
+definedef("CONSIDER_GENDER_ID_FIELD",true);
+
+definedef("ALLOW_STATE_IN_ADDRESS",false);
+
 // == hCaptcha ==
 // If these two constant are properly defined (see https://github.com/atk14/HcaptchaField#installation),
 // the hcaptcha field is being automatically added into the contact form...
@@ -85,9 +91,25 @@ definedef("PAYMENT_QR_CODES_ENABLED",true);
 
 definedef("SIDEBAR_MENU_ENABLED",false);
 
+definedef("TECHNICAL_SPECIFICATION_KEY_CREATION_ENABLED",true);
+
+definedef("OFFER_BANK_TRANSFER_IF_ONLINE_TRANSACTION_FAILS",true);
+
+definedef("PRODUCT_CAN_BE_ORDERED_FROM_CARD_LIST",false);
+
+// To enable the "Online payment via testing payment gateway" payment method, a proper API Key for the Testing Payment Gateway must be defined
+// definedef("TEST_PAYMENT_GATEWAY_API_KEY","10.atk14eshop.kbjQB83v9ylSV4L7D0cmgKfEGrNuie5o");
+
 // The SessionStorer's check cookie is disabled here.
 // A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
 definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
+
+// Map tiles provider ("mapycz" or "osm") and its API key if needed
+definedef("MAP_TILES_PROVIDER", "osm");
+definedef("MAP_TILES_API_KEY", "");
+
+definedef("INVOICES_ENABLED",false);
+definedef("INVOICES_DIRECTORY",__DIR__ . "/../data/invoices/");
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings

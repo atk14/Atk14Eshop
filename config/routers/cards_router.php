@@ -9,7 +9,7 @@ class CardsRouter extends SluggishRouter{
 	function recognize($uri){
 		global $ATK14_GLOBAL;
 
-		if(!preg_match('/\/(?P<type>[a-z0-9-]+)\/(?P<card>[a-z0-9-]+)\//',$uri,$matches)){
+		if(!preg_match('/\/(?P<type>[a-z0-9-]+)\/(?P<card>[a-z0-9-]+)\/?/',$uri,$matches)){
 			return;
 		}
 

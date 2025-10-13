@@ -4,48 +4,70 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
-class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
+/**
+ * @link https://docs.packeta.com/docs/pudo-delivery/packeta-pudos#data-specifications Documentation of API
+ *
+ */
+class Zasilkovna extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
-	static $BRANCHES_DOWNLOAD_URL = "https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml";
+	static $BRANCHES_DOWNLOAD_URL = ["https://pickup-point.api.packeta.com/v5/{API_KEY}/branch/json","https://pickup-point.api.packeta.com/v5/{API_KEY}/box/json"];
+
+	public static function GetInstance(
+		string $data,
+		int $options = 0,
+		bool $dataIsURL = false,
+		string $namespaceOrPrefix = "",
+		bool $isPrefix = false
+	) {
+		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+		$instance->_data = json_decode($data, true);
+		return $instance;
+	}
+
+	function _getBranchNodes($options=[]) {
+		return array_map(function($e) {
+			return new static(json_encode($e));
+		}, $this->_data);
+	}
 
 	function getExternalBranchId() {
-		return (string)$this->branch_element->id;
+		return (string)$this["id"];
 	}
 
 	function getBranchName() {
-		return (string)$this->branch_element->name;
+		return (string)$this["name"];
 	}
 
 	function getPlaceName() {
-		return (string)$this->branch_element->place;
+		return (string)$this["place"];
 	}
 
 	function getFullAddress() {
-		return (string)$this->branch_element->name;
+		return (string)$this["name"];
 	}
 
 	function getCountryCode() {
-		return \Translate::Upper((string)$this->branch_element->country);
+		return \Translate::Upper((string)$this["country"]);
 	}
 
 	function getDistrict() {
-		return trim((string)$this->branch_element->district);
+		return trim((string)$this["district"]);
 	}
 
 	function getZipCode() {
-		return preg_replace("/\s/", "", trim((string)$this->branch_element->zip));
+		return preg_replace("/\s/", "", trim((string)$this["zip"]));
 	}
 
 	function getCity() {
-		return (string)$this->branch_element->city;
+		return (string)$this["city"];
 	}
 
 	function getStreet() {
-		return (string)$this->branch_element->street;
+		return (string)$this["street"];
 	}
 
 	function getInformationUrl() {
-		return (string)$this->branch_element->url;
+		return (string)$this["url"];
 	}
 
 	function getOpeningHours() {
@@ -62,7 +84,7 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 		];
 
 		foreach($_days as $element_name => $day_name) {
-			$_value = (string)$this->branch_element->openingHours->regular->$element_name;
+			$_value = (string)$this["openingHours"]["regular"][$element_name];
 			$_values = explode(",", $_value);
 			$_hours = [];
 			foreach($_values as $_v) {
@@ -84,36 +106,22 @@ class Zasilkovna extends DeliveryServiceBranchData implements iDeliveryServiceBr
 	}
 
 	function getLatitude() {
-		return (float)$this->branch_element->latitude;
+		return (float)$this["latitude"];
 	}
 
 	function getLongitude() {
-		return (float)$this->branch_element->longitude;
+		return (float)$this["longitude"];
 	}
 
-	static function ParseBranch(\SimpleXMLElement $element) {
-		$branch_element = new static($element);
-		return [
-			"external_branch_id" => $branch_element->getExternalBranchId(),
-			"name" => $branch_element->getBranchName(),
-			"place" => $branch_element->getPlaceName(),
-
-			"full_address" => $branch_element->getFullAddress(),
-			"country" => $branch_element->getCountryCode(),
-			"district" => $branch_element->getDistrict(),
-			"zip" => $branch_element->getZipCode(),
-			"city" => $branch_element->getCity(),
-			"street" => $branch_element->getStreet(),
-
-			"url" => $branch_element->getInformationUrl(),
-			"opening_hours" => json_encode($branch_element->getOpeningHours()),
-			"location_latitude" => $branch_element->getLatitude(),
-			"location_longitude" => $branch_element->getLongitude(),
-		];
+	function isActive() {
+		if ((int)$this["status"]["statusId"]===5) {
+			return false;
+		}
+		return true;
 	}
 
 	static function GetXMLBranchName() {
-		return "branch";
+		return null;
 	}
 
 	static function GetRequirements() {

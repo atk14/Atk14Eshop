@@ -76,7 +76,7 @@ function smarty_function_facebook_pixel($params, $template) {
 	} elseif ($controller==="orders" && $action==="finish" && $order) {
 		$event_template_name = "_purchase.tpl";
 		$smarty->assign("fb_pixel_properties", [
-			"currency" => "${currency}",
+			"currency" => "$currency",
 			"value" => $order->getItemsPrice(),
 		]);
 	} elseif ($controller==="baskets" && $action==="add_product") {

@@ -2,9 +2,9 @@
 class UsersForm extends ApplicationForm{
 
 	function _add_basic_account_fields(){
-		$this->add_field("gender_id", new GenderField(array(
-			"label" => _("Oslovení"),
-		)));
+		if(CONSIDER_GENDER_ID_FIELD){
+			$this->_add_gender_id_field();
+		}
 
 		$this->_add_firstname_lastname();
 		$this->_add_email();

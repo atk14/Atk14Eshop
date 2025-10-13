@@ -32,6 +32,7 @@ class CardsController extends AdminController{
 				"id",
 				"COALESCE((SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='name' AND lang=:lang),'')",
 				"COALESCE((SELECT body FROM translations WHERE record_id=cards.id AND table_name='cards' AND key='teaser' AND lang=:lang),'')",
+				"COALESCE((SELECT STRING_AGG(name,' ') FROM creators WHERE id IN (SELECT creator_id FROM card_creators WHERE card_id=cards.id)),'')", // searching by creators
 			)).")",$q_up,$bind_ar)
 		){
 			$bind_ar[":lang"] = $this->lang;
@@ -55,6 +56,7 @@ class CardsController extends AdminController{
 			$conditions[] = '('.join(') OR (',$ft_cond).')';
 			$this->sorting->add("search","
 				cards.id::VARCHAR=:search DESC,
+				cards.id IN (SELECT card_id FROM products WHERE catalog_id LIKE :search||'%') DESC,
 				cards.id::VARCHAR LIKE :search||'%' DESC,
 				UPPER($name) LIKE UPPER(:search||'%') DESC,
 				created_at DESC
@@ -62,7 +64,7 @@ class CardsController extends AdminController{
 			$bind_ar[":search"] = $q;
 		}
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->_initialize_prepared_sorting("created_at");
 		$this->sorting->add("id");
 		$this->sorting->add("name", array("order_by" => Translation::BuildOrderSqlForTranslatableField("cards", "name")));
 		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");

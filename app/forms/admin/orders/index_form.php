@@ -7,20 +7,14 @@ class IndexForm extends OrdersForm{
 			"required" => false,
 		)));
 
-		$this->add_field("date_from",new DateField(array(
+		$this->add_field("date_from",new PickerableDateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"widget" => new DateInput(array(
-				"attrs" => array("class" => "text form-control calendar_field"),
-			)),
 		)));
 
-		$this->add_field("date_to",new DateField(array(
+		$this->add_field("date_to",new PickerableDateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"widget" => new DateInput(array(
-				"attrs" => array("class" => "text form-control calendar_field"),
-			)),
 		)));
 
 		$this->add_field("payment_method_id", new PaymentMethodField([

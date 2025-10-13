@@ -22,7 +22,6 @@
 		{/if}
 		
 		<div class="product-info">
-		{render partial="categories"}
 		{render partial="creators"}
 
 		{remove_if_contains_no_text}
@@ -38,10 +37,12 @@
 		{render partial="shared/attachments" object=$card}
 
 		{foreach $card->getCardSections() as $section}
+			{admin_menu for=$section align="left" only_edit=1 edit_title="{t}Edit section{/t}" opacity=75 pull_down=1}
+
 			{remove_if_contains_no_text}
 			<section class="section--product-info section--{$section->getTypeCode()}">
 				{if $section->getName()}
-				<h3 class="section__title">{$section->getName()}</h3>
+				<h2 class="section__title">{$section->getName()}</h2>
 				{/if}
 				<div class="section__body">
 					{!$section->getBody()|markdown}
@@ -63,6 +64,7 @@
 			</section>
 			{/remove_if_contains_no_text}
 		{/foreach}
+		{render partial="categories"}
 		</div>	
 	</div>
 	<div class="col-12 col-md-5 col-xl-6 order-1 order-md-2 product__images">

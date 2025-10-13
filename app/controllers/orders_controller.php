@@ -3,7 +3,35 @@ class OrdersController extends ApplicationController {
 
 	function index() {
 		$this->page_title = $this->breadcrumbs[] = _("Archiv objednávek");
-		$this->tpl_data["orders"] = Order::FindAllByUserId($this->logged_user, array("order_by" => "created_at DESC"));
+
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = [];
+		
+		$conditions[] = "user_id=:user";
+		$bind_ar[":user"] = $this->logged_user;
+
+		if($d["search"]){
+			$_fields = array();
+			$_fields[] = "order_no";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(body, ' ') FROM translations t, order_items oi WHERE oi.order_id=orders.id AND t.table_name='products' AND t.key IN ('label','name') AND t.record_id=oi.product_id),'')";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(catalog_id, ' ') FROM products p, order_items oi WHERE oi.order_id=orders.id AND p.id=oi.product_id),'')";
+			$_fields[] = "COALESCE((SELECT STRING_AGG(body, ' ') FROM translations t, order_items oi, products p WHERE oi.order_id=orders.id AND p.id=oi.product_id AND t.table_name='cards' AND t.key IN ('name') AND t.record_id=p.card_id),'')";
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_fields).")",Translate::Upper($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
+		}
+
+		$this->sorting->add("created_at","created_at DESC, id DESC");
+
+		$this->tpl_data["orders_total"] = $this->dbmole->selectInt("SELECT COUNT(*) FROM orders WHERE user_id=:user",[":user" => $this->logged_user]);
+		$this->tpl_data["finder"] = Order::Finder([
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
+			"order_by" => $this->sorting,
+			"offset" => $this->params->getInt("offset")
+		]);
 	}
 
 	function detail(){
@@ -35,11 +63,31 @@ class OrdersController extends ApplicationController {
 
 		$this->page_title = _("Objednávka byla dokončena");
 
-		// Objednavka tady byt muze, ale taky nemusi...
-		$this->tpl_data["order"] = $order = Order::GetInstanceByToken($this->params->getString("token"));
-		if($order && $order->getOrderStatus()->getCode()==="waiting_for_online_payment"){
-			$this->tpl_data["payment_transaction_start_url"] = $order->getPaymentTransactionStartUrl();
+		// The order object can not be set
+		$order = null;
+		if($this->params->defined("token")){
+			$order = Order::GetInstanceByToken($this->params->getString("token"));
+			if(!$order){
+				$this->_execute_action("error404");
+				return;
+			}
+			$allowed_order_statuses = [
+				"new",
+				"waiting_for_bank_transfer",
+				"repeated_payment_request",
+				"waiting_for_online_payment",
+				"payment_accepted",
+				"payment_failed",
+			];
+			// For other statuses, we do not want to disclose any information about the order
+			if(!in_array($order->getOrderStatus()->getCode(),$allowed_order_statuses)){
+				$order = null;	
+			}
 		}
+
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["payment_transaction"] = $order ? $order->getPaymentTransaction() : null;
+
 		$this->_collectTransactionDataLayer($order);
 	}
 
@@ -49,33 +97,7 @@ class OrdersController extends ApplicationController {
 		}
 		if ($this->session->defined("track_order") && ($this->session->g("track_order")===true)) {
 			$this->tpl_data["track_order"] = true;
-			$currency = $order->getCurrency();
-			$pAr = array();
-			foreach($order->getOrderItems() as $oi) {
-				$p = $oi->getProduct();
-				$unit = $p->getUnit();
-				$amount = $oi->getAmount();
-				$unit_price_incl_vat = $oi->getUnitPriceInclVat();
-				$pAr[] = array(
-					"id" => $p->getId(),
-					"name" => $p->getName(),
-					"sku" => $p->getCatalogId(),
-					"price" => round($unit_price_incl_vat, $currency->getDecimals()),
-					"quantity" => $amount,
-				);
-			}
-			$price = $this->_getPriceToPay($order,false);
-			$price_vat = $this->_getPriceToPay($order,true);
-			$vat = $price_vat - $price;
-			$dataLayer = array(
-				"transactionId" => $order->getOrderNo(),
-				"transactionTotal" => round($price_vat, $currency->getDecimalsSummary()),
-				"transactionTax" => round($vat, $currency->getDecimalsSummary()),
-				"transactionShipping" => $order->getPaymentFeeInclVat() + $order->getDeliveryFeeInclVat(),
-				"transactionCurrency" => $order->getCurrency()->toString(),
-				"transactionProducts" => $pAr,
-			);
-			$this->tpl_data["dataLayer"] = $dataLayer;
+			$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\Purchase($order, ["items" => $order->getOrderItems()]));
 		}
 		$this->session->clear("track_order");
 	}

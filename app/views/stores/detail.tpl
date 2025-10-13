@@ -27,6 +27,32 @@
 					{render partial="opening_hours_item" day=sun day_title="{t}Neděle{/t}"}
 				</tbody>
 			</table>
+
+			{if $special_opening_hours}
+				<p><strong><span class="text-danger">{!"warning"|icon:"solid"}</span> {t}Mimořádná otevírací doba{/t}:</strong></p>
+					<table class="table table-sm table-borderless table--opening-hours">
+					<tbody>
+					{foreach $special_opening_hours as $special_opening_hour}
+						<tr>
+							<th>{$special_opening_hour->getDate()|format_date:"j.{$nbsp}n."}</th>
+							<td>
+							{if $special_opening_hour->getOpeningHours2()}
+								{$special_opening_hour->getOpeningHours1()|float_to_hour} {$mdash} {$special_opening_hour->getOpeningHours2()|float_to_hour}
+							{else}
+								{t}zavřeno{/t}
+							{/if}
+							{if $special_opening_hour->getNote()}
+								<br>
+								<small>
+								<em>({$special_opening_hour->getNote()})</em>
+								</small>
+							{/if}
+							</td>
+					{/foreach}
+					</tbody>
+					</table>
+			{/if}
+
 		</div>
 
 		{if $store->getAddress()}
@@ -56,8 +82,9 @@
 		{!$store->getDescription()|markdown}
 	</div>
 	{if $store->getLocationLat() && $store->getLocationLng()}
+	{render partial="map_tiles_provider"}
 	<div class="store-detail__location col-12 col-md-6">
-		<div class="store-detail__map" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16"></div>
+		<div class="store-detail__map map_v2" id="store-map" data-lat="{$store->getLocationLat()}" data-lng="{$store->getLocationLng()}" data-zoom="16" data-title="{$store->getName()}"></div>
 		<p>
 			<a class="" href="{link_to_map service="seznam" lat=$store->getLocationLat() lng=$store->getLocationLng()}">{!"map"|icon:"regular"} {t}Velká mapa{/t}</a>
 		</p>
@@ -72,4 +99,3 @@
 
 {render partial="shared/photo_gallery" object=$store photo_gallery_title=""}
 
-{render partial="shared/mapy_cz_api_loader"}

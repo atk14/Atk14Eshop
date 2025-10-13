@@ -7,6 +7,10 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://doc.gls-czech.cz/index.php/ownsystems Documentation for branch selector implementation
+ *
+ */
 class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	/**
@@ -18,27 +22,27 @@ class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchPar
 #	static $BRANCHES_DOWNLOAD_URL = "https://datarequester.gls-hungary.com/glsconnect/getDropoffPoints.php?ctrcode=CZ&updated=2015-04-01T12:00:00";
 
 	function getExternalBranchId() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["ID"];
 	}
 
 	function getBranchName() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["Name"];
 	}
 
 	function getPlaceName() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["Name"];
 	}
 
 	function getFullAddress() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["Address"];
 	}
 
 	function getCountryCode() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["CtrCode"];
 	}
 
@@ -47,17 +51,17 @@ class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchPar
 	}
 
 	function getZipCode() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["ZipCode"];
 	}
 
 	function getCity() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["CityName"];
 	}
 
 	function getStreet() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["Address"];
 	}
 
@@ -78,7 +82,7 @@ class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchPar
 			"Sunday" => _("Neděle"),
 		];
 
-		foreach($this->branch_element->Openings->Openings as $_element) {
+		foreach($this->Openings->Openings as $_element) {
 			$_attrs = $_element->attributes();
 			$_day = (string)$_attrs["Day"];
 			$_open_day = $_days[$_day];
@@ -104,35 +108,19 @@ class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchPar
 	}
 
 	function getLatitude() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["GeoLat"];
 	}
 
 	function getLongitude() {
-		$attributes = $this->branch_element->attributes();
+		$attributes = $this->attributes();
 		return (string)$attributes["GeoLng"];
 	}
 
-	static function ParseBranch(\SimpleXMLElement $element) {
-		$branch_element = new static($element);
-		return [
-			"external_branch_id" => $branch_element->getExternalBranchId(),
-			"name" => $branch_element->getBranchName(),
-			"place" => $branch_element->getPlaceName(),
-
-			"full_address" => $branch_element->getFullAddress(),
-			"country" => $branch_element->getCountryCode(),
-			"district" => $branch_element->getDistrict(),
-			"zip" => $branch_element->getZipCode(),
-			"city" => $branch_element->getCity(),
-			"street" => $branch_element->getStreet(),
-
-			"url" => $branch_element->getInformationUrl(),
-			"opening_hours" => json_encode($branch_element->getOpeningHours()),
-			"location_latitude" => $branch_element->getLatitude(),
-			"location_longitude" => $branch_element->getLongitude(),
-		];
+	function isActive() {
+		return true;
 	}
+
 
 	static function GetXMLBranchName() {
 		return "DropoffPoint";

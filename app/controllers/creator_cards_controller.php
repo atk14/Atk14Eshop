@@ -7,7 +7,12 @@ class CreatorCardsController extends ApplicationController {
 			return $this->_execute_action("error404");
 		}
 
-		$creator = $this->creator;
+		$creators = Creator::FindAll("page_id",$this->page);
+
+		if(!$creators){
+			$this->render_template = false;
+			return;
+		}
 
 		$ids = $this->dbmole->selectIntoArray("
 			SELECT
@@ -17,7 +22,7 @@ class CreatorCardsController extends ApplicationController {
 				creator_roles,
 				cards
 			WHERE
-				card_creators.creator_id=:creator AND
+				card_creators.creator_id IN :creators AND
 				creator_roles.id=card_creators.creator_role_id AND
 				cards.id=card_creators.card_id AND
 				cards.visible AND
@@ -26,7 +31,7 @@ class CreatorCardsController extends ApplicationController {
 				creator_roles.rank,
 				creator_roles.id,	
 				cards.created_at DESC
-		",[":creator" => $creator]);
+		",[":creators" => $creators]);
 
 		$card_creators = Cache::Get("CardCreator",$ids);
 
@@ -47,6 +52,6 @@ class CreatorCardsController extends ApplicationController {
 	}
 
 	function _before_filter(){
-		$this->_find("creator","creator_id");
+		$this->_find("page","page_id");
 	}
 }

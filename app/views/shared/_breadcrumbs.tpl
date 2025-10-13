@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" class="nav--breadcrumb">
+<nav aria-label="{t}Breadcrumb{/t}" class="nav--breadcrumb">
 <ol class="breadcrumb">
 	{foreach $breadcrumbs as $breadcrumb}
 		<li class="breadcrumb-item">

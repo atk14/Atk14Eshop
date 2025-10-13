@@ -8,6 +8,7 @@ function smarty_function_display_stockcount($params,$template){
 	$params += array(
 		"product" => null,
 		"card" => null,
+		"display_nothing_if_can_be_ordered" => false,
 	);
 
 	if($params["card"]){
@@ -32,6 +33,10 @@ function smarty_function_display_stockcount($params,$template){
 		if(!$_product->considerStockcount()){ $product = $_product; }
 	}
 
+	if($params["display_nothing_if_can_be_ordered"] && $product->canBeOrdered()){
+		return;
+	}
+
 	$stockcount = $max / $unit->getDisplayUnitMultiplier();
 	$stockcount_precision = ceil(log10($unit->getDisplayUnitMultiplier())); // 100 -> 2; 1000 -> 3; 1 -> 0
 
@@ -41,5 +46,7 @@ function smarty_function_display_stockcount($params,$template){
 	$template->assign("stockcount",$stockcount);
 	$template->assign("stockcount_precision",$stockcount_precision);
 
-	return trim($template->fetch("shared/helpers/_display_stockcount.tpl"));
+	$smarty = atk14_get_smarty_from_template($template);
+
+	return trim($smarty->fetch("shared/helpers/_display_stockcount.tpl"));
 }

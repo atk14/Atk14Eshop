@@ -288,6 +288,13 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		];
 		$categories = $this->getCategories($options);
 		if($categories){
+			if($main_root_category = Category::MainRootCategory()){
+				foreach($categories as $category){
+					if($category->isDescendantOf($main_root_category)){
+						return $category;
+					}
+				}
+			}
 			return $categories[0];
 		}
 	}
@@ -455,7 +462,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
 
 		if($product){
-			if(!$product->isVisible() && strlen($product->getCode())){
+			if(!$product->isVisible() && strlen((string)$product->getCode())){
 				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
 				return false;
 			}
@@ -617,16 +624,59 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $alt_cards;
 	}
 
-	function getTechnicalSpecifications(){
-		return TechnicalSpecification::FindAll("card_id",$this);
+	static $TechnicalSpecificationList;
+	function getTechnicalSpecifications($options = []){
+		$options += [
+			"visible" => null,
+		];
+
+		if(!self::$TechnicalSpecificationList) {
+			self::$TechnicalSpecificationList = new CacheSomething(
+				function($ids) {
+					$ids += Cache::CachedIds("Card");
+					$dbmole = Card::GetDbmole();
+					$rows = $dbmole->selectRows(
+						"
+							SELECT
+								card_id, id
+							FROM
+								technical_specifications WHERE card_id IN :ids ORDER BY rank, id
+						",
+						[":ids" => $ids]
+					);
+					Cache::Prepare("TechnicalSpecification", array_column($rows, "id"));
+					$out = array_fill_keys($ids, []);
+					foreach($rows as $row){
+						$cid = $row["card_id"];
+						$out[$cid][] = Cache::Get("TechnicalSpecification",$row["id"]);
+					}
+					return $out;
+				},
+				"TechnicalSpecification"
+			);
+		}
+		$out = self::$TechnicalSpecificationList->get($this);
+		$out = array_filter($out); $out = array_values($out); // sometimes a null value seems to be present
+		//$out = TechnicalSpecification::FindAll("card_id",$this);
+
+		if(!is_null($options["visible"])){
+			$_out = [];
+			foreach($out as $item){
+				if($item->getTechnicalSpecificationKey()->isVisible()!==(bool)$options["visible"]){ continue; }
+				$_out[] = $item;
+			}
+			$out = $_out;
+		}
+		return $out;
 	}
 
 	/**
 	 * Returns the first occurrence of TechnicalSpecification with the given key
 	 *
-	 *	echo $card->getTechnicalSpecification("weight");
+	 *	echo $card->getTechnicalSpecification("weight"); // code
+	 *	echo $card->getTechnicalSpecification("Weight"); // key
 	 *	echo $card->getTechnicalSpecification(123);
-	 *	echo $card->getTechnicalSpecification($tech_spec_key);
+	 *	echo $card->getTechnicalSpecification($tech_spec_key); // TechnicalSpecificationKey
 	 *
 	 * @return TechnicalSpecification
 	 */
@@ -635,10 +685,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		if(is_numeric($key) && ($obj = Cache::Get("TechnicalSpecificationKey",$key))){
 			$key = $obj;
-		}
-		if(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByKey($key))){
+		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByCode($key))){
+			$key = $obj;
+		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByKey($key))){
 			$key = $obj;
 		}
+
 		if(!is_object($key)){
 			return null;
 		}
@@ -830,7 +882,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			]);
 		}
 
-		foreach($this->getTechnicalSpecifications() as $ts){
+		foreach($this->getTechnicalSpecifications(["visible" => true]) as $ts){
 			$fd->merge($ts->getFulltextData($lang),[
 				"a" => "b",
 				"b" => "c",

@@ -59,7 +59,7 @@ class TcCardsRouter extends TcBase {
 		$this->assertEquals("cs",$ret["lang"]);
 		$this->assertEquals($this->cards["book"]->getId(),$params["id"]);
 
-		// Uri with another slug of product type is recognizable also
+		// URI with another slug of product type is recognizable also
 		$params = array();
 		$ret = $this->assertRecognizable("/drink/the-book/",$params);
 		$this->assertEquals("cards",$ret["controller"]);
@@ -78,5 +78,13 @@ class TcCardsRouter extends TcBase {
 		$this->assertNotRecognizable("/book/ta-kniha/");
 		$this->assertNotRecognizable("/napoj/the-book/");
 		$this->assertNotRecognizable("/drink/ta-kniha/");
+
+		// URI without the trailing slash
+		$params = array();
+		$ret = $this->assertRecognizable("/kniha/ta-kniha",$params);
+		$this->assertEquals("cards",$ret["controller"]);
+		$this->assertEquals("detail",$ret["action"]);
+		$this->assertEquals("cs",$ret["lang"]);
+		$this->assertEquals($this->cards["book"]->getId(),$params["id"]);
 	}
 }

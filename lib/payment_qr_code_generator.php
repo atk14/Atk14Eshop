@@ -8,6 +8,14 @@ use Shoptet\Spayd\Utilities\IbanUtilities;
 
 class PaymentQrCodeGenerator {
 
+	var $amount;
+	var $variable_symbol;
+	var $account_number;
+	var $iban;
+	var $swift;
+	var $currency;
+	var $message;
+
 	static function GetInstanceForOrder($order){
 		$payment_method = $order->getPaymentMethod();
 		$region = $order->getRegion();
@@ -23,8 +31,8 @@ class PaymentQrCodeGenerator {
 			"amount" => $order->getPriceToPay(),
 			"variable_symbol" => $order->getOrderNo(),
 			"account_number" => $bank_account->getAccountNumber(),
-			"iban" => preg_replace('/\s+/','',$bank_account->getIban()),
-			"swift" => preg_replace('/\s+/','',$bank_account->getSwiftBic()),
+			"iban" => preg_replace('/\s+/','',(string)$bank_account->getIban()),
+			"swift" => preg_replace('/\s+/','',(string)$bank_account->getSwiftBic()),
 			"currency" => $currency->getCode(),
 			"message" => $message,
 		]);
@@ -94,10 +102,26 @@ class PaymentQrCodeGenerator {
 		$options += array(
 			"size" => "400",
 		);
-		$renderer = new \BaconQrCode\Renderer\Image\Png();
-		$renderer->setWidth($options["size"]);
-		$renderer->setHeight($options["size"]);
+
+		// bacon/bacon-qr-code ^1.0
+		if(class_exists("\BaconQrCode\Renderer\Image\Png")){
+			$renderer = new \BaconQrCode\Renderer\Image\Png();
+			$renderer->setWidth($options["size"]);
+			$renderer->setHeight($options["size"]);
+			$writer = new \BaconQrCode\Writer($renderer);
+			return $writer->writeString($this->getSpayd(["size" => $options["size"]]));
+		}
+
+		// bacon/bacon-qr-code ^2.0
+		$renderer = new \BaconQrCode\Renderer\ImageRenderer(
+			new BaconQrCode\Renderer\RendererStyle\RendererStyle($options["size"]),
+			new BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+		);
 		$writer = new \BaconQrCode\Writer($renderer);
-		return $writer->writeString($this->getSpayd(["size" => $options["size"]]));
+		$file = Files::GetTempFilename().".png";
+		$writer->writeFile($this->getSpayd(["size" => $options["size"]]), $file);
+		$out = Files::GetFileContent($file);
+		Files::Unlink($file);
+		return $out;
 	}
 }

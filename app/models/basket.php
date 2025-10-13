@@ -20,7 +20,7 @@ class Basket extends BasketOrOrder {
 
 		return parent::CreateNewRecord($values,$options);
 	}
-	
+
 	/**
 	 *
 	 *	$basket = Basket::CreateNewRecord4UserAndRegion();
@@ -73,14 +73,14 @@ class Basket extends BasketOrOrder {
 		return $basket;
 	}
 
-	static function GetDummyBasket($region = null,$user = null){
+	static function GetDummyBasket($region = null,$user = null, $currency = null){
 		if(!$region){ $region = Region::GetDefaultRegion(); }
 		$basket = Cache::Get("Basket",self::ID_DUMMY);
 
 		$out = clone($basket);
 		$out->setValuesVirtually([
 			"region_id" => $region->getId(),
-			"currency_id" => $region->getDefaultCurrency()->getId(),
+			"currency_id" => isset($currency) ? TableRecord::ObjToId($currency) : $region->getDefaultCurrency()->getId(),
 			"user_id" => $user ? $user->getId() : null,
 		]);
 
@@ -120,7 +120,7 @@ class Basket extends BasketOrOrder {
 			$update_ar["payment_method_id"] = null;
 		}
 		if($this->g("delivery_address_country") && !in_array($this->g("delivery_address_country"),$allowed_countries)){
-			$update_ar["delivery_address_country"] = null; 
+			$update_ar["delivery_address_country"] = null;
 		}
 		if(!in_array($this->getCurrency()->getCode(),$allowed_currencies)){
 			$update_ar["currency_id"] = $region->getDefaultCurrency()->getId();
@@ -143,6 +143,11 @@ class Basket extends BasketOrOrder {
 			$this->basket_items = new BasketItems($this);
 		}
 		return $this->basket_items;
+	}
+
+	function setBasketItemsVirtually($basket_items){
+		myAssert($this->isDummy(),"Basket::setBasketItemsVirtually() can only be called on a dummy basket");
+		$this->basket_items = $basket_items;
 	}
 
 	function getItems(){
@@ -275,9 +280,13 @@ class Basket extends BasketOrOrder {
 			if(is_null($country) && $delivery->getLowestPriceInclVat()!=$delivery->getHighestPriceInclVat()){
 				return null;
 			}
-			$price = $incl_vat ? $delivery->getPriceInclVat($country) : $delivery->getPrice($country);
+			$price = $delivery->getPriceInclVat($country);
 			if(is_null($price)){ return null; }
+			$price = $price * $this->getDeliveryFeeMultiplier();
 			$price = $price / $currency->getRate();
+			if(!$incl_vat){
+				$price = ApplicationHelpers::DelVat($price,$delivery->getVatPercent($country));
+			}
 			return $currency->roundPrice($price);
 		}
 	}
@@ -287,6 +296,23 @@ class Basket extends BasketOrOrder {
 	 */
 	function getDeliveryFeeInclVat($options = []){
 		return $this->getDeliveryFee(true,$options);
+	}
+
+	function getDeliveryFeeMultiplier($delivery_method = null){
+		$delivery_method = $delivery_method ? $delivery_method : $this->getDeliveryMethod();
+		if(!$delivery_method || !$delivery_method->multiplyPrice()){ return 1; }
+		$tags = $delivery_method->getDesignatedForTags();
+		$tags[] = $delivery_method->getRequiredTag();
+		$tags = array_filter($tags);
+		if(!$tags){ return 1; }
+		$multiplier = 0;
+		foreach($this->getItems() as $item){
+			$product = $item->getProduct();
+			foreach($tags as $tag){
+				if($product->containsTag($tag)){ $multiplier += $item->getAmount(); continue(2); }
+			}
+		}
+		return max(1,$multiplier);
 	}
 
 	/**
@@ -398,8 +424,6 @@ class Basket extends BasketOrOrder {
 
 	function getPriceToPay($incl_vat = true, &$price_without_rounding = null){
 
-		$currency = $this->getCurrency();
-
 		$price = $this->getItemsPrice($incl_vat);
 
 		$price += $this->getDeliveryFee($incl_vat);
@@ -409,7 +433,7 @@ class Basket extends BasketOrOrder {
 
 		$price_without_rounding = $price;
 
-		$price = round($price,$currency->getDecimalsSummary());
+		$price = round($price,$this->getCurrencyDecimalsSummary());
 		return $price;
 	}
 
@@ -491,7 +515,7 @@ class Basket extends BasketOrOrder {
 	 */
 	function hasAddressSet(){
 		foreach(self::GetAddressFields() as $k => $req){
-			if($req && strlen($this->g("$k"))==0){ return false; }
+			if($req && strlen((string)$this->g("$k"))==0){ return false; }
 		}
 		return true;
 	}
@@ -500,8 +524,16 @@ class Basket extends BasketOrOrder {
 	 * Ma kosik nastavenou dorucovaci adresu?
 	 */
 	function hasDeliveryAddressSet(){
-		foreach(self::GetAddressFields(["prefix" => "delivery_"]) as $k => $req){
-			if($req && strlen($this->g("$k"))==0){ return false; }
+		$fields = self::GetAddressFields(["prefix" => "delivery_"]);
+		if(!$this->deliveryAddressEditableByUser()){
+			$fields = [
+				"delivery_firstname" => true,
+				"delivery_lastname" => true,
+			];
+		}
+		foreach($fields as $k => $req){
+			$method = String4::ToObject($k)->camelize()->prepend("get")->toString(); // "delivery_address_zip" -> "getDeliveryAddressZip"
+			if($req && strlen((string)$this->$method())==0){ return false; }
 		}
 		return true;
 	}
@@ -529,7 +561,7 @@ class Basket extends BasketOrOrder {
 
 	/**
 	 * Alias pro getBasketCampaigns()
-	 * 
+	 *
 	 * !! Pozor !! Toto nevraci Campaigns[], ale BasketCampaign[]
 	 */
 	function getCampaigns(){
@@ -563,7 +595,7 @@ class Basket extends BasketOrOrder {
 			"required_payment_method_id IS NULL OR required_payment_method_id=:required_payment_method",
 			"minimal_items_price_incl_vat<=:items_price_incl_vat",
 		];
-		$bind_ar[":region_code"] = $region->getCode(); 
+		$bind_ar[":region_code"] = $region->getCode();
 		$bind_ar[":now"] = $now;
 		$bind_ar[":required_customer_groups"] = $user->getCustomerGroups();
 		$bind_ar[":required_delivery_method"] = $this->getDeliveryMethod();
@@ -651,7 +683,7 @@ class Basket extends BasketOrOrder {
 	function freeShipping($considered_delivery_method = null){
 
 		if(is_null($considered_delivery_method)){ $considered_delivery_method = $this->getDeliveryMethod(); }
-		
+
 		foreach($this->getBasketCampaigns($considered_delivery_method) as $bc){
 			if($bc->freeShipping()){
 				return true;
@@ -670,14 +702,22 @@ class Basket extends BasketOrOrder {
 
 	/**
 	 * Zmena obsahu kosiku zmenu jeho checksum
-	 * 
+	 *
 	 * Pouziva se pri vytvareni objednavky.
 	 * Chceme mit totiz jistotu, ze uzivatel vytvari objednavku podle toho, co vidi v sumarizaci kosiku.
 	 */
-	function getChecksum(){
+	function getChecksum($options = []){
+		$options += [
+			"consider_products_amount" => true,
+		];
+
 		$ary = [];
 		foreach($this->getItems() as $item){
-			$ary[] = [$item->getProductId(),$item->getAmount()];
+			if($options["consider_products_amount"]){
+				$ary[] = [$item->getProductId(),$item->getAmount()];
+			}else{
+				$ary[] = [$item->getProductId()];
+			}
 		}
 
 		return md5(serialize($ary));
@@ -693,6 +733,18 @@ class Basket extends BasketOrOrder {
 
 		foreach($this->getItems() as $item){
 			$product = $item->getProduct();
+			$card = $product->getCard();
+
+			if($product->isDeleted() || !$product->isVisible() || $card->isDeleted() || !$card->isVisible()){
+				$messages[] = new BasketErrorMessage(
+					sprintf(_("Produkt <em>%s (%s)</em> byl vyřazen z nabídky"),h($product->getName()),h($product->getCatalogId())),
+					[
+						"correction_text" => _("odebrat z košíku"),
+						"correction_url" => $this->_buildLink(["action" => "basket_items/destroy", "id" => $item->getId()]),
+					]
+				);
+				continue;
+			}
 
 			$price = $item->getProductPrice();
 			if(!$price->priceExists()){
@@ -743,7 +795,7 @@ class Basket extends BasketOrOrder {
 
 			if($amount%$step!==0){
 				$new_quantity = ceil($amount / $step) * $step;
-				$messages[] = new BasketErrorMessage(sprintf(_("Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"),h($product->getName()),h($product->getCatalogId()),$min_quantity,$amount),
+				$messages[] = new BasketErrorMessage(sprintf(_("Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"),h($product->getName()),h($product->getCatalogId()),$step),
 					[
 						"correction_text" => sprintf(_("změnit množství na %s"),$new_quantity),
 						"correction_url" => $this->_buildLink(["action" => "basket_items/edit", "id" => $item->getId(), "amount" => $new_quantity]),
@@ -816,13 +868,31 @@ class Basket extends BasketOrOrder {
 
 		# Pokud je zvolena dorucovaci sluzba (napr. Zasilkovna), musi byt zvolena i pobocka
 		if ($delivery_method && !is_null($delivery_method->getDeliveryServiceId()) && is_null($this->getDeliveryMethodData())) {
-			$messages[] = new BasketErrorMessage(sprintf(_("Pro způsob dodání '%s' nebylo zvoleno doručovací místo"), $delivery_method->getLabel()));
+			$messages[] = new BasketErrorMessage(_("Výdejní místo pro doručení objednávky nebylo vybráno"),[
+				"correction_text" => _("vyberte výdejní místo"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+				"request_method" => "GET",
+			]);
 		}
 
-		if($delivery_method && $this->getDeliveryAddressCountry() && !in_array($this->getDeliveryAddressCountry(),$this->getDeliveryCountriesAllowed())){
+		if(
+			$delivery_method &&
+			!$this->personalPickupOnStoreSelected() && // tady pripadne umoznime os. vyzvednuti na prodejne, i je prodejna v nepodporovane zemi
+			$this->getDeliveryAddressCountry() &&
+			!in_array($this->getDeliveryAddressCountry(),$this->getDeliveryCountriesAllowed())
+		){
 			$messages[] = new BasketErrorMessage(_("Objednávku nelze doručit na danou doručovací adresu"),[
 				"correction_text" => _("upravte doručovací adresu"),
 				"correction_url" => $this->_buildLink(["action" => "checkouts/set_billing_and_delivery_data"]),
+				"request_method" => "GET",
+			]);
+		}
+
+		if(($delivery_service_branch = $this->getDeliveryServiceBranch()) && !$delivery_service_branch->isActive()){
+			$messages[] = new BasketErrorMessage(_("Vybrané výdejní místo pro doručení objednávky již není aktivní"),[
+				"correction_text" => _("vyberte jiné výdejní místo"),
+				"correction_url" => $this->_buildLink(["action" => "checkouts/set_payment_and_delivery_method"]),
+				"request_method" => "GET",
 			]);
 		}
 
@@ -888,7 +958,16 @@ class Basket extends BasketOrOrder {
 
 		// Toto zajisti, ze pokud neni nastavena fakturacni adresa, pouzije se dorucovaci.
 		// Osetreno to je to v jednotlivych funkcich getAddressStreet(), getAddressCity().
+		// Naopak u dorucovaci adresy metody getDeliveryAddress*() mohou nacitat hodnoty z vybraneho mista odberu.
 		$address_fields = array_keys(Basket::GetAddressFields());
+		foreach(array_keys(Basket::GetAddressFields(["note" => true, "prefix" => "delivery_"])) as $_k){
+			$address_fields[] = $_k;
+		}
+		foreach($address_fields as $key){
+			$method = String4::ToObject($key)->camelize()->prepend("get")->toString(); // "address_zip" -> "getAddressZip"
+			$values[$key] = $this->$method();
+		}
+
 		foreach($address_fields as $key){
 			$method = String4::ToObject($key)->camelize()->prepend("get")->toString(); // "address_zip" -> "getAddressZip"
 			$values[$key] = $this->$method();
@@ -897,7 +976,7 @@ class Basket extends BasketOrOrder {
 		$payment_method = $this->getPaymentMethod();
 		$payment_gateway = $payment_method->getPaymentGateway();
 
-		$values["delivery_method_data"] = $this->g("delivery_method_data");
+		$values["delivery_method_data"] = $this->getDeliveryMethodData(["as_json" => true]);
 
 		$delivery_fee_incl_vat = $this->getDeliveryFee($incl_vat,["check_for_free_shipping_campaign_or_voucher" => false]);
 		$delivery_fee_vat_percent = $incl_vat ? $delivery_method->getVatPercent($delivery_country) : 0.0;
@@ -969,7 +1048,7 @@ class Basket extends BasketOrOrder {
 		if(abs($delta)>=$currency->getLowestPrice()){
 			$amount = $delta > 0.0 ? 1 : -1;
 			$delta_product = Product::FindByCode("price_rounding");
-			$delta_vat_percent = $incl_vat ? $delta_product->getVatPercent() : 0.0;
+			$delta_vat_percent = $incl_vat ? $this->_getVatPercentForPriceRounding() : 0.0;
 			$delta_price = abs($delta);
 			//$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
 
@@ -1067,7 +1146,7 @@ class Basket extends BasketOrOrder {
 		}
 
 		// Toto je pro pripad, ze by Basket a Order pocitaly price_to_pay jinak...
-		if($order->recalculatePriceToPay()){
+		if($order->recalculatePriceToPay() && !TEST){
 			trigger_error(sprintf("Basket::createOrder(): price_to_pay mismatch on Order#%s; corrected: %s -> %s",$order->getId(),$price_to_pay,$order->getPriceToPay()));
 		}
 
@@ -1095,7 +1174,6 @@ class Basket extends BasketOrOrder {
 				"order_status_set_by_user_id" => null,
 			]);
 		}
-		
 
 		# v ApplicationModel se automaticky vyplni prihlaseny uzivatel,
 		# kdyz dojde ke zmene stavu diky predchozimu kodu.
@@ -1128,12 +1206,17 @@ class Basket extends BasketOrOrder {
 		foreach(array(
 			"payment_method_id",
 			"delivery_method_id",
-			"delivery_method_data",
+			//"delivery_method_data",
+			"note",
 		) as $f){
 			$v = $basket->g($f);
 			if(!is_null($v)){
 				$update_ar[$f] = $v;
 			}
+		}
+
+		if(isset($update_ar["delivery_method_id"])){
+			$update_ar["delivery_method_data"] = $basket->g("delivery_method_data");
 		}
 
 		$update_ar && $this->s($update_ar);
@@ -1149,35 +1232,53 @@ class Basket extends BasketOrOrder {
 	}
 
 	function getFirstname(){
-		return $this->hasAddressSet() ? $this->g("firstname") : $this->g("delivery_firstname");
+		return $this->_getAddressOrDelivery("firstname");
 	}
 
 	function getLastname(){
-		return $this->hasAddressSet() ? $this->g("lastname") : $this->g("delivery_lastname");
+		return $this->_getAddressOrDelivery("lastname");
 	}
 
 	function getCompany(){
-		return $this->hasAddressSet() ? $this->g("company") : $this->g("delivery_company");
+		return $this->_getAddressOrDelivery("company");
 	}
 
 	function getAddressStreet(){
-		return $this->hasAddressSet() ? $this->g("address_street") : $this->g("delivery_address_street");
+		return $this->_getAddressOrDelivery("address_street");
 	}
 
 	function getAddressStreet2(){
-		return $this->hasAddressSet() ? $this->g("address_street2") : $this->g("delivery_address_street2");
+		return $this->_getAddressOrDelivery("address_street2");
 	}
 
 	function getAddressCity(){
-		return $this->hasAddressSet() ? $this->g("address_city") : $this->g("delivery_address_city");
+		return $this->_getAddressOrDelivery("address_city");
+	}
+
+	function getAddressState(){
+		return $this->_getAddressOrDelivery("address_state");
 	}
 
 	function getAddressZip(){
-		return $this->hasAddressSet() ? $this->g("address_zip") : $this->g("delivery_address_zip");
+		return $this->_getAddressOrDelivery("address_zip");
 	}
 
 	function getAddressCountry(){
-		return $this->hasAddressSet() ? $this->g("address_country") : $this->g("delivery_address_country");
+		return $this->_getAddressOrDelivery("address_country");
+	}
+
+	function _getAddressOrDelivery($key){
+		if($this->hasAddressSet()){
+			return $this->g($key);
+		}
+		if($this->deliveryAddressEditableByUser() || in_array($key,["firstname","lastname"])){
+			return $this->g("delivery_$key");
+		}
+		$user = $this->getUser();
+		if($user && !$user->isAnonymous() && !$this->deliveryAddressEditableByUser()){
+			$method = String4::ToObject("get_$key")->camelize(["lower" => true])->toString(); // address_city -> getAddressCity
+			return $user->$method();
+		}
 	}
 
 	/**
@@ -1193,6 +1294,20 @@ class Basket extends BasketOrOrder {
 	}
 
 	function containsProductWithTag($tag){
+		static $CATEGORIES_PREFETCHED = [];
+
+		// We should prefetch all categories in all paths.
+		// It helps Product::containsProductWithTag($tag,["consider_categories" => true]) to be faster.
+		$checksum = $this->getChecksum(["consider_products_amount" => false]);
+		if(!isset($CATEGORIES_PREFETCHED[$checksum])){
+			foreach($this->getItems() as $item){
+				$card = $item->getProduct()->getCard();
+				$categories = $card->getCategories();
+				Category::PrecacheParentsForCategories($categories);
+			}
+			$CATEGORIES_PREFETCHED[$checksum] = true;
+		}
+
 		foreach($this->getBasketItems() as $item){
 			$product = $item->getProduct();
 			if($product->containsTag($tag,["consider_categories" => true])){ return true; }
@@ -1246,8 +1361,8 @@ class Basket extends BasketOrOrder {
 		return parent::setValues($values,$options);
 	}
 
-	protected function _getDeliveryCountry(){
-		$country = $this->g("delivery_address_country");
+	function _getDeliveryCountry(){
+		$country = $this->getDeliveryAddressCountry();
 		$country = is_null($country) ? $this->g("address_country") : $country;
 		if(is_null($country)){
 			$region = $this->getRegion();
@@ -1288,39 +1403,39 @@ class Basket extends BasketOrOrder {
 	 * @return DeliveryServiceBranch
 	 */
 	function getDeliveryServiceBranch() {
+		static $CACHE = [];
 		$method_data = $this->getDeliveryMethodData();
 		if (is_null($this->getDeliveryMethod()) || is_null($method_data)) {
 			return null;
 		}
-		return DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
-	}
-
-	function getDeliveryPointAddress() {
-		$delivery_address = null;
-		$data = $this->getDeliveryMethodData();
-		if (isset($data["delivery_address"])) {
-			$delivery_address = $data["delivery_address"];
-			foreach(["street","city","zip","country"] as $k) {
-				$delivery_address["delivery_address_${k}"] = $delivery_address[$k];
-				unset($delivery_address[$k]);
-			}
-			$delivery_address["delivery_company"] = $delivery_address["company"] . ($delivery_address["place"] ? " - ".$delivery_address["place"] : "");
-			unset($delivery_address["company"]);
+		$cache_key = $this->getDeliveryMethod()->getDeliveryServiceId()."_".$method_data["external_branch_id"];
+		if(!array_key_exists($cache_key,$CACHE)){
+			$CACHE[$cache_key] = DeliveryServiceBranch::FindFirst("delivery_service_id", $this->getDeliveryMethod()->getDeliveryServiceId(), "external_branch_id", $method_data["external_branch_id"]);
 		}
-		return $delivery_address;
-	}
-
-	function getDeliveryServiceBranchAddress() {
-		return $this->getDeliveryPointAddress();
+		return $CACHE[$cache_key];
 	}
 
 	/**
 	 * Bylo vybrano doruceni do dorucovaciho mista?
 	 *
 	 */
-	function deliveryToDeliveryPointSelected() {
+	function deliveryToDeliveryPointSelected(){
 		$d_method = $this->getDeliveryMethod();
 		return $d_method && $d_method->getDeliveryService();
+	}
+
+	/**
+	 * Is in-store pickup selected?
+	 */
+	function personalPickupOnStoreSelected(){
+		$d_method = $this->getDeliveryMethod();
+		return $d_method && $d_method->getPersonalPickupOnStore();
+	}
+
+	function deliveryAddressEditableByUser(){
+		return
+			!$this->deliveryToDeliveryPointSelected() &&
+			!$this->personalPickupOnStoreSelected();
 	}
 
 	/**
@@ -1351,5 +1466,34 @@ class Basket extends BasketOrOrder {
 	 */
 	function displayPricesInclVat(){
 		return !$this->displayPricesWithoutVat();
+	}
+
+	function getDeliveryCompany(){ return $this->_getDeliveryAddress("delivery_company"); }
+	function getDeliveryAddressStreet(){ return $this->_getDeliveryAddress("delivery_address_street"); }
+	function getDeliveryAddressStreet2(){ return $this->_getDeliveryAddress("delivery_address_street2"); }
+	function getDeliveryAddressCity(){ return $this->_getDeliveryAddress("delivery_address_city"); }
+	function getDeliveryAddressState(){ return $this->_getDeliveryAddress("delivery_address_state"); }
+	function getDeliveryAddressZip(){ return $this->_getDeliveryAddress("delivery_address_zip"); }
+	function getDeliveryAddressCountry(){ return $this->_getDeliveryAddress("delivery_address_country"); }
+	function getDeliveryAddressNote(){ return $this->_getDeliveryAddress("delivery_address_note"); }
+
+	protected function _getDeliveryAddress($key){
+		if($delivery_service_branch = $this->getDeliveryServiceBranch()){
+			$delivery_address = $delivery_service_branch->getDeliveryAddressAr();
+			return $delivery_address[$key];
+		}
+		$delivery_method = $this->getDeliveryMethod();
+		$store = $delivery_method ? $delivery_method->getPersonalPickupOnStore() : null;
+		if($store){
+			$_key = String4::ToObject($key)->gsub('/^delivery_/','')->toString();
+			if($_key === "company"){
+				return $store->getName();
+			}
+			if($_key === "address_note"){
+				return null;
+			}
+			return $store->g($_key);
+		}
+		return $this->g($key);
 	}
 }

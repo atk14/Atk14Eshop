@@ -21,10 +21,32 @@ class Currency extends ApplicationModel{
 		return self::GetInstanceByCode(DEFAULT_CURRENCY);
 	}
 
+	function _getCurrencyRate($date = null){
+		return CurrencyRate::GetCurrencyRate($this,$date);
+	}
+
+	/**
+	 * Returns rate of this currency to the given currency
+	 *
+	 *	$rate = $eur->getConversionRate($czk); // e.g. 26.5
+	 *	$rate = $eur->getConversionRate($czk,"2017-09-27");
+	 *	$rate = $eur->getConversionRate($czk,"2017-09-27 12:33:33");
+	 *	$rate = $eur->getConversionRate($czk,time());
+	 *
+	 * @return float
+	 */
+	function getConversionRate($currency = null,$date = null){
+		if(is_null($currency)){
+			$currency = Currency::getDefaultCurrency();
+		}
+		return $this->_getCurrencyRate($date) / $currency->_getCurrencyRate($date);
+	}
+
 	/**
 	 * Returns rate of this currency to the default currency
 	 *
-	 * Obviously the default currency has rate 1.0
+	 * Things make more sence when the default currency has its currency rate set to 1.0,
+	 * but it is not a necessity.
 	 *
 	 *	$rate = $eur->getRate(); // e.g. 26.5
 	 *	$rate = $eur->getRate("2017-09-27");
@@ -34,7 +56,7 @@ class Currency extends ApplicationModel{
 	 * @return float
 	 */
 	function getRate($date = null){
-		return CurrencyRate::GetCurrencyRate($this,$date);
+		return $this->getConversionRate(Currency::GetDefaultCurrency(),$date);
 	}
 
 	/**

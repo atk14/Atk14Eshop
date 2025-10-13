@@ -3,8 +3,10 @@ class BasketOrOrder extends ApplicationModel {
 
 	static function GetAddressFields($options = []){
 		$options += [
+			"name" => true,
 			"company_data" => false,
 			"address_street2" => true,
+			"address_state" => true,
 			"phone" => false,
 			"note" => false,
 			"prefix" => "", // "", "delivery_"
@@ -37,6 +39,11 @@ class BasketOrOrder extends ApplicationModel {
 			];
 		}
 
+		if(!$options["name"]){
+			unset($fields["{$prefix}firstname"]);
+			unset($fields["{$prefix}lastname"]);
+		}
+
 		if($options["note"]){
 			$fields["{$prefix}address_note"] = false;
 		}
@@ -45,11 +52,28 @@ class BasketOrOrder extends ApplicationModel {
 			unset($fields["{$prefix}address_street2"]);
 		}
 
+		if(!$options["address_state"]){
+			unset($fields["{$prefix}address_state"]);
+		}
+
 		return $fields;
 	}
 
 	function getCurrency(){
 		return Cache::Get("Currency",$this->getCurrencyId());
+	}
+
+	/**
+	 * Returns decimals to round the summary price
+	 *
+	 * It is safer to call $basket->getCurrencyDecimalsSummary() or $order->getCurrencyDecimalsSummary()
+	 * instead of $basket->getCurrency()->getDecimalsSummary() $order->getCurrency()->getDecimalsSummary() respectively,
+	 * because in some special cases the results may vary.
+	 */
+	function getCurrencyDecimalsSummary(){
+		$currency = $this->getCurrency();
+		$decimals = $currency->getDecimalsSummary();
+		return $decimals;
 	}
 
 	function getRegion(){
@@ -162,7 +186,18 @@ class BasketOrOrder extends ApplicationModel {
 	}
 
 	function _getDelivery($key){
+		$delivery_address_set = true;
+		foreach(["street","city","zip"] as $k){
+			if(!strlen((string)$this->g("delivery_address_$k"))){
+				$delivery_address_set = false;
+				break;
+			}
+		}
+
 		$out = $this->g("delivery_$key");
+		if($delivery_address_set){
+			return $out;
+		}
 		if(!strlen((string)$out)){
 			$out = $this->g("$key");
 		}
@@ -299,4 +334,23 @@ class BasketOrOrder extends ApplicationModel {
 		$out = round($out,INTERNAL_PRICE_DECIMALS);
 		return $out;
 	}
+
+	function _getVatPercentForPriceRounding(){
+		$default_vat_percent = VatRate::GetDefaultVatRate()->getVatPercent();
+
+		$out = null;
+		foreach($this->getItems() as $item){
+			if($item->getProduct()->getCode()==="price_rounding"){ continue; }
+			if(is_null($out)){ $out = $item->getVatPercent(); } // take vat percent from the first item
+			if($item->getVatPercent() == $default_vat_percent){ // but default vat rate takes precedence
+				$out = $default_vat_percent;
+				break;
+			}
+		}
+
+		if(is_null($out)){ $out = $default_vat_percent; }
+
+		return $out;
+	}
+
 }

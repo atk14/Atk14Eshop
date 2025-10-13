@@ -15,7 +15,7 @@ if(
 	class_exists("Tracy\Debugger") &&
 	php_sapi_name()!="cli" // we do not want Tracy in cli
 ){
-	Tracy\Debugger::enable(PRODUCTION, __DIR__ . '/../log/',ATK14_ADMIN_EMAIL);
+	Tracy\Debugger::enable(PRODUCTION, __DIR__ . '/../log/',PRODUCTION ? ATK14_ADMIN_EMAIL : null);
 	if(file_exists(ATK14_DOCUMENT_ROOT . "/config/error_pages/error500.phtml")){
 		Tracy\Debugger::$errorTemplate = ATK14_DOCUMENT_ROOT . "/config/error_pages/error500.phtml";
 	}
@@ -27,3 +27,5 @@ require_once(__DIR__ . "/head_tags/load.php");
 
 class_autoload(__DIR__ . '/ajax_pager/');
 require_once(__DIR__."/delivery_services/src/load.php");
+
+class_autoload(__DIR__ . "/datalayer/");

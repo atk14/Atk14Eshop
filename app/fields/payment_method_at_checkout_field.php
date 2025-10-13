@@ -4,6 +4,8 @@
  */
 class PaymentMethodAtCheckoutField extends ChoiceFieldWithImages {
 
+	public $basket;
+
 	function __construct($options = []){
 		$options += [
 			"basket" => null,
@@ -26,6 +28,9 @@ class PaymentMethodAtCheckoutField extends ChoiceFieldWithImages {
 }
 
 class PaymentMethodChoice {
+
+	public $options;
+	public $pm;
 
   function __construct($pm, $options) {
     $this->options = $options;
@@ -58,7 +63,7 @@ class PaymentMethodChoice {
 		$price = $incl_vat ? $this->pm->getPriceInclVat() : $this->pm->getPrice();
 		$price = $price / $rate;
 		if($price==0.0 || $this->options["free_shipping"]){
-			$price = 0;
+			$price = 0.0;
 		}else{
 			$price = smarty_modifier_display_price($price,["format" => "plain", "currency" => $currency]);
 			$price = str_replace(" ",html_entity_decode("&nbsp;"),$price);

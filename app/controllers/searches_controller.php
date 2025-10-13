@@ -12,29 +12,48 @@ class SearchesController extends ApplicationController {
 			$this->template_name = "snippet";
 		}
 
-		if(!strlen($d["q"])){
+		$q = String4::ToObject($d["q"])->trim()->gsub('/\s+/',' ');
+
+		if(!$q->length()){
 			return;
 		}
 
-		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$d["q"]);
+		$offset = $this->params->getInt("offset");
+		if(!is_null($offset) && $offset<0){
+			$params = $this->params->toArray();
+		 	unset($params["offset"]);
+			$this->_redirect_to($params);
+			return;
+		}
+
+		$this->page_title = sprintf(_('Vyhledávání: „%s“'),$q);
 
 		$texmit = new \Textmit\Client();
 
 		$options = array(
-			"prefix_search" => true,
+			"prefix_search" => $q->length()>2, // prefix_search is slow for short strings
 			//"type" => "article",
 			//"meta_data" => "",
 			"language" => $this->lang,
-			"offset" => $this->params->getInt("offset"),
+			"offset" => $offset,
 			"limit" => 20,
 			//"damping_coefficient" => 10000000 // tlumi relevanci se starim datumu daneho dokumentu; cim vyssi cislo, tim mensi tlumeni; def. je 30
+			"boosted_types" => "card", // in sorting, cards should be priritized over other other document types
 		);
 		if($format=="snippet"){
 			$options["offset"] = 0;
 			$options["limit"] = 10;
 		}
 
-		$finder = $this->tpl_data["finder"] = $texmit->search($d["q"],$options);
+		$finder = $this->tpl_data["finder"] = $texmit->search($q->toString(),$options);
+
+		if(!is_null($offset) && $offset>=$finder->getTotalAmount()){
+			$params = $this->params->toArray();
+		 	unset($params["offset"]);
+			$this->_redirect_to($params);
+			return;
+		}
+
 		//print_r($finder);
 
 		$objects = $finder->getRecords();
@@ -47,6 +66,16 @@ class SearchesController extends ApplicationController {
 			foreach($ary as $o){ $objects[] = $o; }
 		}
 		$this->tpl_data["objects"] = $objects;
+
+		if($finder->isEmpty()){
+			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
+		}
+
+		if(DEVELOPMENT && class_exists("Tracy\Debugger")){
+			$bar = Tracy\Debugger::getBar();
+			$bar->addPanel(new ApiDataFetcherPanel($texmit->getApiDataFetcher(),["title" => "Textmit"]));
+		}
 	}
 
 	function _before_filter(){

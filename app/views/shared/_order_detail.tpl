@@ -1,7 +1,6 @@
 {*
  * Detail objednavky nebo kosiku
  *}
-
 {if !isset($show_note)}
 	{assign show_note true}
 {/if}
@@ -9,7 +8,7 @@
 {assign currency $order->getCurrency()}
 {assign vouchers $order->getVouchers()}
 {assign campaigns $order->getCampaigns()}
-{assign object_class $order|get_class}
+{assign object_class get_class($order)}
 {assign is_basket $object_class=="Basket"}
 {assign tag_digital_product Tag::GetInstanceByCode("digital_product")}
 {assign incl_vat $basket->displayPricesInclVat()}
@@ -56,7 +55,7 @@
 					<td class="table-products__amount"></td>
 					<td class="table-products__price">{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{else}
-					<td class="table-products__image"><a href="{$product|link_to_product}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
+					<td class="table-products__image"><a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">{!$product->getImage()|pupiq_img:"120x120x#ffffff"}</a></td>
 					<td class="table-products__title">
 						<a href="{$product|link_to_product}">{$product->getName()}</a>
 						{if $product->getCard()->containsTag($tag_digital_product)}
@@ -183,7 +182,7 @@
 						{/if}
 						<tr>
 							<th class="table-products__pricetopay">{if $incl_vat}{t}Cena celkem{/t}{else}{t}Cena celkem vč. DPH{/t}{/if}</th>
-							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFee())}<sup>*</sup>{/if}</td>
+							<td class="table-products__pricetopay text-right">{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}{if is_null($order->getShippingFee())}<sup>*</sup>{/if}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -220,6 +219,9 @@
 					{$order->getAddressStreet2()}<br>
 				{/if}
 				{$order->getAddressZip()} {$order->getAddressCity()}<br>
+				{if $order->getAddressState()|strlen}
+					{$order->getAddressState()}<br>
+				{/if}
 				{$order->getAddressCountry()|to_country_name}<br>
 				{if $order->getCompanyNumber() || $order->getVatId()}
 					{t}IČ:{/t} {$order->getCompanyNumber()}<br>

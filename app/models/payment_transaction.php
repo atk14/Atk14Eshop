@@ -35,8 +35,11 @@ class PaymentTransaction extends ApplicationModel {
 		return Cache::Get("PaymentTransaction",$transaction_id);
 	}
 
-	function getPaymentTransactionUrl(){
-		if($this->g("payment_transaction_url")){
+	function getPaymentTransactionUrl($options = []){
+		$options += [
+			"prefer_external_url" => true,
+		];
+		if($options["prefer_external_url"] && $this->g("payment_transaction_url")){
 			return $this->g("payment_transaction_url");
 		}
 		return $this->getOrder()->getPaymentTransactionStartUrl();
@@ -63,6 +66,14 @@ class PaymentTransaction extends ApplicationModel {
 
 	function getCurrency(){
 		return Cache::Get("Currency",$this->getCurrencyId());
+	}
+
+	function getPaymentGatewayApi(){
+		$payment_gateway = $this->getPaymentGateway();
+		$order = $this->getOrder();
+		$api = $payment_gateway->getPaymentGatewayApi();
+		$api->prepareForOrder($order);
+		return $api;
 	}
 
 	/**
@@ -99,7 +110,7 @@ class PaymentTransaction extends ApplicationModel {
 				// Protoze je metoda Order::increasePricePaid() multi-threaded safe,
 				// je tady pojistka, ktera brani ve vicenasobnem navyseni zaplacene castky.
 				$current_price_paid = (float)$order->getPricePaid();
-				myAssert($current_price_paid === 0.0);
+				myAssert($current_price_paid === 0.0,sprintf("Order#%s should have zero price paid, but it has: %s (order_no=%s, PaymentTransaction#%s)",$order->getId(),$current_price_paid,$order->getOrderNo(),$this->getId()));
 				$order->increasePricePaid($this->getPriceToPay());
 				myAssert(round($order->getPricePaid(),INTERNAL_PRICE_DECIMALS)===round(($current_price_paid + $this->getPriceToPay()),INTERNAL_PRICE_DECIMALS));
 			}
@@ -120,12 +131,55 @@ class PaymentTransaction extends ApplicationModel {
 	}
 
 	function isRepeatable(){
+		$max_retries_allowed = 10;
+		$allowed_order_statuses = [
+			"new",
+			"waiting_for_online_payment",
+			"payment_failed"
+		];
+		$allowed_payment_statuses = [
+			"pending",
+			"cancelled",
+		];
+
 		$payment_status = $this->getPaymentStatus();
+		$order = $this->getOrder();
+		$order_status = $order->getOrderStatus();
+		$attempts_count = $this->dbmole->selectInt("SELECT COUNT(*) FROM payment_transactions WHERE order_id=:order AND payment_gateway_id=:payment_gateway",[
+			":order" => $order,
+			":payment_gateway" => $this->getPaymentGateway(),
+		]);
+		
+		if($attempts_count>$max_retries_allowed){
+			return false;
+		}
+		if(!in_array($order_status->getCode(),$allowed_order_statuses)){
+			return false;
+		}
+		if($order->isPaid()){
+			return false;
+		}
 		if(is_null($payment_status)){
-			// platebni transakce jeste ani nezacala
+			// the payment transaction has not yet started
 			return true;
 		}
-		return in_array($payment_status->getCode(),["pending","cancelled"]);
+
+		return in_array($payment_status->getCode(),$allowed_payment_statuses);
+	}
+
+	function paid(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="paid";
+	}
+
+	function pending(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="pending";
+	}
+
+	function cancelled(){
+		$payment_status = $this->getPaymentStatus();
+		return $payment_status && $payment_status->getCode()==="cancelled";
 	}
 
 	function copyIntoNewTransaction(){
@@ -143,7 +197,7 @@ class PaymentTransaction extends ApplicationModel {
 			$values[$f] = $this->g($f);
 		}
 
-		$values["rank"] = $this->g("rank") + 1;
+		$values["rank"] = $this->dbmole->selectInt("SELECT COALESCE(MAX(rank),0)+1 FROM payment_transactions WHERE order_id=:order",[":order" => $this->getOrder()]);
 
 		return self::CreateNewRecord($values);
 	}

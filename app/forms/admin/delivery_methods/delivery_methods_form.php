@@ -82,6 +82,12 @@ class DeliveryMethodsForm extends AdminForm {
 			"help_text"  => _("Doručovací metoda bude použita, pokud všechny produkty v košíku budou obsahovat tento štítek. Ostatní metody nebudou použity."),
 		)));
 
+		$this->add_field("multiply_price", new BooleanField(array(
+			"label" => _("Násobit cenu dopravy počtem souvisejících produktů v košíku?"),
+			"required" => false,
+			"help_text" => _('Lze aktivovat, pokud je nastaveno "Určeno pro štítek" nebo "Exkluzivně pro štítek".'),
+		)));
+
 		$this->add_code_field(array(
 			"label" => _("Kód dopravy"),
 			"help_text" => _("Pro systémové účely. Unikátní kód."),
@@ -121,6 +127,12 @@ class DeliveryMethodsForm extends AdminForm {
 			}
 			if(!isset($d["price"]) && isset($d["price_incl_vat"])){
 				$this->set_error("price_incl_vat",_("Specify the price"));
+			}
+		}
+
+		if(in_array("multiply_price",$keys) && in_array("designated_for_tags",$keys) && in_array("required_tag_id",$keys)){
+			if($d["multiply_price"] && !$d["designated_for_tags"] && !$d["required_tag_id"]){
+				$this->set_error("multiply_price",_('Násobení ceny lze zapnout pouze v případě, kdy je nastaveno "Určeno pro štítek" nebo "Exkluzivně pro štítek"'));
 			}
 		}
 

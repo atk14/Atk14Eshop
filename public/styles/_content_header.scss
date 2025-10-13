@@ -99,7 +99,7 @@ header.content-header, .content-header {
 		&--dark {
 			// when __text has dark background
 			padding: $grid-gutter-width;
-			h1, .h1, .teaser, .meta, p {
+			h1, .h1, .teaser, .meta, p, .teaser * {
 				color: white;
 			}
 			a {

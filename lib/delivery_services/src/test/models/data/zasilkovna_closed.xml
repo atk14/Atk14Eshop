@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<export xmlns="http://www.zasilkovna.cz/api/v4/branch"
+                xmlns:ns="http://www.zasilkovna.cz/api/v4/branch"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.zasilkovna.cz/api/v4/branch http://www.zasilkovna.cz/api/v4/branch.xsd">
+        <contacts>
+<contact>
+        <country>cs</country>
+        <phone>+420 216 216 516</phone>
+        <email>info@zasilkovna.cz</email>
+        <businessHours>Po-Pá 08:00-18:00</businessHours>
+</contact>
+</contacts>
+<branches>
+  <branch>
+        <id>46</id>
+        <name>Brno, Královo Pole, Palackého tř. 48 (Mobilmax)</name>
+        <place>MobilMax</place>
+        <street>Palackého tř. 48</street>
+        <city>Brno</city>
+        <zip>612 00</zip>
+        <country>cz</country>
+        <currency>CZK</currency>
+        <status>
+                <statusId>5</statusId>
+                <description>Trvale uzavřeno</description>
+        </status>
+        <displayFrontend>1</displayFrontend>
+        <directions>&lt;p&gt;Výdejní místo se nachází na nejfrekventovanější ulici Palackého třída městské části Královo Pole po pravé straně směrem z města u zastávky tramvaje Jungmannova. Směrem do centra je provozovna přímo naproti zastávce. V opačném směru je ze zastávky potřeba ujít cca 25 metrů. Možnost parkování je hned před prodejnou. V případě obsazení je v okolí další spousta parkovacích míst.  &lt;/p&gt;</directions>
+        <directionsCar></directionsCar>
+        <directionsPublic>&lt;p&gt; stanice Jungmannova: tramvaje č. 1, 6&lt;/p&gt;</directionsPublic>
+        <wheelchairAccessible>no</wheelchairAccessible>
+        <creditCardPayment>yes</creditCardPayment>
+        <dressingRoom>0</dressingRoom>
+        <claimAssistant>1</claimAssistant>
+        <packetConsignment>1</packetConsignment>
+        <latitude>49.22125</latitude>
+        <longitude>16.59668</longitude>
+        <url>https://www.zasilkovna.cz/pobocky/brno-kralovo-pole-palackeho-tr-mobil-max</url>
+        <maxWeight>5</maxWeight>
+        <labelRouting>C67-202-046</labelRouting>
+        <labelName>Brno, Královo Pole, Palackého tř., MobilMax</labelName>
+        <photos>
+                        <photo>
+                                <thumbnail>https://files.packeta.com/points/thumb/IMG_9578.jpg</thumbnail>
+                                <normal>https://files.packeta.com/points/normal/IMG_9578.jpg</normal>
+                        </photo>
+                        <photo>
+                                <thumbnail>https://files.packeta.com/points/thumb/IMG_9580.jpg</thumbnail>
+                                <normal>https://files.packeta.com/points/normal/IMG_9580.jpg</normal>
+                        </photo>
+        </photos>
+        <openingHours>
+                <regular>
+                                <monday>08:00–17:30</monday>
+                                <tuesday>08:00–17:30</tuesday>
+                                <wednesday>08:00–17:30</wednesday>
+                                <thursday>08:00–17:30</thursday>
+                                <friday>08:00–17:30</friday>
+                                <saturday>09:00–12:00</saturday>
+                                <sunday></sunday>
+                </regular>
+                <exceptions>
+                                <exception>
+                                        <date>2023-11-17</date>
+                                        <hours></hours>
+                                </exception>
+                                <exception>
+                                        <date>2023-11-18</date>
+                                        <hours></hours>
+                                </exception>
+                                <exception>
+                                        <date>2023-11-19</date>
+                                        <hours></hours>
+                                </exception>
+                </exceptions>
+        </openingHours>
+  </branch>
+</branches>
+</export>

@@ -118,6 +118,14 @@ class User extends ApplicationModel{
 		return Cache::Get("Pricelist",$this->getBasePricelistId());
 	}
 
+	function getSpecialPricelistsLister(){
+		return $this->getLister("SpecialPricelists");
+	}
+
+	function getSpecialPricelists(){
+		return $this->getSpecialPricelistsLister()->getRecords();
+	}
+
 	function getCustomerGroups(){
 		static $ALL_CUSTOMER_GROUPS;
 		if(!$ALL_CUSTOMER_GROUPS){

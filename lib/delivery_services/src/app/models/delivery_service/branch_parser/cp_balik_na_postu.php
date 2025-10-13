@@ -4,24 +4,28 @@ require_once(__DIR__."/i_delivery_service_branch_parser.php");
 
 use DeliveryService\BranchParser;
 
+/**
+ * @link https://www.postovnibaliky.cz/mate-eshop/ Documentation of branches xml
+ *
+ */
 class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	static $BRANCHES_DOWNLOAD_URL = "http://napostu.ceskaposta.cz/vystupy/napostu.xml";
 
 	function getExternalBranchId() {
-		return trim((string)$this->branch_element->PSC);
+		return trim((string)$this->PSC);
 	}
 
 	function getBranchName() {
-		return trim((string)$this->branch_element->NAZ_PROV);
+		return trim((string)$this->NAZ_PROV);
 	}
 
 	function getPlaceName() {
-		return trim((string)$this->branch_element->NAZ_PROV);
+		return trim((string)$this->NAZ_PROV);
 	}
 
 	function getFullAddress() {
-		return trim((string)$this->branch_element->ADRESA);
+		return trim((string)$this->ADRESA);
 	}
 
 	function getCountryCode() {
@@ -29,15 +33,15 @@ class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServi
 	}
 
 	function getDistrict() {
-		return trim((string)$this->branch_element->OKRES);
+		return trim((string)$this->OKRES);
 	}
 
 	function getZipCode() {
-		return  trim((string)$this->branch_element->PSC);
+		return  trim((string)$this->PSC);
 	}
 
 	private function _parseAddress() {
-		$address = explode(",", (string)$this->branch_element->ADRESA);
+		$address = explode(",", (string)$this->ADRESA);
 
 		$city = array_pop($address);
 		$zip = array_pop($address);
@@ -79,7 +83,7 @@ class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServi
 
 	function getOpeningHours() {
 		$_openHoursAr = array();
-		foreach($this->branch_element->OTV_DOBA->den as $den) {
+		foreach($this->OTV_DOBA->den as $den) {
 			$_ohDay = array(
 				"day_name" => (string)$den["name"],
 				"hours" => array(),
@@ -93,29 +97,10 @@ class CpBalikNaPostu extends DeliveryServiceBranchData implements iDeliveryServi
 			$_openHoursAr[] = $_ohDay;
 		}
 		return $_openHoursAr;
-
 	}
 
-	static function ParseBranch(\SimpleXMLElement $element) {
-		$branch_element = new static($element);
-
-		return [
-			"external_branch_id" => $branch_element->getExternalBranchId(),
-			"name" => $branch_element->getBranchName(),
-			"place" => $branch_element->getPlaceName(),
-
-			"full_address" => $branch_element->getFullAddress(),
-			"country" => $branch_element->getCountryCode(),
-			"district" => $branch_element->getDistrict(),
-			"zip" => $branch_element->getZipCode(),
-			"city" => $branch_element->getCity(),
-			"street" => $branch_element->getStreet(),
-
-			"url" => $branch_element->getInformationUrl(),
-			"opening_hours" => json_encode($branch_element->getOpeningHours()),
-			"location_latitude" => $branch_element->getLatitude(),
-			"location_longitude" => $branch_element->getLongitude(),
-		];
+	public function isActive() {
+		return ((string)$this->V_PROVOZU==="N");
 	}
 
 	static function GetXMLBranchName() {

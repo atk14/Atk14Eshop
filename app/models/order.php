@@ -82,7 +82,10 @@ class Order extends BasketOrOrder {
 	 * Returns the most recent payment transaction of the order
 	 */
 	function getPaymentTransaction(){
-		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "payment_status_id=(SELECT id FROM payment_statuses WHERE code='paid') DESC, rank DESC"]);
+		return PaymentTransaction::FindFirst("order_id",$this,["order_by" => "
+			(payment_status_id IS NOT NULL AND payment_status_id=(SELECT id FROM payment_statuses WHERE code='paid')) DESC,
+			rank DESC
+		"]);
 	}
 
 	function getPaymentTransactionStartUrl(){
@@ -180,9 +183,9 @@ class Order extends BasketOrOrder {
 
 	function hasCompanyDataSet() {
 		return !!(
-			trim($this->getCompany()).
-			trim($this->getCompanyNumber()).
-			trim($this->getTaxNumber())
+			trim((string)$this->getCompany()).
+			trim((string)$this->getCompanyNumber()).
+			trim((string)$this->getTaxNumber())
 		);
 	}
 
@@ -208,6 +211,10 @@ class Order extends BasketOrOrder {
 
 	function getInvoiceCity() {
 		return $this->getAddressCity();
+	}
+
+	function getInvoiceState() {
+		return $this->getAddressState();
 	}
 
 	function getInvoiceZip() {
@@ -361,6 +368,7 @@ class Order extends BasketOrOrder {
 		global $ATK14_GLOBAL;
 		$options += [
 			"mailer" => null,
+			"disable_notification" => false,
 		];
 
 		if (is_string($new_status_values)) {
@@ -431,7 +439,7 @@ class Order extends BasketOrOrder {
 		}
 
 		$order_status = $this->getOrderStatus();
-		if($order_status && $order_status->notificationEnabled() && $order_status->getId()!=$orig_status->getId()){
+		if(!$options["disable_notification"] && $order_status && $order_status->notificationEnabled() && $order_status->getId()!=$orig_status->getId()){
 			$mailer = $options["mailer"] ? $options["mailer"] : Atk14MailerProxy::GetInstance();
 			$lang = $this->getLanguage();
 			$prev_lang = Atk14Locale::Initialize($lang);
@@ -543,7 +551,14 @@ class Order extends BasketOrOrder {
 	 */
 	function canBeFulfilled(){
 		$current_status = $this->getCurrentStatus();
-		if($current_status->finishedSuccessfully() || $current_status->isFinishingSuccessfully()){
+		$payment_method = $this->getPaymentMethod();
+		if(!$payment_method->isCashOnDelivery() && $current_status->finishedSuccessfully()){
+			return true;
+		}
+		if($payment_method->isCashOnDelivery() && (in_array($current_status->getCode(),[
+			"delivered",
+			"finished_successfully"
+		]))){
 			return true;
 		}
 		if($current_status->finishedUnsuccessfully() || $current_status->isFinishingUnsuccessfully()){
@@ -619,7 +634,7 @@ class Order extends BasketOrOrder {
 		}
 
 		$price_without_rounding = $price;
-		$price = round($price,$currency->getDecimalsSummary());
+		$price = round($price,$this->getCurrencyDecimalsSummary());
 
 		$delta = $price - $price_without_rounding;
 		$delta = $currency->roundPrice($delta);
@@ -634,7 +649,7 @@ class Order extends BasketOrOrder {
 			}
 		}else{
 			$amount = $delta > 0.0 ? 1 : -1;
-			$delta_vat_percent = $incl_vat ? $delta_product->getVatPercent() : 0.0;
+			$delta_vat_percent = $incl_vat ? $this->_getVatPercentForPriceRounding() : 0.0;
 			$delta_price = abs($delta);
 			$delta_price_with_no_vat = ($delta_price / (100.0 + $delta_vat_percent)) * 100.0;
 			$delta_price_with_no_vat = round($delta_price_with_no_vat,4);
@@ -698,9 +713,9 @@ class Order extends BasketOrOrder {
 
 	function getAllNotes() {
 		$notesAr = [
-			trim($this->getNote()),
-			($dan = trim($this->getDeliveryAddressNote())) ? sprintf(_("Poznámka k doručovací adrese: %s"), $dan) : null,
-			($an = trim($this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
+			trim((string)$this->getNote()),
+			($dan = trim((string)$this->getDeliveryAddressNote())) ? sprintf(_("Poznámka k doručovací adrese: %s"), $dan) : null,
+			($an = trim((string)$this->getAddressNote())) ? sprintf(_("Poznámka k fakturační adrese: %s"), $an) : null,
 		];
 		return array_filter($notesAr);
 	}

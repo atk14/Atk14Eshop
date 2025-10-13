@@ -3,7 +3,9 @@ class CheckoutsController extends ApplicationController {
 
 	function set_payment_and_delivery_method(){
 		$this->page_title = _("Shipping and payment");
-		$this->form->set_initial($this->basket);
+		if(!is_null($this->basket->getDeliveryMethodId()) || !is_null($this->basket->getPaymentMethodId())){
+			$this->form->set_initial($this->basket);
+		}
 		$this->form->set_attr("data-rules", ShippingCombination::GetRules(array("format" => "json")));
 
 		if(sizeof($this->_get_allowed_regions())>1){
@@ -14,6 +16,7 @@ class CheckoutsController extends ApplicationController {
 			$this->basket->s($d);
 			$this->_redirect_to("user_identification");
 		}
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\BeginCheckout($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function user_identification(){
@@ -40,42 +43,59 @@ class CheckoutsController extends ApplicationController {
 
 		$this->page_title = _("Doručovací údaje");
 
-		$this->tpl_data["delivery_point_selected"] = $delivery_point_selected = $this->basket->deliveryToDeliveryPointSelected();
+		$delivery_point = $this->basket->getDeliveryServiceBranch();
+		$this->tpl_data["delivery_address_editable_by_user"] = $delivery_address_editable_by_user = $this->basket->deliveryAddressEditableByUser();
 
 		$delivery_countries_allowed = $this->basket->getDeliveryCountriesAllowed();
 
-		if($this->logged_user && !$delivery_point_selected){
+		if($this->logged_user && $delivery_address_editable_by_user){
 			$this->tpl_data["delivery_addresses"] = DeliveryAddress::GetInstancesByUser($this->logged_user,$delivery_countries_allowed);
 		}
 
-		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || $delivery_point_selected;
+		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || !$delivery_address_editable_by_user;
 		$this->tpl_data["fill_in_invoice_address"] = $fill_in_invoice_address;
 
 		$this->form->set_initial($this->basket);
+		$this->form->set_initial([
+			"firstname" => $this->basket->getFirstname(),
+			"lastname" => $this->basket->getLastname(),
+			"company" => $this->basket->getCompany(),
+			"address_street" => $this->basket->getAddressStreet(),
+			"address_street2" => $this->basket->getAddressStreet2(),
+			"address_city" => $this->basket->getAddressCity(),
+			"address_state" => $this->basket->getAddressState(),
+			"address_zip" => $this->basket->getAddressZip(),
+			"address_country" => $this->basket->getAddressCountry(),
+			"company_number" => $this->basket->getCompanyNumber(),
+			"vat_id" => $this->basket->getVatId(),
+
+			"delivery_company" => $this->basket->getDeliveryCompany(),
+			"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
+			"delivery_address_street2" => $this->basket->getDeliveryAddressStreet2(),
+			"delivery_address_city" => $this->basket->getDeliveryAddressCity(),
+			"delivery_address_state" => $this->basket->getDeliveryAddressState(),
+			"delivery_address_zip" => $this->basket->getDeliveryAddressZip(),
+			"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
+			"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
+		]);
+		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
+
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
 		# a predvyplnime fakturacni adresu udaji z nastaveni uzivatele
-		if ($delivery_point_selected) {
-			$this->form->set_initial($this->basket->getDeliveryPointAddress());
-			$this->logged_user && $this->form->set_initial([
-				"firstname" => $this->logged_user->getFirstname(),
-				"lastname" => $this->logged_user->getLastname(),
-				"company" => $this->logged_user->getCompany(),
-				"company_number" => $this->logged_user->getCompanyNumber(),
-				"vat_id" => $this->logged_user->getVatId(),
-				"address_street" => $this->logged_user->getAddressStreet(),
-				"address_city" => $this->logged_user->getAddressCity(),
-				"address_zip" => $this->logged_user->getAddressZip(),
-				"address_country" => $this->logged_user->getAddressCountry(),
-			]);
+		if(!$delivery_address_editable_by_user){
 			// fine-tuning of the delivery_company field
 			$this->form->fields["delivery_company"]->required = true;
-			$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
+			$d_method = $this->basket->getDeliveryMethod();
+			if($this->basket->deliveryToDeliveryPointSelected()){
+				$this->form->fields["delivery_company"]->label = _("Název doručovacího místa");
+			}elseif($this->basket->getDeliveryMethod()->getPersonalPickupOnStore()){
+				$this->form->fields["delivery_company"]->label = _("Název prodejny");
+			}
 		}
-		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
 
 		// Policka fakturacni adresy jsou povinna pouze nekdy...
-		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false]);
+		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false, "address_state" => ALLOW_STATE_IN_ADDRESS]);
 		if($fill_in_invoice_address || $this->request->get()){
 			foreach($INVOICE_ADDRESS_FIELDS as $k => $required){
 				$this->form->fields["$k"]->required = $required;
@@ -92,9 +112,20 @@ class CheckoutsController extends ApplicationController {
 
 		if($this->request->post() && ($d = $this->form->validate($params))){
 			$d["vat_id_valid_for_cross_border_transactions_within_eu"] = $d["vat_id"]->isValidForCrossBorderTransactionsWithinEu();
+
+			if(!$delivery_address_editable_by_user){
+				// dorucovaci adresu v tomto pripade nechceme do kosiku ukladat a
+				// klidne tam nechame to, co tam je
+				foreach(array_keys(Basket::GetAddressFields(["name" => false, "phone" => false, "note" => true, "prefix" => "delivery_"])) as $k){
+					unset($d[$k]);
+				}
+			}
+
 			$this->basket->s($d);
 			$this->_redirect_to("summary");
 		}
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddShippingInfo($this->basket, ["items" => $this->basket->getBasketItems()]));
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\AddPaymentInfo($this->basket, ["items" => $this->basket->getBasketItems()]));
 	}
 
 	function summary(){
@@ -137,24 +168,33 @@ class CheckoutsController extends ApplicationController {
 			// Vytvoreni objednavky uz neni notifikovano tady.
 			// Je na to spec. robot. V emailu se totiz posila PDF s prehledem obj. zbozi a jeho vytvoreni muze trvat dlouho.
 			//$this->mailer->notify_order_creation($order);
-			$this->basket->destroy();
-
-			if($d["sign_up_for_newsletter"]){
-				NewsletterSubscriber::SignUp($order->getEmail(),array(
-					"name" => trim($order->getFirstname()." ".$order->getLastname()),
-				));
-			}
-
-			// Yarri: toto je asi trackovani objednavek v Google Analytics
-			$this->session->s("track_order", true);
 
 			// ulozime pouzitou dorucovaci adresu do dorucovacich adres
-			if($da = DeliveryAddress::GetOrCreateRecordByOrder($order)){
+			if($da = DeliveryAddress::GetOrCreateRecordByBasket($this->basket)){
 				$da->s([
 					"last_used_at" => now(),
 					"updated_at" => $da->g("updated_at"),
 				]);
 			}
+
+			$this->basket->destroy();
+
+			if($d["sign_up_for_newsletter"]){
+				if(0){
+					// either to create a newsletter subscription request...
+					$this->_create_newsletter_subscription_request($order->getEmail(),[
+						"name" => String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->substr(0,255)->toString(),
+					],["create_request_if_subscription_exists" => false]);
+				}else{
+					// ... or to sign up directly to newsletter
+					$this->_sign_up_for_newsletter($order->getEmail(),[
+						"name" => String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->substr(0,255)->toString(),
+					]);
+				}
+			}
+
+			// Yarri: toto je asi trackovani objednavek v Google Analytics
+			$this->session->s("track_order", true);
 
 			$this->_redirect_to([
 				"action" => "finish",

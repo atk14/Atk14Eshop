@@ -26,8 +26,11 @@
 <html lang="{$lang}" prefix="og: http://ogp.me/ns#" class="no-js" >
 
 	<head>
-
 		{cookie_consent_datalayer_command}
+
+		{if SystemParameter::ContentOn("app.trackers.google.tag_manager.use_datalayer")}
+			{gtm_datalayer}
+		{/if}
 
 		<meta charset="utf-8">
 	
@@ -75,11 +78,16 @@
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 		{enhanced_conversion_data}
 		{facebook_pixel}
+		{foreach $structured_data as $data_item}
+		<script type="application/ld+json">{!$data_item|json_encode}</script>
+		{/foreach}
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
-		{facebook_pixel part="body"}
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="true">
 		{render partial="shared/trackers/google/tag_manager_body"}
+		{facebook_pixel part="body"}
+		{render partial="shared/layout/flash_message"}
+		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
 		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
@@ -103,8 +111,7 @@
 					{render partial="shared/breadcrumbs"}
 				{/if}
 
-				<div class="content-main">
-					{render partial="shared/layout/flash_message"}
+				<div class="content-main" id="content-main">
 					{placeholder}
 				</div>
 			</div>
@@ -112,8 +119,9 @@
 		</div>
 		{render partial="shared/layout/footer"}
 
+		{if $controller!="baskets" && $controller!="checkouts"}
 		{render partial="shared/offcanvas_basket"}
-		
+		{/if}
 
 		<div class="search-suggestions js--suggesting">
 		<div class="suggestions__not-found">
@@ -124,6 +132,7 @@
 		{render partial="shared/cookie_consent/banner"}
 		
 		{render partial="shared/basket_info_float_container"}
+		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
@@ -133,11 +142,13 @@
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}
-		
+
 		{if $controller=="styleguides"}
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
 		{/if}
+
+		{placeholder for="end_of_page"}
 	</body>
 </html>

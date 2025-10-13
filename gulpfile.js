@@ -13,14 +13,18 @@ var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.min.css",
+	// "node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
-	"node_modules/nouislider/dist/nouislider.min.css"
+	"node_modules/nouislider/dist/nouislider.min.css",
+	"node_modules/leaflet/dist/leaflet.css",
+	"node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
+	//"node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
-	"node_modules/jquery-ui-bundle/jquery-ui.js",
+	//"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
@@ -28,7 +32,11 @@ var vendorScripts = [
 	"node_modules/cookieconsent/build/cookieconsent.min.js",
 	"node_modules/bootbox/dist/bootbox.all.min.js",
 	"node_modules/nouislider/dist/nouislider.min.js",
-	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js" // Enable this if site uses sidebar nav
+	"node_modules/leaflet/dist/leaflet.js",
+	"node_modules/leaflet.markercluster/dist/leaflet.markercluster.js",
+	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.js",
+	"node_modules/sticky-sidebar-v2/dist/sticky-sidebar.js", // Enable this if site uses sidebar nav
+	"node_modules/jquery-validation/dist/jquery.validate.js"
 ];
 
 var applicationScripts = [
@@ -47,6 +55,20 @@ var applicationScripts = [
 	"public/scripts/utils/search_suggestion.js",
 	"public/scripts/utils/cookie_consent.js",
 	"public/scripts/utils/offcanvas.js",
+	"public/scripts/utils/styleguides.js",
+	"public/scripts/utils/floating_cart.js",
+	"public/scripts/utils/navbar.js",
+	"public/scripts/utils/numeric_stepper.js",
+	"public/scripts/utils/card_detail.js",
+	//"public/scripts/utils/scroll_hide_header.js",
+	"public/scripts/utils/scroll_to_top.js",
+	"public/scripts/utils/swiper_custom_config.js",
+	"public/scripts/utils/svg_placeholders.js",
+	"public/scripts/utils/window_sync.js",
+	"public/scripts/utils/live_status_refresher.js",
+	"public/scripts/utils/form_validator.js",
+	"public/scripts/utils/flash_message.js",
+	"public/scripts/utils/password_reveal.js",
 	"public/scripts/application.js"
 ];
 
@@ -137,7 +159,6 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
-
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )
 		.pipe( gulp.dest( "public/dist/images/languages" ) )

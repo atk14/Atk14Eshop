@@ -1,4 +1,7 @@
 <?php
+use StructuredData\Element\BreadcrumbList;
+use StructuredData\Element\Product;
+
 class CardsController extends ApplicationController{
 
 	function detail(){
@@ -8,8 +11,8 @@ class CardsController extends ApplicationController{
 			return $this->_execute_action("error404");
 		}
 
-		if($card->isDeleted()){
-			// In case of a deleted product, the HTTP 404 Not Found status is set but the product is displayed on the page.
+		if($card->isDeleted() || !$card->isVisible()){
+			// In case of a deleted or invisible product, the HTTP 404 Not Found status is set but the product is displayed on the page.
 			$this->response->setStatusCode("404");
 		}
 
@@ -22,6 +25,12 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
 
 		$this->_add_card_to_breadcrumbs($card);
+		$bclist = new BreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true, "add_index" => false]);
+		$bclist->addListItem($card);
+		$this->structured_data->addItem($bclist);
+		if(!($card->isDeleted() || !$card->isVisible())){
+			$this->structured_data->addItem(new Product($card, ["price_finder" => $this->price_finder, "basket" => $this->basket]));
+		}
 
 		// Urceni typu obrazkove galerie: normal nebo with_variants
 		// - with_variants: produkt ma varianty, ktere maji alespon 2 sve obrazky
@@ -36,7 +45,10 @@ class CardsController extends ApplicationController{
 			}
 		}
 		$this->tpl_data["gallery_variant"] = $gallery_variant;
+
 		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $this->card], ["with_hostname" => true]));
+
+		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewItem($card, ["items" => $products], ["price_finder" => $this->price_finder]));
 	}
 
 	function _before_filter(){

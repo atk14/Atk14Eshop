@@ -7,6 +7,9 @@
 	{$order->getDeliveryAddressStreet2()}<br>
 {/if}
 {$order->getDeliveryAddressZip()} {$order->getDeliveryAddressCity()}<br>
+{if $order->getDeliveryAddressState()|strlen}
+	{$order->getDeliveryAddressState()}<br>
+{/if}
 {$order->getDeliveryAddressCountry()|to_country_name}
 <br>
 <br>
