@@ -76,6 +76,11 @@ var applicationESModules = [
 	"public/scripts/modules/application_es6.js"
 ]
 
+var emailTemplates = [
+	"app/views/mailer/mjml/_master_template.mjml",
+	"app/views/mailer/mjml/_master_template_full.mjml"
+]
+
 // CSS
 gulp.task( "styles", function() {
 	return gulp.src( "public/styles/application.scss" )
@@ -190,7 +195,7 @@ gulp.task( "copy", function() {
 
 // MJML emails
 gulp.task( "mjml", function(){
-	gulp.src( "app/views/mailer/mjml/*.mjml" )
+	gulp.src( emailTemplates )
 		.pipe( mjml( mjmlEngine, { minify: false, fileExt: ".tpl" } ) )
 
 		// Replace ##...## with Smarty tags
