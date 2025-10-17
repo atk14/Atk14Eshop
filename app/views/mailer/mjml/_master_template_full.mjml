@@ -11,6 +11,8 @@
 
 		<mj-raw>{* These sections is populated with real data *}</mj-raw>
 		<mj-include path="partials/text.mjml"></mj-include>
+
+		<mj-spacer></mj-spacer>
 		
 		<mj-raw>{if $message_type == "notify_order_creation" }</mj-raw>
 		<mj-include path="partials/order_overview.mjml"></mj-include>

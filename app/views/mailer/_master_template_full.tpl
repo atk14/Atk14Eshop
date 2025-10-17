@@ -97,18 +97,18 @@
   {* Product Gallery - recommended to place no more than 3 cards in single gallery *}
   {assign show_products_gallery true}
   {assign product_gallery_title "Mohlo by vás zajímat"}
-  {assign product_cards [ ["title" => "Card Title 1", "price" => "1450 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Card Title two", "price" => "2 380 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ], ["title" => "Third Card Title", "price" => "990 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://placekitten.com/500/500" ] ]}
+  {assign product_cards [ ["title" => "Card Title 1", "price" => "1450 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://static.photos/studio/640x360/115" ], ["title" => "Card Title two", "price" => "2 380 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://static.photos/studio/640x360/143" ], ["title" => "Third Card Title", "price" => "990 Kč", "description" => "Ennui tumeric hot chicken squid asymmetrical listicle kombucha direct trade fixie photo booth cronut umami.", "button_text" => "Více informací", "button_link" => "/product1", "image" => "https://static.photos/indoor/640x360/110" ] ]}
 
   {* Wide image / banner *}
   {assign show_banner true}
-  {assign banner_image "http://placekitten.com/550/200"}
+  {assign banner_image "https://static.photos/indoor/640x360/110"}
   {assign banner_link "/banner-link"}
   {assign banner_alt "Banner Alt text"}
 
   {* Text with images - may contain any number of items *}
   {assign show_text_images true}
   {assign text_images_title "Text s obrázky"}
-  {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://placekitten.com/500/400", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://placekitten.com/600/400", "link" => "#" ] ]}
+  {assign text_images_content [ [ "title" => "Section 1 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://static.photos/studio/640x360/115", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://static.photos/studio/640x360/115", "link" => "#" ],      [ "title" => "Section 3 Title", "text" => "Hexagon hammock health goth direct trade hoodie kogi aesthetic truffaut vape, sustainable DIY man braid bicycle rights narwhal.", "image" => "https://static.photos/studio/640x360/143", "link" => "#" ], [ "title" => "Keffiyeh sustainable blog franzen", "text" => "Venmo fixie af, chia la croix lo-fi poke taiyaki literally locavore hashtag keffiyeh poutine air plant. Artisan chicharrones salvia lumbersexual shaman. Hexagon hammock health goth direct trade hoodie.", "image" => "https://static.photos/indoor/640x360/554", "link" => "#" ] ]}
 
   {* Footer Links *}
   {assign link_conditions "/terms-and-conditions"}
@@ -264,6 +264,8 @@
       
       <!--[if mso | IE]></td></tr></table><![endif]-->
     
+    
+      <div style="height:40px;line-height:40px;">&#8202;</div>
     {if $message_type == "notify_order_creation" }
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:white;background-color:white;width:100%;">
         <tbody>
