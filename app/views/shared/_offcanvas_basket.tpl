@@ -13,9 +13,7 @@
 			</div>
 			<p>{t}Loading{/t}</p>			
 		</div>
-		<div class="basket-error js--basket-error">
-			Error
-		</div>
+		<div class="basket-error js--basket-error"></div>
 		<div class="basket-link">
 			<a href="{link_to action="baskets/edit"}" class="btn btn-primary">{t}To the checkout{/t} {!"angle-right"|icon}</a>
 		</div>
