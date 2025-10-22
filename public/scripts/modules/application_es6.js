@@ -4,6 +4,7 @@
  */
 import PhotoswipeLoader from "./photoswipeloader.js";
 import SwiperLoader from "./swiperloader.js";
+import EditorDemo from "./editor_js.js";
 import { SimpleMap, MultiMap } from "./maps.js";
 import { StickySidebarLoader } from "./stickysidebarloader.js";
 
@@ -37,3 +38,5 @@ document.querySelectorAll( ".stores_v2" ).forEach( function( mapElement ) {
 
 // Sticky Sidebar
 new StickySidebarLoader();
+
+new EditorDemo();
