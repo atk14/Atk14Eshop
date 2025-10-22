@@ -10,8 +10,7 @@
 		<div class="basket-loading">
 			<div class="spinner-border text-secondary" role="status">
 				<span class="sr-only">Loading...</span>
-			</div>
-			<p>{t}Loading{/t}</p>			
+			</div>	
 		</div>
 		<div class="basket-error js--basket-error"></div>
 		<div class="basket-link">
