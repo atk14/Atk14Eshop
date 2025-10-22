@@ -49,6 +49,10 @@ class TestsController extends ApplicationController {
 		$this->_dump_email();
 	}
 
+	function editorjs_demo(){
+		$this->page_title = "Editor.js demo";
+	}
+
 	// testovani vzhledu stranky HTTP 500 Internal Server Error
 	function e500(){
 		$this->render_template = false;
