@@ -70,7 +70,7 @@ $( ".js-toggle-all-trees" ).on( "click", function() {
 		<h3><a href="#"><span class="fas fa-folder-open"></span> Obchod</a> <button class="btn btn-sm btn-outline-secondary js-toggle-all-trees collapsed"><span class="btn__text--collapsed">Expand all</span><span class="btn__text--expanded">Collapse all</span></button></h3>
 		<ul class="list--tree list--tree-collapsible">
 			<li>
-				<span class="js-collapse-toggle collapsed" data-toggle="collapse" data-target="#tree_5f43c9bfe2323" aria-expanded="false"><span class="js-icon--collapsed"><span class="fas fa-plus"></span></span><span class="js-icon--expanded"><span class="fas fa-minus"></span></span></span>
+				<span class="js-collapse-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#tree_5f43c9bfe2323" aria-expanded="false"><span class="js-icon--collapsed"><span class="fas fa-plus"></span></span><span class="js-icon--expanded"><span class="fas fa-minus"></span></span></span>
 				<em><span class="fas fa-folder-open"></span></em>
 				<a href="#">Květiny</a>
 				<ul class="list--tree list--tree-collapsible collapse" id="tree_5f43c9bfe2323" style="">
@@ -87,7 +87,7 @@ $( ".js-toggle-all-trees" ).on( "click", function() {
 						<a href="#">Domácí</a>
 					</li>
 					<li>
-						<span class="js-collapse-toggle collapsed" data-toggle="collapse" data-target="#tree_5f43c9bfe9431" aria-expanded="false"><span class="js-icon--collapsed"><span class="fas fa-plus"></span></span><span class="js-icon--expanded"><span class="fas fa-minus"></span></span></span>
+						<span class="js-collapse-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#tree_5f43c9bfe9431" aria-expanded="false"><span class="js-icon--collapsed"><span class="fas fa-plus"></span></span><span class="js-icon--expanded"><span class="fas fa-minus"></span></span></span>
 						<em><span class="fas fa-folder-open"></span></em>
 						<a href="#">Divoké</a>
 						<ul class="list--tree list--tree-collapsible collapse" id="tree_5f43c9bfe9431" style="">
@@ -142,7 +142,7 @@ On small viewports it is displayed in compact expandable form.
 
 		<li class="nav-item nav-item--has-submenu">
 			<a href="#" class="nav-link">Květiny</a>
-			<span class="expander  collapsed" role="button" id="sidebar_menu_item_35" data-toggle="collapse"
+			<span class="expander  collapsed" role="button" id="sidebar_menu_item_35" data-bs-toggle="collapse"
 				data-target="#sidebar_submenu_35" aria-expanded="false" aria-controls="sidebar_submenu_35"
 				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
 			<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_35" aria-labelledby="sidebar_menu_item_35">
@@ -157,7 +157,7 @@ On small viewports it is displayed in compact expandable form.
 				</li>
 				<li class="nav-item nav-item--has-submenu">
 					<a href="#" class="nav-link collapsed">Divoké</a>
-					<span class="expander  collapsed" role="button" id="sidebar_menu_item_39" data-toggle="collapse"
+					<span class="expander  collapsed" role="button" id="sidebar_menu_item_39" data-bs-toggle="collapse"
 						data-target="#sidebar_submenu_39" aria-expanded="false" aria-controls="sidebar_submenu_39"
 						aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
 					<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_39" aria-labelledby="sidebar_menu_item_39">
@@ -190,7 +190,7 @@ On small viewports it is displayed in compact expandable form.
 
 		<li class="nav-item nav-item--has-submenu">
 			<a href="#" class="nav-link active">Hudba</a>
-			<span class="expander  " role="button" id="sidebar_menu_item_69" data-toggle="collapse"
+			<span class="expander  " role="button" id="sidebar_menu_item_69" data-bs-toggle="collapse"
 				data-target="#sidebar_submenu_69" aria-expanded="true" aria-controls="sidebar_submenu_69"
 				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
 			<ul class="nav nav--sidebar__submenu collapse show" id="sidebar_submenu_69"
@@ -212,7 +212,7 @@ On small viewports it is displayed in compact expandable form.
 
 		<li class="nav-item nav-item--has-submenu">
 			<a href="#" class="nav-link">Syntezátory</a>
-			<span class="expander  collapsed" role="button" id="sidebar_menu_item_74" data-toggle="collapse"
+			<span class="expander  collapsed" role="button" id="sidebar_menu_item_74" data-bs-toggle="collapse"
 				data-target="#sidebar_submenu_74" aria-expanded="false" aria-controls="sidebar_submenu_74"
 				aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
 			<ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_74" aria-labelledby="sidebar_menu_item_74">

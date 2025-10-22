@@ -31,7 +31,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
 						<div class="dropdown-menu dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a href="#" class="dropdown-item">Pro média</a>
 							<a href="#" class="dropdown-item">Kontaktní údaje</a>
@@ -53,7 +53,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav user-menu">
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark dropdown-menu--transparent bg-dark">
 							<a class="dropdown-item" href="#"><span class="fas fa-wrench"></span> Administrace</a>
@@ -74,7 +74,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown regionswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e11f66f1ee" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e11f66f1ee" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
 							Česká republika
 							<span class="caret"></span>
 						</a>
@@ -88,7 +88,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					</li>
 
 					<li class="nav-item dropdown langswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="langswitch_5f6e11f66feb5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Změnit jazyk">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="langswitch_5f6e11f66feb5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Změnit jazyk">
 							<img src="/public//dist/images/languages/cs.svg" class="langswitch-flag" alt="Česky" width="24" height="15">
 							<span class="caret"></span>
 						</a>
@@ -121,7 +121,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown">
-						<a href="/o-nas/" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
+						<a href="/o-nas/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O nás</a>
 						<div class="dropdown-menu bg-light dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Pro média</a>
 							<a href="#" class="dropdown-item">Kontaktní údaje</a>
@@ -143,7 +143,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav user-menu">
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right bg-light dropdown-menu--transparent">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
@@ -164,7 +164,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown regionswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e11f66f1ee" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e11f66f1ee" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
 							Česká republika
 							<span class="caret"></span>
 						</a>
@@ -178,7 +178,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 					</li>
 
 					<li class="nav-item dropdown langswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="langswitch_5f6e11f66feb5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Změnit jazyk">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="langswitch_5f6e11f66feb5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Změnit jazyk">
 							<img src="/public//dist/images/languages/cs.svg" class="langswitch-flag" alt="Česky" width="24" height="15">
 							<span class="caret"></span>
 						</a>
@@ -214,7 +214,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 			<div class="nav__mobile-items d-md-none">
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown1" aria-controls="navTopMobileNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTopMobileNavDropdown1" aria-controls="navTopMobileNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
@@ -228,7 +228,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav user-menu">
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
@@ -340,7 +340,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown regionswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
 							Česká republika
 							<span class="caret"></span>
 						</a>
@@ -371,7 +371,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 			<div class="nav__mobile-items d-md-none">
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown2" aria-controls="navTopMobileNavDropdown2" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTopMobileNavDropdown2" aria-controls="navTopMobileNavDropdown2" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
@@ -385,7 +385,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav user-menu">
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu--dark">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
@@ -497,7 +497,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown regionswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
 							Česká republika
 							<span class="caret"></span>
 						</a>
@@ -526,7 +526,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 
 			<div class="nav__mobile-items d-md-none">
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTopMobileNavDropdown3" aria-controls="navTopMobileNavDropdown3" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navTopMobileNavDropdown3" aria-controls="navTopMobileNavDropdown3" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler__icon navbar-toggler__icon--bars"><span class="fas fa-bars"></span></span>
 					<span class="navbar-toggler__icon navbar-toggler__icon--close"><span class="fas fa-times"></span></span>
 				</button>
@@ -540,7 +540,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav user-menu">
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="fas fa-user"></span><span class="d-none d-sm-inline"> admin </span></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<a class="dropdown-item" href="/admin/"><span class="fas fa-wrench"></span> Administrace</a>
@@ -652,7 +652,7 @@ There are two instances of top navbar in the header - one for desktop view and a
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown regionswitch">
-						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
+						<a href="#" class="nav-link dropdown-toggle" role="button" id="regionswitch_5f6e175c5f0da" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select selling region">
 							Česká republika
 							<span class="caret"></span>
 						</a>
@@ -786,7 +786,7 @@ Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving differen
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
 						<div class="dropdown-menu dropdown-menu--dark bg-brand dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Květiny</a>
 							<a href="#" class="dropdown-item">Retro</a>
@@ -832,7 +832,7 @@ Class <code>navbar--hoverable-dropdowns</code> makes dropdowns behaving differen
 				<ul class="navbar-nav">
 
 					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obchod</a>
 						<div class="dropdown-menu bg-light dropdown-menu--transparent">
 							<a href="#" class="dropdown-item">Květiny</a>
 							<a href="#" class="dropdown-item">Retro</a>

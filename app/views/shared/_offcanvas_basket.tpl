@@ -1,9 +1,9 @@
-<div id="offcanvas-basket" class="bs-offcanvas bs-offcanvas-right bg-light">
-	<header class="bs-offcanvas-header bs-offcanvas-header--fixed-top">
-		<button type="button" class="bs-offcanvas-close close" aria-label="Close" aria-expanded="false">{!"xmark"|icon}</button>
-		<div class="h4 bs-offcanvas-title"><a href="{link_to action="baskets/edit"}">{!"shopping-cart"|icon}{t}Basket{/t}<span class="cart-num-items js--cart-num-items">0</span></a></div>
+<div id="offcanvas-basket" class="offcanvas offcanvas-end">
+	<header class="offcanvas-header">
+		<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		<div class="h4 offcanvas-title"><a href="{link_to action="baskets/edit"}">{!"shopping-cart"|icon}{t}Basket{/t}<span class="cart-num-items js--cart-num-items">0</span></a></div>
 	</header>
-	<div class="bs-offcanvas-content">
+	<div class="offcanvas-content">
 		<div class="basket-content">
 
 		</div>

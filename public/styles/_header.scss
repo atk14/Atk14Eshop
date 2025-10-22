@@ -40,7 +40,7 @@ $navbar_breakpoint_upper: breakpoint-next($navbar_breakpoint_lower);
 			color: $navbar-color;
 		}
 	}
-	@include media-breakpoint-down($navbar_breakpoint_lower){
+	@include media-breakpoint-down($navbar_breakpoint_upper){ // bs5 breakpoint down
 		ul.nav--2col {
 			border-color: rgba($navbar-color, 0.5);
 		}
@@ -120,7 +120,7 @@ ol.breadcrumb {
 						outline: none;
 					}
 				}
-				@include media-breakpoint-down(sm){
+				@include media-breakpoint-down(md){ // bs5 breakpoint down
 				.dropdown-menu {
 					background-color: inherit;
 					border: none;
@@ -173,7 +173,8 @@ ol.breadcrumb {
 				}
 				// Adjust image height for SVG scaling proplerly
 				img {
-					height: $mob-nav-height - $brand-padding-y * 2;
+					//height: $mob-nav-height - $brand-padding-y * 2;
+					height: $mob-nav-height - 20px;// TODO fix vypocet BS5
 					width: auto;
 				}
 				display: flex;
@@ -245,7 +246,7 @@ ol.breadcrumb {
 
 		// Polozky zobrazene jen pri desktop view	
 		.nav__desktop-items {
-			@include media-breakpoint-down($navbar_breakpoint_lower){
+			@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 				display: none;
 			}
 		}
@@ -349,7 +350,7 @@ ol.breadcrumb {
 		}
 
 
-		@include media-breakpoint-down($navbar_breakpoint_lower){
+		@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 			padding-left: 0;
 			padding-right: 0;
 			.navbar-right {
@@ -374,7 +375,7 @@ ol.breadcrumb {
 			}
 
 		}
-		@include media-breakpoint-down($navbar_breakpoint_lower){
+		@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 			ul.nav--2col {
 				display: flex;
 				flex-direction: row;
@@ -579,7 +580,7 @@ ol.breadcrumb {
 		.container-fluid {
 			//padding-left: $grid-gutter-width;
 			//padding-right: $grid-gutter-width;
-			@include media-breakpoint-down(xs) {
+			@include media-breakpoint-down(sm) {  // bs5 breakpoint down
 				padding-left: $grid-gutter-width/2;
 				padding-right: $grid-gutter-width/2;
 			}
@@ -648,7 +649,7 @@ ol.breadcrumb {
 						}
 					}
 				}
-				@include media-breakpoint-down(xs){
+				@include media-breakpoint-down(sm){  // bs5 breakpoint down
 					flex-basis: 50%;
 					border-right-style: solid;
 					border-bottom-style: solid;
@@ -685,7 +686,7 @@ ol.breadcrumb {
 		.logospace__logo {
 			display: block;
 			max-width: 200px;
-			@include media-breakpoint-down(xs){
+			@include media-breakpoint-down(sm){  // bs5 breakpoint down
 				max-width: 150px;
 			}
 			img {
@@ -792,7 +793,7 @@ ol.breadcrumb {
 		}
 		
 		
-		@include media-breakpoint-down($navbar_breakpoint_lower){
+		@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 			display: none;
 		}
 		
@@ -810,7 +811,7 @@ ol.breadcrumb {
 		border-bottom: none;
 		display: none;
 		&.show {
-			@include media-breakpoint-down($navbar_breakpoint_lower){
+			@include media-breakpoint-down($navbar_breakpoint_upper){  // bs5 breakpoint down
 				display: flex;
 			}
 		}
@@ -840,7 +841,7 @@ ol.breadcrumb {
 	border-radius: $size/2;
 	background-color: $primary;
 	line-height: 1;
-	color: color-yiq($primary);
+	color: color-contrast($primary);
 	text-align: center;
 	padding: 0 $size/4;
 	font-size: 0.875rem;

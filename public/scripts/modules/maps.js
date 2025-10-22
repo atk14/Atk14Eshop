@@ -1,21 +1,52 @@
 /**
- * Classes for display of maps using Leaflet library.
- * Various tile providers may be used, most notable are Mapy.cz and Openstreetmaps.org
+ * @fileOverview
+ * Module for creating maps with Leaflet library
+ * Contains MapBase class with common methods and properties which is extended 
+ * by SimpleMap and MultiMap classes used for creating maps with single or multiple markers
  * 
- * window.UTILS.simpleMap: simple class to display single location with marker
+ * Supports multiple tile providers
+ * Supports clustering of markers
+ * Supports gesture handling for touch interfaces
  * 
- * window.UTILS.multiMap: class to display multiple clustered markers with popups
- * 
- * Dependencies: Leaflet - https://leafletjs.com/
- * 
+ * Dependencies:
+ * - leaflet (core library)
+ * - leaflet-gesture-handling
+ * - leaflet.markercluster
  */
 
-window.UTILS = window.UTILS || { };
+
 
 /**
- * General map options
+ * Base class for maps
+ * Contains common methods and properties and mechainsm for loading Leaflet and related libraries
  */
-window.UTILS.mapHelpers = class {
+export class MapBase {
+  L = null;
+  static librariesLoaded = false;
+  constructor() {
+    console.log( "MapBase constructor" );
+    //this.loadLeaflet();
+  }
+
+  /**
+   * Async loading of Leaflet and related libraries
+   * @param {*} withClustering:Boolean = false - load Leaflet with clustering library
+   */
+  async loadLeaflet( withClustering = false ) {
+    try {
+      let leaflet = await import( "leaflet/dist/leaflet-src.esm.js" );
+      window.L = leaflet;
+      await import ( "leaflet-gesture-handling" );
+      if( withClustering ) {
+        await import ( "leaflet.markercluster" );
+      }
+      console.log( "Leaflet loaded? ...", leaflet );
+      this.librariesLoaded = true;
+    }
+    catch( error ) {
+      console.error( "Error loading Leaflet", error);
+    }
+  }
 
   // Tile provider API URL
   static get mapProvider() {
@@ -92,19 +123,19 @@ window.UTILS.mapHelpers = class {
       new LogoControl().addTo( map );
     }
   }
-};
+}
 
 
 /**
- * Simple map with marker
- * Marker position, default zoom and optional title are set as data attributes.
+ * Class for creating map with single marker
+ * 
  * Usage:
  * HTML:
- * <div class="my_map" id="store-map" data-lat="50.0770708" data-lng="14.4862577" data-zoom="16" data-title="Elegantní lékárna"></div>
+ * <div class="store-detail__map map_v2" id="store-map2" data-lat="50.0928469" data-lng="14.3698544" data-zoom="18" data-title="Neuwaldergasse"></div>
  * JS:
- * window.UTILS.new SimpleMap( document.querySelector( ".my_map" ) );
+ * new SimpleMap( document.querySelector( ".map_v2" ) );
  */
-window.UTILS.SimpleMap = class {
+export class SimpleMap extends MapBase {
   mapElement;
   lat;
   lng;
@@ -112,55 +143,97 @@ window.UTILS.SimpleMap = class {
   title;
   map;
   marker;
-  iconOptions = window.UTILS.mapHelpers.iconOptions;
   baseMapLayer;
-
-  constructor( mapElement) {
+  constructor( mapElement ) {
+    super();
+    if( !MapBase.librariesLoaded ) {
+      this.loadLeaflet().then( () => {
+        console.log( "SimpleMap constructor - loading libraries" );
+        this.createMap( mapElement );
+      });
+    } else {
+      console.log( "SimpleMap constructor - libraries already loaded" );
+      this.createMap( mapElement );
+    }    
+  }
+  createMap( mapElement ) {
+    console.log( "MapTest createMap" );
     this.mapElement = mapElement;
-    this.lat = this.mapElement.dataset.lat;
-    this.lng = this.mapElement.dataset.lng;
-    this.zoom = this.mapElement.dataset.zoom;
-    this.title = this.mapElement.dataset.title;
+    this.lat = mapElement.dataset.lat;
+    this.lng = mapElement.dataset.lng;
+    this.zoom = mapElement.dataset.zoom;
+    this.title = mapElement.dataset.title;
+    let L = window.L;
 
     // Create basemap tile layer
-    this.baseMapLayer = L.tileLayer( window.UTILS.mapHelpers.mapProvider, { 
-      attribution: window.UTILS.mapHelpers.mapAttribution 
+    this.baseMapLayer = L.tileLayer( MapBase.mapProvider, { 
+      attribution: MapBase.mapAttribution 
     } );
 
     // Create map
     this.map = L.map( this.mapElement, {
-      center: [this.lat, this.lng],
+      center: [ this.lat, this.lng ],
       zoom: this.zoom,
       gestureHandling: true,
       layers: [ this.baseMapLayer ],
     } );
 
     // Add marker
-    this.marker = L.marker( [this.lat, this.lng], { icon: L.icon( this.iconOptions ) } ).addTo( this.map );
-    if( this.title ) {
-      this.marker.bindPopup( this.title );
-    }
-
-    // Add provider logo if required
-    window.UTILS.mapHelpers.addTileProviderLogo( this.map );
+      this.marker = L.marker( [this.lat, this.lng], { icon: L.icon( MapBase.iconOptions ) } ).addTo( this.map );
+      if( this.title ) {
+        this.marker.bindPopup( this.title );
+      }
+  
+      // Add provider logo if required
+      MapBase.addTileProviderLogo( this.map );
   }
-};
+}
 
 /**
- * Function for creating custom map icons
+ * Class for creating map with multiple markers
+ * 
+ * Usage:
+ * HTML:
+ * <script>
+		var storeLocatorData = [
+			{
+		id: 1,
+		image: "http://i.pupiq.net/i/6f/6f/ac2/2dac2/4454x2969/E6ifOg_140x140xc_2b938a06ee365ab4.jpg",
+		title: "Elegantní lékárna",
+		address: "Vinohradsk%C3%A1%20222%3Cbr%3E%0D%0A120%2000%20Praha%202%3Cbr%3E%0D%0A%C4%8Cesk%C3%A1%20republika",
+		detailURL: "/prodejny/elegantni-lekarna/",
+		lat: 50.0770708,
+		lng: 14.4862577,
+		isOpen: "Otevřeno",
+	},
+			{
+		id: 3,
+		image: "http://i.pupiq.net/i/6f/6f/ac3/2dac3/5472x3648/lcMqx7_140x140xc_0c529b8188c3a32a.jpg",
+		title: "Showroom Praha",
+		address: "Korunn%C3%AD%20970%2F72%3Cbr%3E%0D%0A101%2000%20%20Praha%2010%20%E2%80%93%20Vinohrady",
+		detailURL: "/prodejny/showroom-praha/",
+		lat: 50.0753692,
+		lng: 14.4510819,
+		isOpen: "Otevřeno",
+	},
+		];
+  </script>
+  <div class="stores-index__map stores_v2" data-enable_clusters="true" data-cluster_distance="80">
+		<div class="preloader" id="stores-index__maploader">
+			<div class="spinner-border text-secondary" role="status">
+				<span class="sr-only">Nahrávám mapu&hellip;</span>
+			</div>
+			<div>Nahrávám mapu&hellip;</div>
+		</div>
+	</div>
+  *
+  *
+  * JS:
+  * new MultiMap( document.querySelector( ".stores_v2" ) );
  */
-window.UTILS.customMapIcon = L.Icon.extend( {
-  options: window.UTILS.mapHelpers.iconOptions
-} );
-
-/**
- * Multiple locations map
- */
-window.UTILS.MultiMap = class {
+export class MultiMap extends MapBase {
   mapContainer; // main html container for map
   map; // map instance
-  iconOptions = window.UTILS.mapHelpers.iconOptions;
-  icon = window.UTILS.mapHelpers.icon;
   storeData = window.storeLocatorData;
   markerGroup;
   clusteredLayer;
@@ -177,17 +250,33 @@ window.UTILS.MultiMap = class {
   preloader;
 
   constructor( mapElement ) {
+    super();
+    if( !MapBase.librariesLoaded ) {
+      this.loadLeaflet( true ).then( () => {
+        console.log( "MultiMap constructor - loading libraries" );
+        this.createMap( mapElement );
+      });
+    } else {
+      console.log( "MultiMap constructor - libraries already loaded" );
+      this.createMap( mapElement );
+    }
+    
+    //this.createMap( document.querySelector( "#store-map" ) );
+  }
+
+  createMap( mapElement ) {
     this.mapContainer = mapElement;
-    // console.log("new MultiMap", this.mapContainer );
+    console.log("createMap MultiMap", this.mapContainer );
     this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
     this.clusterDistance = this.mapContainer.dataset.cluster_distance;
     if ( this.mapContainer.querySelector( this.preloaderSelector ) ) {
       this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
     }
+    let L = window.L;
 
     // initialize base map tiles layer
-    this.baseMapLayer = L.tileLayer( window.UTILS.mapHelpers.mapProvider, { 
-      attribution: window.UTILS.mapHelpers.mapAttribution 
+    this.baseMapLayer = L.tileLayer( MapBase.mapProvider, { 
+      attribution: MapBase.mapAttribution 
     } );
 
     // initialize layer for markers
@@ -219,7 +308,7 @@ window.UTILS.MultiMap = class {
     });
 
     // Add provider logo if required
-    window.UTILS.mapHelpers.addTileProviderLogo( this.map );
+    MapBase.addTileProviderLogo( this.map );
 
     // Zoom to show all markers
     this.map.fitBounds( this.markerGroup.getBounds() );
@@ -228,6 +317,7 @@ window.UTILS.MultiMap = class {
     this.createCardListHandlers();
 
   }
+
 
   /**
    * If there are more markers in the same location,
@@ -255,19 +345,19 @@ window.UTILS.MultiMap = class {
   createMarkers() {
     for ( let i = 0; i < this.storeData.length; i++ ) {
       let store  = this.storeData[ i ];
-      let icon = L.icon( this.iconOptions );
+      let icon = L.icon( MapBase.iconOptions );
 
       // Make icon with X offset if needed
       if( !this.enableClusters && store.markerOffset !== 0 ) {
-        let iconAnchorX = this.iconOptions.iconAnchor [0];
-        let iconAnchorY = this.iconOptions.iconAnchor [1];
-        let popupAnchorX = this.iconOptions.popupAnchor [0];
-        let popupAnchorY = this.iconOptions.popupAnchor [1];
+        /*let iconAnchorX = MapBase.iconOptions.iconAnchor [0];
+        let iconAnchorY = MapBase.iconOptions.iconAnchor [1];
+        let popupAnchorX = MapBase.iconOptions.popupAnchor [0];
+        let popupAnchorY = MapBase.iconOptions.popupAnchor [1];*/
 
-        icon = new window.UTILS.customMapIcon( { 
+        /*icon = new window.UTILS.customMapIcon( { 
           iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],
           popupAnchor: [ popupAnchorX - ( store.markerOffset * this.proximityOffset ), popupAnchorY ],
-        } );
+        } );*/
       }
 
       let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
@@ -288,8 +378,8 @@ window.UTILS.MultiMap = class {
     let flags = "";
     const address = decodeURIComponent( store.address );
     if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
-			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
-		}
+      flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
+    }
     if( store.image ) {
       image = `<img src="${store.image}" alt="${store.title}">`;
     }
@@ -370,5 +460,4 @@ window.UTILS.MultiMap = class {
     }
   }
 
-
-};
+}

@@ -23,7 +23,7 @@
 			float: none;
 		}
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){ // bs5 breakpoint down
 		padding-left: 0.75rem;
 	}
 	@media(max-width:420px){

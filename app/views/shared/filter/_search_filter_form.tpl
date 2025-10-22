@@ -12,7 +12,7 @@
 
 		<div id="filter" class="pfilter mb-5 pt-2">
 			<div class="pfilter__header">
-				<a class="collapse-title collapsed" data-toggle="collapse" href="#filter_fields_div" role="button" aria-expanded="false" aria-controls="filter_fields_div"><strong>{t}Rozšířené vyhledávání{/t}</strong></a>
+				<a class="collapse-title collapsed" data-bs-toggle="collapse" href="#filter_fields_div" role="button" aria-expanded="false" aria-controls="filter_fields_div"><strong>{t}Rozšířené vyhledávání{/t}</strong></a>
 			</div>
 			<div id="filter_fields_div" class="collapse">
 				<div class="pfilter__header">

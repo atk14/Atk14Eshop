@@ -62,7 +62,7 @@
     <div class="iobject__body-bottom">
       {* TODO: optional QR code generation *}
       <div>{if $show_qr}
-        <a href="#person_qr_{$uniqid}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046" class="qr-code-link">
+        <a href="#person_qr_{$uniqid}" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046" class="qr-code-link">
           <ul class="list--icons mb-0">
             <li>
               <span class="list--icons__icon"><span class="fas fa-qrcode"></span></span>

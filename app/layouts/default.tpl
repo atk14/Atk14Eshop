@@ -62,15 +62,14 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
-		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
-			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
-		<![endif]-->
+		{stylesheet_link_tag file="$public/dist/styles/vendor.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/application_styles.css"}
 
+		
 		{render partial="shared/layout/favicons"}
 		
 		{!"app.trackers.google.site_verification.html_tag"|system_parameter}
@@ -88,12 +87,10 @@
 		{facebook_pixel part="body"}
 		{render partial="shared/layout/flash_message"}
 		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
-		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
 		{if defined("SIDEBAR_MENU_ENABLED") && constant("SIDEBAR_MENU_ENABLED") && $namespace=="" && ($controller=="main" || $controller=="categories" || $controller=="cards")}
 			{assign use_sidebar_menu true}
 		{/if}
-		<div class="body--upper">{placeholder for="out_of_container"}</div>
 		<div class="body{if $section_navigation || $use_sidebar_menu} has-nav-section{/if}" id="page-body">
 			{if $section_navigation || $use_sidebar_menu}<div class="body__sticky-container">{/if}
 			{if $section_navigation}
@@ -133,12 +130,12 @@
 		
 		{render partial="shared/basket_info_float_container"}
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
+		{if $DEVELOPMENT}<!-- USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}/-->{/if}
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
-		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
-
+		{javascript_script_tag file="$public/dist/scripts/application_es6.min.js" type="module"}
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}

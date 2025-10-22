@@ -31,6 +31,7 @@ $enable-deprecation-messages: false;
 // Other SCSS
 
 @import "development_utils";
+@import "grid_layout";
 
 @import "layout";
 
@@ -105,6 +106,7 @@ $enable-deprecation-messages: false;
 @import "slider";
 
 @import "list-categories";
+@import "photoswipe";
 
 @import "section-child-categories";
 
@@ -116,7 +118,8 @@ $enable-deprecation-messages: false;
 
 @import "modals";
 
-@import "cookie_consent";
+//@import "cookie_consent";
+@import "vendor/atk14/cookie-consent/src/public/styles/_cookie_consent.bs5.scss";
 
 @import "digital_contents";
 
@@ -157,6 +160,7 @@ $enable-deprecation-messages: false;
 @import "shared/colors";
 @import "shared/color_radio_checkbox";
 @import "shared/tooltips";
+@import "shared/screenreaders";
 
 @import "styleguides";
 @import "md_book";

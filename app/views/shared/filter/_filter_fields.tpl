@@ -3,7 +3,7 @@
 <ul class="nav nav-tabs" id="filtertabs" role="tablist">
 	{foreach $form->get_tab_fields() as $key => $field}
 		<li class="nav-item" role="presentation">
-			<a class="nav-link{if $key==$active_filter_page} active{/if}" id="{$key}-tab" data-toggle="tab" href="#{$key}" role="tab" rel="nofollow" aria-controls="{$key}" aria-selected="{if $field@first}true{else}false{/if}" data-page="{$key}">{$field->label}</a>
+			<a class="nav-link{if $key==$active_filter_page} active{/if}" id="{$key}-tab" data-bs-toggle="tab" href="#{$key}" role="tab" rel="nofollow" aria-controls="{$key}" aria-selected="{if $field@first}true{else}false{/if}" data-page="{$key}">{$field->label}</a>
 		</li>
 	{/foreach}
 </ul>

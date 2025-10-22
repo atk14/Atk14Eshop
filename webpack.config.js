@@ -1,0 +1,215 @@
+const path = require("path");
+const webpack = require('webpack');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); // browsersync
+//const FaviconsWebpackPlugin = require('favicons-webpack-plugin'); // favicons generation
+const autoprefixer = require('autoprefixer'); // autoprefixer
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // extracts css from js
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // css minimizer
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // copy files
+const TerserPlugin = require("terser-webpack-plugin"); // js minimizer
+const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
+const ESLintPlugin = require('eslint-webpack-plugin'); // linter
+
+// Aplication JS scripts. Vendor scripts referenced inside app JS files.
+var application_scripts = [
+  "./public/scripts/jquery_loader.js",
+  "./node_modules/atk14js/src/atk14.js",
+	"./public/scripts/pager.js",
+	"./public/scripts/filter.js",
+	"./public/scripts/utils/display_utils.js",
+	"./public/scripts/utils/utils.js",
+	"./public/scripts/utils/navbar.js",
+	"./public/scripts/utils/floating_cart.js",
+	"./public/scripts/utils/offcanvas.js",
+	"./public/scripts/utils/scroll_to_top.js",
+	"./public/scripts/utils/filterable_list.js",
+	"./public/scripts/utils/numeric_stepper.js",
+	"./public/scripts/utils/edit_basket_form.js",
+	"./public/scripts/utils/basket_shipping_rules.js",
+	"./public/scripts/utils/search_suggestion.js",
+	"./public/scripts/utils/card_detail.js",
+	"./public/scripts/utils/window_sync.js",
+	"./public/scripts/utils/live_status_refresher.js",
+	"./public/scripts/utils/flash_message.js",
+	"./public/scripts/utils/password_reveal.js",
+	"./public/scripts/utils/form_validator.js",
+	"./public/scripts/application.js",
+];
+
+// Application styles incl. Bootstrap
+var application_styles = "./public/styles/application.scss";
+
+// Other vendor styles
+var vendorStyles = [
+  "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"./node_modules/swiper/swiper-bundle.css",
+	"./node_modules/photoswipe/dist/photoswipe.css",
+  "./node_modules/leaflet/dist/leaflet.css",
+	"./node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+	"./node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
+];
+
+// Files to be ignored
+// typically unnecessary almost empty JS files created during styles compilation
+var ignoredFiles = [
+  "vendor_styles.min.js", "vendor_styles.min.js.map", // unused JS from CSS compile
+  "application_styles.min.js", "application_styles.min.js.map", // unused JS from CSS compile
+];
+
+var config = {
+  entry: {
+    application: application_scripts,
+    application_es6: "./public/scripts/modules/application_es6.js",
+    application_styles: application_styles,
+    vendor_styles: vendorStyles,
+  },
+  output: {
+    //clean: true,
+    path: path.resolve( __dirname, "public", "dist" ),
+    publicPath: "/public/dist/",
+    filename: "scripts/[name].min.js"
+  },
+  plugins: [
+    new BrowserSyncPlugin(
+      // BrowserSync options
+      {
+        host: 'localhost',
+        port: 3000,
+        proxy: 'http://localhost:8000/',
+        files: [ "app/**/*.tpl", "public/images/**/*", "public/dist/**/*" ],
+        injectChanges: true,
+        injectFileTypes: ["css"],
+      },
+      // plugin options
+      {
+        reload: false,
+        injectCss: true,
+      }
+    ),
+
+    new IgnoreEmitPlugin( ignoredFiles ),
+    require ('autoprefixer'),
+    new MiniCssExtractPlugin( {
+      filename: "styles/[name].css",
+      runtime: false,
+    } ),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/images', to: 'images' },
+        { from: 'public/fonts', to: 'webfonts', noErrorOnMissing: true },
+        {from: './node_modules/svg-country-flags/svg/*', to({ context, absoluteFilename }) {
+          // rename some flags according to locale codes
+          var renameTr = {
+            "cz": "cs",
+            "gb": "en",
+            "rs": "sr", // sr: Srpski
+            "si": "sl", // sl: Slovenščina
+            "ee": "et", // et: eesti
+            "kz": "kk" // kk: Қазақ
+          };
+          var filename = path.basename( absoluteFilename, ".svg" );
+          Object.keys( renameTr ).forEach( function( key ) {
+              if (filename === key) {
+                filename = renameTr[ key ];
+              }
+          } );
+          return "images/languages/" + filename + "[ext]";
+        }},
+        {from: "./node_modules/@fortawesome/fontawesome-free/webfonts/*", to({ context, absoluteFilename }) {
+          return "webfonts/[name][ext]";
+        }},
+      ]
+    }),
+  ],
+  module: { 
+    "rules": [ 
+      { 
+        test: /\.js$/, 
+        exclude: /node_modules/, 
+        use: { 
+          loader: "babel-loader", 
+          options: { 
+            presets: [ "@babel/preset-env", ] 
+          } 
+        } 
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: "postcss-loader",
+          },
+          "sass-loader",
+        ],
+      },
+    ] 
+  },
+  devtool: "source-map",
+  optimization: {
+    splitChunks: {
+      chunks: 'all', // zpracuje všechny importy
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          priority: 10,
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          priority: 20,
+          enforce: true
+        }
+      }
+    },
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin(),
+    ],
+    minimize: true
+  },
+  cache: true,
+  stats: {
+    // SASS compiler enable to show @debug
+    loggingDebug: ['sass-loader'],
+  },
+  watchOptions: {
+    aggregateTimeout: 100,
+    poll: 350, // Check for changes every n ms
+  },
+};
+
+module.exports = (env, args) => {
+  if( env.clean_dist ) {
+    // clean dist folder if clean_dist
+    console.log( "dist directory will be cleaned" );
+    config.output.clean = true;
+  }
+  console.log("mode:", args.mode);
+  if( args.mode !== "production" ) {
+    // minimize outputs only in production mode
+    config.optimization.minimize = false;
+  }
+  if( !args.watch ){
+    console.log( "JS will be linted" );
+    config.plugins.push( new ESLintPlugin() );
+  }else{
+    console.log( "JS will not be linted" );
+  }
+  return config;
+}

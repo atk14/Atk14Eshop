@@ -3,15 +3,15 @@ Offcanvas component
 
 Offcanvas sidebar useful for navigation. ATK14Eshop shopping cart preview is built with this component.
 
-Offcanvas can be opened by clicking element with <code>data-toggle="offcanvas"</code> attribute with <code>data-target</code> or <code>href</code> which specifies target offcanvas element (<code>data-target</code> has higher priority). Offcanvas content is scrollable if it is longer than available height.
+Offcanvas can be opened by clicking element with <code>data-bs-toggle="offcanvas"</code> attribute with <code>data-bs-target</code> or <code>href</code> which specifies target offcanvas element (<code>data-bs-target</code> has higher priority). Offcanvas content is scrollable if it is longer than available height.
 
 Markup for this component is derived form Bootstrap 5 Offcanvas Component for future compatibility.
 
 ## Basic example, opens on right
 
 [example]
-  <a href="#offcanvas-demo-basic" class="btn btn-primary" data-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-basic" >Link with href</a>
-  <button class="btn btn-primary" data-toggle="offcanvas" data-target="#offcanvas-demo-basic" aria-expanded="false" aria-controls="offcanvas-demo-basic" >Button with data-target attribute</button>
+  <a href="#offcanvas-demo-basic" class="btn btn-primary" data-bs-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-basic" >Link with href</a>
+  <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-demo-basic" aria-expanded="false" aria-controls="offcanvas-demo-basic" >Button with data-bs-target attribute</button>
 
   <div id="offcanvas-demo-basic" class="bs-offcanvas bs-offcanvas-right bg-light">
     <header class="bs-offcanvas-header bs-offcanvas-header--fixed-top">
@@ -34,7 +34,7 @@ It is possible to edit items in basket (changing quantity or deleting items - no
 In real usage basket contents and price are loaded asynchronously by JS - therefore there are hidden <code>.basket-loading</code> and <code>.basket-error</code> divs displayed during loading and in the case of loading error. For asynchronous content loading component's id must be set to <code>#offcanvas-basket</code>.
 
 [example]
-<a href="#" class="btn btn-primary" rel="nofollow" data-toggle="offcanvas" data-target="#offcanvas-basket-demo"
+<a href="#" class="btn btn-primary" rel="nofollow" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-basket-demo"
   aria-expanded="false" aria-controls="offcanvas-basket" aria-label="Košík"><span class="fas fa-shopping-cart"></span> Košík</a>
 
 <div id="offcanvas-basket-demo" class="bs-offcanvas bs-offcanvas-right bg-light">
@@ -188,8 +188,8 @@ In real usage basket contents and price are loaded asynchronously by JS - theref
 
 ## Other examples with different positioning and sizing
 [example]
-  <a href="#offcanvas-demo-left" class="btn btn-primary" data-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-left" >Offcanvas on left</a>
-  <a href="#offcanvas-demo-fullwidth" class="btn btn-primary" data-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-fullwidth" >Fullwidth offcanvas</a>
+  <a href="#offcanvas-demo-left" class="btn btn-primary" data-bs-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-left" >Offcanvas on left</a>
+  <a href="#offcanvas-demo-fullwidth" class="btn btn-primary" data-bs-toggle="offcanvas" aria-expanded="false" aria-controls="offcanvas-demo-fullwidth" >Fullwidth offcanvas</a>
 
   <div id="offcanvas-demo-left" class="bs-offcanvas bs-offcanvas-left bg-light">
     <header class="bs-offcanvas-header bs-offcanvas-header--fixed-top">

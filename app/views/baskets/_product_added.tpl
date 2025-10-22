@@ -20,6 +20,6 @@
 	{/if}
 </div>
 <div class="section__navigation">
-	<button class="btn btn-secondary btn--back" data-dismiss="modal">{t}Vybrat další produkt{/t}</button>
+	<button class="btn btn-secondary btn--back" data-bs-dismiss="modal">{t}Vybrat další produkt{/t}</button>
 	<a href="{link_to action="baskets/edit"}" class="btn btn-primary btn--cta">{t}K pokladně{/t}</a>
 </div>
