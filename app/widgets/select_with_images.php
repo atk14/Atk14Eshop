@@ -129,8 +129,8 @@ class RadioInputWithImage {
 
 	function price() {
 		$price = $this->object->getPrice();
-		if($price === null) { return ''; };
-		if($price === 0) { return '<span class="label__price label__price--free">'._('Zdarma') . '</span>'; };
+		if(is_null($price)) { return ''; };
+		if($price == 0.0) { return '<span class="label__price label__price--free">'._('Zdarma') . '</span>'; };
 		return "<span class=\"label__price\">$price</span>";
 	}
 

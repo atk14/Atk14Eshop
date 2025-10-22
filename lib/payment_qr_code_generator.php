@@ -8,6 +8,14 @@ use Shoptet\Spayd\Utilities\IbanUtilities;
 
 class PaymentQrCodeGenerator {
 
+	var $amount;
+	var $variable_symbol;
+	var $account_number;
+	var $iban;
+	var $swift;
+	var $currency;
+	var $message;
+
 	static function GetInstanceForOrder($order){
 		$payment_method = $order->getPaymentMethod();
 		$region = $order->getRegion();

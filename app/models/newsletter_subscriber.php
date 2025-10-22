@@ -81,7 +81,7 @@ class NewsletterSubscriber extends ApplicationModel{
 		if($ns){
 			$upd_array = array();
 			foreach($values as $k => $v){
-				if(strlen($v)==0){ continue; }
+				if(strlen((string)$v)==0){ continue; }
 				if($ns->g($k)!=$v){
 					$upd_array[$k] = $v;
 				}

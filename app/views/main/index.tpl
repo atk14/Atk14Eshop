@@ -3,7 +3,7 @@
 
 {if $category_recommended_cards}
 	{admin_menu for=$category_recommended_cards}
-	{render partial="shared/layout/content_header" title=$category_recommended_cards->getName() teaser=$category_recommended_cards->getTeaser()|markdown title_tag="h2"}
+	{render partial="shared/layout/content_header" title=$category_recommended_cards->getName() teaser=$category_recommended_cards->getTeaser()|markdown title_tag="p"}
 	
 	{if $category_recommended_cards->getDescription()}
 		{!$category_recommended_cards->getDescription()|markdown}

@@ -169,14 +169,15 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getDefaultUrl(){
-		global $AKT14_GLOBAL, $HTTP_REQUEST;
+		global $ATK14_GLOBAL, $HTTP_REQUEST;
 		return Atk14Url::BuildLink([
 			"namespace" => "",
 			"controller" => "main",
 			"action" => "index",
+			"lang" => $ATK14_GLOBAL->getDefaultLang(),
 		],[
 			"with_hostname" => $this->getDefaultDomain(),
-			"ssl" => $HTTP_REQUEST->ssl(),
+			"ssl" => $HTTP_REQUEST->ssl() || (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")),
 		]);
 	}
 

@@ -130,6 +130,10 @@
 	@include media-breakpoint-down(lg){  // bs5 breakpoint down
 		display: none;
 	}
+	// Hide default arrows from swpiper 12+
+	.swiper-navigation-icon {
+		display: none;
+	}
 }
 
 .swiper-button-next {

@@ -4,18 +4,26 @@ var rename = require( "gulp-rename" );
 var babel = require( "gulp-babel");
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
+var favicons = require("favicons").stream;
+
+var postcss = require( "gulp-postcss" );
+var cssnano = require( "cssnano" );
+var nesting = require( "postcss-nesting" );
+var concat = require( "gulp-concat" );
+var autoprefixer = require( "autoprefixer" );
+
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
-	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/swiper/swiper-bundle.css",
+	"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+	"node_modules/swiper/swiper-bundle.min.css",
 	"node_modules/photoswipe/dist/photoswipe.css",
 	// "node_modules/jquery-ui-bundle/jquery-ui.min.css",
 	"node_modules/cookieconsent/build/cookieconsent.min.css",
 	"node_modules/nouislider/dist/nouislider.min.css",
 	"node_modules/leaflet/dist/leaflet.css",
 	"node_modules/leaflet.markercluster/dist/MarkerCluster.css",
-	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
+	"node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css"
 	//"node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
 ];
 
@@ -82,8 +90,7 @@ gulp.task( "styles", function() {
 				"public/styles"
 			]
 		} ) )
-		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
@@ -93,9 +100,9 @@ gulp.task( "styles", function() {
 gulp.task( "styles-vendor", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.concatCss( "vendor.css" ) )
-		.pipe( $.autoprefixer() )
-		.pipe( $.cssnano( { svgo: false } ) )
+		.pipe( concat( "vendor.css" ) )
+		//.pipe( postcss( [ nesting(), autoprefixer(), cssnano() ] ) )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )

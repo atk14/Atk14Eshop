@@ -1,6 +1,9 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
 var $ = require( "gulp-load-plugins" )();
+var postcss = require( "gulp-postcss" );
+var cssnano = require( "cssnano" );
+var autoprefixer = require( "autoprefixer" );
 var browserSync = require( "browser-sync" ).create();
 
 var vendorStyles = [
@@ -55,8 +58,7 @@ gulp.task( "styles-admin", function() {
 				"public/admin/styles"
 			]
 		} ) )
-		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -67,8 +69,7 @@ gulp.task( "styles-from-frontend", function() {
 	return gulp.src( ["public/admin/styles/shared/frontend-styles.scss"] )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass() )
-		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -79,8 +80,7 @@ gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
-		.pipe( $.autoprefixer() )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )

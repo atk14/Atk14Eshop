@@ -1,4 +1,6 @@
-{gtm_datalayer}
+{if SystemParameter::ContentOn("app.trackers.google.tag_manager.use_datalayer")}
+	{gtm_datalayer}
+{/if}
 $("#basket_modal_dialog").remove();
 $(".modal-backdrop").remove();
 

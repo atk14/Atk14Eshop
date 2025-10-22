@@ -141,4 +141,18 @@ class TcRegion extends TcBase {
 		$this->assertEquals("Neve",$region->getShortcut());
 		$this->assertEquals("Nikd",$region->getShortcut("cs"));
 	}
+
+	function test_getDefaultDomain(){
+		$eu = $this->regions["EU"];
+		$this->assertEquals("www.example.eu",$eu->getDefaultDomain());
+		$this->assertEquals("http://www.example.eu/",$eu->getDefaultUrl());
+
+		$sk = $this->regions["SK"];
+		$this->assertEquals("www.example.sk",$sk->getDefaultDomain());
+		$this->assertEquals("http://www.example.sk/",$sk->getDefaultUrl());
+
+		$cr = $this->regions["CR"];
+		$this->assertEquals(ATK14_HTTP_HOST,$cr->getDefaultDomain());
+		$this->assertEquals("http://".ATK14_HTTP_HOST."/",$cr->getDefaultUrl());
+	}
 }

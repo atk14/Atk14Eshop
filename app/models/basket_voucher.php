@@ -54,4 +54,14 @@ class BasketVoucher extends BasketOrOrderVoucher {
 		return $out;
 	}
 
+	function getDescription(){
+		$description = $this->getVoucher()->getDescription();
+		if(strlen((string)$description)){
+			return $description;
+		}
+		if($this->freeShipping() && ($this->getDiscountPercent()>0.0 || $this->getDiscountAmount())){
+			return _("Sleva + doprava zdarma");
+		}
+		return parent::getDescription();
+	}
 }
