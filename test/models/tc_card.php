@@ -3,6 +3,7 @@
  *
  * @fixture products
  * @fixture cards
+ * @fixture products
  * @fixture categories
  * @fixture category_cards
  * @fixture technical_specification_keys
@@ -187,6 +188,12 @@ class TcCard extends TcBase {
 		$this->assertEquals("No",(string)$coffee->getTechnicalSpecification("decaffeinated"));
 		$this->assertEquals("No",(string)$coffee->getTechnicalSpecification("decaffeinated_code"));
 		$this->assertEquals(null,$coffee->getTechnicalSpecification("width"));
+	}
+
+	function test_toHumanReadableString(){
+		$this->assertEquals("Tea",$this->cards["tea"]->toHumanReadableString()); // CATALOG_ID, Card name
+		$this->assertEquals("ARABICA, Coffee",$this->cards["coffee"]->toHumanReadableString()); // CATALOG_ID, Card name
+		$this->assertEquals("PEANUTS, Peanuts",$this->cards["peanuts"]->toHumanReadableString()); // CATALOG_ID, Card name
 	}
 
 	function test_getPrimaryCategory(){
