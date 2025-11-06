@@ -25,16 +25,18 @@ class CardCreator extends ApplicationModel implements Rankable {
 		if(!static::$MainCreators) {
 			static::$MainCreators = new CacheSomething(function($ids) {
 				$ids += Cache::CachedIds("Card");
-				$rows=self::GetDbMole()->selectRows("SELECT card_id, id FROM card_creators WHERE card_id IN :ids AND is_main_creator", [':ids' => $ids]);
+				$rows=self::GetDbMole()->selectRows("SELECT card_id, id, creator_id FROM card_creators WHERE card_id IN :ids AND is_main_creator", [':ids' => $ids]);
 				$cc = Cache::Get('CardCreator', array_column($rows,'id', 'id'));
 				$out = array_fill_keys($ids, []);
 				foreach($rows as $row) {
 					$out[$row['card_id']][] = $cc[$row['id']];
+					Cache::Prepare("Creator",$row["creator_id"]);
 				};
 				return $out;
-			}, "Creator");
+			}, "CardCreator");
 		}
-		return static::$MainCreators->get($card);
+		$out = static::$MainCreators->get($card);
+		return $out;
 	}
 
 	function setRank($new_rank){
