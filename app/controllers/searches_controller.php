@@ -38,7 +38,7 @@ class SearchesController extends ApplicationController {
 			"offset" => $offset,
 			"limit" => 20,
 			//"damping_coefficient" => 10000000 // tlumi relevanci se starim datumu daneho dokumentu; cim vyssi cislo, tim mensi tlumeni; def. je 30
-			"boosted_types" => "card", // in sorting, cards should be priritized over other other document types
+			"boosted_types" => "card", // in sorting, cards should be prioritized over other other document types
 		);
 		if($format=="snippet"){
 			$options["offset"] = 0;
