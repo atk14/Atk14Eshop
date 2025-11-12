@@ -102,7 +102,7 @@ abstract class CardListController extends ApplicationController {
 			"title" => _("Doporučujeme"),
 		]);
 
-		return;
+		//return;
 
 		$price = "(SELECT MIN(price) FROM pricelist_items pi WHERE pi.pricelist_id=1 AND minimum_quantity<=1 AND (valid_from IS NULL OR valid_from<NOW()) AND (valid_to IS NULL OR valid_to>NOW()) AND pi.product_id IN (SELECT id FROM products WHERE products.card_id=cards.id))";
 		$sorting->add("lowest_price",new \SqlBuilder\SqlJoinOrder("$price ASC, $default_order",$default_order->join),[
@@ -166,7 +166,17 @@ abstract class CardListController extends ApplicationController {
 		$this->form = $this->tpl_data["form"] = $this->_get_form("FilterForm");
 		$this->tpl_data["pager"] = $this->pager = $pager = new CardsAjaxPager($this, [
 			"sorting" => $sorting,
-			"page_size" => $this->page_size,
+
+			//"page_size" => $this->page_size,
+			// or
+			//*
+			"page_size" => $this->params->getInt("page_size"),
+			"page_size_possibilities" => [
+				$this->page_size * 1,
+				$this->page_size * 2,
+				$this->page_size * 3,
+			],
+			// */
 		]);
 
 		$this->tpl_data["paging_form"] = $pager->getForm();
