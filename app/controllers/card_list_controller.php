@@ -104,7 +104,10 @@ abstract class CardListController extends ApplicationController {
 
 		return;
 
-		$price = "(SELECT MIN(price) FROM pricelist_items pi WHERE pi.pricelist_id=1 AND minimum_quantity<=1 AND (valid_from IS NULL OR valid_from<NOW()) AND (valid_to IS NULL OR valid_to>NOW()) AND pi.product_id IN (SELECT id FROM products WHERE products.card_id=cards.id))";
+		$pricelists = $this->logged_user ? [$this->logged_user->getPricelistId(),$this->logged_user->getBasePricelistId()] : [1];
+		$pricelists = array_filter($pricelists);
+		$pricelists = join(",",$pricelists);
+		$price = "(SELECT MIN(price) FROM pricelist_items pi WHERE pi.pricelist_id IN ($pricelists) AND minimum_quantity<=1 AND (valid_from IS NULL OR valid_from<NOW()) AND (valid_to IS NULL OR valid_to>NOW()) AND pi.product_id IN (SELECT id FROM products WHERE products.card_id=cards.id))";
 		$sorting->add("lowest_price",new \SqlBuilder\SqlJoinOrder("$price ASC, $default_order",$default_order->join),[
 			"title" => _("Nejlevnější"),
 		]);
