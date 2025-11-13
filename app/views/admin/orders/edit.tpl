@@ -17,7 +17,7 @@
 
 	<fieldset>
 		<legend>{t}Fakturační adresa{/t}</legend>
-		{render partial="shared/form_field" fields="company,company_number,vat_id,address_street,address_street2,address_city,address_state,address_zip,address_country,address_note"}
+		{render partial="shared/form_field" fields="company,company_number,vat_id,local_vat_id,address_street,address_street2,address_city,address_state,address_zip,address_country,address_note"}
 	</fieldset>
 
 	<fieldset>

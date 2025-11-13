@@ -37,6 +37,11 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 		}
 	}
 
+	function tune_for_slovakia(){
+		$this->fields["vat_id"]->label = _("IČ DPH");
+		$this->_add_local_vat_id_field();
+	}
+
 	function clean(){
 		list($err,$d) = parent::clean();
 

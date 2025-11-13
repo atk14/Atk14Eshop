@@ -55,6 +55,10 @@ class CheckoutsController extends ApplicationController {
 		$fill_in_invoice_address = ($this->request->get() && $this->basket->hasAddressSet()) || ($this->request->post() && $this->params->getString("fill_in_invoice_address")) || !$delivery_address_editable_by_user;
 		$this->tpl_data["fill_in_invoice_address"] = $fill_in_invoice_address;
 
+		if($this->current_region->getInvoiceCountries()===["SK"]){
+			$this->form->tune_for_slovakia();
+		}
+
 		$this->form->set_initial($this->basket);
 		$this->form->set_initial([
 			"firstname" => $this->basket->getFirstname(),
@@ -68,6 +72,7 @@ class CheckoutsController extends ApplicationController {
 			"address_country" => $this->basket->getAddressCountry(),
 			"company_number" => $this->basket->getCompanyNumber(),
 			"vat_id" => $this->basket->getVatId(),
+			"local_vat_id" => $this->basket->getLocalVatId(),
 
 			"delivery_company" => $this->basket->getDeliveryCompany(),
 			"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
@@ -111,6 +116,9 @@ class CheckoutsController extends ApplicationController {
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($params))){
+			$d += [
+				"local_vat_id" => null, // local_vat_id might not be presented in the form
+			];
 			$d["vat_id_valid_for_cross_border_transactions_within_eu"] = $d["vat_id"]->isValidForCrossBorderTransactionsWithinEu();
 
 			if(!$delivery_address_editable_by_user){

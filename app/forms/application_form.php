@@ -268,6 +268,7 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => false,
 			"add_company_number" => true,
 			"add_vat_id" => true,
+			"add_local_vat_id" => false,
 			"enable_vat_id_validation" => true,
 		];
 		$prefix = $options["prefix"];
@@ -298,6 +299,15 @@ class ApplicationForm extends Atk14Form{
 			"enable_validation" => $options["enable_vat_id_validation"], // 
 			"disabled" => $disabled,
 		]));
+		$options["add_local_vat_id"] && $this->_add_local_vat_id_field();
+	}
+
+	function _add_local_vat_id_field($options = []){
+		$options += [
+			"label" => _("DIČ"),
+			"required" => false,
+		];
+		return $this->add_field("local_vat_id",new LocalVatNumberField($options));
 	}
 
 	function _add_phone($options = []){

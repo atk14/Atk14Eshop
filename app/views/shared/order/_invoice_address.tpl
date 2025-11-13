@@ -13,10 +13,14 @@
 {/if}
 {$order->getInvoiceCountry()|to_country_name}
 
-{if $order->getCompanyNumber() || $order->getVatId()}
+{if $order->getCompanyNumber() || $order->getVatId() || $order->getLocalVatId()}
 	<br><br>
 	{t}IČ:{/t} {$order->getCompanyNumber()|default:"—"}<br>
-	{t}DIČ:{/t} {$order->getVatId()|default:"—"}
+	{if $order->getInvoiceCountry()=="SK"}{t}IČ DPH:{/t}{else}{t}DIČ:{/t}{/if} {$order->getVatId()|default:"—"}
+	{if $order->getLocalVatId()}
+		<br>
+		{t}DIČ:{/t} {$order->getLocalVatId()}
+	{/if}
 {/if}
 
 {if $order->getAddressNote()|strlen}

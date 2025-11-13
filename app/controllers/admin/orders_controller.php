@@ -63,6 +63,7 @@ class OrdersController extends AdminController {
 				"company",
 				"company_number",
 				"vat_id",
+				"local_vat_id",
 				"firstname",
 				"lastname",
 				"email",
