@@ -15,7 +15,7 @@
 	{/if}
 
 	{if sizeof($page_size_possibilities)>1}
-	<div class="cards_sorting">
+	<div class="cards_count">
 		<div class="cards_sorting__title">{t}Zobrazit produktů{/t}</div>
 		<ul class="cards_sorting__options">
 		{foreach $page_size_possibilities as $page_size_possibility}
