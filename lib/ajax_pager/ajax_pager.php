@@ -44,8 +44,7 @@ class AjaxPager {
 		return defined("ATK14_PAGINATOR_COUNT_PARAM_NAME") ? constant("ATK14_PAGINATOR_COUNT_PARAM_NAME") : "count";
 	}
 
-
-	function __construct($controller, $options=[]) {
+	function __construct($controller, $options = []) {
 		$options += [
 			"item_template" => null,     //Template for one item of paged lister
 			"item_variable" => 'item',   //Variable name of paged item
@@ -55,7 +54,10 @@ class AjaxPager {
 			"offset_name" => self::OffsetName(), //name of the param for offset
 			"limit_name" => self::LimitName(),   //name of the param for limit
 
-			"page_size" => null,          //size of one page
+			"page_size" => null, //size of one page, e.g. 30
+			"page_size_possibilities" => [],	// possible choices for page_size, e.g. [30,60,90]
+			"page_size_name" => "page_size",
+
 			"section_size" => null,       //page_size * pages_per_section - can be detected if form is given
 			"pages_per_section" => 5,     //do not list more than x pages at once
 			"first_page_shorter_by" => 0, //first page has less items than the following
@@ -64,12 +66,26 @@ class AjaxPager {
 
 			"form" => null,              //"ordering form" form that handle page_size and/or order; the form will be created automatically by method _createForm()
 			"order_name" => 'order',     //order param name
-			"page_size_name" => 'page_size', //size
 			"paging_per" => "section",    //next/previous page lead to whole section, not page
 			"empty_template" => "shared/ajax_pager/empty_list",
 			"sorting" => null,
 			'order_label' => _("Seřadit dle")
 		];
+
+		// Cleaning $options["page_size"] which can come from external toxic parameters ($this->params->getInt("page_size"))
+		$options["page_size"] = (int)$options["page_size"];
+		if(!$options["page_size"] && $options["page_size_possibilities"]){
+			$options["page_size"] = $controller->params->getInt($options["page_size_name"]);
+		}
+		if(!$options["page_size"]){
+			$options["page_size"] = $options["page_size_possibilities"] ? $options["page_size_possibilities"][0] : 30;
+		}
+		if($options["page_size_possibilities"] && !in_array($options["page_size"],$options["page_size_possibilities"])){
+			$options["page_size"] = $options["page_size_possibilities"][0];
+		}
+		if(!$options["page_size_possibilities"]){
+			$options["page_size_possibilities"] = [$options["page_size"]];
+		}
 
 		//Texts of buttons of pager
 		$options['texts'] += [
@@ -601,6 +617,31 @@ class AjaxPager {
 		return $out;
 	}
 
+	function getPageSizePossibilities(){
+		$page_sizes = $this->options["page_size_possibilities"]; // [30,60,90]
+		$page_size_name = $this->options["page_size_name"]; // "page_size"
+		$current_page_size = $this->getPageSize(); // 30 
+
+		$params = $this->params->toArray();
+		unset($params[$this->options["limit_name"]]);
+		unset($params[$this->options["offset_name"]]);
+
+		$out = [];
+		foreach($page_sizes as $key){
+			$params[$page_size_name] = $key;
+			if($key===$page_sizes[0]){
+				unset($params[$page_size_name]);
+			}
+			$out[] = new AjaxPagerPageSizePossibility([
+				"key" => $key,
+				"title" => "$key",
+				"active" => $key===$current_page_size,
+				"url_params" => $params,
+			]);
+		}
+		return $out;
+	}
+
 	function _createForm($sorting){
 		$form = new ApplicationForm();
 		$form->set_method("get");
@@ -660,4 +701,7 @@ class AjaxPagerSortingPossibility {
 		$params = array_filter($params,function($k) { return substr($k,0,2) !== 'f_' && !in_array($k,["offset","count"]); }, ARRAY_FILTER_USE_KEY);
 		return Atk14Url::BuildLink($params);
 	}
+}
+
+class AjaxPagerPageSizePossibility extends AjaxPagerSortingPossibility {
 }

@@ -1,0 +1,1 @@
+../../lib/ajax_pager/test/tc_ajax_pager.php
