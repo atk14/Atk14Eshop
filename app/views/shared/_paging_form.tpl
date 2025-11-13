@@ -16,7 +16,7 @@
 
 	{if sizeof($page_size_possibilities)>1}
 	<div class="cards_count">
-		<div class="cards_sorting__title">{t}Zobrazit produktů{/t}</div>
+		<div class="cards_sorting__title">{t}Produktů na stránku{/t}</div>
 		<ul class="cards_sorting__options">
 		{foreach $page_size_possibilities as $page_size_possibility}
 			<li class="cards_sorting__item{if $page_size_possibility->isActive()} active{/if}"><a href="{$page_size_possibility->getUrl()}" data-filter_href="{$page_size_possibility->getFilterFormAction()}">{$page_size_possibility->getTitle()}</a></li>
