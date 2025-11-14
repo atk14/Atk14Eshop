@@ -819,6 +819,9 @@ class ApplicationBaseController extends Atk14Controller{
 				$current_language = $lang;
 			}
 		}
-		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
+		
+		if($current_language){
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
+		}
 	}
 }
