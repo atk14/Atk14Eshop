@@ -30,6 +30,7 @@ class BasketOrOrder extends ApplicationModel {
 			$fields += [
 				"{$prefix}company_number" => false,
 				"{$prefix}vat_id" => false,
+				"{$prefix}local_vat_id" => false,
 			];
 		}
 

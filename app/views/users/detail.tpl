@@ -25,7 +25,11 @@
 				{/if}
 				{if $logged_user->getVatId()}
 					<br>
-					{t}DIČ{/t}: {$logged_user->getVatId()}
+					{if $logged_user->getAddressCountry()=="SK"}{t}IČ DPH{/t}{else}{t}DIČ{/t}{/if}: {$logged_user->getVatId()}
+				{/if}
+				{if $logged_user->getAddressCountry()=="SK" && $logged_user->getLocalVatId()}
+					<br>
+					{t}DIČ{/t}: {$logged_user->getLocalVatId()}
 				{/if}
 			</td>
 		</tr>

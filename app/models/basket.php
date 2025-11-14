@@ -59,7 +59,7 @@ class Basket extends BasketOrOrder {
 					break;
 				}
 			}
-			if($user->g("vat_id") || $user->g("company_number") || $addresses_differ){
+			if($user->g("vat_id") || $user->g("local_vat_id") || $user->g("company_number") || $addresses_differ){
 				foreach(self::GetAddressFields(["company_data" => true, "phone" => false]) as $k => $req){
 					$update_ar["$k"] = $user->g("$k");
 				}

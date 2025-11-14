@@ -9,13 +9,22 @@ class UsersForm extends ApplicationForm{
 		$this->_add_firstname_lastname();
 		$this->_add_email();
 
+		$allowed_countries = $this->controller->current_region->getInvoiceCountries();
+		if($allowed_countries!=["SK"]){
+			$allowed_countries = Region::GetInvoiceCountriesFromActiveRegions();
+		}
+
 		$this->_add_company_fields(["enable_vat_id_validation" => false]);
 		$this->_add_address_fields([
 			"add_note" => false,
-			"allowed_countries" => Region::GetInvoiceCountriesFromActiveRegions(),
+			"allowed_countries" => $allowed_countries,
 		]);
 
 		$this->_add_phone();
+
+		if($allowed_countries==["SK"]){
+			$this->tune_for_slovakia();
+		}
 	}
 
 	function _add_password_fields(){

@@ -268,6 +268,7 @@ class ApplicationForm extends Atk14Form{
 			"disabled" => false,
 			"add_company_number" => true,
 			"add_vat_id" => true,
+			"add_local_vat_id" => false,
 			"enable_vat_id_validation" => true,
 		];
 		$prefix = $options["prefix"];
@@ -298,6 +299,15 @@ class ApplicationForm extends Atk14Form{
 			"enable_validation" => $options["enable_vat_id_validation"], // 
 			"disabled" => $disabled,
 		]));
+		$options["add_local_vat_id"] && $this->_add_local_vat_id_field();
+	}
+
+	function _add_local_vat_id_field($options = []){
+		$options += [
+			"label" => _("DIČ"),
+			"required" => false,
+		];
+		return $this->add_field("local_vat_id",new LocalVatNumberField($options));
 	}
 
 	function _add_phone($options = []){
@@ -323,6 +333,22 @@ class ApplicationForm extends Atk14Form{
 		unset($options["prefix"]);
 
 		return $this->add_field("$prefix$name", new PhoneField($options));
+	}
+
+	function tune_for_slovakia(){
+		$this->fields["vat_id"]->label = _("IČ DPH");
+		$local_vat_id_field = $this->_add_local_vat_id_field();
+
+		// Toto zaradi policko local_vat_id hned za policko vat_id
+		$_fields = [];
+		foreach($this->fields as $k => $field){
+			$_fields[$k] = $field;
+			if($k==="vat_id"){
+				$_fields["local_vat_id"] = $local_vat_id_field;
+			}
+		}
+
+		$this->fields = $_fields;
 	}
 
 	/**
