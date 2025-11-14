@@ -335,6 +335,22 @@ class ApplicationForm extends Atk14Form{
 		return $this->add_field("$prefix$name", new PhoneField($options));
 	}
 
+	function tune_for_slovakia(){
+		$this->fields["vat_id"]->label = _("IČ DPH");
+		$local_vat_id_field = $this->_add_local_vat_id_field();
+
+		// Toto zaradi policko local_vat_id hned za policko vat_id
+		$_fields = [];
+		foreach($this->fields as $k => $field){
+			$_fields[$k] = $field;
+			if($k==="vat_id"){
+				$_fields["local_vat_id"] = $local_vat_id_field;
+			}
+		}
+
+		$this->fields = $_fields;
+	}
+
 	/**
 	 * Pokud je ve formulari DIC a zeme fakturacni adresy, zvaliduje to, ze si sobe odpovidaji.
 	 */

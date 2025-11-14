@@ -103,6 +103,7 @@ class CheckoutsController extends ApplicationController {
 		$INVOICE_ADDRESS_FIELDS = Basket::GetAddressFields(["company_data" => true, "phone" => false, "address_street2" => false, "address_state" => ALLOW_STATE_IN_ADDRESS]);
 		if($fill_in_invoice_address || $this->request->get()){
 			foreach($INVOICE_ADDRESS_FIELDS as $k => $required){
+				if(!isset($this->form->fields["$k"])){ continue; } // e.g. "local_vat_id"
 				$this->form->fields["$k"]->required = $required;
 			}
 		}
