@@ -6,5 +6,8 @@ class TcLocalVatNumberField extends TcBase {
 
 		$value = $this->assertValid("2034567890");
 		$this->assertEquals("2034567890",$value);
+
+		$err_msg = $this->assertInvalid("5534567890");
+		$this->assertEquals("Enter a valid value.",$err_msg);
 	}
 }
