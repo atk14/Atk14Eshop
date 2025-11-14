@@ -1212,6 +1212,7 @@ class TcBasket extends TcBase {
 			"company_number" => false,
 			"vat_id" => false,
 			"address_note" => false,
+			"local_vat_id" => false,
 		],Basket::GetAddressFields(["company_data" => true, "note" => true, "name" => false, "street2" => false, "state" => false]));
 
 		$this->assertEquals([
