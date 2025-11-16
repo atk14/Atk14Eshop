@@ -360,7 +360,7 @@ class ApplicationForm extends Atk14Form{
 		if(is_array($d) && isset($d[$vat_id]) && strlen($d[$vat_id]) && isset($d[$address_country]) && strlen($d[$address_country])){
 			$vat_country = substr($d[$vat_id],0,2);
 			if($d[$address_country]!==$vat_country){
-				$this->set_error(_("Země ve fakturační adrese a země v DIČ se musí shodovat"));
+				$this->set_error($vat_id,_("Země ve fakturační adrese a země v DIČ se musí shodovat"));
 			}
 		}
 	}
