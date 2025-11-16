@@ -54,6 +54,7 @@ class SetBillingAndDeliveryDataForm extends CheckoutsForm {
 			}
 
 			foreach($address_fields as $key => $required){
+				if(!array_key_exists($key,$d)){ continue; } // local_vat_id
 				if("$d[$key]"===""){
 					if($required){
 						$empty_required_fields++;
