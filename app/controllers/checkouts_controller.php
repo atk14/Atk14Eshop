@@ -59,8 +59,7 @@ class CheckoutsController extends ApplicationController {
 			$this->form->tune_for_slovakia();
 		}
 
-		$this->form->set_initial($this->basket);
-		$this->form->set_initial([
+		$initial = [
 			"firstname" => $this->basket->getFirstname(),
 			"lastname" => $this->basket->getLastname(),
 			"company" => $this->basket->getCompany(),
@@ -75,6 +74,10 @@ class CheckoutsController extends ApplicationController {
 			"local_vat_id" => $this->basket->getLocalVatId(),
 
 			"delivery_company" => $this->basket->getDeliveryCompany(),
+			"delivery_firstname" => $this->basket->getDeliveryFirstname(),
+			"delivery_lastname" => $this->basket->getDeliveryLastname(),
+			"email" => $this->basket->getEmail(),
+			"delivery_phone" => $this->basket->getDeliveryPhone(),
 			"delivery_address_street" => $this->basket->getDeliveryAddressStreet(),
 			"delivery_address_street2" => $this->basket->getDeliveryAddressStreet2(),
 			"delivery_address_city" => $this->basket->getDeliveryAddressCity(),
@@ -82,8 +85,13 @@ class CheckoutsController extends ApplicationController {
 			"delivery_address_zip" => $this->basket->getDeliveryAddressZip(),
 			"delivery_address_country" => $this->basket->getDeliveryAddressCountry(),
 			"delivery_address_note" => $this->basket->getDeliveryAddressNote(),
-		]);
-		$this->form->set_initial("fill_in_invoice_address",$fill_in_invoice_address);
+
+			"fill_in_invoice_address" => $fill_in_invoice_address,
+		];
+		if(is_null($this->basket->getAddressCountry())){
+			unset($initial["address_country"]);
+		}
+		$this->form->set_initial($initial);
 
 		# kdyz mame pro doruceni vybranou pobocku,
 		# prebijeme dorucovaci adresu adresou pobocky
