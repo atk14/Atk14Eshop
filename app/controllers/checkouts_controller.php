@@ -88,8 +88,13 @@ class CheckoutsController extends ApplicationController {
 
 			"fill_in_invoice_address" => $fill_in_invoice_address,
 		];
-		if(is_null($this->basket->getAddressCountry())){
-			unset($initial["address_country"]);
+		foreach([
+			"address_country",
+			"delivery_address_country",
+			"delivery_phone", // NULL -> "+420"
+			"email", // NULL -> "@"
+		] as $k){
+			if(is_null($initial[$k])){ unset($initial[$k]); }
 		}
 		$this->form->set_initial($initial);
 
