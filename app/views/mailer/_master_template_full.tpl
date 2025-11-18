@@ -2508,7 +2508,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.facebook'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/facebook.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2517,7 +2517,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.facebook'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Facebook
             </a>
@@ -2534,7 +2534,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.instagram'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/instagram.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2543,7 +2543,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.instagram'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Instagram
             </a>
@@ -2560,7 +2560,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.linkedin'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/linkedin.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2569,7 +2569,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.linkedin'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               LinkedIn
             </a>
@@ -2586,7 +2586,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.pinterest'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/pinterest.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2595,7 +2595,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.pinterest'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Pinterest
             </a>
@@ -2612,7 +2612,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.snapchat'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/snapchat.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/snapchat.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2621,7 +2621,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.snapchat'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Snapchat
             </a>
@@ -2638,7 +2638,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.twitter'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/twitter.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/twitter.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2647,7 +2647,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.twitter'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Twitter
             </a>
@@ -2664,7 +2664,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.vimeo'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/vimeo.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/vimeo.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2673,7 +2673,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.vimeo'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               Vimeo
             </a>
@@ -2690,7 +2690,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.youtube'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/youtube.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/youtube.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2699,7 +2699,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.youtube'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               YouTube
             </a>
@@ -2716,7 +2716,7 @@
               <tr>
                 <td style="font-size:0;height:30px;vertical-align:middle;width:30px;">
                   <a href="{'app.contact.social.soundcloud'|system_parameter}" target="_blank" style="color: {$link_color};">
-                    <img alt height="30" src="https://www.mailjet.com/images/theme/v1/icons/ico-social/soundcloud.png" style="border-radius:3px;display:block;" width="30">
+                    <img alt src="https://www.mailjet.com/images/theme/v1/icons/ico-social/soundcloud.png" style="border-radius:3px;display:block;" width="30">
                   </a>
                 </td>
               </tr>
@@ -2725,7 +2725,7 @@
         </td>
        
         
-          <td style="vertical-align:middle;padding:4px 4px 4px 0;">
+          <td style="vertical-align:middle;padding:4px 4px 4px 0;text-align:left;">
             <a href="{'app.contact.social.soundcloud'|system_parameter}" style="color: {$text_color}; font-size: 15px; font-family: {$font_stack}; line-height: 1.25; text-decoration: none;" target="_blank">
               SoundCloud
             </a>
