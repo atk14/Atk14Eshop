@@ -91,8 +91,6 @@ class CheckoutsController extends ApplicationController {
 		foreach([
 			"address_country",
 			"delivery_address_country",
-			"delivery_phone", // NULL -> "+420"
-			"email", // NULL -> "@"
 		] as $k){
 			if(is_null($initial[$k])){ unset($initial[$k]); }
 		}
