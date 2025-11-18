@@ -49,10 +49,11 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 		$data = [];
 		foreach($feed_url as $_feed) {
 			$_d = @file_get_contents($_feed);
+			myAssert($_d!==false);
 			$data[] = json_decode($_d, true);
 		}
 		$data[] = [];
-		$data = array_merge($data[0], $data[1]);
+		$data = array_merge((array)$data[0], (array)$data[1]);
 		$data = json_encode($data);
 		return $data;
 	}

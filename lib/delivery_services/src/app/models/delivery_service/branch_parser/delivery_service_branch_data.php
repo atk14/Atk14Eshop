@@ -81,6 +81,7 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 
 	static function FetchFeed($feed_url) {
 		$data = @file_get_contents($feed_url);
+		myAssert($data!==false);
 		return $data;
 	}
 }

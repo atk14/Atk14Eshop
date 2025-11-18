@@ -196,6 +196,10 @@ class DeliveryService extends ApplicationModel {
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
+		if (count($nodes)===0) {
+			$options["logger"] && $options["logger"]->info(sprintf("no branches in feed for service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
+			return false;
+		}
 
 		$created = $updated = $deactivated = 0;
 		foreach($nodes as $branch_row) {
