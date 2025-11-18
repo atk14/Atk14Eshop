@@ -68,6 +68,23 @@ class ApplicationMailer extends Atk14Mailer {
 			//	$this->body = $this->preheader_text . "\n\n" . $this->body;
 			//}
 		}
+
+		if($this->body_html){
+			$response = Atk14Dispatcher::ExecuteAction("email_stylesheets","detail",array(
+				"render_layout" => false,
+				"apply_render_component_hacks" => true,
+				"namespace" => "",
+			));
+			$css = (string)$response->getOutputBuffer();
+
+			//*
+			$css_inliner = new \TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
+			$this->body_html = $css_inliner->convert(
+				$this->body_html,
+				$css
+			);
+			// */
+		}
 	}
 
 	function _after_filter(){
