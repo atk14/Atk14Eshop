@@ -78,7 +78,10 @@ var applicationESModules = [
 
 var emailTemplates = [
 	"app/views/mailer/mjml/_master_template.mjml",
-	"app/views/mailer/mjml/_master_template_full.mjml"
+	"app/views/mailer/mjml/_master_template_full.mjml",
+	"app/views/mailer/mjml/order.mjml", // FOR DEVELOPMENT
+	"app/views/mailer/mjml/footer.mjml",  // FOR DEVELOPMENT
+	"app/views/mailer/mjml/text.mjml" // FOR DEVELOPMENT
 ]
 
 // CSS

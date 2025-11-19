@@ -1,0 +1,11 @@
+<mjml>
+	<mj-head>
+		<mj-preview>{!$preheader_text}</mj-preview>
+		<mj-include path="partials/styles.mjml"></mj-include>
+	</mj-head>
+	<mj-body>
+		<mj-raw><!-- footer --></mj-raw>
+		<mj-include path="partials/footer.mjml"></mj-include>
+		<mj-raw><!-- /footer --></mj-raw>
+	</mj-body>
+</mjml>
