@@ -196,8 +196,13 @@ gulp.task( "copy", function() {
 // MJML emails
 gulp.task( "mjml", function(){
 	gulp.src( emailTemplates )
-		.pipe( mjml( mjmlEngine, { minify: false, fileExt: ".tpl" } ) )
-
+		.pipe( mjml( mjmlEngine, {
+			fileExt: ".tpl",
+			minify: false, // FOR DEVELOPMENT
+			beautify: true, // FOR DEVELOPMENT
+			validationLevel: "soft", // FOR DEVELOPMENT
+			keepComments: true // keeps css in <style> tag instead of inlining - FOR DEVELOPMENT
+		}	) )
 		// Replace ##...## with Smarty tags
 		.pipe( replace( /##(.+?)##/g, "{$1}" ) )
 	
