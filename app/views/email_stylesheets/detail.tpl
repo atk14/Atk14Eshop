@@ -22,10 +22,17 @@ body {
 	padding: 0;
 	text-align: left;
 	width: 100% !important;
+	word-spacing:normal;
 }
 
 a {
 	color: {$link_color};
 	font-weight: bold;
 	text-decoration: none;
+}
+
+.header {
+	background:{$brand_color};
+	background-color:{$brand_color};
+	color: white;
 }
