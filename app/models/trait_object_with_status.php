@@ -57,6 +57,13 @@ Trait TraitObjectWithStatus {
 		return $history_class_name::FindAll("{$prefix}_id", $this, $options);
 	}
 
+	function getMostRecentStatusHistoryItem(){
+		$items = $this->getStatusHistoryItems(["reverse" => true, "limit" => 1]);
+		if($items){
+			return $items[0];
+		}
+	}
+
 
 	/**
 	 * Nastaveni noveho stavu reklamace.
@@ -100,6 +107,7 @@ Trait TraitObjectWithStatus {
 
 		$options += [
 			"mailer" => null,
+			"after_history_item_creation_closure" => null, // function($history_item){ ... }
 		];
 
 		if (is_string($new_status_values)) {
@@ -151,14 +159,19 @@ Trait TraitObjectWithStatus {
 		unset($new_status_values["{$prefix}_status_note"]);
 
 		$history_item = $this->createStatusHistoryItem(
-				$new_status_values
+			$new_status_values
 		);
+
+		if($options["after_history_item_creation_closure"]){
+			$fn = $options["after_history_item_creation_closure"];
+			$fn($history_item);
+		}
 
 		/** Pokud byly založené v historii záznamy se špatným stavem
 			(např. nastavením responsible_user_id) opravíme je */
 		$prevState = $history_item->getPrevious();
 		if($prevState) {
-			$i=$history_item->getNext();
+			$i = $history_item->getNext();
 			while($i && !$i->getChangeStatus() &&
 				//tato kontrola není nutná, pokud je správně nastavený changeStatus,
 				//ale pro jistotu
