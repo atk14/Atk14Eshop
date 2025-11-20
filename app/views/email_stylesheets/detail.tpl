@@ -36,3 +36,11 @@ a {
 	background-color:{$brand_color};
 	color: white;
 }
+
+table {
+	border: 1px solid red;
+
+}
+td, th {
+	border: 1px dotted blue !important;
+}

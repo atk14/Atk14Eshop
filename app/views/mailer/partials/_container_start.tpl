@@ -17,5 +17,5 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tbody>
                     <tr>
-                      <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                      <td align="left" style="font-size:0px;padding:10px 15px;word-break:break-word;">
 												<div style="font-family:helvetica;font-size:16px;line-height:1.5;text-align:left;">
