@@ -149,7 +149,7 @@
       .mj-menu-checkbox[type="checkbox"]:checked~.mj-menu-trigger .mj-menu-icon-open {
         display: none !important;
       }
-      .order-content {
+      .order__content {
         padding-left: 0 !important;
         padding-right: 0 !important;
       }
@@ -167,7 +167,7 @@
 	{render partial="partials/mail_wrapper_start"}
 	{render partial="partials/header_1col"}
 	
-	{render partial="partials/spacer" height=40}
+	{*render partial="partials/spacer" height=40*}
 	{render partial="partials/container_start"}
 	
 	

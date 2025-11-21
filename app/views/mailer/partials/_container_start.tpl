@@ -18,4 +18,4 @@
                   <tbody>
                     <tr>
                       <td align="left" style="font-size:0px;padding:10px 15px;word-break:break-word;">
-												<div style="font-family:helvetica;font-size:16px;line-height:1.5;text-align:left;">
+												<div class="body-text" style="line-height: 1.5;">

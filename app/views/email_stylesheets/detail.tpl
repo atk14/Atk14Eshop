@@ -49,26 +49,45 @@ td, th {
 	xborder: 1px dotted blue !important;
 }
 
-td.order-content {
+{* Styles for order overview *}
+td.order__content {
 	padding: {$order_y_padding} {$order_x_padding};
 	font-size:0px;
 	word-break:break-word;
 	xbackground-color: yellow;
 }
-td.order-content-first {
+td.order__content-first {
 	padding-right: {$order_inner_padding};
 	xbackground-color: orange;
 }
-td.order-content-last {
+td.order__content-last {
 	padding-left: {$order_inner_padding};
 	xbackground-color: purple;
 }
-td.order-content-middle {
+td.order__content-middle {
 	padding-left: {$order_inner_padding};
 	padding-right: {$order_inner_padding};
 	xbackground-color: red;
 }
-td.order-divider {
+td.order__divider {
 	padding: 0 {$order_x_padding};
-	xborder: 1px solid green !important;
+}
+.order__divider p {
+	border-top: solid 1px #999999;
+	font-size: 1px;
+	margin: 0px auto;
+	width: 100%;
+}
+
+{* Styles for text *}
+.body-text {
+	font-family:{$font_stack};
+	font-size:16px;
+	line-height:1.5;
+	color:{$text_color};
+	text-align:left;
+}
+
+.body-text--small {
+	font-size:14px;
 }
