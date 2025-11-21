@@ -131,9 +131,11 @@
 
 <hr>
 
-
+{assign "order_table_x_padding" "0px; background: yellow" }
+{assign "order_table_x_padding" "0px" }
+{assign "order_table_inner_padding" "10px" }
 <!-- order -->
-    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:white;background-color:white;width:100%;">
+    {*<table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:white;background-color:white;width:100%;">
       <tbody>
         <tr>
           <td>
@@ -142,7 +144,7 @@
               <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
                 <tbody>
                   <tr>
-                    <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
+                    <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">*}
 
                       <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
                       <div style="margin:0px auto;max-width:600px;">
@@ -159,14 +161,14 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>{t}Detaily objednávky{/t}</strong></p>
                                                   </div>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" style="font-size:0px;padding:0 {$order_table_x_padding};word-break:break-word;">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -201,12 +203,12 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};">{t}Číslo objednávky:{/t} <strong>{!$order->getOrderNo()}</strong><br> {t}Vytvořena:{/t} {$order->getCreatedAt()|format_datetime}<br> {t}Platba:{/t} {$order->getPaymentMethod()}</div>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -256,7 +258,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-first">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;">
                                                       <span class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>{!$product->getName()}</strong><br></span>
@@ -280,7 +282,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-middle">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="item-price small compact nomargin" style="margin: 0 0 16px 0; font-size: 14px; margin-bottom: 0; text-align: right;">
                                                       <span class="currency-main" style="font-size: 16px; font-weight: bold;">{!$item->getPriceInclVat()|display_price:"$currency"}</span>
@@ -304,7 +306,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-content order-content-last">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -339,7 +341,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *} <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;padding-right:0;padding-bottom:0;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-first" style="padding-right: 0;">
                                                   <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                                     <tbody>
                                                       <tr>
@@ -370,7 +372,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-middle">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;">
                                                       <a href="{!$product_link}" class="bodycolor" style="color: {$text_color}; text-decoration: none;"><strong>{!$product->getName()}</strong><br></a>
@@ -395,7 +397,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-last">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="item-price small compact nomargin" style="margin: 0 0 16px 0; font-size: 14px; margin-bottom: 0; text-align: right;">
                                                       <span class="currency-main" style="font-size: 16px; font-weight: bold;">{!$item->getPriceInclVat()|display_price:"$currency"}</span>
@@ -419,7 +421,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -456,7 +458,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="left" class="order-content order-content-first">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">{t}Cena celkem{/t}</div>
                                                   </td>
                                                 </tr>
@@ -476,7 +478,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="right" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="right" class="order-content order-content-last">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:right;color:{$text_color};">{!$order->getItemsPriceInclVat()|display_price:"$currency"}</div>
                                                   </td>
                                                 </tr>
@@ -512,7 +514,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="left" class="order-content order-content-first">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">{$voucher->getDescription()}</div>
                                                   </td>
                                                 </tr>
@@ -532,7 +534,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="right" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="right" class="order-content order-content-last">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:right;color:{$text_color};">{$voucher}</div>
                                                   </td>
                                                 </tr>
@@ -568,7 +570,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="left" class="order-content order-content-first">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">{$campaign}</div>
                                                   </td>
                                                 </tr>
@@ -588,7 +590,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="right" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="right" class="order-content order-content-last">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:right;color:{$text_color};">-{!$campaign->getDiscountAmount()|display_price:"$currency"}</div>
                                                   </td>
                                                 </tr>
@@ -624,7 +626,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="left" class="order-content order-content-first">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">{t}Doprava{/t}</div>
                                                   </td>
                                                 </tr>
@@ -644,7 +646,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="right" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="right" class="order-content order-content-last">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:right;color:{$text_color};">{!$order->getShippingFeeInclVat()|display_price:"$currency"|default:$mdash}</div>
                                                   </td>
                                                 </tr>
@@ -674,7 +676,7 @@
                                   <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                                     <tbody>
                                       <tr>
-                                        <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                        <td align="center" class="order-divider">
                                           <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                           </p>
                                           <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -707,7 +709,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="left" class="order-content order-content-first">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">{t}Celkem k úhradě{/t}</div>
                                                   </td>
                                                 </tr>
@@ -727,7 +729,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                               <tbody>
                                                 <tr>
-                                                  <td align="right" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                  <td align="right" class="order-content order-content-last">
                                                     <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:right;color:{$text_color};"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></div>
                                                   </td>
                                                 </tr>
@@ -761,7 +763,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};"><small><sup>*</sup> {t}Uvedená konečná cena neobsahuje poplatek za dopravu.{/t}</small></div>
                                                 </td>
                                               </tr>
@@ -793,14 +795,14 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:16px;line-height:1.25;text-align:left;color:{$text_color};">
                                                     <p class="nomargin" style="margin: 0 0 16px 0; margin-bottom: 0;"><strong>{t}Přeprava{/t}</strong></p>
                                                   </div>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -835,12 +837,12 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};">{t}Dopravce:{/t} <strong>{$order->getDeliveryMethod()}</strong><br> {*Tracking: <a href="#" style="color: {$link_color};">356166</a><br>*}</div>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -863,7 +865,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content order-content-first">
                                                   <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};"><strong>{t}Dodací adresa{/t}</strong><br> {render partial="shared/order/delivery_address"}</div>
                                                 </td>
                                               </tr>
@@ -879,7 +881,7 @@
                                   <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                                     <tbody>
                                       <tr>
-                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                        <td align="left"  class="order-content order-content-last">
                                           <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};"><strong>{t}Fakturační adresa{/t}</strong><br> {render partial="shared/order/invoice_address"}</div>
                                         </td>
                                       </tr>
@@ -891,7 +893,7 @@
                                   <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                                     <tbody>
                                       <tr>
-                                        <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                        <td align="center" class="order-divider">
                                           <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                           </p>
                                           <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -922,12 +924,12 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};"><strong>{t}Vaše poznámka k objednávce:{/t}</strong><br> {!$order->getNote()|h|nl2br}</div>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -962,7 +964,7 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
                                             <tbody>
                                               <tr>
-                                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                                <td align="left" class="order-content">
                                                   <div style="font-family:{$font_stack};font-size:14px;line-height:1.5;text-align:left;color:{$text_color};">
 																										{if $order->getPaymentMethod()->isOnlineMethod()}
 																											{capture assign=order_finish_url}{link_to namespace="" action="orders/finish" token=$order->getToken() _with_hostname=true _ssl=REDIRECT_TO_SSL_AUTOMATICALLY}{/capture}
@@ -974,7 +976,7 @@
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td align="center" style="font-size:0px;padding:0 25px;word-break:break-word;">
+                                                <td align="center" class="order-divider">
                                                   <p style="border-top: solid 1px #999999; font-size: 1px; margin: 0px auto; width: 100%;">
                                                   </p>
                                                   <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #999999;font-size:1px;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
@@ -1019,7 +1021,7 @@
                         </table>
                       </div>
                       <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
-                    
+                   {*
 										</td>
                   </tr>
                 </tbody>
@@ -1029,5 +1031,5 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table>*}
 

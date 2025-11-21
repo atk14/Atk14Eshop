@@ -149,6 +149,10 @@
       .mj-menu-checkbox[type="checkbox"]:checked~.mj-menu-trigger .mj-menu-icon-open {
         display: none !important;
       }
+      .order-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
     }
   </style>
 	{/literal}
