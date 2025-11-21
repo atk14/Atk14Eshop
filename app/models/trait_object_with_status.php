@@ -181,7 +181,7 @@ Trait TraitObjectWithStatus {
 			}
 		}
 
-		$_fn = "get{$class_name}Status";
+		$_fn = "get$status_class";
 		$claim_status = $this->$_fn();
 		if($claim_status && $claim_status->notificationEnabled() && $claim_status->getId()!=$orig_status->getId()){
 			$mailer = $options["mailer"] ? $options["mailer"] : Atk14MailerProxy::GetInstance();
