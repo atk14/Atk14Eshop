@@ -129,12 +129,13 @@ class DeliveryService extends ApplicationModel {
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
 
-		$data = $delivery_service->_fetchFeed($options["branches_url"]);
-
-		if ($data===false) {
-			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
+		try {
+			$data = $delivery_service->_fetchFeed($options["branches_url"]);
+		} catch (Exception $e) {
+			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", $options["branches_url"]), $code));
 			return false;
 		}
+
 		if ($data==="") {
 			$error_message = "empty file";
 			return false;
