@@ -146,7 +146,7 @@ Trait TraitObjectWithStatus {
 		$orig_status = $this->$_fn();
 
 		# cas nastaveni stavu aktualniho (v claims.claim_status_set_at)
-		$current_status_time = strtotime($this->g("{$prefix}_status_set_at"));
+		$current_status_time = $this->g("{$prefix}_status_set_at") ? strtotime($this->g("{$prefix}_status_set_at")) : 0;
 		# cas importovaneho stavu (pujde do claim_history.claim_status_set_at
 		$new_status_time = strtotime($new_status_values["{$prefix}_status_set_at"]);
 
