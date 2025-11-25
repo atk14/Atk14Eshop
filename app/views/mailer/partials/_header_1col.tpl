@@ -28,7 +28,7 @@
 						<table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
 							<tbody>
 								<tr>
-									<td style="direction:ltr;font-size:0px;padding:0;padding-bottom:0;padding-top:0;text-align:center;">
+									<td style="direction:ltr;font-size:0px;padding:0;padding-bottom:0;padding-top:0;text-align:left;">
 										<!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
 										<div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
 											<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
@@ -40,7 +40,7 @@
 																	<tr>
 																		<td style="width:103px;">
 																			<a href="{!$region->getDefaultUrl()}" target="_blank" style="color: {$link_color};">
-																				<img alt="{$region->getApplicationName()}" src="{$logo_src}"  class="header__logo" style="border:0;display:block;outline:none;text-decoration:none;height:40px;width:100%;font-size:16px;" width="103" height="40">
+																				<img alt="{$region->getApplicationName()}" src="{$logo_src}"  class="header__logo" style="border:0;display:block;outline:none;text-decoration:none;height:{$logo_height};width:100%;font-size:16px;" width="{$logo_width}" height="{$logo_height}">
 																			</a>
 																		</td>
 																	</tr>

@@ -7,6 +7,8 @@
  {assign "order_x_padding"      "0"}
  {assign "order_y_padding"      "10px"}
  {assign "order_inner_padding"  "10px"}
+ {assign "logo_width"           "103px"}
+ {assign "logo_height"          "40px"}
 
 body {
 	-moz-box-sizing: border-box;
@@ -39,6 +41,15 @@ a {
 	background:{$brand_color};
 	background-color:{$brand_color};
 	color: white;
+}
+
+.header .header-text {
+	font-weight: bold;
+	color: white;
+	font-family: {$font_stack};
+	font-size: 16px;
+	line-height: 1.3;
+	text-align: right;
 }
 
 table {

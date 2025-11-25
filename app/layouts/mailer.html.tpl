@@ -166,6 +166,7 @@
 
 	{render partial="partials/mail_wrapper_start"}
 	{render partial="partials/header_1col"}
+	{render partial="partials/header_2cols"}
 	
 	{*render partial="partials/spacer" height=40*}
 	{render partial="partials/container_start"}
