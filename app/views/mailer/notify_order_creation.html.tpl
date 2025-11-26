@@ -193,7 +193,10 @@
                                             <tbody>
                                               <tr>
                                                 <td align="left" class="order__content">
-                                                  <div class="body-text">{t}Číslo objednávky:{/t} <strong>{!$order->getOrderNo()}</strong><br> {t}Vytvořena:{/t} {$order->getCreatedAt()|format_datetime}<br> {t}Platba:{/t} {$order->getPaymentMethod()}</div>
+                                                  <div class="body-text">
+                                                    {t order_no=$order->getOrderNo() created_at=$order->getCreatedAt()|format_datetime escape=no}Objednávka: <strong>č. %1 vytvořená %2</strong>{/t}<br/>
+                                                    {t}Platba:{/t} <strong>{$order->getPaymentMethod()}</strong>
+                                                  </div>
                                                 </td>
                                               </tr>
                                               <tr>
@@ -366,7 +369,7 @@
                                                     <p class="compact" style="margin: 0 0 16px 0; margin-bottom: 4px;">
                                                       <a href="{!$product_link}" class="body-text" style="text-decoration: none;"><strong>{!$product->getName()}</strong><br></a>
                                                     </p>
-                                                    <p class="small compact body-text--small" style="margin: 0 0 16px 0; margin-bottom: 4px;"> {t}Kód{/t}: {$product->getCatalogId()}<br> {t}Jedn. cena{/t}: {!$item->getUnitPriceInclVat()|display_price:"$currency"}<br> {t}Množství{/t}: {$item->getAmount()} </p>
+                                                    <p class="small compact body-text--small" style="margin: 0 0 16px 0; margin-bottom: 4px;"> {t}Kód{/t}: {$product->getCatalogId()}<br> {t}Jedn. cena{/t}: {!$item->getUnitPriceInclVat()|display_price:"$currency"}<br> {t}Množství{/t}: {$item->getAmount()}  {$product->getUnit()} </p>
                                                   </div>
                                                 </td>
                                               </tr>
@@ -719,7 +722,7 @@
                                               <tbody>
                                                 <tr>
                                                   <td align="right" class="order__content order__content--last">
-                                                    <div class="body-text" style="text-align:right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></div>
+                                                    <div class="body-text" style="text-align:right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></div>
                                                   </td>
                                                 </tr>
                                               </tbody>
