@@ -139,6 +139,8 @@ td.order__divider {
 
 
 {* debugging styles *}
+
+{*
 table {
 	border: 1px solid rgba(255,0,0,0.13) !important;
 
@@ -156,3 +158,4 @@ td, th {
 		#eee 20px
 	);
 }
+*}
