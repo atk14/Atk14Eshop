@@ -31,7 +31,8 @@
 	
 	{if constant("PAYMENT_QR_CODES_ENABLED")}
 		<br>
-		<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16])}" width="200" height="200" class="pull-right img-responsive">
+		<br>
+		<img src="{link_to namespace="" action="payment_qr_codes/detail" order_token=$order->getToken(["extra_salt" => "QrPayment","hash_length" => 16]) margin=0}" width="200" height="200" class="pull-right img-responsive">
 	{/if}
 
 {/if}

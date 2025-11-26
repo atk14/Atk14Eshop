@@ -14,6 +14,12 @@ class PaymentQrCodesController extends ApplicationController {
 		//	return $this->_execute_action("error404");
 		//}
 
+		// See app/forms/payment_qr_codes/detail_form.php
+		$d = $this->form->validate($this->params);
+		if(!$d){
+			return $this->_execute_action("error404");
+		}
+
 		$generator = PaymentQrCodeGenerator::GetInstanceForOrder($order);
 
 		if(!$generator){
@@ -22,7 +28,7 @@ class PaymentQrCodesController extends ApplicationController {
 
 		$this->render_template = false;
 		$this->response->setContentType("image/png");
-		$this->response->write($generator->renderPng(["size" => 400]));
+		$this->response->write($generator->renderPng(["size" => $d["size"], "margin" => $d["margin"], "background" => $d["background"]]));
 	}
 
 	function error404(){
