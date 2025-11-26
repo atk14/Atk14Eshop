@@ -7,6 +7,7 @@
  {assign "order_x_padding"      "0"}
  {assign "order_y_padding"      "10px"}
  {assign "order_inner_padding"  "10px"}
+ {assign "body_padding"         "10px"}
  {assign "logo_width"           "103px"}
  {assign "logo_height"          "40px"}
 
@@ -37,6 +38,37 @@ a {
 	text-decoration: none;
 }
 
+.footer {
+	color: {$footer_color};
+	background:{$footer_bgcolor};
+	background-color:{$footer_bgcolor}
+}
+
+.footer a {
+	color: {$footer_link_color};
+}
+
+.footer_lower {
+	color: {$footer_color};
+	background:{$footer_bgcolor};
+	background-color:{$footer_bgcolor}
+}
+
+.footer_lower a {
+	color: {$footer_link_color};
+	font-size: 14px;
+	font-weight: normal;
+	text-decoration: none;
+	color: {$footer_color};
+}
+
+
+.social-link a {
+	color: {$footer_color} !important;
+	text-decoration: none;
+}
+
+
 .header {
 	background:{$brand_color};
 	background-color:{$brand_color};
@@ -52,13 +84,7 @@ a {
 	text-align: right;
 }
 
-table {
-	xborder: 1px solid rgba(255,0,0,0.13) !important;
 
-}
-td, th {
-	xborder: 1px dotted blue !important;
-}
 
 {* Styles for order overview *}
 td.order__content {
@@ -101,4 +127,32 @@ td.order__divider {
 
 .body-text--small {
 	font-size:14px;
+}
+
+.footer-text {
+	font-family:{$font_stack};
+	font-size:14px;
+	line-height:1.5;
+	color:{$footer_color};
+	text-align:left;
+}
+
+
+{* debugging styles *}
+table {
+	border: 1px solid rgba(255,0,0,0.13) !important;
+
+}
+td, th {
+	border: 1px dotted blue !important;
+}
+
+.spacer {
+	background: repeating-linear-gradient(
+		45deg,
+		#ccc,
+		#ccc 10px,
+		#eee 10px,
+		#eee 20px
+	);
 }
