@@ -8,7 +8,7 @@
       <tbody>
         <tr>
           <td>
-            <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600"><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+            <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600"  bgcolor="{$brand_color}"><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
             <div style="margin:0px auto;max-width:600px;">
               <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
                 <tbody>
@@ -26,7 +26,7 @@
                                     <tbody>
                                       <tr>
                                         <td style="width:120px;">
-                                          <a href="{!$region->getDefaultUrl()}" target="_blank" style="color: {$link_color};">
+                                          <a href="{!$region->getDefaultUrl()}" target="_blank">
 																						<img alt="{$region->getApplicationName()}" src="{$logo_src}"  class="header__logo" style="border:0;display:block;outline:none;text-decoration:none;height:{$logo_height};width:100%;font-size:16px;" width="{$logo_width}" height="{$logo_height}">
 																					</a>
                                         </td>

@@ -6,5 +6,5 @@
 <br/><br/>
 {t}Svou zásilku můžete sledovat přes následující odkaz:{/t}
 <br/>
-<a href="{$order->getTrackingUrl()}" style="{$link_style}">{$order->getTrackingUrl()}</a>
+<a href="{$order->getTrackingUrl()}">{$order->getTrackingUrl()}</a>
 {/if}

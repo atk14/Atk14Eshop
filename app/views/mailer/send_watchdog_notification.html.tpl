@@ -4,4 +4,4 @@
 
 {capture assign=product_link}{link_to namespace="" action="cards/detail" id=$product->getCard() _with_hostname=true}{/capture}
 {t}Produkt najdete na adrese{/t}<br/>
-<a href="{$product_link}" style="{$link_style}">{$product_link}</a>
+<a href="{$product_link}">{$product_link}</a>

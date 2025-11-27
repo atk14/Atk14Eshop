@@ -32,6 +32,14 @@ body {
 	word-spacing:normal;
 }
 
+.mail-wrapper {
+	background: {$bg_color};
+}
+
+.container {
+	background: {$container_bg_color};
+}
+
 a {
 	color: {$link_color};
 	font-weight: bold;
