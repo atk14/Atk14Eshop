@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-01 13:19+0200\n"
+"POT-Creation-Date: 2025-11-27 17:15+0100\n"
 "PO-Revision-Date: 2025-10-01 14:28+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -785,7 +785,7 @@ msgstr "File Type"
 msgid "Filesize"
 msgstr "Filesize"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:79
+#: ../app/forms/admin/system_parameters/edit_form.php:81
 msgid "URL"
 msgstr "URL"
 
@@ -884,7 +884,7 @@ msgid "Vývoj počtu objednávek:"
 msgstr ""
 
 #: ../app/forms/admin/stores/stores_form.php:20
-#: ../app/forms/admin/system_parameters/edit_form.php:93
+#: ../app/forms/admin/system_parameters/edit_form.php:95
 msgid "Email"
 msgstr "Email"
 
@@ -953,7 +953,7 @@ msgstr ""
 msgid "Číslo objednávky"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:157
+#: ../app/controllers/admin/orders_controller.php:158
 msgid "Zodpovědná osoba"
 msgstr ""
 
@@ -1019,7 +1019,7 @@ msgstr ""
 msgid "Celkem uhrazeno:"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:20
+#: ../app/forms/admin/orders/edit_form.php:24
 msgid "Způsob dopravy"
 msgstr ""
 
@@ -2110,13 +2110,13 @@ msgid "Category tree"
 msgstr "Category tree"
 
 #: ../app/controllers/admin/admin.php:135
-#: ../app/controllers/admin/orders_controller.php:107
+#: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr ""
 
 #: ../app/controllers/admin/admin.php:139
-#: ../app/controllers/admin/orders_controller.php:145
+#: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr ""
@@ -2716,19 +2716,19 @@ msgstr ""
 msgid "Seznam objednávek"
 msgstr "List of orders"
 
-#: ../app/controllers/admin/orders_controller.php:162
+#: ../app/controllers/admin/orders_controller.php:163
 msgid "Zodpovědná osoba nastavena"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:171
+#: ../app/controllers/admin/orders_controller.php:172
 msgid "Import čísel pro sledování zásilek"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:200
+#: ../app/controllers/admin/orders_controller.php:201
 msgid "Chybná data v souboru"
 msgstr ""
 
-#: ../app/controllers/admin/orders_controller.php:207
+#: ../app/controllers/admin/orders_controller.php:208
 msgid "Zásilky byly naimportovány"
 msgstr ""
 
@@ -3236,7 +3236,7 @@ msgstr "open in administration"
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
-#: ../app/forms/admin/system_parameters/edit_form.php:86
+#: ../app/forms/admin/system_parameters/edit_form.php:88
 msgid "Image"
 msgstr "Image"
 
@@ -4246,41 +4246,57 @@ msgstr ""
 msgid "New order status"
 msgstr "New order status"
 
-#: ../app/forms/admin/orders/edit_form.php:22
+#: ../app/forms/admin/orders/edit_form.php:11
+msgid "Na Slovensku se jedná o IČ DPH."
+msgstr ""
+
+#: ../app/forms/admin/orders/edit_form.php:12
+msgid "Místní DIČ"
+msgstr ""
+
+#: ../app/forms/admin/orders/edit_form.php:13
+msgid "Má význam pouze pro Slovensko."
+msgstr ""
+
+#: ../app/forms/admin/orders/edit_form.php:13
+msgid "Zadává se tu DIČ, které nezačíná SK."
+msgstr ""
+
+#: ../app/forms/admin/orders/edit_form.php:26
 msgid "Poplatek za dopravu včetně DPH"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:24
+#: ../app/forms/admin/orders/edit_form.php:28
 msgid "Sazba DPH za dopravu"
 msgstr "VAT rate for transport"
 
-#: ../app/forms/admin/orders/edit_form.php:28
+#: ../app/forms/admin/orders/edit_form.php:32
 #: ../app/forms/admin/orders/index_form.php:21
 msgid "Způsob platby"
 msgstr "Payment method"
 
-#: ../app/forms/admin/orders/edit_form.php:30
+#: ../app/forms/admin/orders/edit_form.php:34
 msgid "Poplatek za platbu včetně DPH"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:32
+#: ../app/forms/admin/orders/edit_form.php:36
 msgid "Sazba DPH za platební metodu"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:38
+#: ../app/forms/admin/orders/edit_form.php:42
 #, php-format
 msgid "Celkem uhrazeno [%s]"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:51
+#: ../app/forms/admin/orders/edit_form.php:55
 msgid "Číslo zásilky pro sledování"
 msgstr ""
 
-#: ../app/forms/admin/orders/edit_form.php:76
+#: ../app/forms/admin/orders/edit_form.php:80
 msgid "Specify the delivery fee incl. VAT"
 msgstr "Specify the delivery fee incl. VAT"
 
-#: ../app/forms/admin/orders/edit_form.php:79
+#: ../app/forms/admin/orders/edit_form.php:83
 msgid "Specify the delivery fee"
 msgstr "Specify the delivery fee"
 
@@ -4747,33 +4763,33 @@ msgstr "Is visible in the public list on web?"
 msgid "Either fill out Latitude and Longitude or leave them blank."
 msgstr "Either fill out Latitude and Longitude or leave them blank."
 
-#: ../app/forms/admin/system_parameters/edit_form.php:22
-#: ../app/forms/admin/system_parameters/edit_form.php:31
+#: ../app/forms/admin/system_parameters/edit_form.php:24
+#: ../app/forms/admin/system_parameters/edit_form.php:33
 msgid "Textual value"
 msgstr "Textual value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:40
-#: ../app/forms/admin/system_parameters/edit_form.php:49
+#: ../app/forms/admin/system_parameters/edit_form.php:42
+#: ../app/forms/admin/system_parameters/edit_form.php:51
 msgid "String value"
 msgstr "String value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:58
+#: ../app/forms/admin/system_parameters/edit_form.php:60
 msgid "Integer value"
 msgstr "Integer value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:66
+#: ../app/forms/admin/system_parameters/edit_form.php:68
 msgid "Boolean value"
 msgstr "Boolean value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:69
+#: ../app/forms/admin/system_parameters/edit_form.php:71
 msgid "Yes"
 msgstr "Yes"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:70
+#: ../app/forms/admin/system_parameters/edit_form.php:72
 msgid "No"
 msgstr "No"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:100
+#: ../app/forms/admin/system_parameters/edit_form.php:102
 msgid "Phone number"
 msgstr "Phone number"
 
@@ -5045,28 +5061,28 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-msgid "Pricelists"
-msgstr "Pricelists"
+#~ msgid "Pricelists"
+#~ msgstr "Pricelists"
 
-msgid "Vypnout"
-msgstr "Disable"
+#~ msgid "Vypnout"
+#~ msgstr "Disable"
 
-msgid "Zapnout"
-msgstr "Enable"
+#~ msgid "Zapnout"
+#~ msgstr "Enable"
 
 #, php-format
-msgid "This page is the profile page for another creator (%s)"
-msgstr "This page is the profile page for another creator (%s)"
+#~ msgid "This page is the profile page for another creator (%s)"
+#~ msgstr "This page is the profile page for another creator (%s)"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Edit stockount in warehouse %1"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Edit stockount in warehouse %1"
 
-msgid ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #~ msgid "Edit store"
 #~ msgstr "Edit store"
