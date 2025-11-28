@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>{t name="ATK14_APPLICATION_NAME"|dump_constant}Eshop %1: Administration{/t}</h1>
 
 <div class="row dashboard-indiators">
@@ -50,3 +51,12 @@
 <h2 class="h5 mb-3">{t}Vývoj počtu objednávek:{/t}</h2>
 
 {render partial=chart_orders}
+=======
+<h1>{t}Welcome administrator!{/t}</h1>
+
+{if DEVELOPMENT}
+<div class="admin-block-text">
+{render partial="new_features"}
+</div>
+{/if}
+>>>>>>> atk14catalog/develop

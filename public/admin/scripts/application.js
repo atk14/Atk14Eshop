@@ -14,6 +14,10 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();
@@ -41,6 +45,9 @@
 				// Admin menu toggle on small devices
 				ADMIN.utils.adminMenuToggler();
 
+				// Admin menu toggle on large devices
+				new UTILS.CollapsibleSidebar();
+
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
 
@@ -48,6 +55,7 @@
 				if( document.querySelector( "#id_location_lat" ) && document.querySelector( "#id_location_lng" ) ){
 					new UTILS.geoPaste();
 				}
+				UTILS.EnhancedFileField.init();
 			}
 
 		},
