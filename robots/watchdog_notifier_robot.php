@@ -6,7 +6,7 @@ class WatchdogNotifierRobot extends ApplicationRobot {
 			$user = $watched_product->getUser();
 			$product = $watched_product->getProduct();
 
-			$this->logger->info(sprintf("sending notification to user %s about product '%s'", $user, $product));
+			$this->logger->info(sprintf("WatchedProduct#%s: sending notification to %s about product %s (%s)", $watched_product->getId(), $user ? "User#{$user->getId()} ($user)" : "anonymous user", $product->getCatalogId(), $product));
 			$this->mailer->send_watchdog_notification($watched_product);
 			$watched_product->markAsNotified();
 
