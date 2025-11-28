@@ -46,6 +46,10 @@ var applicationScripts = [
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/tooltip.js",
 	"public/admin/scripts/utils/geopaste.js",
+	"public/admin/scripts/utils/md_editor_resizer.js",
+	"public/admin/scripts/utils/collapsible_sidebar.js",
+	"public/admin/scripts/utils/enhanced_file_field.js",
+	"public/admin/scripts/utils/layout_designer.js",
 	"public/admin/scripts/application.js",
 ];
 

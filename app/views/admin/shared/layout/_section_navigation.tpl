@@ -1,3 +1,8 @@
+<button class="btn btn-light nav-section__toggle">{t}Menu{/t} {!"angle-down"|icon}</button>
+<div class="sidebar-toggle">
+	<button class="btn btn-link js--sidebar-toggle"><span class="atk_icon atk_icon--sidebar"></span></button>
+</div>
+<div class="nav-section__collapsible">{* all things collapsible in mobile view go here *}
 <form class="form-inline" id="nav-filter" autocomplete="off">
 	<input class="form-control form-control-sm" id="nav-filter__input" placeholder="{t}search in menu{/t}">
 	<button class="btn btn-sm btn-link d-none" id="nav-filter__clear" tabindex="-1">{!"times"|icon}</button>
@@ -11,3 +16,4 @@
 		</li>
 	{/foreach}
 </ul>
+<div class="nav-section__collapsible">{* all things collapsible in mobile view go here *}
