@@ -152,7 +152,7 @@ class TcOrder extends TcBase {
 	}
 
 	function test_getPhones(){
-		$order = $this->orders["test"];
+		$order = $this->orders["test_anonymous"];
 
 		$this->assertEquals(["+420.605111222","+420.605333444"],$order->getPhones());
 
