@@ -74,12 +74,14 @@ nav.nav-section {
 	// Filter
 	#nav-filter {
 		border-bottom: 1px solid $border-color;
+		border-top: 1px solid $border-color;
 		display: flex;
 		flex-wrap: nowrap;
 		padding-left: 0.65rem;
 		padding-right: 0.25rem;
+		padding-top: $grid-gutter-width/4;
 		padding-bottom: $grid-gutter-width/4;
-		margin-top: 0 - $grid-gutter-width/4;
+		margin-top: -4px;
 		&__input {
 			min-width: 100px;
 			width: auto;
