@@ -41,10 +41,7 @@ class IndexForm extends OrdersForm{
 			"empty_choice_text" => "-- "._("způsob doručení")." --",
 		]));
 
-		$field = $this->add_field("order_status", new OrderStatusField([
-			"label" => _("Stav objednávky"),
-			"required" => false,
-		]));
+		$field = new OrderStatusField([]);
 		// inserting in_progress into choices...
 		$choices = [];
 		foreach($field->get_choices() as $k => $v){
@@ -53,8 +50,11 @@ class IndexForm extends OrdersForm{
 				$choices["in_progress"] = _("všechny rozpracované objednávky");
 			}
 		}
-		$field->set_choices($choices);
-
+		$this->add_field("order_status", new ChoiceField([
+			"label" => _("Stav objednávky"),
+			"choices" => $choices,
+			"required" => false,
+		]));
 
 		$f = $this->add_field("catalog_id", new CharField(array(
 			"label" => _("Objednaný produkt"),
