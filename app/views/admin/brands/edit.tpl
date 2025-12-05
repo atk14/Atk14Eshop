@@ -13,3 +13,5 @@
 <hr>
 
 {render partial="shared/attachments" object=$brand}
+
+{render partial="admin/shared/layout_designer"}

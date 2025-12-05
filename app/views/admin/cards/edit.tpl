@@ -55,3 +55,5 @@
 <hr>
 
 {render partial="cards_list" type="accessories" cards=$card->getAccessories() title="{t}Accessories{/t}" button_title="{t}Add accessory{/t}" empty_list_message="{t}There are no accessories{/t}"}
+
+{render partial="admin/shared/layout_designer"}
