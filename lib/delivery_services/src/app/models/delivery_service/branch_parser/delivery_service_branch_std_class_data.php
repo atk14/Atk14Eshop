@@ -2,12 +2,17 @@
 
 namespace DeliveryService\BranchParser;
 
-class SimpleStdClassElement extends \StdClass {
+class SimpleStdClassElement extends \StdClass implements \Countable {
 	public function __construct(
 		$data,
 		int $options = 0
 	) {
 		$this->_data = $data;
+	}
+
+	#[\ReturnTypeWillChange]
+	public function count() {
+		return count($this->_data);
 	}
 }
 class DeliveryServiceBranchStdClassData extends SimpleStdClassElement {
@@ -49,6 +54,11 @@ class DeliveryServiceBranchStdClassData extends SimpleStdClassElement {
 			"location_longitude" => $this->getLongitude(),
 			"active" => $this->isActive(),
 		];
+	}
+
+	#[\ReturnTypeWillChange]
+	public function count() {
+		return count($this->_data);
 	}
 }
 

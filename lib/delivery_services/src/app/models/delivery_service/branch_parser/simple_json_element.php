@@ -2,7 +2,7 @@
 
 namespace DeliveryService\BranchParser;
 
-class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
+class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess, \Countable {
 
 	public function __construct(
 		string $data,
@@ -12,12 +12,6 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		bool $isPrefix = false
 	) {
 		$this->_data = json_decode($data, true);
-	}
-
-	public function _getBranchNodes($options=[]) {
-		return array_map(function($e) {
-			return new static(json_encode($e));
-		}, $this->_data["data"]["destination"]);
 	}
 
 	private $_data;
@@ -49,6 +43,11 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 	#[\ReturnTypeWillChange]
 	public function offsetUnset($offset) {
 		unset($this->_data[$offset]);
+	}
+
+	#[\ReturnTypeWillChange]
+	public function count() {
+		return count($this->_data);
 	}
 
 

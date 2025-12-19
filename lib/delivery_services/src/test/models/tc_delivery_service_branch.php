@@ -113,21 +113,22 @@ class TcDeliveryServiceBranch extends TcBase {
 		$json_string = file_get_contents(__DIR__.'/data/zasilkovna.json');;
 		$json = DeliveryService\BranchParser\Zasilkovna::GetInstance($json_string);
 
-		$nodes = $json->_getBranchNodes();
-		$node_0 = $nodes[0];
-		$this->assertEquals("46", $node_0->getExternalBranchId());
-		$this->assertEquals("Brno, Královo Pole, Palackého tř. 48 (Mobilmax)", $node_0->getBranchName());
-		$this->assertEquals("MobilMax", $node_0->getPlaceName());
-		$this->assertEquals("Brno, Královo Pole, Palackého tř. 48 (Mobilmax)", $node_0->getFullAddress());
-		$this->assertEquals("CZ", $node_0->getCountryCode());
-		$this->assertEquals("61200", $node_0->getZipCode());
-		$this->assertEquals("Brno", $node_0->getCity());
-		$this->assertEquals("Palackého tř. 48", $node_0->getStreet());
-		$this->assertEquals("https://www.zasilkovna.cz/pobocky/brno-kralovo-pole-palackeho-tr-48-mobilmax", $node_0->getInformationUrl());
-#		$this->assertEquals("", $node_0->getOpeningHours());
-		$this->assertEquals("49.22125", $node_0->getLatitude());
-		$this->assertEquals("16.59668", $node_0->getLongitude());
-		$this->assertTrue($node_0->isActive());
+		foreach($nodes = $json->_getBranchNodes() as $node_0) {
+			$this->assertEquals("46", $node_0->getExternalBranchId());
+			$this->assertEquals("Brno, Královo Pole, Palackého tř. 48 (Mobilmax)", $node_0->getBranchName());
+			$this->assertEquals("MobilMax", $node_0->getPlaceName());
+			$this->assertEquals("Brno, Královo Pole, Palackého tř. 48 (Mobilmax)", $node_0->getFullAddress());
+			$this->assertEquals("CZ", $node_0->getCountryCode());
+			$this->assertEquals("61200", $node_0->getZipCode());
+			$this->assertEquals("Brno", $node_0->getCity());
+			$this->assertEquals("Palackého tř. 48", $node_0->getStreet());
+			$this->assertEquals("https://www.zasilkovna.cz/pobocky/brno-kralovo-pole-palackeho-tr-48-mobilmax", $node_0->getInformationUrl());
+			#		$this->assertEquals("", $node_0->getOpeningHours());
+			$this->assertEquals("49.22125", $node_0->getLatitude());
+			$this->assertEquals("16.59668", $node_0->getLongitude());
+			$this->assertTrue($node_0->isActive());
+			break;
+		}
 	}
 
 	function test_parse_nodes() {
@@ -135,7 +136,7 @@ class TcDeliveryServiceBranch extends TcBase {
 		$pc = $this->delivery_services["zasilkovna"]->getParserClass();
 		$parser = $pc::GetInstance($xml_string);
 		$nodes = $parser->_getBranchNodes();
-		$this->assertCount(4, $nodes);
+		$this->assertCount(4, $parser);
 
 		$json_string = file_get_contents(__DIR__.'/data/ulozenka.json');;
 		$pc = $this->delivery_services["wedo_ulozenka"]->getParserClass();

@@ -197,7 +197,7 @@ class DeliveryService extends ApplicationModel {
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
-		if (count($nodes)===0) {
+		if (count($feed_parser)===0) {
 			$options["logger"] && $options["logger"]->info(sprintf("no branches in feed for service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
 			return false;
 		}
@@ -242,6 +242,7 @@ class DeliveryService extends ApplicationModel {
 				$options["logger"] && $options["logger"]->info(sprintf("create branch %s @ %s", $_branchAr["external_branch_id"],$delivery_service_code));
 				$created++;
 			}
+			unset($_branchAr, $branch_row, $branch);
 		}
 
 		# deactivate branches not in xml
