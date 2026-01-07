@@ -68,7 +68,7 @@
 					{if !$incl_vat}
 					<td class="table-products__vat-percent">{$item->getVatPercent()}</td>
 					{/if}
-					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()}</td>
+					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()} {$product->getUnit()}</td>
 					<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{/if}
 			</tr>
