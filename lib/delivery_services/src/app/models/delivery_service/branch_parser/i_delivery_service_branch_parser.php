@@ -29,5 +29,7 @@ interface iDeliveryServiceBranchParser {
 	public function isActive();
 
 	static function GetRequirements();
+
+	public function count();
 }
 

@@ -25,9 +25,14 @@ class Zasilkovna extends DeliveryServiceJsonBranchData implements iDeliveryServi
 	}
 
 	function _getBranchNodes($options=[]) {
-		return array_map(function($e) {
-			return new static(json_encode($e));
-		}, $this->_data);
+		$data = $this->_data;
+		$gen = (function() use ($data) {
+			foreach ($data as $e) {
+				// každá položka je zabalena do instanční třídy jen při iteraci
+				yield new static(json_encode($e));
+			}
+		})();
+		return $gen;
 	}
 
 	function getExternalBranchId() {
