@@ -15,8 +15,6 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 	function run() {
 		global $argv;
 
-		ini_set("memory_limit","900M");
-
 		array_shift($argv);
 		array_shift($argv);
 
