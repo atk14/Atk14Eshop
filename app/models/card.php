@@ -868,7 +868,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		foreach($this->getProducts() as $product){
 			$fd->addText($product->getLabel(),"b");
-			$fd->addText($product->getCatalogId(),"d");
+			$fd->addText($product->getCatalogId(),"b");
 		}
 
 		$fd->addText($this->getName($lang),"a");
