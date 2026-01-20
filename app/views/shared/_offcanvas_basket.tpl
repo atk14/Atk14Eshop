@@ -9,7 +9,7 @@
 		</div>
 		<div class="basket-loading">
 			<div class="spinner-border text-secondary" role="status">
-				<span class="sr-only">Loading...</span>
+				<span class="sr-only js--basket-loading" data-content="{t}Loading...{/t}"></span>
 			</div>	
 		</div>
 		<div class="basket-error js--basket-error"></div>

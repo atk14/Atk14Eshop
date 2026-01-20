@@ -115,7 +115,9 @@ window.UTILS.OffcanvasBasket = function() {
 		}
 		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
+		$this.element.parent().find( ".js--basket-loading").html( $this.element.parent().find( ".js--basket-loading ").attr( "data-content" ) );
 		$this.element.load( "/" + lang + "/baskets/detail", function( response, status, jqXHR ) {
+			$this.element.parent().find( ".js--basket-loading").html( "" );
 			switch( status ) {
 				case "success" :
 					$this.element.attr( "data-status", "loaded" );
