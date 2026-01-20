@@ -123,10 +123,12 @@
 		{render partial="shared/offcanvas_basket"}
 		{/if}
 
-		<div class="search-suggestions js--suggesting">
-		<div class="suggestions__not-found">
-		<p><em>{t}Searching...{/t}</em></p>
-		</div>
+		{* For the search-suggestions element, it is better to place its content in the data attribute. *}
+		<div class="search-suggestions js--suggesting" data-content="{h}{trim}
+			<div class="suggestions__not-found">
+				<p><em>{t}Searching...{/t}</em></p>
+			</div>
+		{/trim}{/h}">
 		</div>
 
 		{render partial="shared/cookie_consent/banner"}
