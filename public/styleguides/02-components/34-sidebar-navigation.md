@@ -21,8 +21,8 @@ Sidebar category navigation enhanced with sticky scrolling behavior for better U
       
             <li class="nav-item nav-item--has-submenu">
                <a href="#" class="nav-link">Květiny</a>
-               <span class="expander  collapsed" role="button" id="sidebar_menu_item_35" data-toggle="collapse"
-                  data-target="#sidebar_submenu_35" aria-expanded="false" aria-controls="sidebar_submenu_35"
+               <span class="expander  collapsed" role="button" id="sidebar_menu_item_35" data-bs-toggle="collapse"
+                  data-bs-target="#sidebar_submenu_35" aria-expanded="false" aria-controls="sidebar_submenu_35"
                   aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
                <ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_35" aria-labelledby="sidebar_menu_item_35">
                   <li class="nav-item">
@@ -36,8 +36,8 @@ Sidebar category navigation enhanced with sticky scrolling behavior for better U
                   </li>
                   <li class="nav-item nav-item--has-submenu">
                      <a href="#" class="nav-link collapsed">Divoké</a>
-                     <span class="expander  collapsed" role="button" id="sidebar_menu_item_39" data-toggle="collapse"
-                        data-target="#sidebar_submenu_39" aria-expanded="false" aria-controls="sidebar_submenu_39"
+                     <span class="expander  collapsed" role="button" id="sidebar_menu_item_39" data-bs-toggle="collapse"
+                        data-bs-target="#sidebar_submenu_39" aria-expanded="false" aria-controls="sidebar_submenu_39"
                         aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
                      <ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_39" aria-labelledby="sidebar_menu_item_39">
                         <li class="nav-item">
@@ -69,8 +69,8 @@ Sidebar category navigation enhanced with sticky scrolling behavior for better U
       
             <li class="nav-item nav-item--has-submenu">
                <a href="#" class="nav-link active">Hudba</a>
-               <span class="expander  " role="button" id="sidebar_menu_item_69" data-toggle="collapse"
-                  data-target="#sidebar_submenu_69" aria-expanded="true" aria-controls="sidebar_submenu_69"
+               <span class="expander  " role="button" id="sidebar_menu_item_69" data-bs-toggle="collapse"
+                  data-bs-target="#sidebar_submenu_69" aria-expanded="true" aria-controls="sidebar_submenu_69"
                   aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
                <ul class="nav nav--sidebar__submenu collapse show" id="sidebar_submenu_69"
                   aria-labelledby="sidebar_menu_item_69">
@@ -91,8 +91,8 @@ Sidebar category navigation enhanced with sticky scrolling behavior for better U
       
             <li class="nav-item nav-item--has-submenu">
                <a href="#" class="nav-link">Syntezátory</a>
-               <span class="expander  collapsed" role="button" id="sidebar_menu_item_74" data-toggle="collapse"
-                  data-target="#sidebar_submenu_74" aria-expanded="false" aria-controls="sidebar_submenu_74"
+               <span class="expander  collapsed" role="button" id="sidebar_menu_item_74" data-bs-toggle="collapse"
+                  data-bs-target="#sidebar_submenu_74" aria-expanded="false" aria-controls="sidebar_submenu_74"
                   aria-label="Rozbalit podnabídku"><span class="fas fa-chevron-down"></span></span>
                <ul class="nav nav--sidebar__submenu collapse" id="sidebar_submenu_74" aria-labelledby="sidebar_menu_item_74">
                   <li class="nav-item">

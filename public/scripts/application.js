@@ -1,3 +1,10 @@
+/* Imports */
+const bootstrap = require ( "bootstrap" );
+//window.$ = window.jQuery = require("jquery");// already included by jquery_loader.js
+require( "unobfuscatejs" );
+//require( "atk14js" );
+
+
 /* global window */
 ( function( window, $, undefined ) {
 	"use strict";
@@ -5,10 +12,16 @@
 	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
-		common: {
-
+		common: {			
 			// Application-wide code.
 			init: function() {
+				
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
 
 				// Restores email addresses misted by the no_spam helper
 				UTILS.unobfuscateEmails();
@@ -20,7 +33,7 @@
 				UTILS.formHints();
 
 				// Init Swiper
-				UTILS.initSwiper();
+				//UTILS.initSwiper();
 
 				// Navbar dropdowns work on mouseover
 				UTILS.initNavbar();
@@ -31,7 +44,7 @@
 				// Floating cart info show/hide 
 				new UTILS.floatingCart();
 
-				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
+				window.UTILS.searchSuggestion( "js--search", "js--suggesting" ); // BS5
 
 				// Expanding/collapsing FAQ items
 				UTILS.initFAQ();
@@ -42,12 +55,8 @@
 
 				// Init NoUiSlider
 
-				// Sticky Scroll Sidebar
-				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
-				window.UTILS.initStickySidebar();
-
-				// Init offvanvas component
-				window.offCanvas = new window.UTILS.BSOffCanvas();
+				// Sidebar toggle to show/hide sidebar on mobile
+				window.UTILS.initSidebarToggle();
 
 				// Init offcanvas basket preview
 				window.basketOffcanvas = new window.UTILS.OffcanvasBasket();
@@ -326,9 +335,7 @@
 			// Action-specific code
 			index: function() {
 
-				// Init map
-				new UTILS.MultiMap( document.querySelector( ".stores_v2" ) );
-				
+				// Fileterable list of stores
 				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
@@ -343,8 +350,6 @@
 			// Action-specific code
 			detail: function() {
 
-				// Init map
-				new UTILS.SimpleMap( document.querySelector( ".map_v2" ) );
 			}
 
 		},

@@ -69,7 +69,7 @@ ol.timeline {
 		}
 	}
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		display: block;
 		li.timeline__item {
 			margin-right: 0;
@@ -267,13 +267,13 @@ ol.timeline {
 						grid-row: 2 / 3;
 						grid-column: 2 /-1;
 					}
-					@include media-breakpoint-down(sm) {
+					@include media-breakpoint-down(md) {  // bs5 breakpoint down
 						.label__description, .label__image ~ .label__description {
 							grid-row: 2 / 3;
 							grid-column: 1 / -1;
 						}
 					}
-					@include media-breakpoint-down(xs) {
+					@include media-breakpoint-down(sm) {  // bs5 breakpoint down
 						min-height: $minHeightXS;// + 2 * $itemVPadding;
 						grid-template-columns: $minHeightXS 1fr auto;
 						grid-template-rows: minmax( $minHeightXS, max-content) auto minmax( 0, max-content);
@@ -302,7 +302,7 @@ ol.timeline {
 				}
 			}
 
-			@include media-breakpoint-down(xs) {
+			@include media-breakpoint-down(sm) {  // bs5 breakpoint down
 				input[type=radio] ~ label {
 					&:before {
 						top: $itemVPadding + $imageSizeXS/2 - $inputSize/2;
@@ -365,16 +365,16 @@ ul.list--checkboxes {
 	columns: 5;
 	li.list__item {
 	}
-	@include media-breakpoint-down(lg){
+	@include media-breakpoint-down(xl){  // bs5 breakpoint down
 		columns: 4;
 	}
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){  // bs5 breakpoint down
 		columns: 3;
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		columns: 2;
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){  // bs5 breakpoint down
 		columns: 1;
 	}
 }

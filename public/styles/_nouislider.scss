@@ -21,7 +21,7 @@
 		box-shadow: none;
 		border: none;
 		background: $noUiSliderSecondaryColor;
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){  // bs5 breakpoint down
 			margin-left: 0;
 			margin-right: 0;
 		}

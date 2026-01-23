@@ -1,4 +1,8 @@
 // This is a place for some tools required in the application
+import { Popover } from "bootstrap"
+//import stickySidebarV2 from 
+//import StickySidebar from "sticky-sidebar-v2"
+
 
 window.UTILS = window.UTILS || { };
 
@@ -56,7 +60,8 @@ window.UTILS.formHints = function() {
 				content: content
 			};
 
-		$field.popover( popoverOptions );
+		//$field.popover( popoverOptions );
+		new Popover( $field.get(0), popoverOptions );
 	} );
 }
 
@@ -66,42 +71,49 @@ window.UTILS.loginAvaliabilityChecker = function() {
 	 * Check whether login is available.
 	 * Simple demo of working with an API.
 	 */
-	var $login = $( "#id_login" ),
+	
+	let login = document.querySelector( "#id_login" ),
 	m = "Username is already taken.",
-	h = "<p class='alert alert-danger'>" + m + "</p>",
-	$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
+	h = "<p class=\"alert alert-danger\" style=\"display: none\" id=\"login_availability_status\">" + m + "</p>";
+	login.closest( ".form-group" ).insertAdjacentHTML( "beforeend", h );
+	let status = document.querySelector( "#login_availability_status" );
 
-	$login.on( "change", function() {
+	login.addEventListener( "change", async () => {
 
 		// Login input value to check.
-		var value = $login.val(),
-			lang = $( "html" ).attr( "lang" ),
-
+		let value = login.value,
+		lang = document.querySelector( "html").getAttribute( "lang" ),
 		// API URL.
-			url = "/api/" + lang + "/login_availabilities/detail/",
-
+		url = new URL( "/api/" + lang + "/login_availabilities/detail/", window.location.origin ),
 		// GET values for API. Available formats: xml, json, yaml, jsonp.
-			data = {
-				login: value,
-				format: "json"
-			};
+		data = {
+			login: value,
+			format: "json"
+		};
 
-		// AJAX request to the API.
+		url.search = new URLSearchParams( data ).toString();
+
+
 		if ( value !== "" ) {
-			$.ajax( {
-				dataType: "json",
-				url: url,
-				data: data,
-				success: function( json ) {
-					if ( json.status !== "available" ) {
-						$status.fadeIn();
-					} else {
-						$status.fadeOut();
-					}
+			try {
+				const response = await fetch( url );
+				const responseData = await response.json();
+				if( responseData.status !== "available" ) {
+					window.UTILS.show( status );
+				} else {
+					window.UTILS.hide( status );
 				}
-			} );
+			} catch ( error ){
+        console.log( "Error Fetching data ",error);
+    	}
+		} else {
+			window.UTILS.hide( status );
 		}
-	} ).change();
+
+	} );
+
+	login.dispatchEvent(new Event( "change" ));
+
 }
 
 // Restores email addresses misted by the no_spam helper
@@ -152,22 +164,13 @@ window.UTILS.setCardHoverScale = function() {
 
 // Sticky Scroll Sidebar
 // To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
-window.UTILS.initStickySidebar = function() {
-	if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
-		if( $( ".body__sticky-container" ).length ) {
-			// eslint-disable-next-line no-undef,no-unused-vars
-			var sidebar = new StickySidebar( ".nav-section", {
-				topSpacing: 10,
-				bottomSpacing: 10,
-				containerSelector: ".body__sticky-container",
-				innerWrapperSelector: "#sidebar_menu",
-				minWidth: 767,
-			} );
-		}
-	}
+window.UTILS.initSidebarToggle = function() {
 	if( $( ".js-sidebar-toggle" ).length ) {
 		$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
 			$( ".nav-section" ).toggleClass( "show-sm" );
 		} );
 	}
+	[ ...document.querySelectorAll( "a.blank" ) ].forEach( (elem) => {
+		elem.setAttribute( "target", "_blank" )
+	} );
 }

@@ -31,7 +31,7 @@ class StyleguidesController extends MdBookBaseController {
 					<div class=\"styleguide-example__output\">
 					$content
 					</div>
-					<button class=\"btn btn-sm btn-outline-secondary styleguide-example__show-code-btn js-styleguide-reveal-code\" type=\"button\" data-toggle=\"collapse\" data-target=\"#" . $code_id . "\" aria-expanded=\"false\"><i class=\"fas fa-code\"></i> Show code</button>
+					<button class=\"btn btn-sm btn-outline-secondary styleguide-example__show-code-btn js-styleguide-reveal-code\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#" . $code_id . "\" aria-expanded=\"false\"><i class=\"fas fa-code\"></i> Show code</button>
 					<div class=\"styleguide-example__code collapse\" id=\"" . $code_id . "\">
 					<pre><code class=\"language-html\">" . h($content) . "</code></pre>
 					</div>

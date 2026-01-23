@@ -48,10 +48,12 @@
 		@include btnMultiLine();
 	}
 	&.btn-lg {
-		@include btnMultiLine($btn-font-size-lg, $btn-padding-y-lg, 1.1, $btn-line-height-lg);
+		//@include btnMultiLine($btn-font-size-lg, $btn-padding-y-lg, 1.1, $btn-line-height-lg);
+		@include btnMultiLine($btn-font-size-lg, $btn-padding-y-lg, 1.1, $btn-line-height);// TODO fix vypocet BS5
 	}
 	&.btn-sm {
-		@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height-sm);
+		//@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height-sm);
+		@include btnMultiLine($btn-font-size-sm, $btn-padding-y-sm, 1.1, $btn-line-height);// TODO fix vypocet BS5
 	}
 }
 

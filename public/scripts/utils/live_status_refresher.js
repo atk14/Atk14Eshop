@@ -14,7 +14,7 @@
 
 
 // If Webpack is used to compile, you may need to uncomment following line to import bootstrap.Modal
-/* import { Modal } from "bootstrap"; */
+import { Modal } from "bootstrap";
 
 window.UTILS = window.UTILS || { };
 

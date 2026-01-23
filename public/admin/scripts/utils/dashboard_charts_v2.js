@@ -1,8 +1,17 @@
+import Chart from "chart.js/auto";
+import { color } from "chart.js/helpers";
+import moment from "moment";
+import "moment/min/locales";
+import "chartjs-adapter-moment";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.DashboardOrdersChart = class {
 
-	color = Chart.helpers.color;
+	// color = Chart.helpers.color;
+	color = Chart.color;
 	primaryColor = "rgb(38, 124, 217)";
 	ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
 	currentResolution = "days";
@@ -26,8 +35,8 @@ window.UTILS.DashboardOrdersChart = class {
 				labels: this.initialChartData.labels,
 				datasets: [{
 					data: this.initialChartData.data,
-					backgroundColor: this.color( this.primaryColor ).alpha( 0.5 ).rgbString(),
-					borderColor: this.color( this.primaryColor ).alpha( 0 ).rgbString(),
+					backgroundColor: color( this.primaryColor ).alpha( 0.5 ).rgbString(),
+					borderColor: color( this.primaryColor ).alpha( 0 ).rgbString(),
 					borderWidth: 1
 				}]
 			},

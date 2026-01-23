@@ -212,7 +212,7 @@ table.table-products {
 	}
 	
 	
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){  // bs5 breakpoint down
 		font-size: 0.875rem;
 		tbody.table-products__list {
 			tr.table-products__item {
@@ -233,7 +233,7 @@ table.table-products {
 		}
 	}
 	
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		width: auto;
 		display: block;
 		//margin-left: 0 - $grid-gutter-width/2;
@@ -387,7 +387,7 @@ table.table-products {
 		}
 	}
 	
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){  // bs5 breakpoint down
 		margin-left: 0 - $grid-gutter-width/2;
 		margin-right: 0 - $grid-gutter-width/2;
 		tbody.table-products__list {
@@ -556,7 +556,7 @@ table.table-products {
 	p:last-child {
 		margin-bottom: 0;
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){  // bs5 breakpoint down
 		& > .row > div {
 			margin-bottom: $grid-gutter-width/2;
 			&:last-child {

@@ -1,20 +1,31 @@
 // Alerts displayed in original theme bg color instead of Bootstrap default light bg.
 
-@each $color, $value in $theme-colors {
-  .alert-#{$color} {
-    @include alert-variant( $value, $value, color-yiq( $value ) );
-    button.close {
-      color: inherit;
-      opacity: 0.75;
+.alert {
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: inherit !important;
+  }
+  a {
+    text-decoration: underline;
+  }
+}
+//test
+@each $state, $value in $theme-colors {
+  .alert-#{$state} {
+    $txtColor: color-contrast($value);
+    --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}alert-color: #{$txtColor};
+    --#{$prefix}alert-bg: var(--#{$prefix}#{$state});
+    --#{$prefix}alert-border-color: var(--#{$prefix}#{$state});
+    --#{$prefix}alert-link-color: var(--#{$prefix}alert-color);
+
+    // Ensure the close button is visible against the alert background
+    //@if $contrast-ratio < $min-contrast-ratio { // this gave strange results 
+    @if $txtColor == $color-contrast-light{
+      @debug "Adjusting close button for alert-#{$state} to ensure visibility";
+      .btn-close {
+        filter: invert(100%);
+      }
     }
-    a, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-      color: inherit !important;
-    }
-    a {
-      text-decoration: underline;
-      /*&:hover {
-        color: darken( $value, 10% );
-      }*/
-    }
+
   }
 }
