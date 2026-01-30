@@ -89,6 +89,15 @@ header.content-header, .content-header {
 			margin-top: $grid-gutter-width * 0.25;
 			//opacity: 0.75;
 		}
+
+		.rating {
+			a, a .text-muted {
+				color: $text-muted;
+				&:hover {
+					color: $link-hover-color;
+				}
+			}
+		}
 	}
 	
 	.content-header__image + .content-header__text {

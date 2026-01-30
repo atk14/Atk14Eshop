@@ -75,6 +75,27 @@ $card-border-style: 1px dashed $border-color;
 		font-size: 0.875rem;
 		color: black;
 	}
+
+	.card__rating {
+		font-size: $font-size-sm;
+		.starrating__stars {
+			font-size: 0.875em;
+		}
+		margin: 0.25em 0;
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		min-height: 1.25em;
+		a .text-muted {
+			color: $text-muted;
+			&:hover {
+				color: $link-hover-color;
+			}
+		}
+	}
 	
 	.card-meta {
 		margin-top: 1rem;
