@@ -111,6 +111,9 @@ definedef("MAP_TILES_API_KEY", "");
 definedef("INVOICES_ENABLED",false);
 definedef("INVOICES_DIRECTORY",__DIR__ . "/../data/invoices/");
 
+definedef("CUSTOMER_REVIEWS_ENABLED",false);
+definedef("CUSTOMER_REVIEWS_AUTOMATIC_PUBLICATION",true);
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

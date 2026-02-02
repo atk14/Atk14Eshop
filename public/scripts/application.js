@@ -384,6 +384,16 @@
 			}
 		},
 
+		customer_reviews: {
+			create_new: function() {
+				[...document.querySelectorAll( ".form-group.form-group--id_rating" )].forEach( ( element ) => {
+					if( !element.dataset.star_rating_widget ) {
+						new window.UTILS.StarRatingWidget( element );
+					}
+				} );
+			}
+		},
+
 		tests: {
 			js_validation: function() {
 				new UTILS.FormValidator();

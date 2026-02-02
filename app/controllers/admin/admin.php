@@ -24,7 +24,7 @@ class AdminController extends ApplicationBaseController{
 
 		$navi = new Menu14();
 
-		foreach(array(
+		$items = array(
 			array(_("Welcome screen"),			"main"),
 			array(_("Orders"),							"orders,order_order_statuses,order_items,order_campaigns,order_vouchers"),
 			array(_("Articles"),						"articles"),
@@ -34,6 +34,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Tags"),								"tags"),
 			array(_("Users"),								"users,user_special_pricelists"),
 			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators,creator_roles,creators,digital_contents"),
+			"customer_reviews" => [_("Customer reviews"), "customer_reviews"],
 			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
 			array(_("Vouchers"),						"vouchers"),
@@ -59,7 +60,9 @@ class AdminController extends ApplicationBaseController{
 			array(_("Bank accounts"),					"bank_accounts"),
 			array(_("Cookie consent"),				"cookie_consents,cookie_consent_categories,cookie_consent_statistics"),
 			array(_("System preferences"),		"system_parameters"),
-		) as $item){
+		);
+		if(!CUSTOMER_REVIEWS_ENABLED){ unset($items["customer_reviews"]); }
+		foreach($items as $item){
 			$_label = $item[0];
 			$_controllers = explode(',',$item[1]); // "products,cards" => array("products","cards");
 			$_action = "$_controllers[0]/index"; // "products" -> "products/index"

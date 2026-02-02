@@ -46,6 +46,11 @@ class CardsController extends ApplicationController{
 		}
 		$this->tpl_data["gallery_variant"] = $gallery_variant;
 
+		if(CUSTOMER_REVIEWS_ENABLED){
+			$this->tpl_data["rating"] = CustomerReview::GetRatingFor($card,$review_count);
+			$this->tpl_data["review_count"] = $review_count;
+		}
+
 		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $this->card], ["with_hostname" => true]));
 
 		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewItem($card, ["items" => $products], ["price_finder" => $this->price_finder]));

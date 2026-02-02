@@ -13,7 +13,25 @@
 				{/trim}{/foreach}
 			{/if}
 		{/capture}
-		{render partial="shared/layout/content_header" title=$card->getName() teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author}
+
+		{if CUSTOMER_REVIEWS_ENABLED}
+			{capture assign="rating"}
+				{a_remote action="card_customer_reviews/index" card_id=$card}
+					{render partial="shared/customer_review/stars" rating=$rating}
+					{if isset($rating)}
+						<!-- ({$review_count}) -->
+						<strong>{$rating|format_number:1}</strong>
+						{if $review_count==1}
+							({t}1 review{/t})
+						{else}
+							({t review_count=$review_count}%1 reviews{/t})
+						{/if}
+					{/if}
+				{/a_remote}
+			{/capture}
+		{/if}
+
+		{render partial="shared/layout/content_header" title=$card->getName() teaser=$card->getTeaser()|markdown brand=$brand_text  tags=$card->getTags() author=$author rating=$rating}
 
 		{if !$card->isVisible() || $card->isDeleted()}
 			{render partial="sale_is_over"}

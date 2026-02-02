@@ -1,0 +1,68 @@
+.starrating_widget {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  &__stars {
+    display: inline-flex;
+    font-size: 1.25em;
+    color: $primary;
+    &:not(:has([data-checked="true"])) {
+      .starrating_widget__star label::after {
+        opacity: 0;
+      }
+    }
+  }
+  &__star {
+    cursor: pointer;
+    position: relative;
+    padding: 0.25em;
+    > * {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+    &[data-checked="true"] ~ * {
+      label::after {
+        opacity: 0;
+      }
+    }
+
+    label {
+      display: grid;
+      cursor: pointer;
+      > * {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+      .label__text {
+        font-size: 0.5em;
+        opacity: 1;
+      }
+      &::after, &::before {
+        font-family: $fa-font-family;
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        transition: transform 0.25s;
+      }
+      &::after {
+        content: "\f005";
+        font-weight: 700;
+      }
+      &::before {
+        content: "\f005";
+        font-weight: 400;
+      }
+      &:hover {
+        &::before, &::after {
+          transform: scale(1.25);
+          transition: transform 0.1s;
+        }
+      }
+    }
+    
+  }
+  &__text {
+    font-size: 1em;
+    align-self: center;
+    display: none;
+  }
+}
