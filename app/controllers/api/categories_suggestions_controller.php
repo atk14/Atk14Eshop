@@ -63,7 +63,6 @@ class CategoriesSuggestionsController extends ApiController{
 			$categories = Category::FindAll(array(
 				"conditions" => $conditions,
 				"bind_ar" => $bind_ar,
-				"limit" => 20,
 			));
 
 			$this->api_data = array();
