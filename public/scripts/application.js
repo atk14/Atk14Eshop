@@ -397,6 +397,10 @@
 		tests: {
 			js_validation: function() {
 				new UTILS.FormValidator();
+			},
+
+			extended_password_field: function() {
+				UTILS.extended_password_field.init();
 			}
 		},
 
