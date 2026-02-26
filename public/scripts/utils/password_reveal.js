@@ -20,7 +20,8 @@ window.UTILS.PasswordReveal = class {
    * Find all password fields
    */
   init() {
-    let pwds = document.querySelectorAll( "input[type='password']" );
+    let pwds = document.querySelectorAll( "input[type='password']:not([data-extended_password_field])" );
+    //let pwds = document.querySelectorAll( "input[type='password'][data-reveal='true']:not[data-extended_password_field]" );
     [...pwds].forEach( this.enhancePasswordField.bind( this ) );
   }
 
