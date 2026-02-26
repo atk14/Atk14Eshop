@@ -85,6 +85,7 @@ var applicationScripts = [
 	"public/scripts/utils/flash_message.js",
 	"public/scripts/utils/password_reveal.js",
 	"public/scripts/utils/star_rating_widget.js",
+	"public/scripts/utils/extended_password_field.js",
 	"public/scripts/application.js"
 ];
 
