@@ -93,6 +93,13 @@ class TestsController extends ApplicationController {
 		$this->render_template = false;
 	}
 
+	function extended_password_field(){
+		$this->page_title = "Extended Password Field";
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			
+		}
+	}
+
 	function _dump_email(){
 		$this->render_template = false;
 		$this->response->write(sprintf('From: "%s" &lt;%s&gt;<br>',$this->mailer->from_name,$this->mailer->from));
