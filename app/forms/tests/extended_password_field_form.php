@@ -2,6 +2,8 @@
 class ExtendedPasswordFieldForm extends ApplicationForm {
 
 	function set_up(){
+		if(class_exists("ExtendedPasswordField")){
+
 		$this->add_field("p1", new ExtendedPasswordField([
 			"label" => "Ext. password",
 			"help_text" => "Help text",
@@ -24,6 +26,8 @@ class ExtendedPasswordFieldForm extends ApplicationForm {
 			"show_password_strength_progressbar" => false,
 			"help_text" => "Help text",
 		]));
+
+		}
 
 		$this->add_field("p5", new PasswordField([
 			"label" => "Ord. Password",
