@@ -35,6 +35,10 @@ import Sortable from "sortablejs";
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();
@@ -53,8 +57,13 @@ import Sortable from "sortablejs";
 				// Admin menu toggle on small devices
 				ADMIN.utils.adminMenuToggler();
 
+				// Admin menu toggle on large devices
+				new UTILS.CollapsibleSidebar();
+
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
+
+				UTILS.EnhancedFileField.init();
 			}
 
 		},
@@ -75,6 +84,13 @@ import Sortable from "sortablejs";
 					$( el ).markdownEditor( {
 						preview: true,
 						onPreview: function( content, callback ) {
+							
+							// match md-editor and md-preview heights
+							var editorHeight = $( el ).parent().find( ".md-editor" ).height();
+							if ( editorHeight ) {
+								$(el).parent().find( ".md-preview" ).height( editorHeight );
+							}
+
 							var lang = $( "html" ).attr( "lang" );
 							$.ajax( {
 								type: "POST",
@@ -84,7 +100,10 @@ import Sortable from "sortablejs";
 									base_href: $( el ).data( "base_href" )
 								},
 								success: function( output ) {
+									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 									callback( output );
+									window.UTILS.initSwiper();
+									window.UTILS.PreviewModeToggle.init( el.parentElement.querySelector( ".md-preview" ) );
 								}
 							} );
 						}

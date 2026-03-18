@@ -12,7 +12,7 @@
 	<div class="dropdown-menu" aria-labelledby="langswitch_{$uniqid}">
 		{foreach $supported_languages as $l}
 				<a href="{$l.switch_url}" class="dropdown-item">
-					<img src="{$public}dist/images/languages/{$l.lang}.svg" class="langswitch-flag" alt="{$l.name|capitalize}" width="24" height="15">
+					<img src="{$public}dist/images/languages/{$l.lang}.svg" class="langswitch-flag" alt="{$l.name|capitalize}" width="24" height="15" aria-hidden="true">
 					{$l.name|capitalize}
 				</a>
 		{/foreach}

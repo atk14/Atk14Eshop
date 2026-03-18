@@ -195,7 +195,12 @@ class Card extends ApplicationModel implements Translatable, iSlug {
 	}
 
 	function toHumanReadableString(){
-		return $this->getName();
+		$products = $this->getProducts();
+
+		$out = [];
+		if(sizeof($products)==1){ $out[] = $products[0]->getCatalogId(); }
+		$out[] = $this->getName();
+		return join(", ",$out);
 	}
 
 	protected function _getProducts($options = array()){

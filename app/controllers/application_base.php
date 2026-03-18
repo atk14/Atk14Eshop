@@ -125,7 +125,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-XSS-Protection","1; mode=block");
 		$this->response->setHeader("Referrer-Policy","same-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
-		//$this->response->setHeader("Content-Security-Policy","default-src 'self' data: 'unsafe-inline' 'unsafe-eval'");
+		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval';");
 
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
@@ -138,7 +138,7 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY") && !in_array("$this->namespace/$this->controller",["/remote_tests"])){
 			return $this->_redirect_to_ssl();
 		}
 
@@ -350,13 +350,13 @@ class ApplicationBaseController extends Atk14Controller{
 			$key = md5($this->request->getRequestUri());
 			if(!isset($return_uris[$key])){
 				if(sizeof($return_uris)>50){ array_shift($return_uris); } // for safety reasons there is a max limit
-				$return_uris[$key] = $this->_get_return_uri();
+				$return_uris[$key] = $this->_get_return_uri(null);
 				$this->session->s("return_uris",$return_uris);
 			}
 		}
 
 		if(!isset($form)){ $form = $this->form; }
-		$return_uri = $this->_get_return_uri();
+		$return_uri = $this->_get_return_uri(null);
 		$form->set_hidden_field("_return_uri_",$return_uri);
 	}
 
@@ -373,7 +373,7 @@ class ApplicationBaseController extends Atk14Controller{
 		($return_uri = isset($return_uris[$key]) ? $return_uris[$key] : null) ||
 		($return_uri = $this->params->getString("return_uri")) ||
 		($return_uri = $this->request->getHttpReferer()) ||
-		($return_uri = $this->_link_to($default));
+		($return_uri = $default ? $this->_link_to($default) : null);
 		return $return_uri;
 	}
 
@@ -392,11 +392,15 @@ class ApplicationBaseController extends Atk14Controller{
 		$key = md5($this->request->getRequestUri());
 		($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
 
+		$return_uri = "";
+
 		if(isset($return_uris[$key])){
-			$return_uri = $return_uris[$key];
+			$return_uri = $return_uris[$key]; // can be an empty string
 			unset($return_uris[$key]);
 			$this->session->s("return_uris",$return_uris);
-		}else{
+		}
+
+		if(!$return_uri){
 			$return_uri = $this->_get_return_uri($default);
 		}
 
@@ -443,6 +447,9 @@ class ApplicationBaseController extends Atk14Controller{
 			}
 			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
 				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
+			}
+			if (defined("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT")) {
+				$this->head_tags->addMetaTag("google-site-verification", GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT);
 			}
 		}
 		if (isset($analytics_tracking_id)) {

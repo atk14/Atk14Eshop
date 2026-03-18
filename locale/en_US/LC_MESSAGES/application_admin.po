@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:18+0100\n"
-"PO-Revision-Date: 2025-01-28 12:22+0100\n"
+"POT-Creation-Date: 2025-10-01 13:16+0200\n"
+"PO-Revision-Date: 2025-01-28 12:09+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -964,7 +964,7 @@ msgid "Editing attachment #%s"
 msgstr "Editing attachment #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/cards_controller.php:180
+#: ../app/controllers/admin/cards_controller.php:181
 #: ../app/controllers/admin/categories_controller.php:29
 #: ../app/controllers/admin/collections_controller.php:27
 #: ../app/controllers/admin/images_controller.php:68
@@ -1010,38 +1010,38 @@ msgstr "Settings saved"
 msgid "List of Products"
 msgstr "List of Products"
 
-#: ../app/controllers/admin/cards_controller.php:74
+#: ../app/controllers/admin/cards_controller.php:75
 msgid "Adding a product"
 msgstr "Adding a product"
 
-#: ../app/controllers/admin/cards_controller.php:108
+#: ../app/controllers/admin/cards_controller.php:109
 msgid "The product has been created. Now you can add some extra data to it."
 msgstr "The product has been created. Now you can add some extra data to it."
 
-#: ../app/controllers/admin/cards_controller.php:114
+#: ../app/controllers/admin/cards_controller.php:115
 #, php-format
 msgid "Editing product %s"
 msgstr "Editing product %s"
 
-#: ../app/controllers/admin/cards_controller.php:198
+#: ../app/controllers/admin/cards_controller.php:199
 msgid "Variants mode has been activated"
 msgstr "Variants mode has been activated"
 
-#: ../app/controllers/admin/cards_controller.php:216
+#: ../app/controllers/admin/cards_controller.php:217
 msgid "Variants mode has been deactivated"
 msgstr "Variants mode has been deactivated"
 
-#: ../app/controllers/admin/cards_controller.php:239
+#: ../app/controllers/admin/cards_controller.php:240
 #: ../app/controllers/admin/technical_specifications_controller.php:12
 #: ../app/controllers/admin/technical_specifications_controller.php:36
 msgid "The product already has this specification"
 msgstr "The product already has this specification"
 
-#: ../app/controllers/admin/cards_controller.php:271
+#: ../app/controllers/admin/cards_controller.php:272
 msgid "Připojení odkazu k produktu"
 msgstr "Connecting link to the product"
 
-#: ../app/controllers/admin/cards_controller.php:289
+#: ../app/controllers/admin/cards_controller.php:290
 msgid "Odkaz odpojen"
 msgstr "Link disconnected"
 
@@ -1229,6 +1229,11 @@ msgstr "The redirection has been updated successfully"
 #: ../app/controllers/admin/galleries_controller.php:11
 msgid "Nová fotogalerie"
 msgstr "New photogallery"
+
+#: ../app/controllers/admin/gallery_items_controller.php:8
+#, php-format
+msgid "Nový obrázek do fotogalerie %s"
+msgstr "New image to the photo gallery %s"
 
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format
