@@ -25,6 +25,6 @@ $sidebarIcon: url("data:image/svg+xml,<svg width='16' height='16' fill='currentC
 
   // Specific icons
   &--sidebar::after {
-    mask-image: $sidebarIcon;
+    mask-image: #{escape-svg( $sidebarIcon )};
   }
 }

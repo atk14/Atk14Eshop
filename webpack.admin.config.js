@@ -21,6 +21,11 @@ var application_scripts = [
 	"./public/admin/scripts/utils/async_image_upload.js",
 	"./public/scripts/utils/notifications.js",
 	"./public/admin/scripts/utils/tag_chooser.js",
+	"./public/admin/scripts/utils/md_editor_resizer.js",
+	"./public/admin/scripts/utils/collapsible_sidebar.js",
+	"./public/admin/scripts/utils/enhanced_file_field.js",
+	"./public/admin/scripts/utils/layout_designer.js",
+	"./public/admin/scripts/utils/preview_mode_toggle.js",
 	"./public/admin/scripts/application.js",
 ];
 
@@ -31,6 +36,7 @@ var application_styles = ["./public/admin/styles/application.scss"];
 var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+  "./node_modules/swiper/swiper-bundle.css",
   "./node_modules/jquery-ui-bundle/jquery-ui.css",
 ];
 
@@ -44,6 +50,7 @@ var ignoredFiles = [
 var config = {
   entry: {
     application: application_scripts,
+    application_es6: "./public/admin/scripts/modules/application_es6.js",
     application_styles: application_styles,
     vendor_styles: vendorStyles,
   },
@@ -122,13 +129,22 @@ var config = {
         } 
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'  // ← přidej toto
+        ]
+      },
+      {
+        test: /\.(sa|sc)ss$/,
+        //test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
-              url: false
+              url: false,
             }
           },
           {
@@ -146,11 +162,25 @@ var config = {
   optimization: {
     splitChunks: {
       chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
+          priority: 10,
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          priority: 20,
+          enforce: true
         }
       },
     },
