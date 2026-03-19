@@ -11,3 +11,5 @@
 
 <hr>
 {render partial="shared/attachments" object=$card_section}
+
+{render partial="admin/shared/layout_designer"}

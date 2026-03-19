@@ -207,5 +207,4 @@ Do you really want this?{/t}{/capture}
 	{/if}
 
 {/if} {* $category->isAlias() *}
-
 {render partial="admin/shared/layout_designer"}

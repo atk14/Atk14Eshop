@@ -116,6 +116,10 @@ $sidebarBorder: 1px solid $border-color;
 	}
 }
 
+.float-right {
+	// TODO: do something better
+	float: right;
+}
 @include media-breakpoint-up(md){
 	$collapsedWidth: 35px;
 	js--sidebar-toggle {

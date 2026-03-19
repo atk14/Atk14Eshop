@@ -87,6 +87,24 @@ var config = {
       }
     ),
 
+    /*new FaviconsWebpackPlugin( {
+      logo: "./public/favicons/favicon.png",
+      outputPath: 'favicons',
+      inject: false,
+      favicons: {
+        icons : {
+          android: { overlayShadow: false, overlayGlow: false },
+          appleIcon: { overlayShadow: false, overlayGlow: false },
+          appleStartup: false,
+          coast: false,
+          favicons: { overlayShadow: false, overlayGlow: false },
+          firefox: false,
+          windows: { overlayShadow: false, overlayGlow: false },
+          yandex: false
+        }
+      }
+    },
+  ),*/
     new IgnoreEmitPlugin( ignoredFiles ),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
@@ -134,7 +152,16 @@ var config = {
         } 
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'  // ← přidej toto
+        ]
+      },
+      {
+        test: /\.(sa|sc)ss$/,
+        //test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {

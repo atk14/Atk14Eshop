@@ -114,6 +114,7 @@
 			</div>
 			{if $section_navigation || $use_sidebar_menu}</div>{/if}
 		</div>
+		
 		{render partial="shared/layout/footer"}
 
 		{if $controller!="baskets" && $controller!="checkouts"}

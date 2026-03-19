@@ -10,3 +10,4 @@
 
 <h3>{t}Products in the collection{/t}</h3>
 {render partial="collection_cards"}
+{render partial="admin/shared/layout_designer"}

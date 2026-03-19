@@ -35,3 +35,4 @@ RewriteRule (.*) dispatcher.php [L]
 # php_value error_reporting 4294967295
 # php_value upload_max_filesize 20M
 # php_value post_max_size 21M
+# php_value max_execution_time 300
