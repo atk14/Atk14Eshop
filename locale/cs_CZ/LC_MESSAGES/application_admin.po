@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-27 17:15+0100\n"
-"PO-Revision-Date: 2025-11-27 17:19+0100\n"
+"POT-Creation-Date: 2026-03-20 15:19+0100\n"
+"PO-Revision-Date: 2026-03-20 15:32+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -51,6 +51,7 @@ msgstr "Seznam je prázdný."
 #: ../app/forms/admin/articles/articles_form.php:6
 #: ../app/forms/admin/attachments/attachments_form.php:9
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:16
+#: ../app/forms/admin/customer_reviews/edit_form.php:21
 #: ../app/forms/admin/files/files_form.php:8
 #: ../app/forms/admin/images/images_form.php:10
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:6
@@ -60,6 +61,7 @@ msgid "Title"
 msgstr "Název"
 
 #: ../app/forms/admin/articles/articles_form.php:29
+#: ../app/forms/admin/customer_reviews/edit_form.php:10
 msgid "Author"
 msgstr "Autor"
 
@@ -83,7 +85,7 @@ msgstr "Momentálně tady přílohy nejsou."
 msgid "Sales regions"
 msgstr "Prodejní oblasti"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:52
 #: ../app/forms/admin/bank_accounts/bank_accounts_form.php:26
 msgid "Currencies"
 msgstr "Měny"
@@ -130,8 +132,8 @@ msgstr "bez omezení výše objednávky"
 msgid "pouze pro zákaznickou skupinu %1"
 msgstr "pouze pro zákaznickou skupinu %1"
 
-msgid "pouze při zvoleném způsobu doručení %1"
-msgstr "pouze při zvoleném způsobu doručení %1"
+msgid "pouze při zvoleném způsobu dopravy %1"
+msgstr "pouze při zvoleném způsobu dopravy %1"
 
 msgid "pouze při zvolené platební metodě %1"
 msgstr "pouze při zvolené platební metodě %1"
@@ -151,8 +153,8 @@ msgstr "Vyloučeno pro štítky"
 msgid "doprava zdarma"
 msgstr "doprava zdarma"
 
-msgid "pouze pro způsob doručení %1"
-msgstr "pouze pro způsob doručení %1"
+msgid "pouze pro způsob dopravy %1"
+msgstr "pouze pro způsob dopravy %1"
 
 msgid "sleva %1%"
 msgstr "sleva %1%"
@@ -238,7 +240,7 @@ msgstr "Varianty na produktové kartě <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr "Určete produkt, který zůstane po spojení zachován."
 
-#: ../app/controllers/admin/admin.php:116
+#: ../app/controllers/admin/admin.php:119
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "neviditelné"
@@ -535,11 +537,11 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:112
+#: ../app/controllers/admin/admin.php:115
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:113
+#: ../app/controllers/admin/admin.php:116
 msgid "link"
 msgstr "odkaz"
 
@@ -695,6 +697,27 @@ msgstr ""
 #: ../app/controllers/admin/customer_groups_controller.php:12
 msgid "Create new customer group"
 msgstr "Vytvořit novou zákaznickou skupinu"
+
+msgid "Show product in eshop"
+msgstr "Zobrazit produkt v e-shopu"
+
+msgid "Catalog Id"
+msgstr ""
+
+#: ../app/forms/admin/card_promotions/card_promotions_form.php:8
+#: ../app/forms/admin/category_cards/create_new_form.php:6
+#: ../app/forms/admin/category_recommended_cards/create_new_form.php:6
+#: ../app/forms/admin/related_cards/create_new_form.php:6
+#: ../app/forms/admin/warehouse_items/warehouse_items_form.php:6
+msgid "Product"
+msgstr "Produkt"
+
+#: ../app/forms/admin/customer_reviews/edit_form.php:15
+msgid "Rating"
+msgstr ""
+
+msgid "Status"
+msgstr ""
 
 msgid "Výchozí cena s DPH"
 msgstr "Výchozí cena s DPH"
@@ -907,7 +930,7 @@ msgstr "Export e-mailů v CSV"
 msgid "Změna stavu objednávky"
 msgstr "Změna stavu objednávky"
 
-#: ../app/forms/admin/orders/index_form.php:45
+#: ../app/forms/admin/orders/index_form.php:54
 msgid "Stav objednávky"
 msgstr "Stav objednávky"
 
@@ -1023,6 +1046,7 @@ msgid "Celkem uhrazeno:"
 msgstr "Celkem uhrazeno:"
 
 #: ../app/forms/admin/orders/edit_form.php:24
+#: ../app/forms/admin/orders/index_form.php:39
 msgid "Způsob dopravy"
 msgstr "Způsob dopravy"
 
@@ -1556,6 +1580,50 @@ msgstr "Přidat video"
 msgid "Add product promotion"
 msgstr "Přidat propagaci produktu"
 
+msgid "XL - Large desktop"
+msgstr ""
+
+msgid "LG - Laptop"
+msgstr ""
+
+msgid "MD - Tablet"
+msgstr ""
+
+msgid "SM - Small tablet"
+msgstr ""
+
+msgid "XS - Phone"
+msgstr ""
+
+msgid ""
+"Cannot paste columns: Number of pasted columns do not match number of "
+"current columns."
+msgstr ""
+
+msgid "Copy widths"
+msgstr ""
+
+msgid "Paste widths"
+msgstr ""
+
+msgid "Hidden cells: "
+msgstr ""
+
+msgid "Number of columns"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Copy HTML code to clipboard"
+msgstr ""
+
+msgid "Copy Markdown code to clipboard"
+msgstr ""
+
 msgid "Localhost"
 msgstr "Localhost"
 
@@ -1564,6 +1632,9 @@ msgstr "Vývojový server"
 
 msgid "Production server"
 msgstr "Produkční server"
+
+msgid "Toggle sidebar"
+msgstr ""
 
 msgid "Profile"
 msgstr "Profil"
@@ -1581,6 +1652,9 @@ msgstr "Přihlásit se"
 
 msgid "Register"
 msgstr "Registrovat"
+
+msgid "Menu"
+msgstr ""
 
 msgid "search in menu"
 msgstr "hledat v nabídce"
@@ -1632,14 +1706,6 @@ msgstr "Článek"
 
 msgid "Page"
 msgstr "Stránka"
-
-#: ../app/forms/admin/card_promotions/card_promotions_form.php:8
-#: ../app/forms/admin/category_cards/create_new_form.php:6
-#: ../app/forms/admin/category_recommended_cards/create_new_form.php:6
-#: ../app/forms/admin/related_cards/create_new_form.php:6
-#: ../app/forms/admin/warehouse_items/warehouse_items_form.php:6
-msgid "Product"
-msgstr "Produkt"
 
 msgid "Add images"
 msgstr "Přidat obrázky"
@@ -1873,7 +1939,7 @@ msgstr "smazáno"
 msgid "Adding a special pricelist"
 msgstr "Přidání speciálního ceníku"
 
-#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/admin.php:47
 #: ../app/controllers/admin/special_pricelists_controller.php:5
 msgid "Special price lists"
 msgstr "Speciální ceníky"
@@ -1954,9 +2020,6 @@ msgstr "Upravit údaje skladu"
 msgid "Stockcount"
 msgstr "Skladové množství"
 
-msgid "Show product in eshop"
-msgstr "Zobrazit produkt v e-shopu"
-
 msgid "Delete entry"
 msgstr "Smazat záznam"
 
@@ -2029,155 +2092,160 @@ msgid "Users"
 msgstr "Uživatelé"
 
 #: ../app/controllers/admin/admin.php:37
+#: ../app/controllers/admin/customer_reviews_controller.php:5
+msgid "Customer reviews"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:38
 msgid "Product types"
 msgstr "Typy produktů"
 
-#: ../app/controllers/admin/admin.php:38
+#: ../app/controllers/admin/admin.php:39
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../app/controllers/admin/admin.php:39
+#: ../app/controllers/admin/admin.php:40
 msgid "Vouchers"
 msgstr "Poukazy"
 
-#: ../app/controllers/admin/admin.php:40
+#: ../app/controllers/admin/admin.php:41
 msgid "Campaigns"
 msgstr "Kampaně"
 
-#: ../app/controllers/admin/admin.php:41
+#: ../app/controllers/admin/admin.php:42
 msgid "Brands"
 msgstr "Značky"
 
-#: ../app/controllers/admin/admin.php:43
+#: ../app/controllers/admin/admin.php:44
 msgid "Stores"
 msgstr "Prodejny"
 
-#: ../app/controllers/admin/admin.php:44
+#: ../app/controllers/admin/admin.php:45
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
 msgstr "Sklady"
 
-#: ../app/controllers/admin/admin.php:45
+#: ../app/controllers/admin/admin.php:46
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Price lists"
 msgstr "Ceníky"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:48
 msgid "Discounts"
 msgstr "Slevy"
 
-#: ../app/controllers/admin/admin.php:48
-msgid "Delivery methods"
-msgstr "Způsoby doručení"
-
 #: ../app/controllers/admin/admin.php:49
+msgid "Delivery methods"
+msgstr "Způsoby dopravy"
+
+#: ../app/controllers/admin/admin.php:50
 msgid "Payment methods"
 msgstr "Platební metody"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:51
 msgid "Combination of transports and payments"
 msgstr "Kombinace přeprav a plateb"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:53
 msgid "VAT rates"
 msgstr "Sazby DPH"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:54
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:55
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:56
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "Přesměrování 404"
 
-#: ../app/controllers/admin/admin.php:56
+#: ../app/controllers/admin/admin.php:57
 msgid "Order statuses"
 msgstr "Stavy objednávky"
 
-#: ../app/controllers/admin/admin.php:57
+#: ../app/controllers/admin/admin.php:58
 msgid "Selling regions"
 msgstr "Prodejná oblasti"
 
-#: ../app/controllers/admin/admin.php:58
+#: ../app/controllers/admin/admin.php:59
 #: ../app/forms/admin/users/users_form.php:48
 msgid "Customer groups"
 msgstr "Zákaznické skupiny"
 
-#: ../app/controllers/admin/admin.php:59
+#: ../app/controllers/admin/admin.php:60
 msgid "Bank accounts"
 msgstr "Bankovní účty"
 
-#: ../app/controllers/admin/admin.php:60
+#: ../app/controllers/admin/admin.php:61
 msgid "Cookie consent"
 msgstr "Souhlas se soubory cookie"
 
-#: ../app/controllers/admin/admin.php:61
+#: ../app/controllers/admin/admin.php:62
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:99
+#: ../app/controllers/admin/admin.php:102
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:135
+#: ../app/controllers/admin/admin.php:138
 #: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/admin.php:139
+#: ../app/controllers/admin/admin.php:142
 #: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/admin.php:147
+#: ../app/controllers/admin/admin.php:150
 #: ../app/controllers/admin/users_controller.php:81
 #, php-format
 msgid "Editing user %s"
 msgstr "Editace uživatele %s"
 
-#: ../app/controllers/admin/admin.php:191
+#: ../app/controllers/admin/admin.php:194
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:226
+#: ../app/controllers/admin/admin.php:229
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:240
+#: ../app/controllers/admin/admin.php:243
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:292
+#: ../app/controllers/admin/admin.php:295
 #: ../app/controllers/admin/card_sections_controller.php:27
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:327
+#: ../app/controllers/admin/admin.php:330
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:361
+#: ../app/controllers/admin/admin.php:364
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:483
+#: ../app/controllers/admin/admin.php:486
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:502
+#: ../app/controllers/admin/admin.php:505
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -2770,20 +2838,20 @@ msgstr "Tento slevový kupón již objednávka obsahuje"
 msgid "Editace slevového kupónu u objednávky"
 msgstr "Editace slevového kupónu u objednávky"
 
-#: ../app/controllers/admin/pages_controller.php:11
+#: ../app/controllers/admin/pages_controller.php:14
 msgid "Create page"
 msgstr "Vytvořit stránku"
 
-#: ../app/controllers/admin/pages_controller.php:12
+#: ../app/controllers/admin/pages_controller.php:15
 msgid "The page has been created successfully"
 msgstr "Stránka byla úspěšně vytvořena"
 
-#: ../app/controllers/admin/pages_controller.php:17
+#: ../app/controllers/admin/pages_controller.php:20
 #, php-format
 msgid "Editing page %s"
 msgstr "Editace stránky %s"
 
-#: ../app/controllers/admin/pages_controller.php:28
+#: ../app/controllers/admin/pages_controller.php:31
 msgid "The page has been updated successfully"
 msgstr "Stránka byla úspěšně aktualizována"
 
@@ -2898,8 +2966,8 @@ msgstr "Kombinace doprav a plateb"
 
 #: ../app/controllers/admin/shipping_combinations_controller.php:10
 #, php-format
-msgid "Způsoby platby pro způsob doručení '%s'"
-msgstr "Způsoby platby pro způsob doručení '%s'"
+msgid "Způsoby platby pro způsob dopravy '%s'"
+msgstr "Způsoby platby pro způsob dopravy '%s'"
 
 #: ../app/controllers/admin/shipping_combinations_controller.php:21
 #, php-format
@@ -3424,8 +3492,8 @@ msgid "Only for customer group"
 msgstr "Pouze pro zákaznickou skupinu"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:31
-msgid "Uplatňuje se pouze při použitém způsobu doručení"
-msgstr "Uplatňuje se pouze při použitém způsobu doručení"
+msgid "Uplatňuje se pouze při použitém způsobu dopravy"
+msgstr "Uplatňuje se pouze při použitém způsobu dopravy"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:36
 msgid "Uplatňuje se pouze při použité platební metodě"
@@ -3463,8 +3531,8 @@ msgid "Doprava zdarma?"
 msgstr "Doprava zdarma?"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:64
-msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
-msgstr "Doprava zdarma se vztahuje pouze na způsob doručení"
+msgid "Doprava zdarma se vztahuje pouze na způsob dopravy"
+msgstr "Doprava zdarma se vztahuje pouze na způsob dopravy"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:66
 msgid "všechny způsoby"
@@ -3919,6 +3987,19 @@ msgstr "Počet desetinných míst v celkové ceně objednávky"
 #: ../app/forms/admin/currencies/edit_form.php:10
 msgid "Conversion rate cannot be changed on the default currency"
 msgstr "Konverzní kurz nelze měnit ve výchozí měně"
+
+#: ../app/forms/admin/customer_reviews/edit_form.php:6
+#: ../app/forms/admin/customer_reviews/index_form.php:7
+msgid "Review status"
+msgstr ""
+
+#: ../app/forms/admin/customer_reviews/edit_form.php:26
+msgid "Review"
+msgstr ""
+
+#: ../app/forms/admin/customer_reviews/index_form.php:8
+msgid "any status"
+msgstr ""
 
 #: ../app/forms/admin/delivery_method_country_specifications/create_new_form.php:6
 msgid "Aktualizovat"
@@ -4382,15 +4463,11 @@ msgstr "způsob platby"
 msgid "stav online platby"
 msgstr "stav online platby"
 
-#: ../app/forms/admin/orders/index_form.php:39
-msgid "Způsob doručení"
-msgstr "Způsob doručení"
-
 #: ../app/forms/admin/orders/index_form.php:41
-msgid "způsob doručení"
-msgstr "způsob doručení"
+msgid "způsob dopravy"
+msgstr "způsob dopravy"
 
-#: ../app/forms/admin/orders/index_form.php:53
+#: ../app/forms/admin/orders/index_form.php:50
 msgid "všechny rozpracované objednávky"
 msgstr "všechny rozpracované objednávky"
 
@@ -5127,6 +5204,28 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid "pouze při zvoleném způsobu doručení %1"
+#~ msgstr "pouze při zvoleném způsobu doručení %1"
+
+#~ msgid "pouze pro způsob doručení %1"
+#~ msgstr "pouze pro způsob doručení %1"
+
+#, php-format
+#~ msgid "Způsoby platby pro způsob doručení '%s'"
+#~ msgstr "Způsoby platby pro způsob doručení '%s'"
+
+#~ msgid "Uplatňuje se pouze při použitém způsobu doručení"
+#~ msgstr "Uplatňuje se pouze při použitém způsobu doručení"
+
+#~ msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
+#~ msgstr "Doprava zdarma se vztahuje pouze na způsob doručení"
+
+#~ msgid "Způsob doručení"
+#~ msgstr "Způsob doručení"
+
+#~ msgid "způsob doručení"
+#~ msgstr "způsob doručení"
 
 #~ msgid "sales regions"
 #~ msgstr "prodejní oblasti"
