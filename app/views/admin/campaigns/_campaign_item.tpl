@@ -19,7 +19,7 @@
 				<li>{t customer_group=$campaign->getRequiredCustomerGroup()}pouze pro zákaznickou skupinu %1{/t}</li>
 			{/if}
 			{if $campaign->getRequiredDeliveryMethod()}
-				<li>{t delivery_method=$campaign->getRequiredDeliveryMethod()}pouze při zvoleném způsobu doručení %1{/t}</li>
+				<li>{t delivery_method=$campaign->getRequiredDeliveryMethod()}pouze při zvoleném způsobu dopravy %1{/t}</li>
 			{/if}
 			{if $campaign->getRequiredPaymentMethod()}
 				<li>{t payment_method=$campaign->getRequiredPaymentMethod()}pouze při zvolené platební metodě %1{/t}</li>
@@ -41,7 +41,7 @@
 			<li>
 				{t}doprava zdarma{/t}
 				{if $campaign->getDeliveryMethod()}
-					({t dm=$campaign->getDeliveryMethod()}pouze pro způsob doručení %1{/t})
+					({t dm=$campaign->getDeliveryMethod()}pouze pro způsob dopravy %1{/t})
 				{/if}
 			</li>
 		{/if}

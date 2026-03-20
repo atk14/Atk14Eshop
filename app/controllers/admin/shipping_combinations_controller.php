@@ -7,7 +7,7 @@ class ShippingCombinationsController extends AdminController {
 	}
 
 	function edit_payment_methods() {
-		$this->page_title = sprintf(_("Způsoby platby pro způsob doručení '%s'"), $this->delivery_method->getLabel());
+		$this->page_title = sprintf(_("Způsoby platby pro způsob dopravy '%s'"), $this->delivery_method->getLabel());
 		$this->_save_return_uri();
 
 		$this->form->set_initial("payment_method_id", $this->delivery_method->getPaymentMethodIds());

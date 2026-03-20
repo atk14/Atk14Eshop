@@ -36,9 +36,9 @@ class IndexForm extends OrdersForm{
 		]));
 
 		$this->add_field("delivery_method_id", new DeliveryMethodField([
-			"label" => _("Způsob doručení"),
+			"label" => _("Způsob dopravy"),
 			"required" => false,
-			"empty_choice_text" => "-- "._("způsob doručení")." --",
+			"empty_choice_text" => "-- "._("způsob dopravy")." --",
 		]));
 
 		$field = new OrderStatusField([]);
