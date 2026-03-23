@@ -238,22 +238,22 @@ msgid "Sleva"
 msgstr "Sleva"
 
 msgid "Based on one review"
-msgstr ""
+msgstr "Na základě jednoho hodnocení"
 
 msgid "Based on %1 reviews"
-msgstr ""
+msgstr "Na základě %1 hodnocení"
 
 msgid "Write review"
-msgstr ""
+msgstr "Napsat recenzi"
 
 msgid "Customer reviews"
-msgstr ""
+msgstr "Recenze zákazníků"
 
 msgid "No one has rated this book yet."
-msgstr ""
+msgstr "Tuto knihu zatím nikdo nehodnotil."
 
 msgid "No one has rated this product yet."
-msgstr ""
+msgstr "Tento produkt zatím nikdo nehodnotil."
 
 msgid "Accessories"
 msgstr "Příslušenství"
@@ -271,10 +271,10 @@ msgid "Brand:"
 msgstr "Značka:"
 
 msgid "1 review"
-msgstr ""
+msgstr "1 recenze"
 
 msgid "%1 reviews"
-msgstr ""
+msgstr "%1 recenzí"
 
 msgid "Edit section"
 msgstr "Upravit sekci"
@@ -424,34 +424,35 @@ msgid ""
 "You can only write a review for items purchased in our store. Please make "
 "sure you are logged in to the account you used to purchase the item."
 msgstr ""
+"Recenzi lze napsat pouze pro zboží zakoupené v našem obchodě. Ujistěte se prosím, že jste přihlášeni k účtu, který jste použili při nákupu."
 
 msgid "Write a review for the product you purchased"
-msgstr ""
+msgstr "Napište recenzi na zakoupený produkt"
 
 msgid "Purchased at %1"
-msgstr ""
+msgstr "Zakoupeno dne %1"
 
 #: ../app/controllers/customer_reviews_controller.php:11
 #: ../app/controllers/customer_reviews_controller.php:29
 msgid "My reviews"
-msgstr ""
+msgstr "Moje recenze"
 
 msgid "This review has not yet been published"
-msgstr ""
+msgstr "Tato recenze zatím nebyla zveřejněna"
 
 msgid "Edit"
 msgstr "Upravit"
 
 msgid "Delete review"
-msgstr ""
+msgstr "Smazat recenzi"
 
 msgid ""
 "The option to write a review will be available to you based on your "
 "purchases."
-msgstr ""
+msgstr "Možnost napsat recenzi bude dostupná na základě vašich nákupů."
 
 msgid "You haven't written any reviews yet."
-msgstr ""
+msgstr "Zatím jste nenapsali žádnou recenzi."
 
 msgid "Nemáte uloženou žádnou doručovací adresu"
 msgstr "Nemáte uloženou žádnou doručovací adresu"
@@ -1113,10 +1114,10 @@ msgid "Souhlas můžete odmítnout %1 zde </a>"
 msgstr "Souhlas můžete odmítnout %1 zde </a>"
 
 msgid "rating:"
-msgstr ""
+msgstr "hodnocení:"
 
 msgid "created at:"
-msgstr ""
+msgstr "vytvořeno:"
 
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Doručovací adresa bude smazána. Pokračovat?"
@@ -1360,7 +1361,7 @@ msgid "Total price"
 msgstr "Celková cena"
 
 msgid "Loading..."
-msgstr ""
+msgstr "Načítám..."
 
 msgid "To the checkout"
 msgstr "K pokladně"
@@ -1926,7 +1927,7 @@ msgstr "Seznam značek"
 #: ../app/controllers/card_customer_reviews_controller.php:10
 #: ../app/fields/rating_field.php:6
 msgid "Rating"
-msgstr ""
+msgstr "Hodnocení"
 
 #: ../app/controllers/card_list_controller.php:102
 msgid "Doporučujeme"
@@ -2022,27 +2023,27 @@ msgstr "Používání cookies bylo zamítnuto"
 
 #: ../app/controllers/customer_reviews_controller.php:141
 msgid "Poor"
-msgstr ""
+msgstr "Špatné"
 
 #: ../app/controllers/customer_reviews_controller.php:142
 msgid "Fair"
-msgstr ""
+msgstr "Dostatečné"
 
 #: ../app/controllers/customer_reviews_controller.php:143
 msgid "Good"
-msgstr ""
+msgstr "Dobré"
 
 #: ../app/controllers/customer_reviews_controller.php:144
 msgid "Very good"
-msgstr ""
+msgstr "Velmi dobré"
 
 #: ../app/controllers/customer_reviews_controller.php:145
 msgid "Excellent"
-msgstr ""
+msgstr "Výborné"
 
 #: ../app/controllers/customer_reviews_controller.php:155
 msgid "Your review has been saved. Thank You."
-msgstr ""
+msgstr "Vaše recenze byla uložena. Děkujeme."
 
 #: ../app/controllers/delivery_addresses_controller.php:5
 msgid "Seznam doručovacích adres"
@@ -2560,6 +2561,7 @@ msgid ""
 "Select the number of stars that corresponds to your level of satisfaction, "
 "with a scale being one to five stars"
 msgstr ""
+"Vyberte počet hvězdiček odpovídající vaší spokojenosti, přičemž stupnice je od jedné do pěti hvězdiček"
 
 #: ../app/fields/slug_field.php:8
 msgid "Slug"
@@ -2804,23 +2806,23 @@ msgstr "Poslat zprávu"
 
 #: ../app/forms/customer_reviews/create_new/write_review_form.php:8
 msgid "This name will be published"
-msgstr ""
+msgstr "Toto jméno bude zveřejněno"
 
 #: ../app/forms/customer_reviews/create_new/write_review_form.php:14
 msgid "Review title"
-msgstr ""
+msgstr "Název recenze"
 
 #: ../app/forms/customer_reviews/create_new/write_review_form.php:19
 msgid "Your review"
-msgstr ""
+msgstr "Vaše recenze"
 
 #: ../app/forms/customer_reviews/create_new/write_review_form.php:22
 msgid "Write a few words about your rating"
-msgstr ""
+msgstr "Napište pár slov o vašem hodnocení"
 
 #: ../app/forms/customer_reviews/create_new/write_review_form.php:26
 msgid "Save review"
-msgstr ""
+msgstr "Uložit recenzi"
 
 #: ../app/forms/delivery_addresses/create_new_form.php:6
 msgid "Uložit adresu"
@@ -3124,27 +3126,27 @@ msgstr "Kč"
 
 #: ../app/models/customer_review.php:69
 msgid "Product rating"
-msgstr ""
+msgstr "Hodnocení produktu"
 
 #: ../app/models/customer_review.php:70
 msgid "Write a review for product"
-msgstr ""
+msgstr "Napsat recenzi na produkt"
 
 #: ../app/models/customer_review.php:71
 msgid "How satisfied are you with the product?"
-msgstr ""
+msgstr "Jak jste spokojeni s produktem?"
 
 #: ../app/models/customer_review.php:79
 msgid "Book rating"
-msgstr ""
+msgstr "Hodnocení knihy"
 
 #: ../app/models/customer_review.php:80
 msgid "Write a review for book"
-msgstr ""
+msgstr "Napsat recenzi na knihu"
 
 #: ../app/models/customer_review.php:81
 msgid "How did you like the book?"
-msgstr ""
+msgstr "Jak se vám kniha líbila?"
 
 #: ../app/models/delivery_method.php:42
 #, php-format
