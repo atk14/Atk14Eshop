@@ -111,9 +111,16 @@ class TestsController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		// this controller is accessible only to administrators
+		if(PRODUCTION && !($this->logged_user && $this->logged_user->isAdmin())){
+			$this->_execute_action("error403");
+			return;
+		}
+
 		// neni zadouci posilani emailu v produkci!
 		if(PRODUCTION && preg_match('/^notify_/',$this->action)){
 			$this->_execute_action("error403");
+			return;
 		}
 	}
 
