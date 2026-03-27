@@ -7,6 +7,40 @@ class TestsController extends ApplicationController {
 		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}
 
+	function locales(){
+		global $ATK14_GLOBAL;
+
+		$this->page_title = "Locales";
+
+		Atk14Require::Helper("modifier.display_price");
+
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+		$langs = array_keys($locales);
+
+		$rows = [];
+
+		$orig = $ATK14_GLOBAL->getLang();
+
+		$rows = [
+			"Dates" => [],
+			"Integers" => [],
+			"Numbers" => [],
+			"Prices EUR" => [],
+		];
+		foreach($langs as $lang){
+			Atk14Locale::Initialize($lang);
+			$rows["Dates"][$lang] = Atk14Locale::FormatDate("2026-12-31");
+			$rows["Integers"][$lang] = Atk14Locale::FormatNumber(1234567);
+			$rows["Numbers"][$lang] = Atk14Locale::FormatNumber(1234567.89);
+			$rows["Prices EUR"][$lang] = smarty_modifier_display_price(1234.50,"EUR,format=plain");
+		}
+
+		Atk14Locale::Initialize($orig);
+
+		$this->tpl_data["locales"] = $locales;
+		$this->tpl_data["rows"] = $rows;
+	}
+
 	function modal(){
 		$this->page_title = "Testování block.modal";
 	}
