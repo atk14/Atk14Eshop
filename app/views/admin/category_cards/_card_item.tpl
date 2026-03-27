@@ -8,10 +8,13 @@
 
 <tr>
 	<td>{render partial="shared/list_thumbnail" image=$card->getImage()}</td>
-	{highlight_search_query}
-	<td>{render partial="shared/product_codes" products=$card->getProducts(["visible" => null])}</td>
-	<td>{$card->getName()}</td>
-	{/highlight_search_query}
+	<td>{highlight_search_query}{render partial="shared/product_codes" products=$card->getProducts(["visible" => null])}{/highlight_search_query}</td>
+	<td>
+		{highlight_search_query}{$card->getName()}{/highlight_search_query}
+		{if !$card->isVisible()}
+		<br><em>({!"eye-slash"|icon} {t}invisible{/t})</em>
+		{/if}
+	</td>
 	<td>
 		{$rank|default:$mdash}
 	</td>
