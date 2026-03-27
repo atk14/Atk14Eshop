@@ -116,7 +116,7 @@ class DeliveryService extends ApplicationModel {
 			return $this->parser_class;
 		}
 		$class_name = new String4($this->getCode());
-		$class_name->replace("-", "_");
+		$class_name = $class_name->replace("-", "_");
 		$this->parser_class = $parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
 		return $parserClassName;
 	}
