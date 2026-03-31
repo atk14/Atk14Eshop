@@ -629,40 +629,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		return $alt_cards;
 	}
 
-	static $TechnicalSpecificationList;
 	function getTechnicalSpecifications($options = []){
 		$options += [
 			"visible" => null,
 		];
 
-		if(!self::$TechnicalSpecificationList) {
-			self::$TechnicalSpecificationList = new CacheSomething(
-				function($ids) {
-					$ids += Cache::CachedIds("Card");
-					$dbmole = Card::GetDbmole();
-					$rows = $dbmole->selectRows(
-						"
-							SELECT
-								card_id, id
-							FROM
-								technical_specifications WHERE card_id IN :ids ORDER BY rank, id
-						",
-						[":ids" => $ids]
-					);
-					Cache::Prepare("TechnicalSpecification", array_column($rows, "id"));
-					$out = array_fill_keys($ids, []);
-					foreach($rows as $row){
-						$cid = $row["card_id"];
-						$out[$cid][] = Cache::Get("TechnicalSpecification",$row["id"]);
-					}
-					return $out;
-				},
-				"TechnicalSpecification"
-			);
-		}
-		$out = self::$TechnicalSpecificationList->get($this);
-		$out = array_filter($out); $out = array_values($out); // sometimes a null value seems to be present
-		//$out = TechnicalSpecification::FindAll("card_id",$this);
+		$out = TechnicalSpecification::GetInstancesForCard($this);
 
 		if(!is_null($options["visible"])){
 			$_out = [];
@@ -672,6 +644,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			}
 			$out = $_out;
 		}
+
 		return $out;
 	}
 
@@ -686,8 +659,6 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	 * @return TechnicalSpecification
 	 */
 	function getTechnicalSpecification($key){
-		static $KEYS;
-
 		if(is_numeric($key) && ($obj = Cache::Get("TechnicalSpecificationKey",$key))){
 			$key = $obj;
 		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByCode($key))){
@@ -696,15 +667,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$key = $obj;
 		}
 
-		if(!is_object($key)){
-			return null;
-		}
-
-		foreach($this->getTechnicalSpecifications() as $ts){
-			if($ts->getTechnicalSpecificationKeyId()==$key->getId()){
-				return $ts;
-			}
-		}
+		return TechnicalSpecification::GetForCard($this,$key);
 	}
 
 	function setValues($values,$options=array()) {
