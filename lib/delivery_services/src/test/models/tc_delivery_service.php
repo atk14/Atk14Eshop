@@ -4,8 +4,8 @@
  */
 class TcDeliveryService extends TcBase {
 
-	function setUp() {
-		parent::setUp();
+	function _setUp() {
+		parent::_setUp();
 
 		Cache::Clear();
 		SystemParameter::ClearCache();
@@ -21,17 +21,17 @@ class TcDeliveryService extends TcBase {
 
 		# setting own parsing class
 		$this->delivery_services["posta"]->setParserClass("DeliveryService\BranchParser\CpBalikNaPostu");
-		$this->assertEquals("https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml", $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
+		$this->assertEquals(["https://pickup-point.api.packeta.com/v5/{API_KEY}/branch/json","https://pickup-point.api.packeta.com/v5/{API_KEY}/box/json"], $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
 		$this->assertEquals("http://napostu.ceskaposta.cz/vystupy/napostu.xml", $this->delivery_services["posta"]->getBranchesDownloadUrl());
 
 		# bez api key vracime stale url s placeholderem
-		$this->assertEquals("https://www.zasilkovna.cz/api/v4/{API_KEY}/branch.xml", $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
+		$this->assertEquals(["https://pickup-point.api.packeta.com/v5/{API_KEY}/branch/json","https://pickup-point.api.packeta.com/v5/{API_KEY}/box/json"], $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
 
 		# se zadanym api key iz vracime kompletni url
 		$sys_param->s("content", "abcdef0123456789");
 		Cache::Clear();
 		SystemParameter::ClearCache();
-		$this->assertEquals("https://www.zasilkovna.cz/api/v4/abcdef0123456789/branch.xml", $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
+		$this->assertEquals(["https://pickup-point.api.packeta.com/v5/abcdef0123456789/branch/json","https://pickup-point.api.packeta.com/v5/abcdef0123456789/box/json"], $this->delivery_services["zasilkovna"]->getBranchesDownloadUrl());
 	}
 
 	function test_can_be_used() {
@@ -49,5 +49,22 @@ class TcDeliveryService extends TcBase {
 		Cache::Clear();
 		SystemParameter::ClearCache();
 		$this->assertTrue($this->delivery_services["zasilkovna"]->canBeUsed());
+	}
+
+	function test_getNameLocalized(){
+		$zasilkovna = DeliveryService::GetInstanceByCode("zasilkovna");
+
+		$lang = "en";
+		$lang_orig = Atk14Locale::Initialize($lang);
+		$this->assertEquals("Packeta",$zasilkovna->getNameLocalized());
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("Zásilkovna",$zasilkovna->getNameLocalized());
+
+		$this->assertEquals("Packeta",$zasilkovna->getNameLocalized("en"));
+		$this->assertEquals("Zásilkovna",$zasilkovna->getNameLocalized("cs"));
+
+		Atk14Locale::Initialize($lang_orig);
 	}
 }

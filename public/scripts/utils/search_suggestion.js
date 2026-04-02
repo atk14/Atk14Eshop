@@ -17,6 +17,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 	var $suggestingArea = $( "." + suggestingAreaClassName );
 	var $field = $( "." + fieldClassName );
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
+	var contentSearching;
 
 	options = $.extend( { hiding_suggesting_area: true }, options || {} );
 	// console.log( fieldClassName );
@@ -30,6 +31,14 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		return;
 	}
 
+	if ( $suggestingArea.data( "content" ) ) {
+		contentSearching = $suggestingArea.data( "content" );
+	} else {
+		contentSearching = $suggestingArea.html;
+	}
+
+	console.log( contentSearching );
+
 	window.UTILS._search_suggestion.states[ stateIndex ] = {
 		fieldClassName: fieldClassName,
 		suggestingAreaClassName: suggestingAreaClassName,
@@ -42,7 +51,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 		suggestingAreaVisible: false,
 		suggestingCache: {},
 		suggestingAreaNeedsToBePositioned: true,
-		suggestingAreaOriginalContent: $suggestingArea.html()
+		suggestingAreaOriginalContent: contentSearching
 	};
 
 	//$suggestingArea.hide();

@@ -36,6 +36,11 @@ class OrdersController extends ApplicationController {
 
 	function detail(){
 		if(!$order = $this->_find_order()){
+			if(!$this->logged_user){
+				$this->flash->info(_("Pro zobrazení obsahu objednávky se přihlaste svým přihlašovacím jménem a heslem"));
+				$this->_redirect_to_login();
+				return;
+			}
 			return $this->_execute_action("error404");
 		}
 
@@ -116,6 +121,11 @@ class OrdersController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		if($this->action==="index" && !$this->logged_user){
+			$this->flash->info(_("Pro zobrazení objednávek se přihlaste svým přihlašovacím jménem a heslem"));
+			$this->_redirect_to_login();
+			return;
+		}
 		if($this->action==="finish"){
 			$this->breadcrumbs[] = _("Shopping basket");
 		}else{
@@ -123,10 +133,10 @@ class OrdersController extends ApplicationController {
 		}
 	}
 
-	function _logged_user_required(){
-		if(in_array($this->action,["detail","care_instructions","finish"])){
-			return false;
-		}
-		return true;
+	function _redirect_to_login(){
+		$this->_redirect_to([
+			"action" => "logins/create_new",
+			"return_uri" => $this->request->getUri(),
+		]);
 	}
 }

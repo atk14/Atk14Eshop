@@ -15,10 +15,12 @@ mark {
 // icon at the heading beginning woould have slight more space before text
 h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 	.fas, .far, .fab {
-		color: #888;
 		&:first-child {
 			margin-right: 0.25em;
 		}
+	}
+	> .fas, > .far, > .fab {
+		color: #888;
 	}
 }
 

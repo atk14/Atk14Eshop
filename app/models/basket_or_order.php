@@ -30,6 +30,7 @@ class BasketOrOrder extends ApplicationModel {
 			$fields += [
 				"{$prefix}company_number" => false,
 				"{$prefix}vat_id" => false,
+				"{$prefix}local_vat_id" => false,
 			];
 		}
 
@@ -334,4 +335,23 @@ class BasketOrOrder extends ApplicationModel {
 		$out = round($out,INTERNAL_PRICE_DECIMALS);
 		return $out;
 	}
+
+	function _getVatPercentForPriceRounding(){
+		$default_vat_percent = VatRate::GetDefaultVatRate()->getVatPercent();
+
+		$out = null;
+		foreach($this->getItems() as $item){
+			if($item->getProduct()->getCode()==="price_rounding"){ continue; }
+			if(is_null($out)){ $out = $item->getVatPercent(); } // take vat percent from the first item
+			if($item->getVatPercent() == $default_vat_percent){ // but default vat rate takes precedence
+				$out = $default_vat_percent;
+				break;
+			}
+		}
+
+		if(is_null($out)){ $out = $default_vat_percent; }
+
+		return $out;
+	}
+
 }

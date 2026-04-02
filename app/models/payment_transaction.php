@@ -110,7 +110,7 @@ class PaymentTransaction extends ApplicationModel {
 				// Protoze je metoda Order::increasePricePaid() multi-threaded safe,
 				// je tady pojistka, ktera brani ve vicenasobnem navyseni zaplacene castky.
 				$current_price_paid = (float)$order->getPricePaid();
-				myAssert($current_price_paid === 0.0);
+				myAssert($current_price_paid === 0.0,sprintf("Order#%s should have zero price paid, but it has: %s (order_no=%s, PaymentTransaction#%s)",$order->getId(),$current_price_paid,$order->getOrderNo(),$this->getId()));
 				$order->increasePricePaid($this->getPriceToPay());
 				myAssert(round($order->getPricePaid(),INTERNAL_PRICE_DECIMALS)===round(($current_price_paid + $this->getPriceToPay()),INTERNAL_PRICE_DECIMALS));
 			}

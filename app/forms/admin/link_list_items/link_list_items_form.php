@@ -9,6 +9,7 @@ class LinkListItemsForm extends AdminForm {
 		$this->add_field("regions", new RegionsField(array(
 			"label" => _("Zobrazovat v oblasti"),
 			"json_encode" => true,
+			"initial" => "__all__",
 		)));
 
 		$this->add_field("url", new CharField(array(

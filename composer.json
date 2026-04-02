@@ -7,7 +7,7 @@
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.1 >=1.1.3",
         "atk14/drink-markdown": "^0.8",
-        "essence/essence": "^2.6.1|^3.5.3",
+        "yarri/essence": "3.5.4.1",
         "atk14/menu14": "^1.5|^2.0",
         "yarri/my-blowfish": "^1.4",
         "yarri/full-text-search-query-like": "^0.2",
@@ -26,8 +26,9 @@
         "atk14/hcaptcha-field": "^0.1.0",
         "atk14/recaptcha-field": "^0.1.2",
         "yarri/markdown-manual.mdbook": "^0.3",
-        "atk14/async-file-field": "^1.0",
+        "atk14/async-file-field": "^1.0 >=1.0.4",
         "yarri/keywords-highlighter": "^0.1.2",
+        "atk14/cache-something": "^1.0",
         "atk14/vlnka": "^1.1",
         "atk14/company-number-field": "^0.1",
         "aristath/ari-color": "^1.1.1",
@@ -36,12 +37,14 @@
         "bacon/bacon-qr-code": "^1.0|^2.0",
         "atk14/csv-reader": "^1.1",
         "atk14/csv-writer": "^1.1",
-        "atk14/sql-builder": "^3.2|^4.1",
-        "atk14/category-filter": "^2.4",
+        "atk14/sql-builder": "^4.4 >=4.4.4",
+        "atk14/category-filter": "^2.4 >=2.4.6",
         "atk14/cookie-consent": "^1.0",
-        "mysutka/datalayer_generator": "dev-feature/ga4_support",
+        "mysutka/datalayer_generator": "^1.0",
         "adamstipak/webpay-php": "^1.1",
         "atk14/ip-matcher": "^1.0",
-        "tecnickcom/tcpdf": "^6.6"
+        "tecnickcom/tcpdf": "^6.6",
+        "yarri/array-flatten": "^0.1.0",
+        "salamek/ppl-my-api": "^2.7|^2.2"
     }
 }

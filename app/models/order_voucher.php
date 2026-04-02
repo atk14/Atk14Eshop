@@ -37,8 +37,11 @@ class OrderVoucher extends BasketOrOrderVoucher {
 		return Cache::Get("User",$this->getUpdatedByUserId());
 	}
 
+	function freeShipping(){
+		return $this->g("free_shipping");
+	}
+
 	function getVatPercent(){
 		return $this->g("vat_percent");
 	}
-
 }

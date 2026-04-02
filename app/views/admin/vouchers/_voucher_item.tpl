@@ -1,6 +1,6 @@
 <tr>
 	{highlight_search_query}
-	<td>{highlight_search_query}{$voucher->getId()}{/highlight_search_query}</td>
+	<td>{$voucher->getId()}</td>
 	<td>{render partial="shared/region_list" regions=$voucher->getRegions()}</td>
 	<td>{if $voucher->isGiftVoucher()}{!"gift"|icon}{/if}</td>
 	<td>{$voucher->getVoucherCode()}</td>

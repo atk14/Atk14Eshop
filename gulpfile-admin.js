@@ -1,7 +1,23 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
 var $ = require( "gulp-load-plugins" )();
+var postcss = require( "gulp-postcss" );
+var cssnano = require( "cssnano" );
+var nesting = require( "postcss-nesting" );
+var concat = require( "gulp-concat" );
+var autoprefixer = require( "autoprefixer" );
 var browserSync = require( "browser-sync" ).create();
+
+// workaround for older Node.js versions that do not support Object.fromEntries natively
+if (!Object.fromEntries) {
+  Object.fromEntries = function(entries) {
+    return [...entries].reduce((obj, [key, val]) => {
+      obj[key] = val;
+      return obj;
+    }, {});
+  };
+}
+
 
 var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
@@ -9,6 +25,7 @@ var vendorStyles = [
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/animate.css/animate.css",
+	"node_modules/swiper/swiper-bundle.min.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -23,8 +40,8 @@ var vendorScripts = [
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
-	"node_modules/bootstrap4-notify/bootstrap-notify.js",
 	"node_modules/autocompleter/autocomplete.js",
+	"node_modules/swiper/swiper-bundle.js", // needed for md preview
 	"node_modules/moment/moment.js",
 	"node_modules/moment/locale/cs.js",
 	"node_modules/chart.js/dist/chart.js",
@@ -38,9 +55,18 @@ var applicationScripts = [
 	"public/scripts/utils/suggestions.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",
-	"public/admin/scripts/utils/dashboard_charts.js",
+	"public/admin/scripts/utils/tag_chooser.js",
+	"public/scripts/utils/notifications.js",
+	"public/admin/scripts/utils/dashboard_charts_v2.js",
 	"public/scripts/utils/filterable_list.js",
 	"public/admin/scripts/tooltip.js",
+	"public/admin/scripts/utils/geopaste.js",
+	"public/admin/scripts/utils/md_editor_resizer.js",
+	"public/admin/scripts/utils/collapsible_sidebar.js",
+	"public/admin/scripts/utils/enhanced_file_field.js",
+	"public/admin/scripts/utils/layout_designer.js",
+	"public/scripts/utils/swiper.js",
+	"public/admin/scripts/utils/preview_mode_toggle.js",
 	"public/admin/scripts/application.js",
 ];
 
@@ -53,8 +79,7 @@ gulp.task( "styles-admin", function() {
 				"public/admin/styles"
 			]
 		} ) )
-		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -65,8 +90,7 @@ gulp.task( "styles-from-frontend", function() {
 	return gulp.src( ["public/admin/styles/shared/frontend-styles.scss"] )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass() )
-		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -76,9 +100,9 @@ gulp.task( "styles-from-frontend", function() {
 gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
-		.pipe( $.autoprefixer() )
-		.pipe( $.cssnano() )
+		.pipe( concat( "vendor.css" ) )
+		//.pipe( postcss( [ nesting(), autoprefixer(), cssnano() ] ) )
+		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )

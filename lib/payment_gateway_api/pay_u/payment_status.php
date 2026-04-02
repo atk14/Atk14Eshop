@@ -5,6 +5,13 @@ require_once(__DIR__ . "/../pay_u.php"); // it is due to constants
 
 class PaymentStatus {
 
+	var $_statusTr;
+	var $_typeTr;
+	var $_PAYU_KEY2;
+	var $_data;
+	var $_status;
+	var $_xml;
+
 	protected function __construct(){
 		$this->_statusTr = array(
 			"1" => array("desc" => "new", "desc_human" => _("nová platba")), // nova 

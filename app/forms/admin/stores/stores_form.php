@@ -52,12 +52,14 @@ class StoresForm extends AdminForm {
 			"label" => _("Latitude"),
 			"hint" => "50.0876229",
 			"required" => false,
+			"help_text" => _("Enter latitude (e.g. 50.0876229) or paste coordinates (e.g. 50.7326181N, 14.9850481E)"),
 		]));
 
 		$this->add_field("location_lng", new FloatField([
 			"label" => _("Longitude"),
 			"hint" => "14.4639075",
 			"required" => false,
+			"help_text" => _("Enter longitude (e.g. 14.4639075) or paste coordinates (e.g. 50.7326181N, 14.9850481E)"),
 		]));
 
 		$this->add_translatable_field("address", new TextField(array(

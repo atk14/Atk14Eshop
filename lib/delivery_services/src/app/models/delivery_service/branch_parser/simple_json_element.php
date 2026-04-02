@@ -2,7 +2,7 @@
 
 namespace DeliveryService\BranchParser;
 
-class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
+class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess, \Countable {
 
 	public function __construct(
 		string $data,
@@ -14,14 +14,6 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		$this->_data = json_decode($data, true);
 	}
 
-	public function _getBranchNodes($options=[]) {
-#		$_branch_element_name = sprintf("//%s%s", ($nsPrefix ? $nsPrefix.":" : ""), $static::GetXMLBranchName());
-
-		return array_map(function($e) {
-			return new static(json_encode($e));
-		}, $this->_data["data"]["destination"]);
-	}
-
 	private $_data;
 	private $_position = 0;
 
@@ -29,11 +21,13 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		return $this->_data;
 	}
 
-	function offsetGet($offset): mixed {
+	#[\ReturnTypeWillChange]
+	function offsetGet($offset) {
 		return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
 	}
 
-	public function offsetSet($offset, $value): void {
+	#[\ReturnTypeWillChange]
+	public function offsetSet($offset, $value) {
 		if (is_null($offset)) {
 			$this->_data[] = $value;
 		} else {
@@ -41,12 +35,19 @@ class SimpleJsonElement implements /*\RecursiveIterator,*/ \ArrayAccess {
 		}
 	}
 
-	public function offsetExists($offset): bool {
+	#[\ReturnTypeWillChange]
+	public function offsetExists($offset) {
 		return isset($this->_data[$offset]);
 	}
 
-	public function offsetUnset($offset): void {
+	#[\ReturnTypeWillChange]
+	public function offsetUnset($offset) {
 		unset($this->_data[$offset]);
+	}
+
+	#[\ReturnTypeWillChange]
+	public function count() {
+		return count($this->_data);
 	}
 
 

@@ -28,11 +28,11 @@ class BasketOrOrderVoucher extends ApplicationModel implements Rankable {
 		if(strlen((string)$description)){
 			return $description;
 		}
-		if($this->getDiscountPercent()>0.0 || $this->getDiscountAmount()){
-			return _("Slevový kupón");
-		}
 		if($this->freeShipping()){
 			return _("Doprava zdarma");
+		}
+		if($this->getDiscountPercent()>0.0 || $this->getDiscountAmount()){
+			return _("Slevový kupón");
 		}
 		return _("Dárkový poukaz");
 	}

@@ -142,16 +142,33 @@ class FavouriteProductsAccessor {
 		}
 
 		$conditions = $bind_ar = [];
-		$conditions[] = "session_salt=:session_salt";
+		$conditions[] = "favourite_products.session_salt=:session_salt";
 		$bind_ar[":session_salt"] = $session_salt;
 		if($this->user){
-			$conditions[] = "user_id=:user";
+			$conditions[] = "favourite_products.user_id=:user";
 			$bind_ar[":user"] = $this->user;
 		}else{
-			$conditions[] = "user_id IS NULL";
+			$conditions[] = "favourite_products.user_id IS NULL";
 		}
 		
 		$dbmole = FavouriteProduct::GetDbmole();
-		$this->CACHED_AR = $dbmole->selectIntoAssociativeArray("SELECT product_id,id FROM favourite_products WHERE ".join(" AND ",$conditions)." ORDER BY created_at DESC, id DESC",$bind_ar);
+		$rows = $dbmole->selectRows("
+			SELECT
+				favourite_products.product_id,
+				favourite_products.id,
+				products.card_id
+			FROM
+				favourite_products,
+				products
+			WHERE
+				".join(" AND ",$conditions)." AND
+				products.id=favourite_products.product_id
+			ORDER BY favourite_products.created_at DESC, favourite_products.id DESC",$bind_ar);
+		$ids = array_map(function($row){ return $row["id"]; },$rows);
+		$product_ids = array_map(function($row){ return $row["product_id"]; },$rows);
+		$card_ids = array_map(function($row){ return $row["card_id"]; },$rows);
+		$this->CACHED_AR = array_combine($product_ids,$ids);
+		Cache::Prepare("Product",$product_ids);
+		Cache::Prepare("Card",$card_ids);
 	}
 }

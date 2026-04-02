@@ -2,6 +2,7 @@
 
 {render partial="shared/layout/content_header" title=$page_title}
 
+<div class="card-deck-wrapper">
 <div class="card-deck card-deck--sized-3 cards--login-options">
 	<div class="card bg-light">
 		<div class="card-body">
@@ -32,4 +33,5 @@
 			{a action="checkouts/set_billing_and_delivery_data" _class="btn btn-primary"}{t}Pokračovat bez registrace{/t}{/a}
 		</div>
 	</div>
+</div>
 </div>

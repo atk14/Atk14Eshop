@@ -12,6 +12,7 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 		bool $isPrefix = false
 	) {
 		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+#		$instance->_data = json_decode($data, true);
 		return $instance;
 	}
 
@@ -34,6 +35,28 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 			"location_longitude" => $this->getLongitude(),
 			"active" => $this->isActive(),
 		];
+	}
+
+	/**
+	 * Nektere sluzby mohou mit vydejni mista rozdelena do vice feedu.
+	 * Napriklad Zasilkovna ve verzi 5.
+	 * Feedy musi mit stejnou strukturu, potom je mozne je spojit.
+	 *
+	 */
+	static function FetchFeed($feed_url) {
+		if (!is_array($feed_url)) {
+			$feed_url = [$feed_url];
+		}
+		$data = [];
+		foreach($feed_url as $_feed) {
+			$_d = @file_get_contents($_feed);
+			myAssert($_d!==false);
+			$data[] = json_decode($_d, true);
+		}
+		$data[] = [];
+		$data = array_merge((array)$data[0], (array)$data[1]);
+		$data = json_encode($data);
+		return $data;
 	}
 }
 

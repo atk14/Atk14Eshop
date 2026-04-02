@@ -11,7 +11,26 @@ use DeliveryService\BranchParser;
  */
 class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliveryServiceBranchParser {
 
-	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/1/branches";
+	static $BRANCHES_DOWNLOAD_URL = "https://api.ulozenka.cz/v3/transportservices/11/branches";
+
+	public static function GetInstance(
+		string $data,
+		int $options = 0,
+		bool $dataIsURL = false,
+		string $namespaceOrPrefix = "",
+		bool $isPrefix = false
+	) {
+		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+		$_d = json_decode($data, true);
+		$instance->_data = $_d["data"]["destination"];
+		return $instance;
+	}
+
+	public function _getBranchNodes($options=[]) {
+		return array_map(function($e) {
+			return new static(json_encode($e));
+		}, $this->_data);
+	}
 
 	function getExternalBranchId() {
 		return (string)$this["id"];
@@ -105,7 +124,7 @@ class WedoUlozenka extends DeliveryServiceJsonBranchData implements iDeliverySer
 	}
 
 	function isActive() {
-		return true;
+		return $this["active"] === 1;
 	}
 
 	static function GetXMLBranchName() {

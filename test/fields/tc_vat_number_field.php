@@ -19,6 +19,8 @@ class TcVatNumberField extends TcBase {
 			"ATU69231379"				=> "ATU69231379",
 
 			"LT 100001231746"		=> "LT100001231746",
+
+			"cy12345678x"				=> "CY12345678X",
 		] as $input => $cleaned){
 			$value = $this->assertValid($input);
 			$this->assertEquals($cleaned,(string)$value);
@@ -32,6 +34,8 @@ class TcVatNumberField extends TcBase {
 			"ES 1234567890",
 
 			"AT169231379",
+
+			"cy12345678",
 		] as $input){
 			$err = $this->assertInvalid($input);
 			$this->assertEquals("VAT number is incorrect",$err);

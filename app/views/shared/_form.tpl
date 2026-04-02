@@ -26,6 +26,7 @@
 {/if}
 
 {capture assign=class}{trim}{$form_class} {$form_layout}{/trim}{/capture}
+{capture assign=class}{trim}{$class} {$form->get_attr("class")}{/trim}{/capture}
 
 {form _novalidate="novalidate" _class=$class _role="form"}
 	{render partial="shared/form_error"}

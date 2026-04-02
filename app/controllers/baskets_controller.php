@@ -9,6 +9,12 @@ class BasketsController extends ApplicationController {
 
 	function edit(){
 		$basket = $this->_get_basket();
+
+		if(!$basket || $basket->isEmpty()){
+			$this->_execute_action("empty_basket");
+			return;
+		}
+
 		$this->_prepare_basket_edit_form($basket,$this->form);
 
 		$this->tpl_data["can_order_be_created"] = $basket->canOrderBeCreated($error_messages);
@@ -79,11 +85,6 @@ class BasketsController extends ApplicationController {
 			}
 
 			$this->_redirect_to($this->_link_to("edit").($return_anchor ? "#$return_anchor" : ""));
-			return;
-		}
-
-		if(!$basket || $basket->isEmpty()){
-			$this->_execute_action("empty_basket");
 			return;
 		}
 

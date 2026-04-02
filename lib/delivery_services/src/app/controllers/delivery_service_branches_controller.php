@@ -14,13 +14,16 @@ class DeliveryServiceBranchesController extends ApplicationController {
 		if($this->params->getString("format")==="snippet"){
 			$this->render_layout = false;
 			$this->template_name = "index.snippet";
+			return;
 		}
+
+		// action index provides only response for a snippet
+		$this->_redirect_to(["action" => "set_branch", "delivery_method_id" => $this->delivery_method]);
 	}
 
 	function set_branch() {
 		$this->tpl_data["branch_selector_form"] = $this->_get_form("branch_selector_form");
 
-		$this->_save_return_uri();
 		$this->page_title = sprintf(_("%s - výběr výdejního místa"), $this->delivery_method->getDeliveryService()->getName());
 		$this->tpl_data["widget_template_html"] = $this->_get_selector_template_name("widget",$dialog_provider);
 		$this->tpl_data["widget_template_js"] = $this->_get_selector_template_name("js");
@@ -29,23 +32,33 @@ class DeliveryServiceBranchesController extends ApplicationController {
 
 		$this->tpl_data["search_form"] = $this->_get_search_form();
 
-		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
-			$dsb = $d["delivery_service_branch_id"];
-			if(!in_array($dsb->getCountry(),$this->basket->getDeliveryCountriesAllowed())){
-				$this->form->set_error(_("Nepřípustná země pro doručení"));
+		if ($this->request->post()) {
+			if($d = $this->form->validate($this->params)){
+				$dsb = $d["delivery_service_branch_id"];
+				if(!in_array($dsb->getCountry(),$this->basket->getDeliveryCountriesAllowed())){
+					$this->form->set_error(_("Nepřípustná země pro doručení"));
+				}
+			}
+
+			// neni duvod zobrazovat formular s chybou
+			if($errors = $this->form->get_errors()){
+				$this->flash->error(join(" ",array_flatten($errors)));
+				$this->_redirect_to("checkouts/set_payment_and_delivery_method");
 				return;
 			}
+
 			$dsb && ($d["delivery_method_id"] = $this->delivery_method);
 			$dsb && ($d["delivery_method_data"] = $dsb->getDeliveryMethodData());
 			unset($d["delivery_service_branch_id"]);
 			$this->basket->s($d);
 
-			return $this->_redirect_back();
+			$this->_redirect_to("checkouts/set_payment_and_delivery_method");
 		}
 	}
 
 	function _get_search_form(){
 		$form = $this->_get_form("index");
+		$form->set_hidden_field("delivery_method_id",$this->delivery_method);
 		$form->set_action($this->_link_to([
 			"action" => "index",
 			"delivery_method_id" => $this->delivery_method,

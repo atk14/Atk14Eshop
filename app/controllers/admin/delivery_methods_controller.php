@@ -26,7 +26,7 @@ class DeliveryMethodsController extends AdminController {
 		$this->tpl_data["countries"] = Region::GetDeliveryCountriesFromAllRegions();
 
 		$this->_edit([
-			"page_title" => _("Editace způsobu dopravy"),
+			"page_title" => sprintf(_("Editace způsobu dopravy '%s'"),strip_tags($this->delivery_method)),
 			"set_initial_closure" => function($form,$dm){
 				$form->set_initial($dm);
 				$form->set_initial("designated_for_tags",$dm->getDesignatedForTags());
@@ -43,28 +43,6 @@ class DeliveryMethodsController extends AdminController {
 				return $dm;
 			}
 		]);
-	}
-
-	function enable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->delivery_method->s("active", true);
-		$this->flash->success(sprintf(_("Způsob dopravy '%s' zapnut"), $this->delivery_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
-	function disable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->delivery_method->s("active", false);
-		$this->flash->success(sprintf(_("Způsob dopravy '%s' vypnut"), $this->delivery_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
 	}
 
 	function set_rank(){

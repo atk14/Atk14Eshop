@@ -2,13 +2,13 @@
 class PaymentMethodsController extends AdminController {
 
 	function index() {
-		$this->page_title = _("Způsoby platby");
+		$this->page_title = _("Platební metody");
 		$this->tpl_data["payment_methods"] = PaymentMethod::FindAll();
 	}
 
 	function create_new() {
 		$this->_create_new(array(
-			"page_title" => "Vytvořit novou možnost platby",
+			"page_title" => _("Vytvořit novou platební metodu"),
 			"create_closure" => function($d){
 				$designated_for_tags = $d["designated_for_tags"];
 				unset($d["designated_for_tags"]);
@@ -28,7 +28,7 @@ class PaymentMethodsController extends AdminController {
 			$this->form->fields["active"]->help_text = _("This method cannot be enabled, because the relevant payment gateway is not configured yet.")." "._("Contact the eshop administrator to configure the payment gateway.");
 		}
 		$this->_edit([
-			"page_title" => _("Editace možnosti platby"),
+			"page_title" => sprintf(_("Editace platební metody '%s'"),strip_tags($this->payment_method)),
 			"set_initial_closure" => function($form,$pm){
 				$form->set_initial($pm);
 				$form->set_initial("designated_for_tags",$pm->getDesignatedForTags());
@@ -45,28 +45,6 @@ class PaymentMethodsController extends AdminController {
 				return $pm;
 			}
 		]);
-	}
-
-	function enable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->payment_method->s("active", true);
-		$this->flash->success(sprintf(_("Možnost platby '%s' zapnuta"), $this->payment_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
-	}
-
-	function disable() {
-		if (!$this->request->post()) {
-			return $this->_redirect_to_action("error404");
-		}
-		$this->payment_method->s("active", false);
-		$this->flash->success(sprintf(_("Možnost platby '%s' vypnuta"), $this->payment_method));
-		if (!$this->request->xhr()) {
-			return $this->_redirect_back();
-		}
 	}
 
 	function set_rank(){

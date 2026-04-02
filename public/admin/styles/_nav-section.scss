@@ -22,7 +22,7 @@ nav.nav-section {
 		}
 	}
 
-	// nav collapse/expand toggler
+	// nav collapse/expand toggler for small screens
 	.nav-section__toggle {
 		display: none !important;
 		justify-content: space-between;
@@ -74,12 +74,14 @@ nav.nav-section {
 	// Filter
 	#nav-filter {
 		border-bottom: 1px solid $border-color;
+		border-top: 1px solid $border-color;
 		display: flex;
 		flex-wrap: nowrap;
 		padding-left: 0.65rem;
 		padding-right: 0.25rem;
+		padding-top: $grid-gutter-width/4;
 		padding-bottom: $grid-gutter-width/4;
-		margin-top: 0 - $grid-gutter-width/4;
+		margin-top: -4px;
 		&__input {
 			min-width: 100px;
 			width: auto;
@@ -101,6 +103,37 @@ nav.nav-section {
 			color: red;
 			&:hover {
 				color: $danger;
+			}
+		}
+	}
+	// nav collapse/expand toggler for big screens
+	.sidebar-toggle {
+		display: flex;
+		justify-content: end;
+		//@include media-breakpoint-up($nav-collapse-breakpoint) {
+		@include media-breakpoint-down($nav-collapse-breakpoint) {
+			display: none;
+		}
+		button {
+			/*border: none;
+			background: none;
+			padding: 0.25rem 0.5rem;
+			color: $link-color;*/
+			&:hover {
+				text-decoration: none;
+				background-color: rgba($dark,0.05);
+			}
+			&:focus {
+				box-shadow: none;
+				background-color: $light;
+				border-width: $btn-border-width;
+			}
+		}
+	}
+	@include media-breakpoint-up($nav-collapse-breakpoint) {
+		.sidebar-toggle ~ .nav-section__collapsible {
+			ul.nav {
+				border-top: 1px solid $border-color;
 			}
 		}
 	}

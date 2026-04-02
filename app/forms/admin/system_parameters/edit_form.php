@@ -1,6 +1,8 @@
 <?php
 class EditForm extends SystemParametersForm {
 
+	var $system_parameter;
+
 	function set_up(){
 	}
 

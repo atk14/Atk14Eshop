@@ -25,7 +25,11 @@
 				{/if}
 				{if $logged_user->getVatId()}
 					<br>
-					{t}DIČ{/t}: {$logged_user->getVatId()}
+					{if $logged_user->getAddressCountry()=="SK"}{t}IČ DPH{/t}{else}{t}DIČ{/t}{/if}: {$logged_user->getVatId()}
+				{/if}
+				{if $logged_user->getAddressCountry()=="SK" && $logged_user->getLocalVatId()}
+					<br>
+					{t}DIČ{/t}: {$logged_user->getLocalVatId()}
 				{/if}
 			</td>
 		</tr>
@@ -60,8 +64,12 @@
 </table>
 
 <div class="form__footer form__footer--simple">
+	{a action="orders/index" _class="btn btn-default"}{t}My orders{/t}{/a}
 	{a action="edit" _class="btn btn-default"}{t}Change your account data{/t}{/a}
 	{a action="edit_password" _class="btn btn-default"}{t}Change your password{/t}{/a}
 	{a action="delivery_addresses/index" _class="btn btn-default"}{t}Delivery addresses{/t}{/a}
 	{a action="favourite_products/index" _class="btn btn-default"}{t}Favourite products{/t}{/a}
+	{if CUSTOMER_REVIEWS_ENABLED}
+		{a action="customer_reviews/index" _class="btn btn-default"}{t}My reviews{/t}{/a}
+	{/if}
 </div>

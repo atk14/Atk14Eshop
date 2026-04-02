@@ -28,6 +28,9 @@ class BasketVoucher extends BasketOrOrderVoucher {
 		$discount_percent = ApplicationHelpers::GetPercentageDiscountApplicableOnBasket($this);
 		if($discount_percent > 0.0){
 			foreach($basket->getItems() as $item){
+				$product = $item->getProduct();
+				if(!$product->invoiceDiscountAllowed()){ continue; }
+
 				$pp = $item->getProductPrice();
 				if($pp->discounted()){
 					// Procentni slevu nelze uplatnit na jiz slevnene zbozi
@@ -51,4 +54,14 @@ class BasketVoucher extends BasketOrOrderVoucher {
 		return $out;
 	}
 
+	function getDescription(){
+		$description = $this->getVoucher()->getDescription();
+		if(strlen((string)$description)){
+			return $description;
+		}
+		if($this->freeShipping() && ($this->getDiscountPercent()>0.0 || $this->getDiscountAmount())){
+			return _("Sleva + doprava zdarma");
+		}
+		return parent::getDescription();
+	}
 }

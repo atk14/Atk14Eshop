@@ -83,9 +83,10 @@
 		{/foreach}
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="false">
-		{facebook_pixel part="body"}
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-scrollhideheader="true">
 		{render partial="shared/trackers/google/tag_manager_body"}
+		{facebook_pixel part="body"}
+		{render partial="shared/layout/flash_message"}
 		<a href="#content-main" class="sr-only">{t}Skip to main content{/t}</a>
 		<div class="bs-offcanvas-overlay"></div>
 		{render partial="shared/layout/header"}
@@ -111,7 +112,6 @@
 				{/if}
 
 				<div class="content-main" id="content-main">
-					{render partial="shared/layout/flash_message"}
 					{placeholder}
 				</div>
 			</div>
@@ -123,15 +123,18 @@
 		{render partial="shared/offcanvas_basket"}
 		{/if}
 
-		<div class="search-suggestions js--suggesting">
-		<div class="suggestions__not-found">
-		<p><em>{t}Searching...{/t}</em></p>
-		</div>
+		{* For the search-suggestions element, it is better to place its content in the data attribute. *}
+		<div class="search-suggestions js--suggesting" data-content="{h}{trim}
+			<div class="suggestions__not-found">
+				<p><em>{t}Searching...{/t}</em></p>
+			</div>
+		{/trim}{/h}">
 		</div>
 
 		{render partial="shared/cookie_consent/banner"}
 		
 		{render partial="shared/basket_info_float_container"}
+		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
@@ -141,11 +144,13 @@
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}
-		
+
 		{if $controller=="styleguides"}
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
 		{/if}
+
+		{placeholder for="end_of_page"}
 	</body>
 </html>

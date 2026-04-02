@@ -65,6 +65,13 @@ definedef("ALLOW_STATE_IN_ADDRESS",false);
 // define("RECAPTCHA_SITE_KEY","");
 // define("RECAPTCHA_SECRET_KEY","");
 
+// Google Analytics tracking code,
+// see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
+// definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
+// definedef("GOOGLE_TAG_MANAGER_CONTAINER_ID","GTM-ZY123X5");
+// verification code for Search Console. Can contain single vewrification code or list of comma separated codes.
+// definedef("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT","54adbd14ea7dbfb62bf160daa26df126,d41d8cd98f00b204e9800998ecf8427e,...");
+
 definedef("TEXTMIT_API_KEY","123.aaa.bbb.ccc...");
 
 // Temporary files uploads (these settings effects use of AsyncFileField)
@@ -103,6 +110,16 @@ definedef("PRODUCT_CAN_BE_ORDERED_FROM_CARD_LIST",false);
 // The SessionStorer's check cookie is disabled here.
 // A cookie from CookieConsent is set automatically in ApplicationBaseController. This cookie acts like a check cookie.
 definedef("SESSION_STORER_COOKIE_NAME_CHECK","");
+
+// Map tiles provider ("mapycz" or "osm") and its API key if needed
+definedef("MAP_TILES_PROVIDER", "osm");
+definedef("MAP_TILES_API_KEY", "");
+
+definedef("INVOICES_ENABLED",false);
+definedef("INVOICES_DIRECTORY",__DIR__ . "/../data/invoices/");
+
+definedef("CUSTOMER_REVIEWS_ENABLED",false);
+definedef("CUSTOMER_REVIEWS_AUTOMATIC_PUBLICATION",true);
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings

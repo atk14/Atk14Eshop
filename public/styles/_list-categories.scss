@@ -204,7 +204,7 @@ ul.list--categories {
 
 
 .js-toggle-all-trees {
-	&:focus {
+	&:focus:not(:focus-visible) {
 		box-shadow: none;
 	}
 	.btn__text {

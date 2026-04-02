@@ -28,7 +28,9 @@
 			color: inherit;
 			
 			&:hover, &:active, &:focus {
-				outline: none;
+				&:not(:focus-visible) {
+					outline: none;
+				}
 				background-color: $gray-100;
 				text-decoration: none;
 				.suggestion__title {

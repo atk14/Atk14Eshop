@@ -8,6 +8,14 @@ use Shoptet\Spayd\Utilities\IbanUtilities;
 
 class PaymentQrCodeGenerator {
 
+	var $amount;
+	var $variable_symbol;
+	var $account_number;
+	var $iban;
+	var $swift;
+	var $currency;
+	var $message;
+
 	static function GetInstanceForOrder($order){
 		$payment_method = $order->getPaymentMethod();
 		$region = $order->getRegion();
@@ -92,7 +100,9 @@ class PaymentQrCodeGenerator {
 	 */
 	function renderPng($options = array()){
 		$options += array(
-			"size" => "400",
+			"size" => 400,
+			"margin" => 4,
+			"background" => "white", // "white", "transparent"
 		);
 
 		// bacon/bacon-qr-code ^1.0
@@ -105,9 +115,22 @@ class PaymentQrCodeGenerator {
 		}
 
 		// bacon/bacon-qr-code ^2.0
+		$black = new \BaconQrCode\Renderer\Color\Gray(0);
+		$transparent = new \BaconQrCode\Renderer\Color\Alpha(0,new \BaconQrCode\Renderer\Color\Gray(100));
+		$fill = \BaconQrCode\Renderer\RendererStyle\Fill::default();
+		if($options["background"] == "transparent"){
+			$fill = \BaconQrCode\Renderer\RendererStyle\Fill::withForegroundColor(
+				$transparent, // background
+				$black, // foreground
+				\BaconQrCode\Renderer\RendererStyle\EyeFill::inherit(),
+				\BaconQrCode\Renderer\RendererStyle\EyeFill::inherit(),
+				\BaconQrCode\Renderer\RendererStyle\EyeFill::inherit()
+			);
+		}
+
 		$renderer = new \BaconQrCode\Renderer\ImageRenderer(
-			new BaconQrCode\Renderer\RendererStyle\RendererStyle($options["size"]),
-			new BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+			new \BaconQrCode\Renderer\RendererStyle\RendererStyle($options["size"], $options["margin"], null, null, $fill),
+			new \BaconQrCode\Renderer\Image\ImagickImageBackEnd()
 		);
 		$writer = new \BaconQrCode\Writer($renderer);
 		$file = Files::GetTempFilename().".png";

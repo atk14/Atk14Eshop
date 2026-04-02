@@ -7,20 +7,14 @@ class IndexForm extends OrdersForm{
 			"required" => false,
 		)));
 
-		$this->add_field("date_from",new DateField(array(
+		$this->add_field("date_from",new PickerableDateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"widget" => new DateInput(array(
-				"attrs" => array("class" => "text form-control calendar_field"),
-			)),
 		)));
 
-		$this->add_field("date_to",new DateField(array(
+		$this->add_field("date_to",new PickerableDateField(array(
 			"label" => _("Datum od"),
 			"required" => false,
-			"widget" => new DateInput(array(
-				"attrs" => array("class" => "text form-control calendar_field"),
-			)),
 		)));
 
 		$this->add_field("payment_method_id", new PaymentMethodField([
@@ -42,15 +36,12 @@ class IndexForm extends OrdersForm{
 		]));
 
 		$this->add_field("delivery_method_id", new DeliveryMethodField([
-			"label" => _("Způsob doručení"),
+			"label" => _("Způsob dopravy"),
 			"required" => false,
-			"empty_choice_text" => "-- "._("způsob doručení")." --",
+			"empty_choice_text" => "-- "._("způsob dopravy")." --",
 		]));
 
-		$field = $this->add_field("order_status", new OrderStatusField([
-			"label" => _("Stav objednávky"),
-			"required" => false,
-		]));
+		$field = new OrderStatusField([]);
 		// inserting in_progress into choices...
 		$choices = [];
 		foreach($field->get_choices() as $k => $v){
@@ -59,8 +50,11 @@ class IndexForm extends OrdersForm{
 				$choices["in_progress"] = _("všechny rozpracované objednávky");
 			}
 		}
-		$field->set_choices($choices);
-
+		$this->add_field("order_status", new ChoiceField([
+			"label" => _("Stav objednávky"),
+			"choices" => $choices,
+			"required" => false,
+		]));
 
 		$f = $this->add_field("catalog_id", new CharField(array(
 			"label" => _("Objednaný produkt"),

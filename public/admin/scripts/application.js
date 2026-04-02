@@ -14,25 +14,17 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
+				window.UTILS.TagChooser.init();
 				window.UTILS.Suggestions.handleCategoriesSuggestions();
 
 				// Form hints.
-				$( ".help-hint" ).each( function() {
-					var $this = $( this ),
-						$field = $this.closest( ".form-group" ).find( ".form-control" ),
-						title = $this.data( "title" ) || "",
-						content = $this.html(),
-						popoverOptions = {
-							html: true,
-							trigger: "focus",
-							title: title,
-							content: content
-						};
-
-					$field.popover( popoverOptions );
-				} );
+				UTILS.formHints();
 
 				UTILS.leaving_unsaved_page_checker.init();
 
@@ -46,53 +38,33 @@
 				} );
 
 				// Back to top button display and handling
-				$( window ).on( "scroll", function(){
-					var backToTopBtn = $ ( "#js-scroll-to-top" );
-					if( $( window ).scrollTop() > 100 ) {
-						backToTopBtn.addClass( "active" );
-					} else {
-						backToTopBtn.removeClass( "active" );
-					}
-				} );
-				$( window ).trigger( "scroll" );
-
-				$ ( "#js-scroll-to-top" ).on( "click", function( e ){
-					e.preventDefault();
-					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
-				} );
+				ADMIN.utils.backToTopBtn();
 
 				UTILS.async_file_upload.init();
 
 				// Admin menu toggle on small devices
-				$( ".nav-section__toggle" ).on( "click", function( e ) {
-					e.preventDefault();
-					$( this ).closest( ".nav-section" ).toggleClass( "expanded" );
-				} );
+				ADMIN.utils.adminMenuToggler();
+
+				// Admin menu toggle on large devices
+				new UTILS.CollapsibleSidebar();
 
 				// Dark mode toggle 
-				$( "#js--darkmode-switch" ).on( "click", function(){
-					var mode;
-					if( $(this).prop( "checked" ) ) {
-						$( "body" ).addClass( "dark-mode" );
-						mode = "dark";
-						document.cookie = "dark_mode=1;path=/";
-					} else {
-						$( "body" ).removeClass( "dark-mode" );
-						mode = "light";
-						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-					}
+				ADMIN.utils.darkModeToggler();
 
-					// darkModeChange event is triggered on dark mode de/activation
-					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
-					document.dispatchEvent(evt);
-				} );
+				// advanced geocoordinates paste
+				if( document.querySelector( "#id_location_lat" ) && document.querySelector( "#id_location_lng" ) ){
+					new UTILS.geoPaste();
+				}
+				UTILS.EnhancedFileField.init();
 			}
 
 		},
 		
 		main: {
 			init: function() {
-				UTILS.initDashboardOrdersChart();
+				if( document.querySelector( ".dashboard-chart" ) ) {
+					new UTILS.DashboardOrdersChart();
+				}
 			}
 		},
 
@@ -161,6 +133,13 @@
 					$( el ).markdownEditor( {
 						preview: true,
 						onPreview: function( content, callback ) {
+							
+							// match md-editor and md-preview heights
+							var editorHeight = $( el ).parent().find( ".md-editor" ).height();
+							if ( editorHeight ) {
+								$(el).parent().find( ".md-preview" ).height( editorHeight );
+							}
+
 							var lang = $( "html" ).attr( "lang" );
 							$.ajax( {
 								type: "POST",
@@ -170,7 +149,10 @@
 									base_href: $( el ).data( "base_href" )
 								},
 								success: function( output ) {
+									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 									callback( output );
+									window.UTILS.initSwiper();
+									window.UTILS.PreviewModeToggle.init( el.parentElement.querySelector( ".md-preview" ) );
 								}
 							} );
 						}
@@ -280,6 +262,58 @@
 					document.execCommand( "copy" );
 					document.body.removeChild( el );
 					$( this ).trigger( "focus" );
+				} );
+			},
+
+			// Back to top button display and handling
+			backToTopBtn: function() {
+				window.addEventListener( "scroll", function() {
+					let backToTopBtn = this.document.querySelector( "#js-scroll-to-top" );
+					if( window.scrollY  > 100 ) {
+						backToTopBtn.classList.add( "active" );
+					} else {
+						backToTopBtn.classList.remove( "active" );
+					}
+				} );
+
+				window.dispatchEvent( new Event( "scroll" ) );
+
+				let scrollTopBtn = document.querySelector( "#js-scroll-to-top" );
+				if( scrollTopBtn ){
+					scrollTopBtn.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						let els = document.querySelectorAll( "html,body" );
+						console.log( "els", els );
+						window.scroll( { top: 0, left: 0, behavior: "smooth" } );
+					} );
+				}
+				
+			},
+
+			// Admin menu toggle on small devices
+			adminMenuToggler: function() {
+				let toggler = document.querySelector( ".nav-section__toggle" );
+				if( toggler ) {
+					toggler.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						this.closest( ".nav-section" ).classList.toggle( "expanded" );
+					} );
+				};
+			},
+
+			// Dark mode toggle 
+			darkModeToggler: function() {
+				document.getElementById( "js--darkmode-switch" ).addEventListener( "click", function() {
+					var body = document.querySelector( "body" );
+					if( this.checked ){
+						body.classList.add( "dark-mode" );
+						document.cookie = "dark_mode=1;path=/";
+					} else {
+						body.classList.remove( "dark-mode" );
+						document.cookie = "dark_mode=;path=/";
+					}
+					document.dispatchEvent( new Event( "darkModeChange" ) );
+
 				} );
 			},
 

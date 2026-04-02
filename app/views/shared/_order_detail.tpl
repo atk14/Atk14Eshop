@@ -1,7 +1,6 @@
 {*
  * Detail objednavky nebo kosiku
  *}
-
 {if !isset($show_note)}
 	{assign show_note true}
 {/if}
@@ -69,7 +68,7 @@
 					{if !$incl_vat}
 					<td class="table-products__vat-percent">{$item->getVatPercent()}</td>
 					{/if}
-					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()}</td>
+					<td class="table-products__amount"><span class="property__key">{t}Množství{/t}</span>{$item->getAmount()} {$product->getUnit()}</td>
 					<td class="table-products__price"><span class="property__key">{t}Celkem{/t}</span>{!$item->getPrice($incl_vat)|display_price:"$currency"}</td>
 				{/if}
 			</tr>
@@ -224,9 +223,13 @@
 					{$order->getAddressState()}<br>
 				{/if}
 				{$order->getAddressCountry()|to_country_name}<br>
-				{if $order->getCompanyNumber() || $order->getVatId()}
-					{t}IČ:{/t} {$order->getCompanyNumber()}<br>
-					{t}DIČ:{/t} {$order->getVatId()}
+				{if $order->getCompanyNumber() || $order->getVatId() || $order->getLocalVatId()}
+					{t}IČ:{/t} {$order->getCompanyNumber()|default:$mdash}<br>
+					{if $order->getAddressCountry()=="SK"}{t}IČ DPH:{/t}{else}{t}DIČ:{/t}{/if} {$order->getVatId()|default:$mdash}
+					{if $order->getLocalVatId()}
+						<br>
+						{t}DIČ:{/t} {$order->getLocalVatId()}
+					{/if}
 				{/if}
 			</p>
 		</div>

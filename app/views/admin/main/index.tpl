@@ -50,3 +50,9 @@
 <h2 class="h5 mb-3">{t}Vývoj počtu objednávek:{/t}</h2>
 
 {render partial=chart_orders}
+
+{if DEVELOPMENT}
+<div class="admin-block-text">
+{render partial="new_features"}
+</div>
+{/if}

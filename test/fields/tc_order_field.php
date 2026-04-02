@@ -13,6 +13,6 @@ class TcOrderField extends TcBase {
 		$this->assertEquals($order->getId(),$o->getId());
 
 		$err = $this->assertInvalid("XXX");
-		$this->assertEquals("Taková objednávka neexistuje",$err);
+		$this->assertEquals("There is no such order",$err);
 	}
 }

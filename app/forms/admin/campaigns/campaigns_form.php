@@ -28,7 +28,7 @@ class CampaignsForm extends AdminForm {
 		)));
 
 		$this->add_field("required_delivery_method_id", new DeliveryMethodField(array(
-			"label" => _("Uplatňuje se pouze při použitém způsobu doručení"),
+			"label" => _("Uplatňuje se pouze při použitém způsobu dopravy"),
 			"required" => false,
 		)));
 
@@ -61,7 +61,7 @@ class CampaignsForm extends AdminForm {
 		]));
 
 		$this->add_field("delivery_method_id", new DeliveryMethodField([
-			"label" => _("Doprava zdarma se vztahuje pouze na způsob doručení"),
+			"label" => _("Doprava zdarma se vztahuje pouze na způsob dopravy"),
 			"required" => false,
 			"empty_choice_text" => "-- "._("všechny způsoby")." --",
 		]));

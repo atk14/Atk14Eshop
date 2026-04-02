@@ -14,7 +14,13 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetInstances(){
-		trigger_error("Method Region::GetInstances() is deprecated, use Region::GetAllInstances()");
+		$file = $line = "???";
+		$ar = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT,1);
+		if($ar){
+			$file = $ar[0]["file"];
+			$line = $ar[0]["line"];
+		}
+		trigger_error(sprintf("Method Region::GetInstances() is deprecated, use Region::GetAllInstances() in %s on line %d",$file,$line));
 		return self::GetAllInstances();
 	}
 
@@ -114,6 +120,18 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 		return parent::getName($lang);
 	}
 
+	/**
+	 * Returns either short name or it creates shortcut automatically from name
+	 */
+	function getShortcut($lang = null){
+		$short_name = parent::getShortName($lang);
+		if(strlen((string)$short_name)){
+			return $short_name;
+		}
+		$name = new String4(parent::getName($lang));
+		return $name->truncate(3,["omission" => ""])->upper()->trim()->toString();
+	}
+
 	function getApplicationName(){
 		($out = parent::getApplicationName()) ||
 		($out = SystemParameter::ContentOn("app.name.short")) ||
@@ -151,14 +169,15 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	function getDefaultUrl(){
-		global $AKT14_GLOBAL, $HTTP_REQUEST;
+		global $ATK14_GLOBAL, $HTTP_REQUEST;
 		return Atk14Url::BuildLink([
 			"namespace" => "",
 			"controller" => "main",
 			"action" => "index",
+			"lang" => $ATK14_GLOBAL->getDefaultLang(),
 		],[
 			"with_hostname" => $this->getDefaultDomain(),
-			"ssl" => $HTTP_REQUEST->ssl(),
+			"ssl" => $HTTP_REQUEST->ssl() || (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")),
 		]);
 	}
 

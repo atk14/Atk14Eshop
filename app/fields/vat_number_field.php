@@ -9,7 +9,7 @@ class VatNumberField extends CharField {
 		"AT" => 'ATU\d{8}',
 		"BE" => 'BE\d{10}',
 		"BG" =>	'BG\d{9,10}',
-		"CY" => 'CY\d{9}',
+		"CY" => 'CY\d{8}[A-Z]', // A Cyprus VAT number has a total of 9 characters: 8 digits followed by a single letter. The full format, including the country code, is CY12345678X
 		"CZ" => 'CZ\d{8,10}',
 		"DE" => 'DE\d{9}',
 		"DK" => 'DK\d{8}',
@@ -36,6 +36,8 @@ class VatNumberField extends CharField {
 
 		"*" => '[A-Z]{2}\d{8,12}', // fallback
 	];
+
+	public $enable_validation;
 
 	function __construct($options = []){
 		$options += [

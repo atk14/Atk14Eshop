@@ -1,3 +1,9 @@
+arabica:
+  catalog_id: ARABICA
+  card_id: "<?php echo $cards["coffee"]->getId() ?>"
+  name_cs: Arabica
+  name_en: Arabica
+
 mint_tea:
   catalog_id: TEA_MINT
   card_id: "<?php echo $cards["tea"]->getId() ?>"
@@ -124,6 +130,10 @@ strih_v_pdf_formatu:
 fridge:
   card_id: "<?= $cards["fridge"]->getId() ?>"
   catalog_id: "fridge"
+
+stove:
+  card_id: "<?= $cards["stove"]->getId() ?>"
+  catalog_id: "stove"
 
 fidorka:
   card_id: "<?= $cards["fidorka"]->getId() ?>"

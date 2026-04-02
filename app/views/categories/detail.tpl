@@ -22,12 +22,12 @@
 
 {render partial='shared/filter/filter_form' form=$form}
 
-<section class="section--list-products" id="cards">
-	{*<h4>{t}Products{/t}</h4>*}
-	{if $finder->isEmpty()}
-		<p>{t}No product has been found.{/t}</p>
-	{else}
-		{render partial='shared/ajax_pager/ajax_pager'}
-	{/if}
-</section>
+{remove_if_contains_no_text}
+<div id="paging_form">
+	{render partial="shared/paging_form" paging_form=$paging_form}
+</div>
+{/remove_if_contains_no_text}
 
+<section class="section--list-products" id="cards">
+	{render partial='shared/ajax_pager/ajax_pager'}
+</section>

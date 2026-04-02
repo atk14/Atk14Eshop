@@ -30,7 +30,7 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 	 * Popis dorucovaci metody pro emailovou notifikaci
 	 */
 	function getEmailDescription(){
-		$out = parent::getEmailDescription();
+		$out = (string)parent::getEmailDescription();
 		if(strlen($out)){ return $out; }
 		//
 		//$out = $this->getDescription();
@@ -78,6 +78,10 @@ class DeliveryMethod extends ApplicationModel implements Rankable, Translatable 
 
 	function getPersonalPickupOnStore() {
 		return Cache::Get("Store",$this->getPersonalPickupOnStoreId());
+	}
+
+	function multiplyPrice(){
+		return $this->g("multiply_price");
 	}
 
 	function getDeliveryService() {

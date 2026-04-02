@@ -11,218 +11,41 @@
 			init: function() {
 
 				// Restores email addresses misted by the no_spam helper
-				$( ".atk14_no_spam" ).unobfuscate( {
-					atstring: "[at-sign]",
-					dotstring: "[dot-sign]"
-				} );
+				UTILS.unobfuscateEmails();
 
 				// Links with the "blank" class are pointing to new window
-				$( "a.blank" ).attr( "target", "_blank" );
+				UTILS.linksTargetBlank();
 
 				// Form hints.
-				$( ".help-hint" ).each( function() {
-					var $this = $( this ),
-						$field = $this.closest( ".form-group" ).find( ".form-control" ),
-						title = $this.data( "title" ) || "",
-						content = $this.html(),
-						popoverOptions = {
-							html: true,
-							trigger: "focus",
-							title: title,
-							content: content
-						};
-
-					$field.popover( popoverOptions );
-				} );
+				UTILS.formHints();
 
 				// Init Swiper
 				UTILS.initSwiper();
 
 				// Navbar dropdowns work on mouseover
-				var $dropdown = $( ".dropdown" );
-				var $dropdownToggle = $( ".dropdown-toggle" );
-				var $dropdownMenu = $( ".dropdown-menu" );
-				var showClass = "show";
-				var $navbar = $( ".navbar--hoverable-dropdowns" );
-
-				$navbar.find( $dropdownToggle ).on( "click touchstart", function( e ){
-					//console.log( e.type );
-					location.href = $( this ).attr( "href" );
-					//$dropdown.trigger( "mouseleave" )
-					e.stopImmediatePropagation();
-					return false;
-				} );
-				$navbar.find( $dropdown ).on ( "mouseenter", function( e ) {
-						//console.log( e.type );
-						e.stopImmediatePropagation();
-						var $this = $( this );
-						if ( !$this.is( ":hover" ) ) {
-							return;
-						}
-						$this.addClass( showClass );
-						$this.find( $dropdownToggle ).attr("aria-expanded", "true");
-						$this.find( $dropdownMenu ).addClass( showClass ).hide().fadeIn( 200, function() {
-							if ( !$this.is( ":hover" ) ) {
-								$this.removeClass( showClass );
-								$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
-								$this.find( $dropdownMenu ).removeClass( showClass ).hide();
-							}
-						} );
-				} );
-				$navbar.find( $dropdown ).on ( "mouseleave", function() {
-						var $this = $(this);
-						$this.removeClass( showClass );
-						$this.find( $dropdownToggle ).attr( "aria-expanded", "false" );
-						$this.find( $dropdownMenu ).removeClass( showClass ).hide();
-				} );
-
-				// Mobile search show/hide toggle
-				$( ".js--search-toggle" ).on( "click", function( e ) {
-					e.preventDefault();
-					var $form = $( "#js--mobile_search_field" );
-					$form.toggleClass( "show" );
-					if( $form.is( ":visible" ) ) {
-						$form.find( "input[type=text]" ).focus();
-					}
-				} );
-			
-				if( $( "body" ).attr( "data-scrollhideheader" ) === "true" ) {
-					var prevScroll = document.documentElement.scrollTop || window.scrollY;
-					var  direction = "";
-					var prevDirection = ""
-
-					var handleHideScroll = function() {
-						var currScroll = document.documentElement.scrollTop || window.scrollY;
-
-						if ( currScroll > prevScroll ) {
-
-							// Scrolled up
-							direction = "up";
-						} else if ( currScroll < prevScroll ) {
-
-							//scrolled down
-							direction = "down";
-						}
-
-						if ( direction !== prevDirection ) {
-							toggleHeader( direction, currScroll );
-						}
-
-						prevScroll = currScroll;
-					}
-
-					var toggleHeader = function( direction, currScroll ) {
-						var header = document.getElementById ( "header-main" );
-						var docBody = document.getElementById ( "page-body" );
-						var headerHeight = header.offsetHeight;
-						if( currScroll > headerHeight + 50 ) {
-							
-							// Scrolled down
-							$( header ).css( "position", "fixed" );
-							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
-							docBody.style.paddingTop = headerHeight + 40 + "px";
-						} else {
-							
-							// Top
-							$( header ).css( "position", "static" );
-							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
-							docBody.style.paddingTop = 0 + "px";
-						}
-						if ( direction === "up" && currScroll > headerHeight ) {
-							
-							// Scrolled down, hidden
-							$( header ).css( "top", ( 0 - headerHeight ) + "px" );
-							
-						} else if ( direction === "down" ) {
-							
-							// Scrolled down, shown
-							$( header ).css( "top", "0px" );
-						}
-	
-						prevDirection = direction;
-					};
-	
-					window.addEventListener( "scroll", handleHideScroll );
-					window.addEventListener( "resize", handleHideScroll );
-				}
+				UTILS.initNavbar();
+				
+				// Hide header on scroll - disabled by default, more info in utils/scroll_hide_header.js
+				// UTILS.hideHeaderOnScroll();
 
 				// Floating cart info show/hide 
-				// Using IntersectionObserver rather than watching scroll
-				if ( "IntersectionObserver" in window && document.getElementsByClassName( "js--basket_info_float-container" ).length > 0 && document.getElementsByClassName( "js--mainbar__cartinfo" ).length > 0) {
-					function floatBasketInfo( changes ){
-						var floatBasket = $( ".js--basket_info_float-container" );
-						changes.forEach( function( change ) {
-							if ( change.isIntersecting ) {
-								floatBasket.removeClass( "show" );
-							} else {
-								floatBasket.addClass( "show" );
-							}
-						});
-					}
-
-					// Watch if top menu basket info is in viewport
-					var viewportObserver = new IntersectionObserver( floatBasketInfo, {
-						root: null, // relative to document viewport 
-						rootMargin: "0px", // margin around root. Values are similar to css property. Unitless values not allowed
-						threshold: 0.75 // visible amount of item shown in relation to root
-					} );
-					viewportObserver.observe( $( ".js--mainbar__cartinfo" ).get( 0 ) );
-				}
+				new UTILS.floatingCart();
 
 				window.UTILS.searchSuggestion( "js--search", "js--suggesting" );
 
 				// Expanding/collapsing FAQ items
-				$( "dl.faq dt, ul.faq .faq__q, ol.faq .faq__q" ).on( "click", function( e ) {
-					var qtitle =$( e.target );
-					var qcontent = qtitle.next()
-					qtitle.toggleClass( "expanded" );
-					if ( qtitle.hasClass( "expanded" ) ) {
-						qcontent.slideDown( "fast" );
-					} else {
-						qcontent.slideUp( "fast" );
-					}
-				} );
+				UTILS.initFAQ();
 
 				// Set proper scale for product card image scaling on hover
-				var setCardHoverScale = function() {
-					// find card image
-					var cardImage = $( ".section--list-products .card .card-img-top" );
-					if( cardImage.length > 0 ) {
-						// access to values stored in css variables
-						var r = document.querySelector( ":root " );
-						var rs = getComputedStyle( r );
-						// get card image actual width (CAUTION: assumes all cards are the same width)
-						var cardW = $( ".section--list-products .card .card-img-top" ).width();
-						// read desired hover width from css
-						var imgW = rs.getPropertyValue( "--card_hover_width" );
-						var hoverScale = imgW / cardW;
-						//console.log( {cardW}, {imgW}, {hoverScale} );
-						// set desired scale value to css variable
-						r.style.setProperty( "--card_hover_scale", hoverScale );
-					}
-				};
-				setCardHoverScale();
-				window.addEventListener( "resize", setCardHoverScale );
+				UTILS.setCardHoverScale();
+				window.addEventListener( "resize", UTILS.setCardHoverScale );
 
 				// Init NoUiSlider
 
-				// Scroll Sidebar
+				// Sticky Scroll Sidebar
 				// To make it work enable sticky-sidebar.js in vendorScripts list in gulpfile.js
-				if( $( "nav.nav-section" ).length && typeof StickySidebar !== "undefined" ) {
-					if( $( ".body__sticky-container" ).length ) {
-						// eslint-disable-next-line no-undef,no-unused-vars
-						var sidebar = new StickySidebar( ".nav-section", {
-							topSpacing: 10,
-							bottomSpacing: 10,
-							containerSelector: ".body__sticky-container",
-							innerWrapperSelector: "#sidebar_menu",
-							minWidth: 767,
-						} );
-					}
-					$( ".nav-section" ).find( ".js-sidebar-toggle" ).on( "click", function() {
-						$( ".nav-section" ).toggleClass( "show-sm" );
-					} );
-				}
+				window.UTILS.initStickySidebar();
+
 				// Init offvanvas component
 				window.offCanvas = new window.UTILS.BSOffCanvas();
 
@@ -233,6 +56,26 @@
 				$( ".js--card-add-to-cart-btn" ).on( "click", function() {
 					$( this ).closest( ".card" ).addClass( "card--in-basket" );
 				} );
+
+				// Tlacitka +/- mnozstvi u stepper inputu
+				if( document.querySelector( "[data-spinner-button]" ) ) {
+					new UTILS.numericStepperHandler();
+				}
+
+				// Scroll to top button handler
+				UTILS.scrollToTopBtn();
+
+				// Image placeholders ( for design + development purposes );
+				if( UTILS.SVGPlaceholders ){
+					UTILS.SVGPlaceholders.SVGPlaceholders();
+				}
+
+				// sync
+				new UTILS.WindowSync();
+				new UTILS.LiveStatusRefresher();
+
+				// password reveal 
+				new UTILS.PasswordReveal();
 
 			}
 
@@ -259,7 +102,7 @@
 
 		logins: {
 			create_new: function() {
-				$( "#id_login" ).focus();
+				document.getElementById( "id_login" ).focus();
 			}
 		},
 
@@ -271,46 +114,10 @@
 
 			// Action-specific code
 			create_new: function() {
-				/*
-				 * Check whether login is available.
-				 * Simple demo of working with an API.
-				 */
-				var $login = $( "#id_login" ),
-					m = "Username is already taken.",
-					h = "<p class='alert alert-danger'>" + m + "</p>",
-					$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
 
-				$login.on( "change", function() {
-
-					// Login input value to check.
-					var value = $login.val(),
-						lang = $( "html" ).attr( "lang" ),
-
-					// API URL.
-						url = "/api/" + lang + "/login_availabilities/detail/",
-
-					// GET values for API. Available formats: xml, json, yaml, jsonp.
-						data = {
-							login: value,
-							format: "json"
-						};
-
-					// AJAX request to the API.
-					if ( value !== "" ) {
-						$.ajax( {
-							dataType: "json",
-							url: url,
-							data: data,
-							success: function( json ) {
-								if ( json.status !== "available" ) {
-									$status.fadeIn();
-								} else {
-									$status.fadeOut();
-								}
-							}
-						} );
-					}
-				} ).change();
+				// Check whether login is available.
+				UTILS.loginAvaliabilityChecker();
+				
 			}
 		},
 
@@ -322,53 +129,7 @@
 
 			// Action-specific code
 			detail: function() {
-
-				// Tlacitka +/- mnozstvi pri pridani do kosiku
-				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
-				qtyButtons.on( "click", function( e ) {
-					e.preventDefault();
-					var qtyWidget = $( this ).closest( ".js-stepper" );
-					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-					var oldValue = parseInt( qtyInput.val() );
-					var qtyMin = parseInt( qtyInput.attr( "min" ) );
-					var qtyMax = parseInt( qtyInput.attr( "max" ) );
-					var qtyStep = parseInt( qtyInput.attr( "step" ) );
-					var newValue;
-					if( $( this ).attr( "data-spinner-button" ) === "up" ){
-						newValue = Math.min( qtyMax, oldValue + qtyStep );
-					} else {
-						newValue = Math.max( qtyMin, oldValue - qtyStep );
-					}
-					qtyInput.val( newValue );
-					qtyInput.trigger( "change" );
-				} );
-
-				// Update celkove ceny pri zmene mnozstvi
-				var qtyInput = $( ".js-quantity-widget .js-quantity-input" );
-				qtyInput.on( "change", function() {
-					var qtyWidget = $( this ).closest( ".js-quantity-widget" );
-					var qty = parseInt( $( this ).val() );
-					var unitPrice = parseFloat( qtyWidget.data( "unitprice" ) );
-					var totalPrice = qty * unitPrice;
-					var totalPriceNice = totalPrice.toFixed(2).replace( ".", "," );
-					qtyWidget.find( ".js-quantity-total-price" ).html( totalPriceNice + "&nbsp;Kč" );
-					qtyWidget.find( ".js-quantity-suffix" ).css( "display", "inline" );
-				} );
-
-				// Prepnuti varianty produktu
-				$( "#variants-nav a[data-product_id]" ).on( "click", function() {
-					var $link = $( this ),
-						productId = $link.data( "product_id" ),
-						$galleryItem = $( ".product-gallery--with-variants .gallery__item[data-product_id=" + productId + "]" ).eq( 0 ),
-						$preview = $( ".product-gallery .js_gallery_trigger a" ),
-						$previewImage = $preview.find( "img" );
-					if ( !$galleryItem ) { return; }
-					$preview.data( "preview_for" , $galleryItem.data( "id" ) );
-					$preview.attr( "data-preview_for" , $galleryItem.data( "id" ) );
-					$previewImage.attr( "src", $galleryItem.data( "preview_image_url" ) );
-					$previewImage.attr( "width", $galleryItem.data( "preview_image_width" ) );
-					$previewImage.attr( "height", $galleryItem.data( "preview_image_height" ) );
-				} );
+				UTILS.initCardDetail();
 
 			}
 		},
@@ -383,25 +144,6 @@
 			edit: function() {
 				var $basketForm = $( "#form_baskets_edit" );
 				var autoRefreshinterval = 1000; // 1 sec
-
-				// Tlacitka +/- editace mnozstvi
-				$basketForm.on( "click", ".js-stepper button[data-spinner-button]", function( e ) {
-					e.preventDefault();
-					var qtyWidget = $( this ).closest( ".js-stepper" );
-					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-					var oldValue = parseInt( qtyInput.val() );
-					var qtyMin = parseInt( qtyInput.attr( "min" ) );
-					var qtyMax = parseInt( qtyInput.attr( "max" ) );
-					var qtyStep = parseInt( qtyInput.attr( "step" ) );
-					var newValue;
-					if( $( this ).attr( "data-spinner-button" ) === "up" ){
-						newValue = Math.min( qtyMax, oldValue + qtyStep );
-					} else {
-						newValue = Math.max( qtyMin, oldValue - qtyStep );
-					}
-					qtyInput.val( newValue );
-					qtyInput.trigger( "change" );
-				} );
 
 				// Odstranit polozku
 				/*$( ".js--basket-destroy" ).click( function( e ) {
@@ -443,6 +185,14 @@
 					$( document.body ).addClass( "loading" );
 					$(this).parent( "form" ).submit();
 				} );
+
+				// Emit basket update event (because page may be loaded after basket item deletion)
+				window.dispatchEvent( new Event( "basket_updated" ) );
+			},
+
+			empty_basket: function() {
+				// Emit basket update event (because page may be loaded after basket item deletion)
+				window.dispatchEvent( new Event( "basket_updated" ) );
 			}
 		},
 
@@ -575,8 +325,10 @@
 
 			// Action-specific code
 			index: function() {
-				UTILS.initMultiMap( "allstores_map" );
 
+				// Init map
+				new UTILS.MultiMap( document.querySelector( ".stores_v2" ) );
+				
 				// eslint-disable-next-line no-unused-vars
 				var storeList = new UTILS.filterableList( {
 					searchInput: 	$( "#stores-filter__input" ),
@@ -591,8 +343,8 @@
 			// Action-specific code
 			detail: function() {
 
-				// Mapa
-				UTILS.initSimpleMap( "store-map" );
+				// Init map
+				new UTILS.SimpleMap( document.querySelector( ".map_v2" ) );
 			}
 
 		},
@@ -601,60 +353,7 @@
 
 			// Controller-wide code.
 			init: function() {
-				$( ".styleguide-color-swatches .color-swatch" ).each( function( i, el ) {
-					var swatch = $( el );
-					var color = swatch.find( ".color-swatch__patch" ).css( "background-color" );
-					swatch.find( ".color-swatch__value" ).text( "#" + UTILS.rgb2hex( color ).toUpperCase() );
-				} );
-				
-				// Tlacitka +/- mnozstvi pri pridani do kosiku
-				var qtyButtons = $( ".js-stepper button[data-spinner-button]" );
-				qtyButtons.on( "click", function( e ) {
-					e.preventDefault();
-					var qtyWidget = $( this ).closest( ".js-stepper" );
-					var qtyInput = qtyWidget.find( ".js-order-quantity-input" );
-					var oldValue = parseInt( qtyInput.val() );
-					var qtyMin = parseInt( qtyInput.attr( "min" ) );
-					var qtyMax = parseInt( qtyInput.attr( "max" ) );
-					var qtyStep = parseInt( qtyInput.attr( "step" ) );
-					var newValue;
-					if( $( this ).attr( "data-spinner-button" ) === "up" ){
-						newValue = Math.min( qtyMax, oldValue + qtyStep );
-					} else {
-						newValue = Math.max( qtyMin, oldValue - qtyStep );
-					}
-					qtyInput.val( newValue );
-					qtyInput.trigger( "change" );
-				} );
-				
-				// Maps
-				if( $( "#allstores_map").length > 0 ) {
-					UTILS.initMultiMap( "allstores_map" );
-				}
-				if( $( "#store-map").length > 0 ) {
-					UTILS.initSimpleMap( "store-map" );
-				}
-
-				// List tree collapse all/expand all toggle
-				$( ".js-toggle-all-trees" ).on( "click", function() {
-					if( $( this ).hasClass( "collapsed" ) ){
-						$( ".list--tree.collapse" ).collapse( "show" );
-					} else {
-						$( ".list--tree.collapse" ).collapse( "hide" );
-					}
-					$( this ).toggleClass( [ "collapsed", "expanded" ] )
-				} );
-
-				// TOC search
-				// eslint-disable-next-line no-unused-vars
-				var storeList = new UTILS.filterableList( {
-					searchInput: 	$( "#chapter_filter" ),
-					clearButton: 	false,
-					submitButton: false,
-					listItems:		$( ".js--chapter_toc > *" ),
-					searchTextSelector: false,
-				} );
-
+				UTILS.initStyleguides();
 			}
 
 		},
@@ -677,6 +376,27 @@
 				$( window ).on( "resize", function() {
 					$( "table.table--orders td.order__thumbnails" ).css( "width", "auto" );
 				} );
+			},
+
+			finish: function() {
+				// Emit basket update event
+				window.dispatchEvent( new Event( "basket_updated" ) );
+			}
+		},
+
+		customer_reviews: {
+			create_new: function() {
+				[...document.querySelectorAll( ".form-group.form-group--id_rating" )].forEach( ( element ) => {
+					if( !element.dataset.star_rating_widget ) {
+						new window.UTILS.StarRatingWidget( element );
+					}
+				} );
+			}
+		},
+
+		tests: {
+			js_validation: function() {
+				new UTILS.FormValidator();
 			}
 		},
 
@@ -688,29 +408,13 @@
 				init: function() {
 
 					// Restores email addresses misted by the no_spam helper
-					$( ".atk14_no_spam" ).unobfuscate( {
-						atstring: "[at-sign]",
-						dotstring: "[dot-sign]"
-					} );
+					UTILS.unobfuscateEmails();
 
 					// Links with the "blank" class are pointing to new window
-					$( "a.blank" ).attr( "target", "_blank" );
+					UTILS.linksTargetBlank();
 
 					// Form hints.
-					$( ".help-hint" ).each( function() {
-						var $this = $( this ),
-							$field = $this.closest( ".form-group" ).find( ".form-control" ),
-							title = $this.data( "title" ) || "",
-							content = $this.html(),
-							popoverOptions = {
-								html: true,
-								trigger: "focus",
-								title: title,
-								content: content
-							};
-
-						$field.popover( popoverOptions );
-					} );
+					UTILS.formHints();
 				}
 			}
 

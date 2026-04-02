@@ -1,5 +1,5 @@
 {render partial="shared/offcanvas_basket/detail"}
 
-<script>
+{javascript_tag}
 	$( ".js--basket_info_content" ).replaceWith({jstring}{render partial="shared/basket_info_content"}{/jstring});
-</script>
+{/javascript_tag}

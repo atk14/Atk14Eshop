@@ -12,9 +12,9 @@ class User extends ApplicationModel{
 	const ID_ROBOT = 3;
 
 	/**
-	 * Returns user when a correct combination of login and password is given.
+   * Returns user when login and password are correct and user is active and not deleted
 	 * 
-	 * $user = User::Login("rambo","secret"); // returns user when login and password are correct
+	 *	$user = User::Login("rambo","secret");
 	 */
 	static function Login($login,$password,&$bad_password = false){
 		$bad_password = false;
@@ -29,10 +29,11 @@ class User extends ApplicationModel{
 	}
 
 	/**
-	 * $user = User::CreateNewRecord(array(
-	 *  "login" => "rambo",
-	 *  "password" => "secret"
-	 * )); // returns user with hashed password
+	 *
+	 *	$user = User::CreateNewRecord(array(
+	 *		"login" => "rambo",
+	 *		"password" => "secret"
+	 *	)); // returns user with hashed password
 	 */
 	static function CreateNewRecord($values,$options = array()){
 		global $ATK14_GLOBAL;
@@ -75,9 +76,9 @@ class User extends ApplicationModel{
 	 *
 	 * A new password won't be stored in database in plain form:
 	 *
-	 *	 $rambo->setValues(array("password" => "secret123"));
-	 *	 // or $rambo->setValue("password","secret123");
-	 *	 // or $rambo->s("password","secret123");
+	 *	$rambo->setValues(array("password" => "secret123"));
+	 *	// or $rambo->setValue("password","secret123");
+	 *	// or $rambo->s("password","secret123");
 	 */
 	function setValues($values,$options = array()){
 		if(isset($values["password"])){
@@ -116,6 +117,14 @@ class User extends ApplicationModel{
 
 	function getBasePricelist(){
 		return Cache::Get("Pricelist",$this->getBasePricelistId());
+	}
+
+	function getSpecialPricelistsLister(){
+		return $this->getLister("SpecialPricelists");
+	}
+
+	function getSpecialPricelists(){
+		return $this->getSpecialPricelistsLister()->getRecords();
 	}
 
 	function getCustomerGroups(){

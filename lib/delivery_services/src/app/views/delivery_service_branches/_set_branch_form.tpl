@@ -6,11 +6,10 @@
 	*}
 
 
-{render partial="shared/form_error"}
 {render partial="$widget_template_html"}
 
-<script>
+{javascript_tag}
 document.addEventListener( "DOMContentLoaded", function() {
 	{render partial="$widget_template_js"}
 } );
-</script>
+{/javascript_tag}

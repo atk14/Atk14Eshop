@@ -196,7 +196,12 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	}
 
 	function toHumanReadableString(){
-		return $this->getName();
+		$products = $this->getProducts();
+
+		$out = [];
+		if(sizeof($products)==1){ $out[] = $products[0]->getCatalogId(); }
+		$out[] = $this->getName();
+		return join(", ",$out);
 	}
 
 	protected function _getProducts($options = array()){
@@ -288,6 +293,13 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		];
 		$categories = $this->getCategories($options);
 		if($categories){
+			if($main_root_category = Category::MainRootCategory()){
+				foreach($categories as $category){
+					if($category->isDescendantOf($main_root_category)){
+						return $category;
+					}
+				}
+			}
 			return $categories[0];
 		}
 	}
@@ -455,7 +467,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		$product = $this->getFirstProduct(["deleted" => null, "visible" => null]);
 
 		if($product){
-			if(!$product->isVisible() && strlen($product->getCode())){
+			if(!$product->isVisible() && strlen((string)$product->getCode())){
 				// toto je nejaky systemovy produkt - napr. Zaohrouhleni
 				return false;
 			}
@@ -621,7 +633,9 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		$options += [
 			"visible" => null,
 		];
-		$out = TechnicalSpecification::FindAll("card_id",$this);
+
+		$out = TechnicalSpecification::GetInstancesForCard($this);
+
 		if(!is_null($options["visible"])){
 			$_out = [];
 			foreach($out as $item){
@@ -630,6 +644,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			}
 			$out = $_out;
 		}
+
 		return $out;
 	}
 
@@ -644,8 +659,6 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 	 * @return TechnicalSpecification
 	 */
 	function getTechnicalSpecification($key){
-		static $KEYS;
-
 		if(is_numeric($key) && ($obj = Cache::Get("TechnicalSpecificationKey",$key))){
 			$key = $obj;
 		}elseif(is_string($key) && ($obj = TechnicalSpecificationKey::GetInstanceByCode($key))){
@@ -654,15 +667,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 			$key = $obj;
 		}
 
-		if(!is_object($key)){
-			return null;
-		}
-
-		foreach($this->getTechnicalSpecifications() as $ts){
-			if($ts->getTechnicalSpecificationKeyId()==$key->getId()){
-				return $ts;
-			}
-		}
+		return TechnicalSpecification::GetForCard($this,$key);
 	}
 
 	function setValues($values,$options=array()) {
@@ -826,7 +831,7 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 
 		foreach($this->getProducts() as $product){
 			$fd->addText($product->getLabel(),"b");
-			$fd->addText($product->getCatalogId(),"d");
+			$fd->addText($product->getCatalogId(),"b");
 		}
 
 		$fd->addText($this->getName($lang),"a");

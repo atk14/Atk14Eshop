@@ -19,6 +19,9 @@
  **/
 
 class FilterForCards extends Filter {
+
+	var $productJoin;
+
 	function __construct($user, $options = []) {
 		$options += [
 			"conditions" => null,
@@ -89,7 +92,7 @@ class FilterForCards extends Filter {
 				$order = "cards.id";
 		}
 		if($options['order']) {
-			$options['order'] += ", $order";
+			$options['order'] .= ", $order";
 		} else {
 			$options['order'] = $order;
 		}

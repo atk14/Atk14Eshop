@@ -22,28 +22,28 @@ class AddDeliveryMethods extends ApplicationMigration {
 
 		$cp_balikovna = DeliveryMethod::CreateNewRecord( [
 			"code" => "cp-balikovna",
-			"label_en" => "Czech Post - Parcel Delivery To Parcel Pickup Outlet (payment in advance)",
-			"label_cs" => "Česká Pošta - Balíkovna (platba předem)",
+			"label_en" => "Balíkovna - Parcel Delivery To Parcel Pickup Outlet (payment in advance)",
+			"label_cs" => "Balíkovna (platba předem)",
 
 			"price_incl_vat" => 55,
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balikovna"),
 			"active" => $active,
-			"logo" => (string)Pupiq::CreateImage(__DIR__ . "/logos/ceska-posta-balik-do-balikovny.png"),
+			"logo" => (string)Pupiq::CreateImage(__DIR__ . "/logos/balikovna.png"),
 		]);
 
 		$cp_balikovna_cod = DeliveryMethod::CreateNewRecord( [
 			"code" => "cp-balikovna_cod",
-			"label_en" => "Czech Post - Parcel Delivery To Parcel Pickup Outlet (cash on delivery)",
-			"label_cs" => "Česká Pošta - Balíkovna (dobírka)",
+			"label_en" => "Balíkovna - Parcel Delivery To Parcel Pickup Outlet (cash on delivery)",
+			"label_cs" => "Balíkovna (dobírka)",
 
 			"price_incl_vat" => 75,
 			"regions" => json_encode(["DEFAULT" => true]),
 
 			"delivery_service_id" => DeliveryService::GetInstanceByCode("cp-balikovna"),
 			"active" => $active,
-			"logo" => (string)Pupiq::CreateImage(__DIR__ . "/logos/ceska-posta-balik-do-balikovny.png"),
+			"logo" => (string)Pupiq::CreateImage(__DIR__ . "/logos/balikovna.png"),
 		]);
 
 		$cp_balik_na_postu = DeliveryMethod::CreateNewRecord( [

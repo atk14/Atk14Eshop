@@ -3,7 +3,7 @@
 
 {if $category_recommended_cards}
 	{admin_menu for=$category_recommended_cards}
-	{render partial="shared/layout/content_header" title=$category_recommended_cards->getName() teaser=$category_recommended_cards->getTeaser()|markdown title_tag="h2"}
+	{render partial="shared/layout/content_header" title=$category_recommended_cards->getName() teaser=$category_recommended_cards->getTeaser()|markdown title_tag="p"}
 	
 	{if $category_recommended_cards->getDescription()}
 		{!$category_recommended_cards->getDescription()|markdown}
@@ -52,9 +52,9 @@
 				{a controller=articles action=detail id=$article _class="card"}
 					<div class="card__image">
 					{if $article->getImageUrl()}
-						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}">
+						<img {!$article->getImageUrl()|img_attrs:"400x300xcrop"} class="card-img-top" alt="{$article->getTitle()}" aria-hidden="true">
 					{else}
-						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image">
+						<img src="{$public}dist/images/default_image_400x300.svg" width="400" height="300" alt="" title="{t}no image{/t}" class="card-img-top default-image" aria-hidden="true">
 					{/if}
 					</div>
 					<div class="card-body">

@@ -152,7 +152,8 @@ class TcOrder extends TcBase {
 	}
 
 	function test_getPhones(){
-		$order = $this->orders["test"];
+		// Anonymous order
+		$order = $this->orders["test_anonymous"];
 
 		$this->assertEquals(["+420.605111222","+420.605333444"],$order->getPhones());
 
@@ -167,6 +168,14 @@ class TcOrder extends TcBase {
 			"delivery_phone" => "+420.605333444"
 		]);
 		$this->assertEquals(["+420.605333444"],$order->getPhones());
+
+		// Rambo's order
+		$order = $this->orders["test"];
+		$order->s([
+			"delivery_phone" => null,
+			"phone" => null,
+		]);
+		$this->assertEquals(["+420606123456"],$order->getPhones()); // Rambo's phone number
 	}
 
 	function test_getDeliveryMethodData(){

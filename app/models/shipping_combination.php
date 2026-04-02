@@ -14,7 +14,19 @@ class ShippingCombination extends ApplicationModel {
 
 	static function GetPaymentMethodIdsForDeliveryMethod($delivery_method) {
 		$dbmole = self::GetDbMole();
-		return $dbmole->selectIntoArray("SELECT payment_method_id FROM shipping_combinations WHERE delivery_method_id=:delivery_method_id", array(":delivery_method_id" => $delivery_method));
+		return $dbmole->selectIntoArray("
+			SELECT
+				shipping_combinations.payment_method_id
+			FROM
+				shipping_combinations,
+				payment_methods
+			WHERE
+				shipping_combinations.delivery_method_id=:delivery_method_id AND
+				payment_methods.id=shipping_combinations.payment_method_id
+			ORDER BY
+				payment_methods.rank,
+				payment_methods.id	
+		", array(":delivery_method_id" => $delivery_method));
 	}
 
 	static function GetPaymentMethodsForDeliveryMethod($delivery_method) {
@@ -100,8 +112,8 @@ class ShippingCombination extends ApplicationModel {
 	 *
 	 * Jejich vzajemne kombinace se samozrejme dale rozhoduje podle zaznamu v shipping_combinations.
 	 *
-	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket);
-	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAllowedMethods4Basket($basket,["cash_on_delivery_enabled" => false]);
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket,["cash_on_delivery_enabled" => false]);
 	 */
 	static function GetAvailableMethods4Basket($basket,$options = []){
 		$options += [
@@ -253,5 +265,27 @@ class ShippingCombination extends ApplicationModel {
 		}
 
 		return [$delivery_methods,$payment_methods];
+	}
+
+	/**
+	 * Pro dany produkt vybere vsechny myslitelne zpusoby dopravy a platby
+	 *
+	 *	list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($product);
+	 */
+	static function GetAvailableMethods4Product($product,$basket = null,$options = []){
+		if(is_null($basket)){
+			$basket = Basket::GetDummyBasket();
+		}else{
+			$_basket = Basket::GetDummyBasket($basket->getRegion(),$basket->getUser(),$basket->getCurrency());
+			$basket = $_basket;
+		}
+		$basket = clone($basket);
+		$basket_item = new BasketItem();
+		$basket_item->setValuesVirtually([
+			"product_id" => $product->getId(),
+			"amount" => 1,
+		]);
+		$basket->setBasketItemsVirtually([$basket_item]);
+		return self::GetAvailableMethods4Basket($basket,$options);
 	}
 }

@@ -19,9 +19,9 @@
 {elseif $order_status->finishedSuccessfully()}
 	<span class="text-success">{!"check"|icon} <strong>{$order_status_str}</strong></span>
 {elseif $order_status->isFinishingUnsuccessfully()}
-	<span class="text-secondary">{!"times"|icon}</span> {$order_status_str}
+	<span class="text-secondary">{!"remove"|icon}</span> {$order_status_str}
 {elseif $order_status->finishedUnsuccessfully()}
-	<span class="text-danger">{!"times"|icon} <strong>{$order_status_str}</strong></span>
+	<span class="text-danger">{!"remove"|icon} <strong>{$order_status_str}</strong></span>
 {else}
 	{$order_status_str}
 {/if}

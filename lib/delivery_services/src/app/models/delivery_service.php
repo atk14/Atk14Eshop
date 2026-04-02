@@ -116,7 +116,7 @@ class DeliveryService extends ApplicationModel {
 			return $this->parser_class;
 		}
 		$class_name = new String4($this->getCode());
-		$class_name->replace("-", "_");
+		$class_name = $class_name->replace("-", "_");
 		$this->parser_class = $parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
 		return $parserClassName;
 	}
@@ -128,16 +128,24 @@ class DeliveryService extends ApplicationModel {
 		$options += [
 			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
 		];
-		$data = @file_get_contents($options["branches_url"]);
 
-		if ($data===false) {
-			$error_message = sprintf("reading file %s failed [code: %s]", $options["branches_url"], $code);
+		try {
+			$data = $delivery_service->_fetchFeed($options["branches_url"]);
+		} catch (Exception $e) {
+			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", (array)$options["branches_url"]), $code));
 			return false;
 		}
+
 		if ($data==="") {
 			$error_message = "empty file";
 			return false;
 		}
+		return $data;
+	}
+
+	protected function _fetchFeed($feed_url) {
+		$className = $this->getParserClass();
+		$data = $className::FetchFeed($feed_url);
 		return $data;
 	}
 
@@ -170,12 +178,13 @@ class DeliveryService extends ApplicationModel {
 	 * Data z XML nezvladne nacist.
 	 *
 	 */
-	function importData($data, $options=array()) {
+	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
+			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
 		];
 
-		if (!DeliveryMethod::FindFirst("delivery_service_id", $this, "active", true)) {
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
 			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
 			return false;
 		}
@@ -188,7 +197,12 @@ class DeliveryService extends ApplicationModel {
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
+		if (count($feed_parser)===0) {
+			$options["logger"] && $options["logger"]->info(sprintf("no branches in feed for service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
+			return false;
+		}
 
+		$created = $updated = $deactivated = 0;
 		foreach($nodes as $branch_row) {
 			$_branchAr = $branch_row->toArray();
 
@@ -220,12 +234,15 @@ class DeliveryService extends ApplicationModel {
 				if($dbmole->getAffectedRows()){
 					$options["logger"] && $options["logger"]->info(sprintf("update branch %s @ %s [DeliveryServiceBranch#%s]", $_branchAr["external_branch_id"],$delivery_service_code,$branch->getId()));
 				}
+				$updated++;
 				unset($current_branch_ids[$branch->getId()]);
 			} else {
 				$_branchAr["delivery_service_id"] = $this;
 				DeliveryServiceBranch::CreateNewRecord($_branchAr);
 				$options["logger"] && $options["logger"]->info(sprintf("create branch %s @ %s", $_branchAr["external_branch_id"],$delivery_service_code));
+				$created++;
 			}
+			unset($_branchAr, $branch_row, $branch);
 		}
 
 		# deactivate branches not in xml
@@ -235,8 +252,10 @@ class DeliveryService extends ApplicationModel {
 			if($_active){
 				$options["logger"] && $options["logger"]->info("deactivate branch $_external_id @ $delivery_service_code [DeliveryServiceBranch#{$_branch_id}]");
 				$this->dbmole->doQuery("UPDATE delivery_service_branches SET active='f', updated_at=:now WHERE id=:id", array(":id" => $_branch_id, ":now" => now()));
+				$deactivated++;
 			}
 		}
+		$options["logger"] && $options["logger"]->info(sprintf("created: %d, updated: %d, deactivated: %d", $created, $updated, $deactivated));
 
 		return true;
 	}
@@ -255,7 +274,18 @@ class DeliveryService extends ApplicationModel {
 	function getBranchesDownloadUrl() {
 		$className = $this->getParserClass();
 		$url = $className::$BRANCHES_DOWNLOAD_URL;
-		if (preg_match("/({API_KEY})/", $url)) {
+		if (is_array($url)) {
+			foreach($url as &$_url) {
+				$_url = $this->_replace_tokens_in_url($_url);
+			}
+		} else {
+			$url = $this->_replace_tokens_in_url($url);
+		}
+		return $url;
+	}
+
+	protected function _replace_tokens_in_url($url) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			$_param_name = sprintf("delivery_services.%s.api_key", $this->getCode());
 			if ($_sys_param = SystemParameter::ContentOn($_param_name)) {
 				$url = preg_replace("/({API_KEY})/", $_sys_param, $url);
@@ -272,7 +302,20 @@ class DeliveryService extends ApplicationModel {
 	 */
 	function canBeUsed() {
 		$download_url = $this->getBranchesDownloadUrl();
-		if (preg_match("/({API_KEY})/", $download_url)) {
+		if (is_array($download_url)) {
+			foreach($download_url as $url) {
+				if ($this->_canBeUsed($url)===false) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return $this->_canBeUsed($download_url);;
+		}
+	}
+
+	protected function _canBeUsed($url) {
+		if (preg_match("/({API_KEY})/", (string)$url)) {
 			return false;
 		}
 		return true;
@@ -282,5 +325,26 @@ class DeliveryService extends ApplicationModel {
 		$className = $this->getParserClass();
 		$requirements = $className::GetRequirements();
 		return $requirements;
+	}
+ 
+	function getNameLocalized($lang = null){
+		global $ATK14_GLOBAL;
+		if(isset($lang)){
+			$_lang = $lang;
+			$lang_orig = Atk14Locale::Initialize($_lang);
+		}
+		$current_lang = $ATK14_GLOBAL->getLang(); 
+		$tr = [
+			"cp-balik_na_postu" =>	_("Česká Pošta - Balík na poštu"),
+			"cp-balikovna" =>			 	_("Česká Pošta - Balíkovna"),
+			"zasilkovna" =>				 	$current_lang==="cs" ? "Zásilkovna" : "Packeta",
+			"gls" =>								"GLS",
+			"ppl" =>								"PPL",
+		];
+		if(isset($lang)){
+			Atk14Locale::Initialize($lang_orig);
+		}
+		$code = $this->getCode();
+		return isset($tr[$code]) ? $tr[$code] : $this->getName();
 	}
 }

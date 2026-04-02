@@ -10,7 +10,12 @@ class RegionsController extends ApplicationController {
 			return $this->_redirect_back();
 		}
 
-		$this->permanentSession->s("region_id",$region->getId());
+		$with_hostname = false;
+		if(in_array($this->request->getHttpHost(),$this->current_region->getDomains()) && $region->getDefaultDomain()){
+			$with_hostname = $region->getDefaultDomain();
+		}else{
+			$this->permanentSession->s("region_id",$region->getId());
+		}
 		
 		// here is an attempt to redirect user to the default language of the selected region
 		$uri = $this->_get_return_uri();
@@ -22,12 +27,17 @@ class RegionsController extends ApplicationController {
 				"controller" => $ary["controller"],
 				"action" => $ary["action"],
 				"lang" => $region->getDefaultLanguage(),
-			] + $ary["get_params"]);
-			$this->_redirect_to($uri);
-			return;
+			] + $ary["get_params"],["with_hostname" => $with_hostname]);
+		}else{
+			$uri = $this->_link_to([
+				"namespace" => "",
+				"controller" => "main",
+				"action" => "index",
+				"lang" => $region->getDefaultLanguage(),
+			],["with_hostname" => $with_hostname]);
 		}
 
-		$this->_redirect_back();
+		$this->_redirect_to($uri);
 	}
 
 	function _redirect_back($default = "main/index"){

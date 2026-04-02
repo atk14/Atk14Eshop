@@ -22,6 +22,11 @@ class BreadcrumbList extends \StructuredData\BaseElement {
 
 	protected $list_items = [];
 
+	/**
+	 * @param array $options
+	 *
+	 * - add_index - add home page url as the first element in breadcrumb list.
+	 */
 	function __construct(\ApplicationModel $item=null, $options=[]) {
 		$options += [
 			"add_index" => true,

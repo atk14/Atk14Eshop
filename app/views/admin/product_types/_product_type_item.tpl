@@ -3,6 +3,11 @@
 		<div class="item__title">
 			{$product_type->getName()}
 		</div>
+
+		<div class="item__code">
+			{$product_type->getCode()}
+		</div>
+
 		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$product_type}{!"pencil-alt"|icon} {t}Edit{/t}{/a}

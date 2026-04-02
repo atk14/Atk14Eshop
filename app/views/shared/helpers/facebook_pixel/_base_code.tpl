@@ -4,7 +4,7 @@
 	{assign consent_value "grant"}
 {/if}
 
-<script>
+{javascript_tag}
 {literal}
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -24,4 +24,4 @@
       fbq('consent', ad_consent === "granted" ? "grant" : "revoke" );
     } );
   {/if}
-</script>
+{/javascript_tag}

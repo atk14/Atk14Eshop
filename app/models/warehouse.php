@@ -22,6 +22,10 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 		return $instance;
 	}
 
+	function applicableToEshop(){
+		return $this->g("applicable_to_eshop");
+	}
+
 	function getProductStockcount($product){
 		$stockcount = $this->dbmole->selectInt("SELECT stockcount FROM warehouse_items WHERE warehouse_id=:warehouse AND product_id=:product",[":warehouse" => $this, ":product" => $product]);
 		if(is_null($stockcount)){ $stockcount = 0; }
@@ -53,9 +57,10 @@ class Warehouse extends ApplicationModel implements Translatable, Rankable {
 			":warehouse_id" => $this,
 			":product_id" => $product,
 			":stockcount" => $stockcount,
+			":updated_at" => date("Y-m-d H:i:s"),
 		];
 
-		$update_sql = "UPDATE warehouse_items SET stockcount = stockcount + :stockcount WHERE warehouse_id = :warehouse_id AND product_id = :product_id ";
+		$update_sql = "UPDATE warehouse_items SET stockcount = stockcount + :stockcount, updated_at = :updated_at WHERE warehouse_id = :warehouse_id AND product_id = :product_id ";
 		$sql = "DO $$ BEGIN
 			WITH updated AS ($update_sql RETURNING id)
 			INSERT INTO warehouse_items(id, warehouse_id, product_id, stockcount)

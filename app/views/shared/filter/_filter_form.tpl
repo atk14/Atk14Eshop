@@ -1,8 +1,10 @@
-{if $form && $form->get_fields()}
-	{form_remote}
+{if $form}
+	{* we need to have element <form id="filter_form"> always rendered for paging_form *}
+	{form_remote _class="{if !$form->get_fields()}d-none{/if}"}
+	{if $form->get_fields()}
 		<div id="filter" class="pfilter">
 			<div class="pfilter__header">
-				<h3 class="pfilter__title">{t}Filtrace produktů{/t}</h3>
+				<div class="h3 pfilter__title">{t}Filtrace produktů{/t}</div>
 				{remove_if_contains_no_text}
 					<div class="pfilter__alt-filters js--filter_head">
 					{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}
@@ -22,5 +24,6 @@
 				{render partial="shared/filter/active_filters" filter=$finder->filter}
 			</div>
 		</div>
+	{/if}
 	{/form_remote}
 {/if}

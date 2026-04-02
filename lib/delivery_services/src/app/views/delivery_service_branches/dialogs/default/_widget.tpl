@@ -1,4 +1,4 @@
-{form form=$search_form}
+{form form=$search_form _onsubmit="return false;"}
 	<fieldset>
 		{!$search_form|field:"q"}
 	</fieldset>

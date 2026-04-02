@@ -23,3 +23,7 @@
 		{render partial="shared/form_button" class="btn btn-lg btn-primary"}
 	</div>
 {/form}
+
+{content for="end_of_page"}
+	{render partial="shared/basket_changed_modal"}
+{/content}

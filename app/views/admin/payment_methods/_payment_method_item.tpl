@@ -50,11 +50,6 @@
 		<div class="item__controls">
 			{dropdown_menu}
 				{a action=edit id=$payment_method}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
-				{if $payment_method->isActive()}
-					{a action=disable id=$payment_method _method="post"}{!"ban"|icon} {t}Vypnout{/t}{/a}
-				{else}
-					{a action=enable id=$payment_method _method="post"}{!"check-circle"|icon} {t}Zapnout{/t}{/a}
-				{/if}
 				{if $payment_method->isDeletable()}
 					{a_destroy id=$payment_method}{!"remove"|icon} {t}Smazat{/t}{/a_destroy}
 				{/if}

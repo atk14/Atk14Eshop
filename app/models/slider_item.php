@@ -13,7 +13,13 @@ class SliderItem extends ApplicationModel implements Translatable, Rankable {
 		return Cache::Get("Slider",$this->getSliderId());
 	}
 
-	function isVisible(){ return $this->g("visible"); }
+	function isVisible(){
+		if(!$this->g("visible")){ return false; }
+		$time = time();
+		if(!is_null($this->getDisplayFrom()) && $time<strtotime($this->getDisplayFrom())){ return false; }
+		if(!is_null($this->getDisplayTo()) && $time>strtotime($this->getDisplayTo())){ return false; }
+		return true;
+	}
 
 	function toString(){ return $this->getImageUrl(); }
 }

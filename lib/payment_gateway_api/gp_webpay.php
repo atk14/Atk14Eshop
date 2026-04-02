@@ -69,6 +69,39 @@ class GpWebpay extends PaymentGatewayApi {
 
 		$paymentNumber = ($payment_transaction->getId() * 100) + rand(0,99); // This reduces the likelihood of generating the same payment number from two or more installations of the application.
 
+		$addInfo = null;
+
+		//*
+		$cardholderDetails = [];
+
+		// minLength: 2, maxLength: 45, Text; max. 45 characters ASCII x20-x7E, /^[!-~]+[ -~]*$/
+		$name = \String4::ToObject($order->getFirstname()." ".$order->getLastname())->trim()->toAscii()->substr(0,45)->trim()->toString();
+		if(strlen($name)>=2 && preg_match('/^[!-~]+[ -~]*$/',$name)){
+			$cardholderDetails["name"] = $name;
+		}
+
+		// minLength: 6, maxLength: 255, pattern: ([0-9a-zA-Z]([-_\+.\w]*[0-9a-zA-Z_-])*@([0-9a-zA-Z]*[-_\+\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,20})
+		$email = (string)$order->getEmail();
+		if(strlen($email)>=6 && strlen($email)<=255 && preg_match('/^([0-9a-zA-Z]([-_\+.\w]*[0-9a-zA-Z_-])*@([0-9a-zA-Z]*[-_\+\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,20})$/',$email)){
+			$cardholderDetails["email"] = $email;
+		}
+
+		$minimalValues = \AdamStipak\Webpay\PaymentRequest\AddInfo::createMinimalValues();
+		$values =
+			$minimalValues +
+			[
+				"cardholderInfo" => [
+					"cardholderDetails" => $cardholderDetails,
+				],
+			];
+		$addInfo = new \AdamStipak\Webpay\PaymentRequest\AddInfo(file_get_contents(__DIR__ . "/gp_webpay/GPwebpayAdditionalInfoRequest_v.5.xsd"), $values);
+
+		//echo "<pre>", h($addInfo->toXml()); exit;
+		// < ?xml version="1.0"? >
+		// <additionalInfoRequest xmlns="http://gpe.cz/gpwebpay/additionalInfo/request" version="5.0"><cardholderInfo><cardholderDetails><name>John Doe</name><email>john@doe.cz</email></cardholderDetails></cardholderInfo></additionalInfoRequest>
+
+		// */
+
 		$request = new \AdamStipak\Webpay\PaymentRequest(
 			$paymentNumber, // $orderNumber: Číslo platby. Číslo musí být v každém požadavku od obchodníka unikátní.
 			$payment_transaction->getPriceToPay(), // $amount
@@ -78,7 +111,7 @@ class GpWebpay extends PaymentGatewayApi {
 			$order->getOrderNo(), // $merOrderNumber: Číslo platby. Zobrazí se na výpisu z banky. V případě, že není zadáno, použije se hodnota ORDERNUMBER.
 
 			null, // $md
-			null, // $addInfo
+			$addInfo,
 
 			$this->GP_WEBPAY_PAYMENT_METHOD
 		);
@@ -225,8 +258,9 @@ class GpWebpay extends PaymentGatewayApi {
 			throw new \Exception($this->_compileUrlFetcherErrorMessage($uf));
 		}
 		$xmole = new \XMole();
-		$stat = $xmole->parse($content);
-		myAssert($stat,"Failed to parse XML (".$xmole->get_error_message()."): ".$content);
+		$content_cleaned = $this->_cleanXml($content);
+		$stat = $xmole->parse($content_cleaned);
+		myAssert($stat,"Failed to parse XML (".$xmole->get_error_message()."): $content, cleaned XML: $content_cleaned");
 
 		/*
 		 *	<?xml version="1.0" encoding="UTF-8"?>
@@ -252,15 +286,15 @@ class GpWebpay extends PaymentGatewayApi {
 		 */
 
 
-		$branch = $xmole->get_first_matching_branch('/soapenv:Envelope/soapenv:Body/ns4:getPaymentDetailResponse/ns4:paymentDetailResponse');
-		myAssert($branch);
+		$branch = $xmole->get_first_matching_branch('/soapenv:Envelope/soapenv:Body/getPaymentDetailResponse/paymentDetailResponse');
+		myAssert($branch,"unexpected XML: $content_cleaned");
 
 		$status_ar = [];
 		foreach($branch["children"] as $v){
 			$key = $v["element"];
 			$value = $v["data"];
 
-			$key = preg_replace('/^ns3:/','',$key);
+			$key = preg_replace('/^ns\d+:/','',$key);
 			$status_ar[$key] = $value;
 		}
 		myAssert($status_ar);
@@ -274,6 +308,10 @@ class GpWebpay extends PaymentGatewayApi {
 		}
 
 		return $status_ar;
+	}
+
+	function _cleanXml($xml){
+		return preg_replace('/(<\/?)ns\d+:/','\1',$xml);
 	}
 
 	protected function _getSigner(){

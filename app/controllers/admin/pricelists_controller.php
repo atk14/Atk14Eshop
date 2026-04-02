@@ -2,7 +2,7 @@
 class PricelistsController extends AdminController {
 
 	function index(){
-		$this->page_title = _("Pricelists");
+		$this->page_title = _("Price lists");
 		$this->tpl_data["pricelists"] = Pricelist::FindAll();
 	}
 

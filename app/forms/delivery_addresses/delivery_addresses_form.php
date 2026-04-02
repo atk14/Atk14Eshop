@@ -10,6 +10,10 @@ class DeliveryAddressesForm extends ApplicationForm {
 			"add_address_state" => ALLOW_STATE_IN_ADDRESS,
 		]);
 		$this->_add_phone();
+
+		if($this->controller->logged_user && $this->controller->logged_user->getAddressCountry()){
+			$this->set_initial("address_country",$this->controller->logged_user->getAddressCountry());
+		}
 	}
 
 	function clean(){

@@ -5,8 +5,12 @@ class EditForm extends OrdersForm {
 		// fakturacni adresa
 		$this->_add_firstname_lastname(["required" => true]);
 		$this->_add_email();
-		$this->_add_company_fields();
+		$this->_add_company_fields(["add_local_vat_id" => true]);
 		$this->_add_address_fields(["required" => true, "add_note" => true, "add_address_street2" => true, "add_address_state" => true]);
+
+		$this->fields["vat_id"]->help_text = _("Na Slovensku se jedná o IČ DPH.");
+		$this->fields["local_vat_id"]->label = _("Místní DIČ");
+		$this->fields["local_vat_id"]->help_text = _("Má význam pouze pro Slovensko.")." "._("Zadává se tu DIČ, které nezačíná SK.");
 
 		// dorucovaci adresa
 		$this->_add_firstname_lastname(["prefix" => "delivery_", "required" => true]);

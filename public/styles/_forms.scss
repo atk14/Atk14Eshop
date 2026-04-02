@@ -137,26 +137,6 @@ form {
 }
 
 
-// Validation states
-form {
-	.form-group {
-		&.form-group--has-error {
-			//border: 2px solid $danger;
-			.form-control {
-				border: 2px solid $danger;
-			}
-			label {
-				color: $danger;
-			}
-		}
-		&.form-group--is-valid {
-			.form-control {
-				border: 1px solid $success;
-			}
-		}
-	}
-}
-
 form#form_checkouts_summary .form-group--id_confirmation {
 	&.form-group--has-error {
 		border: 2px solid $danger;
@@ -215,7 +195,7 @@ form#form_checkouts_summary .form-group--id_confirmation {
 		//color: white;
 		border-radius: 0;
 		font-weight: 600;
-		&:focus {
+		&:focus:not(:focus-visible) {
 			outline: none;
 			box-shadow: none !important;
 		}
@@ -346,4 +326,147 @@ form#form_checkouts_set_billing_and_delivery_data {
 	.form-group {
 		border: none !important;
 	}
+}
+
+#paging_form {
+	container-type: inline-size;
+	container-name: paging_form;
+	.cards_paging_form {
+		margin-top: $grid-gutter-width * -0.5;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		&:has(.cards_count:first-child) {
+			// ensure that if there are only cards count it will ba placed on the right
+			justify-content: end;
+			text-align: right;
+			justify-content: end;
+		}
+		gap: 2ch;
+		.cards_sorting, .cards_count {
+			$itemPadding: 0;
+			display: flex;
+			gap: 0 2ch;
+			&__title {
+				padding: $itemPadding;
+				text-wrap: nowrap;
+			}
+			&__options {
+				list-style: none;
+				display: flex;
+				gap: 0 2ch;
+				padding: 0;
+				margin: 0;
+				flex-wrap: wrap;
+				
+				.cards_sorting__item {
+					a {	
+						display: block;
+						padding: $itemPadding;
+						text-underline-offset: 0.33em;
+					}
+					&.active {			
+						a {
+							font-weight: 700;
+							text-decoration: underline;
+						}
+					}
+				}
+				
+			}
+			@include media-breakpoint-down(xs) {
+				gap: 0 1.25ch;
+				&__options {
+					gap: 0 1.25ch;
+				}
+			}
+			@media(max-width: 400px) {
+				flex-wrap: wrap;
+				&__title {
+					flex-basis: 100%;
+					flex-shrink: 0;
+				}
+			}
+		}
+		.cards_count:first-child {
+			text-align: right;
+			justify-content: end;
+		}
+	}
+}
+
+// Override browser auto validation so its result pseudocalsses is not visible
+// this probably is not needed
+form.was-validated {
+	.form-control {
+		&:valid, &:invalid {
+			border-color: $input-border-color !important;
+			background-image: none !important;
+		}
+		&.is-invalid, &.invalid, &.error {
+			border-color: $form-feedback-invalid-color !important;
+			background-image:  $form-feedback-icon-invalid !important;
+		}
+		&.is-valid, &.valid {
+			border-color: $form-feedback-valid-color !important;
+			background-image:  $form-feedback-icon-valid !important;
+		}
+	}
+	
+}
+
+form {
+	// These electors should behave the same as .is-valid, .is-invalid: 
+	// .invalid, .valid, .form-group--is-valid .form-control, .form-group--has-error .form-control
+	.form-control {
+		&.invalid, &.error {
+			@extend .is-invalid;
+			outline: 1px solid $form-feedback-invalid-color;
+		}
+		&.valid {
+			@extend .is-valid;
+		}
+	}
+	.form-group--has-error .form-control {
+		@extend .is-invalid;
+		outline: 1px solid $form-feedback-invalid-color;
+	}
+	.form-group--is-valid .form-control {
+		@extend .is-valid;
+	}
+
+	// radio buttons, checkboxes
+	.form-group--has-error .list--radios, // radios in server validation
+	.list--radios:has(input.error, .is-invalid), // radios js validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+	}
+
+	.form-group--checkbox .form-check:has(input.error, .is-invalid), // checkbox js validation
+	.form-group--checkbox.form-group--has-error .form-check  // checkbox server validation
+	{
+		outline: 2px solid $form-feedback-invalid-color;
+		padding-right: $input-height-inner !important; // stylelint-disable-line declaration-no-important
+		background-image: escape-svg($form-feedback-icon-invalid);
+		background-repeat: no-repeat;
+		background-position: right $input-height-inner-quarter center;
+		background-size: $input-height-inner-half $input-height-inner-half;
+	}
+	// error feedback
+	.form-group > div.error {
+		color: $form-feedback-invalid-color;
+		margin-top: 0.1rem;
+	}
+}
+
+// Styles for password reveal button
+input[data-reveal] ~ .js--password_reveal {
+	border-left: none !important;
+	color: rgba(77,77,77,0.5);
+	min-width: unset !important;
+	padding-left: 0.45rem !important;
+	padding-right: 0.45rem !important;
+}
+input[data-reveal] {
+	border-right: none !important;
 }

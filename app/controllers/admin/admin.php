@@ -24,7 +24,7 @@ class AdminController extends ApplicationBaseController{
 
 		$navi = new Menu14();
 
-		foreach(array(
+		$items = array(
 			array(_("Welcome screen"),			"main"),
 			array(_("Orders"),							"orders,order_order_statuses,order_items,order_campaigns,order_vouchers"),
 			array(_("Articles"),						"articles"),
@@ -32,17 +32,19 @@ class AdminController extends ApplicationBaseController{
 			array(_("Link lists"),					"link_lists,link_list_items"),
 			array(_("Image sliders"),				"sliders,slider_items"),
 			array(_("Tags"),								"tags"),
-			array(_("Users"),								"users"),
+			array(_("Users"),								"users,user_special_pricelists"),
 			array(_("Products"),						"cards,products,card_sections,related_cards,consumables,accessories,card_filters,technical_specifications,card_cloning,card_merging,card_creators,creator_roles,creators,digital_contents"),
+			"customer_reviews" => [_("Customer reviews"), "customer_reviews"],
 			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),
 			array(_("Brands"),							"brands"),
 			// array(_("Collections"),					"collections"), // Collections are obsolete in Atk14Eshop
-			array(_("Stores"),							"stores"),
+			array(_("Stores"),							"stores,special_opening_hours"),
 			array(_("Warehouses"),					"warehouses,warehouse_items"),
-			array(_("Pricelists"),					"pricelists,pricelist_items"),
+			array(_("Price lists"),					"pricelists,pricelist_items"),
+			array(_("Special price lists"), "special_pricelists,special_pricelist_items"),
 			array(_("Discounts"),						"discounts"),
 			array(_("Delivery methods"),		"delivery_methods,delivery_method_country_specifications"),
 			array(_("Payment methods"),			"payment_methods"),
@@ -58,7 +60,9 @@ class AdminController extends ApplicationBaseController{
 			array(_("Bank accounts"),					"bank_accounts"),
 			array(_("Cookie consent"),				"cookie_consents,cookie_consent_categories,cookie_consent_statistics"),
 			array(_("System preferences"),		"system_parameters"),
-		) as $item){
+		);
+		if(!CUSTOMER_REVIEWS_ENABLED){ unset($items["customer_reviews"]); }
+		foreach($items as $item){
 			$_label = $item[0];
 			$_controllers = explode(',',$item[1]); // "products,cards" => array("products","cards");
 			$_action = "$_controllers[0]/index"; // "products" -> "products/index"
@@ -138,6 +142,12 @@ class AdminController extends ApplicationBaseController{
 			sprintf(_("Editace objednávky %s"),$order->getOrderNo()),
 			$this->_link_to(["action" => "orders/edit", "id" => $order])
 		];
+	}
+
+	function _add_user_to_breadcrumbs($user){
+		if(!$user){ return; }
+
+		$this->breadcrumbs[] = [sprintf(_("Editing user %s"),$user),$this->_link_to(["action" => "users/edit", "id" => $user])];
 	}
 
 	/**

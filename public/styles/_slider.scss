@@ -60,7 +60,7 @@
 		& > * {
 			width: auto !important;
 			max-width: 100%;
-			min-width: 100%;
+			min-width: 100% !important;
 		}
 		.swiper--thumbnails {
 			order: 1;
@@ -81,6 +81,7 @@
 .swiper {
 	//max-width: $maxContainerWidth -($grid-gutter-width*3);
 	//max-width: $maxContainerWidth;
+	min-width: 0;
 
 	&[data-slides_per_view="auto"]:not(.swiper--thumbnails) {
 		.swiper-wrapper {
@@ -123,10 +124,14 @@
 	&:after {
 		display: none;
 	}
-	&:active, &:focus {
+	&:active, &:not(:focus-visible) {
 		outline: none;
 	}
 	@include media-breakpoint-down(xs){
+		display: none;
+	}
+	// Hide default arrows from swpiper 12+
+	.swiper-navigation-icon {
 		display: none;
 	}
 }
@@ -146,7 +151,7 @@
 .swiper-pagination {
 	//margin: auto;
 	//position: relative;
-	width: 50% !important;
+	//width: 50% !important;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -179,8 +184,18 @@
 				background-color: $primary;
 			}
 		}
-		&:active, &:focus {
+		&:active, &:focus:not(:focus-visible) {
 			outline: none;
+		}
+	}
+
+	// pagination placement
+	@include media-breakpoint-up(md){
+		&--left, &--right {
+			width: 50% !important;
+		}
+		&--right {
+			margin-left: 50%;
 		}
 	}
 	
@@ -190,6 +205,8 @@
 		padding-top: $grid-gutter-width/4;
 	}
 }
+
+
 
 //.swiper {
 	.swiper--images {
@@ -223,6 +240,12 @@
 					}
 				}
 			}
+			// In case there is only single image in slider, do not show figcaption
+			&:first-child:last-child {
+				figcaption {
+					display: none;	
+				}
+			}
 		}
 		
 		
@@ -230,8 +253,9 @@
 			background-color: white;
 		}
 		.swiper-pagination {
-			width: 100% !important;
-			position: static !important;
+			width: 100%;
+			//position: relative !important;
+			position: relative !important; top: 0; left: 0;
 			margin: $grid-gutter-width/4 0;
 			margin: 0;
 		}

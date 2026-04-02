@@ -16,9 +16,10 @@
  * 	)));
  *
  */
-class SelectWithImages extends RadioSelect
-{
-	var $input_type = "radio";
+class SelectWithImages extends RadioSelect {
+
+	public $input_type = "radio";
+	public $options;
 
 	function __construct($options = array()){
 		$options += array(
@@ -56,7 +57,15 @@ class SelectWithImages extends RadioSelect
  *
  */
 class RadioInputWithImage {
+
 	var $input_type = "radio";
+	var $object;
+	var $key;
+	var $name;
+	var $value;
+	var $attrs;
+	var $index;
+	var $options;
 
 	function __construct($name, $value, $attrs, $key, $choice, $index) {
 		$this->object = $choice;
@@ -120,8 +129,8 @@ class RadioInputWithImage {
 
 	function price() {
 		$price = $this->object->getPrice();
-		if($price === null) { return ''; };
-		if($price === 0) { return '<span class="label__price label__price--free">'._('Zdarma') . '</span>'; };
+		if(is_null($price)) { return ''; };
+		if($price == 0.0) { return '<span class="label__price label__price--free">'._('Zdarma') . '</span>'; };
 		return "<span class=\"label__price\">$price</span>";
 	}
 

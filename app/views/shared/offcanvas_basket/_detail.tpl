@@ -16,8 +16,9 @@
 				<tr class="item">
 					<td class="item__image">
 						<a href="{$product|link_to_product}" aria-label="{$product->getName()} - {t}Product detail{/t}">
-							<img {!$product->getImage()|img_attrs:"80x80x#ffffff"}></td>
+							{render partial="shared/product_image" product=$product image_size=80}
 						</a>
+					</td>	
 					<td class="item__name">
 						<a href="{$product|link_to_product}">{$product->getName()}</a>
 					</td>

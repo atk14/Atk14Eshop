@@ -4,7 +4,7 @@
 
 	{*** The order has already been paid ***}
 
-	{capture assign=page_title}<span class="text-success">{!"check"|icon}</span> {t}Objednávka byla zaplacena{/t}{/capture}
+	{capture assign=page_title}<span class="text-success">{!"circle-check"|icon}</span> {t}Objednávka byla zaplacena{/t}{/capture}
 	{capture assign=teaser}{t}Děkujeme...{/t}{/capture}
 
 	{render partial="shared/layout/content_header" title=$page_title teaser=$teaser}
