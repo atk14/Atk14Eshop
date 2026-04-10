@@ -12,6 +12,14 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		return array("title","url_localized");
 	}
 
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"regions" => Region::GetDefaultValueForRegionsColumn(), 
+		);
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	function setRank($new_rank) {
 		return $this->_setRank($new_rank, array(
 			"link_list_id" => $this->getLinkList(),
