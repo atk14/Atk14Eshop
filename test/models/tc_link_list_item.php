@@ -4,6 +4,7 @@
  * @fixture pages
  * @fixture brands
  * @fixture categories
+ * @fixture regions
  *
  * this needs to be the last fixture
  * @fixture link_list_items
@@ -141,5 +142,28 @@ class TcLinkListItem extends TcBase {
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl());
 		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
+	}
+
+	function test_for_all_regions_by_default(){
+		$ll = LinkList::CreateNewRecord([
+			"system_name" => "Testing",
+		]);
+		$czechoslovakia = $this->regions["czechoslovakia"];
+
+		$this->assertTrue($ll->isEmpty($czechoslovakia));
+
+		LinkListItem::CreateNewRecord([
+			"link_list_id" => $ll,
+			"url" => "#",
+			"regions" => '{"CR": true, "czechoslovakia": false}',
+		]);
+		$this->assertTrue($ll->isEmpty($czechoslovakia));
+
+		// no regions specified? -> for all regions by default
+		LinkListItem::CreateNewRecord([
+			"link_list_id" => $ll,
+			"url" => "#",
+		]);
+		$this->assertFalse($ll->isEmpty($czechoslovakia));
 	}
 }
