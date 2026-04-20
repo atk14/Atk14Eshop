@@ -23,6 +23,6 @@
         "atk14/cache-something": "^1.0"
     },
     "require-dev": {
-        "atk14/tester": "^0.5"
+        "atk14/tester": "^0.6"
     }
 }
