@@ -24,8 +24,8 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 			}
 		}
 
-		if(Card::$TechnicalSpecificationList){
-			Card::$TechnicalSpecificationList->flushCache();
+		if(self::$TechnicalSpecificationCache){
+			self::$TechnicalSpecificationCache->flushCache();
 		}
 
 		return parent::CreateNewRecord($values,$options);
@@ -49,11 +49,48 @@ class TechnicalSpecification extends ApplicationModel implements Translatable, R
 		return TechnicalSpecification::CreateNewRecord($values);
 	}
 
+	static $TechnicalSpecificationCache;
+	static function GetInstancesForCard($card) {
+		if(!self::$TechnicalSpecificationCache){
+			self::$TechnicalSpecificationCache = new CacheSomething(
+				function($ids) {
+					$ids += Cache::CachedIds("Card");
+					$dbmole = Article::GetDbmole();
+					$rows = $dbmole->selectRows(
+						"
+							SELECT
+								card_id, id
+							FROM
+								technical_specifications WHERE card_id IN :ids
+							ORDER BY rank, id
+						",
+						[":ids" => $ids]
+					);
+					Cache::Prepare("TechnicalSpecification", array_column($rows, "id"));
+					$out = array_fill_keys($ids, []);
+					foreach($rows as $row){
+						$card_id = $row["card_id"];
+						$out[$card_id][] = Cache::Get("TechnicalSpecification",$row["id"]);
+					}
+					return $out;
+				},
+				"TechnicalSpecification"
+			);
+		}
+
+		return self::$TechnicalSpecificationCache->get($card);
+	}
+
 	static function GetForCard($card, $key) {
 		if(!is_a($key,"TechnicalSpecificationKey")){
 			$key = TechnicalSpecificationKey::GetInstanceByKey($key);
 		}
-		return TechnicalSpecification::FindFirst("card_id", $card, "technical_specification_key_id", $key);
+		if(!$key){ return null; }
+
+		foreach(self::GetInstancesForCard($card) as $technical_specification){
+			if($technical_specification->getTechnicalSpecificationKeyId()===$key->getId()){ return $technical_specification; }
+		}
+		return null;
 	}
 
 	function setRank($rank){

@@ -78,14 +78,14 @@ class CategoryNode implements IteratorAggregate, Countable {
 			return false;
 		}
 		$this->fetch();
-		$real_id = $this->id;
+		$real_id = (string)$this->id;
 		return isset($this->tree->childs[$real_id]) && $this->tree->childs[$real_id];
 	}
 
 	function getChildCategories() {
 		$this->fetch();
 		$out=array();
-		$real_id = $this->id;
+		$real_id = (string)$this->id;
 		if(!isset($this->tree->childs[$real_id])) {
 			return $out;
 		}
@@ -118,7 +118,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 			return 0;
 		};
 		$this->fetch();
-		$real_id = $this->data['real_id'];
+		$real_id = (string)$this->data['real_id'];
 		if(!isset($this->tree->childs[$real_id])) {
 			return 0;
 		}
@@ -149,7 +149,7 @@ class CategoryNode implements IteratorAggregate, Countable {
 			$this->fetch();
 			$out=array();
 			#child kategorie nemusi byt
-			$real_id = $this->id;
+			$real_id = (string)$this->id;
 
 			if(isset($this->tree->childs[$real_id]) && $this->tree->_canDescendFromLevel($this->level)) {
 				foreach($this->tree->childs[$real_id] as $id) {
@@ -299,19 +299,19 @@ class CategoryTree extends CategoryNode {
 		$dbmole = Category::GetDbMole();
 		$data = $dbmole->selectRows($sql, $bind);
 
-		$childs = array( null => array() );
+		$childs = array( "" => array() );
 		$ids = array();
 		$out = array();
 
 		foreach($data as $row) {
-			$childs[$row['parent_category_id']][] = $row;
+			$childs[(string)$row['parent_category_id']][] = $row;
 			$ids[$row['id']] = $row['id'];
 			$ids[$row['real_id']] = $row['real_id'];
 			$out[$row['id']] = $row;
 		}
 		foreach($childs as $k => $v) {
 			if($k && !key_exists($k, $out)) {
-				$childs[null] = array_merge($childs[null], $v);
+				$childs[""] = array_merge($childs[""], $v);
 			}
 		}
 

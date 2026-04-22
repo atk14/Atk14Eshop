@@ -1,6 +1,7 @@
 <h1>{$page_title}</h1>
 
 <ul>
+	<li>{a action="locales"}Locales{/a}</li>
 	<li>{a action="modal"}Modální dialogy{/a}</li>
 	<li>{a action="notify_user_registration"}E-mail s rekapitulací registrace uživatale{/a}</li>
 	<li>{a action="notify_order_creation"}E-mail s novou objednávkou{/a}</li>
@@ -10,5 +11,6 @@
 	<li>{a action="colors"}Manipulace s barvami{/a}</li>
 	<li>{a action="swiper_custom_config"}Swiper custom configuration{/a}</li>
 	<li>{a action="js_validation"}Form with JS validation{/a} ({a action="no_js_validation"}the same form without JS validation{/a})</li>
+	<li>{a action="extended_password_field"}Extended Pasword Field{/a}</li>
 </ul>
 

@@ -69,4 +69,7 @@
 	{a action="edit_password" _class="btn btn-default"}{t}Change your password{/t}{/a}
 	{a action="delivery_addresses/index" _class="btn btn-default"}{t}Delivery addresses{/t}{/a}
 	{a action="favourite_products/index" _class="btn btn-default"}{t}Favourite products{/t}{/a}
+	{if CUSTOMER_REVIEWS_ENABLED}
+		{a action="customer_reviews/index" _class="btn btn-default"}{t}My reviews{/t}{/a}
+	{/if}
 </div>

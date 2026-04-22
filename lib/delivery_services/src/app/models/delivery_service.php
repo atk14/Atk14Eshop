@@ -116,7 +116,7 @@ class DeliveryService extends ApplicationModel {
 			return $this->parser_class;
 		}
 		$class_name = new String4($this->getCode());
-		$class_name->replace("-", "_");
+		$class_name = $class_name->replace("-", "_");
 		$this->parser_class = $parserClassName = sprintf("DeliveryService\BranchParser\%s", $class_name->Camelize()->toString());
 		return $parserClassName;
 	}
@@ -132,7 +132,7 @@ class DeliveryService extends ApplicationModel {
 		try {
 			$data = $delivery_service->_fetchFeed($options["branches_url"]);
 		} catch (Exception $e) {
-			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", $options["branches_url"]), $code));
+			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", (array)$options["branches_url"]), $code));
 			return false;
 		}
 

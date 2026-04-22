@@ -1,0 +1,109 @@
+.starrating__rating{
+  .starrating__text {
+    padding-right: 1ch;
+    @extend .sr-only;
+  }
+  .starrating__stars {
+    display: inline-grid;
+    color: $warning;
+    > * {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      overflow: hidden;
+    }
+}
+}
+
+// modal with width override for customer reviews
+#card_customer_reviews_modal_id {
+  .modal-dialog {
+    width: 100%;
+    max-width: 1400px;
+  }
+}
+
+#customer_review_creation_modal_id {
+  .modal-dialog {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+.customer-reviews {
+  container-name: reviews;
+  container-type: inline-size;
+  &__wrap {
+    @container reviews (min-width: 600px) {
+      display: flex;
+      gap: 2rem;
+      .customer-reviews__ratings {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 350px;
+        margin-bottom: 2rem;
+      }
+      .customer-reviews__reviews {
+        flex-grow: 100;
+        flex-basis: auto;
+      }
+    }
+  }
+
+  &__ratings {
+    .starrating__rating {
+      .starrating__text {
+        //display: none;
+      }
+    }
+    .customer-ratings__breakdown {
+     @extend .list-unstyled;
+     li {
+      align-items: center;
+      margin-bottom: 0.5rem;
+      display: grid;
+      grid-template-columns: 2.25rem 1fr 4rem;
+      gap: 1rem;
+      .breakdown__numberstars {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+     }
+    }
+  }
+}
+
+.customer-reviews__review {
+  padding-top: 1rem;
+  margin: 1rem 0;
+  border-top: 1px solid $border-color;
+  .review__meta {
+    font-size: $font-size-sm;
+    margin-bottom: 0.5rem;
+  }
+  .review__content {
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      gap: 1rem;
+      .review__body {
+        flex-grow: 10;
+      }
+    }
+    .review__image {
+      padding-top: 0.25rem;
+      padding-bottom: 0.5rem;
+      max-width: 120px;
+    }
+  }
+}
+
+#form_customer_reviews_set_rating {
+  &, fieldset, .form-group {
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .starrating_widget {
+    font-size: 1.5rem;
+    justify-content: center;
+  }
+}

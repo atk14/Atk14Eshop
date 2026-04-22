@@ -358,3 +358,15 @@ fieldset {
 		}
 	}
 }
+
+// Styles for password reveal button
+input[data-reveal] ~ .js--password_reveal {
+	border-left: none !important;
+	color: rgba(77,77,77,0.5);
+	min-width: unset !important;
+	padding-left: 0.45rem !important;
+	padding-right: 0.45rem !important;
+}
+input[data-reveal] {
+	border-right: none !important;
+}

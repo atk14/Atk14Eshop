@@ -1,6 +1,8 @@
 <?php
 class ObjectStatusField extends ChoiceField {
 
+	var $class_name;
+
 	function __construct($options = []){
 
 		$options += [
@@ -9,6 +11,7 @@ class ObjectStatusField extends ChoiceField {
 		];
 
 		$class_name = $options["class_name"];
+		$this->class_name = $class_name;
 
 		$choices = [
 			"" => $options["empty_choice_text"],
@@ -26,5 +29,13 @@ class ObjectStatusField extends ChoiceField {
 		$options["choices"] = $choices;
 
 		parent::__construct($options);
+	}
+
+	function clean($value){
+		list($err,$id) = parent::clean($value);
+		if(is_null($id) || !is_null($err)){ return [$err,$id]; }
+
+		$status_object = Cache::Get($this->class_name,$id);
+		return [null,$status_object];
 	}
 }

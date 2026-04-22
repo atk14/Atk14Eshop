@@ -147,6 +147,10 @@ $enable-deprecation-messages: false;
 
 @import "alerts";
 
+@import "customer_reviews";
+
+@import "starrating_widget";
+
 @import "shared/clearfix";
 @import "shared/loading";
 @import "shared/buttons";

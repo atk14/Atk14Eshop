@@ -12,6 +12,15 @@ window.UTILS = window.UTILS || { };
  */
 
 window.UTILS.PasswordReveal = class {
+
+  // additional styles to be applied to the password field and reveal button, if needed
+  styles = [
+   //"input[data-reveal] ~ .js--password_reveal {border-left: none !important; color: rgba(77,77,77,0.5);min-width: unset !important; padding-left: 0.45rem !important; padding-right: 0.45rem !important;}",
+   //"input[data-reveal] {border-right: none !important;}",
+  ];
+
+  stylesApplied = null;
+
   constructor() {
     this.init();
   }
@@ -20,8 +29,16 @@ window.UTILS.PasswordReveal = class {
    * Find all password fields
    */
   init() {
-    let pwds = document.querySelectorAll( "input[type='password']" );
+    let pwds = document.querySelectorAll( "input[type='password']:not([data-extended_password_field])" );
+    //let pwds = document.querySelectorAll( "input[type='password'][data-reveal='true']:not[data-extended_password_field]" );
     [...pwds].forEach( this.enhancePasswordField.bind( this ) );
+    if( pwds.length > 0 && this.styles.length > 0 && this.stylesApplied !== true ) {
+      const sheet = window.document.styleSheets[ window.document.styleSheets.length - 1 ];
+      this.styles.forEach( css => {
+        sheet.insertRule( css, sheet.cssRules.length );
+      } );
+      this.stylesApplied = true;
+    }
   }
 
   /**
@@ -53,9 +70,9 @@ window.UTILS.PasswordReveal = class {
 
       // Create button
       btn = document.createElement( "span" );
-      btn.classList.add( "btn", "btn-light", "js--password_reveal" );
+      btn.classList.add( "btn", "btn-link", "js--password_reveal" );
       let icon = document.createElement( "i" );
-      icon.classList.add( "fa-regular", "fa-eye" );
+      icon.classList.add( "fa-solid", "fa-eye" );
       btn.append( icon );
 
       // Assemble it together

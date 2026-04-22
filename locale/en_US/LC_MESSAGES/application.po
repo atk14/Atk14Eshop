@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-27 17:15+0100\n"
-"PO-Revision-Date: 2025-11-27 17:19+0100\n"
+"POT-Creation-Date: 2026-03-20 15:19+0100\n"
+"PO-Revision-Date: 2026-03-20 15:38+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -241,6 +241,24 @@ msgstr "Quantity has been changed to %1 %2"
 msgid "Sleva"
 msgstr "Discount"
 
+msgid "Based on one review"
+msgstr "Based on one review"
+
+msgid "Based on %1 reviews"
+msgstr "Based on %1 reviews"
+
+msgid "Write review"
+msgstr "Write review"
+
+msgid "Customer reviews"
+msgstr "Customer reviews"
+
+msgid "No one has rated this book yet."
+msgstr "No one has rated this book yet."
+
+msgid "No one has rated this product yet."
+msgstr "No one has rated this product yet."
+
 msgid "Accessories"
 msgstr "Accessories"
 
@@ -255,6 +273,12 @@ msgstr "Creators"
 
 msgid "Brand:"
 msgstr "Brand:"
+
+msgid "1 review"
+msgstr "1 review"
+
+msgid "%1 reviews"
+msgstr "%1 reviews"
 
 msgid "Edit section"
 msgstr "Edit section"
@@ -399,6 +423,43 @@ msgstr "I agree to the use of all cookies"
 #: ../app/controllers/cookie_consents_controller.php:5
 msgid "Nastavení cookies"
 msgstr "Cookies settings"
+
+msgid ""
+"You can only write a review for items purchased in our store. Please make "
+"sure you are logged in to the account you used to purchase the item."
+msgstr ""
+"You can only write a review for items purchased in our store. Please make "
+"sure you are logged in to the account you used to purchase the item."
+
+msgid "Write a review for the product you purchased"
+msgstr "Write a review for the product you purchased"
+
+msgid "Purchased at %1"
+msgstr "Purchased at %1"
+
+#: ../app/controllers/customer_reviews_controller.php:11
+#: ../app/controllers/customer_reviews_controller.php:29
+msgid "My reviews"
+msgstr "My reviews"
+
+msgid "This review has not yet been published"
+msgstr "This review has not yet been published"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete review"
+msgstr "Delete review"
+
+msgid ""
+"The option to write a review will be available to you based on your "
+"purchases."
+msgstr ""
+"The option to write a review will be available to you based on your "
+"purchases."
+
+msgid "You haven't written any reviews yet."
+msgstr "You haven't written any reviews yet."
 
 msgid "Nemáte uloženou žádnou doručovací adresu"
 msgstr "You have no delivery address saved"
@@ -1058,6 +1119,12 @@ msgstr "OK"
 msgid "Souhlas můžete odmítnout %1 zde </a>"
 msgstr "You can refuse consent %1 here </a>"
 
+msgid "rating:"
+msgstr "rating:"
+
+msgid "created at:"
+msgstr "created at:"
+
 msgid "Doručovací adresa bude smazána. Pokračovat?"
 msgstr "Delivery address will be deleted. Continue?"
 
@@ -1299,6 +1366,9 @@ msgstr "Subchapters"
 msgid "Total price"
 msgstr "Total price"
 
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "To the checkout"
 msgstr "To the checkout"
 
@@ -1458,6 +1528,7 @@ msgid "Stores"
 msgstr "Stores"
 
 #: ../app/controllers/users_controller.php:22
+#: ../app/controllers/users_controller.php:47
 msgid "New user registration"
 msgstr "New user registration"
 
@@ -1490,50 +1561,50 @@ msgstr "Opening hours"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:76
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:66
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:72
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:77
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:91
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:82
 msgid "Pondělí"
 msgstr "Monday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:77
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:67
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:73
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:78
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:92
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:83
 msgid "Úterý"
 msgstr "Tuesday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:78
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:68
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:74
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:79
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:93
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:84
 msgid "Středa"
 msgstr "Wednesday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:79
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:69
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:75
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:80
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:94
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:85
 msgid "Čtvrtek"
 msgstr "Thursday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:80
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:70
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:76
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:81
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:95
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:86
 msgid "Pátek"
 msgstr "Friday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:81
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:71
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:77
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:82
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:96
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:87
 msgid "Sobota"
 msgstr "Saturday"
 
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:82
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:72
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:78
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:83
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:97
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:88
 msgid "Neděle"
 msgstr "Sunday"
 
@@ -1601,6 +1672,7 @@ msgid "Username (login)"
 msgstr "Username (login)"
 
 #: ../app/forms/contact_messages/create_new_form.php:8
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:6
 #: ../app/forms/information_requests/create_new_form.php:5
 msgid "Your name"
 msgstr "Your name"
@@ -1623,11 +1695,11 @@ msgstr "Are you admin?"
 msgid "Yes, you are"
 msgstr "Yes, you are"
 
-#: ../app/controllers/users_controller.php:52
+#: ../app/controllers/users_controller.php:53
 msgid "Change your account data"
 msgstr "Change your account data"
 
-#: ../app/controllers/users_controller.php:80
+#: ../app/controllers/users_controller.php:81
 msgid "Change your password"
 msgstr "Change your password"
 
@@ -1859,6 +1931,11 @@ msgstr "Discount coupon has been removed"
 msgid "List of Brands"
 msgstr "List of Brands"
 
+#: ../app/controllers/card_customer_reviews_controller.php:10
+#: ../app/fields/rating_field.php:6
+msgid "Rating"
+msgstr "Rating"
+
 #: ../app/controllers/card_list_controller.php:102
 msgid "Doporučujeme"
 msgstr "Featured"
@@ -1952,6 +2029,30 @@ msgstr "The use of all cookies has been accepted"
 #: ../app/controllers/cookie_consents_controller.php:56
 msgid "Používání cookies bylo zamítnuto"
 msgstr "The use of cookies has been rejected"
+
+#: ../app/controllers/customer_reviews_controller.php:141
+msgid "Poor"
+msgstr "Poor"
+
+#: ../app/controllers/customer_reviews_controller.php:142
+msgid "Fair"
+msgstr "Fair"
+
+#: ../app/controllers/customer_reviews_controller.php:143
+msgid "Good"
+msgstr "Good"
+
+#: ../app/controllers/customer_reviews_controller.php:144
+msgid "Very good"
+msgstr "Very good"
+
+#: ../app/controllers/customer_reviews_controller.php:145
+msgid "Excellent"
+msgstr "Excellent"
+
+#: ../app/controllers/customer_reviews_controller.php:155
+msgid "Your review has been saved. Thank You."
+msgstr "Your review has been saved. Thank You."
 
 #: ../app/controllers/delivery_addresses_controller.php:5
 msgid "Seznam doručovacích adres"
@@ -2108,7 +2209,7 @@ msgstr ""
 "set."
 
 #: ../app/controllers/password_recoveries_controller.php:67
-#: ../app/controllers/users_controller.php:94
+#: ../app/controllers/users_controller.php:95
 msgid "Your password has been updated successfully"
 msgstr "Your password has been updated successfully"
 
@@ -2162,15 +2263,15 @@ msgstr ""
 msgid "Thank you for your registration!"
 msgstr "Thank you for your registration!"
 
-#: ../app/controllers/users_controller.php:58
+#: ../app/controllers/users_controller.php:59
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:66
 msgid "This email address is used by another user."
 msgstr "This email address is used by another user."
 
-#: ../app/controllers/users_controller.php:74
+#: ../app/controllers/users_controller.php:75
 #, php-format
 msgid ""
 "Your account data has been updated. Next time you should sign-in with login "
@@ -2179,11 +2280,11 @@ msgstr ""
 "Your account data has been updated. Next time you should sign-in with login "
 "name <em>%s</em>."
 
-#: ../app/controllers/users_controller.php:74
+#: ../app/controllers/users_controller.php:75
 msgid "Your account data has been updated"
 msgstr "Your account data has been updated"
 
-#: ../app/controllers/users_controller.php:84
+#: ../app/controllers/users_controller.php:85
 msgid "This is not your current password"
 msgstr "This is not your current password"
 
@@ -2398,7 +2499,7 @@ msgstr "Only letters, numbers, dots and dashes are allowed"
 msgid "There is no such record"
 msgstr "There is no such record"
 
-#: ../app/fields/object_status_field.php:8
+#: ../app/fields/object_status_field.php:10
 msgid "status"
 msgstr "status"
 
@@ -2443,15 +2544,15 @@ msgstr "page"
 msgid "There is no such page"
 msgstr "There is no such page"
 
-#: ../app/fields/phone_field.php:62
+#: ../app/fields/phone_field.php:77
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../app/fields/phone_field.php:86
+#: ../app/fields/phone_field.php:101
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../app/fields/phone_field.php:87
+#: ../app/fields/phone_field.php:102
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
@@ -2462,6 +2563,14 @@ msgstr "There is no such product"
 #: ../app/fields/product_type_field.php:8
 msgid "typ produktu"
 msgstr "product type"
+
+#: ../app/fields/rating_field.php:11
+msgid ""
+"Select the number of stars that corresponds to your level of satisfaction, "
+"with a scale being one to five stars"
+msgstr ""
+"Select the number of stars that corresponds to your level of satisfaction, "
+"with a scale being one to five stars"
 
 #: ../app/fields/slug_field.php:8
 msgid "Slug"
@@ -2673,6 +2782,7 @@ msgid "Select payment method"
 msgstr "Select payment method"
 
 #: ../app/forms/checkouts/set_payment_and_delivery_method_form.php:20
+#: ../app/forms/customer_reviews/create_new/set_rating_form.php:9
 msgid "Continue"
 msgstr "Continue"
 
@@ -2702,6 +2812,26 @@ msgstr "Text"
 #: ../app/forms/information_requests/create_new_form.php:29
 msgid "Send message"
 msgstr "Send message"
+
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:8
+msgid "This name will be published"
+msgstr "This name will be published"
+
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:14
+msgid "Review title"
+msgstr "Review title"
+
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:19
+msgid "Your review"
+msgstr "Your review"
+
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:22
+msgid "Write a few words about your rating"
+msgstr "Write a few words about your rating"
+
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:26
+msgid "Save review"
+msgstr "Save review"
 
 #: ../app/forms/delivery_addresses/create_new_form.php:6
 msgid "Uložit adresu"
@@ -3004,46 +3134,70 @@ msgstr "Discount + free shipping"
 msgid "Kč"
 msgstr "CZK"
 
+#: ../app/models/customer_review.php:69
+msgid "Product rating"
+msgstr "Product rating"
+
+#: ../app/models/customer_review.php:70
+msgid "Write a review for product"
+msgstr "Write a review for product"
+
+#: ../app/models/customer_review.php:71
+msgid "How satisfied are you with the product?"
+msgstr "How satisfied are you with the product?"
+
+#: ../app/models/customer_review.php:79
+msgid "Book rating"
+msgstr "Book rating"
+
+#: ../app/models/customer_review.php:80
+msgid "Write a review for book"
+msgstr "Write a review for book"
+
+#: ../app/models/customer_review.php:81
+msgid "How did you like the book?"
+msgstr "How did you like the book?"
+
 #: ../app/models/delivery_method.php:42
 #, php-format
 msgid "opening hours: %s"
 msgstr "opening hours: %s"
 
-#: ../app/models/delivery_service.php:337
-#: ../lib/delivery_services/src/app/models/delivery_service.php:337
+#: ../app/models/delivery_service.php:338
+#: ../lib/delivery_services/src/app/models/delivery_service.php:338
 msgid "Česká Pošta - Balík na poštu"
 msgstr "Czech Post - Parcel to Post"
 
-#: ../app/models/delivery_service.php:338
-#: ../lib/delivery_services/src/app/models/delivery_service.php:338
+#: ../app/models/delivery_service.php:339
+#: ../lib/delivery_services/src/app/models/delivery_service.php:339
 msgid "Česká Pošta - Balíkovna"
 msgstr "Czech Post - Balikovna"
 
-#: ../app/models/invalid_login_attempt.php:46
+#: ../app/models/invalid_login_attempt.php:47
 msgid "Delay the next sign-in attempt for a second"
 msgstr "Delay the next sign-in attempt for a second"
 
-#: ../app/models/invalid_login_attempt.php:53
-#: ../app/models/invalid_login_attempt.php:70
+#: ../app/models/invalid_login_attempt.php:54
+#: ../app/models/invalid_login_attempt.php:71
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes"
 msgstr "Delay the next sign-in attempt for %s minutes"
 
-#: ../app/models/invalid_login_attempt.php:58
+#: ../app/models/invalid_login_attempt.php:59
 #, php-format
 msgid "Delay the next sign-in attempt for one minute and %s seconds"
 msgstr "Delay the next sign-in attempt for one minute and %s seconds"
 
-#: ../app/models/invalid_login_attempt.php:60
+#: ../app/models/invalid_login_attempt.php:61
 msgid "Delay the next sign-in attempt for one minute"
 msgstr "Delay the next sign-in attempt for one minute"
 
-#: ../app/models/invalid_login_attempt.php:64
+#: ../app/models/invalid_login_attempt.php:65
 #, php-format
 msgid "Delay the next sign-in attempt for %s seconds"
 msgstr "Delay the next sign-in attempt for %s seconds"
 
-#: ../app/models/invalid_login_attempt.php:68
+#: ../app/models/invalid_login_attempt.php:69
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes and %s seconds"
 msgstr "Delay the next sign-in attempt for %s minutes and %s seconds"

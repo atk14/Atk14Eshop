@@ -46,5 +46,8 @@
         "yarri/array-flatten": "^0.1.0",
         "salamek/ppl-my-api": "^2.7|^2.2",
         "atk14/cache-something": "^1.0"
+    },
+    "require-dev": {
+        "atk14/tester": "^0.6"
     }
 }

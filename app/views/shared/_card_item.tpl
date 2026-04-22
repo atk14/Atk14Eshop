@@ -34,6 +34,18 @@
 	<div class="card__image">{!$card_image}</div>
 {/if}
 	<div class="card-body">
+
+		{* product rating *}
+		{if CUSTOMER_REVIEWS_ENABLED}
+			{assign review_count 0}
+			{assign rating CustomerReview::GetRatingFor($card,$review_count)}
+			<div class="card__rating">
+			{if $rating}
+				{render partial="shared/customer_review/stars" rating=$rating} <span class="text-muted"><strong>{$rating|format_number:1}</strong> ({$review_count}&times;)</span>
+			{/if}
+			</div>
+		{/if}
+
 		{if $view_order_button}
 		<a class="card-title h4" href="{link_to action="cards/detail" id=$card}">{$card->getName()}</a>
 		{else}

@@ -41,6 +41,11 @@
 		{if $author|trim}
 		<div class="author">{!$author}</div>
 		{/if}
+		{if $rating}
+			<div class="rating">
+				{!$rating}
+			</div>
+		{/if}
 		{if $teaser|trim || $brand|trim  || $meta|trim }
 		<div class="teaser">
 			{if $brand|trim}

@@ -14,12 +14,11 @@ class AutomaticOrderStatusUpdaterRobot extends ApplicationRobot {
 				"conditions" => [
 					"created_at>:created_at_min",
 					"order_status_id=:order_status",
-					"order_status_set_at + INTERVAL :days<=:now"
+					sprintf("(order_status_set_at + INTERVAL '%d days')<=:now",$order_status->getNextAutomaticOrderStatusAfterDays()),
 				],
 				"bind_ar" => [
 					":created_at_min" => $created_at_min,
 					":order_status" => $order_status,
-					":days" => sprintf("%d days",$order_status->getNextAutomaticOrderStatusAfterDays()),
 					":now" => now(),
 				],
 				"order_by" => "order_status_set_at, created_at, id",

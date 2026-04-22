@@ -3,6 +3,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 	use TraitUrlParams {
 		getUrl as _getUrl;
+		TraitUrlParams::CreateNewRecord as TraitCreateNewRecord;
 	}
 	use TraitRegions;
 
@@ -10,6 +11,14 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 	static function GetTranslatableFields() {
 		return array("title","url_localized");
+	}
+
+	static function CreateNewRecord($values,$options = []){
+		$values += array(
+			"regions" => Region::GetDefaultValueForRegionsColumn(), 
+		);
+
+		return self::TraitCreateNewRecord($values,$options);
 	}
 
 	function setRank($new_rank) {
