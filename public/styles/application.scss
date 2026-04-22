@@ -103,8 +103,6 @@ $enable-deprecation-messages: false;
 
 @import "checkout-actions";
 
-@import "slider";
-
 @import "list-categories";
 @import "photoswipe";
 
@@ -139,8 +137,6 @@ $enable-deprecation-messages: false;
 
 @import "basket_info_float";
 
-@import "photoswipe";
-
 @import "offcanvas";
 
 @import "offcanvas_basket";
@@ -171,5 +167,4 @@ $enable-deprecation-messages: false;
 @import "debug_helpers";
 @import "product_thumbnail_list";
 //@import "img_colors_preview";
-@import "shared/screenreaders";
 @import "shared/badges_bs4";
