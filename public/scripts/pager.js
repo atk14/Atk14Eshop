@@ -389,7 +389,7 @@
 	};
 
 	$( function() {
-		ATK14COMMON.Pager.init();
+		//ATK14COMMON.Pager.init();
 	} );
 
 } )( this );
