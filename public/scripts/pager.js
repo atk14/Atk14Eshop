@@ -346,6 +346,7 @@
 		 * Pustime si callback, pokud jsme si ho s daty poslali
 		 */
 		if ( data.callback !== undefined ) {
+			console.log( "Executing callback: " + data.callback );
 			var cb = new Function( "return " + data.callback );
 			( cb() )();
 		}
