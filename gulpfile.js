@@ -58,7 +58,6 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/swiper.js",
 	"public/scripts/pager.js",
-	"public/scripts/pager_ng.js",
 	"public/scripts/filter.js",
 	"public/scripts/nouislider.js",
 	"public/scripts/utils/basket_shipping_rules.js",
