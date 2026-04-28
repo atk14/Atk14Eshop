@@ -103,7 +103,7 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($d==$this->form->get_initial()){
+			if(TableRecord::ObjToId($d) == TableRecord::ObjToId($this->form->get_initial())){
 				$this->flash->notice(_("Nothing has been changed"));
 				return $this->_redirect_back();
 			}
