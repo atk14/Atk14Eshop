@@ -15,7 +15,13 @@
 		{/if}
 	</td>
 	<td class="item-login">{$user->getLogin()}{if $user->isDeleted()} <em>({t}deleted{/t})</em>{elseif !$user->isActive()} <em>({t}not active{/t})</em>{/if}</td>
-	<td class="item-title">{$user->getName()}</td>
+	<td class="item-title">
+		{if $user->getCompany()|strlen && $user->getCompany()!=$user->getName()}
+			{$user->getCompany()} / {$user->getName()}
+		{else}
+			{$user->getName()}
+		{/if}
+	</td>
 	<td class="item-email">{$user->getEmail()}</td>
 	{/highlight_search_query}
 	<td class="item-isadmin">{$user->isAdmin()|display_bool}</td>

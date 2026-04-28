@@ -17,6 +17,14 @@ class UsersController extends AdminController{
 				"firstname",
 				"lastname",
 				"email",
+				"company",
+				"company_number",
+				"vat_id",
+				"address_street",
+				"address_street2",
+				"address_city",
+				"address_state",
+				"address_zip",
 			) as $_f){
 				$_fields[] = "COALESCE($_f,'')";
 			}
@@ -34,7 +42,9 @@ class UsersController extends AdminController{
 		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
 		$this->sorting->add("login","LOWER(login)");
 		$this->sorting->add("id");
-		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
+		$name = "COALESCE(company,'')||' '||COALESCE(firstname,'')||' '||COALESCE(lastname,'')||' '||login";
+		$name = "LOWER($name)";
+		$this->sorting->add("name","$name ASC","$name DESC");
 		$this->sorting->add("email","COALESCE(LOWER(email),'')");
 		$this->sorting->add("role","
 			is_admin DESC,
