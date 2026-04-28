@@ -25,7 +25,7 @@ window.UTILS.mapHelpers = class {
       // Get tile API key which should be writen in page source
       APIKey = window.mapTilesAPIkey;
     }
-    switch( this.getTileProvider() ) {
+    switch( this.tileProvider ) {
       case "mapycz":
         tileURL = `https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=${APIKey}`;
         break;
@@ -39,7 +39,7 @@ window.UTILS.mapHelpers = class {
   // Tile attribution as tile provider requires
   static get mapAttribution() {
     let attribution = null;
-    switch( this.getTileProvider() ) {
+    switch( this.tileProvider ) {
       case "mapycz":
         attribution = "<a href=\"https://api.mapy.cz/copyright\" target=\"_blank\">&copy; Seznam.cz a.s. a další</a>";
         break;
@@ -58,18 +58,22 @@ window.UTILS.mapHelpers = class {
     popupAnchor: [0, -40],
   };
 
-  // Get tile provider which should be writen in page source
-  static getTileProvider() {
-    if( window.mapTilesProvider ){
-      return window.mapTilesProvider;
-    } else {
-      return "osm";
-    }
+  static escapeHtml( str ) {
+    return String( str )
+      .replace( /&/g, "&amp;" )
+      .replace( /</g, "&lt;" )
+      .replace( />/g, "&gt;" )
+      .replace( /"/g, "&quot;" )
+      .replace( /'/g, "&#39;" );
+  }
+
+  static get tileProvider() {
+    return window.mapTilesProvider ?? "osm";
   }
 
   // Get tile provider logo required by tile provider
   static addTileProviderLogo( map ) {
-    if( this.getTileProvider() === "mapycz" ) {
+    if( this.tileProvider === "mapycz" ) {
       const LogoControl = L.Control.extend({
         options: {
           position: "bottomleft",
@@ -160,12 +164,11 @@ window.UTILS.MultiMap = class {
   mapContainer; // main html container for map
   map; // map instance
   iconOptions = window.UTILS.mapHelpers.iconOptions;
-  icon = window.UTILS.mapHelpers.icon;
-  storeData = window.storeLocatorData;
+  storeData = window.storeLocatorData ?? [];
   markerGroup;
   clusteredLayer;
-  cards = new Array();
-  positions = new Array();
+  cards = [];
+  positions = [];
   baseMapLayer;
   enableClusters = false;
   clusterDistance = 80;
@@ -178,9 +181,8 @@ window.UTILS.MultiMap = class {
 
   constructor( mapElement ) {
     this.mapContainer = mapElement;
-    // console.log("new MultiMap", this.mapContainer );
     this.enableClusters = (/true/).test( this.mapContainer.dataset.enable_clusters );
-    this.clusterDistance = this.mapContainer.dataset.cluster_distance;
+    this.clusterDistance = this.mapContainer.dataset.cluster_distance ?? this.clusterDistance;
     if ( this.mapContainer.querySelector( this.preloaderSelector ) ) {
       this.preloader = this.mapContainer.querySelector( this.preloaderSelector );
     }
@@ -198,7 +200,7 @@ window.UTILS.MultiMap = class {
         iconCreateFunction: this.customClusterIcon,
       } );
     } else {
-      this.markerGroup = new L.featureGroup();
+      this.markerGroup = L.featureGroup();
       this.calculateMarkerOffsets();
     }
 
@@ -206,14 +208,16 @@ window.UTILS.MultiMap = class {
     this.createMarkers();
 
     // Show / hide preloader
-    this.baseMapLayer.addEventListener( "loading", function(){ this.preloaderVisible = true }.bind( this ) );
-    this.baseMapLayer.addEventListener( "load", function(){ this.preloaderVisible = false }.bind( this ) );
+    this.baseMapLayer.addEventListener( "loading", () => { this.preloaderVisible = true; } );
+    this.baseMapLayer.addEventListener( "load", () => { this.preloaderVisible = false; } );
 
     // Create map
-    const tempCenter = [ 50.0736203, 14.4234447 ];
     this.map = L.map( this.mapContainer, {
-      center: tempCenter,
-      zoom: 10,
+      center: [
+        this.mapContainer.dataset.lat ?? 50.0736203,
+        this.mapContainer.dataset.lng ?? 14.4234447,
+      ],
+      zoom: this.mapContainer.dataset.zoom ?? 10,
       layers: [ this.baseMapLayer, this.markerGroup ],
       gestureHandling: true,
     });
@@ -222,7 +226,9 @@ window.UTILS.MultiMap = class {
     window.UTILS.mapHelpers.addTileProviderLogo( this.map );
 
     // Zoom to show all markers
-    this.map.fitBounds( this.markerGroup.getBounds() );
+    if( this.markerGroup.getLayers().length > 0 ) {
+      this.map.fitBounds( this.markerGroup.getBounds() );
+    }
 
     // Connect list of points with map
     this.createCardListHandlers();
@@ -235,15 +241,14 @@ window.UTILS.MultiMap = class {
    * (3 decimals precision)
    */
   calculateMarkerOffsets() {
-    for ( let i = 0; i < this.storeData.length; i++ ) {
-      let iLat = Number( Math.round( this.storeData[ i ].lat + "e3" ) + "e-3" );
-      let iLng = Number( Math.round( this.storeData[ i ].lng + "e3" ) + "e-3" );
-      this.storeData[ i ].markerOffset = 0;
-      for ( let j = 0; j < i; j++ ) {
-        let jLat = Number( Math.round( this.storeData[ j ].lat + "e3" ) + "e-3" );
-        let jLng = Number( Math.round( this.storeData[ j ].lng + "e3" ) + "e-3" );
-        if ( iLat === jLat && iLng === jLng ) {
-          this.storeData[ i ].markerOffset++;
+    const round3 = v => Math.round( v * 1000 ) / 1000;
+    for ( const [ i, store ] of this.storeData.entries() ) {
+      const iLat = round3( store.lat );
+      const iLng = round3( store.lng );
+      store.markerOffset = 0;
+      for ( const prev of this.storeData.slice( 0, i ) ) {
+        if ( round3( prev.lat ) === iLat && round3( prev.lng ) === iLng ) {
+          store.markerOffset++;
         }
       }
     }
@@ -253,24 +258,21 @@ window.UTILS.MultiMap = class {
    * Create and place markers
    */
   createMarkers() {
-    for ( let i = 0; i < this.storeData.length; i++ ) {
-      let store  = this.storeData[ i ];
+    for ( const store of this.storeData ) {
       let icon = L.icon( this.iconOptions );
 
       // Make icon with X offset if needed
       if( !this.enableClusters && store.markerOffset !== 0 ) {
-        let iconAnchorX = this.iconOptions.iconAnchor [0];
-        let iconAnchorY = this.iconOptions.iconAnchor [1];
-        let popupAnchorX = this.iconOptions.popupAnchor [0];
-        let popupAnchorY = this.iconOptions.popupAnchor [1];
+        const [ iconAnchorX, iconAnchorY ] = this.iconOptions.iconAnchor;
+        const [ popupAnchorX, popupAnchorY ] = this.iconOptions.popupAnchor;
 
-        icon = new window.UTILS.customMapIcon( { 
+        icon = new window.UTILS.customMapIcon( {
           iconAnchor:  [ iconAnchorX + ( store.markerOffset * this.proximityOffset ), iconAnchorY ],
           popupAnchor: [ popupAnchorX - ( store.markerOffset * this.proximityOffset ), popupAnchorY ],
         } );
       }
 
-      let marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
+      const marker = L.marker( [ store.lat, store.lng ], { icon: icon } ).bindPopup( this.createPopupMarkup( store ) );
       marker.storeId = store.id;
       this.markerGroup.addLayer( marker );
     }
@@ -284,14 +286,15 @@ window.UTILS.MultiMap = class {
     Create HTML markup for marker popup
   */
   createPopupMarkup(store) {
+    const e = window.UTILS.mapHelpers.escapeHtml;
     let image = "";
     let flags = "";
     const address = decodeURIComponent( store.address );
-    if( store.isOpen !== false && typeof( store.isOpen ) === "string" ){
-			flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
-		}
+    if( typeof( store.isOpen ) === "string" ){
+      flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
+    }
     if( store.image ) {
-      image = `<img src="${store.image}" alt="${store.title}">`;
+      image = `<img src="${e( store.image )}" alt="${e( store.title )}">`;
     }
     let template = `
     <div class="map-info-popup">
@@ -301,7 +304,7 @@ window.UTILS.MultiMap = class {
       <div class="map-info-popup__body">
         <p class="map-info-popup__title">${store.title}</p>
         <address>${address}</address>
-        <a href="${store.detailURL}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
+        <a href="${e( store.detailURL )}" class="btn btn-sm btn-primary">Prodejna <span class="fas fa-arrow-right"></span></a>
       </div>
     </div>
     `;
@@ -318,9 +321,9 @@ window.UTILS.MultiMap = class {
     }
     const cardContainer = document.querySelector( this.cardListSelector );
     const cards = cardContainer.querySelectorAll( this.cardListItemSelector );
-    [...cards].forEach( function( elem ){
+    [...cards].forEach( elem => {
       elem.querySelector( this.cardListMapButtonSelector ).addEventListener( "click", this.showPopupByStoreId.bind( this ) );
-    }.bind( this ) );
+    } );
   }
 
   /**
@@ -332,14 +335,14 @@ window.UTILS.MultiMap = class {
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
     if( this.enableClusters ){
-      this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
+      this.markerGroup.zoomToShowLayer( marker, () => {
+        setTimeout( () => { marker.openPopup(); }, 500 );
+      } );
     } else {
-      const  pos = [ marker.getLatLng() ];
-      const markerBounds = L.latLngBounds( pos );
+      const markerBounds = L.latLngBounds( [ marker.getLatLng() ] );
       this.map.fitBounds( markerBounds );
+      marker.openPopup();
     }
-
-    marker.openPopup();
     
     this.mapContainer.scrollIntoView( { behavior: "smooth" } );
   }
@@ -349,7 +352,7 @@ window.UTILS.MultiMap = class {
    */
   getMarkerByStoreId( storeId ) {
     let marker;
-    this.markerGroup.eachLayer( function ( layer ) {
+    this.markerGroup.eachLayer( layer => {
       if( layer.storeId.toString() === storeId.toString() ) {
         marker = layer;
       }
