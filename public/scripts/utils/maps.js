@@ -25,7 +25,7 @@ window.UTILS.mapHelpers = class {
       // Get tile API key which should be writen in page source
       APIKey = window.mapTilesAPIkey;
     }
-    switch( this.getTileProvider() ) {
+    switch( this.tileProvider ) {
       case "mapycz":
         tileURL = `https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=${APIKey}`;
         break;
@@ -39,7 +39,7 @@ window.UTILS.mapHelpers = class {
   // Tile attribution as tile provider requires
   static get mapAttribution() {
     let attribution = null;
-    switch( this.getTileProvider() ) {
+    switch( this.tileProvider ) {
       case "mapycz":
         attribution = "<a href=\"https://api.mapy.cz/copyright\" target=\"_blank\">&copy; Seznam.cz a.s. a další</a>";
         break;
@@ -67,18 +67,13 @@ window.UTILS.mapHelpers = class {
       .replace( /'/g, "&#39;" );
   }
 
-  // Get tile provider which should be writen in page source
-  static getTileProvider() {
-    if( window.mapTilesProvider ){
-      return window.mapTilesProvider;
-    } else {
-      return "osm";
-    }
+  static get tileProvider() {
+    return window.mapTilesProvider ?? "osm";
   }
 
   // Get tile provider logo required by tile provider
   static addTileProviderLogo( map ) {
-    if( this.getTileProvider() === "mapycz" ) {
+    if( this.tileProvider === "mapycz" ) {
       const LogoControl = L.Control.extend({
         options: {
           position: "bottomleft",
@@ -169,7 +164,7 @@ window.UTILS.MultiMap = class {
   mapContainer; // main html container for map
   map; // map instance
   iconOptions = window.UTILS.mapHelpers.iconOptions;
-  storeData = window.storeLocatorData;
+  storeData = window.storeLocatorData ?? [];
   markerGroup;
   clusteredLayer;
   cards = [];
@@ -217,10 +212,12 @@ window.UTILS.MultiMap = class {
     this.baseMapLayer.addEventListener( "load", () => { this.preloaderVisible = false; } );
 
     // Create map
-    const tempCenter = [ 50.0736203, 14.4234447 ];
     this.map = L.map( this.mapContainer, {
-      center: tempCenter,
-      zoom: 10,
+      center: [
+        this.mapContainer.dataset.lat ?? 50.0736203,
+        this.mapContainer.dataset.lng ?? 14.4234447,
+      ],
+      zoom: this.mapContainer.dataset.zoom ?? 10,
       layers: [ this.baseMapLayer, this.markerGroup ],
       gestureHandling: true,
     });
@@ -338,14 +335,14 @@ window.UTILS.MultiMap = class {
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
     if( this.enableClusters ){
-      this.markerGroup.zoomToShowLayer( marker, function(){ setTimeout( function(){ marker.openPopup()}, 500 ) } );
+      this.markerGroup.zoomToShowLayer( marker, () => {
+        setTimeout( () => { marker.openPopup(); }, 500 );
+      } );
     } else {
-      const  pos = [ marker.getLatLng() ];
-      const markerBounds = L.latLngBounds( pos );
+      const markerBounds = L.latLngBounds( [ marker.getLatLng() ] );
       this.map.fitBounds( markerBounds );
+      marker.openPopup();
     }
-
-    marker.openPopup();
     
     this.mapContainer.scrollIntoView( { behavior: "smooth" } );
   }
