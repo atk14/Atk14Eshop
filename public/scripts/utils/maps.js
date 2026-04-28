@@ -225,6 +225,9 @@ window.UTILS.MultiMap = class {
     // Add provider logo if required
     window.UTILS.mapHelpers.addTileProviderLogo( this.map );
 
+    // Add locate button
+    this.addLocateControl();
+
     // Zoom to show all markers
     if( this.markerGroup.getLayers().length > 0 ) {
       this.map.fitBounds( this.markerGroup.getBounds() );
@@ -276,6 +279,62 @@ window.UTILS.MultiMap = class {
       marker.storeId = store.id;
       this.markerGroup.addLayer( marker );
     }
+  }
+
+  addLocateControl() {
+    // Reused across calls so repeated clicks move the existing marker instead of adding a new one
+    let userMarker = null;
+
+    const LocateControl = L.Control.extend( {
+      options: { position: "topleft" },
+      onAdd: () => {
+        const container = L.DomUtil.create( "div", "leaflet-bar leaflet-control leaflet-control-locate" );
+        const button = L.DomUtil.create( "a", "leaflet-control-locate__btn", container );
+        button.href = "#";
+        button.title = "Použít moji polohu";
+        button.setAttribute( "role", "button" );
+        button.setAttribute( "aria-label", "Použít moji polohu" );
+        button.innerHTML = '<span class="fas fa-location-arrow"></span>';
+
+        // Prevent map click/drag events from firing through the button
+        L.DomEvent.disableClickPropagation( button );
+
+        L.DomEvent.on( button, "click", ( e ) => {
+          L.DomEvent.preventDefault( e );
+
+          // Geolocation API unavailable (e.g. non-secure context)
+          if ( !navigator.geolocation ) return;
+
+          button.classList.add( "leaflet-control-locate--loading" );
+
+          navigator.geolocation.getCurrentPosition(
+            ( position ) => {
+              button.classList.remove( "leaflet-control-locate--loading" );
+              const { latitude, longitude } = position.coords;
+
+              // Move existing marker rather than stacking multiple ones
+              if ( userMarker ) {
+                userMarker.setLatLng( [ latitude, longitude ] );
+              } else {
+                userMarker = L.circleMarker( [ latitude, longitude ], {
+                  className: "user-location-marker",
+                  radius: 8,
+                } ).addTo( this.map );
+              }
+
+              this.map.setView( [ latitude, longitude ], 13 );
+            },
+            // On denial or timeout just stop the loading indicator
+            () => {
+              button.classList.remove( "leaflet-control-locate--loading" );
+            }
+          );
+        } );
+
+        return container;
+      },
+    } );
+    new LocateControl().addTo( this.map );
   }
 
   customClusterIcon( cluster ) {

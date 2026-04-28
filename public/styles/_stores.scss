@@ -277,7 +277,7 @@ $popupCardHeight: 140px;
 	}
 
 	// Styles for Leaflet maps controls
-	.leaflet-control-zoom {
+	.leaflet-control-zoom, .leaflet-control-locate {
 		$btnSize: 40px;
 		border: none;
 		& > a {
