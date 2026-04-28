@@ -123,7 +123,7 @@ class ApplicationBaseController extends Atk14Controller{
 		// security headers
 		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // avoiding clickjacking attacks; "SAMEORIGIN", "DENY"
 		$this->response->setHeader("X-XSS-Protection","1; mode=block");
-		$this->response->setHeader("Referrer-Policy","same-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
+		$this->response->setHeader("Referrer-Policy","strict-origin-when-cross-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
 		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval';");
 
