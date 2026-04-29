@@ -21,7 +21,7 @@ window.UTILS.mapHelpers = class {
   static get mapProvider() {
     let tileURL = null;
     let APIKey = "";
-    if( window.mapTilesAPIkey ) {
+    if ( window.mapTilesAPIkey ) {
       // Get tile API key which should be writen in page source
       APIKey = window.mapTilesAPIkey;
     }
@@ -73,7 +73,7 @@ window.UTILS.mapHelpers = class {
 
   // Get tile provider logo required by tile provider
   static addTileProviderLogo( map ) {
-    if( this.tileProvider === "mapycz" ) {
+    if ( this.tileProvider === "mapycz" ) {
       const LogoControl = L.Control.extend({
         options: {
           position: "bottomleft",
@@ -141,7 +141,7 @@ window.UTILS.SimpleMap = class {
 
     // Add marker
     this.marker = L.marker( [this.lat, this.lng], { icon: L.icon( this.iconOptions ) } ).addTo( this.map );
-    if( this.title ) {
+    if ( this.title ) {
       this.marker.bindPopup( this.title );
     }
 
@@ -193,7 +193,7 @@ window.UTILS.MultiMap = class {
     } );
 
     // initialize layer for markers
-    if( this.enableClusters ) {
+    if ( this.enableClusters ) {
       this.markerGroup = L.markerClusterGroup( {
         showCoverageOnHover: false,
         maxClusterRadius: this.clusterDistance,
@@ -229,7 +229,7 @@ window.UTILS.MultiMap = class {
     this.addLocateControl();
 
     // Zoom to show all markers
-    if( this.markerGroup.getLayers().length > 0 ) {
+    if ( this.markerGroup.getLayers().length > 0 ) {
       this.map.fitBounds( this.markerGroup.getBounds() );
     }
 
@@ -265,7 +265,7 @@ window.UTILS.MultiMap = class {
       let icon = L.icon( this.iconOptions );
 
       // Make icon with X offset if needed
-      if( !this.enableClusters && store.markerOffset !== 0 ) {
+      if ( !this.enableClusters && store.markerOffset !== 0 ) {
         const [ iconAnchorX, iconAnchorY ] = this.iconOptions.iconAnchor;
         const [ popupAnchorX, popupAnchorY ] = this.iconOptions.popupAnchor;
 
@@ -294,7 +294,7 @@ window.UTILS.MultiMap = class {
         button.title = "Použít moji polohu";
         button.setAttribute( "role", "button" );
         button.setAttribute( "aria-label", "Použít moji polohu" );
-        button.innerHTML = '<span class="fas fa-location-arrow"></span>';
+        button.innerHTML = "<span class=\"fas fa-location-arrow\"></span>";
 
         // Prevent map click/drag events from firing through the button
         L.DomEvent.disableClickPropagation( button );
@@ -303,7 +303,7 @@ window.UTILS.MultiMap = class {
           L.DomEvent.preventDefault( e );
 
           // Geolocation API unavailable (e.g. non-secure context)
-          if ( !navigator.geolocation ) return;
+          if ( !navigator.geolocation ) { return };
 
           button.classList.add( "leaflet-control-locate--loading" );
 
@@ -349,10 +349,10 @@ window.UTILS.MultiMap = class {
     let image = "";
     let flags = "";
     const address = decodeURIComponent( store.address );
-    if( typeof( store.isOpen ) === "string" ){
+    if ( typeof( store.isOpen ) === "string" ){
       flags = `<div class="flags"><span class="badge badge-success">${store.isOpen}</span></div>`;
     }
-    if( store.image ) {
+    if ( store.image ) {
       image = `<img src="${e( store.image )}" alt="${e( store.title )}">`;
     }
     let template = `
@@ -375,7 +375,7 @@ window.UTILS.MultiMap = class {
    * Create click handlers on stores list to show store on map
    */
   createCardListHandlers() {
-    if( !document.querySelector( this.cardListSelector ) ) {
+    if ( !document.querySelector( this.cardListSelector ) ) {
       return;
     }
     const cardContainer = document.querySelector( this.cardListSelector );
@@ -393,7 +393,7 @@ window.UTILS.MultiMap = class {
     e.preventDefault();
     const marker = this.getMarkerByStoreId( e.currentTarget.dataset.storeid );
 
-    if( this.enableClusters ){
+    if ( this.enableClusters ) {
       this.markerGroup.zoomToShowLayer( marker, () => {
         setTimeout( () => { marker.openPopup(); }, 500 );
       } );
@@ -412,7 +412,7 @@ window.UTILS.MultiMap = class {
   getMarkerByStoreId( storeId ) {
     let marker;
     this.markerGroup.eachLayer( layer => {
-      if( layer.storeId.toString() === storeId.toString() ) {
+      if ( layer.storeId.toString() === storeId.toString() ) {
         marker = layer;
       }
     } );
@@ -423,7 +423,7 @@ window.UTILS.MultiMap = class {
    * controls preloader visibility
    */
   set preloaderVisible( visibility ){
-    if( this.preloader ) {
+    if ( this.preloader ) {
       if ( visibility ) {
         this.preloader.style.display = "flex";
       } else {
