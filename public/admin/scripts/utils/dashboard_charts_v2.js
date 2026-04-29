@@ -14,6 +14,12 @@ window.UTILS.DashboardOrdersChart = class {
 	monthlyOrderStats = window.monthlyOrderStats;
 	yearlyOrderStats = window.yearlyOrderStats;
 
+	static resolutionConfig = {
+		days:   { tooltipFormat: "LL",        unit: "day",   align: "start"  },
+		months: { tooltipFormat: "MMMM YYYY", unit: "month", align: "center" },
+		years:  { tooltipFormat: "YYYY",       unit: "year",  align: "center" },
+	};
+
 
 	constructor() {
 		this.ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
@@ -112,7 +118,8 @@ window.UTILS.DashboardOrdersChart = class {
 		this.createUIHandlers();
 
 		// scroll chart to the most end when in x-scrollable container
-		document.querySelector( ".chart-wrapper" ).scrollLeft = 1200;
+		const chartWrapper = document.querySelector( ".chart-wrapper" );
+		chartWrapper.scrollLeft = chartWrapper.scrollWidth;
 
 		this.checkChartDarkMode();
 
@@ -158,17 +165,8 @@ window.UTILS.DashboardOrdersChart = class {
 		// Disable range buttons when on end of dataset
 		let btnLeft  = document.querySelector( "#chartRange__left" );
 		let btnRight = document.querySelector( "#chartRange__right" );
-		if ( startIndex < 1 ){
-			btnLeft.disabled = true;
-		} else {
-			btnLeft.disabled = false;
-		}
-		
-		if ( endIndex >= dataset.length - 1 ){
-			btnRight.disabled = true;
-		} else {
-			btnRight.disabled = false;
-		}
+		btnLeft.disabled  = startIndex < 1;
+		btnRight.disabled = endIndex >= dataset.length - 1;
 		
 		// get slice of dataset (endIndex not included, so there is +1)
 		const slice = dataset.slice( startIndex, endIndex + 1 );
@@ -194,12 +192,7 @@ window.UTILS.DashboardOrdersChart = class {
 	toggleResolution( resolution ) {
 		this.currentResolution = resolution;
 		const dataArray = this.getDatasetForResolution( resolution );
-		const resolutionConfig = {
-			days:   { tooltipFormat: "LL",         unit: "day",   align: "start"  },
-			months: { tooltipFormat: "MMMM YYYY",  unit: "month", align: "center" },
-			years:  { tooltipFormat: "YYYY",        unit: "year",  align: "center" },
-		};
-		const { tooltipFormat, unit, align } = resolutionConfig[ resolution ];
+		const { tooltipFormat, unit, align } = this.constructor.resolutionConfig[ resolution ];
 		let d = this.getOrderDataSlice( dataArray, resolution, 0);
 		this.ordersChart.data.datasets[0].data = d.data;
 		this.ordersChart.data.labels = d.labels;
@@ -208,9 +201,8 @@ window.UTILS.DashboardOrdersChart = class {
 		this.ordersChart.options.scales.x.ticks.align = align;
 		this.ordersChart.update();
 
-		// make sure proper resolution button is highhlighted
-		let btn = document.querySelector( "#chartResolutionToggle input[value=\"" + resolution + "\"]" );
-		btn.checked = true;
+		// make sure proper resolution button is highlighted
+		document.querySelector( `#chartResolutionToggle input[value="${resolution}"]` ).checked = true;
 
 	}
 
