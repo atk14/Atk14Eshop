@@ -21,7 +21,7 @@ window.UTILS.DashboardOrdersChart = class {
 
 	constructor() {
 		this.ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
-		moment.locale( document.documentElement.lang );
+		dayjs.locale( document.documentElement.lang );
 		Chart.register(ChartDataLabels);
 		const initialChartData = this.getOrderDataSlice( this.dailyOrderStats, this.currentResolution, 0);
 
@@ -144,8 +144,8 @@ window.UTILS.DashboardOrdersChart = class {
 
 	// Updates date range label and prev/next button states
 	updateRangeUI( dataset, startIndex, endIndex, offset ) {
-		const startDate = moment( dataset[ startIndex ].t ).format( "LL" );
-		const endDate   = offset === 0 ? moment().format( "LL" ) : moment( dataset[ endIndex ].t ).format( "LL" );
+		const startDate = dayjs( dataset[ startIndex ].t ).format( "LL" );
+		const endDate   = offset === 0 ? dayjs().format( "LL" ) : dayjs( dataset[ endIndex ].t ).format( "LL" );
 		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
 
 		document.querySelector( "#chartRange__left" ).disabled  = startIndex < 1;
