@@ -7,8 +7,6 @@ window.UTILS.DashboardOrdersChart = class {
 	ordersChartCtx;
 	currentResolution = "days";
 	pageOffset = 0;
-	initialChartData;
-	ordersChartConfig;
 	ordersChart;
 	dailyOrderStats = window.dailyOrderStats;
 	monthlyOrderStats = window.monthlyOrderStats;
@@ -23,16 +21,16 @@ window.UTILS.DashboardOrdersChart = class {
 
 	constructor() {
 		this.ordersChartCtx = document.getElementById( "ordersChart" ).getContext( "2d" );
-		moment.locale( document.documentElement.lang );
+		dayjs.locale( document.documentElement.lang );
 		Chart.register(ChartDataLabels);
-		this.initialChartData = this.getOrderDataSlice( this.dailyOrderStats, this.currentResolution, 0);
+		const initialChartData = this.getOrderDataSlice( this.dailyOrderStats, this.currentResolution, 0);
 
-		this.ordersChartConfig = {
+		const ordersChartConfig = {
 			type: "bar",
 			data: {
-				labels: this.initialChartData.labels,
+				labels: initialChartData.labels,
 				datasets: [{
-					data: this.initialChartData.data,
+					data: initialChartData.data,
 					backgroundColor: this.color( this.primaryColor ).alpha( 0.5 ).rgbString(),
 					borderColor: this.color( this.primaryColor ).alpha( 0 ).rgbString(),
 					borderWidth: 1
@@ -113,7 +111,7 @@ window.UTILS.DashboardOrdersChart = class {
 		}
 
 		// Create chart
-		this.ordersChart = new Chart( this.ordersChartCtx, this.ordersChartConfig );
+		this.ordersChart = new Chart( this.ordersChartCtx, ordersChartConfig );
 
 		this.createUIHandlers();
 
@@ -125,59 +123,33 @@ window.UTILS.DashboardOrdersChart = class {
 
   }
 
-  // Get data for selected resolution and timeframe
+	// Returns chart-ready labels and data for a given dataset window
 	getOrderDataSlice( dataset, resolution, offset ) {
-		
-		// Offset means how many datePeriods to past we will move
-		
-		let datePeriod = 10;
-		
-		switch ( resolution ){
-			case "days":
-				datePeriod = 28;
-				break;
-			case "months":
-				datePeriod = 24;
-				break;
-			case "years":
-				datePeriod = 5;
-				break;
-		}
+		const datePeriod = { days: 28, months: 24, years: 5 }[ resolution ] ?? 10;
 
 		this.pageOffset = offset;
-				
-		// Get start and end datapoint index
-		let startIndex = Math.max( 0, dataset.length - ( datePeriod * ( offset + 1 ) ) );
-		let endIndex = Math.min( startIndex + datePeriod, dataset.length - 1 );
-		
-		// Start and end dates for display
-		let startDate = moment( dataset[ startIndex ].t ).format( "LL" );
-    let endDate;
-		if( offset === 0 ){
-			endDate = moment().format( "LL" );
-		} else {
-			endDate = moment( dataset[ endIndex ].t ).format( "LL" );
-		}
-		
-		// Display date range above chart
-		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
-		
-		// Disable range buttons when on end of dataset
-		let btnLeft  = document.querySelector( "#chartRange__left" );
-		let btnRight = document.querySelector( "#chartRange__right" );
-		btnLeft.disabled  = startIndex < 1;
-		btnRight.disabled = endIndex >= dataset.length - 1;
-		
-		// get slice of dataset (endIndex not included, so there is +1)
-		const slice = dataset.slice( startIndex, endIndex + 1 );
-		const output = { labels: [], data: [] };
 
-		for ( const item of slice ) {
+		const startIndex = Math.max( 0, dataset.length - ( datePeriod * ( offset + 1 ) ) );
+		const endIndex   = Math.min( startIndex + datePeriod, dataset.length - 1 );
+
+		this.updateRangeUI( dataset, startIndex, endIndex, offset );
+
+		const output = { labels: [], data: [] };
+		for ( const item of dataset.slice( startIndex, endIndex + 1 ) ) {
 			output.labels.push( item.t );
 			output.data.push( item.y );
 		}
-
 		return output;
+	}
+
+	// Updates date range label and prev/next button states
+	updateRangeUI( dataset, startIndex, endIndex, offset ) {
+		const startDate = dayjs( dataset[ startIndex ].t ).format( "LL" );
+		const endDate   = offset === 0 ? dayjs().format( "LL" ) : dayjs( dataset[ endIndex ].t ).format( "LL" );
+		document.querySelector( "#chartRange__display" ).innerHTML = startDate + "&mdash;" + endDate;
+
+		document.querySelector( "#chartRange__left" ).disabled  = startIndex < 1;
+		document.querySelector( "#chartRange__right" ).disabled = endIndex >= dataset.length - 1;
 	}
 
 	getDatasetForResolution( resolution ) {
