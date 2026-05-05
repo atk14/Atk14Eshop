@@ -17,24 +17,19 @@ window.UTILS = window.UTILS || { };
 
 window.UTILS.WindowSync = class {
 
-  sync;           // shared worker instance
-  lastMsgId = 0;  // id of last message sent
+  sync;  // BroadcastChannel instance
 
   constructor() {
     this.sync = new BroadcastChannel( "atk14_radio" );
     this.sync.onmessage = this.onSyncMessage.bind( this );
     this.sync.onmessageerror = function( e ) {
-      throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
+      throw new Error( "BroadcastChannel Error: could not deserialize message", e );
     };
     this.setWindowEventHandlers();
   }
 
   // Incoming message
   onSyncMessage( e ) {
-    // if message comes from our instance ignore it / return
-    if( e.data.msgID === this.lastMsgId ) {
-      return;
-    }
 
     // Process known messages, ignore unknown messages
     if( e.data.data ){
@@ -60,14 +55,9 @@ window.UTILS.WindowSync = class {
     
   }
 
-  // Method to serd message to all other browser instances
+  // Method to send message to all other browser instances
   send( data ) {
-    // Make unique ID
-    let msgID = Math.floor(Math.random() * 100).toString() + Date.now();
-    // Send
-    this.sync.postMessage( { data: data , msgID: msgID } );
-    // Remember sent message ID
-    this.lastMsgId = msgID;
+    this.sync.postMessage( { data: data } );
   }
 
   // Listen for local events (local basket add/remove, local favourites add/remove etc.)
