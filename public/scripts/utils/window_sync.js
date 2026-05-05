@@ -17,7 +17,8 @@ window.UTILS = window.UTILS || { };
 
 window.UTILS.WindowSync = class {
 
-  sync;  // BroadcastChannel instance
+  sync;           // BroadcastChannel instance
+  lastMsgId = 0;  // id of last message sent
 
   constructor() {
     this.sync = new BroadcastChannel( "atk14_radio" );
@@ -30,6 +31,10 @@ window.UTILS.WindowSync = class {
 
   // Incoming message
   onSyncMessage( e ) {
+    // if message comes from our instance ignore it / return
+    if( e.data.msgID === this.lastMsgId ) {
+      return;
+    }
 
     // Process known messages, ignore unknown messages
     if( e.data.data ){
@@ -57,7 +62,12 @@ window.UTILS.WindowSync = class {
 
   // Method to send message to all other browser instances
   send( data ) {
-    this.sync.postMessage( { data: data } );
+    // Make unique ID
+    let msgID = Math.floor(Math.random() * 100).toString() + Date.now();
+    // Send
+    this.sync.postMessage( { data: data , msgID: msgID } );
+    // Remember sent message ID
+    this.lastMsgId = msgID;
   }
 
   // Listen for local events (local basket add/remove, local favourites add/remove etc.)
