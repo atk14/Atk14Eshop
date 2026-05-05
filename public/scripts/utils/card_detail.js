@@ -34,5 +34,6 @@ window.UTILS.initCardDetail = function() {
     $previewImage.attr( "src", $galleryItem.data( "preview_image_url" ) );
     $previewImage.attr( "width", $galleryItem.data( "preview_image_width" ) );
     $previewImage.attr( "height", $galleryItem.data( "preview_image_height" ) );
+    history.replaceState( { productId: productId }, "", $link.attr( "href" ) );
   } );
 };
