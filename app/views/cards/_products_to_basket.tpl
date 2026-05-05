@@ -16,7 +16,7 @@
 			<ul class="nav nav-tabs" id="variants-nav" role="tablist">
 				{foreach $products as $product}
 					<li class="nav-item" role="presentation">
-						<a class="nav-link{if $product@iteration == 1} active{/if}" id="tab-variant-{$product->getId()}" data-toggle="tab" href="#tab-variant-content-{$product->getId()}" role="tab" aria-controls="tab-variant-content-{$product->getId()}" aria-selected="{if $product@iteration == 1}true{else}false{/if}" data-product_id="{$product->getId()}">{$product->getLabel()|default:$product->getCatalogId()}</a>
+						<a class="nav-link{if $product->getId()==$current_product->getId()} active{/if}" id="tab-variant-{$product->getId()}" data-toggle="tab" href="{$product|link_to_product}" xhref="#tab-variant-content-{$product->getId()}" role="tab" aria-controls="tab-variant-content-{$product->getId()}" aria-selected="{if $product->getId()==$current_product->getId()}true{else}false{/if}" data-product_id="{$product->getId()}">{$product->getLabel()|default:$product->getCatalogId()}</a>
 					</li>
 				{/foreach}
 			</ul>
@@ -54,7 +54,7 @@
 			{/capture}
 
 			{if $card->hasVariants()}
-				<div class="tab-pane fade{if $product@iteration == 1} show active{/if}" id="tab-variant-content-{$product->getId()}" role="tabpanel" aria-labelledby="tab-variant-{$product->getId()}">
+				<div class="tab-pane fade{if $product->getId()==$current_product->getId()} show active{/if}" id="tab-variant-content-{$product->getId()}" role="tabpanel" aria-labelledby="tab-variant-{$product->getId()}">
 			{/if}
 
 				<div class="cart-panel">

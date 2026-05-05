@@ -11,6 +11,22 @@ class CardsController extends ApplicationController{
 			return $this->_execute_action("error404");
 		}
 
+		$products = $card->getProducts();
+
+		$current_product = null;
+		if($this->params->defined("product_id") && !($current_product = Cache::Get("Product",$this->params->getInt("product_id")))){
+			return $this->_execute_action("error404");
+		}
+		
+		if($current_product && !array_filter($products,function($p) use($current_product){ return $p->getId()===$current_product->getId(); })){
+			// The $current_product is not within $products
+			return $this->_execute_action("error404");
+		}
+
+		if(!$current_product){
+			$current_product = $products ? $products[0] : null;
+		}
+
 		if($card->isDeleted() || !$card->isVisible()){
 			// In case of a deleted or invisible product, the HTTP 404 Not Found status is set but the product is displayed on the page.
 			$this->response->setStatusCode("404");
@@ -19,7 +35,8 @@ class CardsController extends ApplicationController{
 		$this->page_title = $card->getPageTitle();
 		$this->page_description = $card->getPageDescription();
 
-		$this->tpl_data["products"] = $products = $card->getProducts();
+		$this->tpl_data["products"] = $products;
+		$this->tpl_data["current_product"] = $current_product;
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false, "deduplicate" => true));
 		$this->tpl_data["starting_price"] = $this->price_finder->getStartingPrice($card);
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
