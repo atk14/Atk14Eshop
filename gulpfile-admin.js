@@ -42,10 +42,13 @@ var vendorScripts = [
 	"node_modules/popper.js/dist/umd/popper.js",
 	"node_modules/autocompleter/autocomplete.js",
 	"node_modules/swiper/swiper-bundle.js", // needed for md preview
-	"node_modules/moment/moment.js",
-	"node_modules/moment/locale/cs.js",
+	"node_modules/dayjs/dayjs.min.js",
+	"node_modules/dayjs/plugin/customParseFormat.js",
+	"node_modules/dayjs/plugin/isoWeek.js",
+	"node_modules/dayjs/plugin/localizedFormat.js",
+	"node_modules/dayjs/locale/cs.js",
 	"node_modules/chart.js/dist/chart.js",
-	"node_modules/chartjs-adapter-moment/dist/chartjs-adapter-moment.js",
+	"public/admin/scripts/utils/chartjs-adapter-dayjs.js",
 	"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
 ];
 

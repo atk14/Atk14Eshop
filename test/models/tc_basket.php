@@ -785,7 +785,7 @@ class TcBasket extends TcBase {
 	 *
 	 * - ocekavany vysledek v campaign_discount_applied u polozky 'wooden_button'
 	 */
-	function provideItemValues() {
+	static function provideItemValues() {
 		return [
 			# bez slevy za pokukaz
 			[ 1000, false, true],

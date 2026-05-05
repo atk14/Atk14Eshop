@@ -50,7 +50,7 @@ class TcTechnicalSpecificationKeyType extends TcBase {
 		$transformator = $type->getTransformator();
 		foreach($ary as $item){
 			list($str_value,$expected) = $item;
-			echo "$str_value -> $expected\n";
+			// echo "$str_value -> $expected\n";
 			$this->assertEquals($expected,$transformator->parseValue($str_value),"[$type_code] $str_value should be converted to ".var_export($expected,true));
 			$this->assertTrue($expected === $transformator->parseValue($str_value),"[$type_code] $str_value should be converted to ".var_export($expected,true));
 		}
