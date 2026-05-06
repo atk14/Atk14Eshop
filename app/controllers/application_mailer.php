@@ -52,9 +52,21 @@ class ApplicationMailer extends Atk14Mailer {
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+
+		$smarty = $this->_get_smarty();
+		if($smarty->templateExists("$this->action.mjml.tpl")){
+			$this->template_name = "$this->action.mjml";
+			$this->layout_name = "mailer.mjml";
+		}
 	}
 
 	function _after_render(){
+		if(preg_match('/\.mjml/',$this->template_name)){
+			$html = Yarri\Mjml::Mjml2Html($this->body);
+			$this->body_html = $html;
+			$this->body = "";
+		}
+
 		if(!$this->body && $this->body_html){
 			// Missing plain text body will be automatically created from the HTML body.
 			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.
