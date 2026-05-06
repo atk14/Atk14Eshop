@@ -1,9 +1,9 @@
 
 <mj-section>
 	<mj-column>
-		<mj-text  mj-class="test">
+		<mj-text>
 
-			{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}<br /><br />
+			{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}<br>
 
 			{t}Here is your data summary{/t}
 
