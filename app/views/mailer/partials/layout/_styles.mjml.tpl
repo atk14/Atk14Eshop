@@ -57,7 +57,7 @@
 			// MJML classes for MJML tags with mj-class attributes
 			
 			// header
-			<mj-class name="header" background-color="pink" text-align="center" full-width="full-width" padding="0" border="1mm solid red" />
+			<mj-class name="header" background-color="{$brand_color}" text-align="center" full-width="full-width" padding="0" />
 			// main content
 			<mj-class name="bodytext" line-height="1.5" />
 			<mj-class name="smalltext" color="{$text_color}" font-size="14px" line-height="1.5" />
@@ -80,7 +80,7 @@
 			<mj-class name="voucher" full-width="full-width" background-color="{$brand_color}" />
 
 			// test
-			<mj-class name="test" color="red" font-size="30px" />
-      <mj-column background-color="yellow" />
+			{*<mj-class name="test" color="red" font-size="30px" />
+      <mj-column background-color="yellow" />*}
 
 		</mj-attributes>

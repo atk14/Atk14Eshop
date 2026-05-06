@@ -1,0 +1,115 @@
+		<mj-raw>
+		{assign eshop Store::FindByCode("eshop")}
+		{if 'app.contact.social.facebook'|system_parameter}{assign show_fb true}{/if}
+		{if 'app.contact.social.instagram'|system_parameter}{assign show_ig true}{/if}
+		{if 'app.contact.social.linkedin'|system_parameter}{assign show_li true}{/if}
+		{if 'app.contact.social.pinterest'|system_parameter}{assign show_pi true}{/if}
+		{if 'app.contact.social.snapchat'|system_parameter}{assign show_sn true}{/if}
+		{if 'app.contact.social.twitter'|system_parameter}{assign show_tw true}{/if}
+		{if 'app.contact.social.vimeo'|system_parameter}{assign show_vm true}{/if}
+		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
+		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
+		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
+		{assign phone_number "app.contact.phone"|system_parameter|replace:' ':''|replace:".":""}
+		</mj-raw>
+		<mj-section>
+			<mj-column>
+				<mj-spacer></mj-spacer>
+			</mj-column>
+		</mj-section>
+
+		<mj-section mj-class="footer" css-class="footer">
+			<mj-column>
+				<mj-text mj-class="footertext">
+					<p>
+						<a href="{!$region->getDefaultUrl()}">{"app.name.official"|system_parameter}</a><br/>
+						{if $eshop}
+						{$eshop->getAddressStreet()}<br/>
+						{if $eshop->getAddressStreet2()}
+						{$eshop->getAddressStreet2()}<br/>
+						{/if}
+						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br/>
+						{/if}
+					</p>
+					<p>Tel: <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a></p>
+				</mj-text>
+			</mj-column>
+			<mj-column>
+				<mj-social font-size="15px" icon-size="30px" mode="vertical" align="left">
+
+					<mj-raw>{if $show_fb}</mj-raw>
+					<mj-social-element name="facebook-noshare" href="{'app.contact.social.facebook'|system_parameter}">
+						Facebook
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_ig}</mj-raw>
+					<mj-social-element name="instagram-noshare" href="{'app.contact.social.instagram'|system_parameter}">
+						Instagram
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_li}</mj-raw>
+					<mj-social-element name="linkedin-noshare" href="{'app.contact.social.linkedin'|system_parameter}">
+						LinkedIn
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_pi}</mj-raw>
+					<mj-social-element name="pinterest-noshare" href="{'app.contact.social.pinterest'|system_parameter}">
+						Pinterest
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_sn}</mj-raw>
+					<mj-social-element name="snapchat-noshare" href="{'app.contact.social.snapchat'|system_parameter}">
+						Snapchat
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_tw || $show_x}</mj-raw>
+					<mj-social-element name="x-noshare" href="{'app.contact.social.twitter'|system_parameter}">
+						Twitter
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_vm}</mj-raw>
+					<mj-social-element name="vimeo-noshare" href="{'app.contact.social.vimeo'|system_parameter}">
+						Vimeo
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_yt}</mj-raw>
+					<mj-social-element name="youtube-noshare" href="{'app.contact.social.youtube'|system_parameter}">
+						YouTube
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+					<mj-raw>{if $show_sc}</mj-raw>
+					<mj-social-element name="soundcloud-noshare" href="{'app.contact.social.soundcloud'|system_parameter}">
+						SoundCloud
+					</mj-social-element>
+					<mj-raw>{/if}</mj-raw>
+
+				</mj-social>
+			</mj-column>
+		</mj-section>
+
+		<mj-section mj-class="footer-bottom">
+			<mj-column padding-left="15px" padding-right="15px">
+				<mj-navbar align="left">
+					<mj-raw>{if $link_conditions}</mj-raw>
+					<mj-navbar-link href="{$link_conditions}" mj-class="footersmalllink">{t}Obchodní podmínky{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_privacy}</mj-raw>
+					<mj-navbar-link href="{$link_privacy}" mj-class="footersmalllink">{t}Ochrana soukromí{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_contacts}</mj-raw>
+					<mj-navbar-link href="{$link_contacts}" mj-class="footersmalllink">{t}Kontakty{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+					<mj-raw>{if $link_stores && sizeof($stores) > 0}</mj-raw>
+					<mj-navbar-link href="{$link_stores}" mj-class="footersmalllink">{t}Prodejny{/t}</mj-navbar-link>
+					<mj-raw>{/if}</mj-raw>
+				</mj-navbar>
+			</mj-column>
+		</mj-section>
