@@ -1,7 +1,7 @@
 
-<mj-section mj-class="test">
+<mj-section>
 	<mj-column>
-		<mj-text>
+		<mj-text  mj-class="test">
 
 			{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}<br /><br />
 

@@ -4,7 +4,7 @@
 		{render partial="mailer/partials/layout/styles.mjml"}
 	</mj-head>
 	<mj-body>
-		{render partial="mailer/partials/layout/header.mjml" title=$title}
+		{*render partial="mailer/partials/layout/header.mjml" title=$title*}
 		{placeholder}
 
 	</mj-body>

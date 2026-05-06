@@ -15,9 +15,6 @@
 			p {
 				margin: 0 0 16px 0;
 			}
-			ul {
-				border: 1px solid blue;
-			}
 			p.compact {
 				margin-bottom: 4px;
 			}
@@ -51,10 +48,11 @@
 			
 			// for development
 			
+			<!--
 			<mj-wrapper border="1px dotted fuchsia" />
 			<mj-spacer container-background-color="beige" />
 			<mj-section border="1px dotted aqua" />
-			
+			/-->
 			
 			// MJML classes for MJML tags with mj-class attributes
 			
@@ -80,5 +78,9 @@
 			<mj-class name="product-card" padding-bottom="20px" />
 			// voucher
 			<mj-class name="voucher" full-width="full-width" background-color="{$brand_color}" />
-			<mj-class name="test" background-color="hotpink" />
+
+			// test
+			<mj-class name="test" color="red" font-size="30px" />
+      <mj-column background-color="yellow" />
+
 		</mj-attributes>
