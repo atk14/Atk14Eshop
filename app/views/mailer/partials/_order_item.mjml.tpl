@@ -1,0 +1,60 @@
+{assign product $item->getProduct()}
+{if $product->getCode()=="price_rounding"}	
+
+	<mj-section mj-class="order-item">
+		<mj-column width="15%" padding-top="0" padding-right="0">
+		</mj-column>
+		<mj-column width="60%" padding-top="0" padding-bottom="0">
+			<mj-text>
+				<p class="compact">
+					<span class="bodycolor"><strong>{!$product->getName()}</strong><br /></span>
+				</p>
+			</mj-text>
+		</mj-column>
+		<mj-column width="25%" padding-top="0" padding-bottom="0" padding-left="0">
+			<mj-text>
+				<p class="item-price small compact nomargin">
+					<span class="currency-main">{!$item->getPriceInclVat()|display_price:"$currency"}</span>
+				</p>
+			</mj-text>
+		</mj-column>
+		<mj-column width="100%" padding="0">
+			<mj-divider mj-class="thin"></mj-divider>
+		</mj-column>
+	</mj-section>
+
+{else}
+	{assign var="product_link" value = $product|link_to_product:"with_hostname=$default_domain"}
+	{assign var="product_image" value = $product->getImage()|img_url:"60x60xffffff"}
+	
+	<mj-section mj-class="order-item">
+		<mj-column width="15%" padding-top="0" padding-right="0">
+			<!-- htmlonly -->{* tato znacka se pouziva pri konverzi HTML textu do plain text *}
+			<mj-image src="{!$product_image}" alt="" width="60px" align="left" padding-right="0" padding-bottom="0" href="{!$product_link}"></mj-image>
+			<!-- /htmlonly -->
+		</mj-column>
+		<mj-column width="60%" padding-top="0" padding-bottom="0">
+			<mj-text>
+				<p class="compact">
+					<a href="{!$product_link}" class="bodycolor"><strong>{!$product->getName()}</strong><br /></a>
+				</p>
+				<p class="small compact">
+					{t}Kód{/t}: {$product->getCatalogId()}<br />
+					{t}Jedn. cena{/t}: {!$item->getUnitPriceInclVat()|display_price:"$currency"}<br />
+					{t}Množství{/t}: {$item->getAmount()}
+				</p>
+			</mj-text>
+		</mj-column>
+		<mj-column width="25%" padding-top="0" padding-bottom="0" padding-left="0">
+			<mj-text>
+				<p class="item-price small compact nomargin">
+					<span class="currency-main">{!$item->getPriceInclVat()|display_price:"$currency"}</span>
+				</p>
+			</mj-text>
+		</mj-column>
+		<mj-column width="100%" padding="0">
+			<mj-divider mj-class="thin"></mj-divider>
+		</mj-column>
+	</mj-section>
+	
+{/if}
