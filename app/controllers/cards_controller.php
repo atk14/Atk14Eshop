@@ -17,6 +17,11 @@ class CardsController extends ApplicationController{
 		if($this->params->defined("product_id") && !($current_product = Cache::Get("Product",$this->params->getInt("product_id")))){
 			return $this->_execute_action("error404");
 		}
+
+		if($current_product && $current_product->getCardId()!==$card->getId()){
+			// The $current_product is not a product variant of the $card
+			return $this->_execute_action("error404");
+		}
 		
 		if($current_product && !array_filter($products,function($p) use($current_product){ return $p->getId()===$current_product->getId(); })){
 			// The $current_product is not within $products
