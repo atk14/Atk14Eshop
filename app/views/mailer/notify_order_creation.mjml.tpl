@@ -130,7 +130,7 @@
 						<strong>{t}Fakturační adresa{/t}</strong><br>
 						{render partial="shared/order/invoice_address"}
 					</mj-text>
-				</mj-column padding-top="0" padding-bottom="0">
+				</mj-column>
 				<mj-column width="50%">
 					<mj-text mj-class="smalltext">
 						<strong>{t}Dodací adresa{/t}</strong><br>
