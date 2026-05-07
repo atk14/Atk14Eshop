@@ -22,6 +22,7 @@
 {/if}
 
 		</mj-text>
+		<mj-spacer></mj-spacer>
 	</mj-column>
 </mj-section>
 		
