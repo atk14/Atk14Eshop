@@ -24,8 +24,11 @@ class CardsController extends ApplicationController{
 		}
 		
 		if($current_product && !array_filter($products,function($p) use($current_product){ return $p->getId()===$current_product->getId(); })){
-			// The $current_product is not within $products
-			return $this->_execute_action("error404");
+			// The $current_product is not within currently visible $products
+			$params = $this->params->toArray();
+			unset($params["product_id"]);
+			$this->_redirect_to($params,["moved_permanently" => true]);
+			return;
 		}
 
 		if(!$current_product){
