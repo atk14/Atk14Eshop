@@ -16,7 +16,7 @@
 			<ul class="nav nav-tabs" id="variants-nav" role="tablist">
 				{foreach $products as $product}
 					<li class="nav-item" role="presentation">
-						<a class="nav-link{if $product->getId()==$current_product->getId()} active{/if}" id="tab-variant-{$product->getId()}" data-toggle="tab" href="{$product|link_to_product}" xhref="#tab-variant-content-{$product->getId()}" role="tab" aria-controls="tab-variant-content-{$product->getId()}" aria-selected="{if $product->getId()==$current_product->getId()}true{else}false{/if}" data-product_id="{$product->getId()}">{$product->getLabel()|default:$product->getCatalogId()}</a>
+						<a class="nav-link{if $product->getId()==$current_product->getId()} active{/if}" id="tab-variant-{$product->getId()}" data-toggle="tab" data-xhref="{$product|link_to_product}" href="#tab-variant-content-{$product->getId()}" role="tab" aria-controls="tab-variant-content-{$product->getId()}" aria-selected="{if $product->getId()==$current_product->getId()}true{else}false{/if}" data-product_id="{$product->getId()}">{$product->getLabel()|default:$product->getCatalogId()}</a>
 					</li>
 				{/foreach}
 			</ul>
