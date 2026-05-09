@@ -28,9 +28,9 @@
 
 {if $view_order_button}
 <div class="card card--hoverable card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">
-	<a class="card__image" href="{link_to action="cards/detail" id=$card}">{!$card_image}</a>
+	<a class="card__image" href="{$card|link_to_card}">{!$card_image}</a>
 {else}
-<a href="{link_to action="cards/detail" id=$card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">
+<a href="{$card|link_to_card}" class="card card--id-{$card->getId()}{if $basket->contains($card)} card--in-basket{/if}">
 	<div class="card__image">{!$card_image}</div>
 {/if}
 	<div class="card-body">
@@ -47,7 +47,7 @@
 		{/if}
 
 		{if $view_order_button}
-		<a class="card-title h4" href="{link_to action="cards/detail" id=$card}">{$card->getName()}</a>
+		<a class="card-title h4" href="{$card|link_to_card}">{$card->getName()}</a>
 		{else}
 		<h4 class="card-title">{$card->getName()}</h4>
 		{/if}

@@ -31,5 +31,6 @@ class ProductsForm extends AdminForm {
 		$this->add_visible_field(array(
 			"label" => _("Is product variant visible?"),
 		));
+		$this->add_slug_field();
 	}
 }

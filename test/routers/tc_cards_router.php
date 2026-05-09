@@ -3,6 +3,7 @@
  *
  * @fixture product_types
  * @fixture cards
+ * @fixture products
  */
 class TcCardsRouter extends TcBase {
 
@@ -34,6 +35,27 @@ class TcCardsRouter extends TcBase {
 			"id" => $this->cards["coffee"]->getId(),
 		));
 		$this->assertEquals("/drink/coffee/",$uri);
+
+		// card with a variant (product_id)
+		$uri = $this->assertBuildable(array(
+			"lang" => "en",
+			"controller" => "cards",
+			"action" => "detail",
+			"id" => $this->cards["tea"]->getId(),
+			"product_id" => $this->products["green_tea"]->getId(),
+		));
+		$this->assertEquals("/drink/tea/green/",$uri);
+
+		// card with a wrong variant (a product from a different card)
+		// -> the product's slug "green" can't be used because it is in a different slug segment
+		$uri = $this->assertBuildable(array(
+			"lang" => "en",
+			"controller" => "cards",
+			"action" => "detail",
+			"id" => $this->cards["peanuts"]->getId(),
+			"product_id" => $this->products["green_tea"]->getId(),
+		));
+		$this->assertEquals("/product/peanuts/products-en-{$this->products["green_tea"]->getId()}/",$uri);
 
 		// not existing card
 		$this->assertNotBuildable(array(
@@ -86,5 +108,19 @@ class TcCardsRouter extends TcBase {
 		$this->assertEquals("detail",$ret["action"]);
 		$this->assertEquals("cs",$ret["lang"]);
 		$this->assertEquals($this->cards["book"]->getId(),$params["id"]);
+
+		// Link to a card with a variant
+		foreach(array(
+			"/napoj/caj/cerny/",
+			"/napoj/caj/cerny", // missing the trailing slash
+		) as $uri){
+			$params = array();
+			$ret = $this->assertRecognizable($uri,$params);
+			$this->assertEquals("cards",$ret["controller"]);
+			$this->assertEquals("detail",$ret["action"]);
+			$this->assertEquals("cs",$ret["lang"]);
+			$this->assertEquals($this->cards["tea"]->getId(),$params["id"]);
+			$this->assertEquals($this->products["black_tea"]->getId(),$params["product_id"]);
+		}
 	}
 }
