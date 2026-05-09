@@ -397,12 +397,12 @@ class ApplicationBaseController extends Atk14Controller{
 	 * Redirects user back to return_uri, when it is know.
 	 * Otherwise redirects to the $default.
 	 *
-	 * $this->_redirect_to_return_uri(); // same as "index" :)
-	 * $this->_redirect_to_return_uri("index");
-	 * $this->_redirect_to_return_uri("books/index");
-	 * $this->_redirect_to_return_uri(array(...));
-	 * $this->_redirect_to_return_uri($this->_link_to(array(...)));
-	 * $this->_redirect_to_return_uri("http://www.atk14.net");
+	 * $this->_redirect_back(); // same as "index" :)
+	 * $this->_redirect_back("index");
+	 * $this->_redirect_back("books/index");
+	 * $this->_redirect_back(array(...));
+	 * $this->_redirect_back($this->_link_to(array(...)));
+	 * $this->_redirect_back("http://www.atk14.net");
 	 */
 	function _redirect_back($default = "index"){
 		$key = md5($this->request->getRequestUri());
