@@ -69,7 +69,7 @@
 
 					{if $show_tw || $show_x}
 					<mj-social-element name="x-noshare" href="{'app.contact.social.twitter'|system_parameter}" src="{$site_url}public/dist/images/socialicons/x.svg">
-						Twitter
+						X
 					</mj-social-element>
 					{/if}
 

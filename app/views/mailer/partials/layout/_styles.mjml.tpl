@@ -9,8 +9,13 @@
 				color: {$text_color};
 				text-decoration:none;
 			}
-			a.bodycolor:hover {
+			a.bodycolor:hover, a.muted:hover {
 				text-decoration:underline;
+				color: {$link_color};
+			}
+			a.muted {
+				color: #666;
+				text-decoration:none;
 			}
 			p {
 				margin: 0 0 16px 0;
@@ -33,6 +38,10 @@
 			}
 			.product-card .currency-main {
 				color: {$primary_color};
+			}
+			.title {
+				font-size: 18px;
+				font-weight: bold;
 			}
 		</mj-style>
 		<mj-attributes>
