@@ -130,7 +130,7 @@ class DeliveryService extends ApplicationModel {
 		];
 
 		try {
-			$data = $delivery_service->_fetchFeed($options["branches_url"]);
+			$data = $delivery_service->_fetchFeed($options["branches_url"], $options);
 		} catch (Exception $e) {
 			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", (array)$options["branches_url"]), $code));
 			return false;
@@ -143,9 +143,9 @@ class DeliveryService extends ApplicationModel {
 		return $data;
 	}
 
-	protected function _fetchFeed($feed_url) {
+	protected function _fetchFeed($feed_url, $options = []) {
 		$className = $this->getParserClass();
-		$data = $className::FetchFeed($feed_url);
+		$data = $className::FetchFeed($feed_url, $options);
 		return $data;
 	}
 

@@ -125,9 +125,14 @@ class Ppl extends DeliveryServiceBranchStdClassData implements iDeliveryServiceB
 		return null;
 	}
 
-	static function FetchFeed($feed_url) {
+	static function FetchFeed($feed_url, $options = []) {
+		$options += ["country_code" => "cz"];
+		$country_constant = "\\Salamek\\PplMyApi\\Enum\\Country::".strtoupper($options["country_code"]);
+		if (!defined($country_constant)) {
+			throw new \InvalidArgumentException("Unsupported country_code: {$options["country_code"]}");
+		}
 		$pplMyApi = new \Salamek\PplMyApi\Api;
-		$result = $pplMyApi->getParcelShops($code = null, $countryCode = \Salamek\PplMyApi\Enum\Country::CZ);
+		$result = $pplMyApi->getParcelShops($code = null, $countryCode = constant($country_constant));
 		return $result;
 	}
 }
