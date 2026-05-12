@@ -11,6 +11,8 @@
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
 		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
 		{assign phone_number "app.contact.phone"|system_parameter|replace:' ':''|replace:".":""}
+		{* icon color variants: "dark" | "light" | "color" *}
+		{assign icon_color "color"}
 		
 		<mj-section>
 			<mj-column>
@@ -38,55 +40,55 @@
 				<mj-social font-size="15px" icon-size="20px" mode="vertical" align="left" icon-padding="5px" text-padding="0">
 					<mj-raw><!-- htmlonly --></mj-raw>
 					{if $show_fb}
-					<mj-social-element name="facebook-noshare" href="{'app.contact.social.facebook'|system_parameter}" src="{$site_url}public/dist/images/socialicons/facebook.svg">
+					<mj-social-element name="facebook-noshare" href="{'app.contact.social.facebook'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/facebook.svg">
 						Facebook
 					</mj-social-element>
 					{/if}
 
 					{if $show_ig}
-					<mj-social-element name="instagram-noshare" href="{'app.contact.social.instagram'|system_parameter}" src="{$site_url}public/dist/images/socialicons/instagram.svg">
+					<mj-social-element name="instagram-noshare" href="{'app.contact.social.instagram'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/instagram.svg">
 						Instagram
 					</mj-social-element>
 					{/if}
 
 					{if $show_li}
-					<mj-social-element name="linkedin-noshare" href="{'app.contact.social.linkedin'|system_parameter}" src="{$site_url}public/dist/images/socialicons/linkedin.svg">
+					<mj-social-element name="linkedin-noshare" href="{'app.contact.social.linkedin'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/linkedin.svg">
 						LinkedIn
 					</mj-social-element>
 					{/if}
 
 					{if $show_pi}
-					<mj-social-element name="pinterest-noshare" href="{'app.contact.social.pinterest'|system_parameter}" src="{$site_url}public/dist/images/socialicons/pinterest.svg">
+					<mj-social-element name="pinterest-noshare" href="{'app.contact.social.pinterest'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/pinterest.svg">
 						Pinterest
 					</mj-social-element>
 					{/if}
 
 					{if $show_sn}
-					<mj-social-element name="snapchat-noshare" href="{'app.contact.social.snapchat'|system_parameter}" src="{$site_url}public/dist/images/socialicons/snapchat.svg">
+					<mj-social-element name="snapchat-noshare" href="{'app.contact.social.snapchat'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/snapchat.svg">
 						Snapchat
 					</mj-social-element>
 					{/if}
 
 					{if $show_tw || $show_x}
-					<mj-social-element name="x-noshare" href="{'app.contact.social.twitter'|system_parameter}" src="{$site_url}public/dist/images/socialicons/x.svg">
+					<mj-social-element name="x-noshare" href="{'app.contact.social.twitter'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/x.svg">
 						X
 					</mj-social-element>
 					{/if}
 
 					{if $show_vm}
-					<mj-social-element name="vimeo-noshare" href="{'app.contact.social.vimeo'|system_parameter}" src="{$site_url}public/dist/images/socialicons/vimeo.svg">
+					<mj-social-element name="vimeo-noshare" href="{'app.contact.social.vimeo'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/vimeo.svg">
 						Vimeo
 					</mj-social-element>
 					{/if}
 
 					{if $show_yt}
-					<mj-social-element name="youtube-noshare" href="{'app.contact.social.youtube'|system_parameter}" src="{$site_url}public/dist/images/socialicons/youtube.svg">
+					<mj-social-element name="youtube-noshare" href="{'app.contact.social.youtube'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/youtube.svg">
 						YouTube
 					</mj-social-element>
 					{/if}
 
 					{if $show_sc}
-					<mj-social-element name="soundcloud-noshare" href="{'app.contact.social.soundcloud'|system_parameter}" src="{$site_url}public/dist/images/socialicons/soundcloud.svg">
+					<mj-social-element name="soundcloud-noshare" href="{'app.contact.social.soundcloud'|system_parameter}" src="{$site_url}public/dist/images/socialicons--mailing/{$icon_color}/soundcloud.svg">
 						SoundCloud
 					</mj-social-element>
 					{/if}
