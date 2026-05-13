@@ -20,6 +20,7 @@ class TcCards extends TcBase {
 
 		// Invisible product
 		$card->s("visible",false);
+		Cache::Clear();
 		$client->get("cards/detail",["id" => $card]);
 		$this->assertEquals(404,$client->getStatusCode());
 		$this->assertStringContains($card->getName(),$client->getContent());
