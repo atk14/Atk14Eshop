@@ -50,7 +50,7 @@
 			<mj-body background-color="{$bg_color}" />
 			<mj-all font-family="{$font_stack}" font-size="16px" line-height="1.25"  color="{$text_color}" />
 			<mj-spacer height="40px" />
-			<mj-divider border-color="{$brand_color}" border-width="2px" />
+			<mj-divider border-color="#999" border-width="1px" padding-left="25px" padding-right="25px" />
 			<mj-section padding-top="0" padding-bottom="0" />
 			<mj-button background-color="{$primary_color}" color="{$button_color}"  font-weight="bold" />
 			
@@ -87,6 +87,8 @@
 			<mj-class name="product-card" padding-bottom="20px" />
 			// voucher
 			<mj-class name="voucher" full-width="full-width" background-color="{$brand_color}" />
+			// columns
+			<mj-class name="column-half" width="50%" />
 
 			// test
 			{*<mj-class name="test" color="red" font-size="30px" />
