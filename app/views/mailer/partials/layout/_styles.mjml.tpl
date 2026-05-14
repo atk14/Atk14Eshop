@@ -89,6 +89,8 @@
 			<mj-class name="voucher" full-width="full-width" background-color="{$brand_color}" />
 			// columns
 			<mj-class name="column-half" width="50%" />
+			// zero vertical padding
+			<mj-class name="compact" padding-top="0" padding-bottom="0" />
 
 			// test
 			{*<mj-class name="test" color="red" font-size="30px" />

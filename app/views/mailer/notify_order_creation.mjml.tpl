@@ -1,14 +1,13 @@
 <mj-section>
 	<mj-column>
 		<mj-text>
-
-			{t escape=no}Vážený zákazníku,{/t}<br/><br/>
+{t escape=no}Vážený zákazníku,{/t}<br/>
 
 {render partial="thanks_for_order_lower.html"}
 
 {if $special_note}
 	
-	{render partial="partials/title_box" content=$special_note|h|nl2br titlebg="{$special_note_bgcolor}" titlecolor="{$special_note_color}" space_before=0}
+{render partial="partials/title_box" content=$special_note|h|nl2br titlebg="{$special_note_bgcolor}" titlecolor="{$special_note_color}" space_before=0}
 {/if}
 
 {t}V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili úhradu bankovním převodem, podklady k úhradě objednávky Vám budou zaslány obratem.{/t}
