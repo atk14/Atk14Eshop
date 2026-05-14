@@ -7,11 +7,15 @@ thank you for your interest in our products. We will contact you as soon as we c
 
 {t}Here is the message you sent to us:{/t}<br/>
 
-<hr/>
+    </mj-text>
+    <mj-divider></mj-divider>
+    <mj-text>
 
 {!$text|h|nl2br}
 
-<hr/>
+    </mj-text>
+    <mj-divider></mj-divider>
+    <mj-text>
 
 <br/>
 {t}Thank you and have a nice day!{/t}

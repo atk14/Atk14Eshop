@@ -11,8 +11,9 @@
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
 		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
 		{assign phone_number "app.contact.phone"|system_parameter|replace:' ':''|replace:".":""}
+		
 		{* icon color variants: "dark" | "light" | "color" *}
-		{assign icon_color "color"}
+		{assign icon_color "dark"}
 		
 		<mj-section>
 			<mj-column>

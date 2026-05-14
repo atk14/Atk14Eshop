@@ -3,9 +3,12 @@
 		<mj-text>
 {t}Dobrý den,{/t}<br/><br/>
 
-{t}pro potvrzení odběru novinek klikněte na následující odkaz:{/t}<br/><br/>
+{t}pro potvrzení odběru novinek klikněte na následující odkaz:{/t}
+    </mj-text>
+    <mj-button href="{$newsletter_subscription_request->getConfirmationUrl()}">{t}Potvrdit odběr{/t}</mj-button>
+    <mj-text>
+      <p style="text-align: center;"><small><a href="{$newsletter_subscription_request->getConfirmationUrl()}" class="muted">{$newsletter_subscription_request->getConfirmationUrl()}</a></small></p>
 
-<a href="{$newsletter_subscription_request->getConfirmationUrl()}" style="{$link_style}">{$newsletter_subscription_request->getConfirmationUrl()}</a>
     </mj-text>
   </mj-column>
 </mj-section>

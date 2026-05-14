@@ -9,10 +9,9 @@
 		</mj-text>
 		<mj-button href="{$password_recovery->getUrl()}">{t}Reset Password{/t}</mj-button>
 		<mj-text>
-			<span style="text-align: center;">
-				<small style="text-align: center;"><a href="{$password_recovery->getUrl()}" class="muted">{$password_recovery->getUrl()}</a></small><br />
-			</span>
-			<br />
+			<p style="text-align: center;">
+				<small><a href="{$password_recovery->getUrl()}" class="muted">{$password_recovery->getUrl()}</a></small><br />
+			</p>
 			{t}Please note that this link is valid for 2 hours only.{/t}
 			
 		</mj-text>
