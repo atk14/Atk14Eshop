@@ -15,7 +15,7 @@
 		{/if}
 	</td>
 	{highlight_search_query}
-	<td>{if $order->getInvoiceCompany()}{$order->getInvoiceCompany()}, {/if}{$order->getInvoiceName()}<br>
+	<td>{if $order->getInvoiceCompany()}{$order->getInvoiceCompany()}{if $order->getInvoiceName()}, {/if}{/if}{$order->getInvoiceName()}<br>
 	<span style="white-space:nowrap;">{t 1=$order->getEmail() escape=false}%1{/t}</span><br>
 	{t 1=", "|join:$order->getPhones() escape=false}%1{/t}</td>
 	{/highlight_search_query}
