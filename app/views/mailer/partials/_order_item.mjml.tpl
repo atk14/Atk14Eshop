@@ -41,7 +41,7 @@
 				<p class="small compact">
 					{t}Kód{/t}: {$product->getCatalogId()}<br />
 					{t}Jedn. cena{/t}: {!$item->getUnitPriceInclVat()|display_price:"$currency"}<br />
-					{t}Množství{/t}: {$item->getAmount()}
+					{t}Množství{/t}: {$item->getAmount()} {$product->getUnit()}
 				</p>
 			</mj-text>
 		</mj-column>
