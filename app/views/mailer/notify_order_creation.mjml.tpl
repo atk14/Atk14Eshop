@@ -61,8 +61,8 @@
 				{foreach $order->getVouchers() as $voucher}
 				<mj-section>
 					<mj-group>
-						<mj-column padding="0" width="50%"><mj-text>{$voucher->getDescription()}</mj-text></mj-column>
-						<mj-column padding="0" width="50%"><mj-text align="right">{$voucher}</mj-text></mj-column>
+						<mj-column padding="0" width="50%"><mj-text>{$voucher->getDescription()} {$voucher}</mj-text></mj-column>
+						<mj-column padding="0" width="50%"><mj-text align="right">{if $voucher->getDiscountAmount()}-{!$voucher->getDiscountAmount()|display_price:"$currency"}{/if}</mj-text></mj-column>
 					</mj-group>
 				</mj-section>
 			{/foreach}
@@ -137,32 +137,43 @@
 						{render partial="shared/order/delivery_address"}
 					</mj-text>
 				</mj-column>
-				<mj-column width="100%">
-					<mj-divider mj-class="thin"></mj-divider>
-				</mj-column>
 			</mj-section>
 			
 			{if $order->getNote()}
 				<mj-section>
 					<mj-column padding="0">
+						<mj-divider></mj-divider>
 						<mj-text mj-class="smalltext">
 							<strong>{t}Vaše poznámka k objednávce:{/t}</strong><br>
 							{!$order->getNote()|h|nl2br}
 						</mj-text>
-						<mj-divider mj-class="thin"></mj-divider>
 					</mj-column>
 				</mj-section>
 			{/if}
-			
+
+			{if $order->getPaymentMethod()->isOnlineMethod()}
+				{capture assign=order_finish_url}{link_to namespace="" action="orders/finish" token=$order->getToken() _with_hostname=true _ssl=REDIRECT_TO_SSL_AUTOMATICALLY}{/capture}
+				<mj-section>
+					<mj-column>
+						<mj-divider></mj-divider>	
+						<mj-text>
+							{t}Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:{/t}<br>
+						</mj-text>
+						<mj-button href="{$order_finish_url}" mj-class="primary">{t}Dokončit platbu{/t}</mj-button>
+						<mj-text>
+							<p style="text-align: center;"><small><a href="{$order_finish_url}" class="muted">{$order_finish_url}</a></small></p>
+						</mj-text>
+					</mj-column>
+				</mj-section>
+			{/if}
+
 			<mj-section>
-				<mj-column padding="0">
-					<mj-text mj-class="smalltext">
-						{render partial="order_status_check_notice.html"}
-					</mj-text>
-					<mj-divider mj-class="thin"></mj-divider>
+				<mj-column>
+					{render partial="order_status_check_notice.mjml"}
 				</mj-column>
 			</mj-section>
 			
+
 			<mj-section>
 				<mj-column>
 					<mj-spacer></mj-spacer>
