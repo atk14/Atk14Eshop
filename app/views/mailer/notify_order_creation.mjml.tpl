@@ -94,7 +94,7 @@
 			<mj-section>
 				<mj-group>
 					<mj-column padding="0" width="50%"><mj-text>{t}Celkem k úhradě{/t}</mj-text></mj-column>
-					<mj-column padding="0" width="50%"><mj-text align="right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></mj-text></mj-column>
+					<mj-column padding="0" width="50%"><mj-text align="right"><strong>{!$order->getPriceToPay()|display_price:"$currency,summary=auto"}{if is_null($order->getShippingFeeInclVat())}<sup>*</sup>{/if}</strong></mj-text></mj-column>
 				</mj-group>
 			</mj-section>
 			
