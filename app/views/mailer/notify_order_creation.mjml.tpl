@@ -3,11 +3,11 @@
 		<mj-text>
 {t escape=no}Vážený zákazníku,{/t}<br/>
 
-{render partial="thanks_for_order_lower.html"}
+{render partial="partials/thanks_for_order_lower.html"}
 
 {if $special_note}
 	
-{render partial="partials/title_box" content=$special_note|h|nl2br titlebg="{$special_note_bgcolor}" titlecolor="{$special_note_color}" space_before=0}
+<span class="title">{!$special_note|h|nl2br}</span><br/>
 {/if}
 
 {t}V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili úhradu bankovním převodem, podklady k úhradě objednávky Vám budou zaslány obratem.{/t}
@@ -169,7 +169,7 @@
 
 			<mj-section>
 				<mj-column>
-					{render partial="order_status_check_notice.mjml"}
+					{render partial="partials/order_status_check_notice.mjml"}
 				</mj-column>
 			</mj-section>
 			

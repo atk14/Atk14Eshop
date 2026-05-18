@@ -1,5 +1,5 @@
 <mj-text>
-{render partial="thanks_for_order.html"}
+{render partial="partials/thanks_for_order.html"}
 
 {t order_no=$order->getOrderNo() escape=no}Doposud jsme nedobdrželi platbu za Vaši objednávku č. %1. Zboží Vám bude dodáno, <strong>po obdržení Vaší platby</strong>.{/t}
 <br/>

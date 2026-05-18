@@ -7,7 +7,7 @@
 
 {if $invoice_file->isProformaInvoice()}
 {capture assign="order_title"}{t order_no=$order->getOrderNo()}Vaše objednávka č.%1{/t} - {t}Proforma faktura{/t}{/capture}
-{render partial="partials/title_box" content=$order_title}
+<span class="title">{!$order_title}</span><br/>
 
 {t app_name=$region->getApplicationName() order_no=$order->getOrderNo()}K Vaší objednávce v obchodě %1 - s označením %2 Vám zasíláme proforma fakturu.{/t}
 <br/><br/>

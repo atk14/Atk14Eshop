@@ -28,9 +28,9 @@
 
 {render partial="order_statuses/$order_status_code.mjml"}
 
-{render partial="digital_contents_notice.mjml"}
+{render partial="partials/digital_contents_notice.mjml"}
 
-{render partial="order_status_check_notice.mjml"}
+{render partial="partials/order_status_check_notice.mjml"}
 
   </mj-column>
 </mj-section>

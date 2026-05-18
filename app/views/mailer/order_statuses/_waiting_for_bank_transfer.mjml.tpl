@@ -1,5 +1,5 @@
 <mj-text>
-{render partial="thanks_for_order.html"}
+{render partial="partials/thanks_for_order.html"}
 
 {t order_no=$order->getOrderNo()}Vaše objednávka č. %1 byla úspěšně dokončena.{/t}
 <br/>
