@@ -154,6 +154,14 @@ class TcUser extends TcBase{
 		$this->assertNull($rambo);
 	}
 
+	function test_toHumanReadableString(){
+		$this->assertEquals("rambo (John Rambo)",$this->users["rambo"]->toHumanReadableString());
+		$this->assertEquals("no.name (no.name)",$this->users["user_with_no_name"]->toHumanReadableString());
+
+		$this->assertEquals("inactive.user (Ivor Inactivator, inactive user)",$this->users["inactive_user"]->toHumanReadableString());
+		$this->assertEquals("deleted.user (Deli Deletor, deleted user)",$this->users["deleted_user"]->toHumanReadableString());
+	}
+
 	function test_CustomerGroups(){
 		$anonymous = User::GetAnonymousUser();
 		$customer_groups = $anonymous->getCustomerGroups();
