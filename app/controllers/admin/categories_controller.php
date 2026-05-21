@@ -198,8 +198,13 @@ class CategoriesController extends AdminController{
 		unset($initial["parent_category_id"]);
 		$this->form->set_initial($initial);
 		if ($this->request->post() && ($d=$this->form->validate($this->params))) {
+			$tags = $d["tags"];
+			unset($d["tags"]);
+
 			$d["pointing_to_category_id"] = $this->category;
+
 			$c = Category::CreateNewRecord($d);
+			$c->setTags($tags);
 			$this->flash->success(_("Alias was created"));
 			$this->_redirect_to(array(
 				"controller" => "categories",
