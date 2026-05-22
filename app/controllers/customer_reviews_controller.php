@@ -54,7 +54,7 @@ class CustomerReviewsController extends ApplicationController {
 
 		}elseif($this->params->defined("card_id")){
 			$card = Card::GetInstanceById($this->params->getInt("card_id"));
-			if(!$card){
+			if(!$card || $card->isDeleted()){
 				$this->_execute_action("error404");
 				return;
 			}
@@ -62,10 +62,12 @@ class CustomerReviewsController extends ApplicationController {
 
 		}else{
 			$product = Product::GetInstanceById($this->params->getInt("product_id"));
-			if(!$product){
-				$this->_execute_action("error404");
-				return;
-			}
+
+		}
+
+		if(!$product){
+			$this->_execute_action("error404");
+			return;
 		}
 
 		if(!$order_item && !CustomerReview::CanUserReviewProduct($this->logged_user,$product)){
