@@ -18,6 +18,7 @@ class WriteReviewForm extends CustomerReviewsForm {
 		$f = $this->add_field("body", new TextField([
 			"label" => _("Your review"),
 			"max_length" => 2000,
+			"required" => false,
 		]));
 		$f->update_message("required",_("Write a few words about your rating"));
 
