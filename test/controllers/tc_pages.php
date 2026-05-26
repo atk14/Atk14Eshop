@@ -13,6 +13,7 @@ class TcPages extends TcBase {
 		$this->_assertOGProperties(["url" => sprintf("http://%s/testing-page/testing-subpage/", ATK14_HTTP_HOST)]);
 
 		$page->s("visible",false);
+		Cache::Clear();
 
 		$this->client->get("pages/detail", array("id" => $page));
 		$this->assertEquals("404",$this->client->getStatusCode());
@@ -27,6 +28,7 @@ class TcPages extends TcBase {
 		$this->_assertOGProperties(["url" => sprintf("http://%s/testing-page/testing-subpage/", ATK14_HTTP_HOST)]);
 
 		$page->s("indexable",false);
+		Cache::Clear();
 
 		$this->client->get("pages/detail", array("id" => $page));
 		$this->assertEquals("200",$this->client->getStatusCode());

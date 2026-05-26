@@ -12,7 +12,6 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 		bool $isPrefix = false
 	) {
 		$instance = new static($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
-#		$instance->_data = json_decode($data, true);
 		return $instance;
 	}
 

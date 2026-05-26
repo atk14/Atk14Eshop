@@ -14,16 +14,17 @@
 			{foreach $review_candidates as $review_candidate}
 				{assign product $review_candidate->getProduct()}
 				{assign card $product->getCard()}
+				{assign image $product->getImage()}
 				<div class="card">
 					<a class="card__image card__image--book" href="{link_to namespace="" action="cards/detail" id=$card}">
-						{if $card->getImage()}
+						{if $image}
 						<picture>
-							<source srcset="{$card->getImage()|img_url:"`$geometry`,format=webp"}" width="{$card->getImage()|img_width:"`$geometry`,format=webp"}" height="{$card->getImage()|img_height:"`$geometry`,format=webp"}" type="image/webp">
-							<source srcset="{$card->getImage()|img_url:"`$geometry`,format=jpg"}" width="{$card->getImage()|img_width:"`$geometry`,format=jpg"}" height="{$card->getImage()|img_height:"`$geometry`,format=jpg"}"  type="image/jpeg">
-							<img {!$card->getImage()|img_attrs:$geometry} alt="{$card->getName()}">
+							<source srcset="{$image|img_url:"`$geometry`,format=webp"}" width="{$image|img_width:"`$geometry`,format=webp"}" height="{$image|img_height:"`$geometry`,format=webp"}" type="image/webp">
+							<source srcset="{$image|img_url:"`$geometry`,format=jpg"}" width="{$image|img_width:"`$geometry`,format=jpg"}" height="{$image|img_height:"`$geometry`,format=jpg"}"  type="image/jpeg">
+							<img {!$image|img_attrs:$geometry} alt="{$card->getName()}" class="card-img-top default-image">
 						</picture>
 						{else}
-							<img src="{$public}dist/images/default_image_blue_400x570.svg" width="400" height="570" title="{t}no image{/t}" alt="{t}no image{/t}" class="card-img-top default-image">
+							<img src="{$public}dist/images/camera.svg" width="400" height="570" title="{t}no image{/t}" alt="{t}no image{/t}" class="card-img-top default-image">
 						{/if}
 					</a>
 					<div class="card-body">

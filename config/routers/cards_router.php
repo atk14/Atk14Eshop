@@ -9,7 +9,7 @@ class CardsRouter extends SluggishRouter{
 	function recognize($uri){
 		global $ATK14_GLOBAL;
 
-		if(!preg_match('/\/(?P<type>[a-z0-9-]+)\/(?P<card>[a-z0-9-]+)\/?/',$uri,$matches)){
+		if(!preg_match('/^\/(?P<type>[a-z0-9-]+)\/(?P<card>[a-z0-9-]+)(|\/(?P<product>[a-z0-9-]+))\/?$/',$uri,$matches)){
 			return;
 		}
 
@@ -30,9 +30,20 @@ class CardsRouter extends SluggishRouter{
 			$card = Card::GetInstanceBySlug($matches["card"],$l);
 			if(!$card){ continue; }
 
+			$product = null;
+			if(isset($matches["product"])){
+				$product = Product::GetInstanceBySlug($matches["product"],$l,(string)$card->getId());
+				if(!$product){
+					continue;
+				}
+			}
+
 			$this->controller = "cards";
 			$this->action = "detail";
 			$this->params["id"] = $card->getId();
+			if($product){
+				$this->params["product_id"] = $product->getId();
+			}
 			$this->lang = $l;
 			return;
 		}
@@ -47,10 +58,17 @@ class CardsRouter extends SluggishRouter{
 		$card = Cache::Get("Card",$this->params->getInt("id"));
 		if(!$card){ return; }
 
+		$product = null;
+		if($this->params->defined("product_id")){
+			$product = Cache::Get("Product",$this->params->getInt("product_id"));
+			if(!$product){ return; }
+		}
+
 		$this->params->del("id");
+		$this->params->del("product_id");
 
 		$product_type = $card->getProductType();
 
-		return '/'.$product_type->getSlug($lang).'/'.$card->getSlug($lang).'/';
+		return '/'.$product_type->getSlug($lang).'/'.$card->getSlug($lang).'/' . ($product ? $product->getSlug($lang,(string)$card->getId()).'/' : '');
 	}
 }
