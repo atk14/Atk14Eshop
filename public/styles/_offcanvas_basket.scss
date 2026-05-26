@@ -88,11 +88,13 @@ $offcanvasBasketLargeSizingBreakpoint: md;
       flex-grow: 100;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      p {
-        margin-top: 1em;
+      overflow-y: hidden;
+      align-items: stretch;
+      .table--offcanvas-basket {
+        opacity: 0.6;
+      }
+      .basket-loading__text {
+        margin: auto;
       }
     }
 
@@ -300,5 +302,32 @@ $offcanvasBasketLargeSizingBreakpoint: md;
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.skeleton {
+  display: block;
+  background: linear-gradient(90deg, #e8e8e8 25%, #f0f0f0 50%, #e8e8e8 75%);
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.4s infinite linear;
+  border-radius: 4px;
+
+  &--image {
+    width: 50px;
+    height: 50px;
+  }
+
+  &--line {
+    height: 12px;
+    width: 75%;
+  }
+
+  &--line-short {
+    width: 50%;
   }
 }
