@@ -112,19 +112,19 @@ window.UTILS.OffcanvasBasket = function() {
 		var n = parseInt( count ) || 0;
 		if ( n === 0 ) {
 			var text = $this.element.parent().find( ".basket-loading" ).data( "loading-text" ) || "Loading...";
-			return '<p class="basket-loading__text">' + text + '</p>';
+			return "<p class=\"basket-loading__text\">" + text + "</p>";
 		}
 		n = Math.min( n, 8 );
-		var row = '<tr class="item">' +
-			'<td class="item__image"><div class="skeleton skeleton--image"></div></td>' +
-			'<td class="item__name"><div class="skeleton skeleton--line"></div></td>' +
-			'<td class="item__quantity"><div class="skeleton skeleton--line skeleton--line-short"></div></td>' +
-			'<td class="item__price"><div class="skeleton skeleton--line skeleton--line-short"></div></td>' +
-			'<td class="item__actions"></td>' +
-			'</tr>';
-		var rows = '';
+		var row = "<tr class=\"item\">" +
+			"<td class=\"item__image\"><div class=\"skeleton skeleton--image\"></div></td>" +
+			"<td class=\"item__name\"><div class=\"skeleton skeleton--line\"></div></td>" +
+			"<td class=\"item__quantity\"><div class=\"skeleton skeleton--line skeleton--line-short\"></div></td>" +
+			"<td class=\"item__price\"><div class=\"skeleton skeleton--line skeleton--line-short\"></div></td>" +
+			"<td class=\"item__actions\"></td>" +
+			"</tr>";
+		var rows = "";
 		for ( var i = 0; i < n; i++ ) { rows += row; }
-		return '<table class="table--offcanvas-basket"><tbody>' + rows + '</tbody></table>';
+		return "<table class=\"table--offcanvas-basket\"><tbody>" + rows + "</tbody></table>";
 	};
 
 	// Load basket content from server
