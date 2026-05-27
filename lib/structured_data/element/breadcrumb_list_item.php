@@ -19,7 +19,7 @@ class BreadcrumbListItem extends \StructuredData\BaseElement {
 				$_id = \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]);
 			break;
 		default:
-			break;
+			return null;
 		}
 		$out = [
 			"@type" => "ListItem",
