@@ -171,6 +171,10 @@ $offcanvasBasketLargeSizingBreakpoint: md;
         width: 50px;
         height: auto;
       }
+      .skeleton--image {
+        width: 50px;
+        height: 50px;
+      }
     }
     &__name {
       font-weight: $font-weight-bold;
@@ -205,17 +209,28 @@ $offcanvasBasketLargeSizingBreakpoint: md;
   @mixin sizeThumbnailsByCount( $maXCount, $largeThumbSize:80px, $smallThumbSize:50px  ){
     // Mixin for sizing items thumbnails according to items count
     .item__image {
+      width: $largeThumbSize;
       img {
         width: $largeThumbSize;
         height: auto;
       }
+      .skeleton--image {
+        width: $largeThumbSize;
+        height: $largeThumbSize;
+      }
     }
     &:first-child:nth-last-child(n+#{$maXCount+1}), &:first-child:nth-last-child(n+#{$maXCount+1}) ~ * {
       .item__image {
+        width: $smallThumbSize;
         img {
           width: $smallThumbSize;
           height: auto;
         }
+        .skeleton--image {
+          width: $smallThumbSize;
+          height: $smallThumbSize;
+        }
+
       }
     }
   }
@@ -294,6 +309,31 @@ $offcanvasBasketLargeSizingBreakpoint: md;
       }
     }
   }
+
+  .skeleton {
+    display: block;
+    //background: linear-gradient(90deg, $gray-200 25%, $gray-200 50%, $gray-200 75%);
+    background: linear-gradient(90deg, $gray-400 25%, $gray-200 50%, $gray-400 75%);
+    background-size: 800px 100%;
+    animation: skeleton-shimmer 1.4s infinite linear;
+    border-radius: 4px;
+
+    &--image {
+      //width: 50px;
+      //height: 50px;
+      //outline: 1px solid red;
+      aspect-ratio: 1;
+    }
+
+    &--line {
+      height: 12px;
+      width: 75%;
+    }
+
+    &--line-short {
+      width: 50%;
+    }
+  }
 }
 
 @keyframes offcanvas-basket-items-animation {
@@ -308,26 +348,4 @@ $offcanvasBasketLargeSizingBreakpoint: md;
 @keyframes skeleton-shimmer {
   0%   { background-position: -400px 0; }
   100% { background-position:  400px 0; }
-}
-
-.skeleton {
-  display: block;
-  background: linear-gradient(90deg, #e8e8e8 25%, #f0f0f0 50%, #e8e8e8 75%);
-  background-size: 800px 100%;
-  animation: skeleton-shimmer 1.4s infinite linear;
-  border-radius: 4px;
-
-  &--image {
-    width: 50px;
-    height: 50px;
-  }
-
-  &--line {
-    height: 12px;
-    width: 75%;
-  }
-
-  &--line-short {
-    width: 50%;
-  }
 }

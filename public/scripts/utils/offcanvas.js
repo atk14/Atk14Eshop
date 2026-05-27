@@ -114,7 +114,7 @@ window.UTILS.OffcanvasBasket = function() {
 			var text = $this.element.parent().find( ".basket-loading" ).data( "loading-text" ) || "Loading...";
 			return "<p class=\"basket-loading__text\">" + text + "</p>";
 		}
-		n = Math.min( n, 8 );
+		n = Math.min( n, 12 );
 		var row = "<tr class=\"item\">" +
 			"<td class=\"item__image\"><div class=\"skeleton skeleton--image\"></div></td>" +
 			"<td class=\"item__name\"><div class=\"skeleton skeleton--line\"></div></td>" +
@@ -136,7 +136,7 @@ window.UTILS.OffcanvasBasket = function() {
 		var knownCount = parseInt( $( ".js--basket_info_content .cart-num-items" ).first().text() ) || 0;
 		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
-		$this.element.parent().find( ".basket-loading" ).html( $this.renderSkeleton( knownCount ) );
+		$this.element.parent().find( ".basket-loading" ).html( $this.renderSkeleton( knownCount ) );//return;
 		$this.element.load( "/" + lang + "/baskets/detail", function( response, status, jqXHR ) {
 			$this.element.parent().find( ".basket-loading" ).html( "" );
 			switch( status ) {
