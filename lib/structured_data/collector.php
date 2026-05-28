@@ -7,6 +7,10 @@ class Collector {
 
 	protected $items = [];
 
+	static function Reset() {
+		self::$instance = null;
+	}
+
 	static function GetInstance(\Atk14Controller $controller=null, $options=[]) {
 		if (!self::$instance) {
 			self::$instance = new self($controller, $options);
