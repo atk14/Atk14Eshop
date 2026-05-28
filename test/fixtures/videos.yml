@@ -1,0 +1,6 @@
+coffee_video:
+  url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  html: '<iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" loading="lazy"></iframe>'
+  image_url: ~
+  title_en: "Coffee making process"
+  title_cs: "Jak se vyrábí káva"

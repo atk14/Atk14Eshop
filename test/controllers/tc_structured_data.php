@@ -4,6 +4,8 @@
  * @fixture products
  * @fixture categories
  * @fixture category_cards
+ * @fixture articles
+ * @fixture videos
  */
 class TcStructuredData extends TcBase {
 
@@ -31,6 +33,55 @@ class TcStructuredData extends TcBase {
 		$this->client->get("cards/detail", ["id" => $card]);
 		$this->assertEquals(200, $this->client->getStatusCode());
 		$this->_assertJsonLdType("Product");
+	}
+
+	function test_card_detail_with_video_has_video_object_json_ld() {
+		$card = $this->cards["coffee"];
+
+		$video = Video::CreateNewRecord([
+			"url" => "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+			"html" => '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>',
+			"image_url" => null,
+			"title_en" => "Coffee making process",
+		]);
+
+		$section_type = CardSectionType::FindByCode("info");
+		$section = CardSection::CreateNewRecord([
+			"card_id" => $card,
+			"card_section_type_id" => $section_type,
+			"body_en" => "[#{$video->getId()} Video: Coffee making process]",
+		]);
+
+		\StructuredData\Collector::Reset();
+		$this->client->get("cards/detail", ["id" => $card]);
+		$this->assertEquals(200, $this->client->getStatusCode());
+		$this->_assertJsonLdType("VideoObject");
+
+		$blocks = $this->_getJsonLdBlocks();
+		$video_block = current(array_filter($blocks, fn($b) => ($b["@type"] ?? null) === "VideoObject"));
+		$this->assertEquals("Coffee making process", $video_block["name"]);
+		$this->assertEquals("https://www.youtube.com/watch?v=dQw4w9WgXcQ", $video_block["embedUrl"]);
+	}
+
+	function test_article_with_video_has_video_object_json_ld() {
+		$video = $this->videos["coffee_video"];
+
+		$article = Article::CreateNewRecord([
+			"title_en" => "Article with video",
+			"slug_en" => "article-with-video",
+			"published_at" => date("Y-m-d"),
+			"body_en" => "[#{$video->getId()} Video: Coffee making process]",
+		]);
+
+		\StructuredData\Collector::Reset();
+		$this->client->get("articles/detail", ["id" => $article]);
+		$this->assertEquals(200, $this->client->getStatusCode());
+		$this->_assertJsonLdType("VideoObject");
+
+		$blocks = $this->_getJsonLdBlocks();
+		$video_block = current(array_filter($blocks, fn($b) => ($b["@type"] ?? null) === "VideoObject"));
+		$this->assertEquals("Coffee making process", $video_block["name"]);
+		$this->assertEquals($video->g("url"), $video_block["embedUrl"]);
 	}
 
 	function test_invisible_card_has_no_product_json_ld() {
