@@ -76,6 +76,7 @@ class BreadcrumbList extends \StructuredData\BaseElement {
 		foreach($this->list_items as $_path => $_c) {
 			$sd_item = new BreadcrumbListItem($_c);
 			$itemAr = $sd_item->toArray();
+			if (is_null($itemAr)) { continue; }
 			$itemAr["position"] = $_position++;
 			$out["itemListElement"][] = $itemAr;
 		}

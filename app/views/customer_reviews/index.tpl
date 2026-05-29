@@ -10,7 +10,7 @@
 
 	<div class="section--list-products">
 		<div class="card-deck card-deck--sized-6">
-			{assign geometry "400x570"}
+			{assign geometry "400x400x#ffffff"}
 			{foreach $review_candidates as $review_candidate}
 				{assign product $review_candidate->getProduct()}
 				{assign card $product->getCard()}

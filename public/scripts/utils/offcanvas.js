@@ -107,17 +107,38 @@ window.UTILS.OffcanvasBasket = function() {
 	this.element = $( "#offcanvas-basket .bs-offcanvas-content .basket-content" );
 	this.timeoutID = undefined;
 
+	// Build skeleton rows matching .table--offcanvas-basket structure
+	this.renderSkeleton = function( count ) {
+		var n = parseInt( count ) || 0;
+		if ( n === 0 ) {
+			var text = $this.element.parent().find( ".basket-loading" ).data( "loading-text" ) || "Loading...";
+			return "<p class=\"basket-loading__text\">" + text + "</p>";
+		}
+		n = Math.min( n, 12 );
+		var row = "<tr class=\"item\">" +
+			"<td class=\"item__image\"><div class=\"skeleton skeleton--image\"></div></td>" +
+			"<td class=\"item__name\"><div class=\"skeleton skeleton--line\"></div></td>" +
+			"<td class=\"item__quantity\"><div class=\"skeleton skeleton--line skeleton--line-short\"></div></td>" +
+			"<td class=\"item__price\"><div class=\"skeleton skeleton--line skeleton--line-short\"></div></td>" +
+			"<td class=\"item__actions\"></td>" +
+			"</tr>";
+		var rows = "";
+		for ( var i = 0; i < n; i++ ) { rows += row; }
+		return "<table class=\"table--offcanvas-basket\"><tbody>" + rows + "</tbody></table>";
+	};
+
 	// Load basket content from server
 	this.loadBasket = function() {
 		$this.element.html( "" );
 		if( $this.timeoutID ) {
 			clearTimeout( $this.timeoutID );
 		}
+		var knownCount = parseInt( $( ".js--basket_info_content .cart-num-items" ).first().text() ) || 0;
 		$this.updateCountDisplay( null );
 		$this.element.attr( "data-status", "loading" );
-		$this.element.parent().find( ".js--basket-loading").html( $this.element.parent().find( ".js--basket-loading ").attr( "data-content" ) );
+		$this.element.parent().find( ".basket-loading" ).html( $this.renderSkeleton( knownCount ) );//return;
 		$this.element.load( "/" + lang + "/baskets/detail", function( response, status, jqXHR ) {
-			$this.element.parent().find( ".js--basket-loading").html( "" );
+			$this.element.parent().find( ".basket-loading" ).html( "" );
 			switch( status ) {
 				case "success" :
 					$this.element.attr( "data-status", "loaded" );

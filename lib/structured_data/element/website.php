@@ -11,7 +11,7 @@ class Website extends \StructuredData\BaseElement {
 		$_siteUrl = \Atk14Url::BuildLink(["action" => "main/index"], ["with_hostname" => true]);
 		$_searchUrl = \Atk14Url::BuildLink(["action" => "searches/index"], ["with_hostname" => true])."?q={search_term_string}";
 		$out = [
-			'@context' => 'http://schema.org/',
+			"@context" => "https://schema.org",
 			"@type" => "WebSite",
 			"name" => ATK14_APPLICATION_NAME,
 			"url" => $_siteUrl,
