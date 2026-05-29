@@ -43,6 +43,13 @@
 				font-size: 18px;
 				font-weight: bold;
 			}
+			.footertext {
+				color: {$footer_color};
+			}
+			.footertext a {
+				color: {$footer_link_color};
+				text-decoration: underline;
+			}
 		</mj-style>
 		<mj-attributes>
 			// General styles for MJML tags
@@ -74,8 +81,9 @@
 			// footer
 			<mj-class name="footer" full-width="full-width" background-color="{$footer_bgcolor}" font-size="16px" line-height="1.25" padding-top="16px" />
 			<mj-class name="footer-bottom" full-width="full-width" background-color="gray" font-size="16px" line-height="1.25" />
-			<mj-class name="footertext" color="##$footer_color##" font-size="14px" line-height="1.25" />
-			<mj-class name="footersmalllink" color="#fff" font-size="12px" line-height="1.25" text-transform="none" />
+			<mj-class name="footertext" color="{$footer_color}" font-size="14px" line-height="1.25" />
+			<mj-class name="footersmalllink" color="{$footer_link_color}" font-size="12px" line-height="1.25" text-transform="none" />
+			<mj-social-element color="{$footer_link_color}" />
 			// divider
 			<mj-class name="thin" border-color="#999" border-width="1px" padding="0 25px" />
 			// buttons

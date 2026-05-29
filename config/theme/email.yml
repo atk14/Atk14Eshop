@@ -20,6 +20,8 @@ button_color: "white"
 # header_bgcolor: "white"
 # header_color: "#81971a"
 logo_src: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>public/dist/images/logo--email.png"
+logo_width: "154px"
+logo_height: "60px"
 site_url: "<?= Region::GetDefaultRegion()->getDefaultUrl(); ?>"
 
 # Footer colors
