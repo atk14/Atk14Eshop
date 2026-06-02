@@ -25,7 +25,7 @@ class VideoObject extends \StructuredData\BaseElement {
 		}
 
 		if ($_created_at = $this->item->g("created_at")) {
-			$out["uploadDate"] = date("Y-m-d", strtotime($_created_at));
+			$out["uploadDate"] = (new \DateTime($_created_at))->format(\DateTime::ATOM);
 		}
 
 		return $out;
