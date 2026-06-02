@@ -8,6 +8,7 @@
 
 		{placeholder}
 
+		{render partial="mailer/partials/signature.mjml"}
 		{render partial="mailer/partials/layout/footer.mjml"}
 	</mj-body>
 </mjml>
