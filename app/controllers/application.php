@@ -86,7 +86,7 @@ class ApplicationController extends ApplicationBaseController{
 	function _before_render() {
 		parent::_before_render();
 		if(!isset($this->tpl_data["structured_data"]) && isset($this->structured_data)){
-			$this->tpl_data["structured_data"] = $this->structured_data->toArray();
+			$this->tpl_data["structured_data"] = $this->structured_data;
 		}
 	}
 

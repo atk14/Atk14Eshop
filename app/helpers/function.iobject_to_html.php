@@ -20,6 +20,11 @@ function smarty_function_iobject_to_html($params,$template){
 	$smarty->assign("iobject",$iobject);
 	$smarty->assign($object_name,$iobject->getObject());
 
+	$object = $iobject->getObject();
+	if($object instanceof Video){
+		$collector = \StructuredData\Collector::GetInstance();
+		$collector->addItem(new \StructuredData\Element\VideoObject($object));
+	}
 
 	$out = $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
 

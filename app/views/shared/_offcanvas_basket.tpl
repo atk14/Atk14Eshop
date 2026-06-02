@@ -7,11 +7,7 @@
 		<div class="basket-content">
 
 		</div>
-		<div class="basket-loading">
-			<div class="spinner-border text-secondary" role="status">
-				<span class="sr-only js--basket-loading" data-content="{t}Loading...{/t}"></span>
-			</div>	
-		</div>
+		<div class="basket-loading" data-loading-text="{t}Loading...{/t}"></div>
 		<div class="basket-error js--basket-error"></div>
 		<div class="basket-link">
 			<a href="{link_to action="baskets/edit"}" class="btn btn-primary">{t}To the checkout{/t} {!"angle-right"|icon}</a>

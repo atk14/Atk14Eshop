@@ -25,6 +25,7 @@ class AggregateOffer extends \StructuredData\BaseElement {
 	function toArray() {
 		$_price_finder = $this->options["price_finder"];
 		$_basket = $this->options["basket"];
+		if (!$_basket) { return null; }
 		$_currency = $_basket->getCurrency();
 		$_rate = \CurrencyRate::GetCurrencyRate($_currency);
 
@@ -34,7 +35,7 @@ class AggregateOffer extends \StructuredData\BaseElement {
 		$out_shipping_details = $this->_getShippingDetails($_product);
 
 		$_price = null;
-		$_distinct_prices = null;
+		$_distinct_prices = [];
 		if ($_price_finder) {
 			$_price = $_price_finder->getStartingPrice($this->item);
 			$_distinct_prices = $_price_finder->getDistinctPrices($this->item);
@@ -159,7 +160,8 @@ class AggregateOffer extends \StructuredData\BaseElement {
 			$max += $_product->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]);
 		}
 
-		$stockcount = $max / $unit->getDisplayUnitMultiplier();
+		$_multiplier = $unit->getDisplayUnitMultiplier();
+		$stockcount = $_multiplier ? $max / $_multiplier : 0;
 		return $stockcount;
 	}
 }

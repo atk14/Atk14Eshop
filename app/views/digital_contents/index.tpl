@@ -8,7 +8,7 @@
 			<div class="item__header">
 				{assign product $digital_contents_by_product.product}
 				<h2 class="item__title">{$product->getName()}</h2>
-				{a action="cards/detail" id=$product->getCardId()}Podrobnosti o produktu {!"chevron-right"|icon}{/a}
+				<a href="{$product|link_to_product}">{t}Podrobnosti o produktu{/t} {!"chevron-right"|icon}</a>
 			</div>
 			<div class="list list--downloads">
 			{foreach $digital_contents_by_product.items as $digital_content}
