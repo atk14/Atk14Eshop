@@ -1,10 +1,12 @@
 <mj-section>
 	<mj-column>
 		<mj-text>
+			{*
 			{capture assign="order_title"}{t order_no=$order->getOrderNo()}Vaše objednávka č.%1{/t} - {$order_status}{/capture}
 			<span class="title">{!$order_title}</span>
 			<br/>
 			<br/>
+			*}
       {t}Vážený zákazníku,{/t}
     </mj-text>
 
