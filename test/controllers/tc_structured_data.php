@@ -58,7 +58,7 @@ class TcStructuredData extends TcBase {
 		$this->_assertJsonLdType("VideoObject");
 
 		$blocks = $this->_getJsonLdBlocks();
-		$video_block = current(array_filter($blocks, fn($b) => ($b["@type"] ?? null) === "VideoObject"));
+		$video_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "VideoObject"; }));
 		$this->assertEquals("Coffee making process", $video_block["name"]);
 		$this->assertEquals("https://www.youtube.com/watch?v=dQw4w9WgXcQ", $video_block["embedUrl"]);
 	}
@@ -79,7 +79,7 @@ class TcStructuredData extends TcBase {
 		$this->_assertJsonLdType("VideoObject");
 
 		$blocks = $this->_getJsonLdBlocks();
-		$video_block = current(array_filter($blocks, fn($b) => ($b["@type"] ?? null) === "VideoObject"));
+		$video_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "VideoObject"; }));
 		$this->assertEquals("Coffee making process", $video_block["name"]);
 		$this->assertEquals($video->g("url"), $video_block["embedUrl"]);
 	}
