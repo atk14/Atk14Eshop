@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-20 15:19+0100\n"
-"PO-Revision-Date: 2025-10-01 14:28+0200\n"
+"POT-Creation-Date: 2026-06-03 14:36+0200\n"
+"PO-Revision-Date: 2026-06-03 14:40+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -175,7 +175,8 @@ msgid ""
 "Kampaně se používají pro stanovení <em>procentní slevy nebo dopravy zdarma "
 "od určité částky</em> nebo <em>slevy pro registrované zákazníky</em>."
 msgstr ""
-"Campaigns are used to set <em>a percentage discount or free shipping from a certain amount</em> or <em>a discount for registered customers</em>."
+"Campaigns are used to set <em>a percentage discount or free shipping from a "
+"certain amount</em> or <em>a discount for registered customers</em>."
 
 msgid "Nebyla nalezena ani jedna kampaň."
 msgstr "No campaign was found."
@@ -755,7 +756,8 @@ msgstr "New delivery option"
 
 msgid "Digitální obsah (soubory) si zákazník stáhne po dokončení objednávky."
 msgstr ""
-"Digital content (files) will be downloaded by the customer after completing the order."
+"Digital content (files) will be downloaded by the customer after completing "
+"the order."
 
 msgid "Pro tento produkt neexistuje žádný digitální obsah."
 msgstr "There is no digital content for this product."
@@ -1412,7 +1414,10 @@ msgid ""
 "tak  může být v eshopu informován, že nějaký produkt je slevněn z nějaké "
 "původní ceny."
 msgstr ""
-"It is usually advisable to manage two price lists: one for all product prices and another, basic price list, for pre-discount prices of discounted products. This way the customer can be informed in the e-shop that a product is discounted from an original price."
+"It is usually advisable to manage two price lists: one for all product "
+"prices and another, basic price list, for pre-discount prices of discounted "
+"products. This way the customer can be informed in the e-shop that a product "
+"is discounted from an original price."
 
 msgid "Prices"
 msgstr "Prices"
@@ -1528,7 +1533,9 @@ msgid ""
 "registraci). Ne = sleva v kampani poskytnuta nebyla, nejčastěji z důvodu "
 "poskytnutí slevy dle ceníku."
 msgstr ""
-"Yes = a campaign discount was applied to this item (e.g. 7% registration discount). No = no campaign discount was applied, most often because a price list discount was applied instead."
+"Yes = a campaign discount was applied to this item (e.g. 7% registration "
+"discount). No = no campaign discount was applied, most often because a price "
+"list discount was applied instead."
 
 msgid "Neurčeno"
 msgstr "Not specified"
@@ -1594,7 +1601,8 @@ msgid ""
 "Cannot paste columns: Number of pasted columns do not match number of "
 "current columns."
 msgstr ""
-"Cannot paste columns: Number of pasted columns do not match number of current columns."
+"Cannot paste columns: Number of pasted columns do not match number of "
+"current columns."
 
 msgid "Copy widths"
 msgstr "Copy widths"
@@ -1768,13 +1776,15 @@ msgid ""
 "Speciální ceníky jsou určeny ke správě výhodnějších cen nějaké typicky malé "
 "množiny produktů."
 msgstr ""
-"Special price lists are designed to manage better prices for a typically small set of products."
+"Special price lists are designed to manage better prices for a typically "
+"small set of products."
 
 msgid ""
 "Ceny lze stanovovat buďto konkrétní částkou nebo procentní slevou vůči "
 "ceníku daného zákazníka."
 msgstr ""
-"Prices can be set either as a specific amount or as a percentage discount relative to the customer's price list."
+"Prices can be set either as a specific amount or as a percentage discount "
+"relative to the customer's price list."
 
 msgid "Jeden zákazník může mít více speciálních ceníků."
 msgstr "One customer can have multiple special price lists."
@@ -1893,9 +1903,10 @@ msgid ""
 "Editujete zástupného uživatele pro nepřihlášeného zákazníka. Nastavení "
 "ceníků u tohoto uživatele bude použito při registraci nových zákazníků."
 msgstr ""
-"You are editing a proxy user for a non-logged-in customer. Price list settings for this user will be applied when new customers register."
+"You are editing a proxy user for a non-logged-in customer. Price list "
+"settings for this user will be applied when new customers register."
 
-#: ../app/controllers/admin/users_controller.php:55
+#: ../app/controllers/admin/users_controller.php:65
 msgid "Create a new user"
 msgstr "Create a new user"
 
@@ -1983,7 +1994,9 @@ msgid ""
 "Sleva na základě kódu se uplatní na jakýkoliv produkt v e-shopu. Nelze "
 "prioritizovat žádnou kategorii."
 msgstr ""
-"Administration of discount coupons in the form of gift or discount vouchers. The code-based discount applies to any product in the e-shop. No category can be prioritized."
+"Administration of discount coupons in the form of gift or discount vouchers. "
+"The code-based discount applies to any product in the e-shop. No category "
+"can be prioritized."
 
 msgid "Nebyl nalezen žádný voucher."
 msgstr "No voucher was found."
@@ -2199,7 +2212,7 @@ msgid "Editace objednávky %s"
 msgstr "Edit order %s"
 
 #: ../app/controllers/admin/admin.php:150
-#: ../app/controllers/admin/users_controller.php:81
+#: ../app/controllers/admin/users_controller.php:91
 #, php-format
 msgid "Editing user %s"
 msgstr "Editing user %s"
@@ -2489,7 +2502,7 @@ msgstr "The category was deleted"
 msgid "Creating new link to the category \"%s\""
 msgstr "Creating new link to the category \"%s\""
 
-#: ../app/controllers/admin/categories_controller.php:203
+#: ../app/controllers/admin/categories_controller.php:208
 msgid "Alias was created"
 msgstr "Alias was created"
 
@@ -3030,7 +3043,7 @@ msgstr "Editing parameter %s"
 
 #: ../app/controllers/admin/system_parameters_controller.php:44
 #: ../app/controllers/admin/tags_controller.php:67
-#: ../app/controllers/admin/users_controller.php:97
+#: ../app/controllers/admin/users_controller.php:107
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
@@ -3089,29 +3102,29 @@ msgstr "Please make sure you don't need to change slugs"
 msgid "Users list"
 msgstr "Users list"
 
-#: ../app/controllers/admin/users_controller.php:68
+#: ../app/controllers/admin/users_controller.php:78
 msgid "The user has been created successfully"
 msgstr "The user has been created successfully"
 
-#: ../app/controllers/admin/users_controller.php:74
+#: ../app/controllers/admin/users_controller.php:84
 #, php-format
 msgid "Detail uživatele %s"
 msgstr "User detail %s"
 
-#: ../app/controllers/admin/users_controller.php:107
+#: ../app/controllers/admin/users_controller.php:117
 msgid "The user entry has been updated"
 msgstr "The user entry has been updated"
 
-#: ../app/controllers/admin/users_controller.php:115
+#: ../app/controllers/admin/users_controller.php:125
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr "Setting a new password to the user %s"
 
-#: ../app/controllers/admin/users_controller.php:123
+#: ../app/controllers/admin/users_controller.php:133
 msgid "Nothing needs to be updated"
 msgstr "Nothing needs to be updated"
 
-#: ../app/controllers/admin/users_controller.php:134
+#: ../app/controllers/admin/users_controller.php:144
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
@@ -3119,15 +3132,15 @@ msgstr ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:140
+#: ../app/controllers/admin/users_controller.php:150
 msgid "The password for the user <em>%user%</em> has been deleted."
 msgstr "The password for the user <em>%user%</em> has been deleted."
 
-#: ../app/controllers/admin/users_controller.php:157
+#: ../app/controllers/admin/users_controller.php:167
 msgid "The user entry has been deleted"
 msgstr "The user entry has been deleted"
 
-#: ../app/controllers/admin/users_controller.php:168
+#: ../app/controllers/admin/users_controller.php:178
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Now you are logged as <em>%s</em>"
@@ -3285,7 +3298,8 @@ msgid ""
 "Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
 "zásoby (např. digitální soubor)"
 msgstr ""
-"Check only if this is a product without stock consideration (e.g. digital file)"
+"Check only if this is a product without stock consideration (e.g. digital "
+"file)"
 
 #: ../app/forms/admin/admin_form.php:230 ../app/forms/admin/admin_form.php:237
 #: ../app/forms/admin/category_trees/create_new_form.php:17
@@ -3490,14 +3504,16 @@ msgid ""
 "Kampaň bude uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
 "jeden z uvedených štítků."
 msgstr ""
-"The campaign will be considered if at least one product in the cart contains one of the listed labels."
+"The campaign will be considered if at least one product in the cart contains "
+"one of the listed labels."
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:49
 msgid ""
 "Kampaň NEBUDE uvažována, pokud alespoň jeden produkt v košíku bude obsahovat "
 "jeden z uvedených štítků."
 msgstr ""
-"The campaign will NOT be considered if at least one product in the cart contains one of the listed labels."
+"The campaign will NOT be considered if at least one product in the cart "
+"contains one of the listed labels."
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:53
 #: ../app/forms/admin/discounts/discounts_form.php:6
@@ -3543,7 +3559,8 @@ msgid ""
 "V jedné kampani lze nastavit buďto procentní slevu, dopravu zdarma nebo "
 "dárkový produkt"
 msgstr ""
-"In one campaign you can set either a percentage discount, free shipping or a gift product"
+"In one campaign you can set either a percentage discount, free shipping or a "
+"gift product"
 
 #: ../app/forms/admin/campaigns/campaigns_form.php:98
 msgid ""
@@ -3680,6 +3697,7 @@ msgstr "Product type"
 #, php-format
 msgid "Schází tu nějaký typ produktu? &rarr; <a href=\"%s\">vytvořte ho</a>"
 msgstr ""
+"Is there a product type missing here? &rarr; <a href=\"%s\">create it</a>"
 
 #: ../app/forms/admin/cards/cards_form.php:51
 msgid "Information"
@@ -3877,7 +3895,8 @@ msgid ""
 "Zvyšte číslo verze, pokud je vyžadováno opakované schválení souhlasu s "
 "použitím cookies v této kategorii."
 msgstr ""
-"Increase the version number if repeated approval of cookie consent is required in this category."
+"Increase the version number if repeated approval of cookie consent is "
+"required in this category."
 
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:55
 #: ../app/forms/admin/cookie_consents/edit_form.php:12
@@ -3931,12 +3950,13 @@ msgid ""
 "Propojte tvůrce s jeho profilovou stránkou. Na této stránce pak budou "
 "automaticky zobrazeny jeho produkty."
 msgstr ""
-"Link the creator with their profile page. This page will then automatically display their products."
+"Link the creator with their profile page. This page will then automatically "
+"display their products."
 
 #: ../app/forms/admin/creators/creators_form.php:21
 #, php-format
 msgid "Zatím stránka neexistuje? &rarr; <a href=\"%s\">vytvořte ji</a>"
-msgstr ""
+msgstr "Does the page not exist yet? &rarr; <a href=\"%s\">create it</a>"
 
 #: ../app/forms/admin/creators/creators_form.php:31
 msgid "Another creator already has this name"
@@ -4031,14 +4051,16 @@ msgid ""
 "Nebude-li vyplněno, použije se v případě osobního vyzvednutí adresa "
 "provozovny a její otevírací doba."
 msgstr ""
-"If not filled in, the store address and its opening hours will be used for personal pickup."
+"If not filled in, the store address and its opening hours will be used for "
+"personal pickup."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:43
 msgid ""
 "Pokud nebude částka určena, znamená to, že cena za dopravu bude stanovena "
 "následnou dohodou."
 msgstr ""
-"If the amount is not specified, it means the shipping price will be determined by subsequent agreement."
+"If the amount is not specified, it means the shipping price will be "
+"determined by subsequent agreement."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:46
 #, php-format
@@ -4062,14 +4084,16 @@ msgid ""
 "Doručovací metoda bude použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
-"The delivery method will be used if at least one product in the cart contains one of the listed labels."
+"The delivery method will be used if at least one product in the cart "
+"contains one of the listed labels."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:76
 msgid ""
 "Doručovací metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
-"The delivery method will NOT be used if at least one product in the cart contains one of the listed labels."
+"The delivery method will NOT be used if at least one product in the cart "
+"contains one of the listed labels."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:80
 msgid "Exkluzivně pro štítek"
@@ -4080,7 +4104,8 @@ msgid ""
 "Doručovací metoda bude použita, pokud všechny produkty v košíku budou "
 "obsahovat tento štítek. Ostatní metody nebudou použity."
 msgstr ""
-"The delivery method will be used if all products in the cart contain this label. Other methods will not be used."
+"The delivery method will be used if all products in the cart contain this "
+"label. Other methods will not be used."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:86
 msgid "Násobit cenu dopravy počtem souvisejících produktů v košíku?"
@@ -4105,7 +4130,8 @@ msgid ""
 "Znak '@' v URL bude nahrazen číslem zásilky.<br>Např. 'https://www."
 "postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
 msgstr ""
-"The '@' character in the URL will be replaced by the shipment number.<br>E.g. 'https://www.postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
+"The '@' character in the URL will be replaced by the shipment number.<br>E."
+"g. 'https://www.postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=@'"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:120
 msgid "Pokud je vybrána prodejna pro osbní odběr, zatrhněte i osobní odběr"
@@ -4532,14 +4558,16 @@ msgid ""
 "Platební metoda bude použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
-"The payment method will be used if at least one product in the cart contains one of the listed labels."
+"The payment method will be used if at least one product in the cart contains "
+"one of the listed labels."
 
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:73
 msgid ""
 "Platební metoda NEBUDE použita, pokud alespoň jeden produkt v košíku bude "
 "obsahovat jeden z uvedených štítků."
 msgstr ""
-"The payment method will NOT be used if at least one product in the cart contains one of the listed labels."
+"The payment method will NOT be used if at least one product in the cart "
+"contains one of the listed labels."
 
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:77
 msgid "Kód platby"
@@ -4550,7 +4578,8 @@ msgid ""
 "Zatrhněte, zda se jedná buďto o bankovní převod nebo o dobírku, nebo vyberte "
 "platební bránu. Hodnoty nelze kombinovat."
 msgstr ""
-"Check whether this is a bank transfer or cash on delivery, or select a payment gateway. The values cannot be combined."
+"Check whether this is a bank transfer or cash on delivery, or select a "
+"payment gateway. The values cannot be combined."
 
 #: ../app/forms/admin/pictures/pictures_form.php:8
 #: ../app/forms/admin/slider_items/slider_items_form.php:6
@@ -4607,7 +4636,9 @@ msgid ""
 "možnost doplnit k této produktové variantě štítky, které na kartě chybí a "
 "nemohou být přidány."
 msgstr ""
-"It is usually sufficient to define labels only on the product card. However, here it is possible to add labels to this product variant that are missing from the card and cannot be added there."
+"It is usually sufficient to define labels only on the product card. However, "
+"here it is possible to add labels to this product variant that are missing "
+"from the card and cannot be added there."
 
 #: ../app/forms/admin/products/products_form.php:32
 msgid "Is product variant visible?"
@@ -4711,7 +4742,9 @@ msgid ""
 "externí web musí obsahovat celou cestu včetně domény (např. http://www."
 "externi-web.cz/soubor.pdf)."
 msgstr ""
-"Enter internal links only as URI (e.g. /help/). Links to external websites must contain the full path including the domain (e.g. http://www.external-site.com/file.pdf)."
+"Enter internal links only as URI (e.g. /help/). Links to external websites "
+"must contain the full path including the domain (e.g. http://www.external-"
+"site.com/file.pdf)."
 
 #: ../app/forms/admin/slider_items/slider_items_form.php:37
 msgid "Display this picture from date and time"
@@ -5062,6 +5095,12 @@ msgid ""
 "\"SLEVA21\", uplatní se sleva i při použití textu \"sleva21\" nebo "
 "\"Sleva21\" či \"sleva 21\" atd.)"
 msgstr ""
+"Enter the discount code that the customer will enter in the \"Discount "
+"Coupons/Gift Certificates\" field in the shopping cart. The code can be "
+"text, numbers, or a combination of both. It is not case-sensitive and does "
+"not distinguish between spaces (if the code is \"SLEVA21,\" the discount "
+"will apply even if the text \"sleva21,\" \"Sleva21,\" or \"sleva 21,\" etc., "
+"is used)."
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:14
 #, php-format
@@ -5109,7 +5148,8 @@ msgid ""
 "Je nutné zadat alespoň jeden typ slevy: hodnotu poukazu, procentní slevu, "
 "dopravu zdarma nebo volný popis"
 msgstr ""
-"You must enter at least one type of discount: voucher value, percentage discount, free shipping or free description"
+"You must enter at least one type of discount: voucher value, percentage "
+"discount, free shipping or free description"
 
 #: ../app/forms/admin/vouchers/vouchers_form.php:124
 msgid "Platnost od a Platnost do musí být rozdílne datumy"
@@ -5168,37 +5208,37 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-#~ msgid "pouze při zvoleném způsobu doručení %1"
-#~ msgstr "only with the selected delivery method %1"
+msgid "pouze při zvoleném způsobu doručení %1"
+msgstr "only with the selected delivery method %1"
 
-#~ msgid "pouze pro způsob doručení %1"
-#~ msgstr "only for delivery method %1"
+msgid "pouze pro způsob doručení %1"
+msgstr "only for delivery method %1"
 
-#~ msgid "Způsob doručení"
-#~ msgstr "Delivery method"
+msgid "Způsob doručení"
+msgstr "Delivery method"
 
-#~ msgid "Pricelists"
-#~ msgstr "Pricelists"
+msgid "Pricelists"
+msgstr "Pricelists"
 
-#~ msgid "Vypnout"
-#~ msgstr "Disable"
+msgid "Vypnout"
+msgstr "Disable"
 
-#~ msgid "Zapnout"
-#~ msgstr "Enable"
+msgid "Zapnout"
+msgstr "Enable"
 
 #, php-format
-#~ msgid "This page is the profile page for another creator (%s)"
-#~ msgstr "This page is the profile page for another creator (%s)"
+msgid "This page is the profile page for another creator (%s)"
+msgstr "This page is the profile page for another creator (%s)"
 
-#~ msgid "Edit stockount in warehouse %1"
-#~ msgstr "Edit stockount in warehouse %1"
+msgid "Edit stockount in warehouse %1"
+msgstr "Edit stockount in warehouse %1"
 
-#~ msgid ""
-#~ "You are about to permanently delete user %1\n"
-#~ "Are you sure about that?"
-#~ msgstr ""
-#~ "You are about to permanently delete user %1\n"
-#~ "Are you sure about that?"
+msgid ""
+"You are about to permanently delete user %1\n"
+"Are you sure about that?"
+msgstr ""
+"You are about to permanently delete user %1\n"
+"Are you sure about that?"
 
 #~ msgid "Edit store"
 #~ msgstr "Edit store"
