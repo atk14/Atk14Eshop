@@ -29,6 +29,8 @@ footer_bgcolor: "#ccc"
 footer_color: "#444"
 
 footer_link_color: "#fc5130"
+# Social icons theme: "light" or "dark" or "color"
+social_icons_theme: "dark"
 
 # Boxed title colors 
 # titlebox_bgcolor: "#5F2929"
