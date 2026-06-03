@@ -2,26 +2,29 @@
 
 namespace StructuredData\Element;
 
-class VideoObject extends \StructuredData\BaseElement {
+class ImageObject extends \StructuredData\BaseElement {
 
-	function __construct(\Video $item, $options=[]) {
+	function __construct(\Picture $item, $options=[]) {
 		$this->item = $item;
 	}
 
 	function toArray() {
 		$out = [
 			"@context" => "https://schema.org",
-			"@type" => "VideoObject",
-			"name" => $this->item->getTitle(),
-			"embedUrl" => $this->item->g("url"),
+			"@type" => "ImageObject",
+			"contentUrl" => (string)$this->item->getUrl(),
 		];
+
+		if ($_name = $this->item->getTitle()) {
+			$out["name"] = (string)$_name;
+		}
 
 		if ($_description = $this->item->getDescription()) {
 			$out["description"] = strip_tags((string)$_description);
 		}
 
-		if ($_thumbnail = $this->item->getPreviewImageUrl()) {
-			$out["thumbnailUrl"] = (string)$_thumbnail;
+		if ($_caption = $this->item->getAlt()) {
+			$out["caption"] = (string)$_caption;
 		}
 
 		if ($_created_at = $this->item->g("created_at")) {

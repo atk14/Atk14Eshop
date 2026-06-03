@@ -21,9 +21,11 @@ function smarty_function_iobject_to_html($params,$template){
 	$smarty->assign($object_name,$iobject->getObject());
 
 	$object = $iobject->getObject();
+	$collector = \StructuredData\Collector::GetInstance();
 	if($object instanceof Video){
-		$collector = \StructuredData\Collector::GetInstance();
 		$collector->addItem(new \StructuredData\Element\VideoObject($object));
+	} elseif($object instanceof Picture){
+		$collector->addItem(new \StructuredData\Element\ImageObject($object));
 	}
 
 	$out = $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");

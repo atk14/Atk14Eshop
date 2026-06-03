@@ -4,6 +4,7 @@
  * @fixture products
  * @fixture categories
  * @fixture category_cards
+ * @fixture pictures
  */
 class TcStructuredData extends TcBase {
 
@@ -130,6 +131,40 @@ class TcStructuredData extends TcBase {
 		$card = $this->cards["coffee"];
 		$offer = new \StructuredData\Element\AggregateOffer($card);
 		$this->assertNull($offer->toArray());
+	}
+
+	// --- ImageObject ---
+
+	function test_image_object_to_array_structure() {
+		$picture = $this->pictures["astronaut"];
+		$image = new \StructuredData\Element\ImageObject($picture);
+		$out = $image->toArray();
+
+		$this->assertEquals("https://schema.org", $out["@context"]);
+		$this->assertEquals("ImageObject", $out["@type"]);
+		$this->assertEquals((string)$picture->getUrl(), $out["contentUrl"]);
+	}
+
+	function test_image_object_optional_fields_absent_when_empty() {
+		$picture = $this->pictures["astronaut"];
+		$image = new \StructuredData\Element\ImageObject($picture);
+		$out = $image->toArray();
+
+		$this->assertArrayNotHasKey("name", $out);
+		$this->assertArrayNotHasKey("description", $out);
+		$this->assertArrayNotHasKey("caption", $out);
+	}
+
+	function test_image_object_with_title_and_alt() {
+		$picture = $this->pictures["astronaut"];
+		$picture->s("title_en", "Astronaut photo");
+		$picture->s("alt_en", "An astronaut floating in space");
+
+		$image = new \StructuredData\Element\ImageObject($picture);
+		$out = $image->toArray();
+
+		$this->assertEquals("Astronaut photo", $out["name"]);
+		$this->assertEquals("An astronaut floating in space", $out["caption"]);
 	}
 
 	// --- helpers ---
