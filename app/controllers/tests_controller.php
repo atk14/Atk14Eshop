@@ -78,7 +78,11 @@ class TestsController extends ApplicationController {
 	function notify_order_status_update(){
 		$order = Order::FindFirst([
 			"conditions" => [
-				"order_status_id IN (SELECT id FROM order_statuses WHERE notification_enabled)",
+				"order_status_id IN (
+					SELECT id FROM order_statuses WHERE
+						notification_enabled AND
+						code!='new' -- stav new se ve skutecnosti notifikuje jinou metodou v ApplicationMailer
+				)",
 			],
 			"order_by" => "created_at DESC"
 		]);
