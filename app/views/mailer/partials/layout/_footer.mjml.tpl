@@ -101,20 +101,18 @@
 		</mj-section>
 
 		<mj-section mj-class="footer-bottom">
-			<mj-column padding-left="15px" padding-right="15px">
-				<mj-navbar align="left">
-					{if $link_conditions}
-					<mj-navbar-link href="{$link_conditions}" mj-class="footersmalllink">{t}Obchodní podmínky{/t}</mj-navbar-link>
+			<mj-column>
+				<mj-divider padding-bottom="0"></mj-divider>
+				<mj-navbar align="left" padding-left="25px" padding-right="25px">
+				{foreach [
+					"terms_and_conditions",
+					"privacy_policy"
+				] as $code}
+					{assign page Page::GetInstanceByCode($code)}
+					{if $page && $page->isVisible()}
+						<mj-navbar-link href="{$page|link_to_page:"with_hostname"}" mj-class="footersmalllink">{$page->getTitle()}</mj-navbar-link>
 					{/if}
-					{if $link_privacy}
-					<mj-navbar-link href="{$link_privacy}" mj-class="footersmalllink">{t}Ochrana soukromí{/t}</mj-navbar-link>
-					{/if}
-					{if $link_contacts}
-					<mj-navbar-link href="{$link_contacts}" mj-class="footersmalllink">{t}Kontakty{/t}</mj-navbar-link>
-					{/if}
-					{if $link_stores && sizeof($stores) > 0}
-					<mj-navbar-link href="{$link_stores}" mj-class="footersmalllink">{t}Prodejny{/t}</mj-navbar-link>
-					{/if}
+				{/foreach}
 				</mj-navbar>
 			</mj-column>
 		</mj-section>
