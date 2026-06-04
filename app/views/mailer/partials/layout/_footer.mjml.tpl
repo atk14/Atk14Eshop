@@ -27,13 +27,13 @@
 			<mj-column>
 				<mj-text mj-class="footertext">
 					<p class="footertext">
-						<a href="{!$region->getDefaultUrl()}">{"app.name.official"|system_parameter}</a><br>
+						<a href="{!$region->getDefaultUrl()}">{"app.name.official"|system_parameter}</a><br/>
 						{if $eshop}
-						{$eshop->getAddressStreet()}<br>
+						{$eshop->getAddressStreet()}<br/>
 						{if $eshop->getAddressStreet2()}
-						{$eshop->getAddressStreet2()}<br>
+						{$eshop->getAddressStreet2()}<br/>
 						{/if}
-						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br>
+						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br/>
 						{/if}
 					</p>
 					<p class="footertext">Tel: <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a></p>
