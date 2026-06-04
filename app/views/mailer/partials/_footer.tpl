@@ -41,7 +41,7 @@
 												"privacy_policy"
 											] as $code}
 												{assign page Page::GetInstanceByCode($code)}
-												{if $page}
+												{if $page && $page->isVisible()}
 													{if $first}{assign first 0}{else} | {/if}
 													<a href="{$page|link_to_page:"with_hostname"}" style="color:{$footer_link_color};">{$page->getTitle()}</a>
 												{/if}
