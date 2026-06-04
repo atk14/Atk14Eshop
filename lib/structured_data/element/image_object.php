@@ -4,7 +4,7 @@ namespace StructuredData\Element;
 
 class ImageObject extends \StructuredData\BaseElement {
 
-	function __construct(\Picture $item, $options=[]) {
+	function __construct(\ApplicationModel $item, $options=[]) {
 		$this->item = $item;
 	}
 
@@ -15,7 +15,7 @@ class ImageObject extends \StructuredData\BaseElement {
 			"contentUrl" => (string)$this->item->getUrl(),
 		];
 
-		if ($_name = $this->item->getTitle()) {
+		if ($_name = $this->item->getName()) {
 			$out["name"] = (string)$_name;
 		}
 
@@ -23,7 +23,7 @@ class ImageObject extends \StructuredData\BaseElement {
 			$out["description"] = strip_tags((string)$_description);
 		}
 
-		if ($_caption = $this->item->getAlt()) {
+		if (method_exists($this->item, "getAlt") && ($_caption = $this->item->getAlt())) {
 			$out["caption"] = (string)$_caption;
 		}
 
