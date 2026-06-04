@@ -1,7 +1,7 @@
 <mj-section>
 	<mj-column>
 		<mj-text>
-{t escape=no}Vážený zákazníku,{/t}<br/>
+{t escape=no}Vážený zákazníku,{/t}<br/><br/>
 
 {render partial="partials/thanks_for_order_lower.html"}
 
