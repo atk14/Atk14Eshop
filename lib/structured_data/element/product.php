@@ -1,6 +1,7 @@
 <?php
 
 namespace StructuredData\Element;
+use StructuredData\Element\ImageObject;
 use StructuredData\Element\Offer;
 
 class Product extends \StructuredData\BaseElement {
@@ -28,8 +29,7 @@ class Product extends \StructuredData\BaseElement {
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
 		if ($_images = $this->item->getImages()) {
-			$_images = array_map(function ($i) { return (string)$i; }, $_images);
-			$out["image"] = $_images;
+			$out["image"] = array_map(function ($i) { return (new ImageObject($i))->toArray(); }, $_images);
 		}
 		if ($_brand = $this->item->getBrand()) {
 			$out["brand"] = [

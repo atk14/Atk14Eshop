@@ -6,6 +6,7 @@
  * @fixture category_cards
  * @fixture articles
  * @fixture videos
+ * @fixture pictures
  */
 class TcStructuredData extends TcBase {
 
@@ -82,6 +83,40 @@ class TcStructuredData extends TcBase {
 		$video_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "VideoObject"; }));
 		$this->assertEquals("Coffee making process", $video_block["name"]);
 		$this->assertEquals($video->g("url"), $video_block["embedUrl"]);
+	}
+
+	function test_article_with_picture_has_image_object_json_ld() {
+		$picture = $this->pictures["astronaut"];
+
+		$article = Article::CreateNewRecord([
+			"title_en" => "Article with picture",
+			"slug_en" => "article-with-picture",
+			"published_at" => date("Y-m-d"),
+			"body_en" => "[#{$picture->getId()} Picture: Astronaut]",
+		]);
+
+		\StructuredData\Collector::Reset();
+		$this->client->get("articles/detail", ["id" => $article]);
+		$this->assertEquals(200, $this->client->getStatusCode());
+		$this->_assertJsonLdType("ImageObject");
+
+		$blocks = $this->_getJsonLdBlocks();
+		$image_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "ImageObject"; }));
+		$this->assertEquals((string)$picture->getUrl(), $image_block["contentUrl"]);
+	}
+
+	function test_product_json_ld_images_contain_image_objects() {
+		$card = $this->cards["coffee"];
+		Image::AddImage($card, ["url" => "https://i.pupiq.net/i/65/65/27e/2927e/1272x920/9cUpr1_800x800xc_6c2a983e5ac4792b.jpg"]);
+
+		\StructuredData\Collector::Reset();
+		$this->client->get("cards/detail", ["id" => $card]);
+		$this->assertEquals(200, $this->client->getStatusCode());
+
+		$blocks = $this->_getJsonLdBlocks();
+		$product_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "Product"; }));
+		$this->assertArrayHasKey("image", $product_block);
+		$this->assertEquals("ImageObject", $product_block["image"][0]["@type"]);
 	}
 
 	function test_invisible_card_has_no_product_json_ld() {
