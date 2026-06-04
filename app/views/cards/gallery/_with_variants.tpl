@@ -5,7 +5,7 @@
 
 	{placeholder for=gallery_preview}
 	
-	<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
+	<div class="gallery__images">
 
 	{* Display only the preview image of the $current_product *}
 	{foreach $products as $product}
