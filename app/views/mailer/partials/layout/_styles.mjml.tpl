@@ -81,8 +81,9 @@
 			// footer
 			<mj-class name="footer" full-width="full-width" background-color="{$footer_bgcolor}" font-size="16px" line-height="1.25" padding-top="16px" />
 			<mj-class name="footer-bottom" full-width="full-width" background-color="{$footer_bgcolor}" font-size="16px" line-height="1.25" />
-			<mj-class name="footertext" color="{$footer_color}" font-size="14px" line-height="1.25" />
-			<mj-class name="footersmalllink" color="{$footer_link_color}" font-size="14px" line-height="1.25" text-transform="none" />
+			<mj-class name="footertext" color="{$footer_color}" font-size="14px" line-height="1.5" />
+			<mj-class name="footer-navbar-link" color="{$footer_link_color}" font-size="14px" line-height="1.25" text-transform="none" text-decoration="underline" />
+			<mj-class name="footer-navbar" padding="0 15px 0 15px" align="left" />
 			<mj-social-element color="{$footer_link_color}" />
 			// divider
 			<mj-class name="thin" border-color="#999" border-width="1px" padding="0 25px" />

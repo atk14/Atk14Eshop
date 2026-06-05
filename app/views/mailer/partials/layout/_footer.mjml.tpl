@@ -103,14 +103,14 @@
 		<mj-section mj-class="footer-bottom">
 			<mj-column>
 				<mj-divider padding-bottom="0"></mj-divider>
-				<mj-navbar align="left" padding-left="25px" padding-right="25px">
+				<mj-navbar mj-class="footer-navbar">
 				{foreach [
 					"terms_and_conditions",
 					"privacy_policy"
 				] as $code}
 					{assign page Page::GetInstanceByCode($code)}
 					{if $page && $page->isVisible()}
-						<mj-navbar-link href="{$page|link_to_page:"with_hostname"}" mj-class="footersmalllink">{$page->getTitle()}</mj-navbar-link>
+						<mj-navbar-link href="{$page|link_to_page:"with_hostname"}" mj-class="footer-navbar-link">{$page->getTitle()}</mj-navbar-link>
 					{/if}
 				{/foreach}
 				</mj-navbar>
