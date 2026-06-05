@@ -61,7 +61,6 @@
 			<mj-section padding-top="0" padding-bottom="0" />
 			<mj-button background-color="{$primary_color}" color="{$button_color}"  font-weight="bold" />
 			
-			
 			// for development
 			
 			<!--
@@ -85,6 +84,7 @@
 			<mj-class name="footer-navbar-link" color="{$footer_link_color}" font-size="14px" line-height="1.25" text-transform="none" text-decoration="underline" />
 			<mj-class name="footer-navbar" padding="0 15px 0 15px" align="left" />
 			<mj-social-element color="{$footer_link_color}" />
+			<mj-class name="footer-divider" border-color="{$footer_bgcolor|contrast_text_color:$footer_color:"#ffffff":160}" />
 			// divider
 			<mj-class name="thin" border-color="#999" border-width="1px" padding="0 25px" />
 			// buttons

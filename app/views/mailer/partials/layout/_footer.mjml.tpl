@@ -102,7 +102,7 @@
 
 		<mj-section mj-class="footer-bottom">
 			<mj-column>
-				<mj-divider padding-bottom="0"></mj-divider>
+				<mj-divider mj-class="footer-divider" padding-bottom="0"></mj-divider>
 				<mj-navbar mj-class="footer-navbar">
 				{foreach [
 					"terms_and_conditions",
