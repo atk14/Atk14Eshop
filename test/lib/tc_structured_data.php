@@ -145,6 +145,24 @@ class TcStructuredData extends TcBase {
 		$this->assertEquals((string)$picture->getUrl(), $out["contentUrl"]);
 	}
 
+	function test_image_object_has_thumbnail() {
+		$picture = $this->pictures["astronaut"];
+		$image = new \StructuredData\Element\ImageObject($picture);
+		$out = $image->toArray();
+
+		$this->assertArrayHasKey("thumbnail", $out);
+		$this->assertEquals("ImageObject", $out["thumbnail"]["@type"]);
+		$this->assertEquals((string)$picture->getUrl(\StructuredData\Element\ImageObject::THUMBNAIL_GEOMETRY), $out["thumbnail"]["contentUrl"]);
+	}
+
+	function test_image_object_thumbnail_has_no_nested_thumbnail() {
+		$picture = $this->pictures["astronaut"];
+		$image = new \StructuredData\Element\ImageObject($picture);
+		$out = $image->toArray();
+
+		$this->assertArrayNotHasKey("thumbnail", $out["thumbnail"]);
+	}
+
 	function test_image_object_optional_fields_absent_when_empty() {
 		$picture = $this->pictures["astronaut"];
 		$image = new \StructuredData\Element\ImageObject($picture);

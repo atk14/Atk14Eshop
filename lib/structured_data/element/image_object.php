@@ -4,8 +4,14 @@ namespace StructuredData\Element;
 
 class ImageObject extends \StructuredData\BaseElement {
 
+	const THUMBNAIL_GEOMETRY = "300x300";
+
 	function __construct(\ApplicationModel $item, $options=[]) {
+		$options += [
+			"include_thumbnail" => true,
+		];
 		$this->item = $item;
+		$this->options = $options;
 	}
 
 	function toArray() {
@@ -14,6 +20,13 @@ class ImageObject extends \StructuredData\BaseElement {
 			"@type" => "ImageObject",
 			"contentUrl" => (string)$this->item->getUrl(),
 		];
+
+		if ($this->options["include_thumbnail"]) {
+			$thumbnail = new self($this->item, ["include_thumbnail" => false]);
+			$thumbnail_out = $thumbnail->toArray();
+			$thumbnail_out["contentUrl"] = (string)$this->item->getUrl(self::THUMBNAIL_GEOMETRY);
+			$out["thumbnail"] = $thumbnail_out;
+		}
 
 		if ($_name = $this->item->getName()) {
 			$out["name"] = (string)$_name;
