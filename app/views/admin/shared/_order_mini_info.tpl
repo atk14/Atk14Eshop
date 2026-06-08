@@ -3,7 +3,7 @@
 <p>
 {t order_no=$order->getOrderNo()}Objednávka č. %1{/t}
 <br>
-{if $order->getCompany}{$order->getCompany()}, {/if} {$order->getFirstname()} {$order->getLastname()}<br>
+{if $order->getInvoiceCompany()}{$order->getInvoiceCompany()}{if $order->getInvoiceName()}, {/if}{/if} {$order->getInvoiceName()}<br>
 {if $order->getEmail()}
 	{$order->getEmail()}<br>
 {/if}

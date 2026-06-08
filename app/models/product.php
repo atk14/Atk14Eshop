@@ -1,5 +1,5 @@
 <?php
-class Product extends ApplicationModel implements Translatable,Rankable{
+class Product extends ApplicationModel implements Translatable, iSlug, Rankable {
 
 	use TraitGetInstanceByCode;
 	use TraitTags;
@@ -31,6 +31,10 @@ class Product extends ApplicationModel implements Translatable,Rankable{
 
 		return parent::CreateNewRecord($values,$options);
 	}
+
+	function getSlugPattern($lang){ return $this->g("label_$lang"); }
+
+	function getSlugSegment(){ return (string)$this->getCardId(); }
 
 	function getName($lang = null,$with_label = true){
 		if(is_bool($lang)){

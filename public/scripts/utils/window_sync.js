@@ -17,14 +17,14 @@ window.UTILS = window.UTILS || { };
 
 window.UTILS.WindowSync = class {
 
-  sync;           // shared worker instance
+  sync;           // BroadcastChannel instance
   lastMsgId = 0;  // id of last message sent
 
   constructor() {
     this.sync = new BroadcastChannel( "atk14_radio" );
     this.sync.onmessage = this.onSyncMessage.bind( this );
     this.sync.onmessageerror = function( e ) {
-      throw new Error( "BroadcastChannel Error: could not open SharedWorker", e );
+      throw new Error( "BroadcastChannel Error: could not deserialize message", e );
     };
     this.setWindowEventHandlers();
   }
@@ -60,7 +60,7 @@ window.UTILS.WindowSync = class {
     
   }
 
-  // Method to serd message to all other browser instances
+  // Method to send message to all other browser instances
   send( data ) {
     // Make unique ID
     let msgID = Math.floor(Math.random() * 100).toString() + Date.now();

@@ -21,6 +21,7 @@ class Offer extends \StructuredData\BaseElement {
 	function toArray() {
 		$_price_finder = $this->options["price_finder"];
 		$_basket = $this->options["basket"];
+		if (!$_basket) { return null; }
 		$_currency = $_basket->getCurrency();
 
 		$products = $this->item->getProducts();
@@ -145,7 +146,8 @@ class Offer extends \StructuredData\BaseElement {
 			$max += $_product->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]);
 		}
 
-		$stockcount = $max / $unit->getDisplayUnitMultiplier();
+		$_multiplier = $unit->getDisplayUnitMultiplier();
+		$stockcount = $_multiplier ? $max / $_multiplier : 0;
 		return $stockcount;
 	}
 }

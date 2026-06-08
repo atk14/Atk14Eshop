@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-20 15:19+0100\n"
-"PO-Revision-Date: 2025-11-27 17:16+0100\n"
+"POT-Creation-Date: 2026-06-03 14:36+0200\n"
+"PO-Revision-Date: 2026-06-03 14:36+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -424,7 +424,8 @@ msgid ""
 "You can only write a review for items purchased in our store. Please make "
 "sure you are logged in to the account you used to purchase the item."
 msgstr ""
-"Recenzi lze napsat pouze pro zboží zakoupené v našem obchodě. Ujistěte se prosím, že jste přihlášeni k účtu, který jste použili při nákupu."
+"Recenzi lze napsat pouze pro zboží zakoupené v našem obchodě. Ujistěte se "
+"prosím, že jste přihlášeni k účtu, který jste použili při nákupu."
 
 msgid "Write a review for the product you purchased"
 msgstr "Napište recenzi na zakoupený produkt"
@@ -481,6 +482,9 @@ msgstr "podrobnosti"
 #: ../app/controllers/digital_contents_controller.php:22
 msgid "Digitální produkty"
 msgstr "Digitální produkty"
+
+msgid "Podrobnosti o produktu"
+msgstr "Podrobnosti o produktu"
 
 msgid "soubor %1"
 msgstr "soubor %1"
@@ -675,8 +679,8 @@ msgid ""
 msgstr ""
 "Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
 
-msgid "Hello %1!"
-msgstr "Dobrý den %1!"
+msgid "Hello,"
+msgstr "Dobrý den,"
 
 msgid ""
 "Have you forgotten your password? To reset your password, click on the "
@@ -1747,6 +1751,10 @@ msgstr "naskladnění oznámeno"
 msgid "zatím nenaskladněno"
 msgstr "zatím nenaskladněno"
 
+#: ../app/controllers/api/api.php:33
+msgid "This service is intended for administrators only"
+msgstr "Tato služba je určena výhradně pro administrátory"
+
 #: ../app/controllers/api/logins_controller.php:35
 msgid "For security reasons, this function is disabled"
 msgstr "Z bezpečnostních důvodů je tato funkce vypnutá"
@@ -1776,15 +1784,15 @@ msgstr "Chyba 1"
 msgid "Error 2"
 msgstr "Chyba 2"
 
-#: ../app/controllers/application_base.php:77
+#: ../app/controllers/application_base.php:76
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:91
+#: ../app/controllers/application_base.php:90
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:224
+#: ../app/controllers/application_base.php:223
 #: ../lib/structured_data/element/breadcrumb_list.php:68
 msgid "Home"
 msgstr "Domů"
@@ -2021,27 +2029,27 @@ msgstr "Používání všech cookies bylo přijato"
 msgid "Používání cookies bylo zamítnuto"
 msgstr "Používání cookies bylo zamítnuto"
 
-#: ../app/controllers/customer_reviews_controller.php:141
+#: ../app/controllers/customer_reviews_controller.php:143
 msgid "Poor"
 msgstr "Špatné"
 
-#: ../app/controllers/customer_reviews_controller.php:142
+#: ../app/controllers/customer_reviews_controller.php:144
 msgid "Fair"
 msgstr "Dostatečné"
 
-#: ../app/controllers/customer_reviews_controller.php:143
+#: ../app/controllers/customer_reviews_controller.php:145
 msgid "Good"
 msgstr "Dobré"
 
-#: ../app/controllers/customer_reviews_controller.php:144
+#: ../app/controllers/customer_reviews_controller.php:146
 msgid "Very good"
 msgstr "Velmi dobré"
 
-#: ../app/controllers/customer_reviews_controller.php:145
+#: ../app/controllers/customer_reviews_controller.php:147
 msgid "Excellent"
 msgstr "Výborné"
 
-#: ../app/controllers/customer_reviews_controller.php:155
+#: ../app/controllers/customer_reviews_controller.php:157
 msgid "Your review has been saved. Thank You."
 msgstr "Vaše recenze byla uložena. Děkujeme."
 
@@ -2231,11 +2239,11 @@ msgstr "Mapa stránek"
 msgid "List of stores"
 msgstr "Seznam prodejen"
 
-#: ../app/controllers/tests_controller.php:74
+#: ../app/controllers/tests_controller.php:117
 msgid "Form with JS validation"
 msgstr "Formulář s JS validací"
 
-#: ../app/controllers/tests_controller.php:82
+#: ../app/controllers/tests_controller.php:125
 msgid "Form without JS validation"
 msgstr "Formulář bez JS validace"
 
@@ -2377,7 +2385,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, php-format
+#, fuzzy, no-php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 
@@ -2536,15 +2544,15 @@ msgstr "stránka"
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
 
-#: ../app/fields/phone_field.php:77
+#: ../app/fields/phone_field.php:80
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Zadejte telefonní číslo ve formátu %sample_phone_number%"
 
-#: ../app/fields/phone_field.php:101
+#: ../app/fields/phone_field.php:104
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 
-#: ../app/fields/phone_field.php:102
+#: ../app/fields/phone_field.php:105
 msgid "Enter phone number"
 msgstr "Zadejte telefonní číslo"
 
@@ -2561,7 +2569,8 @@ msgid ""
 "Select the number of stars that corresponds to your level of satisfaction, "
 "with a scale being one to five stars"
 msgstr ""
-"Vyberte počet hvězdiček odpovídající vaší spokojenosti, přičemž stupnice je od jedné do pěti hvězdiček"
+"Vyberte počet hvězdiček odpovídající vaší spokojenosti, přičemž stupnice je "
+"od jedné do pěti hvězdiček"
 
 #: ../app/fields/slug_field.php:8
 msgid "Slug"
@@ -2816,11 +2825,11 @@ msgstr "Název recenze"
 msgid "Your review"
 msgstr "Vaše recenze"
 
-#: ../app/forms/customer_reviews/create_new/write_review_form.php:22
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:23
 msgid "Write a few words about your rating"
 msgstr "Napište pár slov o vašem hodnocení"
 
-#: ../app/forms/customer_reviews/create_new/write_review_form.php:26
+#: ../app/forms/customer_reviews/create_new/write_review_form.php:27
 msgid "Save review"
 msgstr "Uložit recenzi"
 
@@ -3163,31 +3172,31 @@ msgstr "Česká Pošta - Balík na poštu"
 msgid "Česká Pošta - Balíkovna"
 msgstr "Česká Pošta - Balíkovna"
 
-#: ../app/models/invalid_login_attempt.php:47
+#: ../app/models/invalid_login_attempt.php:70
 msgid "Delay the next sign-in attempt for a second"
 msgstr "Odložte další pokus o přihlášení o vteřinku"
 
-#: ../app/models/invalid_login_attempt.php:54
-#: ../app/models/invalid_login_attempt.php:71
+#: ../app/models/invalid_login_attempt.php:78
+#: ../app/models/invalid_login_attempt.php:95
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes"
 msgstr "Odložte další pokus o přihlášení o %s minut"
 
-#: ../app/models/invalid_login_attempt.php:59
+#: ../app/models/invalid_login_attempt.php:83
 #, php-format
 msgid "Delay the next sign-in attempt for one minute and %s seconds"
 msgstr "Odložte další pokus o přihlášení o jednu minutu a %s vteřin"
 
-#: ../app/models/invalid_login_attempt.php:61
+#: ../app/models/invalid_login_attempt.php:85
 msgid "Delay the next sign-in attempt for one minute"
 msgstr "Odložte další pokus o přihlášení o jednu minutu"
 
-#: ../app/models/invalid_login_attempt.php:65
+#: ../app/models/invalid_login_attempt.php:89
 #, php-format
 msgid "Delay the next sign-in attempt for %s seconds"
 msgstr "Odložte další pokus o přihlášení o %s vteřin"
 
-#: ../app/models/invalid_login_attempt.php:69
+#: ../app/models/invalid_login_attempt.php:93
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes and %s seconds"
 msgstr "Odložte další pokus o přihlášení o %s minuty a %s vteřin"
@@ -3261,15 +3270,15 @@ msgstr "Desetinné číslo"
 msgid "Celé číslo"
 msgstr "Celé číslo"
 
-#: ../app/models/user.php:221
+#: ../app/models/user.php:222
 msgid "deleted user"
 msgstr "smazaný uživatel"
 
-#: ../app/models/user.php:223
+#: ../app/models/user.php:224
 msgid "inactive user"
 msgstr "neaktivní uživatel"
 
-#: ../app/models/user.php:226
+#: ../app/models/user.php:227
 msgid "administrator"
 msgstr "administrátor"
 
@@ -3441,63 +3450,66 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
-#~ msgid "Loading"
-#~ msgstr "Nahrávání"
+msgid "Loading"
+msgstr "Nahrávání"
 
-#~ msgid "Enter the ZIP code as NNN NN"
-#~ msgstr "Zadejte PSČ jako NNN NN"
+msgid "Enter the ZIP code as NNN NN"
+msgstr "Zadejte PSČ jako NNN NN"
 
-#~ msgid "Žádné podací místo nebylo nalezeno"
-#~ msgstr "Žádné podací místo nebylo nalezeno"
+msgid "Žádné podací místo nebylo nalezeno"
+msgstr "Žádné podací místo nebylo nalezeno"
 
-#~ msgid "Pobočka nebyla nalezena"
-#~ msgstr "Pobočka nebyla nalezena"
+msgid "Pobočka nebyla nalezena"
+msgstr "Pobočka nebyla nalezena"
 
-#~ msgid "Object not found"
-#~ msgstr "Objekt nebyl nalezen"
+msgid "Object not found"
+msgstr "Objekt nebyl nalezen"
 
-#~ msgid "Výdejní místo"
-#~ msgstr "Výdejní místo"
+msgid "Výdejní místo"
+msgstr "Výdejní místo"
 
-#~ msgid "Zadejte psč, město nebo název provozovny"
-#~ msgstr "Zadejte psč, město nebo název provozovny"
+msgid "Zadejte psč, město nebo název provozovny"
+msgstr "Zadejte psč, město nebo název provozovny"
 
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "Pro opakování platby přejděte na adresu %1"
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "Pro opakování platby přejděte na adresu %1"
 
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
 
-#~ msgid "Checkout"
-#~ msgstr "Pokladna"
+msgid "Checkout"
+msgstr "Pokladna"
 
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>cena od</small><br>%1"
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
 
-#~ msgid "naskladnění sleduje hlídací pes"
-#~ msgstr "naskladnění sleduje hlídací pes"
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
 
-#~ msgid "aktivovat hlídacího psa"
-#~ msgstr "aktivovat hlídacího psa"
+msgid "aktivovat hlídacího psa"
+msgstr "aktivovat hlídacího psa"
 
-#~ msgid "Zobrazit detaily"
-#~ msgstr "Zobrazit detaily"
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
 
-#~ msgid "searching ..."
-#~ msgstr "hledání ..."
+msgid "searching ..."
+msgstr "hledání ..."
 
-#~ msgid "cena od<br>%1"
-#~ msgstr "cena od<br>%1"
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
 
-#~ msgid "Tvůrce"
-#~ msgstr "Tvůrce"
+msgid "Tvůrce"
+msgstr "Tvůrce"
 
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nic nebylo nelezeno."
+msgid "Nic nebylo nelezeno."
+msgstr "Nic nebylo nelezeno."
+
+#~ msgid "Hello %1!"
+#~ msgstr "Dobrý den %1!"
 
 #~ msgid ""
 #~ "The file has been already deleted on the server, please upload it again"
