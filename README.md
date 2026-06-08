@@ -1,7 +1,7 @@
 ATK14 Mini Skelet
 =================
 
-[![Build Status](https://travis-ci.org/atk14/Atk14MiniSkelet.svg?branch=develop)](https://travis-ci.com/atk14/Atk14MiniSkelet)
+[![Tests](https://github.com/atk14/Atk14MiniSkelet/actions/workflows/tests.yml/badge.svg)](https://github.com/atk14/Atk14MiniSkelet/actions/workflows/tests.yml)
 
 Meaningful skeleton for just kicked up ATK14 application.
 
