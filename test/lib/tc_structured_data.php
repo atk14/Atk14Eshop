@@ -185,6 +185,70 @@ class TcStructuredData extends TcBase {
 		$this->assertEquals("An astronaut floating in space", $out["caption"]);
 	}
 
+	// --- Product description ---
+
+	function test_product_description_plain_text() {
+		$card = $this->cards["coffee"];
+		$card->s("teaser_en", "Fresh arabica coffee from Ethiopia.");
+
+		$product = new \StructuredData\Element\Product($card);
+		$out = $product->toArray();
+
+		$this->assertEquals("Fresh arabica coffee from Ethiopia.", $out["description"]);
+	}
+
+	function test_product_description_with_special_characters() {
+		$card = $this->cards["coffee"];
+		$card->s("teaser_en", 'He said "best coffee" and it\'s true \o/');
+
+		$product = new \StructuredData\Element\Product($card);
+		$out = $product->toArray();
+
+		$this->assertEquals('He said "best coffee" and it\'s true \o/', $out["description"]);
+	}
+
+	function test_product_description_strips_html_tags() {
+		$card = $this->cards["coffee"];
+		$card->s("teaser_en", "<p>Fresh <strong>arabica</strong> coffee.</p>");
+
+		$product = new \StructuredData\Element\Product($card);
+		$out = $product->toArray();
+
+		$this->assertEquals("Fresh arabica coffee.", $out["description"]);
+	}
+
+	function test_product_description_is_truncated_in_json_space() {
+		$card = $this->cards["coffee"];
+		// Sestavíme teaser delší než 5000 znaků v JSON reprezentaci
+		$long_word = str_repeat("a", 100);
+		$teaser = implode(" ", array_fill(0, 60, $long_word)); // ~6059 znaků
+		$card->s("teaser_en", $teaser);
+
+		$product = new \StructuredData\Element\Product($card);
+		$out = $product->toArray();
+
+		$this->assertNotNull($out["description"]);
+		$this->assertIsString($out["description"]);
+		// JSON reprezentace musí být ≤ 5000 znaků
+		$this->assertLessThanOrEqual(5000, strlen(json_encode($out["description"])));
+		// Popis musí být kratší než původní teaser
+		$this->assertLessThan(strlen($teaser), strlen($out["description"]));
+	}
+
+	function test_product_description_with_quotes_is_not_truncated_into_invalid_state() {
+		$card = $this->cards["coffee"];
+		// Teaser s uvozovkami, který se v JSON encodingu prodlouží escape sekvencemi
+		$teaser = str_repeat('"quoted text" ', 400); // ~5600 znaků v JSON (každá " → \")
+		$card->s("teaser_en", $teaser);
+
+		$product = new \StructuredData\Element\Product($card);
+		$out = $product->toArray();
+
+		$this->assertNotNull($out["description"]);
+		$this->assertIsString($out["description"]);
+		$this->assertLessThanOrEqual(5000, strlen(json_encode($out["description"])));
+	}
+
 	// --- helpers ---
 
 	protected function _buildController($controller_name, $action_name) {

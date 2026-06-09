@@ -8,11 +8,6 @@ class Offer extends \StructuredData\BaseElement {
 		$options += [
 			"price_finder" => null,
 			"basket" => null,
-			# array for mapping product tags to shipping labels
-			# tag.code => label for offerShippingDetails.shippingLabel
-			"tags" => [
-				"oversized_product" => "oversized product",
-			],
 		];
 		$this->options = $options;
 		$this->item = $item;
@@ -25,6 +20,7 @@ class Offer extends \StructuredData\BaseElement {
 		$_currency = $_basket->getCurrency();
 
 		$products = $this->item->getProducts();
+		if (!$products) { return null; }
 		$_product = array_shift($products);
 
 		$out_shipping_details = $this->_getShippingDetails($_product);
@@ -49,7 +45,7 @@ class Offer extends \StructuredData\BaseElement {
 		}
 		$out = [
 			"@type" => "Offer",
-			"itemCondition" => "http://schema.org/NewCondition",
+			"itemCondition" => "https://schema.org/NewCondition",
 			"url" => \Atk14Url::BuildLink(["action" => "cards/detail", "id" => $this->item], ["with_hostname" => true]),
 			"availability" => $_availability,
 			"seller" => [
@@ -59,7 +55,7 @@ class Offer extends \StructuredData\BaseElement {
 			"shippingDetails" => $out_shipping_details,
 		];
 		if ($_price) {
-			$out["price"] = round($_price->getUnitPriceInclVat(), $_currency->getDecimalsSummary());
+			$out["price"] = round($_price->getUnitPriceInclVat(), $_currency->getDecimals());
 			$out["priceCurrency"] = $_currency->getCode();
 		}
 
@@ -103,15 +99,6 @@ class Offer extends \StructuredData\BaseElement {
 			$value = round($value, $_currency->getDecimals());
 			$shipping_detail = [
 				"@type" => "OfferShippingDetails",
-
-				/**
-				 * Not required for standard deliveries. it is used by Merchant Center.
-				 * for some specific cases it should express type of delivery, not the name of the delivery service
-				 * like oversized, 'free shipping'
-				 * https://support.google.com/merchants/answer/6324504?hl=en&ref_topic=6324338&sjid=10862487511373806307-EU
-				 */
-				"shippingLabel" => $key,
-
 				"shippingRate" => [
 					"@type" => "MonetaryAmount",
 					"currency" => $_currency->getCode(),
@@ -122,12 +109,6 @@ class Offer extends \StructuredData\BaseElement {
 					"addressCountry" => $_region->getDeliveryCountries(),
 				],
 			];
-			# look up products tags and if specified in options["tags"] give the shipping according label
-			foreach($this->options["tags"] as $tag_code => $_label) {
-				if ($this->item->containsTag($tag_code)) {
-					$shipping_detail["shippingLabel"] = $_label;
-				}
-			}
 			$out_shipping_details[] = $shipping_detail;
 		}
 		if (count($out_shipping_details)===1) {
@@ -138,10 +119,11 @@ class Offer extends \StructuredData\BaseElement {
 
 	protected function _getStockcount() {
 		$products = $this->item->getProducts();
+		if (!$products) { return 0; }
 		$unit = $products[0]->getUnit();
 		$max = 0;
 		foreach($products as $_product){
-			if($_product->getUnitId()!==$unit->getId()){ return; } // mixed units
+			if($_product->getUnitId()!==$unit->getId()){ return 0; } // mixed units
 			if(!$_product->canBeOrdered()){ continue; }
 			$max += $_product->getCalculatedMaximumQuantityToOrder(["real_quantity" => true]);
 		}
