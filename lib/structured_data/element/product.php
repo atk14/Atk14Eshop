@@ -44,6 +44,9 @@ class Product extends \StructuredData\BaseElement {
 		if ($offersAry = $offers->toArray()) {
 			$out["offers"] = $offersAry;
 		}
+		if ($arAry = (new AggregateRating($this->item))->toArray()) {
+			$out["aggregateRating"] = $arAry;
+		}
 		return $out;
 	}
 }

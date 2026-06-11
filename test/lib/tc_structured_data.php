@@ -5,6 +5,7 @@
  * @fixture categories
  * @fixture category_cards
  * @fixture pictures
+ * @fixture users
  */
 class TcStructuredData extends TcBase {
 
@@ -183,6 +184,55 @@ class TcStructuredData extends TcBase {
 
 		$this->assertEquals("Astronaut photo", $out["name"]);
 		$this->assertEquals("An astronaut floating in space", $out["caption"]);
+	}
+
+	// --- AggregateRating ---
+
+	function test_aggregate_rating_returns_null_without_reviews() {
+		$card = $this->cards["coffee"];
+		$rating = new \StructuredData\Element\AggregateRating($card);
+		$this->assertNull($rating->toArray());
+	}
+
+	function test_aggregate_rating_structure() {
+		$card = $this->cards["coffee"];
+		$product = $this->products["arabica"];
+
+		\CustomerReview::CreateNewRecord(["product_id" => $product, "rating" => 4, "author" => "Test", "user_id" => $this->users["rambo"]]);
+		\CustomerReview::CreateNewRecord(["product_id" => $product, "rating" => 2, "author" => "Test2", "user_id" => $this->users["rocky"]]);
+		\CustomerReview::$RatingCache = null;
+
+		$rating = new \StructuredData\Element\AggregateRating($card);
+		$out = $rating->toArray();
+
+		$this->assertEquals("AggregateRating", $out["@type"]);
+		$this->assertEquals(3.0, $out["ratingValue"]);
+		$this->assertEquals(2, $out["ratingCount"]);
+		$this->assertEquals(\CustomerReview::MAX_RATING, $out["bestRating"]);
+		$this->assertEquals(1, $out["worstRating"]);
+	}
+
+	function test_aggregate_rating_is_included_in_product() {
+		$card = $this->cards["coffee"];
+		$product = $this->products["arabica"];
+
+		\CustomerReview::CreateNewRecord(["product_id" => $product, "rating" => 5, "author" => "Test", "user_id" => $this->users["rambo"]]);
+		\CustomerReview::$RatingCache = null;
+
+		$p = new \StructuredData\Element\Product($card);
+		$out = $p->toArray();
+
+		$this->assertArrayHasKey("aggregateRating", $out);
+		$this->assertEquals(5.0, $out["aggregateRating"]["ratingValue"]);
+	}
+
+	function test_aggregate_rating_absent_in_product_without_reviews() {
+		$card = $this->cards["coffee"];
+
+		$p = new \StructuredData\Element\Product($card);
+		$out = $p->toArray();
+
+		$this->assertArrayNotHasKey("aggregateRating", $out);
 	}
 
 	// --- Product description ---
