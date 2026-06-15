@@ -193,9 +193,14 @@ class DeliveryService extends ApplicationModel {
 
 		$delivery_service_code = $this->getCode();
 		$dbmole = $this->dbmole;
-		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this AND country=:country_code", [":this" => $this, ":country_code" => $options["country_code"]]);
-
 		$parserClassName = $this->getParserClass();
+		if ($parserClassName::HasCountrySpecificFeed()) {
+			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this AND country=:country_code", [":this" => $this, ":country_code" => $options["country_code"]]);
+		} else {
+			$options["country_code"] !== "cz" && $options["logger"] && $options["logger"]->info(sprintf("delivery service %s does not have a country-specific feed, country_code '%s' will be ignored", $this->getCode(), $options["country_code"]));
+			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", [":this" => $this]);
+		}
+
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
