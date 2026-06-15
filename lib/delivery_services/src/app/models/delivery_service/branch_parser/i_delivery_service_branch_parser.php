@@ -30,6 +30,17 @@ interface iDeliveryServiceBranchParser {
 
 	static function GetRequirements();
 
+	/**
+	 * Returns the feed URL for the given country code.
+	 *
+	 * Parsers that serve multiple countries should override this method
+	 * and return country-specific URLs.
+	 *
+	 * @param string $country_code e.g. 'cz', 'sk'
+	 * @return string|array
+	 */
+	static function GetBranchesDownloadUrl($country_code = 'cz');
+
 	public function count();
 }
 

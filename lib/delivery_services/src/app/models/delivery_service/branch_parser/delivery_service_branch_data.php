@@ -84,4 +84,12 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 		myAssert($data!==false);
 		return $data;
 	}
+
+	static function GetBranchesDownloadUrl($country_code = 'cz') {
+		$url = static::$BRANCHES_DOWNLOAD_URL;
+		if (is_array($url)) {
+			return array_map(fn($u) => str_replace('{COUNTRY_CODE}', strtoupper($country_code), $u), $url);
+		}
+		return str_replace('{COUNTRY_CODE}', strtoupper($country_code), (string)$url);
+	}
 }

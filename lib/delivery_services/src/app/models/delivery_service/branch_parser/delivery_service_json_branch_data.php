@@ -42,6 +42,14 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 	 * Feedy musi mit stejnou strukturu, potom je mozne je spojit.
 	 *
 	 */
+	static function GetBranchesDownloadUrl($country_code = 'cz') {
+		$url = static::$BRANCHES_DOWNLOAD_URL;
+		if (is_array($url)) {
+			return array_map(fn($u) => str_replace('{COUNTRY_CODE}', strtoupper($country_code), $u), $url);
+		}
+		return str_replace('{COUNTRY_CODE}', strtoupper($country_code), (string)$url);
+	}
+
 	static function FetchFeed($feed_url) {
 		if (!is_array($feed_url)) {
 			$feed_url = [$feed_url];

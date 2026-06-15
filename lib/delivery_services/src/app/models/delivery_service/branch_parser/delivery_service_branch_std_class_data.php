@@ -60,5 +60,13 @@ class DeliveryServiceBranchStdClassData extends SimpleStdClassElement {
 	public function count() {
 		return count($this->_data);
 	}
+
+	static function GetBranchesDownloadUrl($country_code = 'cz') {
+		$url = static::$BRANCHES_DOWNLOAD_URL;
+		if (is_array($url)) {
+			return array_map(fn($u) => str_replace('{COUNTRY_CODE}', strtoupper($country_code), $u), $url);
+		}
+		return str_replace('{COUNTRY_CODE}', strtoupper($country_code), (string)$url);
+	}
 }
 
