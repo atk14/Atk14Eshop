@@ -175,4 +175,15 @@ class TestsController extends ApplicationController {
 			$this->breadcrumbs[] = $this->page_title;
 		}
 	}
+
+	function mailer_playground_form(){
+		
+	}
+
+	function mailer_playground(){
+		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
+		$content = $_POST["mjml_input"];
+		$this->mailer->mailer_playground($order, $content);
+		$this->_dump_email();
+	}
 }
