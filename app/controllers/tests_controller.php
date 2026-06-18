@@ -183,6 +183,15 @@ class TestsController extends ApplicationController {
 	function mailer_playground(){
 		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
 		$content = $_POST["mjml_input"];
+		if(isset($_POST["remove_smarty_tags"])) {
+			$content = preg_replace_callback('/\{[^{}]*\}/', function($matches) {
+				$inner = substr($matches[0], 1, -1);
+				if(preg_match('/^!?\$/', $inner)) {
+					return strlen($inner) > 8 ? '{' . substr($inner, 0, 8) . '...}' : $matches[0];
+				}
+				return '';
+			}, $content);
+		}
 		$this->mailer->mailer_playground($order, $content);
 		$this->_dump_email();
 	}
