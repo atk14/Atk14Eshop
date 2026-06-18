@@ -60,5 +60,23 @@ class DeliveryServiceBranchStdClassData extends SimpleStdClassElement {
 	public function count() {
 		return count($this->_data);
 	}
+
+	static function HasCountrySpecificFeed() {
+		$urls = (array)static::$BRANCHES_DOWNLOAD_URL;
+		foreach ($urls as $url) {
+			if (str_contains((string)$url, '{COUNTRY_CODE}')) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	static function GetBranchesDownloadUrl($country_code = 'cz') {
+		$url = static::$BRANCHES_DOWNLOAD_URL;
+		if (is_array($url)) {
+			return array_map(function($u) use ($country_code) { return str_replace('{COUNTRY_CODE}', strtoupper($country_code), $u); }, $url);
+		}
+		return str_replace('{COUNTRY_CODE}', strtoupper($country_code), (string)$url);
+	}
 }
 
