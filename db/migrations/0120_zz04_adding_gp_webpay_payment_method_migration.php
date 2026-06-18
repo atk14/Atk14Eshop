@@ -12,7 +12,7 @@ class Zz04AddingGpWebpayPaymentMethodMigration extends ApplicationMigration {
 			"bank_transfer" => false,
 			"cash_on_delivery" => false,
 			"label_en" => "Online payment via GP webpay payment gateway",
-			"label_cs" => "Online platba přes GP webpay platební bránu",
+			"label_cs" => "Online platba přes platební bránu GP webpay",
 			"price_incl_vat" => 0,
 			"active" => false,
 		]);
