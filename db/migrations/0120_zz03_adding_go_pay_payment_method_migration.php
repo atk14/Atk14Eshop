@@ -12,7 +12,7 @@ class Zz03AddingGoPayPaymentMethodMigration extends ApplicationMigration {
 			"bank_transfer" => false,
 			"cash_on_delivery" => false,
 			"label_en" => "Online payment via GoPay payment gateway",
-			"label_cs" => "Online platba přes GoPay platební bránu",
+			"label_cs" => "Online platba přes platební bránu GoPay",
 			"price_incl_vat" => 0,
 			"active" => false,
 		]);

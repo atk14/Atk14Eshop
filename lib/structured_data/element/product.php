@@ -18,14 +18,12 @@ class Product extends \StructuredData\BaseElement {
 		# So we convert it to json, truncate and convert back to string.
 		$_description = new \String4(json_encode(strip_tags((string)$this->item->getTeaser())));
 		$_description = $_description->truncate(5000, ["separator" => " "]);
-		$_description = trim($_description->toString(), "\"");
-		$_description = sprintf('{"t":"%s"}',$_description);
-		$_description = json_decode($_description, true);
+		$_description = json_decode($_description->toString()) ?? '';
 		$out = [
 			"@context" => "https://schema.org",
 			"@type" => "Product",
 			"name" => $this->item->getName(),
-			"description" => isset($_description) ? $_description["t"] : "",
+			"description" => $_description,
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
 		if ($_images = $this->item->getImages()) {
@@ -45,6 +43,9 @@ class Product extends \StructuredData\BaseElement {
 		}
 		if ($offersAry = $offers->toArray()) {
 			$out["offers"] = $offersAry;
+		}
+		if ($arAry = (new AggregateRating($this->item))->toArray()) {
+			$out["aggregateRating"] = $arAry;
 		}
 		return $out;
 	}

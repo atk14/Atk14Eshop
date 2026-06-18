@@ -148,10 +148,31 @@ class TestsController extends ApplicationController {
 	}
 
 	function _dump_email(){
+		$params = $this->params->toArray();
+		unset($params["variant"]);
+		$link_html = $this->_link_to($params + ["variant" => "html"]);
+		$link_plain = $this->_link_to($params + ["variant" => "plain"]);
+
 		$this->render_template = false;
+
+		$variant = $this->params->getString("variant");
+
+		if($variant === "html"){
+			$this->response->setContentType("text/html");
+			$this->response->write($this->mailer->body_html);
+			return;
+		}
+
+		if($variant === "plain"){
+			$this->response->setContentType("text/plain");
+			$this->response->write($this->mailer->body);
+			return;
+		}
+
 		$this->response->write(sprintf('From: "%s" &lt;%s&gt;<br>',$this->mailer->from_name,$this->mailer->from));
 		$this->response->write("To: ".$this->mailer->to."<br>");
-		$this->response->write("Subject: ".$this->mailer->subject);
+		$this->response->write("Subject: ".$this->mailer->subject."<br>");
+		$this->response->write(sprintf('Display only the <a href="%s">HTML</a> or <a href="%s">plain text</a> variant',h($link_html),h($link_plain)));
 		$this->response->write("<hr>");
 		$this->response->write($this->mailer->body_html);
 		$this->response->write("<hr><pre>".h($this->mailer->body)."</pre>");
