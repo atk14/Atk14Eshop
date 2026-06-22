@@ -163,12 +163,24 @@ class DeliveryService extends ApplicationModel {
 	 * @param string $code
 	 */
 	static function UpdateBranches($code, $options=array(), &$error_message=null) {
+		$options += [
+			"logger" => new logger(),
+			"force_import" => false,
+			"country_code" => "cz",
+		];
+
+		$delivery_service = static::FindFirst("code", $code);
+
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $delivery_service, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $delivery_service->getName(), $delivery_service->getId(), $delivery_service->getCode()));
+			return false;
+		}
+
 		$data = static::ReadBranchesData($code, $options, $error_message);
 		if (!$data) {
 			return false;
 		}
 
-		$delivery_service = static::FindFirst("code", $code);
 		return $delivery_service->importData($data, $options);
 	}
 
@@ -182,14 +194,9 @@ class DeliveryService extends ApplicationModel {
 	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
-			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
+			"force_import" => false,
 			"country_code" => "cz",
 		];
-
-		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
-			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
-			return false;
-		}
 
 		$delivery_service_code = $this->getCode();
 		$dbmole = $this->dbmole;
