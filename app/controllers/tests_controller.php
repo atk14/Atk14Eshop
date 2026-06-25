@@ -143,6 +143,23 @@ class TestsController extends ApplicationController {
 		}
 	}
 
+	function mailer_playground(){
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$content = $d["content"];
+			if(isset($d["remove_smarty_tags"])) {
+				$content = preg_replace_callback('/\{[^{}]*\}/', function($matches) {
+					$inner = substr($matches[0], 1, -1);
+					if(preg_match('/^!?\$/', $inner)) {
+						return strlen($inner) > 8 ? '{' . substr($inner, 0, 8) . '...}' : $matches[0];
+					}
+					return '';
+				}, $content);
+			}
+			$this->mailer->mailer_playground($content);
+			$this->_dump_email();
+		}
+	}
+
 	function _dump_email(){
 		$this->render_template = false;
 		$this->response->write(sprintf('From: "%s" &lt;%s&gt;<br>',$this->mailer->from_name,$this->mailer->from));
@@ -161,7 +178,7 @@ class TestsController extends ApplicationController {
 		}
 
 		// neni zadouci posilani emailu v produkci!
-		if(PRODUCTION && preg_match('/^notify_/',$this->action)){
+		if(PRODUCTION && preg_match('/^(notify_|mailer_playground)/',$this->action)){
 			$this->_execute_action("error403");
 			return;
 		}
@@ -174,25 +191,5 @@ class TestsController extends ApplicationController {
 		if($this->action!="index"){
 			$this->breadcrumbs[] = $this->page_title;
 		}
-	}
-
-	function mailer_playground_form(){
-		
-	}
-
-	function mailer_playground(){
-		$order = Order::FindFirst(["order_by" => "created_at DESC"]);
-		$content = $_POST["mjml_input"];
-		if(isset($_POST["remove_smarty_tags"])) {
-			$content = preg_replace_callback('/\{[^{}]*\}/', function($matches) {
-				$inner = substr($matches[0], 1, -1);
-				if(preg_match('/^!?\$/', $inner)) {
-					return strlen($inner) > 8 ? '{' . substr($inner, 0, 8) . '...}' : $matches[0];
-				}
-				return '';
-			}, $content);
-		}
-		$this->mailer->mailer_playground($order, $content);
-		$this->_dump_email();
 	}
 }

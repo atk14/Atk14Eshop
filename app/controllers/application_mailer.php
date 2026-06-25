@@ -278,9 +278,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
 	}
 
-	function mailer_playground($order, $content){
-		$this->to = $order->getEmail();
-		$this->tpl_data["order"] = $order;
-		$this->tpl_data["mjml_content"] = $content;
+	function mailer_playground($content){
+		$this->tpl_data["content"] = $content;
 	}
 }

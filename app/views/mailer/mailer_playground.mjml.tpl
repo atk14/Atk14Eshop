@@ -1,1 +1,1 @@
-{!$mjml_content}
+{!$content}
