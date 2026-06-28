@@ -45,7 +45,8 @@
         "atk14/ip-matcher": "^1.0",
         "tecnickcom/tcpdf": "^6.6",
         "yarri/array-flatten": "^0.1.0",
-        "salamek/ppl-my-api": "^2.7|^2.2"
+        "salamek/ppl-my-api": "^2.7|^2.2",
+        "heureka/bank-account-validator": "^1.2"
     },
     "require-dev": {
         "atk14/tester": "^0.6"

@@ -265,4 +265,22 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
 	}
+
+	function notify_order_withdrawal_request_otp($order,OneTimePassword $otp,string $code){
+		$this->to = $otp->getRecipient();
+		$this->subject = sprintf(_("Kód pro odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
+
+		$this->tpl_data["code"] = $code;
+		$this->tpl_data["order"] = $code;
+	}
+
+	function notify_order_withdrawal_request(OrderWithdrawalRequest $ow){
+		$order = $ow->getOrder();
+
+		$this->to = $ow->getEmail();
+		$this->subject = sprintf(_("Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
+
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["order_withdrawal_request"] = $ow;
+	}
 }
