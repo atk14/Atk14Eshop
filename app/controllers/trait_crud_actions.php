@@ -70,6 +70,32 @@ trait TraitCrudActions {
 		
 	}
 
+	function _detail($options = []){
+		$options += [
+			"page_title" => "", // "Title", function($object){ return "Detail no {$object->getId()}"; }
+			"object" => null,
+		];
+
+		$object = $options["object"];
+		if(!$this->__prepare_object_for_action($object)){
+			return;
+		}
+
+		$object_name = String4::ToObject(get_class($this))->gsub('/Controller$/','')->singularize()->underscore()->toString(); // "PeopleController" -> "person"
+		$this->tpl_name[$object_name] = $object;
+
+		if(is_callable($options["page_title"])){
+			$fn = $options["page_title"];
+			$options["page_title"] = $fn($object);
+		}
+
+		if(!$options["page_title"]){
+			$options["page_title"] = sprintf(_("Detail objektu typu %s"),get_class($object));
+		}
+
+		$this->page_title = $options["page_title"];
+	}
+
 	/**
 	 * Generic method for creating a record
 	 */
