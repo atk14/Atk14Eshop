@@ -73,9 +73,18 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time,["purpose" => "order_withdrawal"])){
+				$this->form->set_error(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($realease_time));
+				return;
+			}
+
 			$code = $d["code"];
 			$code = preg_replace('/\s/','',$code);
 			if(!($otp = OneTimePassword::GetActiveInstanceFor("order_withdrawal",$order->getId(),$code))){
+				InvalidPasswordAttempt::CreateNewRecord([
+					"purpose" => "order_withdrawal",
+					"object_key" => (string)$order->getId(),
+				]);
 				$this->form->set_error("code",_("Toto není platný kód"));
 				return;
 			}
