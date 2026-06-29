@@ -73,8 +73,8 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time,["purpose" => "order_withdrawal"])){
-				$this->form->set_error(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($realease_time));
+			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$release_time,["purpose" => "order_withdrawal"])){
+				$this->form->set_error(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($release_time));
 				return;
 			}
 

@@ -25,7 +25,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 
 		foreach($order->getOrderHistory(["reverse" => false]) as $item){
 			$order_status = $item->getOrderStatus();
-			if(!$processed && in_array($order_status->getCode(),[
+			if(!$processed_date && in_array($order_status->getCode(),[
 				"processed",
 				"shipped",
 				"delivered",
