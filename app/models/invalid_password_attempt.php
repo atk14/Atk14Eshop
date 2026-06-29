@@ -78,11 +78,37 @@ class InvalidPasswordAttempt extends ApplicationModel {
 		return true;
 	}
 
-	static function BuildNextAttemptDelayMessage($release_time){
+	static function BuildNextAttemptDelayMessage($release_time,$style = "form"){
+		$messages = [];
+		$messages["form"] = [
+			"less_than_2_sec" => _("Delay the form submission for a second"),
+			"minutes" => _("Delay the form submission for %s minutes"),
+			"one_minute_and_seconds" => _("Delay the form submission for one minute and %s seconds"),
+			"one_minute" => _("Delay the form submission for one minute"),
+			"seconds" => _("Delay the form submission for %s seconds"),
+			"minutes_and_seconds" => _("Delay the form submission for %s minutes and %s seconds"),
+		];
+		$messages["login"] = [
+			"less_than_2_sec" => _("Delay the next sign-in attempt for a second"),
+			"minutes" => _("Delay the next sign-in attempt for %s minutes"),
+			"one_minute_and_seconds" => _("Delay the next sign-in attempt for one minute and %s seconds"),
+			"one_minute" => _("Delay the next sign-in attempt for one minute"),
+			"seconds" => _("Delay the next sign-in attempt for %s seconds"),
+			"minutes_and_seconds" => _("Delay the next sign-in attempt for %s minutes and %s seconds"),
+		];
+
+		$style = (string)$style;
+		if(!isset($messages[$style])){
+			$keys = array_keys($messages);
+			$default_style = $keys[0];
+			trigger_error("InvalidPasswordAttempt::BuildNextAttemptDelayMessage(): Unknown message style '$style'. The default style '$default_style' is used.");
+			$style = $default_style;
+		}
+
 		$release_time = (int)$release_time;
 
 		if($release_time<2){
-			return _("Delay the next sign-in attempt for a second");
+			return $messages[$style]["less_than_2_sec"];
 		}
 
 		$minutes = floor($release_time / 60);
@@ -90,24 +116,24 @@ class InvalidPasswordAttempt extends ApplicationModel {
 
 		if($minutes>=3){
 			$minutes = $seconds>=30 ? $minutes+1 : $minutes;
-			return sprintf(_("Delay the next sign-in attempt for %s minutes"),$minutes);
+			return sprintf($messages[$style]["minutes"],$minutes);
 		}
 
 		if($minutes==1 || ($minutes==0 && $seconds>50)){
 			if($minutes==1 && $seconds>5){
-				return sprintf(_("Delay the next sign-in attempt for one minute and %s seconds"),$seconds);
+				return sprintf($messages[$style]["one_minute_and_seconds"],$seconds);
 			}
-			return _("Delay the next sign-in attempt for one minute");
+			return $messages[$style]["one_minute"];
 		}
 
 		if($minutes==0){
-			return sprintf(_("Delay the next sign-in attempt for %s seconds"),$seconds);
+			return sprintf($messages[$style]["seconds"],$seconds);
 		}
 
 		if($seconds>5){
-			return sprintf(_("Delay the next sign-in attempt for %s minutes and %s seconds"),$minutes,$seconds);
+			return sprintf($messages[$style]["minutes_and_seconds"],$minutes,$seconds);
 		}
-		return sprintf(_("Delay the next sign-in attempt for %s minutes"),$minutes);
+		return sprintf($messages[$style]["minutes"],$minutes);
 	}
 
 	/**

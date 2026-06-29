@@ -130,23 +130,53 @@ class TcInvalidPasswordAttempt extends TcBase {
 	}
 
 	function test_BuildNextAttemptDelayMessage(){
-		$this->assertEquals("Delay the next sign-in attempt for 10 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(620));
-		$this->assertEquals("Delay the next sign-in attempt for 11 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(630));
+		// style = "form"
 
-		$this->assertEquals("Delay the next sign-in attempt for 2 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(2));
-		$this->assertEquals("Delay the next sign-in attempt for 40 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(40));
+		$this->assertEquals("Delay the form submission for 10 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(621,"form"));
+		$this->assertEquals("Delay the form submission for 11 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(630,"form"));
 
-		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(1));
-		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(0));
-		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(-1));
+		$this->assertEquals("Delay the form submission for 2 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(2,"form"));
+		$this->assertEquals("Delay the form submission for 40 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(40,"form"));
 
-		$this->assertEquals("Delay the next sign-in attempt for 2 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(122));
-		$this->assertEquals("Delay the next sign-in attempt for 2 minutes and 30 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(150));
+		$this->assertEquals("Delay the form submission for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(1,"form"));
+		$this->assertEquals("Delay the form submission for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(0,"form"));
+		$this->assertEquals("Delay the form submission for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(-1,"form"));
 
-		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(60));
-		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(55));
-		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(62));
-		$this->assertEquals("Delay the next sign-in attempt for one minute and 10 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(70));
+		$this->assertEquals("Delay the form submission for 2 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(122,"form"));
+		$this->assertEquals("Delay the form submission for 2 minutes and 30 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(150,"form"));
+
+		$this->assertEquals("Delay the form submission for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(60,"form"));
+		$this->assertEquals("Delay the form submission for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(55,"form"));
+		$this->assertEquals("Delay the form submission for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(62,"form"));
+		$this->assertEquals("Delay the form submission for one minute and 10 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(70,"form"));
+
+		// style = "login"
+
+		$this->assertEquals("Delay the next sign-in attempt for 10 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(620,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for 11 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(630,"login"));
+
+		$this->assertEquals("Delay the next sign-in attempt for 2 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(2,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for 40 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(40,"login"));
+
+		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(1,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(0,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for a second",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(-1,"login"));
+
+		$this->assertEquals("Delay the next sign-in attempt for 2 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(122,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for 2 minutes and 30 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(150,"login"));
+
+		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(60,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(55,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(62,"login"));
+		$this->assertEquals("Delay the next sign-in attempt for one minute and 10 seconds",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(70,"login"));
+
+		// default style is "form"
+
+		$this->assertEquals("Delay the form submission for 10 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(621));
+
+		// Using an unknown style will trigger an error message
+
+		@$this->assertEquals("Delay the form submission for 10 minutes",InvalidPasswordAttempt::BuildNextAttemptDelayMessage(621,"nonsense"));
 	}
 
 	function test_DeleteOldRecords(){
