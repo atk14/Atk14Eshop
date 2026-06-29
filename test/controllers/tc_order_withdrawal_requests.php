@@ -6,7 +6,7 @@ class TcOrderWithdrawalRequests extends TcBase {
 
 	function test(){
 		$client = $this->client;
-		$order = $this->orders["order_for_rambo"];
+		$order = $this->orders["test"];
 
 		// ### Zadani cisla objednavky
 
@@ -23,7 +23,7 @@ class TcOrderWithdrawalRequests extends TcBase {
 		$this->assertEquals(200,$client->getStatusCode());
 		$this->assertEquals([_("Objednávka doposud nebyla zpracována.")],array_flatten($ctrl->form->get_errors()));
 		// spravne cislo, spravny stav
-		$order->setNewOrderStatus("processed");
+		$order->setNewOrderStatus("ready_for_pickup");
 		$ctrl = $client->post("order_withdrawal_requests/create_new",[
 			"order_no" => $order->getOrderNo(),
 		]);

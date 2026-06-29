@@ -27,6 +27,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 			$order_status = $item->getOrderStatus();
 			if(!$processed_date && in_array($order_status->getCode(),[
 				"processed",
+				"ready_for_pickup",
 				"shipped",
 				"delivered",
 				"finished_successfully",
@@ -39,6 +40,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 			if(in_array($order_status->getCode(),[
 				"ready",
 				"ready_reminder",
+				"ready_for_pickup",
 				"shipped",
 				"delivered",
 				"processed",
