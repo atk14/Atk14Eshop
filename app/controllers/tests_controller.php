@@ -147,6 +147,14 @@ class TestsController extends ApplicationController {
 		}
 	}
 
+	function form_showcase(){
+		$this->page_title = "Form Showcase";
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			
+		}
+	}
+
 	function _dump_email(){
 		$params = $this->params->toArray();
 		unset($params["variant"]);
