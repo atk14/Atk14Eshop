@@ -8,7 +8,7 @@ class TcMain extends TcBase{
 
 	function test_robots_txt(){
 		$this->client->get("main/robots_txt");
-		$this->assertEquals("text/plain",$client->getContentType());
+		$this->assertEquals("text/plain",$this->client->getContentType());
 		$this->assertStringContains("public, max-age=",$this->client->getResponseHeader("Cache-Control"));
 	}
 
