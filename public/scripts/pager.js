@@ -378,7 +378,7 @@
 
 	ATK14COMMON.Pager.prototype.doPaging = function( href, button, updatePagerOptions ) {
 			updatePagerOptions = updatePagerOptions || {};
-			updatePagerOptions.addToHistory = button;
+			updatePagerOptions.addToHistory = !!button;
 			$.ajax( {
 				url:     this.addToUrl( href, { "pager": 1 } ),
 				success: ( function( data ) {
