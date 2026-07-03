@@ -21,7 +21,7 @@ class TcSitemaps extends TcBase {
 		$this->assertStringContains("public, max-age=",$client->getResponseHeader("Cache-Control"));
 	}
 
-	function test_pages(){
+	function test_content(){
 		$page = $this->pages["testing_page"];
 		$page2 = $this->pages["another_testing_page"];
 
