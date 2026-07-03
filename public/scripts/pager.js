@@ -183,7 +183,7 @@
 			add[ i - 1 ] = "";
 		}
 
-		return gname;
+		return undefined;
 	};
 
 	ATK14COMMON.Pager.prototype.buttonize = function( button, key ) {
