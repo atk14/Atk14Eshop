@@ -24,7 +24,11 @@
 		}
 
 		$( window ).on( "popstate",
-				( function( ) { this.doPaging( window.document.location.href, undefined, { noScroll: true } ); } ).bind( this )
+				( function( ) { this.doPaging(
+					window.document.location.href,
+					undefined,
+					{ noScroll: true } );
+				} ).bind( this )
 		);
 
 	};
@@ -49,7 +53,8 @@
 
 			if ( this.form ) {
 				this.$form = $( "#" + this.form );
-				// console.log( "this.form: " + this.form ); // e.g. "form_categories_card_list_paging"
+				// console.log( "this.form: " + this.form );
+				// e.g. "form_categories_card_list_paging"
 
 				if ( this.$form.length === 1 && !this.$form[ 0 ].pagerInited ) {
 
@@ -57,15 +62,15 @@
 						e.preventDefault();
 						if ( e.target.tagName.toUpperCase() === "A" ) {
 							var $a = $( e.target );
-							var $form = $( "#paging_form" ).find( "form" ); 
+							var $form = $( "#paging_form" ).find( "form" );
 							$a.parent().siblings().removeClass( "active" );
 							$a.parent().addClass( "active" );
-							if( $form.data( "remote" ) ) {
+							if ( $form.data( "remote" ) ) {
 								// $form is an ATK14 remote form
-								var $filter_form = $( "#filter_form" );
+								var $filterForm = $( "#filter_form" );
 								$form.attr( "action", $a.attr( "href" ) );
-								$filter_form.attr( "action", $a.data( "filter_href" ));
-								$filter_form[ 0 ].filtering++;
+								$filterForm.attr( "action", $a.data( "filter_href" ) );
+								$filterForm[ 0 ].filtering++;
 								console.log( $form.attr( "action" ) );
 								$form.submit();
 							} else {
@@ -79,12 +84,12 @@
 					/*
 					$form.find( "a" ).click( function() {
 						var $a = $( this );
-						var $filter_form = $( "#filter_form" );
+						var $filterForm = $( "#filter_form" );
 						$a.parent().siblings().removeClass( "active" );
 						$a.parent().addClass( "active" );
-						$form.attr( "action", $a.attr( "href" ));
-						$filter_form.attr( "action", $a.attr( "href" ));
-						$filter_form[ 0 ].filtering++;
+						$form.attr( "action", $a.attr( "href" ) );
+						$filterForm.attr( "action", $a.attr( "href" ) );
+						$filterForm[ 0 ].filtering++;
 						$form.submit();
 
 						return false;
@@ -234,14 +239,14 @@
 				limit: this.newPageSize()
 			} );
 			remain = undefined;
-			this.$buttons.next.addClass("next-page").removeClass("next-items");
+			this.$buttons.next.addClass( "next-page" ).removeClass( "next-items" );
 		} else {
 			text = "next";
 			url = this.addToUrl( this.url, {
 				offset: this.offset + this.count
 			} );
 			remain = Math.min( remain, this.pageSize );
-			this.$buttons.next.addClass("next-items").removeClass("next-page");
+			this.$buttons.next.addClass( "next-items" ).removeClass( "next-page" );
 		}
 		this.updateButton( this.$buttons.next, url, text, remain );
 	};
@@ -308,7 +313,9 @@
 					"append",
 					$items.filter( ".masonry__item" )
 				);
-				$masonry.find( ".masonry__item:not(.custom-marker) input[type='number']" ).stepper();
+				$masonry
+					.find( ".masonry__item:not(.custom-marker) input[type='number']" )
+					.stepper();
 				$masonry.find( ".masonry__item" ).removeClass( "custom-marker" );
 			} else {
 				$items.hide().appendTo( this.$list ).fadeIn( "slow" );
@@ -320,7 +327,7 @@
 			// There is a small delay to make sure that the Colcade finished its job.
 			setTimeout( function() {
 				$( "html,body" ).scrollTop( origOffset );
-			}, 10 ); // very soon
+			}, 10 ); // Very soon
 
 			if ( options.addToHistory ) {
 				window.history.replaceState(
@@ -331,7 +338,7 @@
 		}
 
 		this.updateButton( this.$buttons.first, this.offset > this.sectionSize ?
-			this.addToUrl(this.url, { limit: this.sectionSize } ) :
+			this.addToUrl( this.url, { limit: this.sectionSize } ) :
 			null
 		);
 		var pSize = this.newPageSize();
