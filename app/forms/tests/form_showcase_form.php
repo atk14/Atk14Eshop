@@ -17,8 +17,22 @@ class FormShowcaseForm extends TestsForm {
 				"blue" => "Blue",
 			],
 			"widget" => new CheckboxSelectMultiple(),
-			"help_text" => "MultipleChoiceField with CheckboxSelectMultiple",
+			"help_text" => "MultipleChoiceField with CheckboxSelectMultiple; the choices should be alligned <strong><em>vertically</em></strong>",
 		]));
+		$this->add_field("vegetables", new MultipleChoiceField([
+			"choices" => [
+				"potatoe" => "potatoe",
+				"cucumber" => "cucumber",
+				"caroot" => "caroot",
+			],
+			"widget" => new CheckboxSelectMultiple([
+				"list_attrs" => [
+					"class" => "list list--checkboxes list--checkboxes--horizontal",
+				],
+			]),
+			"help_text" => "MultipleChoiceField with CheckboxSelectMultiple; the choices should be alligned <strong><em>horizontally</em></strong>",
+		]));
+
 		$this->add_field("boolean", new BooleanField([
 			"help_text" => "BooleanField",
 		]));
