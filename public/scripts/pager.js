@@ -58,11 +58,11 @@
 
 				if ( this.$form.length === 1 && !this.$form[ 0 ].pagerInited ) {
 
-					this.$form.on( "click", ( function( e ) {
+					$( "#paging_form" ).on( "click", function( e ) {
 						e.preventDefault();
 						if ( e.target.tagName.toUpperCase() === "A" ) {
 							var $a = $( e.target );
-							var $form = this.$form.find( "form" );
+							var $form = $( "#paging_form" ).find( "form" );
 							$a.parent().siblings().removeClass( "active" );
 							$a.parent().addClass( "active" );
 							if ( $form.data( "remote" ) ) {
@@ -79,7 +79,7 @@
 							}
 						}
 						return false;
-					} ).bind( this ) );
+					} );
 
 					/*
 					$form.find( "a" ).click( function() {
