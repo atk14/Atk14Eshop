@@ -27,7 +27,7 @@
 			<div class="pfilter__footer">
 				{render partial="shared/form_button" class="btn btn-default nojs-only"}
 				{* Active Filters = pills/badges s aktivnimi filtry *}
-				<div class="js--active_filters active-filters">
+				<div class="js--active_filters active-filters" id="active_filters">
 					{render partial="shared/filter/active_filters" filter=$finder->filter}
 				</div>
 			</div>
