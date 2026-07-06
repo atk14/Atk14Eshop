@@ -49,5 +49,5 @@
 <li>{t}Platbu za vrácené zboží vám vrátíme nejpozději do 14 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
 </ol>
 
-{capture assign=link}<a href="{"obchodni-podminky"|link_to_page:"with_hostname"}" style="{$link_style}">{t}{"obchodni-podminky"|link_to_page:"with_hostname"}{/t}</a>{/capture}
+{capture assign=link}<a href="{"terms_and_conditions"|link_to_page:"with_hostname"}" style="{$link_style}">{t}{"terms_and_conditions"|link_to_page:"with_hostname"}{/t}</a>{/capture}
 <p>{t link=$link escape=no}Další informace o odstoupení od kupní smlouvy nalezenete na adrese %1{/t}</p>
