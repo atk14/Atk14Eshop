@@ -31,20 +31,28 @@ class GetDataForm extends OrderWithdrawalRequestsForm {
 			"label" => _("Číslo vašeho bankovního účtu pro vrácení peněz"),
 		]));
 
+		$choices = OrderWithdrawalRequest::ReasonsOfOrderReturningChoices(true);
+		$initial = [];
+		if(sizeof($choices)==1){
+			$initial = array_keys($choices);
+		}
 		$f = $this->add_field("reasons", new MultipleChoiceField([
-			"label" => _("Vyberte důvody vrácení zboží"),
-			"choices" => OrderWithdrawalRequest::ReasonsOfOrderReturningChoices(),
+			"label" => sizeof($choices)===1 ? _("Důvod vrácení zboží") : _("Vyberte důvody vrácení zboží"),
+			"choices" => $choices,
 			"widget" => new CheckboxSelectMultiple(),
+			"initial" => $initial,
 			"required" => true,
 		]));
 		$f->update_messages([
 			"required" => _("Vyberte důvod vrácení zboží"),
 		]);
 
-		$f = $this->add_field("other_reason", new TextField([
-			"label" => _("Jiný důvod k vrácení"),
-			"required" => false,
-		]));
+		if(isset($choices["other"])){
+			$f = $this->add_field("other_reason", new TextField([
+				"label" => _("Jiný důvod k vrácení"),
+				"required" => false,
+			]));
+		}
 		$f->widget->attrs["rows"] = 3;
 
 		$f = $this->add_field("products", new MultipleChoiceField([

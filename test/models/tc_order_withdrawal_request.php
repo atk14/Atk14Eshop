@@ -91,6 +91,38 @@ class TcOrderWithdrawalRequest extends TcBase {
 		$this->assertEquals(_("Objednávku již není možné vrátit."),$reason);
 	}
 
+	function test_ReasonsOfOrderReturningChoices(){
+		OrderWithdrawalRequest::$REASONS = [
+			"no_reason_given" => [
+				"title" => "No reason given",
+				"active" => true,
+			],
+			"reason_1" => [
+				"title" => "Reason #1",
+				"active" => true,
+			],
+			"reason_2" => [
+				"title" => "Reason #2",
+				"active" => false,
+			],
+		];
+
+		$choices = OrderWithdrawalRequest::ReasonsOfOrderReturningChoices();
+		$this->assertEquals(3,sizeof($choices));
+		$this->assertEquals([
+			"no_reason_given" => "No reason given",
+			"reason_1" => "Reason #1",
+			"reason_2" => "Reason #2",
+		],$choices);
+
+		$choices = OrderWithdrawalRequest::ReasonsOfOrderReturningChoices(true);
+		$this->assertEquals(2,sizeof($choices));
+		$this->assertEquals([
+			"no_reason_given" => "No reason given",
+			"reason_1" => "Reason #1",
+		],$choices);
+	}
+
 	function _createOrder($values =  []){
 		$delivery = $this->delivery_methods["dpd"];
 		$payment = $this->payment_methods["credit_card"];

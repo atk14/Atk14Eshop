@@ -1,6 +1,8 @@
 <?php
 class OrderWithdrawalRequest extends ApplicationModel {
 
+	public static $REASONS = [];
+
 	use TraitObjectWithStatus {
 		TraitObjectWithStatus::CreateNewRecord as TraitCreateNewRecord;
 	}
@@ -87,13 +89,18 @@ class OrderWithdrawalRequest extends ApplicationModel {
 		return true;	
 	}
 
-	static function ReasonsOfOrderReturningChoices(){
-		return [
-			"unsatisfactory_pattern" => _("Nevyhovující barva / vzor"),
-			"pattern_mismatch_photo" => _("Barva / vzor neodpovídá fotografii produktu"),
-			"unsatisfactory_material" => _("Nevyhovující materiál"),
-			"other" => _("Další / jiný důvod k vrácení")
-		];
+	static function ReasonsOfOrderReturningChoices($active_choices_only = false){
+		$out = self::$REASONS;
+
+		// Filtering out inactive choices
+		if($active_choices_only){
+			$out = array_filter($out,function($item){ return $item["active"]; });
+		}
+
+		// Stringify
+		$out = array_map(function($item){ return $item["title"]; },$out);
+
+		return $out;
 	}
 
 	static function PlacedFor($order){
@@ -119,3 +126,26 @@ class OrderWithdrawalRequest extends ApplicationModel {
 		return Cache::Get("User",$this->getCreatedByUserId());
 	}
 }
+
+OrderWithdrawalRequest::$REASONS = [
+	"no_reason_given" => [
+		"title" => _("Odstoupení od smlouvy bez udání důvodu"),
+		"active" => true,
+	],
+	"unsatisfactory_pattern" => [
+		"title" => _("Nevyhovující barva / vzor"),
+		"active" => true,
+	],
+	"pattern_mismatch_photo" => [
+		"title" => _("Barva / vzor neodpovídá fotografii produktu"),
+		"active" => true,
+	],
+	"unsatisfactory_material" => [
+		"title" => _("Nevyhovující materiál"),
+		"active" => true,
+	],
+	"other" => [
+		"title" => _("Další / jiný důvod k vrácení"),
+		"active" => true,
+	],
+];
