@@ -15,7 +15,7 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 	function _prepare_create_new_title(){
 		if($this->logged_user){
 			$this->breadcrumbs[] = [_("Můj účet"),$this->_link_to("users/detail")];
-			$this->breadcrumbs[] = [_("Objednávky"),$this->_link_to("orders/detail")];
+			$this->breadcrumbs[] = [_("Objednávky"),$this->_link_to("orders/index")];
 		}
 		$this->page_title = $this->breadcrumbs[] = _("Odstoupení od kupní smlouvy");
 	}
