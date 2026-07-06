@@ -82,6 +82,11 @@ class DefaultRouter extends Atk14Router{
 		// Vouchers
 		$this->addRoute("/<lang>/vouchers/<region_id>/<token>/voucher_<id>.<format>","vouchers/detail",["id" => '/\d+/']);
 
+		// Order Withdrawal Requests
+		$this->addRoute("/formular-odstoupeni/","cs/order_withdrawal_requests/create_new");
+		$this->addRoute("/withdrawal-form/","en/order_withdrawal_requests/create_new");
+		$this->addRoute("/formular-odstupenie/","sk/order_withdrawal_requests/create_new");
+
 		// Generic routes follow.
 		// Keep them on the end of the list.
 
