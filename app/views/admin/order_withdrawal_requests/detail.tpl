@@ -53,7 +53,7 @@
 
 	<dt>{t}Datum podání žádosti{/t}</dt>
 	<dd>
-		{!$order_withdrawal_request->getCreatedAt()|format_date}
+		{!$order_withdrawal_request->getCreatedAt()|format_datetime}
 	</dd>
 
 	<dt>{t}Žádost vytvořil uživatel{/t}</dt>

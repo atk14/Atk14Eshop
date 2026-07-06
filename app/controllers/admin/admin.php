@@ -61,6 +61,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Selling regions"),				"regions"),
 			array(_("Customer groups"),				"customer_groups"),
 			array(_("Bank accounts"),					"bank_accounts"),
+			[_("Order withdrawal requests"),	"order_withdrawal_requests"],
 			array(_("Cookie consent"),				"cookie_consents,cookie_consent_categories,cookie_consent_statistics"),
 			array(_("System preferences"),		"system_parameters"),
 		);

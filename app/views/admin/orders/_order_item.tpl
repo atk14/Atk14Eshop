@@ -31,6 +31,10 @@
 	</td>
 	<td>
 		{if $order->getAllNotes()}<span title="{"\n\n"|join:$order->getAllNotes()}" class="badge badge-warning">{!"question"|icon}</span>{/if}
+		{assign order_withdrawal_request OrderWithdrawalRequest::PlacedFor($order)}
+		{if $order_withdrawal_request}
+			<a href="{link_to action="order_withdrawal_requests/detail" id=$order_withdrawal_request}"><span title="{t}Přijata žádost o odstoupení od smlouvy{/t}" class="badge badge-danger">{!"arrow-rotate-left"|icon}</span></a>
+		{/if}
 	</td>
 	<td>
 		{$order->getUpdatedAt()|format_datetime|default:$mdash}
