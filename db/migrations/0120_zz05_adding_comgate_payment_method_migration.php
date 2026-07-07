@@ -17,7 +17,7 @@ class Zz05AddingComgatePaymentMethodMigration extends ApplicationMigration {
 			"bank_transfer" => false,
 			"cash_on_delivery" => false,
 			"label_en" => "Online payment via Comgate payment gateway",
-			"label_cs" => "Online platba přes Comgate platební bránu",
+			"label_cs" => "Online platba přes platební bránu Comgate",
 			"price_incl_vat" => 0,
 			"active" => false,
 		]);

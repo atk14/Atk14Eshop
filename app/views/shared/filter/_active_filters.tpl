@@ -12,7 +12,9 @@
 			</li>
 			{/foreach}
 			{if count($active_filters)>=3}
+			<li class="list__item">
 			<a href="{$category_base_uri}" class="remote-link js--active-filter" data-remote="true" rel="nofollow">{t}Odstranit všechny filtry{/t}</a>
+			</li>
 			{/if}
 		</ul>
 	</div>

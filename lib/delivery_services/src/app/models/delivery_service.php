@@ -122,11 +122,12 @@ class DeliveryService extends ApplicationModel {
 	}
 
 	static function ReadBranchesData($code, $options=[], &$error_message=null) {
+		$options += ["country_code" => "cz"];
 		if (is_null($delivery_service = static::FindFirst("code", $code))) {
 			return false;
 		}
 		$options += [
-			"branches_url" => $delivery_service->getBranchesDownloadUrl(),
+			"branches_url" => $delivery_service->getBranchesDownloadUrl($options),
 		];
 
 		try {
@@ -162,12 +163,24 @@ class DeliveryService extends ApplicationModel {
 	 * @param string $code
 	 */
 	static function UpdateBranches($code, $options=array(), &$error_message=null) {
+		$options += [
+			"logger" => new logger(),
+			"force_import" => false,
+			"country_code" => "cz",
+		];
+
+		$delivery_service = static::FindFirst("code", $code);
+
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $delivery_service, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $delivery_service->getName(), $delivery_service->getId(), $delivery_service->getCode()));
+			return false;
+		}
+
 		$data = static::ReadBranchesData($code, $options, $error_message);
 		if (!$data) {
 			return false;
 		}
 
-		$delivery_service = static::FindFirst("code", $code);
 		return $delivery_service->importData($data, $options);
 	}
 
@@ -181,19 +194,23 @@ class DeliveryService extends ApplicationModel {
 	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
-			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
+			"force_import" => false,
+			"country_code" => "cz",
 		];
-
-		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
-			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
-			return false;
-		}
 
 		$delivery_service_code = $this->getCode();
 		$dbmole = $this->dbmole;
-		$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", array(":this" => $this));
-
 		$parserClassName = $this->getParserClass();
+		if ($parserClassName::HasCountrySpecificFeed()) {
+			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this AND country=:country_code", [":this" => $this, ":country_code" => $options["country_code"]]);
+		} else {
+			if ($options["country_code"] !== "cz" && $options["logger"]) {
+				$options["logger"]->info(sprintf("delivery service %s does not have a country-specific feed, country_code '%s' will be ignored", $this->getCode(), $options["country_code"]));
+				$options["logger"]->flush();
+			}
+			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", [":this" => $this]);
+		}
+
 		$feed_parser = $parserClassName::GetInstance($data);
 
 		$nodes = $feed_parser->_getBranchNodes($options);
@@ -271,9 +288,10 @@ class DeliveryService extends ApplicationModel {
 	 *
 	 * @return string
 	 */
-	function getBranchesDownloadUrl() {
+	function getBranchesDownloadUrl($options = []) {
+		$options += ["country_code" => "cz"];
 		$className = $this->getParserClass();
-		$url = $className::$BRANCHES_DOWNLOAD_URL;
+		$url = $className::GetBranchesDownloadUrl($options["country_code"]);
 		if (is_array($url)) {
 			foreach($url as &$_url) {
 				$_url = $this->_replace_tokens_in_url($_url);

@@ -20,18 +20,14 @@ if (!Object.fromEntries) {
 
 
 var vendorStyles = [
-	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/animate.css/animate.css",
 	"node_modules/swiper/swiper-bundle.min.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
-	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/sortablejs/Sortable.js",
-	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/ace-builds/src/ace.js",
 	"node_modules/ace-builds/src/mode-markdown.js",
 	"node_modules/ace-builds/src/theme-tomorrow.js",
@@ -147,8 +143,6 @@ gulp.task( "copy-admin", function() {
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/webfonts" ) );
-	gulp.src( "node_modules/jquery-ui-bundle/images/*" )
-		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
 	gulp.src( "public/admin/images/*" )

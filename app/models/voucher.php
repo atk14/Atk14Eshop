@@ -171,7 +171,10 @@ class Voucher extends ApplicationModel implements Translatable {
 	 *	$voucher->getUrl($region,"pdf");
 	 */
 	function getUrl($region = null, $format = "html"){
-		if(!$region){ $region = Region::GetDefaultRegion(); }
+		if(!$region){
+			$regions = $this->getRegions();
+			$region = $regions ? $regions[0] : Region::GetDefaultRegion();
+		}
 
 		$params = [
 			"namespace" => "",

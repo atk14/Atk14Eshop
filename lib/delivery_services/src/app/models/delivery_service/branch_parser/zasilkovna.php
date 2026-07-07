@@ -88,6 +88,9 @@ class Zasilkovna extends DeliveryServiceJsonBranchData implements iDeliveryServi
 			"sunday" => _("Neděle"),
 		];
 
+		if (!isset($this["openingHours"]["regular"])) {
+			return $_openHoursAr;
+		}
 		foreach($_days as $element_name => $day_name) {
 			$_value = (string)$this["openingHours"]["regular"][$element_name];
 			$_values = explode(",", $_value);

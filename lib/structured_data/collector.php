@@ -34,7 +34,9 @@ class Collector {
 	function toArray() {
 		$itemsAr = [];
 		foreach($this->items as $_i) {
-			$itemsAr[] = $_i->toArray();
+			if ($ar = $_i->toArray()) {
+				$itemsAr[] = $ar;
+			}
 		}
 
 		return $itemsAr;

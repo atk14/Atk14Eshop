@@ -125,6 +125,10 @@ class Ppl extends DeliveryServiceBranchStdClassData implements iDeliveryServiceB
 		return null;
 	}
 
+	static function HasCountrySpecificFeed() {
+		return true;
+	}
+
 	static function FetchFeed($feed_url, $options = []) {
 		$options += ["country_code" => "cz"];
 		$country_constant = "\\Salamek\\PplMyApi\\Enum\\Country::".strtoupper($options["country_code"]);

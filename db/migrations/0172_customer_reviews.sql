@@ -46,7 +46,7 @@ CREATE TABLE customer_reviews (
 	--
 	product_id INT NOT NULL,
 	--
-	user_id INT, -- osloveny uzivate, nemusi byt prihlasen
+	user_id INT, -- osloveny uzivatel, nemusi byt prihlasen
 	order_id INT,
 	language CHAR(2) NOT NULL,
 	--

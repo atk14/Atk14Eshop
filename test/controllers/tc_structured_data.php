@@ -17,6 +17,7 @@ class TcStructuredData extends TcBase {
 	}
 
 	function test_homepage_has_website_json_ld() {
+		\StructuredData\Collector::Reset();
 		$this->client->get("main/index");
 		$this->assertEquals(200, $this->client->getStatusCode());
 		$this->_assertJsonLdType("WebSite");
@@ -24,6 +25,7 @@ class TcStructuredData extends TcBase {
 
 	function test_card_detail_has_breadcrumb_json_ld() {
 		$card = $this->cards["coffee"];
+		\StructuredData\Collector::Reset();
 		$this->client->get("cards/detail", ["id" => $card]);
 		$this->assertEquals(200, $this->client->getStatusCode());
 		$this->_assertJsonLdType("BreadcrumbList");
@@ -31,6 +33,7 @@ class TcStructuredData extends TcBase {
 
 	function test_card_detail_has_product_json_ld() {
 		$card = $this->cards["coffee"];
+		\StructuredData\Collector::Reset();
 		$this->client->get("cards/detail", ["id" => $card]);
 		$this->assertEquals(200, $this->client->getStatusCode());
 		$this->_assertJsonLdType("Product");

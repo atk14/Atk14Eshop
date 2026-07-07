@@ -50,12 +50,12 @@ if( --form[0].filtering == 0 ) {
 
 	{if !$finder->getPager()->isXhr() || $finder->getPager()->isXhrOrdered()}
 		{if !$doNotrerenderFilters}
-			form.find('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
-			form.find('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
-			form.find('.js--active_filters').html({jstring}{render partial='shared/filter/active_filters' filter=$finder->filter}{/jstring});
+			$('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
+			$('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
+			$('.js--active_filters').html({jstring}{render partial='shared/filter/active_filters' filter=$finder->filter}{/jstring});
 			ATK14COMMON.filter_init( '#filter_form', true );
 		{/if}
-		form.find('.js--products-count').html({jstring}{render partial='shared/paging_count'}{/jstring});
+		$('.js--products-count').html({jstring}{render partial='shared/paging_count'}{/jstring});
 		$('.js--products-count-number').html({$finder->getRecordsCount()});
 		{*$('#child-categories').html({jstring}{render partial='shared/categories/child_categories'}{/jstring});*}
 		if("NoUISlider" in window) {
