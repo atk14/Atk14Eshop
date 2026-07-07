@@ -10,6 +10,7 @@
 		{if 'app.contact.social.youtube'|system_parameter}{assign show_yt true}{/if}
 		{if 'app.contact.social.soundcloud'|system_parameter}{assign show_sc true}{/if}
 		{assign stores Store::FindAll("visible AND (code IS NULL OR code!='eshop')",[])}
+		{assign email "app.contact.email"|system_parameter}
 		{assign phone_number "app.contact.phone"|system_parameter|replace:' ':''|replace:".":""}
 		
 		{* icon color variants: "dark" | "light" | "color" *}
@@ -36,7 +37,10 @@
 						{$eshop->getAddressZip()} {$eshop->getAddressCity()}<br/>
 						{/if}
 					</p>
-					<p class="footertext">Tel: <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a></p>
+					<p class="footertext">
+						{t}E-mail:{/t} <a href="mailto:{$email}">{$email}</a><br/>
+						{t}Tel:{/t} <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a>
+					</p>
 				</mj-text>
 			</mj-column>
 			<mj-column>
