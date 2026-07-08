@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 14:36+0200\n"
-"PO-Revision-Date: 2026-06-03 14:37+0200\n"
+"POT-Creation-Date: 2026-06-08 10:36+0200\n"
+"PO-Revision-Date: 2026-06-08 10:38+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -556,14 +556,17 @@ msgstr "IP address"
 msgid "Logged user:"
 msgstr "Logged user:"
 
-msgid "Zakoupené digitální produkty stáhnete na adrese:"
-msgstr "You can download purchased digital products at:"
-
 msgid "Dobrý den,"
 msgstr "Hello,"
 
 msgid "pro zrušení odběru newsletteru navštivte následující odkaz:"
 msgstr "to unsubscribe from the newsletter, please visit the following link:"
+
+msgid "Zrušit odběr"
+msgstr "Unsubscribe"
+
+msgid "Please note that this link is valid for 2 hours only."
+msgstr "Please note that this link is valid for 2 hours only."
 
 msgid "Vážený zákazníku,"
 msgstr "Dear customer,"
@@ -571,7 +574,7 @@ msgstr "Dear customer,"
 msgid "Vaše objednávka č.%1"
 msgstr "Your order No. %1"
 
-#: ../app/controllers/application_mailer.php:261
+#: ../app/controllers/application_mailer.php:273
 #: ../app/fields/invoice_type_field.php:9
 msgid "Proforma faktura"
 msgstr "Proforma invoice"
@@ -582,7 +585,7 @@ msgid ""
 msgstr ""
 "We are sending you a proforma invoice for your order in store %1 - marked %2."
 
-#: ../app/controllers/application_mailer.php:263
+#: ../app/controllers/application_mailer.php:275
 msgid "Vystavení storno daňového dokladu"
 msgstr "Issuing a cancellation tax document"
 
@@ -593,7 +596,7 @@ msgstr ""
 "A tax document cancellation has been issued for your order in store %1 - "
 "marked %2."
 
-#: ../app/controllers/application_mailer.php:259
+#: ../app/controllers/application_mailer.php:271
 msgid "Vystavení daňového dokladu"
 msgstr "Issuing a tax document"
 
@@ -621,6 +624,9 @@ msgstr "If you no longer wish to receive our news, you can unsubscribe at:"
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "click on the following link to confirm your subscription:"
 
+msgid "Potvrdit odběr"
+msgstr "Subscribe"
+
 msgid ""
 "V případě osobního odběru vyčkejte na výzvu k vyzvednutí. Pokud jste zvolili "
 "úhradu bankovním převodem, podklady k úhradě objednávky Vám budou zaslány "
@@ -647,8 +653,11 @@ msgstr ""
 msgid "Detaily objednávky"
 msgstr "Order details"
 
-msgid "Objednávka: <strong>č. %1 vytvořená %2</strong>"
-msgstr "Order: <strong>No. %1 created %2</strong>"
+msgid "Číslo objednávky:"
+msgstr "Order number:"
+
+msgid "Vytvořena:"
+msgstr "Created:"
 
 msgid "Platba:"
 msgstr "Payment:"
@@ -665,11 +674,11 @@ msgstr "Shipping"
 msgid "Dopravce:"
 msgstr "Carrier:"
 
-msgid "Dodací adresa"
-msgstr "Delivery address"
-
 msgid "Fakturační adresa"
 msgstr "Billing address"
+
+msgid "Dodací adresa"
+msgstr "Delivery address"
 
 msgid "Vaše poznámka k objednávce:"
 msgstr "Your order note:"
@@ -678,6 +687,9 @@ msgid ""
 "Pokud Vám spadl prohlížeč před dokončením platby, pokračujte na tomto URL:"
 msgstr ""
 "If your browser crashed before completing your payment, proceed to this URL:"
+
+msgid "Dokončit platbu"
+msgstr "Complete payment"
 
 msgid "Hello,"
 msgstr "Hello,"
@@ -689,8 +701,8 @@ msgstr ""
 "Have you forgotten your password? To reset your password, click on the "
 "following link"
 
-msgid "Please note that this link is valid for 2 hours only."
-msgstr "Please note that this link is valid for 2 hours only."
+msgid "Reset Password"
+msgstr "Reset Password"
 
 msgid "Your password was just updated in recovery mode."
 msgstr "Your password was just updated in recovery mode."
@@ -713,15 +725,6 @@ msgstr "email"
 msgid "name"
 msgstr "name"
 
-msgid ""
-"V případě, že si chcete Vaši objednávku zkontrolovat,<br/>\n"
-"Vaši objednávku naleznete v sekci <a href=\"%1\" style=\"%2\">\"Historie "
-"objednávek\"</a> Vašeho zákaznického účtu."
-msgstr ""
-"In case that you want to check your order,<br/>\n"
-"you can find it in the section <a href=\"%1\" style=\"%2\"> \"Order "
-"history\" </a> of your customer account."
-
 msgid "Vaše objednávka č. %1 byla zrušena."
 msgstr "Your order No. %1 has been cancelled."
 
@@ -736,6 +739,9 @@ msgstr "Payment for order No. %1 has been successfully accepted."
 
 msgid "Platba za objednávku s označením %1 selhala."
 msgstr "Payment for order No. %1 failed."
+
+msgid "Opakovat platbu"
+msgstr "Repeat payment"
 
 msgid "Instrukce pro opakování platby najdete na adrese %1"
 msgstr "For instructions on how to repeat your payment, please visit %1"
@@ -775,6 +781,9 @@ msgstr "Number of shipment: %1"
 msgid "Svou zásilku můžete sledovat přes následující odkaz:"
 msgstr "You can track your shipment via the following link:"
 
+msgid "Sledovat zásilku"
+msgstr "Track your shipment"
+
 msgid "Vaše objednávka č. %1 byla úspěšně dokončena."
 msgstr "Your order No. %1 has been completed successfully."
 
@@ -806,15 +815,29 @@ msgstr "QR code to load the payment into the banking application:"
 msgid "QR kód"
 msgstr "QR code"
 
-#: ../app/forms/watched_products/create_new_form.php:6
-msgid "E-mail"
-msgstr "Email"
+msgid "Zakoupené digitální produkty stáhnete na adrese:"
+msgstr "You can download purchased digital products at:"
 
-msgid "Tel."
-msgstr "Tel."
+msgid "Stáhnout digitální obsah"
+msgstr "Download digital content"
 
-msgid "Sledujte nás na&nbsp;Facebooku:"
-msgstr "Follow us on&nbsp;Facebook:"
+msgid ""
+"V případě, že si chcete Vaši objednávku zkontrolovat,<br/>\n"
+"Vaši objednávku naleznete v sekci <a href=\"%1\" style=\"%2\">\"Historie "
+"objednávek\"</a> Vašeho zákaznického účtu."
+msgstr ""
+"In case that you want to check your order,<br/>\n"
+"you can find it in the section <a href=\"%1\" style=\"%2\"> \"Order "
+"history\" </a> of your customer account."
+
+msgid "Krásný den přeje<br><br>%1"
+msgstr "Wishing you a wonderful day<br><br>%1"
+
+msgid "Děkujeme za nákup v obchodě %1!"
+msgstr "Thank you for shopping in %1 shop!"
+
+msgid "děkujeme za nákup v obchodě %1!"
+msgstr "thank you for shopping in %1 shop!"
 
 msgid ""
 "Hello,\n"
@@ -849,11 +872,8 @@ msgstr ""
 msgid "Produkt najdete na adrese"
 msgstr "You can find the product at"
 
-msgid "Děkujeme za nákup v obchodě %1!"
-msgstr "Thank you for shopping in %1 shop!"
-
-msgid "děkujeme za nákup v obchodě %1!"
-msgstr "thank you for shopping in %1 shop!"
+msgid "Zobrazit produkt"
+msgstr "Show product"
 
 msgid "Navštivte naši novou prodejnu"
 msgstr "Visit our new shop"
@@ -1464,9 +1484,6 @@ msgstr "Published at %1"
 msgid "Celý článek"
 msgstr "Whole article"
 
-msgid "Zobrazit produkt"
-msgstr "Show product"
-
 msgid "Kategorie"
 msgstr "Category"
 
@@ -1803,19 +1820,19 @@ msgstr "Forbidden"
 msgid "Home"
 msgstr "Home"
 
-#: ../app/controllers/application_mailer.php:106
+#: ../app/controllers/application_mailer.php:118
 msgid "New registration"
 msgstr "New registration"
 
-#: ../app/controllers/application_mailer.php:116
+#: ../app/controllers/application_mailer.php:128
 msgid "Reset Your Password"
 msgstr "Reset Your Password"
 
-#: ../app/controllers/application_mailer.php:126
+#: ../app/controllers/application_mailer.php:138
 msgid "Your password was updated"
 msgstr "Your password was updated"
 
-#: ../app/controllers/application_mailer.php:132
+#: ../app/controllers/application_mailer.php:144
 #: ../app/controllers/newsletter_subscription_requests_controller.php:5
 #: ../app/controllers/newsletter_subscription_requests_controller.php:18
 #: ../app/controllers/newsletter_subscription_requests_controller.php:25
@@ -1823,41 +1840,41 @@ msgstr "Your password was updated"
 msgid "Přihlášení k odběru novinek"
 msgstr "Newsletter subscription"
 
-#: ../app/controllers/application_mailer.php:144
+#: ../app/controllers/application_mailer.php:156
 msgid "Potvrzení odhlášení od newsletteru"
 msgstr "Confirmation of newsletter unsubscription"
 
-#: ../app/controllers/application_mailer.php:157
+#: ../app/controllers/application_mailer.php:169
 msgid "Potvrzení odběru novinek"
 msgstr "Newsletter subscription confirmation"
 
-#: ../app/controllers/application_mailer.php:171
+#: ../app/controllers/application_mailer.php:183
 #, php-format
 msgid "Order %d"
 msgstr "Order %d"
 
-#: ../app/controllers/application_mailer.php:191
-#: ../app/controllers/application_mailer.php:259
-#: ../app/controllers/application_mailer.php:261
-#: ../app/controllers/application_mailer.php:263
+#: ../app/controllers/application_mailer.php:203
+#: ../app/controllers/application_mailer.php:271
+#: ../app/controllers/application_mailer.php:273
+#: ../app/controllers/application_mailer.php:275
 #: ../app/controllers/application.php:83
 #: ../app/controllers/orders_controller.php:51
 #, php-format
 msgid "Objednávka %s"
 msgstr "Order %s"
 
-#: ../app/controllers/application_mailer.php:217
+#: ../app/controllers/application_mailer.php:229
 msgid "Message sent from contact page"
 msgstr "Message sent from contact page"
 
-#: ../app/controllers/application_mailer.php:228
-#: ../app/controllers/application_mailer.php:237
+#: ../app/controllers/application_mailer.php:240
+#: ../app/controllers/application_mailer.php:249
 #: ../app/controllers/information_requests_controller.php:5
 #: ../app/controllers/information_requests_controller.php:29
 msgid "Request for information"
 msgstr "Request for information"
 
-#: ../app/controllers/application_mailer.php:247
+#: ../app/controllers/application_mailer.php:259
 #, php-format
 msgid "Naskladnění produktu: %s"
 msgstr "Product storage: %s"
@@ -2959,6 +2976,10 @@ msgstr "Enter company ID only in case when the company name is entered"
 msgid "Password doesn't match"
 msgstr "Password doesn't match"
 
+#: ../app/forms/watched_products/create_new_form.php:6
+msgid "E-mail"
+msgstr "Email"
+
 #: ../app/forms/watched_products/create_new_form.php:15
 msgid "Kontrola"
 msgstr "Control"
@@ -3456,137 +3477,146 @@ msgstr "Order No. %s in eshop %s"
 msgid "obj. %s"
 msgstr "ord. No. %s"
 
-msgid "Loading"
-msgstr "Loading"
+#~ msgid "Objednávka: <strong>č. %1 vytvořená %2</strong>"
+#~ msgstr "Order: <strong>No. %1 created %2</strong>"
+
+#~ msgid "Tel."
+#~ msgstr "Tel."
+
+#~ msgid "Sledujte nás na&nbsp;Facebooku:"
+#~ msgstr "Follow us on&nbsp;Facebook:"
+
+#~ msgid "Loading"
+#~ msgstr "Loading"
 
 #, php-format
-msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
-msgstr "Delivery address has not been selected for the shipping method '%s'"
+#~ msgid "Pro způsob dodání '%s' nebylo zvoleno doručovací místo"
+#~ msgstr "Delivery address has not been selected for the shipping method '%s'"
 
-msgid "Enter the ZIP code as NNN NN"
-msgstr "Enter the ZIP code as NNN NN"
+#~ msgid "Enter the ZIP code as NNN NN"
+#~ msgstr "Enter the ZIP code as NNN NN"
 
-msgid "Žádné podací místo nebylo nalezeno"
-msgstr "No dispensing point found"
+#~ msgid "Žádné podací místo nebylo nalezeno"
+#~ msgstr "No dispensing point found"
 
-msgid "Pobočka nebyla nalezena"
-msgstr "Branch not found"
+#~ msgid "Pobočka nebyla nalezena"
+#~ msgstr "Branch not found"
 
-msgid "Object not found"
-msgstr "Object not found"
+#~ msgid "Object not found"
+#~ msgstr "Object not found"
 
-msgid "Výdejní místo"
-msgstr "Delivery point"
+#~ msgid "Výdejní místo"
+#~ msgstr "Delivery point"
 
-msgid "Zadejte psč, město nebo název provozovny"
-msgstr "Enter a zip code, city, or business name"
-
-#, php-format
-msgid "od %s do %s dle země doručení"
-msgstr "from %s till %s according to the country of delivery"
-
-msgid "Běžná cena:"
-msgstr "Common price:"
-
-msgid "země"
-msgstr "country"
+#~ msgid "Zadejte psč, město nebo název provozovny"
+#~ msgstr "Enter a zip code, city, or business name"
 
 #, php-format
-msgid "Telefonní číslo zadejte ve formátu %s"
-msgstr "Enter phone number in format %s"
+#~ msgid "od %s do %s dle země doručení"
+#~ msgstr "from %s till %s according to the country of delivery"
 
-msgid "Pro opakování platby přejděte na adresu %1"
-msgstr "To repeat the payment, go to %1"
+#~ msgid "Běžná cena:"
+#~ msgstr "Common price:"
 
-msgid ""
-"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-msgstr ""
-"To repeat your online payment <a href=\"%1\">click here</a>. In case of "
-"persistent problems, you can pay your order by bank transfer."
+#~ msgid "země"
+#~ msgstr "country"
 
-msgid "Shipping and payment method"
-msgstr "Shipping and payment method"
+#, php-format
+#~ msgid "Telefonní číslo zadejte ve formátu %s"
+#~ msgstr "Enter phone number in format %s"
 
-msgid "<small>cena od</small><br>%1"
-msgstr "<small>price from</small><br>%1"
+#~ msgid "Pro opakování platby přejděte na adresu %1"
+#~ msgstr "To repeat the payment, go to %1"
 
-msgid ""
-"K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
-"sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k zajištění "
-"vaší maximální spokojenosti. Používáním tohoto webu souhlasíte s tím, jak "
-"soubory cookies dále používáme."
-msgstr ""
-"We use so-called cookies to run %1 website. Cookies are files helping to "
-"adapt the ewb content, to measure its functionality and to ensure you "
-"maximum satisfaction. By using this web you agree with the way how we user "
-"the cookie files."
+#~ msgid ""
+#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+#~ msgstr ""
+#~ "To repeat your online payment <a href=\"%1\">click here</a>. In case of "
+#~ "persistent problems, you can pay your order by bank transfer."
 
-msgid "Souhlasím"
-msgstr "I agree"
+#~ msgid "Shipping and payment method"
+#~ msgstr "Shipping and payment method"
 
-msgid "Vytvořit novou adresu"
-msgstr "Create new address"
+#~ msgid "<small>cena od</small><br>%1"
+#~ msgstr "<small>price from</small><br>%1"
 
-msgid "Poznámka"
-msgstr "Note"
+#~ msgid ""
+#~ "K provozování webu %1 využíváme takzvané cookies. Cookies jsou soubory "
+#~ "sloužící k přizpůsobení obsahu webu, k měření jeho funkčnosti a k "
+#~ "zajištění vaší maximální spokojenosti. Používáním tohoto webu souhlasíte "
+#~ "s tím, jak soubory cookies dále používáme."
+#~ msgstr ""
+#~ "We use so-called cookies to run %1 website. Cookies are files helping to "
+#~ "adapt the ewb content, to measure its functionality and to ensure you "
+#~ "maximum satisfaction. By using this web you agree with the way how we "
+#~ "user the cookie files."
 
-msgid "Např. číslo patra nebo dveří"
-msgstr "E.g. number of floor or door"
+#~ msgid "Souhlasím"
+#~ msgstr "I agree"
 
-msgid "Poznámka k doručovací adrese"
-msgstr "Note to delivery address"
+#~ msgid "Vytvořit novou adresu"
+#~ msgstr "Create new address"
 
-msgid "Poznámka k objednávce"
-msgstr "Note to order"
+#~ msgid "Poznámka"
+#~ msgstr "Note"
 
-msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
-msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
+#~ msgid "Např. číslo patra nebo dveří"
+#~ msgstr "E.g. number of floor or door"
 
-msgid "Pochlubte se přátelům s Vaším nákupem."
-msgstr "Share your shopping experience with your friends."
+#~ msgid "Poznámka k doručovací adrese"
+#~ msgstr "Note to delivery address"
 
-msgid "Sdílet"
-msgstr "Share"
+#~ msgid "Poznámka k objednávce"
+#~ msgstr "Note to order"
 
-msgid "zvolit pobočku"
-msgstr "choose a branch office"
+#~ msgid "Price: %1 <span class=\"dph\">incl. VAT</span>"
+#~ msgstr "Price: %1 <span class=\"dph\">incl. VAT</span>"
 
-msgid "Pobočka: %1, %2, %3, %4"
-msgstr "Branch:  %1, %2, %3, %4"
+#~ msgid "Pochlubte se přátelům s Vaším nákupem."
+#~ msgstr "Share your shopping experience with your friends."
 
-msgid "Zobrazit detaily"
-msgstr "View details"
+#~ msgid "Sdílet"
+#~ msgstr "Share"
 
-msgid "Ukázat na mapě"
-msgstr "Show on map"
+#~ msgid "zvolit pobočku"
+#~ msgstr "choose a branch office"
 
-msgid "searching ..."
-msgstr "searching ..."
+#~ msgid "Pobočka: %1, %2, %3, %4"
+#~ msgstr "Branch:  %1, %2, %3, %4"
 
-msgid "Obchodní podmínky"
-msgstr "Terms and Conditions"
+#~ msgid "Zobrazit detaily"
+#~ msgstr "View details"
 
-msgid "cena od<br>%1"
-msgstr "price from<br>%1"
+#~ msgid "Ukázat na mapě"
+#~ msgstr "Show on map"
 
-msgid "Článek"
-msgstr "Article"
+#~ msgid "searching ..."
+#~ msgstr "searching ..."
 
-msgid "Kategorie produktů"
-msgstr "Product category"
+#~ msgid "Obchodní podmínky"
+#~ msgstr "Terms and Conditions"
 
-msgid "Stránka"
-msgstr "Page"
+#~ msgid "cena od<br>%1"
+#~ msgstr "price from<br>%1"
 
-msgid "Tvůrce"
-msgstr "Creator"
+#~ msgid "Článek"
+#~ msgstr "Article"
 
-msgid "Nic nebylo nelezeno."
-msgstr "Nothing was found."
+#~ msgid "Kategorie produktů"
+#~ msgstr "Product category"
 
-msgid "cena od %1"
-msgstr "price from %1"
+#~ msgid "Stránka"
+#~ msgstr "Page"
+
+#~ msgid "Tvůrce"
+#~ msgstr "Creator"
+
+#~ msgid "Nic nebylo nelezeno."
+#~ msgstr "Nothing was found."
+
+#~ msgid "cena od %1"
+#~ msgstr "price from %1"
 
 #~ msgid "Hello %1!"
 #~ msgstr "Hello %1!"
