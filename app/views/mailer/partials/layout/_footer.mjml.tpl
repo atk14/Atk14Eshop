@@ -38,8 +38,11 @@
 						{/if}
 					</p>
 					<p class="footertext">
-						{t}E-mail:{/t} <a href="mailto:{$email}">{$email}</a><br/>
-						{t}Tel:{/t} <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a>
+						{t}E-mail:{/t} <a href="mailto:{$email}">{$email}</a>
+						{if $phone_number}
+							<br/>
+							{t}Tel:{/t} <a href="tel:{$phone_number}">{"app.contact.phone"|system_parameter|display_phone}</a>
+						{/if}
 					</p>
 				</mj-text>
 			</mj-column>
