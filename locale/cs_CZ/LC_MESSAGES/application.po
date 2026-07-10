@@ -433,7 +433,7 @@ msgid ""
 "spam and junk filters."
 msgstr ""
 "Pokud neobdržíte instrukce do několika minut, zkontrolujte spamovou složku a "
-"spamová filtry."
+"spamové filtry."
 
 msgid "Attachments"
 msgstr "Přílohy"
