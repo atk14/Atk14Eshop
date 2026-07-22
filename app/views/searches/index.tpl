@@ -15,6 +15,11 @@
 		<p class="nosearchresult">{t}Nic nebylo nalezeno.{/t}</p>
 
 	{else}
+		
+		{if $finder->hardLimitReached()}
+			<p>{t}Nalezeno příliš mnoho výsledků. Upřesněte dotaz.{/t}</p>
+		{/if}
+
 		<div class="card-deck-wrapper">
 			<div class="card-deck card-deck--search">
 				{foreach $finder->getItems() as $item}
