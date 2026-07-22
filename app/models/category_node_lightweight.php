@@ -12,9 +12,17 @@ class CategoryLightweightProxy {
 	}
 
 	function getId()             { return (int)$this->data['id']; }
-	function isFilter()          { return (bool)$this->data['is_filter']; }
+	function isFilter()          { return $this->_bool($this->data['is_filter']); }
 	function isPointingToCategory() { return !is_null($this->data['pointing_to_category_id']); }
-	function g($field)           { return $this->data[$field] ?? null; }
+	function g($field)           { return $this->_normalize($this->data[$field] ?? null); }
+
+	// PostgreSQL returns booleans as 't'/'f' strings — normalize to PHP bool.
+	private function _bool($val)      { return $val === true || $val === 't'; }
+	private function _normalize($val) {
+		if ($val === 't') { return true; }
+		if ($val === 'f') { return false; }
+		return $val;
+	}
 
 	function getName($lang = null) {
 		global $ATK14_GLOBAL;
