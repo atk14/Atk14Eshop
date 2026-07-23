@@ -44,17 +44,21 @@ class CategoryTreesController extends AdminController{
 
 		// One recursive query — only the columns the template actually uses.
 		// Names are stored in the translations table (key='name', lang='cs'/'en').
+		// Recursion follows real_id = COALESCE(pointing_to_category_id, id) so that
+		// children of aliased categories are included (same as CategoryTree behaviour).
 		$rows = $dbmole->selectRows(
-			"WITH RECURSIVE subtree(id, parent_category_id, rank) AS (
-				SELECT id, parent_category_id, rank
+			"WITH RECURSIVE subtree(id, real_id, parent_category_id, rank) AS (
+				SELECT id, COALESCE(pointing_to_category_id, id), parent_category_id, rank
 				FROM categories WHERE id = :root_id
 			UNION
-				SELECT c.id, c.parent_category_id, c.rank
+				SELECT c.id, COALESCE(c.pointing_to_category_id, c.id), c.parent_category_id, c.rank
 				FROM categories c
-				JOIN subtree s ON c.parent_category_id = s.id
+				JOIN subtree s ON c.parent_category_id = s.real_id
 			)
 			SELECT
-				c.id, c.parent_category_id,
+				c.id,
+				COALESCE(c.pointing_to_category_id, c.id) AS real_id,
+				c.parent_category_id,
 				c.visible, c.is_filter, c.pointing_to_category_id,
 				MAX(CASE WHEN t.key = 'name' AND t.lang = 'cs' THEN t.body END) AS name_cs,
 				MAX(CASE WHEN t.key = 'name' AND t.lang = 'en' THEN t.body END) AS name_en
