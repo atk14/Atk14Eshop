@@ -18,14 +18,14 @@
 {if $images}
 	{* {if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if} *}
 	<section class="photo-gallery{if $compact} photo-gallery--compact{/if}">
-		<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
+		<div class="gallery__images">
 			{foreach $images as $image}
-				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()} - {t}Enlarge image{/t}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+				<figure class="gallery__item">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()} - {t}Enlarge image{/t}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}">
 						<picture>
 							<source srcset="{!$image|img_url:("x200"|cat:",format=webp")}" type="image/webp">
 							<source srcset="{!$image|img_url:"x200"}">
-							<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" loading="lazy" itemprop="thumbnail">
+							<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" loading="lazy">
 						</picture>
 					</a>
 					<figcaption>
