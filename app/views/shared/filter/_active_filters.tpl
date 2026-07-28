@@ -1,3 +1,5 @@
+{if $filter}
+
 {assign active_filters $filter->getActiveFilters($page_params)}
 
 {strip}
@@ -26,3 +28,5 @@
 	</div>
 </div>
 {/strip}
+
+{/if}

@@ -1,3 +1,7 @@
+{if !$pager}
+	{assign page $finder->getPager()}
+{/if}
+
 {*//#TODO js
 //pokud bezi dalsi request, tak nic neprekreslujeme*}
 (function() {
@@ -19,7 +23,7 @@ if( --form[0].filtering == 0 ) {
 	{/if}
 
 	{if $finder->isEmpty()}
-			empty.html({jstring}{render partial=$finder->getPager()->getEmptyTemplate()}{/jstring});
+			empty.html({jstring}{render partial=$pager->getEmptyTemplate()}{/jstring});
 			empty.show();
 			view.find('.js--nonempty-list').hide();
 			view.find('.js--pager-buttons').hide();
@@ -48,7 +52,7 @@ if( --form[0].filtering == 0 ) {
 			empty.hide();
 	{/if}
 
-	{if !$finder->getPager()->isXhr() || $finder->getPager()->isXhrOrdered()}
+	{if !$pager->isXhr() || $pager->isXhrOrdered()}
 		{if !$doNotrerenderFilters}
 			$('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
 			$('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
@@ -62,7 +66,7 @@ if( --form[0].filtering == 0 ) {
 			NoUISlider.Init();
 		}
 		var ajaxPager = view.find('.ajax_pager')[0].ajaxPager;
-		$.extend(ajaxPager, {!$finder->getPager()->jsUpdate()});
+		$.extend(ajaxPager, {!$pager->jsUpdate()});
 		ajaxPager.count = {$finder->getRecords()|count};
 		view.find('.ajax_pager').data( "count", {$finder->getRecords()|count});
 		ajaxPager.reinit();
