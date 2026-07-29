@@ -288,6 +288,26 @@ window.UTILS._search_suggestion = {
 			} );
 		} );
 
+		$( "body" ).on( "click", "a[data-snippet-link]", function( e ) {
+			e.preventDefault();
+			var $link = $( this );
+			var href = $link.attr( "href" );
+			var url = href + ( href.indexOf( "?" ) === -1 ? "?" : "&" ) + "format=snippet";
+
+			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
+				var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
+				if ( $link.closest( $suggestingArea ).length ) {
+					$.ajax( {
+						dataType: "html",
+						url: url,
+						success: function( snippet ) {
+							$suggestingArea.html( snippet );
+						}
+					} );
+				}
+			} );
+		} );
+
 		$( window ).on( "resize", function() {
 			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
 				var state = window.UTILS._search_suggestion.states[ stateIndex ];
