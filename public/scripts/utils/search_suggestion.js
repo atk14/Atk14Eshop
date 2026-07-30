@@ -19,7 +19,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var contentSearching;
 
-	options = $.extend( { hiding_suggesting_area: true }, options || {} );
+	options = $.extend( {
+		hiding_suggesting_area: true,
+		suggest_on_empty: false
+	}, options || {} );
 	// console.log( fieldClassName );
 	// console.log( options );
 
@@ -91,7 +94,7 @@ window.UTILS._search_suggestion = {
 		//}
 
 		var searchFn = function( search ) {
-			if ( search === "" ) {
+			if ( search === "" && !window.UTILS._search_suggestion.states[ stateIndex ].options.suggest_on_empty ) {
 				$suggestingArea.html(
 					window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaOriginalContent
 				);
@@ -214,7 +217,8 @@ window.UTILS._search_suggestion = {
 
 				var searchFieldIsActiveAndEmpty =
 					$activeElement.hasClass( fieldClassName ) &&
-					$activeElement.val().length === 0;
+					$activeElement.val().length === 0 &&
+					!state.options.suggest_on_empty;
 
 				if ( $activeElement.hasClass( fieldClassName ) ) {
 					$currentSearchField = $activeElement;
