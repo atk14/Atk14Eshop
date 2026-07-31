@@ -6,7 +6,8 @@
 //pokud bezi dalsi request, tak nic neprekreslujeme*}
 (function() {
 var form=$("#filter_form");
-if( --form[0].filtering == 0 ) {
+if( --form[0].filtering <= 0 ) {
+	form[0].filtering = 0;
 	var view=$('#cards');
 	var empty=view.find('.js--empty-list');
 	var nonempty=view.find;
