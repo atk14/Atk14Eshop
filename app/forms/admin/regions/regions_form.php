@@ -40,6 +40,15 @@ class RegionsForm extends AdminForm {
 			"max_choice_items_1" => _("Currently, only one currency can be selected.")
 		]);
 
+		$this->add_translatable_field("terms_and_conditions_attachment_url",new AsyncPupiqAttachmentField([
+			"label" => _("Terms and Conditions in PDF format"),
+			"required" => false,
+			"allowed_mime_types" => [
+				"application/pdf",
+			],
+			"help_text" => _("This file will be sent as an email attachment along with the order summary."),
+		]));
+
 		$this->add_code_field([
 			"required" => true,
 			"disabled" => true,
