@@ -187,6 +187,35 @@ class ApplicationMailer extends Atk14Mailer {
 			$this->bcc .= $this->bcc ? ", " : "";
 			$this->bcc .= $order_status->getBccEmail();
 		}
+
+		$terms_and_conditions_attachment_url = $region->getTermsAndConditionsAttachmentUrl();
+		if($terms_and_conditions_attachment_url){
+			// Download and cache the attachment containing the terms and conditions. Do not crash if the download fails.
+			// TODO: This code should be moved to a new external utility.
+			$cache = new CacheFileStorage(TEMP . "/terms_and_conditions_attachments/");
+			$pa = new PupiqAttachment($terms_and_conditions_attachment_url);
+			$url = $key = $pa->getUrl();
+			$attachment_ar = null;
+			if(!$cache->readInto($key,$attachment_ar)){
+				$uf = new UrlFetcher($pa->getUrl(),[
+					"socket_timeout" => 1.0,
+					"read_timeout" => 3.0,
+				]);
+				if($uf->found()){
+					$attachment_ar = [
+						"content" => (string)$uf->getContent(),
+						"filename" => $uf->getFilename(),
+						"mime_type" => $uf->getContentType(),
+					];
+					$cache->write($key,$attachment_ar);
+				}else{
+					trigger_error("Terms and conditions attachment URL cannot be read ($url): ".$uf->getErrorMessage());
+				}
+			}
+			if($attachment_ar){
+				$this->add_attachment($attachment_ar["content"],$attachment_ar["filename"],$attachment_ar["mime_type"]);
+			}
+		}
 	}
 
 	function notify_order_status_update($order){
