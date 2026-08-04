@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 12:00+0100\n"
+"POT-Creation-Date: 2026-08-04 23:08+0200\n"
 "PO-Revision-Date: 2025-01-28 12:09+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -102,7 +102,7 @@ msgstr "Profile"
 msgid "Sign out"
 msgstr "Sign out"
 
-#: ../app/controllers/admin/admin.php:9
+#: ../app/controllers/admin/admin.php:12
 #: ../app/controllers/admin/main_controller.php:4
 msgid "Administration"
 msgstr "Administration"
@@ -200,51 +200,20 @@ msgstr ""
 msgid "Delete user"
 msgstr "Delete user"
 
-#: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/admin/admin.php:31
 msgid "Welcome screen"
 msgstr "Welcome screen"
 
-#: ../app/controllers/admin/admin.php:29
+#: ../app/controllers/admin/admin.php:32
 msgid "Users"
 msgstr "Users"
 
-#: ../app/controllers/admin/admin.php:30
+#: ../app/controllers/admin/admin.php:33
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Password recoveries"
 
-#: ../app/controllers/admin/admin.php:94
-#, php-format
-msgid "Seznam objektů typu %s"
-msgstr "List of objects of type %s"
-
-#: ../app/controllers/admin/admin.php:129
-msgid "The record has been created"
-msgstr "The record has been created"
-
-#: ../app/controllers/admin/admin.php:143
-#, php-format
-msgid "Vytvořit objekt typu %s"
-msgstr "Create an object of type %s"
-
-#: ../app/controllers/admin/admin.php:195
-msgid "Změny byly uloženy"
-msgstr "The changes have been saved"
-
-#: ../app/controllers/admin/admin.php:230
-#, php-format
-msgid "Editace objektu typu %s"
-msgstr "Editing object of type %s"
-
-#: ../app/controllers/admin/admin.php:264
-msgid "Ve formuláři nebylo nic změněno"
-msgstr "Nothing has been changed in the form"
-
-#: ../app/controllers/admin/admin.php:386
-msgid "The entry has been deleted"
-msgstr "The entry has been deleted"
-
-#: ../app/controllers/admin/admin.php:405
+#: ../app/controllers/admin/admin.php:70
 msgid "Fotogalerie"
 msgstr "Photogallery"
 
@@ -360,6 +329,30 @@ msgstr "Inactive user can not be logged in"
 #: ../app/forms/admin/users/users_form.php:52
 msgid "The same login is already used for another user"
 msgstr "The same login is already used for another user"
+
+#, php-format
+#~ msgid "Seznam objektů typu %s"
+#~ msgstr "List of objects of type %s"
+
+#~ msgid "The record has been created"
+#~ msgstr "The record has been created"
+
+#, php-format
+#~ msgid "Vytvořit objekt typu %s"
+#~ msgstr "Create an object of type %s"
+
+#~ msgid "Změny byly uloženy"
+#~ msgstr "The changes have been saved"
+
+#, php-format
+#~ msgid "Editace objektu typu %s"
+#~ msgstr "Editing object of type %s"
+
+#~ msgid "Ve formuláři nebylo nic změněno"
+#~ msgstr "Nothing has been changed in the form"
+
+#~ msgid "The entry has been deleted"
+#~ msgstr "The entry has been deleted"
 
 #~ msgid ""
 #~ "Are you sure to delete article item\n"
