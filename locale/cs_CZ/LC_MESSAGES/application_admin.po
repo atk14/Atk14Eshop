@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-04 23:01+0200\n"
-"PO-Revision-Date: 2026-06-03 14:09+0200\n"
+"PO-Revision-Date: 2025-01-28 12:10+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -2175,7 +2175,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:61
 msgid "Selling regions"
-msgstr "Prodejní oblasti"
+msgstr "Prodejná oblasti"
 
 #: ../app/controllers/admin/admin.php:62
 #: ../app/forms/admin/users/users_form.php:48
@@ -5191,6 +5191,33 @@ msgstr "Importovat"
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
 
+msgid "pouze při zvoleném způsobu doručení %1"
+msgstr "pouze při zvoleném způsobu doručení %1"
+
+msgid "pouze pro způsob doručení %1"
+msgstr "pouze pro způsob doručení %1"
+
+msgid "Uplatňuje se pouze při použitém způsobu doručení"
+msgstr "Uplatňuje se pouze při použitém způsobu doručení"
+
+msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
+msgstr "Doprava zdarma se vztahuje pouze na způsob doručení"
+
+msgid "sales regions"
+msgstr "prodejní oblasti"
+
+msgid "currencies"
+msgstr "měny"
+
+msgid "delivery to"
+msgstr "doručování do"
+
+msgid "currency"
+msgstr "měna"
+
+msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
+
 #, php-format
 #~ msgid "Seznam objektů typu %s"
 #~ msgstr "Seznam objektů typu %s"
@@ -5211,33 +5238,6 @@ msgstr "Uplatňuje se v e-shopu?"
 
 #~ msgid "The entry has been deleted"
 #~ msgstr "Záznam byl smazán"
-
-#~ msgid "pouze při zvoleném způsobu doručení %1"
-#~ msgstr "pouze při zvoleném způsobu doručení %1"
-
-#~ msgid "pouze pro způsob doručení %1"
-#~ msgstr "pouze pro způsob doručení %1"
-
-#~ msgid "Uplatňuje se pouze při použitém způsobu doručení"
-#~ msgstr "Uplatňuje se pouze při použitém způsobu doručení"
-
-#~ msgid "Doprava zdarma se vztahuje pouze na způsob doručení"
-#~ msgstr "Doprava zdarma se vztahuje pouze na způsob doručení"
-
-#~ msgid "sales regions"
-#~ msgstr "prodejní oblasti"
-
-#~ msgid "currencies"
-#~ msgstr "měny"
-
-#~ msgid "delivery to"
-#~ msgstr "doručování do"
-
-#~ msgid "currency"
-#~ msgstr "měna"
-
-#~ msgid "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
-#~ msgstr "V případě potřeby popište zákazníkům význam tohoto slevového kupónu"
 
 #, php-format
 #~ msgid "Způsoby platby pro způsob doručení '%s'"

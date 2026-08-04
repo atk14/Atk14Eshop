@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-04 23:01+0200\n"
-"PO-Revision-Date: 2026-08-04 23:05+0200\n"
+"POT-Creation-Date: 2026-08-04 23:25+0200\n"
+"PO-Revision-Date: 2026-08-04 23:10+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -2455,7 +2455,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, no-php-format
+#, fuzzy, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 
@@ -3505,6 +3505,67 @@ msgstr "Objednávka č. %s v e-shopu %s"
 msgid "obj. %s"
 msgstr "obj. %s"
 
+msgid "Tel."
+msgstr "Tel."
+
+msgid "Loading"
+msgstr "Nahrávání"
+
+msgid "Enter the ZIP code as NNN NN"
+msgstr "Zadejte PSČ jako NNN NN"
+
+msgid "Žádné podací místo nebylo nalezeno"
+msgstr "Žádné podací místo nebylo nalezeno"
+
+msgid "Pobočka nebyla nalezena"
+msgstr "Pobočka nebyla nalezena"
+
+msgid "Object not found"
+msgstr "Objekt nebyl nalezen"
+
+msgid "Výdejní místo"
+msgstr "Výdejní místo"
+
+msgid "Zadejte psč, město nebo název provozovny"
+msgstr "Zadejte psč, město nebo název provozovny"
+
+msgid "Pro opakování platby přejděte na adresu %1"
+msgstr "Pro opakování platby přejděte na adresu %1"
+
+msgid ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+msgstr ""
+"Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
+"přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
+
+msgid "Checkout"
+msgstr "Pokladna"
+
+msgid "<small>cena od</small><br>%1"
+msgstr "<small>cena od</small><br>%1"
+
+msgid "naskladnění sleduje hlídací pes"
+msgstr "naskladnění sleduje hlídací pes"
+
+msgid "aktivovat hlídacího psa"
+msgstr "aktivovat hlídacího psa"
+
+msgid "Zobrazit detaily"
+msgstr "Zobrazit detaily"
+
+msgid "searching ..."
+msgstr "hledání ..."
+
+msgid "cena od<br>%1"
+msgstr "cena od<br>%1"
+
+msgid "Tvůrce"
+msgstr "Tvůrce"
+
+msgid "Nic nebylo nelezeno."
+msgstr "Nic nebylo nelezeno."
+
 #~ msgid "První strana"
 #~ msgstr "První strana"
 
@@ -3552,69 +3613,8 @@ msgstr "obj. %s"
 #~ msgid "Objednávka: <strong>č. %1 vytvořená %2</strong>"
 #~ msgstr "Objednávka: <strong>č. %1 vytvořená %2</strong>"
 
-#~ msgid "Tel."
-#~ msgstr "Tel."
-
 #~ msgid "Sledujte nás na&nbsp;Facebooku:"
 #~ msgstr "Sledujte nás na&nbsp;Facebooku:"
-
-#~ msgid "Loading"
-#~ msgstr "Nahrávání"
-
-#~ msgid "Enter the ZIP code as NNN NN"
-#~ msgstr "Zadejte PSČ jako NNN NN"
-
-#~ msgid "Žádné podací místo nebylo nalezeno"
-#~ msgstr "Žádné podací místo nebylo nalezeno"
-
-#~ msgid "Pobočka nebyla nalezena"
-#~ msgstr "Pobočka nebyla nalezena"
-
-#~ msgid "Object not found"
-#~ msgstr "Objekt nebyl nalezen"
-
-#~ msgid "Výdejní místo"
-#~ msgstr "Výdejní místo"
-
-#~ msgid "Zadejte psč, město nebo název provozovny"
-#~ msgstr "Zadejte psč, město nebo název provozovny"
-
-#~ msgid "Pro opakování platby přejděte na adresu %1"
-#~ msgstr "Pro opakování platby přejděte na adresu %1"
-
-#~ msgid ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-#~ msgstr ""
-#~ "Pro opakování online platby <a href=\"%1\">klikně zde</a>. V případě "
-#~ "přetrvávajících potíží můžete objednávku uhradit bankovním převodem."
-
-#~ msgid "Checkout"
-#~ msgstr "Pokladna"
-
-#~ msgid "<small>cena od</small><br>%1"
-#~ msgstr "<small>cena od</small><br>%1"
-
-#~ msgid "naskladnění sleduje hlídací pes"
-#~ msgstr "naskladnění sleduje hlídací pes"
-
-#~ msgid "aktivovat hlídacího psa"
-#~ msgstr "aktivovat hlídacího psa"
-
-#~ msgid "Zobrazit detaily"
-#~ msgstr "Zobrazit detaily"
-
-#~ msgid "searching ..."
-#~ msgstr "hledání ..."
-
-#~ msgid "cena od<br>%1"
-#~ msgstr "cena od<br>%1"
-
-#~ msgid "Tvůrce"
-#~ msgstr "Tvůrce"
-
-#~ msgid "Nic nebylo nelezeno."
-#~ msgstr "Nic nebylo nelezeno."
 
 #~ msgid "Hello %1!"
 #~ msgstr "Dobrý den %1!"
