@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 10:36+0200\n"
+"POT-Creation-Date: 2026-08-04 23:01+0200\n"
 "PO-Revision-Date: 2026-06-03 14:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -68,7 +68,7 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Datum"
 
-#: ../app/controllers/admin/admin.php:34
+#: ../app/controllers/admin/admin.php:37
 #: ../app/forms/admin/articles/articles_form.php:54
 #: ../app/forms/admin/cards/cards_form.php:81
 #: ../app/forms/admin/categories/categories_form.php:64
@@ -85,7 +85,7 @@ msgstr "Momentálně tady přílohy nejsou."
 msgid "Sales regions"
 msgstr "Prodejní oblasti"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:55
 #: ../app/forms/admin/bank_accounts/bank_accounts_form.php:26
 msgid "Currencies"
 msgstr "Měny"
@@ -240,7 +240,7 @@ msgstr "Varianty na produktové kartě <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr "Určete produkt, který zůstane po spojení zachován."
 
-#: ../app/controllers/admin/admin.php:119
+#: ../app/controllers/admin/admin.php:144
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "neviditelné"
@@ -537,18 +537,18 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:115
+#: ../app/controllers/admin/admin.php:140
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:116
+#: ../app/controllers/admin/admin.php:141
 msgid "link"
 msgstr "odkaz"
 
 msgid "This category has no subcategories."
 msgstr "Tato kategorie nemá žádné podkategorie."
 
-#: ../app/controllers/admin/admin.php:36
+#: ../app/controllers/admin/admin.php:39
 msgid "Products"
 msgstr "Produkty"
 
@@ -1472,6 +1472,9 @@ msgstr "Doručení do"
 msgid "Currency"
 msgstr "Měna"
 
+msgid "Terms and Conditions"
+msgstr ""
+
 msgid ""
 "You are about to permanently delete VAT rate %1\n"
 "\t\tAre you sure about that?"
@@ -1644,7 +1647,7 @@ msgstr "Profil"
 msgid "Sign out"
 msgstr "Odhlásit se"
 
-#: ../app/controllers/admin/admin.php:9
+#: ../app/controllers/admin/admin.php:12
 #: ../app/controllers/admin/main_controller.php:5
 msgid "Administration"
 msgstr "Administrace"
@@ -1941,7 +1944,7 @@ msgstr "smazáno"
 msgid "Adding a special pricelist"
 msgstr "Přidání speciálního ceníku"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:50
 #: ../app/controllers/admin/special_pricelists_controller.php:5
 msgid "Special price lists"
 msgstr "Speciální ceníky"
@@ -2061,196 +2064,164 @@ msgstr "Přidání nového příslušenství"
 msgid "Accessory product has been added"
 msgstr "Příslušenství bylo přidáno"
 
-#: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/admin/admin.php:31
 msgid "Welcome screen"
 msgstr "Vítací obrazovka"
 
-#: ../app/controllers/admin/admin.php:29
+#: ../app/controllers/admin/admin.php:32
 msgid "Orders"
 msgstr "Objednávky"
 
-#: ../app/controllers/admin/admin.php:30
+#: ../app/controllers/admin/admin.php:33
 #: ../app/controllers/admin/iobjects_base.php:106
 msgid "Articles"
 msgstr "Články"
 
-#: ../app/controllers/admin/admin.php:31
+#: ../app/controllers/admin/admin.php:34
 #: ../app/controllers/admin/iobjects_base.php:111
 #: ../app/controllers/admin/pages_controller.php:5
 msgid "Pages"
 msgstr "Stránky"
 
-#: ../app/controllers/admin/admin.php:32
+#: ../app/controllers/admin/admin.php:35
 #: ../app/controllers/admin/link_lists_controller.php:5
 msgid "Link lists"
 msgstr "Seznamy odkazů"
 
-#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/admin.php:36
 msgid "Image sliders"
 msgstr "Obrázkové posuvníky"
 
-#: ../app/controllers/admin/admin.php:35
+#: ../app/controllers/admin/admin.php:38
 msgid "Users"
 msgstr "Uživatelé"
 
-#: ../app/controllers/admin/admin.php:37
+#: ../app/controllers/admin/admin.php:40
 #: ../app/controllers/admin/customer_reviews_controller.php:5
 msgid "Customer reviews"
 msgstr "Recenze zákazníků"
 
-#: ../app/controllers/admin/admin.php:38
+#: ../app/controllers/admin/admin.php:41
 msgid "Product types"
 msgstr "Typy produktů"
 
-#: ../app/controllers/admin/admin.php:39
+#: ../app/controllers/admin/admin.php:42
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../app/controllers/admin/admin.php:40
+#: ../app/controllers/admin/admin.php:43
 msgid "Vouchers"
 msgstr "Poukazy"
 
-#: ../app/controllers/admin/admin.php:41
+#: ../app/controllers/admin/admin.php:44
 msgid "Campaigns"
 msgstr "Kampaně"
 
-#: ../app/controllers/admin/admin.php:42
+#: ../app/controllers/admin/admin.php:45
 msgid "Brands"
 msgstr "Značky"
 
-#: ../app/controllers/admin/admin.php:44
+#: ../app/controllers/admin/admin.php:47
 msgid "Stores"
 msgstr "Prodejny"
 
-#: ../app/controllers/admin/admin.php:45
+#: ../app/controllers/admin/admin.php:48
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
 msgstr "Sklady"
 
-#: ../app/controllers/admin/admin.php:46
+#: ../app/controllers/admin/admin.php:49
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Price lists"
 msgstr "Ceníky"
 
-#: ../app/controllers/admin/admin.php:48
+#: ../app/controllers/admin/admin.php:51
 msgid "Discounts"
 msgstr "Slevy"
 
-#: ../app/controllers/admin/admin.php:49
+#: ../app/controllers/admin/admin.php:52
 msgid "Delivery methods"
 msgstr "Způsoby doručení"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:53
 msgid "Payment methods"
 msgstr "Platební metody"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:54
 msgid "Combination of transports and payments"
 msgstr "Kombinace přeprav a plateb"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:56
 msgid "VAT rates"
 msgstr "Sazby DPH"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:57
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:58
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:56
+#: ../app/controllers/admin/admin.php:59
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "Přesměrování 404"
 
-#: ../app/controllers/admin/admin.php:57
+#: ../app/controllers/admin/admin.php:60
 msgid "Order statuses"
 msgstr "Stavy objednávky"
 
-#: ../app/controllers/admin/admin.php:58
+#: ../app/controllers/admin/admin.php:61
 msgid "Selling regions"
 msgstr "Prodejní oblasti"
 
-#: ../app/controllers/admin/admin.php:59
+#: ../app/controllers/admin/admin.php:62
 #: ../app/forms/admin/users/users_form.php:48
 msgid "Customer groups"
 msgstr "Zákaznické skupiny"
 
-#: ../app/controllers/admin/admin.php:60
+#: ../app/controllers/admin/admin.php:63
 msgid "Bank accounts"
 msgstr "Bankovní účty"
 
-#: ../app/controllers/admin/admin.php:61
+#: ../app/controllers/admin/admin.php:64
 msgid "Cookie consent"
 msgstr "Souhlas se soubory cookie"
 
-#: ../app/controllers/admin/admin.php:62
+#: ../app/controllers/admin/admin.php:65
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:102
+#: ../app/controllers/admin/admin.php:104
+#: ../app/controllers/admin/galleries_controller.php:34
+msgid "Fotogalerie"
+msgstr "Fotogalerie"
+
+#: ../app/controllers/admin/admin.php:127
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:138
+#: ../app/controllers/admin/admin.php:163
 #: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/admin.php:142
+#: ../app/controllers/admin/admin.php:167
 #: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/admin.php:150
+#: ../app/controllers/admin/admin.php:175
 #: ../app/controllers/admin/users_controller.php:91
 #, php-format
 msgid "Editing user %s"
 msgstr "Editace uživatele %s"
-
-#: ../app/controllers/admin/admin.php:194
-#, php-format
-msgid "Seznam objektů typu %s"
-msgstr "Seznam objektů typu %s"
-
-#: ../app/controllers/admin/admin.php:229
-msgid "The record has been created"
-msgstr "Záznam byl vytvořen"
-
-#: ../app/controllers/admin/admin.php:243
-#, php-format
-msgid "Vytvořit objekt typu %s"
-msgstr "Vytvořit objekt typu %s"
-
-#: ../app/controllers/admin/admin.php:295
-#: ../app/controllers/admin/card_sections_controller.php:27
-msgid "Změny byly uloženy"
-msgstr "Změny byly uloženy"
-
-#: ../app/controllers/admin/admin.php:330
-#, php-format
-msgid "Editace objektu typu %s"
-msgstr "Editace objektu typu %s"
-
-#: ../app/controllers/admin/admin.php:364
-msgid "Ve formuláři nebylo nic změněno"
-msgstr "Nothing has been changed in the form"
-
-#: ../app/controllers/admin/admin.php:486
-msgid "The entry has been deleted"
-msgstr "Záznam byl smazán"
-
-#: ../app/controllers/admin/admin.php:505
-#: ../app/controllers/admin/galleries_controller.php:34
-msgid "Fotogalerie"
-msgstr "Fotogalerie"
 
 #: ../app/controllers/admin/articles_controller.php:5
 msgid "Listing Articles"
@@ -2436,6 +2407,10 @@ msgstr "Bylo by pěkné doplnit nějaké další informace"
 #: ../app/controllers/admin/card_sections_controller.php:18
 msgid "Editace textové sekce"
 msgstr "Editace textové sekce"
+
+#: ../app/controllers/admin/card_sections_controller.php:27
+msgid "Změny byly uloženy"
+msgstr "Změny byly uloženy"
 
 #: ../app/controllers/admin/categories_controller.php:10
 #, php-format
@@ -4702,6 +4677,15 @@ msgstr "Podporované měny"
 msgid "Currently, only one currency can be selected."
 msgstr "Momentálně může být vybrána pouze jedna měna."
 
+#: ../app/forms/admin/regions/regions_form.php:44
+msgid "Terms and Conditions in PDF format"
+msgstr ""
+
+#: ../app/forms/admin/regions/regions_form.php:49
+msgid ""
+"This file will be sent as an email attachment along with the order summary."
+msgstr ""
+
 #: ../app/forms/admin/related_cards/create_new_form.php:10
 msgid "Vytvořit také opačnou vazbu?"
 msgstr "Vytvořit také opačnou vazbu?"
@@ -5206,6 +5190,27 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#, php-format
+#~ msgid "Seznam objektů typu %s"
+#~ msgstr "Seznam objektů typu %s"
+
+#~ msgid "The record has been created"
+#~ msgstr "Záznam byl vytvořen"
+
+#, php-format
+#~ msgid "Vytvořit objekt typu %s"
+#~ msgstr "Vytvořit objekt typu %s"
+
+#, php-format
+#~ msgid "Editace objektu typu %s"
+#~ msgstr "Editace objektu typu %s"
+
+#~ msgid "Ve formuláři nebylo nic změněno"
+#~ msgstr "Nothing has been changed in the form"
+
+#~ msgid "The entry has been deleted"
+#~ msgstr "Záznam byl smazán"
 
 #~ msgid "pouze při zvoleném způsobu doručení %1"
 #~ msgstr "pouze při zvoleném způsobu doručení %1"
