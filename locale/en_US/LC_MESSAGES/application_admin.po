@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-04 23:25+0200\n"
-"PO-Revision-Date: 2025-01-28 12:09+0100\n"
+"POT-Creation-Date: 2026-08-07 10:54+0200\n"
+"PO-Revision-Date: 2026-08-07 11:14+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -1475,7 +1475,7 @@ msgid "Currency"
 msgstr "Currency"
 
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Terms and Conditions"
 
 msgid ""
 "You are about to permanently delete VAT rate %1\n"
@@ -4088,9 +4088,11 @@ msgstr "Multiply shipping price by the number of related products in the cart?"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:88
 msgid ""
-"Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+"Lze aktivovat, pokud je nastaveno \"Určeno pro štítky\" nebo \"Exkluzivně "
 "pro štítek\"."
 msgstr ""
+"This can be enabled if “Designed for labels” or “Exclusively for label” is "
+"selected."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:93
 msgid "Pro systémové účely. Unikátní kód."
@@ -4123,8 +4125,10 @@ msgstr "Specify the price"
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:135
 msgid ""
 "Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
-"štítek\" nebo \"Exkluzivně pro štítek\""
+"štítky\" nebo \"Exkluzivně pro štítek\""
 msgstr ""
+"Price multiplication can only be enabled if “Designed for labels” or "
+"“Exclusively for label” is selected."
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:6
 #: ../app/forms/admin/invoice_files/create_new_form.php:6
@@ -4677,12 +4681,13 @@ msgstr "Currently, only one currency can be selected."
 
 #: ../app/forms/admin/regions/regions_form.php:44
 msgid "Terms and Conditions in PDF format"
-msgstr ""
+msgstr "Terms and Conditions in PDF format"
 
 #: ../app/forms/admin/regions/regions_form.php:49
 msgid ""
 "This file will be sent as an email attachment along with the order summary."
 msgstr ""
+"This file will be sent as an email attachment along with the order summary."
 
 #: ../app/forms/admin/related_cards/create_new_form.php:10
 msgid "Vytvořit také opačnou vazbu?"
@@ -5192,37 +5197,37 @@ msgstr "Import"
 msgid "Applicable to eshop?"
 msgstr "Applicable to eshop?"
 
-msgid "pouze při zvoleném způsobu doručení %1"
-msgstr "only with the selected delivery method %1"
+#~ msgid "pouze při zvoleném způsobu doručení %1"
+#~ msgstr "only with the selected delivery method %1"
 
-msgid "pouze pro způsob doručení %1"
-msgstr "only for delivery method %1"
+#~ msgid "pouze pro způsob doručení %1"
+#~ msgstr "only for delivery method %1"
 
-msgid "Způsob doručení"
-msgstr "Delivery method"
+#~ msgid "Způsob doručení"
+#~ msgstr "Delivery method"
 
-msgid "Pricelists"
-msgstr "Pricelists"
+#~ msgid "Pricelists"
+#~ msgstr "Pricelists"
 
-msgid "Vypnout"
-msgstr "Disable"
+#~ msgid "Vypnout"
+#~ msgstr "Disable"
 
-msgid "Zapnout"
-msgstr "Enable"
+#~ msgid "Zapnout"
+#~ msgstr "Enable"
 
 #, php-format
-msgid "This page is the profile page for another creator (%s)"
-msgstr "This page is the profile page for another creator (%s)"
+#~ msgid "This page is the profile page for another creator (%s)"
+#~ msgstr "This page is the profile page for another creator (%s)"
 
-msgid "Edit stockount in warehouse %1"
-msgstr "Edit stockount in warehouse %1"
+#~ msgid "Edit stockount in warehouse %1"
+#~ msgstr "Edit stockount in warehouse %1"
 
-msgid ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
-msgstr ""
-"You are about to permanently delete user %1\n"
-"Are you sure about that?"
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
+#~ msgstr ""
+#~ "You are about to permanently delete user %1\n"
+#~ "Are you sure about that?"
 
 #, php-format
 #~ msgid "Seznam objektů typu %s"
