@@ -49,10 +49,14 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetRegionByDomain($domain){
+		$regions = [];
 		foreach(self::GetActiveInstances() as $r){
 			if(in_array($domain,$r->getDomains())){
-				return $r;
+				$regions[] = $r;
 			}
+		}
+		if(sizeof($regions)==1){
+			return $regions[0];
 		}
 	}
 
