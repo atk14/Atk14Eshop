@@ -3072,7 +3072,7 @@ msgid "Discounts"
 msgstr "Slevy"
 
 msgid "Delivery methods"
-msgstr "Způsoby doručení"
+msgstr "Způsoby dopravy"
 
 msgid "Payment methods"
 msgstr "Platební metody"
@@ -3090,7 +3090,7 @@ msgid "Order statuses"
 msgstr "Stavy objednávky"
 
 msgid "Selling regions"
-msgstr "Prodejná oblasti"
+msgstr "Prodejní oblasti"
 
 msgid "System preferences"
 msgstr "Nastavení systému"
