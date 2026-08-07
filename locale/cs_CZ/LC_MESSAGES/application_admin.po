@@ -2141,7 +2141,7 @@ msgstr "Slevy"
 
 #: ../app/controllers/admin/admin.php:52
 msgid "Delivery methods"
-msgstr "Způsoby doručení"
+msgstr "Způsoby dopravy"
 
 #: ../app/controllers/admin/admin.php:53
 msgid "Payment methods"
@@ -2175,7 +2175,7 @@ msgstr "Stavy objednávky"
 
 #: ../app/controllers/admin/admin.php:61
 msgid "Selling regions"
-msgstr "Prodejná oblasti"
+msgstr "Prodejní oblasti"
 
 #: ../app/controllers/admin/admin.php:62
 #: ../app/forms/admin/users/users_form.php:48
