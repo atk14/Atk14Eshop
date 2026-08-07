@@ -25,8 +25,13 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"required_langs" => $ATK14_GLOBAL->getDefaultLang(), // "_all_", "cs", "cs,en" nebo array("cs","en")
 			"additional_langs" => array(), // dalsi jazyky, ktere aplikace jinak nema aktivovane
+			"enable_live_translations" => "auto", // true, false, "auto"
 			"return" => "fields", // "fields" or "names"
 		);
+
+		if($options["enable_live_translations"]==="auto"){
+			$options["enable_live_translations"] = is_a($field,"CharField");
+		}
 
 		foreach(array("required_langs","additional_langs") as $k){
 			if(!is_array($options[$k])){
@@ -64,9 +69,12 @@ class AdminForm extends ApplicationForm{
 		}
 		if(!$field->required){ $required_langs = array(); }
 
+		$options["enable_live_translations"] && ($field->widget->attrs["data-translatable"] = "yes");
+
 		$fields = $names = array();
 		foreach($langs as $lang){
 			$w = clone($field->widget);
+			$options["enable_live_translations"] && ($w->attrs["data-translatable_lang"] = $lang);
 			$required = in_array($lang,$required_langs);
 			if($required){
 				$w->attrs["required"] = "required";
