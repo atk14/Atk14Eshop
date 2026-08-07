@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 10:54+0200\n"
-"PO-Revision-Date: 2026-08-07 10:56+0200\n"
+"POT-Creation-Date: 2026-08-07 11:25+0200\n"
+"PO-Revision-Date: 2026-08-07 11:26+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -4087,10 +4087,10 @@ msgstr "Násobit cenu dopravy počtem souvisejících produktů v košíku?"
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:88
 msgid ""
-"Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+"Lze aktivovat, pokud je nastaveno \"Určeno pro štítky\" nebo \"Exkluzivně "
 "pro štítek\"."
 msgstr ""
-"Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+"Lze aktivovat, pokud je nastaveno \"Určeno pro štítky\" nebo \"Exkluzivně "
 "pro štítek\"."
 
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:93
@@ -4124,10 +4124,10 @@ msgstr "Zadejte cenu"
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:135
 msgid ""
 "Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
-"štítek\" nebo \"Exkluzivně pro štítek\""
+"štítky\" nebo \"Exkluzivně pro štítek\""
 msgstr ""
 "Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
-"štítek\" nebo \"Exkluzivně pro štítek\""
+"štítky\" nebo \"Exkluzivně pro štítek\""
 
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:6
 #: ../app/forms/admin/invoice_files/create_new_form.php:6
@@ -5192,6 +5192,20 @@ msgstr "Importovat"
 #: ../app/forms/admin/warehouses/warehouses_form.php:10
 msgid "Applicable to eshop?"
 msgstr "Uplatňuje se v e-shopu?"
+
+#~ msgid ""
+#~ "Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+#~ "pro štítek\"."
+#~ msgstr ""
+#~ "Lze aktivovat, pokud je nastaveno \"Určeno pro štítek\" nebo \"Exkluzivně "
+#~ "pro štítek\"."
+
+#~ msgid ""
+#~ "Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
+#~ "štítek\" nebo \"Exkluzivně pro štítek\""
+#~ msgstr ""
+#~ "Násobení ceny lze zapnout pouze v případě, kdy je nastaveno \"Určeno pro "
+#~ "štítek\" nebo \"Exkluzivně pro štítek\""
 
 #~ msgid "pouze při zvoleném způsobu doručení %1"
 #~ msgstr "pouze při zvoleném způsobu doručení %1"
