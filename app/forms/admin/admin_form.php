@@ -109,7 +109,9 @@ class AdminForm extends ApplicationForm{
 		return $this->add_translatable_field("slug",new SlugField(array(
 			"max_length" => Slug::SlugMaxLength(),
 			"required" => false,
-		)));
+		)),array(
+			"enable_live_translations" => false,
+		));
 	}
 
 	function add_title_field($options = array()){
@@ -125,8 +127,11 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"label" => _("Popis"),
 			"required" => false,
+			"class_name" => "CharField",
 		);
-		return $this->add_translatable_field("description",new CharField($options));
+		$class_name = $options["class_name"];
+		unset($options["class_name"]);
+		return $this->add_translatable_field("description",new $class_name($options));
 	}
 
 	function add_validity_fields(){
