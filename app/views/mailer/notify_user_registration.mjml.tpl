@@ -3,7 +3,7 @@
 	<mj-column>
 		<mj-text>
 
-			{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}
+			{t appname=$current_region->getApplicationName()}Thanks for signing up for %1!{/t}
 			<br>
 			<br>
 			{t}Here is your data summary{/t}

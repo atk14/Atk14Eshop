@@ -43,7 +43,7 @@
 			{if $controller=="main" && $action=="index" && $namespace==""}
 				{$page_title|strip_tags}
 			{else}
-				{$page_title|strip_tags} | {"ATK14_APPLICATION_NAME"|dump_constant}
+				{$page_title|strip_tags} | {$current_region->getApplicationName()}
 			{/if}
 		{/trim}</title>
 

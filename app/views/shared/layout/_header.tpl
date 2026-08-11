@@ -15,7 +15,7 @@
 {/capture}
 {* from which breakpoint up should menu be visible - value should be the same as in scss! *}
 {assign var=nav_breakpoint value="md"}
-{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
+{assign var=appname value=$current_region->getApplicationName()}
 
 <header class="header-main" id="header-main">
 
