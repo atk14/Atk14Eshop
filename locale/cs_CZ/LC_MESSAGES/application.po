@@ -362,11 +362,11 @@ msgid "Zatrhněte prosím souhlas s obchodními podmínkami."
 msgstr "Zatrhněte prosím souhlas s obchodními podmínkami."
 
 msgid ""
-"Kliknutím na tlačítko Dokončit objednávku souhlasíte<br>a&nbsp;potvrzujete, "
+"Kliknutím na tlačítko Odeslat objednávku souhlasíte<br>a&nbsp;potvrzujete, "
 "že&nbsp;jste se seznámil s&nbsp;<a href=\"%1\" "
 "target=\"_blank\">obchodními&nbsp;podmínkami.</a>"
 msgstr ""
-"Kliknutím na tlačítko Dokončit objednávku souhlasíte<br>a&nbsp;potvrzujete, "
+"Kliknutím na tlačítko Odeslat objednávku souhlasíte<br>a&nbsp;potvrzujete, "
 "že&nbsp;jste se seznámil s&nbsp;<a href=\"%1\" "
 "target=\"_blank\">obchodními&nbsp;podmínkami.</a>"
 
