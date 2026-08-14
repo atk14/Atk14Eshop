@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 11:25+0200\n"
+"POT-Creation-Date: 2026-08-14 11:07+0200\n"
 "PO-Revision-Date: 2026-08-07 11:26+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Nebyla nalezena ani jedna kampaň."
 msgstr "Nebyla nalezena ani jedna kampaň."
 
-#: ../app/forms/admin/admin_form.php:172
+#: ../app/forms/admin/admin_form.php:185
 #: ../app/forms/admin/campaigns/campaigns_form.php:12
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:14
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:14
@@ -1819,7 +1819,7 @@ msgstr ""
 msgid "Parameter name"
 msgstr "Název parametru"
 
-#: ../app/forms/admin/admin_form.php:139
+#: ../app/forms/admin/admin_form.php:152
 #: ../app/forms/admin/currencies/currencies_form.php:6
 msgid "Code"
 msgstr "Kód"
@@ -3175,7 +3175,7 @@ msgid "Export entries from warehouse %s"
 msgstr "Exportovat položky ze skladu %s"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:108
-#: ../app/forms/admin/admin_form.php:193
+#: ../app/forms/admin/admin_form.php:206
 msgid "Unit"
 msgstr "Jednotka"
 
@@ -3217,57 +3217,57 @@ msgstr "položek nezměněno: %s"
 msgid "entries deleted: %s"
 msgstr "položek smazáno: %s"
 
-#: ../app/forms/admin/admin_form.php:109
+#: ../app/forms/admin/admin_form.php:119
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 #: ../app/forms/admin/slider_items/slider_items_form.php:17
 msgid "Titulek"
 msgstr "Titulek"
 
-#: ../app/forms/admin/admin_form.php:118
+#: ../app/forms/admin/admin_form.php:128
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 #: ../app/forms/admin/slider_items/slider_items_form.php:23
 msgid "Popis"
 msgstr "Popis"
 
-#: ../app/forms/admin/admin_form.php:126
+#: ../app/forms/admin/admin_form.php:139
 msgid "Validity date from"
 msgstr "Datum platnosti od"
 
-#: ../app/forms/admin/admin_form.php:132
+#: ../app/forms/admin/admin_form.php:145
 msgid "Validity date to"
 msgstr "Datum platnosti do"
 
-#: ../app/forms/admin/admin_form.php:144
+#: ../app/forms/admin/admin_form.php:157
 msgid "An alternative key for system usage."
 msgstr "Alternativní klíč pro systémové potřeby."
 
-#: ../app/forms/admin/admin_form.php:144
+#: ../app/forms/admin/admin_form.php:157
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
 "Alternativní klíč pro systémové použití. Pokud si nejste jisti, ponechte "
 "beze změny."
 
-#: ../app/forms/admin/admin_form.php:152
+#: ../app/forms/admin/admin_form.php:165
 msgid "Is visible?"
 msgstr "Je viditelné?"
 
-#: ../app/forms/admin/admin_form.php:162
+#: ../app/forms/admin/admin_form.php:175
 #: ../app/forms/admin/regions/regions_form.php:17
 #: ../app/forms/admin/users/users_form.php:53
 msgid "Is active?"
 msgstr "Je aktivní?"
 
-#: ../app/forms/admin/admin_form.php:182
+#: ../app/forms/admin/admin_form.php:195
 msgid "Vat rate"
 msgstr "Sazba DPH"
 
-#: ../app/forms/admin/admin_form.php:200
+#: ../app/forms/admin/admin_form.php:213
 msgid "Lze produkt objednat, i když není skladem?"
 msgstr "Lze produkt objednat, i když není skladem?"
 
-#: ../app/forms/admin/admin_form.php:201
+#: ../app/forms/admin/admin_form.php:214
 msgid ""
 "Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
 "zásoby (např. digitální soubor)"
@@ -3275,20 +3275,20 @@ msgstr ""
 "Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
 "zásoby (např. digitální soubor)"
 
-#: ../app/forms/admin/admin_form.php:230 ../app/forms/admin/admin_form.php:237
+#: ../app/forms/admin/admin_form.php:243 ../app/forms/admin/admin_form.php:250
 #: ../app/forms/admin/category_trees/create_new_form.php:17
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "Stejný kód je již použit pro jiný záznam"
 
-#: ../app/forms/admin/admin_form.php:305
+#: ../app/forms/admin/admin_form.php:318
 msgid "The same slug is used in a different object"
 msgstr "Stejný slug je použit u jiného objektu"
 
-#: ../app/forms/admin/admin_form.php:330 ../app/forms/admin/admin_form.php:335
+#: ../app/forms/admin/admin_form.php:343 ../app/forms/admin/admin_form.php:348
 msgid "The same catalog number is used for another product"
 msgstr "Stejné katalogové číslo se používá pro jiný produkt"
 
-#: ../app/forms/admin/admin_form.php:330 ../app/forms/admin/admin_form.php:335
+#: ../app/forms/admin/admin_form.php:343 ../app/forms/admin/admin_form.php:348
 msgid "open in administration"
 msgstr "otevřít v administraci"
 

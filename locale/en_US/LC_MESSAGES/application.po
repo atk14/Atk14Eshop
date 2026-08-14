@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 10:54+0200\n"
-"PO-Revision-Date: 2026-08-04 23:26+0200\n"
+"POT-Creation-Date: 2026-08-14 11:07+0200\n"
+"PO-Revision-Date: 2026-08-14 11:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -373,6 +373,13 @@ msgstr ""
 "Clicking on the Finish order button you agree <br>and&nbsp;confirm, "
 "that&nbsp;you have been acknowledged with&nbsp;<a href=\"%1\" "
 "target=\"_blank\">Terms&nbsp;and&nbsp;Conditions.</a>"
+
+#: ../app/forms/checkouts/summary_form.php:20
+msgid "Odeslat objednávku"
+msgstr "Send order"
+
+msgid "<!-- Odeslat objednávku --> zavazující k platbě"
+msgstr "<!-- Send order --> obliging to pay"
 
 msgid "Už mám účet"
 msgstr "I have an account already"
@@ -2462,7 +2469,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:18
-#, php-format
+#, no-php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2870,10 +2877,6 @@ msgstr "Illegal combination of shipping and payment"
 #: ../app/forms/checkouts/summary_form.php:15
 msgid "Souhlasím s obchodními podmínkami"
 msgstr "I agree with Terms and Conditions"
-
-#: ../app/forms/checkouts/summary_form.php:20
-msgid "Dokončit objednávku"
-msgstr "Complete the order"
 
 #: ../app/forms/checkouts/summary_form.php:27
 msgid "Objednávku nelze dokončit bez odsouhlasení našich obchodních podmínek."
@@ -3510,6 +3513,9 @@ msgstr "Order No. %s in eshop %s"
 #, php-format
 msgid "obj. %s"
 msgstr "ord. No. %s"
+
+#~ msgid "Dokončit objednávku"
+#~ msgstr "Complete the order"
 
 #~ msgid "První strana"
 #~ msgstr "First page"
