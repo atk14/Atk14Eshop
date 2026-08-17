@@ -44,6 +44,7 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/suggestions.js",
+	"public/scripts/utils/initialize_markdon_editors.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/tag_chooser.js",
