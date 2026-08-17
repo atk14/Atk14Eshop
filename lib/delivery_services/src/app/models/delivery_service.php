@@ -234,7 +234,7 @@ class DeliveryService extends ApplicationModel {
 					if ($k=="opening_hours") {
 						$_conditions[] = "{$k}::jsonb!=:{$k}::jsonb";
 					} else {
-						$_conditions[] = "{$k}!=:{$k}";
+						$_conditions[] = "{$k} != :{$k}";
 					}
 					$_bindAr[":{$k}"] = $v;
 				}
