@@ -13,7 +13,7 @@
 				ADMIN.utils.handleSortables();
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
-				ADMIN.utils.initializeMarkdonEditors();
+				window.UTILS.initializeMarkdonEditors();
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 
@@ -79,31 +79,6 @@
 		},
 
 		utils: {
-
-			initializeMarkdonEditors: function() {
-
-				// Markdown Editor requires Ace
-				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
-				$.each( $( "textarea[data-provide=markdown]" ), function( i, el ) {
-					$( el ).markdownEditor( {
-						preview: true,
-						onPreview: function( content, callback ) {
-							var lang = $( "html" ).attr( "lang" );
-							$.ajax( {
-								type: "POST",
-								url: "/api/" + lang + "/markdown/transform/",
-								data: {
-									source: content,
-									base_href: $( el ).data( "base_href" )
-								},
-								success: function( output ) {
-									callback( output );
-								}
-							} );
-						}
-					} );
-				} );
-			},
 
 			handleFormErrors: function( errors ) {
 				$.each( errors, function( field, errorList ) {
