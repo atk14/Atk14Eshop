@@ -60,11 +60,6 @@ class UsersForm extends AdminForm{
 			"label" => _("Is admin?"),
 			"required" => false,
 		)));
-
-		$this->add_field("description",new MarkdownField(array(
-			"label" => _("description"),
-			"required" => false,
-		)));
 	}
 
 	function clean(){
