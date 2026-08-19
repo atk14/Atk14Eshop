@@ -80,9 +80,9 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 	}
 
 	static function FetchFeed($feed_url) {
-		$uf = new \UrlFetcher($feed_url);
+		$uf = new \UrlFetcher($feed_url,["http_version" => "1.1"]);
 		if(!$uf->found()){
-			throw new \Exception("UrlFetcher: ".$uf->getErrorMessage());
+			throw new \Exception("UrlFetcher: ".$uf->getErrorMessage()." (url: ".$uf->getUrl().")");
 		}
 		return (string)$uf->getContent();
 	}
