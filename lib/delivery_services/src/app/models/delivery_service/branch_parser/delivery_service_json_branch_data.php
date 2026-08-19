@@ -66,8 +66,11 @@ class DeliveryServiceJsonBranchData extends SimpleJsonElement {
 		}
 		$data = [];
 		foreach($feed_url as $_feed) {
-			$_d = @file_get_contents($_feed);
-			myAssert($_d!==false);
+			$uf = new \UrlFetcher($_feed);
+			if(!$uf->found()){
+				throw new \Exception("UrlFetcher: ".$uf->getErrorMessage());
+			}
+			$_d = (string)$uf->getCountent();
 			$data[] = json_decode($_d, true);
 		}
 		$data[] = [];

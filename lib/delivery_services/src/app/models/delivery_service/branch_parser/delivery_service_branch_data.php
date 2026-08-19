@@ -80,9 +80,11 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 	}
 
 	static function FetchFeed($feed_url) {
-		$data = @file_get_contents($feed_url);
-		myAssert($data!==false);
-		return $data;
+		$uf = new \UrlFetcher($feed_url);
+		if(!$uf->found()){
+			throw new \Exception("UrlFetcher: ".$uf->getErrorMessage());
+		}
+		return (string)$uf->getContent();
 	}
 
 	static function HasCountrySpecificFeed() {
