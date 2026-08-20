@@ -14,10 +14,9 @@ use DeliveryService\BranchParser;
 class Gls extends DeliveryServiceBranchData implements iDeliveryServiceBranchParser {
 
 	/**
-	 * compress.zlib 'protocol' allows decompressing gzipped file which is returned by the url.
 	 * {COUNTRY_CODE} is replaced with the uppercased country code (e.g. CZ, SK).
 	 */
-	static $BRANCHES_DOWNLOAD_URL = "compress.zlib://https://datarequester.gls-hungary.com/glsconnect/getDropoffPoints.php?ctrcode={COUNTRY_CODE}";
+	static $BRANCHES_DOWNLOAD_URL = "https://datarequester.gls-hungary.com/glsconnect/getDropoffPoints.php?ctrcode={COUNTRY_CODE}";
 
 
 	function getExternalBranchId() {

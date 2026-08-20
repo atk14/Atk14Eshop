@@ -84,7 +84,17 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 		if(!$uf->found()){
 			throw new \Exception("UrlFetcher: ".$uf->getErrorMessage()." (url: ".$uf->getUrl().")");
 		}
-		return (string)$uf->getContent();
+		$out = (string)$uf->getContent();
+		if(
+			$uf->getHeader("Content-Encoding") === "gzip" ||
+			$uf->getContentType() === "gzip" // weird, but see https://datarequester.gls-hungary.com/glsconnect/getDropoffPoints.php?ctrcode=CZ
+		){
+			$out = gzdecode($out);
+			if($out===false){
+				throw new \Exception("gzdecode failed (url: ".$uf->getUrl().")");
+			}
+		}
+		return $out;
 	}
 
 	static function HasCountrySpecificFeed() {
