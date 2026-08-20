@@ -156,11 +156,19 @@ class DeliveryService extends ApplicationModel {
 	 * Stahne si data z url (branches_download_url) a naimportuje do tabulky delivery_service_branches
 	 * Pobocky, ktere se znovu nevyskytuji v poskytnutem seznamu, se deaktivuji.
 	 *
+	 * Pokud zadna aktivni dorucovaci metoda neodkazuje na danou sluzbu, import se preskoci.
+	 * Toto chovani lze potlacit pomoci `force_import => true`.
+	 *
 	 * ```
 	 * DeliveryService::UpdateBranches("zasilkovna");
+	 * DeliveryService::UpdateBranches("zasilkovna", ["force_import" => true]);
 	 * ```
 	 *
 	 * @param string $code
+	 * @param array $options
+	 *   - force_import: bool (default false) - spusti import i kdyz zadna aktivni dorucovaci metoda sluzbu nepouziva
+	 *   - country_code: string (default "cz")
+	 *   - logger: logger instance
 	 */
 	static function UpdateBranches($code, $options=array(), &$error_message=null) {
 		$options += [
@@ -185,16 +193,13 @@ class DeliveryService extends ApplicationModel {
 	}
 
 	/**
-	 * Nacteni pobocek z XML souboru.
+	 * Naimportuje data pobocek do tabulky delivery_service_branches.
 	 *
-	 * Nepouzivame XMole, nebot je prilis narocny.
-	 * Data z XML nezvladne nacist.
-	 *
+	 * Pobocky, ktere se znovu nevyskytuji v dodanych datech, se deaktivuji.
 	 */
 	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
-			"force_import" => false,
 			"country_code" => "cz",
 		];
 

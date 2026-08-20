@@ -2,6 +2,12 @@
 
 namespace DeliveryService\BranchParser;
 
+/**
+ * Zakladni trida pro parsovani XML feedu pobocek.
+ *
+ * Nepouzivame XMole, nebot je prilis narocny a data z XML nezvladne nacist.
+ * Misto toho pouzivame SimpleXmlElement primo.
+ */
 class DeliveryServiceBranchData extends \SimpleXmlElement {
 
 	var $nsPrefix = "";
