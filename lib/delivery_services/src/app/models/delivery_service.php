@@ -133,7 +133,7 @@ class DeliveryService extends ApplicationModel {
 		try {
 			$data = $delivery_service->_fetchFeed($options["branches_url"], $options);
 		} catch (Exception $e) {
-			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]", join(", ", (array)$options["branches_url"]), $code));
+			$options["logger"] && $options["logger"]->error(sprintf("Fetching feed failed [url: %s, code: %s]: %s", join(", ", (array)$options["branches_url"]), $code, $e->getMessage()));
 			return false;
 		}
 
@@ -156,40 +156,52 @@ class DeliveryService extends ApplicationModel {
 	 * Stahne si data z url (branches_download_url) a naimportuje do tabulky delivery_service_branches
 	 * Pobocky, ktere se znovu nevyskytuji v poskytnutem seznamu, se deaktivuji.
 	 *
+	 * Pokud zadna aktivni dorucovaci metoda neodkazuje na danou sluzbu, import se preskoci.
+	 * Toto chovani lze potlacit pomoci `force_import => true`.
+	 *
 	 * ```
 	 * DeliveryService::UpdateBranches("zasilkovna");
+	 * DeliveryService::UpdateBranches("zasilkovna", ["force_import" => true]);
 	 * ```
 	 *
 	 * @param string $code
+	 * @param array $options
+	 *   - force_import: bool (default false) - spusti import i kdyz zadna aktivni dorucovaci metoda sluzbu nepouziva
+	 *   - country_code: string (default "cz")
+	 *   - logger: logger instance
 	 */
 	static function UpdateBranches($code, $options=array(), &$error_message=null) {
+		$options += [
+			"logger" => new logger(),
+			"force_import" => false,
+			"country_code" => "cz",
+		];
+
+		$delivery_service = static::FindFirst("code", $code);
+
+		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $delivery_service, "active", true)) {
+			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $delivery_service->getName(), $delivery_service->getId(), $delivery_service->getCode()));
+			return false;
+		}
+
 		$data = static::ReadBranchesData($code, $options, $error_message);
 		if (!$data) {
 			return false;
 		}
 
-		$delivery_service = static::FindFirst("code", $code);
 		return $delivery_service->importData($data, $options);
 	}
 
 	/**
-	 * Nacteni pobocek z XML souboru.
+	 * Naimportuje data pobocek do tabulky delivery_service_branches.
 	 *
-	 * Nepouzivame XMole, nebot je prilis narocny.
-	 * Data z XML nezvladne nacist.
-	 *
+	 * Pobocky, ktere se znovu nevyskytuji v dodanych datech, se deaktivuji.
 	 */
 	function importData($data, $options = array()) {
 		$options += [
 			"logger" => new logger(),
-			"force_import" => false, // importovat pobocky, i kdyz se tato sluzba v eshopu nepouziva?
 			"country_code" => "cz",
 		];
-
-		if (!$options["force_import"] && !DeliveryMethod::FindAll("delivery_service_id", $this, "active", true)) {
-			$options["logger"] && $options["logger"]->info(sprintf("no active delivery method using delivery service %s [DeliveryService#%s, code=%s]. skipping branches import", $this->getName(), $this->getId(), $this->getCode()));
-			return false;
-		}
 
 		$delivery_service_code = $this->getCode();
 		$dbmole = $this->dbmole;
@@ -197,7 +209,10 @@ class DeliveryService extends ApplicationModel {
 		if ($parserClassName::HasCountrySpecificFeed()) {
 			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this AND country=:country_code", [":this" => $this, ":country_code" => $options["country_code"]]);
 		} else {
-			$options["country_code"] !== "cz" && $options["logger"] && $options["logger"]->info(sprintf("delivery service %s does not have a country-specific feed, country_code '%s' will be ignored", $this->getCode(), $options["country_code"]));
+			if ($options["country_code"] !== "cz" && $options["logger"]) {
+				$options["logger"]->info(sprintf("delivery service %s does not have a country-specific feed, country_code '%s' will be ignored", $this->getCode(), $options["country_code"]));
+				$options["logger"]->flush();
+			}
 			$current_branch_ids = $dbmole->selectIntoAssociativeArray("SELECT id as key,external_branch_id,CASE WHEN active THEN 1 ELSE 0 END AS active FROM delivery_service_branches WHERE delivery_service_id=:this", [":this" => $this]);
 		}
 
@@ -224,7 +239,7 @@ class DeliveryService extends ApplicationModel {
 					if ($k=="opening_hours") {
 						$_conditions[] = "{$k}::jsonb!=:{$k}::jsonb";
 					} else {
-						$_conditions[] = "{$k}!=:{$k}";
+						$_conditions[] = "{$k} != :{$k}";
 					}
 					$_bindAr[":{$k}"] = $v;
 				}

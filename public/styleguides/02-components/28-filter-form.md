@@ -26,7 +26,7 @@ Filter Form
 			<div class="tab-content" id="filtertabscontent">
 				
 				<div class="tab-pane fade show active" id="f_f42" role="tabpanel" aria-labelledby="f_f42-tab">
-					<ul class="list list--checkboxes">
+					<ul class="list list--checkboxes list--checkboxes--horizontal">
 						<li class="list__item">
 							<div class="custom-control custom-checkbox">
 								<input type='checkbox' name='f_f42[]' value=43 class='custom-control-input' id='id_f_f42_0'> <label class='custom-control-label' for='id_f_f42_0'><a class='js-filter-checkbox-label' href='/obchod/?f_f42%5B%5D=43' rel="nofollow">dřevo (1)</a></label>
@@ -51,7 +51,7 @@ Filter Form
 				</div>
 				
 				<div class="tab-pane fade" id="f_f55" role="tabpanel" aria-labelledby="f_f55-tab">
-					<ul class="list list--checkboxes">
+					<ul class="list list--checkboxes list--checkboxes--horizontal">
 						<li class="list__item">
 							<div class="custom-control custom-checkbox">
 								<input type='checkbox' name='f_f55[]' value=56 class='custom-control-input' id='id_f_f55_0'> <label class='custom-control-label' for='id_f_f55_0'><a class='js-filter-checkbox-label' href='/obchod/?f_f55%5B%5D=56' rel="nofollow">Červená (4)</a></label>

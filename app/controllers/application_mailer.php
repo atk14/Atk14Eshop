@@ -52,9 +52,21 @@ class ApplicationMailer extends Atk14Mailer {
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+
+		$smarty = $this->_get_smarty();
+		if($smarty->templateExists("$this->action.mjml.tpl")){
+			$this->template_name = "$this->action.mjml";
+			$this->layout_name = "mailer.mjml";
+		}
 	}
 
 	function _after_render(){
+		if(preg_match('/\.mjml/',$this->template_name)){
+			$html = Yarri\Mjml::Mjml2Html($this->body);
+			$this->body_html = $html;
+			$this->body = "";
+		}
+
 		if(!$this->body && $this->body_html){
 			// Missing plain text body will be automatically created from the HTML body.
 			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.
@@ -84,7 +96,7 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$region = $region ? $region : $this->current_region;
 		$this->current_region = $region;
-		$this->tpl_data["region"] = $region;
+		$this->tpl_data["region"] = $this->tpl_data["current_region"] = $region;
 		$this->tpl_data["default_domain"] = $region->getDefaultDomain();
 		$this->from = $region->getEmail();
 		$this->from_name = $region->getApplicationName();
@@ -175,6 +187,35 @@ class ApplicationMailer extends Atk14Mailer {
 			$this->bcc .= $this->bcc ? ", " : "";
 			$this->bcc .= $order_status->getBccEmail();
 		}
+
+		$terms_and_conditions_attachment_url = $region->getTermsAndConditionsAttachmentUrl();
+		if($terms_and_conditions_attachment_url){
+			// Download and cache the attachment containing the terms and conditions. Do not crash if the download fails.
+			// TODO: This code should be moved to a new external utility.
+			$cache = new CacheFileStorage(TEMP . "/terms_and_conditions_attachments/");
+			$pa = new PupiqAttachment($terms_and_conditions_attachment_url);
+			$url = $key = $pa->getUrl();
+			$attachment_ar = null;
+			if(!$cache->readInto($key,$attachment_ar)){
+				$uf = new UrlFetcher($pa->getUrl(),[
+					"socket_timeout" => 1.0,
+					"read_timeout" => 3.0,
+				]);
+				if($uf->found()){
+					$attachment_ar = [
+						"content" => (string)$uf->getContent(),
+						"filename" => $uf->getFilename(),
+						"mime_type" => $uf->getContentType(),
+					];
+					$cache->write($key,$attachment_ar);
+				}else{
+					trigger_error("Terms and conditions attachment URL cannot be read ($url): ".$uf->getErrorMessage());
+				}
+			}
+			if($attachment_ar){
+				$this->add_attachment($attachment_ar["content"],$attachment_ar["filename"],$attachment_ar["mime_type"]);
+			}
+		}
 	}
 
 	function notify_order_status_update($order){
@@ -264,5 +305,9 @@ class ApplicationMailer extends Atk14Mailer {
 		}
 
 		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
+	}
+
+	function mailer_playground($content){
+		$this->tpl_data["content"] = $content;
 	}
 }

@@ -2,6 +2,7 @@
 {assign image_url $card_promotion->getImageUrl()}
 {assign price_finder PriceFinder::GetCurrentInstance()}
 {assign starting_price $price_finder->getStartingPrice($card)}
+{assign main_creators CardCreator::GetMainCreatorsForCard($card)}
 <div class="iobject iobject--card_promotion">
 	<a href="{$card_promotion->getUrl()}" class="iobject__content">
 		<div class="iobject__image">
@@ -18,6 +19,9 @@
 			<div>
 				<div class="h4 iobject__title">
 					{$card_promotion->getTitle()}
+					{if $main_creators}
+						<br><small>{$main_creators|to_sentence:", "}</small>
+					{/if}
 				</div>
 
 				<div class="iobject__description">

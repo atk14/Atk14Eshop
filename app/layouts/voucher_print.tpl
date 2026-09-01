@@ -28,7 +28,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>{$page_title|strip_tags} | {"ATK14_APPLICATION_NAME"|dump_constant}</title>
+		<title>{$page_title|strip_tags} | {$current_region->getApplicationName()}</title>
 
 		<meta name="description" content="{$page_description}">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">

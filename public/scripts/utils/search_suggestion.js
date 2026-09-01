@@ -19,7 +19,10 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 	var $submitBtn  = $field.siblings( "button[type='submit']" );
 	var contentSearching;
 
-	options = $.extend( { hiding_suggesting_area: true }, options || {} );
+	options = $.extend( {
+		hiding_suggesting_area: true,
+		suggest_on_empty: false
+	}, options || {} );
 	// console.log( fieldClassName );
 	// console.log( options );
 
@@ -91,7 +94,7 @@ window.UTILS._search_suggestion = {
 		//}
 
 		var searchFn = function( search ) {
-			if ( search === "" ) {
+			if ( search === "" && !window.UTILS._search_suggestion.states[ stateIndex ].options.suggest_on_empty ) {
 				$suggestingArea.html(
 					window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaOriginalContent
 				);
@@ -214,7 +217,8 @@ window.UTILS._search_suggestion = {
 
 				var searchFieldIsActiveAndEmpty =
 					$activeElement.hasClass( fieldClassName ) &&
-					$activeElement.val().length === 0;
+					$activeElement.val().length === 0 &&
+					!state.options.suggest_on_empty;
 
 				if ( $activeElement.hasClass( fieldClassName ) ) {
 					$currentSearchField = $activeElement;
@@ -284,6 +288,26 @@ window.UTILS._search_suggestion = {
 					!$( e.target ).hasClass( fieldClassName ) // Clicked on the field itself?
 				) {
 					$currentSearchField.blur();
+				}
+			} );
+		} );
+
+		$( "body" ).on( "click", "a[data-snippet-link]", function( e ) {
+			e.preventDefault();
+			var $link = $( this );
+			var href = $link.attr( "href" );
+			var url = href + ( href.indexOf( "?" ) === -1 ? "?" : "&" ) + "format=snippet";
+
+			Object.keys( window.UTILS._search_suggestion.states ).forEach( function( stateIndex ) {
+				var $suggestingArea = window.UTILS._search_suggestion.states[ stateIndex ].suggestingArea;
+				if ( $link.closest( $suggestingArea ).length ) {
+					$.ajax( {
+						dataType: "html",
+						url: url,
+						success: function( snippet ) {
+							$suggestingArea.html( snippet );
+						}
+					} );
 				}
 			} );
 		} );

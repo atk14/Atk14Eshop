@@ -11,6 +11,12 @@ class TcMain extends TcBase{
 		$this->assertStringContains(sprintf('<meta property="og:url" content="http://%s/">', ATK14_HTTP_HOST), $this->client->getContent());
 	}
 
+	function test_robots_txt(){
+		$this->client->get("main/robots_txt");
+		$this->assertEquals("text/plain",$this->client->getContentType());
+		$this->assertStringContains("public, max-age=",$this->client->getResponseHeader("Cache-Control"));
+	}
+
 	function test_error404(){
 		$controller = $this->client->get("main/not_existing_method");
 		$this->assertEquals(404,$this->client->getStatusCode());

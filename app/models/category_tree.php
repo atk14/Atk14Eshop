@@ -304,11 +304,12 @@ class CategoryTree extends CategoryNode {
 		$out = array();
 
 		foreach($data as $row) {
-			$childs[(string)$row['parent_category_id']][] = $row;
+			$childs[(string)$row['parent_category_id']][] = ['id' => $row['id'], 'real_id' => $row['real_id']];
 			$ids[$row['id']] = $row['id'];
 			$ids[$row['real_id']] = $row['real_id'];
-			$out[$row['id']] = $row;
+			$out[$row['id']] = ['real_id' => $row['real_id'], 'cards_count' => $row['cards_count'] ?? null];
 		}
+		unset($data);
 		foreach($childs as $k => $v) {
 			if($k && !key_exists($k, $out)) {
 				$childs[""] = array_merge($childs[""], $v);

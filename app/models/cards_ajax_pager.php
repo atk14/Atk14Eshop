@@ -1,7 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../lib/ajax_pager/ajax_pager.php');
-
 class CardsAjaxPager extends AjaxPager {
+
 	function __construct($controller, $options = []) {
 		parent::__construct($controller, $options + [
 			   'item_variable' => 'card',

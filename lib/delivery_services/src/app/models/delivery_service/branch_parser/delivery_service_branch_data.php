@@ -2,6 +2,12 @@
 
 namespace DeliveryService\BranchParser;
 
+/**
+ * Zakladni trida pro parsovani XML feedu pobocek.
+ *
+ * Nepouzivame XMole, nebot je prilis narocny a data z XML nezvladne nacist.
+ * Misto toho pouzivame SimpleXmlElement primo.
+ */
 class DeliveryServiceBranchData extends \SimpleXmlElement {
 
 	var $nsPrefix = "";
@@ -80,9 +86,21 @@ class DeliveryServiceBranchData extends \SimpleXmlElement {
 	}
 
 	static function FetchFeed($feed_url) {
-		$data = @file_get_contents($feed_url);
-		myAssert($data!==false);
-		return $data;
+		$uf = new \UrlFetcher($feed_url,["http_version" => "1.1"]);
+		if(!$uf->found()){
+			throw new \Exception("UrlFetcher: ".$uf->getErrorMessage()." (url: ".$uf->getUrl().")");
+		}
+		$out = (string)$uf->getContent();
+		if(
+			$uf->getHeader("Content-Encoding") === "gzip" ||
+			$uf->getContentType() === "gzip" // weird, but see https://datarequester.gls-hungary.com/glsconnect/getDropoffPoints.php?ctrcode=CZ
+		){
+			$out = gzdecode($out);
+			if($out===false){
+				throw new \Exception("gzdecode failed (url: ".$uf->getUrl().")");
+			}
+		}
+		return $out;
 	}
 
 	static function HasCountrySpecificFeed() {

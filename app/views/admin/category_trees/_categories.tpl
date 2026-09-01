@@ -4,7 +4,7 @@
 			{assign var=c value=$node->getCategory()}
 			<li>
 				{assign var="child_tree_id" value=null}
-				{if $node->getChildCategories()}
+				{if $node->hasChildCategories()}
 					{assign var="child_tree_id" value="tree_"|cat:uniqid()}
 					<span class="js-collapse-toggle" data-toggle="collapse" data-target="#{$child_tree_id}"><span class="js-icon--collapsed">{!"plus"|icon}</span><span class="js-icon--expanded">{!"minus"|icon}</span></span>
 				{/if}

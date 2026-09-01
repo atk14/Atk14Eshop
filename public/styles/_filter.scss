@@ -68,3 +68,26 @@
 .section--child-categories + #filter_form {
 	margin-top: 0 - ($grid-gutter-width/2);
 }
+
+.pfilter {
+	container-type: inline-size;
+	container-name: pfilter;
+	.list--checkboxes {
+		columns: 5;
+		@container pfilter (width < 800px) {
+			columns: 4;
+		}
+		@container pfilter (width < 650px) {
+			columns: 3;
+		}
+		@container pfilter (width < 500px) {
+			columns: 2;
+		}
+		@container pfilter (width < 400px) {
+			columns: 1;
+		}
+		/*display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: 0.5rem;*/
+	}
+}
