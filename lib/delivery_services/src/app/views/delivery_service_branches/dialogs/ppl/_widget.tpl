@@ -5,4 +5,4 @@
  *}
 {assign countries $basket->getDeliveryCountriesAllowed()}
 <div id="ppl-parcelshop-map" data-language="{$lang}" data-country="{$countries.0|lower}" data-countries="{join(",",$countries)|lower}" data-mode="default"></div>
-{render partial="shared/form"}
+<div class="d-none">{render partial="shared/form"}</div>
