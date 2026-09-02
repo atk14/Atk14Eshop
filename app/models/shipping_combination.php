@@ -286,6 +286,7 @@ class ShippingCombination extends ApplicationModel {
 			"amount" => 1,
 		]);
 		$basket->setBasketItemsVirtually([$basket_item]);
+
 		return self::GetAvailableMethods4Basket($basket,$options);
 	}
 }
