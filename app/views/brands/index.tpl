@@ -11,8 +11,9 @@
 				{assign "img_w" $brand->getLogoUrl()|img_width:$geometry}
 				{assign "img_h" $brand->getLogoUrl()|img_height:$geometry}
 				{assign "img_ratio" $img_w/$img_h}
+				{assign "img_alt" $brand->getName()}
 				<div class="card__logo__wrap" style="padding: {$basePadding|calculate_logogrid_padding:$img_ratio}%;">
-					{!$brand->getLogoUrl()|pupiq_img:"400x400x#ffffff,format=png":"class='card-img-top'"}
+					{!$brand->getLogoUrl()|pupiq_img:"400x400x#ffffff,format=png":"class='card-img-top',alt={$img_alt}"}
 				</div>
 			{/if}
 		</div>
