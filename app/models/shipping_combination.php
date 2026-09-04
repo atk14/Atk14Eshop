@@ -170,10 +170,17 @@ class ShippingCombination extends ApplicationModel {
 				continue;
 			}
 
-			foreach($o->getDesignatedForTags() as $t){
-				if(!$basket->containsProductWithTag($t)){
-					continue 2;
+
+			$tags = $o->getDesignatedForTags();
+			if($tags){
+				$got_match = false;
+				foreach($tags as $t){
+					if($basket->containsProductWithTag($t)){
+						$got_match = true;
+						break;
+					}
 				}
+				if(!$got_match){ continue; }
 			}
 
 			foreach($o->getExcludedForTags() as $t){

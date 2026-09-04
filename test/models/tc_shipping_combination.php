@@ -100,6 +100,32 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(sizeof($delivery_methods_empty)>sizeof($delivery_methods));
 	}
 
+	function test_designated_for_tags(){
+		$music = $this->tags["music"];
+		$fun = $this->tags["fun"];
+		$dpd = $this->delivery_methods["dpd"];
+		$peanuts = $this->products["peanuts"];
+
+		# dpd is designated for products tagged "music" OR "fun"
+		$dpd->getDesignatedForTagsLister()->add($music);
+		$dpd->getDesignatedForTagsLister()->add($fun);
+
+		$basket = Basket::CreateNewRecord([]);
+		$basket->setProductAmount($peanuts,1);
+
+		# peanuts have none of the tags -> dpd is not available
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+		$codes = array_map(function($dm){ return $dm->getCode(); },$delivery_methods);
+		$this->assertFalse(in_array($dpd->getCode(),$codes));
+
+		# it's enough that the product in the basket has just one of the listed tags ("fun")
+		$peanuts->getCard()->getTagsLister()->add($fun);
+
+		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Basket($basket);
+		$codes = array_map(function($dm){ return $dm->getCode(); },$delivery_methods);
+		$this->assertTrue(in_array($dpd->getCode(),$codes));
+	}
+
 	function test_GetAvailableMethods4Product(){
 		list($delivery_methods,$payment_methods) = ShippingCombination::GetAvailableMethods4Product($this->products["arabica"]);
 		$this->assertTrue(sizeof($delivery_methods)>5);
