@@ -11,7 +11,7 @@
  */
 class TcShippingCombination extends TcBase {
 
-	function ___tetst(){
+	function test(){
 		$dpd = $this->delivery_methods["dpd"];
 		$personal = $this->delivery_methods["personal"];
 		$post = $this->delivery_methods["post"];
@@ -81,7 +81,7 @@ class TcShippingCombination extends TcBase {
 		$this->assertTrue(!in_array("Digital product download",$labels));
 	}
 
-	function ___tetst_excluded_tags(){
+	function test_excluded_tags(){
 		$fun = $this->tags["fun"];
 		$dpd = $this->delivery_methods["dpd"];
 		$peanuts = $this->products["peanuts"];
