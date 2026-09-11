@@ -15,13 +15,19 @@ class PaymentStatusCheckerRobot extends ApplicationRobot {
 			"(payment_transaction_started_at<NOW() - INTERVAL '5 minutes') OR payment_status_id=:pending_status", // nekontroluji se uplne nove platebni transakce - ocekava se, ze stav zaplaceni oznami plat. brana push zpravou
 			"
 				(payment_transaction_started_at>NOW() - INTERVAL '24 hours') OR -- 1 den se pravidelne kontroluji nezaplacene platby
-				(payment_transaction_started_at>NOW() - INTERVAL '10 days' AND $order_status_id=:payment_failed_order_status AND COALESCE(payment_status_checked_at,created_at)<NOW() - INTERVAL '30 minutes') -- a pak kazdou pulhodinu u objednavek ve stavu payment_failed
+				(payment_transaction_started_at>NOW() - INTERVAL '10 days' AND $order_status_id IN (SELECT id FROM order_statuses WHERE code IN :order_statuses) AND COALESCE(payment_status_checked_at,created_at)<NOW() - INTERVAL '30 minutes') -- a pak kazdou pulhodinu u objednavek ve vybranych stavech
 			", // 
 		];
 
 		$bind_ar = [
 			":pending_status" => PaymentStatus::FindByCode("pending"),
 			":payment_failed_order_status" => OrderStatus::FindByCode("payment_failed"),
+			":order_statuses" => [
+				// v jakych stavech objednavky budeme jeste kontrolovat stav platebni transakce?
+				"payment_failed",
+				"payment_accepted", // to muze administrator nastavit rucne
+				"processing",
+			],
 		];
 
 		if($TESTING_PAYMENTS_ONLY){
@@ -34,6 +40,7 @@ class PaymentStatusCheckerRobot extends ApplicationRobot {
 		]);
 
 		$this->logger->info("payment transactions to check: ".sizeof($payment_transactions));
+		$this->logger->flush();
 
 		foreach($payment_transactions as $payment_transaction){
 			$current_status = $payment_transaction->getPaymentStatus() ? $payment_transaction->getPaymentStatus()->getCode() : "NULL";
