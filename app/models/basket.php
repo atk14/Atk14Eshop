@@ -147,6 +147,9 @@ class Basket extends BasketOrOrder {
 
 	function setBasketItemsVirtually($basket_items){
 		myAssert($this->isDummy(),"Basket::setBasketItemsVirtually() can only be called on a dummy basket");
+		foreach($basket_items as &$bi){
+			$bi->setForceBasket($this);
+		}
 		$this->basket_items = $basket_items;
 	}
 

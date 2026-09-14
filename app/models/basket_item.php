@@ -3,6 +3,8 @@ definedef("INTERNAL_PRICE_DECIMALS",4);
 
 class BasketItem extends BasketOrOrderItem {
 
+	protected $force_basket;
+
 	function setRank($new_rank){
 		return $this->_setRank($new_rank,array(
 			"basket_id" => $this->g("basket_id"),
@@ -31,6 +33,9 @@ class BasketItem extends BasketOrOrderItem {
 	}
 
 	function getBasket(){
+		if($this->force_basket){
+			return $this->force_basket;
+		}
 		return Cache::Get("Basket",$this->g("basket_id"));
 	}
 
@@ -63,5 +68,10 @@ class BasketItem extends BasketOrOrderItem {
 		$step = $product->getOrderQuantityStep();
 
 		return ($amount - $step) >= $product->getCalculatedMinimumQuantityToOrder();
+	}
+
+	function setForceBasket($basket){
+		myAssert($basket->isDummy(),"BasketItem::setForceBasket() can only be called with a dummy basket");
+		$this->force_basket = $basket;
 	}
 }

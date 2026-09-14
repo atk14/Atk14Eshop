@@ -155,4 +155,24 @@ class TcRegion extends TcBase {
 		$this->assertEquals(ATK14_HTTP_HOST,$cr->getDefaultDomain());
 		$this->assertEquals("http://".ATK14_HTTP_HOST."/",$cr->getDefaultUrl());
 	}
+
+	function test_GetRegionByDomain(){
+		$region = Region::GetRegionByDomain("www.example.sk");
+		$this->assertEquals("SK",$region->getCode());
+
+		$region = Region::GetRegionByDomain("example.eu");
+		$this->assertEquals("EU",$region->getCode());
+
+		$this->assertEquals(null,Region::GetRegionByDomain("www.unknown-domain.com"));
+
+		// If there is more than one region with the same domain,
+		// no region will be returned.
+		Region::CreateNewRecord([
+			"code" => "SK2",
+			"domains" => '["www.example.sk","example.sk"]'
+		]);
+
+		$this->assertEquals(null,Region::GetRegionByDomain("www.example.sk"));
+		$this->assertEquals(null,Region::GetRegionByDomain("example.sk"));
+	}
 }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 14:36+0200\n"
-"PO-Revision-Date: 2026-06-03 13:56+0200\n"
+"POT-Creation-Date: 2026-08-07 10:54+0200\n"
+"PO-Revision-Date: 2026-08-04 23:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -16,6 +16,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:73
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:676
+msgid "Seřadit dle"
+msgstr "Sort by"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:93
+msgid "První strana"
+msgstr "First Page"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:94
+msgid "Další produkt"
+msgstr "Next Product"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:95
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:98
+msgid "Další strana"
+msgstr "Next page"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:96
+#, php-format
+msgid "Další %s produkty"
+msgstr "More %s products"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:97
+#, php-format
+msgid "Dalších %s produktů"
+msgstr "Another %s products"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:99
+msgid "Předchozí strana"
+msgstr "Previous page"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:100
+msgid "Zbývá 1 položka z %t"
+msgstr "1 item remaining out of %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:101
+msgid "Zbývají %s položky z %t"
+msgstr "%s items remain out of %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:102
+msgid "Zbývá %s položek z %t"
+msgstr "%s items remain out of %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:106
+msgid "Vyhledáno celkem %t produktů"
+msgstr "A total of %t products were found"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:108
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:111
+msgid "produktů"
+msgstr "products"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:109
+msgid "produkt"
+msgstr "product"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:110
+msgid "produkty"
+msgstr "products"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:113
+msgid "Načítám..."
+msgstr "Loading..."
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
@@ -72,23 +137,23 @@ msgstr "from"
 msgid "to"
 msgstr "to"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:88
+#: ../vendor/atk14/category-filter/test/tc_usage.php:90
 msgid "skladem"
 msgstr "in stock"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:89
+#: ../vendor/atk14/category-filter/test/tc_usage.php:91
 msgid "zobrazit i nedostupné tituly"
 msgstr "show also unavailable titles"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:121
+#: ../vendor/atk14/category-filter/test/tc_usage.php:123
 msgid "červená"
 msgstr "red"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:122
+#: ../vendor/atk14/category-filter/test/tc_usage.php:124
 msgid "modrá"
 msgstr "blue"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:123
+#: ../vendor/atk14/category-filter/test/tc_usage.php:125
 msgid "green"
 msgstr "green"
 
@@ -342,7 +407,7 @@ msgstr "no image"
 msgid "Display image"
 msgstr "Display image"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:114
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:132
 msgid "Unknown error"
 msgstr "Unknown error"
 
@@ -429,14 +494,14 @@ msgstr "Enter seven digits"
 msgid "Enter five digits"
 msgstr "Enter five digits"
 
-msgid "Enter the ZIP code as NNN NN"
-msgstr "Enter the ZIP code as NNN NN"
+#~ msgid "Enter the ZIP code as NNN NN"
+#~ msgstr "Enter the ZIP code as NNN NN"
 
-msgid "od"
-msgstr "from"
+#~ msgid "od"
+#~ msgstr "from"
 
-msgid "do"
-msgstr "to"
+#~ msgid "do"
+#~ msgstr "to"
 
 #~ msgid ""
 #~ "The file has been already deleted on the server, please upload it again"

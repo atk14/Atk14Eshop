@@ -23,11 +23,16 @@
 
 		<div class="suggestions__footer">
 			<center>
-			{if $finder->getTotalAmount()>5}
-				<p class="justify-content-center">{t total_amount=$finder->getTotalAmount()}Nalezeno celkem %1 výsledků.{/t}</p>
-			{/if}
-			{if $finder->getTotalAmount()>$finder->getLimit()}
-				<p class="justify-content-center"><a href="{link_to action=index q=$params.q}" class="btn btn-outline-primary" tabindex="10">{t}Zobrazit všechny výsledky{/t}</a></p>
+			{if $finder->hardLimitReached()}
+				<p class="justify-content-center">{t}Nalezeno příliš mnoho výsledků. Upřesněte dotaz.{/t}</p>
+				<p class="justify-content-center"><a href="{link_to action=index q=$params.q}" class="btn btn-outline-secondary" tabindex="10">{t}Zobrazit výsledky{/t}</a></p>
+			{else}
+				{if $finder->getTotalAmount()>5}
+					<p class="justify-content-center">{t total_amount=$finder->getTotalAmount()}Nalezeno celkem %1 výsledků.{/t}</p>
+				{/if}
+				{if $finder->getTotalAmount()>$finder->getLimit()}
+					<p class="justify-content-center"><a href="{link_to action=index q=$params.q}" class="btn btn-outline-primary" tabindex="10">{t}Zobrazit všechny výsledky{/t}</a></p>
+				{/if}
 			{/if}
 			</center>
 		</div>	

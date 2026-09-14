@@ -17,7 +17,7 @@ class SummaryForm extends CheckoutsForm {
 		]));
 		$this->add_sign_up_for_newsletter_field();
 
-		$this->set_button_text(_("Dokončit objednávku"));
+		$this->set_button_text(_("Odeslat objednávku")); // v sablone je rucne vysazeno "Odeslat objednávku zavazující k platbě"
 	}
 
 	function clean(){

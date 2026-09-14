@@ -1,6 +1,19 @@
 <?php
 trait TraitStatusHistoryItem {
 
+	/**
+	 *
+	 *	$history_items = TicketHistory::GetInstancesFor($ticket);
+	 */
+	static function GetInstancesFor($object){
+		$object_field_name = String4::ToObject(get_called_class())
+			->gsub("/History$/","")
+			->underscore()
+			->append("_id")
+			->toString();
+		return TicketHistory::FindAll($object_field_name,$object,["order_by" => "id ASC"]);
+	}
+
 	function __construct(){
 		list($prefix) = $this->_getNames();
 		parent::__construct("{$prefix}_history");

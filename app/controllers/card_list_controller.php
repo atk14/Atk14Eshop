@@ -92,7 +92,7 @@ abstract class CardListController extends ApplicationController {
 			}
 	}
 
-	function _setup_sorting($sorting,&$options) {
+	function _setup_sorting($sorting,&$options,&$bind) {
 		$default_order = $options["default_order"];
 		if(!is_a($default_order,"\SqlBuilder\SqlJoinOrder")){
 			$default_order = new \SqlBuilder\SqlJoinOrder($default_order);
@@ -164,7 +164,7 @@ abstract class CardListController extends ApplicationController {
 		}
 
 		$sorting = $this->sorting;
-		$this->_setup_sorting($sorting,$options);
+		$this->_setup_sorting($sorting,$options,$bind);
 
 		$this->form = $this->tpl_data["form"] = $this->_get_form("FilterForm");
 		$this->tpl_data["pager"] = $this->pager = $pager = new CardsAjaxPager($this, [

@@ -7,7 +7,7 @@
 			<div class="branch-name"></div>
 			<div class="branch-address"></div>
 		</div>
-		{render partial="shared/form"}
+		<div class="d-none">{render partial="shared/form"}</div>
 	</div>
 	<div class="col-12 col-sm-6 text-sm-right">
 		<img class="branch-image">

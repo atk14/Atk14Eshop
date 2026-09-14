@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 14:36+0200\n"
+"POT-Creation-Date: 2026-08-07 10:54+0200\n"
 "PO-Revision-Date: 2026-06-03 13:55+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -16,6 +16,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:73
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:676
+msgid "Seřadit dle"
+msgstr "Seřadit dle"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:93
+msgid "První strana"
+msgstr "První strana"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:94
+msgid "Další produkt"
+msgstr "Další produkt"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:95
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:98
+msgid "Další strana"
+msgstr "Další strana"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:96
+#, php-format
+msgid "Další %s produkty"
+msgstr "Další %s produkty"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:97
+#, php-format
+msgid "Dalších %s produktů"
+msgstr "Dalších %s produktů"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:99
+msgid "Předchozí strana"
+msgstr "Předchozí strana"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:100
+msgid "Zbývá 1 položka z %t"
+msgstr "Zbývá 1 položka z %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:101
+msgid "Zbývají %s položky z %t"
+msgstr "Zbývají %s položky z %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:102
+msgid "Zbývá %s položek z %t"
+msgstr "Zbývá %s položek z %t"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:106
+msgid "Vyhledáno celkem %t produktů"
+msgstr "Vyhledáno celkem %t produktů"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:108
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:111
+msgid "produktů"
+msgstr "produktů"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:109
+msgid "produkt"
+msgstr "produkt"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:110
+msgid "produkty"
+msgstr "produkty"
+
+#: ../vendor/atk14/ajax-pager/src/lib/ajax_pager/ajax_pager.php:113
+msgid "Načítám..."
+msgstr "Načítám..."
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
@@ -71,23 +136,23 @@ msgstr "od"
 msgid "to"
 msgstr "do"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:88
+#: ../vendor/atk14/category-filter/test/tc_usage.php:90
 msgid "skladem"
 msgstr "skladem"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:89
+#: ../vendor/atk14/category-filter/test/tc_usage.php:91
 msgid "zobrazit i nedostupné tituly"
 msgstr "zobrazit i nedostupné tituly"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:121
+#: ../vendor/atk14/category-filter/test/tc_usage.php:123
 msgid "červená"
 msgstr "červená"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:122
+#: ../vendor/atk14/category-filter/test/tc_usage.php:124
 msgid "modrá"
 msgstr "modrá"
 
-#: ../vendor/atk14/category-filter/test/tc_usage.php:123
+#: ../vendor/atk14/category-filter/test/tc_usage.php:125
 msgid "green"
 msgstr "green"
 
@@ -341,7 +406,7 @@ msgstr "bez obrázku"
 msgid "Display image"
 msgstr "Zobrazit obrázek"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:114
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:132
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -428,11 +493,11 @@ msgstr "Zadejte sedm číslic"
 msgid "Enter five digits"
 msgstr "Zadejte pět číslic"
 
-msgid "od"
-msgstr "od"
+#~ msgid "od"
+#~ msgstr "od"
 
-msgid "do"
-msgstr "do"
+#~ msgid "do"
+#~ msgstr "do"
 
 #~ msgid ""
 #~ "The file has been already deleted on the server, please upload it again"

@@ -1,8 +1,13 @@
+{if !$pager}
+	{assign page $finder->getPager()}
+{/if}
+
 {*//#TODO js
 //pokud bezi dalsi request, tak nic neprekreslujeme*}
 (function() {
 var form=$("#filter_form");
-if( --form[0].filtering == 0 ) {
+if( --form[0].filtering <= 0 ) {
+	form[0].filtering = 0;
 	var view=$('#cards');
 	var empty=view.find('.js--empty-list');
 	var nonempty=view.find;
@@ -19,7 +24,7 @@ if( --form[0].filtering == 0 ) {
 	{/if}
 
 	{if $finder->isEmpty()}
-			empty.html({jstring}{render partial=$finder->getPager()->getEmptyTemplate()}{/jstring});
+			empty.html({jstring}{render partial=$pager->getEmptyTemplate()}{/jstring});
 			empty.show();
 			view.find('.js--nonempty-list').hide();
 			view.find('.js--pager-buttons').hide();
@@ -48,21 +53,21 @@ if( --form[0].filtering == 0 ) {
 			empty.hide();
 	{/if}
 
-	{if !$finder->getPager()->isXhr() || $finder->getPager()->isXhrOrdered()}
+	{if !$pager->isXhr() || $pager->isXhrOrdered()}
 		{if !$doNotrerenderFilters}
-			form.find('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
-			form.find('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
-			form.find('.js--active_filters').html({jstring}{render partial='shared/filter/active_filters' filter=$finder->filter}{/jstring});
+			$('.js--filter_fields').html({jstring}{render partial="shared/filter/filter_fields"}{/jstring});
+			$('.js--filter_head').html({jstring}{render partial="shared/form_field" fields=$form->top_fields() no_label_rendering=true}{/jstring});
+			$('.js--active_filters').html({jstring}{render partial='shared/filter/active_filters' filter=$finder->filter}{/jstring});
 			ATK14COMMON.filter_init( '#filter_form', true );
 		{/if}
-		form.find('.js--products-count').html({jstring}{render partial='shared/paging_count'}{/jstring});
+		$('.js--products-count').html({jstring}{render partial='shared/paging_count'}{/jstring});
 		$('.js--products-count-number').html({$finder->getRecordsCount()});
 		{*$('#child-categories').html({jstring}{render partial='shared/categories/child_categories'}{/jstring});*}
 		if("NoUISlider" in window) {
 			NoUISlider.Init();
 		}
 		var ajaxPager = view.find('.ajax_pager')[0].ajaxPager;
-		$.extend(ajaxPager, {!$finder->getPager()->jsUpdate()});
+		$.extend(ajaxPager, {!$pager->jsUpdate()});
 		ajaxPager.count = {$finder->getRecords()|count};
 		view.find('.ajax_pager').data( "count", {$finder->getRecords()|count});
 		ajaxPager.reinit();

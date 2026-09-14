@@ -19,7 +19,7 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 	function run() {
 		global $argv;
 
-		ini_set("memory_limit", "500M");
+		ini_set("memory_limit", "600M");
 
 		array_shift($argv);
 		array_shift($argv);
@@ -53,6 +53,8 @@ class ImportDeliveryServiceBranchesRobot extends ApplicationRobot {
 			$this->logger->info(sprintf("going to import branches for DeliveryService#%s, code=%s, country_code=%s", $ds->getId(), $ds->getCode(), $country_code));
 			$this->logger->flush();
 			DeliveryService::UpdateBranches($ds->getCode(), ["logger" => $this->logger, "force_import" => $force_import, "country_code" => $country_code]);
+
+			$this->_commit();
 		}
 	}
 }

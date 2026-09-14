@@ -21,7 +21,9 @@
 					{render partial="shared/form_button" class="btn btn-default nojs-only"}
 				</div>
 				{* Active Filters = pills/badges s aktivnimi filtry *}
-				{render partial="shared/filter/active_filters" filter=$finder->filter}
+				<div id="active_filters">
+					{render partial="shared/filter/active_filters" filter=$finder->filter}
+				</div>
 			</div>
 		</div>
 	{/if}

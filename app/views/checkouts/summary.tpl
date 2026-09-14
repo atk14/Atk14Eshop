@@ -18,9 +18,11 @@
 				{render partial="shared/form_field" field="sign_up_for_newsletter"}
 			{/if}
 			{render partial="shared/form_field" field="confirmation"}
-			{t url='terms_and_conditions'|link_to_page escape=no}Kliknutím na tlačítko Dokončit objednávku souhlasíte<br>a&nbsp;potvrzujete, že&nbsp;jste se seznámil s&nbsp;<a href="%1" target="_blank">obchodními&nbsp;podmínkami.</a>{/t}
+			{t url='terms_and_conditions'|link_to_page escape=no}Kliknutím na tlačítko Odeslat objednávku souhlasíte<br>a&nbsp;potvrzujete, že&nbsp;jste se seznámil s&nbsp;<a href="%1" target="_blank">obchodními&nbsp;podmínkami.</a>{/t}
 		</div>
-		{render partial="shared/form_button" class="btn btn-lg btn-primary"}
+		<div class="form-group">
+			<span class="button-container"><button type="submit" class="btn btn-lg btn-primary btn--multiline"><span>{t}Odeslat objednávku{/t}</span> <small>{strip_html}{t escape=no}<!-- Odeslat objednávku --> zavazující k platbě{/t}{/strip_html}</small></button></span>
+		</div>
 	</div>
 {/form}
 

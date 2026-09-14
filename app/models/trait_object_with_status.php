@@ -205,7 +205,10 @@ Trait TraitObjectWithStatus {
 		if( $values === null ) {
 			$values = $this;
 		}
+		
+		// TODO: This condition should be removed in the future
 		if( $values instanceof Claim ) {
+			trigger_error(get_class($this)."::createStatusHistoryItem(): Legacy usage detected. Rewrite it.");
 			$values = [
 				"{$prefix}_id" => $values,
 				"{$prefix}_status_set_at" => $values->g("{$prefix}_status_set_at"),
@@ -223,7 +226,7 @@ Trait TraitObjectWithStatus {
 			$ovalues = $this->dbmole->selectRow("SELECT
 							{$prefix}_status_id
 							FROM {$prefix}_history WHERE {$prefix}_id = :id AND {$prefix}_status_set_at <= :at
-							ORDER BY {$prefix}_status_set_at DESC LIMIT 1
+							ORDER BY {$prefix}_status_set_at DESC, id DESC LIMIT 1
 							", [
 								':id' => $values["{$prefix}_id"],
 								':at' => $values["{$prefix}_status_set_at"],
@@ -232,6 +235,13 @@ Trait TraitObjectWithStatus {
 				$values+=$ovalues;
 			}
 		}
+
+		// saving the previus status
+		$obj = new $history_class_name;
+		if($obj->hasKey("prev_{$prefix}_status_id") && $ovalues){
+			$values["prev_{$prefix}_status_id"] = $ovalues["{$prefix}_status_id"];
+		}
+
 		$history = $history_class_name::CreateNewRecord($values);
 		return $history;
 	}

@@ -3,7 +3,15 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 
 	use TraitGetInstanceByCode;
 
-	static function GetTranslatableFields(){ return array("name", "short_name", "application_name", "application_long_name"); }
+	static function GetTranslatableFields(){
+		return [
+			"name",
+			"short_name",
+			"application_name",
+			"application_long_name",
+			"terms_and_conditions_attachment_url",
+		];
+	}
 
 	static function GetAllInstances(){
 		static $regions;
@@ -41,10 +49,14 @@ class Region extends ApplicationModel implements Translatable, Rankable {
 	}
 
 	static function GetRegionByDomain($domain){
+		$regions = [];
 		foreach(self::GetActiveInstances() as $r){
 			if(in_array($domain,$r->getDomains())){
-				return $r;
+				$regions[] = $r;
 			}
+		}
+		if(sizeof($regions)==1){
+			return $regions[0];
 		}
 	}
 

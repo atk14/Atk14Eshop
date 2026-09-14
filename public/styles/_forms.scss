@@ -180,6 +180,27 @@ form#form_checkouts_summary .form-group--id_confirmation {
 	}
 }
 
+ul.list--checkboxes {
+	list-style: none;
+	padding-left: 0;
+	li.list__item {
+	}
+	&--horizontal {
+		columns: 5;
+		@include media-breakpoint-down(lg){
+			columns: 4;
+		}
+		@include media-breakpoint-down(md){
+			columns: 3;
+		}
+		@include media-breakpoint-down(sm){
+			columns: 2;
+		}
+		@include media-breakpoint-down(xs){
+			columns: 1;
+		}
+	}
+}
 
 // quantity widget
 .quantity-widget {

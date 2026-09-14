@@ -46,6 +46,9 @@
         "tecnickcom/tcpdf": "^6.6",
         "yarri/array-flatten": "^0.1.0",
         "salamek/ppl-my-api": "^2.7|^2.2",
+        "atk14/ajax-pager": "^0.2.3",
+        "yarri/mjml": "^0.2",
+        "atk14/cache-file-storage": "^1.0",
         "heureka/bank-account-validator": "^1.2"
     },
     "require-dev": {

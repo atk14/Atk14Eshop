@@ -26,6 +26,10 @@ function smarty_function_iobject_to_html($params,$template){
 		$collector->addItem(new \StructuredData\Element\VideoObject($object));
 	} elseif($object instanceof Picture){
 		$collector->addItem(new \StructuredData\Element\ImageObject($object));
+	} elseif($object instanceof Gallery){
+		foreach($object->getGalleryItems() as $item){
+			$collector->addItem(new \StructuredData\Element\ImageObject($item));
+		}
 	}
 
 	$out = $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");

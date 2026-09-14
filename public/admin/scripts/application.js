@@ -1,7 +1,6 @@
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,
-		ace = window.ace,
 		UTILS = window.UTILS,
 
 	ADMIN = {
@@ -11,22 +10,15 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				window.UTILS.Suggestions.handleSuggestions();
-				window.UTILS.Suggestions.handleTagsSuggestions();
-				ADMIN.utils.initializeMarkdonEditors();
-				new UTILS.MDEditorResizer();
-				if( document.getElementById( "layout-designer" ) ) {
-					new UTILS.LayoutDesigner();
-				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
-				window.UTILS.TagChooser.init();
-				window.UTILS.Suggestions.handleCategoriesSuggestions();
+				UTILS.Suggestions.handleCategoriesSuggestions();
 
-				// Form hints.
-				UTILS.formHints();
-
-				UTILS.leaving_unsaved_page_checker.init();
+				// Initialize editor forms on page load and after form replacement.
+				ADMIN.utils.initializeEditors();
+				window.addEventListener( "edit_form_replaced", function() {
+					ADMIN.utils.initializeEditors();
+				} );
 
 				// eslint-disable-next-line no-unused-vars
 				var filterableNav = new UTILS.filterableList( {
@@ -55,7 +47,6 @@
 				if( document.querySelector( "#id_location_lat" ) && document.querySelector( "#id_location_lng" ) ){
 					new UTILS.geoPaste();
 				}
-				UTILS.EnhancedFileField.init();
 			}
 
 		},
@@ -124,41 +115,6 @@
 		},
 
 		utils: {
-
-			initializeMarkdonEditors: function() {
-
-				// Markdown Editor requires Ace
-				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
-				$.each( $( "textarea[data-provide=markdown]" ), function( i, el ) {
-					$( el ).markdownEditor( {
-						preview: true,
-						onPreview: function( content, callback ) {
-							
-							// match md-editor and md-preview heights
-							var editorHeight = $( el ).parent().find( ".md-editor" ).height();
-							if ( editorHeight ) {
-								$(el).parent().find( ".md-preview" ).height( editorHeight );
-							}
-
-							var lang = $( "html" ).attr( "lang" );
-							$.ajax( {
-								type: "POST",
-								url: "/api/" + lang + "/markdown/transform/",
-								data: {
-									source: content,
-									base_href: $( el ).data( "base_href" )
-								},
-								success: function( output ) {
-									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
-									callback( output );
-									window.UTILS.initSwiper();
-									window.UTILS.PreviewModeToggle.init( el.parentElement.querySelector( ".md-preview" ) );
-								}
-							} );
-						}
-					} );
-				} );
-			},
 
 			handleFormErrors: function( errors ) {
 				$.each( errors, function( field, errorList ) {
@@ -317,9 +273,24 @@
 				} );
 			},
 
+			// Initialize editor forms
+			initializeEditors: function() {
+				UTILS.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
+				UTILS.leaving_unsaved_page_checker.init();
+				UTILS.Suggestions.handleSuggestions();
+				UTILS.Suggestions.handleTagsSuggestions();
+				UTILS.TagChooser.init();
+				UTILS.EnhancedFileField.init();
+				UTILS.formHints();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				};
+			},
+
 			handleCategoriesSuggestions: function() {
 				ADMIN.utils.categoriesSuggest( "[data-suggesting_categories='yes']" );
-			},
+			}
 		}
 	};
 

@@ -13,6 +13,10 @@
 		margin-left: $buttonGap/2;
 		margin-right: $buttonGap/2;
 	}
+
+	.btn-primary {
+		min-width: 15rem;
+	}
 	
 	.form-group {
 		margin: 0 !important;

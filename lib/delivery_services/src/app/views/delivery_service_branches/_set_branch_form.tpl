@@ -6,6 +6,15 @@
 	*}
 
 
+{if $dialog_provider != "default"}
+<div id="delivery_service_branch_widget_loading" class="preloader">
+	<div class="spinner-border text-secondary" role="status">
+		<span class="sr-only">{t}Loading...{/t}</span>
+	</div>
+	<div>{t}Načítání...{/t}</div>
+</div>
+{/if}
+
 {render partial="$widget_template_html"}
 
 {javascript_tag}

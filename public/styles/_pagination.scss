@@ -91,6 +91,37 @@ Bootstrap`s own pagination scss should NOT be loaded.
 		.pagination-info {
 			margin-top: $grid-gutter-width/2;
 		}
+
+		// styling for loading/idle states
+		&[data-status="loading"] {
+			a.js--first, a.js--previous, a.js--next, a.js--last {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+			a.js--clicked {
+				animation: btn_loading 2s linear 0s infinite alternate;
+			}
+		}
+
+		/*
+		&[data-status="idle"] {
+		}
+		*/
+
+
 	}
 	
+}
+
+
+@keyframes btn_loading {
+	0% {
+		opacity: 0.8;
+	}
+	50% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 0.8;
+	}
 }

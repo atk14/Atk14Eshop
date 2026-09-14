@@ -21,7 +21,7 @@ class OrderItemsController extends AdminController {
 				}
 				$d["order_id"] = $order;
 				$d["vat_percent"] = $product->getVatPercent();
-				$d["unit_price"] = $product_price->getUnitPrice();
+				$d["unit_price_incl_vat"] = $product_price->getUnitPriceInclVat();
 
 				$item = OrderItem::CreateNewRecord($d);
 

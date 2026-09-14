@@ -1,4 +1,4 @@
-{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
+{assign var=appname value=$current_region->getApplicationName()}
 
 {capture assign=menu_collapse}{remove_if_contains_no_text}
 <div class="collapse navbar-collapse" id="navTopMobileNavDropdown">

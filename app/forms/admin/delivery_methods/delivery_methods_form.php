@@ -85,7 +85,7 @@ class DeliveryMethodsForm extends AdminForm {
 		$this->add_field("multiply_price", new BooleanField(array(
 			"label" => _("Násobit cenu dopravy počtem souvisejících produktů v košíku?"),
 			"required" => false,
-			"help_text" => _('Lze aktivovat, pokud je nastaveno "Určeno pro štítek" nebo "Exkluzivně pro štítek".'),
+			"help_text" => _('Lze aktivovat, pokud je nastaveno "Určeno pro štítky" nebo "Exkluzivně pro štítek".'),
 		)));
 
 		$this->add_code_field(array(
@@ -132,7 +132,7 @@ class DeliveryMethodsForm extends AdminForm {
 
 		if(in_array("multiply_price",$keys) && in_array("designated_for_tags",$keys) && in_array("required_tag_id",$keys)){
 			if($d["multiply_price"] && !$d["designated_for_tags"] && !$d["required_tag_id"]){
-				$this->set_error("multiply_price",_('Násobení ceny lze zapnout pouze v případě, kdy je nastaveno "Určeno pro štítek" nebo "Exkluzivně pro štítek"'));
+				$this->set_error("multiply_price",_('Násobení ceny lze zapnout pouze v případě, kdy je nastaveno "Určeno pro štítky" nebo "Exkluzivně pro štítek"'));
 			}
 		}
 

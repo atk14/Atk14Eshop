@@ -18,6 +18,14 @@
 				<small>{if sizeof($currencies)==1}{t}Currency{/t}:{else}{t}Currencies{/t}:{/if}</small><br>
 				{$currencies|to_sentence}
 			</div>
+			<div>
+				<small>{t}Terms and Conditions{/t}:</small><br>
+				{if $region->getTermsAndConditionsAttachmentUrl()}
+					<a href="{$region->getTermsAndConditionsAttachmentUrl()}">{$region->getTermsAndConditionsAttachmentUrl()|filename_from_url}</a>
+				{else}
+					&mdash;
+				{/if}
+			</div>
 			<div class="item__controls">
 				{dropdown_menu}
 					{a action="edit" id=$region}{!"pencil-alt"|icon} {t}Edit{/t}{/a}

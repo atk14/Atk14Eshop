@@ -22,11 +22,22 @@ class AdminForm extends ApplicationForm{
 	function add_translatable_field($field_name, $field, $options = array()) {
 		global $ATK14_GLOBAL;
 
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+
 		$options += array(
 			"required_langs" => $ATK14_GLOBAL->getDefaultLang(), // "_all_", "cs", "cs,en" nebo array("cs","en")
 			"additional_langs" => array(), // dalsi jazyky, ktere aplikace jinak nema aktivovane
+			"enable_live_translations" => "auto", // true, false, "auto"
 			"return" => "fields", // "fields" or "names"
 		);
+
+		if(sizeof($locales) === 1){
+			$options["enable_live_translations"] = false;
+		}
+
+		if($options["enable_live_translations"]==="auto"){
+			$options["enable_live_translations"] = is_a($field,"CharField");
+		}
 
 		foreach(array("required_langs","additional_langs") as $k){
 			if(!is_array($options[$k])){
@@ -38,7 +49,6 @@ class AdminForm extends ApplicationForm{
 			}
 		}
 
-		$locales = $ATK14_GLOBAL->getConfig("locale");
 		$langs = array_keys($locales);
 		foreach($options["additional_langs"] as $al){
 			if(!in_array($al,$langs)){ $langs[] = $al; }
@@ -64,9 +74,12 @@ class AdminForm extends ApplicationForm{
 		}
 		if(!$field->required){ $required_langs = array(); }
 
+		$options["enable_live_translations"] && ($field->widget->attrs["data-translatable"] = "yes");
+
 		$fields = $names = array();
 		foreach($langs as $lang){
 			$w = clone($field->widget);
+			$options["enable_live_translations"] && ($w->attrs["data-translatable_lang"] = $lang);
 			$required = in_array($lang,$required_langs);
 			if($required){
 				$w->attrs["required"] = "required";
@@ -101,7 +114,9 @@ class AdminForm extends ApplicationForm{
 		return $this->add_translatable_field("slug",new SlugField(array(
 			"max_length" => Slug::SlugMaxLength(),
 			"required" => false,
-		)));
+		)),array(
+			"enable_live_translations" => false,
+		));
 	}
 
 	function add_title_field($options = array()){
@@ -117,8 +132,11 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"label" => _("Popis"),
 			"required" => false,
+			"class_name" => "CharField",
 		);
-		return $this->add_translatable_field("description",new CharField($options));
+		$class_name = $options["class_name"];
+		unset($options["class_name"]);
+		return $this->add_translatable_field("description",new $class_name($options));
 	}
 
 	function add_validity_fields(){

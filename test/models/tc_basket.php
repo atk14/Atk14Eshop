@@ -338,6 +338,49 @@ class TcBasket extends TcBase {
 		$this->assertEquals(48.4,$item->getPriceInclVat());
 	}
 
+	function test_setBasketItemsVirtually_sets_basket_on_items(){
+		$basket = Basket::GetDummyBasket();
+
+		$basket_item = new BasketItem();
+		$basket_item->setValuesVirtually([
+			"product_id" => $this->products["mint_tea"]->getId(),
+			"amount" => 2,
+		]);
+
+		// before the fix, the item had no basket attached, because it has no
+		// basket_id in the DB; getBasket() therefore returned null
+		$this->assertNull($basket_item->g("basket_id"));
+
+		$basket->setBasketItemsVirtually([$basket_item]);
+
+		$this->assertSame($basket,$basket_item->getBasket());
+
+		// getProductPrice() calls getBasket()->getPriceFinder() - before the fix
+		// this crashed with "Call to a member function getPriceFinder() on null"
+		$this->assertEquals(20.0,$basket_item->getUnitPrice());
+		$this->assertEquals(40.0,$basket_item->getPrice());
+	}
+
+	function test_setBasketItemsVirtually_sets_basket_on_items_eur(){
+		$eu = $this->regions["EU"];
+		$basket = Basket::GetDummyBasket($eu);
+		$this->assertEquals("EUR",$basket->getCurrency()->getCode());
+
+		$basket_item = new BasketItem();
+		$basket_item->setValuesVirtually([
+			"product_id" => $this->products["mint_tea"]->getId(),
+			"amount" => 2,
+		]);
+
+		$basket->setBasketItemsVirtually([$basket_item]);
+
+		$this->assertSame($basket,$basket_item->getBasket());
+
+		// the price finder must use the currency of the dummy basket, not just any basket
+		$this->assertEquals(0.77,$basket_item->getUnitPrice());
+		$this->assertEquals(1.54,$basket_item->getPrice());
+	}
+
 	function test_merge(){
 		$basket1 = Basket::CreateNewRecord(["note" => "Please deliver quickly"]);
 		$basket2 = Basket::CreateNewRecord([]);
