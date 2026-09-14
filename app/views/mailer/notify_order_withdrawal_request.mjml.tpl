@@ -45,6 +45,7 @@
 		{t}Zásilku zašlete na adresu{/t}:<br>
 		{"app.name.official"|system_parameter}<br>
 		{!$eshop->getAddress()|h|nl2br}<br>
+		{!$eshop->getAddressCountry()|to_country_name}
 	</li>
 	<li>{t}Vrácené zboží odešlete zpět nejpozději do 14 dnů od podání této žádosti{/t}</li>
 	<li>{t}Platbu za vrácené zboží vám vrátíme nejpozději do 14 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
