@@ -55,10 +55,13 @@ class OrderWithdrawalRequest extends ApplicationModel {
 		$max_days = 14;
 		$some_more_days = 7;
 
+		// Odstoupit od smlouvy by melo jit i u nezpracovanych objednavek
+		/*
 		if(!$processed_date && !$delivered_date){
 			$reason = _("Objednávka doposud nebyla zpracována.");
 			return false;
 		}
+		*/
 
 		if($delivered_date && $delivery_method->personalPickup()){
 			$date = $delivered_date;

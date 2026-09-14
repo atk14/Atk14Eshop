@@ -35,4 +35,11 @@
 	<td class="text-sm-right">{if $order->canBeFulfilled() && $order->hasDigitalContents()}<a href="{link_to action="digital_contents/index" order_token=$order->getToken(DigitalContent::GetOrderTokenOptions())}" class="btn btn-sm btn-primary">{!"cloud-download-alt"|icon} {t}Stáhnout digitální produkty{/t}</a>{/if}</td>
 	*}
 	{* <td class="text-sm-right"><span class="table-hint-xs">{t}Faktura{/t}</span>{a}{t}Faktura{/t} #######{/a}</td> *}
+	<td>
+		{if OrderWithdrawalRequest::CanOrderBeWithdrawn($order)}
+			{dropdown_menu}
+				<a href="{link_to action="order_withdrawal_requests/create_new" order_no=$order->getOrderNo()}">{t}Odstoupit od smlouvy{/t}</a>
+			{/dropdown_menu}
+		{/if}
+	</td>
 </tr>
