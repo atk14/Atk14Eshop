@@ -123,6 +123,19 @@ class TcOrderWithdrawalRequest extends TcBase {
 			"no_reason_given" => "No reason given",
 			"reason_1" => "Reason #1",
 		],$choices);
+
+		// --
+
+		$owr = OrderWithdrawalRequest::CreateNewRecord([
+			"order_id" => $this->_createOrder(),
+			"reasons" => json_encode(["reason_1","reason_2","reason_unknown"]),
+		]);
+
+		$this->assertEquals([
+			"reason_1" => "Reason #1",
+			"reason_2" => "Reason #2",
+			"reason_unknown" => "reason_unknown",
+		],$owr->getReasons());
 	}
 
 	function _createOrder($values =  []){
