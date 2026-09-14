@@ -88,7 +88,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 		}
 
 		if(OrderWithdrawalRequest::FindFirst("order_id",$order)){
-			$reason = _("Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy");
+			$reason = _("Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy.");
 			return false;
 		}
 

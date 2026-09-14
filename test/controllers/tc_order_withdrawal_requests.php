@@ -8,6 +8,14 @@ class TcOrderWithdrawalRequests extends TcBase {
 		$client = $this->client;
 		$order = $this->orders["test"];
 
+		$order_already_withdrawn = $this->orders["test_anonymous"];
+		OrderWithdrawalRequest::CreateNewRecord([
+			"order_id" => $order_already_withdrawn,
+		]);
+
+		$order_too_old = $this->orders["test_bank_transfer"];
+		$order_too_old->s("created_at","2025-09-14 23:20:00");
+
 		// ### Zadani cisla objednavky
 
 		// spatne cislo objednavky
@@ -16,12 +24,18 @@ class TcOrderWithdrawalRequests extends TcBase {
 		]);
 		$this->assertEquals(200,$client->getStatusCode());
 		$this->assertEquals([_("Taková objednávka neexistuje")],array_flatten($ctrl->form->get_errors()));
-		// spravne cislo, ale objednavka neni ve spravnem stavu
+		// spravne cislo, ale objednavka uz zadost ma
 		$ctrl = $client->post("order_withdrawal_requests/create_new",[
-			"order_no" => $order->getOrderNo(),
+			"order_no" => $order_already_withdrawn->getOrderNo(),
 		]);
 		$this->assertEquals(200,$client->getStatusCode());
-		$this->assertEquals([_("Objednávka doposud nebyla zpracována.")],array_flatten($ctrl->form->get_errors()));
+		$this->assertEquals([_("Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy.")],array_flatten($ctrl->form->get_errors()));
+		// spravne cislo, ale objednavka je prilis stara
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order_too_old->getOrderNo(),
+		]);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Objednávku již není možné vrátit.")],array_flatten($ctrl->form->get_errors()));
 		// spravne cislo, spravny stav
 		$order->setNewOrderStatus("ready_for_pickup");
 		$ctrl = $client->post("order_withdrawal_requests/create_new",[
