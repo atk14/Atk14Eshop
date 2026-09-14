@@ -116,7 +116,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 		$choices = self::ReasonsOfOrderReturningChoices();
 		$out = [];
 		foreach(json_decode($json,true) as $k){
-			$out[$k] = $choices[$k];
+			$out[$k] = isset($choices[$k]) ? $choices[$k] : $k;
 		}
 		return $out;
 	}
@@ -135,16 +135,32 @@ OrderWithdrawalRequest::$REASONS = [
 		"title" => _("Odstoupení od smlouvy bez udání důvodu"),
 		"active" => true,
 	],
-	"unsatisfactory_pattern" => [
-		"title" => _("Nevyhovující barva / vzor"),
+	"product_mismatch_description" => [
+		"title" => _("Produkt neodpovídá popisu / fotografii na webu"),
 		"active" => true,
 	],
-	"pattern_mismatch_photo" => [
-		"title" => _("Barva / vzor neodpovídá fotografii produktu"),
+	"product_not_as_expected" => [
+		"title" => _("Produkt nesplnil moje očekávání / nevyhovuje mi"),
 		"active" => true,
 	],
-	"unsatisfactory_material" => [
-		"title" => _("Nevyhovující materiál"),
+	"product_damaged" => [
+		"title" => _("Produkt byl doručen poškozený"),
+		"active" => true,
+	],
+	"product_defective" => [
+		"title" => _("Produkt má vadu / nefunguje správně"),
+		"active" => true,
+	],
+	"ordered_by_mistake" => [
+		"title" => _("Objednal(a) jsem omylem / špatné zboží"),
+		"active" => true,
+	],
+	"found_cheaper" => [
+		"title" => _("Zboží jsem našel/našla levněji jinde"),
+		"active" => true,
+	],
+	"delivery_too_long" => [
+		"title" => _("Dodání trvalo příliš dlouho"),
 		"active" => true,
 	],
 	"other" => [
