@@ -42,7 +42,7 @@
 <ul>
 	<li>
 		{assign eshop Store::GetInstanceByCode("eshop")}
-		{t}Zásilku zašlete na adresu{/t}:<br>
+		{t}Zásilku zašlete na adresu{/t}:<br><br>
 		{"app.name.official"|system_parameter}<br>
 		{!$eshop->getAddress()|h|nl2br}<br>
 		{!$eshop->getAddressCountry()|to_country_name}
