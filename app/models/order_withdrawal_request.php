@@ -87,7 +87,12 @@ class OrderWithdrawalRequest extends ApplicationModel {
 			return false;
 		}
 
-		// TODO: doplnit kontrolu
+		if(OrderWithdrawalRequest::FindFirst("order_id",$order)){
+			$reason = _("Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy");
+			return false;
+		}
+
+		// TODO: doplnit dalsi kontroly
 
 		return true;	
 	}

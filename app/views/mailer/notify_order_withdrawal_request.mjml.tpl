@@ -40,17 +40,14 @@
 {t}Pokyny pro vrácení objednávky:{/t}
 
 <ol>
-<li>Line 1</li>
-<li>Line 2</li>
-<li>{t}Zásilku zašlete na adresu{/t}:<br><br>
-
-	ADRESS NAME<br>
-	STREET<br>
-	XXX XX CITY<br><br>
-</li>
-
-<li>{t}Vrácené zboží odešlete zpět nejpozději do 14 dnů od podání této žádosti{/t}</li>
-<li>{t}Platbu za vrácené zboží vám vrátíme nejpozději do 14 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
+	<li>
+		{assign eshop Store::GetInstanceByCode("eshop")}
+		{t}Zásilku zašlete na adresu{/t}:<br>
+		{"app.name.official"|system_parameter}<br>
+		{!$eshop->getAddress()|h|nl2br}<br>
+	</li>
+	<li>{t}Vrácené zboží odešlete zpět nejpozději do 14 dnů od podání této žádosti{/t}</li>
+	<li>{t}Platbu za vrácené zboží vám vrátíme nejpozději do 14 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
 </ol>
 
 {capture assign=link}<a href="{"terms_and_conditions"|link_to_page:"with_hostname"}" style="{$link_style}">{t}{"terms_and_conditions"|link_to_page:"with_hostname"}{/t}</a>{/capture}

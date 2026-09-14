@@ -67,6 +67,7 @@ CREATE TABLE order_withdrawal_requests (
 	--
 	updated_at TIMESTAMP,
 	--
+	CONSTRAINT unq_orderwithdrawalrequests_orderid UNIQUE (order_id),
 	CONSTRAINT fk_orderwithdrawalrequests_orders FOREIGN KEY (order_id) REFERENCES orders,
 	CONSTRAINT fk_orderwithdrawalrequests_orderwithdrawalrequeststatuses FOREIGN KEY (order_withdrawal_request_status_id) REFERENCES order_withdrawal_request_statuses,
 	CONSTRAINT fk_orderwithdrawalrequests_status_users FOREIGN KEY (order_withdrawal_request_status_set_by_user_id) REFERENCES users,

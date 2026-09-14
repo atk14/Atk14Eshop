@@ -37,9 +37,9 @@
 	{* <td class="text-sm-right"><span class="table-hint-xs">{t}Faktura{/t}</span>{a}{t}Faktura{/t} #######{/a}</td> *}
 	<td>
 		{if OrderWithdrawalRequest::CanOrderBeWithdrawn($order)}
-			{dropdown_menu}
-				<a href="{link_to action="order_withdrawal_requests/create_new" order_no=$order->getOrderNo()}">{t}Odstoupit od smlouvy{/t}</a>
-			{/dropdown_menu}
+			<a href="{link_to action="order_withdrawal_requests/create_new" order_no=$order->getOrderNo()}" class="btn btn-outline-primary">{t}Odstoupit od smlouvy{/t}</a>
+		{elseif OrderWithdrawalRequest::FindFirst("order_id",$order)}
+			<em>{t}Odstoupeno od smlouvy{/t}</em>
 		{/if}
 	</td>
 </tr>
