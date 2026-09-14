@@ -1,3 +1,7 @@
+<mj-section>
+	<mj-column>
+		<mj-text>
+
 {t escape=no}Vážený zákazníku,{/t}<br/><br/>
 
 {t order_no=$order->getOrderNo()}potvrzujeme, že jsme přijali vaši žádost o odstoupení od kupní smlouvy k objednávce č. %1.{/t}<br/><br/>
@@ -51,3 +55,7 @@
 
 {capture assign=link}<a href="{"terms_and_conditions"|link_to_page:"with_hostname"}" style="{$link_style}">{t}{"terms_and_conditions"|link_to_page:"with_hostname"}{/t}</a>{/capture}
 <p>{t link=$link escape=no}Další informace o odstoupení od kupní smlouvy nalezenete na adrese %1{/t}</p>
+
+		</mj-text>
+	</mj-column>
+</mj-section>
