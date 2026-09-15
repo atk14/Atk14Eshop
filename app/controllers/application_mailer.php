@@ -329,6 +329,8 @@ class ApplicationMailer extends Atk14Mailer {
 
 		$this->tpl_data["order"] = $order;
 		$this->tpl_data["order_withdrawal_request"] = $ow;
+		$this->tpl_data["return_goods_days"] = OrderWithdrawalRequest::$RETURN_GOODS_DAYS;
+		$this->tpl_data["refund_days"] = OrderWithdrawalRequest::$REFUND_DAYS;
 	}
 
 	function mailer_playground($content){

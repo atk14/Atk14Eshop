@@ -2,6 +2,9 @@
 class OrderWithdrawalRequest extends ApplicationModel {
 
 	public static $REASONS = [];
+	public static $WITHDRAWAL_REQUEST_DAYS = 14; // lhůta pro podání žádosti o odstoupení od smlouvy
+	public static $RETURN_GOODS_DAYS = 14; // lhůta pro odeslání vráceného zboží zpět
+	public static $REFUND_DAYS = 14; // lhůta pro vrácení peněz
 
 	use TraitObjectWithStatus {
 		TraitObjectWithStatus::CreateNewRecord as TraitCreateNewRecord;
@@ -52,7 +55,7 @@ class OrderWithdrawalRequest extends ApplicationModel {
 			}
 		}
 
-		$max_days = 14;
+		$max_days = self::$WITHDRAWAL_REQUEST_DAYS;
 		$some_more_days = 7;
 
 		// Odstoupit od smlouvy by melo jit i u nezpracovanych objednavek

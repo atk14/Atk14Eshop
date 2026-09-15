@@ -47,8 +47,8 @@
 		{!$eshop->getAddress()|h|nl2br}<br>
 		{!$eshop->getAddressCountry()|to_country_name}
 	</li>
-	<li>{t}Vrácené zboží odešlete zpět nejpozději do 14 dnů od podání této žádosti{/t}</li>
-	<li>{t}Platbu za vrácené zboží vám vrátíme nejpozději do 14 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
+	<li>{t return_goods_days=$return_goods_days}Vrácené zboží odešlete zpět nejpozději do %1 dnů od podání této žádosti{/t}</li>
+	<li>{t refund_days=$refund_days}Platbu za vrácené zboží vám vrátíme nejpozději do %1 dnů od odstoupení od smlouvy, ne však dříve, než nám bude zboží doručeno zpět{/t}</li>
 </ul>
 
 {capture assign=link}<a href="{"terms_and_conditions"|link_to_page:"with_hostname"}" style="{$link_style}">{t}{"terms_and_conditions"|link_to_page:"with_hostname"}{/t}</a>{/capture}
