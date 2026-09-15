@@ -308,6 +308,9 @@ class ApplicationMailer extends Atk14Mailer {
 	}
 
 	function notify_order_withdrawal_request_otp($order,OneTimePassword $otp,string $code){
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
+
 		$this->to = $otp->getRecipient();
 		$this->subject = sprintf(_("Kód pro odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
 
@@ -317,6 +320,9 @@ class ApplicationMailer extends Atk14Mailer {
 
 	function notify_order_withdrawal_request(OrderWithdrawalRequest $ow){
 		$order = $ow->getOrder();
+
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
 
 		$this->to = $ow->getEmail();
 		$this->subject = sprintf(_("Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
