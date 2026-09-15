@@ -76,5 +76,19 @@ class TcOrderWithdrawalRequests extends TcBase {
 		$location = $client->getLocation();
 		$client->get($location);
 		$this->assertStringContains("Odesláním tohoto formuláře podáte žádost na odstoupení od kupní smlouvy k objednávce",$client->getContent());
+
+		// ### Opakovany pozadavek na odeslani kodu pro stejnou objednavku
+
+		$order->setNewOrderStatus("ready_for_pickup");
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order->getOrderNo(),
+		]);
+		$this->assertEquals(303,$client->getStatusCode());
+
+		$location = $client->getLocation();
+		//
+		$ctrl = $client->post($location);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Kód už byl odeslán, zkuste to prosím za chvíli znovu")],array_flatten($ctrl->form->get_errors()));
 	}
 }
