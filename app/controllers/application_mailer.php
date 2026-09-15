@@ -312,7 +312,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->subject = sprintf(_("Kód pro odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
 
 		$this->tpl_data["code"] = $code;
-		$this->tpl_data["order"] = $code;
+		$this->tpl_data["order"] = $order;
 	}
 
 	function notify_order_withdrawal_request(OrderWithdrawalRequest $ow){
