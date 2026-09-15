@@ -52,8 +52,8 @@ class GetDataForm extends OrderWithdrawalRequestsForm {
 				"label" => _("Jiný důvod k vrácení"),
 				"required" => false,
 			]));
+			$f->widget->attrs["rows"] = 3;
 		}
-		$f->widget->attrs["rows"] = 3;
 
 		$f = $this->add_field("products", new MultipleChoiceField([
 			"label" => _("Jaké položky objednávky vracíte?"),
