@@ -20,6 +20,16 @@ try {
 	}
 	definedef("DEFAULT_VAT_RATE",$default_vat_rate ? $default_vat_rate->getCode() : null);
 
+	if(isset($params["orders.withdrawals.withdrawal_request_days"])){
+		OrderWithdrawalRequest::$WITHDRAWAL_REQUEST_DAYS = $params["orders.withdrawals.withdrawal_request_days"]->getContent();
+	}
+	if(isset($params["orders.withdrawals.return_goods_days"])){
+		OrderWithdrawalRequest::$RETURN_GOODS_DAYS = $params["orders.withdrawals.return_goods_days"]->getContent();
+	}
+	if(isset($params["orders.withdrawals.refund_days"])){
+		OrderWithdrawalRequest::$REFUND_DAYS = $params["orders.withdrawals.refund_days"]->getContent();
+	}
+
 }catch(Exception $e){
 
 	// $e->getMessage(): There is not table system_parameters in the database ondrejuv_obchudek_devel (postgresql)

@@ -17,6 +17,7 @@ CREATE TABLE order_withdrawal_request_statuses (
 	finished_successfully BOOLEAN NOT NULL DEFAULT FALSE, -- uspesne ukonceni
 	finished_unsuccessfully BOOLEAN NOT NULL DEFAULT FALSE, -- neuspesne ukonceni
 	notification_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+	bcc_email VARCHAR(1000),
 	--
 	rank INT NOT NULL DEFAULT 999,
 	--
@@ -31,7 +32,7 @@ CREATE TABLE order_withdrawal_request_statuses (
 	CONSTRAINT fk_orderwithdrawalrequeststatuses_upd_users FOREIGN KEY (updated_by_user_id) REFERENCES users
 );
 
-INSERT INTO order_withdrawal_request_statuses(id,code,rank) VALUES(1,'new',10);
+INSERT INTO order_withdrawal_request_statuses(id,code,notification_enabled,rank) VALUES(1,'new',true,10);
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('order_withdrawal_request_statuses',1,'cs','name','nová žádost');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('order_withdrawal_request_statuses',1,'en','name','new application');
 

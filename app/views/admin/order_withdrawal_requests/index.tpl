@@ -1,3 +1,7 @@
+{dropdown_menu clearfix=0}
+	{a action="order_withdrawal_request_statuses/edit" id=1}{t}Nastavit BCC adresu pro zasílání kopií{/t}{/a}
+{/dropdown_menu}
+
 <h1>{$page_title}</h1>
 
 {render partial="shared/search_form"}
