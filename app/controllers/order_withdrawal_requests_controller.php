@@ -51,6 +51,20 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		}
 
 		if($this->request->post()){
+			$otp_resend_delay = 60; // seconds
+			$last_otp = OneTimePassword::FindFirst([
+				"conditions" => "purpose=:purpose AND object_key=:object_key",
+				"bind_ar" => [
+					":purpose" => "order_withdrawal",
+					":object_key" => (string)$order->getId(),
+				],
+				"order_by" => "created_at DESC, id DESC",
+			]);
+			if($last_otp && (time() - strtotime($last_otp->getCreatedAt())) < $otp_resend_delay){
+				$this->form->set_error(_("Kód už byl odeslán, zkuste to prosím za chvíli znovu"));
+				return;
+			}
+
 			$code = (string)String4::RandomNumericString(8);
 			$rec = OneTimePassword::CreateNewRecordFor("order_withdrawal",$order->getId(),$code,$order->getEmail());
 
