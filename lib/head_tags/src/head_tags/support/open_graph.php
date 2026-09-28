@@ -45,7 +45,7 @@ class OpenGraph {
 			$out = $controller->page->getTitle();
 			break;
 		default:
-			$out = sprintf("%s | %s", $controller->page_title, ATK14_APPLICATION_NAME);
+			$out = $controller->page_title===ATK14_APPLICATION_NAME ? ATK14_APPLICATION_NAME : sprintf("%s | %s", $controller->page_title, ATK14_APPLICATION_NAME);
 			break;
 		}
 		return $out;
