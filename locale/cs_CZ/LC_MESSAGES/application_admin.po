@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-14 11:07+0200\n"
-"PO-Revision-Date: 2026-08-07 11:26+0200\n"
+"POT-Creation-Date: 2026-10-01 16:31+0200\n"
+"PO-Revision-Date: 2026-10-01 16:32+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Nebyla nalezena ani jedna kampaň."
 msgstr "Nebyla nalezena ani jedna kampaň."
 
-#: ../app/forms/admin/admin_form.php:185
+#: ../app/forms/admin/admin_form.php:190
 #: ../app/forms/admin/campaigns/campaigns_form.php:12
 #: ../app/forms/admin/delivery_methods/delivery_methods_form.php:14
 #: ../app/forms/admin/payment_methods/payment_methods_form.php:14
@@ -192,6 +192,7 @@ msgstr "Oblasti"
 #: ../app/forms/admin/card_sections/card_sections_form.php:10
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:21
 #: ../app/forms/admin/order_statuses/order_statuses_form.php:7
+#: ../app/forms/admin/order_withdrawal_request_statuses/order_withdrawal_request_statuses_form.php:7
 #: ../app/forms/admin/sliders/sliders_form.php:6
 msgid "Název"
 msgstr "Název"
@@ -240,7 +241,7 @@ msgstr "Varianty na produktové kartě <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr "Určete produkt, který zůstane po spojení zachován."
 
-#: ../app/controllers/admin/admin.php:144
+#: ../app/controllers/admin/admin.php:145
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "neviditelné"
@@ -537,11 +538,11 @@ msgstr "Podkategorie"
 msgid "filter options"
 msgstr "možnosti filtru"
 
-#: ../app/controllers/admin/admin.php:140
+#: ../app/controllers/admin/admin.php:141
 msgid "filter"
 msgstr "filtr"
 
-#: ../app/controllers/admin/admin.php:141
+#: ../app/controllers/admin/admin.php:142
 msgid "link"
 msgstr "odkaz"
 
@@ -992,6 +993,12 @@ msgstr "kód: %1"
 msgid "automatický stav"
 msgstr "automatický stav"
 
+msgid "Dne %1 přijata žádost o odstoupení od smlouvy"
+msgstr "Dne %1 přijata žádost o odstoupení od smlouvy"
+
+msgid "zobrazit"
+msgstr "zobrazit"
+
 msgid "Zákazník"
 msgstr "Zákazník"
 
@@ -1217,6 +1224,9 @@ msgstr "objednávka bez registrace"
 msgid "%1"
 msgstr "%1"
 
+msgid "Přijata žádost o odstoupení od smlouvy"
+msgstr "Přijata žádost o odstoupení od smlouvy"
+
 msgid "určit zodp.osobu"
 msgstr "určit zodp.osobu"
 
@@ -1249,6 +1259,39 @@ msgstr "Slevové kupóny nebyly zadány"
 
 msgid "Opravdu chcete smazat tento slevový kupón?"
 msgstr "Opravdu chcete smazat tento slevový kupón?"
+
+msgid "Objednávka"
+msgstr "Objednávka"
+
+msgid "Jméno"
+msgstr "Jméno"
+
+msgid "Bankovní účet"
+msgstr "Bankovní účet"
+
+msgid "Důvody vrácení"
+msgstr "Důvody vrácení"
+
+msgid "Jiný důvod"
+msgstr "Jiný důvod"
+
+msgid "Vrácené položky"
+msgstr "Vrácené položky"
+
+msgid "Datum podání žádosti"
+msgstr "Datum podání žádosti"
+
+msgid "Žádost vytvořil uživatel"
+msgstr "Žádost vytvořil uživatel"
+
+msgid "Podáno z IP adresy"
+msgstr "Podáno z IP adresy"
+
+msgid "Nastavit BCC adresu pro zasílání kopií"
+msgstr "Nastavit BCC adresu pro zasílání kopií"
+
+msgid "Nebyla nalezana ani jedna žádost."
+msgstr "Nebyla nalezana ani jedna žádost."
 
 msgid "Subpages"
 msgstr "Podstránky"
@@ -1314,9 +1357,6 @@ msgstr "<em>Testovací</em> režim"
 
 msgid "Výpis z API"
 msgstr "Výpis z API"
-
-msgid "Objednávka"
-msgstr "Objednávka"
 
 msgid "Celková cena k úhradě"
 msgstr "Celková cena k úhradě"
@@ -1819,7 +1859,7 @@ msgstr ""
 msgid "Parameter name"
 msgstr "Název parametru"
 
-#: ../app/forms/admin/admin_form.php:152
+#: ../app/forms/admin/admin_form.php:157
 #: ../app/forms/admin/currencies/currencies_form.php:6
 msgid "Code"
 msgstr "Kód"
@@ -1846,9 +1886,6 @@ msgstr "Smazat štítek"
 
 msgid "Přihlašovací jméno"
 msgstr "Přihlašovací jméno"
-
-msgid "Jméno"
-msgstr "Jméno"
 
 msgid "oslovení"
 msgstr "oslovení"
@@ -2187,37 +2224,41 @@ msgid "Bank accounts"
 msgstr "Bankovní účty"
 
 #: ../app/controllers/admin/admin.php:64
+msgid "Order withdrawal requests"
+msgstr "Žádosti o odstoupení od smlouvy"
+
+#: ../app/controllers/admin/admin.php:65
 msgid "Cookie consent"
 msgstr "Souhlas se soubory cookie"
 
-#: ../app/controllers/admin/admin.php:65
+#: ../app/controllers/admin/admin.php:66
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "Nastavení systému"
 
-#: ../app/controllers/admin/admin.php:104
+#: ../app/controllers/admin/admin.php:105
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
 
-#: ../app/controllers/admin/admin.php:127
+#: ../app/controllers/admin/admin.php:128
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Strom kategorií"
 
-#: ../app/controllers/admin/admin.php:163
+#: ../app/controllers/admin/admin.php:164
 #: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr "Objednávka %s"
 
-#: ../app/controllers/admin/admin.php:167
+#: ../app/controllers/admin/admin.php:168
 #: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Editace objednávky %s"
 
-#: ../app/controllers/admin/admin.php:175
+#: ../app/controllers/admin/admin.php:176
 #: ../app/controllers/admin/users_controller.php:91
 #, php-format
 msgid "Editing user %s"
@@ -2815,6 +2856,19 @@ msgstr "Tento slevový kupón již objednávka obsahuje"
 msgid "Editace slevového kupónu u objednávky"
 msgstr "Editace slevového kupónu u objednávky"
 
+#: ../app/controllers/admin/order_withdrawal_requests_controller.php:5
+msgid "Žádosti o odstoupení od smlouvy"
+msgstr "Žádosti o odstoupení od smlouvy"
+
+#: ../app/controllers/admin/order_withdrawal_requests_controller.php:48
+#, php-format
+msgid "Žádost o odstoupení od smlouvy č. %s"
+msgstr "Žádost o odstoupení od smlouvy č. %s"
+
+#: ../app/controllers/admin/order_withdrawal_request_statuses_controller.php:6
+msgid "Editace stavu žádosti o odstoupení od smlouvy"
+msgstr "Editace stavu žádosti o odstoupení od smlouvy"
+
 #: ../app/controllers/admin/pages_controller.php:14
 msgid "Create page"
 msgstr "Vytvořit stránku"
@@ -3175,7 +3229,7 @@ msgid "Export entries from warehouse %s"
 msgstr "Exportovat položky ze skladu %s"
 
 #: ../app/controllers/admin/warehouse_items_controller.php:108
-#: ../app/forms/admin/admin_form.php:206
+#: ../app/forms/admin/admin_form.php:211
 msgid "Unit"
 msgstr "Jednotka"
 
@@ -3217,57 +3271,57 @@ msgstr "položek nezměněno: %s"
 msgid "entries deleted: %s"
 msgstr "položek smazáno: %s"
 
-#: ../app/forms/admin/admin_form.php:119
+#: ../app/forms/admin/admin_form.php:124
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 #: ../app/forms/admin/slider_items/slider_items_form.php:17
 msgid "Titulek"
 msgstr "Titulek"
 
-#: ../app/forms/admin/admin_form.php:128
+#: ../app/forms/admin/admin_form.php:133
 #: ../app/forms/admin/cookie_consent_categories/cookie_consent_categories_form.php:54
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 #: ../app/forms/admin/slider_items/slider_items_form.php:23
 msgid "Popis"
 msgstr "Popis"
 
-#: ../app/forms/admin/admin_form.php:139
+#: ../app/forms/admin/admin_form.php:144
 msgid "Validity date from"
 msgstr "Datum platnosti od"
 
-#: ../app/forms/admin/admin_form.php:145
+#: ../app/forms/admin/admin_form.php:150
 msgid "Validity date to"
 msgstr "Datum platnosti do"
 
-#: ../app/forms/admin/admin_form.php:157
+#: ../app/forms/admin/admin_form.php:162
 msgid "An alternative key for system usage."
 msgstr "Alternativní klíč pro systémové potřeby."
 
-#: ../app/forms/admin/admin_form.php:157
+#: ../app/forms/admin/admin_form.php:162
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
 "Alternativní klíč pro systémové použití. Pokud si nejste jisti, ponechte "
 "beze změny."
 
-#: ../app/forms/admin/admin_form.php:165
+#: ../app/forms/admin/admin_form.php:170
 msgid "Is visible?"
 msgstr "Je viditelné?"
 
-#: ../app/forms/admin/admin_form.php:175
+#: ../app/forms/admin/admin_form.php:180
 #: ../app/forms/admin/regions/regions_form.php:17
 #: ../app/forms/admin/users/users_form.php:53
 msgid "Is active?"
 msgstr "Je aktivní?"
 
-#: ../app/forms/admin/admin_form.php:195
+#: ../app/forms/admin/admin_form.php:200
 msgid "Vat rate"
 msgstr "Sazba DPH"
 
-#: ../app/forms/admin/admin_form.php:213
+#: ../app/forms/admin/admin_form.php:218
 msgid "Lze produkt objednat, i když není skladem?"
 msgstr "Lze produkt objednat, i když není skladem?"
 
-#: ../app/forms/admin/admin_form.php:214
+#: ../app/forms/admin/admin_form.php:219
 msgid ""
 "Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
 "zásoby (např. digitální soubor)"
@@ -3275,20 +3329,20 @@ msgstr ""
 "Zaškrtněte pouze v případě, že se jedná o produkt bez uvažování skladové "
 "zásoby (např. digitální soubor)"
 
-#: ../app/forms/admin/admin_form.php:243 ../app/forms/admin/admin_form.php:250
+#: ../app/forms/admin/admin_form.php:248 ../app/forms/admin/admin_form.php:255
 #: ../app/forms/admin/category_trees/create_new_form.php:17
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "Stejný kód je již použit pro jiný záznam"
 
-#: ../app/forms/admin/admin_form.php:318
+#: ../app/forms/admin/admin_form.php:323
 msgid "The same slug is used in a different object"
 msgstr "Stejný slug je použit u jiného objektu"
 
-#: ../app/forms/admin/admin_form.php:343 ../app/forms/admin/admin_form.php:348
+#: ../app/forms/admin/admin_form.php:348 ../app/forms/admin/admin_form.php:353
 msgid "The same catalog number is used for another product"
 msgstr "Stejné katalogové číslo se používá pro jiný produkt"
 
-#: ../app/forms/admin/admin_form.php:343 ../app/forms/admin/admin_form.php:348
+#: ../app/forms/admin/admin_form.php:348 ../app/forms/admin/admin_form.php:353
 msgid "open in administration"
 msgstr "otevřít v administraci"
 
@@ -3759,6 +3813,7 @@ msgstr "Text"
 
 #: ../app/forms/admin/cards/index_form.php:6
 #: ../app/forms/admin/orders/index_form.php:6
+#: ../app/forms/admin/order_withdrawal_requests/index_form.php:6
 msgid "Search"
 msgstr "Hledat"
 
@@ -4465,10 +4520,12 @@ msgid "Enable notification"
 msgstr "Povolit notifikaci"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:16
+#: ../app/forms/admin/order_withdrawal_request_statuses/edit_form.php:11
 msgid "BCC e-mail"
 msgstr "BCC e-mail"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:19
+#: ../app/forms/admin/order_withdrawal_request_statuses/edit_form.php:14
 msgid "Notifications can be sent to this address or addresses as blind copies."
 msgstr "Notifikace lze zasílat na tuto adresu nebo adresy jako slepé kopie."
 

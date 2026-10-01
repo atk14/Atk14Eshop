@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-14 11:07+0200\n"
+"POT-Creation-Date: 2026-10-01 16:31+0200\n"
 "PO-Revision-Date: 2026-08-14 11:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -370,8 +370,8 @@ msgid ""
 "že&nbsp;jste se seznámil s&nbsp;<a href=\"%1\" "
 "target=\"_blank\">obchodními&nbsp;podmínkami.</a>"
 msgstr ""
-"Clicking on the Send order button you agree <br>and&nbsp;confirm, "
-"that&nbsp;you have been acknowledged with&nbsp;<a href=\"%1\" "
+"Clicking on the Send order button you agree <br>and&nbsp;confirm, that&nbsp;"
+"you have been acknowledged with&nbsp;<a href=\"%1\" "
 "target=\"_blank\">Terms&nbsp;and&nbsp;Conditions.</a>"
 
 #: ../app/forms/checkouts/summary_form.php:20
@@ -491,6 +491,12 @@ msgstr "select dispensing point"
 
 msgid "podrobnosti"
 msgstr "details"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Načítání..."
+msgstr "Loading..."
 
 #: ../app/controllers/digital_contents_controller.php:22
 msgid "Digitální produkty"
@@ -697,6 +703,62 @@ msgstr ""
 
 msgid "Dokončit platbu"
 msgstr "Complete payment"
+
+msgid ""
+"potvrzujeme, že jsme přijali vaši žádost o odstoupení od kupní smlouvy k "
+"objednávce č. %1."
+msgstr "we confirm that we have received your request for withdrawal from the purchase contract regarding order No. %1."
+
+msgid "Zde je rekapitulace údajů v žádosti:"
+msgstr "Here is a summary of the details in your request:"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:12
+msgid "Vaše jméno"
+msgstr "Your name"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:22
+msgid "Váš e-mail"
+msgstr "Your email"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:27
+msgid "Váš telefon"
+msgstr "Your phone"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:31
+msgid "Číslo vašeho bankovního účtu pro vrácení peněz"
+msgstr "Your bank account number for the refund"
+
+msgid "Důvody vrácení zboží"
+msgstr "Reasons for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:52
+msgid "Jiný důvod k vrácení"
+msgstr "Other reason for the return"
+
+msgid "Položky objednávky, které vracíte:"
+msgstr "Order items you are returning:"
+
+msgid "Pokyny pro vrácení objednávky:"
+msgstr "Instructions for returning the order:"
+
+msgid "Zásilku zašlete na adresu"
+msgstr "Send the parcel to the address"
+
+msgid "Vrácené zboží odešlete zpět nejpozději do %1 dnů od podání této žádosti"
+msgstr "Send the returned goods back no later than %1 days from submitting this request"
+
+msgid ""
+"Platbu za vrácené zboží vám vrátíme nejpozději do %1 dnů od odstoupení od "
+"smlouvy, ne však dříve, než nám bude zboží doručeno zpět"
+msgstr "We will refund the payment for the returned goods no later than %1 days from the withdrawal, but not before the goods are delivered back to us"
+
+msgid "Další informace o odstoupení od kupní smlouvy nalezenete na adrese %1"
+msgstr "You can find more information about withdrawal from the purchase contract at %1"
+
+msgid ""
+"pro postoupení k dalšímu kroku v podání žádosti o odstoupení od kupní "
+"smlouvy zadejte do formuláře tento jednorázový kód:"
+msgstr "to proceed to the next step of submitting the withdrawal request, enter this one-time code into the form:"
 
 msgid "Hello,"
 msgstr "Hello,"
@@ -1034,6 +1096,8 @@ msgstr "History and details of my orders"
 msgid "Zatím jste nevytvořili žádnou objednávku"
 msgstr "You have not created any order yet"
 
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:6
+#: ../app/forms/order_withdrawal_requests/create_new/get_order_form.php:6
 msgid "Číslo objednávky"
 msgstr "Order number"
 
@@ -1058,6 +1122,47 @@ msgstr "No order found"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Odstoupit od smlouvy"
+msgstr "Withdraw from the contract"
+
+msgid "Odstoupeno od smlouvy"
+msgstr "Withdrawn from the contract"
+
+msgid "Žádost o odstoupení od kupní smlouvy byla úspěšně uložena."
+msgstr "The request for withdrawal from the purchase contract has been successfully saved."
+
+msgid "Do e-mailu vám bylo odesláno potvrzení a veškeré důležité informace."
+msgstr "A confirmation and all important information have been sent to your email."
+
+msgid ""
+"Do formuláře zadejte číselný kód, který vám byl zaslán na e-mailovou adresu "
+"%1."
+msgstr "Enter the numeric code that was sent to your email address %1 into the form."
+
+msgid ""
+"Odesláním tohoto formuláře podáte žádost na odstoupení od kupní smlouvy k "
+"objednávce č. %1."
+msgstr "By submitting this form, you will file a request for withdrawal from the purchase contract for order No. %1."
+
+msgid "Zkontrolujte správnost údajů."
+msgstr "Check that the details are correct."
+
+msgid "Zatrhněte položky objednávky, které chcete vratit."
+msgstr "Check the order items you want to return."
+
+msgid ""
+"Hodnotu vráceného zboží vám vrátíme na bankovní účet / platební kartu, ze "
+"které byla objednávka uhrazena."
+msgstr "We will refund the value of the returned goods to the bank account / payment card used to pay for the order."
+
+msgid "Zadejte číslo objednávky, u které chcete odstoupit od kupní smlouvy."
+msgstr "Enter the number of the order for which you want to withdraw from the purchase contract."
+
+msgid ""
+"Na e-mailovou adresu %1 vám zašleme jednorázový číselný kód, kterým "
+"potvrdíte vlastnictví objednávky."
+msgstr "We will send a one-time numeric code to the email address %1, which you will use to confirm ownership of the order."
 
 msgid "Subpages"
 msgstr "Subpages"
@@ -1339,11 +1444,11 @@ msgstr "Contact"
 msgid "phone number"
 msgstr "phone number"
 
-#: ../app/forms/application_form.php:285
+#: ../app/forms/application_form.php:289
 msgid "IČ"
 msgstr "Company ID"
 
-#: ../app/forms/application_form.php:297 ../app/forms/application_form.php:307
+#: ../app/forms/application_form.php:301 ../app/forms/application_form.php:311
 msgid "DIČ"
 msgstr "VAT No."
 
@@ -1407,9 +1512,6 @@ msgstr "Subchapters"
 
 msgid "Total price"
 msgstr "Total price"
-
-msgid "Loading..."
-msgstr "Loading..."
 
 msgid "To the checkout"
 msgstr "To the checkout"
@@ -1597,49 +1699,49 @@ msgstr "Articles"
 msgid "Opening hours"
 msgstr "Opening hours"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:75
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:74
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:66
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:91
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:82
 msgid "Pondělí"
 msgstr "Monday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:76
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:75
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:67
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:92
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:83
 msgid "Úterý"
 msgstr "Tuesday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:77
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:76
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:68
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:93
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:84
 msgid "Středa"
 msgstr "Wednesday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:78
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:77
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:69
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:94
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:85
 msgid "Čtvrtek"
 msgstr "Thursday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:79
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:78
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:70
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:95
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:86
 msgid "Pátek"
 msgstr "Friday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:80
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:79
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:71
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:96
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:87
 msgid "Sobota"
 msgstr "Saturday"
 
-#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:81
+#: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/gls.php:80
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/ppl.php:72
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/wedo_ulozenka.php:97
 #: ../lib/delivery_services/src/app/models/delivery_service/branch_parser/zasilkovna.php:88
@@ -1732,7 +1834,7 @@ msgstr "Your email"
 msgid "Company"
 msgstr "Company"
 
-#: ../app/forms/application_form.php:339
+#: ../app/forms/application_form.php:343
 msgid "IČ DPH"
 msgstr "VAT number"
 
@@ -1906,12 +2008,24 @@ msgstr "Request for information"
 msgid "Naskladnění produktu: %s"
 msgstr "Product storage: %s"
 
+#: ../app/controllers/application_mailer.php:315
+#, php-format
+msgid "Kód pro odstoupení od kupní smlouvy – objednávka č. %s"
+msgstr "Code for withdrawal from the purchase contract – order No. %s"
+
+#: ../app/controllers/application_mailer.php:328
+#, php-format
+msgid ""
+"Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"
+msgstr "Confirmation of receipt of the withdrawal request – order No. %s"
+
 #: ../app/controllers/application.php:50
 #: ../app/controllers/users_controller.php:5
 msgid "User profile"
 msgstr "User profile"
 
 #: ../app/controllers/application.php:73
+#: ../app/controllers/order_withdrawal_requests_controller.php:18
 msgid "Objednávky"
 msgstr "Orders"
 
@@ -2190,10 +2304,6 @@ msgstr "You have been successfully logged out"
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr "You've stayed logged in as <em>%s</em>"
 
-#: ../app/controllers/main_controller.php:11
-msgid "Welcome!"
-msgstr "Welcome!"
-
 #: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:8
 msgid "Na takovou adresu newsletter nezasíláme"
 msgstr "We do not send the newsletter to this email address"
@@ -2239,6 +2349,29 @@ msgstr "Order has been completed"
 msgid ""
 "Pro zobrazení objednávek se přihlaste svým přihlašovacím jménem a heslem"
 msgstr "To view your orders, log in with your username and password"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:17
+msgid "Můj účet"
+msgstr "My account"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:20
+msgid "Odstoupení od kupní smlouvy"
+msgstr "Withdrawal from the purchase contract"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:28
+#: ../app/fields/order_field.php:8
+#: ../test/controllers/tc_order_withdrawal_requests.php:26
+msgid "Taková objednávka neexistuje"
+msgstr "There is no such order"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:64
+#: ../test/controllers/tc_order_withdrawal_requests.php:92
+msgid "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
+msgstr "The code has already been sent, please try again in a moment"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:102
+msgid "Toto není platný kód"
+msgstr "This is not a valid code"
 
 #: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
@@ -2411,6 +2544,18 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again!"
 msgstr "The file was not fully uploaded, please upload it again!"
 
+#: ../app/fields/bank_account_field.php:7
+msgid "Bankovní účet není zadán správně"
+msgstr "The bank account is not entered correctly"
+
+#: ../app/fields/bank_account_field.php:8
+msgid "Bankovní účet není zadán správně."
+msgstr "The bank account is not entered correctly."
+
+#: ../app/fields/bank_account_field.php:8
+msgid "Zkontrolujte prosím překlepy."
+msgstr "Please check for typos."
+
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
 msgstr "Yes"
@@ -2469,7 +2614,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:18
-#, no-php-format
+#, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2606,10 +2751,6 @@ msgstr ""
 #: ../app/fields/oembed_video_field.php:25
 msgid "Typ souboru na tomto URL není video"
 msgstr "The file type at this URL is not a video"
-
-#: ../app/fields/order_field.php:8
-msgid "Taková objednávka neexistuje"
-msgstr "There is no such order"
 
 #: ../app/fields/order_quantity_field.php:66
 #, php-format
@@ -2756,79 +2897,79 @@ msgstr "Search query"
 msgid "Sign up for newsletter"
 msgstr "Sign up for newsletter"
 
-#: ../app/forms/application_form.php:121 ../app/forms/application_form.php:125
+#: ../app/forms/application_form.php:120
 msgid "Spam protection"
 msgstr "Spam protection"
 
-#: ../app/forms/application_form.php:132
+#: ../app/forms/application_form.php:136
 msgid "Oslovení"
 msgstr "Title"
 
-#: ../app/forms/application_form.php:156
+#: ../app/forms/application_form.php:160
 msgid "Firstname"
 msgstr "Firstname"
 
-#: ../app/forms/application_form.php:162
+#: ../app/forms/application_form.php:166
 msgid "Lastname"
 msgstr "Lastname"
 
-#: ../app/forms/application_form.php:170
+#: ../app/forms/application_form.php:174
 msgid "Email address"
 msgstr "Email address"
 
-#: ../app/forms/application_form.php:197
+#: ../app/forms/application_form.php:201
 msgid "Ulice a č.p."
 msgstr "Street and number"
 
-#: ../app/forms/application_form.php:207
+#: ../app/forms/application_form.php:211
 msgid "Adresa (2. řádek)"
 msgstr "Address (2nd line)"
 
-#: ../app/forms/application_form.php:215
+#: ../app/forms/application_form.php:219
 msgid "City"
 msgstr "City"
 
-#: ../app/forms/application_form.php:221
+#: ../app/forms/application_form.php:225
 msgid "State / Province / Region"
 msgstr "State / Province / Region"
 
-#: ../app/forms/application_form.php:227
+#: ../app/forms/application_form.php:231
 msgid "PSČ"
 msgstr "ZIP code"
 
-#: ../app/forms/application_form.php:246
+#: ../app/forms/application_form.php:250
 msgid "Země"
 msgstr "Country"
 
-#: ../app/forms/application_form.php:252
+#: ../app/forms/application_form.php:256
 msgid "select country"
 msgstr "select country"
 
-#: ../app/forms/application_form.php:256
+#: ../app/forms/application_form.php:260
 msgid "Upozornění pro doručovatele"
 msgstr "Notice to the bearer"
 
-#: ../app/forms/application_form.php:260
+#: ../app/forms/application_form.php:264
 msgid "Např. číslo patra nebo dveří, označení zvonku a podobně"
 msgstr "E.g. floor or door number, bell marking, etc."
 
-#: ../app/forms/application_form.php:279
+#: ../app/forms/application_form.php:283
 msgid "Společnost"
 msgstr "Company"
 
-#: ../app/forms/application_form.php:289
+#: ../app/forms/application_form.php:293
 msgid "Zadejte platné IČ"
 msgstr "Enter valid company ID"
 
-#: ../app/forms/application_form.php:292 ../app/forms/application_form.php:293
+#: ../app/forms/application_form.php:296 ../app/forms/application_form.php:297
 msgid "IČ by mělo mít 8 číslic"
 msgstr "Company ID should have 8 digits"
 
-#: ../app/forms/application_form.php:324
+#: ../app/forms/application_form.php:328
 msgid "Telefon"
 msgstr "Phone"
 
-#: ../app/forms/application_form.php:363
+#: ../app/forms/application_form.php:367
 msgid "Země ve fakturační adrese a země v DIČ se musí shodovat"
 msgstr "Country in billing address and country of VAT number must be the same"
 
@@ -2850,6 +2991,7 @@ msgid "Chci zadat fakturační údaje"
 msgstr "I want to enter billing details"
 
 #: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:28
+#: ../app/forms/order_withdrawal_requests/create_new/get_order_form.php:10
 msgid "Pokračovat"
 msgstr "Continue"
 
@@ -2982,6 +3124,50 @@ msgstr ""
 #: ../app/forms/newsletter_subscription_requests/create_new_form.php:12
 msgid "Ověřit e-mailovou adresu"
 msgstr "Verify email address"
+
+#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:6
+msgid "Číselný kód"
+msgstr "Numeric code"
+
+#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:9
+msgid "Ověřit kód"
+msgstr "Verify code"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:17
+msgid "Vaše příjmení"
+msgstr "Your last name"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:40
+msgid "Důvod vrácení zboží"
+msgstr "Reason for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:40
+msgid "Vyberte důvody vrácení zboží"
+msgstr "Select the reasons for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:47
+msgid "Vyberte důvod vrácení zboží"
+msgstr "Select the reason for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:59
+msgid "Jaké položky objednávky vracíte?"
+msgstr "Which order items are you returning?"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:65
+msgid "Zatrhněte položky objednávky, které chcete vratit"
+msgstr "Check the order items you want to return"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:68
+msgid "Odstoupit od kupní smlouvy"
+msgstr "Withdraw from the purchase contract"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:122
+msgid "Napište důvod k vrácení"
+msgstr "Write the reason for the return"
+
+#: ../app/forms/order_withdrawal_requests/create_new/send_otp_form.php:5
+msgid "Odeslat kód"
+msgstr "Send code"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
@@ -3116,109 +3302,109 @@ msgstr "Product advertising"
 msgid "Doprava zdarma"
 msgstr "Free shipping"
 
-#: ../app/models/basket.php:730
+#: ../app/models/basket.php:733
 msgid "Košík je prázdný"
 msgstr "Shopping basket is empty"
 
-#: ../app/models/basket.php:740
+#: ../app/models/basket.php:743
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z nabídky"
 msgstr "The product <em>%s (%s)</em> has been removed from our offer"
 
-#: ../app/models/basket.php:742 ../app/models/basket.php:754
-#: ../app/models/basket.php:769
+#: ../app/models/basket.php:745 ../app/models/basket.php:757
+#: ../app/models/basket.php:772
 msgid "odebrat z košíku"
 msgstr "remove from basket"
 
-#: ../app/models/basket.php:752
+#: ../app/models/basket.php:755
 #, php-format
 msgid "Produkt <em>%s (%s)</em> byl vyřazen z našeho ceníku"
 msgstr "Product <em>%s (%s)</em> has been removed from our price list"
 
-#: ../app/models/basket.php:767
+#: ../app/models/basket.php:770
 #, php-format
 msgid "Produkt <em>%s (%s)</em> není skladem"
 msgstr "Product <em>%s (%s)</em> is out of stock"
 
-#: ../app/models/basket.php:777
+#: ../app/models/basket.php:780
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejvýše: %s"
 msgstr "Product <em>%s (%s)</em> can be ordered in the maximum number of: %s"
 
-#: ../app/models/basket.php:779 ../app/models/basket.php:789
-#: ../app/models/basket.php:800
+#: ../app/models/basket.php:782 ../app/models/basket.php:792
+#: ../app/models/basket.php:803
 #, php-format
 msgid "změnit množství na %s"
 msgstr "change number to %s"
 
-#: ../app/models/basket.php:787
+#: ../app/models/basket.php:790
 #, php-format
 msgid "Produkt <em>%s (%s)</em> lze objednat v počtu nejméně: %s"
 msgstr "Product <em>%s (%s)</em> can be ordered in the minimum number of: %s"
 
-#: ../app/models/basket.php:798
+#: ../app/models/basket.php:801
 #, php-format
 msgid "Množství u produktu <em>%s (%s)</em> musí být násobkem čísla %s"
 msgstr "Number of products <em>%s (%s)</em> must be a multiple of number %s"
 
-#: ../app/models/basket.php:812
+#: ../app/models/basket.php:815
 #, php-format
 msgid "odstranit voucher"
 msgstr "remove voucher"
 
-#: ../app/models/basket.php:820
+#: ../app/models/basket.php:823
 msgid "Celková cena nesmí být záporná. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "The total price cannot have a negative value. Add something little to the "
 "basket :)"
 
-#: ../app/models/basket.php:821 ../app/models/basket.php:827
+#: ../app/models/basket.php:824 ../app/models/basket.php:830
 #, php-format
 msgid "přejít do katalogu"
 msgstr "go to catalogue"
 
-#: ../app/models/basket.php:826
+#: ../app/models/basket.php:829
 #, php-format
 msgid ""
 "Celková cena musí být alespoň %s. Přihoďte do košíku ještě něco malého :)"
 msgstr ""
 "The total price must be at least %s. Add something little to the basket :)"
 
-#: ../app/models/basket.php:856
+#: ../app/models/basket.php:859
 #, php-format
 msgid "Doručovací metoda <em>%s</em> nemůže být vybrána"
 msgstr "Shipping method <em>%s</em> cannot be selected"
 
-#: ../app/models/basket.php:857 ../app/models/basket.php:864
+#: ../app/models/basket.php:860 ../app/models/basket.php:867
 msgid "vyberte jinou metodu"
 msgstr "choose another method"
 
-#: ../app/models/basket.php:863
+#: ../app/models/basket.php:866
 #, php-format
 msgid "Platební metoda <em>%s</em> nemůže být vybrána"
 msgstr "Payment method <em>%s</em> cannot be selected"
 
-#: ../app/models/basket.php:871
+#: ../app/models/basket.php:874
 msgid "Výdejní místo pro doručení objednávky nebylo vybráno"
 msgstr "The dispensing point for order delivery has not been selected"
 
-#: ../app/models/basket.php:872
+#: ../app/models/basket.php:875
 msgid "vyberte výdejní místo"
 msgstr "select a dispensing point"
 
-#: ../app/models/basket.php:884
+#: ../app/models/basket.php:887
 msgid "Objednávku nelze doručit na danou doručovací adresu"
 msgstr "The order cannot be delivered to the given delivery address"
 
-#: ../app/models/basket.php:885
+#: ../app/models/basket.php:888
 msgid "upravte doručovací adresu"
 msgstr "edit delivery address"
 
-#: ../app/models/basket.php:892
+#: ../app/models/basket.php:895
 msgid "Vybrané výdejní místo pro doručení objednávky již není aktivní"
 msgstr "The selected dispensing point for order delivery is no longer active"
 
-#: ../app/models/basket.php:893
+#: ../app/models/basket.php:896
 msgid "vyberte jiné výdejní místo"
 msgstr "select another dispensing point"
 
@@ -3259,13 +3445,13 @@ msgstr "How did you like the book?"
 msgid "opening hours: %s"
 msgstr "opening hours: %s"
 
-#: ../app/models/delivery_service.php:356
-#: ../lib/delivery_services/src/app/models/delivery_service.php:356
+#: ../app/models/delivery_service.php:361
+#: ../lib/delivery_services/src/app/models/delivery_service.php:361
 msgid "Česká Pošta - Balík na poštu"
 msgstr "Czech Post - Parcel to Post"
 
-#: ../app/models/delivery_service.php:357
-#: ../lib/delivery_services/src/app/models/delivery_service.php:357
+#: ../app/models/delivery_service.php:362
+#: ../lib/delivery_services/src/app/models/delivery_service.php:362
 msgid "Česká Pošta - Balíkovna"
 msgstr "Czech Post - Balikovna"
 
@@ -3355,6 +3541,55 @@ msgstr "The %s value does not look like a tracking number"
 #: ../app/models/order.php:848
 msgid "Zásilka již byla importovaná"
 msgstr "The shipment has been already imported"
+
+#: ../app/models/order_withdrawal_request.php:89
+#: ../test/controllers/tc_order_withdrawal_requests.php:38
+#: ../test/models/tc_order_withdrawal_request.php:31
+#: ../test/models/tc_order_withdrawal_request.php:66
+#: ../test/models/tc_order_withdrawal_request.php:93
+msgid "Objednávku již není možné vrátit."
+msgstr "The order can no longer be returned."
+
+#: ../app/models/order_withdrawal_request.php:94
+#: ../test/controllers/tc_order_withdrawal_requests.php:32
+msgid "Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy."
+msgstr "We already have a withdrawal request recorded for this order."
+
+#: ../app/models/order_withdrawal_request.php:143
+msgid "Odstoupení od smlouvy bez udání důvodu"
+msgstr "Withdrawal from the contract without giving a reason"
+
+#: ../app/models/order_withdrawal_request.php:147
+msgid "Produkt neodpovídá popisu / fotografii na webu"
+msgstr "The product does not match the description / photo on the website"
+
+#: ../app/models/order_withdrawal_request.php:151
+msgid "Produkt nesplnil moje očekávání / nevyhovuje mi"
+msgstr "The product did not meet my expectations / does not suit me"
+
+#: ../app/models/order_withdrawal_request.php:155
+msgid "Produkt byl doručen poškozený"
+msgstr "The product was delivered damaged"
+
+#: ../app/models/order_withdrawal_request.php:159
+msgid "Produkt má vadu / nefunguje správně"
+msgstr "The product is defective / does not work properly"
+
+#: ../app/models/order_withdrawal_request.php:163
+msgid "Objednal(a) jsem omylem / špatné zboží"
+msgstr "I ordered it by mistake / wrong goods"
+
+#: ../app/models/order_withdrawal_request.php:167
+msgid "Zboží jsem našel/našla levněji jinde"
+msgstr "I found the goods cheaper elsewhere"
+
+#: ../app/models/order_withdrawal_request.php:171
+msgid "Dodání trvalo příliš dlouho"
+msgstr "Delivery took too long"
+
+#: ../app/models/order_withdrawal_request.php:175
+msgid "Další / jiný důvod k vrácení"
+msgstr "Other reason"
 
 #: ../app/models/payment_status.php:9
 msgid "Čeká se na dokončení platby"
@@ -3513,6 +3748,9 @@ msgstr "Order No. %s in eshop %s"
 #, php-format
 msgid "obj. %s"
 msgstr "ord. No. %s"
+
+#~ msgid "Welcome!"
+#~ msgstr "Welcome!"
 
 #~ msgid "Dokončit objednávku"
 #~ msgstr "Complete the order"
