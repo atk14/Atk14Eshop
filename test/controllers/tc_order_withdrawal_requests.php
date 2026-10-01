@@ -49,12 +49,12 @@ class TcOrderWithdrawalRequests extends TcBase {
 		$location = $client->getLocation();
 		//
 		$client->get($location);
-		$this->assertStringContains("vám zašleme jednorázový číselný kód, kterým potvrdíte vlastnictví objednávky",$client->getContent());
+		$this->assertStringContains("which you will use to confirm ownership of the order",$client->getContent());
 		//
 		$ctrl = $client->post($location);
 		$this->assertEquals(303,$client->getStatusCode());
 		$this->assertEquals("john@rambo.cz",$ctrl->mailer->to);
-		$this->assertStringContains("zadejte do formuláře tento jednorázový kód",$ctrl->mailer->body_html);
+		$this->assertStringContains("enter this one-time code into the form",$ctrl->mailer->body_html);
 		preg_match('/<strong>(\d+)<\/strong>/',$ctrl->mailer->body_html,$matches);
 		$otp_code = $matches[1];
 
@@ -62,11 +62,11 @@ class TcOrderWithdrawalRequests extends TcBase {
 
 		$location = $client->getLocation();
 		$client->get($location);
-		$this->assertStringContains("Do formuláře zadejte číselný kód, který vám byl zaslán",$client->getContent());
+		$this->assertStringContains("Enter the numeric code that was sent to your email address",$client->getContent());
 		// spatny kod
 		$ctrl = $client->post($location,["code" => "123456"]);
 		$this->assertEquals(200,$client->getStatusCode());
-		$this->assertEquals(["Toto není platný kód"],array_flatten($ctrl->form->get_errors()));
+		$this->assertEquals(["This is not a valid code"],array_flatten($ctrl->form->get_errors()));
 		// spravny kod
 		$client->post($location,["code" => $otp_code]);
 		$this->assertEquals(303,$client->getStatusCode());
@@ -75,7 +75,7 @@ class TcOrderWithdrawalRequests extends TcBase {
 
 		$location = $client->getLocation();
 		$client->get($location);
-		$this->assertStringContains("Odesláním tohoto formuláře podáte žádost na odstoupení od kupní smlouvy k objednávce",$client->getContent());
+		$this->assertStringContains("By submitting this form, you will file a request for withdrawal from the purchase contract for order",$client->getContent());
 
 		// ### Opakovany pozadavek na odeslani kodu pro stejnou objednavku
 
