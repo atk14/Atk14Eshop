@@ -15,7 +15,6 @@ Disallow: {link_to controller="watched_products" action="index" lang=$lang}
 Disallow: {link_to controller="cookie_consents" action="index" lang=$lang}
 Disallow: {link_to controller="searches" action="index" lang=$lang}
 {/foreach}
-Disallow: /*offset=*
 Disallow: /*order=*
 Disallow: /*count=*
 Sitemap: {link_to controller="sitemaps" _with_hostname=true}
