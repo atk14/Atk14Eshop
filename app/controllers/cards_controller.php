@@ -48,6 +48,9 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false, "deduplicate" => true));
 		$this->tpl_data["starting_price"] = $this->price_finder->getStartingPrice($card);
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
+		$this->tpl_data["also_bought_cards"] = $this->selling_advisor->getRecommendedCardsForCard($card, array(
+			"price_finder" => $this->price_finder,
+		));
 
 		$this->_add_card_to_breadcrumbs($card);
 		$bclist = new BreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true, "add_index" => false]);

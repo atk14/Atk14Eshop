@@ -40,6 +40,7 @@ class AdminController extends ApplicationBaseController{
 			"customer_reviews" => [_("Customer reviews"), "customer_reviews"],
 			array(_("Product types"),				"product_types"),
 			array(_("Categories"),					"category_trees,categories,category_cards"),
+			array(_("Preferred products in recommendations"), "card_recommendation_boosts"),
 			array(_("Vouchers"),						"vouchers"),
 			array(_("Campaigns"),						"campaigns"),
 			array(_("Brands"),							"brands"),
