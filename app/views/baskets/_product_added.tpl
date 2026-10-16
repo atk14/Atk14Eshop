@@ -1,8 +1,13 @@
 {assign add_more $basket->getAddMoreToGetFreeDelivery()}
 {assign currency $basket->getCurrency()}
 {assign unit $product->getUnit()}
+{assign image $product->getImage()}
 
-<div class="section__surface">
+<div class="section__surface clearfix">
+	{if $image}
+		{render partial="shared/product_image" product=$product image_size=120 image_class="float-left pb-2"}
+	{/if}
+
 	<p>{t name=$product->getName()|strip_html}Do košíku jste úspěšně přidali produkt "%1".{/t}</p>
 
 	{if $original_amount && $current_amount>$original_amount}
@@ -20,7 +25,13 @@
 	{/if}
 </div>
 
+<div class="section__navigation">
+	<button class="btn btn-secondary btn--back" data-dismiss="modal">{t}Vybrat další produkt{/t}</button>
+	<a href="{link_to action="baskets/edit"}" class="btn btn-primary btn--cta">{t}K pokladně{/t}</a>
+</div>
+
 {if $recommended_cards}
+	<hr>
 	<section class="linked-cards linked-cards--recommended">
 		<h3 class="h3">{t}Doporučujeme{/t}</h3>
 		<div class="card-deck card-deck--sized-6">
@@ -31,7 +42,3 @@
 	</section>
 {/if}
 
-<div class="section__navigation">
-	<button class="btn btn-secondary btn--back" data-dismiss="modal">{t}Vybrat další produkt{/t}</button>
-	<a href="{link_to action="baskets/edit"}" class="btn btn-primary btn--cta">{t}K pokladně{/t}</a>
-</div>
