@@ -38,6 +38,8 @@ class CardsController extends ApplicationController{
 		if($card->isDeleted() || !$card->isVisible()){
 			// In case of a deleted or invisible product, the HTTP 404 Not Found status is set but the product is displayed on the page.
 			$this->response->setStatusCode("404");
+		}else{
+			$this->_save_card_displayed($card,$current_product);
 		}
 
 		$this->page_title = $card->getPageTitle();
