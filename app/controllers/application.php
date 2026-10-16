@@ -31,6 +31,7 @@ class ApplicationController extends ApplicationBaseController{
 	}
 	
 	function _add_page_to_breadcrumbs($page){
+		if(!$page){ return; }
 		$pages = array($page);
 		$p = $page;
 		while($parent = $p->getParentPage()){
