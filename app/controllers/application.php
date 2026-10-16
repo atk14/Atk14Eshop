@@ -15,6 +15,11 @@ class ApplicationController extends ApplicationBaseController{
 	 */
 	var $cookieSession;
 
+	/**
+	 * @var SellingAdvisor
+	 */
+	var $selling_advisor;
+
 	function error404(){
 		if($this->request->xhr()){
 			return parent::error404();
@@ -130,6 +135,10 @@ class ApplicationController extends ApplicationBaseController{
 			'cookie_only' => true,
 			'disable_check_cookie' => true,
 		]));
+
+		$viewed_card_ids = array_map(function($item){ return $item[0]; },$this->_get_recent_cards_displayed());
+
+		$this->selling_advisor = new SellingAdvisor($this->logged_user,$this->basket,$this->favourite_products_accessor,$viewed_card_ids);
 	}
 
 	// Navigace u vytvareni objednavky

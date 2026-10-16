@@ -229,8 +229,6 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->price_finder = $this->tpl_data["price_finder"] = PriceFinder::GetInstance($this->logged_user,$basket->getCurrency());
 		PriceFinder::SetCurrentInstance($this->price_finder);
 
-		$this->selling_advisor = new SellingAdvisor($this->logged_user,$this->basket,$this->favourite_products_accessor);
-
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
 		}

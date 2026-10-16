@@ -31,7 +31,10 @@ class SellingAdvisor {
 		$this->customer = $customer;
 		$this->basket = $basket;
 		$this->favourite_products_accessor = $favourite_products_accessor;
-		$this->viewed_cards = $viewed_cards;
+
+		// $viewed_cards may contain a mix of Card instances and bare card ids - internally
+		// we only ever keep plain ids, resolving to Card instances lazily where needed
+		$this->viewed_cards = TableRecord::ObjToId($viewed_cards);
 	}
 
 	/**
@@ -60,10 +63,12 @@ class SellingAdvisor {
 	 *
 	 * Blends several sources, by priority, each only filling in slots the previous
 	 * one left empty:
-	 *   1. precomputed co-purchase data (see Card::getViewableAlsoBoughtCards()),
-	 *      blended across every primary card (getRecommendedCardsForCard()'s card,
-	 *      plus product_just_added_to_basket's card if given) and every card already
-	 *      in the basket
+	 *   1. precomputed co-purchase data (see Card::getViewableAlsoBoughtCards()), blended
+	 *      across every primary card (getRecommendedCardsForCard()'s card, plus
+	 *      product_just_added_to_basket's card if given), every card already in the
+	 *      basket, and - weighted weaker still - the viewed_cards given to the
+	 *      constructor (a card already covered by a stronger source keeps that source's
+	 *      weight instead of being counted twice)
 	 *   2. the primary cards' manually curated related cards (Card::getViewableRelatedCards())
 	 *   3. the primary cards' primary categories' manually curated recommended cards,
 	 *      plus getRecommendedCardsForCategory()'s category if given
@@ -88,9 +93,6 @@ class SellingAdvisor {
 	 *   limit         int      how many cards to return at most (default 8)
 	 *   exclude_cards Card[]   extra cards to never suggest
 	 *   price_finder  PriceFinder  defaults to PriceFinder::GetCurrentInstance()
-	 *
-	 * The viewed_cards given to the constructor are reserved for a future ranking
-	 * signal - accepted, but not used yet.
 	 */
 	function getRecommendedCards($options = array()) {
 		return $this->_getRecommendedCards(array(), array(), $options);
@@ -133,23 +135,42 @@ class SellingAdvisor {
 			$exclude_ids[] = TableRecord::ObjToId($c);
 		}
 
-		$source_cards = $primary_cards_by_id;
+		// base also-bought weight per source card id, by how strong a signal of intent it
+		// is: primary (the thing being viewed/just bought) > basket contents > merely
+		// viewed cards; ids only here, resolved to Card instances in one batch below
+		$source_weights = array();
+
+		foreach (array_keys($primary_cards_by_id) as $id) {
+			$source_weights[$id] = 40;
+		}
+
 		if ($this->basket) {
 			foreach ($this->basket->getBasketItems() as $item) {
-				$card = $item->getProduct()->getCard();
-				$exclude_ids[] = $card->getId();
-				$source_cards[$card->getId()] = $card;
+				$id = $item->getProduct()->getCardId();
+				$exclude_ids[] = $id;
+				if (!isset($source_weights[$id])) {
+					$source_weights[$id] = 20;
+				}
 			}
 		}
+
+		foreach ($this->viewed_cards as $id) {
+			if (!isset($source_weights[$id])) {
+				$source_weights[$id] = 10;
+			}
+		}
+
 		$exclude_ids = array_unique($exclude_ids);
+
+		$source_cards = array_filter(Cache::Get("Card", array_keys($source_weights)));
 
 		$scores = array(); // candidate_card_id => score
 
 		foreach ($source_cards as $source_card) {
-			$is_primary = isset($primary_cards_by_id[$source_card->getId()]);
+			$base_weight = $source_weights[$source_card->getId()];
 			$position = 0;
 			foreach ($source_card->getViewableAlsoBoughtCards() as $candidate) {
-				$weight = max(1, ($is_primary ? 40 : 20) - $position);
+				$weight = max(1, $base_weight - $position);
 				$position++;
 				if (in_array($candidate->getId(), $exclude_ids)) { continue; }
 				if (!$is_orderable($candidate)) { continue; }
