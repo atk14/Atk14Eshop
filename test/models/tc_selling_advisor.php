@@ -98,6 +98,39 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$x->getId(),$y->getId()],array_map(function($c){ return $c->getId(); },$recs));
 	}
 
+	function test_falls_back_to_best_sellers_when_there_is_no_primary_card_at_all(){
+		list($a,$b) = $this->_makeOrderableCards(["A","B"]);
+		$this->_insertBestSelling($a,20); // sells best
+		$this->_insertBestSelling($b,5);
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCards();
+
+		$this->assertEquals([$a->getId(),$b->getId()],array_map(function($c){ return $c->getId(); },$recs));
+	}
+
+	function test_best_sellers_fallback_does_not_apply_when_a_primary_card_is_given(){
+		list($a,$b) = $this->_makeOrderableCards(["A","B"]);
+		$this->_insertBestSelling($b,20); // unrelated to $a
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCardsForCard($a);
+
+		$this->assertEquals([],$recs);
+	}
+
+	function test_boost_applies_to_best_sellers_too(){
+		list($a,$b) = $this->_makeOrderableCards(["A","B"]);
+		$this->_insertBestSelling($a,20); // sells better...
+		$this->_insertBestSelling($b,5);
+		CardRecommendationBoost::CreateNewRecord(["card_id" => $b]); // ...but $b is boosted
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCards();
+
+		$this->assertEquals([$b->getId(),$a->getId()],array_map(function($c){ return $c->getId(); },$recs));
+	}
+
 	function _makeOrderableCards($names){
 		$vat = VatRate::FindFirst();
 		$pricelist = Pricelist::FindFirst();
@@ -119,6 +152,17 @@ class TcSellingAdvisor extends TcBase {
 			"related_card_id" => $related_card->getId(),
 			"score" => $score,
 			"rank" => 0,
+		]);
+	}
+
+	function _insertBestSelling($card,$score){
+		BestSellingCard::CreateNewRecord([
+			"card_id" => $card,
+			"score_last_year" => 0,
+			"score_last_month" => 0,
+			"score_last_week" => 0,
+			"score_last_day" => 0,
+			"score" => $score,
 		]);
 	}
 }

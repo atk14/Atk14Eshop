@@ -14,3 +14,4 @@ cd ..
 ./scripts/robot_runner fulltext_indexer
 ./scripts/robot_runner import_delivery_service_branches
 ./scripts/robot_runner frequently_bought_together
+./scripts/robot_runner best_selling_cards

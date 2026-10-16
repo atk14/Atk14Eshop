@@ -72,6 +72,10 @@ class SellingAdvisor {
 	 *   2. the primary cards' manually curated related cards (Card::getViewableRelatedCards())
 	 *   3. the primary cards' primary categories' manually curated recommended cards,
 	 *      plus getRecommendedCardsForCategory()'s category if given
+	 *   4. only when there's no primary card at all (e.g. a bare getRecommendedCards()
+	 *      call with an empty basket and no product_just_added_to_basket): the
+	 *      precomputed global best-sellers (see BestSellingCard) - the true last resort
+	 *      for a visitor with no browsing/purchase history to go on
 	 *
 	 * A card from the admin-managed boost list (CardRecommendationBoost) gets its
 	 * score bumped up *if it is already a candidate from one of the sources above* -
@@ -199,6 +203,16 @@ class SellingAdvisor {
 					if (!isset($scores[$candidate->getId()])) {
 						$scores[$candidate->getId()] = -1; // lowest priority fallback
 					}
+				}
+			}
+		}
+
+		if (sizeof($scores) < $options["limit"] && !$primary_cards_by_id) {
+			foreach (BestSellingCard::GetCards() as $candidate) {
+				if (in_array($candidate->getId(), $exclude_ids)) { continue; }
+				if (!$is_orderable($candidate)) { continue; }
+				if (!isset($scores[$candidate->getId()])) {
+					$scores[$candidate->getId()] = -2; // the true last resort
 				}
 			}
 		}
