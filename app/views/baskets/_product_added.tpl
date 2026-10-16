@@ -19,6 +19,18 @@
 	</p>
 	{/if}
 </div>
+
+{if $recommended_cards}
+	<section class="linked-cards linked-cards--recommended">
+		<h3 class="h3">{t}Doporučujeme{/t}</h3>
+		<div class="card-deck card-deck--sized-6">
+			{foreach $recommended_cards as $c}
+				{render partial="cards/linked_product_item"}
+			{/foreach}
+		</div>
+	</section>
+{/if}
+
 <div class="section__navigation">
 	<button class="btn btn-secondary btn--back" data-dismiss="modal">{t}Vybrat další produkt{/t}</button>
 	<a href="{link_to action="baskets/edit"}" class="btn btn-primary btn--cta">{t}K pokladně{/t}</a>
