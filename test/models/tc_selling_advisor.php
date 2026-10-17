@@ -40,6 +40,21 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$b->getId(),$c->getId()],array_map(function($c){ return $c->getId(); },$recs));
 	}
 
+	function test_accessories_and_consumables_outrank_plain_related_cards(){
+		list($a,$accessory,$consumable,$related) = $this->_makeOrderableCards(["A","Accessory","Consumable","Related"]);
+		$a->addRelatedCard($related);
+		$a->addAccessory($accessory);
+		$a->addConsumable($consumable);
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCardsForCard($a);
+		$ids = array_map(function($c){ return $c->getId(); },$recs);
+
+		$this->assertTrue(in_array($accessory->getId(),array_slice($ids,0,2)));
+		$this->assertTrue(in_array($consumable->getId(),array_slice($ids,0,2)));
+		$this->assertEquals($related->getId(),end($ids)); // plain related card ranks last
+	}
+
 	function test_boost_never_injects_an_unrelated_card(){
 		list($a,$b,$c) = $this->_makeOrderableCards(["A","B","C"]);
 		$a->addRelatedCard($b);

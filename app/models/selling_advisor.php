@@ -69,10 +69,13 @@ class SellingAdvisor {
 	 *      basket, and - weighted weaker still - the viewed_cards given to the
 	 *      constructor (a card already covered by a stronger source keeps that source's
 	 *      weight instead of being counted twice)
-	 *   2. the primary cards' manually curated related cards (Card::getViewableRelatedCards())
-	 *   3. the primary cards' primary categories' manually curated recommended cards,
+	 *   2. the primary cards' manually curated accessories and consumables
+	 *      (Card::getViewableAccessories()/getViewableConsumables()) - a more specific,
+	 *      near-certain add-on signal, so it outranks the looser "related cards" below
+	 *   3. the primary cards' manually curated related cards (Card::getViewableRelatedCards())
+	 *   4. the primary cards' primary categories' manually curated recommended cards,
 	 *      plus getRecommendedCardsForCategory()'s category if given
-	 *   4. only when there's no primary card at all (e.g. a bare getRecommendedCards()
+	 *   5. only when there's no primary card at all (e.g. a bare getRecommendedCards()
 	 *      call with an empty basket and no product_just_added_to_basket): the
 	 *      precomputed global best-sellers (see BestSellingCard) - the true last resort
 	 *      for a visitor with no browsing/purchase history to go on
@@ -180,6 +183,19 @@ class SellingAdvisor {
 				if (in_array($candidate->getId(), $exclude_ids)) { continue; }
 				if (!$is_orderable($candidate)) { continue; }
 				$scores[$candidate->getId()] = ($scores[$candidate->getId()] ?? 0) + $weight;
+			}
+		}
+
+		if (sizeof($scores) < $options["limit"]) {
+			foreach ($primary_cards_by_id as $primary_card) {
+				$add_ons = array_merge($primary_card->getViewableAccessories(), $primary_card->getViewableConsumables());
+				foreach ($add_ons as $candidate) {
+					if (in_array($candidate->getId(), $exclude_ids)) { continue; }
+					if (!$is_orderable($candidate)) { continue; }
+					if (!isset($scores[$candidate->getId()])) {
+						$scores[$candidate->getId()] = 1; // a specific curated add-on, stronger than a plain "related" card
+					}
+				}
 			}
 		}
 
