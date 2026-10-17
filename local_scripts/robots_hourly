@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Hourly robots
+#
+# See README.md for more information.
+
+cd $(dirname $0)
+cd ..
+
+./scripts/robot_runner best_selling_cards
