@@ -1,12 +1,14 @@
--- Admin-managed, global list of products that should be preferred whenever they
--- turn up as a candidate in the "customers who bought this also bought" mechanism
--- (see Card::getRecommendedCards()). It only boosts the score of a card that is
--- already a candidate from another source - it never forces an unrelated card in.
+-- Admin-managed, global list of products that should be preferred (or, with
+-- "negative" set, actively suppressed) whenever they turn up as a candidate in the
+-- "customers who bought this also bought" mechanism (see SellingAdvisor). It only
+-- adjusts the score of a card that is already a candidate from another source - it
+-- never forces an unrelated card in, nor hard-excludes one.
 
 CREATE SEQUENCE seq_card_recommendation_boosts;
 CREATE TABLE card_recommendation_boosts (
 	id INTEGER PRIMARY KEY DEFAULT NEXTVAL('seq_card_recommendation_boosts'),
 	card_id INTEGER NOT NULL,
+	negative BOOLEAN NOT NULL DEFAULT FALSE,
 	rank INTEGER DEFAULT 999 NOT NULL,
 	--
 	created_by_user_id INT,

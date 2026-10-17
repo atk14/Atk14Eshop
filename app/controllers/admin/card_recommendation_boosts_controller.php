@@ -16,19 +16,27 @@ class CardRecommendationBoostsController extends AdminController {
 			"page_title" => _("Add a preferred product"),
 			"flash_message" => _("The product has been added"),
 			"create_closure" => function ($d) {
-				$boost = CardRecommendationBoost::FindFirst("card_id", $d["card"]) ?: CardRecommendationBoost::CreateNewRecord(array("card_id" => $d["card"]));
+				if($boost = CardRecommendationBoost::FindFirst("card_id", $d["card_id"])){
+					$boost->s(array("negative" => $d["negative"]));
+				}else{
+					$boost = CardRecommendationBoost::CreateNewRecord($d);
+				}
 				$boost->setRank(0);
 				return $boost;
 			},
 		));
 	}
 
-	function destroy() {
-		$this->_destroy();
+	function edit(){
+		$this->_edit();
 	}
 
 	function set_rank() {
 		$this->_set_rank();
+	}
+
+	function destroy() {
+		$this->_destroy();
 	}
 
 	function _redirect_back($default = null) {

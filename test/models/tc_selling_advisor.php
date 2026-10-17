@@ -63,6 +63,29 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$c->getId(),$b->getId()],array_map(function($card){ return $card->getId(); },$recs));
 	}
 
+	function test_negative_boost_suppresses_an_already_relevant_candidate(){
+		list($a,$b,$c) = $this->_makeOrderableCards(["A","B","C"]);
+		$this->_insertAlsoBought($a,$b,1); // weaker raw also-bought signal
+		$this->_insertAlsoBought($a,$c,10); // stronger raw also-bought signal, but suppressed
+		CardRecommendationBoost::CreateNewRecord(["card_id" => $c, "negative" => true]);
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCardsForCard($a);
+
+		$this->assertEquals([$b->getId(),$c->getId()],array_map(function($card){ return $card->getId(); },$recs));
+	}
+
+	function test_negative_boost_never_excludes_an_unrelated_card(){
+		list($a,$b,$c) = $this->_makeOrderableCards(["A","B","C"]);
+		$a->addRelatedCard($b);
+		CardRecommendationBoost::CreateNewRecord(["card_id" => $c, "negative" => true]); // unrelated to $a
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCardsForCard($a);
+
+		$this->assertEquals([$b->getId()],array_map(function($card){ return $card->getId(); },$recs));
+	}
+
 	function test_excludes_unorderable_candidates(){
 		list($a) = $this->_makeOrderableCards(["A"]);
 		$b = Card::CreateNewRecord(["name_cs" => "B", "name_en" => "B", "visible" => true, "deleted" => false]);

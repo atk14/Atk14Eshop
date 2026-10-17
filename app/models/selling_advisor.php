@@ -77,9 +77,10 @@ class SellingAdvisor {
 	 *      precomputed global best-sellers (see BestSellingCard) - the true last resort
 	 *      for a visitor with no browsing/purchase history to go on
 	 *
-	 * A card from the admin-managed boost list (CardRecommendationBoost) gets its
-	 * score bumped up *if it is already a candidate from one of the sources above* -
-	 * the boost list never pulls in an otherwise unrelated card on its own.
+	 * A card from the admin-managed boost list (CardRecommendationBoost) gets its score
+	 * adjusted up or down (a "negative" boost suppresses it) *if it is already a
+	 * candidate from one of the sources above* - the boost list never pulls in an
+	 * otherwise unrelated card, nor hard-excludes one.
 	 *
 	 * Candidates already among the customer's favourite products (via the
 	 * favourite_products_accessor/customer given to the constructor) get a small
@@ -218,9 +219,9 @@ class SellingAdvisor {
 		}
 
 		if ($scores) {
-			foreach (CardRecommendationBoost::GetBoostedCardIds() as $boosted_id => $_) {
+			foreach (CardRecommendationBoost::GetScoreAdjustments() as $boosted_id => $adjustment) {
 				if (isset($scores[$boosted_id])) {
-					$scores[$boosted_id] += 1000;
+					$scores[$boosted_id] += $adjustment;
 				}
 			}
 		}
