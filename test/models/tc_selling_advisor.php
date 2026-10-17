@@ -75,6 +75,18 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$b->getId(),$c->getId()],array_map(function($card){ return $card->getId(); },$recs));
 	}
 
+	function test_negative_boost_still_shows_up_when_there_is_no_better_candidate(){
+		list($a,$only) = $this->_makeOrderableCards(["A","OnlyCandidate"]);
+		$a->addRelatedCard($only); // the one and only candidate
+		CardRecommendationBoost::CreateNewRecord(["card_id" => $only, "negative" => true]);
+
+		$advisor = new SellingAdvisor();
+		$recs = $advisor->getRecommendedCardsForCard($a);
+
+		// a negative boost only deprioritizes within the ranking, it never hard-excludes
+		$this->assertEquals([$only->getId()],array_map(function($card){ return $card->getId(); },$recs));
+	}
+
 	function test_negative_boost_never_excludes_an_unrelated_card(){
 		list($a,$b,$c) = $this->_makeOrderableCards(["A","B","C"]);
 		$a->addRelatedCard($b);
