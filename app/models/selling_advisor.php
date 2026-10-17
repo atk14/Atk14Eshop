@@ -20,12 +20,12 @@ class SellingAdvisor {
 	const VIEWED_CARD_WEIGHT = 10;
 	const FAVOURITE_BONUS = 10;
 
-	// getRecommendedCardsForCard() dampens these two - the basket and favourites are
-	// signals about the customer in general, not about the specific card being looked
-	// at, so at full strength they make every product page's "also bought" widget look
-	// the same (whatever's in the cart/favourites) instead of being specific to the card
-	const DAMPENED_BASKET_CARD_WEIGHT = 5;
-	const DAMPENED_FAVOURITE_BONUS = 3;
+	// getRecommendedCardsForCard() multiplies all three "signals about the customer in
+	// general" above by this factor (the primary card's own weight is untouched) - at
+	// full strength they'd make every product page's "also bought" widget look the same
+	// (whatever's in the cart/favourites/browsing history) instead of being specific to
+	// the card actually being looked at
+	const CUSTOMER_SIGNAL_DAMPING_COEFFICIENT = 0.2;
 
 	protected $customer;
 	protected $basket;
@@ -52,17 +52,18 @@ class SellingAdvisor {
 	/**
 	 * Recommendations anchored on a specific card (e.g. the card detail page).
 	 *
-	 * The basket/favourites signals are dampened here (see DAMPENED_BASKET_CARD_WEIGHT/
-	 * DAMPENED_FAVOURITE_BONUS) so the result stays specific to $card instead of just
-	 * reflecting whatever the customer already has in their basket or favourites on
-	 * every product page.
+	 * The basket/viewed/favourites signals are dampened here (see
+	 * CUSTOMER_SIGNAL_DAMPING_COEFFICIENT) so the result stays specific to $card instead
+	 * of just reflecting whatever the customer already has in their basket, favourites
+	 * or browsing history on every product page.
 	 *
 	 * $options: see getRecommendedCards()
 	 */
 	function getRecommendedCardsForCard($card, $options = array()) {
 		$options += array(
-			"basket_card_weight" => self::DAMPENED_BASKET_CARD_WEIGHT,
-			"favourite_bonus" => self::DAMPENED_FAVOURITE_BONUS,
+			"basket_card_weight" => self::BASKET_CARD_WEIGHT * self::CUSTOMER_SIGNAL_DAMPING_COEFFICIENT,
+			"viewed_card_weight" => self::VIEWED_CARD_WEIGHT * self::CUSTOMER_SIGNAL_DAMPING_COEFFICIENT,
+			"favourite_bonus" => self::FAVOURITE_BONUS * self::CUSTOMER_SIGNAL_DAMPING_COEFFICIENT,
 		);
 		return $this->_getRecommendedCards($card ? array($card) : array(), array(), $options);
 	}
@@ -134,6 +135,7 @@ class SellingAdvisor {
 			"exclude_cards" => array(),
 			"price_finder" => null,
 			"basket_card_weight" => self::BASKET_CARD_WEIGHT,
+			"viewed_card_weight" => self::VIEWED_CARD_WEIGHT,
 			"favourite_bonus" => self::FAVOURITE_BONUS,
 		), $options);
 
@@ -187,7 +189,7 @@ class SellingAdvisor {
 
 		foreach ($this->viewed_cards as $id) {
 			if (!isset($source_weights[$id])) {
-				$source_weights[$id] = self::VIEWED_CARD_WEIGHT;
+				$source_weights[$id] = $options["viewed_card_weight"];
 			}
 		}
 

@@ -148,22 +148,36 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$x->getId(),$y->getId()],array_map(function($c){ return $c->getId(); },$recs));
 	}
 
-	function test_basket_signal_is_dampened_for_a_card_anchored_query(){
-		list($basket_card,$viewed_card,$from_basket,$from_viewed) = $this->_makeOrderableCards(["InBasket","RecentlyViewed","FromBasket","FromViewed"]);
-		list($a) = $this->_makeOrderableCards(["A"]); // the card actually being viewed, unrelated to either signal
-		$this->_insertAlsoBought($basket_card,$from_basket,1);
-		$this->_insertAlsoBought($viewed_card,$from_viewed,1);
+	function test_customer_signals_are_dampened_for_a_card_anchored_query(){
+		list($a,$w,$z,$basket_card,$viewed_card) = $this->_makeOrderableCards(["A","W","Z","InBasket","Viewed"]);
+
+		// Z is reachable via both the basket card and the viewed card - its combined
+		// score is large enough undamped to beat W, but not once dampened
+		$this->_insertAlsoBought($basket_card,$z,1);
+		$this->_insertAlsoBought($viewed_card,$z,1);
+
+		// W is $a's own signal, pushed down to position 20 (weight 20) by 20 filler
+		// entries inserted first - it sits strictly between Z's damped (4+2=6) and
+		// full-strength (20+10=30) combined score
+		for($i=0;$i<20;$i++){
+			$this->_insertAlsoBought($a,Card::CreateNewRecord(["name_cs" => "Filler$i", "name_en" => "Filler$i", "visible" => true, "deleted" => false]),1);
+		}
+		$this->_insertAlsoBought($a,$w,1);
 
 		$basket = new TcSellingAdvisorFakeBasket($basket_card->getFirstProduct());
 		$advisor = new SellingAdvisor(null,$basket,null,[$viewed_card->getId()]);
 
-		// general, basket-only query: basket (weight 20) outranks viewed (weight 10)
-		$general = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCards());
-		$this->assertEquals([$from_basket->getId(),$from_viewed->getId()],$general);
+		// by default, getRecommendedCardsForCard() dampens basket (4) and viewed (2) -
+		// combined, Z scores 6, below W's 20
+		$damped = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCardsForCard($a));
+		$this->assertEquals([$w->getId(),$z->getId()],$damped);
 
-		// card-anchored query: basket is dampened below viewed, so the order flips
-		$for_card = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCardsForCard($a));
-		$this->assertEquals([$from_viewed->getId(),$from_basket->getId()],$for_card);
+		// at full strength (20+10=30 combined), Z would have outranked W instead
+		$full_strength = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCardsForCard($a,[
+			"basket_card_weight" => SellingAdvisor::BASKET_CARD_WEIGHT,
+			"viewed_card_weight" => SellingAdvisor::VIEWED_CARD_WEIGHT,
+		]));
+		$this->assertEquals([$z->getId(),$w->getId()],$full_strength);
 	}
 
 	function test_favourite_bump_still_applies_when_dampened_for_a_card_anchored_query(){
