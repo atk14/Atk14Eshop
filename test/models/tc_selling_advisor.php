@@ -148,6 +148,41 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([$x->getId(),$y->getId()],array_map(function($c){ return $c->getId(); },$recs));
 	}
 
+	function test_basket_signal_is_dampened_for_a_card_anchored_query(){
+		list($basket_card,$viewed_card,$from_basket,$from_viewed) = $this->_makeOrderableCards(["InBasket","RecentlyViewed","FromBasket","FromViewed"]);
+		list($a) = $this->_makeOrderableCards(["A"]); // the card actually being viewed, unrelated to either signal
+		$this->_insertAlsoBought($basket_card,$from_basket,1);
+		$this->_insertAlsoBought($viewed_card,$from_viewed,1);
+
+		$basket = new TcSellingAdvisorFakeBasket($basket_card->getFirstProduct());
+		$advisor = new SellingAdvisor(null,$basket,null,[$viewed_card->getId()]);
+
+		// general, basket-only query: basket (weight 20) outranks viewed (weight 10)
+		$general = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCards());
+		$this->assertEquals([$from_basket->getId(),$from_viewed->getId()],$general);
+
+		// card-anchored query: basket is dampened below viewed, so the order flips
+		$for_card = array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCardsForCard($a));
+		$this->assertEquals([$from_viewed->getId(),$from_basket->getId()],$for_card);
+	}
+
+	function test_favourite_bump_still_applies_when_dampened_for_a_card_anchored_query(){
+		list($a,$plain,$favourite) = $this->_makeOrderableCards(["A","PlainRelated","FavouriteRelated"]);
+		$a->addRelatedCard($plain);
+		$a->addRelatedCard($favourite);
+
+		$user = User::CreateNewRecord(["login" => "sa_fan", "email" => "sa_fan@example.com", "password" => "secret123"]);
+		$fpa = new FavouriteProductsAccessor($user);
+		$fpa->addProduct($favourite->getFirstProduct());
+
+		$advisor = new SellingAdvisor($user,null,$fpa);
+		$recs = $advisor->getRecommendedCardsForCard($a);
+
+		// the dampened bonus is still enough to win a tie against an equally-ranked
+		// (non-favourite) related card
+		$this->assertEquals([$favourite->getId(),$plain->getId()],array_map(function($c){ return $c->getId(); },$recs));
+	}
+
 	function test_falls_back_to_best_sellers_when_there_is_no_primary_card_at_all(){
 		list($a,$b) = $this->_makeOrderableCards(["A","B"]);
 		$this->_insertBestSelling($a,20); // sells best
@@ -215,4 +250,14 @@ class TcSellingAdvisor extends TcBase {
 			"score" => $score,
 		]);
 	}
+}
+
+class TcSellingAdvisorFakeBasketItem {
+	function __construct($product){ $this->product = $product; }
+	function getProduct(){ return $this->product; }
+}
+
+class TcSellingAdvisorFakeBasket {
+	function __construct($product){ $this->items = array(new TcSellingAdvisorFakeBasketItem($product)); }
+	function getBasketItems(){ return $this->items; }
 }

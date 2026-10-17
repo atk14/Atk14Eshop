@@ -15,6 +15,18 @@
  */
 class SellingAdvisor {
 
+	const PRIMARY_CARD_WEIGHT = 40;
+	const BASKET_CARD_WEIGHT = 20;
+	const VIEWED_CARD_WEIGHT = 10;
+	const FAVOURITE_BONUS = 10;
+
+	// getRecommendedCardsForCard() dampens these two - the basket and favourites are
+	// signals about the customer in general, not about the specific card being looked
+	// at, so at full strength they make every product page's "also bought" widget look
+	// the same (whatever's in the cart/favourites) instead of being specific to the card
+	const DAMPENED_BASKET_CARD_WEIGHT = 5;
+	const DAMPENED_FAVOURITE_BONUS = 3;
+
 	protected $customer;
 	protected $basket;
 	protected $favourite_products_accessor;
@@ -40,9 +52,18 @@ class SellingAdvisor {
 	/**
 	 * Recommendations anchored on a specific card (e.g. the card detail page).
 	 *
+	 * The basket/favourites signals are dampened here (see DAMPENED_BASKET_CARD_WEIGHT/
+	 * DAMPENED_FAVOURITE_BONUS) so the result stays specific to $card instead of just
+	 * reflecting whatever the customer already has in their basket or favourites on
+	 * every product page.
+	 *
 	 * $options: see getRecommendedCards()
 	 */
 	function getRecommendedCardsForCard($card, $options = array()) {
+		$options += array(
+			"basket_card_weight" => self::DAMPENED_BASKET_CARD_WEIGHT,
+			"favourite_bonus" => self::DAMPENED_FAVOURITE_BONUS,
+		);
 		return $this->_getRecommendedCards($card ? array($card) : array(), array(), $options);
 	}
 
@@ -112,6 +133,8 @@ class SellingAdvisor {
 			"limit" => 8,
 			"exclude_cards" => array(),
 			"price_finder" => null,
+			"basket_card_weight" => self::BASKET_CARD_WEIGHT,
+			"favourite_bonus" => self::FAVOURITE_BONUS,
 		), $options);
 
 		$price_finder = $options["price_finder"] ?: PriceFinder::GetCurrentInstance();
@@ -149,7 +172,7 @@ class SellingAdvisor {
 		$source_weights = array();
 
 		foreach (array_keys($primary_cards_by_id) as $id) {
-			$source_weights[$id] = 40;
+			$source_weights[$id] = self::PRIMARY_CARD_WEIGHT;
 		}
 
 		if ($this->basket) {
@@ -157,14 +180,14 @@ class SellingAdvisor {
 				$id = $item->getProduct()->getCardId();
 				$exclude_ids[] = $id;
 				if (!isset($source_weights[$id])) {
-					$source_weights[$id] = 20;
+					$source_weights[$id] = $options["basket_card_weight"];
 				}
 			}
 		}
 
 		foreach ($this->viewed_cards as $id) {
 			if (!isset($source_weights[$id])) {
-				$source_weights[$id] = 10;
+				$source_weights[$id] = self::VIEWED_CARD_WEIGHT;
 			}
 		}
 
@@ -249,7 +272,7 @@ class SellingAdvisor {
 		if ($scores && $fpa) {
 			foreach (Cache::Get("Card", array_keys($scores)) as $candidate) {
 				if ($candidate && $fpa->isFavouriteCard($candidate)) {
-					$scores[$candidate->getId()] += 10;
+					$scores[$candidate->getId()] += $options["favourite_bonus"];
 				}
 			}
 		}
