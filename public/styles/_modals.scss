@@ -8,7 +8,13 @@
 			font-size: $font-size-sm;
 		}
 	}
-	.modal--product-added {
+	&#basket_modal_dialog {
+		.modal-dialog {
+			max-width: 750px;
+		}
+	}
+
+	.modalcontent--product-added {
 		container-type: inline-size;
 		container-name: productadded;
 		&__product {
@@ -18,6 +24,16 @@
 			margin-bottom: 1rem;
 			@container (max-width: 350px) {
 				flex-direction: column;
+			}
+		}
+		.linked-cards {
+			.card-deck {
+				//display: block !important;
+				//--cards-per-row: 6 !important;
+				margin-left: 0;
+				margin-right: 0;
+				margin-bottom: 0;
+				grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 			}
 		}
 	}
