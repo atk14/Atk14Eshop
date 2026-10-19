@@ -3,12 +3,13 @@
 {assign unit $product->getUnit()}
 {assign image $product->getImage()}
 
-<div class="section__surface clearfix">
-	{if $image}
-		{render partial="shared/product_image" product=$product image_size=120 image_class="float-left pb-2"}
-	{/if}
-
-	<p>{t name=$product->getName()|strip_html}Do košíku jste úspěšně přidali produkt "%1".{/t}</p>
+<div class="modal--product-added">
+	<div class="modal--product-added__product">
+		{if $image}
+			<img {!$product->getImage()|img_attrs:"100x100"} alt="">
+		{/if}
+		<div>{t name=$product->getName()|strip_html}Do košíku jste úspěšně přidali produkt "%1".{/t}</div>
+	</div>
 
 	{if $original_amount && $current_amount>$original_amount}
 		<p>{t}Váš nákupní košík již tento produkt obsahuje. Množství bylo upraveno.{/t}</p>
