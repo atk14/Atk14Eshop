@@ -468,13 +468,9 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 		if (class_exists("SystemParameter")) {
 			$analytics_tracking_id = SystemParameter::ContentOn("app.trackers.google.analytics.tracking_id");
-			$gtm_container_id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
 		} else {
 			if (defined("GOOGLE_ANALYTICS_TRACKING_ID")) {
 				$analytics_tracking_id = GOOGLE_ANALYTICS_TRACKING_ID;
-			}
-			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
-				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
 			}
 			if (defined("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT")) {
 				$_contents = preg_split("/,/", constant("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT"));
@@ -485,10 +481,12 @@ class ApplicationBaseController extends Atk14Controller{
 				}
 			}
 		}
+		$gtm_container_id = $this->_get_gtm_container_id();
+		$this->tpl_data["gtm_container_id"] = $gtm_container_id;
 		if (isset($analytics_tracking_id)) {
 			$this->head_tags->addPreconnect("https://www.google-analytics.com");
 		}
-		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
+		if (isset($analytics_tracking_id) || $gtm_container_id) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
 		$this->_setup_hreflang_for_head_tags();
@@ -596,6 +594,42 @@ class ApplicationBaseController extends Atk14Controller{
 			$params["action"] = $action_or_params;
 		}
 		return $this->_link_to($params,["with_hostname" => true]);
+	}
+
+	/**
+	 * Returns the Google Tag Manager container ID for the current domain.
+	 *
+	 * When SystemParameter is available, looks up a domain-specific parameter first
+	 * (app.trackers.google.tag_manager.container_id.<http-host>), then falls back
+	 * to the generic one (app.trackers.google.tag_manager.container_id).
+	 * Without SystemParameter, falls back to the GOOGLE_TAG_MANAGER_CONTAINER_ID constant.
+	 *
+	 * Override this method in a descendant controller to implement custom per-domain
+	 * or per-region logic.
+	 *
+	 *	// config/local_config/settings.php example for a multi-domain setup:
+	 *	define("GOOGLE_TAG_MANAGER_CONTAINER_ID", "GTM-DEFAULT");
+	 *
+	 *	// in app/controllers/application_controller.php:
+	 *	protected function _get_gtm_container_id() {
+	 *		$map = [
+	 *			"www.example.cz" => "GTM-CZXXXX",
+	 *			"www.example.sk" => "GTM-SKXXXX",
+	 *		];
+	 *		return $map[$this->request->getHttpHost()] ?? parent::_get_gtm_container_id();
+	 *	}
+	 */
+	protected function _get_gtm_container_id() {
+		if (class_exists("SystemParameter")) {
+			$host = $this->request->getHttpHost();
+			$id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id.$host");
+			if ($id) { return $id; }
+			return SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
+		}
+		if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
+			return GOOGLE_TAG_MANAGER_CONTAINER_ID;
+		}
+		return null;
 	}
 
 	protected function _setup_hreflang_for_head_tags() {
