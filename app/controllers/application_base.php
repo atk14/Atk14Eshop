@@ -600,8 +600,10 @@ class ApplicationBaseController extends Atk14Controller{
 	 * Returns the Google Tag Manager container ID for the current domain.
 	 *
 	 * When SystemParameter is available, looks up a domain-specific parameter first
-	 * (app.trackers.google.tag_manager.container_id.<http-host>), then falls back
-	 * to the generic one (app.trackers.google.tag_manager.container_id).
+	 * (app.trackers.google.tag_manager.container_id.<http-host-with-dots-replaced-by-underscores>),
+	 * then falls back to the generic one (app.trackers.google.tag_manager.container_id).
+	 * Dots in the hostname are replaced with underscores to avoid conflicting with
+	 * the dot-based hierarchy used by the SystemParameter admin UI.
 	 * Without SystemParameter, falls back to the GOOGLE_TAG_MANAGER_CONTAINER_ID constant.
 	 *
 	 * Override this method in a descendant controller to implement custom per-domain
@@ -621,7 +623,7 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	protected function _get_gtm_container_id() {
 		if (class_exists("SystemParameter")) {
-			$host = $this->request->getHttpHost();
+			$host = str_replace(".", "_", $this->request->getHttpHost());
 			$id = SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id.$host");
 			if ($id) { return $id; }
 			return SystemParameter::ContentOn("app.trackers.google.tag_manager.container_id");
