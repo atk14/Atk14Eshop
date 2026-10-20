@@ -13,3 +13,11 @@ cd ..
 ./scripts/robot_runner vacuum_analyze
 ./scripts/robot_runner fulltext_indexer
 ./scripts/robot_runner import_delivery_service_branches
+./scripts/robot_runner frequently_bought_together
+
+# Also runs hourly via local_scripts/robots_hourly (which is where the trending/"new
+# hit" day-window data actually needs the fresher cadence) - kept here too as a
+# fallback for installations whose crontab only wires up robots_daily and forgets
+# robots_hourly, so best_selling_cards doesn't silently go stale.
+# TODO: remove this duplicate call once robots_hourly is reliably wired up everywhere
+./scripts/robot_runner best_selling_cards

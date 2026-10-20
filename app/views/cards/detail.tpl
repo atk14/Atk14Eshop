@@ -103,4 +103,5 @@
 	{render partial="related_cards"}
 	{render partial="consumables"}
 	{render partial="accessories"}
+	{render partial="also_bought_cards"}
 </div>

@@ -8,4 +8,33 @@
 			font-size: $font-size-sm;
 		}
 	}
+	&#basket_modal_dialog {
+		.modal-dialog {
+			max-width: 750px;
+		}
+	}
+
+	.modalcontent--product-added {
+		container-type: inline-size;
+		container-name: productadded;
+		&__product {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.5rem;
+			margin-bottom: 1rem;
+			@container (max-width: 350px) {
+				flex-direction: column;
+			}
+		}
+		.linked-cards {
+			.card-deck {
+				//display: block !important;
+				//--cards-per-row: 6 !important;
+				margin-left: 0;
+				margin-right: 0;
+				margin-bottom: 0;
+				grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+			}
+		}
+	}
 }
