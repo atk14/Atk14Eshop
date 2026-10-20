@@ -218,6 +218,18 @@ class TcSellingAdvisor extends TcBase {
 		$this->assertEquals([],$recs);
 	}
 
+	function test_best_sellers_enabled_option_can_suppress_the_fallback(){
+		list($a) = $this->_makeOrderableCards(["A"]);
+		$this->_insertBestSelling($a,20);
+
+		$advisor = new SellingAdvisor();
+
+		// getRecommendedCardsForCard(null) has no primary card, so best-sellers would
+		// normally apply - best_sellers_enabled=false must suppress it regardless
+		$this->assertEquals([$a->getId()],array_map(function($c){ return $c->getId(); },$advisor->getRecommendedCardsForCard(null)));
+		$this->assertEquals([],$advisor->getRecommendedCardsForCard(null,["best_sellers_enabled" => false]));
+	}
+
 	function test_boost_applies_to_best_sellers_too(){
 		list($a,$b) = $this->_makeOrderableCards(["A","B"]);
 		$this->_insertBestSelling($a,20); // sells better...

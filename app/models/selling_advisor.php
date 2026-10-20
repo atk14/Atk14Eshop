@@ -123,6 +123,10 @@ class SellingAdvisor {
 	 *   limit         int      how many cards to return at most (default 8)
 	 *   exclude_cards Card[]   extra cards to never suggest
 	 *   price_finder  PriceFinder  defaults to PriceFinder::GetCurrentInstance()
+	 *   best_sellers_enabled bool  set false to never fall back to BestSellingCard
+	 *                          (default true); the fallback only ever applies when
+	 *                          there's no primary card anyway, but this lets a caller
+	 *                          rule it out explicitly regardless
 	 */
 	function getRecommendedCards($options = array()) {
 		return $this->_getRecommendedCards(array(), array(), $options);
@@ -137,6 +141,7 @@ class SellingAdvisor {
 			"basket_card_weight" => self::BASKET_CARD_WEIGHT,
 			"viewed_card_weight" => self::VIEWED_CARD_WEIGHT,
 			"favourite_bonus" => self::FAVOURITE_BONUS,
+			"best_sellers_enabled" => true,
 		), $options);
 
 		$price_finder = $options["price_finder"] ?: PriceFinder::GetCurrentInstance();
@@ -249,7 +254,7 @@ class SellingAdvisor {
 			}
 		}
 
-		if (sizeof($scores) < $options["limit"] && !$primary_cards_by_id) {
+		if (sizeof($scores) < $options["limit"] && !$primary_cards_by_id && $options["best_sellers_enabled"]) {
 			foreach (BestSellingCard::GetCards() as $candidate) {
 				if (in_array($candidate->getId(), $exclude_ids)) { continue; }
 				if (!$is_orderable($candidate)) { continue; }
