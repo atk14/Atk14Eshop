@@ -212,7 +212,7 @@ class BasketsController extends ApplicationController {
 		$this->tpl_data["original_amount"] = $original_amount;
 		$this->tpl_data["current_amount"] = $current_amount;
 
-		if(!$rewrite_amount){
+		if(PRODUCT_RECOMMENDATIONS_ENABLED && !$rewrite_amount){
 			// only for a genuinely new addition (add_product/add_card), not a plain quantity edit
 			$this->tpl_data["recommended_cards"] = $this->selling_advisor->getRecommendedCards([
 				"product_just_added_to_basket" => $product,
@@ -230,7 +230,7 @@ class BasketsController extends ApplicationController {
 			}
 		}
 
-		if($this->action=="product_added"){
+		if($this->action=="product_added" && PRODUCT_RECOMMENDATIONS_ENABLED){
 			// non-JS fallback page - _add_product() isn't called on this request, so
 			// recommended_cards for _product_added.tpl has to be computed here instead
 			$this->tpl_data["recommended_cards"] = $this->selling_advisor->getRecommendedCards([
