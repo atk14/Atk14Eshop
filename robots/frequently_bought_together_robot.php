@@ -3,6 +3,10 @@
  * Recomputes also_bought_cards ("customers who bought this also bought")
  * from real order history.
  *
+ * Co-purchases are detected across every order placed by the same customer, not just
+ * within a single order - two orders belong to the same customer when they share a
+ * user_id, or, for guest checkouts (user_id IS NULL), when they share the same email.
+ *
  * It's a full, unconditional rescan every run (same philosophy as
  * FulltextIndexerRobot) rather than an incremental/dirty-flag update, since the
  * underlying order_items table is append-mostly and the aggregation is cheap
@@ -25,20 +29,28 @@ class FrequentlyBoughtTogetherRobot extends ApplicationRobot {
 			FROM
 				order_items oi1,
 				order_items oi2,
-				orders o,
-				order_statuses os,
+				orders o1,
+				orders o2,
+				order_statuses os1,
+				order_statuses os2,
 				products pa,
 				products pb,
 				cards ca,
 				cards cb
 			WHERE
-				oi1.order_id=oi2.order_id AND
 				oi1.product_id!=oi2.product_id AND
 				oi1.amount>0 AND oi2.amount>0 AND
-				o.id=oi1.order_id AND
-				o.created_at>=:since AND
-				os.id=o.order_status_id AND
-				(os.finishing_successfully OR os.finished_successfully) AND
+				o1.id=oi1.order_id AND
+				o2.id=oi2.order_id AND
+				o1.created_at>=:since AND
+				o2.created_at>=:since AND
+				os1.id=o1.order_status_id AND (os1.finishing_successfully OR os1.finished_successfully) AND
+				os2.id=o2.order_status_id AND (os2.finishing_successfully OR os2.finished_successfully) AND
+				(
+					o1.id=o2.id OR
+					(o1.user_id IS NOT NULL AND o1.user_id=o2.user_id) OR
+					(o1.user_id IS NULL AND o2.user_id IS NULL AND o1.email IS NOT NULL AND o1.email=o2.email)
+				) AND
 				pa.id=oi1.product_id AND
 				pb.id=oi2.product_id AND
 				pa.card_id!=pb.card_id AND
