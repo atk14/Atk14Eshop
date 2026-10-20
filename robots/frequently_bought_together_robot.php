@@ -11,6 +11,12 @@
  * FulltextIndexerRobot) rather than an incremental/dirty-flag update, since the
  * underlying order_items table is append-mostly and the aggregation is cheap
  * enough to run nightly.
+ *
+ * An order counts as a valid co-purchase source unless its status is explicitly
+ * marked unsuccessful (finishing_unsuccessfully/finished_unsuccessfully) - fulfillment
+ * here routinely stalls at "processing" and finishes in an external system that never
+ * reports back, so requiring finishing_successfully/finished_successfully would starve
+ * this of almost all real orders.
  */
 class FrequentlyBoughtTogetherRobot extends ApplicationRobot {
 
@@ -44,8 +50,8 @@ class FrequentlyBoughtTogetherRobot extends ApplicationRobot {
 				o2.id=oi2.order_id AND
 				o1.created_at>=:since AND
 				o2.created_at>=:since AND
-				os1.id=o1.order_status_id AND (os1.finishing_successfully OR os1.finished_successfully) AND
-				os2.id=o2.order_status_id AND (os2.finishing_successfully OR os2.finished_successfully) AND
+				os1.id=o1.order_status_id AND NOT os1.finishing_unsuccessfully AND NOT os1.finished_unsuccessfully AND
+				os2.id=o2.order_status_id AND NOT os2.finishing_unsuccessfully AND NOT os2.finished_unsuccessfully AND
 				(
 					o1.id=o2.id OR
 					(o1.user_id IS NOT NULL AND o1.user_id=o2.user_id) OR

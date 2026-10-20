@@ -10,6 +10,12 @@
  * products' accumulated sales.
  *
  * Full, unconditional rescan every run, same philosophy as FrequentlyBoughtTogetherRobot.
+ *
+ * An order counts as a sale unless its status is explicitly marked unsuccessful
+ * (finishing_unsuccessfully/finished_unsuccessfully) - fulfillment here routinely stalls
+ * at "processing" and finishes in an external system that never reports back, so
+ * requiring finishing_successfully/finished_successfully would starve this of almost
+ * all real orders (see FrequentlyBoughtTogetherRobot).
  */
 class BestSellingCardsRobot extends ApplicationRobot {
 
@@ -39,7 +45,7 @@ class BestSellingCardsRobot extends ApplicationRobot {
 				o.id=oi.order_id AND
 				o.created_at>=:since_year AND
 				os.id=o.order_status_id AND
-				(os.finishing_successfully OR os.finished_successfully) AND
+				NOT os.finishing_unsuccessfully AND NOT os.finished_unsuccessfully AND
 				p.id=oi.product_id AND
 				c.id=p.card_id AND c.visible AND NOT c.deleted AND
 				(NOT p.consider_stockcount OR (SELECT COALESCE(SUM(warehouse_items.stockcount),0) FROM warehouse_items,warehouses WHERE warehouses.applicable_to_eshop AND warehouse_items.warehouse_id=warehouses.id AND warehouse_items.product_id=p.id)>0)
