@@ -57,6 +57,7 @@ class CardsController extends ApplicationController{
 			$this->tpl_data["also_bought_cards"] = $this->selling_advisor->getRecommendedCardsForCard($card, array(
 				"price_finder" => $this->price_finder,
 				"exclude_cards" => $related_cards + $consumables + $accessories,
+				"best_sellers_enabled" => false,
 				"limit" => 6,
 			));
 		}
