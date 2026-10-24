@@ -22,6 +22,10 @@ Atk14Url::AddRouter("StoresRouter");
 
 Atk14Url::AddRouter("DigitalContentsRouter");
 
+if(CUSTOMER_REVIEWS_ENABLED){
+	Atk14Url::AddRouter("CardCustomerReviewsRouter");
+}
+
 Atk14Url::AddRouter("AdminRouter");
 
 Atk14Url::AddRouter("CookieConsentsRouter");
