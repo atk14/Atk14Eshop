@@ -16,7 +16,8 @@
 
 		{if CUSTOMER_REVIEWS_ENABLED}
 			{capture assign="rating"}
-				{a_remote action="card_customer_reviews/index" card_id=$card}
+				{assign hide_href !CustomerReview::HasCardPublishedReviews($card)}
+				{a_remote action="card_customer_reviews/index" card_id=$card _hide_href=$hide_href}
 					{render partial="shared/customer_review/stars" rating=$rating}
 					{if isset($rating)}
 						<!-- ({$review_count}) -->
