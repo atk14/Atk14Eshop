@@ -26,7 +26,7 @@ class WatchedProductsController extends ApplicationController {
 	}
 
 	function create_new() {
-		$product = $this->_just_find("product","product_id");
+		$product = $this->tpl_data["product"] = $this->_just_find("product","product_id");
 		if(!$product || $product->isDeleted()){
 			return $this->_execute_action("error404");
 		}
@@ -36,6 +36,10 @@ class WatchedProductsController extends ApplicationController {
 		$this->page_title = $this->breadcrumbs[] = _("Aktivace hlídacího psa");
 
 		$this->_save_return_uri();
+
+		if($this->logged_user){
+			$this->form->set_initial("email",$this->logged_user->getEmail());
+		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["product_id"] = $product;
