@@ -72,4 +72,5 @@
 	{if CUSTOMER_REVIEWS_ENABLED}
 		{a action="customer_reviews/index" _class="btn btn-default"}{t}My reviews{/t}{/a}
 	{/if}
+	{a action="watched_products/index" _class="btn btn-default"}{t}Hlídané produkty{/t}{/a}
 </div>
