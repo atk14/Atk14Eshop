@@ -7,4 +7,5 @@
 cd $(dirname $0)
 cd ..
 
+./scripts/robot_runner frequently_bought_together
 ./scripts/robot_runner best_selling_cards
