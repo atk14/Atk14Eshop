@@ -113,9 +113,7 @@
 							</div>
 							{if !$product->canBeOrdered($price_finder) && WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<div class="secondary-controls__item">
-									<span class="link--small">
-										{a action="watched_products/index"}{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>{/a}
-									</span>
+									{a action="watched_products/index" _class="link--small"}{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>{/a}
 								</div>
 							{/if}
 						</div>
