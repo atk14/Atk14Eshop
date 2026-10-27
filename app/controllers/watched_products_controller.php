@@ -49,8 +49,8 @@ class WatchedProductsController extends ApplicationController {
 			($wp = WatchedProduct::FindFirst("NOT notified AND product_id=:product AND email IS NOT NULL AND email=:email",[":product" => $product, ":email" => $d["email"]])) ||
 			($wp = WatchedProduct::CreateNewRecord($d));
 			
-			$this->flash->success(sprintf(_("Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na adrese %s"), h($wp->getEmail())));
 			if (!$this->request->xhr()) {
+				$this->flash->success(sprintf(_("Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na adrese %s"), h($wp->getEmail())));
 				$this->_redirect_back();
 			}
 		}
