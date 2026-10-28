@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 19:40+0200\n"
-"PO-Revision-Date: 2026-10-17 19:42+0200\n"
+"POT-Creation-Date: 2026-10-28 21:20+0100\n"
+"PO-Revision-Date: 2026-10-28 21:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -1389,6 +1389,9 @@ msgstr "Delivery addresses"
 msgid "Oblíbené produkty"
 msgstr "Favourite products"
 
+msgid "Hlídané produkty"
+msgstr "Watchlist items"
+
 #: ../app/controllers/logins_controller.php:44
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
@@ -1794,6 +1797,9 @@ msgstr "valid until"
 msgid "*Pro uplatnění poukazu zadejte kód při vytvoření objednávky."
 msgstr ""
 "*To redeem the voucher, please enter the code when creating your order."
+
+msgid "Successfully saved"
+msgstr "Successfully saved"
 
 msgid "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
 msgstr ""
@@ -2391,7 +2397,7 @@ msgstr "Saved watchdog items"
 msgid "Aktivace hlídacího psa"
 msgstr "Watchdog activation"
 
-#: ../app/controllers/watched_products_controller.php:48
+#: ../app/controllers/watched_products_controller.php:53
 #, php-format
 msgid ""
 "Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na "

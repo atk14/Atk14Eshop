@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 19:40+0200\n"
-"PO-Revision-Date: 2026-10-17 20:27+0200\n"
+"POT-Creation-Date: 2026-10-28 21:20+0100\n"
+"PO-Revision-Date: 2026-10-28 21:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -832,7 +832,7 @@ msgstr "File Type"
 msgid "Filesize"
 msgstr "Filesize"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:81
+#: ../app/forms/admin/system_parameters/edit_form.php:88
 msgid "URL"
 msgstr "URL"
 
@@ -931,7 +931,7 @@ msgid "Vývoj počtu objednávek:"
 msgstr "Order count development:"
 
 #: ../app/forms/admin/stores/stores_form.php:20
-#: ../app/forms/admin/system_parameters/edit_form.php:95
+#: ../app/forms/admin/system_parameters/edit_form.php:102
 msgid "Email"
 msgstr "Email"
 
@@ -3332,7 +3332,7 @@ msgstr "open in administration"
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
-#: ../app/forms/admin/system_parameters/edit_form.php:88
+#: ../app/forms/admin/system_parameters/edit_form.php:95
 msgid "Image"
 msgstr "Image"
 
@@ -4942,19 +4942,23 @@ msgstr "String value"
 msgid "Integer value"
 msgstr "Integer value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:68
+#: ../app/forms/admin/system_parameters/edit_form.php:67
+msgid "Float value"
+msgstr "Float value"
+
+#: ../app/forms/admin/system_parameters/edit_form.php:75
 msgid "Boolean value"
 msgstr "Boolean value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:71
+#: ../app/forms/admin/system_parameters/edit_form.php:78
 msgid "Yes"
 msgstr "Yes"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:72
+#: ../app/forms/admin/system_parameters/edit_form.php:79
 msgid "No"
 msgstr "No"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:102
+#: ../app/forms/admin/system_parameters/edit_form.php:109
 msgid "Phone number"
 msgstr "Phone number"
 
