@@ -65,7 +65,7 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 				return;
 			}
 
-			$code = (string)String4::RandomNumericString(8);
+			$code = OneTimePassword::NewCode();
 			$rec = OneTimePassword::CreateNewRecordFor("order_withdrawal",$order->getId(),$code,$order->getEmail());
 
 			$this->mailer->notify_order_withdrawal_request_otp($order,$rec,$code);
@@ -93,7 +93,6 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 			}
 
 			$code = $d["code"];
-			$code = preg_replace('/\s/','',$code);
 			if(!($otp = OneTimePassword::GetActiveInstanceFor("order_withdrawal",$order->getId(),$code))){
 				InvalidPasswordAttempt::CreateNewRecord([
 					"purpose" => "order_withdrawal",
