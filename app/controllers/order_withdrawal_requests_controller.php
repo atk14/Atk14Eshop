@@ -63,9 +63,6 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		return $this->_authorize([
 			"skip" => $this->logged_user && $order->getUserId()===$this->logged_user->getId(),
 			"object_key" => $order->getId(),
-			"on_success_closure" => function(){
-				return ["authorized" => true];
-			},
 		]);
 	}
 
