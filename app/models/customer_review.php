@@ -104,9 +104,14 @@ class CustomerReview extends ApplicationModel {
 		return true;
 	}
 
-	static function GetPublishedReviewsByCard(Card $card){
+	static function GetPublishedReviewsByCard(Card $card,$options = []){
 		$products = $card->getProducts();
 		if(!$products){ return []; }
+		
+		$options += [
+			"limit" => null,
+		];
+
 		$dbmole = self::GetDbmole();
 		$ids = $dbmole->selectIntoArray("
 			SELECT id FROM customer_reviews
@@ -117,8 +122,14 @@ class CustomerReview extends ApplicationModel {
 			ORDER BY created_at DESC, id DESC
 		",[
 			":products" => $products
+		],[
+			"limit" => $options["limit"],
 		]);
 		return Cache::Get("CustomerReview",$ids);
+	}
+
+	static function HasCardPublishedReviews(Card $card){
+		return !!self::GetPublishedReviewsByCard($card,["limit" => 1]);
 	}
 
 	static $RatingCache;

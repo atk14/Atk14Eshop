@@ -94,7 +94,7 @@
 
 							{if $price && $price->priceExists() && !WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<p>
-									{a action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary"}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a}
+									{a_remote action="watched_products/create_new" product_id=$product _class="btn btn-outline-primary" _hide_href=true}{!"dog"|icon} <span class="link__text">{t}Informovat o naskladnění{/t}</span>{/a_remote}
 								</p>
 							{else}
 								<p><em>{t}This product is sold out{/t}</em></p>
@@ -113,9 +113,7 @@
 							</div>
 							{if !$product->canBeOrdered($price_finder) && WatchedProduct::IsWatchedProduct($product,$logged_user)}
 								<div class="secondary-controls__item">
-									<span class="link--small">
-										{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>
-									</span>
+									{a action="watched_products/index" _class="link--small"}{!"dog"|icon} <span class="link__text">{t}Naskladnění sleduje hlídací pes{/t}</span>{/a}
 								</div>
 							{/if}
 						</div>

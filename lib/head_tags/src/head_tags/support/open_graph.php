@@ -54,7 +54,7 @@ class OpenGraph {
 	static function GetImage(\Atk14Controller $controller) {
 		\Atk14Require::Helper("modifier.img_url");
 
-		$out_url = \SystemParameter::ContentOn("app.social.default_image");
+		$out_url = null;
 		$image_url = null;
 		$_key = join("/", [$controller->controller, $controller->action]);
 		switch($_key) {
@@ -68,6 +68,7 @@ class OpenGraph {
 			$image_url = $controller->page->getImageUrl();
 			break;
 		default:
+			$image_url = \SystemParameter::ContentOn("app.social.default_image");
 			break;
 		}
 		if ($image_url) {

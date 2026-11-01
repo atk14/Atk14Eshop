@@ -13,7 +13,7 @@
 			{/if}
 
 			<div class="py-4">
-			{a_remote action="customer_reviews/create_new" card_id=$card _class="btn btn-primary"}{!"pen"|icon} {t}Write review{/t}{/a_remote}
+			{a_remote action="customer_reviews/create_new" card_id=$card _hide_href=true _class="btn btn-primary"}{!"pen"|icon} {t}Write review{/t}{/a_remote}
 			</div>
 
 			<ul class="customer-ratings__breakdown">
@@ -51,7 +51,7 @@
 		{/if}
 	</p>
 
-	{a_remote action="customer_reviews/create_new" card_id=$card _class="btn btn-primary"}{!"pen"|icon} {t}Write review{/t}{/a_remote}
+	{a_remote action="customer_reviews/create_new" card_id=$card _hide_href=true _class="btn btn-primary"}{!"pen"|icon} {t}Write review{/t}{/a_remote}
 
 {/if}
 </div>

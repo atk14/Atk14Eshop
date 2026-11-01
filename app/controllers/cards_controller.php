@@ -38,6 +38,8 @@ class CardsController extends ApplicationController{
 		if($card->isDeleted() || !$card->isVisible()){
 			// In case of a deleted or invisible product, the HTTP 404 Not Found status is set but the product is displayed on the page.
 			$this->response->setStatusCode("404");
+		}else{
+			$this->_save_card_displayed($card,$current_product);
 		}
 
 		$this->page_title = $card->getPageTitle();
@@ -48,6 +50,17 @@ class CardsController extends ApplicationController{
 		$this->tpl_data["categories"] = $card->getCategories(array("consider_invisible_categories" => false, "consider_filters" => false, "deduplicate" => true));
 		$this->tpl_data["starting_price"] = $this->price_finder->getStartingPrice($card);
 		$this->tpl_data["main_creators"] = CardCreator::GetMainCreatorsForCard($card);
+		$this->tpl_data["related_cards"] = $related_cards = $card->getViewableRelatedCards();
+		$this->tpl_data["consumables"] = $consumables = $card->getConsumables();
+		$this->tpl_data["accessories"] = $accessories = $card->getViewableAccessories();
+		if(PRODUCT_RECOMMENDATIONS_ENABLED){
+			$this->tpl_data["also_bought_cards"] = $this->selling_advisor->getRecommendedCardsForCard($card, array(
+				"price_finder" => $this->price_finder,
+				"exclude_cards" => $related_cards + $consumables + $accessories,
+				"best_sellers_enabled" => false,
+				"limit" => 6,
+			));
+		}
 
 		$this->_add_card_to_breadcrumbs($card);
 		$bclist = new BreadcrumbList($card->getPrimaryCategory(), ["add_parent_elements" => true, "add_index" => false]);

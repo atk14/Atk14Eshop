@@ -26,6 +26,9 @@ class Product extends \StructuredData\BaseElement {
 			"description" => $_description,
 			"sku" => $this->item->getFirstProduct()->getCatalogId(), /* @todo vybrat spravny produkt */
 		];
+		if ($_ean = (string)$this->item->getTechnicalSpecification("ean")) {
+			$out["gtin13"] = $_ean;
+		}
 		if ($_images = $this->item->getImages()) {
 			$out["image"] = array_map(function ($i) { return (new ImageObject($i))->toArray(); }, $_images);
 		}
@@ -46,6 +49,21 @@ class Product extends \StructuredData\BaseElement {
 		}
 		if ($arAry = (new AggregateRating($this->item))->toArray()) {
 			$out["aggregateRating"] = $arAry;
+		}
+		$additional_properties = [];
+		foreach ($this->item->getTechnicalSpecifications(["visible" => true]) as $ts) {
+			$name = (string)$ts->getTechnicalSpecificationKey()->getKey();
+			$value = (string)$ts->getContent();
+			if (strlen($name) && strlen($value)) {
+				$additional_properties[] = [
+					"@type" => "PropertyValue",
+					"name" => $name,
+					"value" => $value,
+				];
+			}
+		}
+		if ($additional_properties) {
+			$out["additionalProperty"] = $additional_properties;
 		}
 		return $out;
 	}

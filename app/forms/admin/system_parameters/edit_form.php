@@ -61,6 +61,13 @@ class EditForm extends SystemParametersForm {
 				]));
 				break;
 
+			case "float":
+
+				$this->add_field("content", new FloatField($params + [
+					"label" => _("Float value"),
+				]));
+				break;
+
 
 			case "boolean":
 

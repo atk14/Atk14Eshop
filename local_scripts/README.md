@@ -12,6 +12,9 @@ Robots
     # Regular robots are executed every 5 minutes
     */5 * * * * /path/to/application/local_scripts/robots_regular
 
+    # Hourly robots are executed every hour
+    3 * * * * /path/to/application/local_scripts/robots_hourly
+
     # Daily robots are executed every day at 1:11
     11 1 * * * /path/to/application/local_scripts/robots_daily
 

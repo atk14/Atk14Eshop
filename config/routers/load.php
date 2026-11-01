@@ -22,9 +22,15 @@ Atk14Url::AddRouter("StoresRouter");
 
 Atk14Url::AddRouter("DigitalContentsRouter");
 
+if(CUSTOMER_REVIEWS_ENABLED){
+	Atk14Url::AddRouter("CardCustomerReviewsRouter");
+}
+
 Atk14Url::AddRouter("AdminRouter");
 
 Atk14Url::AddRouter("CookieConsentsRouter");
 
-// Keep the DefaultRouter at the end of the list
-Atk14Url::AddRouter("DefaultRouter");
+Atk14Url::AddRouter("ApplicationRouter");
+
+// GenericRouter should be the last router here
+Atk14Url::AddRouter("GenericRouter");

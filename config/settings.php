@@ -121,6 +121,8 @@ definedef("INVOICES_DIRECTORY",__DIR__ . "/../data/invoices/");
 definedef("CUSTOMER_REVIEWS_ENABLED",false);
 definedef("CUSTOMER_REVIEWS_AUTOMATIC_PUBLICATION",true);
 
+definedef("PRODUCT_RECOMMENDATIONS_ENABLED",true);
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

@@ -1,5 +1,3 @@
-{assign var=consumables value=$card->getConsumables()}
-
 {if $consumables}
 	<section class="linked-cards linked-cards--consumables">
 		<h3 class="h3">{t}Consumables{/t}</h3>

@@ -1,5 +1,3 @@
-{assign var=accessories value=$card->getViewableAccessories()}
-
 {if $accessories}
 	<section class="linked-cards linked-cards--accessories">
 		<h3 class="h3">{t}Accessories{/t}</h3>

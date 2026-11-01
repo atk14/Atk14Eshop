@@ -380,6 +380,31 @@ class Card extends ApplicationModel implements Translatable, iSlug, \Textmit\Ind
 		} );
 	}
 
+	/**
+	 * Precomputed "customers who bought this also bought" data.
+	 *
+	 * Filled wholesale by robots/frequently_bought_together_robot.php from real
+	 * order history, ordered by strength of the co-purchase signal (rank 0 = strongest).
+	 */
+	function getAlsoBoughtCardsLister() {
+		return $this->getLister("Card", array(
+			"table_name" => "also_bought_cards",
+			"owner_field_name" => "card_id",
+			"subject_field_name" => "related_card_id",
+		));
+	}
+
+	function getAlsoBoughtCards() {
+		return $this->getAlsoBoughtCardsLister()->getRecords();
+	}
+
+	function getViewableAlsoBoughtCards() {
+		return array_filter($this->getAlsoBoughtCards(), function ($card) {
+			return $card->isViewableInEshop() && $card->isVisible();
+		} );
+	}
+
+
 	function getConsumablesLister() {
 		return $this->getLister("Card", array(
 			"table_name" => "consumables",

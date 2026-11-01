@@ -21,6 +21,7 @@
 				{if CUSTOMER_REVIEWS_ENABLED}
 				<a href="{link_to action="customer_reviews/index"}" class="dropdown-item">{!"star"|icon}&nbsp;{t}My reviews{/t}</a>
 				{/if}
+				<a href="{link_to action="watched_products/index"}" class="dropdown-item">{!"dog"|icon}&nbsp;{t}Hlídané produkty{/t}</a>
 				<div class="dropdown-divider"></div>
 				{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
 				<div class="dropdown-divider"></div>

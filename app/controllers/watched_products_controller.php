@@ -26,7 +26,7 @@ class WatchedProductsController extends ApplicationController {
 	}
 
 	function create_new() {
-		$product = $this->_just_find("product","product_id");
+		$product = $this->tpl_data["product"] = $this->_just_find("product","product_id");
 		if(!$product || $product->isDeleted()){
 			return $this->_execute_action("error404");
 		}
@@ -37,6 +37,10 @@ class WatchedProductsController extends ApplicationController {
 
 		$this->_save_return_uri();
 
+		if($this->logged_user){
+			$this->form->set_initial("email",$this->logged_user->getEmail());
+		}
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["product_id"] = $product;
 			$d["user_id"] = $this->logged_user;
@@ -45,8 +49,8 @@ class WatchedProductsController extends ApplicationController {
 			($wp = WatchedProduct::FindFirst("NOT notified AND product_id=:product AND email IS NOT NULL AND email=:email",[":product" => $product, ":email" => $d["email"]])) ||
 			($wp = WatchedProduct::CreateNewRecord($d));
 			
-			$this->flash->success(sprintf(_("Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na adrese %s"), h($wp->getEmail())));
 			if (!$this->request->xhr()) {
+				$this->flash->success(sprintf(_("Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na adrese %s"), h($wp->getEmail())));
 				$this->_redirect_back();
 			}
 		}

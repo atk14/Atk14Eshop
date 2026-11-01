@@ -8,6 +8,18 @@ class ApplicationController extends ApplicationBaseController{
 	 */
 	var $datalayer;
 
+	/**
+	 * Session that stores all it's values in a cookie without interacting with the database
+	 *
+	 * @var Atk14Session
+	 */
+	var $cookieSession;
+
+	/**
+	 * @var SellingAdvisor
+	 */
+	var $selling_advisor;
+
 	function error404(){
 		if($this->request->xhr()){
 			return parent::error404();
@@ -31,6 +43,7 @@ class ApplicationController extends ApplicationBaseController{
 	}
 	
 	function _add_page_to_breadcrumbs($page){
+		if(!$page){ return; }
 		$pages = array($page);
 		$p = $page;
 		while($parent = $p->getParentPage()){
@@ -115,6 +128,17 @@ class ApplicationController extends ApplicationBaseController{
 				return $this->_redirect_to($params);
 			}
 		}
+
+		$this->cookieSession = new Atk14Session(new SessionStorer([
+			'cookie_expiration' => 84600*356,
+			'session_name' => 'csession', // TODO
+			'cookie_only' => true,
+			'disable_check_cookie' => true,
+		]));
+
+		$viewed_card_ids = array_map(function($item){ return $item[0]; },$this->_get_recent_cards_displayed());
+
+		$this->selling_advisor = new SellingAdvisor($this->logged_user,$this->basket,$this->favourite_products_accessor,$viewed_card_ids);
 	}
 
 	// Navigace u vytvareni objednavky
@@ -168,5 +192,32 @@ class ApplicationController extends ApplicationBaseController{
 		if(is_null($order->g("user_id")) || $order->belongsToUser($this->logged_user)){
 			return $order;
 		}
+	}
+
+	function _get_recent_cards_displayed(){
+		return (array)$this->cookieSession->g("recent_cards");
+	}
+
+	function _save_card_displayed($card,$product){
+		$limit = 10;
+
+		$card_id = $card->getId();
+		$product_id = $product ? $product->getId() : null;
+
+		$recent_cards = $this->_get_recent_cards_displayed();
+
+		if($recent_cards && $recent_cards[0][0]===$card_id && $recent_cards[0][1]===$product_id){
+			return;
+		}
+
+		$card_ids = array_map(function($item){ return $item[0]; },$recent_cards);
+		$recent_cards = array_combine($card_ids,$recent_cards);
+
+		unset($recent_cards[$card_id]);
+		$recent_cards = array_values($recent_cards);
+		array_unshift($recent_cards,[$card_id,$product_id]);
+		$recent_cards = array_slice($recent_cards,0,$limit);
+
+		$this->cookieSession->s("recent_cards",$recent_cards);
 	}
 }
