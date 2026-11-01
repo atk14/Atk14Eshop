@@ -1,5 +1,9 @@
 <?php
+require_once(__DIR__."/trait_otp_verification.php");
+
 class OrderWithdrawalRequestsController extends ApplicationController {
+
+	use TraitOtpVerification;
 
 	function create_new(){
 		$this->_prepare_create_new_title();
@@ -44,68 +48,25 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		$order = $this->_get_order();
 		$this->tpl_data["order"] = $order;
 
-		if($this->logged_user && $order->getUserId()===$this->logged_user->getId()){
-			return $this->_next_step([
-				"sent" => false,
-			]);
-		}
-
-		if($this->request->post()){
-			$otp_resend_delay = 60; // seconds
-			$last_otp = OneTimePassword::FindFirst([
-				"conditions" => "purpose=:purpose AND object_key=:object_key",
-				"bind_ar" => [
-					":purpose" => "order_withdrawal",
-					":object_key" => (string)$order->getId(),
-				],
-				"order_by" => "created_at DESC, id DESC",
-			]);
-			if($last_otp && (time() - strtotime($last_otp->getCreatedAt())) < $otp_resend_delay){
-				$this->form->set_error(_("Kód už byl odeslán, zkuste to prosím za chvíli znovu"));
-				return;
-			}
-
-			$code = OneTimePassword::NewCode();
-			$rec = OneTimePassword::CreateNewRecordFor("order_withdrawal",$order->getId(),$code,$order->getEmail());
-
-			$this->mailer->notify_order_withdrawal_request_otp($order,$rec,$code);
-
-			return [
-				"sent" => true,
-			];
-		}
+		return $this->_send_otp([
+			"skip" => $this->logged_user && $order->getUserId()===$this->logged_user->getId(),
+			"object_key" => $order->getId(),
+			"recipient" => $order->getEmail(),
+			"subject" => $order,
+		]);
 	}
 
 	function create_new__authorize(){
 		$order = $this->_get_order();
 		$this->tpl_data["order"] = $order;
 
-		if($this->logged_user && $order->getUserId()===$this->logged_user->getId()){
-			return $this->_next_step([
-				"authorized" => true,
-			]);
-		}
-
-		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$release_time,["purpose" => "order_withdrawal"])){
-				$this->form->set_error(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($release_time));
-				return;
-			}
-
-			$code = $d["code"];
-			if(!($otp = OneTimePassword::GetActiveInstanceFor("order_withdrawal",$order->getId(),$code))){
-				InvalidPasswordAttempt::CreateNewRecord([
-					"purpose" => "order_withdrawal",
-					"object_key" => (string)$order->getId(),
-				]);
-				$this->form->set_error("code",_("Toto není platný kód"));
-				return;
-			}
-			$otp->markAsUsed();
-			return [
-				"authorized" => true,
-			];
-		}
+		return $this->_authorize([
+			"skip" => $this->logged_user && $order->getUserId()===$this->logged_user->getId(),
+			"object_key" => $order->getId(),
+			"on_success_closure" => function(){
+				return ["authorized" => true];
+			},
+		]);
 	}
 
 	function create_new__get_data(){
