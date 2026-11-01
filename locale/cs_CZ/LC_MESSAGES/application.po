@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 16:31+0200\n"
-"PO-Revision-Date: 2026-10-01 16:33+0200\n"
+"POT-Creation-Date: 2026-11-01 12:21+0100\n"
+"PO-Revision-Date: 2026-10-28 21:21+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -221,6 +221,10 @@ msgstr "Vybrat další produkt"
 msgid "K pokladně"
 msgstr "K pokladně"
 
+#: ../app/controllers/card_list_controller.php:102
+msgid "Doporučujeme"
+msgstr "Doporučujeme"
+
 msgid "You are about to add the product \"%1\" to the basket."
 msgstr "Chystáte se přidat produkt \"%1\" do košíku."
 
@@ -257,6 +261,9 @@ msgstr "Tento produkt zatím nikdo nehodnotil."
 
 msgid "Accessories"
 msgstr "Příslušenství"
+
+msgid "Customers who bought this product also bought"
+msgstr "Zákazníci, kteří koupili tento produkt, koupili také"
 
 msgid "Product locations"
 msgstr "Umístění produktu"
@@ -1245,7 +1252,7 @@ msgstr ""
 msgid "Obnovit stránku"
 msgstr "Obnovit stránku"
 
-#: ../app/controllers/application.php:123
+#: ../app/controllers/application.php:147
 msgid "Basket"
 msgstr "Košík"
 
@@ -1490,6 +1497,9 @@ msgstr "Dodací adresy"
 #: ../app/controllers/favourite_products_controller.php:5
 msgid "Oblíbené produkty"
 msgstr "Oblíbené produkty"
+
+msgid "Hlídané produkty"
+msgstr "Hlídané produkty"
 
 #: ../app/controllers/logins_controller.php:44
 #: ../app/forms/logins/destroy_form.php:4
@@ -1897,6 +1907,9 @@ msgstr "platnost do"
 msgid "*Pro uplatnění poukazu zadejte kód při vytvoření objednávky."
 msgstr "*Pro uplatnění poukazu zadejte kód při vytvoření objednávky."
 
+msgid "Successfully saved"
+msgstr "Úspěšně uloženo"
+
 msgid "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
 msgstr "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
 
@@ -1995,7 +2008,7 @@ msgstr "Objednávka %d"
 #: ../app/controllers/application_mailer.php:300
 #: ../app/controllers/application_mailer.php:302
 #: ../app/controllers/application_mailer.php:304
-#: ../app/controllers/application.php:83
+#: ../app/controllers/application.php:96
 #: ../app/controllers/orders_controller.php:51
 #, php-format
 msgid "Objednávka %s"
@@ -2029,30 +2042,30 @@ msgid ""
 msgstr ""
 "Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"
 
-#: ../app/controllers/application.php:50
+#: ../app/controllers/application.php:63
 #: ../app/controllers/users_controller.php:5
 msgid "User profile"
 msgstr "Profil uživatele"
 
-#: ../app/controllers/application.php:73
+#: ../app/controllers/application.php:86
 #: ../app/controllers/order_withdrawal_requests_controller.php:18
 msgid "Objednávky"
 msgstr "Objednávky"
 
-#: ../app/controllers/application.php:124
+#: ../app/controllers/application.php:148
 #: ../app/controllers/checkouts_controller.php:5
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
-#: ../app/controllers/application.php:125
+#: ../app/controllers/application.php:149
 msgid "Delivery data"
 msgstr "Doručovací data"
 
-#: ../app/controllers/application.php:126
+#: ../app/controllers/application.php:150
 msgid "Summary"
 msgstr "Souhrn"
 
-#: ../app/controllers/application.php:127
+#: ../app/controllers/application.php:151
 msgid "Order finished"
 msgstr "Objednávka dokončena"
 
@@ -2110,10 +2123,6 @@ msgstr "Seznam značek"
 #: ../app/fields/rating_field.php:6
 msgid "Rating"
 msgstr "Hodnocení"
-
-#: ../app/controllers/card_list_controller.php:102
-msgid "Doporučujeme"
-msgstr "Doporučujeme"
 
 #: ../app/controllers/card_list_controller.php:112
 msgid "Nejlevnější"
@@ -2531,7 +2540,7 @@ msgstr "Uložené položky hlídacího psa"
 msgid "Aktivace hlídacího psa"
 msgstr "Aktivace hlídacího psa"
 
-#: ../app/controllers/watched_products_controller.php:48
+#: ../app/controllers/watched_products_controller.php:53
 #, php-format
 msgid ""
 "Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na "
@@ -2623,7 +2632,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, no-php-format
+#, fuzzy, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 

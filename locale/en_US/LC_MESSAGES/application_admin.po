@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 16:31+0200\n"
-"PO-Revision-Date: 2026-08-07 11:14+0200\n"
+"POT-Creation-Date: 2026-11-01 12:21+0100\n"
+"PO-Revision-Date: 2026-10-28 21:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -85,7 +85,7 @@ msgstr "Currently there are no attachments."
 msgid "Sales regions"
 msgstr "Sales regions"
 
-#: ../app/controllers/admin/admin.php:55
+#: ../app/controllers/admin/admin.php:56
 #: ../app/forms/admin/bank_accounts/bank_accounts_form.php:26
 msgid "Currencies"
 msgstr "Currencies"
@@ -240,7 +240,32 @@ msgstr "Variants on product card <em>%1</em>"
 msgid "Určete produkt, který zůstane po spojení zachován."
 msgstr "Determine the product that will be preserved after merging."
 
-#: ../app/controllers/admin/admin.php:145
+msgid "negativní"
+msgstr "negative"
+
+msgid "Show product on web"
+msgstr "Show product on web"
+
+msgid "Edit product"
+msgstr "Edit product"
+
+msgid "Remove"
+msgstr "Remove"
+
+#: ../app/controllers/admin/card_recommendation_boosts_controller.php:16
+msgid "Add a preferred product"
+msgstr "Add a preferred product"
+
+msgid ""
+"Products listed here get preferred whenever they already show up as a "
+"candidate in the \"customers who bought this also bought\" recommendations - "
+"they are never shown if they are unrelated to the viewed product."
+msgstr ""
+"Products listed here get preferred whenever they already show up as a "
+"candidate in the \"customers who bought this also bought\" recommendations - "
+"they are never shown if they are unrelated to the viewed product."
+
+#: ../app/controllers/admin/admin.php:149
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "invisible"
@@ -275,9 +300,6 @@ msgstr "Edit this product"
 
 msgid "You are going to remove a related product %1. Are you sure?"
 msgstr "You are going to remove a related product %1. Are you sure?"
-
-msgid "Remove"
-msgstr "Remove"
 
 msgid "Product placement in the catalog tree"
 msgstr "Product placement in the catalog tree"
@@ -537,11 +559,11 @@ msgstr "Subcategories"
 msgid "filter options"
 msgstr "filter options"
 
-#: ../app/controllers/admin/admin.php:141
+#: ../app/controllers/admin/admin.php:145
 msgid "filter"
 msgstr "filter"
 
-#: ../app/controllers/admin/admin.php:142
+#: ../app/controllers/admin/admin.php:146
 msgid "link"
 msgstr "link"
 
@@ -560,9 +582,6 @@ msgstr "show product list"
 
 msgid "There is currently no product here."
 msgstr "There is currently no product here."
-
-msgid "Edit product"
-msgstr "Edit product"
 
 msgid "Remove product"
 msgstr "Remove product"
@@ -705,6 +724,7 @@ msgid "Catalog Id"
 msgstr "Catalog Id"
 
 #: ../app/forms/admin/card_promotions/card_promotions_form.php:8
+#: ../app/forms/admin/card_recommendation_boosts/card_recommendation_boosts_form.php:5
 #: ../app/forms/admin/category_cards/create_new_form.php:6
 #: ../app/forms/admin/category_recommended_cards/create_new_form.php:6
 #: ../app/forms/admin/related_cards/create_new_form.php:6
@@ -813,7 +833,7 @@ msgstr "File Type"
 msgid "Filesize"
 msgstr "Filesize"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:81
+#: ../app/forms/admin/system_parameters/edit_form.php:88
 msgid "URL"
 msgstr "URL"
 
@@ -912,7 +932,7 @@ msgid "Vývoj počtu objednávek:"
 msgstr "Order count development:"
 
 #: ../app/forms/admin/stores/stores_form.php:20
-#: ../app/forms/admin/system_parameters/edit_form.php:95
+#: ../app/forms/admin/system_parameters/edit_form.php:102
 msgid "Email"
 msgstr "Email"
 
@@ -1982,7 +2002,7 @@ msgstr "deleted"
 msgid "Adding a special pricelist"
 msgstr "Adding a special pricelist"
 
-#: ../app/controllers/admin/admin.php:50
+#: ../app/controllers/admin/admin.php:51
 #: ../app/controllers/admin/special_pricelists_controller.php:5
 msgid "Special price lists"
 msgstr "Special price lists"
@@ -2149,118 +2169,123 @@ msgid "Categories"
 msgstr "Categories"
 
 #: ../app/controllers/admin/admin.php:43
+#: ../app/controllers/admin/card_recommendation_boosts_controller.php:10
+msgid "Preferred products in recommendations"
+msgstr "Preferred products in recommendations"
+
+#: ../app/controllers/admin/admin.php:44
 msgid "Vouchers"
 msgstr "Vouchers"
 
-#: ../app/controllers/admin/admin.php:44
+#: ../app/controllers/admin/admin.php:45
 msgid "Campaigns"
 msgstr "Campaigns"
 
-#: ../app/controllers/admin/admin.php:45
+#: ../app/controllers/admin/admin.php:46
 msgid "Brands"
 msgstr "Brands"
 
-#: ../app/controllers/admin/admin.php:47
+#: ../app/controllers/admin/admin.php:48
 msgid "Stores"
 msgstr "Stores"
 
-#: ../app/controllers/admin/admin.php:48
+#: ../app/controllers/admin/admin.php:49
 #: ../app/controllers/admin/warehouses_controller.php:5
 msgid "Warehouses"
 msgstr "Warehouses"
 
-#: ../app/controllers/admin/admin.php:49
+#: ../app/controllers/admin/admin.php:50
 #: ../app/controllers/admin/pricelists_controller.php:5
 msgid "Price lists"
 msgstr "Price lists"
 
-#: ../app/controllers/admin/admin.php:51
+#: ../app/controllers/admin/admin.php:52
 msgid "Discounts"
 msgstr "Discounts"
 
-#: ../app/controllers/admin/admin.php:52
+#: ../app/controllers/admin/admin.php:53
 msgid "Delivery methods"
 msgstr "Delivery methods"
 
-#: ../app/controllers/admin/admin.php:53
+#: ../app/controllers/admin/admin.php:54
 msgid "Payment methods"
 msgstr "Payment methods"
 
-#: ../app/controllers/admin/admin.php:54
+#: ../app/controllers/admin/admin.php:55
 msgid "Combination of transports and payments"
 msgstr "Combination of transports and payments"
 
-#: ../app/controllers/admin/admin.php:56
+#: ../app/controllers/admin/admin.php:57
 msgid "VAT rates"
 msgstr "VAT rates"
 
-#: ../app/controllers/admin/admin.php:57
+#: ../app/controllers/admin/admin.php:58
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Password recoveries"
 
-#: ../app/controllers/admin/admin.php:58
+#: ../app/controllers/admin/admin.php:59
 msgid "Newsletter subscribers"
 msgstr "Newsletter subscribers"
 
-#: ../app/controllers/admin/admin.php:59
+#: ../app/controllers/admin/admin.php:60
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "404 Redirections"
 
-#: ../app/controllers/admin/admin.php:60
+#: ../app/controllers/admin/admin.php:61
 msgid "Order statuses"
 msgstr "Order statuses"
 
-#: ../app/controllers/admin/admin.php:61
+#: ../app/controllers/admin/admin.php:62
 msgid "Selling regions"
 msgstr "Selling regions"
 
-#: ../app/controllers/admin/admin.php:62
+#: ../app/controllers/admin/admin.php:63
 #: ../app/forms/admin/users/users_form.php:48
 msgid "Customer groups"
 msgstr "Customer groups"
 
-#: ../app/controllers/admin/admin.php:63
+#: ../app/controllers/admin/admin.php:64
 msgid "Bank accounts"
 msgstr "Bank accounts"
 
-#: ../app/controllers/admin/admin.php:64
+#: ../app/controllers/admin/admin.php:65
 msgid "Order withdrawal requests"
 msgstr "Order withdrawal requests"
 
-#: ../app/controllers/admin/admin.php:65
+#: ../app/controllers/admin/admin.php:66
 msgid "Cookie consent"
 msgstr "Cookie consent"
 
-#: ../app/controllers/admin/admin.php:66
+#: ../app/controllers/admin/admin.php:67
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "System preferences"
 
-#: ../app/controllers/admin/admin.php:105
+#: ../app/controllers/admin/admin.php:109
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
 
-#: ../app/controllers/admin/admin.php:128
+#: ../app/controllers/admin/admin.php:132
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:164
+#: ../app/controllers/admin/admin.php:168
 #: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr "Order %s"
 
-#: ../app/controllers/admin/admin.php:168
+#: ../app/controllers/admin/admin.php:172
 #: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Edit order %s"
 
-#: ../app/controllers/admin/admin.php:176
+#: ../app/controllers/admin/admin.php:180
 #: ../app/controllers/admin/users_controller.php:91
 #, php-format
 msgid "Editing user %s"
@@ -2391,6 +2416,10 @@ msgstr "Merging products"
 #: ../app/controllers/admin/card_merging_controller.php:99
 msgid "Products were successfully merged"
 msgstr "Products were successfully merged"
+
+#: ../app/controllers/admin/card_recommendation_boosts_controller.php:17
+msgid "The product has been added"
+msgstr "The product has been added"
 
 #: ../app/controllers/admin/cards_controller.php:16
 msgid "List of Products"
@@ -3357,7 +3386,7 @@ msgstr "open in administration"
 #: ../app/forms/admin/pages/pages_form.php:10
 #: ../app/forms/admin/products/create_new_form.php:25
 #: ../app/forms/admin/stores/stores_form.php:15
-#: ../app/forms/admin/system_parameters/edit_form.php:88
+#: ../app/forms/admin/system_parameters/edit_form.php:95
 msgid "Image"
 msgstr "Image"
 
@@ -3687,6 +3716,20 @@ msgstr "Label for product %s"
 msgid "Zachovávaný produkt"
 msgstr "Preserved product"
 
+#: ../app/forms/admin/card_recommendation_boosts/card_recommendation_boosts_form.php:9
+msgid "Negativní boost (potlačit v doporučeních)"
+msgstr "Negative boost (suppress in recommendations)"
+
+#: ../app/forms/admin/card_recommendation_boosts/create_new_form.php:6
+#: ../app/forms/admin/category_cards/create_new_form.php:9
+#: ../app/forms/admin/related_cards/create_new_form.php:15
+msgid "Add product"
+msgstr "Add product"
+
+#: ../app/forms/admin/card_recommendation_boosts/edit_form.php:7
+msgid "Update"
+msgstr "Update"
+
 #: ../app/forms/admin/cards/add_technical_specification_form.php:7
 #: ../app/forms/admin/cards/add_technical_specification_form.php:11
 msgid "Specification name"
@@ -3881,11 +3924,6 @@ msgstr "Parent category"
 #: ../app/forms/admin/categories/move_to_category/get_data_form.php:10
 msgid "Move category"
 msgstr "Move category"
-
-#: ../app/forms/admin/category_cards/create_new_form.php:9
-#: ../app/forms/admin/related_cards/create_new_form.php:15
-msgid "Add product"
-msgstr "Add product"
 
 #: ../app/forms/admin/category_cards/edit_form.php:7
 msgid "The ranking starts with 1"
@@ -4961,19 +4999,23 @@ msgstr "String value"
 msgid "Integer value"
 msgstr "Integer value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:68
+#: ../app/forms/admin/system_parameters/edit_form.php:67
+msgid "Float value"
+msgstr "Float value"
+
+#: ../app/forms/admin/system_parameters/edit_form.php:75
 msgid "Boolean value"
 msgstr "Boolean value"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:71
+#: ../app/forms/admin/system_parameters/edit_form.php:78
 msgid "Yes"
 msgstr "Yes"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:72
+#: ../app/forms/admin/system_parameters/edit_form.php:79
 msgid "No"
 msgstr "No"
 
-#: ../app/forms/admin/system_parameters/edit_form.php:102
+#: ../app/forms/admin/system_parameters/edit_form.php:109
 msgid "Phone number"
 msgstr "Phone number"
 

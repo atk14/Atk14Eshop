@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-01 16:31+0200\n"
-"PO-Revision-Date: 2026-08-14 11:09+0200\n"
+"POT-Creation-Date: 2026-11-01 12:21+0100\n"
+"PO-Revision-Date: 2026-10-28 21:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -225,6 +225,10 @@ msgstr "Select another product"
 msgid "K pokladně"
 msgstr "To checkout"
 
+#: ../app/controllers/card_list_controller.php:102
+msgid "Doporučujeme"
+msgstr "Featured"
+
 msgid "You are about to add the product \"%1\" to the basket."
 msgstr "You are about to add the product \"%1\" to the basket."
 
@@ -261,6 +265,9 @@ msgstr "No one has rated this product yet."
 
 msgid "Accessories"
 msgstr "Accessories"
+
+msgid "Customers who bought this product also bought"
+msgstr "Customers who bought this product also bought"
 
 msgid "Product locations"
 msgstr "Product locations"
@@ -707,7 +714,9 @@ msgstr "Complete payment"
 msgid ""
 "potvrzujeme, že jsme přijali vaši žádost o odstoupení od kupní smlouvy k "
 "objednávce č. %1."
-msgstr "we confirm that we have received your request for withdrawal from the purchase contract regarding order No. %1."
+msgstr ""
+"we confirm that we have received your request for withdrawal from the "
+"purchase contract regarding order No. %1."
 
 msgid "Zde je rekapitulace údajů v žádosti:"
 msgstr "Here is a summary of the details in your request:"
@@ -745,20 +754,28 @@ msgid "Zásilku zašlete na adresu"
 msgstr "Send the parcel to the address"
 
 msgid "Vrácené zboží odešlete zpět nejpozději do %1 dnů od podání této žádosti"
-msgstr "Send the returned goods back no later than %1 days from submitting this request"
+msgstr ""
+"Send the returned goods back no later than %1 days from submitting this "
+"request"
 
 msgid ""
 "Platbu za vrácené zboží vám vrátíme nejpozději do %1 dnů od odstoupení od "
 "smlouvy, ne však dříve, než nám bude zboží doručeno zpět"
-msgstr "We will refund the payment for the returned goods no later than %1 days from the withdrawal, but not before the goods are delivered back to us"
+msgstr ""
+"We will refund the payment for the returned goods no later than %1 days from "
+"the withdrawal, but not before the goods are delivered back to us"
 
 msgid "Další informace o odstoupení od kupní smlouvy nalezenete na adrese %1"
-msgstr "You can find more information about withdrawal from the purchase contract at %1"
+msgstr ""
+"You can find more information about withdrawal from the purchase contract at "
+"%1"
 
 msgid ""
 "pro postoupení k dalšímu kroku v podání žádosti o odstoupení od kupní "
 "smlouvy zadejte do formuláře tento jednorázový kód:"
-msgstr "to proceed to the next step of submitting the withdrawal request, enter this one-time code into the form:"
+msgstr ""
+"to proceed to the next step of submitting the withdrawal request, enter this "
+"one-time code into the form:"
 
 msgid "Hello,"
 msgstr "Hello,"
@@ -1130,20 +1147,26 @@ msgid "Odstoupeno od smlouvy"
 msgstr "Withdrawn from the contract"
 
 msgid "Žádost o odstoupení od kupní smlouvy byla úspěšně uložena."
-msgstr "The request for withdrawal from the purchase contract has been successfully saved."
+msgstr ""
+"The request for withdrawal from the purchase contract has been successfully "
+"saved."
 
 msgid "Do e-mailu vám bylo odesláno potvrzení a veškeré důležité informace."
-msgstr "A confirmation and all important information have been sent to your email."
+msgstr ""
+"A confirmation and all important information have been sent to your email."
 
 msgid ""
 "Do formuláře zadejte číselný kód, který vám byl zaslán na e-mailovou adresu "
 "%1."
-msgstr "Enter the numeric code that was sent to your email address %1 into the form."
+msgstr ""
+"Enter the numeric code that was sent to your email address %1 into the form."
 
 msgid ""
 "Odesláním tohoto formuláře podáte žádost na odstoupení od kupní smlouvy k "
 "objednávce č. %1."
-msgstr "By submitting this form, you will file a request for withdrawal from the purchase contract for order No. %1."
+msgstr ""
+"By submitting this form, you will file a request for withdrawal from the "
+"purchase contract for order No. %1."
 
 msgid "Zkontrolujte správnost údajů."
 msgstr "Check that the details are correct."
@@ -1154,15 +1177,21 @@ msgstr "Check the order items you want to return."
 msgid ""
 "Hodnotu vráceného zboží vám vrátíme na bankovní účet / platební kartu, ze "
 "které byla objednávka uhrazena."
-msgstr "We will refund the value of the returned goods to the bank account / payment card used to pay for the order."
+msgstr ""
+"We will refund the value of the returned goods to the bank account / payment "
+"card used to pay for the order."
 
 msgid "Zadejte číslo objednávky, u které chcete odstoupit od kupní smlouvy."
-msgstr "Enter the number of the order for which you want to withdraw from the purchase contract."
+msgstr ""
+"Enter the number of the order for which you want to withdraw from the "
+"purchase contract."
 
 msgid ""
 "Na e-mailovou adresu %1 vám zašleme jednorázový číselný kód, kterým "
 "potvrdíte vlastnictví objednávky."
-msgstr "We will send a one-time numeric code to the email address %1, which you will use to confirm ownership of the order."
+msgstr ""
+"We will send a one-time numeric code to the email address %1, which you will "
+"use to confirm ownership of the order."
 
 msgid "Subpages"
 msgstr "Subpages"
@@ -1235,7 +1264,7 @@ msgstr ""
 msgid "Obnovit stránku"
 msgstr "Refresh page"
 
-#: ../app/controllers/application.php:123
+#: ../app/controllers/application.php:147
 msgid "Basket"
 msgstr "Basket"
 
@@ -1480,6 +1509,9 @@ msgstr "Delivery addresses"
 #: ../app/controllers/favourite_products_controller.php:5
 msgid "Oblíbené produkty"
 msgstr "Favourite products"
+
+msgid "Hlídané produkty"
+msgstr "Watchlist items"
 
 #: ../app/controllers/logins_controller.php:44
 #: ../app/forms/logins/destroy_form.php:4
@@ -1887,6 +1919,9 @@ msgid "*Pro uplatnění poukazu zadejte kód při vytvoření objednávky."
 msgstr ""
 "*To redeem the voucher, please enter the code when creating your order."
 
+msgid "Successfully saved"
+msgstr "Successfully saved"
+
 msgid "Momentálně pro Vás hlídací pes nehlídá naskladnění žádného produktu."
 msgstr ""
 "Currently, the watchdog does not guard the storage of any product for you."
@@ -1986,7 +2021,7 @@ msgstr "Order %d"
 #: ../app/controllers/application_mailer.php:300
 #: ../app/controllers/application_mailer.php:302
 #: ../app/controllers/application_mailer.php:304
-#: ../app/controllers/application.php:83
+#: ../app/controllers/application.php:96
 #: ../app/controllers/orders_controller.php:51
 #, php-format
 msgid "Objednávka %s"
@@ -2019,30 +2054,30 @@ msgid ""
 "Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"
 msgstr "Confirmation of receipt of the withdrawal request – order No. %s"
 
-#: ../app/controllers/application.php:50
+#: ../app/controllers/application.php:63
 #: ../app/controllers/users_controller.php:5
 msgid "User profile"
 msgstr "User profile"
 
-#: ../app/controllers/application.php:73
+#: ../app/controllers/application.php:86
 #: ../app/controllers/order_withdrawal_requests_controller.php:18
 msgid "Objednávky"
 msgstr "Orders"
 
-#: ../app/controllers/application.php:124
+#: ../app/controllers/application.php:148
 #: ../app/controllers/checkouts_controller.php:5
 msgid "Shipping and payment"
 msgstr "Shipping and payment"
 
-#: ../app/controllers/application.php:125
+#: ../app/controllers/application.php:149
 msgid "Delivery data"
 msgstr "Delivery data"
 
-#: ../app/controllers/application.php:126
+#: ../app/controllers/application.php:150
 msgid "Summary"
 msgstr "Summary"
 
-#: ../app/controllers/application.php:127
+#: ../app/controllers/application.php:151
 msgid "Order finished"
 msgstr "Order finished"
 
@@ -2100,10 +2135,6 @@ msgstr "List of Brands"
 #: ../app/fields/rating_field.php:6
 msgid "Rating"
 msgstr "Rating"
-
-#: ../app/controllers/card_list_controller.php:102
-msgid "Doporučujeme"
-msgstr "Featured"
 
 #: ../app/controllers/card_list_controller.php:112
 msgid "Nejlevnější"
@@ -2522,7 +2553,7 @@ msgstr "Saved watchdog items"
 msgid "Aktivace hlídacího psa"
 msgstr "Watchdog activation"
 
-#: ../app/controllers/watched_products_controller.php:48
+#: ../app/controllers/watched_products_controller.php:53
 #, php-format
 msgid ""
 "Hlídací pes byl aktivován. O naskladnění produktu Vás budeme informovat na "
