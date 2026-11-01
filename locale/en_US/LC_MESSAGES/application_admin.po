@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 21:20+0100\n"
+"POT-Creation-Date: 2026-11-01 12:21+0100\n"
 "PO-Revision-Date: 2026-10-28 21:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -192,6 +192,7 @@ msgstr "Regions"
 #: ../app/forms/admin/card_sections/card_sections_form.php:10
 #: ../app/forms/admin/digital_contents/digital_contents_form.php:21
 #: ../app/forms/admin/order_statuses/order_statuses_form.php:7
+#: ../app/forms/admin/order_withdrawal_request_statuses/order_withdrawal_request_statuses_form.php:7
 #: ../app/forms/admin/sliders/sliders_form.php:6
 msgid "Název"
 msgstr "Name"
@@ -264,7 +265,7 @@ msgstr ""
 "candidate in the \"customers who bought this also bought\" recommendations - "
 "they are never shown if they are unrelated to the viewed product."
 
-#: ../app/controllers/admin/admin.php:148
+#: ../app/controllers/admin/admin.php:149
 #: ../app/controllers/admin/card_filters_controller.php:35
 msgid "invisible"
 msgstr "invisible"
@@ -558,11 +559,11 @@ msgstr "Subcategories"
 msgid "filter options"
 msgstr "filter options"
 
-#: ../app/controllers/admin/admin.php:144
+#: ../app/controllers/admin/admin.php:145
 msgid "filter"
 msgstr "filter"
 
-#: ../app/controllers/admin/admin.php:145
+#: ../app/controllers/admin/admin.php:146
 msgid "link"
 msgstr "link"
 
@@ -1013,6 +1014,12 @@ msgstr "code: %1"
 msgid "automatický stav"
 msgstr "automatic status"
 
+msgid "Dne %1 přijata žádost o odstoupení od smlouvy"
+msgstr "On %1, a withdrawal request was received"
+
+msgid "zobrazit"
+msgstr "view"
+
 msgid "Zákazník"
 msgstr "Customer"
 
@@ -1238,6 +1245,9 @@ msgstr "guest order"
 msgid "%1"
 msgstr "%1"
 
+msgid "Přijata žádost o odstoupení od smlouvy"
+msgstr "Withdrawal request received"
+
 msgid "určit zodp.osobu"
 msgstr "assign resp.person"
 
@@ -1270,6 +1280,39 @@ msgstr "No discount coupons have been entered"
 
 msgid "Opravdu chcete smazat tento slevový kupón?"
 msgstr "Are you sure you want to delete this discount coupon?"
+
+msgid "Objednávka"
+msgstr "Order"
+
+msgid "Jméno"
+msgstr "Name"
+
+msgid "Bankovní účet"
+msgstr "Bank account"
+
+msgid "Důvody vrácení"
+msgstr "Return reasons"
+
+msgid "Jiný důvod"
+msgstr "Other reason"
+
+msgid "Vrácené položky"
+msgstr "Returned items"
+
+msgid "Datum podání žádosti"
+msgstr "Request submission date"
+
+msgid "Žádost vytvořil uživatel"
+msgstr "Request created by user"
+
+msgid "Podáno z IP adresy"
+msgstr "Submitted from IP address"
+
+msgid "Nastavit BCC adresu pro zasílání kopií"
+msgstr "Set BCC address for sending copies"
+
+msgid "Nebyla nalezana ani jedna žádost."
+msgstr "No request was found."
 
 msgid "Subpages"
 msgstr "Subpages"
@@ -1335,9 +1378,6 @@ msgstr "<em>Test</em> mode"
 
 msgid "Výpis z API"
 msgstr "API dump"
-
-msgid "Objednávka"
-msgstr "Order"
 
 msgid "Celková cena k úhradě"
 msgstr "Total amount due"
@@ -1869,9 +1909,6 @@ msgstr "Delete tag"
 msgid "Přihlašovací jméno"
 msgstr "Login name"
 
-msgid "Jméno"
-msgstr "Name"
-
 msgid "oslovení"
 msgstr "salutation"
 
@@ -2214,37 +2251,41 @@ msgid "Bank accounts"
 msgstr "Bank accounts"
 
 #: ../app/controllers/admin/admin.php:65
+msgid "Order withdrawal requests"
+msgstr "Order withdrawal requests"
+
+#: ../app/controllers/admin/admin.php:66
 msgid "Cookie consent"
 msgstr "Cookie consent"
 
-#: ../app/controllers/admin/admin.php:66
+#: ../app/controllers/admin/admin.php:67
 #: ../app/controllers/admin/system_parameters_controller.php:5
 msgid "System preferences"
 msgstr "System preferences"
 
-#: ../app/controllers/admin/admin.php:108
+#: ../app/controllers/admin/admin.php:109
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
 
-#: ../app/controllers/admin/admin.php:131
+#: ../app/controllers/admin/admin.php:132
 #: ../app/controllers/admin/category_trees_controller.php:27
 msgid "Category tree"
 msgstr "Category tree"
 
-#: ../app/controllers/admin/admin.php:167
+#: ../app/controllers/admin/admin.php:168
 #: ../app/controllers/admin/orders_controller.php:108
 #, php-format
 msgid "Objednávka %s"
 msgstr "Order %s"
 
-#: ../app/controllers/admin/admin.php:171
+#: ../app/controllers/admin/admin.php:172
 #: ../app/controllers/admin/orders_controller.php:146
 #, php-format
 msgid "Editace objednávky %s"
 msgstr "Edit order %s"
 
-#: ../app/controllers/admin/admin.php:179
+#: ../app/controllers/admin/admin.php:180
 #: ../app/controllers/admin/users_controller.php:91
 #, php-format
 msgid "Editing user %s"
@@ -2845,6 +2886,19 @@ msgstr "This discount coupon is already included in the order"
 #: ../app/controllers/admin/order_vouchers_controller.php:26
 msgid "Editace slevového kupónu u objednávky"
 msgstr "Edit order discount coupon"
+
+#: ../app/controllers/admin/order_withdrawal_requests_controller.php:5
+msgid "Žádosti o odstoupení od smlouvy"
+msgstr "Order withdrawal requests"
+
+#: ../app/controllers/admin/order_withdrawal_requests_controller.php:48
+#, php-format
+msgid "Žádost o odstoupení od smlouvy č. %s"
+msgstr "Order withdrawal request No. %s"
+
+#: ../app/controllers/admin/order_withdrawal_request_statuses_controller.php:6
+msgid "Editace stavu žádosti o odstoupení od smlouvy"
+msgstr "Editing the order withdrawal request status"
 
 #: ../app/controllers/admin/pages_controller.php:14
 msgid "Create page"
@@ -3802,6 +3856,7 @@ msgstr "Text"
 
 #: ../app/forms/admin/cards/index_form.php:6
 #: ../app/forms/admin/orders/index_form.php:6
+#: ../app/forms/admin/order_withdrawal_requests/index_form.php:6
 msgid "Search"
 msgstr "Search"
 
@@ -4504,10 +4559,12 @@ msgid "Enable notification"
 msgstr "Enable notification"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:16
+#: ../app/forms/admin/order_withdrawal_request_statuses/edit_form.php:11
 msgid "BCC e-mail"
 msgstr "BCC email"
 
 #: ../app/forms/admin/order_statuses/edit_form.php:19
+#: ../app/forms/admin/order_withdrawal_request_statuses/edit_form.php:14
 msgid "Notifications can be sent to this address or addresses as blind copies."
 msgstr ""
 "Notifications can be sent to this address or addresses as blind copies."

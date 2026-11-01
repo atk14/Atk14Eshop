@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 21:20+0100\n"
+"POT-Creation-Date: 2026-11-01 12:21+0100\n"
 "PO-Revision-Date: 2026-10-28 21:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -711,6 +711,72 @@ msgstr ""
 msgid "Dokončit platbu"
 msgstr "Complete payment"
 
+msgid ""
+"potvrzujeme, že jsme přijali vaši žádost o odstoupení od kupní smlouvy k "
+"objednávce č. %1."
+msgstr ""
+"we confirm that we have received your request for withdrawal from the "
+"purchase contract regarding order No. %1."
+
+msgid "Zde je rekapitulace údajů v žádosti:"
+msgstr "Here is a summary of the details in your request:"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:12
+msgid "Vaše jméno"
+msgstr "Your name"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:22
+msgid "Váš e-mail"
+msgstr "Your email"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:27
+msgid "Váš telefon"
+msgstr "Your phone"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:31
+msgid "Číslo vašeho bankovního účtu pro vrácení peněz"
+msgstr "Your bank account number for the refund"
+
+msgid "Důvody vrácení zboží"
+msgstr "Reasons for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:52
+msgid "Jiný důvod k vrácení"
+msgstr "Other reason for the return"
+
+msgid "Položky objednávky, které vracíte:"
+msgstr "Order items you are returning:"
+
+msgid "Pokyny pro vrácení objednávky:"
+msgstr "Instructions for returning the order:"
+
+msgid "Zásilku zašlete na adresu"
+msgstr "Send the parcel to the address"
+
+msgid "Vrácené zboží odešlete zpět nejpozději do %1 dnů od podání této žádosti"
+msgstr ""
+"Send the returned goods back no later than %1 days from submitting this "
+"request"
+
+msgid ""
+"Platbu za vrácené zboží vám vrátíme nejpozději do %1 dnů od odstoupení od "
+"smlouvy, ne však dříve, než nám bude zboží doručeno zpět"
+msgstr ""
+"We will refund the payment for the returned goods no later than %1 days from "
+"the withdrawal, but not before the goods are delivered back to us"
+
+msgid "Další informace o odstoupení od kupní smlouvy nalezenete na adrese %1"
+msgstr ""
+"You can find more information about withdrawal from the purchase contract at "
+"%1"
+
+msgid ""
+"pro postoupení k dalšímu kroku v podání žádosti o odstoupení od kupní "
+"smlouvy zadejte do formuláře tento jednorázový kód:"
+msgstr ""
+"to proceed to the next step of submitting the withdrawal request, enter this "
+"one-time code into the form:"
+
 msgid "Hello,"
 msgstr "Hello,"
 
@@ -1047,6 +1113,8 @@ msgstr "History and details of my orders"
 msgid "Zatím jste nevytvořili žádnou objednávku"
 msgstr "You have not created any order yet"
 
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:6
+#: ../app/forms/order_withdrawal_requests/create_new/get_order_form.php:6
 msgid "Číslo objednávky"
 msgstr "Order number"
 
@@ -1071,6 +1139,59 @@ msgstr "No order found"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Odstoupit od smlouvy"
+msgstr "Withdraw from the contract"
+
+msgid "Odstoupeno od smlouvy"
+msgstr "Withdrawn from the contract"
+
+msgid "Žádost o odstoupení od kupní smlouvy byla úspěšně uložena."
+msgstr ""
+"The request for withdrawal from the purchase contract has been successfully "
+"saved."
+
+msgid "Do e-mailu vám bylo odesláno potvrzení a veškeré důležité informace."
+msgstr ""
+"A confirmation and all important information have been sent to your email."
+
+msgid ""
+"Do formuláře zadejte číselný kód, který vám byl zaslán na e-mailovou adresu "
+"%1."
+msgstr ""
+"Enter the numeric code that was sent to your email address %1 into the form."
+
+msgid ""
+"Odesláním tohoto formuláře podáte žádost na odstoupení od kupní smlouvy k "
+"objednávce č. %1."
+msgstr ""
+"By submitting this form, you will file a request for withdrawal from the "
+"purchase contract for order No. %1."
+
+msgid "Zkontrolujte správnost údajů."
+msgstr "Check that the details are correct."
+
+msgid "Zatrhněte položky objednávky, které chcete vratit."
+msgstr "Check the order items you want to return."
+
+msgid ""
+"Hodnotu vráceného zboží vám vrátíme na bankovní účet / platební kartu, ze "
+"které byla objednávka uhrazena."
+msgstr ""
+"We will refund the value of the returned goods to the bank account / payment "
+"card used to pay for the order."
+
+msgid "Zadejte číslo objednávky, u které chcete odstoupit od kupní smlouvy."
+msgstr ""
+"Enter the number of the order for which you want to withdraw from the "
+"purchase contract."
+
+msgid ""
+"Na e-mailovou adresu %1 vám zašleme jednorázový číselný kód, kterým "
+"potvrdíte vlastnictví objednávky."
+msgstr ""
+"We will send a one-time numeric code to the email address %1, which you will "
+"use to confirm ownership of the order."
 
 msgid "Subpages"
 msgstr "Subpages"
@@ -1922,12 +2043,24 @@ msgstr "Request for information"
 msgid "Naskladnění produktu: %s"
 msgstr "Product storage: %s"
 
+#: ../app/controllers/application_mailer.php:315
+#, php-format
+msgid "Kód pro odstoupení od kupní smlouvy – objednávka č. %s"
+msgstr "Code for withdrawal from the purchase contract – order No. %s"
+
+#: ../app/controllers/application_mailer.php:328
+#, php-format
+msgid ""
+"Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"
+msgstr "Confirmation of receipt of the withdrawal request – order No. %s"
+
 #: ../app/controllers/application.php:63
 #: ../app/controllers/users_controller.php:5
 msgid "User profile"
 msgstr "User profile"
 
 #: ../app/controllers/application.php:86
+#: ../app/controllers/order_withdrawal_requests_controller.php:18
 msgid "Objednávky"
 msgstr "Orders"
 
@@ -2248,6 +2381,29 @@ msgid ""
 "Pro zobrazení objednávek se přihlaste svým přihlašovacím jménem a heslem"
 msgstr "To view your orders, log in with your username and password"
 
+#: ../app/controllers/order_withdrawal_requests_controller.php:17
+msgid "Můj účet"
+msgstr "My account"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:20
+msgid "Odstoupení od kupní smlouvy"
+msgstr "Withdrawal from the purchase contract"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:28
+#: ../app/fields/order_field.php:8
+#: ../test/controllers/tc_order_withdrawal_requests.php:26
+msgid "Taková objednávka neexistuje"
+msgstr "There is no such order"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:64
+#: ../test/controllers/tc_order_withdrawal_requests.php:92
+msgid "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
+msgstr "The code has already been sent, please try again in a moment"
+
+#: ../app/controllers/order_withdrawal_requests_controller.php:102
+msgid "Toto není platný kód"
+msgstr "This is not a valid code"
+
 #: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
 msgstr "There is no such user with the given login or email"
@@ -2419,6 +2575,18 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again!"
 msgstr "The file was not fully uploaded, please upload it again!"
 
+#: ../app/fields/bank_account_field.php:7
+msgid "Bankovní účet není zadán správně"
+msgstr "The bank account is not entered correctly"
+
+#: ../app/fields/bank_account_field.php:8
+msgid "Bankovní účet není zadán správně."
+msgstr "The bank account is not entered correctly."
+
+#: ../app/fields/bank_account_field.php:8
+msgid "Zkontrolujte prosím překlepy."
+msgstr "Please check for typos."
+
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
 msgstr "Yes"
@@ -2477,7 +2645,7 @@ msgid "There is no such collection"
 msgstr "There is no such collection"
 
 #: ../app/fields/countries_field.php:18
-#, no-php-format
+#, php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Country with code %country_code% does not exist."
 
@@ -2614,10 +2782,6 @@ msgstr ""
 #: ../app/fields/oembed_video_field.php:25
 msgid "Typ souboru na tomto URL není video"
 msgstr "The file type at this URL is not a video"
-
-#: ../app/fields/order_field.php:8
-msgid "Taková objednávka neexistuje"
-msgstr "There is no such order"
 
 #: ../app/fields/order_quantity_field.php:66
 #, php-format
@@ -2858,6 +3022,7 @@ msgid "Chci zadat fakturační údaje"
 msgstr "I want to enter billing details"
 
 #: ../app/forms/checkouts/set_billing_and_delivery_data_form.php:28
+#: ../app/forms/order_withdrawal_requests/create_new/get_order_form.php:10
 msgid "Pokračovat"
 msgstr "Continue"
 
@@ -2990,6 +3155,50 @@ msgstr ""
 #: ../app/forms/newsletter_subscription_requests/create_new_form.php:12
 msgid "Ověřit e-mailovou adresu"
 msgstr "Verify email address"
+
+#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:6
+msgid "Číselný kód"
+msgstr "Numeric code"
+
+#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:9
+msgid "Ověřit kód"
+msgstr "Verify code"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:17
+msgid "Vaše příjmení"
+msgstr "Your last name"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:40
+msgid "Důvod vrácení zboží"
+msgstr "Reason for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:40
+msgid "Vyberte důvody vrácení zboží"
+msgstr "Select the reasons for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:47
+msgid "Vyberte důvod vrácení zboží"
+msgstr "Select the reason for returning the goods"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:59
+msgid "Jaké položky objednávky vracíte?"
+msgstr "Which order items are you returning?"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:65
+msgid "Zatrhněte položky objednávky, které chcete vratit"
+msgstr "Check the order items you want to return"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:68
+msgid "Odstoupit od kupní smlouvy"
+msgstr "Withdraw from the purchase contract"
+
+#: ../app/forms/order_withdrawal_requests/create_new/get_data_form.php:122
+msgid "Napište důvod k vrácení"
+msgstr "Write the reason for the return"
+
+#: ../app/forms/order_withdrawal_requests/create_new/send_otp_form.php:5
+msgid "Odeslat kód"
+msgstr "Send code"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
@@ -3363,6 +3572,55 @@ msgstr "The %s value does not look like a tracking number"
 #: ../app/models/order.php:848
 msgid "Zásilka již byla importovaná"
 msgstr "The shipment has been already imported"
+
+#: ../app/models/order_withdrawal_request.php:89
+#: ../test/controllers/tc_order_withdrawal_requests.php:38
+#: ../test/models/tc_order_withdrawal_request.php:31
+#: ../test/models/tc_order_withdrawal_request.php:66
+#: ../test/models/tc_order_withdrawal_request.php:93
+msgid "Objednávku již není možné vrátit."
+msgstr "The order can no longer be returned."
+
+#: ../app/models/order_withdrawal_request.php:94
+#: ../test/controllers/tc_order_withdrawal_requests.php:32
+msgid "Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy."
+msgstr "We already have a withdrawal request recorded for this order."
+
+#: ../app/models/order_withdrawal_request.php:143
+msgid "Odstoupení od smlouvy bez udání důvodu"
+msgstr "Withdrawal from the contract without giving a reason"
+
+#: ../app/models/order_withdrawal_request.php:147
+msgid "Produkt neodpovídá popisu / fotografii na webu"
+msgstr "The product does not match the description / photo on the website"
+
+#: ../app/models/order_withdrawal_request.php:151
+msgid "Produkt nesplnil moje očekávání / nevyhovuje mi"
+msgstr "The product did not meet my expectations / does not suit me"
+
+#: ../app/models/order_withdrawal_request.php:155
+msgid "Produkt byl doručen poškozený"
+msgstr "The product was delivered damaged"
+
+#: ../app/models/order_withdrawal_request.php:159
+msgid "Produkt má vadu / nefunguje správně"
+msgstr "The product is defective / does not work properly"
+
+#: ../app/models/order_withdrawal_request.php:163
+msgid "Objednal(a) jsem omylem / špatné zboží"
+msgstr "I ordered it by mistake / wrong goods"
+
+#: ../app/models/order_withdrawal_request.php:167
+msgid "Zboží jsem našel/našla levněji jinde"
+msgstr "I found the goods cheaper elsewhere"
+
+#: ../app/models/order_withdrawal_request.php:171
+msgid "Dodání trvalo příliš dlouho"
+msgstr "Delivery took too long"
+
+#: ../app/models/order_withdrawal_request.php:175
+msgid "Další / jiný důvod k vrácení"
+msgstr "Other reason"
 
 #: ../app/models/payment_status.php:9
 msgid "Čeká se na dokončení platby"

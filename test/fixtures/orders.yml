@@ -1,6 +1,7 @@
 test:
   region_id: "<?=$regions["czechoslovakia"]->getId()?>"
   user_id: "<?= $users["rambo"]->getId() ?>"
+  email: "john@rambo.cz"
   delivery_method_id: "<?=$delivery_methods["personal"]->getId()?>"
   delivery_fee_incl_vat: 0
   delivery_fee_vat_percent: 21.0

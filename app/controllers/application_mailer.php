@@ -307,6 +307,38 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->add_attachment($invoice_file->getContent(),$invoice_file->getFilename(),$invoice_file->getMimeType());
 	}
 
+	function notify_order_withdrawal_request_otp($order,OneTimePassword $otp,string $code){
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
+
+		$this->to = $otp->getRecipient();
+		$this->subject = sprintf(_("Kód pro odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
+
+		$this->tpl_data["code"] = $code;
+		$this->tpl_data["order"] = $order;
+	}
+
+	function notify_order_withdrawal_request(OrderWithdrawalRequest $ow){
+		$order = $ow->getOrder();
+
+		$region = $order->getRegion();
+		$this->_initialize_for_region($region);
+
+		$this->to = $ow->getEmail();
+		$this->subject = sprintf(_("Potvrzení přijetí žádosti o odstoupení od kupní smlouvy – objednávka č. %s"),$order->getOrderNo());
+
+		$this->tpl_data["order"] = $order;
+		$this->tpl_data["order_withdrawal_request"] = $ow;
+		$this->tpl_data["return_goods_days"] = OrderWithdrawalRequest::$RETURN_GOODS_DAYS;
+		$this->tpl_data["refund_days"] = OrderWithdrawalRequest::$REFUND_DAYS;
+
+		$status = $ow->getStatus();
+		if($status->getBccEmail()){
+			$this->bcc .= $this->bcc ? ", " : "";
+			$this->bcc .= $status->getBccEmail();
+		}
+	}
+
 	function mailer_playground($content){
 		$this->tpl_data["content"] = $content;
 	}

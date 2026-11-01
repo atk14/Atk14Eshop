@@ -1,0 +1,94 @@
+<?php
+/**
+ * @fixture orders
+ */
+class TcOrderWithdrawalRequests extends TcBase {
+
+	function test(){
+		$client = $this->client;
+		$order = $this->orders["test"];
+
+		$order_already_withdrawn = $this->orders["test_anonymous"];
+		OrderWithdrawalRequest::CreateNewRecord([
+			"order_id" => $order_already_withdrawn,
+		]);
+
+		$order_too_old = $this->orders["test_bank_transfer"];
+		$order_too_old->s("created_at","2025-09-14 23:20:00");
+
+		// ### Zadani cisla objednavky
+
+		// spatne cislo objednavky
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => "XXXX",
+		]);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Taková objednávka neexistuje")],array_flatten($ctrl->form->get_errors()));
+		// spravne cislo, ale objednavka uz zadost ma
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order_already_withdrawn->getOrderNo(),
+		]);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Pro tuto objednávku již evidujeme žádost o odstoupení od smlouvy.")],array_flatten($ctrl->form->get_errors()));
+		// spravne cislo, ale objednavka je prilis stara
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order_too_old->getOrderNo(),
+		]);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Objednávku již není možné vrátit.")],array_flatten($ctrl->form->get_errors()));
+		// spravne cislo, spravny stav
+		$order->setNewOrderStatus("ready_for_pickup");
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order->getOrderNo(),
+		]);
+		$this->assertEquals(303,$client->getStatusCode());
+		$this->assertEquals(false,$ctrl->form->has_errors());
+
+		// ### Odeslani emailu s kodem
+
+		$location = $client->getLocation();
+		//
+		$client->get($location);
+		$this->assertStringContains("which you will use to confirm ownership of the order",$client->getContent());
+		//
+		$ctrl = $client->post($location);
+		$this->assertEquals(303,$client->getStatusCode());
+		$this->assertEquals("john@rambo.cz",$ctrl->mailer->to);
+		$this->assertStringContains("enter this one-time code into the form",$ctrl->mailer->body_html);
+		preg_match('/<strong>(\d+)<\/strong>/',$ctrl->mailer->body_html,$matches);
+		$otp_code = $matches[1];
+
+		// ### Zadani hesla
+
+		$location = $client->getLocation();
+		$client->get($location);
+		$this->assertStringContains("Enter the numeric code that was sent to your email address",$client->getContent());
+		// spatny kod
+		$ctrl = $client->post($location,["code" => "123456"]);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals(["This is not a valid code"],array_flatten($ctrl->form->get_errors()));
+		// spravny kod
+		$client->post($location,["code" => $otp_code]);
+		$this->assertEquals(303,$client->getStatusCode());
+
+		// ### Formular pro odstoupeni od smlouvy
+
+		$location = $client->getLocation();
+		$client->get($location);
+		$this->assertStringContains("By submitting this form, you will file a request for withdrawal from the purchase contract for order",$client->getContent());
+
+		// ### Opakovany pozadavek na odeslani kodu pro stejnou objednavku
+
+		$order->setNewOrderStatus("ready_for_pickup");
+		$ctrl = $client->post("order_withdrawal_requests/create_new",[
+			"order_no" => $order->getOrderNo(),
+		]);
+		$this->assertEquals(303,$client->getStatusCode());
+
+		$location = $client->getLocation();
+		//
+		$ctrl = $client->post($location);
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertEquals([_("Kód už byl odeslán, zkuste to prosím za chvíli znovu")],array_flatten($ctrl->form->get_errors()));
+	}
+}

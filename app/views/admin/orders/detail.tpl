@@ -57,6 +57,11 @@
 							{/foreach}
 						{/if}
 				</ul>
+
+				{assign order_withdrawal_request OrderWithdrawalRequest::PlacedFor($order)}
+				{if $order_withdrawal_request}
+					<span class="badge badge-danger">{!"arrow-rotate-left"|icon}</span> {t date=$order_withdrawal_request->getCreatedAt()|format_date}Dne %1 přijata žádost o odstoupení od smlouvy{/t} &rarr; <a href="{link_to action="order_withdrawal_requests/detail" id=$order_withdrawal_request}">{t}zobrazit{/t}</a>
+				{/if}
 			</td>
 		</tr>
 

@@ -20,6 +20,7 @@
 					<th>{t}Stav{/t}</th>
 					<th></th>
 					{* <th class="text-sm-right">{t}Faktura{/t}</th> *}
+					<th></th> {* odstoupeni od smlouvy *}
 				</tr>
 			</thead>
 			<tbody>
