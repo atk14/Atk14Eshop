@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 12:21+0100\n"
-"PO-Revision-Date: 2026-10-28 21:21+0100\n"
+"POT-Creation-Date: 2026-11-02 14:30+0100\n"
+"PO-Revision-Date: 2026-11-02 14:30+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -2048,7 +2048,7 @@ msgid "User profile"
 msgstr "Profil uživatele"
 
 #: ../app/controllers/application.php:86
-#: ../app/controllers/order_withdrawal_requests_controller.php:18
+#: ../app/controllers/order_withdrawal_requests_controller.php:22
 msgid "Objednávky"
 msgstr "Objednávky"
 
@@ -2370,28 +2370,19 @@ msgid ""
 msgstr ""
 "Pro zobrazení objednávek se přihlaste svým přihlašovacím jménem a heslem"
 
-#: ../app/controllers/order_withdrawal_requests_controller.php:17
+#: ../app/controllers/order_withdrawal_requests_controller.php:21
 msgid "Můj účet"
 msgstr "Můj účet"
 
-#: ../app/controllers/order_withdrawal_requests_controller.php:20
+#: ../app/controllers/order_withdrawal_requests_controller.php:24
 msgid "Odstoupení od kupní smlouvy"
 msgstr "Odstoupení od kupní smlouvy"
 
-#: ../app/controllers/order_withdrawal_requests_controller.php:28
+#: ../app/controllers/order_withdrawal_requests_controller.php:32
 #: ../app/fields/order_field.php:8
 #: ../test/controllers/tc_order_withdrawal_requests.php:26
 msgid "Taková objednávka neexistuje"
 msgstr "Taková objednávka neexistuje"
-
-#: ../app/controllers/order_withdrawal_requests_controller.php:64
-#: ../test/controllers/tc_order_withdrawal_requests.php:92
-msgid "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
-msgstr "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
-
-#: ../app/controllers/order_withdrawal_requests_controller.php:102
-msgid "Toto není platný kód"
-msgstr "Toto není platný kód"
 
 #: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
@@ -2481,6 +2472,15 @@ msgstr "Ve formuláři nebylo nic změněno"
 #: ../app/controllers/trait_crud_actions.php:363
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
+
+#: ../app/controllers/trait_otp_verification.php:72
+#: ../test/controllers/tc_order_withdrawal_requests.php:92
+msgid "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
+msgstr "Kód už byl odeslán, zkuste to prosím za chvíli znovu"
+
+#: ../app/controllers/trait_otp_verification.php:129
+msgid "Toto není platný kód"
+msgstr "Toto není platný kód"
 
 #: ../app/controllers/users_controller.php:14
 msgid "To register as a new user, sign out first"
@@ -2632,7 +2632,7 @@ msgid "There is no such collection"
 msgstr "Taková kolekce neexistuje"
 
 #: ../app/fields/countries_field.php:18
-#, fuzzy, php-format
+#, fuzzy, no-php-format
 msgid "Country with code %country_code% does not exist."
 msgstr "Země s kódem %country_code% neexistuje."
 
@@ -2769,6 +2769,10 @@ msgstr ""
 #: ../app/fields/oembed_video_field.php:25
 msgid "Typ souboru na tomto URL není video"
 msgstr "Typ souboru na tomto URL není video"
+
+#: ../app/fields/one_time_password_code_field.php:6
+msgid "Numeric code"
+msgstr "Číselný kód"
 
 #: ../app/fields/order_quantity_field.php:66
 #, php-format
@@ -3147,7 +3151,7 @@ msgstr "Ověřit e-mailovou adresu"
 msgid "Číselný kód"
 msgstr "Číselný kód"
 
-#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:9
+#: ../app/forms/order_withdrawal_requests/create_new/authorize_form.php:8
 msgid "Ověřit kód"
 msgstr "Ověřit kód"
 
