@@ -71,6 +71,7 @@ class SearchesController extends ApplicationController {
 			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
+		$this->head_tags->setCanonical($this->_build_canonical_url());
 
 		if(DEVELOPMENT && class_exists("Tracy\Debugger")){
 			$bar = Tracy\Debugger::getBar();
