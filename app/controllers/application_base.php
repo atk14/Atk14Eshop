@@ -122,7 +122,6 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
-		$this->_setup_head_tags_in_before_render();
 		if(!isset($this->tpl_data["head_tags"]) && isset($this->head_tags)){
 			$this->tpl_data["head_tags"] = $this->head_tags;
 		}
@@ -508,6 +507,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 	protected function _setup_head_tags_in_before_render() {
 		$this->_head_tags_for_open_graph();
+		$this->_setup_hreflang_for_head_tags();
 	}
 
 	protected function _head_tags_for_open_graph() {
