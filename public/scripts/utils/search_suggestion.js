@@ -68,6 +68,7 @@ window.UTILS.searchSuggestion = function( fieldClassName, suggestingAreaClassNam
 
 		window.UTILS._search_suggestion.initialize();
 		window.UTILS._search_suggestion.initialized = true;
+		window.addEventListener( "suggestions_shown", window.UTILS._search_suggestion.initCategoryFilterToggle );
 
 	}
 };
@@ -103,6 +104,7 @@ window.UTILS._search_suggestion = {
 
 			if ( window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] ) {
 				$suggestingArea.html( window.UTILS._search_suggestion.states[ stateIndex ].suggestingCache[ search ] );
+				window.dispatchEvent( new Event( "suggestions_shown" ) );
 
 				// Logging
 				// console.log( "replaced from cache" );
@@ -139,6 +141,15 @@ window.UTILS._search_suggestion = {
 					if ( search !== $suggestingArea.data( "suggesting-for" ) ) {
 						searchFn( $suggestingArea.data( "suggesting-for" ) );
 					}
+
+					// fire event for case something in incoming snippet would need initialize something
+					window.dispatchEvent( new Event( "suggestions_shown" ) );
+
+					window.UTILS._search_suggestion.positionSuggestingArea(
+						$field,
+						$suggestingArea,
+						stateIndex
+					);
 				}
 			} );
 		};
@@ -184,15 +195,27 @@ window.UTILS._search_suggestion = {
 		var fieldOffset = searchField.offset();
 		suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 + "px" );
 
-		// Get x position of search field right edge plus button width
-		var searchBtnWidth = searchField.siblings( "button" ).outerWidth();
-		var rightPos = fieldOffset.left + searchField.outerWidth() + searchBtnWidth;
+		if ( suggArea.find( ".suggestions--wide" ) ) {
 
-		// Align suggestions to rightPos if there is enough room, center otherwise
-		if ( rightPos > suggArea.width() ) {
-			suggArea.css( "left", rightPos - suggArea.width() + "px" );
+			// always center when wide layout is used for suggestions
+			console.log( "cards layout" );
+			var suggAreaWidth = suggArea.width();
+			var suggAreaX = Math.max( 0, ( window.innerWidth - suggArea.width() ) / 2 );
+			suggArea.css( "left", suggAreaX );
+
 		} else {
-			suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
+
+			// Get x position of search field right edge plus button width
+			var searchBtnWidth = searchField.siblings( "button" ).outerWidth();
+			var rightPos = fieldOffset.left + searchField.outerWidth() + searchBtnWidth;
+
+			// Align suggestions to rightPos if there is enough room, center otherwise
+			if ( rightPos > suggArea.width() ) {
+				suggArea.css( "left", rightPos - suggArea.width() + "px" );
+			} else {
+				suggArea.css( "left", ( document.body.clientWidth - suggArea.width() ) / 2 );
+			}
+
 		}
 
 		// Logging
@@ -267,7 +290,7 @@ window.UTILS._search_suggestion = {
 
 						// Set temporary tabindex for search form elements
 						$field.attr( "tabindex", 10 );
-						$submitBtn.attr( "tabindex", 11);
+						$submitBtn.attr( "tabindex", 20);
 
 						// Logging
 						// console.log( stateIndex + ": fadeIn (1)" );
@@ -306,6 +329,7 @@ window.UTILS._search_suggestion = {
 						url: url,
 						success: function( snippet ) {
 							$suggestingArea.html( snippet );
+							window.dispatchEvent( new Event( "suggestions_shown" ) );
 						}
 					} );
 				}
@@ -361,5 +385,16 @@ window.UTILS._search_suggestion = {
 		if ( options.hiding_suggesting_area ) {
 			$suggestingArea.fadeOut();
 		}
+	},
+
+	// inits category filter toggle on small screens
+	initCategoryFilterToggle: function() {
+		if ( !document.querySelector( ".js--suggestions_category_filter_toggle" ) ) {
+			return;
+		}
+		document.querySelector( ".js--suggestions_category_filter_toggle" ).addEventListener( "click", function( e ) {
+			e.target.closest( ".suggestions__controls" ).classList.toggle( "js--filters-shown" );
+		} );
 	}
+
 };
