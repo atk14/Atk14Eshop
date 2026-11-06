@@ -40,6 +40,7 @@ class ContactMessagesController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		if($page = Page::GetInstanceByCode("contact")){
 			$this->_add_page_to_breadcrumbs($page);
 		}

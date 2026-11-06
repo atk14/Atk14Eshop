@@ -56,6 +56,10 @@ class WatchedProductsController extends ApplicationController {
 		}
 	}
 
+	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
+	}
+
 	function _logged_user_required(){
 		return in_array($this->action,["index","destroy"]);
 	}

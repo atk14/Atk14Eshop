@@ -67,6 +67,7 @@ class NewsletterSubscriptionRequestsController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		if(defined("SIGN_UP_FOR_NEWSLETTER_ENABLED") && !constant("SIGN_UP_FOR_NEWSLETTER_ENABLED")){
 			return $this->_execute_action("error404");
 		}

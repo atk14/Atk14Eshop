@@ -43,6 +43,7 @@ class DeliveryAddressesController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		$this->_add_user_detail_breadcrumb();
 		$this->breadcrumbs[] = [_("Doručovací adresy"),"delivery_addresses/index"];
 

@@ -18,6 +18,7 @@ class NewsletterSubscribeDeletionRequestsController extends ApplicationControlle
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		$this->page_title = $this->breadcrumbs[] = _("Odhlášení od newsletteru");
 	}
 }

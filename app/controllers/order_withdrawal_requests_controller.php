@@ -104,6 +104,10 @@ class OrderWithdrawalRequestsController extends ApplicationController {
 		$this->_prepare_create_new_title();
 	}
 
+	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
+	}
+
 	function _get_order(){
 		return Cache::Get("Order",$this->returned_by["get_order"]["order_id"]);
 	}

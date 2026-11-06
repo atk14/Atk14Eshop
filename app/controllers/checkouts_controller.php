@@ -236,6 +236,7 @@ class CheckoutsController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		$this->basket = $this->_get_basket();
 		if($this->basket->isEmpty() && $this->action!="finish"){
 			return $this->_redirect_to("baskets/edit");

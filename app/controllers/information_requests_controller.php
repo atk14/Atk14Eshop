@@ -30,6 +30,7 @@ class InformationRequestsController extends ApplicationController{
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		$product = $card = null;
 		if($this->params->defined("product_id") && !($product = $this->_just_find("product","product_id"))){
 			return $this->_execute_action("error404");

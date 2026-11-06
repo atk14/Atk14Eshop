@@ -104,6 +104,12 @@ definedef("PAYMENT_QR_CODES_ENABLED",true);
 
 definedef("SIDEBAR_MENU_ENABLED",false);
 
+// Hreflang tags in <head>
+// Set to false to disable hreflang tags completely (e.g. during translation rollout)
+definedef("HREFLANG_ENABLED",true);
+// Language codes to exclude from hreflang, e.g. ["sk"] while Slovak version is being prepared
+definedef("HREFLANG_DISABLED_LANGS",[]);
+
 definedef("TECHNICAL_SPECIFICATION_KEY_CREATION_ENABLED",true);
 
 definedef("OFFER_BANK_TRANSFER_IF_ONLINE_TRANSACTION_FAILS",true);

@@ -121,6 +121,7 @@ class OrdersController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		if($this->action==="index" && !$this->logged_user){
 			$this->flash->info(_("Pro zobrazení objednávek se přihlaste svým přihlašovacím jménem a heslem"));
 			$this->_redirect_to_login();
