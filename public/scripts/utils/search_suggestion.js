@@ -195,11 +195,9 @@ window.UTILS._search_suggestion = {
 		var fieldOffset = searchField.offset();
 		suggArea.css( "top", fieldOffset.top + searchField.outerHeight() + 2 + "px" );
 
-		if ( suggArea.find( ".suggestions--wide" ) ) {
+		if ( suggArea.find( ".suggestions--wide" ).length ) {
 
 			// always center when wide layout is used for suggestions
-			console.log( "cards layout" );
-			var suggAreaWidth = suggArea.width();
 			var suggAreaX = Math.max( 0, ( window.innerWidth - suggArea.width() ) / 2 );
 			suggArea.css( "left", suggAreaX );
 
