@@ -134,6 +134,15 @@ window.UTILS._search_suggestion = {
 					) {
 						$suggestingArea.html( snippet );
 
+						// fire event for case something in incoming snippet would need initialize something
+						window.dispatchEvent( new Event( "suggestions_shown" ) );
+
+						window.UTILS._search_suggestion.positionSuggestingArea(
+							$field,
+							$suggestingArea,
+							stateIndex
+						);
+
 						// Logging
 						// console.log( "content replaced" );
 					}
@@ -141,15 +150,6 @@ window.UTILS._search_suggestion = {
 					if ( search !== $suggestingArea.data( "suggesting-for" ) ) {
 						searchFn( $suggestingArea.data( "suggesting-for" ) );
 					}
-
-					// fire event for case something in incoming snippet would need initialize something
-					window.dispatchEvent( new Event( "suggestions_shown" ) );
-
-					window.UTILS._search_suggestion.positionSuggestingArea(
-						$field,
-						$suggestingArea,
-						stateIndex
-					);
 				}
 			} );
 		};
