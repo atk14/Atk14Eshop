@@ -287,6 +287,7 @@ window.UTILS._search_suggestion = {
 						window.UTILS._search_suggestion.states[ stateIndex ].suggestingAreaVisible = true;
 
 						// Set temporary tabindex for search form elements
+						// 11-19 is reserved for links/controls inside the suggestions snippet (see tabindex="10" note above)
 						$field.attr( "tabindex", 10 );
 						$submitBtn.attr( "tabindex", 20);
 
