@@ -39,6 +39,7 @@ class FavouriteProductsController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		if($this->logged_user){
 			$this->_add_user_detail_breadcrumb();
 		}

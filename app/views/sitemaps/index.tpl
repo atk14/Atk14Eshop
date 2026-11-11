@@ -4,5 +4,8 @@
 	<sitemap><loc>
 		{link_to action="detail" lang=$l format=xml _with_hostname=1}
 	</loc></sitemap>
-{/foreach}	
+	<sitemap><loc>
+		{link_to action="detail_cards" lang=$l format=xml _with_hostname=1}
+	</loc></sitemap>
+{/foreach}
 </sitemapindex>

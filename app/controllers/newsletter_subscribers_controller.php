@@ -23,6 +23,7 @@ class NewsletterSubscribersController extends ApplicationController {
 	}
 
 	function _before_filter(){
+		$this->head_tags->setMetaTag("robots","noindex,noarchive");
 		$this->breadcrumbs[] = [_("Odhlášení od newsletteru"),$this->_link_to("newsletter_subscribe_deletion_requests/create_new")];
 		$this->page_title = _("Odhlášení od newsletteru");
 	}
