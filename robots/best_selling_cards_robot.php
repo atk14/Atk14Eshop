@@ -27,6 +27,11 @@ class BestSellingCardsRobot extends ApplicationRobot {
 	const WINDOW_DAY_DAYS = 1;
 
 	function run(){
+		if(!PRODUCT_RECOMMENDATIONS_ENABLED){
+			$this->logger->info("product recommendations is disabled, exiting...");
+			return;
+		}
+
 		$rows = $this->dbmole->selectRows("
 			SELECT
 				p.card_id AS card_id,

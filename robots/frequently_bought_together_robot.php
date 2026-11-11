@@ -27,6 +27,11 @@ class FrequentlyBoughtTogetherRobot extends ApplicationRobot {
 	const MAX_ORDER_AGE_DAYS = 365;
 
 	function run(){
+		if(!PRODUCT_RECOMMENDATIONS_ENABLED){
+			$this->logger->info("product recommendations is disabled, exiting...");
+			return;
+		}
+
 		$rows = $this->dbmole->selectRows("
 			SELECT
 				pa.card_id AS card_id,
