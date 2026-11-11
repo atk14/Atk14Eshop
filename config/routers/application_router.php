@@ -42,6 +42,8 @@ class ApplicationRouter extends Atk14Router{
 		$this->addRoute("/sitemap.xml","sitemaps/index");
 		$this->addRoute("/sitemap/","en/sitemaps/detail");
 		$this->addRoute("/mapa-stranek/","cs/sitemaps/detail");
+		$this->addRoute("/sitemap/products/","en/sitemaps/detail_cards");
+		$this->addRoute("/mapa-stranek/produkty/","cs/sitemaps/detail_cards");
 
 		$this->addRoute("/robots.txt","main/robots_txt");
 

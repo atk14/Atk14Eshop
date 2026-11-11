@@ -14,13 +14,6 @@
 	</li>
 	{/if}
 
-	{if $cards}
-	<li>
-		<h4>{t}Products{/t}</h4>
-		{render partial="cards" products=$cards}
-	</li>
-	{/if}
-
 	{if $brands}
 		<li>
 			<h4>{a action="brands/index" _with_hostname=1}{t}Brands{/t}{/a}</h4>

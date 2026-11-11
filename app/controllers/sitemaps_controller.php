@@ -31,16 +31,6 @@ class SitemapsController extends ApplicationController{
 			"use_cache" => true,
 		));
 
-		$this->tpl_data["cards"] = Card::FindAll(array(
-			"conditions" => array(
-				"visible",
-				"NOT deleted",
-			),
-			"order_by" => "created_at DESC",
-			"limit" => 1000,
-			"use_cache" => true,
-		));
-	
 		$this->tpl_data["articles"] = Article::FindAll(array(
 			"condition" => "published_at<:now",
 			"bind_ar" => array(
@@ -75,6 +65,38 @@ class SitemapsController extends ApplicationController{
 
 			// We are gonna extract all links from the rendered HTML snippet
 			$content = $this->_render(array("partial" => "detail"));
+			preg_match_all('/<a[^>]* href="(.+?)"/',$content,$matches);
+			foreach($matches[1] as $url){
+				$this->response->writeln(sprintf('<url><loc>%s</loc></url>',h($url)));
+			}
+
+			$this->response->write('</urlset>');
+		}
+	}
+
+	function detail_cards(){
+		$this->page_title = $this->breadcrumbs[] = _("Products sitemap");
+
+		$this->tpl_data["cards"] = Card::FindAll(array(
+			"conditions" => array(
+				"visible",
+				"NOT deleted",
+			),
+			"order_by" => "created_at DESC",
+			"limit" => 1000,
+			"use_cache" => true,
+		));
+
+		if($this->params->getString("format")=="xml"){
+			$this->render_template = false;
+			$this->response->setContentType("application/xml");
+			$this->response->clearHeader("Pragma");
+			$this->response->setHeader("Cache-Control","public, max-age=86400");
+			$this->response->writeln('<?xml version="1.0" encoding="UTF-8"?>');
+			$this->response->writeln('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">');
+
+			// We are gonna extract all links from the rendered HTML snippet
+			$content = $this->_render(array("partial" => "cards"));
 			preg_match_all('/<a[^>]* href="(.+?)"/',$content,$matches);
 			foreach($matches[1] as $url){
 				$this->response->writeln(sprintf('<url><loc>%s</loc></url>',h($url)));
