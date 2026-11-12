@@ -41,7 +41,8 @@ class FrequentlyBoughtTogetherRobot extends ApplicationRobot {
 		// before the self-join, rather than against the full cross-joined pair set; and product
 		// stockcount is summed once per product (product_stock) instead of once per output row.
 		$rows = $this->dbmole->selectRows("
-			WITH product_stock AS MATERIALIZED (
+			WITH
+			product_stock AS MATERIALIZED (
 				SELECT wi.product_id, SUM(wi.stockcount) AS stockcount
 				FROM warehouse_items wi
 				JOIN warehouses w ON w.id=wi.warehouse_id AND w.applicable_to_eshop
