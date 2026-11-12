@@ -19,7 +19,7 @@
 				{$currencies|to_sentence}
 			</div>
 			<div>
-				<small>{t}Terms and Conditions{/t}:</small><br>
+				<small>{t}Terms and Conditions{/t} (PDF):</small><br>
 				{if $region->getTermsAndConditionsAttachmentUrl()}
 					<a href="{$region->getTermsAndConditionsAttachmentUrl()}">{$region->getTermsAndConditionsAttachmentUrl()|filename_from_url}</a>
 				{else}
