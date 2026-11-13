@@ -159,6 +159,7 @@ Do you really want this?{/t}{/capture}
 							{if !$card->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 							{dropdown_menu}
 								{a action="cards/edit" id=$card}{!"edit"|icon} {t}Edit product{/t}{/a}
+								{a namespace="" action="cards/detail" id=$card}{!"eye"|icon} {t}Show on web{/t}{/a}
 								{a_destroy action="category_cards/destroy" id=$card category_id=$category}{!"remove"|icon} {t}Remove product{/t}{/a_destroy}
 							{/dropdown_menu}
 						</li>
