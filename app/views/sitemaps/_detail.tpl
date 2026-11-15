@@ -26,11 +26,11 @@
 	</li>
 	{/if}
 
-	{if $brands}
+	{if !$brands->isEmpty()}
 		<li>
 			<h4>{a action="brands/index" _with_hostname=1}{t}Brands{/t}{/a}</h4>
 			<ul class="list--tree">
-				{foreach $brands as $brand}
+				{foreach $brands->iterateRecords() as $brand}
 					<li>{a action="brands/detail" id=$brand _with_hostname=1}{$brand->getName()}{/a}</li>
 				{/foreach}
 				</li>

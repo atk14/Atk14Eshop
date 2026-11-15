@@ -88,10 +88,11 @@ class SitemapsController extends ApplicationController{
 			"use_cache" => true,
 		));
 
-		$this->tpl_data["brands"] = Brand::FindAll(array(
+		$this->tpl_data["brands"] = Brand::Finder(array(
 			"conditions" => array(
 				"visible",
 			),
+			"limit" => $LIMIT,
 			"use_cache" => true,
 		));
 
