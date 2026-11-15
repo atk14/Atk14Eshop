@@ -7,6 +7,18 @@
 	</li>
 	{/if}
 
+	{if $stores}
+		<li>
+			<h4>{a action="stores/index" _with_hostname=1}{t}Stores{/t}{/a}</h4>
+			<ul class="list--tree">
+				{foreach $stores as $store}
+					<li>{a action="stores/detail" id=$store _with_hostname=1}{$store->getName()}{/a}</li>
+				{/foreach}
+				</li>
+			</ul>
+		</li>
+	{/if}
+
 	{if $categories}
 	<li>
 		<h4>{t}Product categories{/t}</h4>
@@ -20,18 +32,6 @@
 			<ul class="list--tree">
 				{foreach $brands as $brand}
 					<li>{a action="brands/detail" id=$brand _with_hostname=1}{$brand->getName()}{/a}</li>
-				{/foreach}
-				</li>
-			</ul>
-		</li>
-	{/if}
-
-	{if $stores}
-		<li>
-			<h4>{a action="stores/index" _with_hostname=1}{t}Stores{/t}{/a}</h4>
-			<ul class="list--tree">
-				{foreach $stores as $store}
-					<li>{a action="stores/detail" id=$store _with_hostname=1}{$store->getName()}{/a}</li>
 				{/foreach}
 				</li>
 			</ul>
@@ -55,13 +55,13 @@
 	</li>
 	*}
 
+	{render partial="products_section"}
 
-	{if $articles}
+	{if !$articles->isEmpty()}
 	<li>
-		<h4>{t}Recent articles{/t}</h4>
+		<h4>{a action="articles/index" _with_hostname=1}{t}Articles{/t}{/a}</h4>
 		<ul class="list--tree">
-			<li>{a action="articles/index" _with_hostname=1}{t}Articles{/t}{/a}</li>
-		{foreach $articles as $article}
+		{foreach $articles->iterateRecords() as $article}
 			<li>{a action="articles/detail" id=$article _with_hostname=1}{$article->getTitle()}{/a}</li>
 		{/foreach}
 		</ul>
