@@ -39,11 +39,16 @@ class ApplicationRouter extends Atk14Router{
 
 	function setUp(){
 
+		// Sitemap
 		$this->addRoute("/sitemap.xml","sitemaps/index");
+		//
 		$this->addRoute("/sitemap/","en/sitemaps/detail");
 		$this->addRoute("/mapa-stranek/","cs/sitemaps/detail");
+		$this->addRoute("/mapa-stranok/","sk/sitemaps/detail");
+		//
 		$this->addRoute("/sitemap/products/","en/sitemaps/detail_products");
 		$this->addRoute("/mapa-stranek/produkty/","cs/sitemaps/detail_products");
+		$this->addRoute("/mapa-stranok/produkty/","sk/sitemaps/detail_products");
 
 		$this->addRoute("/robots.txt","main/robots_txt");
 
