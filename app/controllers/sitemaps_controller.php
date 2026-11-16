@@ -194,6 +194,9 @@ class SitemapsController extends ApplicationController{
 		$content = $this->_render(["partial" => $this->action]); // "detail" or "detail_products"
 		preg_match_all('/<a[^>]* href="(.+?)"/',$content,$matches);
 		foreach($matches[1] as $url){
+			if(defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
+				$url = preg_replace('/^http:/','https:',$url);
+			}
 			$this->response->writeln(sprintf('<url><loc>%s</loc></url>',h($url)));
 		}
 		unset($content,$matches);
