@@ -13,6 +13,10 @@ class SitemapGeneratorRobot extends ApplicationRobot {
 	function run(){
 		global $ATK14_GLOBAL;
 
+		$request = new HttpRequest(["testing_mode" => true]);
+		$request->setHttpHost(ATK14_HTTP_HOST);
+		$request->setSslActive(true);
+
 		Atk14Utils::LoadControllers("sitemaps_controller");
 
 		$sitemaps_dir = SitemapsController::GetSitemapsDir();
@@ -37,9 +41,9 @@ class SitemapGeneratorRobot extends ApplicationRobot {
 
 				$response = Atk14Dispatcher::ExecuteAction($params["controller"],$params["action"],[
 					"render_layout" => false,
-					"apply_render_component_hacks" => true,
 					"params" => $params,
 					"namespace" => "",
+					"request" => $request,
 				]);
 
 				myAssert($response->getStatusCode()===200,"Response code is {$response->getStatusCode()} and has to be 200");
