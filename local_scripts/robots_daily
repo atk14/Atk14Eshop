@@ -13,6 +13,7 @@ cd ..
 ./scripts/robot_runner vacuum_analyze
 ./scripts/robot_runner fulltext_indexer
 ./scripts/robot_runner import_delivery_service_branches
+./scripts/robot_runner sitemap_generator
 
 # Also runs hourly via local_scripts/robots_hourly (which is where the trending/"new
 # hit" day-window data actually needs the fresher cadence) - kept here too as a

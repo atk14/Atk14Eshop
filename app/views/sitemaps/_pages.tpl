@@ -7,9 +7,6 @@
 
 	<li>
 		{a action="pages/detail" id=$page _with_hostname=1}{$page->getTitle()}{/a}
-		<p>
-			{$page->getTeaser()|markdown|strip_html|truncate:200}
-		</p>
 		{render partial="pages" pages=$page->getVisibleChildPages()}
 	</li>
 
