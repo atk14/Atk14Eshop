@@ -1,4 +1,6 @@
 <?php
+use StructuredData\Element\Article as ArticleStructuredData;
+
 class ArticlesController extends ApplicationController{
 
 	function index(){
@@ -54,6 +56,7 @@ class ArticlesController extends ApplicationController{
 		}
 		$this->breadcrumbs[] = $article->getTitle();
 		$this->head_tags->setCanonical($this->_build_canonical_url(["action" => "articles/detail", "id" => $article]));
+		$this->structured_data->addItem(new ArticleStructuredData($article));
 	}
 
 	function _before_filter(){
