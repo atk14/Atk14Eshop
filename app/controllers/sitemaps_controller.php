@@ -65,15 +65,7 @@ class SitemapsController extends ApplicationController{
 			// There is a special action for exporting the products in XML format
 			$this->tpl_data["cards"] = Card::EmptyFinder();
 		}else{
-			$this->tpl_data["cards"] = Card::Finder(array(
-				"conditions" => array(
-					"visible",
-					"NOT deleted",
-				),
-				"order_by" => "created_at DESC",
-				"limit" => $LIMIT,
-				"use_cache" => true,
-			));
+			$this->tpl_data["cards"] = $this->_get_card_finder(["limit" => $LIMIT]);
 		}
 
 		$this->tpl_data["articles"] = Article::Finder(array(
@@ -119,15 +111,7 @@ class SitemapsController extends ApplicationController{
 			return;
 		}
 
-		$this->tpl_data["cards"] = Card::Finder(array(
-			"conditions" => array(
-				"visible",
-				"NOT deleted",
-			),
-			"order_by" => "created_at DESC",
-			"limit" => null,
-			"use_cache" => true,
-		));
+		$this->tpl_data["cards"] = $this->_get_card_finder(["limit" => null]);
 
 		if($this->is_xml){
 			$this->_render_xml();
@@ -151,6 +135,20 @@ class SitemapsController extends ApplicationController{
 		if(!$this->is_xml && $this->action==="detail" && !TEST){
 			$this->_caches_action();
 		}
+	}
+
+	function _get_card_finder($params = []){
+		$params += [
+			"conditions" => array(
+				"visible",
+				"NOT deleted",
+			),
+			"order_by" => "created_at DESC",
+			"limit" => null,
+			"use_cache" => true,
+		];
+
+		return Card::Finder($params);
 	}
 
 	/**
