@@ -35,8 +35,15 @@
 	</div>
 	<div class="footer__smallprint">
 		<div class="container-fluid">
-			<p>&copy;&nbsp;2019&nbsp;&ndash;&nbsp;{"Y"|date} {"app.name"|system_parameter}</p>
-			<p>Created by <a href="https://www.snapps.eu/" rel="nofollow noopener"><strong>sna<em>pp</em>s!</strong></a></p>
+			<div class="row">
+				<div class="col-6">
+					<p>&copy;&nbsp;2019&nbsp;&ndash;&nbsp;{"Y"|date} {"app.name"|system_parameter}</p>
+					<p>Created by <a href="https://www.snapps.eu/" rel="nofollow noopener"><strong>sna<em>pp</em>s!</strong></a></p>
+				</div>
+				<div class="col-6">
+					<p class="text-right footer__smallprint-sitemap">{!"sitemap"|icon} <a href="{link_to namespace="" action="sitemaps/detail"}">{t}Sitemap{/t}</a></p>
+				</div>
+			</div>
 		</div>
 	</div>
 	
