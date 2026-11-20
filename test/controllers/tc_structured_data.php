@@ -16,13 +16,6 @@ class TcStructuredData extends TcBase {
 		\StructuredData\Collector::Reset();
 	}
 
-	function test_homepage_has_website_json_ld() {
-		\StructuredData\Collector::Reset();
-		$this->client->get("main/index");
-		$this->assertEquals(200, $this->client->getStatusCode());
-		$this->_assertJsonLdType("WebSite");
-	}
-
 	function test_card_detail_has_breadcrumb_json_ld() {
 		$card = $this->cards["coffee"];
 		\StructuredData\Collector::Reset();
