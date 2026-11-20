@@ -21,10 +21,6 @@ class Collector {
 	protected function __construct(?\Atk14Controller $controller=null, $options=[]) {
 		$options += [
 		];
-		$_is_homepage = $controller && (($controller->controller==="main") && ($controller->action==="index"));
-		if ($_is_homepage) {
-			$this->addItem(new Element\Website());
-		}
 	}
 
 	function addItem(BaseElement $item) {
