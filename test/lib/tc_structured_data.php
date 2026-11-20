@@ -36,14 +36,6 @@ class TcStructuredData extends TcBase {
 		$this->assertNotSame($c1, $c2);
 	}
 
-	function test_collector_homepage_adds_website_item() {
-		$controller = $this->_buildController("main", "index");
-		$collector = \StructuredData\Collector::GetInstance($controller);
-		$items = $collector->toArray();
-		$this->assertEquals(1, count($items));
-		$this->assertEquals("WebSite", $items[0]["@type"]);
-	}
-
 	function test_collector_non_homepage_has_no_items() {
 		$controller = $this->_buildController("cards", "detail");
 		$collector = \StructuredData\Collector::GetInstance($controller);
@@ -52,21 +44,9 @@ class TcStructuredData extends TcBase {
 
 	function test_collector_add_item() {
 		$collector = \StructuredData\Collector::GetInstance();
-		$collector->addItem(new \StructuredData\Element\Website());
+		$collector->addItem(new \StructuredData\Element\BreadcrumbList(null, ["add_index" => false]));
 		$items = $collector->toArray();
 		$this->assertEquals(1, count($items));
-	}
-
-	// --- Website ---
-
-	function test_website_to_array_structure() {
-		$website = new \StructuredData\Element\Website();
-		$out = $website->toArray();
-		$this->assertEquals("https://schema.org", $out["@context"]);
-		$this->assertEquals("WebSite", $out["@type"]);
-		$this->assertArrayHasKey("url", $out);
-		$this->assertArrayHasKey("potentialAction", $out);
-		$this->assertEquals("SearchAction", $out["potentialAction"]["@type"]);
 	}
 
 	// --- BreadcrumbListItem ---
