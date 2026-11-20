@@ -29,7 +29,8 @@ class SitemapsController extends ApplicationController{
 		$this->response->setContentType("application/xml");
 		$this->response->clearHeader("Pragma");
 		$this->response->setHeader("Cache-Control","public, max-age=86400");
-		$langs = $GLOBALS["ATK14_GLOBAL"]->getSupportedLangs();
+		$langs = $this->current_region->getLanguages(["as_objects" => false]);
+		$langs = $langs ? $langs : $GLOBALS["ATK14_GLOBAL"]->getSupportedLangs();
 		$this->tpl_data["langs"] = $langs;
 	}
 
@@ -165,7 +166,13 @@ class SitemapsController extends ApplicationController{
 		$this->render_template = false;
 
 		$identifier = preg_replace("/^detail/","",$this->action); // "", "_products"
-		$cache_file = SitemapsController::GetSitemapsDir() . "/sitemap{$identifier}_{$this->lang}.xml";
+		foreach([
+			".".strtolower($this->current_region->getCode()), // ".default", ".eu", ".sk"...
+			"",
+		] as $rc){
+			$cache_file = SitemapsController::GetSitemapsDir() . "/sitemap{$identifier}_{$this->lang}{$rc}.xml";
+			if(file_exists($cache_file)){ break; }
+		}
 
 		if(file_exists($cache_file)){
 			$this->response->setContentType("application/xml");

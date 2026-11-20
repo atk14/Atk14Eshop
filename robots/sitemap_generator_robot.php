@@ -11,11 +11,15 @@
 class SitemapGeneratorRobot extends ApplicationRobot {
 
 	function run(){
-		global $ATK14_GLOBAL;
+		global $HTTP_REQUEST;
 
-		$request = new HttpRequest(["testing_mode" => true]);
-		$request->setHttpHost(ATK14_HTTP_HOST);
-		$request->setSslActive(true);
+		$regions = Region::GetActiveInstances();
+		$domain_based_regions = true;
+		if(!Region::GetRegionByDomain(ATK14_HTTP_HOST)){
+			// A crawler cannot change a region
+			$regions = [Region::GetDefaultRegion()];
+			$domain_based_regions = false;
+		}
 
 		Atk14Utils::LoadControllers("sitemaps_controller");
 
@@ -24,42 +28,56 @@ class SitemapGeneratorRobot extends ApplicationRobot {
 			Files::Mkdir($sitemaps_dir);
 		}
 
-		foreach($ATK14_GLOBAL->getSupportedLangs() as $lang){
-			foreach(["detail","detail_products"] as $action){
-				$identifier = preg_replace("/^detail/","",$action); // "", "_products"
-				$output_file = "$sitemaps_dir/sitemap{$identifier}_{$lang}.xml";
+		foreach($regions as $region){
 
-				Atk14Locale::Initialize($lang);
+			$http_host = $domain_based_regions ? $region->getDefaultDomain() : ATK14_HTTP_HOST;
 
-				$params = [
-					"namespace" => "",
-					"controller" => "sitemaps",
-					"action" => $action,
-					"format" => "xml",
-					"auth_token" => sha1(SECRET_TOKEN."GenerateXmlSitemapForMePlease".date("Y-m-d")),
-				];
+			$request = new HttpRequest(["testing_mode" => true]);
+			$request->setHttpHost($http_host);
+			$request->setSslActive(REDIRECT_TO_SSL_AUTOMATICALLY);
 
-				$response = Atk14Dispatcher::ExecuteAction($params["controller"],$params["action"],[
-					"render_layout" => false,
-					"params" => $params,
-					"namespace" => "",
-					"request" => $request,
-				]);
+			$HTTP_REQUEST = $request;
 
-				myAssert($response->getStatusCode()===200,"Response code is {$response->getStatusCode()} and has to be 200");
+			foreach($region->getLanguages(["as_objects" => false]) as $lang){
 
-				$buffer = $response->getOutputBuffer();
+				foreach(["detail","detail_products"] as $action){
+					$identifier = preg_replace("/^detail/","",$action); // "", "_products"
+					$region_code = $domain_based_regions ? ".".strtolower($region->getCode()) : ""; // "", ".default", ".eu", ".sk"...
+					$output_file = "$sitemaps_dir/sitemap{$identifier}_{$lang}{$region_code}.xml";
 
-				$tmp_file = Files::GetTempFilename("sitemap_",".xml.tmp");
-				$buffer->writeToFile($tmp_file);
-				Files::MoveFile($tmp_file, $output_file);
+					Atk14Locale::Initialize($lang);
 
-				unset($params["auth_token"]);
-				$sitemap_url = Atk14Url::BuildLink($params,["with_hostname" => true]);
+					$params = [
+						"namespace" => "",
+						"controller" => "sitemaps",
+						"action" => $action,
+						"format" => "xml",
+						"auth_token" => sha1(SECRET_TOKEN."GenerateXmlSitemapForMePlease".date("Y-m-d")),
+					];
 
-				$this->logger->info("sitemap for $lang/sitemaps/$action ($sitemap_url) written to {$output_file}");
-				$this->logger->flush();
+					$response = Atk14Dispatcher::ExecuteAction($params["controller"],$params["action"],[
+						"render_layout" => false,
+						"params" => $params,
+						"namespace" => "",
+						"request" => $request,
+					]);
+
+					myAssert($response->getStatusCode()===200,"Response code is {$response->getStatusCode()} and has to be 200");
+
+					$buffer = $response->getOutputBuffer();
+
+					$tmp_file = Files::GetTempFilename("sitemap_",".xml.tmp");
+					$buffer->writeToFile($tmp_file);
+					Files::MoveFile($tmp_file, $output_file);
+
+					unset($params["auth_token"]);
+					$sitemap_url = Atk14Url::BuildLink($params,["with_hostname" => true]);
+
+					$this->logger->info("sitemap for $lang/sitemaps/$action ($sitemap_url) written to {$output_file}");
+					$this->logger->flush();
+				}
 			}
+
 		}
 	}
 }
