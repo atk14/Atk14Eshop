@@ -16,6 +16,23 @@ class TcStructuredData extends TcBase {
 		\StructuredData\Collector::Reset();
 	}
 
+	function test_every_page_has_organization_json_ld() {
+		$this->client->get("main/index");
+		$this->assertEquals(200, $this->client->getStatusCode());
+		$this->_assertJsonLdType("Organization");
+	}
+
+	function test_article_detail_publisher_references_organization_by_id() {
+		$article = Article::FindFirst(["conditions" => "published_at < NOW()"]);
+		\StructuredData\Collector::Reset();
+		$this->client->get("articles/detail", ["id" => $article]);
+		$blocks = $this->_getJsonLdBlocks();
+		$article_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "Article"; }));
+		$org_block = current(array_filter($blocks, function($b) { return ($b["@type"] ?? null) === "Organization"; }));
+		$this->assertArrayHasKey("publisher", $article_block);
+		$this->assertEquals($org_block["@id"], $article_block["publisher"]["@id"]);
+	}
+
 	function test_card_detail_has_breadcrumb_json_ld() {
 		$card = $this->cards["coffee"];
 		\StructuredData\Collector::Reset();

@@ -21,6 +21,7 @@ class Collector {
 	protected function __construct(?\Atk14Controller $controller=null, $options=[]) {
 		$options += [
 		];
+		$this->addItem(new Element\Organization());
 	}
 
 	function addItem(BaseElement $item) {

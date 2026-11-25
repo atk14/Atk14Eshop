@@ -36,17 +36,39 @@ class TcStructuredData extends TcBase {
 		$this->assertNotSame($c1, $c2);
 	}
 
-	function test_collector_non_homepage_has_no_items() {
+	function test_collector_always_includes_organization() {
 		$controller = $this->_buildController("cards", "detail");
 		$collector = \StructuredData\Collector::GetInstance($controller);
-		$this->assertEquals([], $collector->toArray());
+		$types = array_column($collector->toArray(), "@type");
+		$this->assertContains("Organization", $types);
 	}
 
 	function test_collector_add_item() {
 		$collector = \StructuredData\Collector::GetInstance();
 		$collector->addItem(new \StructuredData\Element\BreadcrumbList(null, ["add_index" => false]));
 		$items = $collector->toArray();
-		$this->assertEquals(1, count($items));
+		// Organization is always present + 1 explicitly added item
+		$this->assertEquals(2, count($items));
+	}
+
+	// --- Organization ---
+
+	function test_organization_to_array_structure() {
+		$org = new \StructuredData\Element\Organization();
+		$out = $org->toArray();
+		$this->assertEquals("https://schema.org", $out["@context"]);
+		$this->assertEquals("Organization", $out["@type"]);
+		$this->assertArrayHasKey("@id", $out);
+		$this->assertStringContainsString("#organization", $out["@id"]);
+		$this->assertEquals(ATK14_APPLICATION_NAME, $out["name"]);
+		$this->assertArrayHasKey("url", $out);
+	}
+
+	function test_organization_id_is_stable() {
+		$id1 = \StructuredData\Element\Organization::GetId();
+		$id2 = \StructuredData\Element\Organization::GetId();
+		$this->assertEquals($id1, $id2);
+		$this->assertStringEndsWith("#organization", $id1);
 	}
 
 	// --- BreadcrumbListItem ---

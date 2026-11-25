@@ -19,8 +19,7 @@ class Article extends \StructuredData\BaseElement {
 			"datePublished" => (new \DateTime($article->getPublishedAt()))->format(\DateTime::ATOM),
 			"url" => \Atk14Url::BuildLink(["action" => "articles/detail", "id" => $article], ["with_hostname" => true]),
 			"publisher" => [
-				"@type" => "Organization",
-				"name" => ATK14_APPLICATION_NAME,
+				"@id" => Organization::GetId(),
 			],
 		];
 
