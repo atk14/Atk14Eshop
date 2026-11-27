@@ -2,6 +2,9 @@
 class WatchdogNotifierRobot extends ApplicationRobot {
 
 	function run(){
+		WatchedProduct::ScheduleNotifications();
+		WatchedProduct::CancelStaleSchedules();
+
 		foreach(WatchedProduct::GetWatchedProductsToNotify() as $watched_product) {
 			$user = $watched_product->getUser();
 			$product = $watched_product->getProduct();
@@ -10,8 +13,7 @@ class WatchdogNotifierRobot extends ApplicationRobot {
 			$this->mailer->send_watchdog_notification($watched_product);
 			$watched_product->markAsNotified();
 
-			$this->dbmole->commit();
-			$this->dbmole->begin();
+			$this->_commit();
 		}
 	}
 }

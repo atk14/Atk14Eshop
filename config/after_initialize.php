@@ -30,6 +30,16 @@ try {
 		OrderWithdrawalRequest::$REFUND_DAYS = $params["orders.withdrawals.refund_days"]->getContent();
 	}
 
+	if(isset($params["watchdog.notification_delay_minutes"])){
+		WatchedProduct::$NOTIFICATION_DELAY_MINUTES = $params["watchdog.notification_delay_minutes"]->getContent();
+	}
+	if(isset($params["watchdog.notification_stagger_minutes"])){
+		WatchedProduct::$NOTIFICATION_STAGGER_MINUTES = $params["watchdog.notification_stagger_minutes"]->getContent();
+	}
+	if(isset($params["watchdog.notification_stagger_limit"])){
+		WatchedProduct::$NOTIFICATION_STAGGER_LIMIT = $params["watchdog.notification_stagger_limit"]->getContent();
+	}
+
 }catch(Exception $e){
 
 	// $e->getMessage(): There is not table system_parameters in the database ondrejuv_obchudek_devel (postgresql)
