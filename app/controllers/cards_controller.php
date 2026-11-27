@@ -89,7 +89,11 @@ class CardsController extends ApplicationController{
 			$this->tpl_data["review_count"] = $review_count;
 		}
 
-		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $this->card], ["with_hostname" => true]));
+		$canonical_params = ["controller" => $this->controller, "action" => $this->action, "id" => $this->card];
+		if($card->hasVariants() && $this->params->defined("product_id") && $current_product){
+			$canonical_params["product_id"] = $current_product;
+		}
+		$this->head_tags->setCanonical(Atk14Url::BuildLink($canonical_params, ["with_hostname" => true]));
 
 		$this->datalayer->push(new DatalayerGenerator\MessageGenerators\GA4\ViewItem($card, ["items" => $products], ["price_finder" => $this->price_finder]));
 	}
